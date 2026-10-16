@@ -1,0 +1,491 @@
+{
+  "HtmlImage.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlImage.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HtmlImage.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HtmlImage.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlImage.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlImage.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HtmlImage.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.ClientID": [
+    "Control.ClientID = \"imgHtml\""
+  ],
+  "HtmlImage.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HtmlImage.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HtmlImage.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HtmlImage.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "HtmlImage.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HtmlImage.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HtmlImage.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HtmlImage.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HtmlImage.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HtmlImage.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "HtmlImage.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HtmlImage.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HtmlImage.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "HtmlImage.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlImage.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"imgHtml\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HtmlImage.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.ID": [
+    "Control.ID = \"imgHtml\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HtmlImage.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HtmlImage.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HtmlImage.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HtmlImage.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HtmlImage.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HtmlImage.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HtmlImage.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlImage.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HtmlImage.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlImage.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlImage.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlImage.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlImage.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlImage.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HtmlImage.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <img src=\"~/Images/probe.png\" id=\"imgHtml\" alt=\"Logo\" />",
+    "Control.Render(HtmlTextWriter) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <img src=\"~/Images/probe.png\" id=\"imgHtml\" alt=\"Logo\" />",
+    "Control.RenderControl(HtmlTextWriter) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <img src=\"~/Images/probe.png\" id=\"imgHtml\" alt=\"Logo\" />",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HtmlImage.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HtmlImage.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "HtmlImage.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlImage.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HtmlImage.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.Control.UniqueID": [
+    "Control.UniqueID = \"imgHtml\""
+  ],
+  "HtmlImage.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HtmlImage.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HtmlImage.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [alt=\"Logo\", src=\"~/Images/probe.png\"]"
+  ],
+  "HtmlImage.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlImage.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HtmlImage.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlControl.#ctor": [
+    "HtmlControls.HtmlControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\"",
+    "HtmlControls.HtmlControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\""
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlControl.Attributes": [
+    "HtmlControls.HtmlControl.Attributes = AttributeCollection [alt=\"Logo\", src=\"~/Images/probe.png\"]"
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlControl.CreateControlCollection": [
+    "HtmlControls.HtmlControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlControl.CreateControlCollection after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlControl.Disabled": [
+    "HtmlControls.HtmlControl.Disabled = \"false\"",
+    "HtmlControls.HtmlControl.Disabled set = \"true\""
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlControl.GetAttribute": [
+    "HtmlControls.HtmlControl.GetAttribute(String) = null",
+    "HtmlControls.HtmlControl.GetAttribute(String) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlControl.Render": [
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) writer:",
+    "  | <img src=\"~/Images/probe.png\" id=\"imgHtml\" alt=\"Logo\" />",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlControl.RenderAttributes": [
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  src=\"~/Images/probe.png\" id=\"imgHtml\" alt=\"Logo\" /",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlControl.RenderBeginTag": [
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <img src=\"~/Images/probe.png\" id=\"imgHtml\" alt=\"Logo\" />",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlControl.SetAttribute": [
+    "HtmlControls.HtmlControl.SetAttribute(String,String) = \"ok\"",
+    "HtmlControls.HtmlControl.SetAttribute(String,String) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlControl.Style": [
+    "HtmlControls.HtmlControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlControl.TagName": [
+    "HtmlControls.HtmlControl.TagName = \"img\""
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlControl.ViewStateIgnoresCase": [
+    "HtmlControls.HtmlControl.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlImage.#ctor": [
+    "HtmlControls.HtmlImage.#ctor = HtmlImage# {Align=\"\"; Alt=\"\"; Border=Int32 -1; ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=null; SkinID=\"\"; Src=\"\"; TagName=\"img\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlImage.Align": [
+    "HtmlControls.HtmlImage.Align = \"\"",
+    "HtmlControls.HtmlImage.Align set = \"Abc 123\""
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlImage.Alt": [
+    "HtmlControls.HtmlImage.Alt = \"Logo\"",
+    "HtmlControls.HtmlImage.Alt set = \"Abc 123\""
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlImage.Border": [
+    "HtmlControls.HtmlImage.Border = \"Int32 -1\"",
+    "HtmlControls.HtmlImage.Border set = \"Int32 1\""
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlImage.Height": [
+    "HtmlControls.HtmlImage.Height = \"Int32 -1\"",
+    "HtmlControls.HtmlImage.Height set = \"Int32 1\""
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlImage.RenderAttributes": [
+    "HtmlControls.HtmlImage.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlImage.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  src=\"~/Images/probe.png\" id=\"imgHtml\" alt=\"Logo\" /",
+    "HtmlControls.HtmlImage.RenderAttributes(HtmlTextWriter) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlImage.Src": [
+    "HtmlControls.HtmlImage.Src = \"~/Images/probe.png\"",
+    "HtmlControls.HtmlImage.Src set = \"Abc 123\""
+  ],
+  "HtmlImage.Api.HtmlControls.HtmlImage.Width": [
+    "HtmlControls.HtmlImage.Width = \"Int32 -1\"",
+    "HtmlControls.HtmlImage.Width set = \"Int32 1\""
+  ],
+  "HtmlImage.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HtmlImage.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HtmlImage.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HtmlImage.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HtmlImage.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HtmlImage.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HtmlImage.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ],
+  "HtmlImage.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HtmlImage#imgHtml {Align=\"\"; Alt=\"Logo\"; Border=Int32 -1; ClientID=\"imgHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=Int32 -1; ID=\"imgHtml\"; SkinID=\"\"; Src=\"~/Images/probe.png\"; TagName=\"img\"; UniqueID=\"imgHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=Int32 -1}"
+  ]
+}

@@ -808,14 +808,23 @@ namespace System.Web {
              */
             sb = new StringBuilder();
 
-            if (_cacheability == (HttpCacheability) (int) HttpCacheabilityLimits.None) {
+            bool defaultCacheability = _cacheability == (HttpCacheability) (int) HttpCacheabilityLimits.None;
+            if (defaultCacheability) {
                 cacheability = HttpCacheability.Private;
             }
             else {
                 cacheability = _cacheability;
             }
 
+#if NETFRAMEWORK
             AppendValueToHeader(sb, s_cacheabilityTokens[(int) cacheability]);
+#else
+            // The default "private" not written when the response suppresses it (SuppressDefaultCacheControlHeader): a
+            // static file, served with its ETag and Last-Modified as IIS's static file module serves it, without Cache-Control.
+            if (!(defaultCacheability && response.SuppressDefaultCacheControlHeader)) {
+                AppendValueToHeader(sb, s_cacheabilityTokens[(int) cacheability]);
+            }
+#endif
 
             if (cacheability == HttpCacheability.Public && _privateFields != null) {
                 Debug.Assert(_privateFields.Size > 0);

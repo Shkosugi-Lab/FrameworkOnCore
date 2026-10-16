@@ -1,0 +1,606 @@
+{
+  "HyperLink.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HyperLink.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HyperLink.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HyperLink.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HyperLink.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HyperLink.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HyperLink.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.ClientID": [
+    "Control.ClientID = \"hypGo\""
+  ],
+  "HyperLink.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HyperLink.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HyperLink.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HyperLink.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "HyperLink.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HyperLink.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HyperLink.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HyperLink.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HyperLink.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HyperLink.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "HyperLink.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HyperLink.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HyperLink.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "HyperLink.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HyperLink.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"hypGo\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HyperLink.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.ID": [
+    "Control.ID = \"hypGo\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HyperLink.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HyperLink.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HyperLink.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HyperLink.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HyperLink.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HyperLink.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HyperLink.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "HyperLink.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HyperLink.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HyperLink.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HyperLink.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HyperLink.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HyperLink.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HyperLink.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HyperLink.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <a id=\"hypGo\" href=\"~/Target.aspx?a=1&amp;b=2\">Go</a>",
+    "Control.Render(HtmlTextWriter) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <a id=\"hypGo\" href=\"~/Target.aspx?a=1&amp;b=2\">Go</a>",
+    "Control.RenderControl(HtmlTextWriter) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <a id=\"hypGo\" href=\"~/Target.aspx?a=1&amp;b=2\">Go</a>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HyperLink.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HyperLink.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "HyperLink.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HyperLink.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HyperLink.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.Control.UniqueID": [
+    "Control.UniqueID = \"hypGo\""
+  ],
+  "HyperLink.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HyperLink.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HyperLink.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [NavigateUrl=\"~/Target.aspx?a=1&b=2\", Text=\"Go\"]"
+  ],
+  "HyperLink.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "HyperLink.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HyperLink.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HyperLink.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=true; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HyperLink.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HyperLink.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HyperLink.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HyperLink.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HyperLink.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HyperLink.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.HyperLink.#ctor": [
+    "HyperLink.#ctor = HyperLink# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"\"; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.HyperLink.AddAttributesToRender": [
+    "HyperLink.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "HyperLink.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "HyperLink.AddAttributesToRender(HtmlTextWriter) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.HyperLink.AddParsedSubObject": [
+    "HyperLink.AddParsedSubObject(Object) = \"ok\"",
+    "HyperLink.AddParsedSubObject(Object) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.HyperLink.ImageHeight": [
+    "HyperLink.ImageHeight = Unit ",
+    "HyperLink.ImageHeight set = Unit 120px"
+  ],
+  "HyperLink.Api.WebControls.HyperLink.ImageUrl": [
+    "HyperLink.ImageUrl = \"\"",
+    "HyperLink.ImageUrl set = \"Abc 123\""
+  ],
+  "HyperLink.Api.WebControls.HyperLink.ImageWidth": [
+    "HyperLink.ImageWidth = Unit ",
+    "HyperLink.ImageWidth set = Unit 120px"
+  ],
+  "HyperLink.Api.WebControls.HyperLink.LoadViewState": [
+    "HyperLink.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "HyperLink.Api.WebControls.HyperLink.NavigateUrl": [
+    "HyperLink.NavigateUrl = \"~/Target.aspx?a=1&b=2\"",
+    "HyperLink.NavigateUrl set = \"Abc 123\""
+  ],
+  "HyperLink.Api.WebControls.HyperLink.RenderContents": [
+    "HyperLink.RenderContents(HtmlTextWriter) = \"ok\"",
+    "HyperLink.RenderContents(HtmlTextWriter) writer:",
+    "  | Go",
+    "HyperLink.RenderContents(HtmlTextWriter) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.HyperLink.SupportsDisabledAttribute": [
+    "HyperLink.SupportsDisabledAttribute = \"false\""
+  ],
+  "HyperLink.Api.WebControls.HyperLink.Target": [
+    "HyperLink.Target = \"\"",
+    "HyperLink.Target set = \"Abc 123\""
+  ],
+  "HyperLink.Api.WebControls.HyperLink.Text": [
+    "HyperLink.Text = \"Go\"",
+    "HyperLink.Text set = \"Abc 123\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "HyperLink.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "HyperLink.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "HyperLink.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}",
+    "WebControl.CreateControlStyle after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "HyperLink.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "HyperLink.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"ok\"",
+    "WebControl.Render(HtmlTextWriter) writer:",
+    "  | <a id=\"hypGo\" href=\"~/Target.aspx?a=1&amp;b=2\">Go</a>",
+    "WebControl.Render(HtmlTextWriter) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <a id=\"hypGo\" href=\"~/Target.aspx?a=1&amp;b=2\">",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | Go",
+    "WebControl.RenderContents(HtmlTextWriter) after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "HyperLink.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.A\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"a\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "HyperLink.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = HyperLink#hypGo {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"hypGo\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"hypGo\"; ImageHeight=; ImageUrl=\"\"; ImageWidth=; NavigateUrl=\"~/Target.aspx?a=1&b=2\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"Go\"; ToolTip=\"\"; UniqueID=\"hypGo\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "HyperLink.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ]
+}

@@ -1,0 +1,607 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "events-the first request",
+      "Path": "/events",
+      "Title": "Pipeline probe: events",
+      "Text": [
+        "Application_Start ran: True",
+        "This request: Module.BeginRequest, Global.BeginRequest, Module.AuthenticateRequest, Global.AuthenticateRequest, Global.PostAuthenticateRequest, Global.AuthorizeRequest, Global.PostAuthorizeRequest, Global.ResolveRequestCache, Global.PostResolveRequestCache, Global.MapRequestHandler, Module.PostMapRequestHandler(events_aspx), Global.PostMapRequestHandler, Global.AcquireRequestState, Global.PostAcquireRequestState, Module.PreRequestHandlerExecute, Global.PreRequestHandlerExecute, Page.PreInit, Page.Init, Page.InitComplete, Page.PreLoad, Page.Load(IsPostBack=False), Page.LoadComplete, Page.PreRender, Page.PreRenderComplete, Page.SaveStateComplete, Page.Render",
+        "The last request to this page, after Render:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "events-the next request: the previous one's after Render",
+      "Path": "/events",
+      "Title": "Pipeline probe: events",
+      "Text": [
+        "Application_Start ran: True",
+        "This request: Module.BeginRequest, Global.BeginRequest, Module.AuthenticateRequest, Global.AuthenticateRequest, Global.PostAuthenticateRequest, Global.AuthorizeRequest, Global.PostAuthorizeRequest, Global.ResolveRequestCache, Global.PostResolveRequestCache, Global.MapRequestHandler, Module.PostMapRequestHandler(events_aspx), Global.PostMapRequestHandler, Global.AcquireRequestState, Global.PostAcquireRequestState, Module.PreRequestHandlerExecute, Global.PreRequestHandlerExecute, Page.PreInit, Page.Init, Page.InitComplete, Page.PreLoad, Page.Load(IsPostBack=False), Page.LoadComplete, Page.PreRender, Page.PreRenderComplete, Page.SaveStateComplete, Page.Render",
+        "The last request to this page, after Render: Page.Unload, Global.PostRequestHandlerExecute, Global.ReleaseRequestState, Global.PostReleaseRequestState, Global.UpdateRequestCache, Global.PostUpdateRequestCache, Global.LogRequest, Global.PostLogRequest, Module.EndRequest(200), Global.EndRequest"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "events-a postback: TextChanged, Click",
+      "Path": "/events",
+      "Title": "Pipeline probe: events",
+      "Text": [
+        "Application_Start ran: True",
+        "This request: Module.BeginRequest, Global.BeginRequest, Module.AuthenticateRequest, Global.AuthenticateRequest, Global.PostAuthenticateRequest, Global.AuthorizeRequest, Global.PostAuthorizeRequest, Global.ResolveRequestCache, Global.PostResolveRequestCache, Global.MapRequestHandler, Module.PostMapRequestHandler(events_aspx), Global.PostMapRequestHandler, Global.AcquireRequestState, Global.PostAcquireRequestState, Module.PreRequestHandlerExecute, Global.PreRequestHandlerExecute, Page.PreInit, Page.Init, Page.InitComplete, Page.PreLoad, Page.Load(IsPostBack=True), Page.txtValue.TextChanged, Page.btnPost.Click, Page.LoadComplete, Page.PreRender, Page.PreRenderComplete, Page.SaveStateComplete, Page.Render",
+        "The last request to this page, after Render: Page.Unload, Global.PostRequestHandlerExecute, Global.ReleaseRequestState, Global.PostReleaseRequestState, Global.UpdateRequestCache, Global.PostUpdateRequestCache, Global.LogRequest, Global.PostLogRequest, Module.EndRequest(200), Global.EndRequest"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": "changed"
+      },
+      "Elements": {
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "handler-a handler of web.config's",
+      "Path": "/x.probe",
+      "Title": "Pipeline probe: handler",
+      "Text": [
+        "Path=/x.probe FilePath=/x.probe PathInfo= Query=?a=1",
+        "Handler=PipelineProbe.ProbeHandler Method=GET",
+        "Events: Module.BeginRequest, Global.BeginRequest, Module.AuthenticateRequest, Global.AuthenticateRequest, Global.PostAuthenticateRequest, Global.AuthorizeRequest, Global.PostAuthorizeRequest, Global.ResolveRequestCache, Global.PostResolveRequestCache, Global.MapRequestHandler, Module.PostMapRequestHandler(ProbeHandler), Global.PostMapRequestHandler, Global.AcquireRequestState, Global.PostAcquireRequestState, Module.PreRequestHandlerExecute, Global.PreRequestHandlerExecute, ProbeHandler.ProcessRequest"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "handler-an asynchronous handler",
+      "Path": "/a.aprobe",
+      "Title": "Pipeline probe: async handler",
+      "Text": [
+        "Path=/a.aprobe HttpContext.Current set True",
+        "Events: Module.BeginRequest, Global.BeginRequest, Module.AuthenticateRequest, Global.AuthenticateRequest, Global.PostAuthenticateRequest, Global.AuthorizeRequest, Global.PostAuthorizeRequest, Global.ResolveRequestCache, Global.PostResolveRequestCache, Global.MapRequestHandler, Module.PostMapRequestHandler(AsyncProbeHandler), Global.PostMapRequestHandler, Global.AcquireRequestState, Global.PostAcquireRequestState, Module.PreRequestHandlerExecute, Global.PreRequestHandlerExecute, AsyncProbeHandler.before, AsyncProbeHandler.after"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "async-an asynchronous page: async void Page_Load, RegisterAsyncTask",
+      "Path": "/asyncpage",
+      "Title": "Pipeline probe: async page",
+      "Text": [
+        "Page_Load before await: HttpContext.Current the request's, Request.Path /AsyncPage.aspx, culture en-US",
+        "OnLoad: a task registered",
+        "Page_Load after await: HttpContext.Current the request's, Request.Path /AsyncPage.aspx, culture en-US",
+        "PreRender",
+        "Task before await: HttpContext.Current the request's, Request.Path /AsyncPage.aspx, culture en-US",
+        "Task after await: HttpContext.Current the request's, Request.Path /AsyncPage.aspx, culture en-US",
+        "PreRenderComplete",
+        "Render: HttpContext.Current the request's, Request.Path /AsyncPage.aspx, culture en-US"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "transfer-Server.Transfer with the form",
+      "Path": "/transfer",
+      "Title": "Pipeline probe: target",
+      "Text": [
+        "from=transfer",
+        "Path=/Transfer.aspx FilePath=/Transfer.aspx CurrentExecutionFilePath=/Target.aspx AppRelativeCurrentExecutionFilePath=~/Target.aspx",
+        "RawUrl=/Transfer.aspx Url=/Transfer.aspx?from=transfer",
+        "Handler=transfer_aspx CurrentHandler=target_aspx PreviousHandler=transfer_aspx",
+        "PreviousPage=transfer_aspx IsCrossPagePostBack=False IsPostBack=False",
+        "Form txtValue=carried Form keys=5"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "target": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "transfer-Server.Transfer without the form",
+      "Path": "/transfer",
+      "Title": "Pipeline probe: target",
+      "Text": [
+        "from=transfer-noform",
+        "Path=/Transfer.aspx FilePath=/Transfer.aspx CurrentExecutionFilePath=/Target.aspx AppRelativeCurrentExecutionFilePath=~/Target.aspx",
+        "RawUrl=/Transfer.aspx Url=/Transfer.aspx?from=transfer-noform",
+        "Handler=transfer_aspx CurrentHandler=target_aspx PreviousHandler=transfer_aspx",
+        "PreviousPage=transfer_aspx IsCrossPagePostBack=False IsPostBack=False",
+        "Form txtValue= Form keys=0"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "target": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "transfer-Server.Execute",
+      "Path": "/transfer",
+      "Title": "Pipeline probe: transfer",
+      "Text": [
+        "Executed (target output):",
+        "from=execute",
+        "Path=/Transfer.aspx FilePath=/Transfer.aspx CurrentExecutionFilePath=/Target.aspx AppRelativeCurrentExecutionFilePath=~/Target.aspx",
+        "RawUrl=/Transfer.aspx Url=/Transfer.aspx?from=execute",
+        "Handler=transfer_aspx CurrentHandler=target_aspx PreviousHandler=transfer_aspx",
+        "PreviousPage=transfer_aspx IsCrossPagePostBack=False IsPostBack=False",
+        "Form txtValue=carried Form keys=5",
+        "Back in /Transfer.aspx"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": "carried"
+      },
+      "Elements": {
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnTransfer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnTransferNoForm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnExecute": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "transfer-Response.End: the output before it",
+      "Path": "/transfer",
+      "Title": "",
+      "Text": [
+        "before End"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "before": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "transfer-Response.End: what ran after it",
+      "Path": "/transfer",
+      "Title": "Pipeline probe: transfer",
+      "Text": [
+        "Response.End: the code after it ran False, a catch saw System.Threading.ThreadAbortException, finally ran True"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnTransfer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnTransferNoForm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnExecute": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "error-an exception: the error page",
+      "Path": "/errors/oops",
+      "Title": "Pipeline probe: error",
+      "Text": [
+        "The error page. aspxerrorpath=/Throw.aspx Status=200",
+        "Application_Error saw: System.Web.HttpUnhandledException: Exception of type 'System.Web.HttpUnhandledException' was thrown. / System.InvalidOperationException: Thrown by the probe"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "error": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "last": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "error-HttpException 403: the error page",
+      "Path": "/errors/oops",
+      "Title": "Pipeline probe: error",
+      "Text": [
+        "The error page. aspxerrorpath=/Throw.aspx Status=200",
+        "Application_Error saw: System.Web.HttpUnhandledException: Exception of type 'System.Web.HttpUnhandledException' was thrown. / System.Web.HttpException: Forbidden by the probe"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "error": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "last": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "error-HttpException 404: the 404 page",
+      "Path": "/errors/notfound",
+      "Title": "Pipeline probe: not found",
+      "Text": [
+        "The 404 page. aspxerrorpath=/Throw.aspx Status=200",
+        "Application_Error saw: System.Web.HttpUnhandledException: Exception of type 'System.Web.HttpUnhandledException' was thrown. / System.Web.HttpException: Not found by the probe"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "error": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "last": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "error-a page that is not: the 404 page",
+      "Path": "/errors/notfound",
+      "Title": "Pipeline probe: not found",
+      "Text": [
+        "The 404 page. aspxerrorpath=/Missing.aspx Status=200",
+        "Application_Error saw: System.Web.HttpException: The file '/Missing.aspx' does not exist."
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "error": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "last": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "error-handled by Application_Error",
+      "Path": "/throw",
+      "Title": "Pipeline probe: handled",
+      "Text": [
+        "Handled by Application_Error: System.Web.HttpUnhandledException: Exception of type 'System.Web.HttpUnhandledException' was thrown. / System.InvalidOperationException: Thrown by the probe"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "handled": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "error-handled by Page_Error",
+      "Path": "/handled",
+      "Title": "Pipeline probe: handled by the page",
+      "Text": [
+        "Page_Error: System.InvalidOperationException: Thrown and handled by the page"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "handled": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "check-the answers' status and headers",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/Events.aspx -> 200 | x-probe-module=begin | content-type=text/html; charset=utf-8 | cache-control=private | x-aspnet-version=4.0.30319",
+        "/x.probe -> 200 | x-probe-module=begin | content-type=text/html; charset=utf-8 | cache-control=private | x-aspnet-version=4.0.30319",
+        "/a.aprobe -> 200 | x-probe-module=begin | content-type=text/html; charset=utf-8 | cache-control=private | x-aspnet-version=4.0.30319",
+        "/Check.htm -> 200 | x-probe-module=begin | content-type=text/html | cache-control=- | x-aspnet-version=-",
+        "/Throw.aspx -> 200 redirected to /Errors/Oops.aspx?aspxerrorpath=/Throw.aspx | x-probe-module=begin | content-type=text/html; charset=utf-8 | cache-control=private | x-aspnet-version=4.0.30319",
+        "/Throw.aspx?kind=404 -> 200 redirected to /Errors/NotFound.aspx?aspxerrorpath=/Throw.aspx | x-probe-module=begin | content-type=text/html; charset=utf-8 | cache-control=private | x-aspnet-version=4.0.30319",
+        "/Missing.aspx -> 200 redirected to /Errors/NotFound.aspx?aspxerrorpath=/Missing.aspx | x-probe-module=begin | content-type=text/html; charset=utf-8 | cache-control=private | x-aspnet-version=4.0.30319",
+        "/missing.txt -> 404 | x-probe-module=begin | content-type=text/html; charset=utf-8 | cache-control=private | x-aspnet-version=-",
+        "/Throw.aspx?clear=1 -> 200 | x-probe-module=begin | content-type=text/html; charset=utf-8 | cache-control=private | x-aspnet-version=4.0.30319",
+        "/Handled.aspx -> 200 | x-probe-module=begin | content-type=text/html; charset=utf-8 | cache-control=private | x-aspnet-version=4.0.30319"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": [
+    {
+      "Url": "/Throw.aspx",
+      "Status": 302,
+      "Location": "/Errors/Oops.aspx?aspxerrorpath=/Throw.aspx",
+      "From": null
+    },
+    {
+      "Url": "/Throw.aspx?kind=403",
+      "Status": 302,
+      "Location": "/Errors/Oops.aspx?aspxerrorpath=/Throw.aspx",
+      "From": null
+    },
+    {
+      "Url": "/Throw.aspx?kind=404",
+      "Status": 302,
+      "Location": "/Errors/NotFound.aspx?aspxerrorpath=/Throw.aspx",
+      "From": null
+    },
+    {
+      "Url": "/Missing.aspx",
+      "Status": 302,
+      "Location": "/Errors/NotFound.aspx?aspxerrorpath=/Missing.aspx",
+      "From": null
+    },
+    {
+      "Url": "/missing.txt",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Throw.aspx?clear=1",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Handled.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/x.probe",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/a.aprobe",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Errors/Oops.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Events.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/x.probe?a=1",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/AsyncPage.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Transfer.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Transfer.aspx?mode=end",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Transfer.aspx?mode=show",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Check.htm?h=x-probe-module,content-type,cache-control,x-aspnet-version&u=/Events.aspx&u=/x.probe&u=/a.aprobe&u=/Check.htm&u=/Throw.aspx&u=/Throw.aspx%3Fkind%3D404&u=/Missing.aspx&u=/missing.txt&u=/Throw.aspx%3Fclear%3D1&u=/Handled.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Errors/Oops.aspx?aspxerrorpath=/Throw.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": "/Throw.aspx"
+    },
+    {
+      "Url": "/Errors/NotFound.aspx?aspxerrorpath=/Throw.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": "/Throw.aspx?kind=404"
+    },
+    {
+      "Url": "/Errors/NotFound.aspx?aspxerrorpath=/Missing.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": "/Missing.aspx"
+    }
+  ]
+}

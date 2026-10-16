@@ -64,7 +64,8 @@
 
 ### 3.3 ホスト
 
-- Program.cs: `UseSession` + `UseWebForms(o => o.UseAspNetCoreSessionProvider())`。
+- Program.cs: `UseWebForms()`(`HostProgram`)。
+  - セッションは web.config の `<sessionState mode>` どおり。InProc(既定)・Off・Custom は System.Web 自身のセッション(IIS と同じ。InProc はオブジェクトをそのまま持ち、Serializable でなくてよい)。StateServer・SQLServer はそのサーバーが無いので ASP.NET Core のセッション(`AddSession` + `UseSession` + `UseAspNetCoreSessionProvider()`。直列化は元のモードと同じ。`timeout` は `IdleTimeout` に)。
   - ルーティング(RouteTable、FriendlyUrls、MVC、Web API)を使う場合は `HandleAllRequestsWithWebForms()`。
   - 使わない場合は、IIS の既定のドキュメントを `UseDefaultFiles` で補う。
 - web.config の `system.webServer` は IIS のホスト機能なので、ASP.NET Core の設定に写す(未実装。今後の作業):

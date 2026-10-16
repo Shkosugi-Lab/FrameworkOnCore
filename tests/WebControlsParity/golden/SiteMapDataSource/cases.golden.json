@@ -1,0 +1,517 @@
+{
+  "SiteMapDataSource.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "SiteMapDataSource.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "SiteMapDataSource.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "SiteMapDataSource.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "SiteMapDataSource.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "SiteMapDataSource.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "SiteMapDataSource.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.ClientID": [
+    "Control.ClientID = \"smdsSite\""
+  ],
+  "SiteMapDataSource.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"-> System.NotSupportedException: Specified method is not supported.\""
+  ],
+  "SiteMapDataSource.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "SiteMapDataSource.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "SiteMapDataSource.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "SiteMapDataSource.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "SiteMapDataSource.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "SiteMapDataSource.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "SiteMapDataSource.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "SiteMapDataSource.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "SiteMapDataSource.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"false\"",
+    "Control.EnableTheming set = \"-> System.NotSupportedException: Control of type 'SiteMapDataSource' does not support theming.\""
+  ],
+  "SiteMapDataSource.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "SiteMapDataSource.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "SiteMapDataSource.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.Focus": [
+    "Control.Focus = \"-> System.NotSupportedException: Control of type 'SiteMapDataSource' does not support the Focus operation.\""
+  ],
+  "SiteMapDataSource.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "SiteMapDataSource.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"smdsSite\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "SiteMapDataSource.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.ID": [
+    "Control.ID = \"smdsSite\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "SiteMapDataSource.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "SiteMapDataSource.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "SiteMapDataSource.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "SiteMapDataSource.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "SiteMapDataSource.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "SiteMapDataSource.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "SiteMapDataSource.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "SiteMapDataSource.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "SiteMapDataSource.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "SiteMapDataSource.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "SiteMapDataSource.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "SiteMapDataSource.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "SiteMapDataSource.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "SiteMapDataSource.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "SiteMapDataSource.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.Render(HtmlTextWriter) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "SiteMapDataSource.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "SiteMapDataSource.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"-> System.NotSupportedException: Control of type 'SiteMapDataSource' does not support theming.\""
+  ],
+  "SiteMapDataSource.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "SiteMapDataSource.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "SiteMapDataSource.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.Control.UniqueID": [
+    "Control.UniqueID = \"smdsSite\""
+  ],
+  "SiteMapDataSource.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "SiteMapDataSource.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "SiteMapDataSource.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "SiteMapDataSource.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "SiteMapDataSource.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "SiteMapDataSource.Api.Control.Visible": [
+    "Control.Visible = \"false\"",
+    "Control.Visible set = \"-> System.NotSupportedException: Control of type 'SiteMapDataSource' is a non-visual control and does not support setting the Visible property.\""
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.#ctor": [
+    "HierarchicalDataSourceControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HierarchicalDataSourceControl because it is an abstract class.\""
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.ApplyStyleSheetSkin": [
+    "HierarchicalDataSourceControl.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "HierarchicalDataSourceControl.ApplyStyleSheetSkin(Page) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.ClientID": [
+    "HierarchicalDataSourceControl.ClientID = \"smdsSite\""
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.ClientIDMode": [
+    "HierarchicalDataSourceControl.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "HierarchicalDataSourceControl.ClientIDMode set = \"-> System.NotSupportedException: Specified method is not supported.\""
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.Controls": [
+    "HierarchicalDataSourceControl.Controls = ControlCollection []"
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.CreateControlCollection": [
+    "HierarchicalDataSourceControl.CreateControlCollection = ControlCollection []",
+    "HierarchicalDataSourceControl.CreateControlCollection after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.EnableTheming": [
+    "HierarchicalDataSourceControl.EnableTheming = \"false\"",
+    "HierarchicalDataSourceControl.EnableTheming set = \"-> System.NotSupportedException: Control of type 'SiteMapDataSource' does not support theming.\""
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.FindControl": [
+    "HierarchicalDataSourceControl.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "HierarchicalDataSourceControl.FindControl(String) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.Focus": [
+    "HierarchicalDataSourceControl.Focus = \"-> System.NotSupportedException: Control of type 'SiteMapDataSource' does not support the Focus operation.\""
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.GetHierarchicalView": [
+    "HierarchicalDataSourceControl.GetHierarchicalView(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.HasControls": [
+    "HierarchicalDataSourceControl.HasControls = \"false\"",
+    "HierarchicalDataSourceControl.HasControls after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.OnDataSourceChanged": [
+    "HierarchicalDataSourceControl.OnDataSourceChanged(EventArgs) = \"ok\"",
+    "HierarchicalDataSourceControl.OnDataSourceChanged(EventArgs) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.RenderControl": [
+    "HierarchicalDataSourceControl.RenderControl(HtmlTextWriter) = \"ok\"",
+    "HierarchicalDataSourceControl.RenderControl(HtmlTextWriter) writer:",
+    "  | ",
+    "HierarchicalDataSourceControl.RenderControl(HtmlTextWriter) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.SkinID": [
+    "HierarchicalDataSourceControl.SkinID = \"\"",
+    "HierarchicalDataSourceControl.SkinID set = \"-> System.NotSupportedException: Control of type 'SiteMapDataSource' does not support theming.\""
+  ],
+  "SiteMapDataSource.Api.HierarchicalDataSourceControl.Visible": [
+    "HierarchicalDataSourceControl.Visible = \"false\"",
+    "HierarchicalDataSourceControl.Visible set = \"-> System.NotSupportedException: Control of type 'SiteMapDataSource' is a non-visual control and does not support setting the Visible property.\""
+  ],
+  "SiteMapDataSource.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "SiteMapDataSource.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "SiteMapDataSource.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "SiteMapDataSource.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "SiteMapDataSource.Api.IDataSource.DataSourceChanged": [
+    "IDataSource.DataSourceChanged = \"added and removed\""
+  ],
+  "SiteMapDataSource.Api.IDataSource.GetView": [
+    "IDataSource.GetView(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "SiteMapDataSource.Api.IDataSource.GetViewNames": [
+    "IDataSource.GetViewNames = \"[System.String DefaultView]\"",
+    "IDataSource.GetViewNames after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "SiteMapDataSource.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "SiteMapDataSource.Api.IHierarchicalDataSource.DataSourceChanged": [
+    "IHierarchicalDataSource.DataSourceChanged = \"added and removed\""
+  ],
+  "SiteMapDataSource.Api.IHierarchicalDataSource.GetHierarchicalView": [
+    "IHierarchicalDataSource.GetHierarchicalView(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "SiteMapDataSource.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.WebControls.SiteMapDataSource.#ctor": [
+    "SiteMapDataSource.#ctor = SiteMapDataSource# {ClientID=\"\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=null; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.WebControls.SiteMapDataSource.ContainsListCollection": [
+    "SiteMapDataSource.ContainsListCollection = \"true\""
+  ],
+  "SiteMapDataSource.Api.WebControls.SiteMapDataSource.GetHierarchicalView": [
+    "SiteMapDataSource.GetHierarchicalView(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "SiteMapDataSource.Api.WebControls.SiteMapDataSource.GetList": [
+    "SiteMapDataSource.GetList = \"[System.Web.UI.ListSourceHelper+ListSourceRow]\"",
+    "SiteMapDataSource.GetList after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.WebControls.SiteMapDataSource.GetView": [
+    "SiteMapDataSource.GetView(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "SiteMapDataSource.Api.WebControls.SiteMapDataSource.GetViewNames": [
+    "SiteMapDataSource.GetViewNames = \"[System.String DefaultView]\"",
+    "SiteMapDataSource.GetViewNames after = SiteMapDataSource#smdsSite {ClientID=\"smdsSite\"; ClientIDMode=Inherit; ContainsListCollection=true; EnableTheming=false; EnableViewState=true; ID=\"smdsSite\"; ShowStartingNode=true; SiteMapProvider=\"\"; SkinID=\"\"; StartFromCurrentNode=false; StartingNodeOffset=Int32 0; StartingNodeUrl=\"\"; UniqueID=\"smdsSite\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "SiteMapDataSource.Api.WebControls.SiteMapDataSource.Provider": [
+    "SiteMapDataSource.Provider = XmlSiteMapProvider {EnableLocalization=false; ResourceKey=null; SecurityTrimmingEnabled=false}",
+    "SiteMapDataSource.Provider set = XmlSiteMapProvider {EnableLocalization=false; ResourceKey=null; SecurityTrimmingEnabled=false}"
+  ],
+  "SiteMapDataSource.Api.WebControls.SiteMapDataSource.ShowStartingNode": [
+    "SiteMapDataSource.ShowStartingNode = \"true\"",
+    "SiteMapDataSource.ShowStartingNode set = \"true\""
+  ],
+  "SiteMapDataSource.Api.WebControls.SiteMapDataSource.SiteMapProvider": [
+    "SiteMapDataSource.SiteMapProvider = \"\"",
+    "SiteMapDataSource.SiteMapProvider set = \"Abc 123\""
+  ],
+  "SiteMapDataSource.Api.WebControls.SiteMapDataSource.StartFromCurrentNode": [
+    "SiteMapDataSource.StartFromCurrentNode = \"false\"",
+    "SiteMapDataSource.StartFromCurrentNode set = \"true\""
+  ],
+  "SiteMapDataSource.Api.WebControls.SiteMapDataSource.StartingNodeOffset": [
+    "SiteMapDataSource.StartingNodeOffset = \"Int32 0\"",
+    "SiteMapDataSource.StartingNodeOffset set = \"Int32 1\""
+  ],
+  "SiteMapDataSource.Api.WebControls.SiteMapDataSource.StartingNodeUrl": [
+    "SiteMapDataSource.StartingNodeUrl = \"\"",
+    "SiteMapDataSource.StartingNodeUrl set = \"Abc 123\""
+  ]
+}

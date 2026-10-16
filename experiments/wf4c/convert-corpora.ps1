@@ -68,7 +68,7 @@ foreach ($name in $Only) {
     if ($name -eq 'dnn' -and (Test-Path "experiments\wf4c\dnn\site\web.config")) {
         sqlcmd -S .\SQLEXPRESS -E -C -b -Q "IF DB_ID('dnn_w2l') IS NULL CREATE DATABASE dnn_w2l" | Out-Null
         $webConfig = Join-Path $PSScriptRoot 'dnn\site\web.config'
-        $config = [IO.File]::ReadAllText($webConfig) -replace '(<add name="SiteSqlServer" connectionString=")[^"]*"', '$1Data Source=.\SQLEXPRESS;Initial Catalog=dnn_w2l;Integrated Security=True"'
+        $config = [IO.File]::ReadAllText($webConfig) -replace '(<add\s+name="SiteSqlServer"\s+connectionString=")[^"]*"', '$1Data Source=.\SQLEXPRESS;Initial Catalog=dnn_w2l;Integrated Security=True"'
         [IO.File]::WriteAllText($webConfig, $config, (New-Object Text.UTF8Encoding $false))
     }
     # openIMIS's: SQL Server Express's database imis_w2l, made from the database repository's scripts (imisdb in
@@ -86,7 +86,7 @@ foreach ($name in $Only) {
             }
         }
         $webConfig = Join-Path $PSScriptRoot 'imis\site\web.config'
-        $config = [IO.File]::ReadAllText($webConfig) -replace '(<add name="IMISConnectionString" connectionString=")[^"]*"', '$1Data Source=.\SQLEXPRESS;Initial Catalog=imis_w2l;Integrated Security=True;TrustServerCertificate=True"'
+        $config = [IO.File]::ReadAllText($webConfig) -replace '(<add\s+name="IMISConnectionString"\s+connectionString=")[^"]*"', '$1Data Source=.\SQLEXPRESS;Initial Catalog=imis_w2l;Integrated Security=True;TrustServerCertificate=True"'
         [IO.File]::WriteAllText($webConfig, $config, (New-Object Text.UTF8Encoding $false))
     }
     $reportPath = "experiments\wf4c\$name\CONVERSION-REPORT.md"

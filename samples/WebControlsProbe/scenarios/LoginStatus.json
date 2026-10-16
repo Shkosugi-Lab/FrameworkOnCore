@@ -1,0 +1,226 @@
+{
+  "_comment": "The LoginStatus's scenario layer (LoginScenario.aspx; tests/WebControlsParity/README.md; written by more-scenarios.py). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/LoginScenario.aspx?reset=1"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [render][databind][dynamic] first request, anonymous: the login forms, the status, the views, the wizards"
+    },
+    {
+      "action": "fill",
+      "target": "lgnMain_UserName",
+      "value": "taro"
+    },
+    {
+      "action": "fill",
+      "target": "lgnMain_Password",
+      "value": "wrong"
+    },
+    {
+      "action": "click",
+      "target": "lgnMain_LoginButton"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [viewstate] a login with a wrong password: its error"
+    },
+    {
+      "action": "fill",
+      "target": "lgnMain_UserName",
+      "value": "taro"
+    },
+    {
+      "action": "fill",
+      "target": "lgnMain_Password",
+      "value": "Passw0rd!"
+    },
+    {
+      "action": "click",
+      "target": "lgnMain_LoginButton"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [viewstate] logged in (redirected to the page): the name, the status, the role's view"
+    },
+    {
+      "action": "fill",
+      "target": "cpwChange_ChangePasswordContainerID_CurrentPassword",
+      "value": "Passw0rd!"
+    },
+    {
+      "action": "fill",
+      "target": "cpwChange_ChangePasswordContainerID_NewPassword",
+      "value": "Changed1!"
+    },
+    {
+      "action": "fill",
+      "target": "cpwChange_ChangePasswordContainerID_ConfirmNewPassword",
+      "value": "Changed1!"
+    },
+    {
+      "action": "click",
+      "target": "cpwChange_ChangePasswordContainerID_ChangePasswordPushButton"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [viewstate] the password changed: the success template"
+    },
+    {
+      "action": "click",
+      "target": "lsStatus"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [viewstate][templates] logged out by the status"
+    },
+    {
+      "action": "fill",
+      "target": "prRecover_UserNameContainerID_UserName",
+      "value": "nobody"
+    },
+    {
+      "action": "click",
+      "target": "prRecover_UserNameContainerID_SubmitButton"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [viewstate] a recovery for a user who does not exist"
+    },
+    {
+      "action": "fill",
+      "target": "prRecover_UserNameContainerID_UserName",
+      "value": "taro"
+    },
+    {
+      "action": "click",
+      "target": "prRecover_UserNameContainerID_SubmitButton"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [viewstate] the user's question"
+    },
+    {
+      "action": "fill",
+      "target": "prRecover_QuestionContainerID_Answer",
+      "value": "blue"
+    },
+    {
+      "action": "click",
+      "target": "prRecover_QuestionContainerID_SubmitButton"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [viewstate] the answer right: the password reset, its mail prepared (cancelled), the success template"
+    },
+    {
+      "action": "fill",
+      "target": "cuwCreate_CreateUserStepContainer_UserName",
+      "value": "hanako"
+    },
+    {
+      "action": "fill",
+      "target": "cuwCreate_CreateUserStepContainer_Password",
+      "value": "Hanako1!"
+    },
+    {
+      "action": "fill",
+      "target": "cuwCreate_CreateUserStepContainer_ConfirmPassword",
+      "value": "Hanako1!"
+    },
+    {
+      "action": "fill",
+      "target": "cuwCreate_CreateUserStepContainer_Email",
+      "value": "hanako@example.com"
+    },
+    {
+      "action": "fill",
+      "target": "cuwCreate_CreateUserStepContainer_Question",
+      "value": "pet"
+    },
+    {
+      "action": "fill",
+      "target": "cuwCreate_CreateUserStepContainer_Answer",
+      "value": "cat"
+    },
+    {
+      "action": "clicksubmit",
+      "value": "Create the user"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [viewstate] a user created: the complete step"
+    },
+    {
+      "action": "fill",
+      "target": "txtFirst",
+      "value": "first step"
+    },
+    {
+      "action": "clicktextin",
+      "target": "wizSteps",
+      "value": "Next"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [viewstate] the wizard's next step (the templated one)"
+    },
+    {
+      "action": "clicktextin",
+      "target": "wizSteps",
+      "value": "Next"
+    },
+    {
+      "action": "clicktextin",
+      "target": "wizSteps",
+      "value": "Previous"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [viewstate] next, then previous"
+    },
+    {
+      "action": "clicktextin",
+      "target": "wizSteps",
+      "value": "Last"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [viewstate] a step chosen in the side bar"
+    },
+    {
+      "action": "clicktextin",
+      "target": "wizSteps",
+      "value": "Finish"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [viewstate] finished: the complete step, the first step's value kept"
+    },
+    {
+      "action": "fill",
+      "target": "txtDynamic",
+      "value": "in a dynamic wizard"
+    },
+    {
+      "action": "clicktextin",
+      "target": "wizDynamic",
+      "value": "Next"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [dynamic][viewstate] a wizard made in code: its next step"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "LoginStatus [visible][viewstate] a hidden wizard shown"
+    }
+  ]
+}

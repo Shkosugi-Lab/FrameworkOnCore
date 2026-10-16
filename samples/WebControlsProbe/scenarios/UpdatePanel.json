@@ -1,0 +1,105 @@
+{
+  "_comment": "The UpdatePanel's scenario layer (AjaxScenario.aspx; tests/WebControlsParity/README.md; written by more-scenarios.py). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/AjaxScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "UpdatePanel [render][databind][dynamic][templates] first request: the panels, the proxy's script run, a panel made in code"
+    },
+    {
+      "action": "fill",
+      "target": "txtInPanel",
+      "value": "in the panel"
+    },
+    {
+      "action": "click",
+      "target": "btnInPanel"
+    },
+    {
+      "action": "snapshot",
+      "name": "UpdatePanel [viewstate][postdata][templates] an asynchronous postback of the main panel: the conditional panel outside left as it was"
+    },
+    {
+      "action": "click",
+      "target": "btnOutside"
+    },
+    {
+      "action": "snapshot",
+      "name": "UpdatePanel [viewstate][postdata] a button outside triggers the second panel"
+    },
+    {
+      "action": "click",
+      "target": "btnFull"
+    },
+    {
+      "action": "snapshot",
+      "name": "UpdatePanel [viewstate][postdata] a postback trigger in the panel: a full postback"
+    },
+    {
+      "action": "evaluate",
+      "target": "btnSlow",
+      "value": "e.click();"
+    },
+    {
+      "action": "snapshot",
+      "name": "UpdatePanel [viewstate] while a slow request runs: the progress shown"
+    },
+    {
+      "action": "waitms",
+      "ms": 4000
+    },
+    {
+      "action": "snapshot",
+      "name": "UpdatePanel [viewstate] after the slow request: the progress hidden"
+    },
+    {
+      "action": "click",
+      "target": "btnStartTimer"
+    },
+    {
+      "action": "waitms",
+      "ms": 4000
+    },
+    {
+      "action": "snapshot",
+      "name": "UpdatePanel [viewstate] the timer started: one tick, then stopped"
+    },
+    {
+      "action": "click",
+      "target": "btnHistory"
+    },
+    {
+      "action": "evaluate",
+      "target": "btnInPanel",
+      "value": "history.back();"
+    },
+    {
+      "action": "waitms",
+      "ms": 4000
+    },
+    {
+      "action": "snapshot",
+      "name": "UpdatePanel [viewstate] a history point, then the browser's back: the script manager's Navigate"
+    },
+    {
+      "action": "click",
+      "target": "btnDynamic"
+    },
+    {
+      "action": "snapshot",
+      "name": "UpdatePanel [dynamic][viewstate] an asynchronous postback of the panel made in code"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "UpdatePanel [visible][viewstate] a hidden panel shown with what was set while hidden"
+    }
+  ]
+}

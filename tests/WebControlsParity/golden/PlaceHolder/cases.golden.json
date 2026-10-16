@@ -1,0 +1,407 @@
+{
+  "PlaceHolder.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "PlaceHolder.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "PlaceHolder.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "PlaceHolder.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "PlaceHolder.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.ClientID": [
+    "Control.ClientID = \"phArea\""
+  ],
+  "PlaceHolder.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "PlaceHolder.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "PlaceHolder.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "PlaceHolder.Api.Control.Controls": [
+    "Control.Controls = ControlCollection [Label#lblInside]"
+  ],
+  "PlaceHolder.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "PlaceHolder.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "PlaceHolder.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "PlaceHolder.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "PlaceHolder.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "PlaceHolder.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "PlaceHolder.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "PlaceHolder.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "PlaceHolder.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "PlaceHolder.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "PlaceHolder.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"phArea\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "PlaceHolder.Api.Control.HasControls": [
+    "Control.HasControls = \"true\"",
+    "Control.HasControls after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.ID": [
+    "Control.ID = \"phArea\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "PlaceHolder.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "PlaceHolder.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "PlaceHolder.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "PlaceHolder.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "PlaceHolder.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "PlaceHolder.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "PlaceHolder.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "PlaceHolder.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "PlaceHolder.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "PlaceHolder.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "PlaceHolder.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "PlaceHolder.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <span id=\"lblInside\">Inside</span>",
+    "Control.Render(HtmlTextWriter) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | <span id=\"lblInside\">Inside</span>",
+    "Control.RenderChildren(HtmlTextWriter) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <span id=\"lblInside\">Inside</span>",
+    "Control.RenderControl(HtmlTextWriter) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <span id=\"lblInside\">Inside</span>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "PlaceHolder.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "PlaceHolder.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "PlaceHolder.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "PlaceHolder.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.Control.UniqueID": [
+    "Control.UniqueID = \"phArea\""
+  ],
+  "PlaceHolder.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "PlaceHolder.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "PlaceHolder.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "PlaceHolder.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "PlaceHolder.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "PlaceHolder.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "PlaceHolder.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "PlaceHolder.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "PlaceHolder.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "PlaceHolder.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "PlaceHolder.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "PlaceHolder.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "PlaceHolder.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = PlaceHolder#phArea {ClientID=\"phArea\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"phArea\"; SkinID=\"\"; UniqueID=\"phArea\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.WebControls.PlaceHolder.#ctor": [
+    "PlaceHolder.#ctor = PlaceHolder# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PlaceHolder.Api.WebControls.PlaceHolder.EnableTheming": [
+    "PlaceHolder.EnableTheming = \"true\"",
+    "PlaceHolder.EnableTheming set = \"true\""
+  ]
+}

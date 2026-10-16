@@ -23,13 +23,29 @@ namespace System.Web
 		// arg-less ctor creates dummy context
 		internal ImpersonationContext()
 		{
+#if NETCOREAPP
+			NoTokenToClose();
+#endif
 		}
 
 		// ctor that takes a token impersonates that token
 		internal ImpersonationContext(IntPtr token)
 		{
+#if NETCOREAPP
+			NoTokenToClose();
+#endif
 			ImpersonateToken(new HandleRef(this, token));
 		}
+
+#if NETCOREAPP
+		// Port: a context is made in each request's steps (ClientImpersonationContext, ApplicationImpersonationContext), most
+		// never undone, each one left to the finalizer thread (a tenth of a small page's CPU on Linux); its finalizer only
+		// closes a saved token. Finalized only once a token is saved (ImpersonateToken).
+		private void NoTokenToClose()
+		{
+			System.GC.SuppressFinalize(this);
+		}
+#endif
 
 		// IDisposable pattern
 
@@ -63,6 +79,12 @@ namespace System.Web
 			{
 				// first revert
 				_savedToken = new HandleRef(this, GetCurrentToken());
+#if NETCOREAPP
+				if (_savedToken.Handle != IntPtr.Zero)
+				{
+					System.GC.ReRegisterForFinalize(this);
+				}
+#endif
 
 				if (_savedToken.Handle != IntPtr.Zero)
 				{

@@ -215,7 +215,9 @@ namespace System.Web.UI.WebControls {
         }
 
         protected override DbProviderFactory GetDbProviderFactory() {
-            return OleDbFactory.Instance;
+            // OLE DB is Windows' (System.Data.OleDb elsewhere has no implementation: its factory is null), and with it
+            // Microsoft Access's providers (Jet, ACE): said here, not as a NullReferenceException where the factory is used.
+            return OleDbFactory.Instance ?? throw new PlatformNotSupportedException("AccessDataSource: OLE DB, through which it reads Microsoft Access files, is available on Windows only.");
         }
 
         /// <devdoc>

@@ -1800,6 +1800,13 @@ namespace System.Web.UI
 		/// </devdoc>
 		private bool HandleError(Exception e)
 		{
+#if !NETFRAMEWORK
+			// The request past executionTimeout (HttpResponse.End, Flush): on .NET Framework the thread's abort, which neither
+			// Page_Error nor the page's wrapping (HttpUnhandledException) sees; HttpApplication makes it "Request timed out.".
+			var http = e as HttpException;
+			if (http != null && http.WebEventCode == WebEventCodes.RuntimeErrorRequestAbort)
+				throw http;
+#endif
 
 			try
 			{

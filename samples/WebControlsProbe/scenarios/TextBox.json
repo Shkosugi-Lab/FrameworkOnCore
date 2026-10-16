@@ -1,0 +1,58 @@
+{
+  "_comment": "The TextBox's scenario layer (TextBoxScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags ([postdata]...) are the mechanisms it covers: the report's mechanism coverage reads them.",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/TextBoxScenario.aspx" },
+    { "action": "snapshot", "name": "TextBox [render][databind] first request" },
+
+    { "action": "fill", "target": "txtPlain", "value": "Hanako" },
+    { "action": "fill", "target": "txtPassword", "value": "secret" },
+    { "action": "fill", "target": "txtMulti", "value": "Line1\nLine2" },
+    { "action": "fill", "target": "txtNoViewState", "value": "changed" },
+    { "action": "fill", "target": "txtRaw", "value": "<b>raw</b>" },
+    { "action": "fill", "target": "txtDynamic", "value": "dyn" },
+    { "action": "setvalue", "target": "txtReadOnly", "value": "tampered" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "TextBox [postdata][change][readonly][disabled][password][dynamic][requestvalidation] posted values" },
+
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "TextBox [viewstate][change] posted again unchanged" },
+
+    { "action": "click", "target": "btnShow" },
+    { "action": "snapshot", "name": "TextBox [viewstate][visible] hidden text box shown" },
+
+    { "action": "fill", "target": "txtAuto", "value": "auto" },
+    { "action": "press", "target": "txtAuto", "value": "Tab" },
+    { "action": "snapshot", "name": "TextBox [autopostback][change] auto postback" },
+
+    { "action": "fill", "target": "txtAutoValidated", "value": "x" },
+    { "action": "press", "target": "txtAutoValidated", "value": "Tab" },
+    { "action": "snapshot", "name": "TextBox [autopostback][causesvalidation] auto postback, valid" },
+
+    { "action": "fill", "target": "txtAutoValidated", "value": "" },
+    { "action": "press", "target": "txtAutoValidated", "value": "Tab" },
+    { "action": "snapshot", "name": "TextBox [autopostback][causesvalidation] auto postback, emptied" },
+
+    { "action": "click", "target": "btnG1" },
+    { "action": "snapshot", "name": "TextBox [validation] group g1, empty" },
+
+    { "action": "fill", "target": "txtValidated", "value": "abc" },
+    { "action": "click", "target": "btnG1" },
+    { "action": "snapshot", "name": "TextBox [validation] group g1, not digits" },
+
+    { "action": "fill", "target": "txtValidated", "value": "123" },
+    { "action": "click", "target": "btnG1" },
+    { "action": "snapshot", "name": "TextBox [validation] group g1, valid" },
+
+    { "action": "click", "target": "btnG3" },
+    { "action": "snapshot", "name": "TextBox [clientvalidation] group g3, empty (no postback)" },
+
+    { "action": "fill", "target": "txtBound", "value": "Jiro" },
+    { "action": "click", "target": "btnUpdate" },
+    { "action": "snapshot", "name": "TextBox [bind] two-way binding in a template" },
+
+    { "action": "fill", "target": "txtPlain", "value": "<b>x</b>" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "TextBox [requestvalidation] markup posted" }
+  ]
+}

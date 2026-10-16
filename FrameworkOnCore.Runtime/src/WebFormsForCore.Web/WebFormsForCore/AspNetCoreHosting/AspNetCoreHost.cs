@@ -153,12 +153,17 @@ namespace System.Web.Hosting
         }
 
         /// <summary>
-        /// The application's web.config's defaultDocument (system.webServer), as IIS reads it over its own list: enabled
-        /// false, none; its files' clear, remove and add, the ones added before the ones it has (IIS's schema: the
-        /// collection merges with mergeAppend false). It was not read.
+        /// The defaultDocument IIS reads (system.webServer): the original server's (IisProfile: the server's, the site's), then
+        /// the application's web.config's, each over the list before it: enabled false, none; its files' clear, remove and add,
+        /// the ones added before the ones it has (IIS's schema: the collection merges with mergeAppend false). Without a
+        /// profile, IIS's own list. Default.asp left out (classic ASP: none here).
         /// </summary>
         void ReadDefaultDocuments(string physicalPath)
         {
+            var profile = IisProfile.Of(physicalPath);
+            var serverSections = System.Xml.Linq.Extensions.Elements(IisProfile.WebServer(profile), "defaultDocument").ToList();
+            if (serverSections.Any(s => s.Element("files") != null)) DefaultDocuments = Array.Empty<string>();
+            foreach (var serverSection in serverSections) ApplyDefaultDocuments(serverSection);
             string config;
             try
             {
@@ -170,14 +175,42 @@ namespace System.Web.Hosting
             try { section = System.Xml.Linq.XDocument.Load(config).Root?.Element("system.webServer")?.Element("defaultDocument"); }
             catch (System.Xml.XmlException) { return; }
             if (section == null) return;
-            if (string.Equals((string)section.Attribute("enabled"), "false", StringComparison.OrdinalIgnoreCase))
+            ApplyDefaultDocuments(section);
+        }
+
+        void ApplyDefaultDocuments(System.Xml.Linq.XElement section) => DefaultDocuments = ApplyDefaultDocuments(DefaultDocuments, section);
+
+        readonly System.Collections.Concurrent.ConcurrentDictionary<string, string[]> defaultDocumentsByFolder =
+            new System.Collections.Concurrent.ConcurrentDictionary<string, string[]>(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>
+        /// The default documents of the URL's folder, as IIS has them for it: IIS's own list, the original server's, the
+        /// application's web.config's, its locations' and its folders' web.config files' down to the folder (IisConfiguration).
+        /// </summary>
+        internal string[] DefaultDocumentsFor(string path)
+        {
+            var root = physicalPath;
+            if (root == null) return DefaultDocuments;
+            return defaultDocumentsByFolder.GetOrAdd(IisConfiguration.Deepest(root, path), _ =>
             {
-                DefaultDocuments = Array.Empty<string>();
-                return;
-            }
-            var inherited = DefaultDocuments.ToList();
+                var sections = IisConfiguration.For(root, path)
+                    .Select(s => (s.Server, Section: IisConfiguration.Child(s.WebServer, "defaultDocument"))).Where(s => s.Section != null).ToList();
+                // The original server's list is the one IIS starts from (applicationHost.config's), not IIS's own.
+                var documents = sections.Any(s => s.Server && IisConfiguration.Child(s.Section, "files") != null) ? Array.Empty<string>() : IisDefaultDocuments;
+                foreach (var (_, section) in sections) documents = ApplyDefaultDocuments(documents, section);
+                return documents;
+            });
+        }
+
+        static readonly string[] IisDefaultDocuments = { "Default.htm", "index.htm", "index.html", "iisstart.htm", "default.aspx" };
+
+        static string[] ApplyDefaultDocuments(string[] current, System.Xml.Linq.XElement section)
+        {
+            var enabled = (string)section.Attribute("enabled");
+            if (string.Equals(enabled, "false", StringComparison.OrdinalIgnoreCase)) return Array.Empty<string>();
+            var inherited = current.ToList();
             var added = new List<string>();
-            foreach (var element in section.Element("files")?.Elements() ?? Enumerable.Empty<System.Xml.Linq.XElement>())
+            foreach (var element in IisConfiguration.Child(section, "files")?.Elements() ?? Enumerable.Empty<System.Xml.Linq.XElement>())
             {
                 var value = ((string)element.Attribute("value"))?.Trim();
                 switch (element.Name.LocalName)
@@ -190,12 +223,12 @@ namespace System.Web.Hosting
                         inherited.RemoveAll(name => name.Equals(value, StringComparison.OrdinalIgnoreCase));
                         added.RemoveAll(name => name.Equals(value, StringComparison.OrdinalIgnoreCase));
                         break;
-                    case "add" when !string.IsNullOrEmpty(value):
+                    case "add" when !string.IsNullOrEmpty(value) && !value.EndsWith(".asp", StringComparison.OrdinalIgnoreCase):
                         if (!added.Concat(inherited).Contains(value, StringComparer.OrdinalIgnoreCase)) added.Add(value);
                         break;
                 }
             }
-            DefaultDocuments = added.Concat(inherited).ToArray();
+            return added.Concat(inherited).ToArray();
         }
 
         public void Configure(string virtualPath, string physicalPath,
@@ -218,6 +251,8 @@ namespace System.Web.Hosting
             physicalPath = FileUtil.FixUpPhysicalDirectory(physicalPath);
             this.physicalPath = physicalPath;
             ReadDefaultDocuments(physicalPath);
+            // The application's files' state kept until they change (as IIS's file cache): the static files' requests.
+            FileCache.Watch(physicalPath);
 
 			var assembly = GetType().Assembly;
             ApplicationManager.SetLoadContextData(".appPath", physicalPath, assembly);
@@ -316,17 +351,33 @@ namespace System.Web.Hosting
         /// </summary>
         public bool RedirectToFolder(Core.HttpContext context)
         {
+            var location = FolderLocation(context);
+            if (location == null) return false;
+            context.Response.StatusCode = 301;
+            context.Response.Headers.Location = location;
+            return true;
+        }
+
+        /// <summary>A folder's URL without its '/': where IIS redirects it to (the URL with it); null for another URL.</summary>
+        internal string FolderLocation(Core.HttpContext context)
+        {
             var path = context.Request.Path.Value;
-            if (string.IsNullOrEmpty(path) || path.EndsWith('/') || AspNetCoreWorkerRequest.IsHidden(path)) return false;
-            if (HandleExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return false;
+            if (string.IsNullOrEmpty(path) || path.EndsWith('/') || AspNetCoreWorkerRequest.IsHidden(path)) return null;
+            if (HandleExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return null;
             string mapped;
             try { mapped = MapPath(context.Request.PathBase.Value + path); }
-            catch (HttpException) { return false; }
-            catch (ArgumentException) { return false; }
-            if (mapped == null || !Directory.Exists(mapped)) return false;
-            context.Response.StatusCode = 301;
-            context.Response.Headers.Location = (context.Request.PathBase + context.Request.Path).ToUriComponent() + "/" + context.Request.QueryString.Value;
-            return true;
+            catch (HttpException) { return null; }
+            catch (ArgumentException) { return null; }
+            if (mapped == null || !FileCache.DirectoryExists(mapped)) return null;
+            return (context.Request.PathBase + context.Request.Path).ToUriComponent() + "/" + context.Request.QueryString.Value;
+        }
+
+        /// <summary>A file of a type IIS's request filtering denies (ProhibitedExtensions), not one of the handled types'.</summary>
+        public bool IsProhibited(Core.HttpContext context)
+        {
+            var path = context.Request.Path.Value ?? "";
+            if (HandleExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return false;
+            return ProhibitedExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase));
         }
 
         public bool IsLegacyRequest(Core.HttpContext context)
@@ -346,12 +397,12 @@ namespace System.Web.Hosting
             if (ProhibitedExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return false;
 
             var mappedPath = MapPath(fullpath);
-            if (Directory.Exists(mappedPath))
+            if (FileCache.DirectoryExists(mappedPath))
             {
 				// The first of the names a file of the folder has, without regard to case (as on Windows), served by the name
 				// as the list has it, as IIS does (/Sub/ is Request.Path /Sub/default.aspx, whatever the file's case).
-				var files = Directory.EnumerateFiles(mappedPath).Select(Path.GetFileName).ToList();
-				var defaultDoc = DefaultDocuments
+				var files = FileCache.FileNames(mappedPath);
+				var defaultDoc = DefaultDocumentsFor((context.Request.PathBase.Value ?? "") + (pathWithoutSlash.Length == 0 ? "/" : pathWithoutSlash))
                     .Where(doc => files.Contains(doc, StringComparer.OrdinalIgnoreCase))
                     .Select(doc => new { Virtual = $"{pathWithoutSlash}/{doc}" })
                     .FirstOrDefault();
@@ -360,9 +411,12 @@ namespace System.Web.Hosting
                     context.Request.Path = defaultDoc.Virtual;
                     return true;
                 }
+                // A folder without a default document: IIS's answer, its 403.14 (or its listing: directoryBrowse), from
+                // IisStaticFile, not the empty 404 of the end of ASP.NET Core's pipeline.
+                return Path.GetFullPath(mappedPath).TrimEnd(Path.DirectorySeparatorChar) != AppBinDirectory.PhysicalPath.TrimEnd(Path.DirectorySeparatorChar);
             }
 
-			return HandleAllRequestsWithWebForms || File.Exists(mappedPath) &&
+			return HandleAllRequestsWithWebForms || FileCache.FileExists(mappedPath) &&
                 Path.GetDirectoryName(mappedPath) != AppBinDirectory.PhysicalPath; // Do not serve bin_dotnet directory
 		}
 

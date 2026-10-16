@@ -1,0 +1,947 @@
+{
+  "WebPartZone.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartZone.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "WebPartZone.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "WebPartZone.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "WebPartZone.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "WebPartZone.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "WebPartZone.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.ClientID": [
+    "Control.ClientID = \"wpzProbe\""
+  ],
+  "WebPartZone.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "WebPartZone.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "WebPartZone.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "WebPartZone.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "WebPartZone.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "WebPartZone.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "WebPartZone.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "WebPartZone.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "WebPartZone.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "WebPartZone.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "WebPartZone.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "WebPartZone.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "WebPartZone.Api.Control.FindControl": [
+    "Control.FindControl(String) = null",
+    "Control.FindControl(String) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "WebPartZone.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "WebPartZone.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"wpzProbe\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "WebPartZone.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.ID": [
+    "Control.ID = \"wpzProbe\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "WebPartZone.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "WebPartZone.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "WebPartZone.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "WebPartZone.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "WebPartZone.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "WebPartZone.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "WebPartZone.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "WebPartZone.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "WebPartZone.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "WebPartZone.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "WebPartZone.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"-> System.InvalidOperationException: You must enable Web Parts by adding a WebPartManager to your page.  The WebPartManager must be placed before any Web Part controls on the page.\""
+  ],
+  "WebPartZone.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "WebPartZone.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "WebPartZone.Api.Control.Parent": [
+    "Control.Parent = PlaceHolder# {ClientID=\"ctl00\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"ctl00\"; SkinID=\"\"; UniqueID=\"ctl00\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartZone.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "WebPartZone.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "WebPartZone.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "WebPartZone.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "WebPartZone.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "WebPartZone.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "WebPartZone.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "WebPartZone.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "WebPartZone.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.Control.UniqueID": [
+    "Control.UniqueID = \"wpzProbe\""
+  ],
+  "WebPartZone.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "WebPartZone.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "WebPartZone.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "WebPartZone.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "WebPartZone.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "WebPartZone.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "WebPartZone.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=true; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "WebPartZone.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "WebPartZone.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "WebPartZone.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "WebPartZone.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "WebPartZone.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "WebPartZone.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.IPostBackEventHandler.RaisePostBackEvent": [
+    "IPostBackEventHandler.RaisePostBackEvent(String) = \"ok\"",
+    "IPostBackEventHandler.RaisePostBackEvent(String) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.CompositeControl.#ctor": [
+    "CompositeControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.CompositeControl because it is an abstract class.\""
+  ],
+  "WebPartZone.Api.WebControls.CompositeControl.Controls": [
+    "CompositeControl.Controls = ControlCollection []"
+  ],
+  "WebPartZone.Api.WebControls.CompositeControl.DataBind": [
+    "CompositeControl.DataBind = \"ok\"",
+    "CompositeControl.DataBind after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.CompositeControl.RecreateChildControls": [
+    "CompositeControl.RecreateChildControls = \"ok\"",
+    "CompositeControl.RecreateChildControls after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.CompositeControl.Render": [
+    "CompositeControl.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "WebPartZone.Api.WebControls.CompositeControl.SupportsDisabledAttribute": [
+    "CompositeControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "WebPartZone.Api.WebControls.ICompositeControlDesignerAccessor.RecreateChildControls": [
+    "ICompositeControlDesignerAccessor.RecreateChildControls = \"ok\"",
+    "ICompositeControlDesignerAccessor.RecreateChildControls after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=2px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #FF808080 Color [Gray]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.Solid\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit 1px",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=false; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=false; RegisteredCssClass=\"\"; Width=}",
+    "WebControl.CreateControlStyle after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | <tr>",
+    "  | \t<td style=\"height:100%;\"><table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"width:100%;height:100%;\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td style=\"height:100%;\"></td>",
+    "  | \t\t</tr>",
+    "  | \t</table></td>",
+    "  | </tr>",
+    "WebControl.RenderContents(HtmlTextWriter) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Table\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"table\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "WebPartZone.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZone.#ctor": [
+    "WebParts.WebPartZone.#ctor = WebPartZone# {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"Zone 1\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=null; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZone.GetInitialWebParts": [
+    "WebParts.WebPartZone.GetInitialWebParts = \"[]\"",
+    "WebParts.WebPartZone.GetInitialWebParts after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZone.OnInit": [
+    "WebParts.WebPartZone.OnInit(EventArgs) = \"-> System.InvalidOperationException: You must enable Web Parts by adding a WebPartManager to your page.  The WebPartManager must be placed before any Web Part controls on the page.\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZone.ZoneTemplate": [
+    "WebParts.WebPartZone.ZoneTemplate = null",
+    "WebParts.WebPartZone.ZoneTemplate set = null"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.#ctor": [
+    "WebParts.WebPartZoneBase.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.WebParts.WebPartZoneBase because it is an abstract class.\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.AllowLayoutChange": [
+    "WebParts.WebPartZoneBase.AllowLayoutChange = \"true\"",
+    "WebParts.WebPartZoneBase.AllowLayoutChange set = \"true\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.BorderColor": [
+    "WebParts.WebPartZoneBase.BorderColor = \"Color #FF808080 Color [Gray]\"",
+    "WebParts.WebPartZoneBase.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.BorderStyle": [
+    "WebParts.WebPartZoneBase.BorderStyle = \"BorderStyle.Solid\"",
+    "WebParts.WebPartZoneBase.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.BorderWidth": [
+    "WebParts.WebPartZoneBase.BorderWidth = Unit 1px",
+    "WebParts.WebPartZoneBase.BorderWidth set = Unit 120px"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.CloseVerb": [
+    "WebParts.WebPartZoneBase.CloseVerb = WebPartCloseVerb {Checked=false; ClientClickHandler=\"\"; Description=\"Closes '{0}'\"; Enabled=true; ID=\"\"; ImageUrl=\"\"; Text=\"Close\"; Visible=true}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.CloseWebPart": [
+    "WebParts.WebPartZoneBase.CloseWebPart(WebParts.WebPart) = \"-> System.ArgumentNullException: Value cannot be null. [param webPart]\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.ConnectVerb": [
+    "WebParts.WebPartZoneBase.ConnectVerb = WebPartConnectVerb {Checked=false; ClientClickHandler=\"\"; Description=\"Edits the connections for '{0}'\"; Enabled=true; ID=\"\"; ImageUrl=\"\"; Text=\"Connect\"; Visible=true}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.ConnectWebPart": [
+    "WebParts.WebPartZoneBase.ConnectWebPart(WebParts.WebPart) = \"-> System.ArgumentNullException: Value cannot be null. [param webPart]\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.CreateChildControls": [
+    "WebParts.WebPartZoneBase.CreateChildControls = \"ok\"",
+    "WebParts.WebPartZoneBase.CreateChildControls after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.CreateControlCollection": [
+    "WebParts.WebPartZoneBase.CreateControlCollection = ControlCollection []",
+    "WebParts.WebPartZoneBase.CreateControlCollection after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.CreateControlStyle": [
+    "WebParts.WebPartZoneBase.CreateControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=false; RegisteredCssClass=\"\"; Width=}",
+    "WebParts.WebPartZoneBase.CreateControlStyle after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.CreateVerbs": [
+    "WebParts.WebPartZoneBase.CreateVerbs = \"added and removed\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.CreateWebPartChrome": [
+    "WebParts.WebPartZoneBase.CreateWebPartChrome = WebPartChrome {}",
+    "WebParts.WebPartZoneBase.CreateWebPartChrome after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.DeleteVerb": [
+    "WebParts.WebPartZoneBase.DeleteVerb = WebPartDeleteVerb {Checked=false; ClientClickHandler=\"\"; Description=\"Deletes '{0}'\"; Enabled=true; ID=\"\"; ImageUrl=\"\"; Text=\"Delete\"; Visible=true}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.DeleteWebPart": [
+    "WebParts.WebPartZoneBase.DeleteWebPart(WebParts.WebPart) = \"-> System.ArgumentNullException: Value cannot be null. [param webPart]\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.DisplayTitle": [
+    "WebParts.WebPartZoneBase.DisplayTitle = \"wpzProbe\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.DragDropEnabled": [
+    "WebParts.WebPartZoneBase.DragDropEnabled = \"false\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.DragHighlightColor": [
+    "WebParts.WebPartZoneBase.DragHighlightColor = \"Color #FF0000FF Color [Blue]\"",
+    "WebParts.WebPartZoneBase.DragHighlightColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.EditVerb": [
+    "WebParts.WebPartZoneBase.EditVerb = WebPartEditVerb {Checked=false; ClientClickHandler=\"\"; Description=\"Edits '{0}'\"; Enabled=true; ID=\"\"; ImageUrl=\"\"; Text=\"Edit\"; Visible=true}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.EditWebPart": [
+    "WebParts.WebPartZoneBase.EditWebPart(WebParts.WebPart) = \"-> System.ArgumentNullException: Value cannot be null. [param webPart]\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.EmptyZoneText": [
+    "WebParts.WebPartZoneBase.EmptyZoneText = \"Add a Web Part to this zone by dropping it here.\"",
+    "WebParts.WebPartZoneBase.EmptyZoneText set = \"Abc 123\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.ExportVerb": [
+    "WebParts.WebPartZoneBase.ExportVerb = WebPartExportVerb {Checked=false; ClientClickHandler=\"\"; Description=\"Exports the personalization data for '{0}' as an XML file\"; Enabled=true; ID=\"\"; ImageUrl=\"\"; Text=\"Export\"; Visible=true}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.GetEffectiveChromeType": [
+    "WebParts.WebPartZoneBase.GetEffectiveChromeType(WebParts.Part) = \"-> System.ArgumentNullException: Value cannot be null. [param part]\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.GetInitialWebParts": [
+    "WebParts.WebPartZoneBase.GetInitialWebParts = \"[]\"",
+    "WebParts.WebPartZoneBase.GetInitialWebParts after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.HasFooter": [
+    "WebParts.WebPartZoneBase.HasFooter = \"false\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.HasHeader": [
+    "WebParts.WebPartZoneBase.HasHeader = \"false\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.HelpVerb": [
+    "WebParts.WebPartZoneBase.HelpVerb = WebPartHelpVerb {Checked=false; ClientClickHandler=\"\"; Description=\"Shows help for '{0}'\"; Enabled=true; ID=\"\"; ImageUrl=\"\"; Text=\"Help\"; Visible=true}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.LayoutOrientation": [
+    "WebParts.WebPartZoneBase.LayoutOrientation = \"Orientation.Vertical\"",
+    "WebParts.WebPartZoneBase.LayoutOrientation set = \"Orientation.Vertical\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.LoadViewState": [
+    "WebParts.WebPartZoneBase.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.MenuCheckImageStyle": [
+    "WebParts.WebPartZoneBase.MenuCheckImageStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.MenuCheckImageUrl": [
+    "WebParts.WebPartZoneBase.MenuCheckImageUrl = \"\"",
+    "WebParts.WebPartZoneBase.MenuCheckImageUrl set = \"Abc 123\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.MenuLabelHoverStyle": [
+    "WebParts.WebPartZoneBase.MenuLabelHoverStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.MenuLabelStyle": [
+    "WebParts.WebPartZoneBase.MenuLabelStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.MenuLabelText": [
+    "WebParts.WebPartZoneBase.MenuLabelText = \"\"",
+    "WebParts.WebPartZoneBase.MenuLabelText set = \"Abc 123\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.MenuPopupImageUrl": [
+    "WebParts.WebPartZoneBase.MenuPopupImageUrl = \"\"",
+    "WebParts.WebPartZoneBase.MenuPopupImageUrl set = \"Abc 123\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.MenuPopupStyle": [
+    "WebParts.WebPartZoneBase.MenuPopupStyle = WebPartMenuStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CellPadding=Int32 1; CellSpacing=Int32 0; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; GridLines=None; Height=; HorizontalAlign=NotSet; IsEmpty=false; RegisteredCssClass=\"\"; ShadowColor=Color #00000000 Color [Empty]; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.MenuVerbHoverStyle": [
+    "WebParts.WebPartZoneBase.MenuVerbHoverStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.MenuVerbStyle": [
+    "WebParts.WebPartZoneBase.MenuVerbStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.MinimizeVerb": [
+    "WebParts.WebPartZoneBase.MinimizeVerb = WebPartMinimizeVerb {Checked=false; ClientClickHandler=\"\"; Description=\"Minimizes '{0}'\"; Enabled=true; ID=\"\"; ImageUrl=\"\"; Text=\"Minimize\"; Visible=true}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.MinimizeWebPart": [
+    "WebParts.WebPartZoneBase.MinimizeWebPart(WebParts.WebPart) = \"-> System.ArgumentNullException: Value cannot be null. [param webPart]\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.OnCreateVerbs": [
+    "WebParts.WebPartZoneBase.OnCreateVerbs(WebParts.WebPartVerbsEventArgs) = \"ok\"",
+    "WebParts.WebPartZoneBase.OnCreateVerbs(WebParts.WebPartVerbsEventArgs) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.OnPreRender": [
+    "WebParts.WebPartZoneBase.OnPreRender(EventArgs) = \"ok\"",
+    "WebParts.WebPartZoneBase.OnPreRender(EventArgs) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.RaisePostBackEvent": [
+    "WebParts.WebPartZoneBase.RaisePostBackEvent(String) = \"ok\"",
+    "WebParts.WebPartZoneBase.RaisePostBackEvent(String) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.Render": [
+    "WebParts.WebPartZoneBase.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.RenderBody": [
+    "WebParts.WebPartZoneBase.RenderBody(HtmlTextWriter) = \"ok\"",
+    "WebParts.WebPartZoneBase.RenderBody(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"width:100%;height:100%;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"height:100%;\"></td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "WebParts.WebPartZoneBase.RenderBody(HtmlTextWriter) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.RenderDropCue": [
+    "WebParts.WebPartZoneBase.RenderDropCue(HtmlTextWriter) = \"ok\"",
+    "WebParts.WebPartZoneBase.RenderDropCue(HtmlTextWriter) writer:",
+    "  | <tr>",
+    "  | \t<td style=\"padding-top:1;padding-bottom:1;\"><table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"width:100%;border-left:solid 3px Blue;border-right:solid 3px Blue;visibility:hidden;\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td style=\"font-size:0px;\"><div style=\"margin:2px 0px 2px 0px;height:2px;width:100%;background-color:Blue;\">",
+    "  | ",
+    "  | \t\t\t</div></td>",
+    "  | \t\t</tr>",
+    "  | \t</table></td>",
+    "  | </tr>",
+    "WebParts.WebPartZoneBase.RenderDropCue(HtmlTextWriter) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.RenderHeader": [
+    "WebParts.WebPartZoneBase.RenderHeader(HtmlTextWriter) = \"ok\"",
+    "WebParts.WebPartZoneBase.RenderHeader(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"width:100%;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"white-space:nowrap;\">wpzProbe</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "WebParts.WebPartZoneBase.RenderHeader(HtmlTextWriter) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.RestoreVerb": [
+    "WebParts.WebPartZoneBase.RestoreVerb = WebPartRestoreVerb {Checked=false; ClientClickHandler=\"\"; Description=\"Restores '{0}'\"; Enabled=true; ID=\"\"; ImageUrl=\"\"; Text=\"Restore\"; Visible=true}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.RestoreWebPart": [
+    "WebParts.WebPartZoneBase.RestoreWebPart(WebParts.WebPart) = \"-> System.ArgumentNullException: Value cannot be null. [param webPart]\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.SaveViewState": [
+    "WebParts.WebPartZoneBase.SaveViewState = null",
+    "WebParts.WebPartZoneBase.SaveViewState after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.SelectedPartChromeStyle": [
+    "WebParts.WebPartZoneBase.SelectedPartChromeStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.ShowTitleIcons": [
+    "WebParts.WebPartZoneBase.ShowTitleIcons = \"true\"",
+    "WebParts.WebPartZoneBase.ShowTitleIcons set = \"true\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.TitleBarVerbButtonType": [
+    "WebParts.WebPartZoneBase.TitleBarVerbButtonType = \"ButtonType.Image\"",
+    "WebParts.WebPartZoneBase.TitleBarVerbButtonType set = \"ButtonType.Image\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.TitleBarVerbStyle": [
+    "WebParts.WebPartZoneBase.TitleBarVerbStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.TrackViewState": [
+    "WebParts.WebPartZoneBase.TrackViewState = \"ok\"",
+    "WebParts.WebPartZoneBase.TrackViewState after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.VerbButtonType": [
+    "WebParts.WebPartZoneBase.VerbButtonType = \"ButtonType.Button\"",
+    "WebParts.WebPartZoneBase.VerbButtonType set = \"ButtonType.Image\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.WebPartChrome": [
+    "WebParts.WebPartZoneBase.WebPartChrome = WebPartChrome {}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.WebPartVerbRenderMode": [
+    "WebParts.WebPartZoneBase.WebPartVerbRenderMode = \"WebPartVerbRenderMode.Menu\"",
+    "WebParts.WebPartZoneBase.WebPartVerbRenderMode set = \"WebPartVerbRenderMode.TitleBar\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebPartZoneBase.WebParts": [
+    "WebParts.WebPartZoneBase.WebParts = \"[]\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.BackImageUrl": [
+    "WebParts.WebZone.BackImageUrl = \"\"",
+    "WebParts.WebZone.BackImageUrl set = \"Abc 123\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.EmptyZoneText": [
+    "WebParts.WebZone.EmptyZoneText = \"Add a Web Part to this zone by dropping it here.\"",
+    "WebParts.WebZone.EmptyZoneText set = \"Abc 123\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.EmptyZoneTextStyle": [
+    "WebParts.WebZone.EmptyZoneTextStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.ErrorStyle": [
+    "WebParts.WebZone.ErrorStyle = ErrorStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #FFFF0000 Color [Red]; Height=; IsEmpty=false; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.FooterStyle": [
+    "WebParts.WebZone.FooterStyle = TitleStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=false; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=false}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.GetEffectiveChromeType": [
+    "WebParts.WebZone.GetEffectiveChromeType(WebParts.Part) = \"-> System.ArgumentNullException: Value cannot be null. [param part]\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.HasFooter": [
+    "WebParts.WebZone.HasFooter = \"false\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.HasHeader": [
+    "WebParts.WebZone.HasHeader = \"false\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.HeaderStyle": [
+    "WebParts.WebZone.HeaderStyle = TitleStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=false; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=false}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.HeaderText": [
+    "WebParts.WebZone.HeaderText = \"\"",
+    "WebParts.WebZone.HeaderText set = \"Abc 123\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.LoadViewState": [
+    "WebParts.WebZone.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.OnInit": [
+    "WebParts.WebZone.OnInit(EventArgs) = \"-> System.InvalidOperationException: You must enable Web Parts by adding a WebPartManager to your page.  The WebPartManager must be placed before any Web Part controls on the page.\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.OnPreRender": [
+    "WebParts.WebZone.OnPreRender(EventArgs) = \"ok\"",
+    "WebParts.WebZone.OnPreRender(EventArgs) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.Padding": [
+    "WebParts.WebZone.Padding = \"Int32 2\"",
+    "WebParts.WebZone.Padding set = \"Int32 1\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.PartChromePadding": [
+    "WebParts.WebZone.PartChromePadding = Unit 5px",
+    "WebParts.WebZone.PartChromePadding set = Unit 120px"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.PartChromeStyle": [
+    "WebParts.WebZone.PartChromeStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.PartChromeType": [
+    "WebParts.WebZone.PartChromeType = \"PartChromeType.Default\"",
+    "WebParts.WebZone.PartChromeType set = \"PartChromeType.TitleAndBorder\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.PartStyle": [
+    "WebParts.WebZone.PartStyle = TableStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CellPadding=Int32 -1; CellSpacing=Int32 -1; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; GridLines=None; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.PartTitleStyle": [
+    "WebParts.WebZone.PartTitleStyle = TitleStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=false; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=false}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.RenderBeginTag": [
+    "WebParts.WebZone.RenderBeginTag(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.RenderBody": [
+    "WebParts.WebZone.RenderBody(HtmlTextWriter) = \"ok\"",
+    "WebParts.WebZone.RenderBody(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"width:100%;height:100%;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"height:100%;\"></td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "WebParts.WebZone.RenderBody(HtmlTextWriter) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.RenderClientScript": [
+    "WebParts.WebZone.RenderClientScript = \"false\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.RenderContents": [
+    "WebParts.WebZone.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebParts.WebZone.RenderContents(HtmlTextWriter) writer:",
+    "  | <tr>",
+    "  | \t<td style=\"height:100%;\"><table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"width:100%;height:100%;\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td style=\"height:100%;\"></td>",
+    "  | \t\t</tr>",
+    "  | \t</table></td>",
+    "  | </tr>",
+    "WebParts.WebZone.RenderContents(HtmlTextWriter) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.RenderFooter": [
+    "WebParts.WebZone.RenderFooter(HtmlTextWriter) = \"ok\"",
+    "WebParts.WebZone.RenderFooter(HtmlTextWriter) writer:",
+    "  | ",
+    "WebParts.WebZone.RenderFooter(HtmlTextWriter) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.RenderHeader": [
+    "WebParts.WebZone.RenderHeader(HtmlTextWriter) = \"ok\"",
+    "WebParts.WebZone.RenderHeader(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"width:100%;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"white-space:nowrap;\">wpzProbe</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "WebParts.WebZone.RenderHeader(HtmlTextWriter) after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.SaveViewState": [
+    "WebParts.WebZone.SaveViewState = null",
+    "WebParts.WebZone.SaveViewState after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.TagKey": [
+    "WebParts.WebZone.TagKey = \"HtmlTextWriterTag.Table\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.TrackViewState": [
+    "WebParts.WebZone.TrackViewState = \"ok\"",
+    "WebParts.WebZone.TrackViewState after = WebPartZone#wpzProbe {AccessKey=\"\"; AllowLayoutChange=true; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #FF808080 Color [Gray]; BorderStyle=Solid; BorderWidth=1px; ClientID=\"wpzProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayTitle=\"wpzProbe\"; DragHighlightColor=Color #FF0000FF Color [Blue]; EmptyZoneText=\"Add a Web Part to this zone by dropping it here.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wpzProbe\"; LayoutOrientation=Vertical; MenuCheckImageUrl=\"\"; MenuLabelText=\"\"; MenuPopupImageUrl=\"\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; ShowTitleIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TitleBarVerbButtonType=Image; ToolTip=\"\"; UniqueID=\"wpzProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=true; WebPartVerbRenderMode=Menu; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.VerbButtonType": [
+    "WebParts.WebZone.VerbButtonType = \"ButtonType.Button\"",
+    "WebParts.WebZone.VerbButtonType set = \"ButtonType.Image\""
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.VerbStyle": [
+    "WebParts.WebZone.VerbStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "WebPartZone.Api.WebControls.WebParts.WebZone.WebPartManager": [
+    "WebParts.WebZone.WebPartManager = null"
+  ]
+}

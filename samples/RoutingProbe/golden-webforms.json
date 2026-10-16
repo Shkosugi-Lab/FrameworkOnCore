@@ -1,0 +1,521 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "route-products/5",
+      "Path": "/products/5",
+      "Title": "Routing probe: product",
+      "Text": [
+        "RouteValue id: 5",
+        "RouteUrl: product 7",
+        "IsPostBack=False",
+        "route products/{id}; values id=5; tokens token=product-route",
+        "Path=/products/5 FilePath=/products/5 RawUrl=/products/5 Url=/products/5 AppRelativeCurrentExecutionFilePath=~/products/5 PathInfo=",
+        "query legacy= mapped=",
+        "GetRouteUrl(product, 42)=/products/42 GetRouteUrl(catalog)=/catalog/books/a/b GetRouteUrl(no route)=null",
+        "form action="
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "value": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "url": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Link": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "route-a postback to the route's URL",
+      "Path": "/products/5",
+      "Title": "Routing probe: product",
+      "Text": [
+        "RouteValue id: 5",
+        "RouteUrl: product 7",
+        "IsPostBack=True",
+        "route products/{id}; values id=5; tokens token=product-route",
+        "Path=/products/5 FilePath=/products/5 RawUrl=/products/5 Url=/products/5 AppRelativeCurrentExecutionFilePath=~/products/5 PathInfo=",
+        "query legacy= mapped=",
+        "GetRouteUrl(product, 42)=/products/42 GetRouteUrl(catalog)=/catalog/books/a/b GetRouteUrl(no route)=null",
+        "form action="
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": "posted"
+      },
+      "Elements": {
+        "value": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "url": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Link": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "route-the default value",
+      "Path": "/products",
+      "Title": "Routing probe: product",
+      "Text": [
+        "RouteValue id: 0",
+        "RouteUrl: product 7",
+        "IsPostBack=False",
+        "route products/{id}; values id=0; tokens token=product-route",
+        "Path=/products FilePath=/products RawUrl=/products Url=/products AppRelativeCurrentExecutionFilePath=~/products PathInfo=",
+        "query legacy= mapped=",
+        "GetRouteUrl(product, 42)=/products/42 GetRouteUrl(catalog)=/catalog/books/a/b GetRouteUrl(no route)=null",
+        "form action="
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "value": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "url": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Link": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "route-a catch-all",
+      "Path": "/catalog/books/a/b/c",
+      "Title": "Routing probe: product",
+      "Text": [
+        "RouteValue id:",
+        "RouteUrl: product 7",
+        "IsPostBack=False",
+        "route catalog/{category}/{*rest}; values category=books, rest=a/b/c; tokens",
+        "Path=/catalog/books/a/b/c FilePath=/catalog/books/a/b/c RawUrl=/catalog/books/a/b/c Url=/catalog/books/a/b/c AppRelativeCurrentExecutionFilePath=~/catalog/books/a/b/c PathInfo=",
+        "query legacy= mapped=",
+        "GetRouteUrl(product, 42)=/products/42 GetRouteUrl(catalog)=/catalog/books/a/b GetRouteUrl(no route)=null",
+        "form action="
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "value": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "url": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Link": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "route-a route handler of the application's",
+      "Path": "/api/widgets",
+      "Title": "",
+      "Text": [
+        "api name=widgets path=/api/widgets handler=ProbeRouteHttpHandler url of product 5=/products/5"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {}
+    },
+    {
+      "Name": "rewrite-RewritePath in BeginRequest",
+      "Path": "/old/item-3",
+      "Title": "Routing probe: product",
+      "Text": [
+        "RouteValue id:",
+        "RouteUrl: product 7",
+        "IsPostBack=False",
+        "route none; values ; tokens",
+        "Path=/Product.aspx FilePath=/Product.aspx RawUrl=/old/item-3 Url=/Product.aspx?legacy=item-3 AppRelativeCurrentExecutionFilePath=~/Product.aspx PathInfo=",
+        "query legacy=item-3 mapped=",
+        "GetRouteUrl(product, 42)=/products/42 GetRouteUrl(catalog)=/catalog/books/a/b GetRouteUrl(no route)=null",
+        "form action="
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "value": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "url": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Link": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "rewrite-urlMappings",
+      "Path": "/home",
+      "Title": "Routing probe: product",
+      "Text": [
+        "RouteValue id:",
+        "RouteUrl: product 7",
+        "IsPostBack=False",
+        "route none; values ; tokens",
+        "Path=/Product.aspx FilePath=/Product.aspx RawUrl=/Home.aspx Url=/Product.aspx?mapped=home AppRelativeCurrentExecutionFilePath=~/Product.aspx PathInfo=",
+        "query legacy= mapped=home",
+        "GetRouteUrl(product, 42)=/products/42 GetRouteUrl(catalog)=/catalog/books/a/b GetRouteUrl(no route)=null",
+        "form action="
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "value": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "url": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Link": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "route-the page by its own path: no route data",
+      "Path": "/product",
+      "Title": "Routing probe: product",
+      "Text": [
+        "RouteValue id:",
+        "RouteUrl: product 7",
+        "IsPostBack=False",
+        "route none; values ; tokens",
+        "Path=/Product.aspx FilePath=/Product.aspx RawUrl=/Product.aspx Url=/Product.aspx AppRelativeCurrentExecutionFilePath=~/Product.aspx PathInfo=",
+        "query legacy= mapped=",
+        "GetRouteUrl(product, 42)=/products/42 GetRouteUrl(catalog)=/catalog/books/a/b GetRouteUrl(no route)=null",
+        "form action="
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "value": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "url": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Link": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "route-the answers: a constraint not met, redirects to routes, no route",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/products/abc -> 404 | location=-",
+        "/products/5/x -> 404 | location=-",
+        "/Product.aspx?go=route -> 200 redirected to /products/9 | location=-",
+        "/Product.aspx?go=permanent -> 200 redirected to /catalog/moved | location=-",
+        "/nothing/here -> 404 | location=-",
+        "/WebResource.axd -> 404 | location=-"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": [
+    {
+      "Url": "/products/abc",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/products/5/x",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Product.aspx?go=route",
+      "Status": 302,
+      "Location": "/products/9",
+      "From": null
+    },
+    {
+      "Url": "/Product.aspx?go=permanent",
+      "Status": 301,
+      "Location": "/catalog/moved",
+      "From": null
+    },
+    {
+      "Url": "/nothing/here",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/api/x",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/products/5",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/products",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/catalog/books/a/b/c",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/api/widgets",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/old/item-3",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Home.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Product.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Check.htm?h=location&u=/products/abc&u=/products/5/x&u=/Product.aspx%3Fgo%3Droute&u=/Product.aspx%3Fgo%3Dpermanent&u=/nothing/here&u=/WebResource.axd",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/products/9",
+      "Status": 200,
+      "Location": null,
+      "From": "/Product.aspx?go=route"
+    },
+    {
+      "Url": "/catalog/moved",
+      "Status": 200,
+      "Location": null,
+      "From": "/Product.aspx?go=permanent"
+    }
+  ]
+}

@@ -17,6 +17,8 @@ public sealed class Report
         Platform,
         /// <summary>Something the conversion could not settle.</summary>
         Error,
+        /// <summary>An IIS feature the site uses (the server's settings, web.config's) and what the host does of it.</summary>
+        Iis,
     }
 
     public sealed record Entry(Kind Kind, string Subject, string Text);
@@ -27,8 +29,8 @@ public sealed class Report
     public void Add(Kind kind, string subject, string text)
     {
         entries.Add(new Entry(kind, subject, text));
-        // The stubs are many: in the report only (the build rounds print their count).
-        if (kind is not (Kind.Stub or Kind.Platform)) Console.WriteLine($"  [{kind}] {subject}: {text}");
+        // The stubs are many: in the report only (the build rounds print their count); the IIS features the host has too.
+        if (kind is not (Kind.Stub or Kind.Platform) && !(kind == Kind.Iis && !text.StartsWith("未対応", StringComparison.Ordinal))) Console.WriteLine($"  [{kind}] {subject}: {text}");
     }
 
     public string ToMarkdown(string title)
@@ -37,6 +39,7 @@ public sealed class Report
         var headings = new Dictionary<Kind, string>
         {
             [Kind.Error] = "未解決(変換で解決できなかったもの)",
+            [Kind.Iis] = "IIS の機能(元のサーバーと web.config の設定。未対応のものは変換後に効かない)",
             [Kind.Unsupported] = ".NET に無い、または Windows 専用の API",
             [Kind.Stub] = "コンパイルのために変えたソース(スタブ・削除)",
             [Kind.Platform] = "Linux で動かすために変えたソース(Windows のパス)",

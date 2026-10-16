@@ -1,0 +1,74 @@
+{
+  "_comment": "Requests at the same time (the browser's fetches in parallel): which ran together and which waited for the session's lock (InProc): two that write the session, two that read it, a writer and a reader, four without the session, a writer and one without. The order of events is compared, not the times.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/Start.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "session started"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?p=1&t=1&u=/Slow.aspx%3Frun%3Dtwo-writers%26k%3DA%26ms%3D800&u=/Slow.aspx%3Frun%3Dtwo-writers%26k%3DB%26ms%3D800"
+    },
+    {
+      "action": "goto",
+      "path": "/Show.aspx?run=two-writers"
+    },
+    {
+      "action": "snapshot",
+      "name": "run-two-writers"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?p=1&t=1&u=/ReadOnly.aspx%3Frun%3Dtwo-readers%26k%3DA%26ms%3D800&u=/ReadOnly.aspx%3Frun%3Dtwo-readers%26k%3DB%26ms%3D800"
+    },
+    {
+      "action": "goto",
+      "path": "/Show.aspx?run=two-readers"
+    },
+    {
+      "action": "snapshot",
+      "name": "run-two-readers"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?p=1&t=1&u=/Slow.aspx%3Frun%3Da-writer-and-a-reader%26k%3DW%26ms%3D800&u=/ReadOnly.aspx%3Frun%3Da-writer-and-a-reader%26k%3DR%26ms%3D800"
+    },
+    {
+      "action": "goto",
+      "path": "/Show.aspx?run=a-writer-and-a-reader"
+    },
+    {
+      "action": "snapshot",
+      "name": "run-a-writer-and-a-reader"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?p=1&t=1&u=/NoSession.aspx%3Frun%3Dno-session%26k%3DA%26ms%3D800&u=/NoSession.aspx%3Frun%3Dno-session%26k%3DB%26ms%3D800&u=/NoSession.aspx%3Frun%3Dno-session%26k%3DC%26ms%3D800&u=/NoSession.aspx%3Frun%3Dno-session%26k%3DD%26ms%3D800"
+    },
+    {
+      "action": "goto",
+      "path": "/Show.aspx?run=no-session"
+    },
+    {
+      "action": "snapshot",
+      "name": "run-no-session"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?p=1&t=1&u=/Slow.aspx%3Frun%3Da-writer-and-no-session%26k%3DW%26ms%3D800&u=/NoSession.aspx%3Frun%3Da-writer-and-no-session%26k%3DN%26ms%3D800"
+    },
+    {
+      "action": "goto",
+      "path": "/Show.aspx?run=a-writer-and-no-session"
+    },
+    {
+      "action": "snapshot",
+      "name": "run-a-writer-and-no-session"
+    }
+  ]
+}

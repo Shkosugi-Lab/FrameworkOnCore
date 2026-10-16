@@ -1,0 +1,432 @@
+{
+  "Localize.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "Localize.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'Literal' cannot have children of type 'String'.\""
+  ],
+  "Localize.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "Localize.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Localize.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Localize.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "Localize.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.ClientID": [
+    "Control.ClientID = \"locText\""
+  ],
+  "Localize.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "Localize.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "Localize.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "Localize.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "Localize.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "Localize.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "Localize.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "Localize.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "Localize.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "Localize.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "Localize.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "Localize.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "Localize.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.Focus": [
+    "Control.Focus = \"-> System.NotSupportedException: Control of type 'Localize' does not support the Focus operation.\""
+  ],
+  "Localize.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Localize.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"locText\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "Localize.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.ID": [
+    "Control.ID = \"locText\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "Localize.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "Localize.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "Localize.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "Localize.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "Localize.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "Localize.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "Localize.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "Localize.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "Localize.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Localize.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Localize.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Localize.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Localize.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "Localize.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <b>localized</b>",
+    "Control.Render(HtmlTextWriter) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <b>localized</b>",
+    "Control.RenderControl(HtmlTextWriter) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <b>localized</b>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "Localize.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "Localize.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "Localize.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Localize.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "Localize.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.Control.UniqueID": [
+    "Control.UniqueID = \"locText\""
+  ],
+  "Localize.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "Localize.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "Localize.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [Text=\"<b>localized</b>\"]"
+  ],
+  "Localize.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "Localize.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "Localize.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "Localize.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "Localize.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "Localize.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "Localize.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "Localize.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "Localize.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "Localize.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'Literal' cannot have children of type 'String'.\""
+  ],
+  "Localize.Api.ITextControl.Text": [
+    "ITextControl.Text = \"<b>localized</b>\"",
+    "ITextControl.Text set = \"Abc 123\""
+  ],
+  "Localize.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.WebControls.Literal.#ctor": [
+    "Literal.#ctor = Literal# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; Mode=Transform; SkinID=\"\"; Text=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.WebControls.Literal.AddParsedSubObject": [
+    "Literal.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'Literal' cannot have children of type 'String'.\""
+  ],
+  "Localize.Api.WebControls.Literal.CreateControlCollection": [
+    "Literal.CreateControlCollection = ControlCollection []",
+    "Literal.CreateControlCollection after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.WebControls.Literal.Focus": [
+    "Literal.Focus = \"-> System.NotSupportedException: Control of type 'Localize' does not support the Focus operation.\""
+  ],
+  "Localize.Api.WebControls.Literal.Mode": [
+    "Literal.Mode = \"LiteralMode.Transform\"",
+    "Literal.Mode set = \"LiteralMode.PassThrough\""
+  ],
+  "Localize.Api.WebControls.Literal.Render": [
+    "Literal.Render(HtmlTextWriter) = \"ok\"",
+    "Literal.Render(HtmlTextWriter) writer:",
+    "  | <b>localized</b>",
+    "Literal.Render(HtmlTextWriter) after = Localize#locText {ClientID=\"locText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"locText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>localized</b>\"; UniqueID=\"locText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Localize.Api.WebControls.Literal.Text": [
+    "Literal.Text = \"<b>localized</b>\"",
+    "Literal.Text set = \"Abc 123\""
+  ],
+  "Localize.Api.WebControls.Localize.#ctor": [
+    "Localize.#ctor = Localize# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; Mode=Transform; SkinID=\"\"; Text=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ]
+}

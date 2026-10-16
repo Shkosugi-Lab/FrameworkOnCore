@@ -1,0 +1,781 @@
+{
+  "DeclarativeCatalogPart.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "DeclarativeCatalogPart.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.ClientID": [
+    "Control.ClientID = \"dcpProbe\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "DeclarativeCatalogPart.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "DeclarativeCatalogPart.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "DeclarativeCatalogPart.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "DeclarativeCatalogPart.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"false\"",
+    "Control.EnableTheming set = \"-> System.NotSupportedException: Control of type 'DeclarativeCatalogPart' does not support theming.\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.FindControl": [
+    "Control.FindControl(String) = null",
+    "Control.FindControl(String) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "Control.GetDesignModeState after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"dcpProbe\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.ID": [
+    "Control.ID = \"dcpProbe\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"-> System.InvalidOperationException: CatalogPart 'dcpProbe' must be placed in a CatalogZone.\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.Parent": [
+    "Control.Parent = PlaceHolder# {ClientID=\"ctl00\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"ctl00\"; SkinID=\"\"; UniqueID=\"ctl00\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.Render(HtmlTextWriter) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "DeclarativeCatalogPart.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"-> System.NotSupportedException: Control of type 'DeclarativeCatalogPart' does not support theming.\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.Control.UniqueID": [
+    "Control.UniqueID = \"dcpProbe\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "DeclarativeCatalogPart.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "DeclarativeCatalogPart.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "DeclarativeCatalogPart.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=true; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "DeclarativeCatalogPart.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "DeclarativeCatalogPart.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "DeclarativeCatalogPart.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "DeclarativeCatalogPart.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "DeclarativeCatalogPart.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "DeclarativeCatalogPart.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.ICompositeControlDesignerAccessor.RecreateChildControls": [
+    "ICompositeControlDesignerAccessor.RecreateChildControls = \"ok\"",
+    "ICompositeControlDesignerAccessor.RecreateChildControls after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.Panel.#ctor": [
+    "Panel.#ctor = Panel# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Direction=NotSet; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=null; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.Panel.AddAttributesToRender": [
+    "Panel.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "Panel.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "Panel.AddAttributesToRender(HtmlTextWriter) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.Panel.BackImageUrl": [
+    "Panel.BackImageUrl = \"\"",
+    "Panel.BackImageUrl set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.Panel.CreateControlStyle": [
+    "Panel.CreateControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}",
+    "Panel.CreateControlStyle after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.Panel.DefaultButton": [
+    "Panel.DefaultButton = \"\"",
+    "Panel.DefaultButton set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.Panel.Direction": [
+    "Panel.Direction = \"ContentDirection.NotSet\"",
+    "Panel.Direction set = \"ContentDirection.LeftToRight\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.Panel.GroupingText": [
+    "Panel.GroupingText = \"\"",
+    "Panel.GroupingText set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.Panel.HorizontalAlign": [
+    "Panel.HorizontalAlign = \"HorizontalAlign.NotSet\"",
+    "Panel.HorizontalAlign set = \"HorizontalAlign.Left\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.Panel.RenderBeginTag": [
+    "Panel.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "Panel.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <div id=\"dcpProbe\">",
+    "  | ",
+    "Panel.RenderBeginTag(HtmlTextWriter) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.Panel.RenderEndTag": [
+    "Panel.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.Panel.ScrollBars": [
+    "Panel.ScrollBars = \"ScrollBars.None\"",
+    "Panel.ScrollBars set = \"ScrollBars.Horizontal\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.Panel.SupportsDisabledAttribute": [
+    "Panel.SupportsDisabledAttribute = \"false\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.Panel.Wrap": [
+    "Panel.Wrap = \"true\"",
+    "Panel.Wrap set = \"true\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}",
+    "WebControl.CreateControlStyle after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"false\"",
+    "WebControl.EnableTheming set = \"-> System.NotSupportedException: Control of type 'DeclarativeCatalogPart' does not support theming.\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"ok\"",
+    "WebControl.Render(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.Render(HtmlTextWriter) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <div id=\"dcpProbe\">",
+    "  | ",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.RenderContents(HtmlTextWriter) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"-> System.NotSupportedException: Control of type 'DeclarativeCatalogPart' does not support theming.\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Div\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"div\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.CatalogPart.#ctor": [
+    "WebParts.CatalogPart.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.WebParts.CatalogPart because it is an abstract class.\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.CatalogPart.DisplayTitle": [
+    "WebParts.CatalogPart.DisplayTitle = \"Declarative Catalog\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.CatalogPart.GetAvailableWebPartDescriptions": [
+    "WebParts.CatalogPart.GetAvailableWebPartDescriptions = \"[]\"",
+    "WebParts.CatalogPart.GetAvailableWebPartDescriptions after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.CatalogPart.GetDesignModeState": [
+    "WebParts.CatalogPart.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "WebParts.CatalogPart.GetDesignModeState after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.CatalogPart.GetWebPart": [
+    "WebParts.CatalogPart.GetWebPart(WebParts.WebPartDescription) = \"-> System.ArgumentException: Unknown description. [param description]\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.CatalogPart.OnPreRender": [
+    "WebParts.CatalogPart.OnPreRender(EventArgs) = \"-> System.InvalidOperationException: CatalogPart 'dcpProbe' must be placed in a CatalogZone.\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.CatalogPart.SetDesignModeState": [
+    "WebParts.CatalogPart.SetDesignModeState(IDictionary) = \"ok\"",
+    "WebParts.CatalogPart.SetDesignModeState(IDictionary) after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.CatalogPart.WebPartManager": [
+    "WebParts.CatalogPart.WebPartManager = null"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.CatalogPart.Zone": [
+    "WebParts.CatalogPart.Zone = null"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.#ctor": [
+    "WebParts.DeclarativeCatalogPart.#ctor = DeclarativeCatalogPart# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=null; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.AccessKey": [
+    "WebParts.DeclarativeCatalogPart.AccessKey = \"\"",
+    "WebParts.DeclarativeCatalogPart.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.BackColor": [
+    "WebParts.DeclarativeCatalogPart.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebParts.DeclarativeCatalogPart.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.BackImageUrl": [
+    "WebParts.DeclarativeCatalogPart.BackImageUrl = \"\"",
+    "WebParts.DeclarativeCatalogPart.BackImageUrl set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.BorderColor": [
+    "WebParts.DeclarativeCatalogPart.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebParts.DeclarativeCatalogPart.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.BorderStyle": [
+    "WebParts.DeclarativeCatalogPart.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebParts.DeclarativeCatalogPart.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.BorderWidth": [
+    "WebParts.DeclarativeCatalogPart.BorderWidth = Unit ",
+    "WebParts.DeclarativeCatalogPart.BorderWidth set = Unit 120px"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.CssClass": [
+    "WebParts.DeclarativeCatalogPart.CssClass = \"\"",
+    "WebParts.DeclarativeCatalogPart.CssClass set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.DefaultButton": [
+    "WebParts.DeclarativeCatalogPart.DefaultButton = \"\"",
+    "WebParts.DeclarativeCatalogPart.DefaultButton set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.Direction": [
+    "WebParts.DeclarativeCatalogPart.Direction = \"ContentDirection.NotSet\"",
+    "WebParts.DeclarativeCatalogPart.Direction set = \"ContentDirection.LeftToRight\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.EnableTheming": [
+    "WebParts.DeclarativeCatalogPart.EnableTheming = \"false\"",
+    "WebParts.DeclarativeCatalogPart.EnableTheming set = \"-> System.NotSupportedException: Control of type 'DeclarativeCatalogPart' does not support theming.\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.Enabled": [
+    "WebParts.DeclarativeCatalogPart.Enabled = \"true\"",
+    "WebParts.DeclarativeCatalogPart.Enabled set = \"true\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.Font": [
+    "WebParts.DeclarativeCatalogPart.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.ForeColor": [
+    "WebParts.DeclarativeCatalogPart.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebParts.DeclarativeCatalogPart.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.GetAvailableWebPartDescriptions": [
+    "WebParts.DeclarativeCatalogPart.GetAvailableWebPartDescriptions = \"[]\"",
+    "WebParts.DeclarativeCatalogPart.GetAvailableWebPartDescriptions after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.GetWebPart": [
+    "WebParts.DeclarativeCatalogPart.GetWebPart(WebParts.WebPartDescription) = \"-> System.ArgumentException: Unknown description. [param description]\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.GroupingText": [
+    "WebParts.DeclarativeCatalogPart.GroupingText = \"\"",
+    "WebParts.DeclarativeCatalogPart.GroupingText set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.Height": [
+    "WebParts.DeclarativeCatalogPart.Height = Unit ",
+    "WebParts.DeclarativeCatalogPart.Height set = Unit 120px"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.HorizontalAlign": [
+    "WebParts.DeclarativeCatalogPart.HorizontalAlign = \"HorizontalAlign.NotSet\"",
+    "WebParts.DeclarativeCatalogPart.HorizontalAlign set = \"HorizontalAlign.Left\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.ScrollBars": [
+    "WebParts.DeclarativeCatalogPart.ScrollBars = \"ScrollBars.None\"",
+    "WebParts.DeclarativeCatalogPart.ScrollBars set = \"ScrollBars.Horizontal\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.SkinID": [
+    "WebParts.DeclarativeCatalogPart.SkinID = \"\"",
+    "WebParts.DeclarativeCatalogPart.SkinID set = \"-> System.NotSupportedException: Control of type 'DeclarativeCatalogPart' does not support theming.\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.TabIndex": [
+    "WebParts.DeclarativeCatalogPart.TabIndex = \"Int16 0\"",
+    "WebParts.DeclarativeCatalogPart.TabIndex set = \"Int16 1\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.Title": [
+    "WebParts.DeclarativeCatalogPart.Title = \"Declarative Catalog\"",
+    "WebParts.DeclarativeCatalogPart.Title set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.ToolTip": [
+    "WebParts.DeclarativeCatalogPart.ToolTip = \"\"",
+    "WebParts.DeclarativeCatalogPart.ToolTip set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.Visible": [
+    "WebParts.DeclarativeCatalogPart.Visible = \"true\"",
+    "WebParts.DeclarativeCatalogPart.Visible set = \"true\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.WebPartsListUserControlPath": [
+    "WebParts.DeclarativeCatalogPart.WebPartsListUserControlPath = \"\"",
+    "WebParts.DeclarativeCatalogPart.WebPartsListUserControlPath set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.WebPartsTemplate": [
+    "WebParts.DeclarativeCatalogPart.WebPartsTemplate = null",
+    "WebParts.DeclarativeCatalogPart.WebPartsTemplate set = null"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.Width": [
+    "WebParts.DeclarativeCatalogPart.Width = Unit ",
+    "WebParts.DeclarativeCatalogPart.Width set = Unit 120px"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.DeclarativeCatalogPart.Wrap": [
+    "WebParts.DeclarativeCatalogPart.Wrap = \"true\"",
+    "WebParts.DeclarativeCatalogPart.Wrap set = \"true\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.Part.ChromeState": [
+    "WebParts.Part.ChromeState = \"PartChromeState.Normal\"",
+    "WebParts.Part.ChromeState set = \"PartChromeState.Minimized\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.Part.ChromeType": [
+    "WebParts.Part.ChromeType = \"PartChromeType.Default\"",
+    "WebParts.Part.ChromeType set = \"PartChromeType.TitleAndBorder\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.Part.Controls": [
+    "WebParts.Part.Controls = ControlCollection []"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.Part.DataBind": [
+    "WebParts.Part.DataBind = \"ok\"",
+    "WebParts.Part.DataBind after = DeclarativeCatalogPart#dcpProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"dcpProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Declarative Catalog\"; EnableTheming=false; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dcpProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Declarative Catalog\"; ToolTip=\"\"; UniqueID=\"dcpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; WebPartsListUserControlPath=\"\"; Width=; Wrap=true}"
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.Part.Description": [
+    "WebParts.Part.Description = \"\"",
+    "WebParts.Part.Description set = \"Abc 123\""
+  ],
+  "DeclarativeCatalogPart.Api.WebControls.WebParts.Part.Title": [
+    "WebParts.Part.Title = \"Declarative Catalog\"",
+    "WebParts.Part.Title set = \"Abc 123\""
+  ]
+}

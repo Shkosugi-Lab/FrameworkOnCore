@@ -1,0 +1,193 @@
+{
+  "_comment": "The FormView's scenario layer (FormViewScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/FormViewScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [render][databind][datasource][datasourceid][templates][dynamic] first request"
+    },
+    {
+      "action": "clicktextin",
+      "target": "fvManual",
+      "value": "2"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [paging][postbackevent] the page's form view: page 2"
+    },
+    {
+      "action": "clicktextin",
+      "target": "fvManual",
+      "value": "Like"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [rowcommand] a command bubbled to ItemCommand"
+    },
+    {
+      "action": "clicktextin",
+      "target": "fvManual",
+      "value": "Edit"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [editing] edit mode"
+    },
+    {
+      "action": "fill",
+      "target": "txtFvName",
+      "value": "Renamed"
+    },
+    {
+      "action": "fill",
+      "target": "txtFvPrice",
+      "value": "9.5"
+    },
+    {
+      "action": "clicktextin",
+      "target": "fvManual",
+      "value": "Update"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [editing][bind][datakeys] updated: keys, old and new values"
+    },
+    {
+      "action": "clicktextin",
+      "target": "fvManual",
+      "value": "New"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [inserting] insert mode"
+    },
+    {
+      "action": "fill",
+      "target": "txtFvNewCode",
+      "value": "N9"
+    },
+    {
+      "action": "fill",
+      "target": "txtFvNewName",
+      "value": "New item"
+    },
+    {
+      "action": "fill",
+      "target": "txtFvNewPrice",
+      "value": "4"
+    },
+    {
+      "action": "clicktextin",
+      "target": "fvManual",
+      "value": "Insert"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [inserting][bind] inserted"
+    },
+    {
+      "action": "clicktextin",
+      "target": "fvManual",
+      "value": "Delete"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [editing][datakeys] deleted"
+    },
+    {
+      "action": "clicktextin",
+      "target": "fvAuto",
+      "value": "3"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [paging][datasourceid] the data source's form view: page 3"
+    },
+    {
+      "action": "clicktextin",
+      "target": "fvAuto",
+      "value": "Edit"
+    },
+    {
+      "action": "fill",
+      "target": "txtFaName",
+      "value": "Auto renamed"
+    },
+    {
+      "action": "clicktextin",
+      "target": "fvAuto",
+      "value": "Update"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [editing][datasourceid] updated through the data source"
+    },
+    {
+      "action": "clicktextin",
+      "target": "fvAuto",
+      "value": "New"
+    },
+    {
+      "action": "fill",
+      "target": "txtFaNewCode",
+      "value": "A8"
+    },
+    {
+      "action": "fill",
+      "target": "txtFaNewName",
+      "value": "Auto new"
+    },
+    {
+      "action": "fill",
+      "target": "txtFaNewPrice",
+      "value": "7"
+    },
+    {
+      "action": "clicktextin",
+      "target": "fvAuto",
+      "value": "Insert"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [inserting][datasourceid] inserted through the data source"
+    },
+    {
+      "action": "clicktextin",
+      "target": "fvAuto",
+      "value": "Delete"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [editing][datasourceid] deleted through the data source"
+    },
+    {
+      "action": "clicktextin",
+      "target": "fvDynamic",
+      "value": "2"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [dynamic][paging] the dynamic form view: page 2"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [viewstate] posted (the one without view state is empty)"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "FormView [visible][viewstate] the hidden form view shown"
+    }
+  ]
+}

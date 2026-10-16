@@ -382,8 +382,8 @@ namespace System.Web.Hosting {
             _appPhysPath = Thread.GetDomain().GetData(".appPath").ToString();
             _appVirtPath = Thread.GetDomain().GetData(".appVPath").ToString();
 #else
-			_appPhysPath = ApplicationManager.GetLoadContextData(".appPath").ToString();
-			_appVirtPath = ApplicationManager.GetLoadContextData(".appVPath").ToString();
+			_appPhysPath = ApplicationManager.GetLoadContextData(".appPath", ApplicationManager.SystemWebLoadContext).ToString();
+			_appVirtPath = ApplicationManager.GetLoadContextData(".appVPath", ApplicationManager.SystemWebLoadContext).ToString();
 #endif
 			_installDir = HttpRuntime.AspInstallDirectoryInternal;
 
@@ -407,7 +407,7 @@ namespace System.Web.Hosting {
                 throw new HttpException(SR.GetString(SR.Wrong_SimpleWorkerRequest));
             }
 #else
-			if (ApplicationManager.GetLoadContextData(".appPath") != null)
+			if (ApplicationManager.GetLoadContextData(".appPath", ApplicationManager.SystemWebLoadContext) != null)
 			{
 				throw new HttpException(SR.GetString(SR.Wrong_SimpleWorkerRequest));
 			}

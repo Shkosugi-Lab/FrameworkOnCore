@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-        <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+        <TargetFrameworks>net10.0</TargetFrameworks>
         <ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>disable</Nullable>
 		<LangVersion>11</LangVersion>
@@ -61,12 +61,9 @@
     </ItemGroup>
 
     <!-- The same System.Data.SqlClient the converter gives converted applications: FrameworkOnCore's (|DataDirectory| as
-         .NET Framework's) on net10.0, which it is built for; Microsoft's package on net8.0. -->
-    <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+         .NET Framework's). -->
+    <ItemGroup>
         <ProjectReference Include="..\WebFormsForCore.Data.SqlClient\WebFormsForCore.Data.SqlClient.csproj" />
-    </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)' != 'net10.0'">
-        <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
     </ItemGroup>
 
     <Import Project="..\..\lib\WebFormsForCore.Build\netstandard2.0\FakeStrongName.targets" />

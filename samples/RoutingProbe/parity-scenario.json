@@ -1,0 +1,30 @@
+{
+  "_comment": "URLs that are not files: a page by route (a value, the default, a catch-all), a postback to the route's URL, a route handler of the application's, a constraint no URL meets, RewritePath, urlMappings, the page by its own path; redirects to routes; the answers' status and where they redirect (Check.htm and the links).",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/products/5" },
+    { "action": "snapshot", "name": "route-products/5" },
+    { "action": "fill", "target": "txtValue", "value": "posted" },
+    { "action": "click", "target": "btnPost" },
+    { "action": "snapshot", "name": "route-a postback to the route's URL" },
+    { "action": "goto", "path": "/products" },
+    { "action": "snapshot", "name": "route-the default value" },
+    { "action": "goto", "path": "/catalog/books/a/b/c" },
+    { "action": "snapshot", "name": "route-a catch-all" },
+    { "action": "goto", "path": "/api/widgets" },
+    { "action": "snapshot", "name": "route-a route handler of the application's" },
+    { "action": "goto", "path": "/old/item-3" },
+    { "action": "snapshot", "name": "rewrite-RewritePath in BeginRequest" },
+    { "action": "goto", "path": "/Home.aspx" },
+    { "action": "snapshot", "name": "rewrite-urlMappings" },
+    { "action": "goto", "path": "/Product.aspx" },
+    { "action": "snapshot", "name": "route-the page by its own path: no route data" },
+    { "action": "goto", "path": "/Check.htm?h=location&u=/products/abc&u=/products/5/x&u=/Product.aspx%3Fgo%3Droute&u=/Product.aspx%3Fgo%3Dpermanent&u=/nothing/here&u=/WebResource.axd" },
+    { "action": "snapshot", "name": "route-the answers: a constraint not met, redirects to routes, no route" }
+  ],
+  "crawl": {
+    "max": 20,
+    "depth": 0,
+    "urls": [ "/products/abc", "/products/5/x", "/Product.aspx?go=route", "/Product.aspx?go=permanent", "/nothing/here", "/api/x" ]
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "_comment": "The GridView's scenario layer (GridViewScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/GridViewScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [render][databind][datasource][datasourceid][templates][dynamic] first request"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvManual",
+      "value": "2"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [paging][postbackevent] the page's grid: page 2"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvManual",
+      "value": "Name"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [sorting] sorted by name"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvManual",
+      "value": "Name"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [sorting][viewstate] sorted by name again: descending (the page's)"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvManual",
+      "value": "Select"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [selection][datakeys] the first row selected"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvManual",
+      "value": "Pick"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [rowcommand] a ButtonField's command"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvManual",
+      "value": "Edit"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [editing] the first row edited"
+    },
+    {
+      "action": "fill",
+      "target": "txtNameEdit",
+      "value": "Renamed"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvManual",
+      "value": "Update"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [editing][bind][datakeys] updated: keys, old and new values"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvManual",
+      "value": "Edit"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvManual",
+      "value": "Cancel"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [editing] edit cancelled"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvManual",
+      "value": "Delete"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [editing][datakeys] the first row deleted"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvAuto",
+      "value": "2"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [paging][datasourceid] the data source's grid: page 2"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvAuto",
+      "value": "Price"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [sorting][datasourceid] sorted by price (the grid's own direction)"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvAuto",
+      "value": "Price"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [sorting][datasourceid] sorted by price again: descending"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvAuto",
+      "value": "Select"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [selection][datasourceid] a row selected"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvAuto",
+      "value": "Edit"
+    },
+    {
+      "action": "evaluate",
+      "target": "gvAuto",
+      "value": "e.querySelector('input[type=text]').value = 'Auto renamed';"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvAuto",
+      "value": "Update"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [editing][datasourceid] updated through the data source"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvAuto",
+      "value": "Delete"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [editing][datasourceid] deleted through the data source"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvCallback",
+      "value": "2"
+    },
+    {
+      "action": "waitms",
+      "ms": 1500
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [callback][paging] paged by a callback: no postback"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvCallback",
+      "value": "Code"
+    },
+    {
+      "action": "waitms",
+      "ms": 1500
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [callback][sorting] sorted by a callback"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [viewstate] posted (the grid without view state is empty)"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "GridView [visible][viewstate] the hidden grid shown with its rows"
+    }
+  ]
+}

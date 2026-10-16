@@ -464,9 +464,21 @@ __ALIAS__
         $program = Get-Content (Join-Path $PSScriptRoot 'Program.cs.txt') -Raw -Encoding UTF8
         $routes = $packages.Contains('Microsoft.AspNet.FriendlyUrls') -or
                   (Get-ChildItem $target -Filter *.cs -Recurse | Select-String -Pattern 'RouteTable\.Routes|RouteCollection' -List -Quiet)
-        if ($routes) {
-            $program = $program.Replace('options => options.UseAspNetCoreSessionProvider()', 'options => options.HandleAllRequestsWithWebForms().UseAspNetCoreSessionProvider()')
+        # The session state as web.config has it (as the converter does): InProc (the default), Off, Custom: System.Web's
+        # own, in the process as on IIS; StateServer, SQLServer: ASP.NET Core's session, which serializes as they do.
+        $sessionMode = 'InProc'
+        $webConfig = Get-ChildItem $target -Filter web.config | Select-Object -First 1
+        if ($webConfig) {
+            try { $mode = ([xml](Get-Content $webConfig.FullName -Raw)).configuration.'system.web'.sessionState.mode; if ($mode) { $sessionMode = $mode } } catch { }
         }
+        $options = @()
+        if ($routes) { $options += 'HandleAllRequestsWithWebForms()' }
+        if ($sessionMode -in 'StateServer', 'SQLServer') { $options += 'UseAspNetCoreSessionProvider()' }
+        else {
+            $program = $program -replace '(?m)^\s*builder\.Services\.AddDistributedMemoryCache\(\);\r?\n', '' -replace '(?m)^\s*builder\.Services\.AddSession\(\);\r?\n', '' -replace '(?m)^\s*app\.UseSession\(\);\r?\n', ''
+        }
+        $program = $program.Replace('app.UseWebForms(options => options.UseAspNetCoreSessionProvider());',
+            $(if ($options.Count -eq 0) { 'app.UseWebForms();' } else { 'app.UseWebForms(options => options.' + ($options -join '.') + ');' }))
         Set-Content (Join-Path $target 'Program.cs') $program -Encoding UTF8
 
         if ($CultureProfile) {

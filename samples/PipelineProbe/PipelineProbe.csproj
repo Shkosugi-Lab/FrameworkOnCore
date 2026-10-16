@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- The request's way through the application as IIS runs it, against the converted application's
+       (experiments/wf4c/sample-parity.ps1): Global.asax's and a module's events and the page's, in order; handlers of
+       web.config's (synchronous and asynchronous); Server.Transfer, Server.Execute, Response.End; the errors: customErrors'
+       pages (a 404 its own), Application_Error, Page_Error; the answers' status and headers (Check.htm). -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3B8E5F21-6C4A-4D97-A0E3-58F1C2D9B746}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>PipelineProbe</RootNamespace>
+    <AssemblyName>PipelineProbe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AsyncPage.aspx" />
+    <Content Include="Check.htm" />
+    <Content Include="Events.aspx" />
+    <Content Include="Transfer.aspx" />
+    <Content Include="Target.aspx" />
+    <Content Include="Throw.aspx" />
+    <Content Include="Handled.aspx" />
+    <Content Include="Errors\Oops.aspx" />
+    <Content Include="Errors\NotFound.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Events.aspx.cs">
+      <DependentUpon>Events.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events.aspx.designer.cs">
+      <DependentUpon>Events.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transfer.aspx.cs">
+      <DependentUpon>Transfer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transfer.aspx.designer.cs">
+      <DependentUpon>Transfer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ProbeModule.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

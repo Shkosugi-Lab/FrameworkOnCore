@@ -1,0 +1,60 @@
+DataPager.(default)	(nothing set)
+DataPager.AppRelativeTemplateSourceDirectory=text	c.AppRelativeTemplateSourceDirectory = "probe";
+DataPager.AppRelativeTemplateSourceDirectory=markup	c.AppRelativeTemplateSourceDirectory = "<b>\"&'</b>";
+DataPager.AppRelativeTemplateSourceDirectory=japanese	c.AppRelativeTemplateSourceDirectory = "日本語テキスト";
+DataPager.AppRelativeTemplateSourceDirectory=empty	c.AppRelativeTemplateSourceDirectory = "";
+DataPager.ClientIDMode=Inherit	c.ClientIDMode = ClientIDMode.Inherit;
+DataPager.ClientIDMode=AutoID	c.ClientIDMode = ClientIDMode.AutoID;
+DataPager.ClientIDMode=Predictable	c.ClientIDMode = ClientIDMode.Predictable;
+DataPager.ClientIDMode=Static	c.ClientIDMode = ClientIDMode.Static;
+DataPager.EnableTheming=true	c.EnableTheming = true;
+DataPager.EnableTheming=false	c.EnableTheming = false;
+DataPager.EnableViewState=true	c.EnableViewState = true;
+DataPager.EnableViewState=false	c.EnableViewState = false;
+DataPager.ID=text	c.ID = "probe";
+DataPager.ID=markup	c.ID = "<b>\"&'</b>";
+DataPager.ID=japanese	c.ID = "日本語テキスト";
+DataPager.ID=empty	c.ID = "";
+DataPager.PageSize=0	c.PageSize = 0;
+DataPager.PageSize=3	c.PageSize = 3;
+DataPager.PageSize=-1	c.PageSize = -1;
+DataPager.PagedControlID=text	c.PagedControlID = "probe";
+DataPager.PagedControlID=markup	c.PagedControlID = "<b>\"&'</b>";
+DataPager.PagedControlID=japanese	c.PagedControlID = "日本語テキスト";
+DataPager.PagedControlID=empty	c.PagedControlID = "";
+DataPager.PagedControlID=list	c.PagedControlID = "lvPaged";
+DataPager.QueryStringField=text	c.QueryStringField = "probe";
+DataPager.QueryStringField=markup	c.QueryStringField = "<b>\"&'</b>";
+DataPager.QueryStringField=japanese	c.QueryStringField = "日本語テキスト";
+DataPager.QueryStringField=empty	c.QueryStringField = "";
+DataPager.SkinID=text	c.SkinID = "probe";
+DataPager.SkinID=markup	c.SkinID = "<b>\"&'</b>";
+DataPager.SkinID=japanese	c.SkinID = "日本語テキスト";
+DataPager.SkinID=empty	c.SkinID = "";
+DataPager.ValidateRequestMode=Inherit	c.ValidateRequestMode = ValidateRequestMode.Inherit;
+DataPager.ValidateRequestMode=Disabled	c.ValidateRequestMode = ValidateRequestMode.Disabled;
+DataPager.ValidateRequestMode=Enabled	c.ValidateRequestMode = ValidateRequestMode.Enabled;
+DataPager.ViewStateMode=Inherit	c.ViewStateMode = ViewStateMode.Inherit;
+DataPager.ViewStateMode=Enabled	c.ViewStateMode = ViewStateMode.Enabled;
+DataPager.ViewStateMode=Disabled	c.ViewStateMode = ViewStateMode.Disabled;
+DataPager.Visible=true	c.Visible = true;
+DataPager.Visible=false	c.Visible = false;
+DataPager.Attributes[data-probe]=text	c.Attributes[data-probe] = "probe";
+DataPager.Attributes[onfocus]=text	c.Attributes[onfocus] = "probe";
+DataPager.Attributes[data-probe]=markup	c.Attributes[data-probe] = "<b>\"&'</b>";
+DataPager.Attributes[onfocus]=markup	c.Attributes[onfocus] = "<b>\"&'</b>";
+DataPager.QueryStringField=text+PageSize=3	c.QueryStringField = "probe"; c.PageSize = 3;
+DataPager.PageSize=3+Visible=false	c.PageSize = 3; c.Visible = false;
+DataPager.PageSize=3+EnableViewState=false	c.PageSize = 3; c.EnableViewState = false;
+DataPager[naming container].(default)	[naming container] (nothing set)
+DataPager[naming container].ClientIDMode=AutoID	[naming container] c.ClientIDMode = ClientIDMode.AutoID;
+DataPager[naming container].ClientIDMode=Static	[naming container] c.ClientIDMode = ClientIDMode.Static;
+DataPager[naming container].ClientIDMode=Predictable	[naming container] c.ClientIDMode = ClientIDMode.Predictable;
+DataPager[naming container].ClientIDMode=Inherit	[naming container] c.ClientIDMode = ClientIDMode.Inherit;
+DataPager[naming container].ID=text	[naming container] c.ID = "probe";
+DataPager[themed].(default)	[themed] (nothing set)
+DataPager[themed].SkinID=text	[themed] c.SkinID = "probe";
+DataPager[themed].EnableTheming=false	[themed] c.EnableTheming = false;
+DataPager[next-previous].(default)	[next-previous] (nothing set)
+DataPager[next-previous].PageSize=3	[next-previous] c.PageSize = 3;
+DataPager[template].(default)	[template] (nothing set)

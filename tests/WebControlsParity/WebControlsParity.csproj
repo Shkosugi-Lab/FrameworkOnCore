@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The component parity of System.Web's controls (docs: README.md): the API layer, compiled twice: net48 against .NET
+       Framework's System.Web (the old: parity.ps1 -Record writes the goldens from it) and net10.0 against the port,
+       FrameworkOnCore's FrameworkOnCore.Web package (the new), as converted applications get it: from FrameworkOnCore's
+       feed, FrameworkOnCore's System.Web over .NET's facade of the same name. The net10.0 build also compares: the
+       rendering layer's pages (fetched from the probe site, samples/WebControlsProbe) and every layer's goldens, into
+       the Markdown reports (reports/). -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net48;net10.0</TargetFrameworks>
+    <LangVersion>9</LangVersion>
+    <!-- 64-bit on .NET Framework too (an AnyCPU exe prefers 32-bit there): as .NET runs the port, as IIS runs sites. -->
+    <Prefer32Bit>false</Prefer32Bit>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>FrameworkOnCore.WebControlsParity</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <!-- CA1416: System.Drawing (the styles' colors) on Linux too. CS0618, SYSLIB: the API's own obsolete members, called as they are. -->
+    <NoWarn>$(NoWarn);CA1416;CS0618;SYSLIB0011;SYSLIB0051</NoWarn>
+    <!-- FrameworkOnCore's version the tests run the port of (rules/packages.json frameworkOnCoreVersion). -->
+    <FrameworkOnCoreVersion Condition="'$(FrameworkOnCoreVersion)' == ''">1.6.5-w2l.15</FrameworkOnCoreVersion>
+    <RestoreAdditionalProjectSources>$(MSBuildThisFileDirectory)..\..\experiments\wf4c\_feed</RestoreAdditionalProjectSources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Parity.Core\Parity.Core.csproj" />
+    <!-- How System.Drawing's values are written: the System.Drawing parity cases'. -->
+    <Compile Include="..\DrawingParity\Describe.cs" Link="Drawing\Describe.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <!-- The comparisons run on .NET only (they fetch from the probe site and read the goldens). -->
+    <Compile Remove="RenderLayer.cs;Report.cs;Mechanisms.cs" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="FrameworkOnCore.Web" Version="$(FrameworkOnCoreVersion)" />
+    <PackageReference Include="FrameworkOnCore.Web.Extensions" Version="$(FrameworkOnCoreVersion)" />
+    <!-- Windows' culture data (NLS), as converted applications have it (their runtimeconfig). -->
+    <RuntimeHostConfigurationOption Include="System.Globalization.UseNls" Value="true" />
+  </ItemGroup>
+
+  <!-- As the converter writes it into converted projects: FrameworkOnCore's System.Web, not .NET's facade of the same name. -->
+  <Target Name="WithoutNetSystemWeb" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences" Condition="'$(TargetFramework)' == 'net10.0'">
+    <ItemGroup>
+      <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'[/\x5C]dotnet[/\x5C]'))" />
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <None Remove="golden\**;reports\**" />
+    <None Include="golden\**\api.golden.txt" CopyToOutputDirectory="PreserveNewest" LinkBase="golden" />
+  </ItemGroup>
+</Project>

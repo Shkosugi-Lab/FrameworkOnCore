@@ -1,0 +1,512 @@
+{
+  "HtmlVideo.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HtmlVideo.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HtmlVideo.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlVideo.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HtmlVideo.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.ClientID": [
+    "Control.ClientID = \"vidProbe\""
+  ],
+  "HtmlVideo.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HtmlVideo.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HtmlVideo.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HtmlVideo.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "HtmlVideo.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HtmlVideo.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HtmlVideo.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HtmlVideo.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HtmlVideo.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HtmlVideo.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "HtmlVideo.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HtmlVideo.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HtmlVideo.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "HtmlVideo.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlVideo.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"vidProbe\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HtmlVideo.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.ID": [
+    "Control.ID = \"vidProbe\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HtmlVideo.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HtmlVideo.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HtmlVideo.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HtmlVideo.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HtmlVideo.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HtmlVideo.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HtmlVideo.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlVideo.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HtmlVideo.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlVideo.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlVideo.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HtmlVideo.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <video src=\"~/Media/probe.mp4\" poster=\"~/Images/probe.png\" id=\"vidProbe\"></video>",
+    "Control.Render(HtmlTextWriter) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <video src=\"~/Media/probe.mp4\" poster=\"~/Images/probe.png\" id=\"vidProbe\"></video>",
+    "Control.RenderControl(HtmlTextWriter) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <video src=\"~/Media/probe.mp4\" poster=\"~/Images/probe.png\" id=\"vidProbe\"></video>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HtmlVideo.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HtmlVideo.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "HtmlVideo.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HtmlVideo.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.Control.UniqueID": [
+    "Control.UniqueID = \"vidProbe\""
+  ],
+  "HtmlVideo.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HtmlVideo.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HtmlVideo.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [poster=\"~/Images/probe.png\", src=\"~/Media/probe.mp4\"]"
+  ],
+  "HtmlVideo.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlVideo.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HtmlVideo.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlContainerControl.#ctor": [
+    "HtmlControls.HtmlContainerControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlContainerControl because it is an abstract class.\"",
+    "HtmlControls.HtmlContainerControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlContainerControl because it is an abstract class.\""
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlContainerControl.CreateControlCollection": [
+    "HtmlControls.HtmlContainerControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlContainerControl.CreateControlCollection after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlContainerControl.InnerHtml": [
+    "HtmlControls.HtmlContainerControl.InnerHtml = \"\"",
+    "HtmlControls.HtmlContainerControl.InnerHtml set = \"Abc 123\""
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlContainerControl.InnerText": [
+    "HtmlControls.HtmlContainerControl.InnerText = \"\"",
+    "HtmlControls.HtmlContainerControl.InnerText set = \"Abc 123\""
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlContainerControl.LoadViewState": [
+    "HtmlControls.HtmlContainerControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlContainerControl.Render": [
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) writer:",
+    "  | <video src=\"~/Media/probe.mp4\" poster=\"~/Images/probe.png\" id=\"vidProbe\"></video>",
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlContainerControl.RenderAttributes": [
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  src=\"~/Media/probe.mp4\" poster=\"~/Images/probe.png\" id=\"vidProbe\"",
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlContainerControl.RenderEndTag": [
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) writer:",
+    "  | </video>",
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlControl.#ctor": [
+    "HtmlControls.HtmlControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\"",
+    "HtmlControls.HtmlControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\""
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlControl.Attributes": [
+    "HtmlControls.HtmlControl.Attributes = AttributeCollection [poster=\"~/Images/probe.png\", src=\"~/Media/probe.mp4\"]"
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlControl.CreateControlCollection": [
+    "HtmlControls.HtmlControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlControl.CreateControlCollection after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlControl.Disabled": [
+    "HtmlControls.HtmlControl.Disabled = \"false\"",
+    "HtmlControls.HtmlControl.Disabled set = \"true\""
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlControl.GetAttribute": [
+    "HtmlControls.HtmlControl.GetAttribute(String) = null",
+    "HtmlControls.HtmlControl.GetAttribute(String) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlControl.Render": [
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) writer:",
+    "  | <video src=\"~/Media/probe.mp4\" poster=\"~/Images/probe.png\" id=\"vidProbe\"></video>",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlControl.RenderAttributes": [
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  src=\"~/Media/probe.mp4\" poster=\"~/Images/probe.png\" id=\"vidProbe\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlControl.RenderBeginTag": [
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <video src=\"~/Media/probe.mp4\" poster=\"~/Images/probe.png\" id=\"vidProbe\">",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlControl.SetAttribute": [
+    "HtmlControls.HtmlControl.SetAttribute(String,String) = \"ok\"",
+    "HtmlControls.HtmlControl.SetAttribute(String,String) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlControl.Style": [
+    "HtmlControls.HtmlControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlControl.TagName": [
+    "HtmlControls.HtmlControl.TagName = \"video\""
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlControl.ViewStateIgnoresCase": [
+    "HtmlControls.HtmlControl.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlVideo.#ctor": [
+    "HtmlControls.HtmlVideo.#ctor = HtmlVideo# {ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=null; InnerHtml=\"\"; InnerText=\"\"; Poster=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"video\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlVideo.Poster": [
+    "HtmlControls.HtmlVideo.Poster = \"~/Images/probe.png\"",
+    "HtmlControls.HtmlVideo.Poster set = \"Abc 123\""
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlVideo.RenderAttributes": [
+    "HtmlControls.HtmlVideo.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlVideo.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  src=\"~/Media/probe.mp4\" poster=\"~/Images/probe.png\" id=\"vidProbe\"",
+    "HtmlControls.HtmlVideo.RenderAttributes(HtmlTextWriter) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.HtmlControls.HtmlVideo.Src": [
+    "HtmlControls.HtmlVideo.Src = \"~/Media/probe.mp4\"",
+    "HtmlControls.HtmlVideo.Src set = \"Abc 123\""
+  ],
+  "HtmlVideo.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HtmlVideo.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HtmlVideo.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HtmlVideo.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HtmlVideo.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HtmlVideo.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HtmlVideo.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlVideo.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HtmlVideo#vidProbe {ClientID=\"vidProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"vidProbe\"; InnerHtml=\"\"; InnerText=\"\"; Poster=\"~/Images/probe.png\"; SkinID=\"\"; Src=\"~/Media/probe.mp4\"; TagName=\"video\"; UniqueID=\"vidProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ]
+}

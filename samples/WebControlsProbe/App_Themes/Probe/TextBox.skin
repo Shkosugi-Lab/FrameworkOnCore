@@ -1,0 +1,3 @@
+﻿<%-- The theme the rendering layer's "[themed]" cases render with: a default skin and a named one (SkinID="probe"). --%>
+<asp:TextBox runat="server" CssClass="skinned" BackColor="#EEEEEE" />
+<asp:TextBox runat="server" SkinID="probe" Width="300px" CssClass="skinned-probe" />

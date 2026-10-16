@@ -1,0 +1,36 @@
+ScriptManagerProxy.(default)	(nothing set)
+ScriptManagerProxy.AppRelativeTemplateSourceDirectory=text	c.AppRelativeTemplateSourceDirectory = "probe";
+ScriptManagerProxy.AppRelativeTemplateSourceDirectory=markup	c.AppRelativeTemplateSourceDirectory = "<b>\"&'</b>";
+ScriptManagerProxy.AppRelativeTemplateSourceDirectory=japanese	c.AppRelativeTemplateSourceDirectory = "日本語テキスト";
+ScriptManagerProxy.AppRelativeTemplateSourceDirectory=empty	c.AppRelativeTemplateSourceDirectory = "";
+ScriptManagerProxy.ClientIDMode=Inherit	c.ClientIDMode = ClientIDMode.Inherit;
+ScriptManagerProxy.ClientIDMode=AutoID	c.ClientIDMode = ClientIDMode.AutoID;
+ScriptManagerProxy.ClientIDMode=Predictable	c.ClientIDMode = ClientIDMode.Predictable;
+ScriptManagerProxy.ClientIDMode=Static	c.ClientIDMode = ClientIDMode.Static;
+ScriptManagerProxy.EnableTheming=true	c.EnableTheming = true;
+ScriptManagerProxy.EnableTheming=false	c.EnableTheming = false;
+ScriptManagerProxy.EnableViewState=true	c.EnableViewState = true;
+ScriptManagerProxy.EnableViewState=false	c.EnableViewState = false;
+ScriptManagerProxy.ID=text	c.ID = "probe";
+ScriptManagerProxy.ID=markup	c.ID = "<b>\"&'</b>";
+ScriptManagerProxy.ID=japanese	c.ID = "日本語テキスト";
+ScriptManagerProxy.ID=empty	c.ID = "";
+ScriptManagerProxy.SkinID=text	c.SkinID = "probe";
+ScriptManagerProxy.SkinID=markup	c.SkinID = "<b>\"&'</b>";
+ScriptManagerProxy.SkinID=japanese	c.SkinID = "日本語テキスト";
+ScriptManagerProxy.SkinID=empty	c.SkinID = "";
+ScriptManagerProxy.ValidateRequestMode=Inherit	c.ValidateRequestMode = ValidateRequestMode.Inherit;
+ScriptManagerProxy.ValidateRequestMode=Disabled	c.ValidateRequestMode = ValidateRequestMode.Disabled;
+ScriptManagerProxy.ValidateRequestMode=Enabled	c.ValidateRequestMode = ValidateRequestMode.Enabled;
+ScriptManagerProxy.ViewStateMode=Inherit	c.ViewStateMode = ViewStateMode.Inherit;
+ScriptManagerProxy.ViewStateMode=Enabled	c.ViewStateMode = ViewStateMode.Enabled;
+ScriptManagerProxy.ViewStateMode=Disabled	c.ViewStateMode = ViewStateMode.Disabled;
+ScriptManagerProxy.Visible=true	c.Visible = true;
+ScriptManagerProxy.Visible=false	c.Visible = false;
+ScriptManagerProxy.Visible=false+EnableViewState=false	c.Visible = false; c.EnableViewState = false;
+ScriptManagerProxy[naming container].(default)	[naming container] (nothing set)
+ScriptManagerProxy[naming container].ClientIDMode=AutoID	[naming container] c.ClientIDMode = ClientIDMode.AutoID;
+ScriptManagerProxy[naming container].ClientIDMode=Static	[naming container] c.ClientIDMode = ClientIDMode.Static;
+ScriptManagerProxy[naming container].ClientIDMode=Predictable	[naming container] c.ClientIDMode = ClientIDMode.Predictable;
+ScriptManagerProxy[naming container].ClientIDMode=Inherit	[naming container] c.ClientIDMode = ClientIDMode.Inherit;
+ScriptManagerProxy[naming container].ID=text	[naming container] c.ID = "probe";

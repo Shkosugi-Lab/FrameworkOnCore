@@ -1,0 +1,121 @@
+{
+  "_comment": "The DataGrid's scenario layer (DataGridScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/DataGridScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataGrid [render][databind][datasource][datasourceid][dynamic] first request"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dgManual",
+      "value": "2"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataGrid [paging][postbackevent] page 2: PageIndexChanged"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dgManual",
+      "value": "Name"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataGrid [sorting] sorted by name: SortCommand"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dgManual",
+      "value": "Name"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataGrid [sorting][viewstate] sorted by name again: descending (the page's)"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dgManual",
+      "value": "Select"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataGrid [selection][rowcommand] the first row selected"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dgManual",
+      "value": "Pick"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataGrid [rowcommand] a ButtonColumn's command"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dgManual",
+      "value": "Edit"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataGrid [editing][rowcommand] edit: EditCommand"
+    },
+    {
+      "action": "fill",
+      "target": "txtDgName",
+      "value": "Renamed"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dgManual",
+      "value": "Update"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataGrid [editing][rowcommand] updated: UpdateCommand, the data key"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dgManual",
+      "value": "Edit"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dgManual",
+      "value": "Cancel"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataGrid [editing] cancelled: CancelCommand"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dgManual",
+      "value": "Delete"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataGrid [editing][rowcommand] deleted: DeleteCommand"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataGrid [viewstate] posted (the one without view state is empty)"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataGrid [visible][viewstate] the hidden data grid shown"
+    }
+  ]
+}

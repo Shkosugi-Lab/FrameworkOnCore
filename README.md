@@ -42,8 +42,9 @@
 | `tests/DrawingParity` | 移植した System.Drawing の全 API の新旧比較のケース(同じ方法。Windows は完全一致、Linux は既知の差分を理由つきで `known-differences.json` に持つ) |
 | `tests/DataVisualizationParity` | 移植した System.Web.DataVisualization(グラフ)の全 API の新旧比較のケース(同じ方法。グラフを描くシナリオも含む) |
 | `tests/MobileParity` | 移植した System.Web.Mobile(モバイル コントロール)の全 API の新旧比較のケース(同じ方法) |
+| `tests/WebControlsParity` | System.Web のコントロール（TextBox など）ごとの新旧比較。① 全メンバー（API）、② 全プロパティの描画（HTML、実リクエスト）、③ WebForms の機構（ブラウザでのシナリオ）の 3 層で、結果は `reports/<コントロール>/` に Markdown で出す（仕組みは同フォルダーの README）。System.Web・System.Web.Extensions のコントロール 124 すべてが Windows・Linux とも一致（既知の差分 8 件を除く） |
 | `tests/Parity.Core` | 新旧比較の共通部分(観測値の書き方、ケースの実行、ゴールデンの書き出し、API の一覧から型とメンバーごとにケースを作る仕組み) |
-| `samples/` | 検証用の小さな Web Forms アプリ(RuntimeProbe、グラフの ChartProbe、モバイル コントロールの MobileProbe、Ajax Control Toolkit の ToolkitScriptManager の ToolkitProbe、WCF のサービスの WcfProbe など) |
+| `samples/` | 検証用の小さな Web Forms アプリ(RuntimeProbe、グラフの ChartProbe、モバイル コントロールの MobileProbe、コントロールごとの新旧比較の WebControlsProbe、Ajax Control Toolkit の ToolkitScriptManager の ToolkitProbe、WCF のサービスの WcfProbe、セッションの状態の SessionProbe など) |
 | `corpora/` | 実在の OSS アプリ(コーパス)の取得スクリプトと記録。本体は取得して使う(リポジトリには含めない) |
 
 ## 準備
@@ -113,6 +114,7 @@ dotnet test tests\FrameworkOnCore.Tests
 - グラフ(System.Web.DataVisualization の Chart コントロール)は referencesource(MIT)から `FrameworkOnCore.Runtime/` に移植済みで、既定で使われる。全 API(1,661)を .NET Framework と新旧比較し、ChartImg.axd を使うサイト(`samples/ChartProbe`)を IIS と Windows・Linux で比べている(`experiments/wf4c/README.md` の記録)。
 - モバイル コントロール(System.Web.Mobile)は referencesource(MIT)から `FrameworkOnCore.Runtime/` に移植済みで、既定で使われる。全 API(1,819)を .NET Framework と新旧比較し、モバイル コントロールのサイト(`samples/MobileProbe`)を IIS と Windows・Linux で比べている(`experiments/wf4c/README.md` の記録)。
 - System.Data.SqlClient は dotnet/maintenance-packages の 4.9.0(MIT)を `FrameworkOnCore.Runtime/` に移植済みで、変換後の Web プロジェクトは常にこれを使う。接続文字列の `|DataDirectory|` を .NET Framework と同じく App_Data に展開する(.NET の System.Data.SqlClient は拒否する)。Microsoft の機能テストを Windows と Linux で動かしている。
+- セッションの状態は web.config の `<sessionState mode>` どおり(既定の InProc はオブジェクトをそのまま持つ。Custom はアプリのプロバイダー。StateServer・SQLServer は ASP.NET Core のセッション)。サンプル `samples/SessionProbe` で IIS と Windows・Linux で比べて一致を確かめている。
 - WCF のサービス(.svc、web.config の system.serviceModel)は、変換後のアプリの中の CoreWCF で動く(パッケージ FrameworkOnCore.ServiceModel。既定の選択)。SOAP(basicHttpBinding など)、REST(webHttpBinding)、WSDL、既定のエンドポイントを、サンプル `samples/WcfProbe` で IIS と Windows・Linux で比べて一致を確かめている。
 
 ## ドキュメント

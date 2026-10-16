@@ -1,0 +1,470 @@
+{
+  "MultiView.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "MultiView.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"-> System.Web.HttpException: MultiView cannot have children of type 'String'.  It can only have children of type View.\""
+  ],
+  "MultiView.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "MultiView.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "MultiView.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "MultiView.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "MultiView.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.ClientID": [
+    "Control.ClientID = \"mvSteps\""
+  ],
+  "MultiView.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "MultiView.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "MultiView.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "MultiView.Api.Control.Controls": [
+    "Control.Controls = ControlCollection [View#vwFirst, View#vwSecond]"
+  ],
+  "MultiView.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "MultiView.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "MultiView.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "MultiView.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "MultiView.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "MultiView.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "MultiView.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "MultiView.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "MultiView.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "MultiView.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "MultiView.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"mvSteps\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "MultiView.Api.Control.HasControls": [
+    "Control.HasControls = \"true\"",
+    "Control.HasControls after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.ID": [
+    "Control.ID = \"mvSteps\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "MultiView.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "MultiView.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "MultiView.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "MultiView.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "MultiView.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "MultiView.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "MultiView.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "MultiView.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "MultiView.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "MultiView.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "MultiView.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "MultiView.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "MultiView.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "MultiView.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"-> System.InvalidCastException: Unable to cast object of type 'System.Web.UI.WebControls.Label' to type 'System.Web.UI.WebControls.View'.\""
+  ],
+  "MultiView.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.Render(HtmlTextWriter) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "MultiView.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.SaveControlState": [
+    "Control.SaveControlState = Pair {}",
+    "Control.SaveControlState after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "MultiView.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "MultiView.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "MultiView.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "MultiView.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.Control.UniqueID": [
+    "Control.UniqueID = \"mvSteps\""
+  ],
+  "MultiView.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "MultiView.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "MultiView.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "MultiView.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "MultiView.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "MultiView.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "MultiView.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "MultiView.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "MultiView.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "MultiView.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "MultiView.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "MultiView.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "MultiView.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"-> System.Web.HttpException: MultiView cannot have children of type 'String'.  It can only have children of type View.\""
+  ],
+  "MultiView.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.WebControls.MultiView.#ctor": [
+    "MultiView.#ctor = MultiView# {ActiveViewIndex=Int32 -1; ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.WebControls.MultiView.ActiveViewChanged": [
+    "MultiView.ActiveViewChanged = \"added and removed\""
+  ],
+  "MultiView.Api.WebControls.MultiView.ActiveViewIndex": [
+    "MultiView.ActiveViewIndex = \"Int32 0\"",
+    "MultiView.ActiveViewIndex set = \"Int32 1\""
+  ],
+  "MultiView.Api.WebControls.MultiView.AddParsedSubObject": [
+    "MultiView.AddParsedSubObject(Object) = \"-> System.Web.HttpException: MultiView cannot have children of type 'String'.  It can only have children of type View.\""
+  ],
+  "MultiView.Api.WebControls.MultiView.CreateControlCollection": [
+    "MultiView.CreateControlCollection = ControlCollection []",
+    "MultiView.CreateControlCollection after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.WebControls.MultiView.EnableTheming": [
+    "MultiView.EnableTheming = \"true\"",
+    "MultiView.EnableTheming set = \"true\""
+  ],
+  "MultiView.Api.WebControls.MultiView.GetActiveView": [
+    "MultiView.GetActiveView = View#vwFirst {ClientID=\"vwFirst\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"vwFirst\"; SkinID=\"\"; UniqueID=\"vwFirst\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "MultiView.GetActiveView after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.WebControls.MultiView.LoadControlState": [
+    "MultiView.LoadControlState(Object) = \"ok\"",
+    "MultiView.LoadControlState(Object) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.WebControls.MultiView.NextViewCommandName": [
+    "MultiView.NextViewCommandName = \"NextView\""
+  ],
+  "MultiView.Api.WebControls.MultiView.OnActiveViewChanged": [
+    "MultiView.OnActiveViewChanged(EventArgs) = \"ok\"",
+    "MultiView.OnActiveViewChanged(EventArgs) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.WebControls.MultiView.OnBubbleEvent": [
+    "MultiView.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "MultiView.OnBubbleEvent(Object,EventArgs) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.WebControls.MultiView.OnInit": [
+    "MultiView.OnInit(EventArgs) = \"ok\"",
+    "MultiView.OnInit(EventArgs) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.WebControls.MultiView.PreviousViewCommandName": [
+    "MultiView.PreviousViewCommandName = \"PrevView\""
+  ],
+  "MultiView.Api.WebControls.MultiView.RemovedControl": [
+    "MultiView.RemovedControl(Control) = \"-> System.InvalidCastException: Unable to cast object of type 'System.Web.UI.WebControls.Label' to type 'System.Web.UI.WebControls.View'.\""
+  ],
+  "MultiView.Api.WebControls.MultiView.Render": [
+    "MultiView.Render(HtmlTextWriter) = \"ok\"",
+    "MultiView.Render(HtmlTextWriter) writer:",
+    "  | ",
+    "MultiView.Render(HtmlTextWriter) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.WebControls.MultiView.SaveControlState": [
+    "MultiView.SaveControlState = Pair {}",
+    "MultiView.SaveControlState after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.WebControls.MultiView.SetActiveView": [
+    "MultiView.SetActiveView(View) = \"ok\"",
+    "MultiView.SetActiveView(View) after = MultiView#mvSteps {ActiveViewIndex=Int32 0; ClientID=\"mvSteps\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"mvSteps\"; SkinID=\"\"; UniqueID=\"mvSteps\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "MultiView.Api.WebControls.MultiView.SwitchViewByIDCommandName": [
+    "MultiView.SwitchViewByIDCommandName = \"SwitchViewByID\""
+  ],
+  "MultiView.Api.WebControls.MultiView.SwitchViewByIndexCommandName": [
+    "MultiView.SwitchViewByIndexCommandName = \"SwitchViewByIndex\""
+  ],
+  "MultiView.Api.WebControls.MultiView.Views": [
+    "MultiView.Views = ControlCollection [View#vwFirst, View#vwSecond]"
+  ]
+}

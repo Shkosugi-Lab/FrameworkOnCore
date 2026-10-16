@@ -177,6 +177,9 @@ namespace System.Web {
 #if NETFRAMEWORK
                     thread.Abort(new HttpApplication.CancelModuleException(true));
 #else
+                    // .NET aborts no thread: the request is marked, and its pipeline's next step fails with "Request timed
+                    // out." (HttpApplication.ExecuteStep), as the aborted thread's did: Application_Error, the 500 page.
+                    _context.MarkTimedOut();
 #endif
                 }
             }

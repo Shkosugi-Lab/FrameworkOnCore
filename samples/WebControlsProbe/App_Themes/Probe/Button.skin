@@ -1,0 +1,3 @@
+﻿<%-- The theme the rendering layer's "[themed]" Button cases render with: a default skin and a named one (SkinID="probe"). --%>
+<asp:Button runat="server" CssClass="skinned" BackColor="#EEEEEE" />
+<asp:Button runat="server" SkinID="probe" Width="300px" CssClass="skinned-probe" ToolTip="from the skin" />

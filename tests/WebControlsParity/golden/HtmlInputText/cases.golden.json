@@ -1,0 +1,527 @@
+{
+  "HtmlInputText.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HtmlInputText.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HtmlInputText.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputText.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HtmlInputText.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.ClientID": [
+    "Control.ClientID = \"inpName\""
+  ],
+  "HtmlInputText.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HtmlInputText.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HtmlInputText.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HtmlInputText.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "HtmlInputText.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HtmlInputText.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HtmlInputText.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HtmlInputText.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HtmlInputText.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HtmlInputText.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "HtmlInputText.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HtmlInputText.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HtmlInputText.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "HtmlInputText.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputText.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"inpName\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HtmlInputText.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.ID": [
+    "Control.ID = \"inpName\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HtmlInputText.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HtmlInputText.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HtmlInputText.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HtmlInputText.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HtmlInputText.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HtmlInputText.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HtmlInputText.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlInputText.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HtmlInputText.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputText.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputText.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HtmlInputText.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <input name=\"inpName\" type=\"text\" id=\"inpName\" value=\"Taro\" />",
+    "Control.Render(HtmlTextWriter) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <input name=\"inpName\" type=\"text\" id=\"inpName\" value=\"Taro\" />",
+    "Control.RenderControl(HtmlTextWriter) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <input name=\"inpName\" type=\"text\" id=\"inpName\" value=\"Taro\" />",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HtmlInputText.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HtmlInputText.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "HtmlInputText.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HtmlInputText.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.Control.UniqueID": [
+    "Control.UniqueID = \"inpName\""
+  ],
+  "HtmlInputText.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HtmlInputText.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HtmlInputText.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [type=\"text\", value=\"Taro\"]"
+  ],
+  "HtmlInputText.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlInputText.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HtmlInputText.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlControl.#ctor": [
+    "HtmlControls.HtmlControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\"",
+    "HtmlControls.HtmlControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\""
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlControl.Attributes": [
+    "HtmlControls.HtmlControl.Attributes = AttributeCollection [type=\"text\", value=\"Taro\"]"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlControl.CreateControlCollection": [
+    "HtmlControls.HtmlControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlControl.CreateControlCollection after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlControl.Disabled": [
+    "HtmlControls.HtmlControl.Disabled = \"false\"",
+    "HtmlControls.HtmlControl.Disabled set = \"true\""
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlControl.GetAttribute": [
+    "HtmlControls.HtmlControl.GetAttribute(String) = null",
+    "HtmlControls.HtmlControl.GetAttribute(String) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlControl.Render": [
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) writer:",
+    "  | <input name=\"inpName\" type=\"text\" id=\"inpName\" value=\"Taro\" />",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlControl.RenderAttributes": [
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"inpName\" type=\"text\" id=\"inpName\" value=\"Taro\" /",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlControl.RenderBeginTag": [
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <input name=\"inpName\" type=\"text\" id=\"inpName\" value=\"Taro\" />",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlControl.SetAttribute": [
+    "HtmlControls.HtmlControl.SetAttribute(String,String) = \"ok\"",
+    "HtmlControls.HtmlControl.SetAttribute(String,String) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlControl.Style": [
+    "HtmlControls.HtmlControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlControl.TagName": [
+    "HtmlControls.HtmlControl.TagName = \"input\""
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlControl.ViewStateIgnoresCase": [
+    "HtmlControls.HtmlControl.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputControl.#ctor": [
+    "HtmlControls.HtmlInputControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlInputControl because it is an abstract class.\""
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputControl.Name": [
+    "HtmlControls.HtmlInputControl.Name = \"inpName\"",
+    "HtmlControls.HtmlInputControl.Name set = \"inpName\""
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputControl.RenderAttributes": [
+    "HtmlControls.HtmlInputControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlInputControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"inpName\" type=\"text\" id=\"inpName\" value=\"Taro\" /",
+    "HtmlControls.HtmlInputControl.RenderAttributes(HtmlTextWriter) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputControl.Type": [
+    "HtmlControls.HtmlInputControl.Type = \"text\""
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputControl.Value": [
+    "HtmlControls.HtmlInputControl.Value = \"Taro\"",
+    "HtmlControls.HtmlInputControl.Value set = \"Abc 123\""
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputText.#ctor": [
+    "HtmlControls.HtmlInputText.#ctor = HtmlInputText# {ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=null; MaxLength=Int32 -1; Name=null; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=null; ValidateRequestMode=Inherit; Value=\"\"; ViewStateMode=Inherit; Visible=true}",
+    "HtmlControls.HtmlInputText.#ctor(String) = HtmlInputText# {ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=null; MaxLength=Int32 -1; Name=null; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"Abc 123\"; UniqueID=null; ValidateRequestMode=Inherit; Value=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputText.LoadPostData": [
+    "HtmlControls.HtmlInputText.LoadPostData(String,NameValueCollection) = \"true\"",
+    "HtmlControls.HtmlInputText.LoadPostData(String,NameValueCollection) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Hanako\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputText.MaxLength": [
+    "HtmlControls.HtmlInputText.MaxLength = \"Int32 -1\"",
+    "HtmlControls.HtmlInputText.MaxLength set = \"Int32 1\""
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputText.OnPreRender": [
+    "HtmlControls.HtmlInputText.OnPreRender(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlInputText.OnPreRender(EventArgs) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputText.OnServerChange": [
+    "HtmlControls.HtmlInputText.OnServerChange(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlInputText.OnServerChange(EventArgs) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputText.RaisePostDataChangedEvent": [
+    "HtmlControls.HtmlInputText.RaisePostDataChangedEvent = \"ok\"",
+    "HtmlControls.HtmlInputText.RaisePostDataChangedEvent after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputText.RenderAttributes": [
+    "HtmlControls.HtmlInputText.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlInputText.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"inpName\" type=\"text\" id=\"inpName\" value=\"Taro\" /",
+    "HtmlControls.HtmlInputText.RenderAttributes(HtmlTextWriter) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputText.ServerChange": [
+    "HtmlControls.HtmlInputText.ServerChange = \"added and removed\""
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputText.Size": [
+    "HtmlControls.HtmlInputText.Size = \"Int32 -1\"",
+    "HtmlControls.HtmlInputText.Size set = \"Int32 1\""
+  ],
+  "HtmlInputText.Api.HtmlControls.HtmlInputText.Value": [
+    "HtmlControls.HtmlInputText.Value = \"Taro\"",
+    "HtmlControls.HtmlInputText.Value set = \"Abc 123\""
+  ],
+  "HtmlInputText.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HtmlInputText.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HtmlInputText.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HtmlInputText.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HtmlInputText.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HtmlInputText.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HtmlInputText.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.IPostBackDataHandler.LoadPostData": [
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) = \"true\"",
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Hanako\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.IPostBackDataHandler.RaisePostDataChangedEvent": [
+    "IPostBackDataHandler.RaisePostDataChangedEvent = \"ok\"",
+    "IPostBackDataHandler.RaisePostDataChangedEvent after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputText.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HtmlInputText#inpName {ClientID=\"inpName\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpName\"; MaxLength=Int32 -1; Name=\"inpName\"; Size=Int32 -1; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=\"inpName\"; ValidateRequestMode=Inherit; Value=\"Taro\"; ViewStateMode=Inherit; Visible=true}"
+  ]
+}

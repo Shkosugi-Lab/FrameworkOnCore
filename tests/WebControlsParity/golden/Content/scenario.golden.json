@@ -1,0 +1,404 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "Content [render][databind][dynamic][naming] first request: the page's content in the master's place holders, a default, a hidden one, one filled in code",
+      "Path": "/contentscenario",
+      "Title": "Content scenario",
+      "Text": [
+        "Master: master bound",
+        "Page content: bound set in code",
+        "Request 1: IsPostBack=False",
+        "State ContentPlaceHolder cphHead UniqueID=ctl00$cphHead ClientID=cphHead",
+        "State ContentPlaceHolder cphMain UniqueID=ctl00$cphMain ClientID=cphMain",
+        "State ContentPlaceHolder cphSide UniqueID=ctl00$cphSide ClientID=cphSide",
+        "State ContentPlaceHolder cphHidden UniqueID=ctl00$cphHidden ClientID=cphHidden (hidden)",
+        "State ContentPlaceHolder cphDynamic UniqueID=ctl00$cphDynamic ClientID=cphDynamic",
+        "State TextBox txtName UniqueID=ctl00$cphMain$txtName ClientID=cphMain_txtName Text=\"\"",
+        "State Label lblBound UniqueID=ctl00$cphMain$lblBound ClientID=cphMain_lblBound Text=\"bound\"",
+        "State Label lblCode UniqueID=ctl00$cphMain$lblCode ClientID=cphMain_lblCode Text=\"set in code\"",
+        "State Panel pnlHiddenContent UniqueID=ctl00$cphMain$pnlHiddenContent ClientID=cphMain_pnlHiddenContent (hidden)",
+        "State Label lblHiddenContent UniqueID=ctl00$cphMain$lblHiddenContent ClientID=cphMain_lblHiddenContent Text=\"set while hidden\" (hidden)",
+        "State TextBox txtDynamic UniqueID=ctl00$cphDynamic$txtDynamic ClientID=cphDynamic_txtDynamic Text=\"dynamic\"",
+        "State Label lblMaster UniqueID=ctl00$lblMaster ClientID=lblMaster Text=\"master bound\"",
+        "State (none)",
+        "Title: Content scenario",
+        "Default side content: master bound",
+        "Dynamic content:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "cphMain_txtName": "",
+        "cphDynamic_txtDynamic": "dynamic"
+      },
+      "Elements": {
+        "lblMaster": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cphMain_lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_lblCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "cphMain_btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphSide_lblDefaultSide": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphDynamic_txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnMaster": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Content [viewstate][dynamic] posted: the content's and the dynamic text boxes, view state",
+      "Path": "/contentscenario",
+      "Title": "Content scenario",
+      "Text": [
+        "Master: master bound",
+        "Page content: bound set in code",
+        "Request 2: IsPostBack=True",
+        "State ContentPlaceHolder cphHead UniqueID=ctl00$cphHead ClientID=cphHead",
+        "State ContentPlaceHolder cphMain UniqueID=ctl00$cphMain ClientID=cphMain",
+        "State ContentPlaceHolder cphSide UniqueID=ctl00$cphSide ClientID=cphSide",
+        "State ContentPlaceHolder cphHidden UniqueID=ctl00$cphHidden ClientID=cphHidden (hidden)",
+        "State ContentPlaceHolder cphDynamic UniqueID=ctl00$cphDynamic ClientID=cphDynamic",
+        "State TextBox txtName UniqueID=ctl00$cphMain$txtName ClientID=cphMain_txtName Text=\"in the content\"",
+        "State Label lblBound UniqueID=ctl00$cphMain$lblBound ClientID=cphMain_lblBound Text=\"bound\"",
+        "State Label lblCode UniqueID=ctl00$cphMain$lblCode ClientID=cphMain_lblCode Text=\"set in code\"",
+        "State Panel pnlHiddenContent UniqueID=ctl00$cphMain$pnlHiddenContent ClientID=cphMain_pnlHiddenContent (hidden)",
+        "State Label lblHiddenContent UniqueID=ctl00$cphMain$lblHiddenContent ClientID=cphMain_lblHiddenContent Text=\"set while hidden\" (hidden)",
+        "State TextBox txtDynamic UniqueID=ctl00$cphDynamic$txtDynamic ClientID=cphDynamic_txtDynamic Text=\"in a place holder filled in code\"",
+        "State Label lblMaster UniqueID=ctl00$lblMaster ClientID=lblMaster Text=\"master bound\"",
+        "State (none)",
+        "Title: Content scenario",
+        "Default side content: master bound",
+        "Dynamic content:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "cphMain_txtName": "in the content",
+        "cphDynamic_txtDynamic": "in a place holder filled in code"
+      },
+      "Elements": {
+        "lblMaster": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cphMain_lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_lblCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "cphMain_btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphSide_lblDefaultSide": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphDynamic_txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnMaster": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Content [visible][viewstate] hidden ones shown (the content's panel, the master's place holder)",
+      "Path": "/contentscenario",
+      "Title": "Content scenario",
+      "Text": [
+        "Master: master bound",
+        "Page content: bound set in code",
+        "set while hidden",
+        "Request 3: IsPostBack=True",
+        "Click btnShow",
+        "State ContentPlaceHolder cphHead UniqueID=ctl00$cphHead ClientID=cphHead",
+        "State ContentPlaceHolder cphMain UniqueID=ctl00$cphMain ClientID=cphMain",
+        "State ContentPlaceHolder cphSide UniqueID=ctl00$cphSide ClientID=cphSide",
+        "State ContentPlaceHolder cphHidden UniqueID=ctl00$cphHidden ClientID=cphHidden",
+        "State ContentPlaceHolder cphDynamic UniqueID=ctl00$cphDynamic ClientID=cphDynamic",
+        "State TextBox txtName UniqueID=ctl00$cphMain$txtName ClientID=cphMain_txtName Text=\"in the content\"",
+        "State Label lblBound UniqueID=ctl00$cphMain$lblBound ClientID=cphMain_lblBound Text=\"bound\"",
+        "State Label lblCode UniqueID=ctl00$cphMain$lblCode ClientID=cphMain_lblCode Text=\"set in code\"",
+        "State Panel pnlHiddenContent UniqueID=ctl00$cphMain$pnlHiddenContent ClientID=cphMain_pnlHiddenContent",
+        "State Label lblHiddenContent UniqueID=ctl00$cphMain$lblHiddenContent ClientID=cphMain_lblHiddenContent Text=\"set while hidden\"",
+        "State TextBox txtDynamic UniqueID=ctl00$cphDynamic$txtDynamic ClientID=cphDynamic_txtDynamic Text=\"in a place holder filled in code\"",
+        "State Label lblMaster UniqueID=ctl00$lblMaster ClientID=lblMaster Text=\"master bound\"",
+        "State (none)",
+        "Title: Content scenario",
+        "Default side content: master bound",
+        "Hidden place holder's default",
+        "Dynamic content:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "cphMain_txtName": "in the content",
+        "cphDynamic_txtDynamic": "in a place holder filled in code"
+      },
+      "Elements": {
+        "lblMaster": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cphMain_lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_lblCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "cphMain_btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "cphMain_pnlHiddenContent": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_lblHiddenContent": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphSide_lblDefaultSide": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphDynamic_txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnMaster": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Content [viewstate] the master's own button",
+      "Path": "/contentscenario",
+      "Title": "Content scenario",
+      "Text": [
+        "Master: master bound",
+        "Page content: bound set in code",
+        "set while hidden",
+        "Request 4: IsPostBack=True",
+        "Click btnMaster (in the master)",
+        "State ContentPlaceHolder cphHead UniqueID=ctl00$cphHead ClientID=cphHead",
+        "State ContentPlaceHolder cphMain UniqueID=ctl00$cphMain ClientID=cphMain",
+        "State ContentPlaceHolder cphSide UniqueID=ctl00$cphSide ClientID=cphSide",
+        "State ContentPlaceHolder cphHidden UniqueID=ctl00$cphHidden ClientID=cphHidden",
+        "State ContentPlaceHolder cphDynamic UniqueID=ctl00$cphDynamic ClientID=cphDynamic",
+        "State TextBox txtName UniqueID=ctl00$cphMain$txtName ClientID=cphMain_txtName Text=\"in the content\"",
+        "State Label lblBound UniqueID=ctl00$cphMain$lblBound ClientID=cphMain_lblBound Text=\"bound\"",
+        "State Label lblCode UniqueID=ctl00$cphMain$lblCode ClientID=cphMain_lblCode Text=\"set in code\"",
+        "State Panel pnlHiddenContent UniqueID=ctl00$cphMain$pnlHiddenContent ClientID=cphMain_pnlHiddenContent",
+        "State Label lblHiddenContent UniqueID=ctl00$cphMain$lblHiddenContent ClientID=cphMain_lblHiddenContent Text=\"set while hidden\"",
+        "State TextBox txtDynamic UniqueID=ctl00$cphDynamic$txtDynamic ClientID=cphDynamic_txtDynamic Text=\"in a place holder filled in code\"",
+        "State Label lblMaster UniqueID=ctl00$lblMaster ClientID=lblMaster Text=\"master bound\"",
+        "State (none)",
+        "Title: Content scenario",
+        "Default side content: master bound",
+        "Hidden place holder's default",
+        "Dynamic content:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "cphMain_txtName": "in the content",
+        "cphDynamic_txtDynamic": "in a place holder filled in code"
+      },
+      "Elements": {
+        "lblMaster": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cphMain_lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_lblCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "cphMain_btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "cphMain_pnlHiddenContent": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphMain_lblHiddenContent": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphSide_lblDefaultSide": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cphDynamic_txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnMaster": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

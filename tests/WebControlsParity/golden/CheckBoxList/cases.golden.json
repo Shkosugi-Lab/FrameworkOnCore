@@ -1,0 +1,950 @@
+{
+  "CheckBoxList.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "CheckBoxList.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "CheckBoxList.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "CheckBoxList.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "CheckBoxList.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CheckBoxList.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "CheckBoxList.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.ClientID": [
+    "Control.ClientID = \"cblSize\""
+  ],
+  "CheckBoxList.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "CheckBoxList.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "CheckBoxList.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "CheckBoxList.Api.Control.Controls": [
+    "Control.Controls = ControlCollection [CheckBox#0]"
+  ],
+  "CheckBoxList.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "CheckBoxList.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "CheckBoxList.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "CheckBoxList.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "CheckBoxList.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "CheckBoxList.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "CheckBoxList.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "CheckBoxList.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "CheckBoxList.Api.Control.FindControl": [
+    "Control.FindControl(String) = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String,Int32) = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String,Int32) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "CheckBoxList.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CheckBoxList.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"cblSize\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "CheckBoxList.Api.Control.HasControls": [
+    "Control.HasControls = \"true\"",
+    "Control.HasControls after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.ID": [
+    "Control.ID = \"cblSize\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "CheckBoxList.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "CheckBoxList.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "CheckBoxList.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "CheckBoxList.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "CheckBoxList.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "CheckBoxList.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "CheckBoxList.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "CheckBoxList.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CheckBoxList.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "CheckBoxList.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CheckBoxList.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "CheckBoxList.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "CheckBoxList.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "CheckBoxList.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CheckBoxList.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | <input id=\"cblSize_0\" type=\"checkbox\" name=\"cblSize$0\" />",
+    "Control.RenderChildren(HtmlTextWriter) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CheckBoxList.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "CheckBoxList.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "CheckBoxList.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "CheckBoxList.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "CheckBoxList.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.Control.UniqueID": [
+    "Control.UniqueID = \"cblSize\""
+  ],
+  "CheckBoxList.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "CheckBoxList.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "CheckBoxList.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "CheckBoxList.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "CheckBoxList.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "CheckBoxList.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "CheckBoxList.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=true; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "CheckBoxList.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "CheckBoxList.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "CheckBoxList.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "CheckBoxList.Api.IEditableTextControl.TextChanged": [
+    "IEditableTextControl.TextChanged = \"added and removed\""
+  ],
+  "CheckBoxList.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "CheckBoxList.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "CheckBoxList.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.IPostBackDataHandler.LoadPostData": [
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) = \"-> System.ArgumentOutOfRangeException: startIndex cannot be larger than length of string. [param startIndex]\""
+  ],
+  "CheckBoxList.Api.IPostBackDataHandler.RaisePostDataChangedEvent": [
+    "IPostBackDataHandler.RaisePostDataChangedEvent = \"ok\"",
+    "IPostBackDataHandler.RaisePostDataChangedEvent after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.ITextControl.Text": [
+    "ITextControl.Text = \"M\"",
+    "ITextControl.Text set = \"M\""
+  ],
+  "CheckBoxList.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.#ctor": [
+    "BaseDataBoundControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.BaseDataBoundControl because it is an abstract class.\""
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.ConfirmInitState": [
+    "BaseDataBoundControl.ConfirmInitState = \"ok\"",
+    "BaseDataBoundControl.ConfirmInitState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.DataBind": [
+    "BaseDataBoundControl.DataBind = \"ok\"",
+    "BaseDataBoundControl.DataBind after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.DataBound": [
+    "BaseDataBoundControl.DataBound = \"added and removed\""
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.DataSource": [
+    "BaseDataBoundControl.DataSource = null",
+    "BaseDataBoundControl.DataSource set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.DataSourceID": [
+    "BaseDataBoundControl.DataSourceID = \"\"",
+    "BaseDataBoundControl.DataSourceID set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.EnsureDataBound": [
+    "BaseDataBoundControl.EnsureDataBound = \"ok\"",
+    "BaseDataBoundControl.EnsureDataBound after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.Initialized": [
+    "BaseDataBoundControl.Initialized = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.IsBoundUsingDataSourceID": [
+    "BaseDataBoundControl.IsBoundUsingDataSourceID = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.IsDataBindingAutomatic": [
+    "BaseDataBoundControl.IsDataBindingAutomatic = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.IsUsingModelBinders": [
+    "BaseDataBoundControl.IsUsingModelBinders = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.OnDataBound": [
+    "BaseDataBoundControl.OnDataBound(EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnDataBound(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.OnDataPropertyChanged": [
+    "BaseDataBoundControl.OnDataPropertyChanged = \"ok\"",
+    "BaseDataBoundControl.OnDataPropertyChanged after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.OnInit": [
+    "BaseDataBoundControl.OnInit(EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnInit(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.OnPagePreLoad": [
+    "BaseDataBoundControl.OnPagePreLoad(Object,EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnPagePreLoad(Object,EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.OnPreRender": [
+    "BaseDataBoundControl.OnPreRender(EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnPreRender(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.PerformSelect": [
+    "BaseDataBoundControl.PerformSelect = \"ok\"",
+    "BaseDataBoundControl.PerformSelect after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.RequiresDataBinding": [
+    "BaseDataBoundControl.RequiresDataBinding = \"false\"",
+    "BaseDataBoundControl.RequiresDataBinding set = \"ok\""
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.SupportsDisabledAttribute": [
+    "BaseDataBoundControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.BaseDataBoundControl.ValidateDataSource": [
+    "BaseDataBoundControl.ValidateDataSource(Object) = \"ok\"",
+    "BaseDataBoundControl.ValidateDataSource(Object) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.#ctor": [
+    "CheckBoxList.#ctor = CheckBoxList# {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 -1; SelectedValue=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; TextAlign=Right; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.CellPadding": [
+    "CheckBoxList.CellPadding = \"Int32 -1\"",
+    "CheckBoxList.CellPadding set = \"Int32 1\""
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.CellSpacing": [
+    "CheckBoxList.CellSpacing = \"Int32 -1\"",
+    "CheckBoxList.CellSpacing set = \"Int32 1\""
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.CreateControlStyle": [
+    "CheckBoxList.CreateControlStyle = TableStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CellPadding=Int32 -1; CellSpacing=Int32 -1; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; GridLines=None; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; Width=}",
+    "CheckBoxList.CreateControlStyle after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.FindControl": [
+    "CheckBoxList.FindControl(String,Int32) = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "CheckBoxList.FindControl(String,Int32) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.GetItemStyle": [
+    "CheckBoxList.GetItemStyle(ListItemType,Int32) = null",
+    "CheckBoxList.GetItemStyle(ListItemType,Int32) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.HasFooter": [
+    "CheckBoxList.HasFooter = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.HasHeader": [
+    "CheckBoxList.HasHeader = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.HasSeparators": [
+    "CheckBoxList.HasSeparators = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.LoadPostData": [
+    "CheckBoxList.LoadPostData(String,NameValueCollection) = \"-> System.ArgumentOutOfRangeException: startIndex cannot be larger than length of string. [param startIndex]\""
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.OnInit": [
+    "CheckBoxList.OnInit(EventArgs) = \"ok\"",
+    "CheckBoxList.OnInit(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.OnPreRender": [
+    "CheckBoxList.OnPreRender(EventArgs) = \"ok\"",
+    "CheckBoxList.OnPreRender(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.RaisePostDataChangedEvent": [
+    "CheckBoxList.RaisePostDataChangedEvent = \"ok\"",
+    "CheckBoxList.RaisePostDataChangedEvent after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.Render": [
+    "CheckBoxList.Render(HtmlTextWriter) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.RenderItem": [
+    "CheckBoxList.RenderItem(ListItemType,Int32,RepeatInfo,HtmlTextWriter) = \"ok\"",
+    "CheckBoxList.RenderItem(ListItemType,Int32,RepeatInfo,HtmlTextWriter) writer:",
+    "  | <input id=\"cblSize_0\" type=\"checkbox\" name=\"cblSize$0\" value=\"S\" /><label for=\"cblSize_0\">Small</label>",
+    "CheckBoxList.RenderItem(ListItemType,Int32,RepeatInfo,HtmlTextWriter) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.RenderWhenDataEmpty": [
+    "CheckBoxList.RenderWhenDataEmpty = \"false\"",
+    "CheckBoxList.RenderWhenDataEmpty set = \"true\""
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.RepeatColumns": [
+    "CheckBoxList.RepeatColumns = \"Int32 0\"",
+    "CheckBoxList.RepeatColumns set = \"Int32 1\""
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.RepeatDirection": [
+    "CheckBoxList.RepeatDirection = \"RepeatDirection.Vertical\"",
+    "CheckBoxList.RepeatDirection set = \"RepeatDirection.Vertical\""
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.RepeatLayout": [
+    "CheckBoxList.RepeatLayout = \"RepeatLayout.Table\"",
+    "CheckBoxList.RepeatLayout set = \"RepeatLayout.Flow\""
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.RepeatedItemCount": [
+    "CheckBoxList.RepeatedItemCount = \"Int32 3\""
+  ],
+  "CheckBoxList.Api.WebControls.CheckBoxList.TextAlign": [
+    "CheckBoxList.TextAlign = \"TextAlign.Right\"",
+    "CheckBoxList.TextAlign set = \"TextAlign.Right\""
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.#ctor": [
+    "DataBoundControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.DataBoundControl because it is an abstract class.\""
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.CallingDataMethods": [
+    "DataBoundControl.CallingDataMethods = \"added and removed\""
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.CreateDataSourceSelectArguments": [
+    "DataBoundControl.CreateDataSourceSelectArguments = DataSourceSelectArguments {MaximumRows=Int32 0; RetrieveTotalRowCount=false; SortExpression=\"\"; StartRowIndex=Int32 0; TotalRowCount=Int32 -1}",
+    "DataBoundControl.CreateDataSourceSelectArguments after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.CreatingModelDataSource": [
+    "DataBoundControl.CreatingModelDataSource = \"added and removed\""
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.DataMember": [
+    "DataBoundControl.DataMember = \"\"",
+    "DataBoundControl.DataMember set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.DataSourceID": [
+    "DataBoundControl.DataSourceID = \"\"",
+    "DataBoundControl.DataSourceID set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.DataSourceObject": [
+    "DataBoundControl.DataSourceObject = null"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.GetData": [
+    "DataBoundControl.GetData = ReadOnlyDataSourceView {CanDelete=false; CanInsert=false; CanPage=false; CanRetrieveTotalRowCount=false; CanSort=false; CanUpdate=false; Name=\"\"}",
+    "DataBoundControl.GetData after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.GetDataSource": [
+    "DataBoundControl.GetDataSource = null",
+    "DataBoundControl.GetDataSource after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.IsUsingModelBinders": [
+    "DataBoundControl.IsUsingModelBinders = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.ItemType": [
+    "DataBoundControl.ItemType = \"\"",
+    "DataBoundControl.ItemType set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.LoadViewState": [
+    "DataBoundControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.MarkAsDataBound": [
+    "DataBoundControl.MarkAsDataBound = \"ok\"",
+    "DataBoundControl.MarkAsDataBound after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.OnCreatingModelDataSource": [
+    "DataBoundControl.OnCreatingModelDataSource(CreatingModelDataSourceEventArgs) = \"ok\"",
+    "DataBoundControl.OnCreatingModelDataSource(CreatingModelDataSourceEventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.OnDataPropertyChanged": [
+    "DataBoundControl.OnDataPropertyChanged = \"ok\"",
+    "DataBoundControl.OnDataPropertyChanged after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.OnDataSourceViewChanged": [
+    "DataBoundControl.OnDataSourceViewChanged(Object,EventArgs) = \"ok\"",
+    "DataBoundControl.OnDataSourceViewChanged(Object,EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.OnLoad": [
+    "DataBoundControl.OnLoad(EventArgs) = \"ok\"",
+    "DataBoundControl.OnLoad(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.OnPagePreLoad": [
+    "DataBoundControl.OnPagePreLoad(Object,EventArgs) = \"ok\"",
+    "DataBoundControl.OnPagePreLoad(Object,EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.PerformDataBinding": [
+    "DataBoundControl.PerformDataBinding(IEnumerable) = \"ok\"",
+    "DataBoundControl.PerformDataBinding(IEnumerable) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 -1; SelectedValue=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.PerformSelect": [
+    "DataBoundControl.PerformSelect = \"ok\"",
+    "DataBoundControl.PerformSelect after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.SaveViewState": [
+    "DataBoundControl.SaveViewState = null",
+    "DataBoundControl.SaveViewState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.SelectArguments": [
+    "DataBoundControl.SelectArguments = DataSourceSelectArguments {MaximumRows=Int32 0; RetrieveTotalRowCount=false; SortExpression=\"\"; StartRowIndex=Int32 0; TotalRowCount=Int32 -1}"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.SelectMethod": [
+    "DataBoundControl.SelectMethod = \"\"",
+    "DataBoundControl.SelectMethod set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.TrackViewState": [
+    "DataBoundControl.TrackViewState = \"ok\"",
+    "DataBoundControl.TrackViewState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.DataBoundControl.ValidateDataSource": [
+    "DataBoundControl.ValidateDataSource(Object) = \"ok\"",
+    "DataBoundControl.ValidateDataSource(Object) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.IRepeatInfoUser.GetItemStyle": [
+    "IRepeatInfoUser.GetItemStyle(ListItemType,Int32) = null",
+    "IRepeatInfoUser.GetItemStyle(ListItemType,Int32) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.IRepeatInfoUser.HasFooter": [
+    "IRepeatInfoUser.HasFooter = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.IRepeatInfoUser.HasHeader": [
+    "IRepeatInfoUser.HasHeader = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.IRepeatInfoUser.HasSeparators": [
+    "IRepeatInfoUser.HasSeparators = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.IRepeatInfoUser.RenderItem": [
+    "IRepeatInfoUser.RenderItem(ListItemType,Int32,RepeatInfo,HtmlTextWriter) = \"ok\"",
+    "IRepeatInfoUser.RenderItem(ListItemType,Int32,RepeatInfo,HtmlTextWriter) writer:",
+    "  | <input id=\"cblSize_0\" type=\"checkbox\" name=\"cblSize$0\" value=\"S\" /><label for=\"cblSize_0\">Small</label>",
+    "IRepeatInfoUser.RenderItem(ListItemType,Int32,RepeatInfo,HtmlTextWriter) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.IRepeatInfoUser.RepeatedItemCount": [
+    "IRepeatInfoUser.RepeatedItemCount = \"Int32 3\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.#ctor": [
+    "ListControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.ListControl because it is an abstract class.\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.AddAttributesToRender": [
+    "ListControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "ListControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "ListControl.AddAttributesToRender(HtmlTextWriter) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.AppendDataBoundItems": [
+    "ListControl.AppendDataBoundItems = \"false\"",
+    "ListControl.AppendDataBoundItems set = \"true\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.AutoPostBack": [
+    "ListControl.AutoPostBack = \"false\"",
+    "ListControl.AutoPostBack set = \"true\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.CausesValidation": [
+    "ListControl.CausesValidation = \"false\"",
+    "ListControl.CausesValidation set = \"true\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.ClearSelection": [
+    "ListControl.ClearSelection = \"ok\"",
+    "ListControl.ClearSelection after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 -1; SelectedValue=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.DataTextField": [
+    "ListControl.DataTextField = \"\"",
+    "ListControl.DataTextField set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.DataTextFormatString": [
+    "ListControl.DataTextFormatString = \"\"",
+    "ListControl.DataTextFormatString set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.DataValueField": [
+    "ListControl.DataValueField = \"\"",
+    "ListControl.DataValueField set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.Items": [
+    "ListControl.Items = \"[System.Web.UI.WebControls.ListItem Small, System.Web.UI.WebControls.ListItem Medium, System.Web.UI.WebControls.ListItem Large]\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.LoadViewState": [
+    "ListControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.OnDataBinding": [
+    "ListControl.OnDataBinding(EventArgs) = \"ok\"",
+    "ListControl.OnDataBinding(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.OnPreRender": [
+    "ListControl.OnPreRender(EventArgs) = \"ok\"",
+    "ListControl.OnPreRender(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.OnSelectedIndexChanged": [
+    "ListControl.OnSelectedIndexChanged(EventArgs) = \"ok\"",
+    "ListControl.OnSelectedIndexChanged(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.OnTextChanged": [
+    "ListControl.OnTextChanged(EventArgs) = \"ok\"",
+    "ListControl.OnTextChanged(EventArgs) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.PerformDataBinding": [
+    "ListControl.PerformDataBinding(IEnumerable) = \"ok\"",
+    "ListControl.PerformDataBinding(IEnumerable) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 -1; SelectedValue=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.PerformSelect": [
+    "ListControl.PerformSelect = \"ok\"",
+    "ListControl.PerformSelect after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.RenderContents": [
+    "ListControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "ListControl.RenderContents(HtmlTextWriter) writer:",
+    "  | <option value=\"S\">Small</option>",
+    "  | <option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | <option value=\"L\">Large</option>",
+    "  | ",
+    "ListControl.RenderContents(HtmlTextWriter) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.SaveViewState": [
+    "ListControl.SaveViewState = null",
+    "ListControl.SaveViewState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.SelectedIndex": [
+    "ListControl.SelectedIndex = \"Int32 1\"",
+    "ListControl.SelectedIndex set = \"Int32 1\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.SelectedIndexChanged": [
+    "ListControl.SelectedIndexChanged = \"added and removed\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.SelectedItem": [
+    "ListControl.SelectedItem = ListItem {Enabled=true; Selected=true; Text=\"Medium\"; Value=\"M\"}"
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.SelectedValue": [
+    "ListControl.SelectedValue = \"M\"",
+    "ListControl.SelectedValue set = \"M\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.SetPostDataSelection": [
+    "ListControl.SetPostDataSelection(Int32) = \"ok\"",
+    "ListControl.SetPostDataSelection(Int32) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 0; SelectedValue=\"S\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"S\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.TagKey": [
+    "ListControl.TagKey = \"HtmlTextWriterTag.Select\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.Text": [
+    "ListControl.Text = \"M\"",
+    "ListControl.Text set = \"M\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.TextChanged": [
+    "ListControl.TextChanged = \"added and removed\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.TrackViewState": [
+    "ListControl.TrackViewState = \"ok\"",
+    "ListControl.TrackViewState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.ValidationGroup": [
+    "ListControl.ValidationGroup = \"\"",
+    "ListControl.ValidationGroup set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.WebControls.ListControl.VerifyMultiSelect": [
+    "ListControl.VerifyMultiSelect = \"ok\"",
+    "ListControl.VerifyMultiSelect after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = TableStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CellPadding=Int32 -1; CellSpacing=Int32 -1; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; GridLines=None; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = TableStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CellPadding=Int32 -1; CellSpacing=Int32 -1; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; GridLines=None; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; Width=}",
+    "WebControl.CreateControlStyle after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <select multiple=\"multiple\" id=\"cblSize\">",
+    "  | ",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | <option value=\"S\">Small</option>",
+    "  | <option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | <option value=\"L\">Large</option>",
+    "  | ",
+    "WebControl.RenderContents(HtmlTextWriter) after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Select\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"select\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = CheckBoxList#cblSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"cblSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"cblSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; TextAlign=Right; ToolTip=\"\"; UniqueID=\"cblSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CheckBoxList.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ]
+}

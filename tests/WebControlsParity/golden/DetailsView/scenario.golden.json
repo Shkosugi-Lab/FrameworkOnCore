@@ -1,0 +1,3608 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "DetailsView [render][databind][datasource][datasourceid][templates][dynamic] first request",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code P1",
+        "Name Pen",
+        "Price 1.25",
+        "Active",
+        "Like",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Code P1",
+        "Name Pen",
+        "Price 1.25",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Paging by callbacks",
+        "Name Pen",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Name Pen",
+        "Code P1",
+        "Request 1: IsPostBack=False",
+        "Details dvManual: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=6",
+        "Details dvAuto: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2 (hidden)",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            "P1"
+          ],
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Price",
+            "1.25"
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "P1"
+          ],
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Price",
+            "1.25"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_ctl01": "true"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_ctl01": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvNoViewState": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DetailsView [paging][postbackevent] the page's details view: page 2",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code B2",
+        "Name Bag",
+        "Price 24.99",
+        "Active",
+        "Like",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Code P1",
+        "Name Pen",
+        "Price 1.25",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Paging by callbacks",
+        "Name Pen",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Request 2: IsPostBack=True",
+        "ItemCommand dvManual: Page 2",
+        "PageIndexChanging: NewPageIndex=1",
+        "Details dvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly Rows=6",
+        "Details dvAuto: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=0",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2 (hidden)",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            "B2"
+          ],
+          [
+            "Name",
+            "Bag"
+          ],
+          [
+            "Price",
+            "24.99"
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "P1"
+          ],
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Price",
+            "1.25"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_ctl01": "false"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_ctl01": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DetailsView [rowcommand] a ButtonField's command",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code B2",
+        "Name Bag",
+        "Price 24.99",
+        "Active",
+        "Like",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Code P1",
+        "Name Pen",
+        "Price 1.25",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Paging by callbacks",
+        "Name Pen",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Request 3: IsPostBack=True",
+        "ItemCommand dvManual: like 1",
+        "Details dvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly Rows=6",
+        "Details dvAuto: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=0",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2 (hidden)",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            "B2"
+          ],
+          [
+            "Name",
+            "Bag"
+          ],
+          [
+            "Price",
+            "24.99"
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "P1"
+          ],
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Price",
+            "1.25"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_ctl01": "false"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_ctl01": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DetailsView [editing] edit mode",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code B2",
+        "Name",
+        "Price",
+        "Active",
+        "Like",
+        "Update Cancel",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Code P1",
+        "Name Pen",
+        "Price 1.25",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Paging by callbacks",
+        "Name Pen",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Request 4: IsPostBack=True",
+        "ItemCommand dvManual: Edit 1",
+        "ModeChanging: NewMode=Edit CancelingEdit=False",
+        "Details dvManual: PageIndex=1 PageCount=7 CurrentMode=Edit Rows=6",
+        "Details dvAuto: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=0",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2 (hidden)",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            "B2"
+          ],
+          [
+            "Name",
+            ""
+          ],
+          [
+            "Price",
+            ""
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Update\u00A0Cancel"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "P1"
+          ],
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Price",
+            "1.25"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_txtDvName": "Bag",
+        "dvManual_ctl02": "false"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_txtDvName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "dvManual_ctl02": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DetailsView [editing][bind][datakeys] updated: keys, old and new values",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code B2",
+        "Name Renamed",
+        "Price 8.25",
+        "Active",
+        "Like",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Code P1",
+        "Name Pen",
+        "Price 1.25",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Paging by callbacks",
+        "Name Pen",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Request 5: IsPostBack=True",
+        "ItemCommand dvManual: Update 1",
+        "ItemUpdating: Keys={Code=B2} OldValues={} NewValues={Name=Renamed, Price=8.25}",
+        "Details dvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly Rows=6",
+        "Details dvAuto: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=0",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2 (hidden)",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True B2:Renamed:8.25:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            "B2"
+          ],
+          [
+            "Name",
+            "Renamed"
+          ],
+          [
+            "Price",
+            "8.25"
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "P1"
+          ],
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Price",
+            "1.25"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_ctl01": "false"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_ctl01": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DetailsView [inserting] insert mode",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code",
+        "Name",
+        "Price",
+        "Active",
+        "Like",
+        "Insert Cancel",
+        "Automatic (ObjectDataSource)",
+        "Code P1",
+        "Name Pen",
+        "Price 1.25",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Paging by callbacks",
+        "Name Pen",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Request 6: IsPostBack=True",
+        "ItemCommand dvManual: New 1",
+        "ModeChanging: NewMode=Insert CancelingEdit=False",
+        "Details dvManual: PageIndex=-1 PageCount=0 CurrentMode=Insert Rows=6",
+        "Details dvAuto: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=0",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2 (hidden)",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True B2:Renamed:8.25:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            ""
+          ],
+          [
+            "Name",
+            ""
+          ],
+          [
+            "Price",
+            ""
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Insert\u00A0Cancel"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "P1"
+          ],
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Price",
+            "1.25"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_txtDvNewCode": "",
+        "dvManual_txtDvNewName": "",
+        "dvManual_ctl02": "false"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_txtDvNewCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "dvManual_txtDvNewName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "dvManual_ctl02": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DetailsView [inserting][bind] inserted",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code B2",
+        "Name Renamed",
+        "Price 8.25",
+        "Active",
+        "Like",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7 8",
+        "Automatic (ObjectDataSource)",
+        "Code P1",
+        "Name Pen",
+        "Price 1.25",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Paging by callbacks",
+        "Name Pen",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Request 7: IsPostBack=True",
+        "ItemCommand dvManual: Insert -1",
+        "ItemInserting: Values={Active=False, Code=N9, Name=New item, Price=4}",
+        "Details dvManual: PageIndex=1 PageCount=8 CurrentMode=ReadOnly Rows=6",
+        "Details dvAuto: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=0",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2 (hidden)",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True B2:Renamed:8.25:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            "B2"
+          ],
+          [
+            "Name",
+            "Renamed"
+          ],
+          [
+            "Price",
+            "8.25"
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7\t8"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "P1"
+          ],
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Price",
+            "1.25"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_ctl01": "false"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_ctl01": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DetailsView [editing][datakeys] deleted",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code C3",
+        "Name Cup <&>",
+        "Price 1234.5",
+        "Active",
+        "Like",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Code P1",
+        "Name Pen",
+        "Price 1.25",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Paging by callbacks",
+        "Name Pen",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Request 8: IsPostBack=True",
+        "ItemCommand dvManual: Delete 1",
+        "ItemDeleting: Keys={Code=B2} Values={Active=False, Price=8.25}",
+        "Details dvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly Rows=6",
+        "Details dvAuto: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=0",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2 (hidden)",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            "C3"
+          ],
+          [
+            "Name",
+            "Cup <&>"
+          ],
+          [
+            "Price",
+            "1234.5"
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "P1"
+          ],
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Price",
+            "1.25"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_ctl01": "true"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_ctl01": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DetailsView [paging][datasourceid] the data source's details view: page 3",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code C3",
+        "Name Cup <&>",
+        "Price 1234.5",
+        "Active",
+        "Like",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Code D4",
+        "Name Desk",
+        "Price 150",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Paging by callbacks",
+        "Name Pen",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Request 9: IsPostBack=True",
+        "Details dvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly Rows=6",
+        "Details dvAuto: PageIndex=2 PageCount=7 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=0",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2 (hidden)",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            "C3"
+          ],
+          [
+            "Name",
+            "Cup <&>"
+          ],
+          [
+            "Price",
+            "1234.5"
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "D4"
+          ],
+          [
+            "Name",
+            "Desk"
+          ],
+          [
+            "Price",
+            "150"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_ctl01": "true"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_ctl01": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DetailsView [editing][datasourceid] updated through the data source",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code C3",
+        "Name Cup <&>",
+        "Price 1234.5",
+        "Active",
+        "Like",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Code D4",
+        "Name Auto renamed",
+        "Price 150",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Paging by callbacks",
+        "Name Pen",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Request 11: IsPostBack=True",
+        "ObjectDataSource Updating: {Code=D4, Name=Auto renamed, Price=150}",
+        "ItemUpdated: AffectedRows=-1 Keys={Code=D4} NewValues={Name=Auto renamed, Price=150}",
+        "Details dvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly Rows=6",
+        "Details dvAuto: PageIndex=2 PageCount=7 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=0",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2 (hidden)",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True D4:Auto renamed:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            "C3"
+          ],
+          [
+            "Name",
+            "Cup <&>"
+          ],
+          [
+            "Price",
+            "1234.5"
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "D4"
+          ],
+          [
+            "Name",
+            "Auto renamed"
+          ],
+          [
+            "Price",
+            "150"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_ctl01": "true"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_ctl01": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DetailsView [inserting][datasourceid] inserted through the data source",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code C3",
+        "Name Cup <&>",
+        "Price 1234.5",
+        "Active",
+        "Like",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Code D4",
+        "Name Auto renamed",
+        "Price 150",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7 8",
+        "Paging by callbacks",
+        "Name Pen",
+        "1 2 3 4 5 6 7 8",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Request 13: IsPostBack=True",
+        "ObjectDataSource Inserting: {Code=A8, Name=Auto new, Price=7}",
+        "ItemInserted: AffectedRows=-1 Values={Code=A8, Name=Auto new, Price=7}",
+        "Details dvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly Rows=6",
+        "Details dvAuto: PageIndex=2 PageCount=0 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=0 PageCount=7 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=0",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2 (hidden)",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True D4:Auto renamed:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False A8:Auto new:7:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            "C3"
+          ],
+          [
+            "Name",
+            "Cup <&>"
+          ],
+          [
+            "Price",
+            "1234.5"
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "D4"
+          ],
+          [
+            "Name",
+            "Auto renamed"
+          ],
+          [
+            "Price",
+            "150"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7\t8"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7\t8"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_ctl01": "true"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_ctl01": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DetailsView [editing][datasourceid] deleted through the data source",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code C3",
+        "Name Cup <&>",
+        "Price 1234.5",
+        "Active",
+        "Like",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Code E5",
+        "Name Eraser",
+        "Price 0.5",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Paging by callbacks",
+        "Name Pen",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Request 14: IsPostBack=True",
+        "ItemDeleted: AffectedRows=-1 Keys={Code=D4}",
+        "Details dvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly Rows=6",
+        "Details dvAuto: PageIndex=2 PageCount=8 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=0 PageCount=8 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=0",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2 (hidden)",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False A8:Auto new:7:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            "C3"
+          ],
+          [
+            "Name",
+            "Cup <&>"
+          ],
+          [
+            "Price",
+            "1234.5"
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "E5"
+          ],
+          [
+            "Name",
+            "Eraser"
+          ],
+          [
+            "Price",
+            "0.5"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_ctl01": "true"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_ctl01": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DetailsView [callback][paging] paged by a callback: no postback",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code C3",
+        "Name Cup <&>",
+        "Price 1234.5",
+        "Active",
+        "Like",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Code E5",
+        "Name Eraser",
+        "Price 0.5",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Paging by callbacks",
+        "Name Cup <&>",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Request 14: IsPostBack=True",
+        "ItemDeleted: AffectedRows=-1 Keys={Code=D4}",
+        "Details dvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly Rows=6",
+        "Details dvAuto: PageIndex=2 PageCount=8 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=0 PageCount=8 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=0",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2 (hidden)",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False A8:Auto new:7:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            "C3"
+          ],
+          [
+            "Name",
+            "Cup <&>"
+          ],
+          [
+            "Price",
+            "1234.5"
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "E5"
+          ],
+          [
+            "Name",
+            "Eraser"
+          ],
+          [
+            "Price",
+            "0.5"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Cup <&>"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_ctl01": "true"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_ctl01": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DetailsView [viewstate] posted (the one without view state is empty)",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code C3",
+        "Name Cup <&>",
+        "Price 1234.5",
+        "Active",
+        "Like",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Code E5",
+        "Name Eraser",
+        "Price 0.5",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Paging by callbacks",
+        "Name Cup <&>",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Request 15: IsPostBack=True",
+        "Details dvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly Rows=6",
+        "Details dvAuto: PageIndex=2 PageCount=7 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=1 PageCount=7 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=0",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2 (hidden)",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False A8:Auto new:7:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            "C3"
+          ],
+          [
+            "Name",
+            "Cup <&>"
+          ],
+          [
+            "Price",
+            "1234.5"
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "E5"
+          ],
+          [
+            "Name",
+            "Eraser"
+          ],
+          [
+            "Price",
+            "0.5"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Cup <&>"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_ctl01": "true"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_ctl01": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DetailsView [visible][viewstate] the hidden details view shown",
+      "Path": "/detailsviewscenario",
+      "Title": "DetailsView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Code C3",
+        "Name Cup <&>",
+        "Price 1234.5",
+        "Active",
+        "Like",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Code E5",
+        "Name Eraser",
+        "Price 0.5",
+        "Edit Delete New",
+        "1 2 3 4 5 6 7",
+        "Paging by callbacks",
+        "Name Cup <&>",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Name Pen",
+        "Code P1",
+        "Name Pen",
+        "Code P1",
+        "Request 16: IsPostBack=True",
+        "Click btnShow",
+        "Details dvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly Rows=6",
+        "Details dvAuto: PageIndex=2 PageCount=7 CurrentMode=ReadOnly Rows=4",
+        "Details dvCallback: PageIndex=1 PageCount=7 CurrentMode=ReadOnly Rows=1",
+        "Details dvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly Rows=1",
+        "Details dvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=0",
+        "Details dvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Details dvDynamic: PageIndex=0 PageCount=2 CurrentMode=ReadOnly Rows=2",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False A8:Auto new:7:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Code",
+            "C3"
+          ],
+          [
+            "Name",
+            "Cup <&>"
+          ],
+          [
+            "Price",
+            "1234.5"
+          ],
+          [
+            "Active",
+            ""
+          ],
+          [
+            "Like"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "E5"
+          ],
+          [
+            "Name",
+            "Eraser"
+          ],
+          [
+            "Price",
+            "0.5"
+          ],
+          [
+            "Edit\u00A0Delete\u00A0New"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Cup <&>"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Pen"
+          ],
+          [
+            "Code",
+            "P1"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dvManual_ctl01": "true"
+      },
+      "Elements": {
+        "dvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvManual_ctl01": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "dvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__dvdvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvHidden": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

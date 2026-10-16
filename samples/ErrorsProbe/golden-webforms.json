@@ -1,0 +1,28 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "errors-the answers",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/nothing.htm -> 404 | text=404 - File or directory not found. Server Error 404 - File or directory not found. The resource you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+        "/App.aspx?status=404 -> 404 | text=404 - File or directory not found. Server Error 404 - File or directory not found. The resource you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+        "/App.aspx?status=404&skip=1 -> 404 | text=APP BODY 404",
+        "/custom/nothing.htm -> 200 | text=Custom 404 CUSTOM 404 PAGE status=200 | RawUrl=/custom/nothing.htm | Path=/errors/404.aspx | QueryString=404%3bhttp%3a%2f%2flocalhost%3a5096%2fcustom%2fnothing.htm | X-Original-URL=",
+        "/custom/App.aspx?status=500 -> 500 | text=File 500 FILE 500 PAGE",
+        "/pass/App.aspx?status=404 -> 404 | text=APP BODY 404"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

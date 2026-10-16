@@ -1,0 +1,36 @@
+View.(default)	(nothing set)
+View.AppRelativeTemplateSourceDirectory=text	c.AppRelativeTemplateSourceDirectory = "probe";
+View.AppRelativeTemplateSourceDirectory=markup	c.AppRelativeTemplateSourceDirectory = "<b>\"&'</b>";
+View.AppRelativeTemplateSourceDirectory=japanese	c.AppRelativeTemplateSourceDirectory = "日本語テキスト";
+View.AppRelativeTemplateSourceDirectory=empty	c.AppRelativeTemplateSourceDirectory = "";
+View.ClientIDMode=Inherit	c.ClientIDMode = ClientIDMode.Inherit;
+View.ClientIDMode=AutoID	c.ClientIDMode = ClientIDMode.AutoID;
+View.ClientIDMode=Predictable	c.ClientIDMode = ClientIDMode.Predictable;
+View.ClientIDMode=Static	c.ClientIDMode = ClientIDMode.Static;
+View.EnableTheming=true	c.EnableTheming = true;
+View.EnableTheming=false	c.EnableTheming = false;
+View.EnableViewState=true	c.EnableViewState = true;
+View.EnableViewState=false	c.EnableViewState = false;
+View.ID=text	c.ID = "probe";
+View.ID=markup	c.ID = "<b>\"&'</b>";
+View.ID=japanese	c.ID = "日本語テキスト";
+View.ID=empty	c.ID = "";
+View.SkinID=text	c.SkinID = "probe";
+View.SkinID=markup	c.SkinID = "<b>\"&'</b>";
+View.SkinID=japanese	c.SkinID = "日本語テキスト";
+View.SkinID=empty	c.SkinID = "";
+View.ValidateRequestMode=Inherit	c.ValidateRequestMode = ValidateRequestMode.Inherit;
+View.ValidateRequestMode=Disabled	c.ValidateRequestMode = ValidateRequestMode.Disabled;
+View.ValidateRequestMode=Enabled	c.ValidateRequestMode = ValidateRequestMode.Enabled;
+View.ViewStateMode=Inherit	c.ViewStateMode = ViewStateMode.Inherit;
+View.ViewStateMode=Enabled	c.ViewStateMode = ViewStateMode.Enabled;
+View.ViewStateMode=Disabled	c.ViewStateMode = ViewStateMode.Disabled;
+View.Visible=true	c.Visible = true;
+View.Visible=false	c.Visible = false;
+View.Visible=false+EnableViewState=false	c.Visible = false; c.EnableViewState = false;
+View[naming container].(default)	[naming container] (nothing set)
+View[naming container].ClientIDMode=AutoID	[naming container] c.ClientIDMode = ClientIDMode.AutoID;
+View[naming container].ClientIDMode=Static	[naming container] c.ClientIDMode = ClientIDMode.Static;
+View[naming container].ClientIDMode=Predictable	[naming container] c.ClientIDMode = ClientIDMode.Predictable;
+View[naming container].ClientIDMode=Inherit	[naming container] c.ClientIDMode = ClientIDMode.Inherit;
+View[naming container].ID=text	[naming container] c.ID = "probe";

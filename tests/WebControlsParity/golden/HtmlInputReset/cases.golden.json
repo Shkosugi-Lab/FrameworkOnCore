@@ -1,0 +1,530 @@
+{
+  "HtmlInputReset.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HtmlInputReset.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HtmlInputReset.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputReset.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HtmlInputReset.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.ClientID": [
+    "Control.ClientID = \"inpReset\""
+  ],
+  "HtmlInputReset.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HtmlInputReset.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HtmlInputReset.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HtmlInputReset.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "HtmlInputReset.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HtmlInputReset.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HtmlInputReset.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HtmlInputReset.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HtmlInputReset.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HtmlInputReset.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "HtmlInputReset.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HtmlInputReset.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HtmlInputReset.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "HtmlInputReset.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputReset.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"inpReset\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HtmlInputReset.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.ID": [
+    "Control.ID = \"inpReset\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HtmlInputReset.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HtmlInputReset.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HtmlInputReset.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HtmlInputReset.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HtmlInputReset.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HtmlInputReset.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HtmlInputReset.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlInputReset.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HtmlInputReset.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputReset.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputReset.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HtmlInputReset.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <input name=\"inpReset\" type=\"reset\" id=\"inpReset\" value=\"Reset\" />",
+    "Control.Render(HtmlTextWriter) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <input name=\"inpReset\" type=\"reset\" id=\"inpReset\" value=\"Reset\" />",
+    "Control.RenderControl(HtmlTextWriter) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <input name=\"inpReset\" type=\"reset\" id=\"inpReset\" value=\"Reset\" />",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HtmlInputReset.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HtmlInputReset.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "HtmlInputReset.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HtmlInputReset.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.Control.UniqueID": [
+    "Control.UniqueID = \"inpReset\""
+  ],
+  "HtmlInputReset.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HtmlInputReset.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HtmlInputReset.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [type=\"reset\", value=\"Reset\"]"
+  ],
+  "HtmlInputReset.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlInputReset.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HtmlInputReset.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlControl.#ctor": [
+    "HtmlControls.HtmlControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\"",
+    "HtmlControls.HtmlControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\""
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlControl.Attributes": [
+    "HtmlControls.HtmlControl.Attributes = AttributeCollection [type=\"reset\", value=\"Reset\"]"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlControl.CreateControlCollection": [
+    "HtmlControls.HtmlControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlControl.CreateControlCollection after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlControl.Disabled": [
+    "HtmlControls.HtmlControl.Disabled = \"false\"",
+    "HtmlControls.HtmlControl.Disabled set = \"true\""
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlControl.GetAttribute": [
+    "HtmlControls.HtmlControl.GetAttribute(String) = null",
+    "HtmlControls.HtmlControl.GetAttribute(String) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlControl.Render": [
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) writer:",
+    "  | <input name=\"inpReset\" type=\"reset\" id=\"inpReset\" value=\"Reset\" />",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlControl.RenderAttributes": [
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"inpReset\" type=\"reset\" id=\"inpReset\" value=\"Reset\" /",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlControl.RenderBeginTag": [
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <input name=\"inpReset\" type=\"reset\" id=\"inpReset\" value=\"Reset\" />",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlControl.SetAttribute": [
+    "HtmlControls.HtmlControl.SetAttribute(String,String) = \"ok\"",
+    "HtmlControls.HtmlControl.SetAttribute(String,String) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlControl.Style": [
+    "HtmlControls.HtmlControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlControl.TagName": [
+    "HtmlControls.HtmlControl.TagName = \"input\""
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlControl.ViewStateIgnoresCase": [
+    "HtmlControls.HtmlControl.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputButton.#ctor": [
+    "HtmlControls.HtmlInputButton.#ctor = HtmlInputButton# {CausesValidation=true; ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=null; Name=null; SkinID=\"\"; TagName=\"input\"; Type=\"button\"; UniqueID=null; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"\"; ViewStateMode=Inherit; Visible=true}",
+    "HtmlControls.HtmlInputButton.#ctor(String) = HtmlInputButton# {CausesValidation=true; ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=null; Name=null; SkinID=\"\"; TagName=\"input\"; Type=\"Abc 123\"; UniqueID=null; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputButton.CausesValidation": [
+    "HtmlControls.HtmlInputButton.CausesValidation = \"true\"",
+    "HtmlControls.HtmlInputButton.CausesValidation set = \"true\""
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputButton.OnPreRender": [
+    "HtmlControls.HtmlInputButton.OnPreRender(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlInputButton.OnPreRender(EventArgs) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputButton.OnServerClick": [
+    "HtmlControls.HtmlInputButton.OnServerClick(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlInputButton.OnServerClick(EventArgs) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputButton.RaisePostBackEvent": [
+    "HtmlControls.HtmlInputButton.RaisePostBackEvent(String) = \"ok\"",
+    "HtmlControls.HtmlInputButton.RaisePostBackEvent(String) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputButton.RenderAttributes": [
+    "HtmlControls.HtmlInputButton.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlInputButton.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"inpReset\" type=\"reset\" id=\"inpReset\" value=\"Reset\" /",
+    "HtmlControls.HtmlInputButton.RenderAttributes(HtmlTextWriter) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputButton.ServerClick": [
+    "HtmlControls.HtmlInputButton.ServerClick = \"added and removed\""
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputButton.ValidationGroup": [
+    "HtmlControls.HtmlInputButton.ValidationGroup = \"\"",
+    "HtmlControls.HtmlInputButton.ValidationGroup set = \"Abc 123\""
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputControl.#ctor": [
+    "HtmlControls.HtmlInputControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlInputControl because it is an abstract class.\""
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputControl.Name": [
+    "HtmlControls.HtmlInputControl.Name = \"inpReset\"",
+    "HtmlControls.HtmlInputControl.Name set = \"inpReset\""
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputControl.RenderAttributes": [
+    "HtmlControls.HtmlInputControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlInputControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"inpReset\" type=\"reset\" id=\"inpReset\" value=\"Reset\" /",
+    "HtmlControls.HtmlInputControl.RenderAttributes(HtmlTextWriter) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputControl.Type": [
+    "HtmlControls.HtmlInputControl.Type = \"reset\""
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputControl.Value": [
+    "HtmlControls.HtmlInputControl.Value = \"Reset\"",
+    "HtmlControls.HtmlInputControl.Value set = \"Abc 123\""
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputReset.#ctor": [
+    "HtmlControls.HtmlInputReset.#ctor = HtmlInputReset# {CausesValidation=true; ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=null; Name=null; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=null; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"\"; ViewStateMode=Inherit; Visible=true}",
+    "HtmlControls.HtmlInputReset.#ctor(String) = HtmlInputReset# {CausesValidation=true; ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=null; Name=null; SkinID=\"\"; TagName=\"input\"; Type=\"Abc 123\"; UniqueID=null; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputReset.CausesValidation": [
+    "HtmlControls.HtmlInputReset.CausesValidation = \"true\"",
+    "HtmlControls.HtmlInputReset.CausesValidation set = \"true\""
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputReset.ServerClick": [
+    "HtmlControls.HtmlInputReset.ServerClick = \"added and removed\""
+  ],
+  "HtmlInputReset.Api.HtmlControls.HtmlInputReset.ValidationGroup": [
+    "HtmlControls.HtmlInputReset.ValidationGroup = \"\"",
+    "HtmlControls.HtmlInputReset.ValidationGroup set = \"Abc 123\""
+  ],
+  "HtmlInputReset.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HtmlInputReset.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HtmlInputReset.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HtmlInputReset.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HtmlInputReset.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HtmlInputReset.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HtmlInputReset.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.IPostBackEventHandler.RaisePostBackEvent": [
+    "IPostBackEventHandler.RaisePostBackEvent(String) = \"ok\"",
+    "IPostBackEventHandler.RaisePostBackEvent(String) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputReset.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HtmlInputReset#inpReset {CausesValidation=true; ClientID=\"inpReset\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpReset\"; Name=\"inpReset\"; SkinID=\"\"; TagName=\"input\"; Type=\"reset\"; UniqueID=\"inpReset\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; Value=\"Reset\"; ViewStateMode=Inherit; Visible=true}"
+  ]
+}

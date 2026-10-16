@@ -1,0 +1,200 @@
+{
+  "_comment": "The ListView's scenario layer (ListViewScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/ListViewScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [render][databind][datasource][datasourceid][templates][dynamic] first request"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divManual",
+      "value": "2"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [paging] the page's list view: page 2 (its pager)"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divManual",
+      "value": "Sort by name"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [sorting] sorted by name"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divManual",
+      "value": "Sort by name"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [sorting][viewstate] sorted by name again: descending (the page's)"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divManual",
+      "value": "Select"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [selection][datakeys] an item selected"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divManual",
+      "value": "Like"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [rowcommand] a command bubbled to ItemCommand"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divManual",
+      "value": "Edit"
+    },
+    {
+      "action": "fill",
+      "target": "txtLvName",
+      "value": "Renamed"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divManual",
+      "value": "Update"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [editing][bind][datakeys] updated: keys, old and new values"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divManual",
+      "value": "Edit"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divManual",
+      "value": "Cancel"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [editing] edit cancelled"
+    },
+    {
+      "action": "fill",
+      "target": "txtLvNewCode",
+      "value": "N9"
+    },
+    {
+      "action": "fill",
+      "target": "txtLvNewName",
+      "value": "New item"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divManual",
+      "value": "Insert"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [inserting][bind] inserted"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divManual",
+      "value": "Delete"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [editing][datakeys] deleted"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divAuto",
+      "value": "Next"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [paging][datasourceid] the data source's list view: next page"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divAuto",
+      "value": "Sort by price"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [sorting][datasourceid] sorted by price (the list view's own direction)"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divAuto",
+      "value": "Sort by price"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [sorting][datasourceid] sorted by price again: descending"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divAuto",
+      "value": "Select"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [selection][datasourceid] an item selected"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divAuto",
+      "value": "Edit"
+    },
+    {
+      "action": "fill",
+      "target": "txtLaName",
+      "value": "Auto renamed"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divAuto",
+      "value": "Update"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [editing][datasourceid] updated through the data source"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divAuto",
+      "value": "Delete"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [editing][datasourceid] deleted through the data source"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [viewstate] posted (the one without view state is empty)"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "ListView [visible][viewstate] the hidden list view shown"
+    }
+  ]
+}

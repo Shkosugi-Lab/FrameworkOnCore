@@ -1,0 +1,2764 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "BulletedList [render][databind][items] first request (a bound list)",
+      "Path": "/listcontrolsscenario",
+      "Title": "List controls scenario",
+      "Text": [
+        "DropDownList:",
+        "Small",
+        "Medium",
+        "Large",
+        "Auto:",
+        "Small",
+        "Medium",
+        "Large",
+        "Bound:",
+        "(choose)",
+        "Pen",
+        "Bag",
+        "Cup <&>",
+        "No view state:",
+        "Small",
+        "Medium",
+        "ListBox (multiple):",
+        "Red",
+        "Green",
+        "Blue",
+        "Auto:",
+        "Red",
+        "Green",
+        "CheckBoxList:",
+        "Red Green Blue",
+        "Auto: X",
+        "Y",
+        "RadioButtonList:",
+        "Small Medium Large",
+        "Auto: X",
+        "Y",
+        "Validated (g1, server):",
+        "(choose)",
+        "A",
+        "A",
+        "B",
+        "A",
+        "Validated (g3, in the browser):",
+        "(choose)",
+        "A",
+        "A",
+        "A",
+        "BulletedList:",
+        "First",
+        "Second",
+        "Third",
+        "Validate g1 by a bullet",
+        "Pen",
+        "Bag",
+        "Cup <&>",
+        "Dynamic:",
+        "One",
+        "Two",
+        "One",
+        "Two",
+        "One",
+        "TwoOne",
+        "Two",
+        "One",
+        "Two",
+        "Hidden:",
+        "Pen",
+        "Bag",
+        "Pen",
+        "Bag",
+        "Pen",
+        "Bag Pen",
+        "Bag",
+        "Request 1: IsPostBack=False",
+        "List ddlSize: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 3",
+        "List ddlAuto: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 3",
+        "List ddlBound: SelectedIndex=0 SelectedValue=\"\" selected [] items 4",
+        "List ddlNoViewState: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 2",
+        "List lstMulti: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List lstAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblColors: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List cblAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List rblSize: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List rblAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List ddlValidated: SelectedIndex=0 SelectedValue=\"\" selected [] items 2",
+        "List lstValidated: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblValidated: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List ddlClient: SelectedIndex=0 SelectedValue=\"\" selected [] items 2",
+        "List lstClient: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List rblClient: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List ddlDynamic: SelectedIndex=0 SelectedValue=\"1\" selected [1] items 2",
+        "List lstDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List rblDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List bltDynamic: SelectedIndex=- SelectedValue=\"\" selected [] items 2",
+        "List ddlHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List lstHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List cblHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List rblHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List bltHidden: SelectedIndex=- SelectedValue=\"\" selected [] items 2 (hidden)",
+        "List bltBound: SelectedIndex=- SelectedValue=\"\" selected [] items 3"
+      ],
+      "Tables": [
+        [
+          [
+            "Red",
+            "Green",
+            "Blue"
+          ]
+        ],
+        [
+          [
+            "Small",
+            "Medium",
+            "Large"
+          ]
+        ],
+        [
+          [
+            "Pen\nBag\n \nPen\nBag\n Pen\nBag Pen\nBag"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "ddlSize": "S",
+        "ddlAuto": "S",
+        "ddlBound": "",
+        "ddlNoViewState": "S",
+        "lstMulti": "",
+        "lstAuto": "",
+        "cblColors_0": "false",
+        "cblColors_1": "false",
+        "cblColors_2": "false",
+        "cblAuto_0": "false",
+        "cblAuto_1": "false",
+        "rblSize_0": "S",
+        "rblSize_1": "M",
+        "rblSize_2": "L",
+        "rblAuto_0": "X",
+        "rblAuto_1": "Y",
+        "ddlValidated": "",
+        "lstValidated": "",
+        "cblValidated_0": "false",
+        "ddlClient": "",
+        "lstClient": "",
+        "rblClient_0": "A",
+        "ddlDynamic": "1",
+        "lstDynamic": "",
+        "cblDynamic_0": "false",
+        "cblDynamic_1": "false",
+        "rblDynamic_0": "1",
+        "rblDynamic_1": "2",
+        "fvProduct_ddlBind": "B2",
+        "fvProduct_lstBind": "B2",
+        "fvProduct_rblBind_0": "P1",
+        "fvProduct_rblBind_1": "B2",
+        "fvProduct_cblBind_0": "false",
+        "fvProduct_cblBind_1": "true"
+      },
+      "Elements": {
+        "ddlSize": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlAuto": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlBound": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlNoViewState": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstMulti": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "lstAuto": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "cblColors": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblColors_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblColors_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "cblColors_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblAuto_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblAuto_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rblSize": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblSize_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblSize_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblSize_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblAuto_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblAuto_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "ddlValidated": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstValidated": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "cblValidated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblValidated_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnG2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "ddlClient": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstClient": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "reqListClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblClient_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "reqRadioClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "bltLinks": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "bltValidated": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "bltBound": {
+          "Tag": "ol",
+          "Attributes": {},
+          "Style": {
+            "list-style-type": "decimal"
+          }
+        },
+        "ddlDynamic": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstDynamic": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "cblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblDynamic_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblDynamic_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblDynamic_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblDynamic_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "bltDynamic": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvProduct_ddlBind": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_lstBind": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "fvProduct_rblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_rblBind_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvProduct_rblBind_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvProduct_cblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_cblBind_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvProduct_cblBind_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvProduct_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "BulletedList [postbackevent] a bullet clicked (LinkButton)",
+      "Path": "/listcontrolsscenario",
+      "Title": "List controls scenario",
+      "Text": [
+        "DropDownList:",
+        "Small",
+        "Medium",
+        "Large",
+        "Auto:",
+        "Small",
+        "Medium",
+        "Large",
+        "Bound:",
+        "(choose)",
+        "Pen",
+        "Bag",
+        "Cup <&>",
+        "No view state:",
+        "Small",
+        "Medium",
+        "ListBox (multiple):",
+        "Red",
+        "Green",
+        "Blue",
+        "Auto:",
+        "Red",
+        "Green",
+        "CheckBoxList:",
+        "Red Green Blue",
+        "Auto: X",
+        "Y",
+        "RadioButtonList:",
+        "Small Medium Large",
+        "Auto: X",
+        "Y",
+        "Validated (g1, server):",
+        "(choose)",
+        "A",
+        "A",
+        "B",
+        "A",
+        "Validated (g3, in the browser):",
+        "(choose)",
+        "A",
+        "A",
+        "A",
+        "BulletedList:",
+        "First",
+        "Second",
+        "Third",
+        "Validate g1 by a bullet",
+        "Pen",
+        "Bag",
+        "Cup <&>",
+        "Dynamic:",
+        "One",
+        "Two",
+        "One",
+        "Two",
+        "One",
+        "TwoOne",
+        "Two",
+        "One",
+        "Two",
+        "Hidden:",
+        "Pen",
+        "Bag",
+        "Pen",
+        "Bag",
+        "Pen",
+        "Bag Pen",
+        "Bag",
+        "Request 2: IsPostBack=True",
+        "Click bltLinks index 1",
+        "IsValid: (not validated)",
+        "List ddlSize: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 3",
+        "List ddlAuto: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 3",
+        "List ddlBound: SelectedIndex=0 SelectedValue=\"\" selected [] items 4",
+        "List ddlNoViewState: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 2",
+        "List lstMulti: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List lstAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblColors: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List cblAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List rblSize: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List rblAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List ddlValidated: SelectedIndex=0 SelectedValue=\"\" selected [] items 2",
+        "List lstValidated: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblValidated: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List ddlClient: SelectedIndex=0 SelectedValue=\"\" selected [] items 2",
+        "List lstClient: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List rblClient: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List ddlDynamic: SelectedIndex=0 SelectedValue=\"1\" selected [1] items 2",
+        "List lstDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List rblDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List bltDynamic: SelectedIndex=- SelectedValue=\"\" selected [] items 2",
+        "List ddlHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List lstHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List cblHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List rblHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List bltHidden: SelectedIndex=- SelectedValue=\"\" selected [] items 2 (hidden)",
+        "List bltBound: SelectedIndex=- SelectedValue=\"\" selected [] items 3"
+      ],
+      "Tables": [
+        [
+          [
+            "Red",
+            "Green",
+            "Blue"
+          ]
+        ],
+        [
+          [
+            "Small",
+            "Medium",
+            "Large"
+          ]
+        ],
+        [
+          [
+            "Pen\nBag\n \nPen\nBag\n Pen\nBag Pen\nBag"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "ddlSize": "S",
+        "ddlAuto": "S",
+        "ddlBound": "",
+        "ddlNoViewState": "S",
+        "lstMulti": "",
+        "lstAuto": "",
+        "cblColors_0": "false",
+        "cblColors_1": "false",
+        "cblColors_2": "false",
+        "cblAuto_0": "false",
+        "cblAuto_1": "false",
+        "rblSize_0": "S",
+        "rblSize_1": "M",
+        "rblSize_2": "L",
+        "rblAuto_0": "X",
+        "rblAuto_1": "Y",
+        "ddlValidated": "",
+        "lstValidated": "",
+        "cblValidated_0": "false",
+        "ddlClient": "",
+        "lstClient": "",
+        "rblClient_0": "A",
+        "ddlDynamic": "1",
+        "lstDynamic": "",
+        "cblDynamic_0": "false",
+        "cblDynamic_1": "false",
+        "rblDynamic_0": "1",
+        "rblDynamic_1": "2",
+        "fvProduct_ddlBind": "B2",
+        "fvProduct_lstBind": "B2",
+        "fvProduct_rblBind_0": "P1",
+        "fvProduct_rblBind_1": "B2",
+        "fvProduct_cblBind_0": "false",
+        "fvProduct_cblBind_1": "true"
+      },
+      "Elements": {
+        "ddlSize": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlAuto": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlBound": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlNoViewState": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstMulti": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "lstAuto": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "cblColors": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblColors_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblColors_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "cblColors_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblAuto_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblAuto_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rblSize": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblSize_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblSize_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblSize_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblAuto_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblAuto_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "ddlValidated": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstValidated": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "cblValidated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblValidated_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnG2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "ddlClient": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstClient": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "reqListClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblClient_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "reqRadioClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "bltLinks": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "bltValidated": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "bltBound": {
+          "Tag": "ol",
+          "Attributes": {},
+          "Style": {
+            "list-style-type": "decimal"
+          }
+        },
+        "ddlDynamic": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstDynamic": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "cblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblDynamic_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblDynamic_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblDynamic_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblDynamic_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "bltDynamic": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvProduct_ddlBind": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_lstBind": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "fvProduct_rblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_rblBind_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvProduct_rblBind_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvProduct_cblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_cblBind_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvProduct_cblBind_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvProduct_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "BulletedList [causesvalidation][postbackevent] a bullet with ValidationGroup g1",
+      "Path": "/listcontrolsscenario",
+      "Title": "List controls scenario",
+      "Text": [
+        "DropDownList:",
+        "Small",
+        "Medium",
+        "Large",
+        "Auto:",
+        "Small",
+        "Medium",
+        "Large",
+        "Bound:",
+        "(choose)",
+        "Pen",
+        "Bag",
+        "Cup <&>",
+        "No view state:",
+        "Small",
+        "Medium",
+        "ListBox (multiple):",
+        "Red",
+        "Green",
+        "Blue",
+        "Auto:",
+        "Red",
+        "Green",
+        "CheckBoxList:",
+        "Red Green Blue",
+        "Auto: X",
+        "Y",
+        "RadioButtonList:",
+        "Small Medium Large",
+        "Auto: X",
+        "Y",
+        "Validated (g1, server):",
+        "(choose)",
+        "A",
+        "A",
+        "B",
+        "A",
+        "Validated (g3, in the browser):",
+        "(choose)",
+        "A",
+        "A",
+        "A",
+        "BulletedList:",
+        "First",
+        "Second",
+        "Third",
+        "Validate g1 by a bullet",
+        "Pen",
+        "Bag",
+        "Cup <&>",
+        "Dynamic:",
+        "One",
+        "Two",
+        "One",
+        "Two",
+        "One",
+        "TwoOne",
+        "Two",
+        "One",
+        "Two",
+        "Hidden:",
+        "Pen",
+        "Bag",
+        "Pen",
+        "Bag",
+        "Pen",
+        "Bag Pen",
+        "Bag",
+        "Request 3: IsPostBack=True",
+        "Click bltValidated index 0",
+        "IsValid: (not validated)",
+        "List ddlSize: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 3",
+        "List ddlAuto: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 3",
+        "List ddlBound: SelectedIndex=0 SelectedValue=\"\" selected [] items 4",
+        "List ddlNoViewState: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 2",
+        "List lstMulti: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List lstAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblColors: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List cblAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List rblSize: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List rblAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List ddlValidated: SelectedIndex=0 SelectedValue=\"\" selected [] items 2",
+        "List lstValidated: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblValidated: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List ddlClient: SelectedIndex=0 SelectedValue=\"\" selected [] items 2",
+        "List lstClient: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List rblClient: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List ddlDynamic: SelectedIndex=0 SelectedValue=\"1\" selected [1] items 2",
+        "List lstDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List rblDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List bltDynamic: SelectedIndex=- SelectedValue=\"\" selected [] items 2",
+        "List ddlHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List lstHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List cblHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List rblHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List bltHidden: SelectedIndex=- SelectedValue=\"\" selected [] items 2 (hidden)",
+        "List bltBound: SelectedIndex=- SelectedValue=\"\" selected [] items 3"
+      ],
+      "Tables": [
+        [
+          [
+            "Red",
+            "Green",
+            "Blue"
+          ]
+        ],
+        [
+          [
+            "Small",
+            "Medium",
+            "Large"
+          ]
+        ],
+        [
+          [
+            "Pen\nBag\n \nPen\nBag\n Pen\nBag Pen\nBag"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "ddlSize": "S",
+        "ddlAuto": "S",
+        "ddlBound": "",
+        "ddlNoViewState": "S",
+        "lstMulti": "",
+        "lstAuto": "",
+        "cblColors_0": "false",
+        "cblColors_1": "false",
+        "cblColors_2": "false",
+        "cblAuto_0": "false",
+        "cblAuto_1": "false",
+        "rblSize_0": "S",
+        "rblSize_1": "M",
+        "rblSize_2": "L",
+        "rblAuto_0": "X",
+        "rblAuto_1": "Y",
+        "ddlValidated": "",
+        "lstValidated": "",
+        "cblValidated_0": "false",
+        "ddlClient": "",
+        "lstClient": "",
+        "rblClient_0": "A",
+        "ddlDynamic": "1",
+        "lstDynamic": "",
+        "cblDynamic_0": "false",
+        "cblDynamic_1": "false",
+        "rblDynamic_0": "1",
+        "rblDynamic_1": "2",
+        "fvProduct_ddlBind": "B2",
+        "fvProduct_lstBind": "B2",
+        "fvProduct_rblBind_0": "P1",
+        "fvProduct_rblBind_1": "B2",
+        "fvProduct_cblBind_0": "false",
+        "fvProduct_cblBind_1": "true"
+      },
+      "Elements": {
+        "ddlSize": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlAuto": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlBound": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlNoViewState": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstMulti": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "lstAuto": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "cblColors": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblColors_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblColors_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "cblColors_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblAuto_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblAuto_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rblSize": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblSize_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblSize_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblSize_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblAuto_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblAuto_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "ddlValidated": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstValidated": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "cblValidated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblValidated_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnG2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "ddlClient": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstClient": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "reqListClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblClient_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "reqRadioClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "bltLinks": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "bltValidated": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "bltBound": {
+          "Tag": "ol",
+          "Attributes": {},
+          "Style": {
+            "list-style-type": "decimal"
+          }
+        },
+        "ddlDynamic": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstDynamic": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "cblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblDynamic_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblDynamic_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblDynamic_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblDynamic_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "bltDynamic": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvProduct_ddlBind": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_lstBind": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "fvProduct_rblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_rblBind_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvProduct_rblBind_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvProduct_cblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_cblBind_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvProduct_cblBind_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvProduct_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "BulletedList [dynamic][postbackevent] a dynamically created list's bullet",
+      "Path": "/listcontrolsscenario",
+      "Title": "List controls scenario",
+      "Text": [
+        "DropDownList:",
+        "Small",
+        "Medium",
+        "Large",
+        "Auto:",
+        "Small",
+        "Medium",
+        "Large",
+        "Bound:",
+        "(choose)",
+        "Pen",
+        "Bag",
+        "Cup <&>",
+        "No view state:",
+        "Small",
+        "Medium",
+        "ListBox (multiple):",
+        "Red",
+        "Green",
+        "Blue",
+        "Auto:",
+        "Red",
+        "Green",
+        "CheckBoxList:",
+        "Red Green Blue",
+        "Auto: X",
+        "Y",
+        "RadioButtonList:",
+        "Small Medium Large",
+        "Auto: X",
+        "Y",
+        "Validated (g1, server):",
+        "(choose)",
+        "A",
+        "A",
+        "B",
+        "A",
+        "Validated (g3, in the browser):",
+        "(choose)",
+        "A",
+        "A",
+        "A",
+        "BulletedList:",
+        "First",
+        "Second",
+        "Third",
+        "Validate g1 by a bullet",
+        "Pen",
+        "Bag",
+        "Cup <&>",
+        "Dynamic:",
+        "One",
+        "Two",
+        "One",
+        "Two",
+        "One",
+        "TwoOne",
+        "Two",
+        "One",
+        "Two",
+        "Hidden:",
+        "Pen",
+        "Bag",
+        "Pen",
+        "Bag",
+        "Pen",
+        "Bag Pen",
+        "Bag",
+        "Request 4: IsPostBack=True",
+        "Click bltDynamic index 1",
+        "IsValid: (not validated)",
+        "List ddlSize: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 3",
+        "List ddlAuto: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 3",
+        "List ddlBound: SelectedIndex=0 SelectedValue=\"\" selected [] items 4",
+        "List ddlNoViewState: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 2",
+        "List lstMulti: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List lstAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblColors: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List cblAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List rblSize: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List rblAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List ddlValidated: SelectedIndex=0 SelectedValue=\"\" selected [] items 2",
+        "List lstValidated: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblValidated: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List ddlClient: SelectedIndex=0 SelectedValue=\"\" selected [] items 2",
+        "List lstClient: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List rblClient: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List ddlDynamic: SelectedIndex=0 SelectedValue=\"1\" selected [1] items 2",
+        "List lstDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List rblDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List bltDynamic: SelectedIndex=- SelectedValue=\"\" selected [] items 2",
+        "List ddlHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List lstHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List cblHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List rblHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2 (hidden)",
+        "List bltHidden: SelectedIndex=- SelectedValue=\"\" selected [] items 2 (hidden)",
+        "List bltBound: SelectedIndex=- SelectedValue=\"\" selected [] items 3"
+      ],
+      "Tables": [
+        [
+          [
+            "Red",
+            "Green",
+            "Blue"
+          ]
+        ],
+        [
+          [
+            "Small",
+            "Medium",
+            "Large"
+          ]
+        ],
+        [
+          [
+            "Pen\nBag\n \nPen\nBag\n Pen\nBag Pen\nBag"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "ddlSize": "S",
+        "ddlAuto": "S",
+        "ddlBound": "",
+        "ddlNoViewState": "S",
+        "lstMulti": "",
+        "lstAuto": "",
+        "cblColors_0": "false",
+        "cblColors_1": "false",
+        "cblColors_2": "false",
+        "cblAuto_0": "false",
+        "cblAuto_1": "false",
+        "rblSize_0": "S",
+        "rblSize_1": "M",
+        "rblSize_2": "L",
+        "rblAuto_0": "X",
+        "rblAuto_1": "Y",
+        "ddlValidated": "",
+        "lstValidated": "",
+        "cblValidated_0": "false",
+        "ddlClient": "",
+        "lstClient": "",
+        "rblClient_0": "A",
+        "ddlDynamic": "1",
+        "lstDynamic": "",
+        "cblDynamic_0": "false",
+        "cblDynamic_1": "false",
+        "rblDynamic_0": "1",
+        "rblDynamic_1": "2",
+        "fvProduct_ddlBind": "B2",
+        "fvProduct_lstBind": "B2",
+        "fvProduct_rblBind_0": "P1",
+        "fvProduct_rblBind_1": "B2",
+        "fvProduct_cblBind_0": "false",
+        "fvProduct_cblBind_1": "true"
+      },
+      "Elements": {
+        "ddlSize": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlAuto": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlBound": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlNoViewState": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstMulti": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "lstAuto": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "cblColors": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblColors_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblColors_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "cblColors_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblAuto_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblAuto_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rblSize": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblSize_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblSize_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblSize_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblAuto_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblAuto_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "ddlValidated": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstValidated": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "cblValidated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblValidated_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnG2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "ddlClient": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstClient": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "reqListClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblClient_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "reqRadioClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "bltLinks": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "bltValidated": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "bltBound": {
+          "Tag": "ol",
+          "Attributes": {},
+          "Style": {
+            "list-style-type": "decimal"
+          }
+        },
+        "ddlDynamic": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstDynamic": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "cblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblDynamic_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblDynamic_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblDynamic_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblDynamic_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "bltDynamic": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvProduct_ddlBind": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_lstBind": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "fvProduct_rblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_rblBind_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvProduct_rblBind_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvProduct_cblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_cblBind_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvProduct_cblBind_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvProduct_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "BulletedList [visible][viewstate][items] hidden list shown with the items added in code",
+      "Path": "/listcontrolsscenario",
+      "Title": "List controls scenario",
+      "Text": [
+        "DropDownList:",
+        "Small",
+        "Medium",
+        "Large",
+        "Auto:",
+        "Small",
+        "Medium",
+        "Large",
+        "Bound:",
+        "(choose)",
+        "Pen",
+        "Bag",
+        "Cup <&>",
+        "No view state:",
+        "Small",
+        "Medium",
+        "ListBox (multiple):",
+        "Red",
+        "Green",
+        "Blue",
+        "Auto:",
+        "Red",
+        "Green",
+        "CheckBoxList:",
+        "Red Green Blue",
+        "Auto: X",
+        "Y",
+        "RadioButtonList:",
+        "Small Medium Large",
+        "Auto: X",
+        "Y",
+        "Validated (g1, server):",
+        "(choose)",
+        "A",
+        "A",
+        "B",
+        "A",
+        "Validated (g3, in the browser):",
+        "(choose)",
+        "A",
+        "A",
+        "A",
+        "BulletedList:",
+        "First",
+        "Second",
+        "Third",
+        "Validate g1 by a bullet",
+        "Pen",
+        "Bag",
+        "Cup <&>",
+        "Dynamic:",
+        "One",
+        "Two",
+        "One",
+        "Two",
+        "One",
+        "TwoOne",
+        "Two",
+        "One",
+        "Two",
+        "Hidden:",
+        "Kept 1",
+        "Kept 2",
+        "Kept 1",
+        "Kept 2",
+        "Kept 1",
+        "Kept 2",
+        "Kept 1",
+        "Kept 2",
+        "Kept 1",
+        "Kept 2",
+        "Pen",
+        "Bag",
+        "Pen",
+        "Bag",
+        "Pen",
+        "Bag Pen",
+        "Bag",
+        "Request 5: IsPostBack=True",
+        "Click btnShow",
+        "IsValid: (not validated)",
+        "List ddlSize: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 3",
+        "List ddlAuto: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 3",
+        "List ddlBound: SelectedIndex=0 SelectedValue=\"\" selected [] items 4",
+        "List ddlNoViewState: SelectedIndex=0 SelectedValue=\"S\" selected [S] items 2",
+        "List lstMulti: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List lstAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblColors: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List cblAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List rblSize: SelectedIndex=-1 SelectedValue=\"\" selected [] items 3",
+        "List rblAuto: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List ddlValidated: SelectedIndex=0 SelectedValue=\"\" selected [] items 2",
+        "List lstValidated: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblValidated: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List ddlClient: SelectedIndex=0 SelectedValue=\"\" selected [] items 2",
+        "List lstClient: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List rblClient: SelectedIndex=-1 SelectedValue=\"\" selected [] items 1",
+        "List ddlDynamic: SelectedIndex=0 SelectedValue=\"1\" selected [1] items 2",
+        "List lstDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List cblDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List rblDynamic: SelectedIndex=-1 SelectedValue=\"\" selected [] items 2",
+        "List bltDynamic: SelectedIndex=- SelectedValue=\"\" selected [] items 2",
+        "List ddlHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2",
+        "List lstHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2",
+        "List cblHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2",
+        "List rblHidden: SelectedIndex=1 SelectedValue=\"k2\" selected [k2] items 2",
+        "List bltHidden: SelectedIndex=- SelectedValue=\"\" selected [] items 2",
+        "List bltBound: SelectedIndex=- SelectedValue=\"\" selected [] items 3"
+      ],
+      "Tables": [
+        [
+          [
+            "Red",
+            "Green",
+            "Blue"
+          ]
+        ],
+        [
+          [
+            "Small",
+            "Medium",
+            "Large"
+          ]
+        ],
+        [
+          [
+            "Kept 1"
+          ],
+          [
+            "Kept 2"
+          ]
+        ],
+        [
+          [
+            "Kept 1"
+          ],
+          [
+            "Kept 2"
+          ]
+        ],
+        [
+          [
+            "Pen\nBag\n \nPen\nBag\n Pen\nBag Pen\nBag"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "ddlSize": "S",
+        "ddlAuto": "S",
+        "ddlBound": "",
+        "ddlNoViewState": "S",
+        "lstMulti": "",
+        "lstAuto": "",
+        "cblColors_0": "false",
+        "cblColors_1": "false",
+        "cblColors_2": "false",
+        "cblAuto_0": "false",
+        "cblAuto_1": "false",
+        "rblSize_0": "S",
+        "rblSize_1": "M",
+        "rblSize_2": "L",
+        "rblAuto_0": "X",
+        "rblAuto_1": "Y",
+        "ddlValidated": "",
+        "lstValidated": "",
+        "cblValidated_0": "false",
+        "ddlClient": "",
+        "lstClient": "",
+        "rblClient_0": "A",
+        "ddlDynamic": "1",
+        "lstDynamic": "",
+        "cblDynamic_0": "false",
+        "cblDynamic_1": "false",
+        "rblDynamic_0": "1",
+        "rblDynamic_1": "2",
+        "ddlHidden": "k2",
+        "lstHidden": "k2",
+        "cblHidden_0": "false",
+        "cblHidden_1": "true",
+        "rblHidden_0": "k1",
+        "rblHidden_1": "k2",
+        "fvProduct_ddlBind": "B2",
+        "fvProduct_lstBind": "B2",
+        "fvProduct_rblBind_0": "P1",
+        "fvProduct_rblBind_1": "B2",
+        "fvProduct_cblBind_0": "false",
+        "fvProduct_cblBind_1": "true"
+      },
+      "Elements": {
+        "ddlSize": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlAuto": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlBound": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlNoViewState": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstMulti": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "lstAuto": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "cblColors": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblColors_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblColors_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "cblColors_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblAuto_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblAuto_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rblSize": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblSize_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblSize_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblSize_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblAuto_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblAuto_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "ddlValidated": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstValidated": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "cblValidated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblValidated_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnG2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "ddlClient": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstClient": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "reqListClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblClient_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "reqRadioClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "bltLinks": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "bltValidated": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "bltBound": {
+          "Tag": "ol",
+          "Attributes": {},
+          "Style": {
+            "list-style-type": "decimal"
+          }
+        },
+        "ddlDynamic": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstDynamic": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "cblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblDynamic_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblDynamic_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblDynamic_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblDynamic_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "bltDynamic": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ddlHidden": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lstHidden": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "4"
+          },
+          "Style": {}
+        },
+        "cblHidden": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cblHidden_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "cblHidden_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rblHidden": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rblHidden_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rblHidden_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "bltHidden": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvProduct_ddlBind": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_lstBind": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "fvProduct_rblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_rblBind_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvProduct_rblBind_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvProduct_cblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvProduct_cblBind_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvProduct_cblBind_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvProduct_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "BulletedList [eventvalidation][postbackevent] a disabled bullet's postback forged",
+      "Path": "/listcontrolsscenario",
+      "Title": "List controls scenario: error",
+      "Text": [
+        "System.ArgumentException",
+        "Invalid postback or callback argument. Event validation is enabled using <pages enableEventValidation=\"true\"/> in configuration or <%@ Page EnableEventValidation=\"true\" %> in a page. For security purposes, this feature verifies that arguments to postback or callback events originate from the server control that originally rendered them. If the data is valid and expected, use the ClientScriptManager.RegisterForEventValidation method in order to register the postback or callback data for validation."
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "failure": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "message": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

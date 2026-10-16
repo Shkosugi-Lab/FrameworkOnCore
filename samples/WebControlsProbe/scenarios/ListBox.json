@@ -1,0 +1,49 @@
+{
+  "_comment": "The ListBox's scenario layer (ListControlsScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/ListControlsScenario.aspx" },
+    { "action": "snapshot", "name": "ListBox [render][databind][items] first request" },
+
+    { "action": "selectmany", "target": "lstMulti", "value": "R,B" },
+    { "action": "select", "target": "lstDynamic", "value": "2" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "ListBox [postdata][change][multiselect][dynamic] several selected" },
+
+    { "action": "selectmany", "target": "lstMulti", "value": "G" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "ListBox [change][multiselect] selection changed to one" },
+
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "ListBox [viewstate] posted again unchanged" },
+
+    { "action": "select", "target": "lstAuto", "value": "G" },
+    { "action": "snapshot", "name": "ListBox [autopostback][change] auto postback" },
+
+    { "action": "click", "target": "btnG1" },
+    { "action": "snapshot", "name": "ListBox [validation] group g1, nothing chosen" },
+
+    { "action": "select", "target": "lstValidated", "value": "A" },
+    { "action": "click", "target": "btnG1" },
+    { "action": "snapshot", "name": "ListBox [validation] group g1, chosen" },
+
+    { "action": "click", "target": "btnG3" },
+    { "action": "snapshot", "name": "ListBox [clientvalidation] group g3 in the browser: no request" },
+
+    { "action": "click", "target": "btnShow" },
+    { "action": "snapshot", "name": "ListBox [visible][viewstate][items] hidden lists shown with the items added in code" },
+
+    { "action": "select", "target": "lstBind", "value": "P1" },
+    { "action": "click", "target": "btnUpdate" },
+    { "action": "snapshot", "name": "ListBox [bind] two-way binding in a template" },
+
+    { "action": "evaluate", "target": "lstMulti", "value": "const o = document.createElement('option'); o.value = 'X'; o.text = 'X'; e.add(o); o.selected = true;" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "ListBox [eventvalidation] a value the list does not have posted" },
+
+    { "action": "goto", "path": "/ListControlsScenario.aspx" },
+    { "action": "evaluate", "target": "lstMulti", "value": "const o = document.createElement('option'); o.value = '<b>x</b>'; o.text = 'x'; e.add(o); o.selected = true;" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "ListBox [requestvalidation] markup posted" }
+  ]
+}

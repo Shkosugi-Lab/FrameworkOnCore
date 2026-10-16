@@ -1,0 +1,3360 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "HtmlInputHidden [render][databind][dynamic] first request: plain, bound, set in code, made in code",
+      "Path": "/htmlscenario",
+      "Title": "HTML controls scenario (set in code)",
+      "Text": [
+        "Generic: Plain bound set in code set in code, no view state",
+        "Anchor: Go to the target Submit anchor Validate g1 by an anchor Disabled anchor bound",
+        "Image:",
+        "Plain cell set in code",
+        "bound",
+        "row added in code",
+        "Inputs:",
+        "Small",
+        "Medium",
+        "Large",
+        "Small",
+        "Medium",
+        "Large",
+        "Pen",
+        "Bag",
+        "Cup <&>",
+        "Buttons: HTML button bound Validate g1 by a button",
+        "Server validation (g1):",
+        "Client validation (g2):",
+        "(choose)",
+        "A",
+        "Dynamic: dynamicDynamic anchor",
+        "dynamic cell",
+        "One",
+        "Two",
+        "Dynamic button",
+        "Request 1: IsPostBack=False",
+        "State elmPage lang=\"en\"",
+        "State hdPage Title=\"HTML controls scenario (set in code)\" Controls=5",
+        "State ttlPage Text=\"HTML controls scenario (set in code)\"",
+        "State metaBound Name=\"description\" Content=\"bound\" Scheme=\"set in code\"",
+        "State lnkBound Href=\"~/Images/probe.css\"",
+        "State form1 title=\"bound\"",
+        "State genPlain InnerText=\"Plain\" title=\"\"",
+        "State genBound InnerText=\"bound\" title=\"bound\"",
+        "State genCode InnerText=\"set in code\" title=\"\"",
+        "State genNoViewState InnerText=\"set in code, no view state\" title=\"\"",
+        "State genHidden InnerText=\"set while hidden\" title=\"\" (hidden)",
+        "State ancTarget HRef=\"~/ButtonTarget.aspx\" InnerText=\"Go to the target\"",
+        "State ancBound HRef=\"~/ButtonTarget.aspx?id=7\" InnerText=\"bound\"",
+        "State ancHidden HRef=\"\" InnerText=\"Hidden anchor (set while hidden)\" (hidden)",
+        "State imgPlain Src=\"~/Images/probe.png\" Alt=\"Logo\"",
+        "State imgBound Src=\"~/Images/probe.png\" Alt=\"bound\"",
+        "State imgCode Src=\"~/Images/probe.png\" Alt=\"set in code\"",
+        "State imgHidden Src=\"~/Images/probe.png\" Alt=\"set while hidden\" (hidden)",
+        "State ifrPlain Src=\"~/Images/probe.png\"",
+        "State areaPlain Href=\"~/ButtonTarget.aspx\" Alt=\"bound\"",
+        "State audPlain Src=\"~/Images/probe.png\"",
+        "State vidPlain Src=\"\" Poster=\"~/Images/probe.png\"",
+        "State srcPlain Src=\"~/Images/probe.png\"",
+        "State trkPlain Src=\"~/Images/probe.png\"",
+        "State embPlain Src=\"~/Images/probe.png\"",
+        "State tblPlain Rows=2 [Plain cell|set in code|bound|Hidden cell (set while hidden)]",
+        "State trPlain Cells=2 Title=\"\"",
+        "State trBound Cells=2 Title=\"bound\"",
+        "State tdPlain InnerText=\"Plain cell\" title=\"\"",
+        "State tdCode InnerText=\"set in code\" title=\"\"",
+        "State tdBound InnerText=\"bound\" title=\"\"",
+        "State tdHiddenCell InnerText=\"Hidden cell (set while hidden)\" title=\"\" (hidden)",
+        "State tblCode Rows=1 [row added in code]",
+        "State tblHidden Rows=0 [] (hidden)",
+        "State inpText Value=\"\"",
+        "State inpTextBound Value=\"bound\"",
+        "State inpTextNoViewState Value=\"set in code, no view state\"",
+        "State inpTextDisabled Value=\"disabled\"",
+        "State inpTextHidden Value=\"set while hidden\" (hidden)",
+        "State inpPassword Value=\"\"",
+        "State inpHidden Value=\"initial\"",
+        "State inpHiddenBound Value=\"bound\"",
+        "State inpCheck Checked=False",
+        "State inpCheckBound Checked=True",
+        "State inpRadioSmall Checked=False Value=\"inpRadioSmall\"",
+        "State inpRadioLarge Checked=False Value=\"inpRadioLarge\"",
+        "State inpEmail Value=\"\"",
+        "State inpEmailBound Value=\"7\"",
+        "State txaNote Value=\"\"",
+        "State txaBound Value=\"bound\"",
+        "State selSize SelectedIndex=1 Value=\"M\" Selected=[M] Items=3",
+        "State selMulti SelectedIndex=-1 Value=\"\" Selected=[] Items=3",
+        "State selBound SelectedIndex=0 Value=\"P1\" Selected=[P1] Items=3",
+        "State inpFile PostedFile=null Value=\"\"",
+        "State btnHtml InnerText=\"HTML button\" title=\"\"",
+        "State btnHtmlBound InnerText=\"bound\" title=\"\"",
+        "State inpButton Value=\"Input button\"",
+        "State inpSubmit Value=\"Input submit\"",
+        "State inpSubmitBound Value=\"bound\"",
+        "State inpReset Value=\"Reset\"",
+        "State inpResetBound Value=\"bound\"",
+        "State inpImage Alt=\"Input image\"",
+        "State inpImageBound Alt=\"bound\"",
+        "State inpClient Value=\"\"",
+        "State inpClientPassword Value=\"\"",
+        "State inpClientEmail Value=\"\"",
+        "State txaClient Value=\"\"",
+        "State selClient SelectedIndex=0 Value=\"\" Selected=[] Items=2",
+        "State inpClientFile PostedFile=null Value=\"\"",
+        "State genDynamic InnerText=\"dynamic\" title=\"\"",
+        "State ancDynamic HRef=\"\" InnerText=\"Dynamic anchor\"",
+        "State imgDynamic Src=\"~/Images/probe.png\" Alt=\"dynamic\"",
+        "State tblDynamic Rows=1 [dynamic cell]",
+        "State inpDynamicText Value=\"dynamic\"",
+        "State inpDynamicPassword Value=\"dynamic\"",
+        "State inpDynamicHidden Value=\"dynamic\"",
+        "State inpDynamicCheck Checked=False",
+        "State inpDynamicRadio Checked=False Value=\"dynamic\"",
+        "State inpDynamicEmail Value=\"dynamic\"",
+        "State txaDynamic Value=\"dynamic\"",
+        "State selDynamic SelectedIndex=0 Value=\"1\" Selected=[1] Items=2",
+        "State inpDynamicFile PostedFile=null Value=\"\"",
+        "State btnDynamic InnerText=\"Dynamic button\" title=\"\"",
+        "State inpDynamicButton Value=\"Dynamic input button\"",
+        "State inpDynamicSubmit Value=\"Dynamic submit\"",
+        "State inpDynamicReset Value=\"Dynamic reset\"",
+        "State inpDynamicImage Alt=\"Dynamic image\"",
+        "State ifrDynamic Src=\"~/Images/probe.png\"",
+        "State areaDynamic Href=\"~/ButtonTarget.aspx\" Alt=\"\"",
+        "State audDynamic Src=\"~/Images/probe.png\"",
+        "State vidDynamic Src=\"\" Poster=\"~/Images/probe.png\"",
+        "State embDynamic Src=\"~/Images/probe.png\"",
+        "State ttlDynamic Text=\"Dynamic title (set in code)\"",
+        "State metaDynamic Name=\"keywords\" Content=\"dynamic\" Scheme=\"\"",
+        "State lnkDynamic Href=\"~/Images/probe.css\""
+      ],
+      "Tables": [
+        [
+          [
+            "Plain cell",
+            "set in code"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [
+          [
+            "row added in code"
+          ]
+        ],
+        [
+          [
+            "dynamic cell"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "inpText": "",
+        "inpTextBound": "bound",
+        "inpTextNoViewState": "set in code, no view state",
+        "inpTextDisabled": "disabled",
+        "inpPassword": "",
+        "inpCheck": "false",
+        "inpCheckBound": "true",
+        "inpRadioSmall": "inpRadioSmall",
+        "inpRadioLarge": "inpRadioLarge",
+        "inpEmail": "",
+        "inpEmailBound": "7",
+        "txaNote": "",
+        "txaBound": "bound",
+        "selSize": "M",
+        "selMulti": "",
+        "selBound": "P1",
+        "inpFile": "",
+        "inpReset": "Reset",
+        "inpResetBound": "bound",
+        "inpImage": "",
+        "inpImageBound": "",
+        "inpClient": "",
+        "inpClientPassword": "",
+        "inpClientEmail": "",
+        "txaClient": "",
+        "selClient": "",
+        "inpClientFile": "",
+        "inpDynamicText": "dynamic",
+        "inpDynamicPassword": "",
+        "inpDynamicCheck": "false",
+        "inpDynamicRadio": "dynamic",
+        "inpDynamicEmail": "dynamic",
+        "txaDynamic": "dynamic",
+        "selDynamic": "1",
+        "inpDynamicFile": "",
+        "inpDynamicReset": "Dynamic reset",
+        "inpDynamicImage": ""
+      },
+      "Elements": {
+        "hdPage": {
+          "Tag": "head",
+          "Attributes": {},
+          "Style": {}
+        },
+        "metaBound": {
+          "Tag": "meta",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkBound": {
+          "Tag": "link",
+          "Attributes": {},
+          "Style": {}
+        },
+        "metaDynamic": {
+          "Tag": "meta",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDynamic": {
+          "Tag": "link",
+          "Attributes": {},
+          "Style": {}
+        },
+        "genPlain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "genBound": {
+          "Tag": "span",
+          "Attributes": {
+            "title": "bound"
+          },
+          "Style": {}
+        },
+        "genCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "genNoViewState": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancTarget": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancSubmit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancValidate": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "ancBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgPlain": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "Logo"
+          },
+          "Style": {}
+        },
+        "imgBound": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "imgCode": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set in code"
+          },
+          "Style": {}
+        },
+        "ifrPlain": {
+          "Tag": "iframe",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "areaPlain": {
+          "Tag": "area",
+          "Attributes": {
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "audPlain": {
+          "Tag": "audio",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "vidPlain": {
+          "Tag": "video",
+          "Attributes": {},
+          "Style": {}
+        },
+        "srcPlain": {
+          "Tag": "source",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "trkPlain": {
+          "Tag": "track",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "embPlain": {
+          "Tag": "embed",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image/png"
+          },
+          "Style": {}
+        },
+        "tblPlain": {
+          "Tag": "table",
+          "Attributes": {
+            "border": "1"
+          },
+          "Style": {}
+        },
+        "trPlain": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tdPlain": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tdCode": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "trBound": {
+          "Tag": "tr",
+          "Attributes": {
+            "title": "bound"
+          },
+          "Style": {}
+        },
+        "tdBound": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tblCode": {
+          "Tag": "table",
+          "Attributes": {
+            "border": "1"
+          },
+          "Style": {}
+        },
+        "inpText": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpTextBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpTextNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpTextDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "inpPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "inpCheck": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "inpCheckBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "inpRadioSmall": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "inpRadioLarge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "inpEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "email"
+          },
+          "Style": {}
+        },
+        "inpEmailBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "number"
+          },
+          "Style": {}
+        },
+        "txaNote": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txaBound": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selSize": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selMulti": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "selBound": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "btnHtml": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnHtmlBound": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpSubmitBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpReset": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "reset"
+          },
+          "Style": {}
+        },
+        "inpResetBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "reset"
+          },
+          "Style": {}
+        },
+        "inpImage": {
+          "Tag": "input",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image",
+            "alt": "Input image"
+          },
+          "Style": {}
+        },
+        "inpImageBound": {
+          "Tag": "input",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "inpSubmitValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHtmlValidate": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClientPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "reqClientPassword": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClientEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "email"
+          },
+          "Style": {}
+        },
+        "reqClientEmail": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txaClient": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqClientNote": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selClient": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqClientSelect": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClientFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "reqClientFile": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpSubmitClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "genDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgDynamic": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "dynamic"
+          },
+          "Style": {}
+        },
+        "tblDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "border": "1"
+          },
+          "Style": {}
+        },
+        "trDynamic": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tdDynamic": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpDynamicText": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpDynamicPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "inpDynamicCheck": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "inpDynamicRadio": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "inpDynamicEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "email"
+          },
+          "Style": {}
+        },
+        "txaDynamic": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selDynamic": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpDynamicFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpDynamicButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpDynamicSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpDynamicReset": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "reset"
+          },
+          "Style": {}
+        },
+        "inpDynamicImage": {
+          "Tag": "input",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image",
+            "alt": "Dynamic image"
+          },
+          "Style": {}
+        },
+        "ifrDynamic": {
+          "Tag": "iframe",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "areaDynamic": {
+          "Tag": "area",
+          "Attributes": {},
+          "Style": {}
+        },
+        "audDynamic": {
+          "Tag": "audio",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "vidDynamic": {
+          "Tag": "video",
+          "Attributes": {},
+          "Style": {}
+        },
+        "srcDynamic": {
+          "Tag": "source",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "trkDynamic": {
+          "Tag": "track",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "embDynamic": {
+          "Tag": "embed",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "HtmlInputHidden [viewstate][dynamic][postdata][change] every input posted by a submit input",
+      "Path": "/htmlscenario",
+      "Title": "HTML controls scenario",
+      "Text": [
+        "Generic: Plain bound set in code",
+        "Anchor: Go to the target Submit anchor Validate g1 by an anchor Disabled anchor bound",
+        "Image:",
+        "Plain cell set in code",
+        "bound",
+        "Inputs:",
+        "Small",
+        "Medium",
+        "Large",
+        "Small",
+        "Medium",
+        "Large",
+        "Pen",
+        "Bag",
+        "Cup <&>",
+        "Buttons: HTML button bound Validate g1 by a button",
+        "Server validation (g1):",
+        "Client validation (g2):",
+        "(choose)",
+        "A",
+        "Dynamic: dynamicDynamic anchor",
+        "dynamic cell",
+        "One",
+        "Two",
+        "Dynamic button",
+        "Request 2: IsPostBack=True",
+        "ServerChange inpText Value=\"posted text\"",
+        "ServerChange inpTextNoViewState Value=\"set in code, no view state\"",
+        "ServerChange inpPassword Value=\"secret\"",
+        "ServerChange inpHidden Value=\"changed\"",
+        "ServerChange inpCheck Checked=True",
+        "ServerChange inpEmail Value=\"a@example.com\"",
+        "ServerChange txaNote Value=\"posted note\"",
+        "ServerChange selSize SelectedIndex=2 Value=\"L\" Selected=[L] Items=3",
+        "ServerChange selMulti SelectedIndex=0 Value=\"S\" Selected=[S,L] Items=3",
+        "ServerChange selBound SelectedIndex=1 Value=\"B2\" Selected=[B2] Items=3",
+        "ServerChange inpDynamicText Value=\"dynamic posted\"",
+        "ServerChange inpDynamicPassword Value=\"dynamic secret\"",
+        "ServerChange inpDynamicHidden Value=\"dynamic changed\"",
+        "ServerChange inpDynamicCheck Checked=True",
+        "ServerChange inpDynamicEmail Value=\"b@example.com\"",
+        "ServerChange txaDynamic Value=\"dynamic note\"",
+        "ServerChange selDynamic SelectedIndex=1 Value=\"2\" Selected=[2] Items=2",
+        "ServerChange inpRadioLarge Checked=True Value=\"inpRadioLarge\"",
+        "ServerChange inpDynamicRadio Checked=True Value=\"dynamic\"",
+        "ServerClick inpSubmit",
+        "IsValid: (not validated)",
+        "State elmPage lang=\"en\"",
+        "State hdPage Title=\"HTML controls scenario\" Controls=5",
+        "State ttlPage Text=\"HTML controls scenario\"",
+        "State metaBound Name=\"description\" Content=\"bound\" Scheme=\"set in code\"",
+        "State lnkBound Href=\"~/Images/probe.css\"",
+        "State form1 title=\"bound\"",
+        "State genPlain InnerText=\"Plain\" title=\"\"",
+        "State genBound InnerText=\"bound\" title=\"bound\"",
+        "State genCode InnerText=\"set in code\" title=\"\"",
+        "State genNoViewState InnerText=\"\" title=\"\"",
+        "State genHidden InnerText=\"set while hidden\" title=\"\" (hidden)",
+        "State ancTarget HRef=\"~/ButtonTarget.aspx\" InnerText=\"Go to the target\"",
+        "State ancBound HRef=\"~/ButtonTarget.aspx?id=7\" InnerText=\"bound\"",
+        "State ancHidden HRef=\"\" InnerText=\"Hidden anchor (set while hidden)\" (hidden)",
+        "State imgPlain Src=\"~/Images/probe.png\" Alt=\"Logo\"",
+        "State imgBound Src=\"~/Images/probe.png\" Alt=\"bound\"",
+        "State imgCode Src=\"~/Images/probe.png\" Alt=\"set in code\"",
+        "State imgHidden Src=\"~/Images/probe.png\" Alt=\"set while hidden\" (hidden)",
+        "State ifrPlain Src=\"~/Images/probe.png\"",
+        "State areaPlain Href=\"~/ButtonTarget.aspx\" Alt=\"bound\"",
+        "State audPlain Src=\"~/Images/probe.png\"",
+        "State vidPlain Src=\"\" Poster=\"~/Images/probe.png\"",
+        "State srcPlain Src=\"~/Images/probe.png\"",
+        "State trkPlain Src=\"~/Images/probe.png\"",
+        "State embPlain Src=\"~/Images/probe.png\"",
+        "State tblPlain Rows=2 [Plain cell|set in code|bound|Hidden cell (set while hidden)]",
+        "State trPlain Cells=2 Title=\"\"",
+        "State trBound Cells=2 Title=\"bound\"",
+        "State tdPlain InnerText=\"Plain cell\" title=\"\"",
+        "State tdCode InnerText=\"set in code\" title=\"\"",
+        "State tdBound InnerText=\"bound\" title=\"\"",
+        "State tdHiddenCell InnerText=\"Hidden cell (set while hidden)\" title=\"\" (hidden)",
+        "State tblCode Rows=0 []",
+        "State tblHidden Rows=0 [] (hidden)",
+        "State inpText Value=\"posted text\"",
+        "State inpTextBound Value=\"bound\"",
+        "State inpTextNoViewState Value=\"set in code, no view state\"",
+        "State inpTextDisabled Value=\"disabled\"",
+        "State inpTextHidden Value=\"set while hidden\" (hidden)",
+        "State inpPassword Value=\"secret\"",
+        "State inpHidden Value=\"changed\"",
+        "State inpHiddenBound Value=\"bound\"",
+        "State inpCheck Checked=True",
+        "State inpCheckBound Checked=True",
+        "State inpRadioSmall Checked=False Value=\"inpRadioSmall\"",
+        "State inpRadioLarge Checked=True Value=\"inpRadioLarge\"",
+        "State inpEmail Value=\"a@example.com\"",
+        "State inpEmailBound Value=\"7\"",
+        "State txaNote Value=\"posted note\"",
+        "State txaBound Value=\"bound\"",
+        "State selSize SelectedIndex=2 Value=\"L\" Selected=[L] Items=3",
+        "State selMulti SelectedIndex=0 Value=\"S\" Selected=[S,L] Items=3",
+        "State selBound SelectedIndex=1 Value=\"B2\" Selected=[B2] Items=3",
+        "State inpFile PostedFile=\"probe.txt\" 12 bytes \"file content\" Value=\"probe.txt\"",
+        "State btnHtml InnerText=\"HTML button\" title=\"\"",
+        "State btnHtmlBound InnerText=\"bound\" title=\"\"",
+        "State inpButton Value=\"Input button\"",
+        "State inpSubmit Value=\"Input submit\"",
+        "State inpSubmitBound Value=\"bound\"",
+        "State inpReset Value=\"Reset\"",
+        "State inpResetBound Value=\"bound\"",
+        "State inpImage Alt=\"Input image\"",
+        "State inpImageBound Alt=\"bound\"",
+        "State inpClient Value=\"\"",
+        "State inpClientPassword Value=\"\"",
+        "State inpClientEmail Value=\"\"",
+        "State txaClient Value=\"\"",
+        "State selClient SelectedIndex=0 Value=\"\" Selected=[] Items=2",
+        "State inpClientFile PostedFile=\"\" 0 bytes \"\" Value=\"\"",
+        "State genDynamic InnerText=\"dynamic\" title=\"\"",
+        "State ancDynamic HRef=\"\" InnerText=\"Dynamic anchor\"",
+        "State imgDynamic Src=\"~/Images/probe.png\" Alt=\"dynamic\"",
+        "State tblDynamic Rows=1 [dynamic cell]",
+        "State inpDynamicText Value=\"dynamic posted\"",
+        "State inpDynamicPassword Value=\"dynamic secret\"",
+        "State inpDynamicHidden Value=\"dynamic changed\"",
+        "State inpDynamicCheck Checked=True",
+        "State inpDynamicRadio Checked=True Value=\"dynamic\"",
+        "State inpDynamicEmail Value=\"b@example.com\"",
+        "State txaDynamic Value=\"dynamic note\"",
+        "State selDynamic SelectedIndex=1 Value=\"2\" Selected=[2] Items=2",
+        "State inpDynamicFile PostedFile=\"dynamic.txt\" 15 bytes \"dynamic content\" Value=\"dynamic.txt\"",
+        "State btnDynamic InnerText=\"Dynamic button\" title=\"\"",
+        "State inpDynamicButton Value=\"Dynamic input button\"",
+        "State inpDynamicSubmit Value=\"Dynamic submit\"",
+        "State inpDynamicReset Value=\"Dynamic reset\"",
+        "State inpDynamicImage Alt=\"Dynamic image\"",
+        "State ifrDynamic Src=\"~/Images/probe.png\"",
+        "State areaDynamic Href=\"~/ButtonTarget.aspx\" Alt=\"\"",
+        "State audDynamic Src=\"~/Images/probe.png\"",
+        "State vidDynamic Src=\"\" Poster=\"~/Images/probe.png\"",
+        "State embDynamic Src=\"~/Images/probe.png\"",
+        "State ttlDynamic Text=\"Dynamic title\"",
+        "State metaDynamic Name=\"keywords\" Content=\"dynamic\" Scheme=\"\"",
+        "State lnkDynamic Href=\"~/Images/probe.css\""
+      ],
+      "Tables": [
+        [
+          [
+            "Plain cell",
+            "set in code"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [],
+        [
+          [
+            "dynamic cell"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "inpText": "posted text",
+        "inpTextBound": "bound",
+        "inpTextNoViewState": "set in code, no view state",
+        "inpTextDisabled": "disabled",
+        "inpPassword": "",
+        "inpCheck": "true",
+        "inpCheckBound": "true",
+        "inpRadioSmall": "inpRadioSmall",
+        "inpRadioLarge": "inpRadioLarge",
+        "inpEmail": "a@example.com",
+        "inpEmailBound": "7",
+        "txaNote": "posted note",
+        "txaBound": "bound",
+        "selSize": "L",
+        "selMulti": "S",
+        "selBound": "B2",
+        "inpFile": "",
+        "inpReset": "Reset",
+        "inpResetBound": "bound",
+        "inpImage": "",
+        "inpImageBound": "",
+        "inpClient": "",
+        "inpClientPassword": "",
+        "inpClientEmail": "",
+        "txaClient": "",
+        "selClient": "",
+        "inpClientFile": "",
+        "inpDynamicText": "dynamic posted",
+        "inpDynamicPassword": "",
+        "inpDynamicCheck": "true",
+        "inpDynamicRadio": "dynamic",
+        "inpDynamicEmail": "b@example.com",
+        "txaDynamic": "dynamic note",
+        "selDynamic": "2",
+        "inpDynamicFile": "",
+        "inpDynamicReset": "Dynamic reset",
+        "inpDynamicImage": ""
+      },
+      "Elements": {
+        "hdPage": {
+          "Tag": "head",
+          "Attributes": {},
+          "Style": {}
+        },
+        "metaBound": {
+          "Tag": "meta",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkBound": {
+          "Tag": "link",
+          "Attributes": {},
+          "Style": {}
+        },
+        "metaDynamic": {
+          "Tag": "meta",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDynamic": {
+          "Tag": "link",
+          "Attributes": {},
+          "Style": {}
+        },
+        "genPlain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "genBound": {
+          "Tag": "span",
+          "Attributes": {
+            "title": "bound"
+          },
+          "Style": {}
+        },
+        "genCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "genNoViewState": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancTarget": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancSubmit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancValidate": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "ancBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgPlain": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "Logo"
+          },
+          "Style": {}
+        },
+        "imgBound": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "imgCode": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set in code"
+          },
+          "Style": {}
+        },
+        "ifrPlain": {
+          "Tag": "iframe",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "areaPlain": {
+          "Tag": "area",
+          "Attributes": {
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "audPlain": {
+          "Tag": "audio",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "vidPlain": {
+          "Tag": "video",
+          "Attributes": {},
+          "Style": {}
+        },
+        "srcPlain": {
+          "Tag": "source",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "trkPlain": {
+          "Tag": "track",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "embPlain": {
+          "Tag": "embed",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image/png"
+          },
+          "Style": {}
+        },
+        "tblPlain": {
+          "Tag": "table",
+          "Attributes": {
+            "border": "1"
+          },
+          "Style": {}
+        },
+        "trPlain": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tdPlain": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tdCode": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "trBound": {
+          "Tag": "tr",
+          "Attributes": {
+            "title": "bound"
+          },
+          "Style": {}
+        },
+        "tdBound": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tblCode": {
+          "Tag": "table",
+          "Attributes": {
+            "border": "1"
+          },
+          "Style": {}
+        },
+        "inpText": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpTextBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpTextNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpTextDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "inpPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "inpCheck": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "inpCheckBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "inpRadioSmall": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "inpRadioLarge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "inpEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "email"
+          },
+          "Style": {}
+        },
+        "inpEmailBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "number"
+          },
+          "Style": {}
+        },
+        "txaNote": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txaBound": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selSize": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selMulti": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "selBound": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "btnHtml": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnHtmlBound": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpSubmitBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpReset": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "reset"
+          },
+          "Style": {}
+        },
+        "inpResetBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "reset"
+          },
+          "Style": {}
+        },
+        "inpImage": {
+          "Tag": "input",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image",
+            "alt": "Input image"
+          },
+          "Style": {}
+        },
+        "inpImageBound": {
+          "Tag": "input",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "inpSubmitValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHtmlValidate": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClientPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "reqClientPassword": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClientEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "email"
+          },
+          "Style": {}
+        },
+        "reqClientEmail": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txaClient": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqClientNote": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selClient": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqClientSelect": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClientFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "reqClientFile": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpSubmitClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "genDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgDynamic": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "dynamic"
+          },
+          "Style": {}
+        },
+        "tblDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "border": "1"
+          },
+          "Style": {}
+        },
+        "trDynamic": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tdDynamic": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpDynamicText": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpDynamicPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "inpDynamicCheck": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "inpDynamicRadio": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "inpDynamicEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "email"
+          },
+          "Style": {}
+        },
+        "txaDynamic": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selDynamic": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpDynamicFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpDynamicButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpDynamicSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpDynamicReset": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "reset"
+          },
+          "Style": {}
+        },
+        "inpDynamicImage": {
+          "Tag": "input",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image",
+            "alt": "Dynamic image"
+          },
+          "Style": {}
+        },
+        "ifrDynamic": {
+          "Tag": "iframe",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "areaDynamic": {
+          "Tag": "area",
+          "Attributes": {},
+          "Style": {}
+        },
+        "audDynamic": {
+          "Tag": "audio",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "vidDynamic": {
+          "Tag": "video",
+          "Attributes": {},
+          "Style": {}
+        },
+        "srcDynamic": {
+          "Tag": "source",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "trkDynamic": {
+          "Tag": "track",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "embDynamic": {
+          "Tag": "embed",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "HtmlInputHidden [change][viewstate] posted again unchanged: no change event",
+      "Path": "/htmlscenario",
+      "Title": "HTML controls scenario",
+      "Text": [
+        "Generic: Plain bound set in code",
+        "Anchor: Go to the target Submit anchor Validate g1 by an anchor Disabled anchor bound",
+        "Image:",
+        "Plain cell set in code",
+        "bound",
+        "Inputs:",
+        "Small",
+        "Medium",
+        "Large",
+        "Small",
+        "Medium",
+        "Large",
+        "Pen",
+        "Bag",
+        "Cup <&>",
+        "Buttons: HTML button bound Validate g1 by a button",
+        "Server validation (g1):",
+        "Client validation (g2):",
+        "(choose)",
+        "A",
+        "Dynamic: dynamicDynamic anchor",
+        "dynamic cell",
+        "One",
+        "Two",
+        "Dynamic button",
+        "Request 3: IsPostBack=True",
+        "ServerChange inpTextNoViewState Value=\"set in code, no view state\"",
+        "IsValid: (not validated)",
+        "State elmPage lang=\"en\"",
+        "State hdPage Title=\"HTML controls scenario\" Controls=5",
+        "State ttlPage Text=\"HTML controls scenario\"",
+        "State metaBound Name=\"description\" Content=\"bound\" Scheme=\"set in code\"",
+        "State lnkBound Href=\"~/Images/probe.css\"",
+        "State form1 title=\"bound\"",
+        "State genPlain InnerText=\"Plain\" title=\"\"",
+        "State genBound InnerText=\"bound\" title=\"bound\"",
+        "State genCode InnerText=\"set in code\" title=\"\"",
+        "State genNoViewState InnerText=\"\" title=\"\"",
+        "State genHidden InnerText=\"set while hidden\" title=\"\" (hidden)",
+        "State ancTarget HRef=\"~/ButtonTarget.aspx\" InnerText=\"Go to the target\"",
+        "State ancBound HRef=\"~/ButtonTarget.aspx?id=7\" InnerText=\"bound\"",
+        "State ancHidden HRef=\"\" InnerText=\"Hidden anchor (set while hidden)\" (hidden)",
+        "State imgPlain Src=\"~/Images/probe.png\" Alt=\"Logo\"",
+        "State imgBound Src=\"~/Images/probe.png\" Alt=\"bound\"",
+        "State imgCode Src=\"~/Images/probe.png\" Alt=\"set in code\"",
+        "State imgHidden Src=\"~/Images/probe.png\" Alt=\"set while hidden\" (hidden)",
+        "State ifrPlain Src=\"~/Images/probe.png\"",
+        "State areaPlain Href=\"~/ButtonTarget.aspx\" Alt=\"bound\"",
+        "State audPlain Src=\"~/Images/probe.png\"",
+        "State vidPlain Src=\"\" Poster=\"~/Images/probe.png\"",
+        "State srcPlain Src=\"~/Images/probe.png\"",
+        "State trkPlain Src=\"~/Images/probe.png\"",
+        "State embPlain Src=\"~/Images/probe.png\"",
+        "State tblPlain Rows=2 [Plain cell|set in code|bound|Hidden cell (set while hidden)]",
+        "State trPlain Cells=2 Title=\"\"",
+        "State trBound Cells=2 Title=\"bound\"",
+        "State tdPlain InnerText=\"Plain cell\" title=\"\"",
+        "State tdCode InnerText=\"set in code\" title=\"\"",
+        "State tdBound InnerText=\"bound\" title=\"\"",
+        "State tdHiddenCell InnerText=\"Hidden cell (set while hidden)\" title=\"\" (hidden)",
+        "State tblCode Rows=0 []",
+        "State tblHidden Rows=0 [] (hidden)",
+        "State inpText Value=\"posted text\"",
+        "State inpTextBound Value=\"bound\"",
+        "State inpTextNoViewState Value=\"set in code, no view state\"",
+        "State inpTextDisabled Value=\"disabled\"",
+        "State inpTextHidden Value=\"set while hidden\" (hidden)",
+        "State inpPassword Value=\"\"",
+        "State inpHidden Value=\"changed\"",
+        "State inpHiddenBound Value=\"bound\"",
+        "State inpCheck Checked=True",
+        "State inpCheckBound Checked=True",
+        "State inpRadioSmall Checked=False Value=\"inpRadioSmall\"",
+        "State inpRadioLarge Checked=True Value=\"inpRadioLarge\"",
+        "State inpEmail Value=\"a@example.com\"",
+        "State inpEmailBound Value=\"7\"",
+        "State txaNote Value=\"posted note\"",
+        "State txaBound Value=\"bound\"",
+        "State selSize SelectedIndex=2 Value=\"L\" Selected=[L] Items=3",
+        "State selMulti SelectedIndex=0 Value=\"S\" Selected=[S,L] Items=3",
+        "State selBound SelectedIndex=1 Value=\"B2\" Selected=[B2] Items=3",
+        "State inpFile PostedFile=\"\" 0 bytes \"\" Value=\"\"",
+        "State btnHtml InnerText=\"HTML button\" title=\"\"",
+        "State btnHtmlBound InnerText=\"bound\" title=\"\"",
+        "State inpButton Value=\"Input button\"",
+        "State inpSubmit Value=\"Input submit\"",
+        "State inpSubmitBound Value=\"bound\"",
+        "State inpReset Value=\"Reset\"",
+        "State inpResetBound Value=\"bound\"",
+        "State inpImage Alt=\"Input image\"",
+        "State inpImageBound Alt=\"bound\"",
+        "State inpClient Value=\"\"",
+        "State inpClientPassword Value=\"\"",
+        "State inpClientEmail Value=\"\"",
+        "State txaClient Value=\"\"",
+        "State selClient SelectedIndex=0 Value=\"\" Selected=[] Items=2",
+        "State inpClientFile PostedFile=\"\" 0 bytes \"\" Value=\"\"",
+        "State genDynamic InnerText=\"dynamic\" title=\"\"",
+        "State ancDynamic HRef=\"\" InnerText=\"Dynamic anchor\"",
+        "State imgDynamic Src=\"~/Images/probe.png\" Alt=\"dynamic\"",
+        "State tblDynamic Rows=1 [dynamic cell]",
+        "State inpDynamicText Value=\"dynamic posted\"",
+        "State inpDynamicPassword Value=\"\"",
+        "State inpDynamicHidden Value=\"dynamic changed\"",
+        "State inpDynamicCheck Checked=True",
+        "State inpDynamicRadio Checked=True Value=\"dynamic\"",
+        "State inpDynamicEmail Value=\"b@example.com\"",
+        "State txaDynamic Value=\"dynamic note\"",
+        "State selDynamic SelectedIndex=1 Value=\"2\" Selected=[2] Items=2",
+        "State inpDynamicFile PostedFile=\"\" 0 bytes \"\" Value=\"\"",
+        "State btnDynamic InnerText=\"Dynamic button\" title=\"\"",
+        "State inpDynamicButton Value=\"Dynamic input button\"",
+        "State inpDynamicSubmit Value=\"Dynamic submit\"",
+        "State inpDynamicReset Value=\"Dynamic reset\"",
+        "State inpDynamicImage Alt=\"Dynamic image\"",
+        "State ifrDynamic Src=\"~/Images/probe.png\"",
+        "State areaDynamic Href=\"~/ButtonTarget.aspx\" Alt=\"\"",
+        "State audDynamic Src=\"~/Images/probe.png\"",
+        "State vidDynamic Src=\"\" Poster=\"~/Images/probe.png\"",
+        "State embDynamic Src=\"~/Images/probe.png\"",
+        "State ttlDynamic Text=\"Dynamic title\"",
+        "State metaDynamic Name=\"keywords\" Content=\"dynamic\" Scheme=\"\"",
+        "State lnkDynamic Href=\"~/Images/probe.css\""
+      ],
+      "Tables": [
+        [
+          [
+            "Plain cell",
+            "set in code"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [],
+        [
+          [
+            "dynamic cell"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "inpText": "posted text",
+        "inpTextBound": "bound",
+        "inpTextNoViewState": "set in code, no view state",
+        "inpTextDisabled": "disabled",
+        "inpPassword": "",
+        "inpCheck": "true",
+        "inpCheckBound": "true",
+        "inpRadioSmall": "inpRadioSmall",
+        "inpRadioLarge": "inpRadioLarge",
+        "inpEmail": "a@example.com",
+        "inpEmailBound": "7",
+        "txaNote": "posted note",
+        "txaBound": "bound",
+        "selSize": "L",
+        "selMulti": "S",
+        "selBound": "B2",
+        "inpFile": "",
+        "inpReset": "Reset",
+        "inpResetBound": "bound",
+        "inpImage": "",
+        "inpImageBound": "",
+        "inpClient": "",
+        "inpClientPassword": "",
+        "inpClientEmail": "",
+        "txaClient": "",
+        "selClient": "",
+        "inpClientFile": "",
+        "inpDynamicText": "dynamic posted",
+        "inpDynamicPassword": "",
+        "inpDynamicCheck": "true",
+        "inpDynamicRadio": "dynamic",
+        "inpDynamicEmail": "b@example.com",
+        "txaDynamic": "dynamic note",
+        "selDynamic": "2",
+        "inpDynamicFile": "",
+        "inpDynamicReset": "Dynamic reset",
+        "inpDynamicImage": ""
+      },
+      "Elements": {
+        "hdPage": {
+          "Tag": "head",
+          "Attributes": {},
+          "Style": {}
+        },
+        "metaBound": {
+          "Tag": "meta",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkBound": {
+          "Tag": "link",
+          "Attributes": {},
+          "Style": {}
+        },
+        "metaDynamic": {
+          "Tag": "meta",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDynamic": {
+          "Tag": "link",
+          "Attributes": {},
+          "Style": {}
+        },
+        "genPlain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "genBound": {
+          "Tag": "span",
+          "Attributes": {
+            "title": "bound"
+          },
+          "Style": {}
+        },
+        "genCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "genNoViewState": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancTarget": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancSubmit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancValidate": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "ancBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgPlain": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "Logo"
+          },
+          "Style": {}
+        },
+        "imgBound": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "imgCode": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set in code"
+          },
+          "Style": {}
+        },
+        "ifrPlain": {
+          "Tag": "iframe",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "areaPlain": {
+          "Tag": "area",
+          "Attributes": {
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "audPlain": {
+          "Tag": "audio",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "vidPlain": {
+          "Tag": "video",
+          "Attributes": {},
+          "Style": {}
+        },
+        "srcPlain": {
+          "Tag": "source",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "trkPlain": {
+          "Tag": "track",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "embPlain": {
+          "Tag": "embed",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image/png"
+          },
+          "Style": {}
+        },
+        "tblPlain": {
+          "Tag": "table",
+          "Attributes": {
+            "border": "1"
+          },
+          "Style": {}
+        },
+        "trPlain": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tdPlain": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tdCode": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "trBound": {
+          "Tag": "tr",
+          "Attributes": {
+            "title": "bound"
+          },
+          "Style": {}
+        },
+        "tdBound": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tblCode": {
+          "Tag": "table",
+          "Attributes": {
+            "border": "1"
+          },
+          "Style": {}
+        },
+        "inpText": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpTextBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpTextNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpTextDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "inpPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "inpCheck": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "inpCheckBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "inpRadioSmall": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "inpRadioLarge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "inpEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "email"
+          },
+          "Style": {}
+        },
+        "inpEmailBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "number"
+          },
+          "Style": {}
+        },
+        "txaNote": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txaBound": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selSize": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selMulti": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "selBound": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "btnHtml": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnHtmlBound": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpSubmitBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpReset": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "reset"
+          },
+          "Style": {}
+        },
+        "inpResetBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "reset"
+          },
+          "Style": {}
+        },
+        "inpImage": {
+          "Tag": "input",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image",
+            "alt": "Input image"
+          },
+          "Style": {}
+        },
+        "inpImageBound": {
+          "Tag": "input",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "inpSubmitValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHtmlValidate": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClientPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "reqClientPassword": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClientEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "email"
+          },
+          "Style": {}
+        },
+        "reqClientEmail": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txaClient": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqClientNote": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selClient": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqClientSelect": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClientFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "reqClientFile": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpSubmitClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "genDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgDynamic": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "dynamic"
+          },
+          "Style": {}
+        },
+        "tblDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "border": "1"
+          },
+          "Style": {}
+        },
+        "trDynamic": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tdDynamic": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpDynamicText": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpDynamicPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "inpDynamicCheck": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "inpDynamicRadio": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "inpDynamicEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "email"
+          },
+          "Style": {}
+        },
+        "txaDynamic": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selDynamic": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpDynamicFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpDynamicButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpDynamicSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpDynamicReset": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "reset"
+          },
+          "Style": {}
+        },
+        "inpDynamicImage": {
+          "Tag": "input",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image",
+            "alt": "Dynamic image"
+          },
+          "Style": {}
+        },
+        "ifrDynamic": {
+          "Tag": "iframe",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "areaDynamic": {
+          "Tag": "area",
+          "Attributes": {},
+          "Style": {}
+        },
+        "audDynamic": {
+          "Tag": "audio",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "vidDynamic": {
+          "Tag": "video",
+          "Attributes": {},
+          "Style": {}
+        },
+        "srcDynamic": {
+          "Tag": "source",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "trkDynamic": {
+          "Tag": "track",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "embDynamic": {
+          "Tag": "embed",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "HtmlInputHidden [visible][viewstate] hidden ones shown with what was set while hidden",
+      "Path": "/htmlscenario",
+      "Title": "HTML controls scenario",
+      "Text": [
+        "Generic: Plain bound set in code",
+        "set while hidden",
+        "Anchor: Go to the target Submit anchor Validate g1 by an anchor Disabled anchor bound Hidden anchor (set while hidden)",
+        "Image:",
+        "Plain cell set in code",
+        "bound Hidden cell (set while hidden)",
+        "Inputs:",
+        "Small",
+        "Medium",
+        "Large",
+        "Small",
+        "Medium",
+        "Large",
+        "Pen",
+        "Bag",
+        "Cup <&>",
+        "Buttons: HTML button bound Validate g1 by a button",
+        "Server validation (g1):",
+        "Client validation (g2):",
+        "(choose)",
+        "A",
+        "Dynamic: dynamicDynamic anchor",
+        "dynamic cell",
+        "One",
+        "Two",
+        "Dynamic button",
+        "Request 4: IsPostBack=True",
+        "ServerChange inpTextNoViewState Value=\"set in code, no view state\"",
+        "Click btnShow",
+        "IsValid: (not validated)",
+        "State elmPage lang=\"en\"",
+        "State hdPage Title=\"HTML controls scenario\" Controls=5",
+        "State ttlPage Text=\"HTML controls scenario\"",
+        "State metaBound Name=\"description\" Content=\"bound\" Scheme=\"set in code\"",
+        "State lnkBound Href=\"~/Images/probe.css\"",
+        "State form1 title=\"bound\"",
+        "State genPlain InnerText=\"Plain\" title=\"\"",
+        "State genBound InnerText=\"bound\" title=\"bound\"",
+        "State genCode InnerText=\"set in code\" title=\"\"",
+        "State genNoViewState InnerText=\"\" title=\"\"",
+        "State genHidden InnerText=\"set while hidden\" title=\"\"",
+        "State ancTarget HRef=\"~/ButtonTarget.aspx\" InnerText=\"Go to the target\"",
+        "State ancBound HRef=\"~/ButtonTarget.aspx?id=7\" InnerText=\"bound\"",
+        "State ancHidden HRef=\"\" InnerText=\"Hidden anchor (set while hidden)\"",
+        "State imgPlain Src=\"~/Images/probe.png\" Alt=\"Logo\"",
+        "State imgBound Src=\"~/Images/probe.png\" Alt=\"bound\"",
+        "State imgCode Src=\"~/Images/probe.png\" Alt=\"set in code\"",
+        "State imgHidden Src=\"~/Images/probe.png\" Alt=\"set while hidden\"",
+        "State ifrPlain Src=\"~/Images/probe.png\"",
+        "State areaPlain Href=\"~/ButtonTarget.aspx\" Alt=\"bound\"",
+        "State audPlain Src=\"~/Images/probe.png\"",
+        "State vidPlain Src=\"\" Poster=\"~/Images/probe.png\"",
+        "State srcPlain Src=\"~/Images/probe.png\"",
+        "State trkPlain Src=\"~/Images/probe.png\"",
+        "State embPlain Src=\"~/Images/probe.png\"",
+        "State tblPlain Rows=2 [Plain cell|set in code|bound|Hidden cell (set while hidden)]",
+        "State trPlain Cells=2 Title=\"\"",
+        "State trBound Cells=2 Title=\"bound\"",
+        "State tdPlain InnerText=\"Plain cell\" title=\"\"",
+        "State tdCode InnerText=\"set in code\" title=\"\"",
+        "State tdBound InnerText=\"bound\" title=\"\"",
+        "State tdHiddenCell InnerText=\"Hidden cell (set while hidden)\" title=\"\"",
+        "State tblCode Rows=0 []",
+        "State tblHidden Rows=0 []",
+        "State inpText Value=\"posted text\"",
+        "State inpTextBound Value=\"bound\"",
+        "State inpTextNoViewState Value=\"set in code, no view state\"",
+        "State inpTextDisabled Value=\"disabled\"",
+        "State inpTextHidden Value=\"set while hidden\"",
+        "State inpPassword Value=\"\"",
+        "State inpHidden Value=\"changed\"",
+        "State inpHiddenBound Value=\"bound\"",
+        "State inpCheck Checked=True",
+        "State inpCheckBound Checked=True",
+        "State inpRadioSmall Checked=False Value=\"inpRadioSmall\"",
+        "State inpRadioLarge Checked=True Value=\"inpRadioLarge\"",
+        "State inpEmail Value=\"a@example.com\"",
+        "State inpEmailBound Value=\"7\"",
+        "State txaNote Value=\"posted note\"",
+        "State txaBound Value=\"bound\"",
+        "State selSize SelectedIndex=2 Value=\"L\" Selected=[L] Items=3",
+        "State selMulti SelectedIndex=0 Value=\"S\" Selected=[S,L] Items=3",
+        "State selBound SelectedIndex=1 Value=\"B2\" Selected=[B2] Items=3",
+        "State inpFile PostedFile=\"\" 0 bytes \"\" Value=\"\"",
+        "State btnHtml InnerText=\"HTML button\" title=\"\"",
+        "State btnHtmlBound InnerText=\"bound\" title=\"\"",
+        "State inpButton Value=\"Input button\"",
+        "State inpSubmit Value=\"Input submit\"",
+        "State inpSubmitBound Value=\"bound\"",
+        "State inpReset Value=\"Reset\"",
+        "State inpResetBound Value=\"bound\"",
+        "State inpImage Alt=\"Input image\"",
+        "State inpImageBound Alt=\"bound\"",
+        "State inpClient Value=\"\"",
+        "State inpClientPassword Value=\"\"",
+        "State inpClientEmail Value=\"\"",
+        "State txaClient Value=\"\"",
+        "State selClient SelectedIndex=0 Value=\"\" Selected=[] Items=2",
+        "State inpClientFile PostedFile=\"\" 0 bytes \"\" Value=\"\"",
+        "State genDynamic InnerText=\"dynamic\" title=\"\"",
+        "State ancDynamic HRef=\"\" InnerText=\"Dynamic anchor\"",
+        "State imgDynamic Src=\"~/Images/probe.png\" Alt=\"dynamic\"",
+        "State tblDynamic Rows=1 [dynamic cell]",
+        "State inpDynamicText Value=\"dynamic posted\"",
+        "State inpDynamicPassword Value=\"\"",
+        "State inpDynamicHidden Value=\"dynamic changed\"",
+        "State inpDynamicCheck Checked=True",
+        "State inpDynamicRadio Checked=True Value=\"dynamic\"",
+        "State inpDynamicEmail Value=\"b@example.com\"",
+        "State txaDynamic Value=\"dynamic note\"",
+        "State selDynamic SelectedIndex=1 Value=\"2\" Selected=[2] Items=2",
+        "State inpDynamicFile PostedFile=\"\" 0 bytes \"\" Value=\"\"",
+        "State btnDynamic InnerText=\"Dynamic button\" title=\"\"",
+        "State inpDynamicButton Value=\"Dynamic input button\"",
+        "State inpDynamicSubmit Value=\"Dynamic submit\"",
+        "State inpDynamicReset Value=\"Dynamic reset\"",
+        "State inpDynamicImage Alt=\"Dynamic image\"",
+        "State ifrDynamic Src=\"~/Images/probe.png\"",
+        "State areaDynamic Href=\"~/ButtonTarget.aspx\" Alt=\"\"",
+        "State audDynamic Src=\"~/Images/probe.png\"",
+        "State vidDynamic Src=\"\" Poster=\"~/Images/probe.png\"",
+        "State embDynamic Src=\"~/Images/probe.png\"",
+        "State ttlDynamic Text=\"Dynamic title\"",
+        "State metaDynamic Name=\"keywords\" Content=\"dynamic\" Scheme=\"\"",
+        "State lnkDynamic Href=\"~/Images/probe.css\""
+      ],
+      "Tables": [
+        [
+          [
+            "Plain cell",
+            "set in code"
+          ],
+          [
+            "bound",
+            "Hidden cell (set while hidden)"
+          ]
+        ],
+        [],
+        [],
+        [
+          [
+            "dynamic cell"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "inpText": "posted text",
+        "inpTextBound": "bound",
+        "inpTextNoViewState": "set in code, no view state",
+        "inpTextDisabled": "disabled",
+        "inpTextHidden": "set while hidden",
+        "inpPassword": "",
+        "inpCheck": "true",
+        "inpCheckBound": "true",
+        "inpRadioSmall": "inpRadioSmall",
+        "inpRadioLarge": "inpRadioLarge",
+        "inpEmail": "a@example.com",
+        "inpEmailBound": "7",
+        "txaNote": "posted note",
+        "txaBound": "bound",
+        "selSize": "L",
+        "selMulti": "S",
+        "selBound": "B2",
+        "inpFile": "",
+        "inpReset": "Reset",
+        "inpResetBound": "bound",
+        "inpImage": "",
+        "inpImageBound": "",
+        "inpClient": "",
+        "inpClientPassword": "",
+        "inpClientEmail": "",
+        "txaClient": "",
+        "selClient": "",
+        "inpClientFile": "",
+        "inpDynamicText": "dynamic posted",
+        "inpDynamicPassword": "",
+        "inpDynamicCheck": "true",
+        "inpDynamicRadio": "dynamic",
+        "inpDynamicEmail": "b@example.com",
+        "txaDynamic": "dynamic note",
+        "selDynamic": "2",
+        "inpDynamicFile": "",
+        "inpDynamicReset": "Dynamic reset",
+        "inpDynamicImage": ""
+      },
+      "Elements": {
+        "hdPage": {
+          "Tag": "head",
+          "Attributes": {},
+          "Style": {}
+        },
+        "metaBound": {
+          "Tag": "meta",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkBound": {
+          "Tag": "link",
+          "Attributes": {},
+          "Style": {}
+        },
+        "metaDynamic": {
+          "Tag": "meta",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDynamic": {
+          "Tag": "link",
+          "Attributes": {},
+          "Style": {}
+        },
+        "genPlain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "genBound": {
+          "Tag": "span",
+          "Attributes": {
+            "title": "bound"
+          },
+          "Style": {}
+        },
+        "genCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "genNoViewState": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "genHidden": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancTarget": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancSubmit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancValidate": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "ancBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancHidden": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgPlain": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "Logo"
+          },
+          "Style": {}
+        },
+        "imgBound": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "imgCode": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set in code"
+          },
+          "Style": {}
+        },
+        "imgHidden": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set while hidden"
+          },
+          "Style": {}
+        },
+        "ifrPlain": {
+          "Tag": "iframe",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "areaPlain": {
+          "Tag": "area",
+          "Attributes": {
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "audPlain": {
+          "Tag": "audio",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "vidPlain": {
+          "Tag": "video",
+          "Attributes": {},
+          "Style": {}
+        },
+        "srcPlain": {
+          "Tag": "source",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "trkPlain": {
+          "Tag": "track",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "embPlain": {
+          "Tag": "embed",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image/png"
+          },
+          "Style": {}
+        },
+        "tblPlain": {
+          "Tag": "table",
+          "Attributes": {
+            "border": "1"
+          },
+          "Style": {}
+        },
+        "trPlain": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tdPlain": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tdCode": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "trBound": {
+          "Tag": "tr",
+          "Attributes": {
+            "title": "bound"
+          },
+          "Style": {}
+        },
+        "tdBound": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tdHiddenCell": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tblCode": {
+          "Tag": "table",
+          "Attributes": {
+            "border": "1"
+          },
+          "Style": {}
+        },
+        "tblHidden": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpText": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpTextBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpTextNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpTextDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "inpTextHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "inpCheck": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "inpCheckBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "inpRadioSmall": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "inpRadioLarge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "inpEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "email"
+          },
+          "Style": {}
+        },
+        "inpEmailBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "number"
+          },
+          "Style": {}
+        },
+        "txaNote": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txaBound": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selSize": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selMulti": {
+          "Tag": "select",
+          "Attributes": {
+            "size": "3"
+          },
+          "Style": {}
+        },
+        "selBound": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "btnHtml": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnHtmlBound": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpSubmitBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpReset": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "reset"
+          },
+          "Style": {}
+        },
+        "inpResetBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "reset"
+          },
+          "Style": {}
+        },
+        "inpImage": {
+          "Tag": "input",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image",
+            "alt": "Input image"
+          },
+          "Style": {}
+        },
+        "inpImageBound": {
+          "Tag": "input",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "inpSubmitValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHtmlValidate": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClientPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "reqClientPassword": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClientEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "email"
+          },
+          "Style": {}
+        },
+        "reqClientEmail": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txaClient": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqClientNote": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selClient": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqClientSelect": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpClientFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "reqClientFile": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpSubmitClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "genDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ancDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgDynamic": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "dynamic"
+          },
+          "Style": {}
+        },
+        "tblDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "border": "1"
+          },
+          "Style": {}
+        },
+        "trDynamic": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tdDynamic": {
+          "Tag": "td",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpDynamicText": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "inpDynamicPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "inpDynamicCheck": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "inpDynamicRadio": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "inpDynamicEmail": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "email"
+          },
+          "Style": {}
+        },
+        "txaDynamic": {
+          "Tag": "textarea",
+          "Attributes": {},
+          "Style": {}
+        },
+        "selDynamic": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpDynamicFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "file"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "button",
+          "Attributes": {},
+          "Style": {}
+        },
+        "inpDynamicButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpDynamicSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "inpDynamicReset": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "reset"
+          },
+          "Style": {}
+        },
+        "inpDynamicImage": {
+          "Tag": "input",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "type": "image",
+            "alt": "Dynamic image"
+          },
+          "Style": {}
+        },
+        "ifrDynamic": {
+          "Tag": "iframe",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "areaDynamic": {
+          "Tag": "area",
+          "Attributes": {},
+          "Style": {}
+        },
+        "audDynamic": {
+          "Tag": "audio",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "vidDynamic": {
+          "Tag": "video",
+          "Attributes": {},
+          "Style": {}
+        },
+        "srcDynamic": {
+          "Tag": "source",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "trkDynamic": {
+          "Tag": "track",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "embDynamic": {
+          "Tag": "embed",
+          "Attributes": {
+            "src": "/Images/probe.png"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

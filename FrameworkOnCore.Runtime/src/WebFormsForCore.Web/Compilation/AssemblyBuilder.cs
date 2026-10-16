@@ -904,6 +904,20 @@ public class AssemblyBuilder
             compilParams.CoreAssemblyFileName = coreAssemblyFile;
         }
 
+#if !NETFRAMEWORK
+        // Microsoft's System.Web.Services.Description (CoreWCF's dependency, in every converted application's bin) has types
+        // FrameworkOnCore's System.Web.Services has too, in the same namespace: both referenced, a page's ServiceDescription or
+        // Operation is ambiguous (CS0433; the services' help page, DefaultWsdlHelpGenerator.aspx, failed so). The port's is the
+        // one System.Web.Services' callers get.
+        var references = compilParams.ReferencedAssemblies;
+        if (references.OfType<string>().Any(r => Path.GetFileName(r).Equals("System.Web.Services.dll", StringComparison.OrdinalIgnoreCase)))
+        {
+            foreach (var reference in references.OfType<string>()
+                .Where(r => Path.GetFileName(r).Equals("System.Web.Services.Description.dll", StringComparison.OrdinalIgnoreCase)).ToList())
+                references.Remove(reference);
+        }
+#endif
+
         // DevDiv 404267: If the developer enabled 'warnings as errors', we should disable [Obsolete] warnings. This helps
         // prevent in-place framework updates from breaking runtime compilation of pages. We only respect this attribute
         // when not in the CBM, as CBM is a design-time feature instead of a runtime feature, and the developer probably

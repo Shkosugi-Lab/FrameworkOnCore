@@ -1,0 +1,666 @@
+{
+  "ImageMap.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ImageMap.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "ImageMap.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "ImageMap.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "ImageMap.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "ImageMap.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "ImageMap.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.ClientID": [
+    "Control.ClientID = \"imapAreas\""
+  ],
+  "ImageMap.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "ImageMap.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "ImageMap.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "ImageMap.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "ImageMap.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "ImageMap.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "ImageMap.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "ImageMap.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "ImageMap.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "ImageMap.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "ImageMap.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "ImageMap.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "ImageMap.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "ImageMap.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "ImageMap.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"imapAreas\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "ImageMap.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.ID": [
+    "Control.ID = \"imapAreas\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "ImageMap.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "ImageMap.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "ImageMap.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "ImageMap.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "ImageMap.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "ImageMap.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "ImageMap.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "ImageMap.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "ImageMap.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "ImageMap.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "ImageMap.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "ImageMap.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "ImageMap.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ImageMap.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "ImageMap.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <img id=\"imapAreas\" src=\"~/Images/probe.png\" usemap=\"#ImageMapimapAreas\" /><map name=\"ImageMapimapAreas\" id=\"ImageMapimapAreas\">",
+    "  | \t<area shape=\"rect\" coords=\"0,0,10,10\" href=\"\" title=\"\" alt=\"\" />",
+    "  | </map>",
+    "Control.Render(HtmlTextWriter) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <img id=\"imapAreas\" src=\"~/Images/probe.png\" usemap=\"#ImageMapimapAreas\" /><map name=\"ImageMapimapAreas\" id=\"ImageMapimapAreas\">",
+    "  | \t<area shape=\"rect\" coords=\"0,0,10,10\" href=\"\" title=\"\" alt=\"\" />",
+    "  | </map>",
+    "Control.RenderControl(HtmlTextWriter) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <img id=\"imapAreas\" src=\"~/Images/probe.png\" usemap=\"#ImageMapimapAreas\" /><map name=\"ImageMapimapAreas\" id=\"ImageMapimapAreas\">",
+    "  | \t<area shape=\"rect\" coords=\"0,0,10,10\" href=\"\" title=\"\" alt=\"\" />",
+    "  | </map>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "ImageMap.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "ImageMap.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "ImageMap.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "ImageMap.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "ImageMap.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.Control.UniqueID": [
+    "Control.UniqueID = \"imapAreas\""
+  ],
+  "ImageMap.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "ImageMap.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "ImageMap.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [ImageUrl=\"~/Images/probe.png\"]"
+  ],
+  "ImageMap.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "ImageMap.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "ImageMap.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "ImageMap.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=true; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "ImageMap.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "ImageMap.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "ImageMap.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "ImageMap.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "ImageMap.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "ImageMap.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.IPostBackEventHandler.RaisePostBackEvent": [
+    "IPostBackEventHandler.RaisePostBackEvent(String) = \"-> System.FormatException: (the runtime's parse error)\""
+  ],
+  "ImageMap.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.Image.#ctor": [
+    "Image.#ctor = Image# {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; ID=null; ImageAlign=NotSet; ImageUrl=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.Image.AddAttributesToRender": [
+    "Image.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "Image.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "Image.AddAttributesToRender(HtmlTextWriter) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.Image.AlternateText": [
+    "Image.AlternateText = \"\"",
+    "Image.AlternateText set = \"Abc 123\""
+  ],
+  "ImageMap.Api.WebControls.Image.DescriptionUrl": [
+    "Image.DescriptionUrl = \"\"",
+    "Image.DescriptionUrl set = \"Abc 123\""
+  ],
+  "ImageMap.Api.WebControls.Image.Enabled": [
+    "Image.Enabled = \"true\"",
+    "Image.Enabled set = \"true\""
+  ],
+  "ImageMap.Api.WebControls.Image.Font": [
+    "Image.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "ImageMap.Api.WebControls.Image.GenerateEmptyAlternateText": [
+    "Image.GenerateEmptyAlternateText = \"false\"",
+    "Image.GenerateEmptyAlternateText set = \"true\""
+  ],
+  "ImageMap.Api.WebControls.Image.ImageAlign": [
+    "Image.ImageAlign = \"ImageAlign.NotSet\"",
+    "Image.ImageAlign set = \"ImageAlign.Left\""
+  ],
+  "ImageMap.Api.WebControls.Image.ImageUrl": [
+    "Image.ImageUrl = \"~/Images/probe.png\"",
+    "Image.ImageUrl set = \"Abc 123\""
+  ],
+  "ImageMap.Api.WebControls.Image.RenderContents": [
+    "Image.RenderContents(HtmlTextWriter) = \"ok\"",
+    "Image.RenderContents(HtmlTextWriter) writer:",
+    "  | ",
+    "Image.RenderContents(HtmlTextWriter) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.Image.SupportsDisabledAttribute": [
+    "Image.SupportsDisabledAttribute = \"false\""
+  ],
+  "ImageMap.Api.WebControls.ImageMap.#ctor": [
+    "ImageMap.#ctor = ImageMap# {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=null; ImageAlign=NotSet; ImageUrl=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.ImageMap.AddAttributesToRender": [
+    "ImageMap.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "ImageMap.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "ImageMap.AddAttributesToRender(HtmlTextWriter) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.ImageMap.Click": [
+    "ImageMap.Click = \"added and removed\""
+  ],
+  "ImageMap.Api.WebControls.ImageMap.Enabled": [
+    "ImageMap.Enabled = \"true\"",
+    "ImageMap.Enabled set = \"true\""
+  ],
+  "ImageMap.Api.WebControls.ImageMap.HotSpotMode": [
+    "ImageMap.HotSpotMode = \"HotSpotMode.NotSet\"",
+    "ImageMap.HotSpotMode set = \"HotSpotMode.Navigate\""
+  ],
+  "ImageMap.Api.WebControls.ImageMap.HotSpots": [
+    "ImageMap.HotSpots = \"[System.Web.UI.WebControls.RectangleHotSpot RectangleHotSpot]\""
+  ],
+  "ImageMap.Api.WebControls.ImageMap.LoadViewState": [
+    "ImageMap.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "ImageMap.Api.WebControls.ImageMap.OnClick": [
+    "ImageMap.OnClick(ImageMapEventArgs) = \"ok\"",
+    "ImageMap.OnClick(ImageMapEventArgs) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.ImageMap.RaisePostBackEvent": [
+    "ImageMap.RaisePostBackEvent(String) = \"-> System.FormatException: (the runtime's parse error)\""
+  ],
+  "ImageMap.Api.WebControls.ImageMap.Render": [
+    "ImageMap.Render(HtmlTextWriter) = \"ok\"",
+    "ImageMap.Render(HtmlTextWriter) writer:",
+    "  | <img id=\"imapAreas\" src=\"~/Images/probe.png\" usemap=\"#ImageMapimapAreas\" /><map name=\"ImageMapimapAreas\" id=\"ImageMapimapAreas\">",
+    "  | \t<area shape=\"rect\" coords=\"0,0,10,10\" href=\"\" title=\"\" alt=\"\" />",
+    "  | </map>",
+    "ImageMap.Render(HtmlTextWriter) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.ImageMap.SaveViewState": [
+    "ImageMap.SaveViewState = null",
+    "ImageMap.SaveViewState after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.ImageMap.Target": [
+    "ImageMap.Target = \"\"",
+    "ImageMap.Target set = \"Abc 123\""
+  ],
+  "ImageMap.Api.WebControls.ImageMap.TrackViewState": [
+    "ImageMap.TrackViewState = \"ok\"",
+    "ImageMap.TrackViewState after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "ImageMap.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "ImageMap.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}",
+    "WebControl.CreateControlStyle after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "ImageMap.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"ok\"",
+    "WebControl.Render(HtmlTextWriter) writer:",
+    "  | <img id=\"imapAreas\" src=\"~/Images/probe.png\" usemap=\"#ImageMapimapAreas\" /><map name=\"ImageMapimapAreas\" id=\"ImageMapimapAreas\">",
+    "  | \t<area shape=\"rect\" coords=\"0,0,10,10\" href=\"\" title=\"\" alt=\"\" />",
+    "  | </map>",
+    "WebControl.Render(HtmlTextWriter) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <img id=\"imapAreas\" src=\"~/Images/probe.png\" />",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.RenderContents(HtmlTextWriter) after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Img\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"img\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "ImageMap.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = ImageMap#imapAreas {AccessKey=\"\"; AlternateText=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"imapAreas\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DescriptionUrl=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GenerateEmptyAlternateText=false; HasAttributes=false; Height=; HotSpotMode=NotSet; ID=\"imapAreas\"; ImageAlign=NotSet; ImageUrl=\"~/Images/probe.png\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; ToolTip=\"\"; UniqueID=\"imapAreas\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ImageMap.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ]
+}

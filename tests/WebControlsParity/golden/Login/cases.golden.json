@@ -1,0 +1,795 @@
+{
+  "Login.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Login.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "Login.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "Login.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Login.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Login.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "Login.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.ClientID": [
+    "Control.ClientID = \"lgnMain\""
+  ],
+  "Login.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "Login.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "Login.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "Login.Api.Control.Controls": [
+    "Control.Controls = ControlCollection [LoginContainer#]"
+  ],
+  "Login.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "Login.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "Login.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "Login.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "Login.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "Login.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "Login.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "Login.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "Login.Api.Control.FindControl": [
+    "Control.FindControl(String) = null",
+    "Control.FindControl(String) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "Login.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Login.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"lgnMain\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "Login.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.ID": [
+    "Control.ID = \"lgnMain\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "Login.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "Login.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "Login.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "Login.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "Login.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "Login.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "Login.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "Login.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "Login.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Login.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Login.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Login.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Login.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Login.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "Login.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "Login.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "Login.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "Login.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "Login.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "Login.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Login.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "Login.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.Control.UniqueID": [
+    "Control.UniqueID = \"lgnMain\""
+  ],
+  "Login.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "Login.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "Login.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "Login.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "Login.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "Login.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "Login.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=true; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "Login.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "Login.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "Login.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "Login.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "Login.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "Login.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.CompositeControl.#ctor": [
+    "CompositeControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.CompositeControl because it is an abstract class.\""
+  ],
+  "Login.Api.WebControls.CompositeControl.Controls": [
+    "CompositeControl.Controls = ControlCollection [LoginContainer#]"
+  ],
+  "Login.Api.WebControls.CompositeControl.DataBind": [
+    "CompositeControl.DataBind = \"ok\"",
+    "CompositeControl.DataBind after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.CompositeControl.RecreateChildControls": [
+    "CompositeControl.RecreateChildControls = \"ok\"",
+    "CompositeControl.RecreateChildControls after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.CompositeControl.Render": [
+    "CompositeControl.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "Login.Api.WebControls.CompositeControl.SupportsDisabledAttribute": [
+    "CompositeControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "Login.Api.WebControls.ICompositeControlDesignerAccessor.RecreateChildControls": [
+    "ICompositeControlDesignerAccessor.RecreateChildControls = \"ok\"",
+    "ICompositeControlDesignerAccessor.RecreateChildControls after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.Login.#ctor": [
+    "Login.#ctor = Login# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=null; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=null; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.Login.Authenticate": [
+    "Login.Authenticate = \"added and removed\""
+  ],
+  "Login.Api.WebControls.Login.BorderPadding": [
+    "Login.BorderPadding = \"Int32 1\"",
+    "Login.BorderPadding set = \"Int32 1\""
+  ],
+  "Login.Api.WebControls.Login.CheckBoxStyle": [
+    "Login.CheckBoxStyle = TableItemStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=true}"
+  ],
+  "Login.Api.WebControls.Login.CreateChildControls": [
+    "Login.CreateChildControls = \"ok\"",
+    "Login.CreateChildControls after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.Login.CreateUserIconUrl": [
+    "Login.CreateUserIconUrl = \"\"",
+    "Login.CreateUserIconUrl set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.CreateUserText": [
+    "Login.CreateUserText = \"\"",
+    "Login.CreateUserText set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.CreateUserUrl": [
+    "Login.CreateUserUrl = \"\"",
+    "Login.CreateUserUrl set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.DestinationPageUrl": [
+    "Login.DestinationPageUrl = \"\"",
+    "Login.DestinationPageUrl set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.DisplayRememberMe": [
+    "Login.DisplayRememberMe = \"true\"",
+    "Login.DisplayRememberMe set = \"true\""
+  ],
+  "Login.Api.WebControls.Login.FailureAction": [
+    "Login.FailureAction = \"LoginFailureAction.Refresh\"",
+    "Login.FailureAction set = \"LoginFailureAction.RedirectToLoginPage\""
+  ],
+  "Login.Api.WebControls.Login.FailureText": [
+    "Login.FailureText = \"Your login attempt was not successful. Please try again.\"",
+    "Login.FailureText set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.FailureTextStyle": [
+    "Login.FailureTextStyle = ErrorTableItemStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #FFFF0000 Color [Red]; Height=; HorizontalAlign=NotSet; IsEmpty=false; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=true}"
+  ],
+  "Login.Api.WebControls.Login.HelpPageIconUrl": [
+    "Login.HelpPageIconUrl = \"\"",
+    "Login.HelpPageIconUrl set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.HelpPageText": [
+    "Login.HelpPageText = \"\"",
+    "Login.HelpPageText set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.HelpPageUrl": [
+    "Login.HelpPageUrl = \"\"",
+    "Login.HelpPageUrl set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.HyperLinkStyle": [
+    "Login.HyperLinkStyle = TableItemStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=true}"
+  ],
+  "Login.Api.WebControls.Login.InstructionText": [
+    "Login.InstructionText = \"\"",
+    "Login.InstructionText set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.InstructionTextStyle": [
+    "Login.InstructionTextStyle = TableItemStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=true}"
+  ],
+  "Login.Api.WebControls.Login.LabelStyle": [
+    "Login.LabelStyle = TableItemStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=true}"
+  ],
+  "Login.Api.WebControls.Login.LayoutTemplate": [
+    "Login.LayoutTemplate = null",
+    "Login.LayoutTemplate set = null"
+  ],
+  "Login.Api.WebControls.Login.LoadViewState": [
+    "Login.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "Login.Api.WebControls.Login.LoggedIn": [
+    "Login.LoggedIn = \"added and removed\""
+  ],
+  "Login.Api.WebControls.Login.LoggingIn": [
+    "Login.LoggingIn = \"added and removed\""
+  ],
+  "Login.Api.WebControls.Login.LoginButtonCommandName": [
+    "Login.LoginButtonCommandName = \"Login\""
+  ],
+  "Login.Api.WebControls.Login.LoginButtonImageUrl": [
+    "Login.LoginButtonImageUrl = \"\"",
+    "Login.LoginButtonImageUrl set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.LoginButtonStyle": [
+    "Login.LoginButtonStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "Login.Api.WebControls.Login.LoginButtonText": [
+    "Login.LoginButtonText = \"Log In\"",
+    "Login.LoginButtonText set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.LoginButtonType": [
+    "Login.LoginButtonType = \"ButtonType.Button\"",
+    "Login.LoginButtonType set = \"ButtonType.Image\""
+  ],
+  "Login.Api.WebControls.Login.LoginError": [
+    "Login.LoginError = \"added and removed\""
+  ],
+  "Login.Api.WebControls.Login.MembershipProvider": [
+    "Login.MembershipProvider = \"\"",
+    "Login.MembershipProvider set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.OnAuthenticate": [
+    "Login.OnAuthenticate(AuthenticateEventArgs) = \"ok\"",
+    "Login.OnAuthenticate(AuthenticateEventArgs) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=true; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.Login.OnBubbleEvent": [
+    "Login.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Login.OnBubbleEvent(Object,EventArgs) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.Login.OnLoggedIn": [
+    "Login.OnLoggedIn(EventArgs) = \"ok\"",
+    "Login.OnLoggedIn(EventArgs) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.Login.OnLoggingIn": [
+    "Login.OnLoggingIn(LoginCancelEventArgs) = \"ok\"",
+    "Login.OnLoggingIn(LoginCancelEventArgs) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=true; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.Login.OnLoginError": [
+    "Login.OnLoginError(EventArgs) = \"ok\"",
+    "Login.OnLoginError(EventArgs) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.Login.OnPreRender": [
+    "Login.OnPreRender(EventArgs) = \"ok\"",
+    "Login.OnPreRender(EventArgs) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.Login.Orientation": [
+    "Login.Orientation = \"Orientation.Vertical\"",
+    "Login.Orientation set = \"Orientation.Vertical\""
+  ],
+  "Login.Api.WebControls.Login.Password": [
+    "Login.Password = \"\""
+  ],
+  "Login.Api.WebControls.Login.PasswordLabelText": [
+    "Login.PasswordLabelText = \"Password:\"",
+    "Login.PasswordLabelText set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.PasswordRecoveryIconUrl": [
+    "Login.PasswordRecoveryIconUrl = \"\"",
+    "Login.PasswordRecoveryIconUrl set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.PasswordRecoveryText": [
+    "Login.PasswordRecoveryText = \"\"",
+    "Login.PasswordRecoveryText set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.PasswordRecoveryUrl": [
+    "Login.PasswordRecoveryUrl = \"\"",
+    "Login.PasswordRecoveryUrl set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.PasswordRequiredErrorMessage": [
+    "Login.PasswordRequiredErrorMessage = \"Password is required.\"",
+    "Login.PasswordRequiredErrorMessage set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.RememberMeSet": [
+    "Login.RememberMeSet = \"false\"",
+    "Login.RememberMeSet set = \"true\""
+  ],
+  "Login.Api.WebControls.Login.RememberMeText": [
+    "Login.RememberMeText = \"Remember me next time.\"",
+    "Login.RememberMeText set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.Render": [
+    "Login.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "Login.Api.WebControls.Login.RenderOuterTable": [
+    "Login.RenderOuterTable = \"true\"",
+    "Login.RenderOuterTable set = \"true\""
+  ],
+  "Login.Api.WebControls.Login.SaveViewState": [
+    "Login.SaveViewState = null",
+    "Login.SaveViewState after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.Login.SetDesignModeState": [
+    "Login.SetDesignModeState(IDictionary) = \"ok\"",
+    "Login.SetDesignModeState(IDictionary) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.Login.TagKey": [
+    "Login.TagKey = \"HtmlTextWriterTag.Table\""
+  ],
+  "Login.Api.WebControls.Login.TextBoxStyle": [
+    "Login.TextBoxStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "Login.Api.WebControls.Login.TextLayout": [
+    "Login.TextLayout = \"LoginTextLayout.TextOnLeft\"",
+    "Login.TextLayout set = \"LoginTextLayout.TextOnTop\""
+  ],
+  "Login.Api.WebControls.Login.TitleText": [
+    "Login.TitleText = \"Log In\"",
+    "Login.TitleText set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.TitleTextStyle": [
+    "Login.TitleTextStyle = TableItemStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=true}"
+  ],
+  "Login.Api.WebControls.Login.TrackViewState": [
+    "Login.TrackViewState = \"ok\"",
+    "Login.TrackViewState after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.Login.UserName": [
+    "Login.UserName = \"\"",
+    "Login.UserName set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.UserNameLabelText": [
+    "Login.UserNameLabelText = \"User Name:\"",
+    "Login.UserNameLabelText set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.UserNameRequiredErrorMessage": [
+    "Login.UserNameRequiredErrorMessage = \"User Name is required.\"",
+    "Login.UserNameRequiredErrorMessage set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.Login.ValidatorTextStyle": [
+    "Login.ValidatorTextStyle = ErrorStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #FFFF0000 Color [Red]; Height=; IsEmpty=false; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "Login.Api.WebControls.Login.VisibleWhenLoggedIn": [
+    "Login.VisibleWhenLoggedIn = \"true\"",
+    "Login.VisibleWhenLoggedIn set = \"true\""
+  ],
+  "Login.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Login.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "Login.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=2px; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=true; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"merged\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "Login.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "Login.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "Login.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "Login.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "Login.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "Login.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "Login.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}",
+    "WebControl.CreateControlStyle after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "Login.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "Login.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "Login.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "Login.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "Login.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "Login.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "Login.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "Login.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=2px; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=true; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"merged\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "Login.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <table id=\"lgnMain\">",
+    "  | ",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.RenderContents(HtmlTextWriter) after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "Login.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "Login.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "Login.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "Login.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Table\""
+  ],
+  "Login.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"table\""
+  ],
+  "Login.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "Login.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = Login#lgnMain {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderPadding=Int32 1; BorderStyle=NotSet; BorderWidth=; ClientID=\"lgnMain\"; ClientIDMode=Inherit; ControlStyleCreated=false; CreateUserIconUrl=\"\"; CreateUserText=\"\"; CreateUserUrl=\"\"; CssClass=\"\"; DestinationPageUrl=\"\"; DisplayRememberMe=true; EnableTheming=true; EnableViewState=true; Enabled=true; FailureAction=Refresh; FailureText=\"Your login attempt was not successful. Please try again.\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"lgnMain\"; InstructionText=\"\"; LoginButtonImageUrl=\"\"; LoginButtonText=\"Log In\"; LoginButtonType=Button; MembershipProvider=\"\"; Orientation=Vertical; Password=\"\"; PasswordLabelText=\"Password:\"; PasswordRecoveryIconUrl=\"\"; PasswordRecoveryText=\"\"; PasswordRecoveryUrl=\"\"; PasswordRequiredErrorMessage=\"Password is required.\"; RememberMeSet=false; RememberMeText=\"Remember me next time.\"; RenderOuterTable=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; TextLayout=TextOnLeft; TitleText=\"Log In\"; ToolTip=\"\"; UniqueID=\"lgnMain\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; VisibleWhenLoggedIn=true; Width=}"
+  ],
+  "Login.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ]
+}

@@ -693,7 +693,7 @@ namespace System.Web
 					handler(this, AppEvent);
 
 					// Throw after ResponseEnd
-					HttpResponse.RethrowIfResponseEnd(() => Context?.Response);
+					HttpResponse.RethrowIfResponseEnd(this, static owner => owner.Context?.Response);
 				}
 				catch (ThreadAbortException e)
 				{
@@ -719,7 +719,7 @@ namespace System.Web
 					handler(this, AppEvent);
 
 					// Throw after ResponseEnd
-					HttpResponse.RethrowIfResponseEnd(() => Context?.Response);
+					HttpResponse.RethrowIfResponseEnd(this, static owner => owner.Context?.Response);
 				}
 				catch (ThreadAbortException e)
 				{
@@ -742,7 +742,7 @@ namespace System.Web
 					handler(this, AppEvent);
 
 					// Throw after ResponseEnd
-					HttpResponse.RethrowIfResponseEnd(() => Context?.Response);
+					HttpResponse.RethrowIfResponseEnd(this, static owner => owner.Context?.Response);
 				}
 				catch (ThreadAbortException e)
 				{
@@ -765,7 +765,7 @@ namespace System.Web
 					handler(this, AppEvent);
 
 					// Throw after ResponseEnd
-					HttpResponse.RethrowIfResponseEnd(() => Context?.Response);
+					HttpResponse.RethrowIfResponseEnd(this, static owner => owner.Context?.Response);
 				}
 				catch (ThreadAbortException e)
 				{
@@ -997,18 +997,10 @@ namespace System.Web
 		{
 			add
 			{
-				if (!HttpRuntime.UseIntegratedPipeline)
-				{
-					throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
-				}
 				AddSyncEventHookup(EventMapRequestHandler, value, RequestNotification.MapRequestHandler);
 			}
 			remove
 			{
-				if (!HttpRuntime.UseIntegratedPipeline)
-				{
-					throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
-				}
 				RemoveSyncEventHookup(EventMapRequestHandler, value, RequestNotification.MapRequestHandler);
 			}
 		}
@@ -1087,18 +1079,10 @@ namespace System.Web
 		{
 			add
 			{
-				if (!HttpRuntime.UseIntegratedPipeline)
-				{
-					throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
-				}
 				AddSyncEventHookup(EventLogRequest, value, RequestNotification.LogRequest);
 			}
 			remove
 			{
-				if (!HttpRuntime.UseIntegratedPipeline)
-				{
-					throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
-				}
 				RemoveSyncEventHookup(EventLogRequest, value, RequestNotification.LogRequest);
 			}
 		}
@@ -1107,18 +1091,10 @@ namespace System.Web
 		{
 			add
 			{
-				if (!HttpRuntime.UseIntegratedPipeline)
-				{
-					throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
-				}
 				AddSyncEventHookup(EventPostLogRequest, value, RequestNotification.LogRequest, true);
 			}
 			remove
 			{
-				if (!HttpRuntime.UseIntegratedPipeline)
-				{
-					throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
-				}
 				RemoveSyncEventHookup(EventPostLogRequest, value, RequestNotification.LogRequest, true);
 			}
 		}
@@ -1248,19 +1224,11 @@ namespace System.Web
 
 		public void AddOnMapRequestHandlerAsync(BeginEventHandler bh, EndEventHandler eh)
 		{
-			if (!HttpRuntime.UseIntegratedPipeline)
-			{
-				throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
-			}
 			AddOnMapRequestHandlerAsync(bh, eh, null);
 		}
 
 		public void AddOnMapRequestHandlerAsync(BeginEventHandler beginHandler, EndEventHandler endHandler, Object state)
 		{
-			if (!HttpRuntime.UseIntegratedPipeline)
-			{
-				throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
-			}
 			AsyncEvents.AddHandler(EventMapRequestHandler, beginHandler, endHandler, state,
 								   RequestNotification.MapRequestHandler, false, this);
 		}
@@ -1366,38 +1334,22 @@ namespace System.Web
 
 		public void AddOnLogRequestAsync(BeginEventHandler bh, EndEventHandler eh)
 		{
-			if (!HttpRuntime.UseIntegratedPipeline)
-			{
-				throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
-			}
 			AddOnLogRequestAsync(bh, eh, null);
 		}
 
 		public void AddOnLogRequestAsync(BeginEventHandler beginHandler, EndEventHandler endHandler, Object state)
 		{
-			if (!HttpRuntime.UseIntegratedPipeline)
-			{
-				throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
-			}
 			AsyncEvents.AddHandler(EventLogRequest, beginHandler, endHandler, state,
 								   RequestNotification.LogRequest, false, this);
 		}
 
 		public void AddOnPostLogRequestAsync(BeginEventHandler bh, EndEventHandler eh)
 		{
-			if (!HttpRuntime.UseIntegratedPipeline)
-			{
-				throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
-			}
 			AddOnPostLogRequestAsync(bh, eh, null);
 		}
 
 		public void AddOnPostLogRequestAsync(BeginEventHandler beginHandler, EndEventHandler endHandler, Object state)
 		{
-			if (!HttpRuntime.UseIntegratedPipeline)
-			{
-				throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
-			}
 			AsyncEvents.AddHandler(EventPostLogRequest, beginHandler, endHandler, state,
 								   RequestNotification.LogRequest, true, this);
 		}
@@ -1835,7 +1787,7 @@ namespace System.Web
 						InvokeMethodWithAssert(method, paramCount, eventSource, eventArgs);
 
 						// Throw after ResponseEnd
-						HttpResponse.RethrowIfResponseEnd(() => Context?.Response);
+						HttpResponse.RethrowIfResponseEnd(this, static owner => owner.Context?.Response);
 					}
 					catch (ThreadAbortException e)
 					{
@@ -1992,7 +1944,7 @@ namespace System.Web
 							Init();
 
 							// Throw after ResponseEnd
-							HttpResponse.RethrowIfResponseEnd(() => Context?.Response);
+							HttpResponse.RethrowIfResponseEnd(this, static owner => owner.Context?.Response);
 						}
 						catch (ThreadAbortException e)
 						{
@@ -2147,7 +2099,7 @@ namespace System.Web
 				Dispose();
 
 				// Throw after ResponseEnd
-				// HttpResponse.RethrowIfResponseEnd(() => Context?.Response);
+				// HttpResponse.RethrowIfResponseEnd(this, static owner => owner.Context?.Response);
 			}
 			catch (ThreadAbortException e)
 			{
@@ -2323,7 +2275,7 @@ namespace System.Web
 					addMethod.Invoke(target, new Object[1] { handlerDelegate });
 
 					// Throw after ResponseEnd
-					HttpResponse.RethrowIfResponseEnd(() => Context?.Response);
+					HttpResponse.RethrowIfResponseEnd(this, static owner => owner.Context?.Response);
 				}
 				catch (ThreadAbortException e)
 				{
@@ -2627,6 +2579,12 @@ namespace System.Web
 			{
 				try
 				{
+#if !NETFRAMEWORK
+					// A request past executionTimeout (RequestTimeoutManager could not abort its thread): it fails here, at its
+					// next step, as the aborted one did.
+					if (_context.TakeTimedOut())
+						throw _context.TimedOutException();
+#endif
 					if (step.IsCancellable)
 					{
 						_context.BeginCancellablePeriod();  // request can be cancelled from this point
@@ -2653,7 +2611,7 @@ namespace System.Web
 						return null;
 					}
 
-					HttpResponse.RethrowIfResponseEnd(() => Context?.Response);
+					HttpResponse.RethrowIfResponseEnd(this, static owner => owner.Context?.Response);
 				}
 				catch (Exception e)
 				{
@@ -2694,7 +2652,7 @@ namespace System.Web
 #pragma warning restore 1058
 
 				// Throw after ResponseEnd
-				HttpResponse.RethrowIfResponseEnd(() => Context?.Response);
+				HttpResponse.RethrowIfResponseEnd(this, static owner => owner.Context?.Response);
 			}
 			catch (ThreadAbortException e)
 			{
@@ -4582,6 +4540,11 @@ namespace System.Web
 				app.CreateEventExecutionSteps(HttpApplication.EventPostAuthorizeRequest, steps);
 				app.CreateEventExecutionSteps(HttpApplication.EventResolveRequestCache, steps);
 				app.CreateEventExecutionSteps(HttpApplication.EventPostResolveRequestCache, steps);
+#if !NETFRAMEWORK
+				// IIS's integrated pipeline, which the applications were written for: MapRequestHandler before the handler is mapped
+				// (HttpContext.RemapHandler there still counts), LogRequest and PostLogRequest before EndRequest (below).
+				app.CreateEventExecutionSteps(HttpApplication.EventMapRequestHandler, steps);
+#endif
 				steps.Add(new MapHandlerExecutionStep(app));     // map handler
 				app.CreateEventExecutionSteps(HttpApplication.EventPostMapRequestHandler, steps);
 				app.CreateEventExecutionSteps(HttpApplication.EventAcquireRequestState, steps);
@@ -4596,6 +4559,11 @@ namespace System.Web
 				app.CreateEventExecutionSteps(HttpApplication.EventUpdateRequestCache, steps);
 				app.CreateEventExecutionSteps(HttpApplication.EventPostUpdateRequestCache, steps);
 				_endRequestStepIndex = steps.Count;
+#if !NETFRAMEWORK
+				// Raised for a request completed early too (CompleteRequest), as IIS logs every request.
+				app.CreateEventExecutionSteps(HttpApplication.EventLogRequest, steps);
+				app.CreateEventExecutionSteps(HttpApplication.EventPostLogRequest, steps);
+#endif
 				app.CreateEventExecutionSteps(HttpApplication.EventEndRequest, steps);
 				steps.Add(new NoopExecutionStep()); // the last is always there
 

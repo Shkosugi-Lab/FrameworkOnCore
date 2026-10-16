@@ -122,8 +122,7 @@ namespace WebFormsForCore.Build
 					var assemblies = string.Join(";", a);
 
                     var dll = Assembly.GetExecutingAssembly().Location;
-                    var net = IsNet10 ? "net10.0" : "net8.0";
-                    dll = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(dll)!)!, net, "WebFormsForCore.Build.NetCore.dll");
+                    dll = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(dll)!)!, "net10.0", "WebFormsForCore.Build.NetCore.dll");
 
                     var startInfo = new ProcessStartInfo($"dotnet{(IsWindows ? ".exe" : "")}", $"\"{dll}\" fakestrongname \"{assemblies}\" " +
 						$"\"{PublicKey ?? ""}\" \"{PublicKeyToken ?? ""}\" \"{Key?.ItemSpec ?? ""}\" " +

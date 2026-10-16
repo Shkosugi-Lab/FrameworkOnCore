@@ -1,0 +1,24 @@
+{
+  "_comment": "The BulletedList's scenario layer (ListControlsScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers. The forged postback runs the page's own __doPostBack with an index the list rendered disabled.",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/ListControlsScenario.aspx" },
+    { "action": "snapshot", "name": "BulletedList [render][databind][items] first request (a bound list)" },
+
+    { "action": "clicktext", "value": "Second" },
+    { "action": "snapshot", "name": "BulletedList [postbackevent] a bullet clicked (LinkButton)" },
+
+    { "action": "clicktext", "value": "Validate g1 by a bullet" },
+    { "action": "snapshot", "name": "BulletedList [causesvalidation][postbackevent] a bullet with ValidationGroup g1" },
+
+    { "action": "clicktext", "value": "Two" },
+    { "action": "snapshot", "name": "BulletedList [dynamic][postbackevent] a dynamically created list's bullet" },
+
+    { "action": "click", "target": "btnShow" },
+    { "action": "snapshot", "name": "BulletedList [visible][viewstate][items] hidden list shown with the items added in code" },
+
+    { "action": "evaluate", "target": "bltLinks", "value": "__doPostBack('bltLinks', '2');" },
+    { "action": "waitms", "ms": 3000 },
+    { "action": "snapshot", "name": "BulletedList [eventvalidation][postbackevent] a disabled bullet's postback forged" }
+  ]
+}

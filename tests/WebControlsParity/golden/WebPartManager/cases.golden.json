@@ -1,0 +1,796 @@
+{
+  "WebPartManager.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "WebPartManager.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "WebPartManager.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "WebPartManager.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "WebPartManager.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.ClientID": [
+    "Control.ClientID = \"wpmProbe\""
+  ],
+  "WebPartManager.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "WebPartManager.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "WebPartManager.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "WebPartManager.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "WebPartManager.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "WebPartManager.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "WebPartManager.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "WebPartManager.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "WebPartManager.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "WebPartManager.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"-> System.NotSupportedException: Cannot set the EnableTheming property on WebPartManager.  EnableTheming must be true for the WebParts to be themeable.\""
+  ],
+  "WebPartManager.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "WebPartManager.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "WebPartManager.Api.Control.FindControl": [
+    "Control.FindControl(String) = null",
+    "Control.FindControl(String) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.Focus": [
+    "Control.Focus = \"-> System.NotSupportedException: Control of type 'WebPartManager' does not support the Focus operation.\""
+  ],
+  "WebPartManager.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "WebPartManager.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"wpmProbe\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "WebPartManager.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.ID": [
+    "Control.ID = \"wpmProbe\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "WebPartManager.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "WebPartManager.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "WebPartManager.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "WebPartManager.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "WebPartManager.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "WebPartManager.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "WebPartManager.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "WebPartManager.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "WebPartManager.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"true\""
+  ],
+  "WebPartManager.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "WebPartManager.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"-> System.InvalidOperationException: Value of the 'WebPartManager.Page.Request' property cannot be null.\""
+  ],
+  "WebPartManager.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "WebPartManager.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "WebPartManager.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "WebPartManager.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.Render(HtmlTextWriter) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "WebPartManager.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "WebPartManager.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"-> System.NotSupportedException: Control of type 'WebPartManager' does not support theming.\""
+  ],
+  "WebPartManager.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "WebPartManager.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.Control.UniqueID": [
+    "Control.UniqueID = \"wpmProbe\""
+  ],
+  "WebPartManager.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "WebPartManager.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "WebPartManager.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "WebPartManager.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "WebPartManager.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "WebPartManager.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"-> System.NotSupportedException: Control of type 'WebPartManager' is a non-visual control and does not support setting the Visible property.\""
+  ],
+  "WebPartManager.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "WebPartManager.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "WebPartManager.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "WebPartManager.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "WebPartManager.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "WebPartManager.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "WebPartManager.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.IPersonalizable.IsDirty": [
+    "WebParts.IPersonalizable.IsDirty = \"false\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.IPersonalizable.Load": [
+    "WebParts.IPersonalizable.Load(WebParts.PersonalizationDictionary) = \"ok\"",
+    "WebParts.IPersonalizable.Load(WebParts.PersonalizationDictionary) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.IPersonalizable.Save": [
+    "WebParts.IPersonalizable.Save(WebParts.PersonalizationDictionary) = \"ok\"",
+    "WebParts.IPersonalizable.Save(WebParts.PersonalizationDictionary) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.#ctor": [
+    "WebParts.WebPartManager.#ctor = WebPartManager# {ClientID=\"\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.ActivateConnections": [
+    "WebParts.WebPartManager.ActivateConnections = \"ok\"",
+    "WebParts.WebPartManager.ActivateConnections after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.AddWebPart": [
+    "WebParts.WebPartManager.AddWebPart(WebParts.WebPart,WebParts.WebPartZoneBase,Int32) = \"-> System.InvalidOperationException: Personalization is not enabled and/or modifiable. The Enabled property must be set to true, and a registered personalization provider must be selected. The current user must be granted the right to modify personalization state.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.AuthorizeWebPart": [
+    "WebParts.WebPartManager.AuthorizeWebPart = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.AvailableTransformers": [
+    "WebParts.WebPartManager.AvailableTransformers = \"[System.RuntimeType System.Web.UI.WebControls.WebParts.RowToFieldTransformer, System.RuntimeType System.Web.UI.WebControls.WebParts.RowToParametersTransformer]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.BeginWebPartConnecting": [
+    "WebParts.WebPartManager.BeginWebPartConnecting(WebParts.WebPart) = \"-> System.InvalidOperationException: Personalization is not enabled and/or modifiable. The Enabled property must be set to true, and a registered personalization provider must be selected. The current user must be granted the right to modify personalization state.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.BeginWebPartEditing": [
+    "WebParts.WebPartManager.BeginWebPartEditing(WebParts.WebPart) = \"-> System.InvalidOperationException: Personalization is not enabled and/or modifiable. The Enabled property must be set to true, and a registered personalization provider must be selected. The current user must be granted the right to modify personalization state.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.BrowseDisplayMode": [
+    "WebParts.WebPartManager.BrowseDisplayMode = BrowseWebPartDisplayMode {AllowPageDesign=false; AssociatedWithToolZone=false; Name=\"Browse\"; RequiresPersonalization=false; ShowHiddenWebParts=false}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.CanConnectWebParts": [
+    "WebParts.WebPartManager.CanConnectWebParts(WebParts.WebPart,WebParts.ProviderConnectionPoint,WebParts.WebPart,WebParts.ConsumerConnectionPoint) = \"false\"",
+    "WebParts.WebPartManager.CanConnectWebParts(WebParts.WebPart,WebParts.ProviderConnectionPoint,WebParts.WebPart,WebParts.ConsumerConnectionPoint) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "WebParts.WebPartManager.CanConnectWebParts(WebParts.WebPart,WebParts.ProviderConnectionPoint,WebParts.WebPart,WebParts.ConsumerConnectionPoint,WebParts.WebPartTransformer) = \"false\"",
+    "WebParts.WebPartManager.CanConnectWebParts(WebParts.WebPart,WebParts.ProviderConnectionPoint,WebParts.WebPart,WebParts.ConsumerConnectionPoint,WebParts.WebPartTransformer) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.CatalogDisplayMode": [
+    "WebParts.WebPartManager.CatalogDisplayMode = CatalogWebPartDisplayMode {AllowPageDesign=true; AssociatedWithToolZone=true; Name=\"Catalog\"; RequiresPersonalization=true; ShowHiddenWebParts=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.CheckRenderClientScript": [
+    "WebParts.WebPartManager.CheckRenderClientScript = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.CloseProviderWarning": [
+    "WebParts.WebPartManager.CloseProviderWarning = \"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"",
+    "WebParts.WebPartManager.CloseProviderWarning set = \"Abc 123\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.CloseWebPart": [
+    "WebParts.WebPartManager.CloseWebPart(WebParts.WebPart) = \"-> System.InvalidOperationException: Personalization is not enabled and/or modifiable. The Enabled property must be set to true, and a registered personalization provider must be selected. The current user must be granted the right to modify personalization state.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.ConnectDisplayMode": [
+    "WebParts.WebPartManager.ConnectDisplayMode = ConnectWebPartDisplayMode {AllowPageDesign=true; AssociatedWithToolZone=true; Name=\"Connect\"; RequiresPersonalization=true; ShowHiddenWebParts=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.ConnectWebParts": [
+    "WebParts.WebPartManager.ConnectWebParts(WebParts.WebPart,WebParts.ProviderConnectionPoint,WebParts.WebPart,WebParts.ConsumerConnectionPoint) = \"-> System.InvalidOperationException: Personalization is not enabled and/or modifiable. The Enabled property must be set to true, and a registered personalization provider must be selected. The current user must be granted the right to modify personalization state.\"",
+    "WebParts.WebPartManager.ConnectWebParts(WebParts.WebPart,WebParts.ProviderConnectionPoint,WebParts.WebPart,WebParts.ConsumerConnectionPoint,WebParts.WebPartTransformer) = \"-> System.InvalidOperationException: Personalization is not enabled and/or modifiable. The Enabled property must be set to true, and a registered personalization provider must be selected. The current user must be granted the right to modify personalization state.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.Connections": [
+    "WebParts.WebPartManager.Connections = \"[]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.ConnectionsActivated": [
+    "WebParts.WebPartManager.ConnectionsActivated = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.ConnectionsActivating": [
+    "WebParts.WebPartManager.ConnectionsActivating = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.Controls": [
+    "WebParts.WebPartManager.Controls = ControlCollection []"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.CopyWebPart": [
+    "WebParts.WebPartManager.CopyWebPart(WebParts.WebPart) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.CreateAvailableTransformers": [
+    "WebParts.WebPartManager.CreateAvailableTransformers = \"[System.RuntimeType System.Web.UI.WebControls.WebParts.RowToFieldTransformer, System.RuntimeType System.Web.UI.WebControls.WebParts.RowToParametersTransformer]\"",
+    "WebParts.WebPartManager.CreateAvailableTransformers after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.CreateControlCollection": [
+    "WebParts.WebPartManager.CreateControlCollection = ControlCollection []",
+    "WebParts.WebPartManager.CreateControlCollection after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.CreateDisplayModes": [
+    "WebParts.WebPartManager.CreateDisplayModes = \"[System.Web.UI.WebControls.WebParts.WebPartManager+BrowseWebPartDisplayMode, System.Web.UI.WebControls.WebParts.WebPartManager+CatalogWebPartDisplayMode, System.Web.UI.WebControls.WebParts.WebPartManager+DesignWebPartDisplayMode, System.Web.UI.WebControls.WebParts.WebPartManager+EditWebPartDisplayMode, System.Web.UI.WebControls.WebParts.WebPartManager+ConnectWebPartDisplayMode]\"",
+    "WebParts.WebPartManager.CreateDisplayModes after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.CreateDynamicConnectionID": [
+    "WebParts.WebPartManager.CreateDynamicConnectionID = \"c{random}\"",
+    "WebParts.WebPartManager.CreateDynamicConnectionID after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.CreateDynamicWebPartID": [
+    "WebParts.WebPartManager.CreateDynamicWebPartID(Type) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.CreateErrorWebPart": [
+    "WebParts.WebPartManager.CreateErrorWebPart(String,String,String,String,String) = ErrorWebPart#Abc 123 {AccessKey=\"\"; AllowClose=true; AllowConnect=true; AllowEdit=true; AllowHide=true; AllowMinimize=true; AllowZoneChange=true; AuthorizationFilter=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CatalogIconImageUrl=\"\"; ChromeState=Normal; ChromeType=Default; ClientID=\"Abc 123\"; ClientIDMode=Inherit; ConnectErrorMessage=\"\"; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Untitled\"; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Abc 123\"; ExportMode=None; ForeColor=Color #00000000 Color [Empty]; GenericWebPartID=\"Abc 123\"; GroupingText=\"\"; HasAttributes=false; HasSharedData=false; HasUserData=false; Height=; HelpMode=Navigate; HelpUrl=\"\"; Hidden=false; HorizontalAlign=NotSet; ID=\"Abc 123\"; ImportErrorMessage=\"Cannot import this Web Part.\"; IsClosed=false; IsShared=false; IsStandalone=true; IsStatic=true; OriginalID=\"Abc 123\"; OriginalPath=\"~/Default.aspx\"; OriginalTypeName=\"Abc 123\"; ScrollBars=None; SkinID=\"\"; Subtitle=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"\"; TitleIconImageUrl=\"\"; TitleUrl=\"\"; ToolTip=\"\"; UniqueID=\"Abc 123\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true; ZoneIndex=Int32 0}",
+    "WebParts.WebPartManager.CreateErrorWebPart(String,String,String,String,String) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.CreatePersonalization": [
+    "WebParts.WebPartManager.CreatePersonalization = WebPartPersonalization {CanEnterSharedScope=false; Enabled=true; HasPersonalizationState=!InvalidOperationException; InitialScope=User; IsEnabled=false; IsModifiable=false; ProviderName=\"\"; Scope=User}",
+    "WebParts.WebPartManager.CreatePersonalization after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.CreateWebPart": [
+    "WebParts.WebPartManager.CreateWebPart(Control) = GenericWebPart#gwplblTitle {AccessKey=\"\"; AllowClose=true; AllowConnect=true; AllowEdit=true; AllowHide=true; AllowMinimize=true; AllowZoneChange=true; AuthorizationFilter=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CatalogIconImageUrl=\"\"; ChromeState=Normal; ChromeType=Default; ClientID=\"gwplblTitle\"; ClientIDMode=Inherit; ConnectErrorMessage=\"\"; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; DisplayTitle=\"Untitled\"; EnableTheming=true; EnableViewState=true; Enabled=true; ExportMode=None; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; HasSharedData=false; HasUserData=false; Height=; HelpMode=Navigate; HelpUrl=\"\"; Hidden=false; HorizontalAlign=NotSet; ID=\"gwplblTitle\"; ImportErrorMessage=\"Cannot import this Web Part.\"; IsClosed=false; IsShared=false; IsStandalone=true; IsStatic=true; ScrollBars=None; SkinID=\"\"; Subtitle=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"\"; TitleIconImageUrl=\"\"; TitleUrl=\"\"; ToolTip=\"\"; UniqueID=\"gwplblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true; ZoneIndex=Int32 0}",
+    "WebParts.WebPartManager.CreateWebPart(Control) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.DeleteWarning": [
+    "WebParts.WebPartManager.DeleteWarning = \"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"",
+    "WebParts.WebPartManager.DeleteWarning set = \"Abc 123\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.DeleteWebPart": [
+    "WebParts.WebPartManager.DeleteWebPart(WebParts.WebPart) = \"-> System.InvalidOperationException: Personalization is not enabled and/or modifiable. The Enabled property must be set to true, and a registered personalization provider must be selected. The current user must be granted the right to modify personalization state.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.DesignDisplayMode": [
+    "WebParts.WebPartManager.DesignDisplayMode = DesignWebPartDisplayMode {AllowPageDesign=true; AssociatedWithToolZone=false; Name=\"Design\"; RequiresPersonalization=true; ShowHiddenWebParts=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.DisconnectWebPart": [
+    "WebParts.WebPartManager.DisconnectWebPart(WebParts.WebPart) = \"ok\"",
+    "WebParts.WebPartManager.DisconnectWebPart(WebParts.WebPart) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.DisconnectWebParts": [
+    "WebParts.WebPartManager.DisconnectWebParts(WebParts.WebPartConnection) = \"-> System.InvalidOperationException: Personalization is not enabled and/or modifiable. The Enabled property must be set to true, and a registered personalization provider must be selected. The current user must be granted the right to modify personalization state.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.DisplayMode": [
+    "WebParts.WebPartManager.DisplayMode = BrowseWebPartDisplayMode {AllowPageDesign=false; AssociatedWithToolZone=false; Name=\"Browse\"; RequiresPersonalization=false; ShowHiddenWebParts=false}",
+    "WebParts.WebPartManager.DisplayMode set = \"-> System.ArgumentNullException: Value cannot be null. [param value]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.DisplayModeChanged": [
+    "WebParts.WebPartManager.DisplayModeChanged = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.DisplayModeChanging": [
+    "WebParts.WebPartManager.DisplayModeChanging = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.DisplayModes": [
+    "WebParts.WebPartManager.DisplayModes = \"[System.Web.UI.WebControls.WebParts.WebPartManager+BrowseWebPartDisplayMode, System.Web.UI.WebControls.WebParts.WebPartManager+CatalogWebPartDisplayMode, System.Web.UI.WebControls.WebParts.WebPartManager+DesignWebPartDisplayMode, System.Web.UI.WebControls.WebParts.WebPartManager+EditWebPartDisplayMode, System.Web.UI.WebControls.WebParts.WebPartManager+ConnectWebPartDisplayMode]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.DynamicConnections": [
+    "WebParts.WebPartManager.DynamicConnections = \"[]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.EditDisplayMode": [
+    "WebParts.WebPartManager.EditDisplayMode = EditWebPartDisplayMode {AllowPageDesign=true; AssociatedWithToolZone=true; Name=\"Edit\"; RequiresPersonalization=true; ShowHiddenWebParts=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.EnableClientScript": [
+    "WebParts.WebPartManager.EnableClientScript = \"true\"",
+    "WebParts.WebPartManager.EnableClientScript set = \"true\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.EnableTheming": [
+    "WebParts.WebPartManager.EnableTheming = \"true\"",
+    "WebParts.WebPartManager.EnableTheming set = \"-> System.NotSupportedException: Cannot set the EnableTheming property on WebPartManager.  EnableTheming must be true for the WebParts to be themeable.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.EndWebPartConnecting": [
+    "WebParts.WebPartManager.EndWebPartConnecting = \"-> System.InvalidOperationException: Personalization is not enabled and/or modifiable. The Enabled property must be set to true, and a registered personalization provider must be selected. The current user must be granted the right to modify personalization state.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.EndWebPartEditing": [
+    "WebParts.WebPartManager.EndWebPartEditing = \"-> System.InvalidOperationException: Personalization is not enabled and/or modifiable. The Enabled property must be set to true, and a registered personalization provider must be selected. The current user must be granted the right to modify personalization state.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.ExportSensitiveDataWarning": [
+    "WebParts.WebPartManager.ExportSensitiveDataWarning = \"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"",
+    "WebParts.WebPartManager.ExportSensitiveDataWarning set = \"Abc 123\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.ExportWebPart": [
+    "WebParts.WebPartManager.ExportWebPart(WebParts.WebPart,Xml.XmlWriter) = \"-> System.ArgumentNullException: Value cannot be null. [param webPart]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.Focus": [
+    "WebParts.WebPartManager.Focus = \"-> System.NotSupportedException: Control of type 'WebPartManager' does not support the Focus operation.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.GetConsumerConnectionPoints": [
+    "WebParts.WebPartManager.GetConsumerConnectionPoints(WebParts.WebPart) = \"-> System.ArgumentNullException: Value cannot be null. [param webPart]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.GetCurrentWebPartManager": [
+    "WebParts.WebPartManager.GetCurrentWebPartManager(Page) = null"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.GetDisplayTitle": [
+    "WebParts.WebPartManager.GetDisplayTitle(WebParts.WebPart) = \"-> System.ArgumentNullException: Value cannot be null. [param webPart]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.GetExportUrl": [
+    "WebParts.WebPartManager.GetExportUrl(WebParts.WebPart) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.GetGenericWebPart": [
+    "WebParts.WebPartManager.GetGenericWebPart(Control) = null",
+    "WebParts.WebPartManager.GetGenericWebPart(Control) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.GetProviderConnectionPoints": [
+    "WebParts.WebPartManager.GetProviderConnectionPoints(WebParts.WebPart) = \"-> System.ArgumentNullException: Value cannot be null. [param webPart]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.ImportWebPart": [
+    "WebParts.WebPartManager.ImportWebPart(Xml.XmlReader,String@) = \"-> System.InvalidOperationException: Personalization is not enabled and/or modifiable. The Enabled property must be set to true, and a registered personalization provider must be selected. The current user must be granted the right to modify personalization state.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.Internals": [
+    "WebParts.WebPartManager.Internals = WebPartManagerInternals {}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.IsAuthorized": [
+    "WebParts.WebPartManager.IsAuthorized(Type,String,String,Boolean) = \"-> System.ArgumentException: The \"path\" argument must be empty if the \"type\" argument is not UserControl.  The \"path\" argument cannot be '~/Default.aspx'.\"",
+    "WebParts.WebPartManager.IsAuthorized(WebParts.WebPart) = \"-> System.ArgumentNullException: Value cannot be null. [param webPart]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.IsCustomPersonalizationStateDirty": [
+    "WebParts.WebPartManager.IsCustomPersonalizationStateDirty = \"false\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.LoadControlState": [
+    "WebParts.WebPartManager.LoadControlState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.LoadCustomPersonalizationState": [
+    "WebParts.WebPartManager.LoadCustomPersonalizationState(WebParts.PersonalizationDictionary) = \"ok\"",
+    "WebParts.WebPartManager.LoadCustomPersonalizationState(WebParts.PersonalizationDictionary) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.MediumPermissionSet": [
+    "WebParts.WebPartManager.MediumPermissionSet = \"[System.Security.Permissions.SecurityPermission <IPermission class=\"System.Security.Permissions.SecurityPermission, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089\"\\nversion=\"1\"\\nFlags=\"Execution\"/>\\n, System.Web.AspNetHostingPermission <IPermission class=\"System.Web.AspNetHostingPermission, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089\"\\nversion=\"1\"\\nLevel=\"Medium\"/>\\n]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.MinimalPermissionSet": [
+    "WebParts.WebPartManager.MinimalPermissionSet = \"[System.Security.Permissions.SecurityPermission <IPermission class=\"System.Security.Permissions.SecurityPermission, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089\"\\nversion=\"1\"\\nFlags=\"Execution\"/>\\n, System.Web.AspNetHostingPermission <IPermission class=\"System.Web.AspNetHostingPermission, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089\"\\nversion=\"1\"\\nLevel=\"Minimal\"/>\\n]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.MoveWebPart": [
+    "WebParts.WebPartManager.MoveWebPart(WebParts.WebPart,WebParts.WebPartZoneBase,Int32) = \"-> System.InvalidOperationException: Personalization is not enabled and/or modifiable. The Enabled property must be set to true, and a registered personalization provider must be selected. The current user must be granted the right to modify personalization state.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnAuthorizeWebPart": [
+    "WebParts.WebPartManager.OnAuthorizeWebPart(WebParts.WebPartAuthorizationEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnAuthorizeWebPart(WebParts.WebPartAuthorizationEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnConnectionsActivated": [
+    "WebParts.WebPartManager.OnConnectionsActivated(EventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnConnectionsActivated(EventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnConnectionsActivating": [
+    "WebParts.WebPartManager.OnConnectionsActivating(EventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnConnectionsActivating(EventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnDisplayModeChanged": [
+    "WebParts.WebPartManager.OnDisplayModeChanged(WebParts.WebPartDisplayModeEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnDisplayModeChanged(WebParts.WebPartDisplayModeEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnDisplayModeChanging": [
+    "WebParts.WebPartManager.OnDisplayModeChanging(WebParts.WebPartDisplayModeCancelEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnDisplayModeChanging(WebParts.WebPartDisplayModeCancelEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnInit": [
+    "WebParts.WebPartManager.OnInit(EventArgs) = \"-> System.InvalidOperationException: Value of the 'WebPartManager.Page.Request' property cannot be null.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnPreRender": [
+    "WebParts.WebPartManager.OnPreRender(EventArgs) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnSelectedWebPartChanged": [
+    "WebParts.WebPartManager.OnSelectedWebPartChanged(WebParts.WebPartEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnSelectedWebPartChanged(WebParts.WebPartEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnSelectedWebPartChanging": [
+    "WebParts.WebPartManager.OnSelectedWebPartChanging(WebParts.WebPartCancelEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnSelectedWebPartChanging(WebParts.WebPartCancelEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnUnload": [
+    "WebParts.WebPartManager.OnUnload(EventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnUnload(EventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnWebPartAdded": [
+    "WebParts.WebPartManager.OnWebPartAdded(WebParts.WebPartEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnWebPartAdded(WebParts.WebPartEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnWebPartAdding": [
+    "WebParts.WebPartManager.OnWebPartAdding(WebParts.WebPartAddingEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnWebPartAdding(WebParts.WebPartAddingEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnWebPartClosed": [
+    "WebParts.WebPartManager.OnWebPartClosed(WebParts.WebPartEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnWebPartClosed(WebParts.WebPartEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnWebPartClosing": [
+    "WebParts.WebPartManager.OnWebPartClosing(WebParts.WebPartCancelEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnWebPartClosing(WebParts.WebPartCancelEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnWebPartDeleted": [
+    "WebParts.WebPartManager.OnWebPartDeleted(WebParts.WebPartEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnWebPartDeleted(WebParts.WebPartEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnWebPartDeleting": [
+    "WebParts.WebPartManager.OnWebPartDeleting(WebParts.WebPartCancelEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnWebPartDeleting(WebParts.WebPartCancelEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnWebPartMoved": [
+    "WebParts.WebPartManager.OnWebPartMoved(WebParts.WebPartEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnWebPartMoved(WebParts.WebPartEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnWebPartMoving": [
+    "WebParts.WebPartManager.OnWebPartMoving(WebParts.WebPartMovingEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnWebPartMoving(WebParts.WebPartMovingEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnWebPartsConnected": [
+    "WebParts.WebPartManager.OnWebPartsConnected(WebParts.WebPartConnectionsEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnWebPartsConnected(WebParts.WebPartConnectionsEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnWebPartsConnecting": [
+    "WebParts.WebPartManager.OnWebPartsConnecting(WebParts.WebPartConnectionsCancelEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnWebPartsConnecting(WebParts.WebPartConnectionsCancelEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnWebPartsDisconnected": [
+    "WebParts.WebPartManager.OnWebPartsDisconnected(WebParts.WebPartConnectionsEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnWebPartsDisconnected(WebParts.WebPartConnectionsEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.OnWebPartsDisconnecting": [
+    "WebParts.WebPartManager.OnWebPartsDisconnecting(WebParts.WebPartConnectionsCancelEventArgs) = \"ok\"",
+    "WebParts.WebPartManager.OnWebPartsDisconnecting(WebParts.WebPartConnectionsCancelEventArgs) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.Personalization": [
+    "WebParts.WebPartManager.Personalization = WebPartPersonalization {CanEnterSharedScope=false; Enabled=true; HasPersonalizationState=!InvalidOperationException; InitialScope=User; IsEnabled=false; IsModifiable=false; ProviderName=\"\"; Scope=User}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.RegisterClientScript": [
+    "WebParts.WebPartManager.RegisterClientScript = \"-> System.ArgumentNullException: Value cannot be null. [param basepath]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.Render": [
+    "WebParts.WebPartManager.Render(HtmlTextWriter) = \"ok\"",
+    "WebParts.WebPartManager.Render(HtmlTextWriter) writer:",
+    "  | ",
+    "WebParts.WebPartManager.Render(HtmlTextWriter) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.SaveControlState": [
+    "WebParts.WebPartManager.SaveControlState = null",
+    "WebParts.WebPartManager.SaveControlState after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.SaveCustomPersonalizationState": [
+    "WebParts.WebPartManager.SaveCustomPersonalizationState(WebParts.PersonalizationDictionary) = \"ok\"",
+    "WebParts.WebPartManager.SaveCustomPersonalizationState(WebParts.PersonalizationDictionary) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.SelectedWebPart": [
+    "WebParts.WebPartManager.SelectedWebPart = null"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.SelectedWebPartChanged": [
+    "WebParts.WebPartManager.SelectedWebPartChanged = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.SelectedWebPartChanging": [
+    "WebParts.WebPartManager.SelectedWebPartChanging = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.SetPersonalizationDirty": [
+    "WebParts.WebPartManager.SetPersonalizationDirty = \"ok\"",
+    "WebParts.WebPartManager.SetPersonalizationDirty after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.SetSelectedWebPart": [
+    "WebParts.WebPartManager.SetSelectedWebPart(WebParts.WebPart) = \"ok\"",
+    "WebParts.WebPartManager.SetSelectedWebPart(WebParts.WebPart) after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.SkinID": [
+    "WebParts.WebPartManager.SkinID = \"\"",
+    "WebParts.WebPartManager.SkinID set = \"-> System.NotSupportedException: Control of type 'WebPartManager' does not support theming.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.StaticConnections": [
+    "WebParts.WebPartManager.StaticConnections = \"[]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.SupportedDisplayModes": [
+    "WebParts.WebPartManager.SupportedDisplayModes = \"[System.Web.UI.WebControls.WebParts.WebPartManager+BrowseWebPartDisplayMode, System.Web.UI.WebControls.WebParts.WebPartManager+DesignWebPartDisplayMode]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.TrackViewState": [
+    "WebParts.WebPartManager.TrackViewState = \"ok\"",
+    "WebParts.WebPartManager.TrackViewState after = WebPartManager#wpmProbe {ClientID=\"wpmProbe\"; ClientIDMode=Inherit; CloseProviderWarning=\"You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.\"; DeleteWarning=\"You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.\"; EnableClientScript=true; EnableTheming=true; EnableViewState=true; ExportSensitiveDataWarning=\"This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.\"; ID=\"wpmProbe\"; SkinID=\"\"; UniqueID=\"wpmProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.Visible": [
+    "WebParts.WebPartManager.Visible = \"true\"",
+    "WebParts.WebPartManager.Visible set = \"-> System.NotSupportedException: Control of type 'WebPartManager' is a non-visual control and does not support setting the Visible property.\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.WebPartAdded": [
+    "WebParts.WebPartManager.WebPartAdded = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.WebPartAdding": [
+    "WebParts.WebPartManager.WebPartAdding = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.WebPartClosed": [
+    "WebParts.WebPartManager.WebPartClosed = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.WebPartClosing": [
+    "WebParts.WebPartManager.WebPartClosing = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.WebPartDeleted": [
+    "WebParts.WebPartManager.WebPartDeleted = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.WebPartDeleting": [
+    "WebParts.WebPartManager.WebPartDeleting = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.WebPartMoved": [
+    "WebParts.WebPartManager.WebPartMoved = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.WebPartMoving": [
+    "WebParts.WebPartManager.WebPartMoving = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.WebParts": [
+    "WebParts.WebPartManager.WebParts = \"[]\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.WebPartsConnected": [
+    "WebParts.WebPartManager.WebPartsConnected = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.WebPartsConnecting": [
+    "WebParts.WebPartManager.WebPartsConnecting = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.WebPartsDisconnected": [
+    "WebParts.WebPartManager.WebPartsDisconnected = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.WebPartsDisconnecting": [
+    "WebParts.WebPartManager.WebPartsDisconnecting = \"added and removed\""
+  ],
+  "WebPartManager.Api.WebControls.WebParts.WebPartManager.Zones": [
+    "WebParts.WebPartManager.Zones = \"[]\""
+  ]
+}

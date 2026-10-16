@@ -1,0 +1,148 @@
+{
+  "_comment": "The HtmlForm's scenario layer (HtmlScenario.aspx; tests/WebControlsParity/README.md; written by html-scenarios.py). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/HtmlScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "HtmlForm [render][databind][dynamic] first request: plain, bound, set in code, made in code"
+    },
+    {
+      "action": "fill",
+      "target": "inpText",
+      "value": "posted text"
+    },
+    {
+      "action": "fill",
+      "target": "inpPassword",
+      "value": "secret"
+    },
+    {
+      "action": "setvalue",
+      "target": "inpHidden",
+      "value": "changed"
+    },
+    {
+      "action": "check",
+      "target": "inpCheck"
+    },
+    {
+      "action": "check",
+      "target": "inpRadioLarge"
+    },
+    {
+      "action": "fill",
+      "target": "inpEmail",
+      "value": "a@example.com"
+    },
+    {
+      "action": "fill",
+      "target": "txaNote",
+      "value": "posted note"
+    },
+    {
+      "action": "select",
+      "target": "selSize",
+      "value": "L"
+    },
+    {
+      "action": "selectmany",
+      "target": "selMulti",
+      "value": "S,L"
+    },
+    {
+      "action": "select",
+      "target": "selBound",
+      "value": "B2"
+    },
+    {
+      "action": "upload",
+      "target": "inpFile",
+      "value": "probe.txt:file content"
+    },
+    {
+      "action": "fill",
+      "target": "inpDynamicText",
+      "value": "dynamic posted"
+    },
+    {
+      "action": "fill",
+      "target": "inpDynamicPassword",
+      "value": "dynamic secret"
+    },
+    {
+      "action": "setvalue",
+      "target": "inpDynamicHidden",
+      "value": "dynamic changed"
+    },
+    {
+      "action": "check",
+      "target": "inpDynamicCheck"
+    },
+    {
+      "action": "check",
+      "target": "inpDynamicRadio"
+    },
+    {
+      "action": "fill",
+      "target": "inpDynamicEmail",
+      "value": "b@example.com"
+    },
+    {
+      "action": "fill",
+      "target": "txaDynamic",
+      "value": "dynamic note"
+    },
+    {
+      "action": "select",
+      "target": "selDynamic",
+      "value": "2"
+    },
+    {
+      "action": "upload",
+      "target": "inpDynamicFile",
+      "value": "dynamic.txt:dynamic content"
+    },
+    {
+      "action": "click",
+      "target": "inpSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "HtmlForm [viewstate][dynamic] every input posted by a submit input"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "HtmlForm [visible][viewstate] hidden ones shown with what was set while hidden"
+    },
+    {
+      "action": "goto",
+      "path": "/HtmlFormScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "HtmlForm [dynamic][render] the page's form, head and title made in code"
+    },
+    {
+      "action": "fill",
+      "target": "txtInForm",
+      "value": "in a dynamic form"
+    },
+    {
+      "action": "press",
+      "target": "txtInForm",
+      "value": "Enter"
+    },
+    {
+      "action": "snapshot",
+      "name": "HtmlForm [dynamic][viewstate][postdata] Enter in the form: its default button, its values and view state kept"
+    }
+  ]
+}

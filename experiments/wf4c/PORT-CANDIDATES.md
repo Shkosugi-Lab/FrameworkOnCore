@@ -24,6 +24,7 @@
 | System.Data.Linq | .NET に無い | FrameworkOnCore.Data.Linq(referencesource) | `linq-to-sql`(移植版 / 対応しない) |
 | System.Web.DataVisualization | .NET に無い | FrameworkOnCore.Web.DataVisualization(referencesource) | `charts`(移植版 / 対応しない) |
 | System.Web.Mobile | .NET に無い | FrameworkOnCore.Web.Mobile(referencesource) | `mobile-controls`(移植版 / 対応しない) |
+| DbProviderFactories(System.Data.Common) | 構成ファイル(machine.config・web.config の `system.data/DbProviderFactories`)を読まず、.NET Framework が組み込みで持つプロバイダー(System.Data.SqlClient・OleDb・Odbc)も登録されていない。`GetFactory("System.Data.SqlClient")` が ArgumentException(SqlDataSource の `ProviderName="System.Data.SqlClient"`、アプリのコード) | 移植ではなく FrameworkOnCore.Web が登録する: 最初の要求の初期化で、.NET Framework の組み込みの 3 つと web.config の `add`・`remove`・`clear` を `DbProviderFactories.RegisterFactory` で(型の名前で。解決は使う時。2026-10-11)。SqlDataSource は要求の外でも組み込みの 3 つを登録する。Web アプリ以外(コンソール)は対象外 | なし(常に) |
 | WCF のサーバー側(.svc、system.serviceModel、System.ServiceModel.Activation) | .NET はクライアントのみ | 移植ではなく CoreWCF で動かす: FrameworkOnCore.ServiceModel(System.ServiceModel.Activation の名前。AspNetCompatibilityRequirementsAttribute を持つ)。.svc と serviceActivations、web.config のエンドポイント・バインド・動作、WCF 4 の既定のエンドポイント、WSDL、ASP.NET AJAX の enableWebScript(w2l.15)。クライアントの型の FaultException は CoreWCF の障害として返す | `wcf-server`(CoreWCF / 対応しない) |
 
 ## 候補
@@ -63,6 +64,31 @@
 - `LambdaExpression.CompileToMethod`(be の SimpleInjector.dll)、`Debug.Listeners`、`ServicePointManager.CertificatePolicy`(mojo の Mono.Security.dll)。
 - 数値の書式の丸め。wt の ¥23 と ¥22 で、`double` の 22.5 の通貨書式が .NET Framework と .NET で違う。
 - デザイナー(System.Design、`ControlDesigner` など)。Visual Studio のデザイン時だけのもの。
+- 文字列のハッシュ値のランダム化。.NET はプロセスごとに `string.GetHashCode` を変える(.NET Framework は変えない)ため、Hashtable の列挙順が違う。
+  StateBag(項目が多いと Hashtable)が保存する ViewState の項目の並び、WebPartManager.AvailableTransformers の並び。中身は同じ(コントロールの比較で見つけた。2026-10-11)。
+- Thread.Abort が無い。ASP.NET は executionTimeout を超えた要求のスレッドを中断する。ポートは時間切れの印を付けて次の段階で
+  "Request timed out." にする(2026-10-12。それまでは要求が終わらなくなっていた)。ページのコードは最後まで動く。
+- AppDomain のデータ(`.appDomain`、`.appPath`、`.appVPath`、`.appId`)。ポートはロード コンテキストに置いていて、`AppDomain.GetData` で見る
+  コード(System.Web.Services の既定値、System.Configuration、アプリのライブラリ)が ASP.NET の外と判断した。AppDomain にも置く(2026-10-12)。
+- IIS・http.sys の要求の制限(requestFiltering の本文 30,000,000 バイト・URL 4,096・クエリ 2,048、http.sys のパスの区切り 260)は Kestrel に無いか
+  値・状態が違う(Kestrel の本文の上限は例外としてアプリに届く)。ホストが web.config の requestLimits で IIS と同じく拒否する(2026-10-12)。
+- Kestrel のデュアルモードのソケットは IPv4 の接続元を `::ffff:a.b.c.d` で渡す。IIS の REMOTE_ADDR は `a.b.c.d`(2026-10-12)。
+- ICU に無いカルチャ名(`new CultureInfo("xx-YY")`)。.NET Framework は不変カルチャのデータで作る。.NET(ICU)は既定のロケールのデータ。
+- `ExternalException`(HttpException の基底)のメッセージが null の時。.NET は "External component has thrown an exception." を入れ、
+  .NET Framework は Exception の "Exception of type '...' was thrown." のまま。Page の HttpUnhandledException(メッセージなし)で見つけた。
+  FrameworkOnCore.Web の HttpException が .NET Framework の文を返す(2026-10-12)。
+- `CallContext` の IllogicalCallContext(`HostContext`、`SetData`)。.NET Framework はスレッドのもの(await・タスクに流れない)。.NET には無く、
+  ポートの代わりは AsyncLocal(流れる)だった。`HttpContext.Current` が await の後で null になった。スレッドのものにした(2026-10-12)。
+- FileSystemWatcher の通知には変更の時刻が無い(処理した時刻だけ)。ASP.NET のネイティブのファイル監視は完了の時刻を持ち、監視を始める前の
+  変更を除く。ポートは監視を始めた時のファイルの属性と比べる(2026-10-12)。
+- System.Web という名前のアセンブリが .NET の共有フレームワークにもある(4.0.0.0、`HttpUtility` などの型転送だけ)。それを先に読んだプロセス(.NET の MSBuild など)には
+  FrameworkOnCore の System.Web(10.0.29.0)を同じコンテキストに読み込めない。アプリ・ツールは deps.json で FrameworkOnCore のものを選ぶ(ビルドタスクのデザイナー
+  ファイルの生成で見つけた。2026-10-12)。
+- `DictionaryEntry.ToString`。.NET 5 から「[キー, 値]」を返す(.NET Framework は型の名前)。
+- パスに使えない文字(`<`、`>`、`"`)。.NET Framework のファイルの API は先に検査して ArgumentException(Illegal characters in path)、.NET はシステムに任せる
+  (Windows は IOException、Linux では使える文字なので見つからない)。Xml コントロールの DocumentSource などで見つけた。
+- OLE DB(System.Data.OleDb)は Windows のみ。Linux ではパッケージに実装が無い(`OleDbFactory.Instance` が null)。AccessDataSource(Access のファイル)は
+  Linux では使えない。FrameworkOnCore.Web は NullReferenceException ではなく PlatformNotSupportedException で知らせる(2026-10-11)。
 
 パッケージの版の違い(.NET Framework と .NET の違いではないもの)も、ここには載せません。
 - 例: imis の System.Data.SQLite.Linq.dll が使う `SQLiteConnection.ParseConnectionString` は、置き換えた System.Data.SQLite 1.0.119 で変わっている。

@@ -1,0 +1,48 @@
+{
+  "_comment": "The Content's scenario layer (ContentScenario.aspx; tests/WebControlsParity/README.md; written by more-scenarios.py). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/ContentScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "Content [render][databind][dynamic][naming] first request: the page's content in the master's place holders, a default, a hidden one, one filled in code"
+    },
+    {
+      "action": "fill",
+      "target": "txtName",
+      "value": "in the content"
+    },
+    {
+      "action": "fill",
+      "target": "txtDynamic",
+      "value": "in a place holder filled in code"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "Content [viewstate][dynamic] posted: the content's and the dynamic text boxes, view state"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "Content [visible][viewstate] hidden ones shown (the content's panel, the master's place holder)"
+    },
+    {
+      "action": "click",
+      "target": "btnMaster"
+    },
+    {
+      "action": "snapshot",
+      "name": "Content [viewstate] the master's own button"
+    }
+  ]
+}

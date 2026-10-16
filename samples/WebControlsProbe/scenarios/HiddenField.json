@@ -1,0 +1,74 @@
+{
+  "_comment": "The HiddenField's scenario layer (BasicsScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers. The log's request number is kept in view state: a click the browser cancelled leaves it as it was.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/BasicsScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "HiddenField [render][databind][dynamic] first request"
+    },
+    {
+      "action": "setvalue",
+      "target": "hidPlain",
+      "value": "changed"
+    },
+    {
+      "action": "setvalue",
+      "target": "hidDynamic",
+      "value": "changed dynamic"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "HiddenField [postdata][change][dynamic] values changed by script"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "HiddenField [viewstate][change] posted again unchanged"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "HiddenField [visible][viewstate] hidden ones shown with what was set while hidden"
+    },
+    {
+      "action": "setvalue",
+      "target": "hidBind",
+      "value": "s2"
+    },
+    {
+      "action": "click",
+      "target": "btnUpdate"
+    },
+    {
+      "action": "snapshot",
+      "name": "HiddenField [bind] two-way binding in a template"
+    },
+    {
+      "action": "setvalue",
+      "target": "hidPlain",
+      "value": "<b>x</b>"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "HiddenField [requestvalidation] markup posted"
+    }
+  ]
+}

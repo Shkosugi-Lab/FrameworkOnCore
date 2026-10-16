@@ -67,7 +67,26 @@ namespace System.Web {
         /// <devdoc>
         /// <para> Default constructor.</para>
         /// </devdoc>
-        public HttpException() {}
+        public HttpException() {
+#if !NETFRAMEWORK
+            _parameterless = true;
+#endif
+        }
+
+#if !NETFRAMEWORK
+        // .NET's ExternalException gives a null message its own text ("External component has thrown an exception."), .NET
+        // Framework's leaves it to Exception ("Exception of type '...' was thrown."): Page's HttpUnhandledException has none.
+        // The parameterless constructor has that text on both.
+        private static readonly string externalDefault = new ExternalException().Message;
+        private readonly bool _parameterless;
+
+        public override string Message {
+            get {
+                var message = base.Message;
+                return !_parameterless && message == externalDefault ? "Exception of type '" + GetType().FullName + "' was thrown." : message;
+            }
+        }
+#endif
 
 
         /// <devdoc>

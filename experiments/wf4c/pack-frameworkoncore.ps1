@@ -55,7 +55,7 @@ $projects = @(
     # identity.
     'WebFormsForCore.ServiceModel\WebFormsForCore.ServiceModel.csproj'
     # A submodule (git submodule update --init src/WebFormsForCore.AjaxControlToolkit): openIMIS uses it. Built and packed
-    # for net10.0 only (the converted applications'), after the solution: its net8.0 build fails there (CS7069).
+    # for net10.0 only (the converted applications'; not its net48), after the solution.
     'WebFormsForCore.AjaxControlToolkit\AjaxControlToolkit\AjaxControlToolkit.csproj'
 )
 $net10Only = @('WebFormsForCore.AjaxControlToolkit\AjaxControlToolkit\AjaxControlToolkit.csproj')
@@ -63,11 +63,9 @@ $net10Only = @('WebFormsForCore.AjaxControlToolkit\AjaxControlToolkit\AjaxContro
 if ($Build -eq 'All') {
     # The build tasks every project imports (lib/WebFormsForCore.Build: FakeStrongName and the rest), once: a fresh
     # checkout has none (build output, not in Git). Not in frameworkoncore.slnx (built there, its loaded task DLL is copied over: the build fails).
-    # A framework at a time, each with its intermediate folder of its own: the project has none per framework (net8.0
-    # and net10.0 write the same obj\...\WebFormsForCore.Build.NetCore.dll: together, CS2012; one after the other, the
-    # second one's compilation is skipped as up to date).
+    # A framework at a time, each with its intermediate folder of its own: the project has none per framework.
     if (-not (Test-Path (Join-Path $webFormsForCore 'lib\WebFormsForCore.Build\net10.0\FakeStrongName.targets'))) {
-        foreach ($framework in 'net48', 'net8.0', 'net10.0', 'netstandard2.0') {
+        foreach ($framework in 'net48', 'net10.0', 'netstandard2.0') {
             dotnet build (Join-Path $src 'WebFormsForCore.Build\WebFormsForCore.Build.csproj') -c $Configuration -f $framework "-p:IntermediateOutputPath=obj\$Configuration\$framework\" -v q -nologo
             if ($LASTEXITCODE -ne 0) { throw "build failed: WebFormsForCore.Build ($framework)" }
         }

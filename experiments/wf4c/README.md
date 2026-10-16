@@ -292,7 +292,7 @@ Chart コントロール(referencesource の System.Web.DataVisualization、MIT)
 
 ### System.Web.Mobile(モバイル コントロール)の移植(2026-10-01、`1.6.5-w2l.7`)
 
-ASP.NET 1.1 のモバイル コントロール(referencesource の System.Web.Mobile、MIT)。上流にプロジェクト(`src/WebFormsForCore.Web.Mobile`)があり、ビルドはできたが動かなかった。それを直して FrameworkOnCore.Web.Mobile として配る。アセンブリは System.Web.Mobile 10.0.29.0、公開キーは .NET Framework と同じ(b03f5f7f11d50a3a)、net8.0・net10.0。
+ASP.NET 1.1 のモバイル コントロール(referencesource の System.Web.Mobile、MIT)。上流にプロジェクト(`src/WebFormsForCore.Web.Mobile`)があり、ビルドはできたが動かなかった。それを直して FrameworkOnCore.Web.Mobile として配る。アセンブリは System.Web.Mobile 10.0.29.0、公開キーは .NET Framework と同じ(b03f5f7f11d50a3a)、net10.0(net8.0 は 2026-10-11 に外した)。
 
 - **コーパスでの使われ方(必須カバー一覧)**: nop(`System.Web.Mobile` の参照と、管理画面など 11 ファイルの `using System.Web.UI.MobileControls;`)、mojo・dnn・n2(参照だけ)。コントロールや MobileCapabilities を呼ぶ箇所は無い。必要なのは「参照が解決し、名前空間がある」ことで、移植版はそれを満たす(以前は `noAnswer` で参照を外していた)。コーパスに使い手が無いので、機能は新旧比較とサンプルのサイトで確かめた。
 - **見つけて直したこと(`FrameworkOnCore.Runtime/`)**:
@@ -780,7 +780,7 @@ Windows はファイル名の大文字小文字を区別しない。アプリは
 - ライブラリだけで、既定と同じ結果になる(wt の 3 件の差は以前からの既知のもの)。照合をすべて外すと be は動かず、wt の `Admin` の承認が効かなくなる(大文字小文字の照合がそれを担っていた)。
 - 配置の `start.sh` で、ライブラリを読み込んだときに `WEBFORMSFORCORE_PATH_CASING=0` にした後も、be のコンテナは 5/5。
 
-フォークのパッケージ: Ajax Control Toolkit は net10.0 だけでビルド・パッケージにする(`pack-frameworkoncore.ps1`)。ソリューションの中で net8.0 のビルドが CS7069 で失敗するようになった。`-f net10.0` でビルドし、`--no-restore` でパッケージにする(`TargetFrameworks` をグローバルプロパティで渡すと、参照先のプロジェクトまで net10.0 だけで復元され、そのパッケージが作れなくなる)。ソリューションのビルドの再試行は 3 回まで。
+フォークのパッケージ: Ajax Control Toolkit は net10.0 だけでビルド・パッケージにする(`pack-frameworkoncore.ps1`)。ソリューションの中で net8.0 のビルドが CS7069 で失敗するようになった(net8.0 は 2026-10-11 に全プロジェクトから外した)。`-f net10.0` でビルドし、`--no-restore` でパッケージにする(`TargetFrameworks` をグローバルプロパティで渡すと、参照先のプロジェクトまで net10.0 だけで復元され、そのパッケージが作れなくなる)。ソリューションのビルドの再試行は 3 回まで。
 - arm64: CaseProbe(22 項目)が、エミュレーション(Docker Desktop)の arm64 の ASP.NET のイメージで、無しでは Linux、有りでは Windows の動き。be のコンテナを arm64 でビルドして 5/5(`start.sh` が linux-arm64 のライブラリを選ぶ)。見つけた問題: ライブラリの中で呼ぶ古い stat 関数(`__xstat64`)に構造体の版を `1` と書いていた。x86_64 の値で、aarch64 は `0`。arm64 ではすべての呼び出しが失敗し、何も探せていなかった。ビルドする CPU のヘッダーの `_STAT_VER` を使う。- 見つけた問題: glibc 2.35 でライブラリを読み込むと .NET のホストが起動しなかった(`Failed to resolve full path of the current executable`)。glibc の `realpath` には 2 つの版(GLIBC_2.2.5 と 2.3)があり、名前だけで探す `dlsym` が古い版を返した。古い版は結果の置き場所に NULL を受け付けない(.NET のホストは NULL で呼ぶ)。複数の版があるもの(`realpath`、`dlopen`)は版を指定して探す(`dlvsym`)。ほかの包む関数は版が 1 つだけ(Ubuntu 22.04・24.04、Debian 12 で確認)。
 - `install.sh` が systemd の無いマシン向けに示す起動のコマンドは、`/etc/<app>/environment`(root だけが読める)を別のユーザーで読もうとして失敗していた。root で読んでから `setpriv` でユーザーを切り替える形にした。
 全コーパスの変換し直しと確認(2026-09-29、フォーク 0027・0028、大文字小文字のライブラリの後):
@@ -1022,6 +1022,147 @@ Visual Studio の「AJAX 対応 WCF サービス」(webHttpBinding と `<enableW
   - テスト: Windows では SqlClientTests 208 件と FrameworkOnCore.Tests 4,338 件、Linux では 198 件と 4,319 件。すべて緑。
   - be: Windows 5/5。
   - wt: Windows 6/8、Linux 5/8(以前と同じ既知の差だけ)。
+
+### コンポーネント単位の新旧比較(TextBox、2026-10-10)
+
+- 目的: 不特定のユーザーのシステムを動かすため、コーパスで使われている範囲ではなく、コントロールごとに全メンバー・全プロパティ・関わる機構をすべて比べる。仕組みは `tests/WebControlsParity/README.md`。
+- 3 層:
+  - ① API(`tests/WebControlsParity`): TextBox と基底クラス・実装インターフェースの 179 メンバーを TextBox のインスタンスで呼ぶ。170 ケース。
+  - ② HTML(`samples/WebControlsProbe` の `RenderProbe.aspx`): 設定できる 40 プロパティの全サンプル値、属性・スタイル、相互作用 24、名前付けコンテナ・テーマの文脈。1 ケース 1 リクエストで描画したページ全体と、保存された ViewState の中身。214 ケース。
+  - ③ シナリオ(`TextBoxScenario.aspx`): ポスト値、TextChanged、ReadOnly・Enabled、ViewState、AutoPostBack、検証グループ、ブラウザ側の検証、Bind、リクエスト検証。13 スナップショット。
+- 結果は `tests/WebControlsParity/reports/TextBox/`(cases.md、results-windows.md、results-linux.md)。**Windows・Linux とも 3 層すべて一致**(既知の差分なし)。
+- 比較が差分を見落とさないことは、ポートの出力を書き換えて確かめた(属性の値、API の値、シナリオの失敗がそれぞれ ❌ になり、既知の差分は ⚠️、使われない既知の差分は「古い」と出る)。
+- 途中で分かったこと:
+  - ポートのページのパーサーも、コードビハインドのフィールドとコントロールの ID が大文字小文字だけ違うときに .NET Framework と同じく「Ambiguous match found」を出す(メッセージはポートの方が詳しい)。
+  - ポートの System.Web は、ホストの外(コンソール)では machine.config が無いと `system.web/pages` を読めず ClientID などが例外になる。Web アプリではホストが書くので問題にならない。① では MobileParity と同じく書いてから動かす。
+  - .NET Framework の MSBuild は BOM の無い UTF-8 のソースを ANSI として読む。プローブサイトのソースは BOM つきにした。
+- ParityTest に操作 `press`(キー。Tab で AutoPostBack の change を起こす)と `setvalue`(スクリプトで値を入れる。readonly でも)を足した。
+
+### コンポーネント単位の新旧比較(Button、2026-10-10)
+
+- ① API 171 ケース(180 メンバー)、② HTML 167 ケース(37 プロパティ、相互作用 21、名前付けコンテナ・テーマ)、③ シナリオ 15 スナップショット。結果は `tests/WebControlsParity/reports/Button/`。**Windows・Linux とも 3 層すべて一致**(既知の差分なし)。
+- 機構マトリクスに IButtonControl の機構を足した(コマンドとバブル、UseSubmitBehavior、OnClientClick、PostBackUrl、DefaultButton)。型から判定するので、LinkButton・ImageButton にもそのまま当てはまる。
+- 最初の比較で PostBackUrl の 10 ケースが違った。`__PREVIOUSPAGE`(ページのパスをマシンキーで暗号化した値)で、`__VIEWSTATE` と同じくマシンキーの違い。描画の比較でマスクする値に加えた(移動先が PreviousPage と入力値を受け取れることは ③ で一致)。ほかにマシンキーで変わる描画の値は無い(`__VIEWSTATEENCRYPTED` は値が常に空)。
+
+### コンポーネント単位の新旧比較(ListControl 系、2026-10-10)
+
+- DropDownList・ListBox・CheckBoxList・RadioButtonList・BulletedList。**Windows・Linux とも 5 つすべて 3 層一致**(既知の差分なし)。結果は `tests/WebControlsParity/reports/<名前>/`。
+
+| コンポーネント | ① API | ② HTML | ③ シナリオ |
+|---|---|---|---|
+| DropDownList | 234 | 207 | 11 |
+| ListBox | 234 | 214 | 12 |
+| CheckBoxList | 250 | 233 | 11 |
+| RadioButtonList | 249 | 233 | 11 |
+| BulletedList | 243 | 237 | 6 |
+
+- 仕組みに足したもの: 項目(`Items[1].Selected` など)のケースを型から作る、`[data-bound]` の文脈(DataSource と DataBind)、機構(項目、複数選択、繰り返しレイアウト、ポスト値のイベント検証)、ParityTest の操作 `selectmany`・`evaluate`(要素にスクリプト。改ざんしたポストを作る)、parity.ps1 はシナリオの最初の goto からページを決める(5 つで 1 ページを共有)。
+- API 層の見本のポストデータを、コンポーネント自身の ID と(リストなら)項目の値にした(以前は txtName 固定でリストには無関係だった)。TextBox・Button の正解は変わらない。
+- 検証対象と双方向バインドの機構は IPostBackDataHandler を条件に加えた(BulletedList は ListControl から属性を継ぐが値をポストしない)。CheckBoxList は ValidationProperty を持たず、RequiredFieldValidator を向けると HttpException になる(.NET Framework で確認)。
+- .NET Framework の改ざんへの応じ方: 一覧にない値は DropDownList・ListBox が例外、RadioButtonList は無視。無効な項目のチェックは CheckBoxList が無視。無効な弾丸のポストバックは BulletedList が例外。ポートも同じ。
+- 描画ページ・ケースの生成を変えた後、TextBox・Button も Windows で再確認して一致。
+
+### コンポーネント単位の新旧比較(基本コントロール 11、2026-10-10)
+
+- 進める順番を、コーパスでの使用(マークアップのタグ数とコードからの参照、`tests/WebControlsParity/control-usage.py`)で決めた。上位から Label、CheckBox、Literal、検証コントロール、LinkButton、HyperLink、GridView、Panel、HiddenField、Repeater、PlaceHolder、Image、FileUpload、ImageButton…。
+- Label・CheckBox・RadioButton・Literal・LinkButton・HyperLink・Image・ImageButton・Panel・HiddenField・PlaceHolder。**Windows・Linux とも 11 すべて 3 層一致**(既知の差分なし)。
+
+| コンポーネント | ① API | ② HTML | ③ シナリオ |
+|---|---|---|---|
+| Label | 154 | 131 | 3 |
+| CheckBox | 167 | 146 | 9 |
+| RadioButton | 172 | 153 | 9 |
+| Literal | 112 | 48 | 3 |
+| LinkButton | 173 | 157 | 9 |
+| HyperLink | 156 | 152 | 4 |
+| Image | 155 | 149 | 3 |
+| ImageButton | 188 | 179 | 10 |
+| Panel | 157 | 151 | 4 |
+| HiddenField | 118 | 41 | 6 |
+| PlaceHolder | 106 | 36 | 4 |
+
+- 仕組みに足したもの: 属性・スタイルのケースはその型が持つときだけ、テーマの文脈と機構はテーマを付けられる型だけ(Literal・HiddenField・PlaceHolder のスキンはテーマ全体のパースエラーになる)、`InputAttributes[...]` のようなキーつきの属性コレクション、ケースに要る隣のコントロール(Label の AssociatedControlID の先)、ImageButton・HyperLink・Image 用の 20×10 の画像。
+- ケースの生成の不具合: 画像の URL の見本を static フィールドにしていて、それより前に初期化される一覧(All)から読むと null だった(HyperLink のケース一覧が 500)。プロパティにした。
+- 基本コントロールのスキンを足したら、CheckBoxList・RadioButtonList の `[themed]` が不一致になった。項目を描く中の CheckBox・RadioButton に既定のスキンが効く(項目が span で囲まれる)ためで、.NET Framework も同じに描く。2 つを採り直し、Windows・Linux とも一致。README に「スキンを足したら、それを中で使うコンポーネントを採り直す」と書いた。
+- 既存の 7 つ(TextBox・Button・ListControl 系)も Windows で再確認して一致。
+
+### コンポーネント単位の新旧比較(検証コントロール 6、2026-10-10)
+
+- RequiredFieldValidator・RegularExpressionValidator・CompareValidator・CustomValidator・RangeValidator・ValidationSummary。**Windows・Linux とも 6 すべて 3 層一致**(既知の差分なし)。
+
+| コンポーネント | ① API | ② HTML | ③ シナリオ |
+|---|---|---|---|
+| RequiredFieldValidator | 191 | 164 | 7 |
+| RegularExpressionValidator | 192 | 168 | 8 |
+| CompareValidator | 205 | 194 | 6 |
+| CustomValidator | 195 | 169 | 7 |
+| RangeValidator | 204 | 188 | 7 |
+| ValidationSummary | 159 | 148 | 6 |
+
+- 仕組みに足したもの: API 層のサンプルページにも隣のコントロール(検証対象のテキストボックス)、機構(サーバー側の検証、ブラウザ側の検証スクリプト、検証結果のまとめ)。
+- ② の 200 以外は .NET Framework の例外(Type に変換できない ValueToCompare・MinimumValue・MaximumValue、見つからない ControlToValidate・ControlToCompare、空の ControlToValidate、MaximumValue < MinimumValue)。ポートも同じ例外とメッセージ。
+- 手で書いた相互作用が、型から作る単独のケースと同じ名前になると、ケースの一覧が作られない(重複の検査)。ControlToValidate=other などを相互作用から外した。
+
+### コンポーネント単位の新旧比較(GridView・Repeater、2026-10-10)
+
+- **Windows・Linux とも 2 つとも 3 層一致**(既知の差分なし)。GridView: ① 347、② 408、③ 20。Repeater: ① 150、② 57、③ 7。
+- 仕組みに足したもの: データ表示コントロールの全ケースをデータにバインド(7 件)、文脈ごとの準備(列、テンプレート、空のデータ)、コードで作るテンプレート(ProbeTemplate)、スタイルのサブオブジェクトとページャー設定のケース、機構(ページング、並べ替え、編集、選択、行のコマンド、データキー、DataSourceID)、セッションの ProductStore(ObjectDataSource の型)、ParityTest の操作 `clicktextin`(コントロールの中のリンクやボタンを文字で押す)。
+- マシンキーで変わる値を 2 つ足した: API 層の GridView.GetCallbackResult の状態(コンソールでは実行ごとに鍵が変わり、.NET Framework でも毎回違う)、コールバックの GridView の並べ替え式(スクリプトの sortExpression とコールバックの引数)。
+- **見つけた非互換(セッション)**: シナリオのデータ(Serializable でないクラスのリスト)をセッションに置くと、ポートでは「Unable to serialize the session state」の 500 になった。IIS の既定(InProc)はオブジェクトをそのまま持つので直列化しない。変換器の Program.cs が必ず `UseAspNetCoreSessionProvider()`(ASP.NET Core のセッションにバイト列で保存)にするため。試しに外すと、ポートの InProc(System.Web のメモリ上の保存)で動き、クッキーも IIS と同じ ASP.NET_SessionId だった。元の web.config が InProc(既定)なら InProc にするのが互換。変換器の変更になるので、判断を待つ。コントロールの比較は、データのクラスを Serializable にして続けた。**2026-10-11 に変換器で対応(下の「セッションの状態を web.config どおりに」)**。
+
+### コンポーネント単位の新旧比較(FormView・DetailsView・ListView・DataPager・DataList・DataGrid、2026-10-11)
+
+- **Windows・Linux とも 6 すべて 3 層一致**。DetailsView の ② に既知の差分 1(下)。
+
+| コンポーネント | ① API | ② HTML | ③ シナリオ |
+|---|---|---|---|
+| FormView | 309 | 320 | 15 |
+| DetailsView | 327 | 351 | 15 |
+| ListView | 335 | 186 | 18 |
+| DataPager | 137 | 60 | 8 |
+| DataList | 246 | 256 | 9 |
+| DataGrid | 245 | 266 | 12 |
+
+- 仕組み: System.Web.Extensions の型(ListView・DataPager)も扱うようにした(① の API・状態の書き出し・② のプロパティ)。ListView のレイアウトとグループのテンプレート(プレースホルダー)、DataPager の隣の ListView と ObjectDataSource、機構「項目の挿入」、ページングと並べ替えの判定に ListView・DataPager。
+- 既知の差分(DetailsView): 挿入モードでデータが無いと、両方とも同じ所で ArgumentNullException(引数 c)を投げる。メッセージは .NET Framework の ArrayList が "Collection cannot be null."、.NET が "Value cannot be null."(ランタイムの文言で、System.Web のものではない)。known-differences.json の最初の項目。
+- レポートの不具合を直した: 既知の差分の「古い」の判定が、ほかのコンポーネントの項目まで出していた。そのコンポーネントのケースに当てはまる項目だけにした。ポートの出力をコンポーネントごとに残すようにした(windows/<名前>)。
+- 共通の生成器と描画ページを変えたので、32 コンポーネントすべてを Windows で再確認して一致。
+
+### セッションの状態を web.config どおりに(2026-10-11、ユーザーの指示)
+
+GridView の比較で見つけた非互換(上の「見つけた非互換(セッション)」)を変換器で直し、同種の問題を調べ、全コーパスで試験した。
+
+- **原因**: 変換器の Program.cs が、どのアプリでも `AddSession` + `UseSession` + `UseWebForms(o => o.UseAspNetCoreSessionProvider())`(ASP.NET Core のセッションにバイト列で保存。要求ごとに BinaryFormatter で直列化)を書いていた。IIS の既定(InProc)はオブジェクトをそのまま持つので、Serializable でないオブジェクトを置くアプリは 500 になり、置いたオブジェクトをその場で変えても(`((Cart)Session["cart"]).Add(...)`)IIS と同じに見えるのは直列化できる場合だけだった。Session_End も起きなかった。
+- **修正**(`HostProgram`、変換器): web.config の `<sessionState mode>`(`<location path=".">` の中も。無ければ ASP.NET の既定の InProc)で決める。
+  - InProc・Off・Custom: System.Web 自身のセッション(IIS と同じ)。ASP.NET Core のセッション(`AddDistributedMemoryCache`・`AddSession`・`UseSession`)は書かず、`app.UseWebForms()`。InProc はオブジェクトをそのまま持ち、Session_End が起き、クッキーは ASP.NET_SessionId。Custom はアプリのプロバイダー(WingtipToys の Universal Providers の `DefaultSessionStateProvider`)をそのまま使う。以前は Custom も ASP.NET Core のセッションに置き換えていた。
+  - StateServer・SQLServer: 変換後のアプリにはそのサーバーが無いので、従来どおり ASP.NET Core のセッション(どちらも直列化するので振る舞いは同じ)。web.config の `timeout` を `IdleTimeout` に渡す(以前は ASP.NET Core の既定の 20 分のまま)。
+  - レポートに「session state: ...」を出す。WCF のサービス(`AddWebFormsServiceModel`)の挿入位置は `AddSession` の後ろから `builder.Build()` の前に変えた(`AddSession` が無い場合があるため)。
+  - Program.cs の生成を `HostProgram`(純粋な関数)に切り出し、`HostProgramTests` 30 件(C#・VB × InProc・Off・Custom・StateServer・SQLServer × ルーティング × WCF、location、名前空間、コメントアウト、timeout)。旧スクリプト `convert-project.ps1` も同じ判定にした。
+- **確認**(`samples/SessionProbe`、IIS で 14 スナップショットを記録): Serializable でないオブジェクトを置く、次の要求で同じもの、その場の変更が残る、読み取り専用ページ(`EnableSessionState="ReadOnly"`)の書き込み、セッションなしのページ、`IRequiresSessionState` のあるハンドラー・無いハンドラー、Remove・Clear、Abandon と Session_End、Abandon 後の新しいセッション。直す前は Serializable でないオブジェクトを置いた所から 500。直した後は **Windows・Linux とも 14/14 一致**。
+- **同種の問題の調査**:
+  - ホストが System.Web の仕組みを ASP.NET Core のものに差し替えているのは、テンプレートと `WebFormsOptions` を見る限りセッション(`UseAspNetCoreSessionProvider` の `ProviderOverride`)だけ。
+  - ASP.NET Core のセッションの経路(StateServer・SQLServer)の違い: `timeout` を無視していた(直した)。ロックしない(`GetItemExclusive` が locked=false。同じセッションの同時の要求を IIS は順に処理する)。クッキーが 2 つ(System.Web の ASP.NET_SessionId と ASP.NET Core の .AspNetCore.Session)。コーパスにこのモードを使うものは無い(mojo の AppFabric、nop390 の Redis はコメントアウト)。
+  - マシンキーの自動生成(ViewState・フォーム認証)は FrameworkOnCore が `LocalApplicationData/WebFormsForCore/AutogenKeys` に保存し、再起動をまたいで同じ(問題なし)。
+  - コーパスの判定: be・mojo・yaf・dnn・imis・nop・mvcmovie・nop390 は InProc、wt は Custom、n2 は Off。
+- **全コーパスの試験**(10 本を変換し直し、DB は空から作り直してインストーラーを通した。Windows は `.\SQLEXPRESS`、Linux は SQL Server のコンテナ):
+
+| コーパス | Windows | Linux |
+|---|---|---|
+| be | 5/5 | 5/5 |
+| wt | 6/8(既知の丸めの差 2)。セッションは Universal Providers が DB の Sessions テーブルに保存(IIS と同じ) | 5/8(同じ 2 と error-page。以前と同じ)。Sessions テーブルはコンテナの DB に |
+| mvcmovie | 11/12(既知の言語パックの差) | 11/12 |
+| mojo | 空の DB からセットアップ(105 テーブル)、トップ・ログイン・サイトマップ 200、管理画面はログインへ | 同じ(`/secure/LOGIN.aspx` も) |
+| yaf | インストーラーは ServiceStack のスタブ(以前と同じ) | 同じ |
+| dnn | インストール完了、トップ・`/Login`・`/Terms`・`/Privacy` 200 | 同じ。ページの資源 21 件すべて 200 |
+| n2 | インストーラー完了(セッション Off)、トップがコンテンツ付き、`/N2/` はログインへ | 同じ |
+| imis | ログインし、主な画面 7 つが 200 | 同じ |
+| nop(1.90) | インストール、店頭 14 画面・商品の詳細・サムネイル・ログイン・管理画面 8 つ・アカウント 200 | 同じ(サムネイルは libgdiplus) |
+| nop390 | インストール、店頭 19 画面・商品画像・カートへの追加(AJAX)・管理画面 7 つと一覧の JSON 200 | 同じ |
+
+サンプル(WcfProbe・OrderAdmin・ProductAdmin・DefaultsProbe・MasterProbe・MobileProbe・RuntimeProbe・ToolkitProbe)は Windows・Linux とも全一致。コンポーネント単位の比較のうちセッションを使うデータ表示 7 つ(GridView・DetailsView・FormView・ListView・DataList・DataGrid・Repeater)も Windows・Linux とも一致。テスト Windows 4,402 件・Linux 4,381 件(スキップ 1・22)がすべて緑。
+
+- 検証の手順の不具合を直した: `convert-corpora.ps1` の DNN の接続文字列の書き換えが、改行を含む `<add>` に当たらず、コメントの中の例だけを書き換えていた(DNN は App_Data の Database.mdf にインストールされていた)。空白を `\s+` にした(imis も)。
+- 気をつけること: nopCommerce 3.90 のサンプルデータの Apple MacBook Pro は最小数量 2(数量 1 のカートへの追加は断られる)。
 ## 全コーパスでの検証(2026-09-27)
 
 `verify-corpora.ps1` で 6 本を変換してビルドした(Windows)。正解データがあるのは be と wt だけ。
@@ -1034,6 +1175,579 @@ Visual Studio の「AJAX 対応 WCF サービス」(webHttpBinding と `<enableW
 | yaf | ライブラリ(ServiceStack.OrmLite)のコンパイルで止まる |
 | dnn | ライブラリ(DotNetNuke.Log4Net)のコンパイルで止まる |
 | n2 | ライブラリ(N2)のコンパイルで止まる |
+
+### 残りのコントロールすべての新旧比較(2026-10-11、ユーザーの指示)
+
+コンポーネント単位の新旧比較(`tests/WebControlsParity`)を、残りのコントロールすべてに広げた。System.Web と System.Web.Extensions の、アプリが置くコントロール 124
+(前回までの 32 に、HtmlControls 33、Table 系 6、FileUpload、MultiView・View、Localize、Substitution、Xml、AdRotator、Calendar、ImageMap、LiteralControl、
+Content・ContentPlaceHolder、ScriptManager・ScriptManagerProxy・UpdatePanel・UpdateProgress・Timer、TreeView・Menu・SiteMapPath・SiteMapDataSource、ログイン系 7、
+Wizard とステップ 5、データソース 5・QueryExtender・ModelErrorMessage、WebParts 13)。対象外は Page・UserControl・MasterPage・Control(アプリが派生させる基底クラス)と
+DesignerDataBoundLiteralControl(デザイナー用)。
+
+- **結果: 124 すべてが Windows・Linux とも 3 層一致**(既知の差分 8 件を除く。`tests/WebControlsParity/README.md` の「既知の差分」)。
+- 仕組みに足したこと: `parity.ps1 -Control A,B,C`(サイトの構築・変換・コンテナを 1 回で)。ページの designer.cs と csproj の登録を作る `scenario-page.py`、
+  共有ページのシナリオを型の機構から作る `html-scenarios.py`・`more-scenarios.py`。親が要るコンポーネント(View、WizardStep、AJAX、Web パーツ)の `Wrap`、
+  HtmlForm・HtmlHead をページのフォーム・ヘッダーにする描画、DateTime のサンプル値。ParityTest の `upload`(ファイルの送信)と `maskIds`(乱数の ID を伏せる)。
+  プローブサイトに、メモリ上のメンバーシップ・ロール(`ProbeMembership.cs`)、ADO.NET プロバイダー(`ProbeDb.cs`。SqlDataSource をデータベース無しで)、
+  Web パーツのパーソナライズ(`ProbePersonalization.cs`)、`Web.sitemap`、マスターページ。
+- 比較の仕組みの修正: スクリプトの文字列の中のリソースの URL とサイトのフォルダーを伏せる、StateBag の項目の並びをそろえる(.NET の文字列のハッシュのランダム化)、
+  DictionaryEntry をキーと値で書く、API 層の .NET Framework 側にルート web.config のサイトマップ・Web パーツの設定(`App.config`)、マシンキー・乱数の値を伏せる。
+- **見つけて直したポートの不具合**(FrameworkOnCore.Runtime、パッケージは 1.6.5-w2l.15 のまま作り直した。公開はしていない):
+  - **LinqDataSource が .NET 版に無かった**(`#if NETFRAMEWORK`。LINQ to SQL が無かった頃のまま)。移植済みの System.Data.Linq を参照して net10.0 で有効にした
+    (QueryExtender の対象にもなる)。
+  - **SqlDataSource の `ProviderName="System.Data.SqlClient"`(Visual Studio が書く既定)が ArgumentException**。.NET の DbProviderFactories は構成を読まず、
+    組み込みのプロバイダーも無い。最初の要求の初期化で、.NET Framework の組み込みの 3 つ(SqlClient・OleDb・Odbc)と web.config の
+    `system.data/DbProviderFactories` を登録する(`DbProviderFactoriesConfiguration`)。BlogEngine の DB プロバイダー(`DbProviderFactories.GetFactory`)、
+    n2 の `Fix.aspx`(SqlDataSource)も同じ所を通る。
+  - **ScriptManager の CDN のフォールバックで `</script>` をエスケープしていなかった**(.NET Framework は `<\/script>`)。スクリプトの中の `</script>` で
+    script 要素が途中で閉じる。ほかの同じ書き方(ClientScriptManager)は正しかった。
+  - AccessDataSource が Linux で NullReferenceException(OLE DB が無い)。PlatformNotSupportedException で知らせるようにした。
+- 既知の差分(ランタイム・環境の違い、`known-differences.json`): System.Web.Extensions の版(ScriptPath のフォルダー名、AjaxFrameworkAssembly)、パスに使えない文字の
+  例外(ArgumentException と IOException)、パスの区切り(Linux)、コードアクセスセキュリティ(WebPartManager の権限セット)、Hashtable の順(トランスフォーマー)、
+  OLE DB(Linux)。
+- net8.0 は考慮しない(サポート終了が近い。変換後のアプリは net10.0)。ターゲットからも外した(下の節)。
+- 検証: テスト Windows 4,402 件・Linux 4,381 件(スキップ 1・22)がすべて緑。be Windows 5/5、wt Windows 6/8(既知の丸めの差 2、以前と同じ)。
+
+### net8.0 のターゲットを外した(2026-10-11、ユーザーの指示)
+
+FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッケージは lib/net10.0 だけ(1.6.5-w2l.15 のまま作り直した。公開はしていない)。
+
+- プロジェクト(22): `TargetFrameworks` から net8.0、net8.0 だけの設定(参照・パッケージ・定数)、net8.0 向けにパッケージへ入れていたファイル。
+  WebFormsForCore.NativeDlls は net10.0 に。
+- net8.0 のための分岐: LinqDataSource の `#if NET10_0_OR_GREATER` と System.Data.Linq・SqlClient の参照の条件、Compilers の Roslyn 4.13 のローダー
+  (`#if NET8_0`)と `Roslyn.net8.0`(net8.0 用のコンパイラー一式)、FileChangesMonitor の .NET 8/9 の回避策、ビルドタスク(WebFormsForCore.Build)の
+  net8.0 の WebFormsForCore.Build.NetCore(`CreateAspDesignerFiles`・`FakeStrongName` は net10.0 のものを使う)。
+- `pack-frameworkoncore.ps1`・`frameworkoncore.slnx`: ビルドタスクのビルドから net8.0 を外し、CS7069 の注記を消した。Ajax Control Toolkit は引き続き
+  net10.0 だけ(net48 は作らない)。
+- 確認: パッケージ 21 個すべて net8.0 無し。FrameworkOnCore.Tests Windows 4,402 件(スキップ 1)・Linux 4,400 件(SQL Server のコンテナあり、スキップ 3)、
+  SqlClientTests Windows 214 件・Linux 204 件が緑。WebControlsParity 124 コントロールすべて Windows・Linux とも一致(既知の差分を除く)。
+  be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(既知の丸めの差 2 と Linux の error-page)。studio-verify(be・wt)は元・ネイティブ・コンテナとも
+  リンク一致(14 件・61 件)。.NET Framework 版 MSBuild の経路: Build Tools 2022(MSBuild 17.14)は .NET 10 SDK を扱えない(MSBuild 18 以上が要る)ため、
+  Build Tools 2026(MSBuild 18.10、winget の Microsoft.VisualStudio.BuildTools)を入れて WebFormsForCore.Configuration を net10.0 でビルドした。
+  FakeStrongName が動き、厳密名(System.Drawing は b03f5f7f11d50a3a、System.Configuration.ConfigurationManager は cc7b13ffcd2ddd51、版 13.5.0.0)は
+  dotnet build のパッケージと同じ。
+  デザイナーファイルの生成(CreateAspDesignerFiles。ページ 1 つの net10.0 プロジェクトで build\WebFormsForCore.Build.targets を読み込んだ): 既定の
+  別プロセス(net10.0 の WebFormsForCore.Build.NetCore を dotnet で起動)は dotnet build・MSBuild 18 とも生成でき、内容も同じ。既定でないプロセス内
+  (`SeparateProcess="false"`、ターゲットは使わない)は以前から動かなかった(net8.0 とは無関係)ので直した(2026-10-12、ユーザーの指示):
+  - `IsTargetNetFX` が文字列の比較で net10.0 を .NET Framework と判定していた("net10.0" < "net4999")。モニカーの形で判定する(点が無い net48 が .NET Framework)。
+  - AssemblyResolve がアセンブリの表示名("System.Web, Version=...")をファイル名にし、見つからないものをすべてエラーにしていた。単純名で探し、無ければ他に任せる。
+  - .NET の MSBuild のプロセスには共有フレームワークの System.Web(4.0.0.0、HttpUtility のファサード)があり、FrameworkOnCore の System.Web(10.0.29.0)を
+    同じプロセスに読み込めない(MarkupReader の型初期化子で失敗)。プロセス内は .NET Framework の MSBuild で .NET Framework 向けの時だけにし、それ以外は別プロセス
+    (ツールの deps.json が FrameworkOnCore のものを選ぶ)。成否を逆に返していたのも直した。
+  - 確認: net10.0・net48 × dotnet build・MSBuild 18 × 別プロセス・プロセス内の 7 通りすべてで生成でき、内容は同じ。
+
+### フォルダーごとの設定、フォルダーの一覧、httpErrors・圧縮の調査(2026-10-16、ユーザーの指示)
+
+- **フォルダーの web.config・location が効かなかった所を直した**(IisConfiguration で URL のフォルダーごとに重ねる。ドキュメントでどれも
+  フォルダーの web.config で設定できる): 既定のドキュメント(defaultDocument)、フォルダーの一覧(directoryBrowse)、要求の上限
+  (requestLimits: アップロード用のフォルダーだけ上限を変える使い方)。HeadersProbe に足した `docs/`・`browse/`・`upload/` で確かめた。
+- **フォルダーの一覧が無かった**: directoryBrowse を有効にしたフォルダーは 404(コメントの「StaticFileHandler の一覧」は誤り)。IIS の
+  DirectoryListingModule のページを作った(showFlags の Date・Time・Size・Extension・LongDate、日付 10 桁・時刻 8 桁・サイズ 12 桁の右詰め、
+  `&lt;dir&gt;`、隠しファイルは出さない、web.config は出す、言語と書式はサーバーのもの: 日本語の Windows では `[親ディレクトリへ]` と
+  `2026/10/16     7:01`)。IIS の本文と 1 バイトまで一致(326 バイト)。
+- **状態の行の理由**: 要求の上限の 413 は IIS では `413 Request Entity Too Large`(Kestrel は `Payload Too Large`)。
+- **Cache-Control**: IIS の 404・403.14 などに付く `Cache-Control: private` は、ローカルの要求への詳細エラーページの物で、リモートの要求への
+  カスタムのページには付かない。ホストはリモートの動き(付けない)。HeadersProbe はリモートの動き(`httpErrors errorMode="Custom"`)で記録し直した。
+- `headers-check.ps1`(状態の行・Cache-Control まで)60/60。
+- **httpErrors の調査**(サンプル `samples/ErrorsProbe`、`errors-check.ps1`。31 要求、変換後は 11 件だけ同じ: 未実装): IIS は
+  - 自分の誤り(404.0、404.8 など)をカスタムのページ(`%SystemDrive%\inetpub\custerr\<言語>\404.htm`、サブ状態ごとのファイル)にする。
+  - アプリの返した 400 以上の応答も置き換える(existingResponse Auto)。置き換えないのは `Response.TrySkipIisCustomErrors = true` と
+    ASP.NET 自身の誤りのページ(例外、HttpException)。Replace はそれらも置き換え、PassThrough は何も置き換えない(本文が空でも)。
+  - ExecuteURL は、そのページを 200 で返す(ページには `404;http://host/元の URL` のクエリ文字列、RawUrl は元の URL)。File はファイルを元の状態で。
+    Redirect は 302 Redirect。
+  - DetailedLocalOnly(既定): ローカルの要求には詳細エラーページ(アプリの応答は置き換えない)。
+  - ホストは今、存在しない URL を ASP.NET Core の末尾の空の 404 にしている(`/bin/x.dll` の 404.8 も)。
+- **httpErrors を IIS 互換で実装した**(ユーザーの決定: 既定は IIS 互換、IIS のページは簡易ページ、ローカルの要求には IIS どおり詳細ページ)。
+  FrameworkOnCore.Web の `IisHttpErrors`(新規)、`app.UseWebFormsIis()` の中(ヘッダーの次、URL Rewrite の前)。
+  - 設定 `HttpErrors:Mode`: `Iis`(既定)/ `AspNetCore`(ASP.NET Core の UseStatusCodePages: 本文の無い誤りに文字列、アプリの応答はそのまま)/ `Off`。
+  - errorMode(DetailedLocalOnly・Custom・Detailed。ローカルはループバックとサーバー自身のアドレス)、existingResponse(Auto: アプリの
+    400 以上の応答を置き換える、`TrySkipIisCustomErrors` と ASP.NET の誤りのページは残す。詳細ページは本文の無い応答だけ。Replace・PassThrough)、
+    error(File・ExecuteURL・Redirect、clear・remove、フォルダーごと)。IIS 自身の custerr は簡易ページ(IIS と同じ見出しと文、スタイルなし)、
+    項目の無い状態は短い文。言語はサーバーのもの(日本語の Windows では日本語: 短い文、詳細ページの見出し、リダイレクトの「ドキュメント移動」)。
+  - IIS の動きとして確かめて合わせた所: 置き換えてもアプリのヘッダー(Cache-Control、X-AspNet-Version)は残し本文と型だけ替える。ExecuteURL は
+    200 でクエリ文字列 `404;http://host/元の URL`。Redirect はログに元の誤りの状態(403.0、403.14)を書く。CoreWCF など System.Web 以外が
+    本文を書いた応答は残す(IIS の WCF が TrySkipIisCustomErrors を立てる)。
+  - ホストが自分で書いていた誤りの本文(静的ファイルの 404・403.14、要求フィルタリング、URL Rewrite の CustomResponse など)はやめ、httpErrors が
+    作る。bin・App_Data などの隠しセグメントは、物が無くても 404.8(以前は ASP.NET Core の末尾の空の 404.0)。
+  - **System.Web の直した所**: 途中のフラッシュ(Response.End など)で、状態が 200 以外だと文字のバッファを確定させる前にヘッダーを書いて
+    いて、Content-Type の charset が落ちていた(`text/html`。IIS の統合パイプラインでは `text/html; charset=utf-8`)。
+  - Linux の検証: 正解は IIS のマシンから(ローカル: 詳細ページ、アプリの応答はそのまま)記録した。コンテナの前の検証のクライアントは
+    リモートなので、検証のスクリプト(sample-parity・run-linux・parity・chart-probe)は `HttpErrors__LocalAddresses=*` を渡す(既定は空: IIS どおり)。
+  - `errors-check.ps1` 32/32、`headers-check.ps1` 60/60、`rewrite-check.ps1` 53/53(本文はローカルの詳細ページの説明文の量だけ違う)。
+  - 回帰: テスト Windows 4,420 件・Linux 4,418 件・SqlClientTests 204 件、サンプル 21 件(Windows・Linux)、コントロール 24 件(Windows・Linux)、
+    be 5/5(Windows・Linux)、wt Windows 6/8・Linux 5/8(既知の差)。
+- **圧縮を IIS 互換で実装した**(ユーザーの決定: 既定は IIS 互換)。FrameworkOnCore.Web の `IisCompression`(新規)、`app.UseWebFormsIis()` の中
+  (ヘッダーの次、httpErrors の前: 最終的な応答を圧縮)。設定 `Compression:Mode`: `Iis`(既定)/ `AspNetCore`(ASP.NET Core の
+  ResponseCompression)/ `Off`(前段のプロキシに任せる)。
+  - 調べるため IIS の動的圧縮(IIS-HttpCompressionDynamic)をこのマシンに入れた。**動的圧縮があると、静的ファイルも静的圧縮が効くまで
+    (1 回目、2,700 バイト未満も)動的圧縮で圧縮される**。圧縮は 200 だけ(誤り・リダイレクトは圧縮しない)。Content-Length 付き、ETag は同じ。
+  - 元のサーバーのモジュール(globalModules の StaticCompressionModule・DynamicCompressionModule。取り込んだ設定が無ければ Windows の既定の
+    静的だけ)、httpCompression(scheme の順: gzip・deflate・br、staticTypes・dynamicTypes、minFileSizeForComp、HTTP/1.0・Via・Range は圧縮しない、
+    staticCompressionIgnoreHitFrequency)、urlCompression(フォルダーごと)、serverRuntime の frequentHitThreshold・frequentHitTimePeriod。
+    静的に圧縮したファイルはメモリに持つ(IIS の一時ファイルの代わり)。応答キャッシュ(StaticResponseCache)は圧縮前を持ち、返す時に圧縮する。
+  - **System.Web 側を直した所**: 要求の最後のフラッシュ(finalFlush)で本文を送ってしまっていて、前段からは「アプリが途中でフラッシュした」
+    のと区別できなかった。最後のものは送らず要求の終わりに任せた(IIS と同じく Content-Length 付きで圧縮できる。途中のフラッシュは逐次)。
+  - `compression-check.ps1`(取り込んだ設定あり、動的圧縮あり)29 中 24 一致。残りは簡易ページ・エラー画面の長さと、Response.Redirect の
+    応答が chunked(IIS は Content-Length): .NET の Response.End は途中でフラッシュする(スレッドを中断できないため。外すと End 前に書いた
+    本文が送られなくなるので残した)。
+  - 性能(PipelineProbe Check.htm、32 接続、Windows): 75,793〜77,274 req/s、圧縮と httpErrors を切って 73,722(同じ範囲: この 2 つの負担は
+    見えない)。前に記録した 89,129 より低いが、切っても同じなので、この変更によるものではない(ぶれか、それ以前の変更。要調査)。
+  - 回帰: テスト Windows 4,420 件・Linux 4,418 件・SqlClientTests 204 件、サンプル 21 件・コントロール 24 件(Windows・Linux)、be 5/5、
+    wt Windows 6/8・Linux 5/8(既知の差)。
+- **圧縮の調査**(`compression-check.ps1`、ドキュメント httpCompression・urlCompression): Windows の既定は静的圧縮だけ。IIS は 10 秒に 2 回目の
+  要求から gzip で返し(1 回目は圧縮しない)、`Vary: Accept-Encoding`、ETag は同じ。2,700 バイト未満、型の対象外(画像)、HTTP/1.0、Via、Range、
+  gzip を受けない要求は圧縮しない。.aspx は動的圧縮が入っていないので圧縮しない。ホストは何も圧縮しない(4 件違う)。
+- 回帰: テスト Windows 4,419 件、サンプル 20 件(Windows・Linux)、be 5/5・wt 6/8(Windows、既知の差)。
+
+### 応答ヘッダー(customHeaders・redirectHeaders)と HTTP リダイレクト(httpRedirect)(2026-10-15、ユーザーの指示)
+
+計画の優先度 高の残り 2 つ。どちらも ASP.NET Core に相当する標準のミドルウェアが無い(ヘッダーは自分で付け、リダイレクトは Rewriter で
+別の書き方になる)ので、モードは設けず IIS 互換だけにした。IIS の HTTP リダイレクト機能(IIS-HttpRedirect)をこのマシンに入れて記録した。
+
+- **IIS で確かめた動き**(サンプル `samples/HeadersProbe`、`headers-check.ps1`):
+  - customHeaders はすべての応答に付く(ページ、静的ファイル、304、404、404.8、500、リダイレクト)。アプリが同じ名前を付けると両方送られる
+    (`X-Frame-Options: DENY` と `SAMEORIGIN` の 2 行)。`remove` は継承した設定を外すだけ(アプリの付けたものは外さない)。
+  - redirectHeaders は 3xx に付く(304 にも)。
+  - httpRedirect: 設定したフォルダーからの残りのパスを、宛先(末尾の `/` を除く)に付ける(`/old/sub/y.aspx?q=1` → `/new/sub/y.aspx`。
+    クエリ文字列は捨てる)。exactDestination では `$S`(残り)・`$Q`(`?` 付きのクエリ)・`$V`(パス)。childOnly はフォルダー直下だけ
+    (下のフォルダーは対象外。フォルダー自身は対象)。ワイルドカードはフォルダーからの相対で照合。既定は 302(Permanent 301、Temporary 307)。
+    子の `enabled="false"` で止まる。ファイルの location は大文字小文字を区別しない。Location は絶対 URL。
+  - URL Rewrite が先に動き、httpRedirect は書き換えた後の URL で判断する(`/tonew` を `/old/o.htm` に書き換えると `/new/o.htm` へ 302)。
+- **実装**(FrameworkOnCore.Web):
+  - `IisConfiguration`(新規): system.webServer の節を IIS の順(サーバー → サイト → web.config → フォルダーの web.config・location)で
+    URL のフォルダーごとに重ねる共通部品。URL Rewrite(`IisUrlRewrite`)の設定の読み込みもこれに揃えた(同じ処理が 2 か所にあった)。
+  - `IisHttpProtocol`(新規): 応答の開始時に customHeaders・redirectHeaders を足す。取り込んだ設定が無ければ IIS の既定
+    (`X-Powered-By: ASP.NET`。web.config の `<remove name="X-Powered-By" />` で IIS と同じく消える)。静的ファイルの応答キャッシュ
+    (StaticResponseCache)は足したヘッダーを保存しない(返す時にまた足すので二重にならない。確かめた)。
+  - `IisHttpRedirect`(新規): 上の動き。本文は IIS と同じ「Document Moved」。
+  - `app.UseWebFormsIis()`(新規): IIS の機能を IIS の順に入れる(ヘッダー → URL Rewrite → HTTP リダイレクト)。変換後の Program.cs の
+    `app.UseWebFormsUrlRewrite()` をこれに替えた(C#・VB)。今後の IIS の機能(圧縮、httpErrors など)もここに入れる。
+  - 変換レポート: customHeaders・redirectHeaders・httpRedirect を「対応」に。
+- **確かめた**: HeadersProbe の画面の比較 3/3(Windows・Linux)、`headers-check.ps1`(状態、Location、X- ヘッダーすべて(重複も)、
+  ログの行)**37/37 一致**(取り込んだ設定あり・なしの両方)。URL Rewrite も読み込みを揃えた後で 53/53 のまま。
+- 回帰: テスト Windows 4,419 件・Linux 4,417 件・SqlClientTests 204 件、サンプル 20 件(Windows・Linux)、コントロール 24 件
+  (Windows・Linux)、be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(既知の差)。
+- 次(計画の優先度 中): 圧縮、httpErrors(未知の URL の 404 の本文が空)、Windows 認証。
+- **ドキュメントとの突き合わせ(2026-10-16、ユーザーの指示)**: 上の実装は IIS での観察だけで決めていた。Microsoft のドキュメント
+  (IIS の設定リファレンス `httpRedirect`・`httpRedirect/add`・`customHeaders`・`redirectHeaders`、IIS 6.0 SDK の HttpRedirect、モジュールの作者の
+  ブログ "Client-side redirection using HttpRedirection module")と比べ、食い違いと書かれていない所を IIS で確かめて直した:
+  - ワイルドカードの `$0`〜`$9`(`*` に一致した部分)が無かった。照合はフォルダーからの残り(先頭の `/` 込み)に対して、`*` は `/` もまたいで
+    最短で一致(`/wild2/sub/page.htm` に `*.htm` → `$0=/sub/page`、`*/*.aspx` → `$0=`・`$1=d/e`。パス全体を書いた `/wild2/full/*` は一致しない)。
+  - 相対のリダイレクトで足す残りの起点は、destination を設定したフォルダーではなく httpRedirect を持つ最も深いフォルダー(ブログのとおり。
+    `base/deep` が状態だけ設定すると `/base/deep/f.htm` → `/new/f.htm`)。
+  - 状態の行の理由は IIS 独自: `302 Redirect`、`307 Moved Temporarily`(ドキュメントは "307 Redirect")、`308 Redirected Permanently`。
+    URL Rewrite のリダイレクトも同じ。500.50 は `500 URL Rewrite Module Error.`。IIS のリダイレクトを返す所(`IisUrlRewrite.Redirect`)で付ける。
+  - 実装どおりだったもの: `$P`、相対での `$V`(その後に残りが付く)、308、`/` で始まらない宛先(Location は相対のまま)。
+  - ドキュメントの childOnly の説明は版で食い違う(IIS 6.0 は「下のフォルダーやファイルだけ」)。IIS 10 の実際(フォルダー自身と直下のファイル、
+    下のフォルダーは対象外)に合わせたまま。
+  - `headers-check.ps1` 53/53、`rewrite-check.ps1` 53/53(どちらも理由まで比べる)、HeadersProbe・RewriteProbe の画面の比較(Windows・Linux)。
+    回帰: テスト Windows 4,419 件、サンプル 20 件(Windows)、be 5/5・wt 6/8(Windows、既知の差)。
+
+### URL Rewrite の 2 つのモード: IIS 互換(既定)と ASP.NET Core(2026-10-15、ユーザーの決定)
+
+IIS の URL Rewrite モジュール(web.config と元のサーバーの system.webServer/rewrite)は、これまで変換後に効かなかった(報告だけ)。
+ASP.NET Core 標準の書き換え(`UseRewriter` + `AddIISUrlRewrite`、web.config の規則をそのまま読む)を IIS(URL Rewrite 2.1 をこのマシンに
+入れた)と比べたところ、同じ答えは 26 件中 2 件だった。ユーザーの決定: W3C ログと同じく 2 つから選べるようにし、既定は IIS 互換。
+
+- **設定** `UrlRewrite:Mode`: `Iis`(既定)/ `AspNetCore`(標準。将来 ASP.NET Core に書き直した時もそのまま使える)/ `Off`。
+  変換後の Program.cs は W3C ログの直後(ログの行は要求された URL、IIS と同じ)、System.Web の前に `app.UseWebFormsUrlRewrite()` を呼ぶ。
+- **標準(AspNetCore)と IIS の違い**(調べて分かったこと。モードを選ぶ時の判断材料):
+  - 読めない書き方があるとアプリが起動しない: `subStatusCode`(IIS マネージャーが既定で書く)、`patternSyntax="Wildcard"`、
+    標準に無いサーバー変数(`{HTTP_X_FORWARDED_PROTO}`・`{URL}`・`{SERVER_PORT}`・`{UNENCODED_URL}`・`{APPL_PHYSICAL_PATH}` など)、providers。
+    `serverVariables`・`outboundRules`・`configSource` は黙って無視する。
+  - 動きの違い: 付け足すクエリ文字列の順(IIS は規則の後に元のもの: `id=5&x=1`。標準は逆で、Request.QueryString やポストバック先も変わる)、
+    リダイレクトの Location(IIS は絶対 URL と「Document Moved」の本文、標準は相対で本文なし)、IsDirectory(標準はフォルダーを判定できず
+    書き換えてしまう: `/app/` が 403.14 でなく 200)、`{REQUEST_URI}`(IIS はクエリ文字列を含む)、HTTP_X_ORIGINAL_URL が無い、
+    CustomResponse の本文、ルートの web.config しか読まない。
+- **IIS 互換**(FrameworkOnCore.Web の `IisUrlRewrite`、新規):
+  - 規則の出所と継承: 取り込んだサーバーの設定(globalRules、サーバーとサイトの rules、allowedServerVariables)、web.config(ルート、`<location>`、
+    サブフォルダーの web.config、`configSource` の外部ファイル)。親の規則が先、`clear`・`remove`。サブフォルダーの規則は、そのフォルダーから
+    の相対の URL に当て、相対の URL もそのフォルダーから。書き換えた後の規則は書き換えた URL を見る。
+  - パターン(ECMAScript・Wildcard・ExactMatch、ignoreCase、negate)、条件(MatchAll・MatchAny・trackAllCaptures・IsFile・IsDirectory)、
+    `{R:n}`・`{C:n}`、IIS のサーバー変数(`HTTP_*` は要求ヘッダー)、`ToLower`・`UrlEncode`・`UrlDecode`、rewriteMap(defaultValue)。
+  - serverVariables の設定(`HTTP_*` は要求ヘッダー、`RESPONSE_*` は応答ヘッダー、それ以外は Request.ServerVariables)。取り込んだ設定の
+    allowedServerVariables に無いものは IIS と同じ 500.50(取り込んだ設定が無ければ許す)。
+  - アクション: Rewrite(X-Original-URL、`IIS_WasUrlRewritten`、logRewrittenUrl。globalRules の書き換えは IIS と同じくログに書き換え後の URL)、
+    Redirect(301・302・303・307、絶対 URL と「Document Moved」)、CustomResponse(状態、サブ状態をログに、IIS のエラーページ)、
+    AbortRequest(ログに書かない)、None。
+  - しないこと(起動時に 1 回表示し、変換レポートにも出す): outboundRules(応答の書き換え)、providers、別のサーバーへの書き換え
+    (ARR のリバース プロキシ。502.3 を返す)。
+- **ついでに IIS と揃えた所**(Rewrite を切っても違っていた所):
+  - Request.ServerVariables に UNENCODED_URL が無かった(IIS は送られたままの URL)。ワーカー要求に追加した(規則が設定した変数も同じ口)。
+  - 既定のドキュメントの無いサブフォルダー(`/app/`)が、ASP.NET Core の末尾の本文の無い 404 になっていた。IIS と同じく 403.14
+    (`directoryBrowse` が有効なら一覧)。
+  - フォルダーへの `/` 付きのリダイレクト(`/app` → `/app/`)の Location が相対だった。IIS と同じく絶対 URL と「Document Moved」の本文。
+- **確かめた**: サンプル `samples/RewriteProbe`(書き換え、リダイレクト 4 種、条件、rewriteMap、連鎖、Wildcard・ExactMatch、MatchAny・
+  trackAllCaptures、サーバー変数、サブフォルダーの web.config と `remove`、configSource、CustomResponse、Abort)を IIS で記録し、画面の比較
+  14/14(Windows・Linux)。`rewrite-check.ps1` で要求を 1 件ずつ(リダイレクトを追わずに状態、Location、ページが見た URL とサーバー変数、
+  応答ヘッダー、W3C ログの行)比べ、**IIS 互換は 53/53 一致**。この時、IIS にサーバーの globalRule と許可するサーバー変数を一時的に設定し、
+  `capture-iis.ps1` で取得した設定を変換後に置いて、元のサーバーの設定の取り込みも通して確かめた。標準(AspNetCore)は、この規則では
+  起動しない(Wildcard を読めない)。本文の文言は比べていない(IIS は日本語で、ローカルの要求には詳しいエラーページ。未知の URL の 404 の
+  本文が空なのは httpErrors の課題)。
+- 回帰: テスト Windows 4,419 件・Linux 4,417 件・SqlClientTests 204 件、サンプル 19 件(Windows・Linux)、コントロール 24 件(Windows・Linux)、
+  be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(既知の差)。
+- 次(計画の優先度 高): customHeaders(サーバーの `X-Powered-By`)・httpRedirect。
+
+### ホスト層の ASP.NET Core 化の土台: 元の IIS の設定の取り込みと、IIS の機能の報告(2026-10-15、ユーザーの指示)
+
+ホスト層(IIS の代わり)を ASP.NET Core 標準のミドルウェアに置き換えていく計画の優先度 0。ユーザーの決定: 各機能の既定(IIS 互換か標準か)は
+調査の後に都度決める、未対応の設定は変換レポートに出す、元のサーバーの設定は取り込む。
+
+- 棚卸しで、IIS にあって変換後に効かない(対応していない)機能が分かった: URL Rewrite、圧縮(IIS は静的ファイルを既定で圧縮する)、
+  customHeaders(IIS は既定で `X-Powered-By: ASP.NET` を付ける)、httpRedirect、httpErrors、IIS の URL の認可、ipSecurity、Windows 認証など。
+  web.config やサーバーで使われていても、これまでは黙って効かなかった。
+- **取得**(`capture-iis.ps1`、元のサーバーで管理者として): applicationHost.config(共有構成なら redirection.config の指す先)から、サイトに効く
+  system.webServer(サーバーのものと `<location path="">`、サイトの `<location>`)、サイトのログの設定(logFile)と ID、siteDefaults、IIS に
+  入っているモジュール(globalModules)を、web.config と同じ形の XML(`iis-profile.config`)に書く。パスワードの属性と暗号化された値は除く。
+  このマシンの IIS で試した(Default Web Site: 22 の節、ハンドラー 56、モジュール 28、秘密の値 0 件)。
+- **変換器**(`--iis-profile <file>`): アプリのフォルダーに `iis-profile.config` として置く(`.config` は要求フィルタリングで外に出ない)。
+  変換レポートに「IIS の機能」の節を設け、取り込んだ設定と web.config(サブフォルダーのものも)で使われている機能を、対応・一部対応・
+  未対応で出す(`IisFeatures`)。クラシック ASP・SSI・PHP のファイルも出す。`IisFeaturesTests` 12 件。
+- **実行時**(`IisProfile`): ファイルがあれば読み、IIS と同じく「サーバー → サイト → web.config → フォルダー」の順に重ねる。今使う所:
+  静的ファイルの MIME の対応表と clientCache(サーバーの表があればそれが表全体)、要求の上限(requestLimits)、既定のドキュメント
+  (サーバーの一覧。Default.asp は除く)、W3C ログ(サイトの logFile の enabled・logExtFileFlags・period・localTimeRollover、s-sitename の
+  W3SVC<ID>、サーバーとサイトの httpLogging の dontLog。優先はアプリの設定 > web.config > 取り込んだ設定)。
+- **確かめた**: PipelineProbe のサイトをこのマシンの IIS に作って取得し(W3SVC3)、それを渡して変換(`sample-parity.ps1 -IisProfile`):
+  画面の比較 18/18、IIS のログとの比較 18/18 行。レポートに、サーバーの `X-Powered-By` の追加(未対応)と静的ファイルの圧縮(未対応)が出た
+  (どちらも実際の差)。be・wt のレポートの IIS の節は、管理された modules・handlers と staticContent(対応)だけ。
+- 回帰: テスト Windows 4,418 件・Linux 4,416 件・SqlClientTests 204 件、サンプル 18 件(Windows・Linux)、関係するコントロール 24 件
+  (Windows・Linux)、be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(既知の差)。
+- 次(計画の優先度 高): URL Rewrite(標準の `UseRewriter`・`AddIISUrlRewrite` を調べ、IIS と比べて既定を決める)、customHeaders・httpRedirect。
+
+### W3C ログの 2 つのモード: IIS 互換(既定)と ASP.NET Core(2026-10-15、ユーザーの決定)
+
+下の節の ASP.NET Core の W3C ログは、形式が IIS と違い、書き込みに上限がある(ソースで確認: 書き込み待ちは 1,024 件で、満杯なら要求の
+側が待つ。1 本のスレッドが 1 行ごとにファイルの状態を確かめて書き出す。毎秒約 1 万件はこのマシンの実測で、普遍的な限界ではない)。
+ユーザーの決定: 2 つから選べるようにし、既定は IIS 互換。追いつかない時は要求を待たせてよい(行は捨てない)。
+
+- **設定** `W3CLogging:Mode`: `Iis`(既定)/ `AspNetCore`(下の節のもの。将来 ASP.NET Core に書き直した時もそのまま使える)。
+- **IIS 互換**(FrameworkOnCore.Web の `IisLogWriter`・`IisLogMiddleware`、新規):
+  - IIS と同じファイル名(`u_exYYMMDD.log`。`W3CLogging:Period` で Hourly・Monthly、`W3CLogging:LocalTimeRollover`)、UTF-8(BOM なし)、CRLF、
+    ファイルを開くたびの見出し 4 行(`#Software`・`#Version`・`#Date`・`#Fields`。IIS もプロセスの起動ごとに書く)、IIS の項目の順と値の書き方
+    (無ければ `-`、空白は `+`)。項目は IIS 10 の既定(このマシンの IIS と同じ 17 項目)、`W3CLogging:Fields` に IIS の `logExtFileFlags` の書式で。
+    `#Software` の行は既定で IIS と同じ(IIS のログを読む道具のため。`W3CLogging:Software` で変えられる)。
+  - 1 行ごとに書き出さず、たまった行をまとめて書く。待ちが 65,536 行を超えたら、要求の側(接続の次の要求)が待つ。
+  - sc-substatus・sc-win32-status: ホストが IIS の代わりに答える所から渡す(静的ファイルの 404.0/Win32 2、404.3/Win32 50、要求フィルタリングの
+    404.7・404.8・404.11・404.14・404.15・413.1、フォルダーの 403.14、アプリの `Response.SubStatusCode`)。http.sys が拒否するもの(区切りが
+    260 文字を超える URL)は IIS のサイトのログに出ない(HTTPERR のログ)ので、書かない。
+  - cs-bytes: 要求の行(URL は符号化されたまま)、ヘッダー、本文。sc-bytes: 状態の行、ヘッダー、送った本文(数える)。
+- **IIS と並べて確かめた**(`iislog-check.ps1`: 同じ要求の組を IIS の記録したサイトと変換後に送り、それぞれのログを項目ごとに比べる。
+  PipelineProbe、18 要求: ページ、静的ファイル、クエリ、Referer、404、404.3、web.config、bin、App_Data、.cs、長いクエリ、POST、HEAD、条件付き、
+  フォルダー、空白や日本語の URL、/): **18 行すべて一致**(日時と time-taken は除く)。cs-bytes は全行一致。sc-bytes は違う(ヘッダー
+  `Server: Microsoft-IIS/10.0`・`X-Powered-By` の分。エラーは IIS がローカルの要求に詳しいエラーページを返す分)。
+- **比べて見つけて直した、応答そのものの違い**(ログではなく変換後の動き):
+  - **未来の日付の If-Modified-Since で 304** を返していた。IIS は無視して 200(RFC 9110 13.1.3)。IisStaticFile を直した。
+  - **既定のドキュメントの無いフォルダー**(`/`)が、System.Web の 404 からアプリの customErrors の 302 になっていた。IIS はフォルダーの一覧の
+    モジュールが 403.14(IIS のページ)を返す。IisStaticFile が返す(web.config の `directoryBrowse enabled="true"` なら従来の一覧)。
+  - `Response.SubStatusCode` が「IIS の統合モードでない」と PlatformNotSupportedException だった(統合モード向けのアプリが設定すると 500)。
+    .NET では設定できるようにした。
+- **性能**(PipelineProbe Events.aspx、Windows、32 接続):
+
+| 負荷 | ログなし | IIS 互換 | ASP.NET Core |
+|---|---|---|---|
+| 全力 | 24,206 req/s、p99 4.1 ms | 22,052 req/s、p99 4.2 ms | 14,707 req/s、p99 23 ms |
+| 毎秒 5,000 件 | p99 5.2 ms | p99 5.0 ms | p99 5.9 ms |
+| 毎秒 10,000 件 | 9,806 req/s | 9,825 req/s | 3,942 req/s |
+
+  IIS 互換は、全力の負荷でもサーバーの処理能力まで書き込みが追いついた(約 2 万 2 千行/秒)。
+- Linux(コンテナ): 一時フォルダー(`/tmp/FrameworkOnCore/LogFiles/app/u_ex261015.log`)に IIS の形式で書かれることを確かめた。
+- 回帰: テスト Windows 4,406 件・Linux 4,404 件・SqlClientTests 204 件、サンプル 18 件(Windows・Linux)、関係するコントロール 24 件
+  (Windows・Linux)、be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(既知の差)。
+
+### IIS の要求のログ(W3C)を ASP.NET Core の W3C ログで書く(2026-10-15、ユーザーの指示)
+
+ホストの IIS の代わりの部分を、ASP.NET Core 標準のミドルウェアで置き換えられるものから(ユーザーの判断: 標準を使い、IIS と比べて確かめる)。
+IIS は要求を W3C 拡張ログに書く(既定で有効)。変換後は書いていなかった。
+
+- **ランタイム**(FrameworkOnCore.Web、`WebFormsW3CLoggingExtensions`): `builder.AddWebFormsW3CLogging()` と `app.UseWebFormsW3CLogging()`。
+  ASP.NET Core の W3C ログに IIS の既定を渡す。
+  - 項目: IIS の既定(date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status
+    time-taken)。日ごとのファイル、サイズの上限なし、削除しない(IIS と同じ)。ファイル名の前に `u_ex`。
+  - web.config の `system.webServer/httpLogging dontLog="true"` で書かない。設定(appsettings.json、環境変数)で上書き:
+    `W3CLogging:Enabled`、`W3CLogging:LogDirectory`、`W3CLogging:FlushInterval`。
+  - 書く場所: アプリのフォルダーの外(中はファイルの監視 FileCache が書くたびに反応する。設定で中にした場合も、そのフォルダーの変更は
+    無視する)。既定は Windows `%ProgramData%\FrameworkOnCore\LogFiles\<フォルダー名>`、Linux `/var/log/frameworkoncore/<フォルダー名>`、
+    作れなければ一時フォルダーの `FrameworkOnCore/LogFiles/<フォルダー名>`(コンテナの app ユーザーはこちら: `/tmp/FrameworkOnCore/LogFiles/app`)。
+  - cs-username: System.Web が認証したユーザー(フォーム認証)を、要求の終わりに ASP.NET Core 側に渡す(IIS の統合パイプラインも
+    フォーム認証のユーザーをログに書く)。
+  - c-ip・s-ip: Kestrel のデュアルモードのソケットの `::ffff:a.b.c.d` を IIS と同じ `a.b.c.d` に。
+- **変換器**: 生成する Program.cs・Program.vb(テンプレート)に上の 2 行。ログのミドルウェアは最初(System.Web の手前で返す静的ファイルも
+  記録する)。`HostProgramTests` に 4 件。サンプル用の `Program.cs.txt` も同じにした。
+- **見つけた問題**: ASP.NET Core の W3C ログは、書き込み待ちが空になると `FlushInterval`(既定 1 秒)待ち、その間に 1,024 件で満杯になると
+  要求の側を待たせる。毎秒 5,000 件の負荷で、ログありは 1,392 req/s・p99 約 800 ms(なしは 4,981 req/s・p99 6.8 ms)。既定の間隔を
+  20 ms にして解消(毎秒 5,000 件: ありは p99 5.3 ms、なしは 4.7 ms)。
+- **限界**: 書き込みが追いつくのは 1 インスタンスで毎秒約 1 万件まで(毎秒 1 万件で 2 回中 1 回が 4,535 req/s に落ちた。全力の負荷では
+  ログありは約 9,000〜15,000、なしは約 27,000〜33,000 req/s、Events.aspx、Windows)。超える場合はログを止めるか、インスタンスを増やす。
+- **IIS のログとの違い**(アプリの動きは変わらない。ログを読む道具には影響する):
+  - 項目の並びが ASP.NET Core のもの(`#Fields` の行に書かれる)。time-taken が小数のミリ秒(IIS は整数)。
+  - sc-substatus・sc-win32-status・sc-bytes・cs-bytes が無い(ASP.NET Core に無い)。
+  - ファイル名 `u_ex20261015.0000.txt`(IIS は `u_ex261015.log`)。`#Software` の行が無い。
+  - IIS の `selectiveLogging`、サーバーの設定(applicationHost.config のログの設定)は読まない。
+- 確認: AuthProbe でログインしたユーザー名が記録される(Windows)、コンテナで一時フォルダーに書かれ IPv4 の形のアドレス(Linux)。
+  回帰: テスト Windows 4,406 件・Linux 4,404 件・SqlClientTests 204 件、サンプル 18 件(Windows・Linux)、関係するコントロール 24 件
+  (Windows・Linux)、be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(既知の差)。
+- 次: IIS の URL Rewrite のルール(web.config の `system.webServer/rewrite`)。IIS 側の正解の記録のため、このマシンの IIS に Microsoft の
+  URL Rewrite モジュール 2.1(rewrite_amd64_en-US.msi、Microsoft の署名を確認)を入れた(2026-10-15)。
+
+### MVC 5・Web API 2・Razor 3 は移植せず、Microsoft の DLL を使う(2026-10-14、ユーザーの決定)
+
+MVC 5・Web API 2・Web Pages 3・Razor 3 は .NET Framework 本体ではなく NuGet で配布される部品(ソースは AspNetWebStack、Apache 2.0)。
+マネージドの DLL だけでできていて、.NET Framework 向けにビルドされたものを .NET 10 がそのまま読み込み、移植版の System.Web の上で
+Windows・Linux とも動く(変換器はビルド後に DLL の参照を付け替えるだけ。MvcMovie、nopCommerce 3.90、be の Web API 2・ウィジェットで確認済み)。
+
+- **決定(案 A)**: 移植はしない。アプリが参照する Microsoft の DLL をそのまま使い、Microsoft が NuGet で出す修正版に追従する
+  (Microsoft のサポートは当面続く)。
+- 移植(案 B)を検討した理由と、今は採らない理由: ソースから作れば、.NET の制限に当たる箇所(yaf: Web API 2 の
+  `HttpControllerRouteHandler._instance`(static readonly)をアプリがリフレクションで書き換え、.NET では FieldAccessException)を直せ、
+  サポート終了後も自前で保守できる。サポート中は修正を Microsoft の DLL で受け取れるので急がない。サポート終了の時期が近づいたら
+  移植に着手する(取り込む版は AspNetWebStack v3.3.0 = MVC・Web API 5.3.0、Web Pages・Razor 3.3.0 を想定)。
+- 案 A で残ること:
+  - Microsoft の修正版は、移植版の System.Web の上で動くかを更新のたびに確認する(修正が System.Web の新しい内部に依存する場合がある)。
+  - Microsoft のサポートは .NET Framework・IIS の上での動作が対象。移植版の上での不具合は自分たちで扱う。
+  - .NET の制限に当たる箇所は、DLL の書き換え(AssemblyRetargeter の拡張)で個別に対応する。
+
+### 性能: 静的ファイルを IIS のカーネル キャッシュのように返す(2026-10-14、ユーザーの指示)
+
+前節の後も、静的ファイルは System.Web のパイプライン(モジュールのイベント、ワーカー スレッドへの受け渡し)を毎回通り、空のページと同じだけ
+かかっていた。IIS は静的ファイルの応答を http.sys のカーネル キャッシュに入れ、次からはパイプラインを通さずに返す。カーネル キャッシュ自体は
+Windows の http.sys のもので、Kestrel・Linux には無い。同じことをホストでする(StaticResponseCache、FrameworkOnCore.Web)。
+
+- **保存する応答**(http.sys・IIS の既定と同じ条件): IIS の静的ファイル ハンドラー(IisStaticFile)がファイル全体(256 KB まで)を匿名の
+  ユーザーに返した 200。要求は GET で、クエリ文字列・Range・条件付きヘッダー・Authorization・本文が無い。応答に Set-Cookie・Vary・
+  Content-Encoding・private / no-store の Cache-Control が無く、System.Web が `DisableKernelCache` を呼んでいない(元の仕組みを
+  ワーカー要求で受ける)。URL が `frequentHitThreshold`(既定 2 回)を `frequentHitTimePeriod`(既定 10 秒)の内に満たした時に保存する。
+- **返し方**: 保存した応答(実際に送ったヘッダーと本文。Date・長さ・接続のヘッダーは除く)を、System.Web の手前(WebFormsMiddleware)で
+  返す。IIS のカーネル キャッシュと同じく、モジュールも Global.asax のイベントも通らない。
+- **捨てる時**: アプリのファイルが変わった時(FileCache の監視)。web.config の `system.webServer/caching` の `enabled`・
+  `enableKernelCache` が false なら保存しない。特定のパスの `<location>` に caching があれば、読まずに全体で保存しない
+  (フォルダーの web.config の caching も読んでいない)。
+- キャプチャーは IisStaticFile がファイル全体を返すと決めた時に作る(応答はハンドラーの後にまとめて送られる)。初めは GET のすべての
+  要求で作っており、ページの応答まで毎回写していた。
+- **確かめたこと**: パイプラインを通った応答(1・2 回目)と保存した応答(3・4 回目)のヘッダーと本文が、Date 以外同じ。ファイルの
+  書き換え・削除が次の要求に反映される。クエリ文字列付き・条件付きの要求はパイプラインを通る。
+- **結果**(32 接続、静的ファイル Check.htm):
+
+| | IIS(カーネル キャッシュ) | 変換後 Windows | 変換後 Linux(コンテナ) |
+|---|---|---|---|
+| 前節(FileCache のみ) | 78,521 req/s | 46,855 | 32,433 |
+| 今回 | ― | **89,129** | **73,453** |
+
+- Linux の Events.aspx は今回の測定で 14,500〜19,700 req/s と、同じビルドでも回ごとに約 3 割ぶれた(監視を止めたビルドでも同じ範囲)。
+  変更による低下ではないと判断した(長い負荷でのノート PC の CPU の発熱とみている)。
+- 回帰: テスト Windows 4,402 件・Linux 4,400 件・SqlClientTests 204 件(キャプチャーを遅らせる前の版)、サンプル 18 件(Windows・Linux)、
+  関係するコントロール 24 件(Windows・Linux)、be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(既知の差)。
+
+### 性能: 静的ファイルが遅かった(2026-10-13、ユーザーの指示)
+
+変換後と IIS を比べた時(PipelineProbe、32 接続、Windows)、ページは変換後が速く(空のページ IIS 16,058・変換後 41,545 req/s、Events.aspx
+6,570・27,758。`compilation debug` を false にしても IIS は同じ)、**静的ファイル(Check.htm)だけ逆に IIS 78,521・変換後 3,854**だった。
+
+- **原因**(Windows で dotnet-trace の CPU のトレース): 計算ではなくファイル システムの呼び出しが 7 割。1 要求で、フォルダーかどうかを 3 回
+  (ホストの IIS の courtesy redirect、既定のドキュメント、IisStaticFile)、ファイルがあるか、web.config の時刻、さらにファイルを 2 回開いていた
+  (`TransmitFile` が長さのため、送る時にもう一度)。1 回は約 20〜30 µs(このマシン、1 本で計測)だが、同時に呼ぶと OS の中で詰まり、
+  32 接続で 1 要求あたり約 260 µs になった。ページの要求にはファイル システムの呼び出しは無い(Events.aspx のトレースで確認)。
+- IIS はファイルの状態と中身をメモリーに持ち(FileCacheModule、URI のキャッシュ。変更の通知で捨てる)、静的ファイルは http.sys の
+  カーネルのキャッシュからも返すので、ファイル システムにほとんど触れない。
+- **直したこと**(FileCache、FrameworkOnCore.Web。パッケージは 1.6.5-w2l.15 のまま作り直した): アプリのフォルダーの下のパスの状態(ファイルか
+  フォルダーか無いか、属性、長さ、時刻)、フォルダーのファイル名の一覧、256 KB までのファイルの中身(IIS の既定と同じ)を持つ。
+  FileSystemWatcher(下のフォルダーも)で何か変われば全部捨てる。調べている間に変更があった結果は持たない。件数 10,000・中身 64 MB まで。
+  監視できない時とアプリのフォルダーの外は毎回調べる。ホストの判定(`RedirectToFolder`、`IsLegacyRequest`)と `IisStaticFile`(web.config の
+  staticContent の読み取りもパスごとに 1 回)が使う。256 KB を超えるファイルは従来どおりファイルから送る。
+- **結果**: 静的ファイル Windows 3,854 → **46,855 req/s**、Linux(コンテナの中から)32,433(直す前の Linux は測っていない)。IIS(カーネルの
+  キャッシュ)は 78,521 で、まだ IIS が速い(残りは System.Web のパイプラインを通る分。空のページと同程度)。
+- 変更の反映: ファイルを作る・書き換える・消す、フォルダーを作る(301 と既定のドキュメント)を、Windows とコンテナ(inotify。casefs で
+  大文字小文字の違う名前も)で確かめた。反映は変更の通知が届いてから(IIS と同じ)。
+- 回帰: テスト Windows 4,402 件・Linux 4,400 件・SqlClientTests 204 件、サンプル 18 件(Windows・Linux)、関係するコントロール 24 件(Windows・
+  Linux)、be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(既知の差)。
+
+### 性能: 変換後の Linux が Windows より遅い理由(2026-10-13、ユーザーの質問)
+
+前節の値で、変換後の Linux は Windows の約 7 割(Events.aspx 32 接続: 19,598 対 27,552 req/s)。CPU は同じ(このマシンは論理 8 個、
+Docker Desktop の Linux の仮想マシンも 8 個)。System.Web を使わない最小の ASP.NET Core アプリ(`perf-baseline/`、`perf-baseline/load.ps1`。
+負荷は `perf-check.ps1` と同じ: bombardier、32 接続 15 秒、準備運転 5 秒、Linux はコンテナのネットワークの中から)で、System.Web の
+処理を 1 つずつ真似て比べた。
+
+| パス | 処理 | Windows | Linux(コンテナ) | 1 要求あたりの追加(Windows / Linux) |
+|---|---|---|---|---|
+| `/plain` | 6 KB を返すだけ | 78,890 req/s | 63,445 | 基準(12.7 µs / 15.8 µs) |
+| `/thread` | + 専用スレッドへの受け渡し(`WorkerThreads` と同じ: 待っているスレッドをセマフォで起こす) | 68,226 | 46,211 | +2.0 µs / **+5.9 µs** |
+| `/crypto` | + ViewState と同じ AES-CBC + HMACSHA256 を 2 回(鍵を設定したものをスレッドごとに保持) | 55,319 | 41,723 | +5.4 µs / **+8.2 µs** |
+| (前の版) | 計算だけ(SHA256 の繰り返し) | 11,367 | 12,013 | ほぼ同じ |
+
+- **計算そのものの速さは同じ**。差は OS とのやり取りと、スレッドの起こし方に出る。
+- 要求を受けて返すだけで Linux が約 2 割遅い(ソケット・システムコールが仮想マシンを通る)。ポートの差のうち約 3 µs。
+- **専用スレッドへの受け渡しが約 3 倍**。止まっているスレッドを起こすこと(スケジューラー、仮想 CPU の起床)が仮想マシンの中では
+  高い。Linux の p99 が大きいのも同じ理由とみている。ポートの差のうち約 4 µs。
+- **暗号化が約 1.5 倍**。Windows(CNG)は鍵のハンドルを保持したまま処理し、.NET の OpenSSL 版は一括の API でも 1 回ごとに暗号の
+  コンテキストを作る。ポートの差のうち約 3 µs。
+- 変換後の Events.aspx は 1 要求あたり Windows 約 36 µs、Linux 約 51 µs で、差は約 15 µs。上の 3 つで約 10 µs(約 3 分の 2)。
+  残り約 5 µs は切り分けていない(要求の中のロック、ファイルの確認、割り当てなどが仮想マシンの中で少しずつ高いと推測)。
+- **比べているのは、そのまま動く Windows と、仮想マシン(WSL2)の中の Linux**。Linux のサーバーで直接動かせば、スレッドの起こし方と
+  システムコールの差は大きく縮むはず(このマシンでは確かめられない)。Windows の値は回によって 2〜3 割ぶれる。
+- `/culture`(カルチャを考慮した文字列比較)も測ったが、Windows は日本語、コンテナは不変カルチャで条件が違い、比べていない
+  (Windows 18,588、Linux 48,821 req/s)。
+- 縮められそうな点(未着手): 専用スレッドへの受け渡しをやめて Kestrel のスレッドで System.Web を動かす(要求がスレッドを止めるので、
+  スレッド プールが足りなくならないかを負荷で確かめる必要がある。専用スレッドにした理由はそれ)。暗号化は .NET 側の実装で、効果は小さい。
+
+### 性能: ViewState の暗号化と GC の負担を減らした(2026-10-13、ユーザーの指示)
+
+前節の続き。`perf-check.ps1 -Diagnose`(Linux の実行中の GC の値を dotnet-counters で、終わった後のヒープとファイナライズ待ちを dotnet-dump で取る。
+`perf-counters.py` で集計)を足して調べた。dotnet-trace の「CPU 時間」は待っているスレッド(ファイナライザー、GC で止まったスレッド、セマフォ)も数える
+ので、決め手は req/s と GC の値にした。
+
+- **直す前**(PipelineProbe Events.aspx、Linux): 1 要求あたり約 141 KB を割り当て、gen0 35 回/秒・**gen1 25 回/秒**、GC の停止が時間の約 1 割。
+- 見つけて直したこと(FrameworkOnCore.Web。パッケージは 1.6.5-w2l.15 のまま作り直した):
+  - **応答のバッファーがプールに戻っていなかった**: `AspNetCoreWorkerRequest` が送信の終わりの通知(`SetEndOfSendNotification`)を実装しておらず、
+    HttpRuntime の `Request.Dispose`・`Response.Dispose` が呼ばれていなかった。応答のバッファー(ArrayPool の 32 KB)が毎回新しく確保され、
+    応答のキャッシュ依存の Dispose、大きな送信の一時ファイルの削除も行われていなかった。IIS と同じく要求の終わりに通知する。
+  - その結果見つかった既存の不具合: 出力キャッシュが保持するバッファー(`DisableRecycling`)まで、ポートの `HttpResponseBufferElement.Recycle`
+    がプールに返していた。キャッシュから返す WebResource.axd が 0 バイトになった(Content-Length の不一致。コントロールの比較の一括実行で
+    見つかった)。保持されたバッファーは返さない(ネイティブのバッファーと同じ)。
+  - **ViewState の暗号化**: ページの目的(ページの型・フォルダー・ViewStateUserKey)が要求ごとに作られ、毎回 SP800-108 で鍵を導出し、AES と
+    HMAC を毎回作って鍵を設定していた。導出した鍵を目的ごとに保持する(1,000 件まで。超えたら全部捨てる)。組み込みのアルゴリズム(AES・
+    3DES・DES、HMACSHA1/256/384/512)は鍵を設定したものをスレッドごとに保持し(128 件まで)、.NET の一括の CBC の API で使う。出力の形式
+    (IV || 暗号文 || 署名、CBC・PKCS7)は同じ。独自のアルゴリズム(`alg:`)は従来どおり。イベント検証などの SHA256 は一括の API(`SHA256.HashData`)。
+  - `ClientImpersonationContext`・`ApplicationImpersonationContext`(要求の各段階で作る)がファイナライザーに回っていた。トークンを保存した時だけ
+    ファイナライズする。
+  - ハンドラーの照合の正規表現を要求ごとに作っていた(`IntegratedModeConfiguration`)。パスごとに 1 回にした。`SimpleWorkerRequest` の
+    `Assembly.GetCallingAssembly()`(スタックをたどる)を、System.Web のロード コンテキストを直接使う形にした。各段階の `() => Context?.Response`
+    のクロージャを static のラムダにした。
+- **直した後**: 1 要求あたり約 44 KB、gen1 は 0 回/秒。同じマシン・32 接続 20 秒(IIS は前節の値。変えていない):
+
+| ページ | 接続数 | IIS(前節) | 変換後 Windows(前節 → 今回) | 変換後 Linux(前節 → 今回) |
+|---|---|---|---|---|
+| PipelineProbe Events.aspx | 32 | 6,585 req/s | 20,350 → 27,552 | 12,908 → 19,598 |
+| CompileProbe Dynamic.aspx | 32 | 6,206 | 16,738 → 20,730 | 12,042 → 15,169 |
+| PipelineProbe Events.aspx | 8 | 5,946 | 15,893 → 25,611 | 9,641 → 16,241 |
+| CompileProbe Dynamic.aspx | 8 | 5,400 | 14,710 → 19,791 | 9,225 → 14,145 |
+| SessionProbe Default.aspx | 32 | 608 | 793 → 840 | 727 → 739 |
+
+  Windows の値は回によって 2〜3 割ぶれる(同じ版で 20,177〜31,279)。SessionProbe はセッションの一覧が増え続けるページで、ほとんど変わらない。
+- 回帰: テスト Windows 4,402 件・Linux 4,400 件・SqlClientTests 204 件、サンプル 18 件(Windows・Linux)、関係するコントロール 24 件(Windows・
+  Linux)、be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(既知の差)。
+
+### 性能: 要求の処理の負担を減らした(2026-10-13、ユーザーの指示)
+
+`perf-check.ps1`(bombardier で同じ負荷: 32 接続 20 秒、準備運転 5 秒。Linux はアプリのコンテナのネットワークの中から負荷をかけ、Docker
+Desktop のポート転送を通さない。`-Trace` で dotnet-trace の CPU のトレース、`perf-frames.py` で集計)で測り、トレースで分かった負担を除いた。
+
+- **直す前**(PipelineProbe の Events.aspx): IIS 6,508 req/s、変換後 Windows 2,404、Linux(コンテナの中から)2,826。ポート転送は主因ではなかった。
+  Linux の CPU の内訳: 要求ごとのスレッドの起動(`Task.Factory.StartNew` の LongRunning)31〜34%、ファイナライザー 17%(要求ごとに作って
+  使わず捨てていた `AutoResetEvent`)、新しいスレッドのスレッド静的フィールドの初期化 9%、ASP.NET Core の要求ごとのログ(Information、
+  コンソール)約 10%、ロックの競合 12%(ほぼ上の 2 つ)、web.config の時刻の確認(要求ごと)3%。ページ自体は 5%。
+- 直したこと:
+  - **System.Web のワーカー スレッドを使い回す**(`WorkerThreads`。FrameworkOnCore.Web): IIS のワーカー プロセスのように専用のスレッド
+    (スレッド プールではない: 要求はスレッドを止め、Kestrel の I/O を完了させるのはスレッド プール)。空いているスレッドが無ければ新しく
+    作る(要求は他の要求を待たない)、1 分使われなければ終わる(プロセッサー数は残す)。要求の実行コンテキストで動かし、終わったら
+    スレッドの IllogicalCallContext を消す。待ち方は共有のセマフォ(スレッドごとのイベントで LIFO に渡す形も試したが、起こすのが遅く
+    3 回平均で 17,800 対 19,400 req/s)。
+  - 要求ごとの未使用の `AutoResetEvent` を消した。web.config の時刻の確認は 1 秒に 1 回まで(`IntegratedModeConfiguration`)。
+  - **変換器のホスト(Program.cs・Program.vb のテンプレート)**: `Microsoft.AspNetCore` のログを Warning 以上に(アプリの設定
+    `Logging:LogLevel:Microsoft.AspNetCore` があればそちら)。IIS は要求を自分のログ ファイルに書く。
+- **直した後**(同じマシン。IIS は Windows 11 の IIS: クライアントの OS は同時要求が 10 までに制限される):
+
+| ページ | 接続数 | IIS | 変換後 Windows | 変換後 Linux(コンテナ) |
+|---|---|---|---|---|
+| PipelineProbe Events.aspx | 32 | 6,585 req/s | 20,350 req/s | 12,908 req/s |
+| CompileProbe Dynamic.aspx(Repeater、ユーザーコントロール) | 32 | 6,206 | 16,738 | 12,042 |
+| PipelineProbe Events.aspx | 8(IIS の制限の内) | 5,946 | 15,893 | 9,641 |
+| CompileProbe Dynamic.aspx | 8 | 5,400 | 14,710 | 9,225 |
+| SessionProbe Default.aspx(要求ごとに新しいセッション、Global の一覧が増え続ける) | 32 | 608 | 793 | 727 |
+
+  Windows Server の IIS(制限なし)とは比べていない。Linux は Docker Desktop の Linux の仮想マシン(負荷のツールも同じ中)。
+- 回帰: テスト Windows 4,402 件・Linux 4,400 件・SqlClientTests 204 件、サンプル 18 件(Windows・Linux)、関係するコントロール 24 件(Windows・
+  Linux)、be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(既知の差)。
+
+### 動的コンパイル・ルーティング・サービス・同時アクセス・制限値の新旧比較(2026-10-12、ユーザーの指示)
+
+前回の残り(優先度中・低)を、サンプル単位の新旧比較(`sample-parity.ps1`)で確かめた。プローブを 6 つ足し、IIS 側に正解の無いもの(リバースプロキシ、
+負荷)は確認用のスクリプトにした。
+
+- `samples/CompileProbe`: App_Code、CodeFile のページ・ユーザーコントロール(web.config で登録)、`<%: %>`・`<%# %>`・`<%$ %>`、テーマとスキン
+  (ディレクティブ、PreInit、スタイルシート テーマ)、グローバル・ローカルのリソース、`culture="auto"` の Accept-Language(ja-JP、fr、de-DE)。
+- `samples/RoutingProbe`: `MapPageRoute`(既定値、制約、キャッチオール、DataTokens)、独自の IRouteHandler、`RouteValue`・`RouteUrl` 式、`GetRouteUrl`、
+  ルートの URL へのポストバック、`RedirectToRoute(Permanent)`、`RewritePath`、urlMappings。`Where.aspx` はリバースプロキシの確認用。
+- `samples/ServicesProbe`: ASMX の JSON(ScriptService、`__type`、セッション、エラー、GET)、SOAP 1.1・1.2(フォルト)、WSDL、`/js` の
+  プロキシ、ヘルプページ、ページメソッド、ScriptManager のプロキシからの呼び出し、アプリのコードの System.Web.Services.Description。
+- `samples/Toolkit20Probe`: Ajax Control Toolkit 20.1(FrameworkOnCore の Toolkit の版)の TabContainer、Accordion、ウォーターマーク、マスク、
+  カレンダー、NumericUpDown、ModalPopup、CollapsiblePanel、ConfirmButton、UpdatePanel。**4.1(nop の版)のページは、変換後(20.1)は DOM
+  が違う**(タブの見出し、CSS クラス、z-index など。版の違い)。ToolkitProbe は 4.1 の互換(ToolkitScriptManager)の確認のまま。
+- `samples/ConcurrencyProbe`: 同じセッションの同時要求(ブラウザーの並列 fetch): 書き込み同士は順番、読み取り専用同士は同時、書き込みと
+  読み取り専用は順番、セッションなしは並列。
+- `samples/LimitsProbe`: maxRequestLength(フォルダーごと)、IIS の要求フィルタリング(本文 30,000,000 バイト、クエリ 2,048)、フォームの
+  キーの数、http.sys のパスの区切りの長さ(260)、executionTimeout。
+- **結果: 6 つとも Windows・Linux とも全件一致**。既存のプローブ・サンプル 12 件も Windows・Linux とも一致(全 18 件)。
+- **見つけて直したポートの不具合**(FrameworkOnCore.Web、.Web.Services、.Configuration は変えず。パッケージは 1.6.5-w2l.15 のまま作り直した):
+  - **executionTimeout を超えた要求が終わらなかった**(debug="false" の時。既定 110 秒): 時間切れで取り消し状態になり、来ない Thread.Abort を
+    待ち続けた。.NET では中断の代わりに印を付け、次の段階(パイプライン、`Response.End`・`Flush`)で "Request timed out." にする(Page_Error と
+    HttpUnhandledException を通らないのも .NET Framework と同じ)。ページのコード自体は最後まで動く(止められない)。
+  - **ASMX のヘルプページが空**: 既定の設定(ヘルプページ)が「ASP.NET の中か」を `AppDomain.GetData(".appDomain")` で見ていて、ポートは
+    その値をロード コンテキストにしか置いていなかった。AppDomain にも置く(System.Configuration・Uri の設定、アプリのライブラリも同じ値を見る)。
+    ヘルプページ(`DefaultWsdlHelpGenerator.aspx`)は FrameworkOnCore 独自のものを書いて同梱し、App_Data(machine.config の場所)に書き出す。
+  - **ランタイムコンパイルで `ServiceDescription` などがあいまい**(CS0433): CoreWCF が依存する Microsoft の System.Web.Services.Description と
+    ポートの System.Web.Services が同じ型を持つ。コンパイラーに渡す参照からポートと重なる前者を外す。
+  - **IIS・http.sys がアプリの前で拒否するもの**: 本文が maxAllowedContentLength(既定 30,000,000)を超える(IIS は 413、ポートは Kestrel の例外が
+    アプリの 500、ブラウザーは送信中に切断)、クエリが maxQueryString(2,048)を超える(IIS は 404.15、ポートは ASP.NET の 400)、パスの区切りが
+    260 文字を超える(http.sys の 400、ポートは 500)。web.config の `requestFiltering/requestLimits` を読んで同じ状態で拒否し、Kestrel の本文の上限を
+    それに合わせる(大きな送信を許す設定のアプリ)。413 では本文を読み捨ててから閉じる。
+  - **IPv4 の接続元が `::ffff:172.19.0.3`**(Kestrel のデュアルモードのソケット): REMOTE_ADDR・UserHostAddress・IsLocal を IIS と同じ `172.19.0.3` に。
+- 変換器の部品の修正: **ICU に無いカルチャ(Accept-Language の未知の言語タグ)で 500**(Linux、カルチャのプロファイルあり): CultureIcu がその
+  カルチャの ICU リソースを作り、.NET の月名が短くなって 3 月の日付で ArgumentOutOfRange。ICU に無いカルチャは作らずに報告する。その書式は
+  ICU の既定ロケールのもの(.NET Framework は不変カルチャ)で、既知の差としてシナリオでは状態だけを比べる。
+- 仕組み: `sample-parity.ps1` に `cultures.txt`(このマシン=IIS 側で `capture-culture.ps1` を取り、`--culture-profile` で変換。Linux の ICU を
+  合わせる)。`Check.htm` に要求ヘッダー・メソッド・本文・本文の表示・並列。ParityTest は no-store で network idle にならないページを待つ。
+- リバースプロキシ(`proxy-check.ps1`、nginx のコンテナを前に置く): `ASPNETCORE_FORWARDEDHEADERS_ENABLED=true` で、Request.Url が https と
+  公開のホスト・ポート、IsSecureConnection が True、UserHostAddress がクライアント、絶対 URL のリダイレクトが https。無しでは http と
+  プロキシのアドレス(設計どおり)。ミドルウェアは X-Forwarded-For を使って消す(自分で読むアプリは空を見る。UserHostAddress は正しい)。
+- 負荷とメモリ(`load-check.ps1`、curl の並列。参考値): セッションを作るページ(SessionProbe、要求ごとに新しいセッション)とそうでないページ
+  (PipelineProbe Events.aspx)で、IIS・Windows・Linux ともエラー 0。最初の応答は IIS 約 0.5 秒、ポート約 3〜4 秒(Roslyn のコンパイル)。
+  速さは IIS の約 6〜9 割(Windows)、メモリは約 2 倍(約 220 MB、IIS 約 90 MB)。セッションなしのページは 6 回(各 5,000 件)でメモリが増えない。
+- 回帰: テスト Windows 4,402 件・Linux 4,400 件・SqlClientTests 204 件、サンプル 18 件(Windows・Linux)、関係するコントロール 24 件(Windows・
+  Linux)、be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(既知の差)。
+
+### 認証・要求処理・キャッシュの新旧比較(2026-10-12、ユーザーの指示)
+
+コントロールの外側を、サンプル単位の新旧比較(`sample-parity.ps1`、IIS の .NET Framework 4.8 で記録して変換後を Windows・Linux で比べる)で確かめた。
+プローブを 3 つ足した。
+
+- `samples/AuthProbe`: フォーム認証と `<location>` の `<authorization>`、SQL Server の Membership・Role・Profile(aspnet_regsql のスキーマ)、
+  Login コントロール(ReturnUrl への戻り)、チケット・ロール・プロファイルの保存、パスワード変更、ロックアウト、サインアウト、永続チケット。
+  要求の検証(フォーム・クエリ文字列のマークアップ、`ValidateRequest="false"`、`Request.Unvalidated`)、ViewState の MAC、イベント検証。
+- `samples/PipelineProbe`: Global.asax・`system.webServer/modules` のモジュール・ページのイベント順(Render の後も次の要求で)、
+  `system.webServer/handlers` のハンドラー(同期・`HttpTaskAsyncHandler`)、async ページ(async void の Page_Load、`RegisterAsyncTask`)、
+  `Server.Transfer`(フォームあり・なし)・`Server.Execute`・`Response.End`、customErrors(例外、403・404 の HttpException、無いページ)、
+  `Application_Error`・`Page_Error` での処理、応答の状態とヘッダー。
+- `samples/CachingProbe`: 出力キャッシュ(VaryByParam、プロファイル、Substitution、`RemoveOutputCacheItem`、`AddCacheItemDependency`)、
+  OutputCache の Location とコードのキャッシュ ポリシーのヘッダー、Cache API(絶対・スライディングの期限、キー・ファイルの依存、Add、Remove、
+  削除のコールバック)、静的ファイルのヘッダー(`staticContent/clientCache`)と種類(`mimeMap`、IIS が知る種類・知らない種類)、配らないフォルダー。
+- 仕組み: `sample-parity.ps1` に `database.json`(実行ごとに SQL Server Express にデータベースを作り直し、aspnet_regsql のスキーマを入れる。
+  IIS のプールに権限、コンテナには host.docker.internal と `_verify\sql-login.txt` のログインで `SQLCONNSTR_`)。応答の状態とヘッダーを
+  ブラウザーの fetch で書き出す `Check.htm`(日付など実行ごとに変わる値は有無だけ)。ParityTest は no-store の応答を fetch するページで
+  network idle にならない(Edge)時も読み込みを待って続ける。WebControlsParity の値の書き出しは今日の日付を `{today}` にする
+  (Calendar の `TodaysDate`。記録した日と違う日に差が出ていた)。
+- **結果: 3 つとも Windows・Linux とも全件一致**(AuthProbe 22 スナップショット・リンク 9 件、PipelineProbe 18・20 件、CachingProbe 18)。
+- **見つけて直したポートの不具合**(FrameworkOnCore.Web。パッケージは 1.6.5-w2l.15 のまま作り直した。公開はしていない):
+  - **統合モードのイベント**: `MapRequestHandler`・`LogRequest`・`PostLogRequest` が発生しなかった(ポートはクラシックの手順で動き、モジュールが
+    登録すると PlatformNotSupportedException)。IIS の統合モードと同じ位置で発生させる(LogRequest は CompleteRequest の時も)。
+  - **await の後の `HttpContext.Current` が null**(HttpTaskAsyncHandler など)。.NET Framework は IllogicalCallContext(スレッドのもの、流れない)に
+    置き、await の後は ASP.NET の同期コンテキストが設定し直す。ポートは AsyncLocal の共有の辞書に置いていて、要求がスレッドを離れる時に書いた
+    null が await の後に見えていた。`CallContext.HostContext` と `SetData` を .NET Framework と同じくスレッドのものにした(`LogicalSetData` は流れる)。
+  - **静的ファイルが IIS の静的ファイル モジュールと違った**(ASP.NET の StaticFileHandler の動き): `Cache-Control: public` と 1 日先の Expires、
+    `X-AspNet-Version`、ETag・Last-Modified・Accept-Ranges なし(ホストが捨てていた)、304 なし、`staticContent` の `mimeMap`・`clientCache` を
+    読まない、MIME の種類が違う(.json が application/octet-stream、IIS が知らない .webp・.mjs・.webmanifest を配る)。IIS 10 の MIME の表と
+    web.config(フォルダーの web.config、`<location>`)の `staticContent` で返す `IisStaticFile` にした。
+  - **無い静的ファイルが customErrors の 404 ページへ**(IIS は自分の 404。Application_Error も起きない)。要求フィルタリングの 404(web.config、
+    App_Data、bin)は本文なしだった。IIS の 404 ページを返す。
+  - **HttpUnhandledException の既定のメッセージ**: .NET の ExternalException は null のメッセージに独自の文("External component has thrown an
+    exception.")を入れる。.NET Framework と同じ "Exception of type '...' was thrown." を返す。
+  - **ファイル依存のキャッシュ項目が、変わっていないのに消えた**(タイミング): FileSystemWatcher の通知は処理した時刻しか持たず、依存を作る直前の
+    書き込みの通知が「監視開始の後の変更」になっていた。監視を始めた時のファイルの属性と同じなら変更なしとする。
+  - `SuppressDefaultCacheControlHeader` がクラシックの手順と HttpCachePolicy の既定で効いていなかった(統合モードと同じく効かせる)。
+- IIS 側で分かったこと(差分ではない): IIS の実行時コンパイルは C# 5(ページの中の式本体のメンバーはエラー)。Duration だけの OutputCache の
+  ページはブラウザーがキャッシュする(`max-age`)ので、サーバーの無効化を見るページには Substitution を置いた。削除のコールバックの順は
+  Hashtable の順(.NET Framework でもオブジェクトのハッシュ次第)なので並べて比べる。
+- 回帰: テスト Windows 4,402 件・Linux 4,400 件(SQL Server あり)・SqlClientTests 204 件、既存のサンプル 9 件(Windows・Linux)、
+  関係するコントロール 24 件(Windows・Linux)、be Windows 5/5・Linux 5/5、wt Windows 6/8・Linux 5/8(既知の差)。
 
 ### 変換規則の穴(convert-project.ps1 を直した)
 

@@ -1,0 +1,658 @@
+{
+  "TextBox.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "TextBox.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "TextBox.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'TextBox' cannot have children of type 'String'.\""
+  ],
+  "TextBox.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "TextBox.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "TextBox.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "TextBox.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "TextBox.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.ClientID": [
+    "Control.ClientID = \"txtName\""
+  ],
+  "TextBox.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "TextBox.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "TextBox.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "TextBox.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "TextBox.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "TextBox.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "TextBox.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "TextBox.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "TextBox.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "TextBox.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "TextBox.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "TextBox.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "TextBox.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "TextBox.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "TextBox.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"txtName\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "TextBox.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.ID": [
+    "Control.ID = \"txtName\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "TextBox.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "TextBox.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "TextBox.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "TextBox.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "TextBox.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "TextBox.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "TextBox.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "TextBox.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "TextBox.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "TextBox.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "TextBox.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "TextBox.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "TextBox.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "TextBox.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "TextBox.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <input name=\"txtName\" type=\"text\" value=\"Taro\" id=\"txtName\" />",
+    "Control.Render(HtmlTextWriter) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <input name=\"txtName\" type=\"text\" value=\"Taro\" id=\"txtName\" />",
+    "Control.RenderControl(HtmlTextWriter) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <input name=\"txtName\" type=\"text\" value=\"Taro\" id=\"txtName\" />",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=true; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "TextBox.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "TextBox.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "TextBox.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "TextBox.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "TextBox.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.Control.UniqueID": [
+    "Control.UniqueID = \"txtName\""
+  ],
+  "TextBox.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "TextBox.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "TextBox.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [Text=\"Taro\"]"
+  ],
+  "TextBox.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "TextBox.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "TextBox.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "TextBox.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=true; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "TextBox.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "TextBox.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "TextBox.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "TextBox.Api.IEditableTextControl.TextChanged": [
+    "IEditableTextControl.TextChanged = \"added and removed\""
+  ],
+  "TextBox.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "TextBox.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "TextBox.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'TextBox' cannot have children of type 'String'.\""
+  ],
+  "TextBox.Api.IPostBackDataHandler.LoadPostData": [
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) = \"true\"",
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Hanako\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.IPostBackDataHandler.RaisePostDataChangedEvent": [
+    "IPostBackDataHandler.RaisePostDataChangedEvent = \"ok\"",
+    "IPostBackDataHandler.RaisePostDataChangedEvent after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.ITextControl.Text": [
+    "ITextControl.Text = \"Taro\"",
+    "ITextControl.Text set = \"Abc 123\""
+  ],
+  "TextBox.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.TextBox.#ctor": [
+    "TextBox.#ctor = TextBox# {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.TextBox.AddAttributesToRender": [
+    "TextBox.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "TextBox.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "TextBox.AddAttributesToRender(HtmlTextWriter) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.TextBox.AddParsedSubObject": [
+    "TextBox.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'TextBox' cannot have children of type 'String'.\""
+  ],
+  "TextBox.Api.WebControls.TextBox.AutoCompleteType": [
+    "TextBox.AutoCompleteType = \"AutoCompleteType.None\"",
+    "TextBox.AutoCompleteType set = \"AutoCompleteType.Disabled\""
+  ],
+  "TextBox.Api.WebControls.TextBox.AutoPostBack": [
+    "TextBox.AutoPostBack = \"false\"",
+    "TextBox.AutoPostBack set = \"true\""
+  ],
+  "TextBox.Api.WebControls.TextBox.CausesValidation": [
+    "TextBox.CausesValidation = \"false\"",
+    "TextBox.CausesValidation set = \"true\""
+  ],
+  "TextBox.Api.WebControls.TextBox.Columns": [
+    "TextBox.Columns = \"Int32 0\"",
+    "TextBox.Columns set = \"Int32 1\""
+  ],
+  "TextBox.Api.WebControls.TextBox.LoadPostData": [
+    "TextBox.LoadPostData(String,NameValueCollection) = \"true\"",
+    "TextBox.LoadPostData(String,NameValueCollection) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Hanako\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.TextBox.MaxLength": [
+    "TextBox.MaxLength = \"Int32 0\"",
+    "TextBox.MaxLength set = \"Int32 1\""
+  ],
+  "TextBox.Api.WebControls.TextBox.OnPreRender": [
+    "TextBox.OnPreRender(EventArgs) = \"ok\"",
+    "TextBox.OnPreRender(EventArgs) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.TextBox.OnTextChanged": [
+    "TextBox.OnTextChanged(EventArgs) = \"ok\"",
+    "TextBox.OnTextChanged(EventArgs) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.TextBox.RaisePostDataChangedEvent": [
+    "TextBox.RaisePostDataChangedEvent = \"ok\"",
+    "TextBox.RaisePostDataChangedEvent after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.TextBox.ReadOnly": [
+    "TextBox.ReadOnly = \"false\"",
+    "TextBox.ReadOnly set = \"true\""
+  ],
+  "TextBox.Api.WebControls.TextBox.Render": [
+    "TextBox.Render(HtmlTextWriter) = \"ok\"",
+    "TextBox.Render(HtmlTextWriter) writer:",
+    "  | <input name=\"txtName\" type=\"text\" value=\"Taro\" id=\"txtName\" />",
+    "TextBox.Render(HtmlTextWriter) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.TextBox.Rows": [
+    "TextBox.Rows = \"Int32 0\"",
+    "TextBox.Rows set = \"Int32 1\""
+  ],
+  "TextBox.Api.WebControls.TextBox.SaveViewState": [
+    "TextBox.SaveViewState = null",
+    "TextBox.SaveViewState after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.TextBox.TagKey": [
+    "TextBox.TagKey = \"HtmlTextWriterTag.Input\""
+  ],
+  "TextBox.Api.WebControls.TextBox.Text": [
+    "TextBox.Text = \"Taro\"",
+    "TextBox.Text set = \"Abc 123\""
+  ],
+  "TextBox.Api.WebControls.TextBox.TextChanged": [
+    "TextBox.TextChanged = \"added and removed\""
+  ],
+  "TextBox.Api.WebControls.TextBox.TextMode": [
+    "TextBox.TextMode = \"TextBoxMode.SingleLine\"",
+    "TextBox.TextMode set = \"TextBoxMode.MultiLine\""
+  ],
+  "TextBox.Api.WebControls.TextBox.ValidationGroup": [
+    "TextBox.ValidationGroup = \"\"",
+    "TextBox.ValidationGroup set = \"Abc 123\""
+  ],
+  "TextBox.Api.WebControls.TextBox.Wrap": [
+    "TextBox.Wrap = \"true\"",
+    "TextBox.Wrap set = \"true\""
+  ],
+  "TextBox.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "TextBox.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "TextBox.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=true; CssClass=\"merged\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "TextBox.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "TextBox.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "TextBox.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "TextBox.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "TextBox.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "TextBox.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "TextBox.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}",
+    "WebControl.CreateControlStyle after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "TextBox.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "TextBox.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "TextBox.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "TextBox.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "TextBox.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "TextBox.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "TextBox.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "TextBox.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "TextBox.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "TextBox.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=true; CssClass=\"merged\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"ok\"",
+    "WebControl.Render(HtmlTextWriter) writer:",
+    "  | <input name=\"txtName\" type=\"text\" value=\"Taro\" id=\"txtName\" />",
+    "WebControl.Render(HtmlTextWriter) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <input name=\"txtName\" type=\"text\" value=\"Taro\" id=\"txtName\" />",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.RenderContents(HtmlTextWriter) after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "TextBox.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "TextBox.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "TextBox.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"true\""
+  ],
+  "TextBox.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "TextBox.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Input\""
+  ],
+  "TextBox.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"input\""
+  ],
+  "TextBox.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "TextBox.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = TextBox#txtName {AccessKey=\"\"; AutoCompleteType=None; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"txtName\"; ClientIDMode=Inherit; Columns=Int32 0; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"txtName\"; MaxLength=Int32 0; ReadOnly=false; Rows=Int32 0; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; Text=\"Taro\"; TextMode=SingleLine; ToolTip=\"\"; UniqueID=\"txtName\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "TextBox.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ]
+}

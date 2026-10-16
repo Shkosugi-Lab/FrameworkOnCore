@@ -1,0 +1,9 @@
+{
+  "_comment": "Requests over the limits (Limits.htm, in order): the request's length (maxRequestLength, a folder's own, IIS's request filtering's 30,000,000 bytes), the form's keys (1,000), the query's and the path's length, a page longer than executionTimeout. Each one's status and the start of its text.",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/Limits.htm" },
+    { "action": "waitMs", "ms": 45000 },
+    { "action": "snapshot", "name": "limits-each request's answer" }
+  ]
+}

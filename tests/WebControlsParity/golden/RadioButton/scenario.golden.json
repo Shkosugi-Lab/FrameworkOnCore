@@ -1,0 +1,4926 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "RadioButton [render][databind][dynamic] first request",
+      "Path": "/basicsscenario",
+      "Title": "Basic controls scenario",
+      "Text": [
+        "Label: Plain bound Associated set in code set in code, no view state",
+        "Literal: <b>encoded</b> pass bound set in code set in code, no view state",
+        "CheckBox: Plain Auto Auto validates g1 Disabled Bound No view state",
+        "RadioButton: Small Large Auto A Auto B Auto validates g1 Bound",
+        "HiddenField:",
+        "LinkButton: Submit link Cancelled link Validate g1 by a link Disabled link bound Link to the target",
+        "HyperLink: Go to the target bound Disabled hyperlink",
+        "Image:",
+        "ImageButton:",
+        "Group",
+        "In a panel:",
+        "bound",
+        "Bound panel",
+        "Default link: Other link Default link",
+        "Default image:",
+        "PlaceHolder: Created in a place holder: bound",
+        "Dynamic: dynamic labeldynamic literalDynamicDynamicDynamic linkdynamic hyperlink",
+        "In a dynamic panel",
+        "Pen Pick Pen Bag Pick Bag",
+        "Taro Flag Choice",
+        "Required (g1, server): Cross-page:",
+        "Request 1: IsPostBack=False",
+        "State lblPlain Text=\"Plain\"",
+        "State lblBound Text=\"bound\"",
+        "State lblCode Text=\"set in code\"",
+        "State lblNoViewState Text=\"set in code, no view state\"",
+        "State lblHidden Text=\"set while hidden\" (hidden)",
+        "State litBound Text=\"bound\"",
+        "State litCode Text=\"set in code\"",
+        "State litNoViewState Text=\"set in code, no view state\"",
+        "State litHidden Text=\"set while hidden\" (hidden)",
+        "State chkPlain Checked=False",
+        "State chkAuto Checked=False",
+        "State chkCauses Checked=False",
+        "State chkDisabled Checked=True",
+        "State chkBound Checked=True",
+        "State chkNoViewState Checked=True",
+        "State chkHidden Checked=True (hidden)",
+        "State rdoSmall Checked=False",
+        "State rdoLarge Checked=False",
+        "State rdoAutoA Checked=False",
+        "State rdoAutoB Checked=False",
+        "State rdoCauses Checked=False",
+        "State rdoBound Checked=True",
+        "State rdoHidden Checked=True (hidden)",
+        "State hidPlain Value=\"initial\"",
+        "State hidBound Value=\"bound\"",
+        "State hidNoViewState Value=\"set in code, no view state\"",
+        "State hidHidden Value=\"set while hidden\" (hidden)",
+        "State lnkBound Text=\"bound\"",
+        "State lnkHidden Text=\"Hidden link (set while hidden)\" (hidden)",
+        "State hypBound Text=\"bound\" NavigateUrl=\"~/ButtonTarget.aspx?id=7\"",
+        "State hypHidden Text=\"Hidden hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx?hidden=1\" (hidden)",
+        "State imgBound AlternateText=\"bound\"",
+        "State imgCode AlternateText=\"set in code\"",
+        "State imgHidden AlternateText=\"set while hidden\" (hidden)",
+        "State ibtnBound AlternateText=\"bound\"",
+        "State ibtnHidden AlternateText=\"Hidden image (set while hidden)\" (hidden)",
+        "State txtInPanel Text=\"\"",
+        "State txtInHiddenPanel Text=\"set while hidden\" (hidden)",
+        "State txtInHolder Text=\"\"",
+        "State lblInHiddenHolder Text=\"set while hidden\" (hidden)",
+        "State litInBoundHolder Text=\"bound\"",
+        "State lblDynamic Text=\"dynamic label\"",
+        "State litDynamic Text=\"dynamic literal\"",
+        "State chkDynamic Checked=False",
+        "State rdoDynamic Checked=False",
+        "State hidDynamic Value=\"dynamic\"",
+        "State lnkDynamic Text=\"Dynamic link\"",
+        "State hypDynamic Text=\"dynamic hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx\"",
+        "State imgDynamic AlternateText=\"dynamic image\"",
+        "State ibtnDynamic AlternateText=\"Dynamic image\""
+      ],
+      "Tables": [
+        [
+          [
+            "Taro Flag Choice"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtAssoc": "",
+        "chkPlain": "false",
+        "chkAuto": "false",
+        "chkCauses": "false",
+        "chkDisabled": "true",
+        "chkBound": "true",
+        "chkNoViewState": "true",
+        "rdoSmall": "rdoSmall",
+        "rdoLarge": "rdoLarge",
+        "rdoAutoA": "rdoAutoA",
+        "rdoAutoB": "rdoAutoB",
+        "rdoCauses": "rdoCauses",
+        "rdoBound": "rdoBound",
+        "ibtnGo": "",
+        "ibtnConfirmNo": "",
+        "ibtnValidate": "",
+        "ibtnBound": "",
+        "ibtnCross": "",
+        "txtInPanel": "",
+        "txtDefaultLink": "",
+        "txtDefaultImage": "",
+        "ibtnDefault": "",
+        "txtInHolder": "",
+        "chkDynamic": "false",
+        "rdoDynamic": "rdoDynamic",
+        "ibtnDynamic": "",
+        "rptItems_ibtnPick_0": "",
+        "rptItems_ibtnPick_1": "",
+        "fvBasics_chkBind": "true",
+        "fvBasics_rdoBind": "rdoBind",
+        "txtRequired": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "lblPlain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAssoc": {
+          "Tag": "label",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtAssoc": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblNoViewState": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "chkBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoSmall": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoLarge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoA": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoB": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkSubmit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkConfirmNo": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkValidate": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "lnkBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCross": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypTarget": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypImage": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "imgPlain": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "Logo"
+          },
+          "Style": {}
+        },
+        "imgBound": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "imgCode": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set in code"
+          },
+          "Style": {}
+        },
+        "ibtnGo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Go"
+          },
+          "Style": {}
+        },
+        "ibtnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Cancelled image"
+          },
+          "Style": {}
+        },
+        "ibtnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Validate g1 by an image"
+          },
+          "Style": {}
+        },
+        "ibtnBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "ibtnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image to the target"
+          },
+          "Style": {}
+        },
+        "pnlGroup": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pnlBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlDefaultLink": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultLink": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lnkOther": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDefault": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlDefaultImage": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultImage": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ibtnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Default image"
+          },
+          "Style": {}
+        },
+        "txtInHolder": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgDynamic": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "dynamic image"
+          },
+          "Style": {}
+        },
+        "ibtnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Dynamic image"
+          },
+          "Style": {}
+        },
+        "pnlDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblInDynamicPanel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblItem_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Pen"
+          },
+          "Style": {}
+        },
+        "rptItems_lblItem_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Bag"
+          },
+          "Style": {}
+        },
+        "fvBasics": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvBasics_lblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvBasics_chkBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvBasics_rdoBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvBasics_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "RadioButton [postdata][change][dynamic] radios chosen",
+      "Path": "/basicsscenario",
+      "Title": "Basic controls scenario",
+      "Text": [
+        "Label: Plain bound Associated set in code",
+        "Literal: <b>encoded</b> pass bound set in code",
+        "CheckBox: Plain Auto Auto validates g1 Disabled Bound No view state",
+        "RadioButton: Small Large Auto A Auto B Auto validates g1 Bound",
+        "HiddenField:",
+        "LinkButton: Submit link Cancelled link Validate g1 by a link Disabled link bound Link to the target",
+        "HyperLink: Go to the target bound Disabled hyperlink",
+        "Image:",
+        "ImageButton:",
+        "Group",
+        "In a panel:",
+        "bound",
+        "Bound panel",
+        "Default link: Other link Default link",
+        "Default image:",
+        "PlaceHolder: Created in a place holder: bound",
+        "Dynamic: dynamic labeldynamic literalDynamicDynamicDynamic linkdynamic hyperlink",
+        "In a dynamic panel",
+        "Pen Pick Pen Bag Pick Bag",
+        "Taro Flag Choice",
+        "Required (g1, server): Cross-page:",
+        "Request 2: IsPostBack=True",
+        "Changed chkNoViewState Checked=True",
+        "Changed hidNoViewState Value=\"set in code, no view state\"",
+        "Changed rdoLarge Checked=True",
+        "Changed rdoDynamic Checked=True",
+        "IsValid: (not validated)",
+        "State lblPlain Text=\"Plain\"",
+        "State lblBound Text=\"bound\"",
+        "State lblCode Text=\"set in code\"",
+        "State lblNoViewState Text=\"\"",
+        "State lblHidden Text=\"set while hidden\" (hidden)",
+        "State litBound Text=\"bound\"",
+        "State litCode Text=\"set in code\"",
+        "State litNoViewState Text=\"\"",
+        "State litHidden Text=\"set while hidden\" (hidden)",
+        "State chkPlain Checked=False",
+        "State chkAuto Checked=False",
+        "State chkCauses Checked=False",
+        "State chkDisabled Checked=True",
+        "State chkBound Checked=True",
+        "State chkNoViewState Checked=True",
+        "State chkHidden Checked=True (hidden)",
+        "State rdoSmall Checked=False",
+        "State rdoLarge Checked=True",
+        "State rdoAutoA Checked=False",
+        "State rdoAutoB Checked=False",
+        "State rdoCauses Checked=False",
+        "State rdoBound Checked=True",
+        "State rdoHidden Checked=True (hidden)",
+        "State hidPlain Value=\"initial\"",
+        "State hidBound Value=\"bound\"",
+        "State hidNoViewState Value=\"set in code, no view state\"",
+        "State hidHidden Value=\"set while hidden\" (hidden)",
+        "State lnkBound Text=\"bound\"",
+        "State lnkHidden Text=\"Hidden link (set while hidden)\" (hidden)",
+        "State hypBound Text=\"bound\" NavigateUrl=\"~/ButtonTarget.aspx?id=7\"",
+        "State hypHidden Text=\"Hidden hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx?hidden=1\" (hidden)",
+        "State imgBound AlternateText=\"bound\"",
+        "State imgCode AlternateText=\"set in code\"",
+        "State imgHidden AlternateText=\"set while hidden\" (hidden)",
+        "State ibtnBound AlternateText=\"bound\"",
+        "State ibtnHidden AlternateText=\"Hidden image (set while hidden)\" (hidden)",
+        "State txtInPanel Text=\"\"",
+        "State txtInHiddenPanel Text=\"set while hidden\" (hidden)",
+        "State txtInHolder Text=\"\"",
+        "State lblInHiddenHolder Text=\"set while hidden\" (hidden)",
+        "State litInBoundHolder Text=\"bound\"",
+        "State lblDynamic Text=\"dynamic label\"",
+        "State litDynamic Text=\"dynamic literal\"",
+        "State chkDynamic Checked=False",
+        "State rdoDynamic Checked=True",
+        "State hidDynamic Value=\"dynamic\"",
+        "State lnkDynamic Text=\"Dynamic link\"",
+        "State hypDynamic Text=\"dynamic hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx\"",
+        "State imgDynamic AlternateText=\"dynamic image\"",
+        "State ibtnDynamic AlternateText=\"Dynamic image\""
+      ],
+      "Tables": [
+        [
+          [
+            "Taro Flag Choice"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtAssoc": "",
+        "chkPlain": "false",
+        "chkAuto": "false",
+        "chkCauses": "false",
+        "chkDisabled": "true",
+        "chkBound": "true",
+        "chkNoViewState": "true",
+        "rdoSmall": "rdoSmall",
+        "rdoLarge": "rdoLarge",
+        "rdoAutoA": "rdoAutoA",
+        "rdoAutoB": "rdoAutoB",
+        "rdoCauses": "rdoCauses",
+        "rdoBound": "rdoBound",
+        "ibtnGo": "",
+        "ibtnConfirmNo": "",
+        "ibtnValidate": "",
+        "ibtnBound": "",
+        "ibtnCross": "",
+        "txtInPanel": "",
+        "txtDefaultLink": "",
+        "txtDefaultImage": "",
+        "ibtnDefault": "",
+        "txtInHolder": "",
+        "chkDynamic": "false",
+        "rdoDynamic": "rdoDynamic",
+        "ibtnDynamic": "",
+        "rptItems_ibtnPick_0": "",
+        "rptItems_ibtnPick_1": "",
+        "fvBasics_chkBind": "true",
+        "fvBasics_rdoBind": "rdoBind",
+        "txtRequired": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "lblPlain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAssoc": {
+          "Tag": "label",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtAssoc": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblNoViewState": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "chkBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoSmall": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoLarge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoA": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoB": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkSubmit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkConfirmNo": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkValidate": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "lnkBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCross": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypTarget": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypImage": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "imgPlain": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "Logo"
+          },
+          "Style": {}
+        },
+        "imgBound": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "imgCode": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set in code"
+          },
+          "Style": {}
+        },
+        "ibtnGo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Go"
+          },
+          "Style": {}
+        },
+        "ibtnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Cancelled image"
+          },
+          "Style": {}
+        },
+        "ibtnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Validate g1 by an image"
+          },
+          "Style": {}
+        },
+        "ibtnBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "ibtnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image to the target"
+          },
+          "Style": {}
+        },
+        "pnlGroup": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pnlBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlDefaultLink": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultLink": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lnkOther": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDefault": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlDefaultImage": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultImage": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ibtnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Default image"
+          },
+          "Style": {}
+        },
+        "txtInHolder": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgDynamic": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "dynamic image"
+          },
+          "Style": {}
+        },
+        "ibtnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Dynamic image"
+          },
+          "Style": {}
+        },
+        "pnlDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblInDynamicPanel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblItem_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Pen"
+          },
+          "Style": {}
+        },
+        "rptItems_lblItem_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Bag"
+          },
+          "Style": {}
+        },
+        "fvBasics": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvBasics_lblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvBasics_chkBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvBasics_rdoBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvBasics_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "RadioButton [viewstate][change] posted again unchanged",
+      "Path": "/basicsscenario",
+      "Title": "Basic controls scenario",
+      "Text": [
+        "Label: Plain bound Associated set in code",
+        "Literal: <b>encoded</b> pass bound set in code",
+        "CheckBox: Plain Auto Auto validates g1 Disabled Bound No view state",
+        "RadioButton: Small Large Auto A Auto B Auto validates g1 Bound",
+        "HiddenField:",
+        "LinkButton: Submit link Cancelled link Validate g1 by a link Disabled link bound Link to the target",
+        "HyperLink: Go to the target bound Disabled hyperlink",
+        "Image:",
+        "ImageButton:",
+        "Group",
+        "In a panel:",
+        "bound",
+        "Bound panel",
+        "Default link: Other link Default link",
+        "Default image:",
+        "PlaceHolder: Created in a place holder: bound",
+        "Dynamic: dynamic labeldynamic literalDynamicDynamicDynamic linkdynamic hyperlink",
+        "In a dynamic panel",
+        "Pen Pick Pen Bag Pick Bag",
+        "Taro Flag Choice",
+        "Required (g1, server): Cross-page:",
+        "Request 3: IsPostBack=True",
+        "Changed chkNoViewState Checked=True",
+        "Changed hidNoViewState Value=\"set in code, no view state\"",
+        "IsValid: (not validated)",
+        "State lblPlain Text=\"Plain\"",
+        "State lblBound Text=\"bound\"",
+        "State lblCode Text=\"set in code\"",
+        "State lblNoViewState Text=\"\"",
+        "State lblHidden Text=\"set while hidden\" (hidden)",
+        "State litBound Text=\"bound\"",
+        "State litCode Text=\"set in code\"",
+        "State litNoViewState Text=\"\"",
+        "State litHidden Text=\"set while hidden\" (hidden)",
+        "State chkPlain Checked=False",
+        "State chkAuto Checked=False",
+        "State chkCauses Checked=False",
+        "State chkDisabled Checked=True",
+        "State chkBound Checked=True",
+        "State chkNoViewState Checked=True",
+        "State chkHidden Checked=True (hidden)",
+        "State rdoSmall Checked=False",
+        "State rdoLarge Checked=True",
+        "State rdoAutoA Checked=False",
+        "State rdoAutoB Checked=False",
+        "State rdoCauses Checked=False",
+        "State rdoBound Checked=True",
+        "State rdoHidden Checked=True (hidden)",
+        "State hidPlain Value=\"initial\"",
+        "State hidBound Value=\"bound\"",
+        "State hidNoViewState Value=\"set in code, no view state\"",
+        "State hidHidden Value=\"set while hidden\" (hidden)",
+        "State lnkBound Text=\"bound\"",
+        "State lnkHidden Text=\"Hidden link (set while hidden)\" (hidden)",
+        "State hypBound Text=\"bound\" NavigateUrl=\"~/ButtonTarget.aspx?id=7\"",
+        "State hypHidden Text=\"Hidden hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx?hidden=1\" (hidden)",
+        "State imgBound AlternateText=\"bound\"",
+        "State imgCode AlternateText=\"set in code\"",
+        "State imgHidden AlternateText=\"set while hidden\" (hidden)",
+        "State ibtnBound AlternateText=\"bound\"",
+        "State ibtnHidden AlternateText=\"Hidden image (set while hidden)\" (hidden)",
+        "State txtInPanel Text=\"\"",
+        "State txtInHiddenPanel Text=\"set while hidden\" (hidden)",
+        "State txtInHolder Text=\"\"",
+        "State lblInHiddenHolder Text=\"set while hidden\" (hidden)",
+        "State litInBoundHolder Text=\"bound\"",
+        "State lblDynamic Text=\"dynamic label\"",
+        "State litDynamic Text=\"dynamic literal\"",
+        "State chkDynamic Checked=False",
+        "State rdoDynamic Checked=True",
+        "State hidDynamic Value=\"dynamic\"",
+        "State lnkDynamic Text=\"Dynamic link\"",
+        "State hypDynamic Text=\"dynamic hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx\"",
+        "State imgDynamic AlternateText=\"dynamic image\"",
+        "State ibtnDynamic AlternateText=\"Dynamic image\""
+      ],
+      "Tables": [
+        [
+          [
+            "Taro Flag Choice"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtAssoc": "",
+        "chkPlain": "false",
+        "chkAuto": "false",
+        "chkCauses": "false",
+        "chkDisabled": "true",
+        "chkBound": "true",
+        "chkNoViewState": "true",
+        "rdoSmall": "rdoSmall",
+        "rdoLarge": "rdoLarge",
+        "rdoAutoA": "rdoAutoA",
+        "rdoAutoB": "rdoAutoB",
+        "rdoCauses": "rdoCauses",
+        "rdoBound": "rdoBound",
+        "ibtnGo": "",
+        "ibtnConfirmNo": "",
+        "ibtnValidate": "",
+        "ibtnBound": "",
+        "ibtnCross": "",
+        "txtInPanel": "",
+        "txtDefaultLink": "",
+        "txtDefaultImage": "",
+        "ibtnDefault": "",
+        "txtInHolder": "",
+        "chkDynamic": "false",
+        "rdoDynamic": "rdoDynamic",
+        "ibtnDynamic": "",
+        "rptItems_ibtnPick_0": "",
+        "rptItems_ibtnPick_1": "",
+        "fvBasics_chkBind": "true",
+        "fvBasics_rdoBind": "rdoBind",
+        "txtRequired": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "lblPlain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAssoc": {
+          "Tag": "label",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtAssoc": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblNoViewState": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "chkBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoSmall": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoLarge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoA": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoB": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkSubmit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkConfirmNo": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkValidate": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "lnkBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCross": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypTarget": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypImage": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "imgPlain": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "Logo"
+          },
+          "Style": {}
+        },
+        "imgBound": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "imgCode": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set in code"
+          },
+          "Style": {}
+        },
+        "ibtnGo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Go"
+          },
+          "Style": {}
+        },
+        "ibtnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Cancelled image"
+          },
+          "Style": {}
+        },
+        "ibtnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Validate g1 by an image"
+          },
+          "Style": {}
+        },
+        "ibtnBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "ibtnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image to the target"
+          },
+          "Style": {}
+        },
+        "pnlGroup": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pnlBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlDefaultLink": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultLink": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lnkOther": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDefault": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlDefaultImage": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultImage": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ibtnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Default image"
+          },
+          "Style": {}
+        },
+        "txtInHolder": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgDynamic": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "dynamic image"
+          },
+          "Style": {}
+        },
+        "ibtnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Dynamic image"
+          },
+          "Style": {}
+        },
+        "pnlDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblInDynamicPanel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblItem_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Pen"
+          },
+          "Style": {}
+        },
+        "rptItems_lblItem_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Bag"
+          },
+          "Style": {}
+        },
+        "fvBasics": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvBasics_lblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvBasics_chkBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvBasics_rdoBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvBasics_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "RadioButton [change] the other radio of the group chosen",
+      "Path": "/basicsscenario",
+      "Title": "Basic controls scenario",
+      "Text": [
+        "Label: Plain bound Associated set in code",
+        "Literal: <b>encoded</b> pass bound set in code",
+        "CheckBox: Plain Auto Auto validates g1 Disabled Bound No view state",
+        "RadioButton: Small Large Auto A Auto B Auto validates g1 Bound",
+        "HiddenField:",
+        "LinkButton: Submit link Cancelled link Validate g1 by a link Disabled link bound Link to the target",
+        "HyperLink: Go to the target bound Disabled hyperlink",
+        "Image:",
+        "ImageButton:",
+        "Group",
+        "In a panel:",
+        "bound",
+        "Bound panel",
+        "Default link: Other link Default link",
+        "Default image:",
+        "PlaceHolder: Created in a place holder: bound",
+        "Dynamic: dynamic labeldynamic literalDynamicDynamicDynamic linkdynamic hyperlink",
+        "In a dynamic panel",
+        "Pen Pick Pen Bag Pick Bag",
+        "Taro Flag Choice",
+        "Required (g1, server): Cross-page:",
+        "Request 4: IsPostBack=True",
+        "Changed chkNoViewState Checked=True",
+        "Changed hidNoViewState Value=\"set in code, no view state\"",
+        "Changed rdoSmall Checked=True",
+        "IsValid: (not validated)",
+        "State lblPlain Text=\"Plain\"",
+        "State lblBound Text=\"bound\"",
+        "State lblCode Text=\"set in code\"",
+        "State lblNoViewState Text=\"\"",
+        "State lblHidden Text=\"set while hidden\" (hidden)",
+        "State litBound Text=\"bound\"",
+        "State litCode Text=\"set in code\"",
+        "State litNoViewState Text=\"\"",
+        "State litHidden Text=\"set while hidden\" (hidden)",
+        "State chkPlain Checked=False",
+        "State chkAuto Checked=False",
+        "State chkCauses Checked=False",
+        "State chkDisabled Checked=True",
+        "State chkBound Checked=True",
+        "State chkNoViewState Checked=True",
+        "State chkHidden Checked=True (hidden)",
+        "State rdoSmall Checked=True",
+        "State rdoLarge Checked=False",
+        "State rdoAutoA Checked=False",
+        "State rdoAutoB Checked=False",
+        "State rdoCauses Checked=False",
+        "State rdoBound Checked=True",
+        "State rdoHidden Checked=True (hidden)",
+        "State hidPlain Value=\"initial\"",
+        "State hidBound Value=\"bound\"",
+        "State hidNoViewState Value=\"set in code, no view state\"",
+        "State hidHidden Value=\"set while hidden\" (hidden)",
+        "State lnkBound Text=\"bound\"",
+        "State lnkHidden Text=\"Hidden link (set while hidden)\" (hidden)",
+        "State hypBound Text=\"bound\" NavigateUrl=\"~/ButtonTarget.aspx?id=7\"",
+        "State hypHidden Text=\"Hidden hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx?hidden=1\" (hidden)",
+        "State imgBound AlternateText=\"bound\"",
+        "State imgCode AlternateText=\"set in code\"",
+        "State imgHidden AlternateText=\"set while hidden\" (hidden)",
+        "State ibtnBound AlternateText=\"bound\"",
+        "State ibtnHidden AlternateText=\"Hidden image (set while hidden)\" (hidden)",
+        "State txtInPanel Text=\"\"",
+        "State txtInHiddenPanel Text=\"set while hidden\" (hidden)",
+        "State txtInHolder Text=\"\"",
+        "State lblInHiddenHolder Text=\"set while hidden\" (hidden)",
+        "State litInBoundHolder Text=\"bound\"",
+        "State lblDynamic Text=\"dynamic label\"",
+        "State litDynamic Text=\"dynamic literal\"",
+        "State chkDynamic Checked=False",
+        "State rdoDynamic Checked=True",
+        "State hidDynamic Value=\"dynamic\"",
+        "State lnkDynamic Text=\"Dynamic link\"",
+        "State hypDynamic Text=\"dynamic hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx\"",
+        "State imgDynamic AlternateText=\"dynamic image\"",
+        "State ibtnDynamic AlternateText=\"Dynamic image\""
+      ],
+      "Tables": [
+        [
+          [
+            "Taro Flag Choice"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtAssoc": "",
+        "chkPlain": "false",
+        "chkAuto": "false",
+        "chkCauses": "false",
+        "chkDisabled": "true",
+        "chkBound": "true",
+        "chkNoViewState": "true",
+        "rdoSmall": "rdoSmall",
+        "rdoLarge": "rdoLarge",
+        "rdoAutoA": "rdoAutoA",
+        "rdoAutoB": "rdoAutoB",
+        "rdoCauses": "rdoCauses",
+        "rdoBound": "rdoBound",
+        "ibtnGo": "",
+        "ibtnConfirmNo": "",
+        "ibtnValidate": "",
+        "ibtnBound": "",
+        "ibtnCross": "",
+        "txtInPanel": "",
+        "txtDefaultLink": "",
+        "txtDefaultImage": "",
+        "ibtnDefault": "",
+        "txtInHolder": "",
+        "chkDynamic": "false",
+        "rdoDynamic": "rdoDynamic",
+        "ibtnDynamic": "",
+        "rptItems_ibtnPick_0": "",
+        "rptItems_ibtnPick_1": "",
+        "fvBasics_chkBind": "true",
+        "fvBasics_rdoBind": "rdoBind",
+        "txtRequired": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "lblPlain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAssoc": {
+          "Tag": "label",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtAssoc": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblNoViewState": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "chkBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoSmall": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoLarge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoA": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoB": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkSubmit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkConfirmNo": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkValidate": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "lnkBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCross": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypTarget": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypImage": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "imgPlain": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "Logo"
+          },
+          "Style": {}
+        },
+        "imgBound": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "imgCode": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set in code"
+          },
+          "Style": {}
+        },
+        "ibtnGo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Go"
+          },
+          "Style": {}
+        },
+        "ibtnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Cancelled image"
+          },
+          "Style": {}
+        },
+        "ibtnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Validate g1 by an image"
+          },
+          "Style": {}
+        },
+        "ibtnBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "ibtnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image to the target"
+          },
+          "Style": {}
+        },
+        "pnlGroup": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pnlBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlDefaultLink": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultLink": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lnkOther": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDefault": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlDefaultImage": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultImage": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ibtnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Default image"
+          },
+          "Style": {}
+        },
+        "txtInHolder": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgDynamic": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "dynamic image"
+          },
+          "Style": {}
+        },
+        "ibtnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Dynamic image"
+          },
+          "Style": {}
+        },
+        "pnlDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblInDynamicPanel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblItem_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Pen"
+          },
+          "Style": {}
+        },
+        "rptItems_lblItem_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Bag"
+          },
+          "Style": {}
+        },
+        "fvBasics": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvBasics_lblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvBasics_chkBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvBasics_rdoBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvBasics_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "RadioButton [autopostback][change] auto postback",
+      "Path": "/basicsscenario",
+      "Title": "Basic controls scenario",
+      "Text": [
+        "Label: Plain bound Associated set in code",
+        "Literal: <b>encoded</b> pass bound set in code",
+        "CheckBox: Plain Auto Auto validates g1 Disabled Bound No view state",
+        "RadioButton: Small Large Auto A Auto B Auto validates g1 Bound",
+        "HiddenField:",
+        "LinkButton: Submit link Cancelled link Validate g1 by a link Disabled link bound Link to the target",
+        "HyperLink: Go to the target bound Disabled hyperlink",
+        "Image:",
+        "ImageButton:",
+        "Group",
+        "In a panel:",
+        "bound",
+        "Bound panel",
+        "Default link: Other link Default link",
+        "Default image:",
+        "PlaceHolder: Created in a place holder: bound",
+        "Dynamic: dynamic labeldynamic literalDynamicDynamicDynamic linkdynamic hyperlink",
+        "In a dynamic panel",
+        "Pen Pick Pen Bag Pick Bag",
+        "Taro Flag Choice",
+        "Required (g1, server): Cross-page:",
+        "Request 5: IsPostBack=True",
+        "Changed chkNoViewState Checked=True",
+        "Changed hidNoViewState Value=\"set in code, no view state\"",
+        "Changed rdoAutoB Checked=True",
+        "IsValid: (not validated)",
+        "State lblPlain Text=\"Plain\"",
+        "State lblBound Text=\"bound\"",
+        "State lblCode Text=\"set in code\"",
+        "State lblNoViewState Text=\"\"",
+        "State lblHidden Text=\"set while hidden\" (hidden)",
+        "State litBound Text=\"bound\"",
+        "State litCode Text=\"set in code\"",
+        "State litNoViewState Text=\"\"",
+        "State litHidden Text=\"set while hidden\" (hidden)",
+        "State chkPlain Checked=False",
+        "State chkAuto Checked=False",
+        "State chkCauses Checked=False",
+        "State chkDisabled Checked=True",
+        "State chkBound Checked=True",
+        "State chkNoViewState Checked=True",
+        "State chkHidden Checked=True (hidden)",
+        "State rdoSmall Checked=True",
+        "State rdoLarge Checked=False",
+        "State rdoAutoA Checked=False",
+        "State rdoAutoB Checked=True",
+        "State rdoCauses Checked=False",
+        "State rdoBound Checked=True",
+        "State rdoHidden Checked=True (hidden)",
+        "State hidPlain Value=\"initial\"",
+        "State hidBound Value=\"bound\"",
+        "State hidNoViewState Value=\"set in code, no view state\"",
+        "State hidHidden Value=\"set while hidden\" (hidden)",
+        "State lnkBound Text=\"bound\"",
+        "State lnkHidden Text=\"Hidden link (set while hidden)\" (hidden)",
+        "State hypBound Text=\"bound\" NavigateUrl=\"~/ButtonTarget.aspx?id=7\"",
+        "State hypHidden Text=\"Hidden hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx?hidden=1\" (hidden)",
+        "State imgBound AlternateText=\"bound\"",
+        "State imgCode AlternateText=\"set in code\"",
+        "State imgHidden AlternateText=\"set while hidden\" (hidden)",
+        "State ibtnBound AlternateText=\"bound\"",
+        "State ibtnHidden AlternateText=\"Hidden image (set while hidden)\" (hidden)",
+        "State txtInPanel Text=\"\"",
+        "State txtInHiddenPanel Text=\"set while hidden\" (hidden)",
+        "State txtInHolder Text=\"\"",
+        "State lblInHiddenHolder Text=\"set while hidden\" (hidden)",
+        "State litInBoundHolder Text=\"bound\"",
+        "State lblDynamic Text=\"dynamic label\"",
+        "State litDynamic Text=\"dynamic literal\"",
+        "State chkDynamic Checked=False",
+        "State rdoDynamic Checked=True",
+        "State hidDynamic Value=\"dynamic\"",
+        "State lnkDynamic Text=\"Dynamic link\"",
+        "State hypDynamic Text=\"dynamic hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx\"",
+        "State imgDynamic AlternateText=\"dynamic image\"",
+        "State ibtnDynamic AlternateText=\"Dynamic image\""
+      ],
+      "Tables": [
+        [
+          [
+            "Taro Flag Choice"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtAssoc": "",
+        "chkPlain": "false",
+        "chkAuto": "false",
+        "chkCauses": "false",
+        "chkDisabled": "true",
+        "chkBound": "true",
+        "chkNoViewState": "true",
+        "rdoSmall": "rdoSmall",
+        "rdoLarge": "rdoLarge",
+        "rdoAutoA": "rdoAutoA",
+        "rdoAutoB": "rdoAutoB",
+        "rdoCauses": "rdoCauses",
+        "rdoBound": "rdoBound",
+        "ibtnGo": "",
+        "ibtnConfirmNo": "",
+        "ibtnValidate": "",
+        "ibtnBound": "",
+        "ibtnCross": "",
+        "txtInPanel": "",
+        "txtDefaultLink": "",
+        "txtDefaultImage": "",
+        "ibtnDefault": "",
+        "txtInHolder": "",
+        "chkDynamic": "false",
+        "rdoDynamic": "rdoDynamic",
+        "ibtnDynamic": "",
+        "rptItems_ibtnPick_0": "",
+        "rptItems_ibtnPick_1": "",
+        "fvBasics_chkBind": "true",
+        "fvBasics_rdoBind": "rdoBind",
+        "txtRequired": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "lblPlain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAssoc": {
+          "Tag": "label",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtAssoc": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblNoViewState": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "chkBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoSmall": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoLarge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoA": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoB": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkSubmit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkConfirmNo": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkValidate": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "lnkBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCross": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypTarget": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypImage": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "imgPlain": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "Logo"
+          },
+          "Style": {}
+        },
+        "imgBound": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "imgCode": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set in code"
+          },
+          "Style": {}
+        },
+        "ibtnGo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Go"
+          },
+          "Style": {}
+        },
+        "ibtnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Cancelled image"
+          },
+          "Style": {}
+        },
+        "ibtnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Validate g1 by an image"
+          },
+          "Style": {}
+        },
+        "ibtnBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "ibtnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image to the target"
+          },
+          "Style": {}
+        },
+        "pnlGroup": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pnlBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlDefaultLink": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultLink": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lnkOther": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDefault": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlDefaultImage": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultImage": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ibtnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Default image"
+          },
+          "Style": {}
+        },
+        "txtInHolder": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgDynamic": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "dynamic image"
+          },
+          "Style": {}
+        },
+        "ibtnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Dynamic image"
+          },
+          "Style": {}
+        },
+        "pnlDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblInDynamicPanel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblItem_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Pen"
+          },
+          "Style": {}
+        },
+        "rptItems_lblItem_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Bag"
+          },
+          "Style": {}
+        },
+        "fvBasics": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvBasics_lblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvBasics_chkBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvBasics_rdoBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvBasics_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "RadioButton [visible][viewstate] hidden ones shown with what was set while hidden",
+      "Path": "/basicsscenario",
+      "Title": "Basic controls scenario",
+      "Text": [
+        "Label: Plain bound Associated set in code set while hidden",
+        "Literal: <b>encoded</b> pass bound set in code set while hidden",
+        "CheckBox: Plain Auto Auto validates g1 Disabled Bound No view state Hidden",
+        "RadioButton: Small Large Auto A Auto B Auto validates g1 Bound Hidden",
+        "HiddenField:",
+        "LinkButton: Submit link Cancelled link Validate g1 by a link Disabled link bound Link to the target Hidden link (set while hidden)",
+        "HyperLink: Go to the target bound Disabled hyperlink Hidden hyperlink",
+        "Image:",
+        "ImageButton:",
+        "Group",
+        "In a panel:",
+        "bound",
+        "Bound panel",
+        "In a hidden panel:",
+        "Default link: Other link Default link",
+        "Default image:",
+        "PlaceHolder: Created in a place holder: bound set while hidden",
+        "Dynamic: dynamic labeldynamic literalDynamicDynamicDynamic linkdynamic hyperlink",
+        "In a dynamic panel",
+        "Pen Pick Pen Bag Pick Bag",
+        "Taro Flag Choice",
+        "Required (g1, server): Cross-page:",
+        "Request 6: IsPostBack=True",
+        "Changed chkNoViewState Checked=True",
+        "Changed hidNoViewState Value=\"set in code, no view state\"",
+        "Click btnShow",
+        "IsValid: (not validated)",
+        "State lblPlain Text=\"Plain\"",
+        "State lblBound Text=\"bound\"",
+        "State lblCode Text=\"set in code\"",
+        "State lblNoViewState Text=\"\"",
+        "State lblHidden Text=\"set while hidden\"",
+        "State litBound Text=\"bound\"",
+        "State litCode Text=\"set in code\"",
+        "State litNoViewState Text=\"\"",
+        "State litHidden Text=\"set while hidden\"",
+        "State chkPlain Checked=False",
+        "State chkAuto Checked=False",
+        "State chkCauses Checked=False",
+        "State chkDisabled Checked=True",
+        "State chkBound Checked=True",
+        "State chkNoViewState Checked=True",
+        "State chkHidden Checked=True",
+        "State rdoSmall Checked=True",
+        "State rdoLarge Checked=False",
+        "State rdoAutoA Checked=False",
+        "State rdoAutoB Checked=True",
+        "State rdoCauses Checked=False",
+        "State rdoBound Checked=True",
+        "State rdoHidden Checked=True",
+        "State hidPlain Value=\"initial\"",
+        "State hidBound Value=\"bound\"",
+        "State hidNoViewState Value=\"set in code, no view state\"",
+        "State hidHidden Value=\"set while hidden\"",
+        "State lnkBound Text=\"bound\"",
+        "State lnkHidden Text=\"Hidden link (set while hidden)\"",
+        "State hypBound Text=\"bound\" NavigateUrl=\"~/ButtonTarget.aspx?id=7\"",
+        "State hypHidden Text=\"Hidden hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx?hidden=1\"",
+        "State imgBound AlternateText=\"bound\"",
+        "State imgCode AlternateText=\"set in code\"",
+        "State imgHidden AlternateText=\"set while hidden\"",
+        "State ibtnBound AlternateText=\"bound\"",
+        "State ibtnHidden AlternateText=\"Hidden image (set while hidden)\"",
+        "State txtInPanel Text=\"\"",
+        "State txtInHiddenPanel Text=\"set while hidden\"",
+        "State txtInHolder Text=\"\"",
+        "State lblInHiddenHolder Text=\"set while hidden\"",
+        "State litInBoundHolder Text=\"bound\"",
+        "State lblDynamic Text=\"dynamic label\"",
+        "State litDynamic Text=\"dynamic literal\"",
+        "State chkDynamic Checked=False",
+        "State rdoDynamic Checked=True",
+        "State hidDynamic Value=\"dynamic\"",
+        "State lnkDynamic Text=\"Dynamic link\"",
+        "State hypDynamic Text=\"dynamic hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx\"",
+        "State imgDynamic AlternateText=\"dynamic image\"",
+        "State ibtnDynamic AlternateText=\"Dynamic image\""
+      ],
+      "Tables": [
+        [
+          [
+            "Taro Flag Choice"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtAssoc": "",
+        "chkPlain": "false",
+        "chkAuto": "false",
+        "chkCauses": "false",
+        "chkDisabled": "true",
+        "chkBound": "true",
+        "chkNoViewState": "true",
+        "chkHidden": "true",
+        "rdoSmall": "rdoSmall",
+        "rdoLarge": "rdoLarge",
+        "rdoAutoA": "rdoAutoA",
+        "rdoAutoB": "rdoAutoB",
+        "rdoCauses": "rdoCauses",
+        "rdoBound": "rdoBound",
+        "rdoHidden": "rdoHidden",
+        "ibtnGo": "",
+        "ibtnConfirmNo": "",
+        "ibtnValidate": "",
+        "ibtnBound": "",
+        "ibtnCross": "",
+        "ibtnHidden": "",
+        "txtInPanel": "",
+        "txtInHiddenPanel": "set while hidden",
+        "txtDefaultLink": "",
+        "txtDefaultImage": "",
+        "ibtnDefault": "",
+        "txtInHolder": "",
+        "chkDynamic": "false",
+        "rdoDynamic": "rdoDynamic",
+        "ibtnDynamic": "",
+        "rptItems_ibtnPick_0": "",
+        "rptItems_ibtnPick_1": "",
+        "fvBasics_chkBind": "true",
+        "fvBasics_rdoBind": "rdoBind",
+        "txtRequired": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "lblPlain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAssoc": {
+          "Tag": "label",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtAssoc": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblNoViewState": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblHidden": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "chkBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoSmall": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoLarge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoA": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoB": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkSubmit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkConfirmNo": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkValidate": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "lnkBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCross": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkHidden": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypTarget": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypImage": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "hypHidden": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgPlain": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "Logo"
+          },
+          "Style": {}
+        },
+        "imgBound": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "imgCode": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set in code"
+          },
+          "Style": {}
+        },
+        "imgHidden": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set while hidden"
+          },
+          "Style": {}
+        },
+        "ibtnGo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Go"
+          },
+          "Style": {}
+        },
+        "ibtnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Cancelled image"
+          },
+          "Style": {}
+        },
+        "ibtnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Validate g1 by an image"
+          },
+          "Style": {}
+        },
+        "ibtnBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "ibtnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image to the target"
+          },
+          "Style": {}
+        },
+        "ibtnHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Hidden image (set while hidden)"
+          },
+          "Style": {}
+        },
+        "pnlGroup": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pnlBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlHidden": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInHiddenPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pnlDefaultLink": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultLink": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lnkOther": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDefault": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlDefaultImage": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultImage": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ibtnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Default image"
+          },
+          "Style": {}
+        },
+        "txtInHolder": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblInHiddenHolder": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgDynamic": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "dynamic image"
+          },
+          "Style": {}
+        },
+        "ibtnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Dynamic image"
+          },
+          "Style": {}
+        },
+        "pnlDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblInDynamicPanel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblItem_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Pen"
+          },
+          "Style": {}
+        },
+        "rptItems_lblItem_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Bag"
+          },
+          "Style": {}
+        },
+        "fvBasics": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvBasics_lblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvBasics_chkBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvBasics_rdoBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvBasics_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "RadioButton [bind] two-way binding in a template",
+      "Path": "/basicsscenario",
+      "Title": "Basic controls scenario",
+      "Text": [
+        "Label: Plain bound Associated set in code set while hidden",
+        "Literal: <b>encoded</b> pass bound set in code set while hidden",
+        "CheckBox: Plain Auto Auto validates g1 Disabled Bound No view state Hidden",
+        "RadioButton: Small Large Auto A Auto B Auto validates g1 Bound Hidden",
+        "HiddenField:",
+        "LinkButton: Submit link Cancelled link Validate g1 by a link Disabled link bound Link to the target Hidden link (set while hidden)",
+        "HyperLink: Go to the target bound Disabled hyperlink Hidden hyperlink",
+        "Image:",
+        "ImageButton:",
+        "Group",
+        "In a panel:",
+        "bound",
+        "Bound panel",
+        "In a hidden panel:",
+        "Default link: Other link Default link",
+        "Default image:",
+        "PlaceHolder: Created in a place holder: bound set while hidden",
+        "Dynamic: dynamic labeldynamic literalDynamicDynamicDynamic linkdynamic hyperlink",
+        "In a dynamic panel",
+        "Pen Pick Pen Bag Pick Bag",
+        "Taro Flag Choice",
+        "Required (g1, server): Cross-page:",
+        "Request 7: IsPostBack=True",
+        "Changed chkNoViewState Checked=True",
+        "Changed hidNoViewState Value=\"set in code, no view state\"",
+        "ItemUpdating: Choice=True, Flag=True, Name=Taro, Secret=s1",
+        "IsValid: (not validated)",
+        "State lblPlain Text=\"Plain\"",
+        "State lblBound Text=\"bound\"",
+        "State lblCode Text=\"set in code\"",
+        "State lblNoViewState Text=\"\"",
+        "State lblHidden Text=\"set while hidden\"",
+        "State litBound Text=\"bound\"",
+        "State litCode Text=\"set in code\"",
+        "State litNoViewState Text=\"\"",
+        "State litHidden Text=\"set while hidden\"",
+        "State chkPlain Checked=False",
+        "State chkAuto Checked=False",
+        "State chkCauses Checked=False",
+        "State chkDisabled Checked=True",
+        "State chkBound Checked=True",
+        "State chkNoViewState Checked=True",
+        "State chkHidden Checked=True",
+        "State rdoSmall Checked=True",
+        "State rdoLarge Checked=False",
+        "State rdoAutoA Checked=False",
+        "State rdoAutoB Checked=True",
+        "State rdoCauses Checked=False",
+        "State rdoBound Checked=True",
+        "State rdoHidden Checked=True",
+        "State hidPlain Value=\"initial\"",
+        "State hidBound Value=\"bound\"",
+        "State hidNoViewState Value=\"set in code, no view state\"",
+        "State hidHidden Value=\"set while hidden\"",
+        "State lnkBound Text=\"bound\"",
+        "State lnkHidden Text=\"Hidden link (set while hidden)\"",
+        "State hypBound Text=\"bound\" NavigateUrl=\"~/ButtonTarget.aspx?id=7\"",
+        "State hypHidden Text=\"Hidden hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx?hidden=1\"",
+        "State imgBound AlternateText=\"bound\"",
+        "State imgCode AlternateText=\"set in code\"",
+        "State imgHidden AlternateText=\"set while hidden\"",
+        "State ibtnBound AlternateText=\"bound\"",
+        "State ibtnHidden AlternateText=\"Hidden image (set while hidden)\"",
+        "State txtInPanel Text=\"\"",
+        "State txtInHiddenPanel Text=\"set while hidden\"",
+        "State txtInHolder Text=\"\"",
+        "State lblInHiddenHolder Text=\"set while hidden\"",
+        "State litInBoundHolder Text=\"bound\"",
+        "State lblDynamic Text=\"dynamic label\"",
+        "State litDynamic Text=\"dynamic literal\"",
+        "State chkDynamic Checked=False",
+        "State rdoDynamic Checked=True",
+        "State hidDynamic Value=\"dynamic\"",
+        "State lnkDynamic Text=\"Dynamic link\"",
+        "State hypDynamic Text=\"dynamic hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx\"",
+        "State imgDynamic AlternateText=\"dynamic image\"",
+        "State ibtnDynamic AlternateText=\"Dynamic image\""
+      ],
+      "Tables": [
+        [
+          [
+            "Taro Flag Choice"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtAssoc": "",
+        "chkPlain": "false",
+        "chkAuto": "false",
+        "chkCauses": "false",
+        "chkDisabled": "true",
+        "chkBound": "true",
+        "chkNoViewState": "true",
+        "chkHidden": "true",
+        "rdoSmall": "rdoSmall",
+        "rdoLarge": "rdoLarge",
+        "rdoAutoA": "rdoAutoA",
+        "rdoAutoB": "rdoAutoB",
+        "rdoCauses": "rdoCauses",
+        "rdoBound": "rdoBound",
+        "rdoHidden": "rdoHidden",
+        "ibtnGo": "",
+        "ibtnConfirmNo": "",
+        "ibtnValidate": "",
+        "ibtnBound": "",
+        "ibtnCross": "",
+        "ibtnHidden": "",
+        "txtInPanel": "",
+        "txtInHiddenPanel": "set while hidden",
+        "txtDefaultLink": "",
+        "txtDefaultImage": "",
+        "ibtnDefault": "",
+        "txtInHolder": "",
+        "chkDynamic": "false",
+        "rdoDynamic": "rdoDynamic",
+        "ibtnDynamic": "",
+        "rptItems_ibtnPick_0": "",
+        "rptItems_ibtnPick_1": "",
+        "fvBasics_chkBind": "true",
+        "fvBasics_rdoBind": "rdoBind",
+        "txtRequired": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "lblPlain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAssoc": {
+          "Tag": "label",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtAssoc": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblNoViewState": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblHidden": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "chkBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoSmall": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoLarge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoA": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoB": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkSubmit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkConfirmNo": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkValidate": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "lnkBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCross": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkHidden": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypTarget": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypImage": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "hypHidden": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgPlain": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "Logo"
+          },
+          "Style": {}
+        },
+        "imgBound": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "imgCode": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set in code"
+          },
+          "Style": {}
+        },
+        "imgHidden": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set while hidden"
+          },
+          "Style": {}
+        },
+        "ibtnGo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Go"
+          },
+          "Style": {}
+        },
+        "ibtnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Cancelled image"
+          },
+          "Style": {}
+        },
+        "ibtnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Validate g1 by an image"
+          },
+          "Style": {}
+        },
+        "ibtnBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "ibtnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image to the target"
+          },
+          "Style": {}
+        },
+        "ibtnHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Hidden image (set while hidden)"
+          },
+          "Style": {}
+        },
+        "pnlGroup": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pnlBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlHidden": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInHiddenPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pnlDefaultLink": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultLink": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lnkOther": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDefault": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlDefaultImage": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultImage": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ibtnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Default image"
+          },
+          "Style": {}
+        },
+        "txtInHolder": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblInHiddenHolder": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgDynamic": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "dynamic image"
+          },
+          "Style": {}
+        },
+        "ibtnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Dynamic image"
+          },
+          "Style": {}
+        },
+        "pnlDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblInDynamicPanel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblItem_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Pen"
+          },
+          "Style": {}
+        },
+        "rptItems_lblItem_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Bag"
+          },
+          "Style": {}
+        },
+        "fvBasics": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvBasics_lblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvBasics_chkBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvBasics_rdoBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvBasics_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "RadioButton [requestvalidation] markup posted",
+      "Path": "/basicsscenario",
+      "Title": "Basic controls scenario: error",
+      "Text": [
+        "System.Web.HttpRequestValidationException",
+        "A potentially dangerous Request.Form value was detected from the client (size=\"<b>x</b>\")."
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "failure": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "message": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "RadioButton [autopostback][causesvalidation] auto postback validating g1 (empty)",
+      "Path": "/basicsscenario",
+      "Title": "Basic controls scenario",
+      "Text": [
+        "Label: Plain bound Associated set in code",
+        "Literal: <b>encoded</b> pass bound set in code",
+        "CheckBox: Plain Auto Auto validates g1 Disabled Bound No view state",
+        "RadioButton: Small Large Auto A Auto B Auto validates g1 Bound",
+        "HiddenField:",
+        "LinkButton: Submit link Cancelled link Validate g1 by a link Disabled link bound Link to the target",
+        "HyperLink: Go to the target bound Disabled hyperlink",
+        "Image:",
+        "ImageButton:",
+        "Group",
+        "In a panel:",
+        "bound",
+        "Bound panel",
+        "Default link: Other link Default link",
+        "Default image:",
+        "PlaceHolder: Created in a place holder: bound",
+        "Dynamic: dynamic labeldynamic literalDynamicDynamicDynamic linkdynamic hyperlink",
+        "In a dynamic panel",
+        "Pen Pick Pen Bag Pick Bag",
+        "Taro Flag Choice",
+        "Required (g1, server): Required (g1) Cross-page:",
+        "Request 2: IsPostBack=True",
+        "Changed chkNoViewState Checked=True",
+        "Changed hidNoViewState Value=\"set in code, no view state\"",
+        "Changed rdoCauses Checked=True",
+        "IsValid: False",
+        "State lblPlain Text=\"Plain\"",
+        "State lblBound Text=\"bound\"",
+        "State lblCode Text=\"set in code\"",
+        "State lblNoViewState Text=\"\"",
+        "State lblHidden Text=\"set while hidden\" (hidden)",
+        "State litBound Text=\"bound\"",
+        "State litCode Text=\"set in code\"",
+        "State litNoViewState Text=\"\"",
+        "State litHidden Text=\"set while hidden\" (hidden)",
+        "State chkPlain Checked=False",
+        "State chkAuto Checked=False",
+        "State chkCauses Checked=False",
+        "State chkDisabled Checked=True",
+        "State chkBound Checked=True",
+        "State chkNoViewState Checked=True",
+        "State chkHidden Checked=True (hidden)",
+        "State rdoSmall Checked=False",
+        "State rdoLarge Checked=False",
+        "State rdoAutoA Checked=False",
+        "State rdoAutoB Checked=False",
+        "State rdoCauses Checked=True",
+        "State rdoBound Checked=True",
+        "State rdoHidden Checked=True (hidden)",
+        "State hidPlain Value=\"initial\"",
+        "State hidBound Value=\"bound\"",
+        "State hidNoViewState Value=\"set in code, no view state\"",
+        "State hidHidden Value=\"set while hidden\" (hidden)",
+        "State lnkBound Text=\"bound\"",
+        "State lnkHidden Text=\"Hidden link (set while hidden)\" (hidden)",
+        "State hypBound Text=\"bound\" NavigateUrl=\"~/ButtonTarget.aspx?id=7\"",
+        "State hypHidden Text=\"Hidden hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx?hidden=1\" (hidden)",
+        "State imgBound AlternateText=\"bound\"",
+        "State imgCode AlternateText=\"set in code\"",
+        "State imgHidden AlternateText=\"set while hidden\" (hidden)",
+        "State ibtnBound AlternateText=\"bound\"",
+        "State ibtnHidden AlternateText=\"Hidden image (set while hidden)\" (hidden)",
+        "State txtInPanel Text=\"\"",
+        "State txtInHiddenPanel Text=\"set while hidden\" (hidden)",
+        "State txtInHolder Text=\"\"",
+        "State lblInHiddenHolder Text=\"set while hidden\" (hidden)",
+        "State litInBoundHolder Text=\"bound\"",
+        "State lblDynamic Text=\"dynamic label\"",
+        "State litDynamic Text=\"dynamic literal\"",
+        "State chkDynamic Checked=False",
+        "State rdoDynamic Checked=False",
+        "State hidDynamic Value=\"dynamic\"",
+        "State lnkDynamic Text=\"Dynamic link\"",
+        "State hypDynamic Text=\"dynamic hyperlink\" NavigateUrl=\"~/ButtonTarget.aspx\"",
+        "State imgDynamic AlternateText=\"dynamic image\"",
+        "State ibtnDynamic AlternateText=\"Dynamic image\""
+      ],
+      "Tables": [
+        [
+          [
+            "Taro Flag Choice"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtAssoc": "",
+        "chkPlain": "false",
+        "chkAuto": "false",
+        "chkCauses": "false",
+        "chkDisabled": "true",
+        "chkBound": "true",
+        "chkNoViewState": "true",
+        "rdoSmall": "rdoSmall",
+        "rdoLarge": "rdoLarge",
+        "rdoAutoA": "rdoAutoA",
+        "rdoAutoB": "rdoAutoB",
+        "rdoCauses": "rdoCauses",
+        "rdoBound": "rdoBound",
+        "ibtnGo": "",
+        "ibtnConfirmNo": "",
+        "ibtnValidate": "",
+        "ibtnBound": "",
+        "ibtnCross": "",
+        "txtInPanel": "",
+        "txtDefaultLink": "",
+        "txtDefaultImage": "",
+        "ibtnDefault": "",
+        "txtInHolder": "",
+        "chkDynamic": "false",
+        "rdoDynamic": "rdoDynamic",
+        "ibtnDynamic": "",
+        "rptItems_ibtnPick_0": "",
+        "rptItems_ibtnPick_1": "",
+        "fvBasics_chkBind": "true",
+        "fvBasics_rdoBind": "rdoBind",
+        "txtRequired": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "lblPlain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAssoc": {
+          "Tag": "label",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtAssoc": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblCode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblNoViewState": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "chkBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "chkNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoSmall": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoLarge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoA": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoAutoB": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoCauses": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "rdoBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkSubmit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkConfirmNo": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkValidate": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "lnkBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkCross": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypTarget": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypBound": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypImage": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDisabled": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "imgPlain": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "Logo"
+          },
+          "Style": {}
+        },
+        "imgBound": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "imgCode": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "set in code"
+          },
+          "Style": {}
+        },
+        "ibtnGo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Go"
+          },
+          "Style": {}
+        },
+        "ibtnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Cancelled image"
+          },
+          "Style": {}
+        },
+        "ibtnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Validate g1 by an image"
+          },
+          "Style": {}
+        },
+        "ibtnBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "bound"
+          },
+          "Style": {}
+        },
+        "ibtnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image to the target"
+          },
+          "Style": {}
+        },
+        "pnlGroup": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "pnlBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlDefaultLink": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultLink": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lnkOther": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lnkDefault": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlDefaultImage": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefaultImage": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ibtnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Default image"
+          },
+          "Style": {}
+        },
+        "txtInHolder": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "chkDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "rdoDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "lnkDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "hypDynamic": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "imgDynamic": {
+          "Tag": "img",
+          "Attributes": {
+            "src": "/Images/probe.png",
+            "alt": "dynamic image"
+          },
+          "Style": {}
+        },
+        "ibtnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Dynamic image"
+          },
+          "Style": {}
+        },
+        "pnlDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblInDynamicPanel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblItem_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Pen"
+          },
+          "Style": {}
+        },
+        "rptItems_lblItem_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lnkPick_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_ibtnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "image",
+            "src": "/Images/probe.png",
+            "alt": "Image pick Bag"
+          },
+          "Style": {}
+        },
+        "fvBasics": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvBasics_lblBind": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvBasics_chkBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "fvBasics_rdoBind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "radio"
+          },
+          "Style": {}
+        },
+        "fvBasics_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqRequired": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

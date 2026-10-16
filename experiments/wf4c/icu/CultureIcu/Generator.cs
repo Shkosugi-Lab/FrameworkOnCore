@@ -28,8 +28,17 @@ sealed class Generator(string profilePath, string icuVersion, string outDirector
     {
         var notRepresented = new List<string>();
         var differences = Profile.Diff(profilePath);
+        var known = CultureInfo.GetCultures(CultureTypes.AllCultures).Select(c => c.Name).ToHashSet(StringComparer.OrdinalIgnoreCase);
         foreach (var culture in differences.GroupBy(d => d.Culture))
         {
+            // A culture ICU does not have (a browser's language of no culture, "xx-YY": .NET Framework makes it with the
+            // invariant culture's data): a bundle of its own made .NET's month names too short (ArgumentOutOfRange formatting
+            // a date in March). Left as .NET makes it, reported.
+            if (!known.Contains(culture.Key))
+            {
+                notRepresented.Add($"{culture.Key}: not one of ICU's cultures ({culture.Count()} differences left)");
+                continue;
+            }
             var info = CultureInfo.GetCultureInfo(culture.Key);
             var id = info.Name.Replace('-', '_');
             var chain = Chain(id);

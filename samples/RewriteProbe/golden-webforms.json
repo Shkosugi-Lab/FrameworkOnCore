@@ -1,0 +1,673 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "rewrite-a back-reference, the query string appended",
+      "Path": "/products/5",
+      "Title": "Show",
+      "Text": [
+        "urls: RawUrl=/products/5?x=1 | Url=/Show.aspx?id=5&x=1 | Path=/Show.aspx | FilePath=/Show.aspx | AppRelative=~/Show.aspx | QueryString=id=5&x=1 | X_ORIGINAL_URL=/products/5?x=1 | UNENCODED_URL=/products/5?x=1 | URL=/Show.aspx | PATH_INFO=/Show.aspx | QUERY_STRING=id=5&x=1 | HTTP_X_REWRITE_URL= | PROBE_VAR= | HTTP_X_PROBE= | X-Probe header= | IIS_WasUrlRewritten=1",
+        "form action set:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "lblUrls": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAction": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblPosted": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "rewrite-a postback to the rewritten URL",
+      "Path": "/products/5",
+      "Title": "Show",
+      "Text": [
+        "urls: RawUrl=/products/5?id=5&x=1 | Url=/Show.aspx?id=5&id=5&x=1 | Path=/Show.aspx | FilePath=/Show.aspx | AppRelative=~/Show.aspx | QueryString=id=5&id=5&x=1 | X_ORIGINAL_URL=/products/5?id=5&x=1 | UNENCODED_URL=/products/5?id=5&x=1 | URL=/Show.aspx | PATH_INFO=/Show.aspx | QUERY_STRING=id=5&id=5&x=1 | HTTP_X_REWRITE_URL= | PROBE_VAR= | HTTP_X_PROBE= | X-Probe header= | IIS_WasUrlRewritten=1",
+        "form action set:",
+        "posted to /products/5?id=5&x=1 with posted"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": "posted"
+      },
+      "Elements": {
+        "lblUrls": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAction": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblPosted": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "rewrite-not a file, not a folder",
+      "Path": "/app/some/route",
+      "Title": "Show",
+      "Text": [
+        "urls: RawUrl=/app/some/route | Url=/Show.aspx?spa=some/route | Path=/Show.aspx | FilePath=/Show.aspx | AppRelative=~/Show.aspx | QueryString=spa=some%2froute | X_ORIGINAL_URL=/app/some/route | UNENCODED_URL=/app/some/route | URL=/Show.aspx | PATH_INFO=/Show.aspx | QUERY_STRING=spa=some/route | HTTP_X_REWRITE_URL= | PROBE_VAR= | HTTP_X_PROBE= | X-Probe header= | IIS_WasUrlRewritten=1",
+        "form action set:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "lblUrls": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAction": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblPosted": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "rewrite-a rewrite map",
+      "Path": "/promo",
+      "Title": "Show",
+      "Text": [
+        "urls: RawUrl=/promo | Url=/Show.aspx?map=promo | Path=/Show.aspx | FilePath=/Show.aspx | AppRelative=~/Show.aspx | QueryString=map=promo | X_ORIGINAL_URL=/promo | UNENCODED_URL=/promo | URL=/Show.aspx | PATH_INFO=/Show.aspx | QUERY_STRING=map=promo | HTTP_X_REWRITE_URL= | PROBE_VAR= | HTTP_X_PROBE= | X-Probe header= | IIS_WasUrlRewritten=1",
+        "form action set:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "lblUrls": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAction": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblPosted": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "rewrite-rules in a chain",
+      "Path": "/chain",
+      "Title": "Show",
+      "Text": [
+        "urls: RawUrl=/chain | Url=/Show.aspx?chain=2 | Path=/Show.aspx | FilePath=/Show.aspx | AppRelative=~/Show.aspx | QueryString=chain=2 | X_ORIGINAL_URL=/chain | UNENCODED_URL=/chain | URL=/Show.aspx | PATH_INFO=/Show.aspx | QUERY_STRING=chain=2 | HTTP_X_REWRITE_URL= | PROBE_VAR= | HTTP_X_PROBE= | X-Probe header= | IIS_WasUrlRewritten=1",
+        "form action set:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "lblUrls": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAction": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblPosted": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "rewrite-a condition's back-reference, the query string not appended",
+      "Path": "/q",
+      "Title": "Show",
+      "Text": [
+        "urls: RawUrl=/q?a=42&b=1 | Url=/Show.aspx?a2=42 | Path=/Show.aspx | FilePath=/Show.aspx | AppRelative=~/Show.aspx | QueryString=a2=42 | X_ORIGINAL_URL=/q?a=42&b=1 | UNENCODED_URL=/q?a=42&b=1 | URL=/Show.aspx | PATH_INFO=/Show.aspx | QUERY_STRING=a2=42 | HTTP_X_REWRITE_URL= | PROBE_VAR= | HTTP_X_PROBE= | X-Probe header= | IIS_WasUrlRewritten=1",
+        "form action set:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "lblUrls": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAction": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblPosted": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "rewrite-Wildcard",
+      "Path": "/files/a/b.txt",
+      "Title": "Show",
+      "Text": [
+        "urls: RawUrl=/files/a/b.txt | Url=/Show.aspx?w1=a&w2=b.txt | Path=/Show.aspx | FilePath=/Show.aspx | AppRelative=~/Show.aspx | QueryString=w1=a&w2=b.txt | X_ORIGINAL_URL=/files/a/b.txt | UNENCODED_URL=/files/a/b.txt | URL=/Show.aspx | PATH_INFO=/Show.aspx | QUERY_STRING=w1=a&w2=b.txt | HTTP_X_REWRITE_URL= | PROBE_VAR= | HTTP_X_PROBE= | X-Probe header= | IIS_WasUrlRewritten=1",
+        "form action set:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "lblUrls": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAction": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblPosted": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "rewrite-ExactMatch",
+      "Path": "/exact",
+      "Title": "Show",
+      "Text": [
+        "urls: RawUrl=/exact?k=v | Url=/Show.aspx?exact=1&k=v | Path=/Show.aspx | FilePath=/Show.aspx | AppRelative=~/Show.aspx | QueryString=exact=1&k=v | X_ORIGINAL_URL=/exact?k=v | UNENCODED_URL=/exact?k=v | URL=/Show.aspx | PATH_INFO=/Show.aspx | QUERY_STRING=exact=1&k=v | HTTP_X_REWRITE_URL= | PROBE_VAR= | HTTP_X_PROBE= | X-Probe header= | IIS_WasUrlRewritten=1",
+        "form action set:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "lblUrls": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAction": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblPosted": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "rewrite-MatchAny",
+      "Path": "/any",
+      "Title": "Show",
+      "Text": [
+        "urls: RawUrl=/any?x=5 | Url=/Show.aspx?any=5 | Path=/Show.aspx | FilePath=/Show.aspx | AppRelative=~/Show.aspx | QueryString=any=5 | X_ORIGINAL_URL=/any?x=5 | UNENCODED_URL=/any?x=5 | URL=/Show.aspx | PATH_INFO=/Show.aspx | QUERY_STRING=any=5 | HTTP_X_REWRITE_URL= | PROBE_VAR= | HTTP_X_PROBE= | X-Probe header= | IIS_WasUrlRewritten=1",
+        "form action set:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "lblUrls": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAction": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblPosted": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "rewrite-trackAllCaptures",
+      "Path": "/track",
+      "Title": "Show",
+      "Text": [
+        "urls: RawUrl=/track?n=8 | Url=/Show.aspx?t=localhost-8 | Path=/Show.aspx | FilePath=/Show.aspx | AppRelative=~/Show.aspx | QueryString=t=localhost-8 | X_ORIGINAL_URL=/track?n=8 | UNENCODED_URL=/track?n=8 | URL=/Show.aspx | PATH_INFO=/Show.aspx | QUERY_STRING=t=localhost-8 | HTTP_X_REWRITE_URL= | PROBE_VAR= | HTTP_X_PROBE= | X-Probe header= | IIS_WasUrlRewritten=1",
+        "form action set:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "lblUrls": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAction": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblPosted": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "rewrite-server variables, UrlEncode",
+      "Path": "/vars",
+      "Title": "Show",
+      "Text": [
+        "urls: RawUrl=/vars?z=1 | Url=/Show.aspx?url=/vars&port=5096&proto=&uri=%2Fvars%3Fz%3D1&method=GET | Path=/Show.aspx | FilePath=/Show.aspx | AppRelative=~/Show.aspx | QueryString=url=%2fvars&port=5096&proto=&uri=%2fvars%3fz%3d1&method=GET | X_ORIGINAL_URL=/vars?z=1 | UNENCODED_URL=/vars?z=1 | URL=/Show.aspx | PATH_INFO=/Show.aspx | QUERY_STRING=url=/vars&port=5096&proto=&uri=%2Fvars%3Fz%3D1&method=GET | HTTP_X_REWRITE_URL= | PROBE_VAR= | HTTP_X_PROBE= | X-Probe header= | IIS_WasUrlRewritten=1",
+        "form action set:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "lblUrls": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAction": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblPosted": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "rewrite-a folder's rule",
+      "Path": "/sub/item/3",
+      "Title": "Show",
+      "Text": [
+        "urls: RawUrl=/sub/item/3 | Url=/Show.aspx?sub=3&r0=item/3 | Path=/Show.aspx | FilePath=/Show.aspx | AppRelative=~/Show.aspx | QueryString=sub=3&r0=item%2f3 | X_ORIGINAL_URL=/sub/item/3 | UNENCODED_URL=/sub/item/3 | URL=/Show.aspx | PATH_INFO=/Show.aspx | QUERY_STRING=sub=3&r0=item/3 | HTTP_X_REWRITE_URL= | PROBE_VAR= | HTTP_X_PROBE= | X-Probe header= | IIS_WasUrlRewritten=1",
+        "form action set:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "lblUrls": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAction": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblPosted": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "rewrite-a folder's rewrite map from configSource",
+      "Path": "/sub/old-page",
+      "Title": "Show",
+      "Text": [
+        "urls: RawUrl=/sub/old-page | Url=/Show.aspx?submap=1 | Path=/Show.aspx | FilePath=/Show.aspx | AppRelative=~/Show.aspx | QueryString=submap=1 | X_ORIGINAL_URL=/sub/old-page | UNENCODED_URL=/sub/old-page | URL=/Show.aspx | PATH_INFO=/Show.aspx | QUERY_STRING=submap=1 | HTTP_X_REWRITE_URL= | PROBE_VAR= | HTTP_X_PROBE= | X-Probe header= | IIS_WasUrlRewritten=1",
+        "form action set:"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtValue": ""
+      },
+      "Elements": {
+        "lblUrls": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblAction": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtValue": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblPosted": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "rewrite-the answers",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/old/7 -> 200 redirected to /products/7 | location=-",
+        "/temp -> 200 redirected to /Show.aspx?from=temp | location=-",
+        "/LOWER/AbC -> 404 redirected to /lower/abc | location=-",
+        "/lower/abc -> 404 | location=-",
+        "/app/real.htm -> 200 | location=-",
+        "/app/ -> 403 | location=-",
+        "/host-check -> 200 | location=-",
+        "/scheme -> 200 | location=-",
+        "/blocked -> 403 | location=-",
+        "/abort -> TypeError",
+        "/products/x -> 404 | location=-",
+        "/see -> 200 redirected to /Show.aspx?see=1 | location=-",
+        "/tmp307?k=v -> 200 redirected to /Show.aspx?tmp=1 | location=-",
+        "/gone -> 410 | location=-",
+        "/sub/go -> 200 redirected to /sub/item/7 | location=-",
+        "/sub/app/x -> 404 | location=-",
+        "/logged -> 200 | location=-"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": [
+    {
+      "Url": "/old/7",
+      "Status": 301,
+      "Location": "/products/7",
+      "From": null
+    },
+    {
+      "Url": "/temp",
+      "Status": 302,
+      "Location": "/Show.aspx?from=temp",
+      "From": null
+    },
+    {
+      "Url": "/products/5?x=1",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/app/some/route",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/promo",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/chain",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/q?a=42&b=1",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/files/a/b.txt",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/exact?k=v",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/any?x=5",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "_comment": "The Repeater's scenario layer (RepeaterScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/RepeaterScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "Repeater [render][databind][templates][datasourceid][dynamic] first request"
+    },
+    {
+      "action": "fill",
+      "target": "txtQty",
+      "value": "5"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "Repeater [viewstate][dynamic] posted: items made again from view state, the text box's value"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divItems",
+      "value": "Remove"
+    },
+    {
+      "action": "snapshot",
+      "name": "Repeater [rowcommand] a link's command bubbled to ItemCommand; rebound"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divItems",
+      "value": "More"
+    },
+    {
+      "action": "snapshot",
+      "name": "Repeater [rowcommand] a button's command bubbled to ItemCommand"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divOuter",
+      "value": "Inner pick Banana"
+    },
+    {
+      "action": "snapshot",
+      "name": "Repeater [rowcommand] a nested repeater's command"
+    },
+    {
+      "action": "click",
+      "target": "btnRebind"
+    },
+    {
+      "action": "snapshot",
+      "name": "Repeater [databind] rebound"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "Repeater [visible][viewstate] the hidden repeater shown with its items"
+    }
+  ]
+}

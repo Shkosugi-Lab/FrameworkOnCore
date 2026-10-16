@@ -1,0 +1,2568 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "RequiredFieldValidator [render][databind][dynamic] first request",
+      "Path": "/validatorsscenario",
+      "Title": "Validators scenario",
+      "Text": [
+        "Server (group \"server\", no client script)",
+        "Name: Initial: Code: Age: Password: Confirm: Quantity: Date: Custom: Custom (empty validated): Disabled: Hidden: Dynamic:",
+        "In the browser (a group each)",
+        "Name: Code: Age: Password: Confirm: Custom: Summary:",
+        "Request 1: IsPostBack=False",
+        "Page.Validators: 24",
+        "Validator reqName: IsValid=True",
+        "Validator reqInitial: IsValid=True",
+        "Validator rexCode: IsValid=True",
+        "Validator rngAge: IsValid=True",
+        "Validator cmpConfirm: IsValid=True",
+        "Validator cmpQty: IsValid=True",
+        "Validator cmpDate: IsValid=True",
+        "Validator cusCustom: IsValid=True",
+        "Validator cusEmpty: IsValid=True",
+        "Validator cusNoControl: IsValid=True",
+        "Validator reqDisabled: IsValid=True (disabled)",
+        "Validator reqHidden: IsValid=True (hidden)",
+        "Validator reqNameC: IsValid=True",
+        "Validator rexCodeC: IsValid=True",
+        "Validator rngAgeC: IsValid=True",
+        "Validator cmpConfirmC: IsValid=True",
+        "Validator cusCustomC: IsValid=True",
+        "Validator reqSumC: IsValid=True",
+        "Validator reqSumC2: IsValid=True",
+        "Validator reqDynamic: IsValid=True",
+        "Validator rexDynamic: IsValid=True",
+        "Validator rngDynamic: IsValid=True",
+        "Validator cmpDynamic: IsValid=True",
+        "Validator cusDynamic: IsValid=True"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "",
+        "txtInitial": "(none)",
+        "txtCode": "",
+        "txtAge": "",
+        "txtPassword": "",
+        "txtConfirm": "",
+        "txtQty": "",
+        "txtDate": "",
+        "txtCustom": "",
+        "txtCustomEmpty": "",
+        "txtDisabledTarget": "",
+        "txtHiddenTarget": "",
+        "txtDynamicTarget": "",
+        "txtNameC": "",
+        "txtCodeC": "",
+        "txtAgeC": "",
+        "txtPasswordC": "",
+        "txtConfirmC": "",
+        "txtCustomC": "",
+        "txtSumC": "",
+        "txtSumC2": ""
+      },
+      "Elements": {
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtInitial": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtQty": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCustom": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCustomEmpty": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDisabledTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHiddenTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamicTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnServer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnManual": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPageValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtNameC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqNameC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnReqC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCodeC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rexCodeC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnRexC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAgeC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rngAgeC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnRngC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtPasswordC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtConfirmC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cmpConfirmC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnCmpC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCustomC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cusCustomC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnCusC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtSumC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtSumC2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqSumC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqSumC2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumClient": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSumC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "RequiredFieldValidator [servervalidate][dynamic] all empty: required ones fail, the others pass empty",
+      "Path": "/validatorsscenario",
+      "Title": "Validators scenario",
+      "Text": [
+        "Server (group \"server\", no client script)",
+        "Name: * Initial: Change the initial value Code: Age: Password: Confirm: Quantity: Date: Custom: Custom (empty validated): Required (custom) Disabled: Hidden: Dynamic: Dynamic: required",
+        "Dynamic summary Name is required Change the initial value Required (custom) Dynamic: required",
+        "Server errors",
+        "Name is required",
+        "Change the initial value",
+        "Required (custom)",
+        "Dynamic: required",
+        "In the browser (a group each)",
+        "Name: Code: Age: Password: Confirm: Custom: Summary:",
+        "Request 2: IsPostBack=True",
+        "ServerValidate cusEmpty: \"\" -> False",
+        "ServerValidate cusNoControl: (no control, value \"\") -> True",
+        "Click btnServer",
+        "IsValid: False",
+        "Page.Validators: 24",
+        "Validator reqName: IsValid=False",
+        "Validator reqInitial: IsValid=False",
+        "Validator rexCode: IsValid=True",
+        "Validator rngAge: IsValid=True",
+        "Validator cmpConfirm: IsValid=True",
+        "Validator cmpQty: IsValid=True",
+        "Validator cmpDate: IsValid=True",
+        "Validator cusCustom: IsValid=True",
+        "Validator cusEmpty: IsValid=False",
+        "Validator cusNoControl: IsValid=True",
+        "Validator reqDisabled: IsValid=True (disabled)",
+        "Validator reqHidden: IsValid=True (hidden)",
+        "Validator reqNameC: IsValid=True",
+        "Validator rexCodeC: IsValid=True",
+        "Validator rngAgeC: IsValid=True",
+        "Validator cmpConfirmC: IsValid=True",
+        "Validator cusCustomC: IsValid=True",
+        "Validator reqSumC: IsValid=True",
+        "Validator reqSumC2: IsValid=True",
+        "Validator reqDynamic: IsValid=False",
+        "Validator rexDynamic: IsValid=True",
+        "Validator rngDynamic: IsValid=True",
+        "Validator cmpDynamic: IsValid=True",
+        "Validator cusDynamic: IsValid=True"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "",
+        "txtInitial": "(none)",
+        "txtCode": "",
+        "txtAge": "",
+        "txtPassword": "",
+        "txtConfirm": "",
+        "txtQty": "",
+        "txtDate": "",
+        "txtCustom": "",
+        "txtCustomEmpty": "",
+        "txtDisabledTarget": "",
+        "txtHiddenTarget": "",
+        "txtDynamicTarget": "",
+        "txtNameC": "",
+        "txtCodeC": "",
+        "txtAgeC": "",
+        "txtPasswordC": "",
+        "txtConfirmC": "",
+        "txtCustomC": "",
+        "txtSumC": "",
+        "txtSumC2": ""
+      },
+      "Elements": {
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInitial": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqInitial": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtQty": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCustom": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCustomEmpty": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cusEmpty": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDisabledTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHiddenTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamicTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumServer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnServer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnManual": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPageValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtNameC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqNameC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnReqC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCodeC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rexCodeC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnRexC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAgeC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rngAgeC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnRngC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtPasswordC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtConfirmC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cmpConfirmC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnCmpC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCustomC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cusCustomC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnCusC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtSumC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtSumC2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqSumC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqSumC2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumClient": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSumC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "RequiredFieldValidator [servervalidate][dynamic] filled; the initial value still counts as empty",
+      "Path": "/validatorsscenario",
+      "Title": "Validators scenario",
+      "Text": [
+        "Server (group \"server\", no client script)",
+        "Name: Initial: Change the initial value Code: Age: Password: Confirm: Quantity: Date: Custom: Custom (empty validated): Required (custom) Disabled: Hidden: Dynamic: Dynamic: digitsDynamic: 1 to 9Dynamic: less than 5Dynamic: must be ok",
+        "Dynamic summary Change the initial value Required (custom) Dynamic: digits Dynamic: 1 to 9 Dynamic: less than 5 Dynamic: must be ok",
+        "Server errors",
+        "Change the initial value",
+        "Required (custom)",
+        "Dynamic: digits",
+        "Dynamic: 1 to 9",
+        "Dynamic: less than 5",
+        "Dynamic: must be ok",
+        "In the browser (a group each)",
+        "Name: Code: Age: Password: Confirm: Custom: Summary:",
+        "Request 3: IsPostBack=True",
+        "ServerValidate cusEmpty: \"\" -> False",
+        "ServerValidate cusNoControl: (no control, value \"\") -> True",
+        "ServerValidate cusDynamic: \"abc\" -> False",
+        "Click btnServer",
+        "IsValid: False",
+        "Page.Validators: 24",
+        "Validator reqName: IsValid=True",
+        "Validator reqInitial: IsValid=False",
+        "Validator rexCode: IsValid=True",
+        "Validator rngAge: IsValid=True",
+        "Validator cmpConfirm: IsValid=True",
+        "Validator cmpQty: IsValid=True",
+        "Validator cmpDate: IsValid=True",
+        "Validator cusCustom: IsValid=True",
+        "Validator cusEmpty: IsValid=False",
+        "Validator cusNoControl: IsValid=True",
+        "Validator reqDisabled: IsValid=True (disabled)",
+        "Validator reqHidden: IsValid=True (hidden)",
+        "Validator reqNameC: IsValid=True",
+        "Validator rexCodeC: IsValid=True",
+        "Validator rngAgeC: IsValid=True",
+        "Validator cmpConfirmC: IsValid=True",
+        "Validator cusCustomC: IsValid=True",
+        "Validator reqSumC: IsValid=True",
+        "Validator reqSumC2: IsValid=True",
+        "Validator reqDynamic: IsValid=True",
+        "Validator rexDynamic: IsValid=False",
+        "Validator rngDynamic: IsValid=False",
+        "Validator cmpDynamic: IsValid=False",
+        "Validator cusDynamic: IsValid=False"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "Taro",
+        "txtInitial": "(none)",
+        "txtCode": "",
+        "txtAge": "",
+        "txtPassword": "",
+        "txtConfirm": "",
+        "txtQty": "",
+        "txtDate": "",
+        "txtCustom": "",
+        "txtCustomEmpty": "",
+        "txtDisabledTarget": "",
+        "txtHiddenTarget": "",
+        "txtDynamicTarget": "abc",
+        "txtNameC": "",
+        "txtCodeC": "",
+        "txtAgeC": "",
+        "txtPasswordC": "",
+        "txtConfirmC": "",
+        "txtCustomC": "",
+        "txtSumC": "",
+        "txtSumC2": ""
+      },
+      "Elements": {
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtInitial": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqInitial": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtQty": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCustom": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCustomEmpty": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cusEmpty": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDisabledTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHiddenTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamicTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rexDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rngDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cmpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cusDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumServer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnServer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnManual": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPageValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtNameC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqNameC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnReqC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCodeC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rexCodeC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnRexC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAgeC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rngAgeC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnRngC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtPasswordC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtConfirmC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cmpConfirmC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnCmpC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCustomC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cusCustomC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnCusC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtSumC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtSumC2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqSumC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqSumC2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumClient": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSumC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "RequiredFieldValidator [servervalidate] the initial value changed",
+      "Path": "/validatorsscenario",
+      "Title": "Validators scenario",
+      "Text": [
+        "Server (group \"server\", no client script)",
+        "Name: Initial: Code: Age: Password: Confirm: Quantity: Date: Custom: Custom (empty validated): Required (custom) Disabled: Hidden: Dynamic: Dynamic: digitsDynamic: 1 to 9Dynamic: less than 5Dynamic: must be ok",
+        "Dynamic summary Required (custom) Dynamic: digits Dynamic: 1 to 9 Dynamic: less than 5 Dynamic: must be ok",
+        "Server errors",
+        "Required (custom)",
+        "Dynamic: digits",
+        "Dynamic: 1 to 9",
+        "Dynamic: less than 5",
+        "Dynamic: must be ok",
+        "In the browser (a group each)",
+        "Name: Code: Age: Password: Confirm: Custom: Summary:",
+        "Request 4: IsPostBack=True",
+        "ServerValidate cusEmpty: \"\" -> False",
+        "ServerValidate cusNoControl: (no control, value \"\") -> True",
+        "ServerValidate cusDynamic: \"abc\" -> False",
+        "Click btnServer",
+        "IsValid: False",
+        "Page.Validators: 24",
+        "Validator reqName: IsValid=True",
+        "Validator reqInitial: IsValid=True",
+        "Validator rexCode: IsValid=True",
+        "Validator rngAge: IsValid=True",
+        "Validator cmpConfirm: IsValid=True",
+        "Validator cmpQty: IsValid=True",
+        "Validator cmpDate: IsValid=True",
+        "Validator cusCustom: IsValid=True",
+        "Validator cusEmpty: IsValid=False",
+        "Validator cusNoControl: IsValid=True",
+        "Validator reqDisabled: IsValid=True (disabled)",
+        "Validator reqHidden: IsValid=True (hidden)",
+        "Validator reqNameC: IsValid=True",
+        "Validator rexCodeC: IsValid=True",
+        "Validator rngAgeC: IsValid=True",
+        "Validator cmpConfirmC: IsValid=True",
+        "Validator cusCustomC: IsValid=True",
+        "Validator reqSumC: IsValid=True",
+        "Validator reqSumC2: IsValid=True",
+        "Validator reqDynamic: IsValid=True",
+        "Validator rexDynamic: IsValid=False",
+        "Validator rngDynamic: IsValid=False",
+        "Validator cmpDynamic: IsValid=False",
+        "Validator cusDynamic: IsValid=False"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "Taro",
+        "txtInitial": "changed",
+        "txtCode": "",
+        "txtAge": "",
+        "txtPassword": "",
+        "txtConfirm": "",
+        "txtQty": "",
+        "txtDate": "",
+        "txtCustom": "",
+        "txtCustomEmpty": "",
+        "txtDisabledTarget": "",
+        "txtHiddenTarget": "",
+        "txtDynamicTarget": "abc",
+        "txtNameC": "",
+        "txtCodeC": "",
+        "txtAgeC": "",
+        "txtPasswordC": "",
+        "txtConfirmC": "",
+        "txtCustomC": "",
+        "txtSumC": "",
+        "txtSumC2": ""
+      },
+      "Elements": {
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtInitial": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtQty": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCustom": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCustomEmpty": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cusEmpty": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDisabledTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHiddenTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamicTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rexDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rngDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cmpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cusDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumServer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnServer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnManual": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPageValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtNameC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqNameC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnReqC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCodeC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rexCodeC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnRexC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAgeC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rngAgeC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnRngC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtPasswordC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtConfirmC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cmpConfirmC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnCmpC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCustomC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cusCustomC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnCusC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtSumC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtSumC2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqSumC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqSumC2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumClient": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSumC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "RequiredFieldValidator [clientvalidate] empty in the browser: no request",
+      "Path": "/validatorsscenario",
+      "Title": "Validators scenario",
+      "Text": [
+        "Server (group \"server\", no client script)",
+        "Name: Initial: Code: Age: Password: Confirm: Quantity: Date: Custom: Custom (empty validated): Required (custom) Disabled: Hidden: Dynamic: Dynamic: digitsDynamic: 1 to 9Dynamic: less than 5Dynamic: must be ok",
+        "Dynamic summary Required (custom) Dynamic: digits Dynamic: 1 to 9 Dynamic: less than 5 Dynamic: must be ok",
+        "Server errors",
+        "Required (custom)",
+        "Dynamic: digits",
+        "Dynamic: 1 to 9",
+        "Dynamic: less than 5",
+        "Dynamic: must be ok",
+        "In the browser (a group each)",
+        "Name: Name is required (browser) Code: Age: Password: Confirm: Custom: Summary:",
+        "Request 4: IsPostBack=True",
+        "ServerValidate cusEmpty: \"\" -> False",
+        "ServerValidate cusNoControl: (no control, value \"\") -> True",
+        "ServerValidate cusDynamic: \"abc\" -> False",
+        "Click btnServer",
+        "IsValid: False",
+        "Page.Validators: 24",
+        "Validator reqName: IsValid=True",
+        "Validator reqInitial: IsValid=True",
+        "Validator rexCode: IsValid=True",
+        "Validator rngAge: IsValid=True",
+        "Validator cmpConfirm: IsValid=True",
+        "Validator cmpQty: IsValid=True",
+        "Validator cmpDate: IsValid=True",
+        "Validator cusCustom: IsValid=True",
+        "Validator cusEmpty: IsValid=False",
+        "Validator cusNoControl: IsValid=True",
+        "Validator reqDisabled: IsValid=True (disabled)",
+        "Validator reqHidden: IsValid=True (hidden)",
+        "Validator reqNameC: IsValid=True",
+        "Validator rexCodeC: IsValid=True",
+        "Validator rngAgeC: IsValid=True",
+        "Validator cmpConfirmC: IsValid=True",
+        "Validator cusCustomC: IsValid=True",
+        "Validator reqSumC: IsValid=True",
+        "Validator reqSumC2: IsValid=True",
+        "Validator reqDynamic: IsValid=True",
+        "Validator rexDynamic: IsValid=False",
+        "Validator rngDynamic: IsValid=False",
+        "Validator cmpDynamic: IsValid=False",
+        "Validator cusDynamic: IsValid=False"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "Taro",
+        "txtInitial": "changed",
+        "txtCode": "",
+        "txtAge": "",
+        "txtPassword": "",
+        "txtConfirm": "",
+        "txtQty": "",
+        "txtDate": "",
+        "txtCustom": "",
+        "txtCustomEmpty": "",
+        "txtDisabledTarget": "",
+        "txtHiddenTarget": "",
+        "txtDynamicTarget": "abc",
+        "txtNameC": "",
+        "txtCodeC": "",
+        "txtAgeC": "",
+        "txtPasswordC": "",
+        "txtConfirmC": "",
+        "txtCustomC": "",
+        "txtSumC": "",
+        "txtSumC2": ""
+      },
+      "Elements": {
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtInitial": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtQty": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCustom": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCustomEmpty": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cusEmpty": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDisabledTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHiddenTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamicTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rexDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rngDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cmpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cusDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumServer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnServer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnManual": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPageValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtNameC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqNameC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnReqC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCodeC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rexCodeC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnRexC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAgeC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rngAgeC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnRngC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtPasswordC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtConfirmC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cmpConfirmC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnCmpC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCustomC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cusCustomC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnCusC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtSumC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtSumC2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqSumC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqSumC2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumClient": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSumC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "RequiredFieldValidator [clientvalidate] filled in the browser: posted",
+      "Path": "/validatorsscenario",
+      "Title": "Validators scenario",
+      "Text": [
+        "Server (group \"server\", no client script)",
+        "Name: Initial: Code: Age: Password: Confirm: Quantity: Date: Custom: Custom (empty validated): Required (custom) Disabled: Hidden: Dynamic: Dynamic: digitsDynamic: 1 to 9Dynamic: less than 5Dynamic: must be ok",
+        "Dynamic summary Required (custom) Dynamic: digits Dynamic: 1 to 9 Dynamic: less than 5 Dynamic: must be ok",
+        "Server errors",
+        "Required (custom)",
+        "Dynamic: digits",
+        "Dynamic: 1 to 9",
+        "Dynamic: less than 5",
+        "Dynamic: must be ok",
+        "In the browser (a group each)",
+        "Name: Code: Age: Password: Confirm: Custom: Summary:",
+        "Request 4: IsPostBack=True",
+        "ServerValidate cusEmpty: \"\" -> False",
+        "ServerValidate cusNoControl: (no control, value \"\") -> True",
+        "ServerValidate cusDynamic: \"abc\" -> False",
+        "Click btnServer",
+        "IsValid: False",
+        "Page.Validators: 24",
+        "Validator reqName: IsValid=True",
+        "Validator reqInitial: IsValid=True",
+        "Validator rexCode: IsValid=True",
+        "Validator rngAge: IsValid=True",
+        "Validator cmpConfirm: IsValid=True",
+        "Validator cmpQty: IsValid=True",
+        "Validator cmpDate: IsValid=True",
+        "Validator cusCustom: IsValid=True",
+        "Validator cusEmpty: IsValid=False",
+        "Validator cusNoControl: IsValid=True",
+        "Validator reqDisabled: IsValid=True (disabled)",
+        "Validator reqHidden: IsValid=True (hidden)",
+        "Validator reqNameC: IsValid=True",
+        "Validator rexCodeC: IsValid=True",
+        "Validator rngAgeC: IsValid=True",
+        "Validator cmpConfirmC: IsValid=True",
+        "Validator cusCustomC: IsValid=True",
+        "Validator reqSumC: IsValid=True",
+        "Validator reqSumC2: IsValid=True",
+        "Validator reqDynamic: IsValid=True",
+        "Validator rexDynamic: IsValid=False",
+        "Validator rngDynamic: IsValid=False",
+        "Validator cmpDynamic: IsValid=False",
+        "Validator cusDynamic: IsValid=False"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "Taro",
+        "txtInitial": "changed",
+        "txtCode": "",
+        "txtAge": "",
+        "txtPassword": "",
+        "txtConfirm": "",
+        "txtQty": "",
+        "txtDate": "",
+        "txtCustom": "",
+        "txtCustomEmpty": "",
+        "txtDisabledTarget": "",
+        "txtHiddenTarget": "",
+        "txtDynamicTarget": "abc",
+        "txtNameC": "x",
+        "txtCodeC": "",
+        "txtAgeC": "",
+        "txtPasswordC": "",
+        "txtConfirmC": "",
+        "txtCustomC": "",
+        "txtSumC": "",
+        "txtSumC2": ""
+      },
+      "Elements": {
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtInitial": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtQty": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCustom": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCustomEmpty": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cusEmpty": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDisabledTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHiddenTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamicTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rexDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rngDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cmpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cusDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumServer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnServer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnManual": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPageValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtNameC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqNameC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnReqC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCodeC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rexCodeC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnRexC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAgeC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rngAgeC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnRngC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtPasswordC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtConfirmC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cmpConfirmC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnCmpC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCustomC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cusCustomC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnCusC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtSumC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtSumC2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqSumC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqSumC2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumClient": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSumC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "RequiredFieldValidator [visible][servervalidate] the hidden validator shown, then validating",
+      "Path": "/validatorsscenario",
+      "Title": "Validators scenario",
+      "Text": [
+        "Server (group \"server\", no client script)",
+        "Name: Initial: Code: Age: Password: Confirm: Quantity: Date: Custom: Custom (empty validated): Required (custom) Disabled: Hidden: Hidden validator Dynamic: Dynamic: digitsDynamic: 1 to 9Dynamic: less than 5Dynamic: must be ok",
+        "Dynamic summary Required (custom) Hidden validator Dynamic: digits Dynamic: 1 to 9 Dynamic: less than 5 Dynamic: must be ok",
+        "Server errors",
+        "Required (custom)",
+        "Hidden validator",
+        "Dynamic: digits",
+        "Dynamic: 1 to 9",
+        "Dynamic: less than 5",
+        "Dynamic: must be ok",
+        "In the browser (a group each)",
+        "Name: Code: Age: Password: Confirm: Custom: Summary:",
+        "Request 6: IsPostBack=True",
+        "ServerValidate cusEmpty: \"\" -> False",
+        "ServerValidate cusNoControl: (no control, value \"\") -> True",
+        "ServerValidate cusDynamic: \"abc\" -> False",
+        "Click btnServer",
+        "IsValid: False",
+        "Page.Validators: 24",
+        "Validator reqName: IsValid=True",
+        "Validator reqInitial: IsValid=True",
+        "Validator rexCode: IsValid=True",
+        "Validator rngAge: IsValid=True",
+        "Validator cmpConfirm: IsValid=True",
+        "Validator cmpQty: IsValid=True",
+        "Validator cmpDate: IsValid=True",
+        "Validator cusCustom: IsValid=True",
+        "Validator cusEmpty: IsValid=False",
+        "Validator cusNoControl: IsValid=True",
+        "Validator reqDisabled: IsValid=True (disabled)",
+        "Validator reqHidden: IsValid=False",
+        "Validator reqNameC: IsValid=True",
+        "Validator rexCodeC: IsValid=True",
+        "Validator rngAgeC: IsValid=True",
+        "Validator cmpConfirmC: IsValid=True",
+        "Validator cusCustomC: IsValid=True",
+        "Validator reqSumC: IsValid=True",
+        "Validator reqSumC2: IsValid=True",
+        "Validator reqDynamic: IsValid=True",
+        "Validator rexDynamic: IsValid=False",
+        "Validator rngDynamic: IsValid=False",
+        "Validator cmpDynamic: IsValid=False",
+        "Validator cusDynamic: IsValid=False"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "Taro",
+        "txtInitial": "changed",
+        "txtCode": "",
+        "txtAge": "",
+        "txtPassword": "",
+        "txtConfirm": "",
+        "txtQty": "",
+        "txtDate": "",
+        "txtCustom": "",
+        "txtCustomEmpty": "",
+        "txtDisabledTarget": "",
+        "txtHiddenTarget": "",
+        "txtDynamicTarget": "abc",
+        "txtNameC": "x",
+        "txtCodeC": "",
+        "txtAgeC": "",
+        "txtPasswordC": "",
+        "txtConfirmC": "",
+        "txtCustomC": "",
+        "txtSumC": "",
+        "txtSumC2": ""
+      },
+      "Elements": {
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtInitial": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAge": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtQty": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCustom": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtCustomEmpty": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cusEmpty": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDisabledTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHiddenTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqHidden": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDynamicTarget": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rexDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rngDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cmpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cusDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumServer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnServer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnManual": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPageValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtNameC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqNameC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnReqC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCodeC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rexCodeC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnRexC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAgeC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rngAgeC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnRngC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtPasswordC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtConfirmC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cmpConfirmC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnCmpC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCustomC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "cusCustomC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnCusC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtSumC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtSumC2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqSumC": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "reqSumC2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sumClient": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSumC": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

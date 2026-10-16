@@ -1,0 +1,1330 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "Repeater [render][databind][templates][datasourceid][dynamic] first request",
+      "Path": "/repeaterscenario",
+      "Title": "Repeater scenario",
+      "Text": [
+        "Header",
+        "Pen Remove",
+        "Bag Remove",
+        "Cup <&> Remove",
+        "Desk Remove",
+        "Footer",
+        "Fruit: Inner pick AppleInner pick Banana",
+        "Tool: Inner pick Hammer",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "Empty footer",
+        "No view state: PenNo view state: Bag [dynamic: Pen (P1)][dynamic: Bag (B2)]",
+        "Request 1: IsPostBack=False (items created from view state: 0)",
+        "rptItems bound: ItemCreated 9, ItemDataBound 9",
+        "Repeater rptItems: Items=4",
+        "Repeater rptOuter: Items=2",
+        "Repeater rptAuto: Items=0",
+        "Repeater rptEmpty: Items=0",
+        "Repeater rptNoViewState: Items=2",
+        "Repeater rptHidden: Items=2 (hidden)",
+        "Repeater rptDynamic: Items=2",
+        "Item 0 Item: Pen qty \"\"",
+        "Item 1 AlternatingItem: Bag qty \"\"",
+        "Item 2 Item: Cup <&> qty \"\"",
+        "Item 3 AlternatingItem: Desk qty \"\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "rptItems_txtQty_0": "",
+        "rptItems_txtQty_1": "",
+        "rptItems_txtQty_2": "",
+        "rptItems_txtQty_3": ""
+      },
+      "Elements": {
+        "divItems": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "divOuter": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_0_lnkInner_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_0_lnkInner_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_1_lnkInner_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRebind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Repeater [viewstate][dynamic] posted: items made again from view state, the text box's value",
+      "Path": "/repeaterscenario",
+      "Title": "Repeater scenario",
+      "Text": [
+        "Header",
+        "Pen Remove",
+        "Bag Remove",
+        "Cup <&> Remove",
+        "Desk Remove",
+        "Footer",
+        "Fruit: Inner pick AppleInner pick Banana",
+        "Tool: Inner pick Hammer",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "Empty footer",
+        "[dynamic: Pen (P1)][dynamic: Bag (B2)]",
+        "Request 2: IsPostBack=True (items created from view state: 9)",
+        "Repeater rptItems: Items=4",
+        "Repeater rptOuter: Items=2",
+        "Repeater rptAuto: Items=7",
+        "Repeater rptEmpty: Items=0",
+        "Repeater rptNoViewState: Items=0",
+        "Repeater rptHidden: Items=2 (hidden)",
+        "Repeater rptDynamic: Items=2",
+        "Item 0 Item: Pen qty \"5\"",
+        "Item 1 AlternatingItem: Bag qty \"\"",
+        "Item 2 Item: Cup <&> qty \"\"",
+        "Item 3 AlternatingItem: Desk qty \"\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "rptItems_txtQty_0": "5",
+        "rptItems_txtQty_1": "",
+        "rptItems_txtQty_2": "",
+        "rptItems_txtQty_3": ""
+      },
+      "Elements": {
+        "divItems": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "divOuter": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_0_lnkInner_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_0_lnkInner_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_1_lnkInner_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRebind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Repeater [rowcommand] a link's command bubbled to ItemCommand; rebound",
+      "Path": "/repeaterscenario",
+      "Title": "Repeater scenario",
+      "Text": [
+        "Header",
+        "Bag Remove",
+        "Cup <&> Remove",
+        "Desk Remove",
+        "Eraser Remove",
+        "Footer",
+        "Fruit: Inner pick AppleInner pick Banana",
+        "Tool: Inner pick Hammer",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "Empty footer",
+        "[dynamic: Pen (P1)][dynamic: Bag (B2)]",
+        "Request 3: IsPostBack=True (items created from view state: 9)",
+        "ItemCommand rptItems item 0 (Item): remove P1 from lnkRemove",
+        "rptItems bound: ItemCreated 18, ItemDataBound 9",
+        "Repeater rptItems: Items=4",
+        "Repeater rptOuter: Items=2",
+        "Repeater rptAuto: Items=7",
+        "Repeater rptEmpty: Items=0",
+        "Repeater rptNoViewState: Items=0",
+        "Repeater rptHidden: Items=2 (hidden)",
+        "Repeater rptDynamic: Items=2",
+        "Item 0 Item: Bag qty \"\"",
+        "Item 1 AlternatingItem: Cup <&> qty \"\"",
+        "Item 2 Item: Desk qty \"\"",
+        "Item 3 AlternatingItem: Eraser qty \"\"",
+        "Store: B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "rptItems_txtQty_0": "",
+        "rptItems_txtQty_1": "",
+        "rptItems_txtQty_2": "",
+        "rptItems_txtQty_3": ""
+      },
+      "Elements": {
+        "divItems": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "divOuter": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_0_lnkInner_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_0_lnkInner_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_1_lnkInner_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRebind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Repeater [rowcommand] a button's command bubbled to ItemCommand",
+      "Path": "/repeaterscenario",
+      "Title": "Repeater scenario",
+      "Text": [
+        "Header",
+        "Bag Remove",
+        "Cup <&> Remove",
+        "Desk Remove",
+        "Eraser Remove",
+        "Footer",
+        "Fruit: Inner pick AppleInner pick Banana",
+        "Tool: Inner pick Hammer",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "Empty footer",
+        "[dynamic: Pen (P1)][dynamic: Bag (B2)]",
+        "Request 4: IsPostBack=True (items created from view state: 9)",
+        "ItemCommand rptItems item 0 (Item): more 0 from btnMore",
+        "Repeater rptItems: Items=4",
+        "Repeater rptOuter: Items=2",
+        "Repeater rptAuto: Items=7",
+        "Repeater rptEmpty: Items=0",
+        "Repeater rptNoViewState: Items=0",
+        "Repeater rptHidden: Items=2 (hidden)",
+        "Repeater rptDynamic: Items=2",
+        "Item 0 Item: Bag qty \"\"",
+        "Item 1 AlternatingItem: Cup <&> qty \"\"",
+        "Item 2 Item: Desk qty \"\"",
+        "Item 3 AlternatingItem: Eraser qty \"\"",
+        "Store: B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "rptItems_txtQty_0": "",
+        "rptItems_txtQty_1": "",
+        "rptItems_txtQty_2": "",
+        "rptItems_txtQty_3": ""
+      },
+      "Elements": {
+        "divItems": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "divOuter": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_0_lnkInner_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_0_lnkInner_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_1_lnkInner_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRebind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Repeater [rowcommand] a nested repeater's command",
+      "Path": "/repeaterscenario",
+      "Title": "Repeater scenario",
+      "Text": [
+        "Header",
+        "Bag Remove",
+        "Cup <&> Remove",
+        "Desk Remove",
+        "Eraser Remove",
+        "Footer",
+        "Fruit: Inner pick AppleInner pick Banana",
+        "Tool: Inner pick Hammer",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "Empty footer",
+        "[dynamic: Pen (P1)][dynamic: Bag (B2)]",
+        "Request 5: IsPostBack=True (items created from view state: 9)",
+        "ItemCommand rptInner item 1 (AlternatingItem): inner Banana from lnkInner",
+        "Repeater rptItems: Items=4",
+        "Repeater rptOuter: Items=2",
+        "Repeater rptAuto: Items=7",
+        "Repeater rptEmpty: Items=0",
+        "Repeater rptNoViewState: Items=0",
+        "Repeater rptHidden: Items=2 (hidden)",
+        "Repeater rptDynamic: Items=2",
+        "Item 0 Item: Bag qty \"\"",
+        "Item 1 AlternatingItem: Cup <&> qty \"\"",
+        "Item 2 Item: Desk qty \"\"",
+        "Item 3 AlternatingItem: Eraser qty \"\"",
+        "Store: B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "rptItems_txtQty_0": "",
+        "rptItems_txtQty_1": "",
+        "rptItems_txtQty_2": "",
+        "rptItems_txtQty_3": ""
+      },
+      "Elements": {
+        "divItems": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "divOuter": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_0_lnkInner_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_0_lnkInner_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_1_lnkInner_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRebind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Repeater [databind] rebound",
+      "Path": "/repeaterscenario",
+      "Title": "Repeater scenario",
+      "Text": [
+        "Header",
+        "Bag Remove",
+        "Cup <&> Remove",
+        "Desk Remove",
+        "Eraser Remove",
+        "Footer",
+        "Fruit: Inner pick AppleInner pick Banana",
+        "Tool: Inner pick Hammer",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "Empty footer",
+        "[dynamic: Pen (P1)][dynamic: Bag (B2)]",
+        "Request 6: IsPostBack=True (items created from view state: 9)",
+        "Click btnRebind",
+        "rptItems bound: ItemCreated 18, ItemDataBound 9",
+        "Repeater rptItems: Items=4",
+        "Repeater rptOuter: Items=2",
+        "Repeater rptAuto: Items=7",
+        "Repeater rptEmpty: Items=0",
+        "Repeater rptNoViewState: Items=0",
+        "Repeater rptHidden: Items=2 (hidden)",
+        "Repeater rptDynamic: Items=2",
+        "Item 0 Item: Bag qty \"\"",
+        "Item 1 AlternatingItem: Cup <&> qty \"\"",
+        "Item 2 Item: Desk qty \"\"",
+        "Item 3 AlternatingItem: Eraser qty \"\"",
+        "Store: B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "rptItems_txtQty_0": "",
+        "rptItems_txtQty_1": "",
+        "rptItems_txtQty_2": "",
+        "rptItems_txtQty_3": ""
+      },
+      "Elements": {
+        "divItems": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "divOuter": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_0_lnkInner_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_0_lnkInner_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_1_lnkInner_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRebind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Repeater [visible][viewstate] the hidden repeater shown with its items",
+      "Path": "/repeaterscenario",
+      "Title": "Repeater scenario",
+      "Text": [
+        "Header",
+        "Bag Remove",
+        "Cup <&> Remove",
+        "Desk Remove",
+        "Eraser Remove",
+        "Footer",
+        "Fruit: Inner pick AppleInner pick Banana",
+        "Tool: Inner pick Hammer",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "Empty footer",
+        "Hidden: PenHidden: Bag [dynamic: Pen (P1)][dynamic: Bag (B2)]",
+        "Request 7: IsPostBack=True (items created from view state: 9)",
+        "Click btnShow",
+        "Repeater rptItems: Items=4",
+        "Repeater rptOuter: Items=2",
+        "Repeater rptAuto: Items=7",
+        "Repeater rptEmpty: Items=0",
+        "Repeater rptNoViewState: Items=0",
+        "Repeater rptHidden: Items=2",
+        "Repeater rptDynamic: Items=2",
+        "Item 0 Item: Bag qty \"\"",
+        "Item 1 AlternatingItem: Cup <&> qty \"\"",
+        "Item 2 Item: Desk qty \"\"",
+        "Item 3 AlternatingItem: Eraser qty \"\"",
+        "Store: B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "rptItems_txtQty_0": "",
+        "rptItems_txtQty_1": "",
+        "rptItems_txtQty_2": "",
+        "rptItems_txtQty_3": ""
+      },
+      "Elements": {
+        "divItems": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_lblName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_txtQty_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rptItems_lnkRemove_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptItems_btnMore_3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "divOuter": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_0_lnkInner_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_0_lnkInner_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "rptOuter_rptInner_1_lnkInner_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRebind": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

@@ -1,0 +1,31 @@
+{
+  "_comment": "The Ajax Control Toolkit 20.1 (FrameworkOnCore's version): each control as its scripts make the page, after a click where it takes one, and what they post.",
+  "ignorePatterns": [],
+  "_ignoreComment": "The calendar popup's footer: today's date, the day of the run.",
+  "ignoreSelectors": [ ".ajax__calendar_footer" ],
+  "steps": [
+    { "action": "goto", "path": "/Default.aspx" },
+    { "action": "snapshot", "name": "toolkit20-first view" },
+    { "action": "clicktext", "value": "Second" },
+    { "action": "snapshot", "name": "toolkit20-the second tab" },
+    { "action": "click", "target": "headerTwo" },
+    { "action": "waitMs", "ms": 500 },
+    { "action": "snapshot", "name": "toolkit20-the accordion's second pane" },
+    { "action": "click", "target": "txtDate" },
+    { "action": "waitMs", "ms": 500 },
+    { "action": "snapshot", "name": "toolkit20-the calendar popup" },
+    { "action": "click", "target": "btnShowModal" },
+    { "action": "waitMs", "ms": 500 },
+    { "action": "snapshot", "name": "toolkit20-the modal popup" },
+    { "action": "click", "target": "btnCloseModal" },
+    { "action": "click", "target": "pnlHeader" },
+    { "action": "waitMs", "ms": 500 },
+    { "action": "snapshot", "name": "toolkit20-the collapsible panel opened" },
+    { "action": "fill", "target": "txtName", "value": "Taro" },
+    { "action": "click", "target": "btnGreet" },
+    { "action": "snapshot", "name": "toolkit20-an asynchronous postback" },
+    { "action": "fill", "target": "txtWatermark", "value": "typed" },
+    { "action": "click", "target": "btnConfirm" },
+    { "action": "snapshot", "name": "toolkit20-confirmed and posted" }
+  ]
+}

@@ -1,0 +1,547 @@
+{
+  "HtmlAnchor.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HtmlAnchor.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HtmlAnchor.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlAnchor.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HtmlAnchor.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.ClientID": [
+    "Control.ClientID = \"ancGo\""
+  ],
+  "HtmlAnchor.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HtmlAnchor.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HtmlAnchor.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HtmlAnchor.Api.Control.Controls": [
+    "Control.Controls = ControlCollection [LiteralControl#]"
+  ],
+  "HtmlAnchor.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HtmlAnchor.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HtmlAnchor.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HtmlAnchor.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HtmlAnchor.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HtmlAnchor.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "HtmlAnchor.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HtmlAnchor.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HtmlAnchor.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "HtmlAnchor.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlAnchor.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"ancGo\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HtmlAnchor.Api.Control.HasControls": [
+    "Control.HasControls = \"true\"",
+    "Control.HasControls after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.ID": [
+    "Control.ID = \"ancGo\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HtmlAnchor.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HtmlAnchor.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HtmlAnchor.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HtmlAnchor.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"true\"",
+    "Control.IsLiteralContent after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HtmlAnchor.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HtmlAnchor.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HtmlAnchor.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlAnchor.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HtmlAnchor.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlAnchor.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlAnchor.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HtmlAnchor.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <a href=\"~/Target.aspx?a=1&b=2\" id=\"ancGo\">Go</a>",
+    "Control.Render(HtmlTextWriter) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | Go",
+    "Control.RenderChildren(HtmlTextWriter) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <a href=\"~/Target.aspx?a=1&b=2\" id=\"ancGo\">Go</a>",
+    "Control.RenderControl(HtmlTextWriter) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <a href=\"~/Target.aspx?a=1&b=2\" id=\"ancGo\">Go</a>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HtmlAnchor.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HtmlAnchor.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "HtmlAnchor.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HtmlAnchor.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.Control.UniqueID": [
+    "Control.UniqueID = \"ancGo\""
+  ],
+  "HtmlAnchor.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HtmlAnchor.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HtmlAnchor.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [href=\"~/Target.aspx?a=1&b=2\", innerhtml=\"Go\"]"
+  ],
+  "HtmlAnchor.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlAnchor.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HtmlAnchor.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlAnchor.#ctor": [
+    "HtmlControls.HtmlAnchor.#ctor = HtmlAnchor# {CausesValidation=true; ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"\"; ID=null; InnerHtml=\"\"; InnerText=\"\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlAnchor.CausesValidation": [
+    "HtmlControls.HtmlAnchor.CausesValidation = \"true\"",
+    "HtmlControls.HtmlAnchor.CausesValidation set = \"true\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlAnchor.HRef": [
+    "HtmlControls.HtmlAnchor.HRef = \"~/Target.aspx?a=1&b=2\"",
+    "HtmlControls.HtmlAnchor.HRef set = \"Abc 123\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlAnchor.Name": [
+    "HtmlControls.HtmlAnchor.Name = \"\"",
+    "HtmlControls.HtmlAnchor.Name set = \"Abc 123\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlAnchor.OnPreRender": [
+    "HtmlControls.HtmlAnchor.OnPreRender(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlAnchor.OnPreRender(EventArgs) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlAnchor.OnServerClick": [
+    "HtmlControls.HtmlAnchor.OnServerClick(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlAnchor.OnServerClick(EventArgs) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlAnchor.RaisePostBackEvent": [
+    "HtmlControls.HtmlAnchor.RaisePostBackEvent(String) = \"ok\"",
+    "HtmlControls.HtmlAnchor.RaisePostBackEvent(String) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlAnchor.RenderAttributes": [
+    "HtmlControls.HtmlAnchor.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlAnchor.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  href=\"~/Target.aspx?a=1&b=2\" id=\"ancGo\"",
+    "HtmlControls.HtmlAnchor.RenderAttributes(HtmlTextWriter) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlAnchor.ServerClick": [
+    "HtmlControls.HtmlAnchor.ServerClick = \"added and removed\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlAnchor.Target": [
+    "HtmlControls.HtmlAnchor.Target = \"\"",
+    "HtmlControls.HtmlAnchor.Target set = \"Abc 123\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlAnchor.Title": [
+    "HtmlControls.HtmlAnchor.Title = \"\"",
+    "HtmlControls.HtmlAnchor.Title set = \"Abc 123\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlAnchor.ValidationGroup": [
+    "HtmlControls.HtmlAnchor.ValidationGroup = \"\"",
+    "HtmlControls.HtmlAnchor.ValidationGroup set = \"Abc 123\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlContainerControl.#ctor": [
+    "HtmlControls.HtmlContainerControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlContainerControl because it is an abstract class.\"",
+    "HtmlControls.HtmlContainerControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlContainerControl because it is an abstract class.\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlContainerControl.CreateControlCollection": [
+    "HtmlControls.HtmlContainerControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlContainerControl.CreateControlCollection after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlContainerControl.InnerHtml": [
+    "HtmlControls.HtmlContainerControl.InnerHtml = \"Go\"",
+    "HtmlControls.HtmlContainerControl.InnerHtml set = \"Abc 123\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlContainerControl.InnerText": [
+    "HtmlControls.HtmlContainerControl.InnerText = \"Go\"",
+    "HtmlControls.HtmlContainerControl.InnerText set = \"Abc 123\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlContainerControl.LoadViewState": [
+    "HtmlControls.HtmlContainerControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlContainerControl.Render": [
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) writer:",
+    "  | <a href=\"~/Target.aspx?a=1&b=2\" id=\"ancGo\">Go</a>",
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlContainerControl.RenderAttributes": [
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  href=\"~/Target.aspx?a=1&b=2\" id=\"ancGo\"",
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlContainerControl.RenderEndTag": [
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) writer:",
+    "  | </a>",
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlControl.#ctor": [
+    "HtmlControls.HtmlControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\"",
+    "HtmlControls.HtmlControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlControl.Attributes": [
+    "HtmlControls.HtmlControl.Attributes = AttributeCollection [href=\"~/Target.aspx?a=1&b=2\", innerhtml=\"Go\"]"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlControl.CreateControlCollection": [
+    "HtmlControls.HtmlControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlControl.CreateControlCollection after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlControl.Disabled": [
+    "HtmlControls.HtmlControl.Disabled = \"false\"",
+    "HtmlControls.HtmlControl.Disabled set = \"true\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlControl.GetAttribute": [
+    "HtmlControls.HtmlControl.GetAttribute(String) = null",
+    "HtmlControls.HtmlControl.GetAttribute(String) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlControl.Render": [
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) writer:",
+    "  | <a href=\"~/Target.aspx?a=1&b=2\" id=\"ancGo\">Go</a>",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlControl.RenderAttributes": [
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  href=\"~/Target.aspx?a=1&b=2\" id=\"ancGo\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlControl.RenderBeginTag": [
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <a href=\"~/Target.aspx?a=1&b=2\" id=\"ancGo\">",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlControl.SetAttribute": [
+    "HtmlControls.HtmlControl.SetAttribute(String,String) = \"ok\"",
+    "HtmlControls.HtmlControl.SetAttribute(String,String) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlControl.Style": [
+    "HtmlControls.HtmlControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlControl.TagName": [
+    "HtmlControls.HtmlControl.TagName = \"a\""
+  ],
+  "HtmlAnchor.Api.HtmlControls.HtmlControl.ViewStateIgnoresCase": [
+    "HtmlControls.HtmlControl.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlAnchor.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HtmlAnchor.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HtmlAnchor.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HtmlAnchor.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HtmlAnchor.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HtmlAnchor.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HtmlAnchor.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.IPostBackEventHandler.RaisePostBackEvent": [
+    "IPostBackEventHandler.RaisePostBackEvent(String) = \"ok\"",
+    "IPostBackEventHandler.RaisePostBackEvent(String) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlAnchor.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HtmlAnchor#ancGo {CausesValidation=true; ClientID=\"ancGo\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; HRef=\"~/Target.aspx?a=1&b=2\"; ID=\"ancGo\"; InnerHtml=\"Go\"; InnerText=\"Go\"; Name=\"\"; SkinID=\"\"; TagName=\"a\"; Target=\"\"; Title=\"\"; UniqueID=\"ancGo\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ]
+}

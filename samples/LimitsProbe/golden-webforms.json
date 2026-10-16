@@ -1,0 +1,33 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "limits-each request's answer",
+      "Path": "/limits.htm",
+      "Title": "Limits",
+      "Text": [
+        "a form of 10 KB -> 200 | form keys 1, form length 10240, query length 0, path length 10, content length 10240",
+        "a form of 200 KB (maxRequestLength 100 KB) -> 500 | error System.Web.HttpUnhandledException: Exception of type 'System.Web.HttpUnhandledException' was thrown. / System.Web.HttpException: Maximum request length ex",
+        "a form of 200 KB where maxRequestLength is 100 MB -> 200 | form keys 1, form length 204800, query length 0, path length 14, content length 204800",
+        "31,000,000 bytes where maxRequestLength is 100 MB (IIS: 30,000,000) -> 413 | the server's page (text/html)",
+        "1,000 form keys -> 200 | form keys 1000, form length 6889, query length 0, path length 10, content length 6889",
+        "1,001 form keys (aspnet:MaxHttpCollectionKeys 1,000) -> 200 | form keys 1001, form length 6897, query length 0, path length 10, content length 6897",
+        "a query of 2,000 characters -> 200 | form keys 0, form length 0, query length 2003, path length 10, content length 0",
+        "a query of 3,000 characters (IIS: 2,048) -> 404 | the server's page (text/html)",
+        "a path of 250 characters -> 404 | error System.Web.HttpException: The file '/ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "a path of 300 characters (maxUrlLength 260) -> 400 | the server's page (text/html)",
+        "a page longer than executionTimeout (3 s) -> 500 | error System.Web.HttpException: Request timed out."
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "limits": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

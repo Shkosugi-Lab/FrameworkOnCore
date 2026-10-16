@@ -1,0 +1,509 @@
+{
+  "HtmlInputGenericControl.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HtmlInputGenericControl.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HtmlInputGenericControl.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputGenericControl.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HtmlInputGenericControl.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.ClientID": [
+    "Control.ClientID = \"inpEmail\""
+  ],
+  "HtmlInputGenericControl.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HtmlInputGenericControl.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HtmlInputGenericControl.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HtmlInputGenericControl.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "HtmlInputGenericControl.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HtmlInputGenericControl.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HtmlInputGenericControl.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HtmlInputGenericControl.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HtmlInputGenericControl.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HtmlInputGenericControl.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "HtmlInputGenericControl.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HtmlInputGenericControl.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HtmlInputGenericControl.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "HtmlInputGenericControl.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputGenericControl.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"inpEmail\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HtmlInputGenericControl.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.ID": [
+    "Control.ID = \"inpEmail\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HtmlInputGenericControl.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HtmlInputGenericControl.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HtmlInputGenericControl.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HtmlInputGenericControl.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HtmlInputGenericControl.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HtmlInputGenericControl.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HtmlInputGenericControl.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlInputGenericControl.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HtmlInputGenericControl.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputGenericControl.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputGenericControl.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HtmlInputGenericControl.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <input name=\"inpEmail\" type=\"email\" id=\"inpEmail\" value=\"a@example.com\" />",
+    "Control.Render(HtmlTextWriter) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <input name=\"inpEmail\" type=\"email\" id=\"inpEmail\" value=\"a@example.com\" />",
+    "Control.RenderControl(HtmlTextWriter) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <input name=\"inpEmail\" type=\"email\" id=\"inpEmail\" value=\"a@example.com\" />",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HtmlInputGenericControl.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HtmlInputGenericControl.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "HtmlInputGenericControl.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HtmlInputGenericControl.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.Control.UniqueID": [
+    "Control.UniqueID = \"inpEmail\""
+  ],
+  "HtmlInputGenericControl.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HtmlInputGenericControl.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HtmlInputGenericControl.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [type=\"email\", value=\"a@example.com\"]"
+  ],
+  "HtmlInputGenericControl.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlInputGenericControl.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HtmlInputGenericControl.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlControl.#ctor": [
+    "HtmlControls.HtmlControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\"",
+    "HtmlControls.HtmlControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\""
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlControl.Attributes": [
+    "HtmlControls.HtmlControl.Attributes = AttributeCollection [type=\"email\", value=\"a@example.com\"]"
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlControl.CreateControlCollection": [
+    "HtmlControls.HtmlControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlControl.CreateControlCollection after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlControl.Disabled": [
+    "HtmlControls.HtmlControl.Disabled = \"false\"",
+    "HtmlControls.HtmlControl.Disabled set = \"true\""
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlControl.GetAttribute": [
+    "HtmlControls.HtmlControl.GetAttribute(String) = null",
+    "HtmlControls.HtmlControl.GetAttribute(String) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlControl.Render": [
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) writer:",
+    "  | <input name=\"inpEmail\" type=\"email\" id=\"inpEmail\" value=\"a@example.com\" />",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlControl.RenderAttributes": [
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"inpEmail\" type=\"email\" id=\"inpEmail\" value=\"a@example.com\" /",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlControl.RenderBeginTag": [
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <input name=\"inpEmail\" type=\"email\" id=\"inpEmail\" value=\"a@example.com\" />",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlControl.SetAttribute": [
+    "HtmlControls.HtmlControl.SetAttribute(String,String) = \"ok\"",
+    "HtmlControls.HtmlControl.SetAttribute(String,String) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlControl.Style": [
+    "HtmlControls.HtmlControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlControl.TagName": [
+    "HtmlControls.HtmlControl.TagName = \"input\""
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlControl.ViewStateIgnoresCase": [
+    "HtmlControls.HtmlControl.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlInputControl.#ctor": [
+    "HtmlControls.HtmlInputControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlInputControl because it is an abstract class.\""
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlInputControl.Name": [
+    "HtmlControls.HtmlInputControl.Name = \"inpEmail\"",
+    "HtmlControls.HtmlInputControl.Name set = \"inpEmail\""
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlInputControl.RenderAttributes": [
+    "HtmlControls.HtmlInputControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlInputControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"inpEmail\" type=\"email\" id=\"inpEmail\" value=\"a@example.com\" /",
+    "HtmlControls.HtmlInputControl.RenderAttributes(HtmlTextWriter) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlInputControl.Type": [
+    "HtmlControls.HtmlInputControl.Type = \"email\""
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlInputControl.Value": [
+    "HtmlControls.HtmlInputControl.Value = \"a@example.com\"",
+    "HtmlControls.HtmlInputControl.Value set = \"Abc 123\""
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlInputGenericControl.#ctor": [
+    "HtmlControls.HtmlInputGenericControl.#ctor = HtmlInputGenericControl# {ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=null; Name=null; SkinID=\"\"; TagName=\"input\"; Type=\"text\"; UniqueID=null; ValidateRequestMode=Inherit; Value=\"\"; ViewStateMode=Inherit; Visible=true}",
+    "HtmlControls.HtmlInputGenericControl.#ctor(String) = HtmlInputGenericControl# {ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=null; Name=null; SkinID=\"\"; TagName=\"input\"; Type=\"Abc 123\"; UniqueID=null; ValidateRequestMode=Inherit; Value=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlInputGenericControl.LoadPostData": [
+    "HtmlControls.HtmlInputGenericControl.LoadPostData(String,NameValueCollection) = \"true\"",
+    "HtmlControls.HtmlInputGenericControl.LoadPostData(String,NameValueCollection) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"Hanako\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlInputGenericControl.OnPreRender": [
+    "HtmlControls.HtmlInputGenericControl.OnPreRender(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlInputGenericControl.OnPreRender(EventArgs) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlInputGenericControl.OnServerChange": [
+    "HtmlControls.HtmlInputGenericControl.OnServerChange(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlInputGenericControl.OnServerChange(EventArgs) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlInputGenericControl.RaisePostDataChangedEvent": [
+    "HtmlControls.HtmlInputGenericControl.RaisePostDataChangedEvent = \"ok\"",
+    "HtmlControls.HtmlInputGenericControl.RaisePostDataChangedEvent after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.HtmlControls.HtmlInputGenericControl.ServerChange": [
+    "HtmlControls.HtmlInputGenericControl.ServerChange = \"added and removed\""
+  ],
+  "HtmlInputGenericControl.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HtmlInputGenericControl.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HtmlInputGenericControl.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HtmlInputGenericControl.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HtmlInputGenericControl.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HtmlInputGenericControl.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HtmlInputGenericControl.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.IPostBackDataHandler.LoadPostData": [
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) = \"true\"",
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"Hanako\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.IPostBackDataHandler.RaisePostDataChangedEvent": [
+    "IPostBackDataHandler.RaisePostDataChangedEvent = \"ok\"",
+    "IPostBackDataHandler.RaisePostDataChangedEvent after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputGenericControl.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HtmlInputGenericControl#inpEmail {ClientID=\"inpEmail\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpEmail\"; Name=\"inpEmail\"; SkinID=\"\"; TagName=\"input\"; Type=\"email\"; UniqueID=\"inpEmail\"; ValidateRequestMode=Inherit; Value=\"a@example.com\"; ViewStateMode=Inherit; Visible=true}"
+  ]
+}

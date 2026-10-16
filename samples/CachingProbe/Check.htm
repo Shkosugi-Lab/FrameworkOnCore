@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check</title>
+</head>
+<body>
+    <!-- What a snapshot does not have: each URL's answer (?u=, in order) fetched by the browser, its status, whether it
+         was redirected and where to, and the headers asked (?h=, comma-separated; absent ones as "-"; a name ending in
+         "?" only whether it is there: a date, an ETag, different on every run). -->
+    <pre id="check">checking</pre>
+    <script>
+        (async function () {
+            var query = new URLSearchParams(location.search);
+            var headers = (query.get('h') || '').split(',').filter(function (h) { return h; });
+            var lines = [];
+            for (var url of query.getAll('u')) {
+                try {
+                    var response = await fetch(url, { cache: 'no-store', credentials: 'same-origin' });
+                    var target = new URL(response.url);
+                    var line = url + ' -> ' + response.status + (response.redirected ? ' redirected to ' + target.pathname + target.search : '');
+                    headers.forEach(function (h) {
+                        var presence = h.slice(-1) === '?';
+                        var name = presence ? h.slice(0, -1) : h;
+                        var value = response.headers.get(name);
+                        line += ' | ' + name + '=' + (value === null ? '-' : presence ? 'present' : value);
+                    });
+                    lines.push(line);
+                } catch (e) {
+                    lines.push(url + ' -> ' + e.name);
+                }
+            }
+            document.getElementById('check').textContent = lines.join('\n');
+        })();
+    </script>
+</body>
+</html>

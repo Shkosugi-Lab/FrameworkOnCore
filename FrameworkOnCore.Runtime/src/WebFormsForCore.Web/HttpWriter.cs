@@ -94,6 +94,11 @@ namespace System.Web {
         // Rented from the pool (the default constructor): returned once, in Recycle. A buffer the element
         // was given (Clone, a caller's data) is not the pool's: returning it throws ("The buffer is not
         // associated with this pool"), as Response.Flush in the middle of a page did (DNN's Install.aspx).
+        // Recyclable, as the native buffers are, until the output cache keeps the element (GetSnapshot:
+        // DisableRecycling): a kept element's buffer stays its own (sent again from the cache) and the pool's
+        // no more. (The end of the request recycles the response's buffers since HttpRuntime is told the
+        // response was sent: AspNetCoreWorkerRequest.SetEndOfSendNotification. A cached WebResource.axd answered
+        // 0 bytes when its buffer went back to the pool.)
         private bool _rented;
 
         internal HttpResponseBufferElement()
@@ -102,7 +107,7 @@ namespace System.Web {
             _rented = true;
             _size = _data.Length;
             _free = _size;
-            _recycle = false;
+            _recycle = true;
         }
 		
         /*
@@ -128,6 +133,7 @@ namespace System.Web {
         }
 
         internal override void Recycle() {
+            if (!_recycle) return;
             if (_rented && _data != null) Pool.Return(_data);
             _rented = false;
             _data = null;

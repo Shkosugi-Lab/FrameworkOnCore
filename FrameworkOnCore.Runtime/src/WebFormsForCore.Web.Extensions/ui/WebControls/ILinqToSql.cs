@@ -4,8 +4,6 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-#if NETFRAMEWORK
-
 namespace System.Web.UI.WebControls {
     using System.Data.Linq;
 
@@ -25,4 +23,3 @@ namespace System.Web.UI.WebControls {
 
     }
 }
-#endif

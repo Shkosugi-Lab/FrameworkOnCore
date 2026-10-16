@@ -31,11 +31,11 @@ namespace WebFormsForCore.Build
 		public bool LogToConsole { get; set; } = false;
 		public bool SeparateProcess { get; set; } = true;
 
-		public bool IsTargetNetFX => TargetFramework.CompareTo("net4999") < 0;
-		public bool IsTargetNetCore => TargetFramework.CompareTo("net5") >= 0 || TargetFramework.StartsWith("net1");
+		// By the moniker's form, not as strings compared ("net10.0" sorts before "net4999"): .NET Framework's have no dot
+		// (net48, net11), .NET's have one (net10.0), or are netcoreapp.
+		public bool IsTargetNetFX => Regex.IsMatch(TargetFramework, @"^net[1-4][0-9]*$");
+		public bool IsTargetNetCore => Regex.IsMatch(TargetFramework, @"^(netcoreapp[0-9]|net[0-9]+\.[0-9])");
 		public bool IsTargetNetStandard => TargetFramework.StartsWith("netstandard");
-        public bool IsTargetNet8Or9 => TargetFramework == "net8.0" || TargetFramework == "net9.0";
-        public bool IsTargetNet10 => TargetFramework == "net10.0";
 
 
 
@@ -204,10 +204,7 @@ namespace WebFormsForCore.Build
 				var files = string.Join(";", aspFiles);
 
 				var path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-				string assembly;
-				if (IsTargetNet8Or9) assembly = Path.GetFullPath(Path.Combine(path, "..", "net8.0", "WebFormsForCore.Build.NetCore.dll"));
-				else if (IsTargetNet10) assembly = Path.GetFullPath(Path.Combine(path, "..", "net10.0", "WebFormsForCore.Build.NetCore.dll"));
-				else throw new NotSupportedException($"Unsupported TargetFramework {TargetFramework}");
+				var assembly = Path.GetFullPath(Path.Combine(path, "..", "net10.0", "WebFormsForCore.Build.NetCore.dll"));
 
 				return RunCommand("dotnet.exe", $"\"{assembly}\" createdesignerfiles \"{dll}\" \"{WebRootPath}\" \"{files}\"");
 
@@ -236,35 +233,23 @@ namespace WebFormsForCore.Build
 
 			// Begin doing the actual compiling task.
 #if NETSTANDARD
-			if (!SeparateProcess && (IsNetFX && IsTargetNetFX || IsCore && IsTargetNetCore))
+			// In MSBuild's own process only on .NET Framework for .NET Framework. On .NET, MSBuild's process has the shared
+			// framework's System.Web (4.0.0.0, HttpUtility's facade) and FrameworkOnCore's (10.0.29.0) does not load beside it:
+			// a separate process, as by default (its deps.json takes FrameworkOnCore's).
+			if (!SeparateProcess && IsNetFX && IsTargetNetFX)
 			{
 				var path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 				ResolveAssembly = (sender, args) =>
 				{
-					string assemblyFile;
-					if (IsCore) {
-						if (IsTargetNet8Or9) assemblyFile = Path.GetFullPath(Path.Combine(path, $"..", "net8.0", $"{args.Name}.dll"));
-						else if (IsTargetNet10) assemblyFile = Path.GetFullPath(Path.Combine(path, $"..", "net10.0", $"{args.Name}.dll"));
-						else throw new NotSupportedException($"Unsupported TargetFramework: {TargetFramework}");
-                    }
-					else assemblyFile = Path.GetFullPath(Path.Combine(path, $"..", "net48", $"{args.Name}.dll"));
-				
+					// The file by the assembly's simple name (args.Name is its display name: "System.Web, Version=...").
+					var assemblyFile = Path.GetFullPath(Path.Combine(path, "..", "net48", $"{new AssemblyName(args.Name).Name}.dll"));
 					if (File.Exists(assemblyFile)) return System.Reflection.Assembly.LoadFrom(assemblyFile);
-					else
-					{
-						Log.LogError($"Assembly {args.Name} not found in {assemblyFile}");
-						return null;
-					}
+					// Not the tools' (satellite resources, the framework's): left to the other resolvers, not an error.
+					Log.LogMessage(MessageImportance.Low, $"Assembly {args.Name} not found in {assemblyFile}");
+					return null;
 				};
 				AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
-				Assembly buildAssembly;
-				if (IsCore)
-				{
-                    if (IsTargetNet8Or9) buildAssembly = System.Reflection.Assembly.LoadFrom(Path.GetFullPath(Path.Combine(path, "..", "net8.0", "WebFormsForCore.Build.NetCore.dll")));
-                    if (IsTargetNet10) buildAssembly = System.Reflection.Assembly.LoadFrom(Path.GetFullPath(Path.Combine(path, "..", "net10.0", "WebFormsForCore.Build.NetCore.dll")));
-                    else throw new NotSupportedException($"Unsupported TargetFramework: {TargetFramework}");
-                }
-                else buildAssembly = System.Reflection.Assembly.LoadFrom(Path.GetFullPath(Path.Combine(path, "..", "net48", "WebFormsForCore.Build.NetFX.exe")));
+				var buildAssembly = System.Reflection.Assembly.LoadFrom(Path.GetFullPath(Path.Combine(path, "..", "net48", "WebFormsForCore.Build.NetFX.exe")));
 
 				var contextType = buildAssembly.GetType("WebFormsForCore.Build.CreateAspDesignerFiles+MSBuildCompileContext");
 				var context = Activator.CreateInstance(contextType, (Task)this);
@@ -274,7 +259,7 @@ namespace WebFormsForCore.Build
 				generateDesignerFiles.Invoke(null, new object[] { context, aspFiles, WebRootPath, dll });
 
 				var hasErrors = contextType.GetProperty("HasErrors");
-				return (bool)hasErrors.GetValue(context);
+				return !(bool)hasErrors.GetValue(context);
 			} else return RunProcess(dll, WebRootPath, aspFiles);
 #else
 			if (!SeparateProcess)

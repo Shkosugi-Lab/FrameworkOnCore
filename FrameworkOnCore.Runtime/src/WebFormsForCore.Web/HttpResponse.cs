@@ -375,7 +375,7 @@ namespace System.Web {
                     }
 
                     // set the version header
-                    if (!String.IsNullOrEmpty(versionHeader)) {
+                    if (!String.IsNullOrEmpty(versionHeader) && !SuppressVersionHeader) {
                         Headers.Set("X-AspNet-Version", versionHeader);
                     }
 
@@ -414,7 +414,7 @@ namespace System.Web {
                         sendCacheControlHeader &= outputCacheConfig.SendCacheControlHeader;
                     }
 
-                    if (!String.IsNullOrEmpty(versionHeader)) {
+                    if (!String.IsNullOrEmpty(versionHeader) && !SuppressVersionHeader) {
                         headers.Add(new HttpResponseHeader("X-AspNet-Version", versionHeader));
                     }
 
@@ -458,7 +458,8 @@ namespace System.Web {
                      * Ensure that cacheability is set to cache-control: private
                      * if it is not explicitly set.
                      */
-                    if (!_cacheControlHeaderAdded && sendCacheControlHeader) {
+                    // SuppressDefaultCacheControlHeader: as the integrated pipeline's headers have it (above).
+                    if (!_cacheControlHeaderAdded && sendCacheControlHeader && !SuppressDefaultCacheControlHeader) {
                         headers.Add(new HttpResponseHeader(HttpWorkerRequest.HeaderCacheControl, "private"));
                     }
                 }
@@ -640,6 +641,15 @@ namespace System.Web {
 
                                 bufferedLength = _httpWriter.GetBufferedLength();
                             }
+#if NETCOREAPP
+                            // The characters written so far encoded before the headers (whatever the status), as IIS's
+                            // integrated pipeline has them (UpdateNativeResponse): Content-Type's charset then, which a 404
+                            // written with Response.Write and ended (Response.End) lost here ("text/html", IIS's
+                            // "text/html; charset=utf-8").
+                            else {
+                                bufferedLength = _httpWriter.GetBufferedLength();
+                            }
+#endif
 
                             WriteHeaders();
                         }
@@ -1585,18 +1595,26 @@ namespace System.Web {
         // since this doesn't get emitted in the protocol
         // we won't send it through the worker request interface
         // directly
+        // FrameworkOnCore: the host is IIS's integrated pipeline to the application (applications written for it set the
+        // substatus); IIS logs it (the W3C log's sc-substatus: IisLogMiddleware).
+        internal int SubStatusCodeInternal => _subStatusCode;
+
         public int SubStatusCode {
             get {
+#if !NETCOREAPP
                 if ( !(_wr is IIS7WorkerRequest) ) {
                     throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
                 }
+#endif
 
                 return _subStatusCode;
             }
             set {
+#if !NETCOREAPP
                 if ( !(_wr is IIS7WorkerRequest) ) {
                     throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
                 }
+#endif
 
                 if (_headersWritten) {
                     throw new HttpException(SR.GetString(SR.Cannot_set_status_after_headers_sent));
@@ -1682,6 +1700,12 @@ namespace System.Web {
         /// See RFC 2616, Sec. 13.4, for more information.
         /// </remarks>
         public bool SuppressDefaultCacheControlHeader {
+            get;
+            set;
+        }
+
+        // An answer of IIS's own (the static file module's, the integrated pipeline): without ASP.NET's version header.
+        internal bool SuppressVersionHeader {
             get;
             set;
         }
@@ -2313,6 +2337,10 @@ namespace System.Web {
         public void Flush() {
             if (_completed)
                 throw new HttpException(SR.GetString(SR.Cannot_flush_completed_response));
+#if !NETFRAMEWORK
+            if (_context.TakeTimedOut())
+                throw _context.TimedOutException();
+#endif
 
             Flush(false);
         }
@@ -3182,9 +3210,15 @@ namespace System.Web {
         ///       socket connection.</para>
         /// </devdoc>
         public void End() {
+#if !NETFRAMEWORK
+            // Past executionTimeout (no thread aborted on .NET): the request fails here, before what it wrote is sent.
+            if (_context.TakeTimedOut())
+                throw _context.TimedOutException();
+#endif
             if (_context.IsInCancellablePeriod) {
 #if NETCOREAPP
-                // when cannot abort execution, flush and supress further output
+                // when cannot abort execution, flush and supress further output (what is written after it is not sent: a
+                // redirect's answer goes chunked, IIS's with its length)
                 _endRequiresObservation = true;
 
 				if (!_flushing)
@@ -3251,6 +3285,18 @@ namespace System.Web {
         {
             if (_responseEndException != null) _responseEndException.Throw();
 		}
+
+        // The owner's response (a static lambda: no closure made in each step of each request).
+        internal static void RethrowIfResponseEnd<T>(T owner, Func<T, HttpResponse> getResponse)
+        {
+            HttpResponse response = null;
+            try
+            {
+                response = getResponse(owner);
+            }
+            catch { }
+            response?.RethrowIfResponseEnd();
+        }
 
         internal static void RethrowIfResponseEnd(Func<HttpResponse> getResponse)
         {

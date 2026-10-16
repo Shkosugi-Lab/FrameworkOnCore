@@ -934,6 +934,8 @@ namespace System.Web.UI.WebControls {
                 return SqlClientFactory.Instance;
             }
             else {
+                // .NET Framework's built-in providers (System.Data.SqlClient...): .NET has them registered only (DbProviderFactoriesConfiguration).
+                DbProviderFactoriesConfiguration.EnsureDefaults();
                 return DbProviderFactories.GetFactory(providerName);
             }
         }

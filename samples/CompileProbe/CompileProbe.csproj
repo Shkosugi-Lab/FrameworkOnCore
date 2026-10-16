@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- What ASP.NET compiles at run time, as IIS does it, against the converted application (experiments/wf4c/sample-parity.ps1):
+       App_Code, a page and user controls with CodeFile (registered in web.config), the expressions (encoding, data binding,
+       resources), themes and skins (App_Themes, set in the directive, in PreInit, as a style sheet theme), the global and
+       local resources and the culture from the browser's languages (uiCulture "auto"). C# 5: .NET Framework's own compiler. -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5E2B8C41-7D63-4A1F-9B05-C3E8D7A4F219}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>CompileProbe</RootNamespace>
+    <AssemblyName>CompileProbe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Check.htm" />
+    <Content Include="Web.config" />
+    <Content Include="Dynamic.aspx" />
+    <Content Include="Dynamic.aspx.cs" />
+    <Content Include="Themed.aspx" />
+    <Content Include="Culture.aspx" />
+    <Content Include="Controls\Widget.ascx" />
+    <Content Include="Controls\Widget.ascx.cs" />
+    <Content Include="App_Code\Greeter.cs" />
+    <Content Include="App_Themes\Blue\Controls.skin" />
+    <Content Include="App_Themes\Blue\blue.css" />
+    <Content Include="App_Themes\Green\Controls.skin" />
+    <Content Include="App_Themes\Green\green.css" />
+    <Content Include="App_GlobalResources\Strings.resx" />
+    <Content Include="App_GlobalResources\Strings.ja.resx" />
+    <Content Include="App_GlobalResources\Strings.fr.resx" />
+    <Content Include="App_LocalResources\Culture.aspx.resx" />
+    <Content Include="App_LocalResources\Culture.aspx.ja.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

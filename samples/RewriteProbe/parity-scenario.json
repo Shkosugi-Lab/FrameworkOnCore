@@ -1,0 +1,131 @@
+{
+  "_comment": "IIS's URL Rewrite rules: what the page sees of a rewritten request (a back-reference, a single-page application's fallback, a rewrite map, a chain, conditions), a postback to a rewritten URL, the redirects followed; the answers' status and where they redirect (Check.htm). experiments/wf4c/rewrite-check.ps1 compares each answer as sent.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/products/5?x=1"
+    },
+    {
+      "action": "snapshot",
+      "name": "rewrite-a back-reference, the query string appended"
+    },
+    {
+      "action": "fill",
+      "target": "txtValue",
+      "value": "posted"
+    },
+    {
+      "action": "click",
+      "target": "btnPost"
+    },
+    {
+      "action": "snapshot",
+      "name": "rewrite-a postback to the rewritten URL"
+    },
+    {
+      "action": "goto",
+      "path": "/app/some/route"
+    },
+    {
+      "action": "snapshot",
+      "name": "rewrite-not a file, not a folder"
+    },
+    {
+      "action": "goto",
+      "path": "/promo"
+    },
+    {
+      "action": "snapshot",
+      "name": "rewrite-a rewrite map"
+    },
+    {
+      "action": "goto",
+      "path": "/chain"
+    },
+    {
+      "action": "snapshot",
+      "name": "rewrite-rules in a chain"
+    },
+    {
+      "action": "goto",
+      "path": "/q?a=42&b=1"
+    },
+    {
+      "action": "snapshot",
+      "name": "rewrite-a condition's back-reference, the query string not appended"
+    },
+    {
+      "action": "goto",
+      "path": "/files/a/b.txt"
+    },
+    {
+      "action": "snapshot",
+      "name": "rewrite-Wildcard"
+    },
+    {
+      "action": "goto",
+      "path": "/exact?k=v"
+    },
+    {
+      "action": "snapshot",
+      "name": "rewrite-ExactMatch"
+    },
+    {
+      "action": "goto",
+      "path": "/any?x=5"
+    },
+    {
+      "action": "snapshot",
+      "name": "rewrite-MatchAny"
+    },
+    {
+      "action": "goto",
+      "path": "/track?n=8"
+    },
+    {
+      "action": "snapshot",
+      "name": "rewrite-trackAllCaptures"
+    },
+    {
+      "action": "goto",
+      "path": "/vars?z=1"
+    },
+    {
+      "action": "snapshot",
+      "name": "rewrite-server variables, UrlEncode"
+    },
+    {
+      "action": "goto",
+      "path": "/sub/item/3"
+    },
+    {
+      "action": "snapshot",
+      "name": "rewrite-a folder's rule"
+    },
+    {
+      "action": "goto",
+      "path": "/sub/old-page"
+    },
+    {
+      "action": "snapshot",
+      "name": "rewrite-a folder's rewrite map from configSource"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=location&u=/old/7&u=/temp&u=/LOWER/AbC&u=/lower/abc&u=/app/real.htm&u=/app/&u=/host-check&u=/scheme&u=/blocked&u=/abort&u=/products/x&u=/see&u=/tmp307%3Fk%3Dv&u=/gone&u=/sub/go&u=/sub/app/x&u=/logged"
+    },
+    {
+      "action": "snapshot",
+      "name": "rewrite-the answers"
+    }
+  ],
+  "crawl": {
+    "max": 10,
+    "depth": 0,
+    "urls": [
+      "/old/7",
+      "/temp"
+    ]
+  }
+}

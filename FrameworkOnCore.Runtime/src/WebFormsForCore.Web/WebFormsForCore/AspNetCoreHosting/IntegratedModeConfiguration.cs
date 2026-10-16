@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web.Configuration;
 using System.Web.Hosting;
 using System.Xml.Linq;
@@ -23,10 +24,18 @@ namespace System.Web
 
 		static readonly object gate = new object();
 		static (DateTime Written, List<XElement> Modules, List<Handler> Handlers) cache;
+		static long cacheCheckedUntil;
+
+		// web.config's time looked at once a second at most, not on every request (a file system call each: on Linux, through
+		// the case-insensitive file names' library too).
+		const int CheckEveryMilliseconds = 1000;
 
 		// The application's web.config (read again when it changes: DNN writes it at run time).
 		static (List<XElement> Modules, List<Handler> Handlers) Read()
 		{
+			var cached = cache;
+			if (cached.Modules != null && Environment.TickCount64 < Volatile.Read(ref cacheCheckedUntil)) return (cached.Modules, cached.Handlers);
+			Volatile.Write(ref cacheCheckedUntil, Environment.TickCount64 + CheckEveryMilliseconds);
 			var file = HostingEnvironment.MapPath("~/web.config");
 			if (file == null || !File.Exists(file)) return (new List<XElement>(), new List<Handler>());
 			var written = File.GetLastWriteTimeUtc(file);
@@ -118,8 +127,45 @@ namespace System.Web
 			return null;
 		}
 
-		static Regex Wildcard(string pattern) =>
-			new Regex("^" + Regex.Escape(pattern).Replace(@"\*", ".*").Replace(@"\?", ".") + "$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+		static readonly System.Collections.Concurrent.ConcurrentDictionary<string, Tuple<long, int, int>> limitsByFolder =
+			new System.Collections.Concurrent.ConcurrentDictionary<string, Tuple<long, int, int>>(StringComparer.OrdinalIgnoreCase);
+
+		/// <summary>
+		/// IIS's request filtering's limits for the URL (system.webServer/security/requestFiltering/requestLimits):
+		/// maxAllowedContentLength (30,000,000 bytes), maxUrl (4,096), maxQueryString (2,048), IIS's defaults; the original
+		/// server's over them (IisProfile), then web.config's, its locations' and its folders' web.config files' down to the
+		/// URL's folder (IisConfiguration: an upload folder's larger limit).
+		/// </summary>
+		internal static (long MaxAllowedContentLength, int MaxUrl, int MaxQueryString) RequestLimits(string path)
+		{
+			var root = IisConfiguration.Root;
+			if (root == null) return (30000000L, 4096, 2048);
+			var limits = limitsByFolder.GetOrAdd(IisConfiguration.Deepest(root, path), _ =>
+			{
+				var folded = Limits((30000000L, 4096, 2048), IisConfiguration.For(root, path).Select(s => s.WebServer));
+				return Tuple.Create(folded.Item1, folded.Item2, folded.Item3);
+			});
+			return (limits.Item1, limits.Item2, limits.Item3);
+		}
+
+		static (long, int, int) Limits((long, int, int) limits, IEnumerable<XElement> webServers)
+		{
+			foreach (var element in webServers.SelectMany(w => IisConfiguration.Children(w, "security")).SelectMany(s => IisConfiguration.Children(s, "requestFiltering"))
+				.SelectMany(r => IisConfiguration.Children(r, "requestLimits")))
+			{
+				long content; int url, query;
+				if (long.TryParse((string)element.Attribute("maxAllowedContentLength"), out content)) limits.Item1 = content;
+				if (int.TryParse((string)element.Attribute("maxUrl"), out url)) limits.Item2 = url;
+				if (int.TryParse((string)element.Attribute("maxQueryString"), out query)) limits.Item3 = query;
+			}
+			return limits;
+		}
+
+		// A handler's path as a regular expression, made once for each path (it was made in each request).
+		static readonly System.Collections.Concurrent.ConcurrentDictionary<string, Regex> wildcards = new System.Collections.Concurrent.ConcurrentDictionary<string, Regex>(StringComparer.Ordinal);
+
+		static Regex Wildcard(string pattern) => wildcards.GetOrAdd(pattern, pattern =>
+			new Regex("^" + Regex.Escape(pattern).Replace(@"\*", ".*").Replace(@"\?", ".") + "$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant));
 	}
 }
 

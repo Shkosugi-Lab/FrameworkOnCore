@@ -1,0 +1,997 @@
+{
+  "AppearanceEditorPart.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "AppearanceEditorPart.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "AppearanceEditorPart.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AppearanceEditorPart.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "AppearanceEditorPart.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.ClientID": [
+    "Control.ClientID = \"aepProbe\""
+  ],
+  "AppearanceEditorPart.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "AppearanceEditorPart.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "AppearanceEditorPart.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "AppearanceEditorPart.Api.Control.Controls": [
+    "Control.Controls = ControlCollection [TextBox#, DropDownList#, DropDownList#, UnitInput#, UnitInput#, CheckBox#]"
+  ],
+  "AppearanceEditorPart.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "AppearanceEditorPart.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "AppearanceEditorPart.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "AppearanceEditorPart.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "AppearanceEditorPart.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "AppearanceEditorPart.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "AppearanceEditorPart.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "AppearanceEditorPart.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "AppearanceEditorPart.Api.Control.FindControl": [
+    "Control.FindControl(String) = null",
+    "Control.FindControl(String) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "AppearanceEditorPart.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "Control.GetDesignModeState after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AppearanceEditorPart.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"aepProbe\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "AppearanceEditorPart.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.ID": [
+    "Control.ID = \"aepProbe\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "AppearanceEditorPart.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "AppearanceEditorPart.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "AppearanceEditorPart.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "AppearanceEditorPart.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "AppearanceEditorPart.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "AppearanceEditorPart.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "AppearanceEditorPart.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "AppearanceEditorPart.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "AppearanceEditorPart.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AppearanceEditorPart.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"-> System.InvalidOperationException: EditorPart 'aepProbe' must be placed in an EditorZone.\""
+  ],
+  "AppearanceEditorPart.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AppearanceEditorPart.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.Parent": [
+    "Control.Parent = PlaceHolder# {ClientID=\"ctl00\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"ctl00\"; SkinID=\"\"; UniqueID=\"ctl00\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "AppearanceEditorPart.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <div id=\"aepProbe\">",
+    "  | \t<table border=\"0\" cellspacing=\"4\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl00\">Title:</label><br />",
+    "  | \t\t\t<input name=\"aepProbe$ctl00\" type=\"text\" size=\"30\" id=\"aepProbe_ctl00\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl01\">Chrome Type:</label><br />",
+    "  | \t\t\t<select name=\"aepProbe$ctl01\" id=\"aepProbe_ctl01\">",
+    "  | \t\t\t\t<option value=\"Default\">Default</option>",
+    "  | \t\t\t\t<option value=\"TitleAndBorder\">Title and Border</option>",
+    "  | \t\t\t\t<option value=\"TitleOnly\">Title Only</option>",
+    "  | \t\t\t\t<option value=\"BorderOnly\">Border Only</option>",
+    "  | \t\t\t\t<option value=\"None\">None</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl02\">Direction:</label><br />",
+    "  | \t\t\t<select name=\"aepProbe$ctl02\" id=\"aepProbe_ctl02\">",
+    "  | \t\t\t\t<option value=\"NotSet\">Not Set</option>",
+    "  | \t\t\t\t<option value=\"LeftToRight\">Left to Right</option>",
+    "  | \t\t\t\t<option value=\"RightToLeft\">Right to Left</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl03_ctl00\">Height:</label><br />",
+    "  | \t\t\t<input name=\"aepProbe$ctl03$ctl00\" type=\"text\" size=\"2\" id=\"aepProbe_ctl03_ctl00\" />&nbsp;<select name=\"aepProbe$ctl03$ctl01\">",
+    "  | \t\t\t\t<option value=\"1\">pixels</option>",
+    "  | \t\t\t\t<option value=\"2\">points</option>",
+    "  | \t\t\t\t<option value=\"3\">picas</option>",
+    "  | \t\t\t\t<option value=\"4\">inches</option>",
+    "  | \t\t\t\t<option value=\"5\">millimeters</option>",
+    "  | \t\t\t\t<option value=\"6\">centimeters</option>",
+    "  | \t\t\t\t<option value=\"7\">percent</option>",
+    "  | \t\t\t\t<option value=\"8\">em</option>",
+    "  | \t\t\t\t<option value=\"9\">ex</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl04_ctl00\">Width:</label><br />",
+    "  | \t\t\t<input name=\"aepProbe$ctl04$ctl00\" type=\"text\" size=\"2\" id=\"aepProbe_ctl04_ctl00\" />&nbsp;<select name=\"aepProbe$ctl04$ctl01\">",
+    "  | \t\t\t\t<option value=\"1\">pixels</option>",
+    "  | \t\t\t\t<option value=\"2\">points</option>",
+    "  | \t\t\t\t<option value=\"3\">picas</option>",
+    "  | \t\t\t\t<option value=\"4\">inches</option>",
+    "  | \t\t\t\t<option value=\"5\">millimeters</option>",
+    "  | \t\t\t\t<option value=\"6\">centimeters</option>",
+    "  | \t\t\t\t<option value=\"7\">percent</option>",
+    "  | \t\t\t\t<option value=\"8\">em</option>",
+    "  | \t\t\t\t<option value=\"9\">ex</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"aepProbe_ctl05\" type=\"checkbox\" name=\"aepProbe$ctl05\" />&nbsp;<label for=\"aepProbe_ctl05\">Hidden</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr>",
+    "  | \t</table>",
+    "  | </div>",
+    "Control.Render(HtmlTextWriter) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <div id=\"aepProbe\">",
+    "  | \t<table border=\"0\" cellspacing=\"4\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl00\">Title:</label><br />",
+    "  | \t\t\t<input name=\"aepProbe$ctl00\" type=\"text\" size=\"30\" id=\"aepProbe_ctl00\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl01\">Chrome Type:</label><br />",
+    "  | \t\t\t<select name=\"aepProbe$ctl01\" id=\"aepProbe_ctl01\">",
+    "  | \t\t\t\t<option value=\"Default\">Default</option>",
+    "  | \t\t\t\t<option value=\"TitleAndBorder\">Title and Border</option>",
+    "  | \t\t\t\t<option value=\"TitleOnly\">Title Only</option>",
+    "  | \t\t\t\t<option value=\"BorderOnly\">Border Only</option>",
+    "  | \t\t\t\t<option value=\"None\">None</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl02\">Direction:</label><br />",
+    "  | \t\t\t<select name=\"aepProbe$ctl02\" id=\"aepProbe_ctl02\">",
+    "  | \t\t\t\t<option value=\"NotSet\">Not Set</option>",
+    "  | \t\t\t\t<option value=\"LeftToRight\">Left to Right</option>",
+    "  | \t\t\t\t<option value=\"RightToLeft\">Right to Left</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl03_ctl00\">Height:</label><br />",
+    "  | \t\t\t<input name=\"aepProbe$ctl03$ctl00\" type=\"text\" size=\"2\" id=\"aepProbe_ctl03_ctl00\" />&nbsp;<select name=\"aepProbe$ctl03$ctl01\">",
+    "  | \t\t\t\t<option value=\"1\">pixels</option>",
+    "  | \t\t\t\t<option value=\"2\">points</option>",
+    "  | \t\t\t\t<option value=\"3\">picas</option>",
+    "  | \t\t\t\t<option value=\"4\">inches</option>",
+    "  | \t\t\t\t<option value=\"5\">millimeters</option>",
+    "  | \t\t\t\t<option value=\"6\">centimeters</option>",
+    "  | \t\t\t\t<option value=\"7\">percent</option>",
+    "  | \t\t\t\t<option value=\"8\">em</option>",
+    "  | \t\t\t\t<option value=\"9\">ex</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl04_ctl00\">Width:</label><br />",
+    "  | \t\t\t<input name=\"aepProbe$ctl04$ctl00\" type=\"text\" size=\"2\" id=\"aepProbe_ctl04_ctl00\" />&nbsp;<select name=\"aepProbe$ctl04$ctl01\">",
+    "  | \t\t\t\t<option value=\"1\">pixels</option>",
+    "  | \t\t\t\t<option value=\"2\">points</option>",
+    "  | \t\t\t\t<option value=\"3\">picas</option>",
+    "  | \t\t\t\t<option value=\"4\">inches</option>",
+    "  | \t\t\t\t<option value=\"5\">millimeters</option>",
+    "  | \t\t\t\t<option value=\"6\">centimeters</option>",
+    "  | \t\t\t\t<option value=\"7\">percent</option>",
+    "  | \t\t\t\t<option value=\"8\">em</option>",
+    "  | \t\t\t\t<option value=\"9\">ex</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"aepProbe_ctl05\" type=\"checkbox\" name=\"aepProbe$ctl05\" />&nbsp;<label for=\"aepProbe_ctl05\">Hidden</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr>",
+    "  | \t</table>",
+    "  | </div>",
+    "Control.RenderControl(HtmlTextWriter) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <div id=\"aepProbe\">",
+    "  | \t<table border=\"0\" cellspacing=\"4\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl00\">Title:</label><br />",
+    "  | \t\t\t<input name=\"aepProbe$ctl00\" type=\"text\" size=\"30\" id=\"aepProbe_ctl00\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl01\">Chrome Type:</label><br />",
+    "  | \t\t\t<select name=\"aepProbe$ctl01\" id=\"aepProbe_ctl01\">",
+    "  | \t\t\t\t<option value=\"Default\">Default</option>",
+    "  | \t\t\t\t<option value=\"TitleAndBorder\">Title and Border</option>",
+    "  | \t\t\t\t<option value=\"TitleOnly\">Title Only</option>",
+    "  | \t\t\t\t<option value=\"BorderOnly\">Border Only</option>",
+    "  | \t\t\t\t<option value=\"None\">None</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl02\">Direction:</label><br />",
+    "  | \t\t\t<select name=\"aepProbe$ctl02\" id=\"aepProbe_ctl02\">",
+    "  | \t\t\t\t<option value=\"NotSet\">Not Set</option>",
+    "  | \t\t\t\t<option value=\"LeftToRight\">Left to Right</option>",
+    "  | \t\t\t\t<option value=\"RightToLeft\">Right to Left</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl03_ctl00\">Height:</label><br />",
+    "  | \t\t\t<input name=\"aepProbe$ctl03$ctl00\" type=\"text\" size=\"2\" id=\"aepProbe_ctl03_ctl00\" />&nbsp;<select name=\"aepProbe$ctl03$ctl01\">",
+    "  | \t\t\t\t<option value=\"1\">pixels</option>",
+    "  | \t\t\t\t<option value=\"2\">points</option>",
+    "  | \t\t\t\t<option value=\"3\">picas</option>",
+    "  | \t\t\t\t<option value=\"4\">inches</option>",
+    "  | \t\t\t\t<option value=\"5\">millimeters</option>",
+    "  | \t\t\t\t<option value=\"6\">centimeters</option>",
+    "  | \t\t\t\t<option value=\"7\">percent</option>",
+    "  | \t\t\t\t<option value=\"8\">em</option>",
+    "  | \t\t\t\t<option value=\"9\">ex</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl04_ctl00\">Width:</label><br />",
+    "  | \t\t\t<input name=\"aepProbe$ctl04$ctl00\" type=\"text\" size=\"2\" id=\"aepProbe_ctl04_ctl00\" />&nbsp;<select name=\"aepProbe$ctl04$ctl01\">",
+    "  | \t\t\t\t<option value=\"1\">pixels</option>",
+    "  | \t\t\t\t<option value=\"2\">points</option>",
+    "  | \t\t\t\t<option value=\"3\">picas</option>",
+    "  | \t\t\t\t<option value=\"4\">inches</option>",
+    "  | \t\t\t\t<option value=\"5\">millimeters</option>",
+    "  | \t\t\t\t<option value=\"6\">centimeters</option>",
+    "  | \t\t\t\t<option value=\"7\">percent</option>",
+    "  | \t\t\t\t<option value=\"8\">em</option>",
+    "  | \t\t\t\t<option value=\"9\">ex</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"aepProbe_ctl05\" type=\"checkbox\" name=\"aepProbe$ctl05\" />&nbsp;<label for=\"aepProbe_ctl05\">Hidden</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr>",
+    "  | \t</table>",
+    "  | </div>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "AppearanceEditorPart.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "AppearanceEditorPart.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "AppearanceEditorPart.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "AppearanceEditorPart.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.Control.UniqueID": [
+    "Control.UniqueID = \"aepProbe\""
+  ],
+  "AppearanceEditorPart.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "AppearanceEditorPart.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "AppearanceEditorPart.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "AppearanceEditorPart.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "AppearanceEditorPart.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "AppearanceEditorPart.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "AppearanceEditorPart.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=true; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "AppearanceEditorPart.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "AppearanceEditorPart.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "AppearanceEditorPart.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "AppearanceEditorPart.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "AppearanceEditorPart.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "AppearanceEditorPart.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.ICompositeControlDesignerAccessor.RecreateChildControls": [
+    "ICompositeControlDesignerAccessor.RecreateChildControls = \"ok\"",
+    "ICompositeControlDesignerAccessor.RecreateChildControls after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.Panel.#ctor": [
+    "Panel.#ctor = Panel# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Direction=NotSet; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=null; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.Panel.AddAttributesToRender": [
+    "Panel.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "Panel.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "Panel.AddAttributesToRender(HtmlTextWriter) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.Panel.BackImageUrl": [
+    "Panel.BackImageUrl = \"\"",
+    "Panel.BackImageUrl set = \"Abc 123\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.Panel.CreateControlStyle": [
+    "Panel.CreateControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}",
+    "Panel.CreateControlStyle after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.Panel.DefaultButton": [
+    "Panel.DefaultButton = \"\"",
+    "Panel.DefaultButton set = \"Abc 123\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.Panel.Direction": [
+    "Panel.Direction = \"ContentDirection.NotSet\"",
+    "Panel.Direction set = \"ContentDirection.LeftToRight\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.Panel.GroupingText": [
+    "Panel.GroupingText = \"\"",
+    "Panel.GroupingText set = \"Abc 123\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.Panel.HorizontalAlign": [
+    "Panel.HorizontalAlign = \"HorizontalAlign.NotSet\"",
+    "Panel.HorizontalAlign set = \"HorizontalAlign.Left\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.Panel.RenderBeginTag": [
+    "Panel.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "Panel.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <div id=\"aepProbe\">",
+    "  | ",
+    "Panel.RenderBeginTag(HtmlTextWriter) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.Panel.RenderEndTag": [
+    "Panel.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.Panel.ScrollBars": [
+    "Panel.ScrollBars = \"ScrollBars.None\"",
+    "Panel.ScrollBars set = \"ScrollBars.Horizontal\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.Panel.SupportsDisabledAttribute": [
+    "Panel.SupportsDisabledAttribute = \"false\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.Panel.Wrap": [
+    "Panel.Wrap = \"true\"",
+    "Panel.Wrap set = \"true\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}",
+    "WebControl.CreateControlStyle after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"ok\"",
+    "WebControl.Render(HtmlTextWriter) writer:",
+    "  | <div id=\"aepProbe\">",
+    "  | \t<table border=\"0\" cellspacing=\"4\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl00\">Title:</label><br />",
+    "  | \t\t\t<input name=\"aepProbe$ctl00\" type=\"text\" size=\"30\" id=\"aepProbe_ctl00\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl01\">Chrome Type:</label><br />",
+    "  | \t\t\t<select name=\"aepProbe$ctl01\" id=\"aepProbe_ctl01\">",
+    "  | \t\t\t\t<option value=\"Default\">Default</option>",
+    "  | \t\t\t\t<option value=\"TitleAndBorder\">Title and Border</option>",
+    "  | \t\t\t\t<option value=\"TitleOnly\">Title Only</option>",
+    "  | \t\t\t\t<option value=\"BorderOnly\">Border Only</option>",
+    "  | \t\t\t\t<option value=\"None\">None</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl02\">Direction:</label><br />",
+    "  | \t\t\t<select name=\"aepProbe$ctl02\" id=\"aepProbe_ctl02\">",
+    "  | \t\t\t\t<option value=\"NotSet\">Not Set</option>",
+    "  | \t\t\t\t<option value=\"LeftToRight\">Left to Right</option>",
+    "  | \t\t\t\t<option value=\"RightToLeft\">Right to Left</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl03_ctl00\">Height:</label><br />",
+    "  | \t\t\t<input name=\"aepProbe$ctl03$ctl00\" type=\"text\" size=\"2\" id=\"aepProbe_ctl03_ctl00\" />&nbsp;<select name=\"aepProbe$ctl03$ctl01\">",
+    "  | \t\t\t\t<option value=\"1\">pixels</option>",
+    "  | \t\t\t\t<option value=\"2\">points</option>",
+    "  | \t\t\t\t<option value=\"3\">picas</option>",
+    "  | \t\t\t\t<option value=\"4\">inches</option>",
+    "  | \t\t\t\t<option value=\"5\">millimeters</option>",
+    "  | \t\t\t\t<option value=\"6\">centimeters</option>",
+    "  | \t\t\t\t<option value=\"7\">percent</option>",
+    "  | \t\t\t\t<option value=\"8\">em</option>",
+    "  | \t\t\t\t<option value=\"9\">ex</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"aepProbe_ctl04_ctl00\">Width:</label><br />",
+    "  | \t\t\t<input name=\"aepProbe$ctl04$ctl00\" type=\"text\" size=\"2\" id=\"aepProbe_ctl04_ctl00\" />&nbsp;<select name=\"aepProbe$ctl04$ctl01\">",
+    "  | \t\t\t\t<option value=\"1\">pixels</option>",
+    "  | \t\t\t\t<option value=\"2\">points</option>",
+    "  | \t\t\t\t<option value=\"3\">picas</option>",
+    "  | \t\t\t\t<option value=\"4\">inches</option>",
+    "  | \t\t\t\t<option value=\"5\">millimeters</option>",
+    "  | \t\t\t\t<option value=\"6\">centimeters</option>",
+    "  | \t\t\t\t<option value=\"7\">percent</option>",
+    "  | \t\t\t\t<option value=\"8\">em</option>",
+    "  | \t\t\t\t<option value=\"9\">ex</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"aepProbe_ctl05\" type=\"checkbox\" name=\"aepProbe$ctl05\" />&nbsp;<label for=\"aepProbe_ctl05\">Hidden</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr>",
+    "  | \t</table>",
+    "  | </div>",
+    "WebControl.Render(HtmlTextWriter) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <div id=\"aepProbe\">",
+    "  | ",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | <table border=\"0\" cellspacing=\"4\">",
+    "  | \t<tr>",
+    "  | \t\t<td><label for=\"aepProbe_ctl00\">Title:</label><br />",
+    "  | \t\t<input name=\"aepProbe$ctl00\" type=\"text\" size=\"30\" id=\"aepProbe_ctl00\" /><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><label for=\"aepProbe_ctl01\">Chrome Type:</label><br />",
+    "  | \t\t<select name=\"aepProbe$ctl01\" id=\"aepProbe_ctl01\">",
+    "  | \t\t\t<option value=\"Default\">Default</option>",
+    "  | \t\t\t<option value=\"TitleAndBorder\">Title and Border</option>",
+    "  | \t\t\t<option value=\"TitleOnly\">Title Only</option>",
+    "  | \t\t\t<option value=\"BorderOnly\">Border Only</option>",
+    "  | \t\t\t<option value=\"None\">None</option>",
+    "  | ",
+    "  | \t\t</select><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><label for=\"aepProbe_ctl02\">Direction:</label><br />",
+    "  | \t\t<select name=\"aepProbe$ctl02\" id=\"aepProbe_ctl02\">",
+    "  | \t\t\t<option value=\"NotSet\">Not Set</option>",
+    "  | \t\t\t<option value=\"LeftToRight\">Left to Right</option>",
+    "  | \t\t\t<option value=\"RightToLeft\">Right to Left</option>",
+    "  | ",
+    "  | \t\t</select><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><label for=\"aepProbe_ctl03_ctl00\">Height:</label><br />",
+    "  | \t\t<input name=\"aepProbe$ctl03$ctl00\" type=\"text\" size=\"2\" id=\"aepProbe_ctl03_ctl00\" />&nbsp;<select name=\"aepProbe$ctl03$ctl01\">",
+    "  | \t\t\t<option value=\"1\">pixels</option>",
+    "  | \t\t\t<option value=\"2\">points</option>",
+    "  | \t\t\t<option value=\"3\">picas</option>",
+    "  | \t\t\t<option value=\"4\">inches</option>",
+    "  | \t\t\t<option value=\"5\">millimeters</option>",
+    "  | \t\t\t<option value=\"6\">centimeters</option>",
+    "  | \t\t\t<option value=\"7\">percent</option>",
+    "  | \t\t\t<option value=\"8\">em</option>",
+    "  | \t\t\t<option value=\"9\">ex</option>",
+    "  | ",
+    "  | \t\t</select><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><label for=\"aepProbe_ctl04_ctl00\">Width:</label><br />",
+    "  | \t\t<input name=\"aepProbe$ctl04$ctl00\" type=\"text\" size=\"2\" id=\"aepProbe_ctl04_ctl00\" />&nbsp;<select name=\"aepProbe$ctl04$ctl01\">",
+    "  | \t\t\t<option value=\"1\">pixels</option>",
+    "  | \t\t\t<option value=\"2\">points</option>",
+    "  | \t\t\t<option value=\"3\">picas</option>",
+    "  | \t\t\t<option value=\"4\">inches</option>",
+    "  | \t\t\t<option value=\"5\">millimeters</option>",
+    "  | \t\t\t<option value=\"6\">centimeters</option>",
+    "  | \t\t\t<option value=\"7\">percent</option>",
+    "  | \t\t\t<option value=\"8\">em</option>",
+    "  | \t\t\t<option value=\"9\">ex</option>",
+    "  | ",
+    "  | \t\t</select><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><input id=\"aepProbe_ctl05\" type=\"checkbox\" name=\"aepProbe$ctl05\" />&nbsp;<label for=\"aepProbe_ctl05\">Hidden</label><br />",
+    "  | \t\t</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "WebControl.RenderContents(HtmlTextWriter) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Div\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"div\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.AppearanceEditorPart.#ctor": [
+    "WebParts.AppearanceEditorPart.#ctor = AppearanceEditorPart# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=null; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.AppearanceEditorPart.ApplyChanges": [
+    "WebParts.AppearanceEditorPart.ApplyChanges = \"true\"",
+    "WebParts.AppearanceEditorPart.ApplyChanges after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.AppearanceEditorPart.DefaultButton": [
+    "WebParts.AppearanceEditorPart.DefaultButton = \"\"",
+    "WebParts.AppearanceEditorPart.DefaultButton set = \"Abc 123\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.AppearanceEditorPart.SyncChanges": [
+    "WebParts.AppearanceEditorPart.SyncChanges = \"ok\"",
+    "WebParts.AppearanceEditorPart.SyncChanges after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.AppearanceEditorPart.Title": [
+    "WebParts.AppearanceEditorPart.Title = \"Appearance\"",
+    "WebParts.AppearanceEditorPart.Title set = \"Abc 123\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.EditorPart.#ctor": [
+    "WebParts.EditorPart.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.WebParts.EditorPart because it is an abstract class.\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.EditorPart.ApplyChanges": [
+    "WebParts.EditorPart.ApplyChanges = \"true\"",
+    "WebParts.EditorPart.ApplyChanges after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.EditorPart.Display": [
+    "WebParts.EditorPart.Display = \"false\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.EditorPart.DisplayTitle": [
+    "WebParts.EditorPart.DisplayTitle = \"Appearance\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.EditorPart.GetDesignModeState": [
+    "WebParts.EditorPart.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "WebParts.EditorPart.GetDesignModeState after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.EditorPart.OnPreRender": [
+    "WebParts.EditorPart.OnPreRender(EventArgs) = \"-> System.InvalidOperationException: EditorPart 'aepProbe' must be placed in an EditorZone.\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.EditorPart.SetDesignModeState": [
+    "WebParts.EditorPart.SetDesignModeState(IDictionary) = \"ok\"",
+    "WebParts.EditorPart.SetDesignModeState(IDictionary) after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.EditorPart.SyncChanges": [
+    "WebParts.EditorPart.SyncChanges = \"ok\"",
+    "WebParts.EditorPart.SyncChanges after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.EditorPart.WebPartManager": [
+    "WebParts.EditorPart.WebPartManager = null"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.EditorPart.WebPartToEdit": [
+    "WebParts.EditorPart.WebPartToEdit = null"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.EditorPart.Zone": [
+    "WebParts.EditorPart.Zone = null"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.Part.ChromeState": [
+    "WebParts.Part.ChromeState = \"PartChromeState.Normal\"",
+    "WebParts.Part.ChromeState set = \"PartChromeState.Minimized\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.Part.ChromeType": [
+    "WebParts.Part.ChromeType = \"PartChromeType.Default\"",
+    "WebParts.Part.ChromeType set = \"PartChromeType.TitleAndBorder\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.Part.Controls": [
+    "WebParts.Part.Controls = ControlCollection [TextBox#, DropDownList#, DropDownList#, UnitInput#, UnitInput#, CheckBox#]"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.Part.DataBind": [
+    "WebParts.Part.DataBind = \"ok\"",
+    "WebParts.Part.DataBind after = AppearanceEditorPart#aepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"aepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Appearance\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"aepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Appearance\"; ToolTip=\"\"; UniqueID=\"aepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.Part.Description": [
+    "WebParts.Part.Description = \"\"",
+    "WebParts.Part.Description set = \"Abc 123\""
+  ],
+  "AppearanceEditorPart.Api.WebControls.WebParts.Part.Title": [
+    "WebParts.Part.Title = \"Appearance\"",
+    "WebParts.Part.Title set = \"Abc 123\""
+  ]
+}

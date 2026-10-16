@@ -87,9 +87,14 @@ namespace System.Web.Security.Cryptography {
         public static byte[] ComputeSHA256Hash(byte[] buffer, int offset, int count) {
             Debug.ValidateArrayBounds(buffer, offset, count);
 
+#if NETCOREAPP
+            // Port: .NET's one-shot hash, no algorithm object (its finalizable handle) made for it.
+            return SHA256.HashData(new ReadOnlySpan<byte>(buffer, offset, count));
+#else
             using (SHA256 sha256 = CryptoAlgorithms.CreateSHA256()) {
                 return sha256.ComputeHash(buffer, offset, count);
             }
+#endif
         }
 
         /// <summary>
@@ -111,9 +116,16 @@ namespace System.Web.Security.Cryptography {
             int bytesCopied = 0;
             int bytesRemaining = output.Length;
 
+#if NETCOREAPP
+            // Port: .NET's one-shot hash, no algorithm object (its finalizable handle) made for it.
+            {
+                while (bytesRemaining > 0) {
+                    byte[] hashed = SHA256.HashData(buffer);
+#else
             using (SHA256 sha256 = CryptoAlgorithms.CreateSHA256()) {
                 while (bytesRemaining > 0) {
                     byte[] hashed = sha256.ComputeHash(buffer);
+#endif
 
                     int bytesToCopy = Math.Min(bytesRemaining, hashed.Length);
                     Buffer.BlockCopy(hashed, 0, output, bytesCopied, bytesToCopy);

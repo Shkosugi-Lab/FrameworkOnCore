@@ -1,0 +1,429 @@
+{
+  "Literal.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "Literal.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'Literal' cannot have children of type 'String'.\""
+  ],
+  "Literal.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "Literal.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Literal.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Literal.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "Literal.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.ClientID": [
+    "Control.ClientID = \"litText\""
+  ],
+  "Literal.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "Literal.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "Literal.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "Literal.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "Literal.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "Literal.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "Literal.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "Literal.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "Literal.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "Literal.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "Literal.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "Literal.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "Literal.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.Focus": [
+    "Control.Focus = \"-> System.NotSupportedException: Control of type 'Literal' does not support the Focus operation.\""
+  ],
+  "Literal.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Literal.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"litText\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "Literal.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.ID": [
+    "Control.ID = \"litText\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "Literal.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "Literal.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "Literal.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "Literal.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "Literal.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "Literal.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "Literal.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "Literal.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "Literal.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Literal.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Literal.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Literal.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Literal.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "Literal.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <b>literal</b>",
+    "Control.Render(HtmlTextWriter) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <b>literal</b>",
+    "Control.RenderControl(HtmlTextWriter) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <b>literal</b>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "Literal.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "Literal.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "Literal.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Literal.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "Literal.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.Control.UniqueID": [
+    "Control.UniqueID = \"litText\""
+  ],
+  "Literal.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "Literal.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "Literal.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [Text=\"<b>literal</b>\"]"
+  ],
+  "Literal.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "Literal.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "Literal.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "Literal.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "Literal.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "Literal.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "Literal.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "Literal.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "Literal.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "Literal.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'Literal' cannot have children of type 'String'.\""
+  ],
+  "Literal.Api.ITextControl.Text": [
+    "ITextControl.Text = \"<b>literal</b>\"",
+    "ITextControl.Text set = \"Abc 123\""
+  ],
+  "Literal.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.WebControls.Literal.#ctor": [
+    "Literal.#ctor = Literal# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; Mode=Transform; SkinID=\"\"; Text=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.WebControls.Literal.AddParsedSubObject": [
+    "Literal.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'Literal' cannot have children of type 'String'.\""
+  ],
+  "Literal.Api.WebControls.Literal.CreateControlCollection": [
+    "Literal.CreateControlCollection = ControlCollection []",
+    "Literal.CreateControlCollection after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.WebControls.Literal.Focus": [
+    "Literal.Focus = \"-> System.NotSupportedException: Control of type 'Literal' does not support the Focus operation.\""
+  ],
+  "Literal.Api.WebControls.Literal.Mode": [
+    "Literal.Mode = \"LiteralMode.Transform\"",
+    "Literal.Mode set = \"LiteralMode.PassThrough\""
+  ],
+  "Literal.Api.WebControls.Literal.Render": [
+    "Literal.Render(HtmlTextWriter) = \"ok\"",
+    "Literal.Render(HtmlTextWriter) writer:",
+    "  | <b>literal</b>",
+    "Literal.Render(HtmlTextWriter) after = Literal#litText {ClientID=\"litText\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"litText\"; Mode=Transform; SkinID=\"\"; Text=\"<b>literal</b>\"; UniqueID=\"litText\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Literal.Api.WebControls.Literal.Text": [
+    "Literal.Text = \"<b>literal</b>\"",
+    "Literal.Text set = \"Abc 123\""
+  ]
+}

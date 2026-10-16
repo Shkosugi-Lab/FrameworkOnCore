@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- IIS's URL Rewrite module (2.1) as applications use it (web.config's system.webServer/rewrite): rewrites with
+       back-references, redirects, conditions (the host, the query string, a file or a folder, HTTPS), a rewrite map,
+       rules in a chain, a response of the rule's own, an aborted request. Show.aspx: what the page sees of the rewritten
+       request (its URLs, the server variables). Against the converted application: experiments/wf4c/sample-parity.ps1,
+       experiments/wf4c/rewrite-check.ps1 (each answer as sent: status, Location, the page's URLs, the log's line). -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5B2E7C14-9D3A-4F61-A8E2-07C4D1B9F3A6}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>RewriteProbe</RootNamespace>
+    <AssemblyName>RewriteProbe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\real.htm" />
+    <Content Include="Check.htm" />
+    <Content Include="Show.aspx" />
+    <Content Include="sub\sub-maps.config" />
+    <Content Include="sub\web.config" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,4 +1,4 @@
-//------------------------------------------------------------------------------
+﻿//------------------------------------------------------------------------------
 // <copyright file="StaticFileHandler.cs" company="Microsoft">
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
 // </copyright>                                                                
@@ -474,7 +474,11 @@ namespace System.Web {
 #endif
 			response.AppendHeader("Accept-Ranges", "bytes");
             response.AppendHeader("ETag", etag);
+#if NETFRAMEWORK
             response.AppendHeader("Cache-Control", "public");
+#else
+            AsIisStaticFile(response);
+#endif
 
             handled = true;
             return handled;
@@ -509,6 +513,12 @@ namespace System.Web {
 
             Debug.Trace("StaticFileHandler", "Path= " + virtualPathWithPathInfo + ", PhysicalPath= " + physicalPath);
 
+#if !NETFRAMEWORK
+            // As IIS's static file module serves it (IisStaticFile); a directory as before.
+            if (IisStaticFile.Serve(context, virtualPathWithPathInfo, physicalPath)) {
+                return;
+            }
+#endif
             fileInfo = GetFileInfo(virtualPathWithPathInfo, physicalPath, response);
 
             // Determine Last Modified Time.  We might need it soon 
@@ -560,15 +570,31 @@ namespace System.Web {
             // Set IgnoreRangeRequests to avoid serving Range requests from the output cache.
             // Note that the kernel cache always ignores Range requests.
             response.Cache.SetIgnoreRangeRequests();
+#if NETFRAMEWORK
             // Set an expires in the future.
             response.Cache.SetExpires(utcNow.AddDays(1));
+#endif
             // always set Last-Modified
             response.Cache.SetLastModified(lastModifiedInUtc);
             // always set ETag
-            response.Cache.SetETag(etag); 
+            response.Cache.SetETag(etag);
+#if NETFRAMEWORK
             // always set Cache-Control to public
             response.Cache.SetCacheability(HttpCacheability.Public);
+#else
+            AsIisStaticFile(response);
+#endif
         }
+
+#if !NETFRAMEWORK
+        // As IIS's static file module serves a file (the integrated pipeline, which the applications were written for), not
+        // as ASP.NET's handler did in the classic one: no Cache-Control and no Expires (the browser asks again, with
+        // If-Modified-Since and If-None-Match), no X-AspNet-Version.
+        private static void AsIisStaticFile(HttpResponse response) {
+            response.SuppressDefaultCacheControlHeader = true;
+            response.SuppressVersionHeader = true;
+        }
+#endif
 
         private static void SendBadRequest(HttpResponse response) {
             response.StatusCode = 400;

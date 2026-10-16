@@ -1,0 +1,11 @@
+﻿<%-- The theme the rendering layer's "[themed]" list control cases render with: a default skin and a named one (SkinID="probe") for each. --%>
+<asp:DropDownList runat="server" CssClass="skinned" BackColor="#EEEEEE" />
+<asp:DropDownList runat="server" SkinID="probe" Width="300px" CssClass="skinned-probe" />
+<asp:ListBox runat="server" CssClass="skinned" Rows="5" />
+<asp:ListBox runat="server" SkinID="probe" Width="300px" SelectionMode="Multiple" />
+<asp:CheckBoxList runat="server" CssClass="skinned" RepeatDirection="Horizontal" />
+<asp:CheckBoxList runat="server" SkinID="probe" RepeatLayout="Flow" CssClass="skinned-probe" />
+<asp:RadioButtonList runat="server" CssClass="skinned" RepeatDirection="Horizontal" />
+<asp:RadioButtonList runat="server" SkinID="probe" RepeatLayout="UnorderedList" CssClass="skinned-probe" />
+<asp:BulletedList runat="server" CssClass="skinned" BulletStyle="Square" />
+<asp:BulletedList runat="server" SkinID="probe" DisplayMode="LinkButton" CssClass="skinned-probe" />

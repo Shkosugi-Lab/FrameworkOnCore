@@ -1,0 +1,101 @@
+{
+  "_comment": "The RangeValidator's scenario layer (ValidatorsScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers. The log's request number is kept in view state: a postback the browser's validation held back leaves it as it was.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/ValidatorsScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "RangeValidator [render][databind][dynamic] first request"
+    },
+    {
+      "action": "fill",
+      "target": "txtAge",
+      "value": "0"
+    },
+    {
+      "action": "fill",
+      "target": "txtDynamicTarget",
+      "value": "12"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "RangeValidator [servervalidate][dynamic] below the range"
+    },
+    {
+      "action": "fill",
+      "target": "txtAge",
+      "value": "abc"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "RangeValidator [servervalidate] not an integer"
+    },
+    {
+      "action": "fill",
+      "target": "txtAge",
+      "value": "30"
+    },
+    {
+      "action": "fill",
+      "target": "txtDynamicTarget",
+      "value": "3"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "RangeValidator [servervalidate][dynamic] in the range"
+    },
+    {
+      "action": "fill",
+      "target": "txtAgeC",
+      "value": "200"
+    },
+    {
+      "action": "click",
+      "target": "btnRngC"
+    },
+    {
+      "action": "snapshot",
+      "name": "RangeValidator [clientvalidate] above the range in the browser: no request"
+    },
+    {
+      "action": "fill",
+      "target": "txtAgeC",
+      "value": "20"
+    },
+    {
+      "action": "click",
+      "target": "btnRngC"
+    },
+    {
+      "action": "snapshot",
+      "name": "RangeValidator [clientvalidate] in the range in the browser: posted"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "RangeValidator [visible][servervalidate] the hidden validator shown, then validating"
+    }
+  ]
+}

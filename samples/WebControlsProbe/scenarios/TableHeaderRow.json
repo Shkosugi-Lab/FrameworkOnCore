@@ -1,0 +1,161 @@
+{
+  "_comment": "The TableHeaderRow's scenario layer (MoreScenario.aspx; tests/WebControlsParity/README.md; written by more-scenarios.py). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/MoreScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "TableHeaderRow [render][databind][dynamic] first request: plain, bound, set in code, made in code"
+    },
+    {
+      "action": "upload",
+      "target": "fupPlain",
+      "value": "probe.txt:file content"
+    },
+    {
+      "action": "upload",
+      "target": "fupMulti",
+      "value": "multi.txt:multi content"
+    },
+    {
+      "action": "upload",
+      "target": "fupDynamic",
+      "value": "dynamic.txt:dynamic content"
+    },
+    {
+      "action": "fill",
+      "target": "txtInFirst",
+      "value": "in the first view"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "TableHeaderRow [viewstate][dynamic] posted: files, view state, what code set (a table's rows and a literal control's text are not kept)"
+    },
+    {
+      "action": "click",
+      "target": "btnNext"
+    },
+    {
+      "action": "snapshot",
+      "name": "TableHeaderRow [viewstate] the next view (NextView bubbled from a button)"
+    },
+    {
+      "action": "click",
+      "target": "btnToThird"
+    },
+    {
+      "action": "click",
+      "target": "btnToFirst"
+    },
+    {
+      "action": "snapshot",
+      "name": "TableHeaderRow [viewstate] switched by ID and by index: the first view's text box kept its value"
+    },
+    {
+      "action": "click",
+      "target": "btnDynamicOne"
+    },
+    {
+      "action": "snapshot",
+      "name": "TableHeaderRow [dynamic][viewstate] a dynamic multi-view's next view"
+    },
+    {
+      "action": "clicktextin",
+      "target": "calPlain",
+      "value": "20"
+    },
+    {
+      "action": "snapshot",
+      "name": "TableHeaderRow [viewstate] a calendar's day chosen"
+    },
+    {
+      "action": "clicktextin",
+      "target": "calPlain",
+      "value": "Week"
+    },
+    {
+      "action": "snapshot",
+      "name": "TableHeaderRow [viewstate] a calendar's week chosen (several dates)"
+    },
+    {
+      "action": "clicktextin",
+      "target": "calPlain",
+      "value": ">"
+    },
+    {
+      "action": "snapshot",
+      "name": "TableHeaderRow [viewstate] a calendar's next month"
+    },
+    {
+      "action": "clicktextin",
+      "target": "calDynamic",
+      "value": "21"
+    },
+    {
+      "action": "snapshot",
+      "name": "TableHeaderRow [viewstate] a dynamic calendar's day chosen"
+    },
+    {
+      "action": "evaluate",
+      "target": "imapPlain",
+      "value": "document.getElementById('ImageMap' + e.id).querySelector('area').click();"
+    },
+    {
+      "action": "waitms",
+      "ms": 3000
+    },
+    {
+      "action": "snapshot",
+      "name": "TableHeaderRow [viewstate] an image map's hot spot clicked (PostBack)"
+    },
+    {
+      "action": "evaluate",
+      "target": "imapDynamic",
+      "value": "document.getElementById('ImageMap' + e.id).querySelector('area').click();"
+    },
+    {
+      "action": "waitms",
+      "ms": 3000
+    },
+    {
+      "action": "snapshot",
+      "name": "TableHeaderRow [viewstate] a dynamic image map's hot spot clicked"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "TableHeaderRow [visible][viewstate] hidden ones shown with what was set while hidden"
+    },
+    {
+      "action": "click",
+      "target": "btnUploadValidate"
+    },
+    {
+      "action": "snapshot",
+      "name": "TableHeaderRow [viewstate] a file upload validated on the server (g1): no file posted"
+    },
+    {
+      "action": "evaluate",
+      "target": "tblPlain",
+      "value": "__doPostBack(e.id, 'probe');"
+    },
+    {
+      "action": "waitms",
+      "ms": 3000
+    },
+    {
+      "action": "snapshot",
+      "name": "TableHeaderRow [viewstate] a postback event to a table (not registered for event validation): rejected"
+    }
+  ]
+}

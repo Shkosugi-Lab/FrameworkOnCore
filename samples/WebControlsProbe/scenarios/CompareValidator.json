@@ -1,0 +1,118 @@
+{
+  "_comment": "The CompareValidator's scenario layer (ValidatorsScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers. The log's request number is kept in view state: a postback the browser's validation held back leaves it as it was.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/ValidatorsScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "CompareValidator [render][databind][dynamic] first request"
+    },
+    {
+      "action": "fill",
+      "target": "txtPassword",
+      "value": "a"
+    },
+    {
+      "action": "fill",
+      "target": "txtConfirm",
+      "value": "b"
+    },
+    {
+      "action": "fill",
+      "target": "txtQty",
+      "value": "2"
+    },
+    {
+      "action": "fill",
+      "target": "txtDate",
+      "value": "2020-13-45"
+    },
+    {
+      "action": "fill",
+      "target": "txtDynamicTarget",
+      "value": "7"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "CompareValidator [servervalidate][dynamic] not matching, not more than 3, not a date"
+    },
+    {
+      "action": "fill",
+      "target": "txtConfirm",
+      "value": "a"
+    },
+    {
+      "action": "fill",
+      "target": "txtQty",
+      "value": "5"
+    },
+    {
+      "action": "fill",
+      "target": "txtDate",
+      "value": "1/2/2020"
+    },
+    {
+      "action": "fill",
+      "target": "txtDynamicTarget",
+      "value": "4"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "CompareValidator [servervalidate][dynamic] matching, more than 3, a date"
+    },
+    {
+      "action": "fill",
+      "target": "txtPasswordC",
+      "value": "a"
+    },
+    {
+      "action": "fill",
+      "target": "txtConfirmC",
+      "value": "b"
+    },
+    {
+      "action": "click",
+      "target": "btnCmpC"
+    },
+    {
+      "action": "snapshot",
+      "name": "CompareValidator [clientvalidate] not matching in the browser: no request"
+    },
+    {
+      "action": "fill",
+      "target": "txtConfirmC",
+      "value": "a"
+    },
+    {
+      "action": "click",
+      "target": "btnCmpC"
+    },
+    {
+      "action": "snapshot",
+      "name": "CompareValidator [clientvalidate] matching in the browser: posted"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "CompareValidator [visible][servervalidate] the hidden validator shown, then validating"
+    }
+  ]
+}

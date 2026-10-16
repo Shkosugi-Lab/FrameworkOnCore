@@ -165,9 +165,49 @@ namespace System.Web.Services.Configuration
                 this.actualPath += Path.DirectorySeparatorChar;
             }
             this.Href = "DefaultWsdlHelpGenerator.aspx";
+#if !NETFRAMEWORK
+            WriteDefaultHelpGenerator(this.actualPath);
+#endif
             CheckIOReadPermission(this.actualPath, this.Href);
             this.needToValidateHref = true;
         }
+
+#if !NETFRAMEWORK
+        static readonly object writeLock = new object();
+
+        // .NET Framework's CONFIG folder has DefaultWsdlHelpGenerator.aspx; FrameworkOnCore's (App_Data, where machine.config is
+        // written) gets FrameworkOnCore's own from the assembly, written again when it differs (a package update). Without it,
+        // the service's help page was empty.
+        static void WriteDefaultHelpGenerator(string directory)
+        {
+            if (string.IsNullOrEmpty(directory)) return;
+            try
+            {
+                string text;
+                using (var stream = typeof(WsdlHelpGeneratorElement).Assembly.GetManifestResourceStream("DefaultWsdlHelpGenerator.aspx"))
+                {
+                    if (stream == null) return;
+                    using (var reader = new StreamReader(stream)) text = reader.ReadToEnd();
+                }
+                var file = Path.Combine(directory, "DefaultWsdlHelpGenerator.aspx");
+                lock (writeLock)
+                {
+                    if (!File.Exists(file) || File.ReadAllText(file) != text)
+                    {
+                        Directory.CreateDirectory(directory);
+                        File.WriteAllText(file, text);
+                    }
+                }
+            }
+            catch (IOException)
+            {
+                // A folder the application cannot write: the page is left out, as before.
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
+        }
+#endif
 
         static void CheckIOReadPermission(string path, string file) 
         {

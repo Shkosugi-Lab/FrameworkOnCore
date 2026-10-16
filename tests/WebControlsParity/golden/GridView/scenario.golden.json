@@ -1,0 +1,5868 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "GridView [render][databind][datasource][datasourceid][templates][dynamic] first request",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Pen 1.25 Pick Edit Delete Select",
+        "Bag 24.99 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "1 2 3",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Pen 1.25 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Cup <&> 1234.5 Edit Delete Select",
+        "1 2 3",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Cup <&> C3",
+        "1 2 3",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 1: IsPostBack=False",
+        "Grid gvManual: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Pen",
+            "1.25",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Pen",
+            "1.25",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1234.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Cup <&>",
+            "C3"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "false",
+        "gvManual_ctl00_2": "true"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvNoViewState": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [paging][postbackevent] the page's grid: page 2",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Eraser 0.50 Pick Edit Delete Select",
+        "File 3.00 Pick Edit Delete Select",
+        "1 2 3",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Pen 1.25 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Cup <&> 1234.5 Edit Delete Select",
+        "1 2 3",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Cup <&> C3",
+        "1 2 3",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 2: IsPostBack=True",
+        "RowCommand gvManual: Page 2 (from GridView)",
+        "PageIndexChanging: NewPageIndex=1",
+        "Grid gvManual: PageIndex=1 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Eraser",
+            "0.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "File",
+            "3.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Pen",
+            "1.25",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1234.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Cup <&>",
+            "C3"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "false",
+        "gvManual_ctl00_2": "true"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [sorting] sorted by name",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Eraser 0.50 Pick Edit Delete Select",
+        "File 3.00 Pick Edit Delete Select",
+        "Glue 2.75 Pick Edit Delete Select",
+        "1 2 3",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Pen 1.25 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Cup <&> 1234.5 Edit Delete Select",
+        "1 2 3",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Cup <&> C3",
+        "1 2 3",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 3: IsPostBack=True",
+        "RowCommand gvManual: Sort Name (from GridView)",
+        "Sorting: SortExpression=Name SortDirection=Ascending -> ascending",
+        "Grid gvManual: PageIndex=1 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Eraser",
+            "0.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "File",
+            "3.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Glue",
+            "2.75",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Pen",
+            "1.25",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1234.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Cup <&>",
+            "C3"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "false",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "false"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [sorting][viewstate] sorted by name again: descending (the page's)",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Eraser 0.50 Pick Edit Delete Select",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "1 2 3",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Pen 1.25 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Cup <&> 1234.5 Edit Delete Select",
+        "1 2 3",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Cup <&> C3",
+        "1 2 3",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 4: IsPostBack=True",
+        "RowCommand gvManual: Sort Name (from GridView)",
+        "Sorting: SortExpression=Name SortDirection=Ascending -> descending",
+        "Grid gvManual: PageIndex=1 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Eraser",
+            "0.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Pen",
+            "1.25",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1234.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Cup <&>",
+            "C3"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "false",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "true"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [selection][datakeys] the first row selected",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Eraser 0.50 Pick Edit Delete Select",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "1 2 3",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Pen 1.25 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Cup <&> 1234.5 Edit Delete Select",
+        "1 2 3",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Cup <&> C3",
+        "1 2 3",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 5: IsPostBack=True",
+        "RowCommand gvManual: Select 0 (from GridView)",
+        "SelectedIndexChanged gvManual: SelectedIndex=0 SelectedValue=E5",
+        "Grid gvManual: PageIndex=1 PageCount=3 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Eraser",
+            "0.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Pen",
+            "1.25",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1234.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Cup <&>",
+            "C3"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "false",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "true"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [rowcommand] a ButtonField's command",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Eraser 0.50 Pick Edit Delete Select",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "1 2 3",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Pen 1.25 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Cup <&> 1234.5 Edit Delete Select",
+        "1 2 3",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Cup <&> C3",
+        "1 2 3",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 6: IsPostBack=True",
+        "RowCommand gvManual: pick 0 (from GridView)",
+        "Grid gvManual: PageIndex=1 PageCount=3 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Eraser",
+            "0.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Pen",
+            "1.25",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1234.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Cup <&>",
+            "C3"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "false",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "true"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [editing] the first row edited",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Pick Update Cancel",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "1 2 3",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Pen 1.25 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Cup <&> 1234.5 Edit Delete Select",
+        "1 2 3",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Cup <&> C3",
+        "1 2 3",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 7: IsPostBack=True",
+        "RowCommand gvManual: Edit 0 (from GridView)",
+        "RowEditing: NewEditIndex=0",
+        "Grid gvManual: PageIndex=1 PageCount=3 EditIndex=0 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "Pick",
+            "Update\u00A0Cancel"
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Pen",
+            "1.25",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1234.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Cup <&>",
+            "C3"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_txtNameEdit_0": "Eraser",
+        "gvManual_ctl01_0": "false",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "true"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_txtNameEdit_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "gvManual_ctl01_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [editing][bind][datakeys] updated: keys, old and new values",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "File 3.00 Pick Edit Delete Select",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "1 2 3",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Pen 1.25 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Cup <&> 1234.5 Edit Delete Select",
+        "1 2 3",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Cup <&> C3",
+        "1 2 3",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 8: IsPostBack=True",
+        "RowCommand gvManual: Update 0 (from DataControlLinkButton)",
+        "RowUpdating: RowIndex=0 Keys={Code=E5} OldValues={} NewValues={Name=Renamed, Price=0.5}",
+        "Grid gvManual: PageIndex=1 PageCount=3 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Renamed:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "File",
+            "3.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Pen",
+            "1.25",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1234.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Cup <&>",
+            "C3"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "true"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [editing] edit cancelled",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "File 3.00 Pick Edit Delete Select",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "1 2 3",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Pen 1.25 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Cup <&> 1234.5 Edit Delete Select",
+        "1 2 3",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Cup <&> C3",
+        "1 2 3",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 10: IsPostBack=True",
+        "RowCommand gvManual: Cancel 0 (from GridView)",
+        "RowCancelingEdit: RowIndex=0",
+        "Grid gvManual: PageIndex=1 PageCount=3 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Renamed:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "File",
+            "3.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Pen",
+            "1.25",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1234.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Cup <&>",
+            "C3"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "true"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [editing][datakeys] the first row deleted",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "Bag 24.99 Pick Edit Delete Select",
+        "1 2",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Pen 1.25 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Cup <&> 1234.5 Edit Delete Select",
+        "1 2 3",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Cup <&> C3",
+        "1 2 3",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 11: IsPostBack=True",
+        "RowCommand gvManual: Delete 0 (from GridView)",
+        "RowDeleting: RowIndex=0 Keys={Code=F6} Values={Active=True, Price=3.00}",
+        "Grid gvManual: PageIndex=1 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Renamed:0.5:False G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Pen",
+            "1.25",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1234.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Cup <&>",
+            "C3"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "false"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [paging][datasourceid] the data source's grid: page 2",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "Bag 24.99 Pick Edit Delete Select",
+        "1 2",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Desk 150 Edit Delete Select",
+        "Renamed 0.5 Edit Delete Select",
+        "Glue 2.75 Edit Delete Select",
+        "1 2",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Cup <&> C3",
+        "1 2 3",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 12: IsPostBack=True",
+        "RowCommand gvAuto: Page 2 (from GridView)",
+        "Grid gvManual: PageIndex=1 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=1 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Renamed:0.5:False G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Desk",
+            "150",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Renamed",
+            "0.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Glue",
+            "2.75",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Cup <&>",
+            "C3"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "false"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [sorting][datasourceid] sorted by price (the grid's own direction)",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "Bag 24.99 Pick Edit Delete Select",
+        "1 2",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Renamed 0.5 Edit Delete Select",
+        "Pen 1.25 Edit Delete Select",
+        "Glue 2.75 Edit Delete Select",
+        "1 2",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Cup <&> C3",
+        "1 2 3",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 13: IsPostBack=True",
+        "RowCommand gvAuto: Sort Price (from GridView)",
+        "Grid gvManual: PageIndex=1 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"Price\" SortDirection=Ascending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Renamed:0.5:False G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Renamed",
+            "0.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Pen",
+            "1.25",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Glue",
+            "2.75",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Cup <&>",
+            "C3"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "false"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [sorting][datasourceid] sorted by price again: descending",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "Bag 24.99 Pick Edit Delete Select",
+        "1 2",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Cup <&> 1234.5 Edit Delete Select",
+        "Desk 150 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "1 2",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Cup <&> C3",
+        "1 2 3",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 14: IsPostBack=True",
+        "RowCommand gvAuto: Sort Price (from GridView)",
+        "Grid gvManual: PageIndex=1 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"Price\" SortDirection=Descending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Renamed:0.5:False G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Cup <&>",
+            "1234.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Desk",
+            "150",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Cup <&>",
+            "C3"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "false"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [selection][datasourceid] a row selected",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "Bag 24.99 Pick Edit Delete Select",
+        "1 2",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Cup <&> 1234.5 Edit Delete Select",
+        "Desk 150 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "1 2",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Cup <&> C3",
+        "1 2 3",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 15: IsPostBack=True",
+        "RowCommand gvAuto: Select 0 (from GridView)",
+        "SelectedIndexChanged gvAuto: SelectedIndex=0 SelectedValue=C3",
+        "Grid gvManual: PageIndex=1 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"Price\" SortDirection=Descending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Renamed:0.5:False G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Cup <&>",
+            "1234.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Desk",
+            "150",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Cup <&>",
+            "C3"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "false"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [editing][datasourceid] updated through the data source",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "Bag 24.99 Pick Edit Delete Select",
+        "1 2",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Auto renamed 1234.5 Edit Delete Select",
+        "Desk 150 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "1 2",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Auto renamed C3",
+        "1 2",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 17: IsPostBack=True",
+        "RowCommand gvAuto: Update 0 (from DataControlLinkButton)",
+        "ObjectDataSource Updating: {Code=C3, Name=Auto renamed, Price=1234.5}",
+        "RowUpdated: AffectedRows=-1 Keys={Code=C3} NewValues={Name=Auto renamed, Price=1234.5}",
+        "Grid gvManual: PageIndex=1 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"Price\" SortDirection=Descending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Auto renamed:1234.5:True D4:Desk:150:True E5:Renamed:0.5:False G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Auto renamed",
+            "1234.5",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Desk",
+            "150",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Auto renamed",
+            "C3"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "false"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [editing][datasourceid] deleted through the data source",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "Bag 24.99 Pick Edit Delete Select",
+        "1 2",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Desk 150 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Glue 2.75 Edit Delete Select",
+        "1 2",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Desk D4",
+        "1 2",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 18: IsPostBack=True",
+        "RowCommand gvAuto: Delete 0 (from GridView)",
+        "ObjectDataSource Deleting: {Code=C3}",
+        "RowDeleted: AffectedRows=-1 Keys={Code=C3}",
+        "Grid gvManual: PageIndex=1 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"Price\" SortDirection=Descending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False D4:Desk:150:True E5:Renamed:0.5:False G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Desk",
+            "150",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Glue",
+            "2.75",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Desk",
+            "D4"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "false"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [callback][paging] paged by a callback: no postback",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "Bag 24.99 Pick Edit Delete Select",
+        "1 2",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Desk 150 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Glue 2.75 Edit Delete Select",
+        "1 2",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Renamed E5",
+        "Glue G7",
+        "1 2",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 18: IsPostBack=True",
+        "RowCommand gvAuto: Delete 0 (from GridView)",
+        "ObjectDataSource Deleting: {Code=C3}",
+        "RowDeleted: AffectedRows=-1 Keys={Code=C3}",
+        "Grid gvManual: PageIndex=1 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"Price\" SortDirection=Descending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False D4:Desk:150:True E5:Renamed:0.5:False G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Desk",
+            "150",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Glue",
+            "2.75",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Renamed",
+            "E5"
+          ],
+          [
+            "Glue",
+            "G7"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "false"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [callback][sorting] sorted by a callback",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "Bag 24.99 Pick Edit Delete Select",
+        "1 2",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Desk 150 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Glue 2.75 Edit Delete Select",
+        "1 2",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Bag B2",
+        "Desk D4",
+        "Renamed E5",
+        "1 2",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 18: IsPostBack=True",
+        "RowCommand gvAuto: Delete 0 (from GridView)",
+        "ObjectDataSource Deleting: {Code=C3}",
+        "RowDeleted: AffectedRows=-1 Keys={Code=C3}",
+        "Grid gvManual: PageIndex=1 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"Price\" SortDirection=Descending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False D4:Desk:150:True E5:Renamed:0.5:False G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Desk",
+            "150",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Glue",
+            "2.75",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Desk",
+            "D4"
+          ],
+          [
+            "Renamed",
+            "E5"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "false"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [viewstate] posted (the grid without view state is empty)",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "Bag 24.99 Pick Edit Delete Select",
+        "1 2",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Desk 150 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Glue 2.75 Edit Delete Select",
+        "1 2",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Bag B2",
+        "Desk D4",
+        "Renamed E5",
+        "1 2",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 19: IsPostBack=True",
+        "Grid gvManual: PageIndex=1 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"Price\" SortDirection=Descending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"Code\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2 (hidden)",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False D4:Desk:150:True E5:Renamed:0.5:False G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Desk",
+            "150",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Glue",
+            "2.75",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Desk",
+            "D4"
+          ],
+          [
+            "Renamed",
+            "E5"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "false"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "GridView [visible][viewstate] the hidden grid shown with its rows",
+      "Path": "/gridviewscenario",
+      "Title": "GridView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Name Price Active",
+        "Desk 150.00 Pick Edit Delete Select",
+        "Cup <&> 1,234.50 Pick Edit Delete Select",
+        "Bag 24.99 Pick Edit Delete Select",
+        "1 2",
+        "Automatic (ObjectDataSource)",
+        "Name Price",
+        "Desk 150 Edit Delete Select",
+        "Bag 24.99 Edit Delete Select",
+        "Glue 2.75 Edit Delete Select",
+        "1 2",
+        "Callbacks (paging and sorting without a postback)",
+        "Name Code",
+        "Bag B2",
+        "Desk D4",
+        "Renamed E5",
+        "1 2",
+        "Empty, without view state, hidden, dynamic",
+        "Name",
+        "Nothing to show",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 20: IsPostBack=True",
+        "Click btnShow",
+        "Grid gvManual: PageIndex=1 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"\" SortDirection=Ascending Rows=3",
+        "Grid gvAuto: PageIndex=0 PageCount=2 EditIndex=-1 SelectedIndex=0 SortExpression=\"Price\" SortDirection=Descending Rows=3",
+        "Grid gvCallback: PageIndex=0 PageCount=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"Code\" SortDirection=Ascending Rows=3",
+        "Grid gvEmpty: PageIndex=0 PageCount=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvNoViewState: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=0",
+        "Grid gvHidden: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Grid gvDynamic: PageIndex=0 PageCount=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending Rows=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False D4:Desk:150:True E5:Renamed:0.5:False G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "Active",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "",
+            "Pick",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Price",
+            ""
+          ],
+          [
+            "Desk",
+            "150",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "Glue",
+            "2.75",
+            "Edit\u00A0Delete\u00A0Select"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Bag",
+            "B2"
+          ],
+          [
+            "Desk",
+            "D4"
+          ],
+          [
+            "Renamed",
+            "E5"
+          ],
+          [
+            "1\t2"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "gvManual_ctl00_0": "true",
+        "gvManual_ctl00_1": "true",
+        "gvManual_ctl00_2": "false"
+      },
+      "Elements": {
+        "gvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvManual_lblName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvManual_lblName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvManual_ctl00_2": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox",
+            "disabled": ""
+          },
+          "Style": {}
+        },
+        "gvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "__gvgvCallback__div": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvCallback": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvHidden": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "gvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

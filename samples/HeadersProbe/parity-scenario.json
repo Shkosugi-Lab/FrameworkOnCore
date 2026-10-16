@@ -1,0 +1,13 @@
+{
+  "_comment": "IIS's response headers and HTTP redirection as the browser sees them: the headers of the answers (Check.htm: customHeaders, a location's, a folder's web.config, a page's own) and where the redirects end. experiments/wf4c/headers-check.ps1 compares each answer as sent (status, Location, every X- header).",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/Check.htm?h=X-Root,X-Frame-Options,X-Loc,X-Secure,X-Page,X-Powered-By&u=/a.htm&u=/Show.aspx&u=/Show.aspx%3Fset%3D1&u=/Show.aspx%3Ferror%3D1&u=/nothing.htm&u=/loc/l.htm&u=/secure/s.htm&u=/secure/" },
+    { "action": "snapshot", "name": "headers-the answers' headers" },
+    { "action": "goto", "path": "/Check.htm?u=/old/o.htm&u=/old/x.htm%3Fq%3D1&u=/old/keep/k.htm&u=/exact/p/q.htm%3Fz%3D1&u=/child&u=/child/c.htm&u=/wild/x.php&u=/Moved.aspx%3Fk%3Dv" },
+    { "action": "snapshot", "name": "redirect-where the redirects end" },
+    { "action": "goto", "path": "/Show.aspx" },
+    { "action": "click", "target": "btnPost" },
+    { "action": "snapshot", "name": "headers-a postback" }
+  ]
+}

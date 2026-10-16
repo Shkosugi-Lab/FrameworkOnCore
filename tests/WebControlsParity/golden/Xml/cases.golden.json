@@ -1,0 +1,471 @@
+{
+  "Xml.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "Xml.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'Xml' cannot have children of type 'String'.\""
+  ],
+  "Xml.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "Xml.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Xml.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Xml.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "Xml.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.ClientID": [
+    "Control.ClientID = \"xmlItems\""
+  ],
+  "Xml.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "Xml.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "Xml.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "Xml.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "Xml.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "Xml.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "Xml.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "Xml.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "Xml.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "Xml.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"false\"",
+    "Control.EnableTheming set = \"-> System.NotSupportedException: Control of type 'Xml' does not support theming.\""
+  ],
+  "Xml.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "Xml.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "Xml.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.Focus": [
+    "Control.Focus = \"-> System.NotSupportedException: Control of type 'Xml' does not support the Focus operation.\""
+  ],
+  "Xml.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[DictionaryEntry \"OriginalContent\"=null]\"",
+    "Control.GetDesignModeState after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Xml.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"xmlItems\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "Xml.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.ID": [
+    "Control.ID = \"xmlItems\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "Xml.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "Xml.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "Xml.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "Xml.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "Xml.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "Xml.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "Xml.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "Xml.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "Xml.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Xml.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Xml.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Xml.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Xml.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "Xml.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <?xml version=\"1.0\" encoding=\"utf-16\"?><items><item>Pen</item></items>",
+    "Control.Render(HtmlTextWriter) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <?xml version=\"1.0\" encoding=\"utf-16\"?><items><item>Pen</item></items>",
+    "Control.RenderControl(HtmlTextWriter) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <?xml version=\"1.0\" encoding=\"utf-16\"?><items><item>Pen</item></items>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "Xml.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "Xml.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"-> System.NotSupportedException: Control of type 'Xml' does not support theming.\""
+  ],
+  "Xml.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Xml.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "Xml.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.Control.UniqueID": [
+    "Control.UniqueID = \"xmlItems\""
+  ],
+  "Xml.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "Xml.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "Xml.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "Xml.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "Xml.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "Xml.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "Xml.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "Xml.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[DictionaryEntry \"OriginalContent\"=null]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "Xml.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "Xml.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "Xml.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "Xml.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "Xml.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'Xml' cannot have children of type 'String'.\""
+  ],
+  "Xml.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.WebControls.Xml.#ctor": [
+    "Xml.#ctor = Xml# {ClientID=\"\"; ClientIDMode=Inherit; DocumentContent=\"\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=null; SkinID=\"\"; TransformSource=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.WebControls.Xml.AddParsedSubObject": [
+    "Xml.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'Xml' cannot have children of type 'String'.\""
+  ],
+  "Xml.Api.WebControls.Xml.ClientID": [
+    "Xml.ClientID = \"xmlItems\""
+  ],
+  "Xml.Api.WebControls.Xml.Controls": [
+    "Xml.Controls = ControlCollection []"
+  ],
+  "Xml.Api.WebControls.Xml.CreateControlCollection": [
+    "Xml.CreateControlCollection = ControlCollection []",
+    "Xml.CreateControlCollection after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.WebControls.Xml.Document": [
+    "Xml.Document = \"[[[[]]]]\"",
+    "Xml.Document set = \"[]\""
+  ],
+  "Xml.Api.WebControls.Xml.DocumentContent": [
+    "Xml.DocumentContent = \"<items><item>Pen</item></items>\"",
+    "Xml.DocumentContent set = \"Abc 123\""
+  ],
+  "Xml.Api.WebControls.Xml.DocumentSource": [
+    "Xml.DocumentSource = \"\"",
+    "Xml.DocumentSource set = \"Abc 123\""
+  ],
+  "Xml.Api.WebControls.Xml.EnableTheming": [
+    "Xml.EnableTheming = \"false\"",
+    "Xml.EnableTheming set = \"-> System.NotSupportedException: Control of type 'Xml' does not support theming.\""
+  ],
+  "Xml.Api.WebControls.Xml.FindControl": [
+    "Xml.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Xml.FindControl(String) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.WebControls.Xml.Focus": [
+    "Xml.Focus = \"-> System.NotSupportedException: Control of type 'Xml' does not support the Focus operation.\""
+  ],
+  "Xml.Api.WebControls.Xml.GetDesignModeState": [
+    "Xml.GetDesignModeState = \"[DictionaryEntry \"OriginalContent\"=null]\"",
+    "Xml.GetDesignModeState after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.WebControls.Xml.HasControls": [
+    "Xml.HasControls = \"false\"",
+    "Xml.HasControls after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.WebControls.Xml.Render": [
+    "Xml.Render(HtmlTextWriter) = \"ok\"",
+    "Xml.Render(HtmlTextWriter) output:",
+    "  | <?xml version=\"1.0\" encoding=\"utf-16\"?><items><item>Pen</item></items>",
+    "Xml.Render(HtmlTextWriter) after = Xml#xmlItems {ClientID=\"xmlItems\"; ClientIDMode=Inherit; DocumentContent=\"<items><item>Pen</item></items>\"; DocumentSource=\"\"; EnableTheming=false; EnableViewState=true; ID=\"xmlItems\"; SkinID=\"\"; TransformSource=\"\"; UniqueID=\"xmlItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Xml.Api.WebControls.Xml.SkinID": [
+    "Xml.SkinID = \"\"",
+    "Xml.SkinID set = \"-> System.NotSupportedException: Control of type 'Xml' does not support theming.\""
+  ],
+  "Xml.Api.WebControls.Xml.Transform": [
+    "Xml.Transform = null",
+    "Xml.Transform set = \"System.Xml.Xsl.XslTransform\""
+  ],
+  "Xml.Api.WebControls.Xml.TransformArgumentList": [
+    "Xml.TransformArgumentList = null",
+    "Xml.TransformArgumentList set = \"System.Xml.Xsl.XsltArgumentList\""
+  ],
+  "Xml.Api.WebControls.Xml.TransformSource": [
+    "Xml.TransformSource = \"\"",
+    "Xml.TransformSource set = \"Abc 123\""
+  ],
+  "Xml.Api.WebControls.Xml.XPathNavigator": [
+    "Xml.XPathNavigator = null",
+    "Xml.XPathNavigator set = null"
+  ]
+}

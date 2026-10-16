@@ -167,6 +167,8 @@ namespace FrameworkOnCore.Parity
                 case char c: return "'" + c + "'";
                 case bool b: return b ? "true" : "false";
                 case byte[] bytes: return "bytes[" + BitConverter.ToString(bytes) + "]";
+                // Today (a calendar's TodaysDate): the day of the run, not of the implementation.
+                case DateTime d when d.Kind != DateTimeKind.Utc && d == DateTime.Today: return "{today}(" + d.Kind + ")";
                 case DateTime d: return d.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffff", CultureInfo.InvariantCulture) + "(" + d.Kind + ")";
                 case DateTimeOffset o: return o.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz", CultureInfo.InvariantCulture);
                 case Type t: return "type " + t.FullName?.Split('[')[0] + (t.IsGenericType ? "<" + string.Join(",", t.GetGenericArguments().Select(a => a.Name)) + ">" : "");

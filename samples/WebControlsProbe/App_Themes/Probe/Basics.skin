@@ -1,0 +1,17 @@
+﻿<%-- The theme the rendering layer's "[themed]" cases of the basic controls render with: a default skin and a named one (SkinID="probe") for each themeable type (Literal, HiddenField and PlaceHolder cannot be themed). --%>
+<asp:Label runat="server" CssClass="skinned" BackColor="#EEEEEE" />
+<asp:Label runat="server" SkinID="probe" Width="300px" CssClass="skinned-probe" ToolTip="from the skin" />
+<asp:CheckBox runat="server" CssClass="skinned" TextAlign="Left" />
+<asp:CheckBox runat="server" SkinID="probe" CssClass="skinned-probe" Text="from the skin" />
+<asp:RadioButton runat="server" CssClass="skinned" TextAlign="Left" />
+<asp:RadioButton runat="server" SkinID="probe" CssClass="skinned-probe" Text="from the skin" />
+<asp:LinkButton runat="server" CssClass="skinned" BackColor="#EEEEEE" />
+<asp:LinkButton runat="server" SkinID="probe" CssClass="skinned-probe" ToolTip="from the skin" />
+<asp:HyperLink runat="server" CssClass="skinned" ForeColor="Green" />
+<asp:HyperLink runat="server" SkinID="probe" CssClass="skinned-probe" ImageUrl="~/Images/probe.png" />
+<asp:Image runat="server" CssClass="skinned" BorderWidth="1px" />
+<asp:Image runat="server" SkinID="probe" CssClass="skinned-probe" ImageUrl="~/Images/probe.png" AlternateText="from the skin" />
+<asp:ImageButton runat="server" CssClass="skinned" BorderWidth="1px" />
+<asp:ImageButton runat="server" SkinID="probe" CssClass="skinned-probe" ImageUrl="~/Images/probe.png" />
+<asp:Panel runat="server" CssClass="skinned" BackColor="#EEEEEE" />
+<asp:Panel runat="server" SkinID="probe" CssClass="skinned-probe" GroupingText="from the skin" />

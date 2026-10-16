@@ -1,0 +1,8 @@
+{
+  "_comment": "IIS's error pages as the browser sees them (Check.htm: each answer's status and text). experiments/wf4c/errors-check.ps1 compares each answer as sent (status line, headers, which body).",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/Check.htm?t=1&u=/nothing.htm&u=/App.aspx%3Fstatus%3D404&u=/App.aspx%3Fstatus%3D404%26skip%3D1&u=/custom/nothing.htm&u=/custom/App.aspx%3Fstatus%3D500&u=/pass/App.aspx%3Fstatus%3D404" },
+    { "action": "snapshot", "name": "errors-the answers" }
+  ]
+}

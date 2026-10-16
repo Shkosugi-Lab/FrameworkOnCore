@@ -254,7 +254,9 @@ if ($Linux) {
     docker build -t $image $converted *> (Join-Path $work 'docker-build.log')
     if ($LASTEXITCODE -ne 0) { throw "docker build failed (see $work\docker-build.log)" }
     cmd /c "docker rm -f $image" 2>&1 | Out-Null
-    docker run -d --name $image -p "${Port}:8080" $image | Out-Null
+    # The golden data was recorded from IIS's own machine (a local client: IIS's detailed error pages, the application's
+    # error answers left): this machine taken as the container's (HttpErrors:LocalAddresses).
+    docker run -d --name $image -p "${Port}:8080" -e 'HttpErrors__LocalAddresses=*' $image | Out-Null
     try {
         Wait-Site "http://localhost:$Port"
         Set-Pictures 'linux'

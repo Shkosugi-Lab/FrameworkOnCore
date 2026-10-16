@@ -1,0 +1,2429 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "DataGrid [render][databind][datasource][datasourceid][dynamic] first request",
+      "Path": "/datagridscenario",
+      "Title": "DataGrid scenario",
+      "Text": [
+        "Name Price",
+        "Pen 1.25 Select Pick Edit Delete",
+        "Bag 24.99 Select Pick Edit Delete",
+        "Cup <&> 1,234.50 Select Pick Edit Delete",
+        "1 2 3",
+        "Code Name",
+        "P1 Pen",
+        "B2 Bag",
+        "C3 Cup <&>",
+        "D4 Desk",
+        "E5 Eraser",
+        "F6 File",
+        "G7 Glue",
+        "Name Code Price Active Image",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 1: IsPostBack=False",
+        "DataGrid dgManual: CurrentPageIndex=0 PageCount=3 EditItemIndex=-1 SelectedIndex=-1 Items=3",
+        "DataGrid dgAuto: CurrentPageIndex=0 PageCount=0 EditItemIndex=-1 SelectedIndex=-1 Items=7",
+        "DataGrid dgEmpty: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgNoViewState: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2",
+        "DataGrid dgHidden: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2 (hidden)",
+        "DataGrid dgDynamic: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2",
+        "Manual sort: \"\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Pen",
+            "1.25",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "1\u00A02\u00A03"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "Name"
+          ],
+          [
+            "P1",
+            "Pen"
+          ],
+          [
+            "B2",
+            "Bag"
+          ],
+          [
+            "C3",
+            "Cup <&>"
+          ],
+          [
+            "D4",
+            "Desk"
+          ],
+          [
+            "E5",
+            "Eraser"
+          ],
+          [
+            "F6",
+            "File"
+          ],
+          [
+            "G7",
+            "Glue"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code",
+            "Price",
+            "Active",
+            "Image"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dgManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgNoViewState": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataGrid [paging][postbackevent] page 2: PageIndexChanged",
+      "Path": "/datagridscenario",
+      "Title": "DataGrid scenario",
+      "Text": [
+        "Name Price",
+        "Desk 150.00 Select Pick Edit Delete",
+        "Eraser 0.50 Select Pick Edit Delete",
+        "File 3.00 Select Pick Edit Delete",
+        "1 2 3",
+        "Code Name",
+        "P1 Pen",
+        "B2 Bag",
+        "C3 Cup <&>",
+        "D4 Desk",
+        "E5 Eraser",
+        "F6 File",
+        "G7 Glue",
+        "Name Code Price Active Image",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 2: IsPostBack=True",
+        "ItemCommand: Page 2 item -1 (Pager)",
+        "PageIndexChanged: NewPageIndex=1",
+        "DataGrid dgManual: CurrentPageIndex=1 PageCount=3 EditItemIndex=-1 SelectedIndex=-1 Items=3",
+        "DataGrid dgAuto: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=7",
+        "DataGrid dgEmpty: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgNoViewState: CurrentPageIndex=0 PageCount=0 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgHidden: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2 (hidden)",
+        "DataGrid dgDynamic: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2",
+        "Manual sort: \"\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Eraser",
+            "0.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "File",
+            "3.00",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "1\u00A02\u00A03"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "Name"
+          ],
+          [
+            "P1",
+            "Pen"
+          ],
+          [
+            "B2",
+            "Bag"
+          ],
+          [
+            "C3",
+            "Cup <&>"
+          ],
+          [
+            "D4",
+            "Desk"
+          ],
+          [
+            "E5",
+            "Eraser"
+          ],
+          [
+            "F6",
+            "File"
+          ],
+          [
+            "G7",
+            "Glue"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code",
+            "Price",
+            "Active",
+            "Image"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dgManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataGrid [sorting] sorted by name: SortCommand",
+      "Path": "/datagridscenario",
+      "Title": "DataGrid scenario",
+      "Text": [
+        "Name Price",
+        "Eraser 0.50 Select Pick Edit Delete",
+        "File 3.00 Select Pick Edit Delete",
+        "Glue 2.75 Select Pick Edit Delete",
+        "1 2 3",
+        "Code Name",
+        "P1 Pen",
+        "B2 Bag",
+        "C3 Cup <&>",
+        "D4 Desk",
+        "E5 Eraser",
+        "F6 File",
+        "G7 Glue",
+        "Name Code Price Active Image",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 3: IsPostBack=True",
+        "ItemCommand: Sort Name item -1 (Header)",
+        "SortCommand: SortExpression=Name -> ascending",
+        "DataGrid dgManual: CurrentPageIndex=1 PageCount=3 EditItemIndex=-1 SelectedIndex=-1 Items=3",
+        "DataGrid dgAuto: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=7",
+        "DataGrid dgEmpty: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgNoViewState: CurrentPageIndex=0 PageCount=0 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgHidden: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2 (hidden)",
+        "DataGrid dgDynamic: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2",
+        "Manual sort: \"Name\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Eraser",
+            "0.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "File",
+            "3.00",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Glue",
+            "2.75",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "1\u00A02\u00A03"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "Name"
+          ],
+          [
+            "P1",
+            "Pen"
+          ],
+          [
+            "B2",
+            "Bag"
+          ],
+          [
+            "C3",
+            "Cup <&>"
+          ],
+          [
+            "D4",
+            "Desk"
+          ],
+          [
+            "E5",
+            "Eraser"
+          ],
+          [
+            "F6",
+            "File"
+          ],
+          [
+            "G7",
+            "Glue"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code",
+            "Price",
+            "Active",
+            "Image"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dgManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataGrid [sorting][viewstate] sorted by name again: descending (the page's)",
+      "Path": "/datagridscenario",
+      "Title": "DataGrid scenario",
+      "Text": [
+        "Name Price",
+        "Eraser 0.50 Select Pick Edit Delete",
+        "Desk 150.00 Select Pick Edit Delete",
+        "Cup <&> 1,234.50 Select Pick Edit Delete",
+        "1 2 3",
+        "Code Name",
+        "P1 Pen",
+        "B2 Bag",
+        "C3 Cup <&>",
+        "D4 Desk",
+        "E5 Eraser",
+        "F6 File",
+        "G7 Glue",
+        "Name Code Price Active Image",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 4: IsPostBack=True",
+        "ItemCommand: Sort Name item -1 (Header)",
+        "SortCommand: SortExpression=Name -> descending",
+        "DataGrid dgManual: CurrentPageIndex=1 PageCount=3 EditItemIndex=-1 SelectedIndex=-1 Items=3",
+        "DataGrid dgAuto: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=7",
+        "DataGrid dgEmpty: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgNoViewState: CurrentPageIndex=0 PageCount=0 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgHidden: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2 (hidden)",
+        "DataGrid dgDynamic: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Eraser",
+            "0.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Desk",
+            "150.00",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "1\u00A02\u00A03"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "Name"
+          ],
+          [
+            "P1",
+            "Pen"
+          ],
+          [
+            "B2",
+            "Bag"
+          ],
+          [
+            "C3",
+            "Cup <&>"
+          ],
+          [
+            "D4",
+            "Desk"
+          ],
+          [
+            "E5",
+            "Eraser"
+          ],
+          [
+            "F6",
+            "File"
+          ],
+          [
+            "G7",
+            "Glue"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code",
+            "Price",
+            "Active",
+            "Image"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dgManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataGrid [selection][rowcommand] the first row selected",
+      "Path": "/datagridscenario",
+      "Title": "DataGrid scenario",
+      "Text": [
+        "Name Price",
+        "Eraser 0.50 Select Pick Edit Delete",
+        "Desk 150.00 Select Pick Edit Delete",
+        "Cup <&> 1,234.50 Select Pick Edit Delete",
+        "1 2 3",
+        "Code Name",
+        "P1 Pen",
+        "B2 Bag",
+        "C3 Cup <&>",
+        "D4 Desk",
+        "E5 Eraser",
+        "F6 File",
+        "G7 Glue",
+        "Name Code Price Active Image",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 5: IsPostBack=True",
+        "ItemCommand: Select item 0 (Item)",
+        "SelectedIndexChanged: SelectedIndex=0",
+        "DataGrid dgManual: CurrentPageIndex=1 PageCount=3 EditItemIndex=-1 SelectedIndex=0 Items=3",
+        "DataGrid dgAuto: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=7",
+        "DataGrid dgEmpty: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgNoViewState: CurrentPageIndex=0 PageCount=0 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgHidden: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2 (hidden)",
+        "DataGrid dgDynamic: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Eraser",
+            "0.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Desk",
+            "150.00",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "1\u00A02\u00A03"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "Name"
+          ],
+          [
+            "P1",
+            "Pen"
+          ],
+          [
+            "B2",
+            "Bag"
+          ],
+          [
+            "C3",
+            "Cup <&>"
+          ],
+          [
+            "D4",
+            "Desk"
+          ],
+          [
+            "E5",
+            "Eraser"
+          ],
+          [
+            "F6",
+            "File"
+          ],
+          [
+            "G7",
+            "Glue"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code",
+            "Price",
+            "Active",
+            "Image"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dgManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataGrid [rowcommand] a ButtonColumn's command",
+      "Path": "/datagridscenario",
+      "Title": "DataGrid scenario",
+      "Text": [
+        "Name Price",
+        "Eraser 0.50 Select Pick Edit Delete",
+        "Desk 150.00 Select Pick Edit Delete",
+        "Cup <&> 1,234.50 Select Pick Edit Delete",
+        "1 2 3",
+        "Code Name",
+        "P1 Pen",
+        "B2 Bag",
+        "C3 Cup <&>",
+        "D4 Desk",
+        "E5 Eraser",
+        "F6 File",
+        "G7 Glue",
+        "Name Code Price Active Image",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 6: IsPostBack=True",
+        "ItemCommand: pick item 0 (SelectedItem)",
+        "DataGrid dgManual: CurrentPageIndex=1 PageCount=3 EditItemIndex=-1 SelectedIndex=0 Items=3",
+        "DataGrid dgAuto: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=7",
+        "DataGrid dgEmpty: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgNoViewState: CurrentPageIndex=0 PageCount=0 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgHidden: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2 (hidden)",
+        "DataGrid dgDynamic: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Eraser",
+            "0.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Desk",
+            "150.00",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "1\u00A02\u00A03"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "Name"
+          ],
+          [
+            "P1",
+            "Pen"
+          ],
+          [
+            "B2",
+            "Bag"
+          ],
+          [
+            "C3",
+            "Cup <&>"
+          ],
+          [
+            "D4",
+            "Desk"
+          ],
+          [
+            "E5",
+            "Eraser"
+          ],
+          [
+            "F6",
+            "File"
+          ],
+          [
+            "G7",
+            "Glue"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code",
+            "Price",
+            "Active",
+            "Image"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dgManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataGrid [editing][rowcommand] edit: EditCommand",
+      "Path": "/datagridscenario",
+      "Title": "DataGrid scenario",
+      "Text": [
+        "Name Price",
+        "0.50 Select Pick Update Cancel Delete",
+        "Desk 150.00 Select Pick Edit Delete",
+        "Cup <&> 1,234.50 Select Pick Edit Delete",
+        "1 2 3",
+        "Code Name",
+        "P1 Pen",
+        "B2 Bag",
+        "C3 Cup <&>",
+        "D4 Desk",
+        "E5 Eraser",
+        "F6 File",
+        "G7 Glue",
+        "Name Code Price Active Image",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 7: IsPostBack=True",
+        "ItemCommand: Edit item 0 (SelectedItem)",
+        "EditCommand: item 0 key E5",
+        "DataGrid dgManual: CurrentPageIndex=1 PageCount=3 EditItemIndex=0 SelectedIndex=0 Items=3",
+        "DataGrid dgAuto: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=7",
+        "DataGrid dgEmpty: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgNoViewState: CurrentPageIndex=0 PageCount=0 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgHidden: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2 (hidden)",
+        "DataGrid dgDynamic: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "0.50",
+            "Select",
+            "Pick",
+            "Update\u00A0Cancel",
+            "Delete"
+          ],
+          [
+            "Desk",
+            "150.00",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "1\u00A02\u00A03"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "Name"
+          ],
+          [
+            "P1",
+            "Pen"
+          ],
+          [
+            "B2",
+            "Bag"
+          ],
+          [
+            "C3",
+            "Cup <&>"
+          ],
+          [
+            "D4",
+            "Desk"
+          ],
+          [
+            "E5",
+            "Eraser"
+          ],
+          [
+            "F6",
+            "File"
+          ],
+          [
+            "G7",
+            "Glue"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code",
+            "Price",
+            "Active",
+            "Image"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dgManual_txtDgName_0": "Eraser"
+      },
+      "Elements": {
+        "dgManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgManual_txtDgName_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "dgAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataGrid [editing][rowcommand] updated: UpdateCommand, the data key",
+      "Path": "/datagridscenario",
+      "Title": "DataGrid scenario",
+      "Text": [
+        "Name Price",
+        "File 3.00 Select Pick Edit Delete",
+        "Desk 150.00 Select Pick Edit Delete",
+        "Cup <&> 1,234.50 Select Pick Edit Delete",
+        "1 2 3",
+        "Code Name",
+        "P1 Pen",
+        "B2 Bag",
+        "C3 Cup <&>",
+        "D4 Desk",
+        "E5 Eraser",
+        "F6 File",
+        "G7 Glue",
+        "Name Code Price Active Image",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 8: IsPostBack=True",
+        "ItemCommand: Update item 0 (EditItem)",
+        "UpdateCommand: item 0 key E5 name \"Renamed\"",
+        "DataGrid dgManual: CurrentPageIndex=1 PageCount=3 EditItemIndex=-1 SelectedIndex=0 Items=3",
+        "DataGrid dgAuto: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=7",
+        "DataGrid dgEmpty: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgNoViewState: CurrentPageIndex=0 PageCount=0 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgHidden: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2 (hidden)",
+        "DataGrid dgDynamic: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Renamed:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "File",
+            "3.00",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Desk",
+            "150.00",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "1\u00A02\u00A03"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "Name"
+          ],
+          [
+            "P1",
+            "Pen"
+          ],
+          [
+            "B2",
+            "Bag"
+          ],
+          [
+            "C3",
+            "Cup <&>"
+          ],
+          [
+            "D4",
+            "Desk"
+          ],
+          [
+            "E5",
+            "Eraser"
+          ],
+          [
+            "F6",
+            "File"
+          ],
+          [
+            "G7",
+            "Glue"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code",
+            "Price",
+            "Active",
+            "Image"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dgManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataGrid [editing] cancelled: CancelCommand",
+      "Path": "/datagridscenario",
+      "Title": "DataGrid scenario",
+      "Text": [
+        "Name Price",
+        "File 3.00 Select Pick Edit Delete",
+        "Desk 150.00 Select Pick Edit Delete",
+        "Cup <&> 1,234.50 Select Pick Edit Delete",
+        "1 2 3",
+        "Code Name",
+        "P1 Pen",
+        "B2 Bag",
+        "C3 Cup <&>",
+        "D4 Desk",
+        "E5 Eraser",
+        "F6 File",
+        "G7 Glue",
+        "Name Code Price Active Image",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 10: IsPostBack=True",
+        "ItemCommand: Cancel item 0 (EditItem)",
+        "CancelCommand: item 0",
+        "DataGrid dgManual: CurrentPageIndex=1 PageCount=3 EditItemIndex=-1 SelectedIndex=0 Items=3",
+        "DataGrid dgAuto: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=7",
+        "DataGrid dgEmpty: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgNoViewState: CurrentPageIndex=0 PageCount=0 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgHidden: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2 (hidden)",
+        "DataGrid dgDynamic: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Renamed:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "File",
+            "3.00",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Desk",
+            "150.00",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "1\u00A02\u00A03"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "Name"
+          ],
+          [
+            "P1",
+            "Pen"
+          ],
+          [
+            "B2",
+            "Bag"
+          ],
+          [
+            "C3",
+            "Cup <&>"
+          ],
+          [
+            "D4",
+            "Desk"
+          ],
+          [
+            "E5",
+            "Eraser"
+          ],
+          [
+            "F6",
+            "File"
+          ],
+          [
+            "G7",
+            "Glue"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code",
+            "Price",
+            "Active",
+            "Image"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dgManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataGrid [editing][rowcommand] deleted: DeleteCommand",
+      "Path": "/datagridscenario",
+      "Title": "DataGrid scenario",
+      "Text": [
+        "Name Price",
+        "Desk 150.00 Select Pick Edit Delete",
+        "Cup <&> 1,234.50 Select Pick Edit Delete",
+        "Bag 24.99 Select Pick Edit Delete",
+        "1 2",
+        "Code Name",
+        "P1 Pen",
+        "B2 Bag",
+        "C3 Cup <&>",
+        "D4 Desk",
+        "E5 Eraser",
+        "F6 File",
+        "G7 Glue",
+        "Name Code Price Active Image",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 11: IsPostBack=True",
+        "ItemCommand: Delete item 0 (SelectedItem)",
+        "DeleteCommand: item 0 key F6",
+        "DataGrid dgManual: CurrentPageIndex=1 PageCount=2 EditItemIndex=-1 SelectedIndex=0 Items=3",
+        "DataGrid dgAuto: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=7",
+        "DataGrid dgEmpty: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgNoViewState: CurrentPageIndex=0 PageCount=0 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgHidden: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2 (hidden)",
+        "DataGrid dgDynamic: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Renamed:0.5:False G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "1\u00A02"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "Name"
+          ],
+          [
+            "P1",
+            "Pen"
+          ],
+          [
+            "B2",
+            "Bag"
+          ],
+          [
+            "C3",
+            "Cup <&>"
+          ],
+          [
+            "D4",
+            "Desk"
+          ],
+          [
+            "E5",
+            "Eraser"
+          ],
+          [
+            "F6",
+            "File"
+          ],
+          [
+            "G7",
+            "Glue"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code",
+            "Price",
+            "Active",
+            "Image"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dgManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataGrid [viewstate] posted (the one without view state is empty)",
+      "Path": "/datagridscenario",
+      "Title": "DataGrid scenario",
+      "Text": [
+        "Name Price",
+        "Desk 150.00 Select Pick Edit Delete",
+        "Cup <&> 1,234.50 Select Pick Edit Delete",
+        "Bag 24.99 Select Pick Edit Delete",
+        "1 2",
+        "Code Name",
+        "P1 Pen",
+        "B2 Bag",
+        "C3 Cup <&>",
+        "D4 Desk",
+        "E5 Eraser",
+        "F6 File",
+        "G7 Glue",
+        "Name Code Price Active Image",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 12: IsPostBack=True",
+        "DataGrid dgManual: CurrentPageIndex=1 PageCount=2 EditItemIndex=-1 SelectedIndex=0 Items=3",
+        "DataGrid dgAuto: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=7",
+        "DataGrid dgEmpty: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgNoViewState: CurrentPageIndex=0 PageCount=0 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgHidden: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2 (hidden)",
+        "DataGrid dgDynamic: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Renamed:0.5:False G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "1\u00A02"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "Name"
+          ],
+          [
+            "P1",
+            "Pen"
+          ],
+          [
+            "B2",
+            "Bag"
+          ],
+          [
+            "C3",
+            "Cup <&>"
+          ],
+          [
+            "D4",
+            "Desk"
+          ],
+          [
+            "E5",
+            "Eraser"
+          ],
+          [
+            "F6",
+            "File"
+          ],
+          [
+            "G7",
+            "Glue"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code",
+            "Price",
+            "Active",
+            "Image"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dgManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataGrid [visible][viewstate] the hidden data grid shown",
+      "Path": "/datagridscenario",
+      "Title": "DataGrid scenario",
+      "Text": [
+        "Name Price",
+        "Desk 150.00 Select Pick Edit Delete",
+        "Cup <&> 1,234.50 Select Pick Edit Delete",
+        "Bag 24.99 Select Pick Edit Delete",
+        "1 2",
+        "Code Name",
+        "P1 Pen",
+        "B2 Bag",
+        "C3 Cup <&>",
+        "D4 Desk",
+        "E5 Eraser",
+        "F6 File",
+        "G7 Glue",
+        "Name Code Price Active Image",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Name Code",
+        "Pen P1",
+        "Bag B2",
+        "Request 13: IsPostBack=True",
+        "Click btnShow",
+        "DataGrid dgManual: CurrentPageIndex=1 PageCount=2 EditItemIndex=-1 SelectedIndex=0 Items=3",
+        "DataGrid dgAuto: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=7",
+        "DataGrid dgEmpty: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgNoViewState: CurrentPageIndex=0 PageCount=0 EditItemIndex=-1 SelectedIndex=-1 Items=0",
+        "DataGrid dgHidden: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2",
+        "DataGrid dgDynamic: CurrentPageIndex=0 PageCount=1 EditItemIndex=-1 SelectedIndex=-1 Items=2",
+        "Manual sort: \"Name DESC\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Renamed:0.5:False G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Desk",
+            "150.00",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Cup <&>",
+            "1,234.50",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "Bag",
+            "24.99",
+            "Select",
+            "Pick",
+            "Edit",
+            "Delete"
+          ],
+          [
+            "1\u00A02"
+          ]
+        ],
+        [
+          [
+            "Code",
+            "Name"
+          ],
+          [
+            "P1",
+            "Pen"
+          ],
+          [
+            "B2",
+            "Bag"
+          ],
+          [
+            "C3",
+            "Cup <&>"
+          ],
+          [
+            "D4",
+            "Desk"
+          ],
+          [
+            "E5",
+            "Eraser"
+          ],
+          [
+            "F6",
+            "File"
+          ],
+          [
+            "G7",
+            "Glue"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code",
+            "Price",
+            "Active",
+            "Image"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Code"
+          ],
+          [
+            "Pen",
+            "P1"
+          ],
+          [
+            "Bag",
+            "B2"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dgManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgHidden": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dgDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

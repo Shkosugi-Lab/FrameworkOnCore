@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check</title>
+</head>
+<body>
+    <!-- What a snapshot does not have: each URL's answer (?u=, in order) fetched by the browser: its status, whether it
+         was redirected and where to, the headers asked (?h=, comma-separated; absent ones as "-"; a name ending in "?" only
+         whether it is there), and with ?t=1 its text (the tags left out, the white space made one, at most 300 characters).
+         ?rh=Name:value adds a request header (more than one: rh again), ?m= a method, ?b= a body, ?ct= its type;
+         ?p=1 asks the URLs all at once (in parallel) and lists them in the order of ?u. -->
+    <pre id="check">checking</pre>
+    <script>
+        (async function () {
+            var query = new URLSearchParams(location.search);
+            var headers = (query.get('h') || '').split(',').filter(function (h) { return h; });
+            var requestHeaders = {};
+            query.getAll('rh').forEach(function (h) { var i = h.indexOf(':'); requestHeaders[h.slice(0, i).trim()] = h.slice(i + 1).trim(); });
+            if (query.get('ct')) requestHeaders['Content-Type'] = query.get('ct');
+            var init = { cache: 'no-store', credentials: 'same-origin', headers: requestHeaders, method: query.get('m') || 'GET' };
+            if (query.get('b') !== null) init.body = query.get('b');
+            async function check(url) {
+                try {
+                    var response = await fetch(url, init);
+                    var target = new URL(response.url);
+                    var line = url + ' -> ' + response.status + (response.redirected ? ' redirected to ' + target.pathname + target.search : '');
+                    headers.forEach(function (h) {
+                        var presence = h.slice(-1) === '?';
+                        var name = presence ? h.slice(0, -1) : h;
+                        var value = response.headers.get(name);
+                        line += ' | ' + name + '=' + (value === null ? '-' : presence ? 'present' : value);
+                    });
+                    if (query.get('t') === '1') {
+                        var text = (await response.text()).replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ')
+                            .replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+                        line += ' | text=' + text.slice(0, 300);
+                    }
+                    return line;
+                } catch (e) {
+                    return url + ' -> ' + e.name;
+                }
+            }
+            var urls = query.getAll('u');
+            var lines = [];
+            if (query.get('p') === '1') lines = await Promise.all(urls.map(check));
+            else for (var url of urls) lines.push(await check(url));
+            document.getElementById('check').textContent = lines.join('\n');
+        })();
+    </script>
+</body>
+</html>

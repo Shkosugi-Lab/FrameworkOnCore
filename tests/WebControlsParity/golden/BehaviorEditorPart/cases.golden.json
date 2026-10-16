@@ -1,0 +1,1035 @@
+{
+  "BehaviorEditorPart.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "BehaviorEditorPart.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "BehaviorEditorPart.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "BehaviorEditorPart.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "BehaviorEditorPart.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.ClientID": [
+    "Control.ClientID = \"bepProbe\""
+  ],
+  "BehaviorEditorPart.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "BehaviorEditorPart.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "BehaviorEditorPart.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "BehaviorEditorPart.Api.Control.Controls": [
+    "Control.Controls = ControlCollection [CheckBox#, CheckBox#, CheckBox#, CheckBox#, CheckBox#, DropDownList#, DropDownList#, TextBox#, TextBox#, TextBox#, TextBox#, TextBox#, TextBox#, TextBox#, CheckBox#]"
+  ],
+  "BehaviorEditorPart.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "BehaviorEditorPart.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "BehaviorEditorPart.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "BehaviorEditorPart.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "BehaviorEditorPart.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "BehaviorEditorPart.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "BehaviorEditorPart.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "BehaviorEditorPart.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "BehaviorEditorPart.Api.Control.FindControl": [
+    "Control.FindControl(String) = null",
+    "Control.FindControl(String) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "BehaviorEditorPart.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "Control.GetDesignModeState after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "BehaviorEditorPart.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"bepProbe\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "BehaviorEditorPart.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.ID": [
+    "Control.ID = \"bepProbe\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "BehaviorEditorPart.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "BehaviorEditorPart.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "BehaviorEditorPart.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "BehaviorEditorPart.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "BehaviorEditorPart.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "BehaviorEditorPart.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "BehaviorEditorPart.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "BehaviorEditorPart.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "BehaviorEditorPart.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "BehaviorEditorPart.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"-> System.InvalidOperationException: EditorPart 'bepProbe' must be placed in an EditorZone.\""
+  ],
+  "BehaviorEditorPart.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "BehaviorEditorPart.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.Parent": [
+    "Control.Parent = PlaceHolder# {ClientID=\"ctl00\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"ctl00\"; SkinID=\"\"; UniqueID=\"ctl00\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "BehaviorEditorPart.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <div id=\"bepProbe\">",
+    "  | \t<table border=\"0\" cellspacing=\"4\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl07\">Description:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl07\" type=\"text\" size=\"30\" id=\"bepProbe_ctl07\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl08\">Title Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl08\" type=\"text\" size=\"30\" id=\"bepProbe_ctl08\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl09\">Title Icon Image Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl09\" type=\"text\" size=\"30\" id=\"bepProbe_ctl09\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl10\">Catalog Icon Image Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl10\" type=\"text\" size=\"30\" id=\"bepProbe_ctl10\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl11\">Help Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl11\" type=\"text\" size=\"30\" id=\"bepProbe_ctl11\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl06\">Help Mode:</label><br />",
+    "  | \t\t\t<select name=\"bepProbe$ctl06\" id=\"bepProbe_ctl06\">",
+    "  | \t\t\t\t<option value=\"Modal\">Modal</option>",
+    "  | \t\t\t\t<option value=\"Modeless\">Modeless</option>",
+    "  | \t\t\t\t<option value=\"Navigate\">Navigate</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl12\">Import Error Message:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl12\" type=\"text\" size=\"30\" id=\"bepProbe_ctl12\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl05\">Export Mode:</label><br />",
+    "  | \t\t\t<select name=\"bepProbe$ctl05\" id=\"bepProbe_ctl05\">",
+    "  | \t\t\t\t<option value=\"None\">Do not allow</option>",
+    "  | \t\t\t\t<option value=\"All\">Export all data</option>",
+    "  | \t\t\t\t<option value=\"NonSensitiveData\">Non-sensitive data only</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl13\">Authorization Filter:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl13\" type=\"text\" size=\"30\" id=\"bepProbe_ctl13\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl00\" type=\"checkbox\" name=\"bepProbe$ctl00\" />&nbsp;<label for=\"bepProbe_ctl00\">Allow Close</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl01\" type=\"checkbox\" name=\"bepProbe$ctl01\" />&nbsp;<label for=\"bepProbe_ctl01\">Allow Connect</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl14\" type=\"checkbox\" name=\"bepProbe$ctl14\" />&nbsp;<label for=\"bepProbe_ctl14\">Allow Edit</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl02\" type=\"checkbox\" name=\"bepProbe$ctl02\" />&nbsp;<label for=\"bepProbe_ctl02\">Allow Hide</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl03\" type=\"checkbox\" name=\"bepProbe$ctl03\" />&nbsp;<label for=\"bepProbe_ctl03\">Allow Minimize</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl04\" type=\"checkbox\" name=\"bepProbe$ctl04\" />&nbsp;<label for=\"bepProbe_ctl04\">Allow Zone Change</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr>",
+    "  | \t</table>",
+    "  | </div>",
+    "Control.Render(HtmlTextWriter) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <div id=\"bepProbe\">",
+    "  | \t<table border=\"0\" cellspacing=\"4\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl07\">Description:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl07\" type=\"text\" size=\"30\" id=\"bepProbe_ctl07\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl08\">Title Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl08\" type=\"text\" size=\"30\" id=\"bepProbe_ctl08\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl09\">Title Icon Image Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl09\" type=\"text\" size=\"30\" id=\"bepProbe_ctl09\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl10\">Catalog Icon Image Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl10\" type=\"text\" size=\"30\" id=\"bepProbe_ctl10\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl11\">Help Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl11\" type=\"text\" size=\"30\" id=\"bepProbe_ctl11\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl06\">Help Mode:</label><br />",
+    "  | \t\t\t<select name=\"bepProbe$ctl06\" id=\"bepProbe_ctl06\">",
+    "  | \t\t\t\t<option value=\"Modal\">Modal</option>",
+    "  | \t\t\t\t<option value=\"Modeless\">Modeless</option>",
+    "  | \t\t\t\t<option value=\"Navigate\">Navigate</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl12\">Import Error Message:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl12\" type=\"text\" size=\"30\" id=\"bepProbe_ctl12\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl05\">Export Mode:</label><br />",
+    "  | \t\t\t<select name=\"bepProbe$ctl05\" id=\"bepProbe_ctl05\">",
+    "  | \t\t\t\t<option value=\"None\">Do not allow</option>",
+    "  | \t\t\t\t<option value=\"All\">Export all data</option>",
+    "  | \t\t\t\t<option value=\"NonSensitiveData\">Non-sensitive data only</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl13\">Authorization Filter:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl13\" type=\"text\" size=\"30\" id=\"bepProbe_ctl13\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl00\" type=\"checkbox\" name=\"bepProbe$ctl00\" />&nbsp;<label for=\"bepProbe_ctl00\">Allow Close</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl01\" type=\"checkbox\" name=\"bepProbe$ctl01\" />&nbsp;<label for=\"bepProbe_ctl01\">Allow Connect</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl14\" type=\"checkbox\" name=\"bepProbe$ctl14\" />&nbsp;<label for=\"bepProbe_ctl14\">Allow Edit</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl02\" type=\"checkbox\" name=\"bepProbe$ctl02\" />&nbsp;<label for=\"bepProbe_ctl02\">Allow Hide</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl03\" type=\"checkbox\" name=\"bepProbe$ctl03\" />&nbsp;<label for=\"bepProbe_ctl03\">Allow Minimize</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl04\" type=\"checkbox\" name=\"bepProbe$ctl04\" />&nbsp;<label for=\"bepProbe_ctl04\">Allow Zone Change</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr>",
+    "  | \t</table>",
+    "  | </div>",
+    "Control.RenderControl(HtmlTextWriter) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <div id=\"bepProbe\">",
+    "  | \t<table border=\"0\" cellspacing=\"4\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl07\">Description:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl07\" type=\"text\" size=\"30\" id=\"bepProbe_ctl07\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl08\">Title Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl08\" type=\"text\" size=\"30\" id=\"bepProbe_ctl08\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl09\">Title Icon Image Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl09\" type=\"text\" size=\"30\" id=\"bepProbe_ctl09\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl10\">Catalog Icon Image Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl10\" type=\"text\" size=\"30\" id=\"bepProbe_ctl10\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl11\">Help Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl11\" type=\"text\" size=\"30\" id=\"bepProbe_ctl11\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl06\">Help Mode:</label><br />",
+    "  | \t\t\t<select name=\"bepProbe$ctl06\" id=\"bepProbe_ctl06\">",
+    "  | \t\t\t\t<option value=\"Modal\">Modal</option>",
+    "  | \t\t\t\t<option value=\"Modeless\">Modeless</option>",
+    "  | \t\t\t\t<option value=\"Navigate\">Navigate</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl12\">Import Error Message:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl12\" type=\"text\" size=\"30\" id=\"bepProbe_ctl12\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl05\">Export Mode:</label><br />",
+    "  | \t\t\t<select name=\"bepProbe$ctl05\" id=\"bepProbe_ctl05\">",
+    "  | \t\t\t\t<option value=\"None\">Do not allow</option>",
+    "  | \t\t\t\t<option value=\"All\">Export all data</option>",
+    "  | \t\t\t\t<option value=\"NonSensitiveData\">Non-sensitive data only</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl13\">Authorization Filter:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl13\" type=\"text\" size=\"30\" id=\"bepProbe_ctl13\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl00\" type=\"checkbox\" name=\"bepProbe$ctl00\" />&nbsp;<label for=\"bepProbe_ctl00\">Allow Close</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl01\" type=\"checkbox\" name=\"bepProbe$ctl01\" />&nbsp;<label for=\"bepProbe_ctl01\">Allow Connect</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl14\" type=\"checkbox\" name=\"bepProbe$ctl14\" />&nbsp;<label for=\"bepProbe_ctl14\">Allow Edit</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl02\" type=\"checkbox\" name=\"bepProbe$ctl02\" />&nbsp;<label for=\"bepProbe_ctl02\">Allow Hide</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl03\" type=\"checkbox\" name=\"bepProbe$ctl03\" />&nbsp;<label for=\"bepProbe_ctl03\">Allow Minimize</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl04\" type=\"checkbox\" name=\"bepProbe$ctl04\" />&nbsp;<label for=\"bepProbe_ctl04\">Allow Zone Change</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr>",
+    "  | \t</table>",
+    "  | </div>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "BehaviorEditorPart.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "BehaviorEditorPart.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "BehaviorEditorPart.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "BehaviorEditorPart.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.Control.UniqueID": [
+    "Control.UniqueID = \"bepProbe\""
+  ],
+  "BehaviorEditorPart.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "BehaviorEditorPart.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "BehaviorEditorPart.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "BehaviorEditorPart.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "BehaviorEditorPart.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "BehaviorEditorPart.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "BehaviorEditorPart.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=true; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "BehaviorEditorPart.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "BehaviorEditorPart.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "BehaviorEditorPart.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "BehaviorEditorPart.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "BehaviorEditorPart.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "BehaviorEditorPart.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.ICompositeControlDesignerAccessor.RecreateChildControls": [
+    "ICompositeControlDesignerAccessor.RecreateChildControls = \"ok\"",
+    "ICompositeControlDesignerAccessor.RecreateChildControls after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.Panel.#ctor": [
+    "Panel.#ctor = Panel# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Direction=NotSet; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=null; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.Panel.AddAttributesToRender": [
+    "Panel.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "Panel.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "Panel.AddAttributesToRender(HtmlTextWriter) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.Panel.BackImageUrl": [
+    "Panel.BackImageUrl = \"\"",
+    "Panel.BackImageUrl set = \"Abc 123\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.Panel.CreateControlStyle": [
+    "Panel.CreateControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}",
+    "Panel.CreateControlStyle after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.Panel.DefaultButton": [
+    "Panel.DefaultButton = \"\"",
+    "Panel.DefaultButton set = \"Abc 123\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.Panel.Direction": [
+    "Panel.Direction = \"ContentDirection.NotSet\"",
+    "Panel.Direction set = \"ContentDirection.LeftToRight\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.Panel.GroupingText": [
+    "Panel.GroupingText = \"\"",
+    "Panel.GroupingText set = \"Abc 123\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.Panel.HorizontalAlign": [
+    "Panel.HorizontalAlign = \"HorizontalAlign.NotSet\"",
+    "Panel.HorizontalAlign set = \"HorizontalAlign.Left\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.Panel.RenderBeginTag": [
+    "Panel.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "Panel.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <div id=\"bepProbe\">",
+    "  | ",
+    "Panel.RenderBeginTag(HtmlTextWriter) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.Panel.RenderEndTag": [
+    "Panel.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.Panel.ScrollBars": [
+    "Panel.ScrollBars = \"ScrollBars.None\"",
+    "Panel.ScrollBars set = \"ScrollBars.Horizontal\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.Panel.SupportsDisabledAttribute": [
+    "Panel.SupportsDisabledAttribute = \"false\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.Panel.Wrap": [
+    "Panel.Wrap = \"true\"",
+    "Panel.Wrap set = \"true\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}",
+    "WebControl.CreateControlStyle after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"ok\"",
+    "WebControl.Render(HtmlTextWriter) writer:",
+    "  | <div id=\"bepProbe\">",
+    "  | \t<table border=\"0\" cellspacing=\"4\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl07\">Description:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl07\" type=\"text\" size=\"30\" id=\"bepProbe_ctl07\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl08\">Title Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl08\" type=\"text\" size=\"30\" id=\"bepProbe_ctl08\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl09\">Title Icon Image Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl09\" type=\"text\" size=\"30\" id=\"bepProbe_ctl09\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl10\">Catalog Icon Image Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl10\" type=\"text\" size=\"30\" id=\"bepProbe_ctl10\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl11\">Help Link:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl11\" type=\"text\" size=\"30\" id=\"bepProbe_ctl11\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl06\">Help Mode:</label><br />",
+    "  | \t\t\t<select name=\"bepProbe$ctl06\" id=\"bepProbe_ctl06\">",
+    "  | \t\t\t\t<option value=\"Modal\">Modal</option>",
+    "  | \t\t\t\t<option value=\"Modeless\">Modeless</option>",
+    "  | \t\t\t\t<option value=\"Navigate\">Navigate</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl12\">Import Error Message:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl12\" type=\"text\" size=\"30\" id=\"bepProbe_ctl12\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl05\">Export Mode:</label><br />",
+    "  | \t\t\t<select name=\"bepProbe$ctl05\" id=\"bepProbe_ctl05\">",
+    "  | \t\t\t\t<option value=\"None\">Do not allow</option>",
+    "  | \t\t\t\t<option value=\"All\">Export all data</option>",
+    "  | \t\t\t\t<option value=\"NonSensitiveData\">Non-sensitive data only</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"bepProbe_ctl13\">Authorization Filter:</label><br />",
+    "  | \t\t\t<input name=\"bepProbe$ctl13\" type=\"text\" size=\"30\" id=\"bepProbe_ctl13\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl00\" type=\"checkbox\" name=\"bepProbe$ctl00\" />&nbsp;<label for=\"bepProbe_ctl00\">Allow Close</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl01\" type=\"checkbox\" name=\"bepProbe$ctl01\" />&nbsp;<label for=\"bepProbe_ctl01\">Allow Connect</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl14\" type=\"checkbox\" name=\"bepProbe$ctl14\" />&nbsp;<label for=\"bepProbe_ctl14\">Allow Edit</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl02\" type=\"checkbox\" name=\"bepProbe$ctl02\" />&nbsp;<label for=\"bepProbe_ctl02\">Allow Hide</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl03\" type=\"checkbox\" name=\"bepProbe$ctl03\" />&nbsp;<label for=\"bepProbe_ctl03\">Allow Minimize</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><input id=\"bepProbe_ctl04\" type=\"checkbox\" name=\"bepProbe$ctl04\" />&nbsp;<label for=\"bepProbe_ctl04\">Allow Zone Change</label><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr>",
+    "  | \t</table>",
+    "  | </div>",
+    "WebControl.Render(HtmlTextWriter) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <div id=\"bepProbe\">",
+    "  | ",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | <table border=\"0\" cellspacing=\"4\">",
+    "  | \t<tr>",
+    "  | \t\t<td><label for=\"bepProbe_ctl07\">Description:</label><br />",
+    "  | \t\t<input name=\"bepProbe$ctl07\" type=\"text\" size=\"30\" id=\"bepProbe_ctl07\" /><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><label for=\"bepProbe_ctl08\">Title Link:</label><br />",
+    "  | \t\t<input name=\"bepProbe$ctl08\" type=\"text\" size=\"30\" id=\"bepProbe_ctl08\" /><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><label for=\"bepProbe_ctl09\">Title Icon Image Link:</label><br />",
+    "  | \t\t<input name=\"bepProbe$ctl09\" type=\"text\" size=\"30\" id=\"bepProbe_ctl09\" /><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><label for=\"bepProbe_ctl10\">Catalog Icon Image Link:</label><br />",
+    "  | \t\t<input name=\"bepProbe$ctl10\" type=\"text\" size=\"30\" id=\"bepProbe_ctl10\" /><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><label for=\"bepProbe_ctl11\">Help Link:</label><br />",
+    "  | \t\t<input name=\"bepProbe$ctl11\" type=\"text\" size=\"30\" id=\"bepProbe_ctl11\" /><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><label for=\"bepProbe_ctl06\">Help Mode:</label><br />",
+    "  | \t\t<select name=\"bepProbe$ctl06\" id=\"bepProbe_ctl06\">",
+    "  | \t\t\t<option value=\"Modal\">Modal</option>",
+    "  | \t\t\t<option value=\"Modeless\">Modeless</option>",
+    "  | \t\t\t<option value=\"Navigate\">Navigate</option>",
+    "  | ",
+    "  | \t\t</select><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><label for=\"bepProbe_ctl12\">Import Error Message:</label><br />",
+    "  | \t\t<input name=\"bepProbe$ctl12\" type=\"text\" size=\"30\" id=\"bepProbe_ctl12\" /><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><label for=\"bepProbe_ctl05\">Export Mode:</label><br />",
+    "  | \t\t<select name=\"bepProbe$ctl05\" id=\"bepProbe_ctl05\">",
+    "  | \t\t\t<option value=\"None\">Do not allow</option>",
+    "  | \t\t\t<option value=\"All\">Export all data</option>",
+    "  | \t\t\t<option value=\"NonSensitiveData\">Non-sensitive data only</option>",
+    "  | ",
+    "  | \t\t</select><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><label for=\"bepProbe_ctl13\">Authorization Filter:</label><br />",
+    "  | \t\t<input name=\"bepProbe$ctl13\" type=\"text\" size=\"30\" id=\"bepProbe_ctl13\" /><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><input id=\"bepProbe_ctl00\" type=\"checkbox\" name=\"bepProbe$ctl00\" />&nbsp;<label for=\"bepProbe_ctl00\">Allow Close</label><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><input id=\"bepProbe_ctl01\" type=\"checkbox\" name=\"bepProbe$ctl01\" />&nbsp;<label for=\"bepProbe_ctl01\">Allow Connect</label><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><input id=\"bepProbe_ctl14\" type=\"checkbox\" name=\"bepProbe$ctl14\" />&nbsp;<label for=\"bepProbe_ctl14\">Allow Edit</label><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><input id=\"bepProbe_ctl02\" type=\"checkbox\" name=\"bepProbe$ctl02\" />&nbsp;<label for=\"bepProbe_ctl02\">Allow Hide</label><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><input id=\"bepProbe_ctl03\" type=\"checkbox\" name=\"bepProbe$ctl03\" />&nbsp;<label for=\"bepProbe_ctl03\">Allow Minimize</label><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><input id=\"bepProbe_ctl04\" type=\"checkbox\" name=\"bepProbe$ctl04\" />&nbsp;<label for=\"bepProbe_ctl04\">Allow Zone Change</label><br />",
+    "  | \t\t</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "WebControl.RenderContents(HtmlTextWriter) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Div\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"div\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.BehaviorEditorPart.#ctor": [
+    "WebParts.BehaviorEditorPart.#ctor = BehaviorEditorPart# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=null; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.BehaviorEditorPart.ApplyChanges": [
+    "WebParts.BehaviorEditorPart.ApplyChanges = \"true\"",
+    "WebParts.BehaviorEditorPart.ApplyChanges after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.BehaviorEditorPart.DefaultButton": [
+    "WebParts.BehaviorEditorPart.DefaultButton = \"\"",
+    "WebParts.BehaviorEditorPart.DefaultButton set = \"Abc 123\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.BehaviorEditorPart.Display": [
+    "WebParts.BehaviorEditorPart.Display = \"false\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.BehaviorEditorPart.SyncChanges": [
+    "WebParts.BehaviorEditorPart.SyncChanges = \"ok\"",
+    "WebParts.BehaviorEditorPart.SyncChanges after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.BehaviorEditorPart.Title": [
+    "WebParts.BehaviorEditorPart.Title = \"Behavior\"",
+    "WebParts.BehaviorEditorPart.Title set = \"Abc 123\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.EditorPart.#ctor": [
+    "WebParts.EditorPart.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.WebParts.EditorPart because it is an abstract class.\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.EditorPart.ApplyChanges": [
+    "WebParts.EditorPart.ApplyChanges = \"true\"",
+    "WebParts.EditorPart.ApplyChanges after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.EditorPart.Display": [
+    "WebParts.EditorPart.Display = \"false\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.EditorPart.DisplayTitle": [
+    "WebParts.EditorPart.DisplayTitle = \"Behavior\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.EditorPart.GetDesignModeState": [
+    "WebParts.EditorPart.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "WebParts.EditorPart.GetDesignModeState after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.EditorPart.OnPreRender": [
+    "WebParts.EditorPart.OnPreRender(EventArgs) = \"-> System.InvalidOperationException: EditorPart 'bepProbe' must be placed in an EditorZone.\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.EditorPart.SetDesignModeState": [
+    "WebParts.EditorPart.SetDesignModeState(IDictionary) = \"ok\"",
+    "WebParts.EditorPart.SetDesignModeState(IDictionary) after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.EditorPart.SyncChanges": [
+    "WebParts.EditorPart.SyncChanges = \"ok\"",
+    "WebParts.EditorPart.SyncChanges after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.EditorPart.WebPartManager": [
+    "WebParts.EditorPart.WebPartManager = null"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.EditorPart.WebPartToEdit": [
+    "WebParts.EditorPart.WebPartToEdit = null"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.EditorPart.Zone": [
+    "WebParts.EditorPart.Zone = null"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.Part.ChromeState": [
+    "WebParts.Part.ChromeState = \"PartChromeState.Normal\"",
+    "WebParts.Part.ChromeState set = \"PartChromeState.Minimized\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.Part.ChromeType": [
+    "WebParts.Part.ChromeType = \"PartChromeType.Default\"",
+    "WebParts.Part.ChromeType set = \"PartChromeType.TitleAndBorder\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.Part.Controls": [
+    "WebParts.Part.Controls = ControlCollection [CheckBox#, CheckBox#, CheckBox#, CheckBox#, CheckBox#, DropDownList#, DropDownList#, TextBox#, TextBox#, TextBox#, TextBox#, TextBox#, TextBox#, TextBox#, CheckBox#]"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.Part.DataBind": [
+    "WebParts.Part.DataBind = \"ok\"",
+    "WebParts.Part.DataBind after = BehaviorEditorPart#bepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"bepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Behavior\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"bepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Behavior\"; ToolTip=\"\"; UniqueID=\"bepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.Part.Description": [
+    "WebParts.Part.Description = \"\"",
+    "WebParts.Part.Description set = \"Abc 123\""
+  ],
+  "BehaviorEditorPart.Api.WebControls.WebParts.Part.Title": [
+    "WebParts.Part.Title = \"Behavior\"",
+    "WebParts.Part.Title set = \"Abc 123\""
+  ]
+}

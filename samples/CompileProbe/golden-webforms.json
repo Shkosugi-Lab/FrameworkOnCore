@@ -1,0 +1,575 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "codefile-a page and user controls compiled at run time, App_Code",
+      "Path": "/dynamic",
+      "Title": "Compile probe: CodeFile",
+      "Text": [
+        "Hello, CodeFile (App_Code, assembly App_Code)",
+        "<b>encoded</b> & <i>it</i>",
+        "culture ja-JP, ui culture ja",
+        "a=1.3b=2.5",
+        "Widget the first (Widget1) (count 1)",
+        "Widget the second (Widget2) (count 0)"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "greeting": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Greeting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "encoded": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "expression": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Widget1_Title": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Widget2_Title": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "codefile-a postback: the user controls' view state",
+      "Path": "/dynamic",
+      "Title": "Compile probe: CodeFile",
+      "Text": [
+        "Hello, CodeFile (App_Code, assembly App_Code)",
+        "<b>encoded</b> & <i>it</i>",
+        "culture ja-JP, ui culture ja",
+        "a=1.3b=2.5",
+        "Widget the first (Widget1) (count 2)",
+        "Widget the second (Widget2) (count 0)",
+        "Posted; the widgets' counts 2 and 0; the page's type DynamicPage, its compiled type in App_Web_"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "greeting": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Greeting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "encoded": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "expression": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Widget1_Title": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Widget2_Title": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "theme-Blue: skins, style sheets",
+      "Path": "/themed",
+      "Title": "Compile probe: theme",
+      "Text": [
+        "Big Plain",
+        "Theme Blue, StyleSheetTheme -, style sheets ~/App_Themes/Blue/blue.css"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "Box": ""
+      },
+      "Elements": {
+        "SkinnedButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "color": "white",
+            "background-color": "navy"
+          }
+        },
+        "OwnColorButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "color": "white",
+            "background-color": "navy"
+          }
+        },
+        "NoThemeButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "BigLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "navy",
+            "font-size": "x-large"
+          }
+        },
+        "PlainLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Box": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "themed"
+          },
+          "Style": {
+            "width": "200px"
+          }
+        },
+        "info": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "theme-Green set in PreInit",
+      "Path": "/themed",
+      "Title": "Compile probe: theme",
+      "Text": [
+        "Big Plain",
+        "Theme Green, StyleSheetTheme -, style sheets ~/App_Themes/Green/green.css"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "Box": ""
+      },
+      "Elements": {
+        "SkinnedButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "color": "yellow",
+            "background-color": "green"
+          }
+        },
+        "OwnColorButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "color": "yellow",
+            "background-color": "green"
+          }
+        },
+        "NoThemeButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "BigLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "green",
+            "font-size": "large"
+          }
+        },
+        "PlainLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Box": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "themed"
+          },
+          "Style": {}
+        },
+        "info": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "theme-a style sheet theme with a theme",
+      "Path": "/themed",
+      "Title": "Compile probe: theme",
+      "Text": [
+        "Big Plain",
+        "Theme Blue, StyleSheetTheme Green, style sheets ~/App_Themes/Green/green.css ~/App_Themes/Blue/blue.css"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "Box": ""
+      },
+      "Elements": {
+        "SkinnedButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "color": "white",
+            "background-color": "navy"
+          }
+        },
+        "OwnColorButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "color": "white",
+            "background-color": "navy"
+          }
+        },
+        "NoThemeButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "color": "yellow",
+            "background-color": "green"
+          }
+        },
+        "BigLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {
+            "color": "navy",
+            "font-size": "x-large"
+          }
+        },
+        "PlainLabel": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Box": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "class": "themed"
+          },
+          "Style": {
+            "width": "200px"
+          }
+        },
+        "info": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "culture-the browser's own (its language)",
+      "Path": "/culture",
+      "Title": "Compile probe: culture",
+      "Text": [
+        "ローカルのタイトル (ja)",
+        "こんにちは (ja)",
+        "culture ja-JP, ui culture ja; date 2020年3月4日 / 2020/03/04; number 1,234,567.89; currency ¥13; GetGlobalResourceObject こんにちは (ja) / Only in the neutral one; GetLocalResourceObject Local page title"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "title": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Title": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "expression": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "info": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "culture-the page's, set in InitializeCulture",
+      "Path": "/culture",
+      "Title": "Compile probe: culture",
+      "Text": [
+        "Local title (neutral)",
+        "Bonjour (fr)",
+        "culture fr-FR, ui culture fr-FR; date mercredi 4 mars 2020 / 04/03/2020; number 1 234 567,89; currency 12,50 €; GetGlobalResourceObject Bonjour (fr) / Only in the neutral one; GetLocalResourceObject Local page title"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "title": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Title": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "expression": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "info": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "culture-Accept-Language ja-JP",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/Culture.aspx -> 200 | text=Compile probe: culture ローカルのタイトル (ja) こんにちは (ja) culture ja-JP, ui culture ja-JP; date 2020年3月4日 / 2020/03/04; number 1,234,567.89; currency &#165;13; GetGlobalResourceObject こんにちは (ja) / Only in the neutral one; GetLocalResourceObject Local page title"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "culture-Accept-Language fr (neutral)",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/Culture.aspx -> 200 | text=Compile probe: culture Local title (neutral) Bonjour (fr) culture fr-FR, ui culture fr; date mercredi 4 mars 2020 / 04/03/2020; number 1 234 567,89; currency 12,50 €; GetGlobalResourceObject Bonjour (fr) / Only in the neutral one; GetLocalResourceObject Local page title"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "culture-Accept-Language de-DE (no resources of its own)",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/Culture.aspx -> 200 | text=Compile probe: culture Local title (neutral) Hello (neutral) culture de-DE, ui culture de-DE; date Mittwoch, 4. M&#228;rz 2020 / 04.03.2020; number 1.234.567,89; currency 12,50 €; GetGlobalResourceObject Hello (neutral) / Only in the neutral one; GetLocalResourceObject Local page title"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "culture-Accept-Language of no culture: answered (its formats: .NET Framework's are the invariant culture's, ICU's its default locale's)",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/Culture.aspx -> 200 | content-type=text/html; charset=utf-8"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": [
+    {
+      "Url": "/App_Code/Greeter.cs",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Dynamic.aspx.cs",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Controls/Widget.ascx",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/App_Themes/Blue/Controls.skin",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/App_Themes/Blue/blue.css",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/App_GlobalResources/Strings.resx",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/App_LocalResources/Culture.aspx.resx",
+      "Status": 404,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Dynamic.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Themed.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Themed.aspx?theme=Green",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Themed.aspx?sst=1",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Culture.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Culture.aspx?page=fr-FR",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Check.htm?t=1&rh=Accept-Language:ja-JP,ja;q=0.9&u=/Culture.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Check.htm?t=1&rh=Accept-Language:fr&u=/Culture.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Check.htm?t=1&rh=Accept-Language:de-DE&u=/Culture.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Check.htm?h=content-type&rh=Accept-Language:xx-YY,zz&u=/Culture.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    }
+  ]
+}

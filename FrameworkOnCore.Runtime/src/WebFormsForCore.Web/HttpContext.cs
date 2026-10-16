@@ -1777,13 +1777,39 @@ namespace System.Web {
         }
 
         internal void WaitForExceptionIfCancelled() {
+#if NETFRAMEWORK
             while (Volatile.Read(ref _timeoutState) == -1)
                 Thread.Sleep(100);
+#else
+            // Cancelled (timed out: MustTimeout) waits for the thread's abort on .NET Framework; .NET aborts no thread, and
+            // the request waited for ever (any request past executionTimeout, debug="false"). It fails at its next step
+            // instead (MarkTimedOut, HttpApplication.ExecuteStep).
+            if (Interlocked.CompareExchange(ref _timeoutState, 0, -1) == -1)
+                MarkTimedOut();
+#endif
         }
 
         internal bool IsInCancellablePeriod {
             get { return (Volatile.Read(ref _timeoutState) == 1); }
         }
+
+#if !NETFRAMEWORK
+        int _timedOut;  // 0: not timed out; 1: timed out (RequestTimeoutManager), not yet failed; 2: failed (TakeTimedOut)
+
+        internal void MarkTimedOut() {
+            Interlocked.CompareExchange(ref _timedOut, 1, 0);
+        }
+
+        // Whether the request timed out and has not failed for it yet: true once (the request fails once).
+        internal bool TakeTimedOut() {
+            return Interlocked.CompareExchange(ref _timedOut, 2, 1) == 1;
+        }
+
+        internal HttpException TimedOutException() {
+            PerfCounters.IncrementCounter(AppPerfCounter.REQUESTS_TIMED_OUT);
+            return new HttpException(SR.GetString(SR.Request_timed_out), null, WebEventCodes.RuntimeErrorRequestAbort);
+        }
+#endif
 
         internal Thread MustTimeout(DateTime utcNow) {
             // Note: The TimedOutToken is keyed off of the HttpContext creation time, not the most recent async

@@ -1,0 +1,799 @@
+{
+  "CompareValidator.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "CompareValidator.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "CompareValidator.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "CompareValidator.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "CompareValidator.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CompareValidator.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "CompareValidator.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.ClientID": [
+    "Control.ClientID = \"valCheck\""
+  ],
+  "CompareValidator.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "CompareValidator.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "CompareValidator.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "CompareValidator.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "CompareValidator.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "CompareValidator.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "CompareValidator.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "CompareValidator.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "CompareValidator.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "CompareValidator.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "CompareValidator.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "CompareValidator.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "CompareValidator.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "CompareValidator.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CompareValidator.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"valCheck\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "CompareValidator.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.ID": [
+    "Control.ID = \"valCheck\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "CompareValidator.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "CompareValidator.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "CompareValidator.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "CompareValidator.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "CompareValidator.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "CompareValidator.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "CompareValidator.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "CompareValidator.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CompareValidator.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "CompareValidator.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CompareValidator.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "CompareValidator.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "CompareValidator.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "CompareValidator.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | &nbsp;",
+    "Control.Render(HtmlTextWriter) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | &nbsp;",
+    "Control.RenderControl(HtmlTextWriter) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | &nbsp;",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=true; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "CompareValidator.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "CompareValidator.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "CompareValidator.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "CompareValidator.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.Control.UniqueID": [
+    "Control.UniqueID = \"valCheck\""
+  ],
+  "CompareValidator.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "CompareValidator.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "CompareValidator.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [ControlToValidate=\"txtTarget\", ErrorMessage=\"Error message\", Operator=GreaterThan, Type=Integer, ValueToCompare=\"3\"]"
+  ],
+  "CompareValidator.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "CompareValidator.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "CompareValidator.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "CompareValidator.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=true; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "CompareValidator.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "CompareValidator.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "CompareValidator.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "CompareValidator.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "CompareValidator.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "CompareValidator.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.ITextControl.Text": [
+    "ITextControl.Text = \"\"",
+    "ITextControl.Text set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.IValidator.ErrorMessage": [
+    "IValidator.ErrorMessage = \"Error message\"",
+    "IValidator.ErrorMessage set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.IValidator.IsValid": [
+    "IValidator.IsValid = \"true\"",
+    "IValidator.IsValid set = \"true\""
+  ],
+  "CompareValidator.Api.IValidator.Validate": [
+    "IValidator.Validate = \"ok\"",
+    "IValidator.Validate after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=false; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseCompareValidator.#ctor": [
+    "BaseCompareValidator.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.BaseCompareValidator because it is an abstract class.\""
+  ],
+  "CompareValidator.Api.WebControls.BaseCompareValidator.AddAttributesToRender": [
+    "BaseCompareValidator.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "BaseCompareValidator.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "BaseCompareValidator.AddAttributesToRender(HtmlTextWriter) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseCompareValidator.CanConvert": [
+    "BaseCompareValidator.CanConvert(String,ValidationDataType) = \"false\"",
+    "BaseCompareValidator.CanConvert(String,ValidationDataType,Boolean) = \"false\""
+  ],
+  "CompareValidator.Api.WebControls.BaseCompareValidator.Compare": [
+    "BaseCompareValidator.Compare(String,Boolean,String,Boolean,ValidationCompareOperator,ValidationDataType) = \"false\"",
+    "BaseCompareValidator.Compare(String,String,ValidationCompareOperator,ValidationDataType) = \"false\""
+  ],
+  "CompareValidator.Api.WebControls.BaseCompareValidator.Convert": [
+    "BaseCompareValidator.Convert(String,ValidationDataType,Boolean,Object@) = \"false\"",
+    "BaseCompareValidator.Convert(String,ValidationDataType,Boolean,Object@) value = null",
+    "BaseCompareValidator.Convert(String,ValidationDataType,Object@) = \"false\"",
+    "BaseCompareValidator.Convert(String,ValidationDataType,Object@) value = null"
+  ],
+  "CompareValidator.Api.WebControls.BaseCompareValidator.CultureInvariantValues": [
+    "BaseCompareValidator.CultureInvariantValues = \"false\"",
+    "BaseCompareValidator.CultureInvariantValues set = \"true\""
+  ],
+  "CompareValidator.Api.WebControls.BaseCompareValidator.CutoffYear": [
+    "BaseCompareValidator.CutoffYear = \"Int32 2049\""
+  ],
+  "CompareValidator.Api.WebControls.BaseCompareValidator.DetermineRenderUplevel": [
+    "BaseCompareValidator.DetermineRenderUplevel = \"false\"",
+    "BaseCompareValidator.DetermineRenderUplevel after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseCompareValidator.GetDateElementOrder": [
+    "BaseCompareValidator.GetDateElementOrder = \"mdy\""
+  ],
+  "CompareValidator.Api.WebControls.BaseCompareValidator.GetFullYear": [
+    "BaseCompareValidator.GetFullYear(Int32) = \"Int32 2001\""
+  ],
+  "CompareValidator.Api.WebControls.BaseCompareValidator.Type": [
+    "BaseCompareValidator.Type = \"ValidationDataType.Integer\"",
+    "BaseCompareValidator.Type set = \"ValidationDataType.Integer\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.#ctor": [
+    "BaseValidator.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.BaseValidator because it is an abstract class.\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.AddAttributesToRender": [
+    "BaseValidator.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "BaseValidator.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "BaseValidator.AddAttributesToRender(HtmlTextWriter) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.AssociatedControlID": [
+    "BaseValidator.AssociatedControlID = \"\"",
+    "BaseValidator.AssociatedControlID set = \"-> System.NotSupportedException: The 'AssociatedControlID' property is not supported by 'System.Web.UI.WebControls.CompareValidator' control.\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.CheckControlValidationProperty": [
+    "BaseValidator.CheckControlValidationProperty(String,String) = \"-> System.Web.HttpException: Unable to find control id 'data-probe' referenced by the 'Abc 123' property of 'valCheck'.\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.ControlPropertiesValid": [
+    "BaseValidator.ControlPropertiesValid = \"true\"",
+    "BaseValidator.ControlPropertiesValid after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.ControlToValidate": [
+    "BaseValidator.ControlToValidate = \"txtTarget\"",
+    "BaseValidator.ControlToValidate set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.DetermineRenderUplevel": [
+    "BaseValidator.DetermineRenderUplevel = \"false\"",
+    "BaseValidator.DetermineRenderUplevel after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.Display": [
+    "BaseValidator.Display = \"ValidatorDisplay.Static\"",
+    "BaseValidator.Display set = \"ValidatorDisplay.Static\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.EnableClientScript": [
+    "BaseValidator.EnableClientScript = \"true\"",
+    "BaseValidator.EnableClientScript set = \"true\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.Enabled": [
+    "BaseValidator.Enabled = \"true\"",
+    "BaseValidator.Enabled set = \"true\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.ErrorMessage": [
+    "BaseValidator.ErrorMessage = \"Error message\"",
+    "BaseValidator.ErrorMessage set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.EvaluateIsValid": [
+    "BaseValidator.EvaluateIsValid = \"false\"",
+    "BaseValidator.EvaluateIsValid after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.ForeColor": [
+    "BaseValidator.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "BaseValidator.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.GetControlRenderID": [
+    "BaseValidator.GetControlRenderID(String) = \"\"",
+    "BaseValidator.GetControlRenderID(String) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.GetControlValidationValue": [
+    "BaseValidator.GetControlValidationValue(String) = null",
+    "BaseValidator.GetControlValidationValue(String) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.GetValidationProperty": [
+    "BaseValidator.GetValidationProperty(Object) = null"
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.IsUnobtrusive": [
+    "BaseValidator.IsUnobtrusive = \"false\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.IsValid": [
+    "BaseValidator.IsValid = \"true\"",
+    "BaseValidator.IsValid set = \"true\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.OnInit": [
+    "BaseValidator.OnInit(EventArgs) = \"ok\"",
+    "BaseValidator.OnInit(EventArgs) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.OnPreRender": [
+    "BaseValidator.OnPreRender(EventArgs) = \"ok\"",
+    "BaseValidator.OnPreRender(EventArgs) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.OnUnload": [
+    "BaseValidator.OnUnload(EventArgs) = \"ok\"",
+    "BaseValidator.OnUnload(EventArgs) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.PropertiesValid": [
+    "BaseValidator.PropertiesValid = \"true\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.RegisterValidatorCommonScript": [
+    "BaseValidator.RegisterValidatorCommonScript = \"-> System.ArgumentNullException: Value cannot be null. [param basepath]\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.RegisterValidatorDeclaration": [
+    "BaseValidator.RegisterValidatorDeclaration = \"ok\"",
+    "BaseValidator.RegisterValidatorDeclaration after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.Render": [
+    "BaseValidator.Render(HtmlTextWriter) = \"ok\"",
+    "BaseValidator.Render(HtmlTextWriter) writer:",
+    "  | &nbsp;",
+    "BaseValidator.Render(HtmlTextWriter) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.RenderUplevel": [
+    "BaseValidator.RenderUplevel = \"false\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.SetFocusOnError": [
+    "BaseValidator.SetFocusOnError = \"false\"",
+    "BaseValidator.SetFocusOnError set = \"true\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.Text": [
+    "BaseValidator.Text = \"\"",
+    "BaseValidator.Text set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.Validate": [
+    "BaseValidator.Validate = \"ok\"",
+    "BaseValidator.Validate after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=false; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.BaseValidator.ValidationGroup": [
+    "BaseValidator.ValidationGroup = \"\"",
+    "BaseValidator.ValidationGroup set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.WebControls.CompareValidator.#ctor": [
+    "CompareValidator.#ctor = CompareValidator# {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; IsValid=true; Operator=Equal; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=String; UniqueID=null; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.CompareValidator.AddAttributesToRender": [
+    "CompareValidator.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "CompareValidator.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "CompareValidator.AddAttributesToRender(HtmlTextWriter) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.CompareValidator.ControlPropertiesValid": [
+    "CompareValidator.ControlPropertiesValid = \"true\"",
+    "CompareValidator.ControlPropertiesValid after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.CompareValidator.ControlToCompare": [
+    "CompareValidator.ControlToCompare = \"\"",
+    "CompareValidator.ControlToCompare set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.WebControls.CompareValidator.EvaluateIsValid": [
+    "CompareValidator.EvaluateIsValid = \"false\"",
+    "CompareValidator.EvaluateIsValid after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.CompareValidator.Operator": [
+    "CompareValidator.Operator = \"ValidationCompareOperator.GreaterThan\"",
+    "CompareValidator.Operator set = \"ValidationCompareOperator.NotEqual\""
+  ],
+  "CompareValidator.Api.WebControls.CompareValidator.ValueToCompare": [
+    "CompareValidator.ValueToCompare = \"3\"",
+    "CompareValidator.ValueToCompare set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.WebControls.Label.#ctor": [
+    "Label.#ctor = Label# {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.Label.AddAttributesToRender": [
+    "Label.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "Label.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "Label.AddAttributesToRender(HtmlTextWriter) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.Label.AddParsedSubObject": [
+    "Label.AddParsedSubObject(Object) = \"ok\"",
+    "Label.AddParsedSubObject(Object) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.Label.AssociatedControlID": [
+    "Label.AssociatedControlID = \"\"",
+    "Label.AssociatedControlID set = \"-> System.NotSupportedException: The 'AssociatedControlID' property is not supported by 'System.Web.UI.WebControls.CompareValidator' control.\""
+  ],
+  "CompareValidator.Api.WebControls.Label.LoadViewState": [
+    "Label.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "CompareValidator.Api.WebControls.Label.RenderContents": [
+    "Label.RenderContents(HtmlTextWriter) = \"ok\"",
+    "Label.RenderContents(HtmlTextWriter) writer:",
+    "  | ",
+    "Label.RenderContents(HtmlTextWriter) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.Label.SupportsDisabledAttribute": [
+    "Label.SupportsDisabledAttribute = \"false\""
+  ],
+  "CompareValidator.Api.WebControls.Label.TagKey": [
+    "Label.TagKey = \"HtmlTextWriterTag.Span\""
+  ],
+  "CompareValidator.Api.WebControls.Label.Text": [
+    "Label.Text = \"\"",
+    "Label.Text set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=true; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"merged\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}",
+    "WebControl.CreateControlStyle after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=true; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"merged\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"ok\"",
+    "WebControl.Render(HtmlTextWriter) writer:",
+    "  | &nbsp;",
+    "WebControl.Render(HtmlTextWriter) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <span id=\"valCheck\">",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.RenderContents(HtmlTextWriter) after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Span\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"span\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "CompareValidator.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = CompareValidator#valCheck {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"valCheck\"; ClientIDMode=Inherit; ControlStyleCreated=false; ControlToCompare=\"\"; ControlToValidate=\"txtTarget\"; CssClass=\"\"; CultureInvariantValues=false; Display=Static; EnableClientScript=true; EnableTheming=true; EnableViewState=true; Enabled=true; ErrorMessage=\"Error message\"; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"valCheck\"; IsValid=true; Operator=GreaterThan; SetFocusOnError=false; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; Type=Integer; UniqueID=\"valCheck\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ValueToCompare=\"3\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CompareValidator.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ]
+}

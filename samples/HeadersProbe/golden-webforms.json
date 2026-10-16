@@ -1,0 +1,78 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "headers-the answers' headers",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/a.htm -> 200 | X-Root=root | X-Frame-Options=SAMEORIGIN | X-Loc=- | X-Secure=- | X-Page=- | X-Powered-By=ASP.NET",
+        "/Show.aspx -> 200 | X-Root=root | X-Frame-Options=SAMEORIGIN | X-Loc=- | X-Secure=- | X-Page=- | X-Powered-By=ASP.NET",
+        "/Show.aspx?set=1 -> 200 | X-Root=root | X-Frame-Options=DENY, SAMEORIGIN | X-Loc=- | X-Secure=- | X-Page=page | X-Powered-By=ASP.NET",
+        "/Show.aspx?error=1 -> 500 | X-Root=root | X-Frame-Options=SAMEORIGIN | X-Loc=- | X-Secure=- | X-Page=- | X-Powered-By=ASP.NET",
+        "/nothing.htm -> 404 | X-Root=root | X-Frame-Options=SAMEORIGIN | X-Loc=- | X-Secure=- | X-Page=- | X-Powered-By=ASP.NET",
+        "/loc/l.htm -> 200 | X-Root=- | X-Frame-Options=SAMEORIGIN | X-Loc=loc | X-Secure=- | X-Page=- | X-Powered-By=ASP.NET",
+        "/secure/s.htm -> 200 | X-Root=root | X-Frame-Options=- | X-Loc=- | X-Secure=secure | X-Page=- | X-Powered-By=ASP.NET",
+        "/secure/ -> 403 | X-Root=root | X-Frame-Options=- | X-Loc=- | X-Secure=secure | X-Page=- | X-Powered-By=ASP.NET"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "redirect-where the redirects end",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/old/o.htm -> 404 redirected to /new/o.htm",
+        "/old/x.htm?q=1 -> 404 redirected to /new/x.htm",
+        "/old/keep/k.htm -> 404",
+        "/exact/p/q.htm?z=1 -> 200 redirected to /Show.aspx?from=/p/q.htm&q=?z=1",
+        "/child -> 403 redirected to /new/",
+        "/child/c.htm -> 404 redirected to /new/c.htm",
+        "/wild/x.php -> 200 redirected to /Show.aspx?php=/wild/x.php",
+        "/Moved.aspx?k=v -> 200 redirected to /Show.aspx"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "headers-a postback",
+      "Path": "/show",
+      "Title": "Show",
+      "Text": [
+        "url: /Show.aspx"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "lblQuery": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnPost": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

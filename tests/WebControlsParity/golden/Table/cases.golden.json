@@ -1,0 +1,660 @@
+{
+  "Table.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Table.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "Table.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"-> System.Web.HttpException: Multiple controls with the same ID 'trRow' were found. FindControl requires that controls have unique IDs.\""
+  ],
+  "Table.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "Table.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Table.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Table.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "Table.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.ClientID": [
+    "Control.ClientID = \"tblItems\""
+  ],
+  "Table.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "Table.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "Table.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "Table.Api.Control.Controls": [
+    "Control.Controls = ControlCollection [TableRow#trRow, TableRow#trRow]"
+  ],
+  "Table.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "Table.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "Table.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "Table.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "Table.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "Table.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "Table.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "Table.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "Table.Api.Control.FindControl": [
+    "Control.FindControl(String) = \"-> System.Web.HttpException: Multiple controls with the same ID 'trRow' were found. FindControl requires that controls have unique IDs.\"",
+    "Control.FindControl(String,Int32) = \"-> System.Web.HttpException: Multiple controls with the same ID 'trRow' were found. FindControl requires that controls have unique IDs.\""
+  ],
+  "Table.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "Table.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Table.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"-> System.Web.HttpException: Multiple controls with the same ID 'trRow' were found. FindControl requires that controls have unique IDs.\""
+  ],
+  "Table.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "Table.Api.Control.HasControls": [
+    "Control.HasControls = \"true\"",
+    "Control.HasControls after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.ID": [
+    "Control.ID = \"tblItems\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "Table.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "Table.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "Table.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "Table.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "Table.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "Table.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "Table.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "Table.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "Table.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Table.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Table.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "Table.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Table.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "Table.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "Table.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"-> System.Web.HttpException: Multiple controls with the same ID 'trRow' were found. FindControl requires that controls have unique IDs.\""
+  ],
+  "Table.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <table id=\"tblItems\">",
+    "  | \t<tr id=\"trRow\">",
+    "  | \t\t<td>A</td><td>B</td>",
+    "  | \t</tr><tr id=\"trRow\">",
+    "  | \t\t<td>A</td><td>B</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "Control.Render(HtmlTextWriter) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | <tr id=\"trRow\">",
+    "  | \t<td>A</td><td>B</td>",
+    "  | </tr><tr id=\"trRow\">",
+    "  | \t<td>A</td><td>B</td>",
+    "  | </tr>",
+    "Control.RenderChildren(HtmlTextWriter) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <table id=\"tblItems\">",
+    "  | \t<tr id=\"trRow\">",
+    "  | \t\t<td>A</td><td>B</td>",
+    "  | \t</tr><tr id=\"trRow\">",
+    "  | \t\t<td>A</td><td>B</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "Control.RenderControl(HtmlTextWriter) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <table id=\"tblItems\">",
+    "  | \t<tr id=\"trRow\">",
+    "  | \t\t<td>A</td><td>B</td>",
+    "  | \t</tr><tr id=\"trRow\">",
+    "  | \t\t<td>A</td><td>B</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "Table.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "Table.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "Table.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "Table.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "Table.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.Control.UniqueID": [
+    "Control.UniqueID = \"tblItems\""
+  ],
+  "Table.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "Table.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "Table.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "Table.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "Table.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "Table.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "Table.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=true; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "Table.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"-> System.Web.HttpException: Multiple controls with the same ID 'trRow' were found. FindControl requires that controls have unique IDs.\""
+  ],
+  "Table.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "Table.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "Table.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "Table.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "Table.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "Table.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.IPostBackEventHandler.RaisePostBackEvent": [
+    "IPostBackEventHandler.RaisePostBackEvent(String) = \"ok\"",
+    "IPostBackEventHandler.RaisePostBackEvent(String) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.Table.#ctor": [
+    "Table.#ctor = Table# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=null; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.Table.AddAttributesToRender": [
+    "Table.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "Table.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "Table.AddAttributesToRender(HtmlTextWriter) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.Table.BackImageUrl": [
+    "Table.BackImageUrl = \"\"",
+    "Table.BackImageUrl set = \"Abc 123\""
+  ],
+  "Table.Api.WebControls.Table.Caption": [
+    "Table.Caption = \"\"",
+    "Table.Caption set = \"Abc 123\""
+  ],
+  "Table.Api.WebControls.Table.CaptionAlign": [
+    "Table.CaptionAlign = \"TableCaptionAlign.NotSet\"",
+    "Table.CaptionAlign set = \"TableCaptionAlign.Top\""
+  ],
+  "Table.Api.WebControls.Table.CellPadding": [
+    "Table.CellPadding = \"Int32 -1\"",
+    "Table.CellPadding set = \"Int32 1\""
+  ],
+  "Table.Api.WebControls.Table.CellSpacing": [
+    "Table.CellSpacing = \"Int32 -1\"",
+    "Table.CellSpacing set = \"Int32 1\""
+  ],
+  "Table.Api.WebControls.Table.CreateControlCollection": [
+    "Table.CreateControlCollection = ControlCollection []",
+    "Table.CreateControlCollection after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.Table.CreateControlStyle": [
+    "Table.CreateControlStyle = TableStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CellPadding=Int32 -1; CellSpacing=Int32 -1; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; GridLines=None; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; Width=}",
+    "Table.CreateControlStyle after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.Table.GridLines": [
+    "Table.GridLines = \"GridLines.None\"",
+    "Table.GridLines set = \"GridLines.Horizontal\""
+  ],
+  "Table.Api.WebControls.Table.HorizontalAlign": [
+    "Table.HorizontalAlign = \"HorizontalAlign.NotSet\"",
+    "Table.HorizontalAlign set = \"HorizontalAlign.Left\""
+  ],
+  "Table.Api.WebControls.Table.RaisePostBackEvent": [
+    "Table.RaisePostBackEvent(String) = \"ok\"",
+    "Table.RaisePostBackEvent(String) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.Table.RenderBeginTag": [
+    "Table.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "Table.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <table id=\"tblItems\">",
+    "  | ",
+    "Table.RenderBeginTag(HtmlTextWriter) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.Table.RenderContents": [
+    "Table.RenderContents(HtmlTextWriter) = \"ok\"",
+    "Table.RenderContents(HtmlTextWriter) writer:",
+    "  | <tr id=\"trRow\">",
+    "  | \t<td>A</td><td>B</td>",
+    "  | </tr><tr id=\"trRow\">",
+    "  | \t<td>A</td><td>B</td>",
+    "  | </tr>",
+    "Table.RenderContents(HtmlTextWriter) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.Table.Rows": [
+    "Table.Rows = \"[System.Web.UI.WebControls.TableRow, System.Web.UI.WebControls.TableRow]\""
+  ],
+  "Table.Api.WebControls.Table.SupportsDisabledAttribute": [
+    "Table.SupportsDisabledAttribute = \"false\""
+  ],
+  "Table.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "Table.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "Table.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "Table.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "Table.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "Table.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "Table.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = TableStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CellPadding=Int32 -1; CellSpacing=Int32 -1; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; GridLines=None; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "Table.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "Table.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = TableStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CellPadding=Int32 -1; CellSpacing=Int32 -1; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; GridLines=None; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; Width=}",
+    "WebControl.CreateControlStyle after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "Table.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "Table.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "Table.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "Table.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "Table.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "Table.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "Table.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "Table.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "Table.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "Table.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"ok\"",
+    "WebControl.Render(HtmlTextWriter) writer:",
+    "  | <table id=\"tblItems\">",
+    "  | \t<tr id=\"trRow\">",
+    "  | \t\t<td>A</td><td>B</td>",
+    "  | \t</tr><tr id=\"trRow\">",
+    "  | \t\t<td>A</td><td>B</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "WebControl.Render(HtmlTextWriter) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <table id=\"tblItems\">",
+    "  | ",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | <tr id=\"trRow\">",
+    "  | \t<td>A</td><td>B</td>",
+    "  | </tr><tr id=\"trRow\">",
+    "  | \t<td>A</td><td>B</td>",
+    "  | </tr>",
+    "WebControl.RenderContents(HtmlTextWriter) after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "Table.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "Table.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "Table.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "Table.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "Table.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Table\""
+  ],
+  "Table.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"table\""
+  ],
+  "Table.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "Table.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = Table#tblItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"tblItems\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"tblItems\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "Table.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ]
+}

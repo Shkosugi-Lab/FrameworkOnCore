@@ -1,0 +1,531 @@
+{
+  "HtmlButton.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HtmlButton.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HtmlButton.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlButton.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HtmlButton.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.ClientID": [
+    "Control.ClientID = \"btnHtml\""
+  ],
+  "HtmlButton.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HtmlButton.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HtmlButton.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HtmlButton.Api.Control.Controls": [
+    "Control.Controls = ControlCollection [LiteralControl#]"
+  ],
+  "HtmlButton.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HtmlButton.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HtmlButton.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HtmlButton.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HtmlButton.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HtmlButton.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "HtmlButton.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HtmlButton.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HtmlButton.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "HtmlButton.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlButton.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"btnHtml\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HtmlButton.Api.Control.HasControls": [
+    "Control.HasControls = \"true\"",
+    "Control.HasControls after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.ID": [
+    "Control.ID = \"btnHtml\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HtmlButton.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HtmlButton.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HtmlButton.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HtmlButton.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"true\"",
+    "Control.IsLiteralContent after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HtmlButton.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HtmlButton.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HtmlButton.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlButton.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HtmlButton.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlButton.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlButton.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HtmlButton.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <button id=\"btnHtml\">Go</button>",
+    "Control.Render(HtmlTextWriter) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | Go",
+    "Control.RenderChildren(HtmlTextWriter) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <button id=\"btnHtml\">Go</button>",
+    "Control.RenderControl(HtmlTextWriter) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <button id=\"btnHtml\">Go</button>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HtmlButton.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HtmlButton.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "HtmlButton.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HtmlButton.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.Control.UniqueID": [
+    "Control.UniqueID = \"btnHtml\""
+  ],
+  "HtmlButton.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HtmlButton.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HtmlButton.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [innerhtml=\"Go\"]"
+  ],
+  "HtmlButton.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlButton.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HtmlButton.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlButton.#ctor": [
+    "HtmlControls.HtmlButton.#ctor = HtmlButton# {CausesValidation=true; ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=null; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; TagName=\"button\"; UniqueID=null; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlButton.CausesValidation": [
+    "HtmlControls.HtmlButton.CausesValidation = \"true\"",
+    "HtmlControls.HtmlButton.CausesValidation set = \"true\""
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlButton.OnPreRender": [
+    "HtmlControls.HtmlButton.OnPreRender(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlButton.OnPreRender(EventArgs) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlButton.OnServerClick": [
+    "HtmlControls.HtmlButton.OnServerClick(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlButton.OnServerClick(EventArgs) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlButton.RaisePostBackEvent": [
+    "HtmlControls.HtmlButton.RaisePostBackEvent(String) = \"ok\"",
+    "HtmlControls.HtmlButton.RaisePostBackEvent(String) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlButton.RenderAttributes": [
+    "HtmlControls.HtmlButton.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlButton.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  id=\"btnHtml\"",
+    "HtmlControls.HtmlButton.RenderAttributes(HtmlTextWriter) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlButton.ServerClick": [
+    "HtmlControls.HtmlButton.ServerClick = \"added and removed\""
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlButton.ValidationGroup": [
+    "HtmlControls.HtmlButton.ValidationGroup = \"\"",
+    "HtmlControls.HtmlButton.ValidationGroup set = \"Abc 123\""
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlContainerControl.#ctor": [
+    "HtmlControls.HtmlContainerControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlContainerControl because it is an abstract class.\"",
+    "HtmlControls.HtmlContainerControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlContainerControl because it is an abstract class.\""
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlContainerControl.CreateControlCollection": [
+    "HtmlControls.HtmlContainerControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlContainerControl.CreateControlCollection after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlContainerControl.InnerHtml": [
+    "HtmlControls.HtmlContainerControl.InnerHtml = \"Go\"",
+    "HtmlControls.HtmlContainerControl.InnerHtml set = \"Abc 123\""
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlContainerControl.InnerText": [
+    "HtmlControls.HtmlContainerControl.InnerText = \"Go\"",
+    "HtmlControls.HtmlContainerControl.InnerText set = \"Abc 123\""
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlContainerControl.LoadViewState": [
+    "HtmlControls.HtmlContainerControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlContainerControl.Render": [
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) writer:",
+    "  | <button id=\"btnHtml\">Go</button>",
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlContainerControl.RenderAttributes": [
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  id=\"btnHtml\"",
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlContainerControl.RenderEndTag": [
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) writer:",
+    "  | </button>",
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlControl.#ctor": [
+    "HtmlControls.HtmlControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\"",
+    "HtmlControls.HtmlControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\""
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlControl.Attributes": [
+    "HtmlControls.HtmlControl.Attributes = AttributeCollection [innerhtml=\"Go\"]"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlControl.CreateControlCollection": [
+    "HtmlControls.HtmlControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlControl.CreateControlCollection after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlControl.Disabled": [
+    "HtmlControls.HtmlControl.Disabled = \"false\"",
+    "HtmlControls.HtmlControl.Disabled set = \"true\""
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlControl.GetAttribute": [
+    "HtmlControls.HtmlControl.GetAttribute(String) = null",
+    "HtmlControls.HtmlControl.GetAttribute(String) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlControl.Render": [
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) writer:",
+    "  | <button id=\"btnHtml\">Go</button>",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlControl.RenderAttributes": [
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  id=\"btnHtml\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlControl.RenderBeginTag": [
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <button id=\"btnHtml\">",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlControl.SetAttribute": [
+    "HtmlControls.HtmlControl.SetAttribute(String,String) = \"ok\"",
+    "HtmlControls.HtmlControl.SetAttribute(String,String) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlControl.Style": [
+    "HtmlControls.HtmlControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlControl.TagName": [
+    "HtmlControls.HtmlControl.TagName = \"button\""
+  ],
+  "HtmlButton.Api.HtmlControls.HtmlControl.ViewStateIgnoresCase": [
+    "HtmlControls.HtmlControl.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlButton.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HtmlButton.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HtmlButton.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HtmlButton.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HtmlButton.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HtmlButton.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HtmlButton.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.IPostBackEventHandler.RaisePostBackEvent": [
+    "IPostBackEventHandler.RaisePostBackEvent(String) = \"ok\"",
+    "IPostBackEventHandler.RaisePostBackEvent(String) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlButton.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HtmlButton#btnHtml {CausesValidation=true; ClientID=\"btnHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"btnHtml\"; InnerHtml=\"Go\"; InnerText=\"Go\"; SkinID=\"\"; TagName=\"button\"; UniqueID=\"btnHtml\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ]
+}

@@ -1768,7 +1768,7 @@ namespace System.Web.Hosting
 #if NETFRAMEWORK
                 return (AppDomain.CurrentDomain.GetData(".devEnvironment") as bool?) == true;
 #else
-                return (ApplicationManager.GetLoadContextData(".devEnvironment") as bool?) == true;
+                return (ApplicationManager.GetLoadContextData(".devEnvironment", ApplicationManager.SystemWebLoadContext) as bool?) == true;
 #endif
             }
         }
@@ -1819,7 +1819,7 @@ namespace System.Web.Hosting
 #if NETFRAMEWORK
                         _cacheProviderSettings = AppDomain.CurrentDomain.GetData(".defaultObjectCacheProvider") as NameValueCollection;
 #else
-                        _cacheProviderSettings = ApplicationManager.GetLoadContextData(".defaultObjectCacheProvider") as NameValueCollection;
+                        _cacheProviderSettings = ApplicationManager.GetLoadContextData(".defaultObjectCacheProvider", ApplicationManager.SystemWebLoadContext) as NameValueCollection;
 #endif
                     }
                 }

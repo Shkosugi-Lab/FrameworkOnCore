@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Limits</title>
+</head>
+<body>
+    <!-- Requests over the limits, one after the other, each one's status and the start of its text (the application's
+         error handler writes the exceptions; IIS's own refusals are its pages). -->
+    <pre id="limits">checking</pre>
+    <script>
+        function form(bytes) { return 'x=' + 'a'.repeat(bytes - 2); }
+        function fields(count) { var parts = []; for (var i = 0; i < count; i++) parts.push('f' + i + '=1'); return parts.join('&'); }
+        var tests = [
+            ['a form of 10 KB', '/Echo.aspx', form(10 * 1024)],
+            ['a form of 200 KB (maxRequestLength 100 KB)', '/Echo.aspx', form(200 * 1024)],
+            ['a form of 200 KB where maxRequestLength is 100 MB', '/Big/Echo.aspx', form(200 * 1024)],
+            ['31,000,000 bytes where maxRequestLength is 100 MB (IIS: 30,000,000)', '/Big/Echo.aspx', form(31000000)],
+            ['1,000 form keys', '/Echo.aspx', fields(1000)],
+            ['1,001 form keys (aspnet:MaxHttpCollectionKeys 1,000)', '/Echo.aspx', fields(1001)],
+            ['a query of 2,000 characters', '/Echo.aspx?q=' + 'b'.repeat(2000), null],
+            ['a query of 3,000 characters (IIS: 2,048)', '/Echo.aspx?q=' + 'b'.repeat(3000), null],
+            ['a path of 250 characters', '/' + 'c'.repeat(240) + '/Echo.aspx', null],
+            ['a path of 300 characters (maxUrlLength 260)', '/' + 'c'.repeat(290) + '/Echo.aspx', null],
+            ['a page longer than executionTimeout (3 s)', '/Slow.aspx', null]
+        ];
+        (async function () {
+            var lines = [];
+            for (var test of tests) {
+                try {
+                    var init = { cache: 'no-store' };
+                    if (test[2] !== null) { init.method = 'POST'; init.body = test[2]; init.headers = { 'Content-Type': 'application/x-www-form-urlencoded' }; }
+                    var response = await fetch(test[1], init);
+                    // The application's answers are text (Echo.aspx, the error handler): their start; an HTML page is the server's
+                    // own (IIS's request filtering, http.sys, its 404), told by its status only.
+                    var type = response.headers.get('content-type') || '';
+                    var text = type.indexOf('text/plain') === 0 ? (await response.text()).replace(/\s+/g, ' ').trim().slice(0, 160) : "the server's page (" + type.split(';')[0] + ')';
+                    lines.push(test[0] + ' -> ' + response.status + ' | ' + text);
+                } catch (e) {
+                    lines.push(test[0] + ' -> ' + e.name);
+                }
+            }
+            document.getElementById('limits').textContent = lines.join('\n');
+        })();
+    </script>
+</body>
+</html>

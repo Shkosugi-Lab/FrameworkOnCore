@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- The component parity's probe site (tests/WebControlsParity/README.md): the rendering layer (Cases.aspx,
+       RenderProbe.aspx) and the scenario layer (<Component>Scenario.aspx, scenarios\<Component>.json), run on IIS for the
+       goldens and converted by the converter for the port. -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5B7A3C1E-2D4F-4E8A-9C61-3F0B7D2E8A41}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>WebControlsProbe</RootNamespace>
+    <AssemblyName>WebControlsProbe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Cases.aspx" />
+    <Content Include="RenderProbe.aspx" />
+    <Content Include="TextBoxScenario.aspx" />
+    <Content Include="ButtonScenario.aspx" />
+    <Content Include="ButtonTarget.aspx" />
+    <Content Include="App_Themes\Probe\TextBox.skin" />
+    <Content Include="App_Themes\Probe\Button.skin" />
+    <Content Include="App_Themes\Probe\Lists.skin" />
+    <Content Include="App_Themes\Probe\Basics.skin" />
+    <Content Include="App_Themes\Probe\Validators.skin" />
+    <Content Include="ValidatorsScenario.aspx" />
+    <Content Include="BasicsScenario.aspx" />
+    <Content Include="Images\probe.png" />
+    <Content Include="ListControlsScenario.aspx" />
+    <Content Include="GridViewScenario.aspx" />
+    <Content Include="RepeaterScenario.aspx" />
+    <Content Include="FormViewScenario.aspx" />
+    <Content Include="DetailsViewScenario.aspx" />
+    <Content Include="ListViewScenario.aspx" />
+    <Content Include="DataListScenario.aspx" />
+    <Content Include="DataGridScenario.aspx" />
+    <Content Include="HtmlScenario.aspx" />
+    <Content Include="HtmlFormScenario.aspx" />
+    <Content Include="Images\probe.css" />
+    <Content Include="App_Data\probe.xml" />
+    <Content Include="App_Data\probe.xslt" />
+    <Content Include="App_Data\ads.xml" />
+    <Content Include="App_Themes\Probe\More.skin" />
+    <Content Include="MoreScenario.aspx" />
+    <Content Include="Probe.master" />
+    <Content Include="ContentScenario.aspx" />
+    <Content Include="Images\probe.js" />
+    <Content Include="AjaxScenario.aspx" />
+    <Content Include="Web.sitemap" />
+    <Content Include="NavigationScenario.aspx" />
+    <Content Include="LoginScenario.aspx" />
+    <Content Include="App_Data\products.xml" />
+    <Content Include="DataSourceScenario.aspx" />
+    <Content Include="WebPartsScenario.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cases.aspx.cs">
+      <DependentUpon>Cases.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RenderProbe.aspx.cs">
+      <DependentUpon>RenderProbe.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RenderProbe.aspx.designer.cs">
+      <DependentUpon>RenderProbe.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TextBoxScenario.aspx.cs">
+      <DependentUpon>TextBoxScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TextBoxScenario.aspx.designer.cs">
+      <DependentUpon>TextBoxScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ButtonScenario.aspx.cs">
+      <DependentUpon>ButtonScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ButtonScenario.aspx.designer.cs">
+      <DependentUpon>ButtonScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ButtonTarget.aspx.cs">
+      <DependentUpon>ButtonTarget.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ButtonTarget.aspx.designer.cs">
+      <DependentUpon>ButtonTarget.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ListControlsScenario.aspx.cs">
+      <DependentUpon>ListControlsScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListControlsScenario.aspx.designer.cs">
+      <DependentUpon>ListControlsScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BasicsScenario.aspx.cs">
+      <DependentUpon>BasicsScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BasicsScenario.aspx.designer.cs">
+      <DependentUpon>BasicsScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ValidatorsScenario.aspx.cs">
+      <DependentUpon>ValidatorsScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ValidatorsScenario.aspx.designer.cs">
+      <DependentUpon>ValidatorsScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GridViewScenario.aspx.cs">
+      <DependentUpon>GridViewScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GridViewScenario.aspx.designer.cs">
+      <DependentUpon>GridViewScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RepeaterScenario.aspx.cs">
+      <DependentUpon>RepeaterScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RepeaterScenario.aspx.designer.cs">
+      <DependentUpon>RepeaterScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlScenario.aspx.cs">
+      <DependentUpon>HtmlScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HtmlScenario.aspx.designer.cs">
+      <DependentUpon>HtmlScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlFormScenario.aspx.cs">
+      <DependentUpon>HtmlFormScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HtmlFormScenario.aspx.designer.cs">
+      <DependentUpon>HtmlFormScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MoreScenario.aspx.cs">
+      <DependentUpon>MoreScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MoreScenario.aspx.designer.cs">
+      <DependentUpon>MoreScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Probe.master.cs">
+      <DependentUpon>Probe.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Probe.master.designer.cs">
+      <DependentUpon>Probe.master</DependentUpon>
+    </Compile>
+    <Compile Include="ContentScenario.aspx.cs">
+      <DependentUpon>ContentScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContentScenario.aspx.designer.cs">
+      <DependentUpon>ContentScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AjaxScenario.aspx.cs">
+      <DependentUpon>AjaxScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AjaxScenario.aspx.designer.cs">
+      <DependentUpon>AjaxScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationScenario.aspx.cs">
+      <DependentUpon>NavigationScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NavigationScenario.aspx.designer.cs">
+      <DependentUpon>NavigationScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProbeMembership.cs" />
+    <Compile Include="LoginScenario.aspx.cs">
+      <DependentUpon>LoginScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoginScenario.aspx.designer.cs">
+      <DependentUpon>LoginScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProbeDb.cs" />
+    <Compile Include="DataSourceScenario.aspx.cs">
+      <DependentUpon>DataSourceScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DataSourceScenario.aspx.designer.cs">
+      <DependentUpon>DataSourceScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProbePersonalization.cs" />
+    <Compile Include="WebPartsScenario.aspx.cs">
+      <DependentUpon>WebPartsScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPartsScenario.aspx.designer.cs">
+      <DependentUpon>WebPartsScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProbeStore.cs" />
+    <Compile Include="FormViewScenario.aspx.cs">
+      <DependentUpon>FormViewScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormViewScenario.aspx.designer.cs">
+      <DependentUpon>FormViewScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DetailsViewScenario.aspx.cs">
+      <DependentUpon>DetailsViewScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetailsViewScenario.aspx.designer.cs">
+      <DependentUpon>DetailsViewScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ListViewScenario.aspx.cs">
+      <DependentUpon>ListViewScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListViewScenario.aspx.designer.cs">
+      <DependentUpon>ListViewScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DataListScenario.aspx.cs">
+      <DependentUpon>DataListScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DataListScenario.aspx.designer.cs">
+      <DependentUpon>DataListScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DataGridScenario.aspx.cs">
+      <DependentUpon>DataGridScenario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DataGridScenario.aspx.designer.cs">
+      <DependentUpon>DataGridScenario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProbeComponents.cs" />
+    <Compile Include="ProbeState.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

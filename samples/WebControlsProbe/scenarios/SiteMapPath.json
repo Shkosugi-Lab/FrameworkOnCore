@@ -1,0 +1,128 @@
+{
+  "_comment": "The SiteMapPath's scenario layer (NavigationScenario.aspx; tests/WebControlsParity/README.md; written by more-scenarios.py). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/NavigationScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "SiteMapPath [render][databind][dynamic][templates] first request: the site map as a path, trees and menus; bound to XML; templated; made in code"
+    },
+    {
+      "action": "evaluate",
+      "target": "tvStatic",
+      "value": "Array.from(e.querySelectorAll('a')).find(a => a.href.indexOf(\"'tf'\") >= 0).click();"
+    },
+    {
+      "action": "waitms",
+      "ms": 3000
+    },
+    {
+      "action": "snapshot",
+      "name": "SiteMapPath [viewstate] a node expanded by a postback (EnableClientScript=false)"
+    },
+    {
+      "action": "clicktextin",
+      "target": "tvStatic",
+      "value": "Apple"
+    },
+    {
+      "action": "snapshot",
+      "name": "SiteMapPath [viewstate] a node selected (its value a control parameter's: ControlValueProperty)"
+    },
+    {
+      "action": "evaluate",
+      "target": "tvStatic",
+      "value": "e.querySelectorAll('input[type=checkbox]')[2].checked = true;"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "SiteMapPath [viewstate] a node's check box posted"
+    },
+    {
+      "action": "evaluate",
+      "target": "tvStatic",
+      "value": "Array.from(e.querySelectorAll('a')).find(a => a.href.indexOf(\"'tv'\") >= 0).click();"
+    },
+    {
+      "action": "waitms",
+      "ms": 3000
+    },
+    {
+      "action": "snapshot",
+      "name": "SiteMapPath [viewstate] a node populated on demand by a postback"
+    },
+    {
+      "action": "evaluate",
+      "target": "tvCallback",
+      "value": "Array.from(e.querySelectorAll('a')).find(a => a.href.indexOf('TreeView_PopulateNode') >= 0).click();"
+    },
+    {
+      "action": "waitms",
+      "ms": 3000
+    },
+    {
+      "action": "snapshot",
+      "name": "SiteMapPath [viewstate] a node populated on demand by a client callback (no postback)"
+    },
+    {
+      "action": "clicktextin",
+      "target": "mnuStatic",
+      "value": "Help"
+    },
+    {
+      "action": "snapshot",
+      "name": "SiteMapPath [viewstate] a menu's item clicked"
+    },
+    {
+      "action": "clicktextin",
+      "target": "mnuBound",
+      "value": "Bound two"
+    },
+    {
+      "action": "snapshot",
+      "name": "SiteMapPath [viewstate] a bound menu's item clicked"
+    },
+    {
+      "action": "clicktextin",
+      "target": "mnuTemplated",
+      "value": "Bound child"
+    },
+    {
+      "action": "snapshot",
+      "name": "SiteMapPath [viewstate] a templated menu's item clicked"
+    },
+    {
+      "action": "clicktextin",
+      "target": "tvDynamic",
+      "value": "Dynamic node"
+    },
+    {
+      "action": "snapshot",
+      "name": "SiteMapPath [viewstate] a dynamic tree's node selected"
+    },
+    {
+      "action": "clicktextin",
+      "target": "mnuDynamic",
+      "value": "Dynamic child"
+    },
+    {
+      "action": "snapshot",
+      "name": "SiteMapPath [viewstate] a dynamic menu's item clicked"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "SiteMapPath [visible][viewstate] hidden ones shown with what was added while hidden"
+    }
+  ]
+}

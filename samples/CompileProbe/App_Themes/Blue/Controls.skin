@@ -1,0 +1,4 @@
+<%-- The Blue theme: every Button, and a Label with the skin "Big". --%>
+<asp:Button runat="server" BackColor="Navy" ForeColor="White" />
+<asp:Label runat="server" SkinID="Big" Font-Size="X-Large" ForeColor="Navy" />
+<asp:TextBox runat="server" Width="200px" />

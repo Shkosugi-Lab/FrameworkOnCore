@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- One advertisement: a rotator picks one of several at random. -->
+<Advertisements>
+  <Ad>
+    <ImageUrl>~/Images/probe.png</ImageUrl>
+    <NavigateUrl>~/ButtonTarget.aspx?ad=1</NavigateUrl>
+    <AlternateText>Probe ad &amp; more</AlternateText>
+    <Keyword>pen</Keyword>
+    <Impressions>1</Impressions>
+    <Width>20</Width>
+    <Height>10</Height>
+  </Ad>
+</Advertisements>

@@ -1,0 +1,541 @@
+{
+  "XmlDataSource.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "XmlDataSource.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "XmlDataSource.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "XmlDataSource.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "XmlDataSource.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "XmlDataSource.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "XmlDataSource.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.ClientID": [
+    "Control.ClientID = \"xdsProducts\""
+  ],
+  "XmlDataSource.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"-> System.NotSupportedException: Specified method is not supported.\""
+  ],
+  "XmlDataSource.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "XmlDataSource.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "XmlDataSource.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "XmlDataSource.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "XmlDataSource.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "XmlDataSource.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "XmlDataSource.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "XmlDataSource.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "XmlDataSource.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"false\"",
+    "Control.EnableTheming set = \"-> System.NotSupportedException: Control of type 'XmlDataSource' does not support theming.\""
+  ],
+  "XmlDataSource.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "XmlDataSource.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "XmlDataSource.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.Focus": [
+    "Control.Focus = \"-> System.NotSupportedException: Control of type 'XmlDataSource' does not support the Focus operation.\""
+  ],
+  "XmlDataSource.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "XmlDataSource.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"xdsProducts\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "XmlDataSource.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.HasEvents": [
+    "Control.HasEvents = \"true\"",
+    "Control.HasEvents after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.ID": [
+    "Control.ID = \"xdsProducts\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "XmlDataSource.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "XmlDataSource.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "XmlDataSource.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "XmlDataSource.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "XmlDataSource.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "XmlDataSource.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "XmlDataSource.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "XmlDataSource.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "XmlDataSource.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "XmlDataSource.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "XmlDataSource.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "XmlDataSource.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "XmlDataSource.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "XmlDataSource.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "XmlDataSource.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.Render(HtmlTextWriter) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "XmlDataSource.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "XmlDataSource.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"-> System.NotSupportedException: Control of type 'XmlDataSource' does not support theming.\""
+  ],
+  "XmlDataSource.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "XmlDataSource.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "XmlDataSource.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.Control.UniqueID": [
+    "Control.UniqueID = \"xdsProducts\""
+  ],
+  "XmlDataSource.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "XmlDataSource.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "XmlDataSource.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "XmlDataSource.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "XmlDataSource.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "XmlDataSource.Api.Control.Visible": [
+    "Control.Visible = \"false\"",
+    "Control.Visible set = \"-> System.NotSupportedException: Control of type 'XmlDataSource' is a non-visual control and does not support setting the Visible property.\""
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.#ctor": [
+    "HierarchicalDataSourceControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HierarchicalDataSourceControl because it is an abstract class.\""
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.ApplyStyleSheetSkin": [
+    "HierarchicalDataSourceControl.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "HierarchicalDataSourceControl.ApplyStyleSheetSkin(Page) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.ClientID": [
+    "HierarchicalDataSourceControl.ClientID = \"xdsProducts\""
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.ClientIDMode": [
+    "HierarchicalDataSourceControl.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "HierarchicalDataSourceControl.ClientIDMode set = \"-> System.NotSupportedException: Specified method is not supported.\""
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.Controls": [
+    "HierarchicalDataSourceControl.Controls = ControlCollection []"
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.CreateControlCollection": [
+    "HierarchicalDataSourceControl.CreateControlCollection = ControlCollection []",
+    "HierarchicalDataSourceControl.CreateControlCollection after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.EnableTheming": [
+    "HierarchicalDataSourceControl.EnableTheming = \"false\"",
+    "HierarchicalDataSourceControl.EnableTheming set = \"-> System.NotSupportedException: Control of type 'XmlDataSource' does not support theming.\""
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.FindControl": [
+    "HierarchicalDataSourceControl.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "HierarchicalDataSourceControl.FindControl(String) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.Focus": [
+    "HierarchicalDataSourceControl.Focus = \"-> System.NotSupportedException: Control of type 'XmlDataSource' does not support the Focus operation.\""
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.GetHierarchicalView": [
+    "HierarchicalDataSourceControl.GetHierarchicalView(String) = XmlHierarchicalDataSourceView {}",
+    "HierarchicalDataSourceControl.GetHierarchicalView(String) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.HasControls": [
+    "HierarchicalDataSourceControl.HasControls = \"false\"",
+    "HierarchicalDataSourceControl.HasControls after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.OnDataSourceChanged": [
+    "HierarchicalDataSourceControl.OnDataSourceChanged(EventArgs) = \"ok\"",
+    "HierarchicalDataSourceControl.OnDataSourceChanged(EventArgs) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.RenderControl": [
+    "HierarchicalDataSourceControl.RenderControl(HtmlTextWriter) = \"ok\"",
+    "HierarchicalDataSourceControl.RenderControl(HtmlTextWriter) writer:",
+    "  | ",
+    "HierarchicalDataSourceControl.RenderControl(HtmlTextWriter) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.SkinID": [
+    "HierarchicalDataSourceControl.SkinID = \"\"",
+    "HierarchicalDataSourceControl.SkinID set = \"-> System.NotSupportedException: Control of type 'XmlDataSource' does not support theming.\""
+  ],
+  "XmlDataSource.Api.HierarchicalDataSourceControl.Visible": [
+    "HierarchicalDataSourceControl.Visible = \"false\"",
+    "HierarchicalDataSourceControl.Visible set = \"-> System.NotSupportedException: Control of type 'XmlDataSource' is a non-visual control and does not support setting the Visible property.\""
+  ],
+  "XmlDataSource.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "XmlDataSource.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "XmlDataSource.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "XmlDataSource.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "XmlDataSource.Api.IDataSource.DataSourceChanged": [
+    "IDataSource.DataSourceChanged = \"added and removed\""
+  ],
+  "XmlDataSource.Api.IDataSource.GetView": [
+    "IDataSource.GetView(String) = XmlDataSourceView {CanDelete=false; CanInsert=false; CanPage=false; CanRetrieveTotalRowCount=false; CanSort=false; CanUpdate=false; Name=\"Abc 123\"}",
+    "IDataSource.GetView(String) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.IDataSource.GetViewNames": [
+    "IDataSource.GetViewNames = \"[System.String DefaultView]\"",
+    "IDataSource.GetViewNames after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "XmlDataSource.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "XmlDataSource.Api.IHierarchicalDataSource.DataSourceChanged": [
+    "IHierarchicalDataSource.DataSourceChanged = \"added and removed\""
+  ],
+  "XmlDataSource.Api.IHierarchicalDataSource.GetHierarchicalView": [
+    "IHierarchicalDataSource.GetHierarchicalView(String) = XmlHierarchicalDataSourceView {}",
+    "IHierarchicalDataSource.GetHierarchicalView(String) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.#ctor": [
+    "XmlDataSource.#ctor = XmlDataSource# {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"\"; ClientIDMode=Inherit; Data=\"\"; DataFile=\"\"; EnableCaching=true; EnableTheming=false; EnableViewState=true; ID=null; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.CacheDuration": [
+    "XmlDataSource.CacheDuration = \"Int32 0\"",
+    "XmlDataSource.CacheDuration set = \"Int32 1\""
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.CacheExpirationPolicy": [
+    "XmlDataSource.CacheExpirationPolicy = \"DataSourceCacheExpiry.Absolute\"",
+    "XmlDataSource.CacheExpirationPolicy set = \"DataSourceCacheExpiry.Sliding\""
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.CacheKeyContext": [
+    "XmlDataSource.CacheKeyContext = \"\"",
+    "XmlDataSource.CacheKeyContext set = \"Abc 123\""
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.CacheKeyDependency": [
+    "XmlDataSource.CacheKeyDependency = \"\"",
+    "XmlDataSource.CacheKeyDependency set = \"Abc 123\""
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.Data": [
+    "XmlDataSource.Data = \"<products><product code=\"P1\" name=\"Pen\" /></products>\"",
+    "XmlDataSource.Data set = \"Abc 123\""
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.DataFile": [
+    "XmlDataSource.DataFile = \"\"",
+    "XmlDataSource.DataFile set = \"Abc 123\""
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.EnableCaching": [
+    "XmlDataSource.EnableCaching = \"false\"",
+    "XmlDataSource.EnableCaching set = \"true\""
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.GetHierarchicalView": [
+    "XmlDataSource.GetHierarchicalView(String) = XmlHierarchicalDataSourceView {}",
+    "XmlDataSource.GetHierarchicalView(String) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.GetXmlDocument": [
+    "XmlDataSource.GetXmlDocument = \"[[[]]]\"",
+    "XmlDataSource.GetXmlDocument after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.OnTransforming": [
+    "XmlDataSource.OnTransforming(EventArgs) = \"ok\"",
+    "XmlDataSource.OnTransforming(EventArgs) after = XmlDataSource#xdsProducts {CacheDuration=Int32 0; CacheExpirationPolicy=Absolute; CacheKeyContext=\"\"; CacheKeyDependency=\"\"; ClientID=\"xdsProducts\"; ClientIDMode=Inherit; Data=\"<products><product code=\"P1\" name=\"Pen\" /></products>\"; DataFile=\"\"; EnableCaching=false; EnableTheming=false; EnableViewState=true; ID=\"xdsProducts\"; SkinID=\"\"; Transform=\"\"; TransformFile=\"\"; UniqueID=\"xdsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; XPath=\"\"}"
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.Save": [
+    "XmlDataSource.Save = \"-> System.InvalidOperationException: Save is not enabled in XmlDataSource 'xdsProducts' when either an XSL transform is specified, the content was specified using the Data property, the content was loaded from a URL, or a custom virtual path provider was used.\""
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.Transform": [
+    "XmlDataSource.Transform = \"\"",
+    "XmlDataSource.Transform set = \"Abc 123\""
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.TransformArgumentList": [
+    "XmlDataSource.TransformArgumentList = null",
+    "XmlDataSource.TransformArgumentList set = \"System.Xml.Xsl.XsltArgumentList\""
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.TransformFile": [
+    "XmlDataSource.TransformFile = \"\"",
+    "XmlDataSource.TransformFile set = \"Abc 123\""
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.Transforming": [
+    "XmlDataSource.Transforming = \"added and removed\""
+  ],
+  "XmlDataSource.Api.WebControls.XmlDataSource.XPath": [
+    "XmlDataSource.XPath = \"\"",
+    "XmlDataSource.XPath set = \"Abc 123\""
+  ]
+}

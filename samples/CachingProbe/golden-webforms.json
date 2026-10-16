@@ -1,0 +1,518 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "output-id 1: rendered",
+      "Path": "/cached",
+      "Title": "Caching probe: cached by id",
+      "Text": [
+        "Rendered #1 for /Cached.aspx?id=1",
+        "substitution #1 for /Cached.aspx?id=1"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "render": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sub": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "output-id 1 again: from the cache, the substitution run",
+      "Path": "/cached",
+      "Title": "Caching probe: cached by id",
+      "Text": [
+        "Rendered #1 for /Cached.aspx?id=1",
+        "substitution #2 for /Cached.aspx?id=1"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "render": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sub": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "output-id 2: rendered",
+      "Path": "/cached",
+      "Title": "Caching probe: cached by id",
+      "Text": [
+        "Rendered #2 for /Cached.aspx?id=2",
+        "substitution #3 for /Cached.aspx?id=2"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "render": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sub": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "output-VaryByParam none: rendered",
+      "Path": "/cachednone",
+      "Title": "Caching probe: cached, whatever the query",
+      "Text": [
+        "Rendered #3 for /CachedNone.aspx?x=1",
+        "substitution #4 for /CachedNone.aspx?x=1"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "render": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sub": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "output-VaryByParam none, another query: from the cache",
+      "Path": "/cachednone",
+      "Title": "Caching probe: cached, whatever the query",
+      "Text": [
+        "Rendered #3 for /CachedNone.aspx?x=1",
+        "substitution #5 for /CachedNone.aspx?x=2"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "render": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sub": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "output-a profile of web.config's: from the cache",
+      "Path": "/profile",
+      "Title": "Caching probe: cached by a profile of web.config",
+      "Text": [
+        "Rendered #4 for /Profile.aspx",
+        "substitution #7 for /Profile.aspx"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "render": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sub": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "output-RemoveOutputCacheItem",
+      "Path": "/invalidate",
+      "Title": "Caching probe: invalidate",
+      "Text": [
+        "/Cached.aspx removed from the output cache"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "result": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "output-id 1 after it was taken out: rendered",
+      "Path": "/cached",
+      "Title": "Caching probe: cached by id",
+      "Text": [
+        "Rendered #5 for /Cached.aspx?id=1",
+        "substitution #8 for /Cached.aspx?id=1"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "render": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sub": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "output-a page depending on a cache item: from the cache",
+      "Path": "/depcached",
+      "Title": "Caching probe: cached with a dependency",
+      "Text": [
+        "Rendered #6, probe-key first",
+        "substitution #10 for /DepCached.aspx"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "render": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sub": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "output-the item changed: rendered",
+      "Path": "/depcached",
+      "Title": "Caching probe: cached with a dependency",
+      "Text": [
+        "Rendered #7, probe-key changed",
+        "substitution #11 for /DepCached.aspx"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "render": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "sub": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "headers-pages: OutputCache's locations, the policy in code",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/ClientCache.aspx -> 200 | cache-control=private, max-age=60 | expires=present | pragma=- | vary=- | last-modified=present | etag=- | content-type=text/html; charset=utf-8 | x-aspnet-version=4.0.30319",
+        "/ServerCache.aspx -> 200 | cache-control=no-cache | expires=present | pragma=no-cache | vary=- | last-modified=- | etag=- | content-type=text/html; charset=utf-8 | x-aspnet-version=4.0.30319",
+        "/Cached.aspx?id=9 -> 200 | cache-control=no-cache | expires=present | pragma=no-cache | vary=- | last-modified=- | etag=- | content-type=text/html; charset=utf-8 | x-aspnet-version=4.0.30319",
+        "/Policy.aspx?kind=public -> 200 | cache-control=public, max-age=30 | expires=- | pragma=- | vary=Accept-Language | last-modified=present | etag=\"probe-etag\" | content-type=text/html; charset=utf-8 | x-aspnet-version=4.0.30319",
+        "/Policy.aspx?kind=nostore -> 200 | cache-control=no-cache, no-store | expires=present | pragma=no-cache | vary=- | last-modified=- | etag=- | content-type=text/html; charset=utf-8 | x-aspnet-version=4.0.30319",
+        "/Policy.aspx?kind=private -> 200 | cache-control=private | expires=present | pragma=- | vary=- | last-modified=- | etag=- | content-type=text/html; charset=utf-8 | x-aspnet-version=4.0.30319",
+        "/Policy.aspx?kind=revalidate -> 200 | cache-control=public, must-revalidate, no-transform, s-maxage=10 | expires=- | pragma=- | vary=- | last-modified=- | etag=- | content-type=text/html; charset=utf-8 | x-aspnet-version=4.0.30319",
+        "/Policy.aspx -> 200 | cache-control=private | expires=- | pragma=- | vary=- | last-modified=- | etag=- | content-type=text/html; charset=utf-8 | x-aspnet-version=4.0.30319"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "headers-the policy's Last-Modified and ETag",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/Policy.aspx?kind=public -> 200 | last-modified=Thu, 02 Jan 2020 03:04:05 GMT | etag=\"probe-etag\""
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "headers-static files: clientCache, mimeMap",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/Static/plain.css -> 200 | cache-control=- | expires=- | pragma=- | last-modified=present | etag=present | accept-ranges=bytes | content-type=text/css | x-aspnet-version=-",
+        "/Static/MaxAge/a.css -> 200 | cache-control=public,max-age=86400 | expires=- | pragma=- | last-modified=present | etag=present | accept-ranges=bytes | content-type=text/css | x-aspnet-version=-",
+        "/Static/Expires/a.css -> 200 | cache-control=- | expires=Fri, 29 Mar 2030 00:00:00 GMT | pragma=- | last-modified=present | etag=present | accept-ranges=bytes | content-type=text/css | x-aspnet-version=-",
+        "/Static/NoCache/a.css -> 200 | cache-control=no-cache | expires=- | pragma=- | last-modified=present | etag=present | accept-ranges=bytes | content-type=text/css | x-aspnet-version=-",
+        "/Static/data.probedata -> 200 | cache-control=- | expires=- | pragma=- | last-modified=present | etag=present | accept-ranges=bytes | content-type=application/x-probe | x-aspnet-version=-"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "headers-static files: the types IIS knows, the folders it does not serve",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/Static/types/a.css -> 200 | content-type=text/css",
+        "/Static/types/a.js -> 200 | content-type=application/javascript",
+        "/Static/types/a.mjs -> 404 | content-type=text/html; charset=utf-8",
+        "/Static/types/a.json -> 200 | content-type=application/json",
+        "/Static/types/a.map -> 200 | content-type=text/plain",
+        "/Static/types/a.svg -> 200 | content-type=image/svg+xml",
+        "/Static/types/a.woff -> 200 | content-type=font/x-woff",
+        "/Static/types/a.woff2 -> 200 | content-type=application/font-woff2",
+        "/Static/types/a.webp -> 404 | content-type=text/html; charset=utf-8",
+        "/Static/types/a.mp4 -> 200 | content-type=video/mp4",
+        "/Static/types/a.txt -> 200 | content-type=text/plain",
+        "/Static/types/a.xml -> 200 | content-type=text/xml",
+        "/Static/types/a.ico -> 200 | content-type=image/x-icon",
+        "/Static/types/a.webmanifest -> 404 | content-type=text/html; charset=utf-8",
+        "/App_Data/dep.txt -> 404 | content-type=text/html; charset=utf-8",
+        "/Web.config -> 404 | content-type=text/html; charset=utf-8",
+        "/bin/CachingProbe.dll -> 404 | content-type=text/html; charset=utf-8"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "cache-items inserted",
+      "Path": "/cacheapi",
+      "Title": "Caching probe: Cache API",
+      "Text": [
+        "Same cache: True True",
+        "Items: absolute=A, sliding=S, parent=P, child=C, file=F",
+        "Removed:",
+        "Add of a key that is there returned P, the item P",
+        "Insert of a dependency on a key that is not: kept False",
+        "Click Insert"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnInsert": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRemoveParent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnTouchFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "cache-after 3 seconds: the expirations",
+      "Path": "/cacheapi",
+      "Title": "Caching probe: Cache API",
+      "Text": [
+        "Same cache: True True",
+        "Items: absolute=-, sliding=-, parent=P, child=C, file=F",
+        "Removed:"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnInsert": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRemoveParent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnTouchFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "cache-the parent removed: the child with it",
+      "Path": "/cacheapi",
+      "Title": "Caching probe: Cache API",
+      "Text": [
+        "Same cache: True True",
+        "Items: absolute=-, sliding=-, parent=-, child=-, file=F",
+        "Removed: child: DependencyChanged, parent: Removed",
+        "Remove(parent) returned P",
+        "Remove(no-such-key) returned null"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnInsert": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRemoveParent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnTouchFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "cache-the file changed: its item removed",
+      "Path": "/cacheapi",
+      "Title": "Caching probe: Cache API",
+      "Text": [
+        "Same cache: True True",
+        "Items: absolute=-, sliding=-, parent=-, child=-, file=-",
+        "Removed: child: DependencyChanged, file: DependencyChanged, parent: Removed"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnInsert": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRemoveParent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnTouchFile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

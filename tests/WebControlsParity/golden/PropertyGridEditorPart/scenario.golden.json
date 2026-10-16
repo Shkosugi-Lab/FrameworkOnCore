@@ -1,0 +1,3373 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "PropertyGridEditorPart [render][databind][dynamic] first request (browse): the parts in their zones, a zone made in code",
+      "Path": "/webpartsscenario",
+      "Title": "Web parts scenario",
+      "Text": [
+        "Display mode: Browse",
+        "Label part Minimize Close",
+        "bound",
+        "Text part Minimize Close",
+        "Dynamic:",
+        "Untitled Minimize Close",
+        "A dynamic part",
+        "Request 1: IsPostBack=False User=taro",
+        "State DisplayMode=Browse Scope=User IsModifiable=True",
+        "State parts: Label part (wpzMain), Text part (wpzMain), (wpzDynamic)",
+        "State supported modes: Browse, Design, Catalog, Edit, Connect"
+      ],
+      "Tables": [
+        [
+          [
+            "Label part\u00A0\tMinimize\u00A0Close\n\nbound\n\n\nText part\u00A0\tMinimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Label part\u00A0\tMinimize\u00A0Close\n\nbound"
+          ],
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Label part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [
+          [
+            "Label part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Text part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "A dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled",
+            "Minimize\u00A0Close"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "wpmPage_gwptxtPart_txtPart": ""
+      },
+      "Elements": {
+        "lblMode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnBrowse": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDesign": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnCatalog": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnEditPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConnectPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "wpzMain": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblPart_lblPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwptxtPart_txtPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "wpzSide": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpzDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblDynamicPart_lblDynamicPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "PropertyGridEditorPart [viewstate] the design mode",
+      "Path": "/webpartsscenario",
+      "Title": "Web parts scenario",
+      "Text": [
+        "Display mode: Design",
+        "Main zone",
+        "Label part Minimize Close",
+        "bound",
+        "Text part Minimize Close",
+        "Side zone",
+        "The side zone is empty.",
+        "Dynamic:",
+        "Dynamic zone",
+        "Untitled Minimize Close",
+        "A dynamic part",
+        "Request 2: IsPostBack=True User=taro",
+        "DisplayModeChanged Browse -> Design",
+        "State DisplayMode=Design Scope=User IsModifiable=True",
+        "State parts: Label part (wpzMain), Text part (wpzMain), (wpzDynamic)",
+        "State supported modes: Browse, Design, Catalog, Edit, Connect"
+      ],
+      "Tables": [
+        [
+          [
+            "Main zone"
+          ],
+          [
+            "Label part\u00A0\tMinimize\u00A0Close\n\nbound\n\n\nText part\u00A0\tMinimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Main zone"
+          ]
+        ],
+        [
+          [
+            "Label part\u00A0\tMinimize\u00A0Close\n\nbound"
+          ],
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Label part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [
+          [
+            "Label part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Text part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Side zone"
+          ],
+          [
+            "The side zone is empty."
+          ]
+        ],
+        [
+          [
+            "Side zone"
+          ]
+        ],
+        [
+          [
+            "The side zone is empty."
+          ]
+        ],
+        [
+          [
+            "Dynamic zone"
+          ],
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ]
+        ],
+        [
+          [
+            "Dynamic zone"
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "A dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled",
+            "Minimize\u00A0Close"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "wpmPage_gwptxtPart_txtPart": ""
+      },
+      "Elements": {
+        "wpmPage___Drag": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "absolute",
+            "z-index": "32000",
+            "filter": "alpha(opacity=75)"
+          }
+        },
+        "lblMode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnBrowse": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDesign": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnCatalog": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnEditPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConnectPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "wpzMain": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblPart_lblPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwptxtPart_txtPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "wpzSide": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpzDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblDynamicPart_lblDynamicPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "PropertyGridEditorPart [viewstate] the catalog mode: the catalog zone and its parts",
+      "Path": "/webpartsscenario",
+      "Title": "Web parts scenario",
+      "Text": [
+        "Display mode: Catalog",
+        "Main zone",
+        "Label part Minimize Close",
+        "bound",
+        "Text part Minimize Close",
+        "Side zone",
+        "The side zone is empty.",
+        "Catalog Close",
+        "Select the catalog you would like to browse.",
+        "Declared parts (1)",
+        "Page Catalog (0)",
+        "Imported Web Part Catalog (0)",
+        "Declared parts",
+        "Catalog label",
+        "Add to:",
+        "Main zone",
+        "Side zone",
+        "Hidden zone",
+        "Dynamic zone",
+        "Dynamic:",
+        "Dynamic zone",
+        "Untitled Minimize Close",
+        "A dynamic part",
+        "Request 3: IsPostBack=True User=taro",
+        "DisplayModeChanged Design -> Catalog",
+        "State DisplayMode=Catalog Scope=User IsModifiable=True",
+        "State parts: Label part (wpzMain), Text part (wpzMain), (wpzDynamic)",
+        "State supported modes: Browse, Design, Catalog, Edit, Connect"
+      ],
+      "Tables": [
+        [
+          [
+            "Main zone"
+          ],
+          [
+            "Label part\u00A0\tMinimize\u00A0Close\n\nbound\n\n\nText part\u00A0\tMinimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Main zone"
+          ]
+        ],
+        [
+          [
+            "Label part\u00A0\tMinimize\u00A0Close\n\nbound"
+          ],
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Label part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [
+          [
+            "Label part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Text part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Side zone"
+          ],
+          [
+            "The side zone is empty."
+          ]
+        ],
+        [
+          [
+            "Side zone"
+          ]
+        ],
+        [
+          [
+            "The side zone is empty."
+          ]
+        ],
+        [
+          [
+            "Catalog\tClose"
+          ],
+          [
+            "Select the catalog you would like to browse.\n\nDeclared parts (1)\nPage Catalog (0)\nImported Web Part Catalog (0)\n\n\n\nDeclared parts\n\u00A0Catalog label"
+          ],
+          [
+            "Add to:\u00A0\nMain zone\nSide zone\nHidden zone\nDynamic zone"
+          ]
+        ],
+        [
+          [
+            "Catalog",
+            "Close"
+          ]
+        ],
+        [
+          [
+            "Select the catalog you would like to browse.\n\nDeclared parts (1)\nPage Catalog (0)\nImported Web Part Catalog (0)"
+          ],
+          [
+            "Declared parts\n\u00A0Catalog label"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Declared parts"
+          ],
+          [
+            "Catalog label"
+          ]
+        ],
+        [
+          [
+            "Dynamic zone"
+          ],
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ]
+        ],
+        [
+          [
+            "Dynamic zone"
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "A dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled",
+            "Minimize\u00A0Close"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "wpmPage_gwptxtPart_txtPart": "",
+        "czCatalog__checkbox_gwplblCatalogPart": "false",
+        "czCatalog__zones": "wpzMain"
+      },
+      "Elements": {
+        "wpmPage___Drag": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "absolute",
+            "z-index": "32000",
+            "filter": "alpha(opacity=75)"
+          }
+        },
+        "lblMode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnBrowse": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDesign": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnCatalog": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnEditPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConnectPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "wpzMain": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblPart_lblPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwptxtPart_txtPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "wpzSide": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "czCatalog": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "czCatalog__checkbox_gwplblCatalogPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "czCatalog__zones": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpzDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblDynamicPart_lblDynamicPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "PropertyGridEditorPart [viewstate] a part added from the catalog (its check box posted, the zone's Add)",
+      "Path": "/webpartsscenario",
+      "Title": "Web parts scenario",
+      "Text": [
+        "Display mode: Catalog",
+        "Main zone",
+        "Catalog label Minimize Close Delete",
+        "Label part Minimize Close",
+        "bound",
+        "Text part Minimize Close",
+        "Side zone",
+        "The side zone is empty.",
+        "Catalog Close",
+        "Select the catalog you would like to browse.",
+        "Declared parts (1)",
+        "Page Catalog (0)",
+        "Imported Web Part Catalog (0)",
+        "Declared parts",
+        "Catalog label",
+        "Add to:",
+        "Main zone",
+        "Side zone",
+        "Hidden zone",
+        "Dynamic zone",
+        "Dynamic:",
+        "Dynamic zone",
+        "Untitled Minimize Close",
+        "A dynamic part",
+        "Request 4: IsPostBack=True User=taro",
+        "WebPartAdded Catalog label in wpzMain",
+        "State DisplayMode=Catalog Scope=User IsModifiable=True",
+        "State parts: Label part (wpzMain), Text part (wpzMain), (wpzDynamic), Catalog label (wpzMain)",
+        "State supported modes: Browse, Design, Catalog, Edit, Connect"
+      ],
+      "Tables": [
+        [
+          [
+            "Main zone"
+          ],
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete\n\n\n\n\nLabel part\u00A0\tMinimize\u00A0Close\n\nbound\n\n\nText part\u00A0\tMinimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Main zone"
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete"
+          ],
+          [
+            "Label part\u00A0\tMinimize\u00A0Close\n\nbound"
+          ],
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label",
+            "Minimize\u00A0Close\u00A0Delete"
+          ]
+        ],
+        [
+          [
+            "Label part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [
+          [
+            "Label part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Text part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Side zone"
+          ],
+          [
+            "The side zone is empty."
+          ]
+        ],
+        [
+          [
+            "Side zone"
+          ]
+        ],
+        [
+          [
+            "The side zone is empty."
+          ]
+        ],
+        [
+          [
+            "Catalog\tClose"
+          ],
+          [
+            "Select the catalog you would like to browse.\n\nDeclared parts (1)\nPage Catalog (0)\nImported Web Part Catalog (0)\n\n\n\nDeclared parts\n\u00A0Catalog label"
+          ],
+          [
+            "Add to:\u00A0\nMain zone\nSide zone\nHidden zone\nDynamic zone"
+          ]
+        ],
+        [
+          [
+            "Catalog",
+            "Close"
+          ]
+        ],
+        [
+          [
+            "Select the catalog you would like to browse.\n\nDeclared parts (1)\nPage Catalog (0)\nImported Web Part Catalog (0)"
+          ],
+          [
+            "Declared parts\n\u00A0Catalog label"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Declared parts"
+          ],
+          [
+            "Catalog label"
+          ]
+        ],
+        [
+          [
+            "Dynamic zone"
+          ],
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ]
+        ],
+        [
+          [
+            "Dynamic zone"
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "A dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled",
+            "Minimize\u00A0Close"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "wpmPage_gwptxtPart_txtPart": "",
+        "czCatalog__checkbox_gwplblCatalogPart": "false",
+        "czCatalog__zones": "wpzMain"
+      },
+      "Elements": {
+        "wpmPage___Drag": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "absolute",
+            "z-index": "32000",
+            "filter": "alpha(opacity=75)"
+          }
+        },
+        "lblMode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnBrowse": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDesign": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnCatalog": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnEditPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConnectPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "wpzMain": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_{id}_{id}": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwplblPart_lblPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwptxtPart_txtPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "wpzSide": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "czCatalog": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "czCatalog__checkbox_gwplblCatalogPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "czCatalog__zones": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpzDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblDynamicPart_lblDynamicPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "PropertyGridEditorPart [viewstate][templates] the edit mode: the editor zone and its parts for the first part",
+      "Path": "/webpartsscenario",
+      "Title": "Web parts scenario",
+      "Text": [
+        "Display mode: Edit",
+        "Main zone",
+        "Catalog label Minimize Close Delete Edit",
+        "Label part Minimize Close",
+        "bound",
+        "Text part Minimize Close Edit",
+        "Side zone",
+        "The side zone is empty.",
+        "Editor Close",
+        "Modify the properties of the Web Part, then click OK or Apply to apply your changes.",
+        "Appearance",
+        "Title:",
+        "Chrome Type:",
+        "Default",
+        "Title and Border",
+        "Title Only",
+        "Border Only",
+        "None",
+        "Direction:",
+        "Not Set",
+        "Left to Right",
+        "Right to Left",
+        "Height:",
+        "pixels",
+        "points",
+        "picas",
+        "inches",
+        "millimeters",
+        "centimeters",
+        "percent",
+        "em",
+        "ex",
+        "Width:",
+        "pixels",
+        "points",
+        "picas",
+        "inches",
+        "millimeters",
+        "centimeters",
+        "percent",
+        "em",
+        "ex",
+        "Hidden",
+        "Layout",
+        "Chrome State:",
+        "Normal",
+        "Minimized",
+        "Zone:",
+        "Main zone",
+        "Side zone",
+        "Hidden zone",
+        "Dynamic zone",
+        "Zone Index:",
+        "Dynamic:",
+        "Dynamic zone",
+        "Untitled Minimize Close Edit",
+        "A dynamic part",
+        "Request 5: IsPostBack=True User=taro",
+        "DisplayModeChanged Catalog -> Edit",
+        "State DisplayMode=Edit Scope=User IsModifiable=True",
+        "State parts: Label part (wpzMain), Text part (wpzMain), (wpzDynamic), Catalog label (wpzMain)",
+        "State supported modes: Browse, Design, Catalog, Edit, Connect"
+      ],
+      "Tables": [
+        [
+          [
+            "Main zone"
+          ],
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete\u00A0Edit\n\n\n\n\nLabel part\u00A0\tMinimize\u00A0Close\n\nbound\n\n\nText part\u00A0\tMinimize\u00A0Close\u00A0Edit"
+          ]
+        ],
+        [
+          [
+            "Main zone"
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete\u00A0Edit"
+          ],
+          [
+            "Label part\u00A0\tMinimize\u00A0Close\n\nbound"
+          ],
+          [
+            "Text part\u00A0\tMinimize\u00A0Close\u00A0Edit"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete\u00A0Edit"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label",
+            "Minimize\u00A0Close\u00A0Delete\u00A0Edit"
+          ]
+        ],
+        [
+          [
+            "Label part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [
+          [
+            "Label part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Text part\u00A0\tMinimize\u00A0Close\u00A0Edit"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Text part",
+            "Minimize\u00A0Close\u00A0Edit"
+          ]
+        ],
+        [
+          [
+            "Side zone"
+          ],
+          [
+            "The side zone is empty."
+          ]
+        ],
+        [
+          [
+            "Side zone"
+          ]
+        ],
+        [
+          [
+            "The side zone is empty."
+          ]
+        ],
+        [
+          [
+            "Editor\tClose"
+          ],
+          [
+            "Modify the properties of the Web Part, then click OK or Apply to apply your changes.\n\nAppearance\nTitle:\n\n\nChrome Type:\n\nDefault\nTitle and Border\nTitle Only\nBorder Only\nNone\n\n\nDirection:\n\nNot Set\nLeft to Right\nRight to Left\n\n\nHeight:\n\u00A0\npixels\npoints\npicas\ninches\nmillimeters\ncentimeters\npercent\nem\nex\n\n\nWidth:\n\u00A0\npixels\npoints\npicas\ninches\nmillimeters\ncentimeters\npercent\nem\nex\n\n\n\u00A0Hidden\n\n\n\nLayout\nChrome State:\n\nNormal\nMinimized\n\n\nZone:\n\nMain zone\nSide zone\nHidden zone\nDynamic zone\n\n\nZone Index:"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Editor",
+            "Close"
+          ]
+        ],
+        [
+          [
+            "Modify the properties of the Web Part, then click OK or Apply to apply your changes."
+          ],
+          [
+            "Appearance\nTitle:\n\n\nChrome Type:\n\nDefault\nTitle and Border\nTitle Only\nBorder Only\nNone\n\n\nDirection:\n\nNot Set\nLeft to Right\nRight to Left\n\n\nHeight:\n\u00A0\npixels\npoints\npicas\ninches\nmillimeters\ncentimeters\npercent\nem\nex\n\n\nWidth:\n\u00A0\npixels\npoints\npicas\ninches\nmillimeters\ncentimeters\npercent\nem\nex\n\n\n\u00A0Hidden"
+          ],
+          [
+            "Layout\nChrome State:\n\nNormal\nMinimized\n\n\nZone:\n\nMain zone\nSide zone\nHidden zone\nDynamic zone\n\n\nZone Index:"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Title:"
+          ],
+          [
+            "Chrome Type:\n\nDefault\nTitle and Border\nTitle Only\nBorder Only\nNone"
+          ],
+          [
+            "Direction:\n\nNot Set\nLeft to Right\nRight to Left"
+          ],
+          [
+            "Height:\n\u00A0\npixels\npoints\npicas\ninches\nmillimeters\ncentimeters\npercent\nem\nex"
+          ],
+          [
+            "Width:\n\u00A0\npixels\npoints\npicas\ninches\nmillimeters\ncentimeters\npercent\nem\nex"
+          ],
+          [
+            "Hidden"
+          ]
+        ],
+        [
+          [
+            "Chrome State:\n\nNormal\nMinimized"
+          ],
+          [
+            "Zone:\n\nMain zone\nSide zone\nHidden zone\nDynamic zone"
+          ],
+          [
+            "Zone Index:"
+          ]
+        ],
+        [
+          [
+            "Dynamic zone"
+          ],
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\u00A0Edit\n\nA dynamic part"
+          ]
+        ],
+        [
+          [
+            "Dynamic zone"
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\u00A0Edit\n\nA dynamic part"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\u00A0Edit"
+          ],
+          [
+            "A dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled",
+            "Minimize\u00A0Close\u00A0Edit"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "wpmPage_gwptxtPart_txtPart": "",
+        "ezEditor_aepAppearance_ctl00": "Label part",
+        "ezEditor_aepAppearance_ctl01": "Default",
+        "ezEditor_aepAppearance_ctl02": "NotSet",
+        "ezEditor_aepAppearance_ctl03_ctl00": "",
+        "ezEditor_aepAppearance_ctl04_ctl00": "",
+        "ezEditor_aepAppearance_ctl05": "false",
+        "ezEditor_lepLayout_ctl00": "Normal",
+        "ezEditor_lepLayout_ctl01": "wpzMain",
+        "ezEditor_lepLayout_ctl02": "1"
+      },
+      "Elements": {
+        "wpmPage___Drag": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "absolute",
+            "z-index": "32000",
+            "filter": "alpha(opacity=75)"
+          }
+        },
+        "lblMode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnBrowse": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDesign": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnCatalog": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnEditPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConnectPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "wpzMain": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_{id}_{id}": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwplblPart_lblPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwptxtPart_txtPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "wpzSide": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "ezEditor": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "ezEditor_aepAppearance": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ezEditor_aepAppearance_ctl00": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "size": "30"
+          },
+          "Style": {}
+        },
+        "ezEditor_aepAppearance_ctl01": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ezEditor_aepAppearance_ctl02": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ezEditor_aepAppearance_ctl03_ctl00": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "ezEditor_aepAppearance_ctl04_ctl00": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "size": "2"
+          },
+          "Style": {}
+        },
+        "ezEditor_aepAppearance_ctl05": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "ezEditor_lepLayout": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ezEditor_lepLayout_ctl00": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ezEditor_lepLayout_ctl01": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "ezEditor_lepLayout_ctl02": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "size": "10"
+          },
+          "Style": {}
+        },
+        "wpzDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblDynamicPart_lblDynamicPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "PropertyGridEditorPart [viewstate] the first part's title edited (the editor zone's OK)",
+      "Path": "/webpartsscenario",
+      "Title": "Web parts scenario",
+      "Text": [
+        "Display mode: Edit",
+        "Main zone",
+        "Catalog label Minimize Close Delete Edit",
+        "Renamed part Minimize Close Edit",
+        "bound",
+        "Text part Minimize Close Edit",
+        "Side zone",
+        "The side zone is empty.",
+        "Dynamic:",
+        "Dynamic zone",
+        "Untitled Minimize Close Edit",
+        "A dynamic part",
+        "Request 6: IsPostBack=True User=taro",
+        "State DisplayMode=Edit Scope=User IsModifiable=True",
+        "State parts: Renamed part (wpzMain), Text part (wpzMain), (wpzDynamic), Catalog label (wpzMain)",
+        "State supported modes: Browse, Design, Catalog, Edit, Connect"
+      ],
+      "Tables": [
+        [
+          [
+            "Main zone"
+          ],
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete\u00A0Edit\n\n\n\n\nRenamed part\u00A0\tMinimize\u00A0Close\u00A0Edit\n\nbound\n\n\nText part\u00A0\tMinimize\u00A0Close\u00A0Edit"
+          ]
+        ],
+        [
+          [
+            "Main zone"
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete\u00A0Edit"
+          ],
+          [
+            "Renamed part\u00A0\tMinimize\u00A0Close\u00A0Edit\n\nbound"
+          ],
+          [
+            "Text part\u00A0\tMinimize\u00A0Close\u00A0Edit"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete\u00A0Edit"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label",
+            "Minimize\u00A0Close\u00A0Delete\u00A0Edit"
+          ]
+        ],
+        [
+          [
+            "Renamed part\u00A0\tMinimize\u00A0Close\u00A0Edit"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [
+          [
+            "Renamed part",
+            "Minimize\u00A0Close\u00A0Edit"
+          ]
+        ],
+        [
+          [
+            "Text part\u00A0\tMinimize\u00A0Close\u00A0Edit"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Text part",
+            "Minimize\u00A0Close\u00A0Edit"
+          ]
+        ],
+        [
+          [
+            "Side zone"
+          ],
+          [
+            "The side zone is empty."
+          ]
+        ],
+        [
+          [
+            "Side zone"
+          ]
+        ],
+        [
+          [
+            "The side zone is empty."
+          ]
+        ],
+        [
+          [
+            "Dynamic zone"
+          ],
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\u00A0Edit\n\nA dynamic part"
+          ]
+        ],
+        [
+          [
+            "Dynamic zone"
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\u00A0Edit\n\nA dynamic part"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\u00A0Edit"
+          ],
+          [
+            "A dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled",
+            "Minimize\u00A0Close\u00A0Edit"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "wpmPage_gwptxtPart_txtPart": ""
+      },
+      "Elements": {
+        "wpmPage___Drag": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "absolute",
+            "z-index": "32000",
+            "filter": "alpha(opacity=75)"
+          }
+        },
+        "lblMode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnBrowse": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDesign": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnCatalog": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnEditPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConnectPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "wpzMain": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_{id}_{id}": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwplblPart_lblPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwptxtPart_txtPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "wpzSide": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpzDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblDynamicPart_lblDynamicPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "PropertyGridEditorPart [viewstate] the connect mode for the first part",
+      "Path": "/webpartsscenario",
+      "Title": "Web parts scenario",
+      "Text": [
+        "Display mode: Connect",
+        "Main zone",
+        "Catalog label Minimize Close Delete",
+        "Renamed part Minimize Close",
+        "bound",
+        "Text part Minimize Close",
+        "Side zone",
+        "The side zone is empty.",
+        "Connections Close",
+        "No active connections",
+        "There are no active connections available in your Web Part. You may create a new connection by selecting the links above if there are compatible Web Parts on the page.",
+        "Dynamic:",
+        "Dynamic zone",
+        "Untitled Minimize Close",
+        "A dynamic part",
+        "Request 7: IsPostBack=True User=taro",
+        "DisplayModeChanged Edit -> Connect",
+        "State DisplayMode=Connect Scope=User IsModifiable=True",
+        "State parts: Renamed part (wpzMain), Text part (wpzMain), (wpzDynamic), Catalog label (wpzMain)",
+        "State supported modes: Browse, Design, Catalog, Edit, Connect"
+      ],
+      "Tables": [
+        [
+          [
+            "Main zone"
+          ],
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete\n\n\n\n\nRenamed part\u00A0\tMinimize\u00A0Close\n\nbound\n\n\nText part\u00A0\tMinimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Main zone"
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete"
+          ],
+          [
+            "Renamed part\u00A0\tMinimize\u00A0Close\n\nbound"
+          ],
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label",
+            "Minimize\u00A0Close\u00A0Delete"
+          ]
+        ],
+        [
+          [
+            "Renamed part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [
+          [
+            "Renamed part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Text part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Side zone"
+          ],
+          [
+            "The side zone is empty."
+          ]
+        ],
+        [
+          [
+            "Side zone"
+          ]
+        ],
+        [
+          [
+            "The side zone is empty."
+          ]
+        ],
+        [
+          [
+            "Connections\tClose"
+          ],
+          [
+            "No active connections\n\nThere are no active connections available in your Web Part. You may create a new connection by selecting the links above if there are compatible Web Parts on the page."
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Connections",
+            "Close"
+          ]
+        ],
+        [
+          [
+            "No active connections\n\nThere are no active connections available in your Web Part. You may create a new connection by selecting the links above if there are compatible Web Parts on the page."
+          ]
+        ],
+        [
+          [
+            "Dynamic zone"
+          ],
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ]
+        ],
+        [
+          [
+            "Dynamic zone"
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "A dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled",
+            "Minimize\u00A0Close"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "wpmPage_gwptxtPart_txtPart": ""
+      },
+      "Elements": {
+        "wpmPage___Drag": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "absolute",
+            "z-index": "32000",
+            "filter": "alpha(opacity=75)"
+          }
+        },
+        "lblMode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnBrowse": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDesign": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnCatalog": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnEditPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConnectPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "wpzMain": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_{id}_{id}": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwplblPart_lblPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwptxtPart_txtPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "wpzSide": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "cnzConnections": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpzDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblDynamicPart_lblDynamicPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "PropertyGridEditorPart [viewstate] the connections zone closed",
+      "Path": "/webpartsscenario",
+      "Title": "Web parts scenario",
+      "Text": [
+        "Display mode: Connect",
+        "Main zone",
+        "Catalog label Minimize Close Delete",
+        "Renamed part Minimize Close",
+        "bound",
+        "Text part Minimize Close",
+        "Side zone",
+        "The side zone is empty.",
+        "Dynamic:",
+        "Dynamic zone",
+        "Untitled Minimize Close",
+        "A dynamic part",
+        "Request 8: IsPostBack=True User=taro",
+        "State DisplayMode=Connect Scope=User IsModifiable=True",
+        "State parts: Renamed part (wpzMain), Text part (wpzMain), (wpzDynamic), Catalog label (wpzMain)",
+        "State supported modes: Browse, Design, Catalog, Edit, Connect"
+      ],
+      "Tables": [
+        [
+          [
+            "Main zone"
+          ],
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete\n\n\n\n\nRenamed part\u00A0\tMinimize\u00A0Close\n\nbound\n\n\nText part\u00A0\tMinimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Main zone"
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete"
+          ],
+          [
+            "Renamed part\u00A0\tMinimize\u00A0Close\n\nbound"
+          ],
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\u00A0Delete"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label",
+            "Minimize\u00A0Close\u00A0Delete"
+          ]
+        ],
+        [
+          [
+            "Renamed part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [
+          [
+            "Renamed part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Text part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Side zone"
+          ],
+          [
+            "The side zone is empty."
+          ]
+        ],
+        [
+          [
+            "Side zone"
+          ]
+        ],
+        [
+          [
+            "The side zone is empty."
+          ]
+        ],
+        [
+          [
+            "Dynamic zone"
+          ],
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ]
+        ],
+        [
+          [
+            "Dynamic zone"
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "A dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled",
+            "Minimize\u00A0Close"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "wpmPage_gwptxtPart_txtPart": ""
+      },
+      "Elements": {
+        "wpmPage___Drag": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "absolute",
+            "z-index": "32000",
+            "filter": "alpha(opacity=75)"
+          }
+        },
+        "lblMode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnBrowse": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDesign": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnCatalog": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnEditPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConnectPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "wpzMain": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_{id}_{id}": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwplblPart_lblPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwptxtPart_txtPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "wpzSide": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpzDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblDynamicPart_lblDynamicPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "PropertyGridEditorPart [viewstate] a part minimized by its zone's verb",
+      "Path": "/webpartsscenario",
+      "Title": "Web parts scenario",
+      "Text": [
+        "Display mode: Browse",
+        "Catalog label Restore Close",
+        "Renamed part Minimize Close",
+        "bound",
+        "Text part Minimize Close",
+        "Dynamic:",
+        "Untitled Minimize Close",
+        "A dynamic part",
+        "Request 10: IsPostBack=True User=taro",
+        "State DisplayMode=Browse Scope=User IsModifiable=True",
+        "State parts: Renamed part (wpzMain), Text part (wpzMain), (wpzDynamic), Catalog label (wpzMain)",
+        "State supported modes: Browse, Design, Catalog, Edit, Connect"
+      ],
+      "Tables": [
+        [
+          [
+            "Catalog label\u00A0\tRestore\u00A0Close\n\n\nRenamed part\u00A0\tMinimize\u00A0Close\n\nbound\n\n\nText part\u00A0\tMinimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tRestore\u00A0Close"
+          ],
+          [
+            "Renamed part\u00A0\tMinimize\u00A0Close\n\nbound"
+          ],
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tRestore\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label",
+            "Restore\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Renamed part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [
+          [
+            "Renamed part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Text part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "A dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled",
+            "Minimize\u00A0Close"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "wpmPage_gwptxtPart_txtPart": ""
+      },
+      "Elements": {
+        "lblMode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnBrowse": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDesign": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnCatalog": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnEditPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConnectPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "wpzMain": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_{id}_{id}": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwplblPart_lblPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwptxtPart_txtPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "wpzSide": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpzDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblDynamicPart_lblDynamicPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "PropertyGridEditorPart [viewstate] restored",
+      "Path": "/webpartsscenario",
+      "Title": "Web parts scenario",
+      "Text": [
+        "Display mode: Browse",
+        "Catalog label Minimize Close",
+        "Renamed part Minimize Close",
+        "bound",
+        "Text part Minimize Close",
+        "Dynamic:",
+        "Untitled Minimize Close",
+        "A dynamic part",
+        "Request 11: IsPostBack=True User=taro",
+        "State DisplayMode=Browse Scope=User IsModifiable=True",
+        "State parts: Renamed part (wpzMain), Text part (wpzMain), (wpzDynamic), Catalog label (wpzMain)",
+        "State supported modes: Browse, Design, Catalog, Edit, Connect"
+      ],
+      "Tables": [
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\n\n\n\n\nRenamed part\u00A0\tMinimize\u00A0Close\n\nbound\n\n\nText part\u00A0\tMinimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "Renamed part\u00A0\tMinimize\u00A0Close\n\nbound"
+          ],
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Renamed part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [
+          [
+            "Renamed part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Text part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close\n\nA dynamic part"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "A dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled",
+            "Minimize\u00A0Close"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "wpmPage_gwptxtPart_txtPart": ""
+      },
+      "Elements": {
+        "lblMode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnBrowse": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDesign": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnCatalog": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnEditPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConnectPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "wpzMain": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_{id}_{id}": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwplblPart_lblPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwptxtPart_txtPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "wpzSide": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpzDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblDynamicPart_lblDynamicPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "PropertyGridEditorPart [viewstate] a part of the zone made in code minimized",
+      "Path": "/webpartsscenario",
+      "Title": "Web parts scenario",
+      "Text": [
+        "Display mode: Browse",
+        "Catalog label Minimize Close",
+        "Renamed part Minimize Close",
+        "bound",
+        "Text part Minimize Close",
+        "Dynamic:",
+        "Untitled Restore Close",
+        "Request 12: IsPostBack=True User=taro",
+        "State DisplayMode=Browse Scope=User IsModifiable=True",
+        "State parts: Renamed part (wpzMain), Text part (wpzMain), (wpzDynamic), Catalog label (wpzMain)",
+        "State supported modes: Browse, Design, Catalog, Edit, Connect"
+      ],
+      "Tables": [
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\n\n\n\n\nRenamed part\u00A0\tMinimize\u00A0Close\n\nbound\n\n\nText part\u00A0\tMinimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "Renamed part\u00A0\tMinimize\u00A0Close\n\nbound"
+          ],
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Renamed part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [
+          [
+            "Renamed part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Text part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tRestore\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tRestore\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tRestore\u00A0Close"
+          ],
+          [
+            "A dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled",
+            "Restore\u00A0Close"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "wpmPage_gwptxtPart_txtPart": ""
+      },
+      "Elements": {
+        "lblMode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnBrowse": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDesign": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnCatalog": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnEditPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConnectPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "wpzMain": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_{id}_{id}": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwplblPart_lblPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwptxtPart_txtPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "wpzSide": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpzDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblDynamicPart_lblDynamicPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "PropertyGridEditorPart [visible][viewstate] a hidden zone shown",
+      "Path": "/webpartsscenario",
+      "Title": "Web parts scenario",
+      "Text": [
+        "Display mode: Browse",
+        "Catalog label Minimize Close",
+        "Renamed part Minimize Close",
+        "bound",
+        "Text part Minimize Close",
+        "Dynamic:",
+        "Untitled Restore Close",
+        "Request 13: IsPostBack=True User=taro",
+        "Click btnShow",
+        "State DisplayMode=Browse Scope=User IsModifiable=True",
+        "State parts: Renamed part (wpzMain), Text part (wpzMain), (wpzDynamic), Catalog label (wpzMain)",
+        "State supported modes: Browse, Design, Catalog, Edit, Connect"
+      ],
+      "Tables": [
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close\n\n\n\n\nRenamed part\u00A0\tMinimize\u00A0Close\n\nbound\n\n\nText part\u00A0\tMinimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "Renamed part\u00A0\tMinimize\u00A0Close\n\nbound"
+          ],
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Catalog label",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Renamed part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            "bound"
+          ]
+        ],
+        [
+          [
+            "Renamed part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Text part\u00A0\tMinimize\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Text part",
+            "Minimize\u00A0Close"
+          ]
+        ],
+        [
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tRestore\u00A0Close"
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tRestore\u00A0Close"
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Untitled\u00A0\tRestore\u00A0Close"
+          ],
+          [
+            "A dynamic part"
+          ]
+        ],
+        [
+          [
+            "Untitled",
+            "Restore\u00A0Close"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "wpmPage_gwptxtPart_txtPart": ""
+      },
+      "Elements": {
+        "lblMode": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnBrowse": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDesign": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnCatalog": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnEditPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConnectPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "wpzMain": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_{id}_{id}": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwplblPart_lblPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "wpmPage_gwptxtPart_txtPart": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "wpzSide": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpzHidden": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpzDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "0",
+            "border": "0"
+          },
+          "Style": {}
+        },
+        "wpmPage_gwplblDynamicPart_lblDynamicPart": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

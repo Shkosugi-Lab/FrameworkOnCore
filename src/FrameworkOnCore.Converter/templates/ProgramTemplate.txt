@@ -14,10 +14,23 @@ public class Program
         }
 
         var builder = WebApplication.CreateBuilder(args);
+        // ASP.NET Core's log of every request ("Request starting", "Request finished": Information) to the console, its
+        // cost on every request (IIS logs requests itself, to its files): its warnings and errors only, unless the
+        // application's configuration (appsettings.json, Logging:LogLevel:Microsoft.AspNetCore) says otherwise.
+        if (builder.Configuration["Logging:LogLevel:Microsoft.AspNetCore"] == null)
+            Microsoft.Extensions.Logging.FilterLoggingBuilderExtensions.AddFilter(builder.Logging, "Microsoft.AspNetCore", Microsoft.Extensions.Logging.LogLevel.Warning);
+        // IIS's request log (W3C extended log files, IIS's default fields), unless web.config's httpLogging says dontLog
+        // (W3CLogging:Enabled, W3CLogging:LogDirectory in the configuration).
+        builder.AddWebFormsW3CLogging();
         builder.Services.AddDistributedMemoryCache();
         builder.Services.AddSession();
 
         var app = builder.Build();
+
+        app.UseWebFormsW3CLogging();
+        // IIS's features in front of the application (web.config's system.webServer, iis-profile.config): its response headers,
+        // URL Rewrite (UrlRewrite:Mode Iis, AspNetCore, Off), its HTTP redirection.
+        app.UseWebFormsIis();
 
         // IIS's default documents ("/" and "/folder/" serve default.aspx; web.config's defaultDocument), and its redirect of
         // "/folder" to "/folder/": FrameworkOnCore's host, as IIS does them.

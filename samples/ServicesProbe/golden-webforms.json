@@ -1,0 +1,269 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "json-Hello",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/ProbeService.asmx/Hello -> 200 | content-type=application/json; charset=utf-8 | text={\"d\":\"Hello, json (application/json)\"}"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "json-Items: objects, __type",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/ProbeService.asmx/Items -> 200 | content-type=application/json; charset=utf-8 | text={\"d\":[{\"__type\":\"ServicesProbe.ProbeService+Item\",\"Name\":\"item 1\",\"Price\":1.5,\"Tags\":[\"a\",\"b\"]},{\"__type\":\"ServicesProbe.ProbeService+Item\",\"Name\":\"item 2\",\"Price\":3.0,\"Tags\":[\"a\",\"b\"]}]}"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "json-Counter: the session (two calls)",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/ProbeService.asmx/Counter -> 200 | content-type=application/json; charset=utf-8 | text={\"d\":1}",
+        "/ProbeService.asmx/Counter -> 200 | content-type=application/json; charset=utf-8 | text={\"d\":2}"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "json-Fail: the error",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/ProbeService.asmx/Fail -> 500 | content-type=application/json; charset=utf-8 | jsonerror=true | text={\"Message\":\"There was an error processing the request.\",\"StackTrace\":\"\",\"ExceptionType\":\"\"}"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "json-When by GET",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/ProbeService.asmx/When -> 200 | content-type=application/json; charset=utf-8 | text={\"d\":\"\\/Date(1577934245000)\\/\"}"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "json-Describe: System.Web.Services.Description in the application's code",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/ProbeService.asmx/Describe -> 200 | content-type=application/json; charset=utf-8 | text={\"d\":\"probe-description\"}"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "json-a method by GET that does not allow it",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/ProbeService.asmx/Hello?name=%22x%22 -> 500 | content-type=application/json; charset=utf-8 | text={\"Message\":\"There was an error processing the request.\",\"StackTrace\":\"\",\"ExceptionType\":\"\"}"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "json-a method that is not (its status: the error page's text is the local or the remote one by where the request comes from)",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/ProbeService.asmx/Nothing -> 500 | content-type=text/html; charset=utf-8"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "soap-1.1 Hello",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/ProbeService.asmx -> 200 | content-type=text/xml; charset=utf-8 | text=Hello, soap (text/xml)"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "soap-1.2 Items",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/ProbeService.asmx -> 200 | content-type=application/soap+xml; charset=utf-8 | text=item 1 1.5 a b item 2 3.0 a b"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "soap-1.1 Fail: the fault",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/ProbeService.asmx -> 500 | content-type=text/xml; charset=utf-8 | text=soap:Server Server was unable to process request. ---&gt; The probe failed on purpose."
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "describe-the WSDL, the script proxy, the help page",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/ProbeService.asmx?wsdl -> 200 | content-type=text/xml; charset=utf-8",
+        "/ProbeService.asmx/js -> 200 | content-type=application/x-javascript; charset=utf-8",
+        "/ProbeService.asmx/jsdebug -> 200 | content-type=application/x-javascript; charset=utf-8",
+        "/ProbeService.asmx -> 200 | content-type=text/html; charset=utf-8"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "describe-the script proxy text",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/ProbeService.asmx/js -> 200 | content-type=application/x-javascript; charset=utf-8 | text=Type.registerNamespace('ServicesProbe'); ServicesProbe.ProbeService=function() { ServicesProbe.ProbeService.initializeBase(this); this._timeout = 0; this._userContext = null; this._succeeded = null; this._failed = null; } ServicesProbe.ProbeService.prototype={ _get_path:function() { var p = this.get"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "pagemethod-POST Methods.aspx/Echo",
+      "Path": "/check.htm",
+      "Title": "Check",
+      "Text": [
+        "/Methods.aspx/Echo -> 200 | content-type=application/json; charset=utf-8 | text={\"d\":\"echo fetched\"}"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "check": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "script-a page method and the service from the page's scripts",
+      "Path": "/methods",
+      "Title": "Services probe: from the page's scripts",
+      "Text": [
+        "PageMethods.Echo: echo from PageMethods",
+        "proxy Hello: Hello, proxy (application/json)",
+        "proxy Items: item 1 1.5 [a,b] ServicesProbe.ProbeService+Item; item 2 3 [a,b] ServicesProbe.ProbeService+Item",
+        "proxy When: 2020-01-02T03:04:05.000Z",
+        "error: : There was an error processing the request. (500)"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "out": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

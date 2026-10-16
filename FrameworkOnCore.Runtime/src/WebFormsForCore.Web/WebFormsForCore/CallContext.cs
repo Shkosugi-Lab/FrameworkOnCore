@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Principal;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading;
 
 #nullable disable
@@ -21,6 +22,19 @@ namespace System.Runtime.Remoting.Messaging
 
 		static AsyncLocal<ConcurrentDictionary<string, object?>> data = new();
 		public static ConcurrentDictionary<string, object?> Data => data.Value ??= new ConcurrentDictionary<string, object?>();
+
+		// .NET Framework's illogical call context: the thread's, not flowed with the execution context (an await, a task) and
+		// not restored by it. HttpContext.Current is there (HostContext): ASP.NET's synchronization context sets it again where
+		// an await goes on; flowed, the value a thread leaving the request wrote (null) would be what the await sees.
+		[ThreadStatic] static Dictionary<string, object> illogical;
+		[ThreadStatic] static object hostContext;
+
+		// A thread used again (System.Web's worker threads, WorkerThreads): without what the last request left there.
+		internal static void ClearIllogical()
+		{
+			illogical?.Clear();
+			hostContext = null;
+		}
 
 
 #if !WebFormsForCore
@@ -45,6 +59,7 @@ namespace System.Runtime.Remoting.Messaging
 #else
 			object? value;
 			Data.TryRemove(name, out value);
+			illogical?.Remove(name);
 #endif
 		}
 
@@ -69,7 +84,9 @@ namespace System.Runtime.Remoting.Messaging
 #if NETFRAMEWORK
 			return Thread.CurrentThread.GetExecutionContextReader().IllogicalCallContext.GetData(name);
 #else
-			return LogicalGetData("_illogical:" + name);
+			object value = null;
+			illogical?.TryGetValue(name, out value);
+			return value;
 #endif
 		}
 
@@ -114,7 +131,7 @@ namespace System.Runtime.Remoting.Messaging
 				ExecutionContext.Reader executionContextReader = Thread.CurrentThread.GetExecutionContextReader();
 				return executionContextReader.IllogicalCallContext.HostContext ?? executionContextReader.LogicalCallContext.HostContext;
 #else
-				return LogicalGetData("CallContext.HostContext");
+				return hostContext;
 #endif
 			}
 			[SecurityCritical]
@@ -133,7 +150,7 @@ namespace System.Runtime.Remoting.Messaging
 					executionContext.LogicalCallContext.HostContext = (object)null;
 				}
 #else
-				Data.AddOrUpdate("CallContext.HostContext", value, (key, obj) => value);
+				hostContext = value;
 #endif
 			}
 		}
@@ -145,7 +162,7 @@ namespace System.Runtime.Remoting.Messaging
 		[SecurityCritical]
 		public static object GetData(string name)
 		{
-			return LogicalGetData(name);
+			return LogicalGetData(name) ?? IllogicalGetData(name);
 		}
 
 		/// <summary>Stores a given object and associates it with the specified name.</summary>
@@ -167,7 +184,10 @@ namespace System.Runtime.Remoting.Messaging
 				executionContext.IllogicalCallContext.SetData(name, data);
 			}
 #else
-			Data.AddOrUpdate(name, data, (key, obj) => data);
+			// Not ILogicalThreadAffinative (.NET has no such type): the illogical call context.
+			object value;
+			Data.TryRemove(name, out value);
+			(illogical ??= new Dictionary<string, object>())[name] = data;
 #endif
 		}
 
@@ -183,6 +203,7 @@ namespace System.Runtime.Remoting.Messaging
 			executionContext.IllogicalCallContext.FreeNamedDataSlot(name);
 			executionContext.LogicalCallContext.SetData(name, data);
 #else
+			illogical?.Remove(name);
 			Data.AddOrUpdate(name, data, (key, obj) => data);
 #endif
 		}

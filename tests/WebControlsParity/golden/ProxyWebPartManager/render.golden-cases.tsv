@@ -1,0 +1,36 @@
+ProxyWebPartManager.(default)	(nothing set)
+ProxyWebPartManager.AppRelativeTemplateSourceDirectory=text	c.AppRelativeTemplateSourceDirectory = "probe";
+ProxyWebPartManager.AppRelativeTemplateSourceDirectory=markup	c.AppRelativeTemplateSourceDirectory = "<b>\"&'</b>";
+ProxyWebPartManager.AppRelativeTemplateSourceDirectory=japanese	c.AppRelativeTemplateSourceDirectory = "日本語テキスト";
+ProxyWebPartManager.AppRelativeTemplateSourceDirectory=empty	c.AppRelativeTemplateSourceDirectory = "";
+ProxyWebPartManager.ClientIDMode=Inherit	c.ClientIDMode = ClientIDMode.Inherit;
+ProxyWebPartManager.ClientIDMode=AutoID	c.ClientIDMode = ClientIDMode.AutoID;
+ProxyWebPartManager.ClientIDMode=Predictable	c.ClientIDMode = ClientIDMode.Predictable;
+ProxyWebPartManager.ClientIDMode=Static	c.ClientIDMode = ClientIDMode.Static;
+ProxyWebPartManager.EnableTheming=true	c.EnableTheming = true;
+ProxyWebPartManager.EnableTheming=false	c.EnableTheming = false;
+ProxyWebPartManager.EnableViewState=true	c.EnableViewState = true;
+ProxyWebPartManager.EnableViewState=false	c.EnableViewState = false;
+ProxyWebPartManager.ID=text	c.ID = "probe";
+ProxyWebPartManager.ID=markup	c.ID = "<b>\"&'</b>";
+ProxyWebPartManager.ID=japanese	c.ID = "日本語テキスト";
+ProxyWebPartManager.ID=empty	c.ID = "";
+ProxyWebPartManager.SkinID=text	c.SkinID = "probe";
+ProxyWebPartManager.SkinID=markup	c.SkinID = "<b>\"&'</b>";
+ProxyWebPartManager.SkinID=japanese	c.SkinID = "日本語テキスト";
+ProxyWebPartManager.SkinID=empty	c.SkinID = "";
+ProxyWebPartManager.ValidateRequestMode=Inherit	c.ValidateRequestMode = ValidateRequestMode.Inherit;
+ProxyWebPartManager.ValidateRequestMode=Disabled	c.ValidateRequestMode = ValidateRequestMode.Disabled;
+ProxyWebPartManager.ValidateRequestMode=Enabled	c.ValidateRequestMode = ValidateRequestMode.Enabled;
+ProxyWebPartManager.ViewStateMode=Inherit	c.ViewStateMode = ViewStateMode.Inherit;
+ProxyWebPartManager.ViewStateMode=Enabled	c.ViewStateMode = ViewStateMode.Enabled;
+ProxyWebPartManager.ViewStateMode=Disabled	c.ViewStateMode = ViewStateMode.Disabled;
+ProxyWebPartManager.Visible=true	c.Visible = true;
+ProxyWebPartManager.Visible=false	c.Visible = false;
+ProxyWebPartManager.Visible=false+EnableViewState=false	c.Visible = false; c.EnableViewState = false;
+ProxyWebPartManager[naming container].(default)	[naming container] (nothing set)
+ProxyWebPartManager[naming container].ClientIDMode=AutoID	[naming container] c.ClientIDMode = ClientIDMode.AutoID;
+ProxyWebPartManager[naming container].ClientIDMode=Static	[naming container] c.ClientIDMode = ClientIDMode.Static;
+ProxyWebPartManager[naming container].ClientIDMode=Predictable	[naming container] c.ClientIDMode = ClientIDMode.Predictable;
+ProxyWebPartManager[naming container].ClientIDMode=Inherit	[naming container] c.ClientIDMode = ClientIDMode.Inherit;
+ProxyWebPartManager[naming container].ID=text	[naming container] c.ID = "probe";

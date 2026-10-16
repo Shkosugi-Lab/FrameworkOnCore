@@ -1,0 +1,946 @@
+{
+  "BulletedList.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "BulletedList.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "BulletedList.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "BulletedList.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "BulletedList.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "BulletedList.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "BulletedList.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.ClientID": [
+    "Control.ClientID = \"bltSize\""
+  ],
+  "BulletedList.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "BulletedList.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "BulletedList.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "BulletedList.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "BulletedList.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "BulletedList.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "BulletedList.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "BulletedList.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "BulletedList.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "BulletedList.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "BulletedList.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "BulletedList.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "BulletedList.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "BulletedList.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "BulletedList.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"bltSize\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "BulletedList.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.ID": [
+    "Control.ID = \"bltSize\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "BulletedList.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "BulletedList.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "BulletedList.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "BulletedList.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "BulletedList.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "BulletedList.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "BulletedList.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "BulletedList.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "BulletedList.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "BulletedList.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "BulletedList.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "BulletedList.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "BulletedList.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "BulletedList.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "BulletedList.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <ul id=\"bltSize\">",
+    "  | \t<li>Small</li><li>Medium</li><li>Large</li>",
+    "  | </ul>",
+    "Control.Render(HtmlTextWriter) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <ul id=\"bltSize\">",
+    "  | \t<li>Small</li><li>Medium</li><li>Large</li>",
+    "  | </ul>",
+    "Control.RenderControl(HtmlTextWriter) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <ul id=\"bltSize\">",
+    "  | \t<li>Small</li><li>Medium</li><li>Large</li>",
+    "  | </ul>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "BulletedList.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.SaveViewState": [
+    "Control.SaveViewState = Triplet {}",
+    "Control.SaveViewState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "BulletedList.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "BulletedList.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "BulletedList.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "BulletedList.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.Control.UniqueID": [
+    "Control.UniqueID = \"bltSize\""
+  ],
+  "BulletedList.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "BulletedList.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "BulletedList.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "BulletedList.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "BulletedList.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "BulletedList.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "BulletedList.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=true; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "BulletedList.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "BulletedList.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "BulletedList.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "BulletedList.Api.IEditableTextControl.TextChanged": [
+    "IEditableTextControl.TextChanged = \"added and removed\""
+  ],
+  "BulletedList.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "BulletedList.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "BulletedList.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.IPostBackEventHandler.RaisePostBackEvent": [
+    "IPostBackEventHandler.RaisePostBackEvent(String) = \"-> System.FormatException: (the runtime's parse error)\""
+  ],
+  "BulletedList.Api.ITextControl.Text": [
+    "ITextControl.Text = \"M\"",
+    "ITextControl.Text set = \"-> System.NotSupportedException: Setting the Text property of BulletedList is not supported.\""
+  ],
+  "BulletedList.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.#ctor": [
+    "BaseDataBoundControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.BaseDataBoundControl because it is an abstract class.\""
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.ConfirmInitState": [
+    "BaseDataBoundControl.ConfirmInitState = \"ok\"",
+    "BaseDataBoundControl.ConfirmInitState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.DataBind": [
+    "BaseDataBoundControl.DataBind = \"ok\"",
+    "BaseDataBoundControl.DataBind after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.DataBound": [
+    "BaseDataBoundControl.DataBound = \"added and removed\""
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.DataSource": [
+    "BaseDataBoundControl.DataSource = null",
+    "BaseDataBoundControl.DataSource set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.DataSourceID": [
+    "BaseDataBoundControl.DataSourceID = \"\"",
+    "BaseDataBoundControl.DataSourceID set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.EnsureDataBound": [
+    "BaseDataBoundControl.EnsureDataBound = \"ok\"",
+    "BaseDataBoundControl.EnsureDataBound after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.Initialized": [
+    "BaseDataBoundControl.Initialized = \"false\""
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.IsBoundUsingDataSourceID": [
+    "BaseDataBoundControl.IsBoundUsingDataSourceID = \"false\""
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.IsDataBindingAutomatic": [
+    "BaseDataBoundControl.IsDataBindingAutomatic = \"false\""
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.IsUsingModelBinders": [
+    "BaseDataBoundControl.IsUsingModelBinders = \"false\""
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.OnDataBound": [
+    "BaseDataBoundControl.OnDataBound(EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnDataBound(EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.OnDataPropertyChanged": [
+    "BaseDataBoundControl.OnDataPropertyChanged = \"ok\"",
+    "BaseDataBoundControl.OnDataPropertyChanged after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.OnInit": [
+    "BaseDataBoundControl.OnInit(EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnInit(EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.OnPagePreLoad": [
+    "BaseDataBoundControl.OnPagePreLoad(Object,EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnPagePreLoad(Object,EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.OnPreRender": [
+    "BaseDataBoundControl.OnPreRender(EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnPreRender(EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.PerformSelect": [
+    "BaseDataBoundControl.PerformSelect = \"ok\"",
+    "BaseDataBoundControl.PerformSelect after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.RequiresDataBinding": [
+    "BaseDataBoundControl.RequiresDataBinding = \"false\"",
+    "BaseDataBoundControl.RequiresDataBinding set = \"ok\""
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.SupportsDisabledAttribute": [
+    "BaseDataBoundControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "BulletedList.Api.WebControls.BaseDataBoundControl.ValidateDataSource": [
+    "BaseDataBoundControl.ValidateDataSource(Object) = \"ok\"",
+    "BaseDataBoundControl.ValidateDataSource(Object) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BulletedList.#ctor": [
+    "BulletedList.#ctor = BulletedList# {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 -1; SelectedValue=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"\"; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BulletedList.AddAttributesToRender": [
+    "BulletedList.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "BulletedList.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "BulletedList.AddAttributesToRender(HtmlTextWriter) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BulletedList.AutoPostBack": [
+    "BulletedList.AutoPostBack = \"false\"",
+    "BulletedList.AutoPostBack set = \"-> System.NotSupportedException: Setting the AutoPostBack property of System.Web.UI.WebControls.BulletedList is not supported.\""
+  ],
+  "BulletedList.Api.WebControls.BulletedList.BulletImageUrl": [
+    "BulletedList.BulletImageUrl = \"\"",
+    "BulletedList.BulletImageUrl set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.BulletedList.BulletStyle": [
+    "BulletedList.BulletStyle = \"BulletStyle.NotSet\"",
+    "BulletedList.BulletStyle set = \"BulletStyle.Numbered\""
+  ],
+  "BulletedList.Api.WebControls.BulletedList.Click": [
+    "BulletedList.Click = \"added and removed\""
+  ],
+  "BulletedList.Api.WebControls.BulletedList.Controls": [
+    "BulletedList.Controls = ControlCollection []"
+  ],
+  "BulletedList.Api.WebControls.BulletedList.DisplayMode": [
+    "BulletedList.DisplayMode = \"BulletedListDisplayMode.Text\"",
+    "BulletedList.DisplayMode set = \"BulletedListDisplayMode.HyperLink\""
+  ],
+  "BulletedList.Api.WebControls.BulletedList.FirstBulletNumber": [
+    "BulletedList.FirstBulletNumber = \"Int32 1\"",
+    "BulletedList.FirstBulletNumber set = \"Int32 1\""
+  ],
+  "BulletedList.Api.WebControls.BulletedList.OnClick": [
+    "BulletedList.OnClick(BulletedListEventArgs) = \"ok\"",
+    "BulletedList.OnClick(BulletedListEventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BulletedList.RaisePostBackEvent": [
+    "BulletedList.RaisePostBackEvent(String) = \"-> System.FormatException: (the runtime's parse error)\""
+  ],
+  "BulletedList.Api.WebControls.BulletedList.Render": [
+    "BulletedList.Render(HtmlTextWriter) = \"ok\"",
+    "BulletedList.Render(HtmlTextWriter) writer:",
+    "  | <ul id=\"bltSize\">",
+    "  | \t<li>Small</li><li>Medium</li><li>Large</li>",
+    "  | </ul>",
+    "BulletedList.Render(HtmlTextWriter) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BulletedList.RenderBulletText": [
+    "BulletedList.RenderBulletText(ListItem,Int32,HtmlTextWriter) = \"ok\"",
+    "BulletedList.RenderBulletText(ListItem,Int32,HtmlTextWriter) writer:",
+    "  | Medium",
+    "BulletedList.RenderBulletText(ListItem,Int32,HtmlTextWriter) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BulletedList.RenderContents": [
+    "BulletedList.RenderContents(HtmlTextWriter) = \"ok\"",
+    "BulletedList.RenderContents(HtmlTextWriter) writer:",
+    "  | <li>Small</li><li>Medium</li><li>Large</li>",
+    "BulletedList.RenderContents(HtmlTextWriter) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.BulletedList.RenderWhenDataEmpty": [
+    "BulletedList.RenderWhenDataEmpty = \"false\"",
+    "BulletedList.RenderWhenDataEmpty set = \"true\""
+  ],
+  "BulletedList.Api.WebControls.BulletedList.SelectedIndex": [
+    "BulletedList.SelectedIndex = \"Int32 1\"",
+    "BulletedList.SelectedIndex set = \"-> System.NotSupportedException: Setting the SelectedIndex or SelectedValue properties of BulletedList is not supported.\""
+  ],
+  "BulletedList.Api.WebControls.BulletedList.SelectedItem": [
+    "BulletedList.SelectedItem = ListItem {Enabled=true; Selected=true; Text=\"Medium\"; Value=\"M\"}"
+  ],
+  "BulletedList.Api.WebControls.BulletedList.SelectedValue": [
+    "BulletedList.SelectedValue = \"M\"",
+    "BulletedList.SelectedValue set = \"-> System.NotSupportedException: Setting the SelectedIndex or SelectedValue properties of BulletedList is not supported.\""
+  ],
+  "BulletedList.Api.WebControls.BulletedList.TagKey": [
+    "BulletedList.TagKey = \"HtmlTextWriterTag.Ul\""
+  ],
+  "BulletedList.Api.WebControls.BulletedList.Target": [
+    "BulletedList.Target = \"\"",
+    "BulletedList.Target set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.BulletedList.Text": [
+    "BulletedList.Text = \"M\"",
+    "BulletedList.Text set = \"-> System.NotSupportedException: Setting the Text property of BulletedList is not supported.\""
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.#ctor": [
+    "DataBoundControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.DataBoundControl because it is an abstract class.\""
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.CallingDataMethods": [
+    "DataBoundControl.CallingDataMethods = \"added and removed\""
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.CreateDataSourceSelectArguments": [
+    "DataBoundControl.CreateDataSourceSelectArguments = DataSourceSelectArguments {MaximumRows=Int32 0; RetrieveTotalRowCount=false; SortExpression=\"\"; StartRowIndex=Int32 0; TotalRowCount=Int32 -1}",
+    "DataBoundControl.CreateDataSourceSelectArguments after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.CreatingModelDataSource": [
+    "DataBoundControl.CreatingModelDataSource = \"added and removed\""
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.DataMember": [
+    "DataBoundControl.DataMember = \"\"",
+    "DataBoundControl.DataMember set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.DataSourceID": [
+    "DataBoundControl.DataSourceID = \"\"",
+    "DataBoundControl.DataSourceID set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.DataSourceObject": [
+    "DataBoundControl.DataSourceObject = null"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.GetData": [
+    "DataBoundControl.GetData = ReadOnlyDataSourceView {CanDelete=false; CanInsert=false; CanPage=false; CanRetrieveTotalRowCount=false; CanSort=false; CanUpdate=false; Name=\"\"}",
+    "DataBoundControl.GetData after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.GetDataSource": [
+    "DataBoundControl.GetDataSource = null",
+    "DataBoundControl.GetDataSource after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.IsUsingModelBinders": [
+    "DataBoundControl.IsUsingModelBinders = \"false\""
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.ItemType": [
+    "DataBoundControl.ItemType = \"\"",
+    "DataBoundControl.ItemType set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.LoadViewState": [
+    "DataBoundControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.MarkAsDataBound": [
+    "DataBoundControl.MarkAsDataBound = \"ok\"",
+    "DataBoundControl.MarkAsDataBound after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.OnCreatingModelDataSource": [
+    "DataBoundControl.OnCreatingModelDataSource(CreatingModelDataSourceEventArgs) = \"ok\"",
+    "DataBoundControl.OnCreatingModelDataSource(CreatingModelDataSourceEventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.OnDataPropertyChanged": [
+    "DataBoundControl.OnDataPropertyChanged = \"ok\"",
+    "DataBoundControl.OnDataPropertyChanged after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.OnDataSourceViewChanged": [
+    "DataBoundControl.OnDataSourceViewChanged(Object,EventArgs) = \"ok\"",
+    "DataBoundControl.OnDataSourceViewChanged(Object,EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.OnLoad": [
+    "DataBoundControl.OnLoad(EventArgs) = \"ok\"",
+    "DataBoundControl.OnLoad(EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.OnPagePreLoad": [
+    "DataBoundControl.OnPagePreLoad(Object,EventArgs) = \"ok\"",
+    "DataBoundControl.OnPagePreLoad(Object,EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.PerformDataBinding": [
+    "DataBoundControl.PerformDataBinding(IEnumerable) = \"ok\"",
+    "DataBoundControl.PerformDataBinding(IEnumerable) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 -1; SelectedValue=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.PerformSelect": [
+    "DataBoundControl.PerformSelect = \"ok\"",
+    "DataBoundControl.PerformSelect after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.SaveViewState": [
+    "DataBoundControl.SaveViewState = Triplet {}",
+    "DataBoundControl.SaveViewState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.SelectArguments": [
+    "DataBoundControl.SelectArguments = DataSourceSelectArguments {MaximumRows=Int32 0; RetrieveTotalRowCount=false; SortExpression=\"\"; StartRowIndex=Int32 0; TotalRowCount=Int32 -1}"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.SelectMethod": [
+    "DataBoundControl.SelectMethod = \"\"",
+    "DataBoundControl.SelectMethod set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.TrackViewState": [
+    "DataBoundControl.TrackViewState = \"ok\"",
+    "DataBoundControl.TrackViewState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.DataBoundControl.ValidateDataSource": [
+    "DataBoundControl.ValidateDataSource(Object) = \"ok\"",
+    "DataBoundControl.ValidateDataSource(Object) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.ListControl.#ctor": [
+    "ListControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.ListControl because it is an abstract class.\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.AddAttributesToRender": [
+    "ListControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "ListControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "ListControl.AddAttributesToRender(HtmlTextWriter) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.ListControl.AppendDataBoundItems": [
+    "ListControl.AppendDataBoundItems = \"false\"",
+    "ListControl.AppendDataBoundItems set = \"true\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.AutoPostBack": [
+    "ListControl.AutoPostBack = \"false\"",
+    "ListControl.AutoPostBack set = \"-> System.NotSupportedException: Setting the AutoPostBack property of System.Web.UI.WebControls.BulletedList is not supported.\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.CausesValidation": [
+    "ListControl.CausesValidation = \"false\"",
+    "ListControl.CausesValidation set = \"true\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.ClearSelection": [
+    "ListControl.ClearSelection = \"ok\"",
+    "ListControl.ClearSelection after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 -1; SelectedValue=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.ListControl.DataTextField": [
+    "ListControl.DataTextField = \"\"",
+    "ListControl.DataTextField set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.DataTextFormatString": [
+    "ListControl.DataTextFormatString = \"\"",
+    "ListControl.DataTextFormatString set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.DataValueField": [
+    "ListControl.DataValueField = \"\"",
+    "ListControl.DataValueField set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.Items": [
+    "ListControl.Items = \"[System.Web.UI.WebControls.ListItem Small, System.Web.UI.WebControls.ListItem Medium, System.Web.UI.WebControls.ListItem Large]\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.LoadViewState": [
+    "ListControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.OnDataBinding": [
+    "ListControl.OnDataBinding(EventArgs) = \"ok\"",
+    "ListControl.OnDataBinding(EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.ListControl.OnPreRender": [
+    "ListControl.OnPreRender(EventArgs) = \"ok\"",
+    "ListControl.OnPreRender(EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.ListControl.OnSelectedIndexChanged": [
+    "ListControl.OnSelectedIndexChanged(EventArgs) = \"ok\"",
+    "ListControl.OnSelectedIndexChanged(EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.ListControl.OnTextChanged": [
+    "ListControl.OnTextChanged(EventArgs) = \"ok\"",
+    "ListControl.OnTextChanged(EventArgs) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.ListControl.PerformDataBinding": [
+    "ListControl.PerformDataBinding(IEnumerable) = \"ok\"",
+    "ListControl.PerformDataBinding(IEnumerable) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 -1; SelectedValue=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.ListControl.PerformSelect": [
+    "ListControl.PerformSelect = \"ok\"",
+    "ListControl.PerformSelect after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.ListControl.RenderContents": [
+    "ListControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "ListControl.RenderContents(HtmlTextWriter) writer:",
+    "  | <li>Small</li><li>Medium</li><li>Large</li>",
+    "ListControl.RenderContents(HtmlTextWriter) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.ListControl.SaveViewState": [
+    "ListControl.SaveViewState = Triplet {}",
+    "ListControl.SaveViewState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.ListControl.SelectedIndex": [
+    "ListControl.SelectedIndex = \"Int32 1\"",
+    "ListControl.SelectedIndex set = \"-> System.NotSupportedException: Setting the SelectedIndex or SelectedValue properties of BulletedList is not supported.\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.SelectedIndexChanged": [
+    "ListControl.SelectedIndexChanged = \"added and removed\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.SelectedItem": [
+    "ListControl.SelectedItem = ListItem {Enabled=true; Selected=true; Text=\"Medium\"; Value=\"M\"}"
+  ],
+  "BulletedList.Api.WebControls.ListControl.SelectedValue": [
+    "ListControl.SelectedValue = \"M\"",
+    "ListControl.SelectedValue set = \"-> System.NotSupportedException: Setting the SelectedIndex or SelectedValue properties of BulletedList is not supported.\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.SetPostDataSelection": [
+    "ListControl.SetPostDataSelection(Int32) = \"ok\"",
+    "ListControl.SetPostDataSelection(Int32) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 0; SelectedValue=\"S\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"S\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.ListControl.TagKey": [
+    "ListControl.TagKey = \"HtmlTextWriterTag.Ul\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.Text": [
+    "ListControl.Text = \"M\"",
+    "ListControl.Text set = \"-> System.NotSupportedException: Setting the Text property of BulletedList is not supported.\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.TextChanged": [
+    "ListControl.TextChanged = \"added and removed\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.TrackViewState": [
+    "ListControl.TrackViewState = \"ok\"",
+    "ListControl.TrackViewState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.ListControl.ValidationGroup": [
+    "ListControl.ValidationGroup = \"\"",
+    "ListControl.ValidationGroup set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.ListControl.VerifyMultiSelect": [
+    "ListControl.VerifyMultiSelect = \"-> System.Web.HttpException: Cannot have multiple items selected when the SelectionMode is Single.\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "BulletedList.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "BulletedList.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "BulletedList.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}",
+    "WebControl.CreateControlStyle after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "BulletedList.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "BulletedList.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"ok\"",
+    "WebControl.Render(HtmlTextWriter) writer:",
+    "  | <ul id=\"bltSize\">",
+    "  | \t<li>Small</li><li>Medium</li><li>Large</li>",
+    "  | </ul>",
+    "WebControl.Render(HtmlTextWriter) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <ul id=\"bltSize\">",
+    "  | ",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | <li>Small</li><li>Medium</li><li>Large</li>",
+    "WebControl.RenderContents(HtmlTextWriter) after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = Triplet {}",
+    "WebControl.SaveViewState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "BulletedList.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Ul\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"ul\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "BulletedList.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = BulletedList#bltSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; BulletImageUrl=\"\"; BulletStyle=NotSet; CausesValidation=false; ClientID=\"bltSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; DisplayMode=Text; EnableTheming=true; EnableViewState=true; Enabled=true; FirstBulletNumber=Int32 1; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"bltSize\"; ItemType=\"\"; RenderWhenDataEmpty=false; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"\"; Text=\"M\"; ToolTip=\"\"; UniqueID=\"bltSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "BulletedList.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ]
+}

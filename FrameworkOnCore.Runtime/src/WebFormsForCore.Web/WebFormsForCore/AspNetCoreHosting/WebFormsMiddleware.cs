@@ -125,9 +125,35 @@ namespace Microsoft.AspNetCore.Builder
 				context.Response.Headers["Connection"] = "close";
 				return;
 			}
-			if (host.RedirectToFolder(context)) return;
+			// A static file's response kept as IIS's kernel cache keeps it: answered before System.Web, as IIS answers it
+			// before its pipeline (StaticResponseCache).
+			if (await StaticResponseCache.TryServe(context)) return;
+			// A folder's URL without its '/': IIS's redirect to it, as IIS sends it (an absolute Location, "Document Moved").
+			var folder = host.FolderLocation(context);
+			if (folder != null)
+			{
+				var body = IisUrlRewrite.Redirect(context, 301, folder);
+				if (!Core.HttpMethods.IsHead(context.Request.Method)) await context.Response.Body.WriteAsync(body, 0, body.Length);
+				return;
+			}
+			// What IIS's request filtering refuses (404.7: web.config, the sources, the databases' files): its 404 page,
+			// not the empty answer of the end of ASP.NET Core's pipeline.
+			// IIS: web.config and the hidden segments (bin, App_Data, App_Code...: also where nothing is) 404.8, the other types
+			// its denied file extensions 404.7. The status only: its page is httpErrors' (IisHttpErrors).
+			var hidden = AspNetCoreWorkerRequest.IsHidden(context.Request.Path.Value ?? "");
+			if (hidden || host.IsProhibited(context))
+			{
+				var name = System.IO.Path.GetFileName(context.Request.Path.Value ?? "");
+				System.Web.Hosting.IisLogStatus.Set(context, hidden || string.Equals(name, "web.config", StringComparison.OrdinalIgnoreCase) ? 8 : 7);
+				context.Response.StatusCode = 404;
+				return;
+			}
 			if (IsLegacyRequest(context))
 			{
+				// System.Web answers it: its error answers are IIS's httpErrors' to replace (IisHttpErrors).
+				var flags = context.Features.Get<IisErrorFlags>();
+				if (flags == null) context.Features.Set(flags = new IisErrorFlags());
+				flags.SystemWeb = true;
 				AllowSynchronousIO(context);
 
 				await host.ProcessRequest(context);

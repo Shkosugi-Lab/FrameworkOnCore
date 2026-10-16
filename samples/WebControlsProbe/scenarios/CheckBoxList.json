@@ -1,0 +1,47 @@
+{
+  "_comment": "The CheckBoxList's scenario layer (ListControlsScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/ListControlsScenario.aspx" },
+    { "action": "snapshot", "name": "CheckBoxList [render][databind][items] first request" },
+
+    { "action": "check", "target": "cblColors_0" },
+    { "action": "check", "target": "cblColors_2" },
+    { "action": "check", "target": "cblDynamic_1" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "CheckBoxList [postdata][change][multiselect][dynamic] boxes checked" },
+
+    { "action": "uncheck", "target": "cblColors_0" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "CheckBoxList [change] a box unchecked" },
+
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "CheckBoxList [viewstate] posted again unchanged" },
+
+    { "action": "check", "target": "cblAuto_1" },
+    { "action": "snapshot", "name": "CheckBoxList [autopostback][change] auto postback" },
+
+    { "action": "click", "target": "btnG1" },
+    { "action": "snapshot", "name": "CheckBoxList [causesvalidation] group g1 (CustomValidator), none checked" },
+
+    { "action": "check", "target": "cblValidated_0" },
+    { "action": "click", "target": "btnG1" },
+    { "action": "snapshot", "name": "CheckBoxList [causesvalidation] group g1 (CustomValidator), checked" },
+
+    { "action": "click", "target": "btnShow" },
+    { "action": "snapshot", "name": "CheckBoxList [visible][viewstate][items] hidden lists shown with the items added in code" },
+
+    { "action": "check", "target": "cblBind_0" },
+    { "action": "click", "target": "btnUpdate" },
+    { "action": "snapshot", "name": "CheckBoxList [bind] two-way binding in a template" },
+
+    { "action": "evaluate", "target": "cblColors_1", "value": "e.disabled = false; e.checked = true;" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "CheckBoxList [eventvalidation] a disabled item posted" },
+
+    { "action": "goto", "path": "/ListControlsScenario.aspx" },
+    { "action": "evaluate", "target": "cblColors_0", "value": "e.value = '<b>x</b>'; e.checked = true;" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "CheckBoxList [requestvalidation] markup posted" }
+  ]
+}

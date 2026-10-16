@@ -1,0 +1,599 @@
+{
+  "HtmlTable.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTable.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HtmlTable.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HtmlTable.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlTable.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlTable.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HtmlTable.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.ClientID": [
+    "Control.ClientID = \"tblHtml\""
+  ],
+  "HtmlTable.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HtmlTable.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HtmlTable.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HtmlTable.Api.Control.Controls": [
+    "Control.Controls = ControlCollection [HtmlTableRow#trRow]"
+  ],
+  "HtmlTable.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HtmlTable.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HtmlTable.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HtmlTable.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HtmlTable.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HtmlTable.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "HtmlTable.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HtmlTable.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HtmlTable.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "HtmlTable.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlTable.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"tblHtml\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HtmlTable.Api.Control.HasControls": [
+    "Control.HasControls = \"true\"",
+    "Control.HasControls after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.ID": [
+    "Control.ID = \"tblHtml\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HtmlTable.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HtmlTable.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HtmlTable.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HtmlTable.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HtmlTable.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HtmlTable.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HtmlTable.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlTable.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HtmlTable.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlTable.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlTable.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlTable.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlTable.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTable.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HtmlTable.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <table id=\"tblHtml\">",
+    "  | \t<tr id=\"trRow\">",
+    "  | \t\t<td>A</td>",
+    "  | \t\t<td>B</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "  | ",
+    "Control.Render(HtmlTextWriter) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "  | \t<tr id=\"trRow\">",
+    "  | \t\t<td>A</td>",
+    "  | \t\t<td>B</td>",
+    "  | \t</tr>",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <table id=\"tblHtml\">",
+    "  | \t<tr id=\"trRow\">",
+    "  | \t\t<td>A</td>",
+    "  | \t\t<td>B</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <table id=\"tblHtml\">",
+    "  | \t<tr id=\"trRow\">",
+    "  | \t\t<td>A</td>",
+    "  | \t\t<td>B</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HtmlTable.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HtmlTable.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "HtmlTable.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlTable.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HtmlTable.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.Control.UniqueID": [
+    "Control.UniqueID = \"tblHtml\""
+  ],
+  "HtmlTable.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HtmlTable.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HtmlTable.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "HtmlTable.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlTable.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HtmlTable.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlContainerControl.#ctor": [
+    "HtmlControls.HtmlContainerControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlContainerControl because it is an abstract class.\"",
+    "HtmlControls.HtmlContainerControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlContainerControl because it is an abstract class.\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlContainerControl.CreateControlCollection": [
+    "HtmlControls.HtmlContainerControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlContainerControl.CreateControlCollection after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlContainerControl.InnerHtml": [
+    "HtmlControls.HtmlContainerControl.InnerHtml = \"-> System.NotSupportedException: 'HtmlTable' does not support the InnerHtml property.\"",
+    "HtmlControls.HtmlContainerControl.InnerHtml set = \"-> System.NotSupportedException: 'HtmlTable' does not support the InnerHtml property.\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlContainerControl.InnerText": [
+    "HtmlControls.HtmlContainerControl.InnerText = \"-> System.NotSupportedException: 'HtmlTable' does not support the InnerText property.\"",
+    "HtmlControls.HtmlContainerControl.InnerText set = \"-> System.NotSupportedException: 'HtmlTable' does not support the InnerText property.\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlContainerControl.LoadViewState": [
+    "HtmlControls.HtmlContainerControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlContainerControl.Render": [
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) writer:",
+    "  | <table id=\"tblHtml\">",
+    "  | \t<tr id=\"trRow\">",
+    "  | \t\t<td>A</td>",
+    "  | \t\t<td>B</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "  | ",
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlContainerControl.RenderAttributes": [
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  id=\"tblHtml\"",
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlContainerControl.RenderEndTag": [
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) writer:",
+    "  | </table>",
+    "  | ",
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlControl.#ctor": [
+    "HtmlControls.HtmlControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\"",
+    "HtmlControls.HtmlControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlControl.Attributes": [
+    "HtmlControls.HtmlControl.Attributes = AttributeCollection []"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlControl.CreateControlCollection": [
+    "HtmlControls.HtmlControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlControl.CreateControlCollection after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlControl.Disabled": [
+    "HtmlControls.HtmlControl.Disabled = \"false\"",
+    "HtmlControls.HtmlControl.Disabled set = \"true\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlControl.GetAttribute": [
+    "HtmlControls.HtmlControl.GetAttribute(String) = null",
+    "HtmlControls.HtmlControl.GetAttribute(String) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlControl.Render": [
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) writer:",
+    "  | <table id=\"tblHtml\">",
+    "  | \t<tr id=\"trRow\">",
+    "  | \t\t<td>A</td>",
+    "  | \t\t<td>B</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "  | ",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlControl.RenderAttributes": [
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  id=\"tblHtml\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlControl.RenderBeginTag": [
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <table id=\"tblHtml\">",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlControl.SetAttribute": [
+    "HtmlControls.HtmlControl.SetAttribute(String,String) = \"ok\"",
+    "HtmlControls.HtmlControl.SetAttribute(String,String) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlControl.Style": [
+    "HtmlControls.HtmlControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlControl.TagName": [
+    "HtmlControls.HtmlControl.TagName = \"table\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlControl.ViewStateIgnoresCase": [
+    "HtmlControls.HtmlControl.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.#ctor": [
+    "HtmlControls.HtmlTable.#ctor = HtmlTable# {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=null; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.Align": [
+    "HtmlControls.HtmlTable.Align = \"\"",
+    "HtmlControls.HtmlTable.Align set = \"Abc 123\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.BgColor": [
+    "HtmlControls.HtmlTable.BgColor = \"\"",
+    "HtmlControls.HtmlTable.BgColor set = \"Abc 123\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.Border": [
+    "HtmlControls.HtmlTable.Border = \"Int32 -1\"",
+    "HtmlControls.HtmlTable.Border set = \"Int32 1\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.BorderColor": [
+    "HtmlControls.HtmlTable.BorderColor = \"\"",
+    "HtmlControls.HtmlTable.BorderColor set = \"Abc 123\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.CellPadding": [
+    "HtmlControls.HtmlTable.CellPadding = \"Int32 -1\"",
+    "HtmlControls.HtmlTable.CellPadding set = \"Int32 1\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.CellSpacing": [
+    "HtmlControls.HtmlTable.CellSpacing = \"Int32 -1\"",
+    "HtmlControls.HtmlTable.CellSpacing set = \"Int32 1\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.CreateControlCollection": [
+    "HtmlControls.HtmlTable.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlTable.CreateControlCollection after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.Height": [
+    "HtmlControls.HtmlTable.Height = \"\"",
+    "HtmlControls.HtmlTable.Height set = \"Abc 123\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.InnerHtml": [
+    "HtmlControls.HtmlTable.InnerHtml = \"-> System.NotSupportedException: 'HtmlTable' does not support the InnerHtml property.\"",
+    "HtmlControls.HtmlTable.InnerHtml set = \"-> System.NotSupportedException: 'HtmlTable' does not support the InnerHtml property.\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.InnerText": [
+    "HtmlControls.HtmlTable.InnerText = \"-> System.NotSupportedException: 'HtmlTable' does not support the InnerText property.\"",
+    "HtmlControls.HtmlTable.InnerText set = \"-> System.NotSupportedException: 'HtmlTable' does not support the InnerText property.\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.RenderChildren": [
+    "HtmlControls.HtmlTable.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlTable.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "  | \t<tr id=\"trRow\">",
+    "  | \t\t<td>A</td>",
+    "  | \t\t<td>B</td>",
+    "  | \t</tr>",
+    "  | ",
+    "HtmlControls.HtmlTable.RenderChildren(HtmlTextWriter) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.RenderEndTag": [
+    "HtmlControls.HtmlTable.RenderEndTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlTable.RenderEndTag(HtmlTextWriter) writer:",
+    "  | </table>",
+    "  | ",
+    "HtmlControls.HtmlTable.RenderEndTag(HtmlTextWriter) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.Rows": [
+    "HtmlControls.HtmlTable.Rows = \"[System.Web.UI.HtmlControls.HtmlTableRow]\""
+  ],
+  "HtmlTable.Api.HtmlControls.HtmlTable.Width": [
+    "HtmlControls.HtmlTable.Width = \"\"",
+    "HtmlControls.HtmlTable.Width set = \"Abc 123\""
+  ],
+  "HtmlTable.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HtmlTable.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HtmlTable.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HtmlTable.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HtmlTable.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HtmlTable.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HtmlTable.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ],
+  "HtmlTable.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HtmlTable#tblHtml {Align=\"\"; BgColor=\"\"; Border=Int32 -1; BorderColor=\"\"; CellPadding=Int32 -1; CellSpacing=Int32 -1; ClientID=\"tblHtml\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Height=\"\"; ID=\"tblHtml\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; SkinID=\"\"; TagName=\"table\"; UniqueID=\"tblHtml\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=\"\"}"
+  ]
+}

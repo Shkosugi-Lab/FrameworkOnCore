@@ -1,0 +1,508 @@
+{
+  "HtmlEmbed.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HtmlEmbed.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HtmlEmbed.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlEmbed.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HtmlEmbed.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.ClientID": [
+    "Control.ClientID = \"embProbe\""
+  ],
+  "HtmlEmbed.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HtmlEmbed.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HtmlEmbed.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HtmlEmbed.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "HtmlEmbed.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HtmlEmbed.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HtmlEmbed.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HtmlEmbed.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HtmlEmbed.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HtmlEmbed.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "HtmlEmbed.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HtmlEmbed.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HtmlEmbed.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "HtmlEmbed.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlEmbed.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"embProbe\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HtmlEmbed.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.ID": [
+    "Control.ID = \"embProbe\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HtmlEmbed.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HtmlEmbed.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HtmlEmbed.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HtmlEmbed.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HtmlEmbed.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HtmlEmbed.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HtmlEmbed.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlEmbed.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HtmlEmbed.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlEmbed.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlEmbed.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HtmlEmbed.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <embed src=\"~/Media/probe.swf\" id=\"embProbe\"></embed>",
+    "Control.Render(HtmlTextWriter) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <embed src=\"~/Media/probe.swf\" id=\"embProbe\"></embed>",
+    "Control.RenderControl(HtmlTextWriter) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <embed src=\"~/Media/probe.swf\" id=\"embProbe\"></embed>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HtmlEmbed.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HtmlEmbed.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "HtmlEmbed.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HtmlEmbed.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.Control.UniqueID": [
+    "Control.UniqueID = \"embProbe\""
+  ],
+  "HtmlEmbed.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HtmlEmbed.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HtmlEmbed.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [src=\"~/Media/probe.swf\"]"
+  ],
+  "HtmlEmbed.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlEmbed.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HtmlEmbed.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlContainerControl.#ctor": [
+    "HtmlControls.HtmlContainerControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlContainerControl because it is an abstract class.\"",
+    "HtmlControls.HtmlContainerControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlContainerControl because it is an abstract class.\""
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlContainerControl.CreateControlCollection": [
+    "HtmlControls.HtmlContainerControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlContainerControl.CreateControlCollection after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlContainerControl.InnerHtml": [
+    "HtmlControls.HtmlContainerControl.InnerHtml = \"\"",
+    "HtmlControls.HtmlContainerControl.InnerHtml set = \"Abc 123\""
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlContainerControl.InnerText": [
+    "HtmlControls.HtmlContainerControl.InnerText = \"\"",
+    "HtmlControls.HtmlContainerControl.InnerText set = \"Abc 123\""
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlContainerControl.LoadViewState": [
+    "HtmlControls.HtmlContainerControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlContainerControl.Render": [
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) writer:",
+    "  | <embed src=\"~/Media/probe.swf\" id=\"embProbe\"></embed>",
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlContainerControl.RenderAttributes": [
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  src=\"~/Media/probe.swf\" id=\"embProbe\"",
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlContainerControl.RenderEndTag": [
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) writer:",
+    "  | </embed>",
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlControl.#ctor": [
+    "HtmlControls.HtmlControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\"",
+    "HtmlControls.HtmlControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\""
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlControl.Attributes": [
+    "HtmlControls.HtmlControl.Attributes = AttributeCollection [src=\"~/Media/probe.swf\"]"
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlControl.CreateControlCollection": [
+    "HtmlControls.HtmlControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlControl.CreateControlCollection after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlControl.Disabled": [
+    "HtmlControls.HtmlControl.Disabled = \"false\"",
+    "HtmlControls.HtmlControl.Disabled set = \"true\""
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlControl.GetAttribute": [
+    "HtmlControls.HtmlControl.GetAttribute(String) = null",
+    "HtmlControls.HtmlControl.GetAttribute(String) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlControl.Render": [
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) writer:",
+    "  | <embed src=\"~/Media/probe.swf\" id=\"embProbe\"></embed>",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlControl.RenderAttributes": [
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  src=\"~/Media/probe.swf\" id=\"embProbe\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlControl.RenderBeginTag": [
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <embed src=\"~/Media/probe.swf\" id=\"embProbe\">",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlControl.SetAttribute": [
+    "HtmlControls.HtmlControl.SetAttribute(String,String) = \"ok\"",
+    "HtmlControls.HtmlControl.SetAttribute(String,String) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlControl.Style": [
+    "HtmlControls.HtmlControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlControl.TagName": [
+    "HtmlControls.HtmlControl.TagName = \"embed\""
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlControl.ViewStateIgnoresCase": [
+    "HtmlControls.HtmlControl.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlEmbed.#ctor": [
+    "HtmlControls.HtmlEmbed.#ctor = HtmlEmbed# {ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=null; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"embed\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlEmbed.RenderAttributes": [
+    "HtmlControls.HtmlEmbed.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlEmbed.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  src=\"~/Media/probe.swf\" id=\"embProbe\"",
+    "HtmlControls.HtmlEmbed.RenderAttributes(HtmlTextWriter) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.HtmlControls.HtmlEmbed.Src": [
+    "HtmlControls.HtmlEmbed.Src = \"~/Media/probe.swf\"",
+    "HtmlControls.HtmlEmbed.Src set = \"Abc 123\""
+  ],
+  "HtmlEmbed.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HtmlEmbed.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HtmlEmbed.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HtmlEmbed.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HtmlEmbed.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HtmlEmbed.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HtmlEmbed.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlEmbed.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HtmlEmbed#embProbe {ClientID=\"embProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"embProbe\"; InnerHtml=\"\"; InnerText=\"\"; SkinID=\"\"; Src=\"~/Media/probe.swf\"; TagName=\"embed\"; UniqueID=\"embProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ]
+}

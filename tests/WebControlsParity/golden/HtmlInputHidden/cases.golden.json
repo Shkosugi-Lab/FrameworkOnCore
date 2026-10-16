@@ -1,0 +1,514 @@
+{
+  "HtmlInputHidden.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HtmlInputHidden.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HtmlInputHidden.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputHidden.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HtmlInputHidden.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.ClientID": [
+    "Control.ClientID = \"inpHidden\""
+  ],
+  "HtmlInputHidden.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HtmlInputHidden.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HtmlInputHidden.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HtmlInputHidden.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "HtmlInputHidden.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HtmlInputHidden.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HtmlInputHidden.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HtmlInputHidden.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HtmlInputHidden.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HtmlInputHidden.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "HtmlInputHidden.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HtmlInputHidden.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HtmlInputHidden.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "HtmlInputHidden.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputHidden.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"inpHidden\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HtmlInputHidden.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.ID": [
+    "Control.ID = \"inpHidden\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HtmlInputHidden.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HtmlInputHidden.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HtmlInputHidden.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HtmlInputHidden.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HtmlInputHidden.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HtmlInputHidden.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HtmlInputHidden.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlInputHidden.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HtmlInputHidden.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputHidden.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlInputHidden.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HtmlInputHidden.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <input name=\"inpHidden\" type=\"hidden\" id=\"inpHidden\" value=\"initial\" />",
+    "Control.Render(HtmlTextWriter) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <input name=\"inpHidden\" type=\"hidden\" id=\"inpHidden\" value=\"initial\" />",
+    "Control.RenderControl(HtmlTextWriter) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <input name=\"inpHidden\" type=\"hidden\" id=\"inpHidden\" value=\"initial\" />",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HtmlInputHidden.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HtmlInputHidden.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "HtmlInputHidden.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HtmlInputHidden.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.Control.UniqueID": [
+    "Control.UniqueID = \"inpHidden\""
+  ],
+  "HtmlInputHidden.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HtmlInputHidden.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HtmlInputHidden.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [type=\"hidden\", value=\"initial\"]"
+  ],
+  "HtmlInputHidden.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlInputHidden.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HtmlInputHidden.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlControl.#ctor": [
+    "HtmlControls.HtmlControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\"",
+    "HtmlControls.HtmlControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\""
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlControl.Attributes": [
+    "HtmlControls.HtmlControl.Attributes = AttributeCollection [type=\"hidden\", value=\"initial\"]"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlControl.CreateControlCollection": [
+    "HtmlControls.HtmlControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlControl.CreateControlCollection after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlControl.Disabled": [
+    "HtmlControls.HtmlControl.Disabled = \"false\"",
+    "HtmlControls.HtmlControl.Disabled set = \"true\""
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlControl.GetAttribute": [
+    "HtmlControls.HtmlControl.GetAttribute(String) = null",
+    "HtmlControls.HtmlControl.GetAttribute(String) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlControl.Render": [
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) writer:",
+    "  | <input name=\"inpHidden\" type=\"hidden\" id=\"inpHidden\" value=\"initial\" />",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlControl.RenderAttributes": [
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"inpHidden\" type=\"hidden\" id=\"inpHidden\" value=\"initial\" /",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlControl.RenderBeginTag": [
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <input name=\"inpHidden\" type=\"hidden\" id=\"inpHidden\" value=\"initial\" />",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlControl.SetAttribute": [
+    "HtmlControls.HtmlControl.SetAttribute(String,String) = \"ok\"",
+    "HtmlControls.HtmlControl.SetAttribute(String,String) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlControl.Style": [
+    "HtmlControls.HtmlControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlControl.TagName": [
+    "HtmlControls.HtmlControl.TagName = \"input\""
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlControl.ViewStateIgnoresCase": [
+    "HtmlControls.HtmlControl.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlInputControl.#ctor": [
+    "HtmlControls.HtmlInputControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlInputControl because it is an abstract class.\""
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlInputControl.Name": [
+    "HtmlControls.HtmlInputControl.Name = \"inpHidden\"",
+    "HtmlControls.HtmlInputControl.Name set = \"inpHidden\""
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlInputControl.RenderAttributes": [
+    "HtmlControls.HtmlInputControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlInputControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"inpHidden\" type=\"hidden\" id=\"inpHidden\" value=\"initial\" /",
+    "HtmlControls.HtmlInputControl.RenderAttributes(HtmlTextWriter) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlInputControl.Type": [
+    "HtmlControls.HtmlInputControl.Type = \"hidden\""
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlInputControl.Value": [
+    "HtmlControls.HtmlInputControl.Value = \"initial\"",
+    "HtmlControls.HtmlInputControl.Value set = \"Abc 123\""
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlInputHidden.#ctor": [
+    "HtmlControls.HtmlInputHidden.#ctor = HtmlInputHidden# {ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=null; Name=null; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=null; ValidateRequestMode=Inherit; Value=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlInputHidden.LoadPostData": [
+    "HtmlControls.HtmlInputHidden.LoadPostData(String,NameValueCollection) = \"true\"",
+    "HtmlControls.HtmlInputHidden.LoadPostData(String,NameValueCollection) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"Hanako\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlInputHidden.OnPreRender": [
+    "HtmlControls.HtmlInputHidden.OnPreRender(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlInputHidden.OnPreRender(EventArgs) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlInputHidden.OnServerChange": [
+    "HtmlControls.HtmlInputHidden.OnServerChange(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlInputHidden.OnServerChange(EventArgs) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlInputHidden.RaisePostDataChangedEvent": [
+    "HtmlControls.HtmlInputHidden.RaisePostDataChangedEvent = \"ok\"",
+    "HtmlControls.HtmlInputHidden.RaisePostDataChangedEvent after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlInputHidden.RenderAttributes": [
+    "HtmlControls.HtmlInputHidden.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlInputHidden.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"inpHidden\" type=\"hidden\" id=\"inpHidden\" value=\"initial\" /",
+    "HtmlControls.HtmlInputHidden.RenderAttributes(HtmlTextWriter) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.HtmlControls.HtmlInputHidden.ServerChange": [
+    "HtmlControls.HtmlInputHidden.ServerChange = \"added and removed\""
+  ],
+  "HtmlInputHidden.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HtmlInputHidden.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HtmlInputHidden.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HtmlInputHidden.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HtmlInputHidden.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HtmlInputHidden.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HtmlInputHidden.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.IPostBackDataHandler.LoadPostData": [
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) = \"true\"",
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"Hanako\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.IPostBackDataHandler.RaisePostDataChangedEvent": [
+    "IPostBackDataHandler.RaisePostDataChangedEvent = \"ok\"",
+    "IPostBackDataHandler.RaisePostDataChangedEvent after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlInputHidden.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HtmlInputHidden#inpHidden {ClientID=\"inpHidden\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"inpHidden\"; Name=\"inpHidden\"; SkinID=\"\"; TagName=\"input\"; Type=\"hidden\"; UniqueID=\"inpHidden\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ]
+}

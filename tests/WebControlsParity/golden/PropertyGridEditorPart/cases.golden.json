@@ -1,0 +1,705 @@
+{
+  "PropertyGridEditorPart.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "PropertyGridEditorPart.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "PropertyGridEditorPart.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "PropertyGridEditorPart.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "PropertyGridEditorPart.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.ClientID": [
+    "Control.ClientID = \"pgepProbe\""
+  ],
+  "PropertyGridEditorPart.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "PropertyGridEditorPart.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "PropertyGridEditorPart.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "PropertyGridEditorPart.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "PropertyGridEditorPart.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "PropertyGridEditorPart.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "PropertyGridEditorPart.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "PropertyGridEditorPart.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "PropertyGridEditorPart.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "PropertyGridEditorPart.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "PropertyGridEditorPart.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "PropertyGridEditorPart.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "PropertyGridEditorPart.Api.Control.FindControl": [
+    "Control.FindControl(String) = null",
+    "Control.FindControl(String) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "PropertyGridEditorPart.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "Control.GetDesignModeState after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "PropertyGridEditorPart.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"pgepProbe\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "PropertyGridEditorPart.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.ID": [
+    "Control.ID = \"pgepProbe\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "PropertyGridEditorPart.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "PropertyGridEditorPart.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "PropertyGridEditorPart.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "PropertyGridEditorPart.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "PropertyGridEditorPart.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "PropertyGridEditorPart.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "PropertyGridEditorPart.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "PropertyGridEditorPart.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "PropertyGridEditorPart.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "PropertyGridEditorPart.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"-> System.InvalidOperationException: EditorPart 'pgepProbe' must be placed in an EditorZone.\""
+  ],
+  "PropertyGridEditorPart.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "PropertyGridEditorPart.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.Parent": [
+    "Control.Parent = PlaceHolder# {ClientID=\"ctl00\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"ctl00\"; SkinID=\"\"; UniqueID=\"ctl00\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "PropertyGridEditorPart.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <div id=\"pgepProbe\">",
+    "  | ",
+    "  | </div>",
+    "Control.Render(HtmlTextWriter) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <div id=\"pgepProbe\">",
+    "  | ",
+    "  | </div>",
+    "Control.RenderControl(HtmlTextWriter) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <div id=\"pgepProbe\">",
+    "  | ",
+    "  | </div>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "PropertyGridEditorPart.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "PropertyGridEditorPart.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "PropertyGridEditorPart.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "PropertyGridEditorPart.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.Control.UniqueID": [
+    "Control.UniqueID = \"pgepProbe\""
+  ],
+  "PropertyGridEditorPart.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "PropertyGridEditorPart.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "PropertyGridEditorPart.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "PropertyGridEditorPart.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "PropertyGridEditorPart.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "PropertyGridEditorPart.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "PropertyGridEditorPart.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=true; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "PropertyGridEditorPart.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "PropertyGridEditorPart.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "PropertyGridEditorPart.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "PropertyGridEditorPart.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "PropertyGridEditorPart.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "PropertyGridEditorPart.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.ICompositeControlDesignerAccessor.RecreateChildControls": [
+    "ICompositeControlDesignerAccessor.RecreateChildControls = \"ok\"",
+    "ICompositeControlDesignerAccessor.RecreateChildControls after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.Panel.#ctor": [
+    "Panel.#ctor = Panel# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Direction=NotSet; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=null; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.Panel.AddAttributesToRender": [
+    "Panel.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "Panel.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "Panel.AddAttributesToRender(HtmlTextWriter) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.Panel.BackImageUrl": [
+    "Panel.BackImageUrl = \"\"",
+    "Panel.BackImageUrl set = \"Abc 123\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.Panel.CreateControlStyle": [
+    "Panel.CreateControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}",
+    "Panel.CreateControlStyle after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.Panel.DefaultButton": [
+    "Panel.DefaultButton = \"\"",
+    "Panel.DefaultButton set = \"Abc 123\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.Panel.Direction": [
+    "Panel.Direction = \"ContentDirection.NotSet\"",
+    "Panel.Direction set = \"ContentDirection.LeftToRight\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.Panel.GroupingText": [
+    "Panel.GroupingText = \"\"",
+    "Panel.GroupingText set = \"Abc 123\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.Panel.HorizontalAlign": [
+    "Panel.HorizontalAlign = \"HorizontalAlign.NotSet\"",
+    "Panel.HorizontalAlign set = \"HorizontalAlign.Left\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.Panel.RenderBeginTag": [
+    "Panel.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "Panel.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <div id=\"pgepProbe\">",
+    "  | ",
+    "Panel.RenderBeginTag(HtmlTextWriter) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.Panel.RenderEndTag": [
+    "Panel.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.Panel.ScrollBars": [
+    "Panel.ScrollBars = \"ScrollBars.None\"",
+    "Panel.ScrollBars set = \"ScrollBars.Horizontal\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.Panel.SupportsDisabledAttribute": [
+    "Panel.SupportsDisabledAttribute = \"false\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.Panel.Wrap": [
+    "Panel.Wrap = \"true\"",
+    "Panel.Wrap set = \"true\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}",
+    "WebControl.CreateControlStyle after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"ok\"",
+    "WebControl.Render(HtmlTextWriter) writer:",
+    "  | <div id=\"pgepProbe\">",
+    "  | ",
+    "  | </div>",
+    "WebControl.Render(HtmlTextWriter) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <div id=\"pgepProbe\">",
+    "  | ",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.RenderContents(HtmlTextWriter) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Div\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"div\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.EditorPart.#ctor": [
+    "WebParts.EditorPart.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.WebParts.EditorPart because it is an abstract class.\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.EditorPart.ApplyChanges": [
+    "WebParts.EditorPart.ApplyChanges = \"true\"",
+    "WebParts.EditorPart.ApplyChanges after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.EditorPart.Display": [
+    "WebParts.EditorPart.Display = \"false\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.EditorPart.DisplayTitle": [
+    "WebParts.EditorPart.DisplayTitle = \"Property Grid\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.EditorPart.GetDesignModeState": [
+    "WebParts.EditorPart.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "WebParts.EditorPart.GetDesignModeState after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.EditorPart.OnPreRender": [
+    "WebParts.EditorPart.OnPreRender(EventArgs) = \"-> System.InvalidOperationException: EditorPart 'pgepProbe' must be placed in an EditorZone.\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.EditorPart.SetDesignModeState": [
+    "WebParts.EditorPart.SetDesignModeState(IDictionary) = \"ok\"",
+    "WebParts.EditorPart.SetDesignModeState(IDictionary) after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.EditorPart.SyncChanges": [
+    "WebParts.EditorPart.SyncChanges = \"ok\"",
+    "WebParts.EditorPart.SyncChanges after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.EditorPart.WebPartManager": [
+    "WebParts.EditorPart.WebPartManager = null"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.EditorPart.WebPartToEdit": [
+    "WebParts.EditorPart.WebPartToEdit = null"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.EditorPart.Zone": [
+    "WebParts.EditorPart.Zone = null"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.Part.ChromeState": [
+    "WebParts.Part.ChromeState = \"PartChromeState.Normal\"",
+    "WebParts.Part.ChromeState set = \"PartChromeState.Minimized\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.Part.ChromeType": [
+    "WebParts.Part.ChromeType = \"PartChromeType.Default\"",
+    "WebParts.Part.ChromeType set = \"PartChromeType.TitleAndBorder\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.Part.Controls": [
+    "WebParts.Part.Controls = ControlCollection []"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.Part.DataBind": [
+    "WebParts.Part.DataBind = \"ok\"",
+    "WebParts.Part.DataBind after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.Part.Description": [
+    "WebParts.Part.Description = \"\"",
+    "WebParts.Part.Description set = \"Abc 123\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.Part.Title": [
+    "WebParts.Part.Title = \"Property Grid\"",
+    "WebParts.Part.Title set = \"Abc 123\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.PropertyGridEditorPart.#ctor": [
+    "WebParts.PropertyGridEditorPart.#ctor = PropertyGridEditorPart# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=null; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.PropertyGridEditorPart.ApplyChanges": [
+    "WebParts.PropertyGridEditorPart.ApplyChanges = \"true\"",
+    "WebParts.PropertyGridEditorPart.ApplyChanges after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.PropertyGridEditorPart.DefaultButton": [
+    "WebParts.PropertyGridEditorPart.DefaultButton = \"\"",
+    "WebParts.PropertyGridEditorPart.DefaultButton set = \"Abc 123\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.PropertyGridEditorPart.Display": [
+    "WebParts.PropertyGridEditorPart.Display = \"false\""
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.PropertyGridEditorPart.SyncChanges": [
+    "WebParts.PropertyGridEditorPart.SyncChanges = \"ok\"",
+    "WebParts.PropertyGridEditorPart.SyncChanges after = PropertyGridEditorPart#pgepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"pgepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=false; DisplayTitle=\"Property Grid\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"pgepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Property Grid\"; ToolTip=\"\"; UniqueID=\"pgepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "PropertyGridEditorPart.Api.WebControls.WebParts.PropertyGridEditorPart.Title": [
+    "WebParts.PropertyGridEditorPart.Title = \"Property Grid\"",
+    "WebParts.PropertyGridEditorPart.Title set = \"Abc 123\""
+  ]
+}

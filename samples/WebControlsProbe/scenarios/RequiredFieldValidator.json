@@ -1,0 +1,86 @@
+{
+  "_comment": "The RequiredFieldValidator's scenario layer (ValidatorsScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers. The log's request number is kept in view state: a postback the browser's validation held back leaves it as it was.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/ValidatorsScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "RequiredFieldValidator [render][databind][dynamic] first request"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "RequiredFieldValidator [servervalidate][dynamic] all empty: required ones fail, the others pass empty"
+    },
+    {
+      "action": "fill",
+      "target": "txtName",
+      "value": "Taro"
+    },
+    {
+      "action": "fill",
+      "target": "txtDynamicTarget",
+      "value": "abc"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "RequiredFieldValidator [servervalidate][dynamic] filled; the initial value still counts as empty"
+    },
+    {
+      "action": "fill",
+      "target": "txtInitial",
+      "value": "changed"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "RequiredFieldValidator [servervalidate] the initial value changed"
+    },
+    {
+      "action": "click",
+      "target": "btnReqC"
+    },
+    {
+      "action": "snapshot",
+      "name": "RequiredFieldValidator [clientvalidate] empty in the browser: no request"
+    },
+    {
+      "action": "fill",
+      "target": "txtNameC",
+      "value": "x"
+    },
+    {
+      "action": "click",
+      "target": "btnReqC"
+    },
+    {
+      "action": "snapshot",
+      "name": "RequiredFieldValidator [clientvalidate] filled in the browser: posted"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "RequiredFieldValidator [visible][servervalidate] the hidden validator shown, then validating"
+    }
+  ]
+}

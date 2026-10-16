@@ -1,0 +1,2638 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "TextBox [render][databind] first request",
+      "Path": "/textboxscenario",
+      "Title": "TextBox scenario",
+      "Text": [
+        "Plain:",
+        "Auto:",
+        "ReadOnly:",
+        "Disabled:",
+        "Password:",
+        "Multi:",
+        "NoViewState:",
+        "Hidden:",
+        "Raw:",
+        "Dynamic:",
+        "Validated (g1):",
+        "Auto validated (g2):",
+        "Client validated (g3):",
+        "Bound:",
+        "Load: IsPostBack=False",
+        "Text txtPlain: \"Taro\"",
+        "Text txtAuto: \"\"",
+        "Text txtReadOnly: \"fixed\"",
+        "Text txtDisabled: \"disabled\"",
+        "Text txtPassword: \"\"",
+        "Text txtMulti: \"\"",
+        "Text txtNoViewState: \"initial\"",
+        "Text txtHidden: \"set while hidden\" (hidden)",
+        "Text txtRaw: \"\"",
+        "Text txtDynamic: \"dynamic\"",
+        "Text txtValidated: \"\"",
+        "Text txtAutoValidated: \"\"",
+        "Text txtClient: \"\""
+      ],
+      "Tables": [
+        [
+          [
+            "Bound:"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtPlain": "Taro",
+        "txtAuto": "",
+        "txtReadOnly": "fixed",
+        "txtDisabled": "disabled",
+        "txtPassword": "",
+        "txtMulti": "",
+        "txtNoViewState": "initial",
+        "txtRaw": "",
+        "txtDynamic": "dynamic",
+        "txtValidated": "",
+        "txtAutoValidated": "",
+        "txtClient": "",
+        "fvPerson_txtBound": "Taro"
+      },
+      "Elements": {
+        "txtPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtReadOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "readonly": ""
+          },
+          "Style": {}
+        },
+        "txtDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "txtMulti": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "txtNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtRaw": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAutoValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "fvPerson": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvPerson_txtBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvPerson_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "TextBox [postdata][change][readonly][disabled][password][dynamic][requestvalidation] posted values",
+      "Path": "/textboxscenario",
+      "Title": "TextBox scenario",
+      "Text": [
+        "Plain:",
+        "Auto:",
+        "ReadOnly:",
+        "Disabled:",
+        "Password:",
+        "Multi:",
+        "NoViewState:",
+        "Hidden:",
+        "Raw:",
+        "Dynamic:",
+        "Validated (g1):",
+        "Auto validated (g2):",
+        "Client validated (g3):",
+        "Bound:",
+        "Load: IsPostBack=True",
+        "TextChanged txtPlain: \"Hanako\"",
+        "TextChanged txtPassword: \"secret\"",
+        "TextChanged txtMulti: \"Line1\\r\\nLine2\"",
+        "TextChanged txtNoViewState: \"changed\"",
+        "TextChanged txtRaw: \"<b>raw</b>\"",
+        "TextChanged txtDynamic: \"dyn\"",
+        "IsValid: (not validated)",
+        "Text txtPlain: \"Hanako\"",
+        "Text txtAuto: \"\"",
+        "Text txtReadOnly: \"fixed\"",
+        "Text txtDisabled: \"disabled\"",
+        "Text txtPassword: \"secret\"",
+        "Text txtMulti: \"Line1\\r\\nLine2\"",
+        "Text txtNoViewState: \"changed\"",
+        "Text txtHidden: \"set while hidden\" (hidden)",
+        "Text txtRaw: \"<b>raw</b>\"",
+        "Text txtDynamic: \"dyn\"",
+        "Text txtValidated: \"\"",
+        "Text txtAutoValidated: \"\"",
+        "Text txtClient: \"\""
+      ],
+      "Tables": [
+        [
+          [
+            "Bound:"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtPlain": "Hanako",
+        "txtAuto": "",
+        "txtReadOnly": "fixed",
+        "txtDisabled": "disabled",
+        "txtPassword": "",
+        "txtMulti": "Line1\nLine2",
+        "txtNoViewState": "changed",
+        "txtRaw": "<b>raw</b>",
+        "txtDynamic": "dyn",
+        "txtValidated": "",
+        "txtAutoValidated": "",
+        "txtClient": "",
+        "fvPerson_txtBound": "Taro"
+      },
+      "Elements": {
+        "txtPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtReadOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "readonly": ""
+          },
+          "Style": {}
+        },
+        "txtDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "txtMulti": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "txtNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtRaw": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAutoValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "fvPerson": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvPerson_txtBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvPerson_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "TextBox [viewstate][change] posted again unchanged",
+      "Path": "/textboxscenario",
+      "Title": "TextBox scenario",
+      "Text": [
+        "Plain:",
+        "Auto:",
+        "ReadOnly:",
+        "Disabled:",
+        "Password:",
+        "Multi:",
+        "NoViewState:",
+        "Hidden:",
+        "Raw:",
+        "Dynamic:",
+        "Validated (g1):",
+        "Auto validated (g2):",
+        "Client validated (g3):",
+        "Bound:",
+        "Load: IsPostBack=True",
+        "TextChanged txtNoViewState: \"changed\"",
+        "IsValid: (not validated)",
+        "Text txtPlain: \"Hanako\"",
+        "Text txtAuto: \"\"",
+        "Text txtReadOnly: \"fixed\"",
+        "Text txtDisabled: \"disabled\"",
+        "Text txtPassword: \"\"",
+        "Text txtMulti: \"Line1\\r\\nLine2\"",
+        "Text txtNoViewState: \"changed\"",
+        "Text txtHidden: \"set while hidden\" (hidden)",
+        "Text txtRaw: \"<b>raw</b>\"",
+        "Text txtDynamic: \"dyn\"",
+        "Text txtValidated: \"\"",
+        "Text txtAutoValidated: \"\"",
+        "Text txtClient: \"\""
+      ],
+      "Tables": [
+        [
+          [
+            "Bound:"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtPlain": "Hanako",
+        "txtAuto": "",
+        "txtReadOnly": "fixed",
+        "txtDisabled": "disabled",
+        "txtPassword": "",
+        "txtMulti": "Line1\nLine2",
+        "txtNoViewState": "changed",
+        "txtRaw": "<b>raw</b>",
+        "txtDynamic": "dyn",
+        "txtValidated": "",
+        "txtAutoValidated": "",
+        "txtClient": "",
+        "fvPerson_txtBound": "Taro"
+      },
+      "Elements": {
+        "txtPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtReadOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "readonly": ""
+          },
+          "Style": {}
+        },
+        "txtDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "txtMulti": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "txtNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtRaw": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAutoValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "fvPerson": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvPerson_txtBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvPerson_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "TextBox [viewstate][visible] hidden text box shown",
+      "Path": "/textboxscenario",
+      "Title": "TextBox scenario",
+      "Text": [
+        "Plain:",
+        "Auto:",
+        "ReadOnly:",
+        "Disabled:",
+        "Password:",
+        "Multi:",
+        "NoViewState:",
+        "Hidden:",
+        "Raw:",
+        "Dynamic:",
+        "Validated (g1):",
+        "Auto validated (g2):",
+        "Client validated (g3):",
+        "Bound:",
+        "Load: IsPostBack=True",
+        "TextChanged txtNoViewState: \"changed\"",
+        "Click btnShow",
+        "IsValid: (not validated)",
+        "Text txtPlain: \"Hanako\"",
+        "Text txtAuto: \"\"",
+        "Text txtReadOnly: \"fixed\"",
+        "Text txtDisabled: \"disabled\"",
+        "Text txtPassword: \"\"",
+        "Text txtMulti: \"Line1\\r\\nLine2\"",
+        "Text txtNoViewState: \"changed\"",
+        "Text txtHidden: \"set while hidden\"",
+        "Text txtRaw: \"<b>raw</b>\"",
+        "Text txtDynamic: \"dyn\"",
+        "Text txtValidated: \"\"",
+        "Text txtAutoValidated: \"\"",
+        "Text txtClient: \"\""
+      ],
+      "Tables": [
+        [
+          [
+            "Bound:"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtPlain": "Hanako",
+        "txtAuto": "",
+        "txtReadOnly": "fixed",
+        "txtDisabled": "disabled",
+        "txtPassword": "",
+        "txtMulti": "Line1\nLine2",
+        "txtNoViewState": "changed",
+        "txtHidden": "set while hidden",
+        "txtRaw": "<b>raw</b>",
+        "txtDynamic": "dyn",
+        "txtValidated": "",
+        "txtAutoValidated": "",
+        "txtClient": "",
+        "fvPerson_txtBound": "Taro"
+      },
+      "Elements": {
+        "txtPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtReadOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "readonly": ""
+          },
+          "Style": {}
+        },
+        "txtDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "txtMulti": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "txtNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtRaw": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAutoValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "fvPerson": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvPerson_txtBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvPerson_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "TextBox [autopostback][change] auto postback",
+      "Path": "/textboxscenario",
+      "Title": "TextBox scenario",
+      "Text": [
+        "Plain:",
+        "Auto:",
+        "ReadOnly:",
+        "Disabled:",
+        "Password:",
+        "Multi:",
+        "NoViewState:",
+        "Hidden:",
+        "Raw:",
+        "Dynamic:",
+        "Validated (g1):",
+        "Auto validated (g2):",
+        "Client validated (g3):",
+        "Bound:",
+        "Load: IsPostBack=True",
+        "TextChanged txtAuto: \"auto\"",
+        "TextChanged txtNoViewState: \"changed\"",
+        "IsValid: (not validated)",
+        "Text txtPlain: \"Hanako\"",
+        "Text txtAuto: \"auto\"",
+        "Text txtReadOnly: \"fixed\"",
+        "Text txtDisabled: \"disabled\"",
+        "Text txtPassword: \"\"",
+        "Text txtMulti: \"Line1\\r\\nLine2\"",
+        "Text txtNoViewState: \"changed\"",
+        "Text txtHidden: \"set while hidden\"",
+        "Text txtRaw: \"<b>raw</b>\"",
+        "Text txtDynamic: \"dyn\"",
+        "Text txtValidated: \"\"",
+        "Text txtAutoValidated: \"\"",
+        "Text txtClient: \"\""
+      ],
+      "Tables": [
+        [
+          [
+            "Bound:"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtPlain": "Hanako",
+        "txtAuto": "auto",
+        "txtReadOnly": "fixed",
+        "txtDisabled": "disabled",
+        "txtPassword": "",
+        "txtMulti": "Line1\nLine2",
+        "txtNoViewState": "changed",
+        "txtHidden": "set while hidden",
+        "txtRaw": "<b>raw</b>",
+        "txtDynamic": "dyn",
+        "txtValidated": "",
+        "txtAutoValidated": "",
+        "txtClient": "",
+        "fvPerson_txtBound": "Taro"
+      },
+      "Elements": {
+        "txtPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtReadOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "readonly": ""
+          },
+          "Style": {}
+        },
+        "txtDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "txtMulti": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "txtNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtRaw": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAutoValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "fvPerson": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvPerson_txtBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvPerson_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "TextBox [autopostback][causesvalidation] auto postback, valid",
+      "Path": "/textboxscenario",
+      "Title": "TextBox scenario",
+      "Text": [
+        "Plain:",
+        "Auto:",
+        "ReadOnly:",
+        "Disabled:",
+        "Password:",
+        "Multi:",
+        "NoViewState:",
+        "Hidden:",
+        "Raw:",
+        "Dynamic:",
+        "Validated (g1):",
+        "Auto validated (g2):",
+        "Client validated (g3):",
+        "Bound:",
+        "Load: IsPostBack=True",
+        "TextChanged txtNoViewState: \"changed\"",
+        "TextChanged txtAutoValidated: \"x\"",
+        "IsValid: True",
+        "Text txtPlain: \"Hanako\"",
+        "Text txtAuto: \"auto\"",
+        "Text txtReadOnly: \"fixed\"",
+        "Text txtDisabled: \"disabled\"",
+        "Text txtPassword: \"\"",
+        "Text txtMulti: \"Line1\\r\\nLine2\"",
+        "Text txtNoViewState: \"changed\"",
+        "Text txtHidden: \"set while hidden\"",
+        "Text txtRaw: \"<b>raw</b>\"",
+        "Text txtDynamic: \"dyn\"",
+        "Text txtValidated: \"\"",
+        "Text txtAutoValidated: \"x\"",
+        "Text txtClient: \"\""
+      ],
+      "Tables": [
+        [
+          [
+            "Bound:"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtPlain": "Hanako",
+        "txtAuto": "auto",
+        "txtReadOnly": "fixed",
+        "txtDisabled": "disabled",
+        "txtPassword": "",
+        "txtMulti": "Line1\nLine2",
+        "txtNoViewState": "changed",
+        "txtHidden": "set while hidden",
+        "txtRaw": "<b>raw</b>",
+        "txtDynamic": "dyn",
+        "txtValidated": "",
+        "txtAutoValidated": "x",
+        "txtClient": "",
+        "fvPerson_txtBound": "Taro"
+      },
+      "Elements": {
+        "txtPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtReadOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "readonly": ""
+          },
+          "Style": {}
+        },
+        "txtDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "txtMulti": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "txtNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtRaw": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAutoValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "fvPerson": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvPerson_txtBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvPerson_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "TextBox [autopostback][causesvalidation] auto postback, emptied",
+      "Path": "/textboxscenario",
+      "Title": "TextBox scenario",
+      "Text": [
+        "Plain:",
+        "Auto:",
+        "ReadOnly:",
+        "Disabled:",
+        "Password:",
+        "Multi:",
+        "NoViewState:",
+        "Hidden:",
+        "Raw:",
+        "Dynamic:",
+        "Validated (g1):",
+        "Auto validated (g2): Required (g2)",
+        "Client validated (g3):",
+        "Bound:",
+        "Load: IsPostBack=True",
+        "TextChanged txtNoViewState: \"changed\"",
+        "TextChanged txtAutoValidated: \"\"",
+        "IsValid: False",
+        "Text txtPlain: \"Hanako\"",
+        "Text txtAuto: \"auto\"",
+        "Text txtReadOnly: \"fixed\"",
+        "Text txtDisabled: \"disabled\"",
+        "Text txtPassword: \"\"",
+        "Text txtMulti: \"Line1\\r\\nLine2\"",
+        "Text txtNoViewState: \"changed\"",
+        "Text txtHidden: \"set while hidden\"",
+        "Text txtRaw: \"<b>raw</b>\"",
+        "Text txtDynamic: \"dyn\"",
+        "Text txtValidated: \"\"",
+        "Text txtAutoValidated: \"\"",
+        "Text txtClient: \"\""
+      ],
+      "Tables": [
+        [
+          [
+            "Bound:"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtPlain": "Hanako",
+        "txtAuto": "auto",
+        "txtReadOnly": "fixed",
+        "txtDisabled": "disabled",
+        "txtPassword": "",
+        "txtMulti": "Line1\nLine2",
+        "txtNoViewState": "changed",
+        "txtHidden": "set while hidden",
+        "txtRaw": "<b>raw</b>",
+        "txtDynamic": "dyn",
+        "txtValidated": "",
+        "txtAutoValidated": "",
+        "txtClient": "",
+        "fvPerson_txtBound": "Taro"
+      },
+      "Elements": {
+        "txtPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtReadOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "readonly": ""
+          },
+          "Style": {}
+        },
+        "txtDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "txtMulti": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "txtNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtRaw": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAutoValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqAutoValidated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "fvPerson": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvPerson_txtBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvPerson_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "TextBox [validation] group g1, empty",
+      "Path": "/textboxscenario",
+      "Title": "TextBox scenario",
+      "Text": [
+        "Plain:",
+        "Auto:",
+        "ReadOnly:",
+        "Disabled:",
+        "Password:",
+        "Multi:",
+        "NoViewState:",
+        "Hidden:",
+        "Raw:",
+        "Dynamic:",
+        "Validated (g1): Required (g1)",
+        "Auto validated (g2):",
+        "Client validated (g3):",
+        "Bound:",
+        "Load: IsPostBack=True",
+        "TextChanged txtNoViewState: \"changed\"",
+        "IsValid: False",
+        "Text txtPlain: \"Hanako\"",
+        "Text txtAuto: \"auto\"",
+        "Text txtReadOnly: \"fixed\"",
+        "Text txtDisabled: \"disabled\"",
+        "Text txtPassword: \"\"",
+        "Text txtMulti: \"Line1\\r\\nLine2\"",
+        "Text txtNoViewState: \"changed\"",
+        "Text txtHidden: \"set while hidden\"",
+        "Text txtRaw: \"<b>raw</b>\"",
+        "Text txtDynamic: \"dyn\"",
+        "Text txtValidated: \"\"",
+        "Text txtAutoValidated: \"\"",
+        "Text txtClient: \"\""
+      ],
+      "Tables": [
+        [
+          [
+            "Bound:"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtPlain": "Hanako",
+        "txtAuto": "auto",
+        "txtReadOnly": "fixed",
+        "txtDisabled": "disabled",
+        "txtPassword": "",
+        "txtMulti": "Line1\nLine2",
+        "txtNoViewState": "changed",
+        "txtHidden": "set while hidden",
+        "txtRaw": "<b>raw</b>",
+        "txtDynamic": "dyn",
+        "txtValidated": "",
+        "txtAutoValidated": "",
+        "txtClient": "",
+        "fvPerson_txtBound": "Taro"
+      },
+      "Elements": {
+        "txtPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtReadOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "readonly": ""
+          },
+          "Style": {}
+        },
+        "txtDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "txtMulti": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "txtNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtRaw": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqValidated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAutoValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "fvPerson": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvPerson_txtBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvPerson_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "TextBox [validation] group g1, not digits",
+      "Path": "/textboxscenario",
+      "Title": "TextBox scenario",
+      "Text": [
+        "Plain:",
+        "Auto:",
+        "ReadOnly:",
+        "Disabled:",
+        "Password:",
+        "Multi:",
+        "NoViewState:",
+        "Hidden:",
+        "Raw:",
+        "Dynamic:",
+        "Validated (g1): Digits only (g1)",
+        "Auto validated (g2):",
+        "Client validated (g3):",
+        "Bound:",
+        "Load: IsPostBack=True",
+        "TextChanged txtNoViewState: \"changed\"",
+        "IsValid: False",
+        "Text txtPlain: \"Hanako\"",
+        "Text txtAuto: \"auto\"",
+        "Text txtReadOnly: \"fixed\"",
+        "Text txtDisabled: \"disabled\"",
+        "Text txtPassword: \"\"",
+        "Text txtMulti: \"Line1\\r\\nLine2\"",
+        "Text txtNoViewState: \"changed\"",
+        "Text txtHidden: \"set while hidden\"",
+        "Text txtRaw: \"<b>raw</b>\"",
+        "Text txtDynamic: \"dyn\"",
+        "Text txtValidated: \"abc\"",
+        "Text txtAutoValidated: \"\"",
+        "Text txtClient: \"\""
+      ],
+      "Tables": [
+        [
+          [
+            "Bound:"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtPlain": "Hanako",
+        "txtAuto": "auto",
+        "txtReadOnly": "fixed",
+        "txtDisabled": "disabled",
+        "txtPassword": "",
+        "txtMulti": "Line1\nLine2",
+        "txtNoViewState": "changed",
+        "txtHidden": "set while hidden",
+        "txtRaw": "<b>raw</b>",
+        "txtDynamic": "dyn",
+        "txtValidated": "abc",
+        "txtAutoValidated": "",
+        "txtClient": "",
+        "fvPerson_txtBound": "Taro"
+      },
+      "Elements": {
+        "txtPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtReadOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "readonly": ""
+          },
+          "Style": {}
+        },
+        "txtDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "txtMulti": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "txtNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtRaw": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "rexValidated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAutoValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "fvPerson": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvPerson_txtBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvPerson_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "TextBox [validation] group g1, valid",
+      "Path": "/textboxscenario",
+      "Title": "TextBox scenario",
+      "Text": [
+        "Plain:",
+        "Auto:",
+        "ReadOnly:",
+        "Disabled:",
+        "Password:",
+        "Multi:",
+        "NoViewState:",
+        "Hidden:",
+        "Raw:",
+        "Dynamic:",
+        "Validated (g1):",
+        "Auto validated (g2):",
+        "Client validated (g3):",
+        "Bound:",
+        "Load: IsPostBack=True",
+        "TextChanged txtNoViewState: \"changed\"",
+        "IsValid: True",
+        "Text txtPlain: \"Hanako\"",
+        "Text txtAuto: \"auto\"",
+        "Text txtReadOnly: \"fixed\"",
+        "Text txtDisabled: \"disabled\"",
+        "Text txtPassword: \"\"",
+        "Text txtMulti: \"Line1\\r\\nLine2\"",
+        "Text txtNoViewState: \"changed\"",
+        "Text txtHidden: \"set while hidden\"",
+        "Text txtRaw: \"<b>raw</b>\"",
+        "Text txtDynamic: \"dyn\"",
+        "Text txtValidated: \"123\"",
+        "Text txtAutoValidated: \"\"",
+        "Text txtClient: \"\""
+      ],
+      "Tables": [
+        [
+          [
+            "Bound:"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtPlain": "Hanako",
+        "txtAuto": "auto",
+        "txtReadOnly": "fixed",
+        "txtDisabled": "disabled",
+        "txtPassword": "",
+        "txtMulti": "Line1\nLine2",
+        "txtNoViewState": "changed",
+        "txtHidden": "set while hidden",
+        "txtRaw": "<b>raw</b>",
+        "txtDynamic": "dyn",
+        "txtValidated": "123",
+        "txtAutoValidated": "",
+        "txtClient": "",
+        "fvPerson_txtBound": "Taro"
+      },
+      "Elements": {
+        "txtPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtReadOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "readonly": ""
+          },
+          "Style": {}
+        },
+        "txtDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "txtMulti": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "txtNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtRaw": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAutoValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "fvPerson": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvPerson_txtBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvPerson_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "TextBox [clientvalidation] group g3, empty (no postback)",
+      "Path": "/textboxscenario",
+      "Title": "TextBox scenario",
+      "Text": [
+        "Plain:",
+        "Auto:",
+        "ReadOnly:",
+        "Disabled:",
+        "Password:",
+        "Multi:",
+        "NoViewState:",
+        "Hidden:",
+        "Raw:",
+        "Dynamic:",
+        "Validated (g1):",
+        "Auto validated (g2):",
+        "Client validated (g3): Required (g3, in the browser)",
+        "Bound:",
+        "Load: IsPostBack=True",
+        "TextChanged txtNoViewState: \"changed\"",
+        "IsValid: True",
+        "Text txtPlain: \"Hanako\"",
+        "Text txtAuto: \"auto\"",
+        "Text txtReadOnly: \"fixed\"",
+        "Text txtDisabled: \"disabled\"",
+        "Text txtPassword: \"\"",
+        "Text txtMulti: \"Line1\\r\\nLine2\"",
+        "Text txtNoViewState: \"changed\"",
+        "Text txtHidden: \"set while hidden\"",
+        "Text txtRaw: \"<b>raw</b>\"",
+        "Text txtDynamic: \"dyn\"",
+        "Text txtValidated: \"123\"",
+        "Text txtAutoValidated: \"\"",
+        "Text txtClient: \"\""
+      ],
+      "Tables": [
+        [
+          [
+            "Bound:"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtPlain": "Hanako",
+        "txtAuto": "auto",
+        "txtReadOnly": "fixed",
+        "txtDisabled": "disabled",
+        "txtPassword": "",
+        "txtMulti": "Line1\nLine2",
+        "txtNoViewState": "changed",
+        "txtHidden": "set while hidden",
+        "txtRaw": "<b>raw</b>",
+        "txtDynamic": "dyn",
+        "txtValidated": "123",
+        "txtAutoValidated": "",
+        "txtClient": "",
+        "fvPerson_txtBound": "Taro"
+      },
+      "Elements": {
+        "txtPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtReadOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "readonly": ""
+          },
+          "Style": {}
+        },
+        "txtDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "txtMulti": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "txtNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtRaw": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAutoValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "fvPerson": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvPerson_txtBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvPerson_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "TextBox [bind] two-way binding in a template",
+      "Path": "/textboxscenario",
+      "Title": "TextBox scenario",
+      "Text": [
+        "Plain:",
+        "Auto:",
+        "ReadOnly:",
+        "Disabled:",
+        "Password:",
+        "Multi:",
+        "NoViewState:",
+        "Hidden:",
+        "Raw:",
+        "Dynamic:",
+        "Validated (g1):",
+        "Auto validated (g2):",
+        "Client validated (g3):",
+        "Bound:",
+        "Load: IsPostBack=True",
+        "TextChanged txtNoViewState: \"changed\"",
+        "ItemUpdating: Name=\"Jiro\"",
+        "IsValid: (not validated)",
+        "Text txtPlain: \"Hanako\"",
+        "Text txtAuto: \"auto\"",
+        "Text txtReadOnly: \"fixed\"",
+        "Text txtDisabled: \"disabled\"",
+        "Text txtPassword: \"\"",
+        "Text txtMulti: \"Line1\\r\\nLine2\"",
+        "Text txtNoViewState: \"changed\"",
+        "Text txtHidden: \"set while hidden\"",
+        "Text txtRaw: \"<b>raw</b>\"",
+        "Text txtDynamic: \"dyn\"",
+        "Text txtValidated: \"123\"",
+        "Text txtAutoValidated: \"\"",
+        "Text txtClient: \"\""
+      ],
+      "Tables": [
+        [
+          [
+            "Bound:"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtPlain": "Hanako",
+        "txtAuto": "auto",
+        "txtReadOnly": "fixed",
+        "txtDisabled": "disabled",
+        "txtPassword": "",
+        "txtMulti": "Line1\nLine2",
+        "txtNoViewState": "changed",
+        "txtHidden": "set while hidden",
+        "txtRaw": "<b>raw</b>",
+        "txtDynamic": "dyn",
+        "txtValidated": "123",
+        "txtAutoValidated": "",
+        "txtClient": "",
+        "fvPerson_txtBound": "Jiro"
+      },
+      "Elements": {
+        "txtPlain": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtAuto": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtReadOnly": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "readonly": ""
+          },
+          "Style": {}
+        },
+        "txtDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtPassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "txtMulti": {
+          "Tag": "textarea",
+          "Attributes": {
+            "rows": "2",
+            "cols": "20"
+          },
+          "Style": {}
+        },
+        "txtNoViewState": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtRaw": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnG1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtAutoValidated": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnG3": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "fvPerson": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvPerson_txtBound": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvPerson_btnUpdate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "TextBox [requestvalidation] markup posted",
+      "Path": "/textboxscenario",
+      "Title": "TextBox scenario: error",
+      "Text": [
+        "System.Web.HttpRequestValidationException"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "failure": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

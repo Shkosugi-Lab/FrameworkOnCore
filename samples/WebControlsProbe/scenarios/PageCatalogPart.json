@@ -1,0 +1,125 @@
+{
+  "_comment": "The PageCatalogPart's scenario layer (WebPartsScenario.aspx; tests/WebControlsParity/README.md; written by more-scenarios.py). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/WebPartsScenario.aspx?reset=1"
+    },
+    {
+      "action": "snapshot",
+      "name": "PageCatalogPart [render][databind][dynamic] first request (browse): the parts in their zones, a zone made in code"
+    },
+    {
+      "action": "click",
+      "target": "btnDesign"
+    },
+    {
+      "action": "snapshot",
+      "name": "PageCatalogPart [viewstate] the design mode"
+    },
+    {
+      "action": "click",
+      "target": "btnCatalog"
+    },
+    {
+      "action": "snapshot",
+      "name": "PageCatalogPart [viewstate][templates] the catalog mode: the catalog zone and its parts"
+    },
+    {
+      "action": "evaluate",
+      "target": "czCatalog",
+      "value": "e.querySelector('input[type=checkbox]').checked = true;"
+    },
+    {
+      "action": "clicktextin",
+      "target": "czCatalog",
+      "value": "Add"
+    },
+    {
+      "action": "snapshot",
+      "name": "PageCatalogPart [viewstate] a part added from the catalog (its check box posted, the zone's Add)"
+    },
+    {
+      "action": "click",
+      "target": "btnEditPart"
+    },
+    {
+      "action": "snapshot",
+      "name": "PageCatalogPart [viewstate] the edit mode: the editor zone and its parts for the first part"
+    },
+    {
+      "action": "evaluate",
+      "target": "ezEditor",
+      "value": "e.querySelector('input[type=text]').value = 'Renamed part';"
+    },
+    {
+      "action": "clicktextin",
+      "target": "ezEditor",
+      "value": "OK"
+    },
+    {
+      "action": "snapshot",
+      "name": "PageCatalogPart [viewstate] the first part's title edited (the editor zone's OK)"
+    },
+    {
+      "action": "click",
+      "target": "btnConnectPart"
+    },
+    {
+      "action": "snapshot",
+      "name": "PageCatalogPart [viewstate] the connect mode for the first part"
+    },
+    {
+      "action": "clicktextin",
+      "target": "cnzConnections",
+      "value": "Close"
+    },
+    {
+      "action": "snapshot",
+      "name": "PageCatalogPart [viewstate] the connections zone closed"
+    },
+    {
+      "action": "click",
+      "target": "btnBrowse"
+    },
+    {
+      "action": "clicktextin",
+      "target": "wpzMain",
+      "value": "Minimize"
+    },
+    {
+      "action": "snapshot",
+      "name": "PageCatalogPart [viewstate] a part minimized by its zone's verb"
+    },
+    {
+      "action": "clicktextin",
+      "target": "wpzMain",
+      "value": "Restore"
+    },
+    {
+      "action": "snapshot",
+      "name": "PageCatalogPart [viewstate] restored"
+    },
+    {
+      "action": "clicktextin",
+      "target": "wpzDynamic",
+      "value": "Minimize"
+    },
+    {
+      "action": "snapshot",
+      "name": "PageCatalogPart [viewstate] a part of the zone made in code minimized"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "PageCatalogPart [visible][viewstate] a hidden zone shown"
+    }
+  ],
+  "maskIds": [
+    "wp-?[0-9]+"
+  ]
+}

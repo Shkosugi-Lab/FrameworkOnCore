@@ -665,6 +665,9 @@ namespace System.Web
                             // Ensure config system is initialized
                             InitHttpConfiguration(); // be sure config system is set
 
+                            // The ADO.NET providers by invariant name, as .NET Framework's configuration has them (.NET reads none).
+                            DbProviderFactoriesConfiguration.Register(_appDomainAppPath);
+
                             // Check if applicaton is enabled
                             CheckApplicationEnabled();
 

@@ -6,13 +6,15 @@ using FrameworkOnCore.Converter;
 // WebFormsForCore, to run on Linux. See LINUX-CONVERTER-DESIGN.md. Its projects are C# and Visual Basic.
 //
 //   FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>]
-//                             [--culture-profile <file>] [--no-build]
+//                             [--culture-profile <file>] [--iis-profile <file>] [--no-build]
 //
 // --root     the repository to copy (default: the topmost folder above the project with a .sln)
 // --runtime  where FrameworkOnCore's feed (_feed) and the shims (shims) are
 //            (default: experiments/wf4c above the current folder, or above the converter). FrameworkOnCore's packages are
 //            fetched into _feed from the GitHub Release when they are not there (RuntimeSetup).
 // --culture-profile  the original server's culture data (capture-culture.ps1), placed in App_Data
+// --iis-profile  the original server's IIS settings for the site (capture-iis.ps1), placed as iis-profile.config; the
+//            report tells the IIS features the site uses that the host does not do
 // --site     the deployed site (the original build's web folder, or the site's folder on the IIS
 //            server): what the application is made of. Its assemblies built from the repository are
 //            rebuilt for .NET 10 and the site is assembled in <out>\site (run bin\<web>.dll there).
@@ -51,7 +53,7 @@ if (args.Length > 0 && args[0] == "analyze") return AnalyzeCommand.Run(args[1..]
 if (args.Length > 0 && args[0] == "build-original") return BuildOriginalCommand.Run(args[1..]);
 if (args.Length > 0 && args[0] == "build-original-advice") return BuildOriginalCommand.Advise(args[1..]);
 
-string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, site = null, originalTarget = null, configuration = null;
+string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, iisProfile = null, site = null, originalTarget = null, configuration = null;
 var build = true;
 var buildOriginal = false;
 var buildOriginalAuto = false;
@@ -67,6 +69,7 @@ for (var i = 0; i < args.Length; i++)
         case "--root": rootDirectory = args[++i]; break;
         case "--runtime": runtimeDirectory = args[++i]; break;
         case "--culture-profile": cultureProfile = args[++i]; break;
+        case "--iis-profile": iisProfile = args[++i]; break;
         case "--site": site = Path.GetFullPath(args[++i]); break;
         case "--no-build": build = false; break;
         case "--deploy": deployKinds = args[++i]; break;
@@ -91,7 +94,7 @@ for (var i = 0; i < args.Length; i++)
 }
 if (project == null || outDirectory == null)
 {
-    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--configuration <name>] [--site <dir> | --build-original [target]] [--deploy container|linux|both|none] [--case-insensitive on|off] [--choices <file>] [--no-build]");
+    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--iis-profile <file>] [--configuration <name>] [--site <dir> | --build-original [target]] [--deploy container|linux|both|none] [--case-insensitive on|off] [--choices <file>] [--no-build]");
     return 2;
 }
 
@@ -281,8 +284,6 @@ void WriteHost(ConvertedProject web)
 {
     var directory = Path.GetDirectoryName(web.TargetPath)!;
     var visualBasic = ProjectConverter.IsVisualBasic(web.TargetPath);
-    using var stream = typeof(Report).Assembly.GetManifestResourceStream(visualBasic ? "ProgramTemplate.vb.txt" : "ProgramTemplate.txt")!;
-    var program = new StreamReader(stream).ReadToEnd();
     var projectText = File.ReadAllText(web.TargetPath);
     // Routes registered by the application, in any of its projects (DNN: DotNetNuke.Web's ServicesRoutingManager;
     // its friendly URLs, /Login, /Terms, are rewritten by a module, for requests that reach it).
@@ -291,9 +292,10 @@ void WriteHost(ConvertedProject web)
                      .SelectMany(d => Directory.EnumerateFiles(d, "*.*", SearchOption.AllDirectories)).Where(f => SourceLanguage.For(f) != null)
                      .Where(f => !Regex.IsMatch(f, @"[\\/](obj|bin)[\\/]"))
                      .Any(f => Regex.IsMatch(File.ReadAllText(f), @"RouteTable\.Routes|RouteCollection"));
+    var allRequests = false;
     if (routes)
     {
-        program = program.Replace("options.UseAspNetCoreSessionProvider()", "options.HandleAllRequestsWithWebForms().UseAspNetCoreSessionProvider()");
+        allRequests = true;
         report.Add(Report.Kind.Project, web.Name, "routes: every request goes to Web Forms");
     }
     // Managed modules IIS runs for every request (runAllManagedModulesForAllRequests, or a module without the
@@ -301,19 +303,20 @@ void WriteHost(ConvertedProject web)
     // /archive). Every request goes to Web Forms, as IIS gives it to them; "/" is still the default document.
     else if (ModulesForAllRequests(directory) is { } why)
     {
-        program = program.Replace("options.UseAspNetCoreSessionProvider()", "options.HandleAllRequestsWithWebForms().UseAspNetCoreSessionProvider()");
+        allRequests = true;
         report.Add(Report.Kind.Project, web.Name, $"every request goes to Web Forms: {why}");
     }
+    // The session state as the application's web.config has it (HostProgram.SerializesSession).
+    var sessionMode = HostProgram.SessionStateMode(directory);
+    report.Add(Report.Kind.Project, web.Name, HostProgram.SerializesSession(sessionMode)
+        ? $"session state: {sessionMode} in web.config, ASP.NET Core's session (its items serialized, as {sessionMode} serializes them)"
+        : sessionMode.Equals("Custom", StringComparison.OrdinalIgnoreCase) ? "session state: Custom in web.config, the application's provider, as on IIS"
+        : sessionMode.Equals("Off", StringComparison.OrdinalIgnoreCase) ? "session state: Off in web.config, no session, as on IIS"
+        : $"session state: {sessionMode}, System.Web's own, in the process as on IIS");
     // WCF's services (FrameworkOnCore.ServiceModel: the site has .svc files): CoreWCF before Web Forms, which would take
     // their requests (a site whose every request goes to Web Forms).
-    if (projectText.Contains("\"FrameworkOnCore.ServiceModel\"", StringComparison.OrdinalIgnoreCase))
-    {
-        program = visualBasic
-            ? program.Replace("builder.Services.AddSession()", "builder.Services.AddSession()\n            builder.Services.AddWebFormsServiceModel()")
-                     .Replace("app.UseWebForms(", "app.UseWebFormsServiceModel()\n            app.UseWebForms(")
-            : program.Replace("builder.Services.AddSession();", "builder.Services.AddSession();\n        builder.Services.AddWebFormsServiceModel();")
-                     .Replace("app.UseWebForms(", "app.UseWebFormsServiceModel();\n        app.UseWebForms(");
-    }
+    var serviceModel = projectText.Contains("\"FrameworkOnCore.ServiceModel\"", StringComparison.OrdinalIgnoreCase);
+    var program = HostProgram.Write(visualBasic, allRequests, sessionMode, serviceModel, HostProgram.SessionTimeout(directory));
     File.WriteAllText(Path.Combine(directory, ProjectConverter.ProgramFile(web.TargetPath)), program, new UTF8Encoding(false));
 
     if (cultureProfile != null)
@@ -321,6 +324,19 @@ void WriteHost(ConvertedProject web)
         Directory.CreateDirectory(Path.Combine(directory, "App_Data"));
         File.Copy(cultureProfile, Path.Combine(directory, "App_Data", "culture-profile.json"), overwrite: true);
         report.Add(Report.Kind.Project, web.Name, "culture profile placed in App_Data (Windows: UseNls; Linux: ICU data built from it)");
+    }
+
+    // The original server's IIS settings (capture-iis.ps1): in the application's folder, read by the host under web.config's.
+    if (iisProfile != null)
+    {
+        File.Copy(iisProfile, Path.Combine(directory, "iis-profile.config"), overwrite: true);
+        report.Add(Report.Kind.Project, web.Name, "IIS profile placed as iis-profile.config (the server's settings under web.config's: MIME map, default documents, request limits, the site's log)");
+    }
+    // The IIS features the site uses, and the ones the host does not do.
+    foreach (var finding in IisFeatures.Analyze(directory, iisProfile))
+    {
+        var status = finding.Status switch { IisFeatures.Status.Supported => "対応", IisFeatures.Status.Partial => "一部対応", _ => "未対応" };
+        report.Add(Report.Kind.Iis, finding.Feature, $"{status}({finding.Where}){(finding.Text.Length > 0 ? ": " + finding.Text : "")}");
     }
 }
 

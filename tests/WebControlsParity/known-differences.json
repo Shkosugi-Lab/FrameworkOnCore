@@ -1,0 +1,61 @@
+{
+  "about": "Where the port may differ from .NET Framework's System.Web for a component, and why (README.md). In a case of the layer ('api' or 'render') matching 'case', the lines matching 'line' (the golden's and the port's) are set aside; what remains must be equal. 'on': all, windows or linux. An entry that sets aside no difference is listed as stale in the results.",
+  "differences": [
+    {
+      "layer": "render",
+      "case": "^DetailsView\\[empty\\]\\.DefaultMode=Insert$",
+      "line": "ArgumentNullException: (Collection|Value) cannot be null\\. \\[param c\\]",
+      "on": "all",
+      "reason": "A details view in insert mode with no data throws the same ArgumentNullException (parameter c) at the same place on both: a collection made from no collection. Its message is the runtime's own resource (.NET Framework's ArrayList words it \"Collection cannot be null.\", .NET's \"Value cannot be null.\"), not System.Web's."
+    },
+    {
+      "layer": "api",
+      "case": "^ScriptManager\\.Api\\.ScriptManager\\.AjaxFrameworkAssembly$",
+      "line": "System\\.Web\\.Extensions, Version=(4\\.0\\.0\\.0|10\\.0\\.29\\.0),",
+      "on": "all",
+      "reason": "The AJAX framework's assembly is System.Web.Extensions itself: its version is the port's (10.0.29.0), not .NET Framework's (4.0.0.0)."
+    },
+    {
+      "layer": "render",
+      "case": "^ScriptManager(\\[[^\\]]+\\])?\\.ScriptPath=",
+      "line": "/System\\.Web\\.Extensions/(4\\.0\\.0\\.0/4\\.8\\.[0-9]+\\.[0-9]+|10\\.0\\.29\\.0/10\\.0\\.29\\.0)/",
+      "on": "all",
+      "reason": "ScriptPath's scripts are looked for in a folder named after System.Web.Extensions' assembly and file versions (ScriptPath/System.Web.Extensions/<version>/<file version>/): the port's (10.0.29.0), not .NET Framework's (4.0.0.0 and the installed file version, which differs between .NET Framework machines too). An application that deploys the scripts under ScriptPath needs that folder named after the port's versions."
+    },
+    {
+      "layer": "render",
+      "case": "^Xml\\.(DocumentSource|TransformSource)=markup$",
+      "line": "^probe-failure: System\\.(ArgumentException: Illegal characters in path\\.|IO\\.IOException: .*|IO\\.(FileNotFound|DirectoryNotFound)Exception: .*<b>.*)$",
+      "on": "all",
+      "reason": "A file name with characters a path cannot have (<, >, \"): .NET Framework's file APIs check them first (ArgumentException \"Illegal characters in path.\"), .NET's leave it to the system (on Windows an IOException with the system's message; on Linux the name is valid, and the folder it names is not found). The runtime's, not System.Web's: both fail to read the file."
+    },
+    {
+      "layer": "api",
+      "case": "^WebPartManager\\.Api\\.WebControls\\.WebParts\\.WebPartManager\\.(Minimal|Medium)PermissionSet$",
+      "line": "PermissionSet = ",
+      "on": "all",
+      "reason": "The permission sets a web part manager gives imported web parts are code access security's: .NET has none (an empty set), .NET Framework's lists its permissions. Neither restricts what the parts' code does on .NET."
+    },
+    {
+      "layer": "api",
+      "case": "^WebPartManager\\.Api\\.WebControls\\.WebParts\\.WebPartManager\\.(Create)?AvailableTransformers$",
+      "line": "AvailableTransformers = \"\\[System\\.RuntimeType System\\.Web\\.UI\\.WebControls\\.WebParts\\.Row(ToField|ToParameters)Transformer, System\\.RuntimeType System\\.Web\\.UI\\.WebControls\\.WebParts\\.Row(ToField|ToParameters)Transformer\\]",
+      "on": "all",
+      "reason": "The same two transformers (the configuration's, RowToFieldTransformer and RowToParametersTransformer), listed in a Hashtable's order: by the types' hash codes, which on .NET differ from .NET Framework's (and between runs)."
+    },
+    {
+      "layer": "render",
+      "case": "^Xml(\\[[^\\]]+\\])?\\.(DocumentSource|TransformSource)=missing$",
+      "line": "^probe-failure: System\\.IO\\.FileNotFoundException: Could not find file '\\{site\\}App_Data[\\\\/]none\\.(xml|xslt)'\\.$",
+      "on": "linux",
+      "reason": "The file not found is named as the system writes paths: App_Data\\none.xml on Windows, App_Data/none.xml on Linux."
+    },
+    {
+      "layer": "api",
+      "case": "^AccessDataSource\\.Api\\.WebControls\\.(Access|Sql)DataSource\\.GetDbProviderFactory$",
+      "line": "GetDbProviderFactory( after)? = ",
+      "on": "linux",
+      "reason": "OLE DB, through which an AccessDataSource reads Microsoft Access files, is Windows': on Linux its factory does not exist, and the port says so (PlatformNotSupportedException) where .NET Framework (and the port on Windows) gives OleDbFactory. The scenario layer logs both outcomes as one: no provider for Access files (64-bit Windows has no Jet either)."
+    }
+  ]
+}

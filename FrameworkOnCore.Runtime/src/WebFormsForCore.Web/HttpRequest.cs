@@ -624,6 +624,16 @@ namespace System.Web {
 
             AddServerVariableToCollection("URL",                DynamicServerVariable.SCRIPT_NAME);
 
+#if NETCOREAPP
+            // IIS's own that this list (ASP.NET's for the hosts other than IIS) did not have: UNENCODED_URL, the ones URL
+            // Rewrite's rules set.
+            var aspNetCoreRequest = _wr as System.Web.Hosting.AspNetCoreWorkerRequest;
+            if (aspNetCoreRequest != null) {
+                foreach (var variable in aspNetCoreRequest.ExtraServerVariables())
+                    AddServerVariableToCollection(variable.Key, variable.Value);
+            }
+#endif
+
             // Add all headers in HTTP_XXX format
 
             for (int i = 0; i < HttpWorkerRequest.RequestHeaderMaximum; i++) {

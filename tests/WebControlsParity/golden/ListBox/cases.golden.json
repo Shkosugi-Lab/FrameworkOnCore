@@ -1,0 +1,926 @@
+{
+  "ListBox.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ListBox.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "ListBox.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "ListBox.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "ListBox.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "ListBox.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "ListBox.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.ClientID": [
+    "Control.ClientID = \"lstSize\""
+  ],
+  "ListBox.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "ListBox.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "ListBox.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "ListBox.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "ListBox.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "ListBox.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "ListBox.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "ListBox.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "ListBox.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "ListBox.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "ListBox.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "ListBox.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "ListBox.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "ListBox.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "ListBox.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"lstSize\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "ListBox.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.ID": [
+    "Control.ID = \"lstSize\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "ListBox.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "ListBox.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "ListBox.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "ListBox.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "ListBox.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "ListBox.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "ListBox.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "ListBox.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "ListBox.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "ListBox.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "ListBox.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "ListBox.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "ListBox.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ListBox.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "ListBox.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <select size=\"4\" name=\"lstSize\" id=\"lstSize\">",
+    "  | \t<option value=\"S\">Small</option>",
+    "  | \t<option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | \t<option value=\"L\">Large</option>",
+    "  | ",
+    "  | </select>",
+    "Control.Render(HtmlTextWriter) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <select size=\"4\" name=\"lstSize\" id=\"lstSize\">",
+    "  | \t<option value=\"S\">Small</option>",
+    "  | \t<option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | \t<option value=\"L\">Large</option>",
+    "  | ",
+    "  | </select>",
+    "Control.RenderControl(HtmlTextWriter) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <select size=\"4\" name=\"lstSize\" id=\"lstSize\">",
+    "  | \t<option value=\"S\">Small</option>",
+    "  | \t<option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | \t<option value=\"L\">Large</option>",
+    "  | ",
+    "  | </select>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "ListBox.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "ListBox.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "ListBox.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "ListBox.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "ListBox.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.Control.UniqueID": [
+    "Control.UniqueID = \"lstSize\""
+  ],
+  "ListBox.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "ListBox.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "ListBox.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "ListBox.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "ListBox.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "ListBox.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "ListBox.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=true; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "ListBox.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "ListBox.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "ListBox.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "ListBox.Api.IEditableTextControl.TextChanged": [
+    "IEditableTextControl.TextChanged = \"added and removed\""
+  ],
+  "ListBox.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "ListBox.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "ListBox.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.IPostBackDataHandler.LoadPostData": [
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) = \"true\"",
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 2; SelectedValue=\"L\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"L\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.IPostBackDataHandler.RaisePostDataChangedEvent": [
+    "IPostBackDataHandler.RaisePostDataChangedEvent = \"ok\"",
+    "IPostBackDataHandler.RaisePostDataChangedEvent after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.ITextControl.Text": [
+    "ITextControl.Text = \"M\"",
+    "ITextControl.Text set = \"M\""
+  ],
+  "ListBox.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.#ctor": [
+    "BaseDataBoundControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.BaseDataBoundControl because it is an abstract class.\""
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.ConfirmInitState": [
+    "BaseDataBoundControl.ConfirmInitState = \"ok\"",
+    "BaseDataBoundControl.ConfirmInitState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.DataBind": [
+    "BaseDataBoundControl.DataBind = \"ok\"",
+    "BaseDataBoundControl.DataBind after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.DataBound": [
+    "BaseDataBoundControl.DataBound = \"added and removed\""
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.DataSource": [
+    "BaseDataBoundControl.DataSource = null",
+    "BaseDataBoundControl.DataSource set = \"Abc 123\""
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.DataSourceID": [
+    "BaseDataBoundControl.DataSourceID = \"\"",
+    "BaseDataBoundControl.DataSourceID set = \"Abc 123\""
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.EnsureDataBound": [
+    "BaseDataBoundControl.EnsureDataBound = \"ok\"",
+    "BaseDataBoundControl.EnsureDataBound after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.Initialized": [
+    "BaseDataBoundControl.Initialized = \"false\""
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.IsBoundUsingDataSourceID": [
+    "BaseDataBoundControl.IsBoundUsingDataSourceID = \"false\""
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.IsDataBindingAutomatic": [
+    "BaseDataBoundControl.IsDataBindingAutomatic = \"false\""
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.IsUsingModelBinders": [
+    "BaseDataBoundControl.IsUsingModelBinders = \"false\""
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.OnDataBound": [
+    "BaseDataBoundControl.OnDataBound(EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnDataBound(EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.OnDataPropertyChanged": [
+    "BaseDataBoundControl.OnDataPropertyChanged = \"ok\"",
+    "BaseDataBoundControl.OnDataPropertyChanged after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.OnInit": [
+    "BaseDataBoundControl.OnInit(EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnInit(EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.OnPagePreLoad": [
+    "BaseDataBoundControl.OnPagePreLoad(Object,EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnPagePreLoad(Object,EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.OnPreRender": [
+    "BaseDataBoundControl.OnPreRender(EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnPreRender(EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.PerformSelect": [
+    "BaseDataBoundControl.PerformSelect = \"ok\"",
+    "BaseDataBoundControl.PerformSelect after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.RequiresDataBinding": [
+    "BaseDataBoundControl.RequiresDataBinding = \"false\"",
+    "BaseDataBoundControl.RequiresDataBinding set = \"ok\""
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.SupportsDisabledAttribute": [
+    "BaseDataBoundControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "ListBox.Api.WebControls.BaseDataBoundControl.ValidateDataSource": [
+    "BaseDataBoundControl.ValidateDataSource(Object) = \"ok\"",
+    "BaseDataBoundControl.ValidateDataSource(Object) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.#ctor": [
+    "DataBoundControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.DataBoundControl because it is an abstract class.\""
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.CallingDataMethods": [
+    "DataBoundControl.CallingDataMethods = \"added and removed\""
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.CreateDataSourceSelectArguments": [
+    "DataBoundControl.CreateDataSourceSelectArguments = DataSourceSelectArguments {MaximumRows=Int32 0; RetrieveTotalRowCount=false; SortExpression=\"\"; StartRowIndex=Int32 0; TotalRowCount=Int32 -1}",
+    "DataBoundControl.CreateDataSourceSelectArguments after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.CreatingModelDataSource": [
+    "DataBoundControl.CreatingModelDataSource = \"added and removed\""
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.DataMember": [
+    "DataBoundControl.DataMember = \"\"",
+    "DataBoundControl.DataMember set = \"Abc 123\""
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.DataSourceID": [
+    "DataBoundControl.DataSourceID = \"\"",
+    "DataBoundControl.DataSourceID set = \"Abc 123\""
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.DataSourceObject": [
+    "DataBoundControl.DataSourceObject = null"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.GetData": [
+    "DataBoundControl.GetData = ReadOnlyDataSourceView {CanDelete=false; CanInsert=false; CanPage=false; CanRetrieveTotalRowCount=false; CanSort=false; CanUpdate=false; Name=\"\"}",
+    "DataBoundControl.GetData after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.GetDataSource": [
+    "DataBoundControl.GetDataSource = null",
+    "DataBoundControl.GetDataSource after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.IsUsingModelBinders": [
+    "DataBoundControl.IsUsingModelBinders = \"false\""
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.ItemType": [
+    "DataBoundControl.ItemType = \"\"",
+    "DataBoundControl.ItemType set = \"Abc 123\""
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.LoadViewState": [
+    "DataBoundControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.MarkAsDataBound": [
+    "DataBoundControl.MarkAsDataBound = \"ok\"",
+    "DataBoundControl.MarkAsDataBound after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.OnCreatingModelDataSource": [
+    "DataBoundControl.OnCreatingModelDataSource(CreatingModelDataSourceEventArgs) = \"ok\"",
+    "DataBoundControl.OnCreatingModelDataSource(CreatingModelDataSourceEventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.OnDataPropertyChanged": [
+    "DataBoundControl.OnDataPropertyChanged = \"ok\"",
+    "DataBoundControl.OnDataPropertyChanged after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.OnDataSourceViewChanged": [
+    "DataBoundControl.OnDataSourceViewChanged(Object,EventArgs) = \"ok\"",
+    "DataBoundControl.OnDataSourceViewChanged(Object,EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.OnLoad": [
+    "DataBoundControl.OnLoad(EventArgs) = \"ok\"",
+    "DataBoundControl.OnLoad(EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.OnPagePreLoad": [
+    "DataBoundControl.OnPagePreLoad(Object,EventArgs) = \"ok\"",
+    "DataBoundControl.OnPagePreLoad(Object,EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.PerformDataBinding": [
+    "DataBoundControl.PerformDataBinding(IEnumerable) = \"ok\"",
+    "DataBoundControl.PerformDataBinding(IEnumerable) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 -1; SelectedValue=\"\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.PerformSelect": [
+    "DataBoundControl.PerformSelect = \"ok\"",
+    "DataBoundControl.PerformSelect after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.SaveViewState": [
+    "DataBoundControl.SaveViewState = null",
+    "DataBoundControl.SaveViewState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.SelectArguments": [
+    "DataBoundControl.SelectArguments = DataSourceSelectArguments {MaximumRows=Int32 0; RetrieveTotalRowCount=false; SortExpression=\"\"; StartRowIndex=Int32 0; TotalRowCount=Int32 -1}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.SelectMethod": [
+    "DataBoundControl.SelectMethod = \"\"",
+    "DataBoundControl.SelectMethod set = \"Abc 123\""
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.TrackViewState": [
+    "DataBoundControl.TrackViewState = \"ok\"",
+    "DataBoundControl.TrackViewState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.DataBoundControl.ValidateDataSource": [
+    "DataBoundControl.ValidateDataSource(Object) = \"ok\"",
+    "DataBoundControl.ValidateDataSource(Object) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListBox.#ctor": [
+    "ListBox.#ctor = ListBox# {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 -1; SelectedValue=\"\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListBox.AddAttributesToRender": [
+    "ListBox.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "ListBox.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "ListBox.AddAttributesToRender(HtmlTextWriter) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListBox.BorderColor": [
+    "ListBox.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "ListBox.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "ListBox.Api.WebControls.ListBox.BorderStyle": [
+    "ListBox.BorderStyle = \"BorderStyle.NotSet\"",
+    "ListBox.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "ListBox.Api.WebControls.ListBox.BorderWidth": [
+    "ListBox.BorderWidth = Unit ",
+    "ListBox.BorderWidth set = Unit 120px"
+  ],
+  "ListBox.Api.WebControls.ListBox.GetSelectedIndices": [
+    "ListBox.GetSelectedIndices = \"[Int32 1]\"",
+    "ListBox.GetSelectedIndices after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListBox.LoadPostData": [
+    "ListBox.LoadPostData(String,NameValueCollection) = \"true\"",
+    "ListBox.LoadPostData(String,NameValueCollection) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 2; SelectedValue=\"L\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"L\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListBox.OnPreRender": [
+    "ListBox.OnPreRender(EventArgs) = \"ok\"",
+    "ListBox.OnPreRender(EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListBox.RaisePostDataChangedEvent": [
+    "ListBox.RaisePostDataChangedEvent = \"ok\"",
+    "ListBox.RaisePostDataChangedEvent after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListBox.Rows": [
+    "ListBox.Rows = \"Int32 4\"",
+    "ListBox.Rows set = \"Int32 1\""
+  ],
+  "ListBox.Api.WebControls.ListBox.SelectionMode": [
+    "ListBox.SelectionMode = \"ListSelectionMode.Single\"",
+    "ListBox.SelectionMode set = \"ListSelectionMode.Multiple\""
+  ],
+  "ListBox.Api.WebControls.ListControl.#ctor": [
+    "ListControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.ListControl because it is an abstract class.\""
+  ],
+  "ListBox.Api.WebControls.ListControl.AddAttributesToRender": [
+    "ListControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "ListControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "ListControl.AddAttributesToRender(HtmlTextWriter) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListControl.AppendDataBoundItems": [
+    "ListControl.AppendDataBoundItems = \"false\"",
+    "ListControl.AppendDataBoundItems set = \"true\""
+  ],
+  "ListBox.Api.WebControls.ListControl.AutoPostBack": [
+    "ListControl.AutoPostBack = \"false\"",
+    "ListControl.AutoPostBack set = \"true\""
+  ],
+  "ListBox.Api.WebControls.ListControl.CausesValidation": [
+    "ListControl.CausesValidation = \"false\"",
+    "ListControl.CausesValidation set = \"true\""
+  ],
+  "ListBox.Api.WebControls.ListControl.ClearSelection": [
+    "ListControl.ClearSelection = \"ok\"",
+    "ListControl.ClearSelection after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 -1; SelectedValue=\"\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListControl.DataTextField": [
+    "ListControl.DataTextField = \"\"",
+    "ListControl.DataTextField set = \"Abc 123\""
+  ],
+  "ListBox.Api.WebControls.ListControl.DataTextFormatString": [
+    "ListControl.DataTextFormatString = \"\"",
+    "ListControl.DataTextFormatString set = \"Abc 123\""
+  ],
+  "ListBox.Api.WebControls.ListControl.DataValueField": [
+    "ListControl.DataValueField = \"\"",
+    "ListControl.DataValueField set = \"Abc 123\""
+  ],
+  "ListBox.Api.WebControls.ListControl.Items": [
+    "ListControl.Items = \"[System.Web.UI.WebControls.ListItem Small, System.Web.UI.WebControls.ListItem Medium, System.Web.UI.WebControls.ListItem Large]\""
+  ],
+  "ListBox.Api.WebControls.ListControl.LoadViewState": [
+    "ListControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "ListBox.Api.WebControls.ListControl.OnDataBinding": [
+    "ListControl.OnDataBinding(EventArgs) = \"ok\"",
+    "ListControl.OnDataBinding(EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListControl.OnPreRender": [
+    "ListControl.OnPreRender(EventArgs) = \"ok\"",
+    "ListControl.OnPreRender(EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListControl.OnSelectedIndexChanged": [
+    "ListControl.OnSelectedIndexChanged(EventArgs) = \"ok\"",
+    "ListControl.OnSelectedIndexChanged(EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListControl.OnTextChanged": [
+    "ListControl.OnTextChanged(EventArgs) = \"ok\"",
+    "ListControl.OnTextChanged(EventArgs) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListControl.PerformDataBinding": [
+    "ListControl.PerformDataBinding(IEnumerable) = \"ok\"",
+    "ListControl.PerformDataBinding(IEnumerable) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 -1; SelectedValue=\"\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListControl.PerformSelect": [
+    "ListControl.PerformSelect = \"ok\"",
+    "ListControl.PerformSelect after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListControl.RenderContents": [
+    "ListControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "ListControl.RenderContents(HtmlTextWriter) writer:",
+    "  | <option value=\"S\">Small</option>",
+    "  | <option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | <option value=\"L\">Large</option>",
+    "  | ",
+    "ListControl.RenderContents(HtmlTextWriter) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListControl.SaveViewState": [
+    "ListControl.SaveViewState = null",
+    "ListControl.SaveViewState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListControl.SelectedIndex": [
+    "ListControl.SelectedIndex = \"Int32 1\"",
+    "ListControl.SelectedIndex set = \"Int32 1\""
+  ],
+  "ListBox.Api.WebControls.ListControl.SelectedIndexChanged": [
+    "ListControl.SelectedIndexChanged = \"added and removed\""
+  ],
+  "ListBox.Api.WebControls.ListControl.SelectedItem": [
+    "ListControl.SelectedItem = ListItem {Enabled=true; Selected=true; Text=\"Medium\"; Value=\"M\"}"
+  ],
+  "ListBox.Api.WebControls.ListControl.SelectedValue": [
+    "ListControl.SelectedValue = \"M\"",
+    "ListControl.SelectedValue set = \"M\""
+  ],
+  "ListBox.Api.WebControls.ListControl.SetPostDataSelection": [
+    "ListControl.SetPostDataSelection(Int32) = \"ok\"",
+    "ListControl.SetPostDataSelection(Int32) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 0; SelectedValue=\"S\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"S\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListControl.TagKey": [
+    "ListControl.TagKey = \"HtmlTextWriterTag.Select\""
+  ],
+  "ListBox.Api.WebControls.ListControl.Text": [
+    "ListControl.Text = \"M\"",
+    "ListControl.Text set = \"M\""
+  ],
+  "ListBox.Api.WebControls.ListControl.TextChanged": [
+    "ListControl.TextChanged = \"added and removed\""
+  ],
+  "ListBox.Api.WebControls.ListControl.TrackViewState": [
+    "ListControl.TrackViewState = \"ok\"",
+    "ListControl.TrackViewState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.ListControl.ValidationGroup": [
+    "ListControl.ValidationGroup = \"\"",
+    "ListControl.ValidationGroup set = \"Abc 123\""
+  ],
+  "ListBox.Api.WebControls.ListControl.VerifyMultiSelect": [
+    "ListControl.VerifyMultiSelect = \"-> System.Web.HttpException: Cannot have multiple items selected when the SelectionMode is Single.\""
+  ],
+  "ListBox.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "ListBox.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "ListBox.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "ListBox.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "ListBox.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "ListBox.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "ListBox.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "ListBox.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "ListBox.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}",
+    "WebControl.CreateControlStyle after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "ListBox.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "ListBox.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "ListBox.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "ListBox.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "ListBox.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "ListBox.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "ListBox.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "ListBox.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "ListBox.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "ListBox.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"ok\"",
+    "WebControl.Render(HtmlTextWriter) writer:",
+    "  | <select size=\"4\" name=\"lstSize\" id=\"lstSize\">",
+    "  | \t<option value=\"S\">Small</option>",
+    "  | \t<option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | \t<option value=\"L\">Large</option>",
+    "  | ",
+    "  | </select>",
+    "WebControl.Render(HtmlTextWriter) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <select size=\"4\" name=\"lstSize\" id=\"lstSize\">",
+    "  | ",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | <option value=\"S\">Small</option>",
+    "  | <option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | <option value=\"L\">Large</option>",
+    "  | ",
+    "WebControl.RenderContents(HtmlTextWriter) after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "ListBox.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "ListBox.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "ListBox.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "ListBox.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "ListBox.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Select\""
+  ],
+  "ListBox.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"select\""
+  ],
+  "ListBox.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "ListBox.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = ListBox#lstSize {AccessKey=\"\"; AppendDataBoundItems=false; AutoPostBack=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CausesValidation=false; ClientID=\"lstSize\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataTextFormatString=\"\"; DataValueField=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lstSize\"; ItemType=\"\"; Rows=Int32 4; SelectMethod=\"\"; SelectedIndex=Int32 1; SelectedValue=\"M\"; SelectionMode=Single; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"M\"; ToolTip=\"\"; UniqueID=\"lstSize\"; ValidateRequestMode=Inherit; ValidationGroup=\"\"; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "ListBox.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ]
+}

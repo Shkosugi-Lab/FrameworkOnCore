@@ -1,0 +1,471 @@
+{
+  "HtmlArea.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HtmlArea.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HtmlArea.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlArea.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HtmlArea.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.ClientID": [
+    "Control.ClientID = \"areaProbe\""
+  ],
+  "HtmlArea.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HtmlArea.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HtmlArea.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HtmlArea.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "HtmlArea.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HtmlArea.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HtmlArea.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HtmlArea.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HtmlArea.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HtmlArea.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "HtmlArea.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HtmlArea.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HtmlArea.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "HtmlArea.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlArea.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"areaProbe\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HtmlArea.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.ID": [
+    "Control.ID = \"areaProbe\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HtmlArea.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HtmlArea.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HtmlArea.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HtmlArea.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HtmlArea.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HtmlArea.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HtmlArea.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlArea.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HtmlArea.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlArea.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlArea.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HtmlArea.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <area href=\"~/Target.aspx\" id=\"areaProbe\" />",
+    "Control.Render(HtmlTextWriter) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <area href=\"~/Target.aspx\" id=\"areaProbe\" />",
+    "Control.RenderControl(HtmlTextWriter) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <area href=\"~/Target.aspx\" id=\"areaProbe\" />",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HtmlArea.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HtmlArea.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "HtmlArea.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HtmlArea.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.Control.UniqueID": [
+    "Control.UniqueID = \"areaProbe\""
+  ],
+  "HtmlArea.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HtmlArea.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HtmlArea.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [href=\"~/Target.aspx\"]"
+  ],
+  "HtmlArea.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlArea.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HtmlArea.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlArea.#ctor": [
+    "HtmlControls.HtmlArea.#ctor = HtmlArea# {ClientID=\"\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"\"; ID=null; SkinID=\"\"; TagName=\"area\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlArea.Href": [
+    "HtmlControls.HtmlArea.Href = \"~/Target.aspx\"",
+    "HtmlControls.HtmlArea.Href set = \"Abc 123\""
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlArea.RenderAttributes": [
+    "HtmlControls.HtmlArea.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlArea.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  href=\"~/Target.aspx\" id=\"areaProbe\" /",
+    "HtmlControls.HtmlArea.RenderAttributes(HtmlTextWriter) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlControl.#ctor": [
+    "HtmlControls.HtmlControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\"",
+    "HtmlControls.HtmlControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\""
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlControl.Attributes": [
+    "HtmlControls.HtmlControl.Attributes = AttributeCollection [href=\"~/Target.aspx\"]"
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlControl.CreateControlCollection": [
+    "HtmlControls.HtmlControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlControl.CreateControlCollection after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlControl.Disabled": [
+    "HtmlControls.HtmlControl.Disabled = \"false\"",
+    "HtmlControls.HtmlControl.Disabled set = \"true\""
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlControl.GetAttribute": [
+    "HtmlControls.HtmlControl.GetAttribute(String) = null",
+    "HtmlControls.HtmlControl.GetAttribute(String) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlControl.Render": [
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) writer:",
+    "  | <area href=\"~/Target.aspx\" id=\"areaProbe\" />",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlControl.RenderAttributes": [
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  href=\"~/Target.aspx\" id=\"areaProbe\" /",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlControl.RenderBeginTag": [
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <area href=\"~/Target.aspx\" id=\"areaProbe\" />",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlControl.SetAttribute": [
+    "HtmlControls.HtmlControl.SetAttribute(String,String) = \"ok\"",
+    "HtmlControls.HtmlControl.SetAttribute(String,String) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlControl.Style": [
+    "HtmlControls.HtmlControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlControl.TagName": [
+    "HtmlControls.HtmlControl.TagName = \"area\""
+  ],
+  "HtmlArea.Api.HtmlControls.HtmlControl.ViewStateIgnoresCase": [
+    "HtmlControls.HtmlControl.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlArea.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HtmlArea.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HtmlArea.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HtmlArea.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HtmlArea.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HtmlArea.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HtmlArea.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlArea.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HtmlArea#areaProbe {ClientID=\"areaProbe\"; ClientIDMode=Inherit; Disabled=false; EnableTheming=true; EnableViewState=true; Href=\"~/Target.aspx\"; ID=\"areaProbe\"; SkinID=\"\"; TagName=\"area\"; UniqueID=\"areaProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ]
+}

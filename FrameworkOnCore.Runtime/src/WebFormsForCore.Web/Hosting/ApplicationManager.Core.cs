@@ -139,6 +139,10 @@ namespace System.Web.Hosting {
             }
         }
 
+		// System.Web's own load context: what Assembly.GetCallingAssembly() (a stack walk, in each request's
+		// SimpleWorkerRequest) finds for System.Web's callers.
+		internal static readonly AssemblyLoadContext SystemWebLoadContext = AssemblyLoadContext.GetLoadContext(typeof(ApplicationManager).Assembly);
+
 		public static ConcurrentDictionary<AssemblyLoadContext, ConcurrentDictionary<string, object>> ContextData = new ConcurrentDictionary<AssemblyLoadContext, ConcurrentDictionary<string, object>>();
 
 		public static void SetLoadContextData(string key, object data, AssemblyLoadContext context = null)
@@ -1507,7 +1511,13 @@ setup,
 #if NETFRAMEWORK
                         appDomain.SetData((String)e.Key, (String)e.Value);
 #else
+			{
 				SetLoadContextData((String)e.Key, (String)e.Value, appContext);
+				// On the AppDomain too, as .NET Framework has them: what asks AppDomain.GetData(".appDomain") whether it runs in
+				// ASP.NET (System.Web.Services' defaults: the help page; System.Configuration's settings; libraries of the
+				// application's) was told it does not. One application per process here.
+				AppDomain.CurrentDomain.SetData((String)e.Key, (String)e.Value);
+			}
 #endif
 			foreach (var entry in appDomainAdditionalData)
 #if NETFRAMEWORK

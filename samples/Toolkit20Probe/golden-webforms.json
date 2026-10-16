@@ -1,0 +1,5162 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "toolkit20-first view",
+      "Path": "/",
+      "Title": "Toolkit 20 probe",
+      "Text": [
+        "First",
+        "Second",
+        "The first tab's content.",
+        "Pane one",
+        "The first pane.",
+        "Pane two",
+        "Details"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            ""
+          ],
+          [
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtWatermark": "Type here",
+        "txtMasked": "___-____",
+        "txtDate": "2020-03-04",
+        "txtNumber": "5",
+        "txtName": ""
+      },
+      "Elements": {
+        "tabs": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_xp ajax__tab_container ajax__tab_default"
+          },
+          "Style": {}
+        },
+        "tabs_header": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_header"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab ajax__tab_active"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabFirst": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_tabSecond_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabSecond": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_body": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_body ajax__scroll_none"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "tabs_tabSecond": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "accordion": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto",
+            "overflow": "auto"
+          }
+        },
+        "headerOne": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "headerTwo": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtWatermark": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtMasked": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtNumber": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {
+            "width": "56px",
+            "text-align": "center"
+          }
+        },
+        "txtNumber_bUp": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "line-height": "3pt",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "txtNumber_bDown": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "btnShowModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlModal": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "z-index": "10001"
+          }
+        },
+        "btnCloseModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto"
+          }
+        },
+        "upGreeting": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnGreet": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblGreeting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "result": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "modal_backgroundElement": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "10000"
+          }
+        }
+      }
+    },
+    {
+      "Name": "toolkit20-the second tab",
+      "Path": "/",
+      "Title": "Toolkit 20 probe",
+      "Text": [
+        "First",
+        "Second",
+        "The second tab's content.",
+        "Pane one",
+        "The first pane.",
+        "Pane two",
+        "Details"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            ""
+          ],
+          [
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtWatermark": "Type here",
+        "txtMasked": "___-____",
+        "txtDate": "2020-03-04",
+        "txtNumber": "5",
+        "txtName": ""
+      },
+      "Elements": {
+        "tabs": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_xp ajax__tab_container ajax__tab_default"
+          },
+          "Style": {}
+        },
+        "tabs_header": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_header"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabFirst": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_tabSecond_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab ajax__tab_hover ajax__tab_active"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabSecond": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_body": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_body ajax__scroll_none"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "tabs_tabSecond": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "accordion": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto",
+            "overflow": "auto"
+          }
+        },
+        "headerOne": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "headerTwo": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtWatermark": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtMasked": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtNumber": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {
+            "width": "56px",
+            "text-align": "center"
+          }
+        },
+        "txtNumber_bUp": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "line-height": "3pt",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "txtNumber_bDown": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "btnShowModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlModal": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "z-index": "10001"
+          }
+        },
+        "btnCloseModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto"
+          }
+        },
+        "upGreeting": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnGreet": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblGreeting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "result": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "modal_backgroundElement": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "10000"
+          }
+        }
+      }
+    },
+    {
+      "Name": "toolkit20-the accordion's second pane",
+      "Path": "/",
+      "Title": "Toolkit 20 probe",
+      "Text": [
+        "First",
+        "Second",
+        "The second tab's content.",
+        "Pane one",
+        "Pane two",
+        "The second pane.",
+        "Details"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            ""
+          ],
+          [
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtWatermark": "Type here",
+        "txtMasked": "___-____",
+        "txtDate": "2020-03-04",
+        "txtNumber": "5",
+        "txtName": ""
+      },
+      "Elements": {
+        "tabs": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_xp ajax__tab_container ajax__tab_default"
+          },
+          "Style": {}
+        },
+        "tabs_header": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_header"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabFirst": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_tabSecond_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab  ajax__tab_active"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabSecond": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_body": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_body ajax__scroll_none"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "tabs_tabSecond": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "accordion": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto",
+            "overflow": "auto"
+          }
+        },
+        "headerOne": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "headerTwo": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtWatermark": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtMasked": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtNumber": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {
+            "width": "56px",
+            "text-align": "center"
+          }
+        },
+        "txtNumber_bUp": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "line-height": "3pt",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "txtNumber_bDown": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "btnShowModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlModal": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "z-index": "10001"
+          }
+        },
+        "btnCloseModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto"
+          }
+        },
+        "upGreeting": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnGreet": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblGreeting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "result": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "modal_backgroundElement": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "10000"
+          }
+        }
+      }
+    },
+    {
+      "Name": "toolkit20-the calendar popup",
+      "Path": "/",
+      "Title": "Toolkit 20 probe",
+      "Text": [
+        "First",
+        "Second",
+        "The second tab's content.",
+        "Pane one",
+        "Pane two",
+        "The second pane.",
+        "Details",
+        "March, 2020",
+        "Su",
+        "Mo",
+        "Tu",
+        "We",
+        "Th",
+        "Fr",
+        "Sa",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            ""
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Su",
+            "Mo",
+            "Tu",
+            "We",
+            "Th",
+            "Fr",
+            "Sa"
+          ],
+          [
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29"
+          ],
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          [
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14"
+          ],
+          [
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21"
+          ],
+          [
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28"
+          ],
+          [
+            "29",
+            "30",
+            "31",
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        ],
+        [
+          [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr"
+          ],
+          [
+            "May",
+            "Jun",
+            "Jul",
+            "Aug"
+          ],
+          [
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtWatermark": "Type here",
+        "txtMasked": "___-____",
+        "txtDate": "2020-03-04",
+        "txtNumber": "5",
+        "txtName": ""
+      },
+      "Elements": {
+        "tabs": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_xp ajax__tab_container ajax__tab_default"
+          },
+          "Style": {}
+        },
+        "tabs_header": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_header"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabFirst": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_tabSecond_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab  ajax__tab_active"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabSecond": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_body": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_body ajax__scroll_none"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "tabs_tabSecond": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "accordion": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto",
+            "overflow": "auto"
+          }
+        },
+        "headerOne": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "headerTwo": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtWatermark": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtMasked": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtNumber": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {
+            "width": "56px",
+            "text-align": "center"
+          }
+        },
+        "txtNumber_bUp": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "line-height": "3pt",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "txtNumber_bDown": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "btnShowModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlModal": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "z-index": "10001"
+          }
+        },
+        "btnCloseModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto"
+          }
+        },
+        "upGreeting": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnGreet": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblGreeting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "result": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "modal_backgroundElement": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "10000"
+          }
+        },
+        "cal_container": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar"
+          },
+          "Style": {
+            "position": "absolute",
+            "left": "373px",
+            "top": "159px",
+            "z-index": "1000"
+          }
+        },
+        "cal_popupDiv": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_container"
+          },
+          "Style": {}
+        },
+        "cal_header": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_header"
+          },
+          "Style": {}
+        },
+        "cal_prevArrow": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_prev"
+          },
+          "Style": {}
+        },
+        "cal_nextArrow": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_next"
+          },
+          "Style": {}
+        },
+        "cal_title": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_title"
+          },
+          "Style": {}
+        },
+        "cal_body": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_body"
+          },
+          "Style": {}
+        },
+        "cal_days": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_days"
+          },
+          "Style": {}
+        },
+        "cal_daysTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {
+            "margin": "auto"
+          }
+        },
+        "cal_daysTableHeader": {
+          "Tag": "thead",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_daysTableHeaderRow": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_daysBody": {
+          "Tag": "tbody",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_day_0_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, February 23, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, February 24, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, February 25, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, February 26, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, February 27, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, February 28, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, February 29, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 01, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 02, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 03, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 04, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 05, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 06, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 07, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 08, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 09, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 10, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 11, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 12, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 13, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 14, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 15, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 16, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 17, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 18, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 19, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 20, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 21, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 22, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 23, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 24, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 25, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 26, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 27, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 28, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 29, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 30, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 31, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, April 01, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, April 02, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, April 03, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, April 04, 2020"
+          },
+          "Style": {}
+        },
+        "cal_months": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_months"
+          },
+          "Style": {}
+        },
+        "cal_monthsTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {
+            "margin": "auto"
+          }
+        },
+        "cal_monthsBody": {
+          "Tag": "tbody",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_month_0_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_0_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_0_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_0_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_years": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_years"
+          },
+          "Style": {}
+        },
+        "cal_yearsTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {
+            "margin": "auto"
+          }
+        },
+        "cal_yearsBody": {
+          "Tag": "tbody",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_year_0_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_0_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_0_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_0_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_today": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_footer ajax__calendar_today"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "toolkit20-the modal popup",
+      "Path": "/",
+      "Title": "Toolkit 20 probe",
+      "Text": [
+        "First",
+        "Second",
+        "The second tab's content.",
+        "Pane one",
+        "Pane two",
+        "The second pane.",
+        "The modal popup.",
+        "Details"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            ""
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Su",
+            "Mo",
+            "Tu",
+            "We",
+            "Th",
+            "Fr",
+            "Sa"
+          ],
+          [
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29"
+          ],
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          [
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14"
+          ],
+          [
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21"
+          ],
+          [
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28"
+          ],
+          [
+            "29",
+            "30",
+            "31",
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        ],
+        [
+          [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr"
+          ],
+          [
+            "May",
+            "Jun",
+            "Jul",
+            "Aug"
+          ],
+          [
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtWatermark": "Type here",
+        "txtMasked": "___-____",
+        "txtDate": "2020-03-04",
+        "txtNumber": "5",
+        "txtName": ""
+      },
+      "Elements": {
+        "tabs": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_xp ajax__tab_container ajax__tab_default"
+          },
+          "Style": {}
+        },
+        "tabs_header": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_header"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabFirst": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab",
+            "tabindex": "-1"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_tabSecond_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab  ajax__tab_active"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabSecond": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab",
+            "tabindex": "-1"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_body": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_body ajax__scroll_none"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "tabs_tabSecond": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "accordion": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto",
+            "overflow": "auto"
+          }
+        },
+        "headerOne": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "headerTwo": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtWatermark": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "-1"
+          },
+          "Style": {}
+        },
+        "txtMasked": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "-1"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "-1"
+          },
+          "Style": {}
+        },
+        "txtNumber": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "-1"
+          },
+          "Style": {
+            "width": "56px",
+            "text-align": "center"
+          }
+        },
+        "txtNumber_bUp": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "tabindex": "-1"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "line-height": "3pt",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "txtNumber_bDown": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "tabindex": "-1"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "btnShowModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "tabindex": "-1"
+          },
+          "Style": {}
+        },
+        "pnlModal": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "z-index": "10002",
+            "left": "541px",
+            "top": "348px"
+          }
+        },
+        "btnCloseModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto"
+          }
+        },
+        "upGreeting": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "-1"
+          },
+          "Style": {}
+        },
+        "btnGreet": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "tabindex": "-1"
+          },
+          "Style": {}
+        },
+        "lblGreeting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "tabindex": "-1"
+          },
+          "Style": {}
+        },
+        "result": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "modal_backgroundElement": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "10001",
+            "width": "1280px",
+            "height": "720px"
+          }
+        },
+        "cal_container": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar"
+          },
+          "Style": {
+            "position": "absolute",
+            "left": "373px",
+            "top": "159px",
+            "z-index": "1000"
+          }
+        },
+        "cal_popupDiv": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_container"
+          },
+          "Style": {}
+        },
+        "cal_header": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_header"
+          },
+          "Style": {}
+        },
+        "cal_prevArrow": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_prev"
+          },
+          "Style": {}
+        },
+        "cal_nextArrow": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_next"
+          },
+          "Style": {}
+        },
+        "cal_title": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_title"
+          },
+          "Style": {}
+        },
+        "cal_body": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_body"
+          },
+          "Style": {}
+        },
+        "cal_days": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_days"
+          },
+          "Style": {}
+        },
+        "cal_daysTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {
+            "margin": "auto"
+          }
+        },
+        "cal_daysTableHeader": {
+          "Tag": "thead",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_daysTableHeaderRow": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_daysBody": {
+          "Tag": "tbody",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_day_0_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, February 23, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, February 24, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, February 25, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, February 26, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, February 27, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, February 28, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, February 29, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 01, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 02, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 03, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 04, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 05, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 06, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 07, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 08, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 09, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 10, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 11, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 12, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 13, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 14, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 15, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 16, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 17, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 18, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 19, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 20, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 21, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 22, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 23, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 24, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 25, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 26, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 27, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 28, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 29, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 30, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 31, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, April 01, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, April 02, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, April 03, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, April 04, 2020"
+          },
+          "Style": {}
+        },
+        "cal_months": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_months"
+          },
+          "Style": {}
+        },
+        "cal_monthsTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {
+            "margin": "auto"
+          }
+        },
+        "cal_monthsBody": {
+          "Tag": "tbody",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_month_0_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_0_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_0_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_0_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_years": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_years"
+          },
+          "Style": {}
+        },
+        "cal_yearsTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {
+            "margin": "auto"
+          }
+        },
+        "cal_yearsBody": {
+          "Tag": "tbody",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_year_0_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_0_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_0_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_0_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_today": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_footer ajax__calendar_today"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "toolkit20-the collapsible panel opened",
+      "Path": "/",
+      "Title": "Toolkit 20 probe",
+      "Text": [
+        "First",
+        "Second",
+        "The second tab's content.",
+        "Pane one",
+        "Pane two",
+        "The second pane.",
+        "Details",
+        "The panel the header opens."
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            ""
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Su",
+            "Mo",
+            "Tu",
+            "We",
+            "Th",
+            "Fr",
+            "Sa"
+          ],
+          [
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29"
+          ],
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          [
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14"
+          ],
+          [
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21"
+          ],
+          [
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28"
+          ],
+          [
+            "29",
+            "30",
+            "31",
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        ],
+        [
+          [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr"
+          ],
+          [
+            "May",
+            "Jun",
+            "Jul",
+            "Aug"
+          ],
+          [
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtWatermark": "Type here",
+        "txtMasked": "___-____",
+        "txtDate": "2020-03-04",
+        "txtNumber": "5",
+        "txtName": ""
+      },
+      "Elements": {
+        "tabs": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_xp ajax__tab_container ajax__tab_default"
+          },
+          "Style": {}
+        },
+        "tabs_header": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_header"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabFirst": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab",
+            "tabindex": "0"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_tabSecond_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab  ajax__tab_active"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabSecond": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab",
+            "tabindex": "0"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_body": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_body ajax__scroll_none"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "tabs_tabSecond": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "accordion": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto",
+            "overflow": "auto"
+          }
+        },
+        "headerOne": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "headerTwo": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtWatermark": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "0"
+          },
+          "Style": {}
+        },
+        "txtMasked": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "0"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "0"
+          },
+          "Style": {}
+        },
+        "txtNumber": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "0"
+          },
+          "Style": {
+            "width": "56px",
+            "text-align": "center"
+          }
+        },
+        "txtNumber_bUp": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "tabindex": "0"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "line-height": "3pt",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "txtNumber_bDown": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "tabindex": "0"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "btnShowModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "tabindex": "0"
+          },
+          "Style": {}
+        },
+        "pnlModal": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "z-index": "10002",
+            "left": "541px",
+            "top": "348px"
+          }
+        },
+        "btnCloseModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto"
+          }
+        },
+        "upGreeting": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "0"
+          },
+          "Style": {}
+        },
+        "btnGreet": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "tabindex": "0"
+          },
+          "Style": {}
+        },
+        "lblGreeting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "tabindex": "0"
+          },
+          "Style": {}
+        },
+        "result": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "modal_backgroundElement": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "10001",
+            "width": "1280px",
+            "height": "720px"
+          }
+        },
+        "cal_container": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar"
+          },
+          "Style": {
+            "position": "absolute",
+            "left": "373px",
+            "top": "159px",
+            "z-index": "1000"
+          }
+        },
+        "cal_popupDiv": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_container"
+          },
+          "Style": {}
+        },
+        "cal_header": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_header"
+          },
+          "Style": {}
+        },
+        "cal_prevArrow": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_prev"
+          },
+          "Style": {}
+        },
+        "cal_nextArrow": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_next"
+          },
+          "Style": {}
+        },
+        "cal_title": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_title"
+          },
+          "Style": {}
+        },
+        "cal_body": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_body"
+          },
+          "Style": {}
+        },
+        "cal_days": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_days"
+          },
+          "Style": {}
+        },
+        "cal_daysTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {
+            "margin": "auto"
+          }
+        },
+        "cal_daysTableHeader": {
+          "Tag": "thead",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_daysTableHeaderRow": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_daysBody": {
+          "Tag": "tbody",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_day_0_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, February 23, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, February 24, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, February 25, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, February 26, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, February 27, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, February 28, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, February 29, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 01, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 02, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 03, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 04, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 05, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 06, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 07, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 08, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 09, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 10, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 11, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 12, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 13, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 14, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 15, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 16, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 17, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 18, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 19, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 20, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 21, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 22, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 23, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 24, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 25, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 26, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 27, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 28, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 29, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 30, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 31, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, April 01, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, April 02, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, April 03, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, April 04, 2020"
+          },
+          "Style": {}
+        },
+        "cal_months": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_months"
+          },
+          "Style": {}
+        },
+        "cal_monthsTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {
+            "margin": "auto"
+          }
+        },
+        "cal_monthsBody": {
+          "Tag": "tbody",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_month_0_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_0_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_0_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_0_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_years": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_years"
+          },
+          "Style": {}
+        },
+        "cal_yearsTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {
+            "margin": "auto"
+          }
+        },
+        "cal_yearsBody": {
+          "Tag": "tbody",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_year_0_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_0_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_0_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_0_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_today": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_footer ajax__calendar_today"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "toolkit20-an asynchronous postback",
+      "Path": "/",
+      "Title": "Toolkit 20 probe",
+      "Text": [
+        "First",
+        "Second",
+        "The second tab's content.",
+        "Pane one",
+        "Pane two",
+        "The second pane.",
+        "Details",
+        "The panel the header opens.",
+        "Hello, Taro (asynchronous postback True)"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            ""
+          ],
+          [
+            ""
+          ]
+        ],
+        [
+          [
+            "Su",
+            "Mo",
+            "Tu",
+            "We",
+            "Th",
+            "Fr",
+            "Sa"
+          ],
+          [
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29"
+          ],
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          [
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14"
+          ],
+          [
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21"
+          ],
+          [
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28"
+          ],
+          [
+            "29",
+            "30",
+            "31",
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        ],
+        [
+          [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr"
+          ],
+          [
+            "May",
+            "Jun",
+            "Jul",
+            "Aug"
+          ],
+          [
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtWatermark": "Type here",
+        "txtMasked": "___-____",
+        "txtDate": "2020-03-04",
+        "txtNumber": "5",
+        "txtName": "Taro"
+      },
+      "Elements": {
+        "tabs": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_xp ajax__tab_container ajax__tab_default"
+          },
+          "Style": {}
+        },
+        "tabs_header": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_header"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabFirst": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab",
+            "tabindex": "0"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_tabSecond_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab  ajax__tab_active"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabSecond": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab",
+            "tabindex": "0"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_body": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_body ajax__scroll_none"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "tabs_tabSecond": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "accordion": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto",
+            "overflow": "auto"
+          }
+        },
+        "headerOne": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "headerTwo": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtWatermark": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "0",
+            "class": ""
+          },
+          "Style": {}
+        },
+        "txtMasked": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "0"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "0"
+          },
+          "Style": {}
+        },
+        "txtNumber": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text",
+            "tabindex": "0"
+          },
+          "Style": {
+            "width": "56px",
+            "text-align": "center"
+          }
+        },
+        "txtNumber_bUp": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "tabindex": "0"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "line-height": "3pt",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "txtNumber_bDown": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "tabindex": "0"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "btnShowModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "tabindex": "0"
+          },
+          "Style": {}
+        },
+        "pnlModal": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "z-index": "10002",
+            "left": "640px",
+            "top": "360px"
+          }
+        },
+        "btnCloseModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto"
+          }
+        },
+        "upGreeting": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnGreet": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblGreeting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "tabindex": "0"
+          },
+          "Style": {}
+        },
+        "result": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "modal_backgroundElement": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "10001",
+            "width": "1280px",
+            "height": "720px"
+          }
+        },
+        "cal_container": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar"
+          },
+          "Style": {
+            "position": "absolute",
+            "left": "373px",
+            "top": "159px",
+            "z-index": "1000"
+          }
+        },
+        "cal_popupDiv": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_container"
+          },
+          "Style": {}
+        },
+        "cal_header": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_header"
+          },
+          "Style": {}
+        },
+        "cal_prevArrow": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_prev"
+          },
+          "Style": {}
+        },
+        "cal_nextArrow": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_next"
+          },
+          "Style": {}
+        },
+        "cal_title": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_title"
+          },
+          "Style": {}
+        },
+        "cal_body": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_body"
+          },
+          "Style": {}
+        },
+        "cal_days": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_days"
+          },
+          "Style": {}
+        },
+        "cal_daysTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {
+            "margin": "auto"
+          }
+        },
+        "cal_daysTableHeader": {
+          "Tag": "thead",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_daysTableHeaderRow": {
+          "Tag": "tr",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_daysBody": {
+          "Tag": "tbody",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_day_0_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, February 23, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, February 24, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, February 25, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, February 26, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, February 27, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, February 28, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_0_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, February 29, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 01, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 02, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 03, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 04, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 05, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 06, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_1_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 07, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 08, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 09, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 10, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 11, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 12, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 13, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_2_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 14, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 15, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 16, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 17, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 18, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 19, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 20, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_3_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 21, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 22, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 23, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 24, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, March 25, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, March 26, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, March 27, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_4_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, March 28, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Sunday, March 29, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Monday, March 30, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Tuesday, March 31, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Wednesday, April 01, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_4": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Thursday, April 02, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_5": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Friday, April 03, 2020"
+          },
+          "Style": {}
+        },
+        "cal_day_5_6": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_day",
+            "title": "Saturday, April 04, 2020"
+          },
+          "Style": {}
+        },
+        "cal_months": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_months"
+          },
+          "Style": {}
+        },
+        "cal_monthsTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {
+            "margin": "auto"
+          }
+        },
+        "cal_monthsBody": {
+          "Tag": "tbody",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_month_0_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_0_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_0_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_0_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_1_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_month_2_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_month"
+          },
+          "Style": {}
+        },
+        "cal_years": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_years"
+          },
+          "Style": {}
+        },
+        "cal_yearsTable": {
+          "Tag": "table",
+          "Attributes": {},
+          "Style": {
+            "margin": "auto"
+          }
+        },
+        "cal_yearsBody": {
+          "Tag": "tbody",
+          "Attributes": {},
+          "Style": {}
+        },
+        "cal_year_0_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_0_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_0_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_0_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_1_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_0": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_1": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_2": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_year_2_3": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_year"
+          },
+          "Style": {}
+        },
+        "cal_today": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__calendar_footer ajax__calendar_today"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "toolkit20-confirmed and posted",
+      "Path": "/",
+      "Title": "Toolkit 20 probe",
+      "Text": [
+        "First",
+        "Second",
+        "The second tab's content.",
+        "Pane one",
+        "Pane two",
+        "The second pane.",
+        "Details",
+        "The panel the header opens.",
+        "Hello, Taro (asynchronous postback True)",
+        "Confirmed; posted: watermark box 'typed', masked '___-____', date '2020-03-04', number '5', active tab 1, accordion pane 1"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            ""
+          ],
+          [
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {
+        "txtWatermark": "typed",
+        "txtMasked": "___-____",
+        "txtDate": "2020-03-04",
+        "txtNumber": "5",
+        "txtName": "Taro"
+      },
+      "Elements": {
+        "tabs": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_xp ajax__tab_container ajax__tab_default"
+          },
+          "Style": {}
+        },
+        "tabs_header": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_header"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabFirst": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_tabSecond_tab": {
+          "Tag": "span",
+          "Attributes": {
+            "class": "ajax__tab ajax__tab_active"
+          },
+          "Style": {}
+        },
+        "__tab_tabs_tabSecond": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "ajax__tab_tab"
+          },
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tabs_body": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_body ajax__scroll_none"
+          },
+          "Style": {}
+        },
+        "tabs_tabFirst": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "tabs_tabSecond": {
+          "Tag": "div",
+          "Attributes": {
+            "class": "ajax__tab_panel"
+          },
+          "Style": {}
+        },
+        "accordion": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto",
+            "overflow": "auto"
+          }
+        },
+        "headerOne": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "headerTwo": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtWatermark": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtMasked": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtDate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "txtNumber": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {
+            "width": "56px",
+            "text-align": "center"
+          }
+        },
+        "txtNumber_bUp": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "line-height": "3pt",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "txtNumber_bDown": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {
+            "border": "1px outset",
+            "font-family": "tahoma, arial, sans-serif",
+            "font-size": "5pt",
+            "font-weight": "bold",
+            "height": "12px",
+            "width": "24px",
+            "overflow": "hidden",
+            "margin": "0px"
+          }
+        },
+        "btnShowModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlModal": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "z-index": "10001"
+          }
+        },
+        "btnCloseModal": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlHeader": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "pnlBody": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "height": "auto"
+          }
+        },
+        "upGreeting": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnGreet": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "lblGreeting": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnConfirm": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "result": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "modal_backgroundElement": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "position": "fixed",
+            "left": "0px",
+            "top": "0px",
+            "z-index": "10000"
+          }
+        }
+      }
+    }
+  ],
+  "Links": null
+}

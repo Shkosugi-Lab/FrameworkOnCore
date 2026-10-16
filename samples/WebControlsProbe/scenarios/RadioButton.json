@@ -1,0 +1,103 @@
+{
+  "_comment": "The RadioButton's scenario layer (BasicsScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers. The log's request number is kept in view state: a click the browser cancelled leaves it as it was.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/BasicsScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "RadioButton [render][databind][dynamic] first request"
+    },
+    {
+      "action": "check",
+      "target": "rdoLarge"
+    },
+    {
+      "action": "check",
+      "target": "rdoDynamic"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "RadioButton [postdata][change][dynamic] radios chosen"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "RadioButton [viewstate][change] posted again unchanged"
+    },
+    {
+      "action": "check",
+      "target": "rdoSmall"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "RadioButton [change] the other radio of the group chosen"
+    },
+    {
+      "action": "check",
+      "target": "rdoAutoB"
+    },
+    {
+      "action": "snapshot",
+      "name": "RadioButton [autopostback][change] auto postback"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "RadioButton [visible][viewstate] hidden ones shown with what was set while hidden"
+    },
+    {
+      "action": "check",
+      "target": "rdoBind"
+    },
+    {
+      "action": "click",
+      "target": "btnUpdate"
+    },
+    {
+      "action": "snapshot",
+      "name": "RadioButton [bind] two-way binding in a template"
+    },
+    {
+      "action": "evaluate",
+      "target": "rdoSmall",
+      "value": "e.value = '<b>x</b>'; e.checked = true;"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "RadioButton [requestvalidation] markup posted"
+    },
+    {
+      "action": "goto",
+      "path": "/BasicsScenario.aspx"
+    },
+    {
+      "action": "check",
+      "target": "rdoCauses"
+    },
+    {
+      "action": "snapshot",
+      "name": "RadioButton [autopostback][causesvalidation] auto postback validating g1 (empty)"
+    }
+  ]
+}

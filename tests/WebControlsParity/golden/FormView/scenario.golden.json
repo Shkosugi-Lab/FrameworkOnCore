@@ -1,0 +1,2999 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "FormView [render][databind][datasource][datasourceid][templates][dynamic] first request",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Pen 1.25 Edit New Delete Like",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Pen Edit New Delete",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "No view state: Pen",
+        "[dynamic: Pen (P1)]",
+        "1 2 3",
+        "Request 1: IsPostBack=False",
+        "Form fvManual: PageIndex=0 PageCount=7 CurrentMode=ReadOnly DataKey=P1",
+        "Form fvAuto: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey= (hidden)",
+        "Form fvDynamic: PageIndex=0 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Pen 1.25 Edit New Delete Like"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Pen Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "No view state: Pen"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_lblFvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lblFvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvLike": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvNoViewState": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "FormView [paging][postbackevent] the page's form view: page 2",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Bag 24.99 Edit New Delete Like",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Pen Edit New Delete",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "[dynamic: Pen (P1)]",
+        "1 2 3",
+        "Request 2: IsPostBack=True",
+        "ItemCommand fvManual: Page 2",
+        "PageIndexChanging: NewPageIndex=1",
+        "Form fvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly DataKey=B2",
+        "Form fvAuto: PageIndex=0 PageCount=7 CurrentMode=ReadOnly DataKey=P1",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey= (hidden)",
+        "Form fvDynamic: PageIndex=0 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Bag 24.99 Edit New Delete Like"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Pen Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_lblFvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lblFvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvLike": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "FormView [rowcommand] a command bubbled to ItemCommand",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Bag 24.99 Edit New Delete Like",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Pen Edit New Delete",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "[dynamic: Pen (P1)]",
+        "1 2 3",
+        "Request 3: IsPostBack=True",
+        "ItemCommand fvManual: like B2",
+        "Form fvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly DataKey=",
+        "Form fvAuto: PageIndex=0 PageCount=7 CurrentMode=ReadOnly DataKey=P1",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey= (hidden)",
+        "Form fvDynamic: PageIndex=0 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Bag 24.99 Edit New Delete Like"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Pen Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_lblFvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lblFvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvLike": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "FormView [editing] edit mode",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Update Cancel",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Pen Edit New Delete",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "[dynamic: Pen (P1)]",
+        "1 2 3",
+        "Request 4: IsPostBack=True",
+        "ItemCommand fvManual: Edit",
+        "ModeChanging: NewMode=Edit CancelingEdit=False",
+        "Form fvManual: PageIndex=1 PageCount=7 CurrentMode=Edit DataKey=B2",
+        "Form fvAuto: PageIndex=0 PageCount=7 CurrentMode=ReadOnly DataKey=P1",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey= (hidden)",
+        "Form fvDynamic: PageIndex=0 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Update Cancel"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Pen Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "fvManual_txtFvName": "Bag",
+        "fvManual_txtFvPrice": "24.99"
+      },
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_txtFvName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvManual_txtFvPrice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvManual_lnkFvUpdate": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvCancel": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "FormView [editing][bind][datakeys] updated: keys, old and new values",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Renamed 9.50 Edit New Delete Like",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Pen Edit New Delete",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "[dynamic: Pen (P1)]",
+        "1 2 3",
+        "Request 5: IsPostBack=True",
+        "ItemCommand fvManual: Update",
+        "ItemUpdating: Keys={Code=B2} OldValues={} NewValues={Name=Renamed, Price=9.5}",
+        "Form fvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly DataKey=B2",
+        "Form fvAuto: PageIndex=0 PageCount=7 CurrentMode=ReadOnly DataKey=P1",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey= (hidden)",
+        "Form fvDynamic: PageIndex=0 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True B2:Renamed:9.5:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Renamed 9.50 Edit New Delete Like"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Pen Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_lblFvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lblFvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvLike": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "FormView [inserting] insert mode",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Insert Cancel",
+        "Automatic (ObjectDataSource)",
+        "Pen Edit New Delete",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "[dynamic: Pen (P1)]",
+        "1 2 3",
+        "Request 6: IsPostBack=True",
+        "ItemCommand fvManual: New",
+        "ModeChanging: NewMode=Insert CancelingEdit=False",
+        "Form fvManual: PageIndex=-1 PageCount=0 CurrentMode=Insert DataKey=",
+        "Form fvAuto: PageIndex=0 PageCount=7 CurrentMode=ReadOnly DataKey=P1",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey= (hidden)",
+        "Form fvDynamic: PageIndex=0 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True B2:Renamed:9.5:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Insert Cancel"
+          ]
+        ],
+        [
+          [
+            "Pen Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "fvManual_txtFvNewCode": "",
+        "fvManual_txtFvNewName": "",
+        "fvManual_txtFvNewPrice": ""
+      },
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_txtFvNewCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvManual_txtFvNewName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvManual_txtFvNewPrice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "fvManual_lnkFvInsert": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvInsertCancel": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "FormView [inserting][bind] inserted",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Renamed 9.50 Edit New Delete Like",
+        "1 2 3 4 5 6 7 8",
+        "Automatic (ObjectDataSource)",
+        "Pen Edit New Delete",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "[dynamic: Pen (P1)]",
+        "1 2 3",
+        "Request 7: IsPostBack=True",
+        "ItemCommand fvManual: Insert",
+        "ItemInserting: Values={Code=N9, Name=New item, Price=4}",
+        "Form fvManual: PageIndex=1 PageCount=8 CurrentMode=ReadOnly DataKey=B2",
+        "Form fvAuto: PageIndex=0 PageCount=7 CurrentMode=ReadOnly DataKey=P1",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey= (hidden)",
+        "Form fvDynamic: PageIndex=0 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True B2:Renamed:9.5:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Renamed 9.50 Edit New Delete Like"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7\t8"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        ],
+        [
+          [
+            "Pen Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_lblFvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lblFvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvLike": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "FormView [editing][datakeys] deleted",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Cup <&> 1,234.50 Edit New Delete Like",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Pen Edit New Delete",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "[dynamic: Pen (P1)]",
+        "1 2 3",
+        "Request 8: IsPostBack=True",
+        "ItemCommand fvManual: Delete",
+        "ItemDeleting: Keys={Code=B2} Values={}",
+        "Form fvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly DataKey=C3",
+        "Form fvAuto: PageIndex=0 PageCount=7 CurrentMode=ReadOnly DataKey=P1",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey= (hidden)",
+        "Form fvDynamic: PageIndex=0 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Cup <&> 1,234.50 Edit New Delete Like"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Pen Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_lblFvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lblFvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvLike": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "FormView [paging][datasourceid] the data source's form view: page 3",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Cup <&> 1,234.50 Edit New Delete Like",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Desk Edit New Delete",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "[dynamic: Pen (P1)]",
+        "1 2 3",
+        "Request 9: IsPostBack=True",
+        "Form fvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly DataKey=C3",
+        "Form fvAuto: PageIndex=2 PageCount=7 CurrentMode=ReadOnly DataKey=",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey= (hidden)",
+        "Form fvDynamic: PageIndex=0 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Cup <&> 1,234.50 Edit New Delete Like"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Desk Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_lblFvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lblFvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvLike": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "FormView [editing][datasourceid] updated through the data source",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Cup <&> 1,234.50 Edit New Delete Like",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Auto renamed Edit New Delete",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "[dynamic: Pen (P1)]",
+        "1 2 3",
+        "Request 11: IsPostBack=True",
+        "ObjectDataSource Updating: {Code=D4, Name=Auto renamed, Price=150}",
+        "ItemUpdated: AffectedRows=-1 Keys={Code=D4} NewValues={Name=Auto renamed, Price=150}",
+        "Form fvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly DataKey=C3",
+        "Form fvAuto: PageIndex=2 PageCount=7 CurrentMode=ReadOnly DataKey=D4",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey= (hidden)",
+        "Form fvDynamic: PageIndex=0 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True D4:Auto renamed:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Cup <&> 1,234.50 Edit New Delete Like"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Auto renamed Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_lblFvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lblFvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvLike": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "FormView [inserting][datasourceid] inserted through the data source",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Cup <&> 1,234.50 Edit New Delete Like",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Auto renamed Edit New Delete",
+        "1 2 3 4 5 6 7 8",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "[dynamic: Pen (P1)]",
+        "1 2 3",
+        "Request 13: IsPostBack=True",
+        "ObjectDataSource Inserting: {Code=A8, Name=Auto new, Price=7}",
+        "ItemInserted: AffectedRows=-1 Values={Code=A8, Name=Auto new, Price=7}",
+        "Form fvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly DataKey=C3",
+        "Form fvAuto: PageIndex=2 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey= (hidden)",
+        "Form fvDynamic: PageIndex=0 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True D4:Auto renamed:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False A8:Auto new:7:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Cup <&> 1,234.50 Edit New Delete Like"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Auto renamed Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7\t8"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_lblFvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lblFvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvLike": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "FormView [editing][datasourceid] deleted through the data source",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Cup <&> 1,234.50 Edit New Delete Like",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Eraser Edit New Delete",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "[dynamic: Pen (P1)]",
+        "1 2 3",
+        "Request 14: IsPostBack=True",
+        "ItemDeleted: AffectedRows=-1 Keys={Code=D4}",
+        "Form fvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly DataKey=C3",
+        "Form fvAuto: PageIndex=2 PageCount=8 CurrentMode=ReadOnly DataKey=D4",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey= (hidden)",
+        "Form fvDynamic: PageIndex=0 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False A8:Auto new:7:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Cup <&> 1,234.50 Edit New Delete Like"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Eraser Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_lblFvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lblFvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvLike": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "FormView [dynamic][paging] the dynamic form view: page 2",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Cup <&> 1,234.50 Edit New Delete Like",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Eraser Edit New Delete",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "[dynamic: Bag (B2)]",
+        "1 2 3",
+        "Request 15: IsPostBack=True",
+        "Form fvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly DataKey=C3",
+        "Form fvAuto: PageIndex=2 PageCount=7 CurrentMode=ReadOnly DataKey=E5",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey= (hidden)",
+        "Form fvDynamic: PageIndex=1 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False A8:Auto new:7:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Cup <&> 1,234.50 Edit New Delete Like"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Eraser Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Bag (B2)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_lblFvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lblFvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvLike": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "FormView [viewstate] posted (the one without view state is empty)",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Cup <&> 1,234.50 Edit New Delete Like",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Eraser Edit New Delete",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "[dynamic: Bag (B2)]",
+        "1 2 3",
+        "Request 16: IsPostBack=True",
+        "Form fvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly DataKey=C3",
+        "Form fvAuto: PageIndex=2 PageCount=7 CurrentMode=ReadOnly DataKey=E5",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey= (hidden)",
+        "Form fvDynamic: PageIndex=1 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False A8:Auto new:7:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Cup <&> 1,234.50 Edit New Delete Like"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Eraser Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Bag (B2)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_lblFvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lblFvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvLike": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "FormView [visible][viewstate] the hidden form view shown",
+      "Path": "/formviewscenario",
+      "Title": "FormView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Product",
+        "Cup <&> 1,234.50 Edit New Delete Like",
+        "1 2 3 4 5 6 7",
+        "Automatic (ObjectDataSource)",
+        "Eraser Edit New Delete",
+        "1 2 3 4 5 6 7",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show",
+        "Hidden: Pen",
+        "[dynamic: Bag (B2)]",
+        "1 2 3",
+        "Request 17: IsPostBack=True",
+        "Click btnShow",
+        "Form fvManual: PageIndex=1 PageCount=7 CurrentMode=ReadOnly DataKey=C3",
+        "Form fvAuto: PageIndex=2 PageCount=7 CurrentMode=ReadOnly DataKey=E5",
+        "Form fvEmpty: PageIndex=0 PageCount=0 CurrentMode=ReadOnly DataKey=",
+        "Form fvNoViewState: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvHidden: PageIndex=0 PageCount=2 CurrentMode=ReadOnly DataKey=",
+        "Form fvDynamic: PageIndex=1 PageCount=3 CurrentMode=ReadOnly DataKey=",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False N9:New item:4:False A8:Auto new:7:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Product"
+          ],
+          [
+            "Cup <&> 1,234.50 Edit New Delete Like"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Eraser Edit New Delete"
+          ],
+          [
+            "1\t2\t3\t4\t5\t6\t7"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Nothing to show"
+          ]
+        ],
+        [
+          [
+            "Hidden: Pen"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Bag (B2)]"
+          ],
+          [
+            "1\t2\t3"
+          ]
+        ],
+        [
+          [
+            "1",
+            "2",
+            "3"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "fvManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvManual_lblFvName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lblFvPrice": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvManual_lnkFvLike": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvAuto_lblFaName": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaEdit": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaNew": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvAuto_lnkFaDelete": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "fvEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvHidden": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "fvDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

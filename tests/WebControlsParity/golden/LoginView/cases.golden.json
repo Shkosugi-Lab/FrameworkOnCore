@@ -1,0 +1,452 @@
+{
+  "LoginView.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "LoginView.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "LoginView.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "LoginView.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "LoginView.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "LoginView.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.ClientID": [
+    "Control.ClientID = \"lvStatus\""
+  ],
+  "LoginView.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "LoginView.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "LoginView.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "LoginView.Api.Control.Controls": [
+    "Control.Controls = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "LoginView.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "LoginView.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.DataBind": [
+    "Control.DataBind = \"-> System.Web.HttpException: Request is not available in this context\"",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "LoginView.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "LoginView.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "LoginView.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "LoginView.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "LoginView.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "LoginView.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "LoginView.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "LoginView.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "LoginView.Api.Control.FindControl": [
+    "Control.FindControl(String) = \"-> System.Web.HttpException: Request is not available in this context\"",
+    "Control.FindControl(String,Int32) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "LoginView.Api.Control.Focus": [
+    "Control.Focus = \"-> System.NotSupportedException: Control of type 'LoginView' does not support the Focus operation.\""
+  ],
+  "LoginView.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "LoginView.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"lvStatus\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "LoginView.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.ID": [
+    "Control.ID = \"lvStatus\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "LoginView.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "LoginView.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "LoginView.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "LoginView.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "LoginView.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "LoginView.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "LoginView.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "LoginView.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "LoginView.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "LoginView.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "LoginView.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "LoginView.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "LoginView.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "LoginView.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "LoginView.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "LoginView.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "LoginView.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "LoginView.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "LoginView.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "LoginView.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "LoginView.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "LoginView.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "LoginView.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "LoginView.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.Control.UniqueID": [
+    "Control.UniqueID = \"lvStatus\""
+  ],
+  "LoginView.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "LoginView.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "LoginView.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "LoginView.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "LoginView.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "LoginView.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "LoginView.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "LoginView.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "LoginView.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "LoginView.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "LoginView.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "LoginView.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "LoginView.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.WebControls.LoginView.#ctor": [
+    "LoginView.#ctor = LoginView# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.WebControls.LoginView.AnonymousTemplate": [
+    "LoginView.AnonymousTemplate = null",
+    "LoginView.AnonymousTemplate set = null"
+  ],
+  "LoginView.Api.WebControls.LoginView.Controls": [
+    "LoginView.Controls = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "LoginView.Api.WebControls.LoginView.CreateChildControls": [
+    "LoginView.CreateChildControls = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "LoginView.Api.WebControls.LoginView.DataBind": [
+    "LoginView.DataBind = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "LoginView.Api.WebControls.LoginView.EnableTheming": [
+    "LoginView.EnableTheming = \"true\"",
+    "LoginView.EnableTheming set = \"true\""
+  ],
+  "LoginView.Api.WebControls.LoginView.Focus": [
+    "LoginView.Focus = \"-> System.NotSupportedException: Control of type 'LoginView' does not support the Focus operation.\""
+  ],
+  "LoginView.Api.WebControls.LoginView.LoadControlState": [
+    "LoginView.LoadControlState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "LoginView.Api.WebControls.LoginView.LoggedInTemplate": [
+    "LoginView.LoggedInTemplate = null",
+    "LoginView.LoggedInTemplate set = null"
+  ],
+  "LoginView.Api.WebControls.LoginView.OnInit": [
+    "LoginView.OnInit(EventArgs) = \"ok\"",
+    "LoginView.OnInit(EventArgs) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.WebControls.LoginView.OnPreRender": [
+    "LoginView.OnPreRender(EventArgs) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "LoginView.Api.WebControls.LoginView.OnViewChanged": [
+    "LoginView.OnViewChanged(EventArgs) = \"ok\"",
+    "LoginView.OnViewChanged(EventArgs) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.WebControls.LoginView.OnViewChanging": [
+    "LoginView.OnViewChanging(EventArgs) = \"ok\"",
+    "LoginView.OnViewChanging(EventArgs) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.WebControls.LoginView.Render": [
+    "LoginView.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "LoginView.Api.WebControls.LoginView.RoleGroups": [
+    "LoginView.RoleGroups = \"[]\""
+  ],
+  "LoginView.Api.WebControls.LoginView.SaveControlState": [
+    "LoginView.SaveControlState = null",
+    "LoginView.SaveControlState after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.WebControls.LoginView.SetDesignModeState": [
+    "LoginView.SetDesignModeState(IDictionary) = \"ok\"",
+    "LoginView.SetDesignModeState(IDictionary) after = LoginView#lvStatus {ClientID=\"lvStatus\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"lvStatus\"; SkinID=\"\"; UniqueID=\"lvStatus\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LoginView.Api.WebControls.LoginView.SkinID": [
+    "LoginView.SkinID = \"\"",
+    "LoginView.SkinID set = \"Abc 123\""
+  ],
+  "LoginView.Api.WebControls.LoginView.ViewChanged": [
+    "LoginView.ViewChanged = \"added and removed\""
+  ],
+  "LoginView.Api.WebControls.LoginView.ViewChanging": [
+    "LoginView.ViewChanging = \"added and removed\""
+  ]
+}

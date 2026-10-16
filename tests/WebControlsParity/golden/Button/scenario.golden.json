@@ -1,0 +1,2508 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "Button [render][databind][disabled] first request",
+      "Path": "/buttonscenario",
+      "Title": "Button scenario",
+      "Text": [
+        "Required (g1):",
+        "Required (g2, in the browser):",
+        "Pen Bag",
+        "Default button:",
+        "Dynamic:",
+        "Cross-page:",
+        "Request 1: IsPostBack=False",
+        "btnHidden: hidden, Text \"Hidden\""
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtRequired": "",
+        "txtClient": "",
+        "txtDefault": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnScript": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmYes": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnNoValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlDefault": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnOther": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Button [postbackevent][command][viewstate] submit button: Click, then Command",
+      "Path": "/buttonscenario",
+      "Title": "Button scenario",
+      "Text": [
+        "Required (g1):",
+        "Required (g2, in the browser):",
+        "Pen Bag",
+        "Default button:",
+        "Dynamic:",
+        "Cross-page:",
+        "Request 2: IsPostBack=True",
+        "Click btnSubmit",
+        "Command btnSubmit: save 1",
+        "IsValid: (not validated)",
+        "btnHidden: hidden, Text \"Hidden\""
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtRequired": "",
+        "txtClient": "",
+        "txtDefault": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnScript": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmYes": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnNoValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlDefault": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnOther": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Button [postbackevent][submitbehavior] script postback (UseSubmitBehavior=false)",
+      "Path": "/buttonscenario",
+      "Title": "Button scenario",
+      "Text": [
+        "Required (g1):",
+        "Required (g2, in the browser):",
+        "Pen Bag",
+        "Default button:",
+        "Dynamic:",
+        "Cross-page:",
+        "Request 3: IsPostBack=True",
+        "Click btnScript",
+        "IsValid: (not validated)",
+        "btnHidden: hidden, Text \"Hidden\""
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtRequired": "",
+        "txtClient": "",
+        "txtDefault": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnScript": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmYes": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnNoValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlDefault": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnOther": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Button [clientclick] OnClientClick returns false: no request",
+      "Path": "/buttonscenario",
+      "Title": "Button scenario",
+      "Text": [
+        "Required (g1):",
+        "Required (g2, in the browser):",
+        "Pen Bag",
+        "Default button:",
+        "Dynamic:",
+        "Cross-page:",
+        "Request 3: IsPostBack=True",
+        "Click btnScript",
+        "IsValid: (not validated)",
+        "btnHidden: hidden, Text \"Hidden\""
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtRequired": "",
+        "txtClient": "",
+        "txtDefault": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnScript": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmYes": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnNoValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlDefault": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnOther": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Button [clientclick][postbackevent] OnClientClick returns true",
+      "Path": "/buttonscenario",
+      "Title": "Button scenario",
+      "Text": [
+        "Required (g1):",
+        "Required (g2, in the browser):",
+        "Pen Bag",
+        "Default button:",
+        "Dynamic:",
+        "Cross-page:",
+        "Request 4: IsPostBack=True",
+        "Click btnConfirmYes",
+        "IsValid: (not validated)",
+        "btnHidden: hidden, Text \"Hidden\""
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtRequired": "",
+        "txtClient": "",
+        "txtDefault": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnScript": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmYes": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnNoValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlDefault": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnOther": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Button [causesvalidation] group g1, empty: invalid, Click raised",
+      "Path": "/buttonscenario",
+      "Title": "Button scenario",
+      "Text": [
+        "Required (g1): Required (g1)",
+        "Required (g2, in the browser):",
+        "Pen Bag",
+        "Default button:",
+        "Dynamic:",
+        "Cross-page:",
+        "Request 5: IsPostBack=True",
+        "Click btnValidate",
+        "IsValid: False",
+        "btnHidden: hidden, Text \"Hidden\""
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtRequired": "",
+        "txtClient": "",
+        "txtDefault": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnScript": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmYes": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqRequired": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnNoValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlDefault": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnOther": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Button [causesvalidation] group g1, filled: valid",
+      "Path": "/buttonscenario",
+      "Title": "Button scenario",
+      "Text": [
+        "Required (g1):",
+        "Required (g2, in the browser):",
+        "Pen Bag",
+        "Default button:",
+        "Dynamic:",
+        "Cross-page:",
+        "Request 6: IsPostBack=True",
+        "Click btnValidate",
+        "IsValid: True",
+        "btnHidden: hidden, Text \"Hidden\""
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtRequired": "x",
+        "txtClient": "",
+        "txtDefault": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnScript": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmYes": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnNoValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlDefault": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnOther": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Button [causesvalidation] CausesValidation=false: not validated",
+      "Path": "/buttonscenario",
+      "Title": "Button scenario",
+      "Text": [
+        "Required (g1):",
+        "Required (g2, in the browser):",
+        "Pen Bag",
+        "Default button:",
+        "Dynamic:",
+        "Cross-page:",
+        "Request 7: IsPostBack=True",
+        "Click btnNoValidate",
+        "IsValid: (not validated)",
+        "btnHidden: hidden, Text \"Hidden\""
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtRequired": "",
+        "txtClient": "",
+        "txtDefault": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnScript": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmYes": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnNoValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlDefault": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnOther": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Button [causesvalidation] group g2 validated in the browser: no request",
+      "Path": "/buttonscenario",
+      "Title": "Button scenario",
+      "Text": [
+        "Required (g1):",
+        "Required (g2, in the browser): Required (g2, in the browser)",
+        "Pen Bag",
+        "Default button:",
+        "Dynamic:",
+        "Cross-page:",
+        "Request 7: IsPostBack=True",
+        "Click btnNoValidate",
+        "IsValid: (not validated)",
+        "btnHidden: hidden, Text \"Hidden\""
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtRequired": "",
+        "txtClient": "",
+        "txtDefault": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnScript": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmYes": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnNoValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlDefault": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnOther": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Button [command][databind] Command bubbled from a repeater item",
+      "Path": "/buttonscenario",
+      "Title": "Button scenario",
+      "Text": [
+        "Required (g1):",
+        "Required (g2, in the browser):",
+        "Pen Bag",
+        "Default button:",
+        "Dynamic:",
+        "Cross-page:",
+        "Request 8: IsPostBack=True",
+        "ItemCommand rptItems item 0: pick Pen (from btnPick)",
+        "IsValid: (not validated)",
+        "btnHidden: hidden, Text \"Hidden\""
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtRequired": "",
+        "txtClient": "",
+        "txtDefault": "",
+        "txtCross": ""
+      },
+      "Elements": {
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnScript": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmYes": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnNoValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlDefault": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnOther": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Button [defaultbutton] Enter in a panel with DefaultButton",
+      "Path": "/buttonscenario",
+      "Title": "Button scenario",
+      "Text": [
+        "Required (g1):",
+        "Required (g2, in the browser):",
+        "Pen Bag",
+        "Default button:",
+        "Dynamic:",
+        "Cross-page:",
+        "Request 9: IsPostBack=True",
+        "Click btnDefault",
+        "IsValid: (not validated)",
+        "btnHidden: hidden, Text \"Hidden\""
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtRequired": "",
+        "txtClient": "",
+        "txtDefault": "enter",
+        "txtCross": ""
+      },
+      "Elements": {
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnScript": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmYes": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnNoValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlDefault": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnOther": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Button [dynamic][postbackevent] dynamically created button",
+      "Path": "/buttonscenario",
+      "Title": "Button scenario",
+      "Text": [
+        "Required (g1):",
+        "Required (g2, in the browser):",
+        "Pen Bag",
+        "Default button:",
+        "Dynamic:",
+        "Cross-page:",
+        "Request 10: IsPostBack=True",
+        "Click btnDynamic",
+        "IsValid: (not validated)",
+        "btnHidden: hidden, Text \"Hidden\""
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtRequired": "",
+        "txtClient": "",
+        "txtDefault": "enter",
+        "txtCross": ""
+      },
+      "Elements": {
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnScript": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmYes": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnNoValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlDefault": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnOther": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Button [visible][viewstate] hidden button shown, its text changed",
+      "Path": "/buttonscenario",
+      "Title": "Button scenario",
+      "Text": [
+        "Required (g1):",
+        "Required (g2, in the browser):",
+        "Pen Bag",
+        "Default button:",
+        "Dynamic:",
+        "Cross-page:",
+        "Request 11: IsPostBack=True",
+        "Click btnShow",
+        "IsValid: (not validated)",
+        "btnHidden: visible, Text \"Shown\""
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtRequired": "",
+        "txtClient": "",
+        "txtDefault": "enter",
+        "txtCross": ""
+      },
+      "Elements": {
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnScript": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmYes": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnNoValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlDefault": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnOther": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Button [visible][viewstate][postbackevent] the button shown before raises Click, its text kept",
+      "Path": "/buttonscenario",
+      "Title": "Button scenario",
+      "Text": [
+        "Required (g1):",
+        "Required (g2, in the browser):",
+        "Pen Bag",
+        "Default button:",
+        "Dynamic:",
+        "Cross-page:",
+        "Request 12: IsPostBack=True",
+        "Click btnHidden",
+        "IsValid: (not validated)",
+        "btnHidden: visible, Text \"Shown\""
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtRequired": "",
+        "txtClient": "",
+        "txtDefault": "enter",
+        "txtCross": ""
+      },
+      "Elements": {
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnScript": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmNo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnConfirmYes": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDisabled": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button",
+            "disabled": "",
+            "class": "aspNetDisabled"
+          },
+          "Style": {}
+        },
+        "txtRequired": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnNoValidate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "reqClient": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnClient": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_0": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "rptItems_btnPick_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "pnlDefault": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnOther": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDefault": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHidden": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "txtCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnCross": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Button [crosspage] cross-page postback (PostBackUrl)",
+      "Path": "/buttontarget",
+      "Title": "Button target",
+      "Text": [
+        "IsPostBack=False",
+        "IsCrossPagePostBack (this page)=False",
+        "PreviousPage: ~/ButtonScenario.aspx, IsCrossPagePostBack=True, IsPostBack=True",
+        "PreviousPage txtCross: \"cross\""
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

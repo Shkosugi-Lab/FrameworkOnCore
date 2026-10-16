@@ -1,0 +1,7370 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "Menu [render][databind][dynamic][templates] first request: the site map as a path, trees and menus; bound to XML; templated; made in code",
+      "Path": "/navigationscenario",
+      "Title": "Navigation controls scenario",
+      "Text": [
+        "Path:",
+        "Skip Navigation Links",
+        "Home / Navigation",
+        "Templated path:",
+        "Skip Navigation Links",
+        "[node: Home] | [current: Navigation]",
+        "Skip Navigation Links.",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links.",
+        "Fruits",
+        "Vegetables",
+        "Plain",
+        "The tree's selected value (a control parameter)",
+        "Value",
+        "(null)",
+        "Skip Navigation Links.",
+        "On demand",
+        "Skip Navigation Links.",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links",
+        "File",
+        "Open",
+        "Save",
+        "Help",
+        "Skip Navigation Links",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "[item: Bound one]",
+        "[item: Bound child]",
+        "[item: Bound two]",
+        "Dynamic:",
+        "Skip Navigation Links.",
+        "Dynamic node",
+        "Dynamic leaf",
+        "Skip Navigation Links",
+        "Dynamic item",
+        "Dynamic child",
+        "Skip Navigation Links",
+        "Home > Navigation",
+        "Skip Navigation Links",
+        "Render probe",
+        "Navigation",
+        "Request 1: IsPostBack=False IsCallback=False",
+        "State tvSite Nodes=[]",
+        "State tvStatic Nodes=[f, f/apple, f/banana, v, plain]",
+        "State tvCallback Nodes=[d]",
+        "State tvBound Nodes=[]",
+        "State tvHidden Nodes=[h] (hidden)",
+        "State tvDynamic Nodes=[dn, dn/dl]",
+        "State mnuSite Items=[]",
+        "State mnuStatic Items=[file, file/open, file/save, help]",
+        "State mnuBound Items=[]",
+        "State mnuTemplated Items=[]",
+        "State mnuHidden Items=[h] (hidden)",
+        "State mnuDynamic Items=[di, di/dc]",
+        "State current node: Navigation /NavigationScenario.aspx"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            "Home"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Render probe"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Navigation"
+          ]
+        ],
+        [
+          [
+            "",
+            "Fruits"
+          ]
+        ],
+        [
+          [
+            "",
+            "Vegetables"
+          ]
+        ],
+        [
+          [
+            "",
+            "Plain"
+          ]
+        ],
+        [
+          [
+            "Value"
+          ],
+          [
+            "(null)"
+          ]
+        ],
+        [
+          [
+            "",
+            "On demand"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound one"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Bound child"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound two"
+          ]
+        ],
+        [
+          [
+            "",
+            "Dynamic node"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Dynamic leaf"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "tvStaticn0CheckBox": "false",
+        "tvStaticn3CheckBox": "false",
+        "tvStaticn4CheckBox": "false",
+        "tvDynamicn1CheckBox": "false"
+      },
+      "Elements": {
+        "smpPath": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpPath_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSiten0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The cases"
+          },
+          "Style": {}
+        },
+        "tvSiten0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "One case"
+          },
+          "Style": {}
+        },
+        "tvSiten2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The navigation scenario"
+          },
+          "Style": {}
+        },
+        "tvSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStaticn0CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn3CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict3": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn4CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict4": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvSelected": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "tvCallback": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallback_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuSite:submenu:4": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level3 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "100%",
+            "left": "0px"
+          }
+        },
+        "mnuSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuTemplated": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamicn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvDynamict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamicSourced": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamicSourced:submenu:25": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level2 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "0px",
+            "left": "100%"
+          }
+        },
+        "mnuDynamicSourced_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Menu [viewstate] a node expanded by a postback (EnableClientScript=false)",
+      "Path": "/navigationscenario",
+      "Title": "Navigation controls scenario",
+      "Text": [
+        "Path:",
+        "Skip Navigation Links",
+        "Home / Navigation",
+        "Templated path:",
+        "Skip Navigation Links",
+        "[node: Home] | [current: Navigation]",
+        "Skip Navigation Links.",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links.",
+        "Fruits",
+        "Apple",
+        "Banana",
+        "Vegetables",
+        "Plain",
+        "The tree's selected value (a control parameter)",
+        "Value",
+        "(null)",
+        "Skip Navigation Links.",
+        "On demand",
+        "Skip Navigation Links.",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links",
+        "File",
+        "Open",
+        "Save",
+        "Help",
+        "Skip Navigation Links",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "[item: Bound one]",
+        "[item: Bound child]",
+        "[item: Bound two]",
+        "Dynamic:",
+        "Skip Navigation Links.",
+        "Dynamic node",
+        "Dynamic leaf",
+        "Skip Navigation Links",
+        "Dynamic item",
+        "Dynamic child",
+        "Skip Navigation Links",
+        "Home > Navigation",
+        "Skip Navigation Links",
+        "Render probe",
+        "Navigation",
+        "Request 2: IsPostBack=True IsCallback=False",
+        "TreeNodeExpanded tvStatic f",
+        "State tvSite Nodes=[Home expanded, Home/Render probe, Home/Navigation selected]",
+        "State tvStatic Nodes=[f expanded, f/apple, f/banana, v, plain]",
+        "State tvCallback Nodes=[d]",
+        "State tvBound Nodes=[b1 expanded, b1/b1c, b2 expanded]",
+        "State tvHidden Nodes=[h] (hidden)",
+        "State tvDynamic Nodes=[dn expanded, dn/dl expanded]",
+        "State mnuSite Items=[Home, Home/Render probe, Home/Navigation selected, Home/Navigation/Target & more]",
+        "State mnuStatic Items=[file, file/open, file/save, help]",
+        "State mnuBound Items=[b1, b1/b1c, b2]",
+        "State mnuTemplated Items=[b1, b1/b1c, b2]",
+        "State mnuHidden Items=[h] (hidden)",
+        "State mnuDynamic Items=[di, di/dc]",
+        "State current node: Navigation /NavigationScenario.aspx"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            "Home"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Render probe"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Navigation"
+          ]
+        ],
+        [
+          [
+            "",
+            "Fruits"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Banana"
+          ]
+        ],
+        [
+          [
+            "",
+            "Vegetables"
+          ]
+        ],
+        [
+          [
+            "",
+            "Plain"
+          ]
+        ],
+        [
+          [
+            "Value"
+          ],
+          [
+            "(null)"
+          ]
+        ],
+        [
+          [
+            "",
+            "On demand"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound one"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Bound child"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound two"
+          ]
+        ],
+        [
+          [
+            "",
+            "Dynamic node"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Dynamic leaf"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "tvStaticn0CheckBox": "false",
+        "tvStaticn1CheckBox": "false",
+        "tvStaticn2CheckBox": "false",
+        "tvStaticn3CheckBox": "false",
+        "tvStaticn4CheckBox": "false",
+        "tvDynamicn1CheckBox": "false"
+      },
+      "Elements": {
+        "smpPath": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpPath_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSiten0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The cases"
+          },
+          "Style": {}
+        },
+        "tvSiten0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "One case"
+          },
+          "Style": {}
+        },
+        "tvSiten2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The navigation scenario"
+          },
+          "Style": {}
+        },
+        "tvSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStaticn0CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn2CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn3CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict3": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn4CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict4": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvSelected": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "tvCallback": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallback_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuSite:submenu:4": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level3 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "100%",
+            "left": "0px"
+          }
+        },
+        "mnuSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuTemplated": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamicn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvDynamict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamicSourced": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamicSourced:submenu:25": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level2 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "0px",
+            "left": "100%"
+          }
+        },
+        "mnuDynamicSourced_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Menu [viewstate] a node selected (its value a control parameter's: ControlValueProperty)",
+      "Path": "/navigationscenario",
+      "Title": "Navigation controls scenario",
+      "Text": [
+        "Path:",
+        "Skip Navigation Links",
+        "Home / Navigation",
+        "Templated path:",
+        "Skip Navigation Links",
+        "[node: Home] | [current: Navigation]",
+        "Skip Navigation Links.",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links.",
+        "Fruits",
+        "Apple",
+        "Banana",
+        "Vegetables",
+        "Plain",
+        "The tree's selected value (a control parameter)",
+        "Value",
+        "apple",
+        "Skip Navigation Links.",
+        "On demand",
+        "Skip Navigation Links.",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links",
+        "File",
+        "Open",
+        "Save",
+        "Help",
+        "Skip Navigation Links",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "[item: Bound one]",
+        "[item: Bound child]",
+        "[item: Bound two]",
+        "Dynamic:",
+        "Skip Navigation Links.",
+        "Dynamic node",
+        "Dynamic leaf",
+        "Skip Navigation Links",
+        "Dynamic item",
+        "Dynamic child",
+        "Skip Navigation Links",
+        "Home > Navigation",
+        "Skip Navigation Links",
+        "Render probe",
+        "Navigation",
+        "Request 3: IsPostBack=True IsCallback=False",
+        "SelectedNodeChanged tvStatic f/apple",
+        "State tvSite Nodes=[Home expanded, Home/Render probe, Home/Navigation selected]",
+        "State tvStatic Nodes=[f expanded, f/apple selected, f/banana, v, plain]",
+        "State tvCallback Nodes=[d]",
+        "State tvBound Nodes=[b1 expanded, b1/b1c, b2 expanded]",
+        "State tvHidden Nodes=[h] (hidden)",
+        "State tvDynamic Nodes=[dn expanded, dn/dl expanded]",
+        "State mnuSite Items=[Home, Home/Render probe, Home/Navigation selected, Home/Navigation/Target & more]",
+        "State mnuStatic Items=[file, file/open, file/save, help]",
+        "State mnuBound Items=[b1, b1/b1c, b2]",
+        "State mnuTemplated Items=[b1, b1/b1c, b2]",
+        "State mnuHidden Items=[h] (hidden)",
+        "State mnuDynamic Items=[di, di/dc]",
+        "State current node: Navigation /NavigationScenario.aspx"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            "Home"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Render probe"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Navigation"
+          ]
+        ],
+        [
+          [
+            "",
+            "Fruits"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Banana"
+          ]
+        ],
+        [
+          [
+            "",
+            "Vegetables"
+          ]
+        ],
+        [
+          [
+            "",
+            "Plain"
+          ]
+        ],
+        [
+          [
+            "Value"
+          ],
+          [
+            "apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "On demand"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound one"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Bound child"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound two"
+          ]
+        ],
+        [
+          [
+            "",
+            "Dynamic node"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Dynamic leaf"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "tvStaticn0CheckBox": "false",
+        "tvStaticn1CheckBox": "false",
+        "tvStaticn2CheckBox": "false",
+        "tvStaticn3CheckBox": "false",
+        "tvStaticn4CheckBox": "false",
+        "tvDynamicn1CheckBox": "false"
+      },
+      "Elements": {
+        "smpPath": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpPath_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSiten0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The cases"
+          },
+          "Style": {}
+        },
+        "tvSiten0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "One case"
+          },
+          "Style": {}
+        },
+        "tvSiten2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The navigation scenario"
+          },
+          "Style": {}
+        },
+        "tvSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStaticn0CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn2CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn3CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict3": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn4CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict4": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvSelected": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "tvCallback": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallback_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuSite:submenu:4": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level3 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "100%",
+            "left": "0px"
+          }
+        },
+        "mnuSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuTemplated": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamicn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvDynamict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamicSourced": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamicSourced:submenu:25": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level2 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "0px",
+            "left": "100%"
+          }
+        },
+        "mnuDynamicSourced_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Menu [viewstate] a node's check box posted",
+      "Path": "/navigationscenario",
+      "Title": "Navigation controls scenario",
+      "Text": [
+        "Path:",
+        "Skip Navigation Links",
+        "Home / Navigation",
+        "Templated path:",
+        "Skip Navigation Links",
+        "[node: Home] | [current: Navigation]",
+        "Skip Navigation Links.",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links.",
+        "Fruits",
+        "Apple",
+        "Banana",
+        "Vegetables",
+        "Plain",
+        "The tree's selected value (a control parameter)",
+        "Value",
+        "apple",
+        "Skip Navigation Links.",
+        "On demand",
+        "Skip Navigation Links.",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links",
+        "File",
+        "Open",
+        "Save",
+        "Help",
+        "Skip Navigation Links",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "[item: Bound one]",
+        "[item: Bound child]",
+        "[item: Bound two]",
+        "Dynamic:",
+        "Skip Navigation Links.",
+        "Dynamic node",
+        "Dynamic leaf",
+        "Skip Navigation Links",
+        "Dynamic item",
+        "Dynamic child",
+        "Skip Navigation Links",
+        "Home > Navigation",
+        "Skip Navigation Links",
+        "Render probe",
+        "Navigation",
+        "Request 4: IsPostBack=True IsCallback=False",
+        "TreeNodeCheckChanged tvStatic f/banana Checked=True",
+        "State tvSite Nodes=[Home expanded, Home/Render probe, Home/Navigation selected]",
+        "State tvStatic Nodes=[f expanded, f/apple selected, f/banana checked, v, plain]",
+        "State tvCallback Nodes=[d]",
+        "State tvBound Nodes=[b1 expanded, b1/b1c, b2 expanded]",
+        "State tvHidden Nodes=[h] (hidden)",
+        "State tvDynamic Nodes=[dn expanded, dn/dl expanded]",
+        "State mnuSite Items=[Home, Home/Render probe, Home/Navigation selected, Home/Navigation/Target & more]",
+        "State mnuStatic Items=[file, file/open, file/save, help]",
+        "State mnuBound Items=[b1, b1/b1c, b2]",
+        "State mnuTemplated Items=[b1, b1/b1c, b2]",
+        "State mnuHidden Items=[h] (hidden)",
+        "State mnuDynamic Items=[di, di/dc]",
+        "State current node: Navigation /NavigationScenario.aspx"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            "Home"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Render probe"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Navigation"
+          ]
+        ],
+        [
+          [
+            "",
+            "Fruits"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Banana"
+          ]
+        ],
+        [
+          [
+            "",
+            "Vegetables"
+          ]
+        ],
+        [
+          [
+            "",
+            "Plain"
+          ]
+        ],
+        [
+          [
+            "Value"
+          ],
+          [
+            "apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "On demand"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound one"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Bound child"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound two"
+          ]
+        ],
+        [
+          [
+            "",
+            "Dynamic node"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Dynamic leaf"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "tvStaticn0CheckBox": "false",
+        "tvStaticn1CheckBox": "false",
+        "tvStaticn2CheckBox": "true",
+        "tvStaticn3CheckBox": "false",
+        "tvStaticn4CheckBox": "false",
+        "tvDynamicn1CheckBox": "false"
+      },
+      "Elements": {
+        "smpPath": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpPath_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSiten0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The cases"
+          },
+          "Style": {}
+        },
+        "tvSiten0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "One case"
+          },
+          "Style": {}
+        },
+        "tvSiten2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The navigation scenario"
+          },
+          "Style": {}
+        },
+        "tvSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStaticn0CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn2CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn3CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict3": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn4CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict4": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvSelected": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "tvCallback": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallback_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuSite:submenu:4": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level3 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "100%",
+            "left": "0px"
+          }
+        },
+        "mnuSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuTemplated": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamicn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvDynamict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamicSourced": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamicSourced:submenu:25": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level2 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "0px",
+            "left": "100%"
+          }
+        },
+        "mnuDynamicSourced_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Menu [viewstate] a node populated on demand by a postback",
+      "Path": "/navigationscenario",
+      "Title": "Navigation controls scenario",
+      "Text": [
+        "Path:",
+        "Skip Navigation Links",
+        "Home / Navigation",
+        "Templated path:",
+        "Skip Navigation Links",
+        "[node: Home] | [current: Navigation]",
+        "Skip Navigation Links.",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links.",
+        "Fruits",
+        "Apple",
+        "Banana",
+        "Vegetables",
+        "Populated by postback 1",
+        "Populated by postback 2",
+        "Plain",
+        "The tree's selected value (a control parameter)",
+        "Value",
+        "apple",
+        "Skip Navigation Links.",
+        "On demand",
+        "Skip Navigation Links.",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links",
+        "File",
+        "Open",
+        "Save",
+        "Help",
+        "Skip Navigation Links",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "[item: Bound one]",
+        "[item: Bound child]",
+        "[item: Bound two]",
+        "Dynamic:",
+        "Skip Navigation Links.",
+        "Dynamic node",
+        "Dynamic leaf",
+        "Skip Navigation Links",
+        "Dynamic item",
+        "Dynamic child",
+        "Skip Navigation Links",
+        "Home > Navigation",
+        "Skip Navigation Links",
+        "Render probe",
+        "Navigation",
+        "Request 5: IsPostBack=True IsCallback=False",
+        "TreeNodePopulate tvStatic v",
+        "TreeNodeExpanded tvStatic v",
+        "State tvSite Nodes=[Home expanded, Home/Render probe, Home/Navigation selected]",
+        "State tvStatic Nodes=[f expanded, f/apple selected, f/banana checked, v expanded, v/p1, v/p2, plain]",
+        "State tvCallback Nodes=[d]",
+        "State tvBound Nodes=[b1 expanded, b1/b1c, b2 expanded]",
+        "State tvHidden Nodes=[h] (hidden)",
+        "State tvDynamic Nodes=[dn expanded, dn/dl expanded]",
+        "State mnuSite Items=[Home, Home/Render probe, Home/Navigation selected, Home/Navigation/Target & more]",
+        "State mnuStatic Items=[file, file/open, file/save, help]",
+        "State mnuBound Items=[b1, b1/b1c, b2]",
+        "State mnuTemplated Items=[b1, b1/b1c, b2]",
+        "State mnuHidden Items=[h] (hidden)",
+        "State mnuDynamic Items=[di, di/dc]",
+        "State current node: Navigation /NavigationScenario.aspx"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            "Home"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Render probe"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Navigation"
+          ]
+        ],
+        [
+          [
+            "",
+            "Fruits"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Banana"
+          ]
+        ],
+        [
+          [
+            "",
+            "Vegetables"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Plain"
+          ]
+        ],
+        [
+          [
+            "Value"
+          ],
+          [
+            "apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "On demand"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound one"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Bound child"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound two"
+          ]
+        ],
+        [
+          [
+            "",
+            "Dynamic node"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Dynamic leaf"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "tvStaticn0CheckBox": "false",
+        "tvStaticn1CheckBox": "false",
+        "tvStaticn2CheckBox": "true",
+        "tvStaticn3CheckBox": "false",
+        "tvStaticn4CheckBox": "false",
+        "tvStaticn5CheckBox": "false",
+        "tvStaticn6CheckBox": "false",
+        "tvDynamicn1CheckBox": "false"
+      },
+      "Elements": {
+        "smpPath": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpPath_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSiten0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The cases"
+          },
+          "Style": {}
+        },
+        "tvSiten0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "One case"
+          },
+          "Style": {}
+        },
+        "tvSiten2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The navigation scenario"
+          },
+          "Style": {}
+        },
+        "tvSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStaticn0CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn2CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn3CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict3": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn4CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict4": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn5CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict5": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn6CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict6": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvSelected": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "tvCallback": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallback_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuSite:submenu:4": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level3 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "100%",
+            "left": "0px"
+          }
+        },
+        "mnuSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuTemplated": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamicn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvDynamict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamicSourced": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamicSourced:submenu:25": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level2 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "0px",
+            "left": "100%"
+          }
+        },
+        "mnuDynamicSourced_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Menu [viewstate] a node populated on demand by a client callback (no postback)",
+      "Path": "/navigationscenario",
+      "Title": "Navigation controls scenario",
+      "Text": [
+        "Path:",
+        "Skip Navigation Links",
+        "Home / Navigation",
+        "Templated path:",
+        "Skip Navigation Links",
+        "[node: Home] | [current: Navigation]",
+        "Skip Navigation Links.",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links.",
+        "Fruits",
+        "Apple",
+        "Banana",
+        "Vegetables",
+        "Populated by postback 1",
+        "Populated by postback 2",
+        "Plain",
+        "The tree's selected value (a control parameter)",
+        "Value",
+        "apple",
+        "Skip Navigation Links.",
+        "On demand",
+        "Populated by callback 1",
+        "Populated by callback 2",
+        "Skip Navigation Links.",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links",
+        "File",
+        "Open",
+        "Save",
+        "Help",
+        "Skip Navigation Links",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "[item: Bound one]",
+        "[item: Bound child]",
+        "[item: Bound two]",
+        "Dynamic:",
+        "Skip Navigation Links.",
+        "Dynamic node",
+        "Dynamic leaf",
+        "Skip Navigation Links",
+        "Dynamic item",
+        "Dynamic child",
+        "Skip Navigation Links",
+        "Home > Navigation",
+        "Skip Navigation Links",
+        "Render probe",
+        "Navigation",
+        "Request 5: IsPostBack=True IsCallback=False",
+        "TreeNodePopulate tvStatic v",
+        "TreeNodeExpanded tvStatic v",
+        "State tvSite Nodes=[Home expanded, Home/Render probe, Home/Navigation selected]",
+        "State tvStatic Nodes=[f expanded, f/apple selected, f/banana checked, v expanded, v/p1, v/p2, plain]",
+        "State tvCallback Nodes=[d]",
+        "State tvBound Nodes=[b1 expanded, b1/b1c, b2 expanded]",
+        "State tvHidden Nodes=[h] (hidden)",
+        "State tvDynamic Nodes=[dn expanded, dn/dl expanded]",
+        "State mnuSite Items=[Home, Home/Render probe, Home/Navigation selected, Home/Navigation/Target & more]",
+        "State mnuStatic Items=[file, file/open, file/save, help]",
+        "State mnuBound Items=[b1, b1/b1c, b2]",
+        "State mnuTemplated Items=[b1, b1/b1c, b2]",
+        "State mnuHidden Items=[h] (hidden)",
+        "State mnuDynamic Items=[di, di/dc]",
+        "State current node: Navigation /NavigationScenario.aspx"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            "Home"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Render probe"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Navigation"
+          ]
+        ],
+        [
+          [
+            "",
+            "Fruits"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Banana"
+          ]
+        ],
+        [
+          [
+            "",
+            "Vegetables"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Plain"
+          ]
+        ],
+        [
+          [
+            "Value"
+          ],
+          [
+            "apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "On demand"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by callback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by callback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound one"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Bound child"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound two"
+          ]
+        ],
+        [
+          [
+            "",
+            "Dynamic node"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Dynamic leaf"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "tvStaticn0CheckBox": "false",
+        "tvStaticn1CheckBox": "false",
+        "tvStaticn2CheckBox": "true",
+        "tvStaticn3CheckBox": "false",
+        "tvStaticn4CheckBox": "false",
+        "tvStaticn5CheckBox": "false",
+        "tvStaticn6CheckBox": "false",
+        "tvDynamicn1CheckBox": "false"
+      },
+      "Elements": {
+        "smpPath": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpPath_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSiten0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The cases"
+          },
+          "Style": {}
+        },
+        "tvSiten0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "One case"
+          },
+          "Style": {}
+        },
+        "tvSiten2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The navigation scenario"
+          },
+          "Style": {}
+        },
+        "tvSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStaticn0CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn2CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn3CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict3": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn4CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict4": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn5CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict5": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn6CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict6": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvSelected": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "tvCallback": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallbackn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tvCallbackt2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {
+            "text-decoration": "none"
+          }
+        },
+        "tvCallback_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuSite:submenu:4": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level3 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "100%",
+            "left": "0px"
+          }
+        },
+        "mnuSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuTemplated": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamicn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvDynamict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamicSourced": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamicSourced:submenu:25": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level2 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "0px",
+            "left": "100%"
+          }
+        },
+        "mnuDynamicSourced_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Menu [postbackevent] a menu's item clicked",
+      "Path": "/navigationscenario",
+      "Title": "Navigation controls scenario",
+      "Text": [
+        "Path:",
+        "Skip Navigation Links",
+        "Home / Navigation",
+        "Templated path:",
+        "Skip Navigation Links",
+        "[node: Home] | [current: Navigation]",
+        "Skip Navigation Links.",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links.",
+        "Fruits",
+        "Apple",
+        "Banana",
+        "Vegetables",
+        "Populated by postback 1",
+        "Populated by postback 2",
+        "Plain",
+        "The tree's selected value (a control parameter)",
+        "Value",
+        "apple",
+        "Skip Navigation Links.",
+        "On demand",
+        "Populated by postback 1",
+        "Populated by postback 2",
+        "Skip Navigation Links.",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links",
+        "File",
+        "Open",
+        "Save",
+        "Help",
+        "Skip Navigation Links",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "[item: Bound one]",
+        "[item: Bound child]",
+        "[item: Bound two]",
+        "Dynamic:",
+        "Skip Navigation Links.",
+        "Dynamic node",
+        "Dynamic leaf",
+        "Skip Navigation Links",
+        "Dynamic item",
+        "Dynamic child",
+        "Skip Navigation Links",
+        "Home > Navigation",
+        "Skip Navigation Links",
+        "Render probe",
+        "Navigation",
+        "TreeNodePopulate tvCallback d",
+        "Request 6: IsPostBack=True IsCallback=False",
+        "MenuItemClick mnuStatic help",
+        "State tvSite Nodes=[Home expanded, Home/Render probe, Home/Navigation selected]",
+        "State tvStatic Nodes=[f expanded, f/apple selected, f/banana checked, v expanded, v/p1, v/p2, plain]",
+        "State tvCallback Nodes=[d expanded, d/p1, d/p2]",
+        "State tvBound Nodes=[b1 expanded, b1/b1c, b2 expanded]",
+        "State tvHidden Nodes=[h] (hidden)",
+        "State tvDynamic Nodes=[dn expanded, dn/dl expanded]",
+        "State mnuSite Items=[Home, Home/Render probe, Home/Navigation selected, Home/Navigation/Target & more]",
+        "State mnuStatic Items=[file, file/open, file/save, help selected]",
+        "State mnuBound Items=[b1, b1/b1c, b2]",
+        "State mnuTemplated Items=[b1, b1/b1c, b2]",
+        "State mnuHidden Items=[h] (hidden)",
+        "State mnuDynamic Items=[di, di/dc]",
+        "State current node: Navigation /NavigationScenario.aspx"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            "Home"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Render probe"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Navigation"
+          ]
+        ],
+        [
+          [
+            "",
+            "Fruits"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Banana"
+          ]
+        ],
+        [
+          [
+            "",
+            "Vegetables"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Plain"
+          ]
+        ],
+        [
+          [
+            "Value"
+          ],
+          [
+            "apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "On demand"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound one"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Bound child"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound two"
+          ]
+        ],
+        [
+          [
+            "",
+            "Dynamic node"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Dynamic leaf"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "tvStaticn0CheckBox": "false",
+        "tvStaticn1CheckBox": "false",
+        "tvStaticn2CheckBox": "true",
+        "tvStaticn3CheckBox": "false",
+        "tvStaticn4CheckBox": "false",
+        "tvStaticn5CheckBox": "false",
+        "tvStaticn6CheckBox": "false",
+        "tvDynamicn1CheckBox": "false"
+      },
+      "Elements": {
+        "smpPath": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpPath_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSiten0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The cases"
+          },
+          "Style": {}
+        },
+        "tvSiten0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "One case"
+          },
+          "Style": {}
+        },
+        "tvSiten2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The navigation scenario"
+          },
+          "Style": {}
+        },
+        "tvSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStaticn0CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn2CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn3CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict3": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn4CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict4": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn5CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict5": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn6CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict6": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvSelected": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "tvCallback": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallbackn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallbackt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallback_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuSite:submenu:4": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level3 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "100%",
+            "left": "0px"
+          }
+        },
+        "mnuSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuTemplated": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamicn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvDynamict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamicSourced": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamicSourced:submenu:25": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level2 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "0px",
+            "left": "100%"
+          }
+        },
+        "mnuDynamicSourced_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Menu [postbackevent][databind] a bound menu's item clicked",
+      "Path": "/navigationscenario",
+      "Title": "Navigation controls scenario",
+      "Text": [
+        "Path:",
+        "Skip Navigation Links",
+        "Home / Navigation",
+        "Templated path:",
+        "Skip Navigation Links",
+        "[node: Home] | [current: Navigation]",
+        "Skip Navigation Links.",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links.",
+        "Fruits",
+        "Apple",
+        "Banana",
+        "Vegetables",
+        "Populated by postback 1",
+        "Populated by postback 2",
+        "Plain",
+        "The tree's selected value (a control parameter)",
+        "Value",
+        "apple",
+        "Skip Navigation Links.",
+        "On demand",
+        "Populated by postback 1",
+        "Populated by postback 2",
+        "Skip Navigation Links.",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links",
+        "File",
+        "Open",
+        "Save",
+        "Help",
+        "Skip Navigation Links",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "[item: Bound one]",
+        "[item: Bound child]",
+        "[item: Bound two]",
+        "Dynamic:",
+        "Skip Navigation Links.",
+        "Dynamic node",
+        "Dynamic leaf",
+        "Skip Navigation Links",
+        "Dynamic item",
+        "Dynamic child",
+        "Skip Navigation Links",
+        "Home > Navigation",
+        "Skip Navigation Links",
+        "Render probe",
+        "Navigation",
+        "Request 7: IsPostBack=True IsCallback=False",
+        "MenuItemClick mnuBound b2",
+        "State tvSite Nodes=[Home expanded, Home/Render probe, Home/Navigation selected]",
+        "State tvStatic Nodes=[f expanded, f/apple selected, f/banana checked, v expanded, v/p1, v/p2, plain]",
+        "State tvCallback Nodes=[d expanded, d/p1, d/p2]",
+        "State tvBound Nodes=[b1 expanded, b1/b1c, b2 expanded]",
+        "State tvHidden Nodes=[h] (hidden)",
+        "State tvDynamic Nodes=[dn expanded, dn/dl expanded]",
+        "State mnuSite Items=[Home, Home/Render probe, Home/Navigation selected, Home/Navigation/Target & more]",
+        "State mnuStatic Items=[file, file/open, file/save, help selected]",
+        "State mnuBound Items=[b1, b1/b1c, b2 selected]",
+        "State mnuTemplated Items=[b1, b1/b1c, b2]",
+        "State mnuHidden Items=[h] (hidden)",
+        "State mnuDynamic Items=[di, di/dc]",
+        "State current node: Navigation /NavigationScenario.aspx"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            "Home"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Render probe"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Navigation"
+          ]
+        ],
+        [
+          [
+            "",
+            "Fruits"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Banana"
+          ]
+        ],
+        [
+          [
+            "",
+            "Vegetables"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Plain"
+          ]
+        ],
+        [
+          [
+            "Value"
+          ],
+          [
+            "apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "On demand"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound one"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Bound child"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound two"
+          ]
+        ],
+        [
+          [
+            "",
+            "Dynamic node"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Dynamic leaf"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "tvStaticn0CheckBox": "false",
+        "tvStaticn1CheckBox": "false",
+        "tvStaticn2CheckBox": "true",
+        "tvStaticn3CheckBox": "false",
+        "tvStaticn4CheckBox": "false",
+        "tvStaticn5CheckBox": "false",
+        "tvStaticn6CheckBox": "false",
+        "tvDynamicn1CheckBox": "false"
+      },
+      "Elements": {
+        "smpPath": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpPath_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSiten0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The cases"
+          },
+          "Style": {}
+        },
+        "tvSiten0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "One case"
+          },
+          "Style": {}
+        },
+        "tvSiten2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The navigation scenario"
+          },
+          "Style": {}
+        },
+        "tvSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStaticn0CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn2CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn3CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict3": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn4CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict4": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn5CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict5": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn6CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict6": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvSelected": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "tvCallback": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallbackn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallbackt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallback_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuSite:submenu:4": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level3 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "100%",
+            "left": "0px"
+          }
+        },
+        "mnuSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuTemplated": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamicn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvDynamict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamicSourced": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamicSourced:submenu:25": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level2 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "0px",
+            "left": "100%"
+          }
+        },
+        "mnuDynamicSourced_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Menu [postbackevent][templates] a templated menu's item clicked",
+      "Path": "/navigationscenario",
+      "Title": "Navigation controls scenario",
+      "Text": [
+        "Path:",
+        "Skip Navigation Links",
+        "Home / Navigation",
+        "Templated path:",
+        "Skip Navigation Links",
+        "[node: Home] | [current: Navigation]",
+        "Skip Navigation Links.",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links.",
+        "Fruits",
+        "Apple",
+        "Banana",
+        "Vegetables",
+        "Populated by postback 1",
+        "Populated by postback 2",
+        "Plain",
+        "The tree's selected value (a control parameter)",
+        "Value",
+        "apple",
+        "Skip Navigation Links.",
+        "On demand",
+        "Populated by postback 1",
+        "Populated by postback 2",
+        "Skip Navigation Links.",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links",
+        "File",
+        "Open",
+        "Save",
+        "Help",
+        "Skip Navigation Links",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "[item: Bound one]",
+        "[item: Bound child]",
+        "[item: Bound two]",
+        "Dynamic:",
+        "Skip Navigation Links.",
+        "Dynamic node",
+        "Dynamic leaf",
+        "Skip Navigation Links",
+        "Dynamic item",
+        "Dynamic child",
+        "Skip Navigation Links",
+        "Home > Navigation",
+        "Skip Navigation Links",
+        "Render probe",
+        "Navigation",
+        "Request 8: IsPostBack=True IsCallback=False",
+        "MenuItemClick mnuTemplated b1/b1c",
+        "State tvSite Nodes=[Home expanded, Home/Render probe, Home/Navigation selected]",
+        "State tvStatic Nodes=[f expanded, f/apple selected, f/banana checked, v expanded, v/p1, v/p2, plain]",
+        "State tvCallback Nodes=[d expanded, d/p1, d/p2]",
+        "State tvBound Nodes=[b1 expanded, b1/b1c, b2 expanded]",
+        "State tvHidden Nodes=[h] (hidden)",
+        "State tvDynamic Nodes=[dn expanded, dn/dl expanded]",
+        "State mnuSite Items=[Home, Home/Render probe, Home/Navigation selected, Home/Navigation/Target & more]",
+        "State mnuStatic Items=[file, file/open, file/save, help selected]",
+        "State mnuBound Items=[b1, b1/b1c, b2 selected]",
+        "State mnuTemplated Items=[b1, b1/b1c selected, b2]",
+        "State mnuHidden Items=[h] (hidden)",
+        "State mnuDynamic Items=[di, di/dc]",
+        "State current node: Navigation /NavigationScenario.aspx"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            "Home"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Render probe"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Navigation"
+          ]
+        ],
+        [
+          [
+            "",
+            "Fruits"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Banana"
+          ]
+        ],
+        [
+          [
+            "",
+            "Vegetables"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Plain"
+          ]
+        ],
+        [
+          [
+            "Value"
+          ],
+          [
+            "apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "On demand"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound one"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Bound child"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound two"
+          ]
+        ],
+        [
+          [
+            "",
+            "Dynamic node"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Dynamic leaf"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "tvStaticn0CheckBox": "false",
+        "tvStaticn1CheckBox": "false",
+        "tvStaticn2CheckBox": "true",
+        "tvStaticn3CheckBox": "false",
+        "tvStaticn4CheckBox": "false",
+        "tvStaticn5CheckBox": "false",
+        "tvStaticn6CheckBox": "false",
+        "tvDynamicn1CheckBox": "false"
+      },
+      "Elements": {
+        "smpPath": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpPath_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSiten0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The cases"
+          },
+          "Style": {}
+        },
+        "tvSiten0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "One case"
+          },
+          "Style": {}
+        },
+        "tvSiten2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The navigation scenario"
+          },
+          "Style": {}
+        },
+        "tvSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStaticn0CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn2CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn3CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict3": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn4CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict4": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn5CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict5": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn6CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict6": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvSelected": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "tvCallback": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallbackn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallbackt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallback_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuSite:submenu:4": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level3 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "100%",
+            "left": "0px"
+          }
+        },
+        "mnuSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuTemplated": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamicn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvDynamict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamicSourced": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamicSourced:submenu:25": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level2 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "0px",
+            "left": "100%"
+          }
+        },
+        "mnuDynamicSourced_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Menu [viewstate] a dynamic tree's node selected",
+      "Path": "/navigationscenario",
+      "Title": "Navigation controls scenario",
+      "Text": [
+        "Path:",
+        "Skip Navigation Links",
+        "Home / Navigation",
+        "Templated path:",
+        "Skip Navigation Links",
+        "[node: Home] | [current: Navigation]",
+        "Skip Navigation Links.",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links.",
+        "Fruits",
+        "Apple",
+        "Banana",
+        "Vegetables",
+        "Populated by postback 1",
+        "Populated by postback 2",
+        "Plain",
+        "The tree's selected value (a control parameter)",
+        "Value",
+        "apple",
+        "Skip Navigation Links.",
+        "On demand",
+        "Populated by postback 1",
+        "Populated by postback 2",
+        "Skip Navigation Links.",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links",
+        "File",
+        "Open",
+        "Save",
+        "Help",
+        "Skip Navigation Links",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "[item: Bound one]",
+        "[item: Bound child]",
+        "[item: Bound two]",
+        "Dynamic:",
+        "Skip Navigation Links.",
+        "Dynamic node",
+        "Dynamic leaf",
+        "Skip Navigation Links",
+        "Dynamic item",
+        "Dynamic child",
+        "Skip Navigation Links",
+        "Home > Navigation",
+        "Skip Navigation Links",
+        "Render probe",
+        "Navigation",
+        "Request 9: IsPostBack=True IsCallback=False",
+        "SelectedNodeChanged tvDynamic dn",
+        "State tvSite Nodes=[Home expanded, Home/Render probe, Home/Navigation selected]",
+        "State tvStatic Nodes=[f expanded, f/apple selected, f/banana checked, v expanded, v/p1, v/p2, plain]",
+        "State tvCallback Nodes=[d expanded, d/p1, d/p2]",
+        "State tvBound Nodes=[b1 expanded, b1/b1c, b2 expanded]",
+        "State tvHidden Nodes=[h] (hidden)",
+        "State tvDynamic Nodes=[dn expanded selected, dn/dl expanded]",
+        "State mnuSite Items=[Home, Home/Render probe, Home/Navigation selected, Home/Navigation/Target & more]",
+        "State mnuStatic Items=[file, file/open, file/save, help selected]",
+        "State mnuBound Items=[b1, b1/b1c, b2 selected]",
+        "State mnuTemplated Items=[b1, b1/b1c selected, b2]",
+        "State mnuHidden Items=[h] (hidden)",
+        "State mnuDynamic Items=[di, di/dc]",
+        "State current node: Navigation /NavigationScenario.aspx"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            "Home"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Render probe"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Navigation"
+          ]
+        ],
+        [
+          [
+            "",
+            "Fruits"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Banana"
+          ]
+        ],
+        [
+          [
+            "",
+            "Vegetables"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Plain"
+          ]
+        ],
+        [
+          [
+            "Value"
+          ],
+          [
+            "apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "On demand"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound one"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Bound child"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound two"
+          ]
+        ],
+        [
+          [
+            "",
+            "Dynamic node"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Dynamic leaf"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "tvStaticn0CheckBox": "false",
+        "tvStaticn1CheckBox": "false",
+        "tvStaticn2CheckBox": "true",
+        "tvStaticn3CheckBox": "false",
+        "tvStaticn4CheckBox": "false",
+        "tvStaticn5CheckBox": "false",
+        "tvStaticn6CheckBox": "false",
+        "tvDynamicn1CheckBox": "false"
+      },
+      "Elements": {
+        "smpPath": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpPath_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSiten0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The cases"
+          },
+          "Style": {}
+        },
+        "tvSiten0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "One case"
+          },
+          "Style": {}
+        },
+        "tvSiten2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The navigation scenario"
+          },
+          "Style": {}
+        },
+        "tvSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStaticn0CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn2CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn3CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict3": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn4CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict4": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn5CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict5": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn6CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict6": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvSelected": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "tvCallback": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallbackn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallbackt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallback_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuSite:submenu:4": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level3 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "100%",
+            "left": "0px"
+          }
+        },
+        "mnuSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuTemplated": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamicn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvDynamict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamicSourced": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamicSourced:submenu:25": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level2 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "0px",
+            "left": "100%"
+          }
+        },
+        "mnuDynamicSourced_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Menu [postbackevent][dynamic] a dynamic menu's item clicked",
+      "Path": "/navigationscenario",
+      "Title": "Navigation controls scenario",
+      "Text": [
+        "Path:",
+        "Skip Navigation Links",
+        "Home / Navigation",
+        "Templated path:",
+        "Skip Navigation Links",
+        "[node: Home] | [current: Navigation]",
+        "Skip Navigation Links.",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links.",
+        "Fruits",
+        "Apple",
+        "Banana",
+        "Vegetables",
+        "Populated by postback 1",
+        "Populated by postback 2",
+        "Plain",
+        "The tree's selected value (a control parameter)",
+        "Value",
+        "apple",
+        "Skip Navigation Links.",
+        "On demand",
+        "Populated by postback 1",
+        "Populated by postback 2",
+        "Skip Navigation Links.",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links",
+        "File",
+        "Open",
+        "Save",
+        "Help",
+        "Skip Navigation Links",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "[item: Bound one]",
+        "[item: Bound child]",
+        "[item: Bound two]",
+        "Dynamic:",
+        "Skip Navigation Links.",
+        "Dynamic node",
+        "Dynamic leaf",
+        "Skip Navigation Links",
+        "Dynamic item",
+        "Dynamic child",
+        "Skip Navigation Links",
+        "Home > Navigation",
+        "Skip Navigation Links",
+        "Render probe",
+        "Navigation",
+        "Request 10: IsPostBack=True IsCallback=False",
+        "MenuItemClick mnuDynamic di/dc",
+        "State tvSite Nodes=[Home expanded, Home/Render probe, Home/Navigation selected]",
+        "State tvStatic Nodes=[f expanded, f/apple selected, f/banana checked, v expanded, v/p1, v/p2, plain]",
+        "State tvCallback Nodes=[d expanded, d/p1, d/p2]",
+        "State tvBound Nodes=[b1 expanded, b1/b1c, b2 expanded]",
+        "State tvHidden Nodes=[h] (hidden)",
+        "State tvDynamic Nodes=[dn expanded selected, dn/dl expanded]",
+        "State mnuSite Items=[Home, Home/Render probe, Home/Navigation selected, Home/Navigation/Target & more]",
+        "State mnuStatic Items=[file, file/open, file/save, help selected]",
+        "State mnuBound Items=[b1, b1/b1c, b2 selected]",
+        "State mnuTemplated Items=[b1, b1/b1c selected, b2]",
+        "State mnuHidden Items=[h] (hidden)",
+        "State mnuDynamic Items=[di, di/dc selected]",
+        "State current node: Navigation /NavigationScenario.aspx"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            "Home"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Render probe"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Navigation"
+          ]
+        ],
+        [
+          [
+            "",
+            "Fruits"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Banana"
+          ]
+        ],
+        [
+          [
+            "",
+            "Vegetables"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Plain"
+          ]
+        ],
+        [
+          [
+            "Value"
+          ],
+          [
+            "apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "On demand"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound one"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Bound child"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound two"
+          ]
+        ],
+        [
+          [
+            "",
+            "Dynamic node"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Dynamic leaf"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "tvStaticn0CheckBox": "false",
+        "tvStaticn1CheckBox": "false",
+        "tvStaticn2CheckBox": "true",
+        "tvStaticn3CheckBox": "false",
+        "tvStaticn4CheckBox": "false",
+        "tvStaticn5CheckBox": "false",
+        "tvStaticn6CheckBox": "false",
+        "tvDynamicn1CheckBox": "false"
+      },
+      "Elements": {
+        "smpPath": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpPath_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSiten0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The cases"
+          },
+          "Style": {}
+        },
+        "tvSiten0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "One case"
+          },
+          "Style": {}
+        },
+        "tvSiten2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The navigation scenario"
+          },
+          "Style": {}
+        },
+        "tvSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStaticn0CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn2CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn3CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict3": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn4CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict4": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn5CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict5": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn6CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict6": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvSelected": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "tvCallback": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallbackn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallbackt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallback_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuSite:submenu:4": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level3 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "100%",
+            "left": "0px"
+          }
+        },
+        "mnuSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuTemplated": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamicn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvDynamict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamicSourced": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamicSourced:submenu:25": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level2 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "0px",
+            "left": "100%"
+          }
+        },
+        "mnuDynamicSourced_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "Menu [visible][viewstate] hidden ones shown with what was added while hidden",
+      "Path": "/navigationscenario",
+      "Title": "Navigation controls scenario",
+      "Text": [
+        "Path:",
+        "Skip Navigation Links",
+        "Home / Navigation",
+        "Templated path:",
+        "Skip Navigation Links",
+        "[node: Home] | [current: Navigation]",
+        "Skip Navigation Links.",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links.",
+        "Fruits",
+        "Apple",
+        "Banana",
+        "Vegetables",
+        "Populated by postback 1",
+        "Populated by postback 2",
+        "Plain",
+        "The tree's selected value (a control parameter)",
+        "Value",
+        "apple",
+        "Skip Navigation Links.",
+        "On demand",
+        "Populated by postback 1",
+        "Populated by postback 2",
+        "Skip Navigation Links.",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links.",
+        "Added while hidden",
+        "Skip Navigation Links",
+        "Home",
+        "Render probe",
+        "Navigation",
+        "Skip Navigation Links",
+        "File",
+        "Open",
+        "Save",
+        "Help",
+        "Skip Navigation Links",
+        "Bound one",
+        "Bound child",
+        "Bound two",
+        "Skip Navigation Links",
+        "[item: Bound one]",
+        "[item: Bound child]",
+        "[item: Bound two]",
+        "Skip Navigation Links",
+        "Added while hidden",
+        "Dynamic:",
+        "Skip Navigation Links.",
+        "Dynamic node",
+        "Dynamic leaf",
+        "Skip Navigation Links",
+        "Dynamic item",
+        "Dynamic child",
+        "Skip Navigation Links",
+        "Home > Navigation",
+        "Skip Navigation Links",
+        "Render probe",
+        "Navigation",
+        "Request 11: IsPostBack=True IsCallback=False",
+        "Click btnShow",
+        "State tvSite Nodes=[Home expanded, Home/Render probe, Home/Navigation selected]",
+        "State tvStatic Nodes=[f expanded, f/apple selected, f/banana checked, v expanded, v/p1, v/p2, plain]",
+        "State tvCallback Nodes=[d expanded, d/p1, d/p2]",
+        "State tvBound Nodes=[b1 expanded, b1/b1c, b2 expanded]",
+        "State tvHidden Nodes=[h expanded]",
+        "State tvDynamic Nodes=[dn expanded selected, dn/dl expanded]",
+        "State mnuSite Items=[Home, Home/Render probe, Home/Navigation selected, Home/Navigation/Target & more]",
+        "State mnuStatic Items=[file, file/open, file/save, help selected]",
+        "State mnuBound Items=[b1, b1/b1c, b2 selected]",
+        "State mnuTemplated Items=[b1, b1/b1c selected, b2]",
+        "State mnuHidden Items=[h]",
+        "State mnuDynamic Items=[di, di/dc selected]",
+        "State current node: Navigation /NavigationScenario.aspx"
+      ],
+      "Tables": [
+        [
+          [
+            "",
+            "Home"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Render probe"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Navigation"
+          ]
+        ],
+        [
+          [
+            "",
+            "Fruits"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Banana"
+          ]
+        ],
+        [
+          [
+            "",
+            "Vegetables"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Plain"
+          ]
+        ],
+        [
+          [
+            "Value"
+          ],
+          [
+            "apple"
+          ]
+        ],
+        [
+          [
+            "",
+            "On demand"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 1"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Populated by postback 2"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound one"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Bound child"
+          ]
+        ],
+        [
+          [
+            "",
+            "Bound two"
+          ]
+        ],
+        [
+          [
+            "",
+            "Added while hidden"
+          ]
+        ],
+        [
+          [
+            "",
+            "Dynamic node"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "Dynamic leaf"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "tvStaticn0CheckBox": "false",
+        "tvStaticn1CheckBox": "false",
+        "tvStaticn2CheckBox": "true",
+        "tvStaticn3CheckBox": "false",
+        "tvStaticn4CheckBox": "false",
+        "tvStaticn5CheckBox": "false",
+        "tvStaticn6CheckBox": "false",
+        "tvDynamicn1CheckBox": "false"
+      },
+      "Elements": {
+        "smpPath": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpPath_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSiten0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The cases"
+          },
+          "Style": {}
+        },
+        "tvSiten0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "One case"
+          },
+          "Style": {}
+        },
+        "tvSiten2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvSitet2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvSite_0",
+            "title": "The navigation scenario"
+          },
+          "Style": {}
+        },
+        "tvSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvStaticn0CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn2CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn3CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict3": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn4CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict4": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn5CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict5": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStaticn6CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvStatict6": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvStatic_0"
+          },
+          "Style": {}
+        },
+        "tvStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gvSelected": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "tvCallback": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallbackn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvCallbackt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallbackt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvCallback_0"
+          },
+          "Style": {}
+        },
+        "tvCallback_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundn0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundn0Nodes": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvBoundt1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBoundt2": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvBound_0"
+          },
+          "Style": {}
+        },
+        "tvBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvHidden": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvHiddent0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvHidden_0"
+          },
+          "Style": {}
+        },
+        "tvHidden_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuSite": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuSite:submenu:4": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level3 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "100%",
+            "left": "0px"
+          }
+        },
+        "mnuSite_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuStatic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuStatic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuBound_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuTemplated": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuTemplated_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuHidden": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuHidden_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tvDynamict0": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamicn1CheckBox": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "tvDynamict1": {
+          "Tag": "a",
+          "Attributes": {
+            "class": "tvDynamic_0"
+          },
+          "Style": {}
+        },
+        "tvDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "smpDynamic_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "mnuDynamicSourced": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {
+            "float": "left"
+          }
+        },
+        "mnuDynamicSourced:submenu:27": {
+          "Tag": "ul",
+          "Attributes": {
+            "class": "level2 dynamic"
+          },
+          "Style": {
+            "position": "absolute",
+            "top": "0px",
+            "left": "100%"
+          }
+        },
+        "mnuDynamicSourced_SkipLink": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

@@ -1,0 +1,455 @@
+{
+  "HiddenField.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HiddenField.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HiddenField.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HiddenField.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HiddenField.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HiddenField.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.ClientID": [
+    "Control.ClientID = \"hidValue\""
+  ],
+  "HiddenField.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HiddenField.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HiddenField.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HiddenField.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "HiddenField.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HiddenField.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HiddenField.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HiddenField.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HiddenField.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HiddenField.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"false\"",
+    "Control.EnableTheming set = \"-> System.NotSupportedException: Control of type 'HiddenField' does not support theming.\""
+  ],
+  "HiddenField.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HiddenField.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HiddenField.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.Focus": [
+    "Control.Focus = \"-> System.NotSupportedException: Control of type 'HiddenField' does not support the Focus operation.\""
+  ],
+  "HiddenField.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HiddenField.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"hidValue\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HiddenField.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.ID": [
+    "Control.ID = \"hidValue\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HiddenField.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HiddenField.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HiddenField.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HiddenField.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HiddenField.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HiddenField.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HiddenField.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HiddenField.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HiddenField.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HiddenField.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HiddenField.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HiddenField.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HiddenField.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HiddenField.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <input type=\"hidden\" name=\"hidValue\" id=\"hidValue\" value=\"initial\" />",
+    "Control.Render(HtmlTextWriter) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <input type=\"hidden\" name=\"hidValue\" id=\"hidValue\" value=\"initial\" />",
+    "Control.RenderControl(HtmlTextWriter) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <input type=\"hidden\" name=\"hidValue\" id=\"hidValue\" value=\"initial\" />",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HiddenField.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HiddenField.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"-> System.NotSupportedException: Control of type 'HiddenField' does not support theming.\""
+  ],
+  "HiddenField.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HiddenField.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HiddenField.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.Control.UniqueID": [
+    "Control.UniqueID = \"hidValue\""
+  ],
+  "HiddenField.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HiddenField.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HiddenField.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [Value=\"initial\"]"
+  ],
+  "HiddenField.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "HiddenField.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HiddenField.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HiddenField.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HiddenField.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HiddenField.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HiddenField.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HiddenField.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HiddenField.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HiddenField.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.IPostBackDataHandler.LoadPostData": [
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) = \"true\"",
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"Hanako\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.IPostBackDataHandler.RaisePostDataChangedEvent": [
+    "IPostBackDataHandler.RaisePostDataChangedEvent = \"ok\"",
+    "IPostBackDataHandler.RaisePostDataChangedEvent after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.WebControls.HiddenField.#ctor": [
+    "HiddenField.#ctor = HiddenField# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; Value=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.WebControls.HiddenField.CreateControlCollection": [
+    "HiddenField.CreateControlCollection = ControlCollection []",
+    "HiddenField.CreateControlCollection after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.WebControls.HiddenField.EnableTheming": [
+    "HiddenField.EnableTheming = \"false\"",
+    "HiddenField.EnableTheming set = \"-> System.NotSupportedException: Control of type 'HiddenField' does not support theming.\""
+  ],
+  "HiddenField.Api.WebControls.HiddenField.Focus": [
+    "HiddenField.Focus = \"-> System.NotSupportedException: Control of type 'HiddenField' does not support the Focus operation.\""
+  ],
+  "HiddenField.Api.WebControls.HiddenField.LoadPostData": [
+    "HiddenField.LoadPostData(String,NameValueCollection) = \"true\"",
+    "HiddenField.LoadPostData(String,NameValueCollection) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"Hanako\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.WebControls.HiddenField.OnPreRender": [
+    "HiddenField.OnPreRender(EventArgs) = \"ok\"",
+    "HiddenField.OnPreRender(EventArgs) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.WebControls.HiddenField.OnValueChanged": [
+    "HiddenField.OnValueChanged(EventArgs) = \"ok\"",
+    "HiddenField.OnValueChanged(EventArgs) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.WebControls.HiddenField.RaisePostDataChangedEvent": [
+    "HiddenField.RaisePostDataChangedEvent = \"ok\"",
+    "HiddenField.RaisePostDataChangedEvent after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.WebControls.HiddenField.Render": [
+    "HiddenField.Render(HtmlTextWriter) = \"ok\"",
+    "HiddenField.Render(HtmlTextWriter) writer:",
+    "  | <input type=\"hidden\" name=\"hidValue\" id=\"hidValue\" value=\"initial\" />",
+    "HiddenField.Render(HtmlTextWriter) after = HiddenField#hidValue {ClientID=\"hidValue\"; ClientIDMode=Inherit; EnableTheming=false; EnableViewState=true; ID=\"hidValue\"; SkinID=\"\"; UniqueID=\"hidValue\"; ValidateRequestMode=Inherit; Value=\"initial\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HiddenField.Api.WebControls.HiddenField.SkinID": [
+    "HiddenField.SkinID = \"\"",
+    "HiddenField.SkinID set = \"-> System.NotSupportedException: Control of type 'HiddenField' does not support theming.\""
+  ],
+  "HiddenField.Api.WebControls.HiddenField.Value": [
+    "HiddenField.Value = \"initial\"",
+    "HiddenField.Value set = \"Abc 123\""
+  ],
+  "HiddenField.Api.WebControls.HiddenField.ValueChanged": [
+    "HiddenField.ValueChanged = \"added and removed\""
+  ]
+}

@@ -56,6 +56,9 @@ namespace System.Web {
         internal readonly string                    Alias;      // the filename used to name the file
         internal readonly DateTime                  UtcStartMonitoring;// time we started monitoring
         int                                         _refs;      // number of uses of callbacks
+#if !NETFRAMEWORK
+        internal readonly FileAttributesData        AttributesAtStart; // the file's when we started monitoring
+#endif
 
         internal FileMonitorTarget(FileChangeEventHandler callback, string alias) {
             Callback = callback;
@@ -63,6 +66,12 @@ namespace System.Web {
             UtcStartMonitoring = DateTime.UtcNow;
             _refs = 1;
         }
+
+#if !NETFRAMEWORK
+        internal FileMonitorTarget(FileChangeEventHandler callback, string alias, FileAttributesData attributesAtStart) : this(callback, alias) {
+            AttributesAtStart = attributesAtStart;
+        }
+#endif
 
         internal int AddRef() {
             _refs++;
@@ -311,7 +320,15 @@ namespace System.Web {
                 // Needs the lock to sync with DebugDescription
                 lock (_targets) {
 #endif                
+#if NETFRAMEWORK
                     _targets.Add(callback.Target, new FileMonitorTarget(callback, alias));
+#else
+                    FileAttributesData attributes = null;
+                    if (!String.IsNullOrEmpty(FileNameLong)) {
+                        FileAttributesData.GetFileAttributes(Path.Combine(DirectoryMonitor.Directory, FileNameLong), out attributes);
+                    }
+                    _targets.Add(callback.Target, new FileMonitorTarget(callback, alias, attributes));
+#endif
 #if DBG
                 }
 #endif
@@ -1114,6 +1131,17 @@ namespace System.Web {
         // or ACLs change, because changes to attributes and ACLs won't change the LastAccessTime.
         // 
         bool IsChangeAfterStartMonitoring(FileAttributesData fad, FileMonitorTarget target, DateTime utcCompletion) {
+#if !NETFRAMEWORK
+            // The managed watcher's notification has the time it was handled, not the time of the change (the native one's
+            // completion): a change just before the monitoring started (a file written, then a CacheDependency on it) is
+            // notified after it. The file as it was when the target started monitoring: no change since, none to notify.
+            if (target.AttributesAtStart != null && fad != null &&
+                target.AttributesAtStart.UtcLastWriteTime == fad.UtcLastWriteTime &&
+                target.AttributesAtStart.UtcCreationTime == fad.UtcCreationTime &&
+                target.AttributesAtStart.FileSize == fad.FileSize) {
+                return false;
+            }
+#endif
             // If the LastAccessTime is more than 60 seconds before we
             // started monitoring, then the change likely did not update
             // the LastAccessTime correctly.
@@ -1800,12 +1828,6 @@ namespace System.Web {
                     break;
             }
 
-#if NET8_0 || NET9_0
-            // .NET 8/9's FileSystemWatcher on Linux and macOS is heavy on non-Windows runtimes; avoid starting watchers.
-            if (!OSInfo.IsWindows) {
-                _FCNMode = 1;
-            }
-#endif
 
             if (IsFCNDisabled) {
                 return;

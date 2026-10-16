@@ -1,0 +1,1600 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "auth-anonymous",
+      "Path": "/",
+      "Title": "Auth probe",
+      "Text": [
+        "Members Admin",
+        "IsPostBack=False",
+        "User: RolePrincipal GenericIdentity IsAuthenticated=False Name= AuthenticationType= Request.IsAuthenticated=False",
+        "IsInRole: Admin=False Editor=False Nobody=False",
+        "Forms: CookieName=.PROBEAUTH LoginUrl=/Login.aspx DefaultUrl=/Default.aspx Timeout=30 Sliding=True CookieMode=UseCookies RequireSSL=False CookiesSupported=True",
+        "Membership: ProbeMembership /AuthProbe PasswordFormat=Hashed MinLength=6 MaxInvalid=3 UniqueEmail=True Reset=True Retrieval=False",
+        "Roles: ProbeRoles Enabled=True CacheRolesInCookie=False CookieName=.ASPXROLES",
+        "ProfileManager: ProbeProfile Enabled=True Profiles=0",
+        "Users:",
+        "Roles:",
+        "FindUsersByEmail(%@example.com):",
+        "Request cookies:"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnSetup": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginAlice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginBob": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPersistent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLogout": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnProfile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnChangePassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnBadLogin": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-setup: users and roles made",
+      "Path": "/",
+      "Title": "Auth probe",
+      "Text": [
+        "Members Admin",
+        "IsPostBack=True",
+        "User: RolePrincipal GenericIdentity IsAuthenticated=False Name= AuthenticationType= Request.IsAuthenticated=False",
+        "IsInRole: Admin=False Editor=False Nobody=False",
+        "Forms: CookieName=.PROBEAUTH LoginUrl=/Login.aspx DefaultUrl=/Default.aspx Timeout=30 Sliding=True CookieMode=UseCookies RequireSSL=False CookiesSupported=True",
+        "Membership: ProbeMembership /AuthProbe PasswordFormat=Hashed MinLength=6 MaxInvalid=3 UniqueEmail=True Reset=True Retrieval=False",
+        "Roles: ProbeRoles Enabled=True CacheRolesInCookie=False CookieName=.ASPXROLES",
+        "ProfileManager: ProbeProfile Enabled=True Profiles=0",
+        "Users: alice <alice@example.com> approved True locked False, bob <bob@example.com> approved True locked False",
+        "Roles: Admin=alice, Editor=alice+bob",
+        "FindUsersByEmail(%@example.com): alice,bob",
+        "Request cookies:",
+        "Create alice: Success",
+        "Create alice again: DuplicateUserName",
+        "Create carol with a short password: InvalidPassword",
+        "Create carol with alice's e-mail: DuplicateEmail",
+        "Create bob: Success",
+        "CreateUser(x, x): MembershipCreateUserException InvalidEmail",
+        "bob to Editor again: ProviderException",
+        "bob to a role that is not: ProviderException",
+        "Click Setup"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnSetup": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginAlice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginBob": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPersistent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLogout": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnProfile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnChangePassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnBadLogin": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-a members page asked anonymously: the login page",
+      "Path": "/login",
+      "Title": "Auth probe: sign in",
+      "Text": [
+        "ReturnUrl=/Members/Default.aspx IsAuthenticated=False Name=",
+        "Log In",
+        "User Name:",
+        "Password:",
+        "Remember me next time."
+      ],
+      "Tables": [
+        [
+          [
+            "Log In\nUser Name:\t\nPassword:\t\nRemember me next time."
+          ]
+        ],
+        [
+          [
+            "Log In"
+          ],
+          [
+            "User Name:",
+            ""
+          ],
+          [
+            "Password:",
+            ""
+          ],
+          [
+            "Remember me next time."
+          ],
+          [
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {
+        "Login1_UserName": "",
+        "Login1_Password": "",
+        "Login1_RememberMe": "false"
+      },
+      "Elements": {
+        "return": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Login1": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "Login1_UserName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "Login1_UserNameRequired": {
+          "Tag": "span",
+          "Attributes": {
+            "title": "User Name is required."
+          },
+          "Style": {}
+        },
+        "Login1_Password": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "Login1_PasswordRequired": {
+          "Tag": "span",
+          "Attributes": {
+            "title": "Password is required."
+          },
+          "Style": {}
+        },
+        "Login1_RememberMe": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "Login1_LoginButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-a wrong password",
+      "Path": "/login",
+      "Title": "Auth probe: sign in",
+      "Text": [
+        "ReturnUrl=/Members/Default.aspx IsAuthenticated=False Name=",
+        "Log In",
+        "User Name:",
+        "Password:",
+        "Remember me next time.",
+        "Wrong user name or password."
+      ],
+      "Tables": [
+        [
+          [
+            "Log In\nUser Name:\t\nPassword:\t\nRemember me next time.\nWrong user name or password."
+          ]
+        ],
+        [
+          [
+            "Log In"
+          ],
+          [
+            "User Name:",
+            ""
+          ],
+          [
+            "Password:",
+            ""
+          ],
+          [
+            "Remember me next time."
+          ],
+          [
+            "Wrong user name or password."
+          ],
+          [
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {
+        "Login1_UserName": "alice",
+        "Login1_Password": "",
+        "Login1_RememberMe": "false"
+      },
+      "Elements": {
+        "return": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Login1": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "Login1_UserName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "Login1_UserNameRequired": {
+          "Tag": "span",
+          "Attributes": {
+            "title": "User Name is required."
+          },
+          "Style": {}
+        },
+        "Login1_Password": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "Login1_PasswordRequired": {
+          "Tag": "span",
+          "Attributes": {
+            "title": "Password is required."
+          },
+          "Style": {}
+        },
+        "Login1_RememberMe": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "Login1_LoginButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-signed in: back to the members page",
+      "Path": "/members",
+      "Title": "Auth probe: members",
+      "Text": [
+        "Members page for alice (Admin True, Editor True)",
+        "Home"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "who": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-the admin page for an admin",
+      "Path": "/admin",
+      "Title": "Auth probe: admin",
+      "Text": [
+        "Admin page for alice (roles Admin,Editor)",
+        "Home"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "who": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-alice: the ticket, roles, profile",
+      "Path": "/",
+      "Title": "Auth probe",
+      "Text": [
+        "Members Admin",
+        "IsPostBack=False",
+        "User: RolePrincipal FormsIdentity IsAuthenticated=True Name=alice AuthenticationType=Forms Request.IsAuthenticated=True",
+        "Ticket: Name=alice Version=2 IsPersistent=False Minutes=30 CookiePath=/ UserData= Expired=False",
+        "IsInRole: Admin=True Editor=True Nobody=False",
+        "Roles.GetRolesForUser: Admin,Editor",
+        "Profile: Nickname=(none) Visits=0 Prefs.Color=blue",
+        "Forms: CookieName=.PROBEAUTH LoginUrl=/Login.aspx DefaultUrl=/Default.aspx Timeout=30 Sliding=True CookieMode=UseCookies RequireSSL=False CookiesSupported=True",
+        "Membership: ProbeMembership /AuthProbe PasswordFormat=Hashed MinLength=6 MaxInvalid=3 UniqueEmail=True Reset=True Retrieval=False",
+        "Roles: ProbeRoles Enabled=True CacheRolesInCookie=False CookieName=.ASPXROLES",
+        "ProfileManager: ProbeProfile Enabled=True Profiles=0",
+        "Users: alice <alice@example.com> approved True locked False, bob <bob@example.com> approved True locked False",
+        "Roles: Admin=alice, Editor=alice+bob",
+        "FindUsersByEmail(%@example.com): alice,bob",
+        "Request cookies: .PROBEAUTH"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnSetup": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginAlice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginBob": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPersistent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLogout": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnProfile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnChangePassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnBadLogin": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-the profile saved",
+      "Path": "/",
+      "Title": "Auth probe",
+      "Text": [
+        "Members Admin",
+        "IsPostBack=True",
+        "User: RolePrincipal FormsIdentity IsAuthenticated=True Name=alice AuthenticationType=Forms Request.IsAuthenticated=True",
+        "Ticket: Name=alice Version=2 IsPersistent=False Minutes=30 CookiePath=/ UserData= Expired=False",
+        "IsInRole: Admin=True Editor=True Nobody=False",
+        "Roles.GetRolesForUser: Admin,Editor",
+        "Profile: Nickname=alice-nick Visits=1 Prefs.Color=green",
+        "Forms: CookieName=.PROBEAUTH LoginUrl=/Login.aspx DefaultUrl=/Default.aspx Timeout=30 Sliding=True CookieMode=UseCookies RequireSSL=False CookiesSupported=True",
+        "Membership: ProbeMembership /AuthProbe PasswordFormat=Hashed MinLength=6 MaxInvalid=3 UniqueEmail=True Reset=True Retrieval=False",
+        "Roles: ProbeRoles Enabled=True CacheRolesInCookie=False CookieName=.ASPXROLES",
+        "ProfileManager: ProbeProfile Enabled=True Profiles=1",
+        "Users: alice <alice@example.com> approved True locked False, bob <bob@example.com> approved True locked False",
+        "Roles: Admin=alice, Editor=alice+bob",
+        "FindUsersByEmail(%@example.com): alice,bob",
+        "Request cookies: .PROBEAUTH",
+        "Profile of alice anonymous False",
+        "Profile saved, dirty after False"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnSetup": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginAlice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginBob": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPersistent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLogout": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnProfile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnChangePassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnBadLogin": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-the profile kept",
+      "Path": "/",
+      "Title": "Auth probe",
+      "Text": [
+        "Members Admin",
+        "IsPostBack=True",
+        "User: RolePrincipal FormsIdentity IsAuthenticated=True Name=alice AuthenticationType=Forms Request.IsAuthenticated=True",
+        "Ticket: Name=alice Version=2 IsPersistent=False Minutes=30 CookiePath=/ UserData= Expired=False",
+        "IsInRole: Admin=True Editor=True Nobody=False",
+        "Roles.GetRolesForUser: Admin,Editor",
+        "Profile: Nickname=alice-nick Visits=1 Prefs.Color=green",
+        "Forms: CookieName=.PROBEAUTH LoginUrl=/Login.aspx DefaultUrl=/Default.aspx Timeout=30 Sliding=True CookieMode=UseCookies RequireSSL=False CookiesSupported=True",
+        "Membership: ProbeMembership /AuthProbe PasswordFormat=Hashed MinLength=6 MaxInvalid=3 UniqueEmail=True Reset=True Retrieval=False",
+        "Roles: ProbeRoles Enabled=True CacheRolesInCookie=False CookieName=.ASPXROLES",
+        "ProfileManager: ProbeProfile Enabled=True Profiles=1",
+        "Users: alice <alice@example.com> approved True locked False, bob <bob@example.com> approved True locked False",
+        "Roles: Admin=alice, Editor=alice+bob",
+        "FindUsersByEmail(%@example.com): alice,bob",
+        "Request cookies: .PROBEAUTH"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnSetup": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginAlice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginBob": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPersistent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLogout": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnProfile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnChangePassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnBadLogin": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-a password changed",
+      "Path": "/",
+      "Title": "Auth probe",
+      "Text": [
+        "Members Admin",
+        "IsPostBack=True",
+        "User: RolePrincipal FormsIdentity IsAuthenticated=True Name=alice AuthenticationType=Forms Request.IsAuthenticated=True",
+        "Ticket: Name=alice Version=2 IsPersistent=False Minutes=30 CookiePath=/ UserData= Expired=False",
+        "IsInRole: Admin=True Editor=True Nobody=False",
+        "Roles.GetRolesForUser: Admin,Editor",
+        "Profile: Nickname=alice-nick Visits=1 Prefs.Color=green",
+        "Forms: CookieName=.PROBEAUTH LoginUrl=/Login.aspx DefaultUrl=/Default.aspx Timeout=30 Sliding=True CookieMode=UseCookies RequireSSL=False CookiesSupported=True",
+        "Membership: ProbeMembership /AuthProbe PasswordFormat=Hashed MinLength=6 MaxInvalid=3 UniqueEmail=True Reset=True Retrieval=False",
+        "Roles: ProbeRoles Enabled=True CacheRolesInCookie=False CookieName=.ASPXROLES",
+        "ProfileManager: ProbeProfile Enabled=True Profiles=1",
+        "Users: alice <alice@example.com> approved True locked False, bob <bob@example.com> approved True locked False",
+        "Roles: Admin=alice, Editor=alice+bob",
+        "FindUsersByEmail(%@example.com): alice,bob",
+        "Request cookies: .PROBEAUTH",
+        "ChangePassword with a wrong one: False",
+        "ChangePassword: True",
+        "ValidateUser(old): False",
+        "ValidateUser(new): True",
+        "ChangePassword to a short one: ArgumentException",
+        "ChangePassword back: True"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnSetup": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginAlice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginBob": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPersistent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLogout": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnProfile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnChangePassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnBadLogin": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-signed out (the request still alice's)",
+      "Path": "/",
+      "Title": "Auth probe",
+      "Text": [
+        "Members Admin",
+        "IsPostBack=True",
+        "User: RolePrincipal FormsIdentity IsAuthenticated=True Name=alice AuthenticationType=Forms Request.IsAuthenticated=True",
+        "Ticket: Name=alice Version=2 IsPersistent=False Minutes=30 CookiePath=/ UserData= Expired=False",
+        "IsInRole: Admin=True Editor=True Nobody=False",
+        "Roles.GetRolesForUser: Admin,Editor",
+        "Profile: Nickname=alice-nick Visits=1 Prefs.Color=green",
+        "Forms: CookieName=.PROBEAUTH LoginUrl=/Login.aspx DefaultUrl=/Default.aspx Timeout=30 Sliding=True CookieMode=UseCookies RequireSSL=False CookiesSupported=True",
+        "Membership: ProbeMembership /AuthProbe PasswordFormat=Hashed MinLength=6 MaxInvalid=3 UniqueEmail=True Reset=True Retrieval=False",
+        "Roles: ProbeRoles Enabled=True CacheRolesInCookie=False CookieName=.ASPXROLES",
+        "ProfileManager: ProbeProfile Enabled=True Profiles=1",
+        "Users: alice <alice@example.com> approved True locked False, bob <bob@example.com> approved True locked False",
+        "Roles: Admin=alice, Editor=alice+bob",
+        "FindUsersByEmail(%@example.com): alice,bob",
+        "Request cookies: .PROBEAUTH,.PROBEAUTH",
+        "SignOut: the cookie set, value empty True, expired True"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnSetup": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginAlice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginBob": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPersistent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLogout": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnProfile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnChangePassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnBadLogin": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-signed out: the next request",
+      "Path": "/",
+      "Title": "Auth probe",
+      "Text": [
+        "Members Admin",
+        "IsPostBack=True",
+        "User: RolePrincipal GenericIdentity IsAuthenticated=False Name= AuthenticationType= Request.IsAuthenticated=False",
+        "IsInRole: Admin=False Editor=False Nobody=False",
+        "Forms: CookieName=.PROBEAUTH LoginUrl=/Login.aspx DefaultUrl=/Default.aspx Timeout=30 Sliding=True CookieMode=UseCookies RequireSSL=False CookiesSupported=True",
+        "Membership: ProbeMembership /AuthProbe PasswordFormat=Hashed MinLength=6 MaxInvalid=3 UniqueEmail=True Reset=True Retrieval=False",
+        "Roles: ProbeRoles Enabled=True CacheRolesInCookie=False CookieName=.ASPXROLES",
+        "ProfileManager: ProbeProfile Enabled=True Profiles=1",
+        "Users: alice <alice@example.com> approved True locked False, bob <bob@example.com> approved True locked False",
+        "Roles: Admin=alice, Editor=alice+bob",
+        "FindUsersByEmail(%@example.com): alice,bob",
+        "Request cookies:"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnSetup": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginAlice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginBob": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPersistent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLogout": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnProfile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnChangePassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnBadLogin": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-bob",
+      "Path": "/",
+      "Title": "Auth probe",
+      "Text": [
+        "Members Admin",
+        "IsPostBack=True",
+        "User: RolePrincipal FormsIdentity IsAuthenticated=True Name=bob AuthenticationType=Forms Request.IsAuthenticated=True",
+        "Ticket: Name=bob Version=2 IsPersistent=False Minutes=30 CookiePath=/ UserData= Expired=False",
+        "IsInRole: Admin=False Editor=True Nobody=False",
+        "Roles.GetRolesForUser: Editor",
+        "Profile: Nickname=(none) Visits=0 Prefs.Color=blue",
+        "Forms: CookieName=.PROBEAUTH LoginUrl=/Login.aspx DefaultUrl=/Default.aspx Timeout=30 Sliding=True CookieMode=UseCookies RequireSSL=False CookiesSupported=True",
+        "Membership: ProbeMembership /AuthProbe PasswordFormat=Hashed MinLength=6 MaxInvalid=3 UniqueEmail=True Reset=True Retrieval=False",
+        "Roles: ProbeRoles Enabled=True CacheRolesInCookie=False CookieName=.ASPXROLES",
+        "ProfileManager: ProbeProfile Enabled=True Profiles=1",
+        "Users: alice <alice@example.com> approved True locked False, bob <bob@example.com> approved True locked False",
+        "Roles: Admin=alice, Editor=alice+bob",
+        "FindUsersByEmail(%@example.com): alice,bob",
+        "Request cookies: .PROBEAUTH"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnSetup": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginAlice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginBob": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPersistent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLogout": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnProfile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnChangePassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnBadLogin": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-the admin page for a user who is not one: the login page",
+      "Path": "/login",
+      "Title": "Auth probe: sign in",
+      "Text": [
+        "ReturnUrl=/Admin/Default.aspx IsAuthenticated=True Name=bob",
+        "Log In",
+        "User Name:",
+        "Password:",
+        "Remember me next time."
+      ],
+      "Tables": [
+        [
+          [
+            "Log In\nUser Name:\t\nPassword:\t\nRemember me next time."
+          ]
+        ],
+        [
+          [
+            "Log In"
+          ],
+          [
+            "User Name:",
+            ""
+          ],
+          [
+            "Password:",
+            ""
+          ],
+          [
+            "Remember me next time."
+          ],
+          [
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {
+        "Login1_UserName": "",
+        "Login1_Password": "",
+        "Login1_RememberMe": "false"
+      },
+      "Elements": {
+        "return": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "Login1": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "cellpadding": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "Login1_UserName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "Login1_UserNameRequired": {
+          "Tag": "span",
+          "Attributes": {
+            "title": "User Name is required."
+          },
+          "Style": {}
+        },
+        "Login1_Password": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "password"
+          },
+          "Style": {}
+        },
+        "Login1_PasswordRequired": {
+          "Tag": "span",
+          "Attributes": {
+            "title": "Password is required."
+          },
+          "Style": {}
+        },
+        "Login1_RememberMe": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "checkbox"
+          },
+          "Style": {}
+        },
+        "Login1_LoginButton": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-a persistent ticket",
+      "Path": "/",
+      "Title": "Auth probe",
+      "Text": [
+        "Members Admin",
+        "IsPostBack=True",
+        "User: RolePrincipal FormsIdentity IsAuthenticated=True Name=alice AuthenticationType=Forms Request.IsAuthenticated=True",
+        "Ticket: Name=alice Version=2 IsPersistent=True Minutes=30 CookiePath=/ UserData= Expired=False",
+        "IsInRole: Admin=True Editor=True Nobody=False",
+        "Roles.GetRolesForUser: Admin,Editor",
+        "Profile: Nickname=alice-nick Visits=1 Prefs.Color=green",
+        "Forms: CookieName=.PROBEAUTH LoginUrl=/Login.aspx DefaultUrl=/Default.aspx Timeout=30 Sliding=True CookieMode=UseCookies RequireSSL=False CookiesSupported=True",
+        "Membership: ProbeMembership /AuthProbe PasswordFormat=Hashed MinLength=6 MaxInvalid=3 UniqueEmail=True Reset=True Retrieval=False",
+        "Roles: ProbeRoles Enabled=True CacheRolesInCookie=False CookieName=.ASPXROLES",
+        "ProfileManager: ProbeProfile Enabled=True Profiles=1",
+        "Users: alice <alice@example.com> approved True locked False, bob <bob@example.com> approved True locked False",
+        "Roles: Admin=alice, Editor=alice+bob",
+        "FindUsersByEmail(%@example.com): alice,bob",
+        "Request cookies: .PROBEAUTH"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnSetup": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginAlice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginBob": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPersistent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLogout": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnProfile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnChangePassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnBadLogin": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "auth-locked out by wrong passwords, unlocked",
+      "Path": "/",
+      "Title": "Auth probe",
+      "Text": [
+        "Members Admin",
+        "IsPostBack=True",
+        "User: RolePrincipal FormsIdentity IsAuthenticated=True Name=alice AuthenticationType=Forms Request.IsAuthenticated=True",
+        "Ticket: Name=alice Version=2 IsPersistent=True Minutes=30 CookiePath=/ UserData= Expired=False",
+        "IsInRole: Admin=True Editor=True Nobody=False",
+        "Roles.GetRolesForUser: Admin,Editor",
+        "Profile: Nickname=alice-nick Visits=1 Prefs.Color=green",
+        "Forms: CookieName=.PROBEAUTH LoginUrl=/Login.aspx DefaultUrl=/Default.aspx Timeout=30 Sliding=True CookieMode=UseCookies RequireSSL=False CookiesSupported=True",
+        "Membership: ProbeMembership /AuthProbe PasswordFormat=Hashed MinLength=6 MaxInvalid=3 UniqueEmail=True Reset=True Retrieval=False",
+        "Roles: ProbeRoles Enabled=True CacheRolesInCookie=False CookieName=.ASPXROLES",
+        "ProfileManager: ProbeProfile Enabled=True Profiles=1",
+        "Users: alice <alice@example.com> approved True locked False, bob <bob@example.com> approved True locked False",
+        "Roles: Admin=alice, Editor=alice+bob",
+        "FindUsersByEmail(%@example.com): alice,bob",
+        "Request cookies: .PROBEAUTH",
+        "ValidateUser(bob, wrong) 1: False, locked out False",
+        "ValidateUser(bob, wrong) 2: False, locked out False",
+        "ValidateUser(bob, wrong) 3: False, locked out True",
+        "ValidateUser(bob) while locked out: False",
+        "UnlockUser: True",
+        "ValidateUser(bob) unlocked: True"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnSetup": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginAlice": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLoginBob": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnPersistent": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnLogout": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnProfile": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnChangePassword": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnBadLogin": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "validation-markup posted: refused",
+      "Path": "/validation",
+      "Title": "Auth probe: refused",
+      "Text": [
+        "System.Web.HttpRequestValidationException: A potentially dangerous Request.Form value was detected from the client (txtInput=\"<script>alert(1)</sc...\")."
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "error": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "validation-text that is not markup: accepted",
+      "Path": "/validation",
+      "Title": "Auth probe: validation",
+      "Text": [
+        "A",
+        "B",
+        "IsPostBack=True",
+        "txtInput=a < b & c ddlChoice=a"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtInput": "a < b & c",
+        "ddlChoice": "a"
+      },
+      "Elements": {
+        "txtInput": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ddlChoice": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSend": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "validation-markup in the query string: refused",
+      "Path": "/validation",
+      "Title": "Auth probe: refused",
+      "Text": [
+        "System.Web.HttpRequestValidationException: A potentially dangerous Request.QueryString value was detected from the client (q=\"<b>hi</b>\")."
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "error": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "validation-a page with ValidateRequest false: accepted",
+      "Path": "/novalidation",
+      "Title": "Auth probe: no validation",
+      "Text": [
+        "IsPostBack=True txtInput=<b>bold</b> Unvalidated=<b>bold</b>"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtInput": "<b>bold</b>"
+      },
+      "Elements": {
+        "txtInput": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnSend": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "validation-a view state changed by the client: its MAC",
+      "Path": "/validation",
+      "Title": "Auth probe: refused",
+      "Text": [
+        "System.Web.HttpException: Validation of viewstate MAC failed. If this application is hosted by a Web Farm or cluster, ensure that <machineKey> configuration specifies the same validationKey and validation algorithm. AutoGenerate cannot be used in a cluster.",
+        "System.Web.UI.ViewStateException: Invalid viewstate."
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "error": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "validation-a value the list did not offer: event validation",
+      "Path": "/validation",
+      "Title": "Auth probe: refused",
+      "Text": [
+        "System.ArgumentException: Invalid postback or callback argument. Event validation is enabled using <pages enableEventValidation=\"true\"/> in configuration or <%@ Page EnableEventValidation=\"true\" %> in a page. For security purposes, this feature verifies that arguments to postback or callback events originate from the server control that originally rendered them. If the data is valid and expected, use the ClientScriptManager.RegisterForEventValidation method in order to register the postback or callback data for validation."
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "error": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": [
+    {
+      "Url": "/Members/Default.aspx",
+      "Status": 302,
+      "Location": "/Login.aspx?ReturnUrl=%2fMembers%2fDefault.aspx",
+      "From": null
+    },
+    {
+      "Url": "/Admin/Default.aspx",
+      "Status": 302,
+      "Location": "/Login.aspx?ReturnUrl=%2fAdmin%2fDefault.aspx",
+      "From": null
+    },
+    {
+      "Url": "/Login.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Login.aspx?ReturnUrl=%2fAdmin%2fDefault.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Default.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Validation.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Validation.aspx?q=%3Cb%3Ehi%3C/b%3E",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/NoValidation.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": null
+    },
+    {
+      "Url": "/Login.aspx?ReturnUrl=%2fMembers%2fDefault.aspx",
+      "Status": 200,
+      "Location": null,
+      "From": "/Members/Default.aspx"
+    }
+  ]
+}

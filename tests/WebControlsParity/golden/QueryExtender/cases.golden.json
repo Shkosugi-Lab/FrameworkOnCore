@@ -1,0 +1,428 @@
+{
+  "QueryExtender.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "QueryExtender.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "QueryExtender.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "QueryExtender.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "QueryExtender.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.ClientID": [
+    "Control.ClientID = \"qeProducts\""
+  ],
+  "QueryExtender.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "QueryExtender.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "QueryExtender.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "QueryExtender.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "QueryExtender.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "QueryExtender.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "QueryExtender.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "QueryExtender.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "QueryExtender.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "QueryExtender.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "QueryExtender.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "QueryExtender.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "QueryExtender.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "QueryExtender.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "QueryExtender.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"qeProducts\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "QueryExtender.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.ID": [
+    "Control.ID = \"qeProducts\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "QueryExtender.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "QueryExtender.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "QueryExtender.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "QueryExtender.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "QueryExtender.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "QueryExtender.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "QueryExtender.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "QueryExtender.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "QueryExtender.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "QueryExtender.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "QueryExtender.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "QueryExtender.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.Render(HtmlTextWriter) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "QueryExtender.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.SaveViewState": [
+    "Control.SaveViewState = Pair {}",
+    "Control.SaveViewState after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "QueryExtender.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "QueryExtender.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "QueryExtender.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.Control.UniqueID": [
+    "Control.UniqueID = \"qeProducts\""
+  ],
+  "QueryExtender.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "QueryExtender.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "QueryExtender.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "QueryExtender.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "QueryExtender.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "QueryExtender.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "QueryExtender.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "QueryExtender.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "QueryExtender.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "QueryExtender.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "QueryExtender.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "QueryExtender.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "QueryExtender.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.WebControls.QueryExtender.#ctor": [
+    "QueryExtender.#ctor = QueryExtender# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; TargetControlID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.WebControls.QueryExtender.DataSource": [
+    "QueryExtender.DataSource = LinqDataSource#ldsTarget {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsTarget\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsTarget\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsTarget\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "QueryExtender.Api.WebControls.QueryExtender.Expressions": [
+    "QueryExtender.Expressions = \"[]\""
+  ],
+  "QueryExtender.Api.WebControls.QueryExtender.LoadViewState": [
+    "QueryExtender.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "QueryExtender.Api.WebControls.QueryExtender.OnInit": [
+    "QueryExtender.OnInit(EventArgs) = \"ok\"",
+    "QueryExtender.OnInit(EventArgs) after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.WebControls.QueryExtender.SaveViewState": [
+    "QueryExtender.SaveViewState = Pair {}",
+    "QueryExtender.SaveViewState after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "QueryExtender.Api.WebControls.QueryExtender.TargetControlID": [
+    "QueryExtender.TargetControlID = \"ldsTarget\"",
+    "QueryExtender.TargetControlID set = \"Abc 123\""
+  ],
+  "QueryExtender.Api.WebControls.QueryExtender.TrackViewState": [
+    "QueryExtender.TrackViewState = \"ok\"",
+    "QueryExtender.TrackViewState after = QueryExtender#qeProducts {ClientID=\"qeProducts\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"qeProducts\"; SkinID=\"\"; TargetControlID=\"ldsTarget\"; UniqueID=\"qeProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ]
+}

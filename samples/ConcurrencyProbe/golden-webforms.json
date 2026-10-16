@@ -1,0 +1,108 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "session started",
+      "Path": "/start",
+      "Title": "Concurrency probe",
+      "Text": [
+        "A session started (new True)."
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "started": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "run-two-writers",
+      "Path": "/show",
+      "Title": "Concurrency probe: a run",
+      "Text": [
+        "Run two-writers: 2 requests, 2 ended: A+B one after the other"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "run": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "run-two-readers",
+      "Path": "/show",
+      "Title": "Concurrency probe: a run",
+      "Text": [
+        "Run two-readers: 2 requests, 2 ended: A+B overlapped"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "run": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "run-a-writer-and-a-reader",
+      "Path": "/show",
+      "Title": "Concurrency probe: a run",
+      "Text": [
+        "Run a-writer-and-a-reader: 2 requests, 2 ended: R+W one after the other"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "run": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "run-no-session",
+      "Path": "/show",
+      "Title": "Concurrency probe: a run",
+      "Text": [
+        "Run no-session: 4 requests, 4 ended: A+B overlapped, A+C overlapped, A+D overlapped, B+C overlapped, B+D overlapped, C+D overlapped"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "run": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "run-a-writer-and-no-session",
+      "Path": "/show",
+      "Title": "Concurrency probe: a run",
+      "Text": [
+        "Run a-writer-and-no-session: 2 requests, 2 ended: N+W overlapped"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "run": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

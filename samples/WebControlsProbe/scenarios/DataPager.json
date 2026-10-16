@@ -1,0 +1,76 @@
+{
+  "_comment": "The DataPager's scenario layer (ListViewScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers. The pagers are the ListView page's (ListViewScenario.aspx).",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/ListViewScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataPager [render][databind][dynamic] first request"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divManual",
+      "value": "3"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataPager [paging] a numeric pager field: page 3"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divManual",
+      "value": "First"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataPager [paging] a next-previous field: the first page"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divManual",
+      "value": "Last"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataPager [paging] a next-previous field: the last page"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divAuto",
+      "value": "Last"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataPager [paging] the data source's list view: the last page"
+    },
+    {
+      "action": "clicktextin",
+      "target": "divAuto",
+      "value": "Previous"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataPager [paging][viewstate] the previous page"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dpDynamic",
+      "value": "2"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataPager [dynamic][paging] a dynamic pager: page 2"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataPager [viewstate] posted: the pages kept"
+    }
+  ]
+}

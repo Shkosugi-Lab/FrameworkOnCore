@@ -1,0 +1,187 @@
+{
+  "_comment": "The DetailsView's scenario layer (DetailsViewScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/DetailsViewScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [render][databind][datasource][datasourceid][templates][dynamic] first request"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvManual",
+      "value": "2"
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [paging][postbackevent] the page's details view: page 2"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvManual",
+      "value": "Like"
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [rowcommand] a ButtonField's command"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvManual",
+      "value": "Edit"
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [editing] edit mode"
+    },
+    {
+      "action": "fill",
+      "target": "txtDvName",
+      "value": "Renamed"
+    },
+    {
+      "action": "evaluate",
+      "target": "dvManual",
+      "value": "e.querySelectorAll('input[type=text]')[1].value = '8.25';"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvManual",
+      "value": "Update"
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [editing][bind][datakeys] updated: keys, old and new values"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvManual",
+      "value": "New"
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [inserting] insert mode"
+    },
+    {
+      "action": "fill",
+      "target": "txtDvNewCode",
+      "value": "N9"
+    },
+    {
+      "action": "fill",
+      "target": "txtDvNewName",
+      "value": "New item"
+    },
+    {
+      "action": "evaluate",
+      "target": "dvManual",
+      "value": "e.querySelectorAll('input[type=text]')[2].value = '4';"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvManual",
+      "value": "Insert"
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [inserting][bind] inserted"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvManual",
+      "value": "Delete"
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [editing][datakeys] deleted"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvAuto",
+      "value": "3"
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [paging][datasourceid] the data source's details view: page 3"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvAuto",
+      "value": "Edit"
+    },
+    {
+      "action": "evaluate",
+      "target": "dvAuto",
+      "value": "e.querySelectorAll('input[type=text]')[0].value = 'Auto renamed';"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvAuto",
+      "value": "Update"
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [editing][datasourceid] updated through the data source"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvAuto",
+      "value": "New"
+    },
+    {
+      "action": "evaluate",
+      "target": "dvAuto",
+      "value": "var i = e.querySelectorAll('input[type=text]'); i[0].value = 'A8'; i[1].value = 'Auto new'; i[2].value = '7';"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvAuto",
+      "value": "Insert"
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [inserting][datasourceid] inserted through the data source"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvAuto",
+      "value": "Delete"
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [editing][datasourceid] deleted through the data source"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvCallback",
+      "value": "2"
+    },
+    {
+      "action": "waitms",
+      "ms": 1500
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [callback][paging] paged by a callback: no postback"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [viewstate] posted (the one without view state is empty)"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "DetailsView [visible][viewstate] the hidden details view shown"
+    }
+  ]
+}

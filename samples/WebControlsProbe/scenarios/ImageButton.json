@@ -1,0 +1,110 @@
+{
+  "_comment": "The ImageButton's scenario layer (BasicsScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers. The log's request number is kept in view state: a click the browser cancelled leaves it as it was.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/BasicsScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "ImageButton [render][databind][dynamic] first request"
+    },
+    {
+      "action": "click",
+      "target": "ibtnGo"
+    },
+    {
+      "action": "snapshot",
+      "name": "ImageButton [postdata][postbackevent][command][viewstate] an image clicked: its coordinates, Click, then Command"
+    },
+    {
+      "action": "click",
+      "target": "ibtnConfirmNo"
+    },
+    {
+      "action": "snapshot",
+      "name": "ImageButton [clientclick] OnClientClick returns false: no request"
+    },
+    {
+      "action": "click",
+      "target": "ibtnValidate"
+    },
+    {
+      "action": "snapshot",
+      "name": "ImageButton [causesvalidation][postbackevent] validating g1 (empty)"
+    },
+    {
+      "action": "click",
+      "target": "ibtnPick"
+    },
+    {
+      "action": "snapshot",
+      "name": "ImageButton [command][databind] Command bubbled from a repeater item"
+    },
+    {
+      "action": "fill",
+      "target": "txtDefaultImage",
+      "value": "enter"
+    },
+    {
+      "action": "press",
+      "target": "txtDefaultImage",
+      "value": "Enter"
+    },
+    {
+      "action": "snapshot",
+      "name": "ImageButton [defaultbutton] Enter in a panel whose DefaultButton is the image"
+    },
+    {
+      "action": "click",
+      "target": "ibtnDynamic"
+    },
+    {
+      "action": "snapshot",
+      "name": "ImageButton [dynamic][postbackevent] a dynamically created image button"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "click",
+      "target": "ibtnHidden"
+    },
+    {
+      "action": "snapshot",
+      "name": "ImageButton [visible][viewstate][postbackevent] the image shown before raises Click"
+    },
+    {
+      "action": "evaluate",
+      "target": "ibtnGo",
+      "value": "const i = document.createElement('input'); i.type = 'hidden'; i.name = e.name + '.x'; i.value = '<b>x</b>'; e.form.appendChild(i);"
+    },
+    {
+      "action": "click",
+      "target": "ibtnGo"
+    },
+    {
+      "action": "snapshot",
+      "name": "ImageButton [requestvalidation] markup posted as a coordinate"
+    },
+    {
+      "action": "goto",
+      "path": "/BasicsScenario.aspx"
+    },
+    {
+      "action": "fill",
+      "target": "txtCross",
+      "value": "cross"
+    },
+    {
+      "action": "click",
+      "target": "ibtnCross"
+    },
+    {
+      "action": "snapshot",
+      "name": "ImageButton [crosspage] cross-page postback (PostBackUrl)"
+    }
+  ]
+}

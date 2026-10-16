@@ -1,0 +1,1722 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "DataPager [render][databind][dynamic] first request",
+      "Path": "/listviewscenario",
+      "Title": "ListView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Sort by name",
+        "Pen Select Edit Delete Like",
+        "Bag Select Edit Delete Like",
+        "Cup <&> Select Edit Delete Like",
+        "Insert",
+        "First 1 2 3 Last",
+        "Automatic (ObjectDataSource)",
+        "Sort by price",
+        "Pen 1.25 Select Edit Delete",
+        "Bag 24.99 Select Edit Delete",
+        "Cup <&> 1234.5 Select Edit Delete",
+        "First Previous Next Last",
+        "Groups",
+        "P1 B2 C3",
+        "D4 E5 F6",
+        "G7 - -",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show No view state: PenNo view state: Bag [dynamic: Pen (P1)][dynamic: Bag (B2)]1 2 3",
+        "Request 1: IsPostBack=False",
+        "List lvManual: Items=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvAuto: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvGroups: Items=7 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvEmpty: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvNoViewState: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvHidden: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending (hidden)",
+        "List lvDynamic: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "Pager dpManual: StartRowIndex=0 MaximumRows=3 TotalRowCount=7",
+        "Pager dpAuto: StartRowIndex=0 MaximumRows=3 TotalRowCount=0",
+        "Pager dpDynamic: StartRowIndex=0 MaximumRows=2 TotalRowCount=5",
+        "Manual sort: \"\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "P1",
+            "B2",
+            "C3"
+          ],
+          [
+            "D4",
+            "E5",
+            "F6"
+          ],
+          [
+            "G7",
+            "-",
+            "-"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "lvManual_txtLvNewCode": "",
+        "lvManual_txtLvNewName": ""
+      },
+      "Elements": {
+        "divManual": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkSortName": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lblLvName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvLike_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lblLvName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvLike_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lblLvName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvLike_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_txtLvNewCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_txtLvNewName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_lnkLvInsert": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpManual": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "divAuto": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkSortPrice": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataPager [paging] a numeric pager field: page 3",
+      "Path": "/listviewscenario",
+      "Title": "ListView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Sort by name",
+        "Glue Select Edit Delete Like",
+        "Insert",
+        "First 1 2 3 Last",
+        "Automatic (ObjectDataSource)",
+        "Sort by price",
+        "Pen 1.25 Select Edit Delete",
+        "Bag 24.99 Select Edit Delete",
+        "Cup <&> 1234.5 Select Edit Delete",
+        "First Previous Next Last",
+        "Groups",
+        "P1 B2 C3",
+        "D4 E5 F6",
+        "G7 - -",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show [dynamic: Pen (P1)][dynamic: Bag (B2)]1 2 3",
+        "Request 2: IsPostBack=True",
+        "PagePropertiesChanging: StartRowIndex=6 MaximumRows=3",
+        "List lvManual: Items=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvAuto: Items=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvGroups: Items=7 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvEmpty: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvNoViewState: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvHidden: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending (hidden)",
+        "List lvDynamic: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "Pager dpManual: StartRowIndex=6 MaximumRows=3 TotalRowCount=7",
+        "Pager dpAuto: StartRowIndex=0 MaximumRows=3 TotalRowCount=7",
+        "Pager dpDynamic: StartRowIndex=0 MaximumRows=2 TotalRowCount=5",
+        "Manual sort: \"\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "P1",
+            "B2",
+            "C3"
+          ],
+          [
+            "D4",
+            "E5",
+            "F6"
+          ],
+          [
+            "G7",
+            "-",
+            "-"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "lvManual_txtLvNewCode": "",
+        "lvManual_txtLvNewName": ""
+      },
+      "Elements": {
+        "divManual": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkSortName": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lblLvName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvLike_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_txtLvNewCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_txtLvNewName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_lnkLvInsert": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpManual": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "divAuto": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkSortPrice": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataPager [paging] a next-previous field: the first page",
+      "Path": "/listviewscenario",
+      "Title": "ListView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Sort by name",
+        "Pen Select Edit Delete Like",
+        "Bag Select Edit Delete Like",
+        "Cup <&> Select Edit Delete Like",
+        "Insert",
+        "First 1 2 3 Last",
+        "Automatic (ObjectDataSource)",
+        "Sort by price",
+        "Pen 1.25 Select Edit Delete",
+        "Bag 24.99 Select Edit Delete",
+        "Cup <&> 1234.5 Select Edit Delete",
+        "First Previous Next Last",
+        "Groups",
+        "P1 B2 C3",
+        "D4 E5 F6",
+        "G7 - -",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show [dynamic: Pen (P1)][dynamic: Bag (B2)]1 2 3",
+        "Request 3: IsPostBack=True",
+        "PagePropertiesChanging: StartRowIndex=0 MaximumRows=3",
+        "List lvManual: Items=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvAuto: Items=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvGroups: Items=7 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvEmpty: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvNoViewState: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvHidden: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending (hidden)",
+        "List lvDynamic: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "Pager dpManual: StartRowIndex=0 MaximumRows=3 TotalRowCount=7",
+        "Pager dpAuto: StartRowIndex=0 MaximumRows=3 TotalRowCount=7",
+        "Pager dpDynamic: StartRowIndex=0 MaximumRows=2 TotalRowCount=5",
+        "Manual sort: \"\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "P1",
+            "B2",
+            "C3"
+          ],
+          [
+            "D4",
+            "E5",
+            "F6"
+          ],
+          [
+            "G7",
+            "-",
+            "-"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "lvManual_txtLvNewCode": "",
+        "lvManual_txtLvNewName": ""
+      },
+      "Elements": {
+        "divManual": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkSortName": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lblLvName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvLike_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lblLvName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvLike_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lblLvName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvLike_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_txtLvNewCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_txtLvNewName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_lnkLvInsert": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpManual": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "divAuto": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkSortPrice": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataPager [paging] a next-previous field: the last page",
+      "Path": "/listviewscenario",
+      "Title": "ListView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Sort by name",
+        "Glue Select Edit Delete Like",
+        "Insert",
+        "First 1 2 3 Last",
+        "Automatic (ObjectDataSource)",
+        "Sort by price",
+        "Pen 1.25 Select Edit Delete",
+        "Bag 24.99 Select Edit Delete",
+        "Cup <&> 1234.5 Select Edit Delete",
+        "First Previous Next Last",
+        "Groups",
+        "P1 B2 C3",
+        "D4 E5 F6",
+        "G7 - -",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show [dynamic: Pen (P1)][dynamic: Bag (B2)]1 2 3",
+        "Request 4: IsPostBack=True",
+        "PagePropertiesChanging: StartRowIndex=6 MaximumRows=3",
+        "List lvManual: Items=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvAuto: Items=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvGroups: Items=7 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvEmpty: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvNoViewState: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvHidden: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending (hidden)",
+        "List lvDynamic: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "Pager dpManual: StartRowIndex=6 MaximumRows=3 TotalRowCount=7",
+        "Pager dpAuto: StartRowIndex=0 MaximumRows=3 TotalRowCount=7",
+        "Pager dpDynamic: StartRowIndex=0 MaximumRows=2 TotalRowCount=5",
+        "Manual sort: \"\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "P1",
+            "B2",
+            "C3"
+          ],
+          [
+            "D4",
+            "E5",
+            "F6"
+          ],
+          [
+            "G7",
+            "-",
+            "-"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "lvManual_txtLvNewCode": "",
+        "lvManual_txtLvNewName": ""
+      },
+      "Elements": {
+        "divManual": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkSortName": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lblLvName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvLike_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_txtLvNewCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_txtLvNewName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_lnkLvInsert": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpManual": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "divAuto": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkSortPrice": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataPager [paging] the data source's list view: the last page",
+      "Path": "/listviewscenario",
+      "Title": "ListView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Sort by name",
+        "Glue Select Edit Delete Like",
+        "Insert",
+        "First 1 2 3 Last",
+        "Automatic (ObjectDataSource)",
+        "Sort by price",
+        "Glue 2.75 Select Edit Delete",
+        "First Previous Next Last",
+        "Groups",
+        "P1 B2 C3",
+        "D4 E5 F6",
+        "G7 - -",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show [dynamic: Pen (P1)][dynamic: Bag (B2)]1 2 3",
+        "Request 5: IsPostBack=True",
+        "List lvManual: Items=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvAuto: Items=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvGroups: Items=7 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvEmpty: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvNoViewState: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvHidden: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending (hidden)",
+        "List lvDynamic: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "Pager dpManual: StartRowIndex=6 MaximumRows=3 TotalRowCount=7",
+        "Pager dpAuto: StartRowIndex=6 MaximumRows=3 TotalRowCount=7",
+        "Pager dpDynamic: StartRowIndex=0 MaximumRows=2 TotalRowCount=5",
+        "Manual sort: \"\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "P1",
+            "B2",
+            "C3"
+          ],
+          [
+            "D4",
+            "E5",
+            "F6"
+          ],
+          [
+            "G7",
+            "-",
+            "-"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "lvManual_txtLvNewCode": "",
+        "lvManual_txtLvNewName": ""
+      },
+      "Elements": {
+        "divManual": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkSortName": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lblLvName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvLike_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_txtLvNewCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_txtLvNewName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_lnkLvInsert": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpManual": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "divAuto": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkSortPrice": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataPager [paging][viewstate] the previous page",
+      "Path": "/listviewscenario",
+      "Title": "ListView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Sort by name",
+        "Glue Select Edit Delete Like",
+        "Insert",
+        "First 1 2 3 Last",
+        "Automatic (ObjectDataSource)",
+        "Sort by price",
+        "Desk 150 Select Edit Delete",
+        "Eraser 0.5 Select Edit Delete",
+        "File 3 Select Edit Delete",
+        "First Previous Next Last",
+        "Groups",
+        "P1 B2 C3",
+        "D4 E5 F6",
+        "G7 - -",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show [dynamic: Pen (P1)][dynamic: Bag (B2)]1 2 3",
+        "Request 6: IsPostBack=True",
+        "List lvManual: Items=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvAuto: Items=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvGroups: Items=7 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvEmpty: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvNoViewState: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvHidden: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending (hidden)",
+        "List lvDynamic: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "Pager dpManual: StartRowIndex=6 MaximumRows=3 TotalRowCount=7",
+        "Pager dpAuto: StartRowIndex=3 MaximumRows=3 TotalRowCount=7",
+        "Pager dpDynamic: StartRowIndex=0 MaximumRows=2 TotalRowCount=5",
+        "Manual sort: \"\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "P1",
+            "B2",
+            "C3"
+          ],
+          [
+            "D4",
+            "E5",
+            "F6"
+          ],
+          [
+            "G7",
+            "-",
+            "-"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "lvManual_txtLvNewCode": "",
+        "lvManual_txtLvNewName": ""
+      },
+      "Elements": {
+        "divManual": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkSortName": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lblLvName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvLike_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_txtLvNewCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_txtLvNewName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_lnkLvInsert": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpManual": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "divAuto": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkSortPrice": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataPager [dynamic][paging] a dynamic pager: page 2",
+      "Path": "/listviewscenario",
+      "Title": "ListView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Sort by name",
+        "Glue Select Edit Delete Like",
+        "Insert",
+        "First 1 2 3 Last",
+        "Automatic (ObjectDataSource)",
+        "Sort by price",
+        "Desk 150 Select Edit Delete",
+        "Eraser 0.5 Select Edit Delete",
+        "File 3 Select Edit Delete",
+        "First Previous Next Last",
+        "Groups",
+        "P1 B2 C3",
+        "D4 E5 F6",
+        "G7 - -",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show [dynamic: Cup <&> (C3)][dynamic: Desk (D4)]1 2 3",
+        "Request 7: IsPostBack=True",
+        "lvDynamic PagePropertiesChanging: StartRowIndex=2 MaximumRows=2",
+        "List lvManual: Items=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvAuto: Items=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvGroups: Items=7 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvEmpty: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvNoViewState: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvHidden: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending (hidden)",
+        "List lvDynamic: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "Pager dpManual: StartRowIndex=6 MaximumRows=3 TotalRowCount=7",
+        "Pager dpAuto: StartRowIndex=3 MaximumRows=3 TotalRowCount=7",
+        "Pager dpDynamic: StartRowIndex=2 MaximumRows=2 TotalRowCount=5",
+        "Manual sort: \"\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "P1",
+            "B2",
+            "C3"
+          ],
+          [
+            "D4",
+            "E5",
+            "F6"
+          ],
+          [
+            "G7",
+            "-",
+            "-"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "lvManual_txtLvNewCode": "",
+        "lvManual_txtLvNewName": ""
+      },
+      "Elements": {
+        "divManual": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkSortName": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lblLvName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvLike_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_txtLvNewCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_txtLvNewName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_lnkLvInsert": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpManual": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "divAuto": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkSortPrice": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataPager [viewstate] posted: the pages kept",
+      "Path": "/listviewscenario",
+      "Title": "ListView scenario",
+      "Text": [
+        "Manual (DataSource, handlers)",
+        "Sort by name",
+        "Glue Select Edit Delete Like",
+        "Insert",
+        "First 1 2 3 Last",
+        "Automatic (ObjectDataSource)",
+        "Sort by price",
+        "Desk 150 Select Edit Delete",
+        "Eraser 0.5 Select Edit Delete",
+        "File 3 Select Edit Delete",
+        "First Previous Next Last",
+        "Groups",
+        "P1 B2 C3",
+        "D4 E5 F6",
+        "G7 - -",
+        "Empty, without view state, hidden, dynamic",
+        "Nothing to show [dynamic: Cup <&> (C3)][dynamic: Desk (D4)]1 2 3",
+        "Request 8: IsPostBack=True",
+        "List lvManual: Items=1 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvAuto: Items=3 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvGroups: Items=7 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvEmpty: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvNoViewState: Items=0 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "List lvHidden: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending (hidden)",
+        "List lvDynamic: Items=2 EditIndex=-1 SelectedIndex=-1 SortExpression=\"\" SortDirection=Ascending",
+        "Pager dpManual: StartRowIndex=6 MaximumRows=3 TotalRowCount=7",
+        "Pager dpAuto: StartRowIndex=3 MaximumRows=3 TotalRowCount=7",
+        "Pager dpDynamic: StartRowIndex=2 MaximumRows=2 TotalRowCount=5",
+        "Manual sort: \"\"",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "P1",
+            "B2",
+            "C3"
+          ],
+          [
+            "D4",
+            "E5",
+            "F6"
+          ],
+          [
+            "G7",
+            "-",
+            "-"
+          ]
+        ]
+      ],
+      "Inputs": {
+        "lvManual_txtLvNewCode": "",
+        "lvManual_txtLvNewName": ""
+      },
+      "Elements": {
+        "divManual": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkSortName": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lblLvName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_lnkLvLike_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvManual_txtLvNewCode": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_txtLvNewName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "lvManual_lnkLvInsert": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpManual": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "divAuto": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkSortPrice": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lvAuto_lnkLaDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dpDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

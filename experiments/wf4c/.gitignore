@@ -16,3 +16,7 @@ casefs/test/*/obj/
 !/api-probe/
 api-probe/bin/
 api-probe/obj/
+!/perf-baseline/
+perf-baseline/bin/
+perf-baseline/obj/
+perf-baseline/out/

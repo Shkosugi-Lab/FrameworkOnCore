@@ -1,0 +1,111 @@
+{
+  "_comment": "The CustomValidator's scenario layer (ValidatorsScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers. The log's request number is kept in view state: a postback the browser's validation held back leaves it as it was.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/ValidatorsScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "CustomValidator [render][databind][dynamic] first request"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "CustomValidator [servervalidate] empty: ServerValidate only where ValidateEmptyText"
+    },
+    {
+      "action": "fill",
+      "target": "txtCustom",
+      "value": "no"
+    },
+    {
+      "action": "fill",
+      "target": "txtCustomEmpty",
+      "value": "x"
+    },
+    {
+      "action": "fill",
+      "target": "txtName",
+      "value": "forbidden"
+    },
+    {
+      "action": "fill",
+      "target": "txtDynamicTarget",
+      "value": "no"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "CustomValidator [servervalidate][dynamic] ServerValidate fails, a validator without a control too"
+    },
+    {
+      "action": "fill",
+      "target": "txtCustom",
+      "value": "ok"
+    },
+    {
+      "action": "fill",
+      "target": "txtName",
+      "value": "Taro"
+    },
+    {
+      "action": "fill",
+      "target": "txtDynamicTarget",
+      "value": "ok"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "CustomValidator [servervalidate][dynamic] ServerValidate passes"
+    },
+    {
+      "action": "fill",
+      "target": "txtCustomC",
+      "value": "no"
+    },
+    {
+      "action": "click",
+      "target": "btnCusC"
+    },
+    {
+      "action": "snapshot",
+      "name": "CustomValidator [clientvalidate] the client function fails: no request"
+    },
+    {
+      "action": "fill",
+      "target": "txtCustomC",
+      "value": "ok"
+    },
+    {
+      "action": "click",
+      "target": "btnCusC"
+    },
+    {
+      "action": "snapshot",
+      "name": "CustomValidator [clientvalidate] the client function passes: posted, ServerValidate too"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "CustomValidator [visible][servervalidate] the hidden validator shown, then validating"
+    }
+  ]
+}

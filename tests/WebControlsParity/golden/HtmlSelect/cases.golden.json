@@ -1,0 +1,678 @@
+{
+  "HtmlSelect.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HtmlSelect.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'HtmlSelect' cannot have children of type 'String'.\""
+  ],
+  "HtmlSelect.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HtmlSelect.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlSelect.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HtmlSelect.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.ClientID": [
+    "Control.ClientID = \"selSize\""
+  ],
+  "HtmlSelect.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HtmlSelect.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HtmlSelect.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HtmlSelect.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "HtmlSelect.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HtmlSelect.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HtmlSelect.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HtmlSelect.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HtmlSelect.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HtmlSelect.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "HtmlSelect.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HtmlSelect.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HtmlSelect.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "HtmlSelect.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlSelect.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"selSize\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HtmlSelect.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.ID": [
+    "Control.ID = \"selSize\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HtmlSelect.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HtmlSelect.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HtmlSelect.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HtmlSelect.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HtmlSelect.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HtmlSelect.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HtmlSelect.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "HtmlSelect.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HtmlSelect.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlSelect.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlSelect.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HtmlSelect.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <select name=\"selSize\" id=\"selSize\">",
+    "  | \t<option value=\"S\">Small</option>",
+    "  | \t<option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | \t<option value=\"L\">Large</option>",
+    "  | </select>",
+    "Control.Render(HtmlTextWriter) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "  | \t<option value=\"S\">Small</option>",
+    "  | \t<option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | \t<option value=\"L\">Large</option>",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <select name=\"selSize\" id=\"selSize\">",
+    "  | \t<option value=\"S\">Small</option>",
+    "  | \t<option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | \t<option value=\"L\">Large</option>",
+    "  | </select>",
+    "Control.RenderControl(HtmlTextWriter) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <select name=\"selSize\" id=\"selSize\">",
+    "  | \t<option value=\"S\">Small</option>",
+    "  | \t<option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | \t<option value=\"L\">Large</option>",
+    "  | </select>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HtmlSelect.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HtmlSelect.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "HtmlSelect.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HtmlSelect.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.Control.UniqueID": [
+    "Control.UniqueID = \"selSize\""
+  ],
+  "HtmlSelect.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HtmlSelect.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HtmlSelect.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "HtmlSelect.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlSelect.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HtmlSelect.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlContainerControl.#ctor": [
+    "HtmlControls.HtmlContainerControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlContainerControl because it is an abstract class.\"",
+    "HtmlControls.HtmlContainerControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlContainerControl because it is an abstract class.\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlContainerControl.CreateControlCollection": [
+    "HtmlControls.HtmlContainerControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlContainerControl.CreateControlCollection after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlContainerControl.InnerHtml": [
+    "HtmlControls.HtmlContainerControl.InnerHtml = \"-> System.NotSupportedException: 'HtmlSelect' does not support the InnerHtml property.\"",
+    "HtmlControls.HtmlContainerControl.InnerHtml set = \"-> System.NotSupportedException: 'HtmlSelect' does not support the InnerHtml property.\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlContainerControl.InnerText": [
+    "HtmlControls.HtmlContainerControl.InnerText = \"-> System.NotSupportedException: 'HtmlSelect' does not support the InnerText property.\"",
+    "HtmlControls.HtmlContainerControl.InnerText set = \"-> System.NotSupportedException: 'HtmlSelect' does not support the InnerText property.\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlContainerControl.LoadViewState": [
+    "HtmlControls.HtmlContainerControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlContainerControl.Render": [
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) writer:",
+    "  | <select name=\"selSize\" id=\"selSize\">",
+    "  | \t<option value=\"S\">Small</option>",
+    "  | \t<option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | \t<option value=\"L\">Large</option>",
+    "  | </select>",
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlContainerControl.RenderAttributes": [
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"selSize\" id=\"selSize\"",
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlContainerControl.RenderEndTag": [
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) writer:",
+    "  | </select>",
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlControl.#ctor": [
+    "HtmlControls.HtmlControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\"",
+    "HtmlControls.HtmlControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlControl.Attributes": [
+    "HtmlControls.HtmlControl.Attributes = AttributeCollection []"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlControl.CreateControlCollection": [
+    "HtmlControls.HtmlControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlControl.CreateControlCollection after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlControl.Disabled": [
+    "HtmlControls.HtmlControl.Disabled = \"false\"",
+    "HtmlControls.HtmlControl.Disabled set = \"true\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlControl.GetAttribute": [
+    "HtmlControls.HtmlControl.GetAttribute(String) = null",
+    "HtmlControls.HtmlControl.GetAttribute(String) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlControl.Render": [
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) writer:",
+    "  | <select name=\"selSize\" id=\"selSize\">",
+    "  | \t<option value=\"S\">Small</option>",
+    "  | \t<option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | \t<option value=\"L\">Large</option>",
+    "  | </select>",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlControl.RenderAttributes": [
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"selSize\" id=\"selSize\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlControl.RenderBeginTag": [
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <select name=\"selSize\" id=\"selSize\">",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlControl.SetAttribute": [
+    "HtmlControls.HtmlControl.SetAttribute(String,String) = \"ok\"",
+    "HtmlControls.HtmlControl.SetAttribute(String,String) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlControl.Style": [
+    "HtmlControls.HtmlControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlControl.TagName": [
+    "HtmlControls.HtmlControl.TagName = \"select\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlControl.ViewStateIgnoresCase": [
+    "HtmlControls.HtmlControl.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.#ctor": [
+    "HtmlControls.HtmlSelect.#ctor = HtmlSelect# {ClientID=\"\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=null; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=null; SelectedIndex=Int32 0; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=null; ValidateRequestMode=Inherit; Value=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.AddParsedSubObject": [
+    "HtmlControls.HtmlSelect.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'HtmlSelect' cannot have children of type 'String'.\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.ClearSelection": [
+    "HtmlControls.HtmlSelect.ClearSelection = \"ok\"",
+    "HtmlControls.HtmlSelect.ClearSelection after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 0; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"S\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.CreateControlCollection": [
+    "HtmlControls.HtmlSelect.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlSelect.CreateControlCollection after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.DataMember": [
+    "HtmlControls.HtmlSelect.DataMember = \"\"",
+    "HtmlControls.HtmlSelect.DataMember set = \"Abc 123\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.DataSource": [
+    "HtmlControls.HtmlSelect.DataSource = null",
+    "HtmlControls.HtmlSelect.DataSource set = \"Abc 123\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.DataSourceID": [
+    "HtmlControls.HtmlSelect.DataSourceID = \"\"",
+    "HtmlControls.HtmlSelect.DataSourceID set = \"Abc 123\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.DataTextField": [
+    "HtmlControls.HtmlSelect.DataTextField = \"\"",
+    "HtmlControls.HtmlSelect.DataTextField set = \"Abc 123\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.DataValueField": [
+    "HtmlControls.HtmlSelect.DataValueField = \"\"",
+    "HtmlControls.HtmlSelect.DataValueField set = \"Abc 123\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.EnsureDataBound": [
+    "HtmlControls.HtmlSelect.EnsureDataBound = \"ok\"",
+    "HtmlControls.HtmlSelect.EnsureDataBound after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.GetData": [
+    "HtmlControls.HtmlSelect.GetData = null",
+    "HtmlControls.HtmlSelect.GetData after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.InnerHtml": [
+    "HtmlControls.HtmlSelect.InnerHtml = \"-> System.NotSupportedException: 'HtmlSelect' does not support the InnerHtml property.\"",
+    "HtmlControls.HtmlSelect.InnerHtml set = \"-> System.NotSupportedException: 'HtmlSelect' does not support the InnerHtml property.\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.InnerText": [
+    "HtmlControls.HtmlSelect.InnerText = \"-> System.NotSupportedException: 'HtmlSelect' does not support the InnerText property.\"",
+    "HtmlControls.HtmlSelect.InnerText set = \"-> System.NotSupportedException: 'HtmlSelect' does not support the InnerText property.\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.IsBoundUsingDataSourceID": [
+    "HtmlControls.HtmlSelect.IsBoundUsingDataSourceID = \"false\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.Items": [
+    "HtmlControls.HtmlSelect.Items = \"[System.Web.UI.WebControls.ListItem Small, System.Web.UI.WebControls.ListItem Medium, System.Web.UI.WebControls.ListItem Large]\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.LoadPostData": [
+    "HtmlControls.HtmlSelect.LoadPostData(String,NameValueCollection) = \"true\"",
+    "HtmlControls.HtmlSelect.LoadPostData(String,NameValueCollection) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 0; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"S\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.LoadViewState": [
+    "HtmlControls.HtmlSelect.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Triplet'.\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.Multiple": [
+    "HtmlControls.HtmlSelect.Multiple = \"false\"",
+    "HtmlControls.HtmlSelect.Multiple set = \"true\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.Name": [
+    "HtmlControls.HtmlSelect.Name = \"selSize\"",
+    "HtmlControls.HtmlSelect.Name set = \"selSize\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.OnDataBinding": [
+    "HtmlControls.HtmlSelect.OnDataBinding(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlSelect.OnDataBinding(EventArgs) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.OnDataPropertyChanged": [
+    "HtmlControls.HtmlSelect.OnDataPropertyChanged = \"ok\"",
+    "HtmlControls.HtmlSelect.OnDataPropertyChanged after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.OnDataSourceViewChanged": [
+    "HtmlControls.HtmlSelect.OnDataSourceViewChanged(Object,EventArgs) = \"ok\"",
+    "HtmlControls.HtmlSelect.OnDataSourceViewChanged(Object,EventArgs) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.OnInit": [
+    "HtmlControls.HtmlSelect.OnInit(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlSelect.OnInit(EventArgs) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.OnLoad": [
+    "HtmlControls.HtmlSelect.OnLoad(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlSelect.OnLoad(EventArgs) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.OnPreRender": [
+    "HtmlControls.HtmlSelect.OnPreRender(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlSelect.OnPreRender(EventArgs) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.OnServerChange": [
+    "HtmlControls.HtmlSelect.OnServerChange(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlSelect.OnServerChange(EventArgs) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.RaisePostDataChangedEvent": [
+    "HtmlControls.HtmlSelect.RaisePostDataChangedEvent = \"ok\"",
+    "HtmlControls.HtmlSelect.RaisePostDataChangedEvent after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.RenderAttributes": [
+    "HtmlControls.HtmlSelect.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlSelect.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"selSize\" id=\"selSize\"",
+    "HtmlControls.HtmlSelect.RenderAttributes(HtmlTextWriter) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.RenderChildren": [
+    "HtmlControls.HtmlSelect.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlSelect.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "  | \t<option value=\"S\">Small</option>",
+    "  | \t<option selected=\"selected\" value=\"M\">Medium</option>",
+    "  | \t<option value=\"L\">Large</option>",
+    "  | ",
+    "HtmlControls.HtmlSelect.RenderChildren(HtmlTextWriter) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.RequiresDataBinding": [
+    "HtmlControls.HtmlSelect.RequiresDataBinding = \"false\"",
+    "HtmlControls.HtmlSelect.RequiresDataBinding set = \"ok\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.SaveViewState": [
+    "HtmlControls.HtmlSelect.SaveViewState = null",
+    "HtmlControls.HtmlSelect.SaveViewState after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.Select": [
+    "HtmlControls.HtmlSelect.Select(Int32[]) = \"ok\"",
+    "HtmlControls.HtmlSelect.Select(Int32[]) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.SelectedIndex": [
+    "HtmlControls.HtmlSelect.SelectedIndex = \"Int32 1\"",
+    "HtmlControls.HtmlSelect.SelectedIndex set = \"Int32 1\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.SelectedIndices": [
+    "HtmlControls.HtmlSelect.SelectedIndices = \"[Int32 1]\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.ServerChange": [
+    "HtmlControls.HtmlSelect.ServerChange = \"added and removed\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.Size": [
+    "HtmlControls.HtmlSelect.Size = \"Int32 -1\"",
+    "HtmlControls.HtmlSelect.Size set = \"Int32 1\""
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.TrackViewState": [
+    "HtmlControls.HtmlSelect.TrackViewState = \"ok\"",
+    "HtmlControls.HtmlSelect.TrackViewState after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.HtmlControls.HtmlSelect.Value": [
+    "HtmlControls.HtmlSelect.Value = \"M\"",
+    "HtmlControls.HtmlSelect.Value set = \"M\""
+  ],
+  "HtmlSelect.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HtmlSelect.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HtmlSelect.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HtmlSelect.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HtmlSelect.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HtmlSelect.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HtmlSelect.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'HtmlSelect' cannot have children of type 'String'.\""
+  ],
+  "HtmlSelect.Api.IPostBackDataHandler.LoadPostData": [
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) = \"true\"",
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 0; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"S\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.IPostBackDataHandler.RaisePostDataChangedEvent": [
+    "IPostBackDataHandler.RaisePostDataChangedEvent = \"ok\"",
+    "IPostBackDataHandler.RaisePostDataChangedEvent after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlSelect.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HtmlSelect#selSize {ClientID=\"selSize\"; ClientIDMode=Inherit; DataMember=\"\"; DataSourceID=\"\"; DataTextField=\"\"; DataValueField=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"selSize\"; InnerHtml=!NotSupportedException; InnerText=!NotSupportedException; Multiple=false; Name=\"selSize\"; SelectedIndex=Int32 1; Size=Int32 -1; SkinID=\"\"; TagName=\"select\"; UniqueID=\"selSize\"; ValidateRequestMode=Inherit; Value=\"M\"; ViewStateMode=Inherit; Visible=true}"
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "_comment": "The CheckBox's scenario layer (BasicsScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers. The log's request number is kept in view state: a click the browser cancelled leaves it as it was.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/BasicsScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "CheckBox [render][databind][dynamic] first request"
+    },
+    {
+      "action": "check",
+      "target": "chkPlain"
+    },
+    {
+      "action": "check",
+      "target": "chkDynamic"
+    },
+    {
+      "action": "evaluate",
+      "target": "chkDisabled",
+      "value": "e.disabled = false; e.checked = false;"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "CheckBox [postdata][change][dynamic][disabled] boxes checked; a disabled box's post"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "CheckBox [viewstate][change] posted again unchanged"
+    },
+    {
+      "action": "uncheck",
+      "target": "chkPlain"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "CheckBox [change] a box unchecked"
+    },
+    {
+      "action": "check",
+      "target": "chkAuto"
+    },
+    {
+      "action": "snapshot",
+      "name": "CheckBox [autopostback][change] auto postback"
+    },
+    {
+      "action": "check",
+      "target": "chkCauses"
+    },
+    {
+      "action": "snapshot",
+      "name": "CheckBox [autopostback][causesvalidation] auto postback validating g1 (empty)"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "CheckBox [visible][viewstate] hidden ones shown with what was set while hidden"
+    },
+    {
+      "action": "uncheck",
+      "target": "chkBind"
+    },
+    {
+      "action": "click",
+      "target": "btnUpdate"
+    },
+    {
+      "action": "snapshot",
+      "name": "CheckBox [bind] two-way binding in a template"
+    },
+    {
+      "action": "evaluate",
+      "target": "chkPlain",
+      "value": "e.value = '<b>x</b>'; e.checked = true;"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "CheckBox [requestvalidation] markup posted"
+    }
+  ]
+}

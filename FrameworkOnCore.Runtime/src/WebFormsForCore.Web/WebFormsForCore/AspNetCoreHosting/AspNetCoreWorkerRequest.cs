@@ -36,7 +36,6 @@ namespace System.Web.Hosting
 
 		private TaskCompletionSource<bool> Completed = new TaskCompletionSource<bool>();
 
-		private AutoResetEvent CompletedEvent = new AutoResetEvent(false);
 
 		private static readonly char[] IntToHex = new[]
 			{
@@ -100,8 +99,6 @@ namespace System.Web.Hosting
 
 		private int responseStatus;
 
-		private bool specialCaseStaticFileHeaders;
-
 		private int startHeadersOffset;
 
 		private string[][] unknownRequestHeaders;
@@ -123,12 +120,83 @@ namespace System.Web.Hosting
 			Context.Connection.RequestClose();
 		}
 
+		// HttpRuntime's end of send notification (its EndOfSendCallback: Request.Dispose, Response.Dispose), as IIS's worker
+		// request calls it once the response is sent: the response's buffers back to their pool (HttpResponseBufferElement:
+		// ArrayPool's; never returned, each request's buffers were new 32 KB arrays), the response's cache dependencies
+		// disposed, the request's posted files' temporary file. The response is written to Kestrel's pipe as it is sent
+		// (SendResponseFromMemory: copied), so the buffers are free at the end of the request.
+		private EndOfSendNotification endOfSend;
+		private object endOfSendData;
+
+		// The response captured to be kept as IIS's kernel cache keeps a static file's (StaticResponseCache): made once
+		// IisStaticFile answers the whole file (the response is sent after the handler: buffered), not for the other
+		// requests (a page's response copied for nothing was a tenth of a small page's rate on Linux).
+		internal StaticResponseCache.Capture ResponseCapture;
+		// The application's files' state when the request came (FileCache.Generation): a response made from files changed
+		// since is not kept.
+		internal long FilesGeneration;
+		// System.Web's word that the response is not for the kernel cache (HttpResponse.DisableKernelCache).
+		internal bool KernelCacheDisabled;
+
+		internal override void DisableKernelCache()
+		{
+			KernelCacheDisabled = true;
+			ResponseCapture?.Abandon();
+		}
+
+		// Response.TrySkipIisCustomErrors (ASP.NET's own error pages set it): IIS's httpErrors leaves the answer then (IisHttpErrors).
+		internal override bool TrySkipIisCustomErrors
+		{
+			get => Context.Features.Get<IisErrorFlags>()?.TrySkipIisCustomErrors == true;
+			set
+			{
+				var flags = Context.Features.Get<IisErrorFlags>();
+				if (flags == null) Context.Features.Set(flags = new IisErrorFlags());
+				flags.TrySkipIisCustomErrors = value;
+			}
+		}
+
+		public override void SetEndOfSendNotification(EndOfSendNotification callback, object extraData)
+		{
+			endOfSendData = extraData;
+			endOfSend = callback;
+		}
+
+		private void NotifyEndOfSend()
+		{
+			var callback = Interlocked.Exchange(ref endOfSend, null);
+			if (callback == null) return;
+			// The request's user as System.Web authenticated it (forms authentication...), for what logs the request after
+			// it (the W3C log's cs-username: IIS logs the user the integrated pipeline gave it).
+			try
+			{
+				// The substatus the application set (Response.SubStatusCode), as IIS logs it.
+				var subStatus = (endOfSendData as HttpContext)?.Response?.SubStatusCodeInternal ?? 0;
+				if (subStatus != 0) IisLogStatus.Set(Context, subStatus, Context.Features.Get<IisLogStatus>()?.Win32Status ?? 0);
+				var user = (endOfSendData as HttpContext)?.User?.Identity;
+				if (user != null && user.IsAuthenticated && !string.IsNullOrEmpty(user.Name))
+					Context.User = new System.Security.Claims.ClaimsPrincipal(new System.Security.Principal.GenericIdentity(user.Name, user.AuthenticationType ?? ""));
+			}
+			catch (Exception)
+			{
+			}
+			try
+			{
+				callback(this, endOfSendData);
+			}
+			catch (Exception e)
+			{
+				System.Web.Management.WebBaseEvent.RaiseRuntimeError(e, this);
+			}
+		}
+
 		public override void EndOfRequest()
 		{
 #if DebugWF4C
 			var path = Context.Request.Path;
 			Debug.WriteLine($"EndOfRequestStart {path}");
 #endif
+			NotifyEndOfSend();
 			try
 			{
 				if (Context != null && Context.Response != null)
@@ -177,8 +245,11 @@ namespace System.Web.Hosting
 		{
 			using (var noSyncContext = new SafeAsync())
 			{
-				Context.Response.Body.Flush();
-				if (finalFlush) Context.Response.Body.Close();
+				// The final one is the end of the request's (ASP.NET Core sends what is left): not a flush the application
+				// asked for, after which an answer goes out as it comes. IIS's features in front (IisCompression) see the
+				// whole answer then: compressed with its length, as IIS's.
+				if (!finalFlush) Context.Response.Body.Flush();
+				else Context.Response.Body.Close();
 			}
 		}
 
@@ -197,7 +268,7 @@ namespace System.Web.Hosting
 		public override string GetHttpVerbName() => Context.Request.Method;
 		public override string GetHttpVersion() => Context.Request.Protocol;
 		public override string GetKnownRequestHeader(int index) => knownRequestHeaders[index];
-		public override string GetLocalAddress() => Context.Connection.LocalIpAddress.ToString();
+		public override string GetLocalAddress() => Address(Context.Connection.LocalIpAddress);
 		// As SERVER_NAME (GetServerName), the port the client asked for: Request.Url and absolute
 		// redirects are built from them. The socket's port is not it behind port mapping (a container's
 		// 8080 published as another) or a reverse proxy: the Host header's port, or the scheme's.
@@ -219,16 +290,36 @@ namespace System.Web.Hosting
 			// UseDefaultFiles or the host set Request.Path to /Default.aspx), its path decoded and its query string as it was
 			// sent ("/Urls.aspx/a b?q=x%20y"). FriendlyUrls redirects a RawUrl ending in .aspx to the URL without it:
 			// WingtipToys' "/" was a 301 to /Default where IIS answers 200.
-			var target = Context.Features.Get<Core.Features.IHttpRequestFeature>()?.RawTarget;
+			var target = RawTarget(Context);
+			var mark = target.IndexOf('?');
+			return mark < 0 ? DecodeRawPath(target) : DecodeRawPath(target[..mark]) + target[mark..];
+		}
+
+		/// <summary>The URL as the request line has it (escaped as sent; IIS's UNENCODED_URL): its path and query string.</summary>
+		internal static string RawTarget(Core.HttpContext context)
+		{
+			var target = context.Features.Get<Core.Features.IHttpRequestFeature>()?.RawTarget;
 			if (!string.IsNullOrEmpty(target) && target[0] != '/' && Uri.TryCreate(target, UriKind.Absolute, out var absolute))
 				target = absolute.PathAndQuery;  // the absolute form (a proxy's request)
 			if (string.IsNullOrEmpty(target) || target[0] != '/')
 			{
-				var query = GetQueryString();
-				return string.IsNullOrEmpty(query) ? DecodedPath() : $"{DecodedPath()}?{query}";
+				var request = context.Request;
+				var path = (request.PathBase + request.Path).ToUriComponent();
+				return (path.Length == 0 ? "/" : path) + request.QueryString.Value;
 			}
-			var mark = target.IndexOf('?');
-			return mark < 0 ? DecodeRawPath(target) : DecodeRawPath(target[..mark]) + target[mark..];
+			return target;
+		}
+
+		/// <summary>
+		/// The server variables IIS has that ASP.NET's list for other hosts (HttpRequest.FillInServerVariablesCollection) does
+		/// not: UNENCODED_URL, the ones URL Rewrite's rules set (IisUrlRewrite: serverVariables, IIS_WasUrlRewritten).
+		/// </summary>
+		internal IEnumerable<KeyValuePair<string, string>> ExtraServerVariables()
+		{
+			yield return new KeyValuePair<string, string>("UNENCODED_URL", RawTarget(Context));
+			var set = Context.Features.Get<IisServerVariables>();
+			if (set != null)
+				foreach (var variable in set.Values) yield return variable;
 		}
 
 		// A path as sent, decoded as IIS decodes it (every escape, '/' too).
@@ -236,7 +327,12 @@ namespace System.Web.Hosting
 		{
 			return raw.IndexOf('%') < 0 ? raw : Uri.UnescapeDataString(raw);
 		}
-		public override string GetRemoteAddress() => Context.Connection.RemoteIpAddress.ToString();
+		public override string GetRemoteAddress() => Address(Context.Connection.RemoteIpAddress);
+
+		// An IPv4 client as IIS writes it (REMOTE_ADDR, UserHostAddress: "172.19.0.3"), not as Kestrel's dual-mode socket has it
+		// ("::ffff:172.19.0.3"): what applications compare addresses with or log.
+		static string Address(System.Net.IPAddress address) =>
+			address == null ? null : (address.IsIPv4MappedToIPv6 ? address.MapToIPv4() : address).ToString();
 		public override int GetRemotePort() => Context.Connection.RemotePort;
 		public override string GetServerName()
 		{
@@ -304,8 +400,12 @@ namespace System.Web.Hosting
 				case "HTTPS_SERVER_ISSUER":
 				case "HTTPS_SERVER_SUBJECT":
 					return string.Empty;
+				case "UNENCODED_URL":
+					return RawTarget(Context);
 				default:
-					return null;
+					string value = null;
+					Context.Features.Get<IisServerVariables>()?.Values.TryGetValue(name, out value);
+					return value;
 			}
 		}
 
@@ -444,6 +544,7 @@ namespace System.Web.Hosting
 			// read the request
 			if (!TryParseRequest())
 			{
+				if (refusal != 0) await RefuseAsync(refusal);
 				return;
 			}
 
@@ -452,19 +553,18 @@ namespace System.Web.Hosting
 				// deny access to code, bin, etc.
 				if (IsRequestForRestrictedDirectory())
 				{
-					Context.Response.StatusCode = 404;  // as IIS (404.8)
-					Context.Response.CompleteAsync();
+					IisLogStatus.Set(Context, 8);
+					await RefuseAsync(404);  // as IIS (404.8)
 					return;
 				}
 
 				PrepareResponse();
+				FilesGeneration = FileCache.Generation;
 
-				// Hand the processing over to HttpRuntime
-				// Run processing in separate ASP.NET Worker Thread
-				//var completed = Completed.Task;
-				await Task.Factory.StartNew(() =>
+				// Hand the processing over to HttpRuntime, on one of System.Web's worker threads (a thread of its own for the
+				// request, used again: WorkerThreads).
+				await WorkerThreads.Run(() =>
 					{
-						Thread.CurrentThread.Name = $"ASP.NET WorkerThread {Context.Request.Path}";
 #if DebugWF4C
 						Debug.WriteLine($"Start ProcessRequest {Context.Request.Path}");
 #endif
@@ -472,8 +572,7 @@ namespace System.Web.Hosting
 #if DebugWF4C
 						Debug.WriteLine($"End ProcessRequest {Context.Request.Path}");
 #endif
-					},
-					TaskCreationOptions.LongRunning);
+					});
 
 #if DebugWF4C
 				Debug.WriteLine($"Waiting {Context.Request.Path} to finish");
@@ -482,6 +581,7 @@ namespace System.Web.Hosting
 #if DebugWF4C
 				Debug.WriteLine($"Request {Context.Request.Path} finished");
 #endif
+				StaticResponseCache.Store(Context, ResponseCapture);
 			}
 		}
 
@@ -524,26 +624,8 @@ namespace System.Web.Hosting
 				case HeaderConnection:
 					// ignore these
 					return;
-				case HeaderAcceptRanges:
-					// FIX: #14359
-					if (value != "bytes")
-					{
-						// use this header to detect when we're processing a static file
-						break;
-					}
-					specialCaseStaticFileHeaders = true;
-					return;
-
-				case HeaderExpires:
-				case HeaderLastModified:
-					// FIX: #14359
-					if (!specialCaseStaticFileHeaders)
-					{
-						// NOTE: Ignore these for static files. These are generated
-						//       by the StaticFileHandler, but they shouldn't be.
-						break;
-					}
-					return;
+				// Accept-Ranges, Last-Modified and Expires of a static file: sent, as IIS's static file module sends them
+				// (IisStaticFile; StaticFileHandler's own Expires a day ahead is not written any more).
 
 
 				// FIX: #12506
@@ -610,6 +692,7 @@ namespace System.Web.Hosting
 		{
 			if (length > 0)
 			{
+				ResponseCapture?.Append(data, 0, length);
 				using (var noSyncContext = new SafeAsync())
 				{
 					Context.Response.Body.Write(data, 0, length);
@@ -878,11 +961,11 @@ namespace System.Web.Hosting
 			allRawHeaders = null;
 			unknownRequestHeaders = null;
 			knownRequestHeaders = null;
-			specialCaseStaticFileHeaders = false;
 		}
 
 		private void SendResponseFromFileStream(Stream f, long offset, long length)
 		{
+			ResponseCapture?.Abandon();     // a file sent from the file (a large one): not kept
 			long fileSize = f.Length;
 
 			if (length == -1)
@@ -968,18 +1051,92 @@ namespace System.Web.Hosting
 		/// TODO: defer response until request is written
 		/// </summary>
 		/// <returns></returns>
+		// A request refused before it reaches the application (its status: RefuseAsync answers it).
+		private int refusal;
+
+		// The answer of IIS (its request filtering: 404.8, 404.11, 404.14, 404.15, 413.1) or of http.sys (400) to a request it
+		// refuses before ASP.NET sees it: an HTML page, not the application's error.
+		private async Task RefuseAsync(int status)
+		{
+			Context.Response.StatusCode = status;
+			// http.sys's 400 its own page; IIS's request filtering's (404.x, 413.1) the status only: their page is httpErrors'
+			// (IisHttpErrors).
+			string page = null;
+			switch (status)
+			{
+				case 400:
+					Context.Response.ContentType = "text/html; charset=us-ascii";
+					page = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\"http://www.w3.org/TR/html4/strict.dtd\">\r\n<HTML><HEAD><TITLE>Bad Request</TITLE>\r\n" +
+						"<META HTTP-EQUIV=\"Content-Type\" Content=\"text/html; charset=us-ascii\"></HEAD>\r\n<BODY><h2>Bad Request - Invalid URL</h2>\r\n" +
+						"<hr><p>HTTP Error 400. The request URL is invalid.</p>\r\n</BODY></HTML>\r\n";
+					break;
+				case 413:
+					// The status line as IIS writes it (Kestrel's is RFC 9110's "Payload Too Large").
+					var feature = Context.Features.Get<Core.Features.IHttpResponseFeature>();
+					if (feature != null) feature.ReasonPhrase = "Request Entity Too Large";
+					break;
+			}
+			if (page != null) await Core.HttpResponseWritingExtensions.WriteAsync(Context.Response, page);
+			await Context.Response.CompleteAsync();
+			// A body too large: read to its end (beyond Kestrel's limit), as IIS takes it, so that the client, still sending,
+			// gets the answer and not a connection closed under it.
+			if (status == 413)
+			{
+				var bodySize = Context.Features.Get<Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>();
+				if (bodySize != null && !bodySize.IsReadOnly) bodySize.MaxRequestBodySize = null;
+				try
+				{
+					await Context.Request.Body.CopyToAsync(Stream.Null);
+				}
+				catch (Exception e) when (e is IOException || e is Microsoft.AspNetCore.Http.BadHttpRequestException || e is OperationCanceledException)
+				{
+				}
+			}
+		}
+
 		private bool TryParseRequest()
 		{
+			refusal = 0;
 			Reset();
 
 			ParseRequest();
 
 			if (IsDoubleEscaped())
 			{
-				Context.Response.StatusCode = 404;  // as IIS (404.11)
-				Context.Response.CompleteAsync();
+				IisLogStatus.Set(Context, 11);
+				refusal = 404;  // as IIS (404.11)
 				return false;
 			}
+
+			// http.sys refuses a path segment longer than 260 characters (UrlSegmentMaxLength) before IIS sees the request.
+			var requestPath = Context.Request.Path.Value ?? "";
+			if (requestPath.Split('/').Any(segment => segment.Length > 260))
+			{
+				// http.sys's: in its HTTPERR log, not in the site's.
+				IisLogStatus.SetNotLogged(Context);
+				refusal = 400;
+				return false;
+			}
+
+			// IIS's request filtering's limits (system.webServer/security/requestFiltering/requestLimits): the content's
+			// length (413.1), the URL's (404.14), the query string's (404.15). Kestrel's own limit on the body is IIS's: a
+			// larger one in web.config is taken (an application that takes larger uploads raises it there).
+			var limits = IntegratedModeConfiguration.RequestLimits((Context.Request.PathBase.Value ?? "") + requestPath);
+			if (Context.Request.ContentLength > limits.MaxAllowedContentLength)
+			{
+				IisLogStatus.Set(Context, 1);
+				refusal = 413;
+				return false;
+			}
+			var queryLength = Math.Max(0, (Context.Request.QueryString.Value ?? "").Length - 1);
+			if (requestPath.Length > limits.MaxUrl || queryLength > limits.MaxQueryString)
+			{
+				IisLogStatus.Set(Context, requestPath.Length > limits.MaxUrl ? 14 : 15);
+				refusal = 404;
+				return false;
+			}
+			var bodySize = Context.Features.Get<Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>();
+			if (bodySize != null && !bodySize.IsReadOnly) bodySize.MaxRequestBodySize = limits.MaxAllowedContentLength;
 
 			// Check for bad path
 			if (IsBadPath())
@@ -992,8 +1149,7 @@ namespace System.Web.Hosting
 			// Check if the path is not well formed or is not for the current app
 			if (!Host.IsVirtualPathInApp(path, out isClientScriptPath))
 			{
-				Context.Response.StatusCode = 404;
-				Context.Response.CompleteAsync();
+				refusal = 404;
 				return false;
 			}
 

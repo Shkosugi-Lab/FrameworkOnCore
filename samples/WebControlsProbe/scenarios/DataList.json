@@ -1,0 +1,94 @@
+{
+  "_comment": "The DataList's scenario layer (DataListScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/DataListScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataList [render][databind][datasource][datasourceid][templates][repeat][dynamic] first request"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dlManual",
+      "value": "Select"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataList [selection][rowcommand] the first item selected"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dlManual",
+      "value": "Like"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataList [rowcommand] a command bubbled to ItemCommand"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dlManual",
+      "value": "Edit"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataList [editing][rowcommand] edit: EditCommand"
+    },
+    {
+      "action": "fill",
+      "target": "txtDlName",
+      "value": "Renamed"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dlManual",
+      "value": "Update"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataList [editing][rowcommand] updated: UpdateCommand, the data key"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dlManual",
+      "value": "Edit"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dlManual",
+      "value": "Cancel"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataList [editing] cancelled: CancelCommand"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dlManual",
+      "value": "Delete"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataList [editing][rowcommand] deleted: DeleteCommand"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataList [viewstate] posted (the one without view state is empty)"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "DataList [visible][viewstate] the hidden data list shown"
+    }
+  ]
+}

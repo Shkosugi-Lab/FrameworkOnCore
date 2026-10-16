@@ -1,0 +1,507 @@
+{
+  "TemplatedWizardStep.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "TemplatedWizardStep.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "TemplatedWizardStep.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "TemplatedWizardStep.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.BindingContainer": [
+    "Control.BindingContainer = null"
+  ],
+  "TemplatedWizardStep.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "TemplatedWizardStep.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "TemplatedWizardStep.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.ClientID": [
+    "Control.ClientID = \"twsProbe\""
+  ],
+  "TemplatedWizardStep.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "TemplatedWizardStep.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "TemplatedWizardStep.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "TemplatedWizardStep.Api.Control.Controls": [
+    "Control.Controls = ControlCollection [BaseContentTemplateContainer#]"
+  ],
+  "TemplatedWizardStep.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "TemplatedWizardStep.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "TemplatedWizardStep.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "TemplatedWizardStep.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "TemplatedWizardStep.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "TemplatedWizardStep.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "TemplatedWizardStep.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "TemplatedWizardStep.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "TemplatedWizardStep.Api.Control.FindControl": [
+    "Control.FindControl(String) = null",
+    "Control.FindControl(String) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.Focus": [
+    "Control.Focus = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "TemplatedWizardStep.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "TemplatedWizardStep.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"-> System.InvalidOperationException: This control is not a descendent of the NamingContainer of 'lblTitle'.\""
+  ],
+  "TemplatedWizardStep.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "TemplatedWizardStep.Api.Control.HasControls": [
+    "Control.HasControls = \"true\"",
+    "Control.HasControls after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.ID": [
+    "Control.ID = \"twsProbe\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "TemplatedWizardStep.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "TemplatedWizardStep.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "TemplatedWizardStep.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "TemplatedWizardStep.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "TemplatedWizardStep.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "TemplatedWizardStep.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "TemplatedWizardStep.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "TemplatedWizardStep.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "TemplatedWizardStep.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "TemplatedWizardStep.Api.Control.NamingContainer": [
+    "Control.NamingContainer = null"
+  ],
+  "TemplatedWizardStep.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "TemplatedWizardStep.Api.Control.Page": [
+    "Control.Page = null",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "TemplatedWizardStep.Api.Control.Parent": [
+    "Control.Parent = MultiView#WizardMultiView {ActiveViewIndex=Int32 -1; ClientID=\"WizardMultiView\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"WizardMultiView\"; SkinID=\"\"; UniqueID=\"WizardMultiView\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "TemplatedWizardStep.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "TemplatedWizardStep.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"0\" style=\"height:100%;width:100%;border-collapse:collapse;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"height:100%;width:100%;\"></td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "Control.Render(HtmlTextWriter) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"0\" style=\"height:100%;width:100%;border-collapse:collapse;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"height:100%;width:100%;\"></td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "Control.RenderChildren(HtmlTextWriter) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"0\" style=\"height:100%;width:100%;border-collapse:collapse;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"height:100%;width:100%;\"></td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "Control.RenderControl(HtmlTextWriter) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"0\" style=\"height:100%;width:100%;border-collapse:collapse;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"height:100%;width:100%;\"></td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"wizHost_twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"wizHost$twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "TemplatedWizardStep.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "TemplatedWizardStep.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "TemplatedWizardStep.Api.Control.TemplateControl": [
+    "Control.TemplateControl = null",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "TemplatedWizardStep.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "TemplatedWizardStep.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.Control.UniqueID": [
+    "Control.UniqueID = \"twsProbe\""
+  ],
+  "TemplatedWizardStep.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "TemplatedWizardStep.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "TemplatedWizardStep.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [Title=\"Templated\"]"
+  ],
+  "TemplatedWizardStep.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "TemplatedWizardStep.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "TemplatedWizardStep.Api.Control.Visible": [
+    "Control.Visible = \"false\"",
+    "Control.Visible set = \"-> System.InvalidOperationException: The Visible property of a View control can only be set by setting the active View of a MultiView.\""
+  ],
+  "TemplatedWizardStep.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "TemplatedWizardStep.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "TemplatedWizardStep.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "TemplatedWizardStep.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "TemplatedWizardStep.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "TemplatedWizardStep.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "TemplatedWizardStep.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.WebControls.TemplatedWizardStep.#ctor": [
+    "TemplatedWizardStep.#ctor = TemplatedWizardStep# {AllowReturn=true; ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; Name=null; SkinID=\"\"; StepType=Auto; Title=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.WebControls.TemplatedWizardStep.ContentTemplate": [
+    "TemplatedWizardStep.ContentTemplate = null",
+    "TemplatedWizardStep.ContentTemplate set = null"
+  ],
+  "TemplatedWizardStep.Api.WebControls.TemplatedWizardStep.ContentTemplateContainer": [
+    "TemplatedWizardStep.ContentTemplateContainer = BaseContentTemplateContainer# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "TemplatedWizardStep.Api.WebControls.TemplatedWizardStep.CustomNavigationTemplate": [
+    "TemplatedWizardStep.CustomNavigationTemplate = null",
+    "TemplatedWizardStep.CustomNavigationTemplate set = null"
+  ],
+  "TemplatedWizardStep.Api.WebControls.TemplatedWizardStep.CustomNavigationTemplateContainer": [
+    "TemplatedWizardStep.CustomNavigationTemplateContainer = null"
+  ],
+  "TemplatedWizardStep.Api.WebControls.TemplatedWizardStep.SkinID": [
+    "TemplatedWizardStep.SkinID = \"\"",
+    "TemplatedWizardStep.SkinID set = \"Abc 123\""
+  ],
+  "TemplatedWizardStep.Api.WebControls.View.#ctor": [
+    "View.#ctor = View# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.WebControls.View.Activate": [
+    "View.Activate = \"added and removed\""
+  ],
+  "TemplatedWizardStep.Api.WebControls.View.Deactivate": [
+    "View.Deactivate = \"added and removed\""
+  ],
+  "TemplatedWizardStep.Api.WebControls.View.EnableTheming": [
+    "View.EnableTheming = \"true\"",
+    "View.EnableTheming set = \"true\""
+  ],
+  "TemplatedWizardStep.Api.WebControls.View.OnActivate": [
+    "View.OnActivate(EventArgs) = \"ok\"",
+    "View.OnActivate(EventArgs) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.WebControls.View.OnDeactivate": [
+    "View.OnDeactivate(EventArgs) = \"ok\"",
+    "View.OnDeactivate(EventArgs) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.WebControls.View.Visible": [
+    "View.Visible = \"false\"",
+    "View.Visible set = \"-> System.InvalidOperationException: The Visible property of a View control can only be set by setting the active View of a MultiView.\""
+  ],
+  "TemplatedWizardStep.Api.WebControls.WizardStepBase.#ctor": [
+    "WizardStepBase.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.WizardStepBase because it is an abstract class.\""
+  ],
+  "TemplatedWizardStep.Api.WebControls.WizardStepBase.AllowReturn": [
+    "WizardStepBase.AllowReturn = \"true\"",
+    "WizardStepBase.AllowReturn set = \"true\""
+  ],
+  "TemplatedWizardStep.Api.WebControls.WizardStepBase.EnableTheming": [
+    "WizardStepBase.EnableTheming = \"true\"",
+    "WizardStepBase.EnableTheming set = \"true\""
+  ],
+  "TemplatedWizardStep.Api.WebControls.WizardStepBase.ID": [
+    "WizardStepBase.ID = \"twsProbe\"",
+    "WizardStepBase.ID set = \"Abc 123\""
+  ],
+  "TemplatedWizardStep.Api.WebControls.WizardStepBase.LoadViewState": [
+    "WizardStepBase.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "TemplatedWizardStep.Api.WebControls.WizardStepBase.Name": [
+    "WizardStepBase.Name = \"Templated\""
+  ],
+  "TemplatedWizardStep.Api.WebControls.WizardStepBase.OnLoad": [
+    "WizardStepBase.OnLoad(EventArgs) = \"ok\"",
+    "WizardStepBase.OnLoad(EventArgs) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.WebControls.WizardStepBase.RenderChildren": [
+    "WizardStepBase.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "WizardStepBase.RenderChildren(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"0\" style=\"height:100%;width:100%;border-collapse:collapse;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"height:100%;width:100%;\"></td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "WizardStepBase.RenderChildren(HtmlTextWriter) after = TemplatedWizardStep#twsProbe {AllowReturn=true; ClientID=\"twsProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"twsProbe\"; Name=\"Templated\"; SkinID=\"\"; StepType=Auto; Title=\"Templated\"; UniqueID=\"twsProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "TemplatedWizardStep.Api.WebControls.WizardStepBase.StepType": [
+    "WizardStepBase.StepType = \"WizardStepType.Auto\"",
+    "WizardStepBase.StepType set = \"WizardStepType.Complete\""
+  ],
+  "TemplatedWizardStep.Api.WebControls.WizardStepBase.Title": [
+    "WizardStepBase.Title = \"Templated\"",
+    "WizardStepBase.Title set = \"Abc 123\""
+  ],
+  "TemplatedWizardStep.Api.WebControls.WizardStepBase.Wizard": [
+    "WizardStepBase.Wizard = Wizard#wizHost {AccessKey=\"\"; ActiveStepIndex=Int32 -1; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CancelButtonImageUrl=\"\"; CancelButtonText=\"Cancel\"; CancelButtonType=Button; CancelDestinationPageUrl=\"\"; CellPadding=Int32 0; CellSpacing=Int32 0; ClientID=\"wizHost\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DisplayCancelButton=false; DisplaySideBar=true; EnableTheming=true; EnableViewState=true; Enabled=true; FinishCompleteButtonImageUrl=\"\"; FinishCompleteButtonText=\"Finish\"; FinishCompleteButtonType=Button; FinishDestinationPageUrl=\"\"; FinishPreviousButtonImageUrl=\"\"; FinishPreviousButtonText=\"Previous\"; FinishPreviousButtonType=Button; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; ID=\"wizHost\"; SkinID=\"\"; SkipLinkText=\"Skip Navigation Links.\"; StartNextButtonImageUrl=\"\"; StartNextButtonText=\"Next\"; StartNextButtonType=Button; StepNextButtonImageUrl=\"\"; StepNextButtonText=\"Next\"; StepNextButtonType=Button; StepPreviousButtonImageUrl=\"\"; StepPreviousButtonText=\"Previous\"; StepPreviousButtonType=Button; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"wizHost\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ]
+}

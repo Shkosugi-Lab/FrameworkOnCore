@@ -1,0 +1,1750 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "ScriptManager [render][databind][dynamic] first request: the panels, the proxy's script run, a panel made in code",
+      "Path": "/ajaxscenario",
+      "Title": "AJAX controls scenario",
+      "Text": [
+        "Script: probe.js ran",
+        "Main panel, rendered by request 1",
+        "Triggered panel, rendered by request 1",
+        "bound",
+        "Timer panel, ticks: 0",
+        "Dynamic:",
+        "dynamic",
+        "Request 1: IsPostBack=False IsInAsyncPostBack=False",
+        "State upMain UpdateMode=Conditional IsInPartialRendering=False",
+        "State upTriggered IsInPartialRendering=False",
+        "State txtInPanel Text=\"\"",
+        "State lblBound Text=\"bound\"",
+        "State lblInHidden Text=\"set while hidden\" (hidden)",
+        "State tmrMain Enabled=False Interval=1500",
+        "State lblDynamic Text=\"dynamic\"",
+        "State smPage EnablePartialRendering=True SupportsPartialRendering=True EnableHistory=True"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtInPanel": ""
+      },
+      "Elements": {
+        "scriptOutput": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblMainRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSlow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHistory": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnFull": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "uprMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "progressText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTriggered": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTriggeredRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnOutside": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTimer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTicks": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tmrMain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnStartTimer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upLog": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "ScriptManager [viewstate][postdata][templates] an asynchronous postback of the main panel: the conditional panel outside left as it was",
+      "Path": "/ajaxscenario",
+      "Title": "AJAX controls scenario",
+      "Text": [
+        "Script: probe.js ran",
+        "Main panel, rendered by request 2",
+        "Triggered panel, rendered by request 1",
+        "bound",
+        "Timer panel, ticks: 0",
+        "Dynamic:",
+        "dynamic",
+        "Request 2: IsPostBack=True IsInAsyncPostBack=True AsyncPostBackSourceElementID=btnInPanel",
+        "Click btnInPanel",
+        "State upMain UpdateMode=Conditional IsInPartialRendering=False",
+        "State upTriggered IsInPartialRendering=False",
+        "State txtInPanel Text=\"in the panel\"",
+        "State lblBound Text=\"bound\"",
+        "State lblInHidden Text=\"set while hidden\" (hidden)",
+        "State tmrMain Enabled=False Interval=1500",
+        "State lblDynamic Text=\"dynamic\"",
+        "State smPage EnablePartialRendering=True SupportsPartialRendering=True EnableHistory=True"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtInPanel": "in the panel"
+      },
+      "Elements": {
+        "scriptOutput": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblMainRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSlow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHistory": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnFull": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "uprMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "progressText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTriggered": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTriggeredRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnOutside": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTimer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTicks": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tmrMain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnStartTimer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upLog": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "ScriptManager [viewstate][postdata] a button outside triggers the second panel",
+      "Path": "/ajaxscenario",
+      "Title": "AJAX controls scenario",
+      "Text": [
+        "Script: probe.js ran",
+        "Main panel, rendered by request 2",
+        "Triggered panel, rendered by request 3",
+        "bound",
+        "Timer panel, ticks: 0",
+        "Dynamic:",
+        "dynamic",
+        "Request 3: IsPostBack=True IsInAsyncPostBack=True AsyncPostBackSourceElementID=btnOutside",
+        "Click btnOutside",
+        "State upMain UpdateMode=Conditional IsInPartialRendering=False",
+        "State upTriggered IsInPartialRendering=False",
+        "State txtInPanel Text=\"in the panel\"",
+        "State lblBound Text=\"bound\"",
+        "State lblInHidden Text=\"set while hidden\" (hidden)",
+        "State tmrMain Enabled=False Interval=1500",
+        "State lblDynamic Text=\"dynamic\"",
+        "State smPage EnablePartialRendering=True SupportsPartialRendering=True EnableHistory=True"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtInPanel": "in the panel"
+      },
+      "Elements": {
+        "scriptOutput": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblMainRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSlow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHistory": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnFull": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "uprMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "progressText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTriggered": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTriggeredRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnOutside": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTimer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTicks": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tmrMain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnStartTimer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upLog": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "ScriptManager [viewstate][postdata] a postback trigger in the panel: a full postback",
+      "Path": "/ajaxscenario",
+      "Title": "AJAX controls scenario",
+      "Text": [
+        "Script: probe.js ran",
+        "Main panel, rendered by request 4",
+        "Triggered panel, rendered by request 4",
+        "bound",
+        "Timer panel, ticks: 0",
+        "Dynamic:",
+        "dynamic",
+        "Navigate step=(none) IsNavigating=False",
+        "Request 4: IsPostBack=True IsInAsyncPostBack=False",
+        "Click btnFull",
+        "State upMain UpdateMode=Conditional IsInPartialRendering=False",
+        "State upTriggered IsInPartialRendering=False",
+        "State txtInPanel Text=\"in the panel\"",
+        "State lblBound Text=\"bound\"",
+        "State lblInHidden Text=\"set while hidden\" (hidden)",
+        "State tmrMain Enabled=False Interval=1500",
+        "State lblDynamic Text=\"dynamic\"",
+        "State smPage EnablePartialRendering=True SupportsPartialRendering=True EnableHistory=True"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtInPanel": "in the panel"
+      },
+      "Elements": {
+        "scriptOutput": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblMainRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSlow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHistory": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnFull": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "uprMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "progressText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTriggered": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTriggeredRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnOutside": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTimer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTicks": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tmrMain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnStartTimer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upLog": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "ScriptManager [viewstate] while a slow request runs: the progress shown",
+      "Path": "/ajaxscenario",
+      "Title": "AJAX controls scenario",
+      "Text": [
+        "Script: probe.js ran",
+        "Main panel, rendered by request 4",
+        "Working...",
+        "Triggered panel, rendered by request 4",
+        "bound",
+        "Timer panel, ticks: 0",
+        "Dynamic:",
+        "dynamic",
+        "Navigate step=(none) IsNavigating=False",
+        "Request 4: IsPostBack=True IsInAsyncPostBack=False",
+        "Click btnFull",
+        "State upMain UpdateMode=Conditional IsInPartialRendering=False",
+        "State upTriggered IsInPartialRendering=False",
+        "State txtInPanel Text=\"in the panel\"",
+        "State lblBound Text=\"bound\"",
+        "State lblInHidden Text=\"set while hidden\" (hidden)",
+        "State tmrMain Enabled=False Interval=1500",
+        "State lblDynamic Text=\"dynamic\"",
+        "State smPage EnablePartialRendering=True SupportsPartialRendering=True EnableHistory=True"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtInPanel": "in the panel"
+      },
+      "Elements": {
+        "scriptOutput": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblMainRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSlow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHistory": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnFull": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "uprMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "progressText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTriggered": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTriggeredRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnOutside": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTimer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTicks": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tmrMain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnStartTimer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upLog": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "ScriptManager [viewstate] after the slow request: the progress hidden",
+      "Path": "/ajaxscenario",
+      "Title": "AJAX controls scenario",
+      "Text": [
+        "Script: probe.js ran",
+        "Main panel, rendered by request 5",
+        "Triggered panel, rendered by request 4",
+        "bound",
+        "Timer panel, ticks: 0",
+        "Dynamic:",
+        "dynamic",
+        "Request 5: IsPostBack=True IsInAsyncPostBack=True AsyncPostBackSourceElementID=btnSlow",
+        "Click btnSlow",
+        "State upMain UpdateMode=Conditional IsInPartialRendering=False",
+        "State upTriggered IsInPartialRendering=False",
+        "State txtInPanel Text=\"in the panel\"",
+        "State lblBound Text=\"bound\"",
+        "State lblInHidden Text=\"set while hidden\" (hidden)",
+        "State tmrMain Enabled=False Interval=1500",
+        "State lblDynamic Text=\"dynamic\"",
+        "State smPage EnablePartialRendering=True SupportsPartialRendering=True EnableHistory=True"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtInPanel": "in the panel"
+      },
+      "Elements": {
+        "scriptOutput": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblMainRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSlow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHistory": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnFull": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "uprMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "progressText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTriggered": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTriggeredRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnOutside": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTimer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTicks": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tmrMain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnStartTimer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upLog": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "ScriptManager [viewstate] the timer started: one tick, then stopped",
+      "Path": "/ajaxscenario",
+      "Title": "AJAX controls scenario",
+      "Text": [
+        "Script: probe.js ran",
+        "Main panel, rendered by request 5",
+        "Triggered panel, rendered by request 4",
+        "bound",
+        "Timer panel, ticks: 1",
+        "Dynamic:",
+        "dynamic",
+        "Request 7: IsPostBack=True IsInAsyncPostBack=True AsyncPostBackSourceElementID=tmrMain",
+        "Tick 1",
+        "State upMain UpdateMode=Conditional IsInPartialRendering=False",
+        "State upTriggered IsInPartialRendering=False",
+        "State txtInPanel Text=\"in the panel\"",
+        "State lblBound Text=\"bound\"",
+        "State lblInHidden Text=\"set while hidden\" (hidden)",
+        "State tmrMain Enabled=False Interval=1500",
+        "State lblDynamic Text=\"dynamic\"",
+        "State smPage EnablePartialRendering=True SupportsPartialRendering=True EnableHistory=True"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtInPanel": "in the panel"
+      },
+      "Elements": {
+        "scriptOutput": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblMainRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSlow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHistory": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnFull": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "uprMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "progressText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTriggered": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTriggeredRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnOutside": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTimer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTicks": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tmrMain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnStartTimer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upLog": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "ScriptManager [postbackevent] a history point, then the browser's back: the script manager's Navigate",
+      "Path": "/ajaxscenario",
+      "Title": "AJAX controls scenario",
+      "Text": [
+        "Script: probe.js ran",
+        "Main panel, rendered by request 8",
+        "Triggered panel, rendered by request 4",
+        "bound",
+        "Timer panel, ticks: 1",
+        "Dynamic:",
+        "dynamic",
+        "Request 9: IsPostBack=True IsInAsyncPostBack=True AsyncPostBackSourceElementID=smPage",
+        "Navigate step=(none) IsNavigating=True",
+        "State upMain UpdateMode=Conditional IsInPartialRendering=False",
+        "State upTriggered IsInPartialRendering=False",
+        "State txtInPanel Text=\"in the panel\"",
+        "State lblBound Text=\"bound\"",
+        "State lblInHidden Text=\"set while hidden\" (hidden)",
+        "State tmrMain Enabled=False Interval=1500",
+        "State lblDynamic Text=\"dynamic\"",
+        "State smPage EnablePartialRendering=True SupportsPartialRendering=True EnableHistory=True"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtInPanel": "in the panel"
+      },
+      "Elements": {
+        "scriptOutput": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblMainRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSlow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHistory": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnFull": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "uprMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "progressText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTriggered": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTriggeredRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnOutside": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTimer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTicks": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tmrMain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnStartTimer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upLog": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "ScriptManager [dynamic][viewstate] an asynchronous postback of the panel made in code",
+      "Path": "/ajaxscenario",
+      "Title": "AJAX controls scenario",
+      "Text": [
+        "Script: probe.js ran",
+        "Main panel, rendered by request 8",
+        "Triggered panel, rendered by request 4",
+        "bound",
+        "Timer panel, ticks: 1",
+        "Dynamic:",
+        "dynamic, posted",
+        "Request 10: IsPostBack=True IsInAsyncPostBack=True AsyncPostBackSourceElementID=btnDynamic",
+        "Click btnDynamic",
+        "State upMain UpdateMode=Conditional IsInPartialRendering=False",
+        "State upTriggered IsInPartialRendering=False",
+        "State txtInPanel Text=\"in the panel\"",
+        "State lblBound Text=\"bound\"",
+        "State lblInHidden Text=\"set while hidden\" (hidden)",
+        "State tmrMain Enabled=False Interval=1500",
+        "State lblDynamic Text=\"dynamic, posted\"",
+        "State smPage EnablePartialRendering=True SupportsPartialRendering=True EnableHistory=True"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtInPanel": "in the panel"
+      },
+      "Elements": {
+        "scriptOutput": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblMainRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSlow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHistory": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnFull": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "uprMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "progressText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTriggered": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTriggeredRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnOutside": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTimer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTicks": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tmrMain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnStartTimer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upLog": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "ScriptManager [visible][viewstate] a hidden panel shown with what was set while hidden",
+      "Path": "/ajaxscenario",
+      "Title": "AJAX controls scenario",
+      "Text": [
+        "Script: probe.js ran",
+        "Main panel, rendered by request 11",
+        "Triggered panel, rendered by request 11",
+        "bound",
+        "Hidden panel set while hidden",
+        "Timer panel, ticks: 1",
+        "Dynamic:",
+        "dynamic, posted",
+        "Navigate step=(none) IsNavigating=False",
+        "Request 11: IsPostBack=True IsInAsyncPostBack=False",
+        "Click btnShow",
+        "State upMain UpdateMode=Conditional IsInPartialRendering=False",
+        "State upTriggered IsInPartialRendering=False",
+        "State txtInPanel Text=\"in the panel\"",
+        "State lblBound Text=\"bound\"",
+        "State lblInHidden Text=\"set while hidden\"",
+        "State tmrMain Enabled=False Interval=1500",
+        "State lblDynamic Text=\"dynamic, posted\"",
+        "State smPage EnablePartialRendering=True SupportsPartialRendering=True EnableHistory=True"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtInPanel": "in the panel"
+      },
+      "Elements": {
+        "scriptOutput": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblMainRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnInPanel": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSlow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnHistory": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnFull": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "uprMain": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "progressText": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTriggered": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTriggeredRequest": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnOutside": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upBound": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblBound": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upHidden": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblInHidden": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "upTimer": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblTicks": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "tmrMain": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnStartTimer": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upDynamic": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblDynamic": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "upLog": {
+          "Tag": "div",
+          "Attributes": {},
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

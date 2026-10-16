@@ -111,9 +111,15 @@ namespace System.Web.UI {
 
             // hash the buffer
             byte[] fullHash;
+#if NETCOREAPP
+            // Port: for each control's postback in each request; .NET's one-shot hash, no algorithm object (its finalizable
+            // handle) made for it.
+            fullHash = SHA256.HashData(bufferToBeHashed);
+#else
             using (SHA256 hashAlgorithm = CryptoAlgorithms.CreateSHA256()) {
                 fullHash = hashAlgorithm.ComputeHash(bufferToBeHashed);
             }
+#endif
 
             // truncate to desired size; SHA evenly distributes entropy throughout the generated hash,
             // so for simplicity we'll just chop off the last several bytes

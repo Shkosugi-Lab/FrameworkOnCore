@@ -1,0 +1,520 @@
+{
+  "CompleteWizardStep.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "CompleteWizardStep.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "CompleteWizardStep.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "CompleteWizardStep.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.BindingContainer": [
+    "Control.BindingContainer = null"
+  ],
+  "CompleteWizardStep.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CompleteWizardStep.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "CompleteWizardStep.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.ClientID": [
+    "Control.ClientID = \"cwsComplete\""
+  ],
+  "CompleteWizardStep.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "CompleteWizardStep.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "CompleteWizardStep.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "CompleteWizardStep.Api.Control.Controls": [
+    "Control.Controls = ControlCollection [BaseContentTemplateContainer#]"
+  ],
+  "CompleteWizardStep.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "CompleteWizardStep.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "CompleteWizardStep.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "CompleteWizardStep.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "CompleteWizardStep.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "CompleteWizardStep.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "CompleteWizardStep.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "CompleteWizardStep.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "CompleteWizardStep.Api.Control.FindControl": [
+    "Control.FindControl(String) = null",
+    "Control.FindControl(String) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.Focus": [
+    "Control.Focus = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CompleteWizardStep.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CompleteWizardStep.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"-> System.InvalidOperationException: This control is not a descendent of the NamingContainer of 'lblTitle'.\""
+  ],
+  "CompleteWizardStep.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "CompleteWizardStep.Api.Control.HasControls": [
+    "Control.HasControls = \"true\"",
+    "Control.HasControls after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.ID": [
+    "Control.ID = \"cwsComplete\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "CompleteWizardStep.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "CompleteWizardStep.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "CompleteWizardStep.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "CompleteWizardStep.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "CompleteWizardStep.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "CompleteWizardStep.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "CompleteWizardStep.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "CompleteWizardStep.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "CompleteWizardStep.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CompleteWizardStep.Api.Control.NamingContainer": [
+    "Control.NamingContainer = null"
+  ],
+  "CompleteWizardStep.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CompleteWizardStep.Api.Control.Page": [
+    "Control.Page = null",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "CompleteWizardStep.Api.Control.Parent": [
+    "Control.Parent = MultiView#WizardMultiView {ActiveViewIndex=Int32 -1; ClientID=\"WizardMultiView\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"WizardMultiView\"; SkinID=\"\"; UniqueID=\"WizardMultiView\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "CompleteWizardStep.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "CompleteWizardStep.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"0\" style=\"height:100%;width:100%;border-collapse:collapse;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"height:100%;width:100%;\"></td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "Control.Render(HtmlTextWriter) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"0\" style=\"height:100%;width:100%;border-collapse:collapse;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"height:100%;width:100%;\"></td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "Control.RenderChildren(HtmlTextWriter) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"0\" style=\"height:100%;width:100%;border-collapse:collapse;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"height:100%;width:100%;\"></td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "Control.RenderControl(HtmlTextWriter) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"0\" style=\"height:100%;width:100%;border-collapse:collapse;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"height:100%;width:100%;\"><table style=\"height:100%;width:100%;\">",
+    "  | ",
+    "  | \t\t</table></td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cuwHost_cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cuwHost$cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "CompleteWizardStep.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "CompleteWizardStep.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "CompleteWizardStep.Api.Control.TemplateControl": [
+    "Control.TemplateControl = null",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "CompleteWizardStep.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "CompleteWizardStep.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.Control.UniqueID": [
+    "Control.UniqueID = \"cwsComplete\""
+  ],
+  "CompleteWizardStep.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "CompleteWizardStep.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "CompleteWizardStep.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "CompleteWizardStep.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "CompleteWizardStep.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "CompleteWizardStep.Api.Control.Visible": [
+    "Control.Visible = \"false\"",
+    "Control.Visible set = \"-> System.InvalidOperationException: The Visible property of a View control can only be set by setting the active View of a MultiView.\""
+  ],
+  "CompleteWizardStep.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "CompleteWizardStep.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "CompleteWizardStep.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "CompleteWizardStep.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "CompleteWizardStep.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "CompleteWizardStep.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "CompleteWizardStep.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.WebControls.CompleteWizardStep.#ctor": [
+    "CompleteWizardStep.#ctor = CompleteWizardStep# {AllowReturn=true; ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.WebControls.CompleteWizardStep.StepType": [
+    "CompleteWizardStep.StepType = \"WizardStepType.Complete\"",
+    "CompleteWizardStep.StepType set = \"-> System.InvalidOperationException: StepType cannot be changed.\""
+  ],
+  "CompleteWizardStep.Api.WebControls.CompleteWizardStep.Title": [
+    "CompleteWizardStep.Title = \"Complete\"",
+    "CompleteWizardStep.Title set = \"Abc 123\""
+  ],
+  "CompleteWizardStep.Api.WebControls.TemplatedWizardStep.#ctor": [
+    "TemplatedWizardStep.#ctor = TemplatedWizardStep# {AllowReturn=true; ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; Name=null; SkinID=\"\"; StepType=Auto; Title=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.WebControls.TemplatedWizardStep.ContentTemplate": [
+    "TemplatedWizardStep.ContentTemplate = null",
+    "TemplatedWizardStep.ContentTemplate set = null"
+  ],
+  "CompleteWizardStep.Api.WebControls.TemplatedWizardStep.ContentTemplateContainer": [
+    "TemplatedWizardStep.ContentTemplateContainer = BaseContentTemplateContainer# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CompleteWizardStep.Api.WebControls.TemplatedWizardStep.CustomNavigationTemplate": [
+    "TemplatedWizardStep.CustomNavigationTemplate = null",
+    "TemplatedWizardStep.CustomNavigationTemplate set = null"
+  ],
+  "CompleteWizardStep.Api.WebControls.TemplatedWizardStep.CustomNavigationTemplateContainer": [
+    "TemplatedWizardStep.CustomNavigationTemplateContainer = null"
+  ],
+  "CompleteWizardStep.Api.WebControls.TemplatedWizardStep.SkinID": [
+    "TemplatedWizardStep.SkinID = \"\"",
+    "TemplatedWizardStep.SkinID set = \"Abc 123\""
+  ],
+  "CompleteWizardStep.Api.WebControls.View.#ctor": [
+    "View.#ctor = View# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.WebControls.View.Activate": [
+    "View.Activate = \"added and removed\""
+  ],
+  "CompleteWizardStep.Api.WebControls.View.Deactivate": [
+    "View.Deactivate = \"added and removed\""
+  ],
+  "CompleteWizardStep.Api.WebControls.View.EnableTheming": [
+    "View.EnableTheming = \"true\"",
+    "View.EnableTheming set = \"true\""
+  ],
+  "CompleteWizardStep.Api.WebControls.View.OnActivate": [
+    "View.OnActivate(EventArgs) = \"ok\"",
+    "View.OnActivate(EventArgs) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.WebControls.View.OnDeactivate": [
+    "View.OnDeactivate(EventArgs) = \"ok\"",
+    "View.OnDeactivate(EventArgs) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.WebControls.View.Visible": [
+    "View.Visible = \"false\"",
+    "View.Visible set = \"-> System.InvalidOperationException: The Visible property of a View control can only be set by setting the active View of a MultiView.\""
+  ],
+  "CompleteWizardStep.Api.WebControls.WizardStepBase.#ctor": [
+    "WizardStepBase.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.WizardStepBase because it is an abstract class.\""
+  ],
+  "CompleteWizardStep.Api.WebControls.WizardStepBase.AllowReturn": [
+    "WizardStepBase.AllowReturn = \"true\"",
+    "WizardStepBase.AllowReturn set = \"true\""
+  ],
+  "CompleteWizardStep.Api.WebControls.WizardStepBase.EnableTheming": [
+    "WizardStepBase.EnableTheming = \"true\"",
+    "WizardStepBase.EnableTheming set = \"true\""
+  ],
+  "CompleteWizardStep.Api.WebControls.WizardStepBase.ID": [
+    "WizardStepBase.ID = \"cwsComplete\"",
+    "WizardStepBase.ID set = \"Abc 123\""
+  ],
+  "CompleteWizardStep.Api.WebControls.WizardStepBase.LoadViewState": [
+    "WizardStepBase.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "CompleteWizardStep.Api.WebControls.WizardStepBase.Name": [
+    "WizardStepBase.Name = \"Complete\""
+  ],
+  "CompleteWizardStep.Api.WebControls.WizardStepBase.OnLoad": [
+    "WizardStepBase.OnLoad(EventArgs) = \"ok\"",
+    "WizardStepBase.OnLoad(EventArgs) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.WebControls.WizardStepBase.RenderChildren": [
+    "WizardStepBase.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "WizardStepBase.RenderChildren(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"0\" style=\"height:100%;width:100%;border-collapse:collapse;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"height:100%;width:100%;\"></td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "WizardStepBase.RenderChildren(HtmlTextWriter) after = CompleteWizardStep#cwsComplete {AllowReturn=true; ClientID=\"cwsComplete\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"cwsComplete\"; Name=\"Complete\"; SkinID=\"\"; StepType=Complete; Title=\"Complete\"; UniqueID=\"cwsComplete\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false}"
+  ],
+  "CompleteWizardStep.Api.WebControls.WizardStepBase.StepType": [
+    "WizardStepBase.StepType = \"WizardStepType.Complete\"",
+    "WizardStepBase.StepType set = \"-> System.InvalidOperationException: StepType cannot be changed.\""
+  ],
+  "CompleteWizardStep.Api.WebControls.WizardStepBase.Title": [
+    "WizardStepBase.Title = \"Complete\"",
+    "WizardStepBase.Title set = \"Abc 123\""
+  ],
+  "CompleteWizardStep.Api.WebControls.WizardStepBase.Wizard": [
+    "WizardStepBase.Wizard = CreateUserWizard#cuwHost {AccessKey=\"\"; ActiveStepIndex=Int32 -1; Answer=\"\"; AnswerLabelText=\"Security Answer:\"; AnswerRequiredErrorMessage=\"Security answer is required.\"; AutoGeneratePassword=false; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CancelButtonImageUrl=\"\"; CancelButtonText=\"Cancel\"; CancelButtonType=Button; CancelDestinationPageUrl=\"\"; CellPadding=Int32 0; CellSpacing=Int32 0; ClientID=\"cuwHost\"; ClientIDMode=Inherit; CompleteSuccessText=\"Your account has been successfully created.\"; ConfirmPassword=\"\"; ConfirmPasswordCompareErrorMessage=\"The Password and Confirmation Password must match.\"; ConfirmPasswordLabelText=\"Confirm Password:\"; ConfirmPasswordRequiredErrorMessage=\"Confirm Password is required.\"; ContinueButtonImageUrl=\"\"; ContinueButtonText=\"Continue\"; ContinueButtonType=Button; ContinueDestinationPageUrl=\"\"; ControlStyleCreated=false; CreateUserButtonImageUrl=\"\"; CreateUserButtonText=\"Create User\"; CreateUserButtonType=Button; CssClass=\"\"; DisableCreatedUser=false; DisplayCancelButton=false; DisplaySideBar=false; DuplicateEmailErrorMessage=\"The e-mail address that you entered is already in use. Please enter a different e-mail address.\"; DuplicateUserNameErrorMessage=\"Please enter a different user name.\"; EditProfileIconUrl=\"\"; EditProfileText=\"\"; EditProfileUrl=\"\"; Email=\"\"; EmailLabelText=\"E-mail:\"; EmailRegularExpression=\"\"; EmailRegularExpressionErrorMessage=\"Please enter a different e-mail.\"; EmailRequiredErrorMessage=\"E-mail is required.\"; EnableTheming=true; EnableViewState=true; Enabled=true; FinishCompleteButtonImageUrl=\"\"; FinishCompleteButtonText=\"Finish\"; FinishCompleteButtonType=Button; FinishDestinationPageUrl=\"\"; FinishPreviousButtonImageUrl=\"\"; FinishPreviousButtonText=\"Previous\"; FinishPreviousButtonType=Button; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"\"; Height=; HelpPageIconUrl=\"\"; HelpPageText=\"\"; HelpPageUrl=\"\"; ID=\"cuwHost\"; InstructionText=\"\"; InvalidAnswerErrorMessage=\"Please enter a different security answer.\"; InvalidEmailErrorMessage=\"Please enter a valid e-mail address.\"; InvalidPasswordErrorMessage=\"Password length minimum: {0}. Non-alphanumeric characters required: {1}.\"; InvalidQuestionErrorMessage=\"Please enter a different security question.\"; LoginCreatedUser=true; MembershipProvider=\"\"; Password=\"\"; PasswordHintText=\"\"; PasswordLabelText=\"Password:\"; PasswordRegularExpression=\"\"; PasswordRegularExpressionErrorMessage=\"Please enter a different password.\"; PasswordRequiredErrorMessage=\"Password is required.\"; Question=\"\"; QuestionLabelText=\"Security Question:\"; QuestionRequiredErrorMessage=\"Security question is required.\"; RequireEmail=true; SkinID=\"\"; SkipLinkText=\"\"; StartNextButtonImageUrl=\"\"; StartNextButtonText=\"Next\"; StartNextButtonType=Button; StepNextButtonImageUrl=\"\"; StepNextButtonText=\"Next\"; StepNextButtonType=Button; StepPreviousButtonImageUrl=\"\"; StepPreviousButtonText=\"Previous\"; StepPreviousButtonType=Button; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"cuwHost\"; UnknownErrorMessage=\"Your account was not created. Please try again.\"; UserName=\"\"; UserNameLabelText=\"User Name:\"; UserNameRequiredErrorMessage=\"User Name is required.\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ]
+}

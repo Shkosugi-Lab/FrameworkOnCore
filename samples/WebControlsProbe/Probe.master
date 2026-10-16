@@ -1,0 +1,24 @@
+﻿<%@ Master Language="C#" AutoEventWireup="false" CodeBehind="Probe.master.cs" Inherits="WebControlsProbe.Probe" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Master page</title>
+    <asp:ContentPlaceHolder ID="cphHead" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <p>Master: <asp:Label ID="lblMaster" runat="server" Text='<%# MasterText %>' /></p>
+        <asp:ContentPlaceHolder ID="cphMain" runat="server">
+            <p>Default main content (replaced by the page's)</p>
+        </asp:ContentPlaceHolder>
+        <asp:ContentPlaceHolder ID="cphSide" runat="server">
+            <p>Default side content: <asp:Label ID="lblDefaultSide" runat="server" Text='<%# MasterText %>' /></p>
+        </asp:ContentPlaceHolder>
+        <asp:ContentPlaceHolder ID="cphHidden" runat="server" Visible="false">
+            <p>Hidden place holder's default</p>
+        </asp:ContentPlaceHolder>
+        <asp:ContentPlaceHolder ID="cphDynamic" runat="server" />
+        <asp:Button ID="btnMaster" runat="server" Text="Master's button" OnClick="MasterClicked" />
+    </form>
+</body>
+</html>

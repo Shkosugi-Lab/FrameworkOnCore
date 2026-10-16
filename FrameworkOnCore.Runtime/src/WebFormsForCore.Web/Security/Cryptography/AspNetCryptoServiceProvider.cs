@@ -71,10 +71,52 @@ namespace System.Web.Security.Cryptography {
             return new DataProtectorCryptoService(_dataProtectorFactory, purpose);
         }
 
+#if NETCOREAPP
+        // Port: a page's view state purpose is made in each request (its page's type, its directory, ViewStateUserKey as
+        // specific purposes), its keys derived again each time (SP800-108, HMACSHA512), new key objects each time (the keyed
+        // algorithms NetFXCryptoService keeps are kept for a key object). The keys derived for a purpose kept here by its
+        // primary and specific purposes, as many as DerivedKeysKept (more, all of them dropped: purposes with a user's key in
+        // them are as many as the users).
+        private readonly System.Collections.Concurrent.ConcurrentDictionary<string, CryptographicKey[]> _derivedKeys = new System.Collections.Concurrent.ConcurrentDictionary<string, CryptographicKey[]>(StringComparer.Ordinal);
+        private const int DerivedKeysKept = 1000;
+
+        private CryptographicKey[] GetDerivedKeys(Purpose purpose) {
+            var name = new System.Text.StringBuilder(purpose.PrimaryPurpose);
+            foreach (string specificPurpose in purpose.SpecificPurposes) {
+                name.Append('\0').Append(specificPurpose.Length).Append(':').Append(specificPurpose);
+            }
+            string key = name.ToString();
+            if (_derivedKeys.TryGetValue(key, out CryptographicKey[] keys)) {
+                return keys;
+            }
+            keys = new[] {
+                purpose.GetDerivedEncryptionKey(_masterKeyProvider, _keyDerivationFunction),
+                purpose.GetDerivedValidationKey(_masterKeyProvider, _keyDerivationFunction),
+            };
+            if (_derivedKeys.Count >= DerivedKeysKept) {
+                _derivedKeys.Clear();
+            }
+            return _derivedKeys.GetOrAdd(key, keys);
+        }
+#endif
+
         private NetFXCryptoService GetNetFXCryptoService(Purpose purpose, CryptoServiceOptions options) {
             // Extract the encryption and validation keys from the provided Purpose object
+#if NETCOREAPP
+            CryptographicKey encryptionKey, validationKey;
+            if (purpose.DerivedEncryptionKey == null && purpose.DerivedValidationKey == null) {
+                CryptographicKey[] keys = GetDerivedKeys(purpose);
+                encryptionKey = keys[0];
+                validationKey = keys[1];
+            }
+            else {
+                encryptionKey = purpose.GetDerivedEncryptionKey(_masterKeyProvider, _keyDerivationFunction);
+                validationKey = purpose.GetDerivedValidationKey(_masterKeyProvider, _keyDerivationFunction);
+            }
+#else
             CryptographicKey encryptionKey = purpose.GetDerivedEncryptionKey(_masterKeyProvider, _keyDerivationFunction);
             CryptographicKey validationKey = purpose.GetDerivedValidationKey(_masterKeyProvider, _keyDerivationFunction);
+#endif
 
             // and return the ICryptoService
             // (predictable IV turned on if the caller requested cacheable output)

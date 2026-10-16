@@ -6,10 +6,17 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        // IIS's request log (W3C), as the converter's Program.cs has it.
+        builder.AddWebFormsW3CLogging();
         builder.Services.AddDistributedMemoryCache();
         builder.Services.AddSession();
 
         var app = builder.Build();
+
+        app.UseWebFormsW3CLogging();
+        // IIS's features in front of the application (web.config's system.webServer, iis-profile.config): its response headers,
+        // URL Rewrite (UrlRewrite:Mode Iis, AspNetCore, Off), its HTTP redirection.
+        app.UseWebFormsIis();
 
         // IIS's default documents ("/" and "/folder/" serve default.aspx; web.config's defaultDocument), and its redirect of
         // "/folder" to "/folder/": FrameworkOnCore's host, as IIS does them.

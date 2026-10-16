@@ -1,0 +1,130 @@
+{
+  "_comment": "ASMX web services and page methods: JSON (a string, objects with __type, the session, the error, GET), SOAP 1.1 and 1.2 (the answer, the fault), the WSDL, the script proxy, the help page; a page method by POST; the page's scripts calling the page method and the service through ScriptManager's proxies.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=content-type&t=1&m=POST&ct=application%2Fjson%3B%20charset%3Dutf-8&b=%7B%22name%22%3A%22json%22%7D&u=/ProbeService.asmx/Hello"
+    },
+    {
+      "action": "snapshot",
+      "name": "json-Hello"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=content-type&t=1&m=POST&ct=application%2Fjson%3B%20charset%3Dutf-8&b=%7B%22count%22%3A2%7D&u=/ProbeService.asmx/Items"
+    },
+    {
+      "action": "snapshot",
+      "name": "json-Items: objects, __type"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=content-type&t=1&m=POST&ct=application%2Fjson%3B%20charset%3Dutf-8&b=%7B%7D&u=/ProbeService.asmx/Counter&u=/ProbeService.asmx/Counter"
+    },
+    {
+      "action": "snapshot",
+      "name": "json-Counter: the session (two calls)"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=content-type,jsonerror&t=1&m=POST&ct=application%2Fjson%3B%20charset%3Dutf-8&b=%7B%7D&u=/ProbeService.asmx/Fail"
+    },
+    {
+      "action": "snapshot",
+      "name": "json-Fail: the error"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=content-type&t=1&ct=application%2Fjson%3B%20charset%3Dutf-8&u=/ProbeService.asmx/When"
+    },
+    {
+      "action": "snapshot",
+      "name": "json-When by GET"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=content-type&t=1&m=POST&ct=application%2Fjson%3B%20charset%3Dutf-8&u=/ProbeService.asmx/Describe&b=%7B%7D"
+    },
+    {
+      "action": "snapshot",
+      "name": "json-Describe: System.Web.Services.Description in the application's code"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=content-type&t=1&ct=application%2Fjson%3B%20charset%3Dutf-8&u=/ProbeService.asmx/Hello%3Fname%3D%2522x%2522"
+    },
+    {
+      "action": "snapshot",
+      "name": "json-a method by GET that does not allow it"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=content-type&ct=application%2Fjson%3B%20charset%3Dutf-8&u=/ProbeService.asmx/Nothing"
+    },
+    {
+      "action": "snapshot",
+      "name": "json-a method that is not (its status: the error page's text is the local or the remote one by where the request comes from)"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=content-type&t=1&m=POST&ct=text%2Fxml%3B%20charset%3Dutf-8&b=%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3Csoap%3AEnvelope%20xmlns%3Asoap%3D%22http%3A%2F%2Fschemas.xmlsoap.org%2Fsoap%2Fenvelope%2F%22%3E%3Csoap%3ABody%3E%3CHello%20xmlns%3D%22http%3A%2F%2Fprobe.example%2F%22%3E%3Cname%3Esoap%3C%2Fname%3E%3C%2FHello%3E%3C%2Fsoap%3ABody%3E%3C%2Fsoap%3AEnvelope%3E&rh=SOAPAction%3A%22http%3A%2F%2Fprobe.example%2FHello%22&u=/ProbeService.asmx"
+    },
+    {
+      "action": "snapshot",
+      "name": "soap-1.1 Hello"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=content-type&t=1&m=POST&ct=application%2Fsoap%2Bxml%3B%20charset%3Dutf-8&b=%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3Csoap12%3AEnvelope%20xmlns%3Asoap12%3D%22http%3A%2F%2Fwww.w3.org%2F2003%2F05%2Fsoap-envelope%22%3E%3Csoap12%3ABody%3E%3CItems%20xmlns%3D%22http%3A%2F%2Fprobe.example%2F%22%3E%3Ccount%3E2%3C%2Fcount%3E%3C%2FItems%3E%3C%2Fsoap12%3ABody%3E%3C%2Fsoap12%3AEnvelope%3E&u=/ProbeService.asmx"
+    },
+    {
+      "action": "snapshot",
+      "name": "soap-1.2 Items"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=content-type&t=1&m=POST&ct=text%2Fxml%3B%20charset%3Dutf-8&b=%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3Csoap%3AEnvelope%20xmlns%3Asoap%3D%22http%3A%2F%2Fschemas.xmlsoap.org%2Fsoap%2Fenvelope%2F%22%3E%3Csoap%3ABody%3E%3CFail%20xmlns%3D%22http%3A%2F%2Fprobe.example%2F%22%20%2F%3E%3C%2Fsoap%3ABody%3E%3C%2Fsoap%3AEnvelope%3E&rh=SOAPAction%3A%22http%3A%2F%2Fprobe.example%2FFail%22&u=/ProbeService.asmx"
+    },
+    {
+      "action": "snapshot",
+      "name": "soap-1.1 Fail: the fault"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=content-type&u=/ProbeService.asmx%3Fwsdl&u=/ProbeService.asmx/js&u=/ProbeService.asmx/jsdebug&u=/ProbeService.asmx"
+    },
+    {
+      "action": "snapshot",
+      "name": "describe-the WSDL, the script proxy, the help page"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=content-type&t=1&u=/ProbeService.asmx/js"
+    },
+    {
+      "action": "snapshot",
+      "name": "describe-the script proxy text"
+    },
+    {
+      "action": "goto",
+      "path": "/Check.htm?h=content-type&t=1&m=POST&ct=application%2Fjson%3B%20charset%3Dutf-8&b=%7B%22text%22%3A%22fetched%22%7D&u=/Methods.aspx/Echo"
+    },
+    {
+      "action": "snapshot",
+      "name": "pagemethod-POST Methods.aspx/Echo"
+    },
+    {
+      "action": "goto",
+      "path": "/Methods.aspx"
+    },
+    {
+      "action": "waitMs",
+      "ms": 1500
+    },
+    {
+      "action": "snapshot",
+      "name": "script-a page method and the service from the page's scripts"
+    }
+  ]
+}

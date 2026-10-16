@@ -1,0 +1,57 @@
+Repeater.(default)	(nothing set)
+Repeater.AppRelativeTemplateSourceDirectory=text	c.AppRelativeTemplateSourceDirectory = "probe";
+Repeater.AppRelativeTemplateSourceDirectory=markup	c.AppRelativeTemplateSourceDirectory = "<b>\"&'</b>";
+Repeater.AppRelativeTemplateSourceDirectory=japanese	c.AppRelativeTemplateSourceDirectory = "日本語テキスト";
+Repeater.AppRelativeTemplateSourceDirectory=empty	c.AppRelativeTemplateSourceDirectory = "";
+Repeater.ClientIDMode=Inherit	c.ClientIDMode = ClientIDMode.Inherit;
+Repeater.ClientIDMode=AutoID	c.ClientIDMode = ClientIDMode.AutoID;
+Repeater.ClientIDMode=Predictable	c.ClientIDMode = ClientIDMode.Predictable;
+Repeater.ClientIDMode=Static	c.ClientIDMode = ClientIDMode.Static;
+Repeater.DataMember=text	c.DataMember = "probe";
+Repeater.DataMember=markup	c.DataMember = "<b>\"&'</b>";
+Repeater.DataMember=japanese	c.DataMember = "日本語テキスト";
+Repeater.DataMember=empty	c.DataMember = "";
+Repeater.DataSourceID=text	c.DataSourceID = "probe";
+Repeater.DataSourceID=markup	c.DataSourceID = "<b>\"&'</b>";
+Repeater.DataSourceID=japanese	c.DataSourceID = "日本語テキスト";
+Repeater.DataSourceID=empty	c.DataSourceID = "";
+Repeater.EnableTheming=true	c.EnableTheming = true;
+Repeater.EnableTheming=false	c.EnableTheming = false;
+Repeater.EnableViewState=true	c.EnableViewState = true;
+Repeater.EnableViewState=false	c.EnableViewState = false;
+Repeater.ID=text	c.ID = "probe";
+Repeater.ID=markup	c.ID = "<b>\"&'</b>";
+Repeater.ID=japanese	c.ID = "日本語テキスト";
+Repeater.ID=empty	c.ID = "";
+Repeater.ItemType=text	c.ItemType = "probe";
+Repeater.ItemType=markup	c.ItemType = "<b>\"&'</b>";
+Repeater.ItemType=japanese	c.ItemType = "日本語テキスト";
+Repeater.ItemType=empty	c.ItemType = "";
+Repeater.SelectMethod=text	c.SelectMethod = "probe";
+Repeater.SelectMethod=markup	c.SelectMethod = "<b>\"&'</b>";
+Repeater.SelectMethod=japanese	c.SelectMethod = "日本語テキスト";
+Repeater.SelectMethod=empty	c.SelectMethod = "";
+Repeater.SkinID=text	c.SkinID = "probe";
+Repeater.SkinID=markup	c.SkinID = "<b>\"&'</b>";
+Repeater.SkinID=japanese	c.SkinID = "日本語テキスト";
+Repeater.SkinID=empty	c.SkinID = "";
+Repeater.ValidateRequestMode=Inherit	c.ValidateRequestMode = ValidateRequestMode.Inherit;
+Repeater.ValidateRequestMode=Disabled	c.ValidateRequestMode = ValidateRequestMode.Disabled;
+Repeater.ValidateRequestMode=Enabled	c.ValidateRequestMode = ValidateRequestMode.Enabled;
+Repeater.ViewStateMode=Inherit	c.ViewStateMode = ViewStateMode.Inherit;
+Repeater.ViewStateMode=Enabled	c.ViewStateMode = ViewStateMode.Enabled;
+Repeater.ViewStateMode=Disabled	c.ViewStateMode = ViewStateMode.Disabled;
+Repeater.Visible=true	c.Visible = true;
+Repeater.Visible=false	c.Visible = false;
+Repeater.EnableViewState=false+Visible=false	c.EnableViewState = false; c.Visible = false;
+Repeater[naming container].(default)	[naming container] (nothing set)
+Repeater[naming container].ClientIDMode=AutoID	[naming container] c.ClientIDMode = ClientIDMode.AutoID;
+Repeater[naming container].ClientIDMode=Static	[naming container] c.ClientIDMode = ClientIDMode.Static;
+Repeater[naming container].ClientIDMode=Predictable	[naming container] c.ClientIDMode = ClientIDMode.Predictable;
+Repeater[naming container].ClientIDMode=Inherit	[naming container] c.ClientIDMode = ClientIDMode.Inherit;
+Repeater[naming container].ID=text	[naming container] c.ID = "probe";
+Repeater[templates].(default)	[templates] (nothing set)
+Repeater[templates].EnableViewState=false	[templates] c.EnableViewState = false;
+Repeater[templates].Visible=false	[templates] c.Visible = false;
+Repeater[empty].(default)	[empty] (nothing set)
+Repeater[no template].(default)	[no template] (nothing set)

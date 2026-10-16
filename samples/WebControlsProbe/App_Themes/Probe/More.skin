@@ -1,0 +1,11 @@
+﻿<%-- The theme's skins of the table parts, the file upload, the ad rotator, the calendar and the image map: named ones only (SkinID="probe"); a default skin of a type would change the controls other components make of it (a data list's cells). --%>
+<asp:Table runat="server" SkinID="probe" CssClass="skinned-probe" GridLines="Both" />
+<asp:TableRow runat="server" SkinID="probe" CssClass="skinned-probe" HorizontalAlign="Right" />
+<asp:TableHeaderRow runat="server" SkinID="probe" CssClass="skinned-probe" />
+<asp:TableFooterRow runat="server" SkinID="probe" CssClass="skinned-probe" />
+<asp:TableCell runat="server" SkinID="probe" CssClass="skinned-probe" Wrap="false" />
+<asp:TableHeaderCell runat="server" SkinID="probe" CssClass="skinned-probe" Scope="Column" />
+<asp:FileUpload runat="server" SkinID="probe" CssClass="skinned-probe" Width="300px" />
+<asp:AdRotator runat="server" SkinID="probe" CssClass="skinned-probe" Target="_blank" />
+<asp:Calendar runat="server" SkinID="probe" CssClass="skinned-probe" ShowGridLines="true" BackColor="#EEEEEE" />
+<asp:ImageMap runat="server" SkinID="probe" CssClass="skinned-probe" HotSpotMode="PostBack" />

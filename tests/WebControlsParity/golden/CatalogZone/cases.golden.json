@@ -1,0 +1,968 @@
+{
+  "CatalogZone.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "CatalogZone.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "CatalogZone.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "CatalogZone.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "CatalogZone.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CatalogZone.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "CatalogZone.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.ClientID": [
+    "Control.ClientID = \"czProbe\""
+  ],
+  "CatalogZone.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "CatalogZone.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "CatalogZone.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "CatalogZone.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "CatalogZone.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "CatalogZone.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "CatalogZone.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "CatalogZone.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "CatalogZone.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "CatalogZone.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "CatalogZone.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "CatalogZone.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "CatalogZone.Api.Control.FindControl": [
+    "Control.FindControl(String) = null",
+    "Control.FindControl(String) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "CatalogZone.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CatalogZone.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"czProbe\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "CatalogZone.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.ID": [
+    "Control.ID = \"czProbe\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "CatalogZone.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "CatalogZone.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "CatalogZone.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "CatalogZone.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "CatalogZone.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "CatalogZone.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "CatalogZone.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "CatalogZone.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "CatalogZone.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CatalogZone.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "CatalogZone.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"-> System.InvalidOperationException: You must enable Web Parts by adding a WebPartManager to your page.  The WebPartManager must be placed before any Web Part controls on the page.\""
+  ],
+  "CatalogZone.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "CatalogZone.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "CatalogZone.Api.Control.Parent": [
+    "Control.Parent = PlaceHolder# {ClientID=\"ctl00\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"ctl00\"; SkinID=\"\"; UniqueID=\"ctl00\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "CatalogZone.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "CatalogZone.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "CatalogZone.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "CatalogZone.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "CatalogZone.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "CatalogZone.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "CatalogZone.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "CatalogZone.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.Control.UniqueID": [
+    "Control.UniqueID = \"czProbe\""
+  ],
+  "CatalogZone.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "CatalogZone.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "CatalogZone.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "CatalogZone.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "CatalogZone.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "CatalogZone.Api.Control.Visible": [
+    "Control.Visible = \"false\"",
+    "Control.Visible set = \"-> System.InvalidOperationException: Cannot set the Visible property of a Tool Zone.  Override the ToolZone.Display property instead.\""
+  ],
+  "CatalogZone.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=true; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "CatalogZone.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "CatalogZone.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "CatalogZone.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "CatalogZone.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "CatalogZone.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "CatalogZone.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.IPostBackDataHandler.LoadPostData": [
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) = \"false\"",
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.IPostBackDataHandler.RaisePostDataChangedEvent": [
+    "IPostBackDataHandler.RaisePostDataChangedEvent = \"ok\"",
+    "IPostBackDataHandler.RaisePostDataChangedEvent after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.IPostBackEventHandler.RaisePostBackEvent": [
+    "IPostBackEventHandler.RaisePostBackEvent(String) = \"ok\"",
+    "IPostBackEventHandler.RaisePostBackEvent(String) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.CompositeControl.#ctor": [
+    "CompositeControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.CompositeControl because it is an abstract class.\""
+  ],
+  "CatalogZone.Api.WebControls.CompositeControl.Controls": [
+    "CompositeControl.Controls = ControlCollection []"
+  ],
+  "CatalogZone.Api.WebControls.CompositeControl.DataBind": [
+    "CompositeControl.DataBind = \"ok\"",
+    "CompositeControl.DataBind after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.CompositeControl.RecreateChildControls": [
+    "CompositeControl.RecreateChildControls = \"ok\"",
+    "CompositeControl.RecreateChildControls after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.CompositeControl.Render": [
+    "CompositeControl.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "CatalogZone.Api.WebControls.CompositeControl.SupportsDisabledAttribute": [
+    "CompositeControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "CatalogZone.Api.WebControls.ICompositeControlDesignerAccessor.RecreateChildControls": [
+    "ICompositeControlDesignerAccessor.RecreateChildControls = \"ok\"",
+    "ICompositeControlDesignerAccessor.RecreateChildControls after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}",
+    "WebControl.CreateControlStyle after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | <tr>",
+    "  | \t<td style=\"white-space:nowrap;\"><table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"width:100%;\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td style=\"width:100%;white-space:nowrap;\">Catalog Zone</td><td style=\"white-space:nowrap;\"><a title=\"Closes Zone\" href=\"javascript:__doPostBack(&#39;czProbe&#39;,&#39;headerClose&#39;)\">Close</a></td>",
+    "  | \t\t</tr>",
+    "  | \t</table></td>",
+    "  | </tr><tr>",
+    "  | \t<td style=\"height:100%;\"><table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"width:100%;height:100%;\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td valign=\"top\">Catalog Zone contains no Catalog Parts.</td>",
+    "  | \t\t</tr>",
+    "  | \t</table></td>",
+    "  | </tr><tr>",
+    "  | \t<td style=\"white-space:nowrap;\"><div style=\"margin:4px;\">",
+    "  | \t\t<label>Add to:</label>&nbsp;&nbsp;<input type=\"button\" value=\"Add\" disabled=\"disabled\" title=\"Adds a Web Part to a Zone\" class=\"Abc 123\" />&nbsp;<input type=\"button\" value=\"Close\" onclick=\"javascript:__doPostBack(&#39;czProbe&#39;,&#39;close&#39;)\" title=\"Closes Catalog\" />",
+    "  | \t</div></td>",
+    "  | </tr>",
+    "WebControl.RenderContents(HtmlTextWriter) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Table\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"table\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZone.#ctor": [
+    "WebParts.CatalogZone.#ctor = CatalogZone# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=null; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZone.CreateCatalogParts": [
+    "WebParts.CatalogZone.CreateCatalogParts = \"[]\"",
+    "WebParts.CatalogZone.CreateCatalogParts after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZone.ZoneTemplate": [
+    "WebParts.CatalogZone.ZoneTemplate = null",
+    "WebParts.CatalogZone.ZoneTemplate set = null"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.#ctor": [
+    "WebParts.CatalogZoneBase.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.WebParts.CatalogZoneBase because it is an abstract class.\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.AddVerb": [
+    "WebParts.CatalogZoneBase.AddVerb = WebPartCatalogAddVerb {Checked=false; ClientClickHandler=\"\"; Description=\"Adds a Web Part to a Zone\"; Enabled=true; ID=\"\"; ImageUrl=\"\"; Text=\"Add\"; Visible=true}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.CatalogPartChrome": [
+    "WebParts.CatalogZoneBase.CatalogPartChrome = CatalogPartChrome {}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.CatalogParts": [
+    "WebParts.CatalogZoneBase.CatalogParts = \"[]\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.Close": [
+    "WebParts.CatalogZoneBase.Close = \"ok\"",
+    "WebParts.CatalogZoneBase.Close after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.CloseVerb": [
+    "WebParts.CatalogZoneBase.CloseVerb = WebPartCatalogCloseVerb {Checked=false; ClientClickHandler=\"\"; Description=\"Closes Catalog\"; Enabled=true; ID=\"\"; ImageUrl=\"\"; Text=\"Close\"; Visible=true}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.CreateCatalogPartChrome": [
+    "WebParts.CatalogZoneBase.CreateCatalogPartChrome = CatalogPartChrome {}",
+    "WebParts.CatalogZoneBase.CreateCatalogPartChrome after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.CreateCatalogParts": [
+    "WebParts.CatalogZoneBase.CreateCatalogParts = \"[]\"",
+    "WebParts.CatalogZoneBase.CreateCatalogParts after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.CreateChildControls": [
+    "WebParts.CatalogZoneBase.CreateChildControls = \"ok\"",
+    "WebParts.CatalogZoneBase.CreateChildControls after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.EmptyZoneText": [
+    "WebParts.CatalogZoneBase.EmptyZoneText = \"Catalog Zone contains no Catalog Parts.\"",
+    "WebParts.CatalogZoneBase.EmptyZoneText set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.HeaderText": [
+    "WebParts.CatalogZoneBase.HeaderText = \"Catalog Zone\"",
+    "WebParts.CatalogZoneBase.HeaderText set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.InstructionText": [
+    "WebParts.CatalogZoneBase.InstructionText = \"Select the catalog you would like to browse.\"",
+    "WebParts.CatalogZoneBase.InstructionText set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.InvalidateCatalogParts": [
+    "WebParts.CatalogZoneBase.InvalidateCatalogParts = \"ok\"",
+    "WebParts.CatalogZoneBase.InvalidateCatalogParts after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.LoadControlState": [
+    "WebParts.CatalogZoneBase.LoadControlState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.LoadPostData": [
+    "WebParts.CatalogZoneBase.LoadPostData(String,NameValueCollection) = \"false\"",
+    "WebParts.CatalogZoneBase.LoadPostData(String,NameValueCollection) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.LoadViewState": [
+    "WebParts.CatalogZoneBase.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.OnInit": [
+    "WebParts.CatalogZoneBase.OnInit(EventArgs) = \"-> System.InvalidOperationException: You must enable Web Parts by adding a WebPartManager to your page.  The WebPartManager must be placed before any Web Part controls on the page.\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.OnPreRender": [
+    "WebParts.CatalogZoneBase.OnPreRender(EventArgs) = \"ok\"",
+    "WebParts.CatalogZoneBase.OnPreRender(EventArgs) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.PartLinkStyle": [
+    "WebParts.CatalogZoneBase.PartLinkStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.RaisePostBackEvent": [
+    "WebParts.CatalogZoneBase.RaisePostBackEvent(String) = \"ok\"",
+    "WebParts.CatalogZoneBase.RaisePostBackEvent(String) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.Render": [
+    "WebParts.CatalogZoneBase.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.RenderBody": [
+    "WebParts.CatalogZoneBase.RenderBody(HtmlTextWriter) = \"ok\"",
+    "WebParts.CatalogZoneBase.RenderBody(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"width:100%;height:100%;\">",
+    "  | \t<tr>",
+    "  | \t\t<td valign=\"top\">Catalog Zone contains no Catalog Parts.</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "WebParts.CatalogZoneBase.RenderBody(HtmlTextWriter) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.RenderCatalogPartLinks": [
+    "WebParts.CatalogZoneBase.RenderCatalogPartLinks(HtmlTextWriter) = \"ok\"",
+    "WebParts.CatalogZoneBase.RenderCatalogPartLinks(HtmlTextWriter) writer:",
+    "  | <span>Select the catalog you would like to browse.</span><br /><br /><br />",
+    "WebParts.CatalogZoneBase.RenderCatalogPartLinks(HtmlTextWriter) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.RenderFooter": [
+    "WebParts.CatalogZoneBase.RenderFooter(HtmlTextWriter) = \"ok\"",
+    "WebParts.CatalogZoneBase.RenderFooter(HtmlTextWriter) writer:",
+    "  | <div style=\"margin:4px;\">",
+    "  | \t<label>Add to:</label>&nbsp;&nbsp;<input type=\"button\" value=\"Add\" disabled=\"disabled\" title=\"Adds a Web Part to a Zone\" class=\"Abc 123\" />&nbsp;<input type=\"button\" value=\"Close\" onclick=\"javascript:__doPostBack(&#39;czProbe&#39;,&#39;close&#39;)\" title=\"Closes Catalog\" />",
+    "  | </div>",
+    "WebParts.CatalogZoneBase.RenderFooter(HtmlTextWriter) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.RenderVerbs": [
+    "WebParts.CatalogZoneBase.RenderVerbs(HtmlTextWriter) = \"ok\"",
+    "WebParts.CatalogZoneBase.RenderVerbs(HtmlTextWriter) writer:",
+    "  | <input type=\"button\" value=\"Add\" disabled=\"disabled\" title=\"Adds a Web Part to a Zone\" class=\"Abc 123\" />&nbsp;<input type=\"button\" value=\"Close\" onclick=\"javascript:__doPostBack(&#39;czProbe&#39;,&#39;close&#39;)\" title=\"Closes Catalog\" />",
+    "WebParts.CatalogZoneBase.RenderVerbs(HtmlTextWriter) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.SaveControlState": [
+    "WebParts.CatalogZoneBase.SaveControlState = null",
+    "WebParts.CatalogZoneBase.SaveControlState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.SaveViewState": [
+    "WebParts.CatalogZoneBase.SaveViewState = null",
+    "WebParts.CatalogZoneBase.SaveViewState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.SelectTargetZoneText": [
+    "WebParts.CatalogZoneBase.SelectTargetZoneText = \"Add to:\"",
+    "WebParts.CatalogZoneBase.SelectTargetZoneText set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.SelectedCatalogPartID": [
+    "WebParts.CatalogZoneBase.SelectedCatalogPartID = \"\"",
+    "WebParts.CatalogZoneBase.SelectedCatalogPartID set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.SelectedPartLinkStyle": [
+    "WebParts.CatalogZoneBase.SelectedPartLinkStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.ShowCatalogIcons": [
+    "WebParts.CatalogZoneBase.ShowCatalogIcons = \"true\"",
+    "WebParts.CatalogZoneBase.ShowCatalogIcons set = \"true\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.CatalogZoneBase.TrackViewState": [
+    "WebParts.CatalogZoneBase.TrackViewState = \"ok\"",
+    "WebParts.CatalogZoneBase.TrackViewState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.#ctor": [
+    "WebParts.ToolZone.#ctor(ICollection) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.WebParts.ToolZone because it is an abstract class.\"",
+    "WebParts.ToolZone.#ctor(WebParts.WebPartDisplayMode) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.WebParts.ToolZone because it is an abstract class.\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.AssociatedDisplayModes": [
+    "WebParts.ToolZone.AssociatedDisplayModes = \"[System.Web.UI.WebControls.WebParts.WebPartManager+CatalogWebPartDisplayMode]\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.Close": [
+    "WebParts.ToolZone.Close = \"ok\"",
+    "WebParts.ToolZone.Close after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.Display": [
+    "WebParts.ToolZone.Display = \"false\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.EditUIStyle": [
+    "WebParts.ToolZone.EditUIStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.HeaderCloseVerb": [
+    "WebParts.ToolZone.HeaderCloseVerb = WebPartHeaderCloseVerb {Checked=false; ClientClickHandler=\"\"; Description=\"Closes Zone\"; Enabled=true; ID=\"\"; ImageUrl=\"\"; Text=\"Close\"; Visible=true}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.HeaderVerbStyle": [
+    "WebParts.ToolZone.HeaderVerbStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.InstructionText": [
+    "WebParts.ToolZone.InstructionText = \"Select the catalog you would like to browse.\"",
+    "WebParts.ToolZone.InstructionText set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.InstructionTextStyle": [
+    "WebParts.ToolZone.InstructionTextStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.LabelStyle": [
+    "WebParts.ToolZone.LabelStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.LoadViewState": [
+    "WebParts.ToolZone.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.OnDisplayModeChanged": [
+    "WebParts.ToolZone.OnDisplayModeChanged(Object,WebParts.WebPartDisplayModeEventArgs) = \"ok\"",
+    "WebParts.ToolZone.OnDisplayModeChanged(Object,WebParts.WebPartDisplayModeEventArgs) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.OnInit": [
+    "WebParts.ToolZone.OnInit(EventArgs) = \"-> System.InvalidOperationException: You must enable Web Parts by adding a WebPartManager to your page.  The WebPartManager must be placed before any Web Part controls on the page.\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.OnSelectedWebPartChanged": [
+    "WebParts.ToolZone.OnSelectedWebPartChanged(Object,WebParts.WebPartEventArgs) = \"ok\"",
+    "WebParts.ToolZone.OnSelectedWebPartChanged(Object,WebParts.WebPartEventArgs) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.RaisePostBackEvent": [
+    "WebParts.ToolZone.RaisePostBackEvent(String) = \"ok\"",
+    "WebParts.ToolZone.RaisePostBackEvent(String) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.RenderFooter": [
+    "WebParts.ToolZone.RenderFooter(HtmlTextWriter) = \"ok\"",
+    "WebParts.ToolZone.RenderFooter(HtmlTextWriter) writer:",
+    "  | <div style=\"margin:4px;\">",
+    "  | \t<label>Add to:</label>&nbsp;&nbsp;<input type=\"button\" value=\"Add\" disabled=\"disabled\" title=\"Adds a Web Part to a Zone\" class=\"Abc 123\" />&nbsp;<input type=\"button\" value=\"Close\" onclick=\"javascript:__doPostBack(&#39;czProbe&#39;,&#39;close&#39;)\" title=\"Closes Catalog\" />",
+    "  | </div>",
+    "WebParts.ToolZone.RenderFooter(HtmlTextWriter) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.RenderHeader": [
+    "WebParts.ToolZone.RenderHeader(HtmlTextWriter) = \"ok\"",
+    "WebParts.ToolZone.RenderHeader(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"width:100%;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"width:100%;white-space:nowrap;\">Catalog Zone</td><td style=\"white-space:nowrap;\"><a title=\"Closes Zone\" href=\"javascript:__doPostBack(&#39;czProbe&#39;,&#39;headerClose&#39;)\">Close</a></td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "WebParts.ToolZone.RenderHeader(HtmlTextWriter) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.RenderVerb": [
+    "WebParts.ToolZone.RenderVerb(HtmlTextWriter,WebParts.WebPartVerb) = \"ok\"",
+    "WebParts.ToolZone.RenderVerb(HtmlTextWriter,WebParts.WebPartVerb) writer:",
+    "  | <input type=\"button\" value=\"\" onclick=\"javascript:__doPostBack(&#39;&#39;,&#39;&#39;)\" />",
+    "WebParts.ToolZone.RenderVerb(HtmlTextWriter,WebParts.WebPartVerb) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.RenderVerbs": [
+    "WebParts.ToolZone.RenderVerbs(HtmlTextWriter) = \"ok\"",
+    "WebParts.ToolZone.RenderVerbs(HtmlTextWriter) writer:",
+    "  | <input type=\"button\" value=\"Add\" disabled=\"disabled\" title=\"Adds a Web Part to a Zone\" class=\"Abc 123\" />&nbsp;<input type=\"button\" value=\"Close\" onclick=\"javascript:__doPostBack(&#39;czProbe&#39;,&#39;close&#39;)\" title=\"Closes Catalog\" />",
+    "WebParts.ToolZone.RenderVerbs(HtmlTextWriter) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.SaveViewState": [
+    "WebParts.ToolZone.SaveViewState = null",
+    "WebParts.ToolZone.SaveViewState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.TrackViewState": [
+    "WebParts.ToolZone.TrackViewState = \"ok\"",
+    "WebParts.ToolZone.TrackViewState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.ToolZone.Visible": [
+    "WebParts.ToolZone.Visible = \"false\"",
+    "WebParts.ToolZone.Visible set = \"-> System.InvalidOperationException: Cannot set the Visible property of a Tool Zone.  Override the ToolZone.Display property instead.\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.BackImageUrl": [
+    "WebParts.WebZone.BackImageUrl = \"\"",
+    "WebParts.WebZone.BackImageUrl set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.EmptyZoneText": [
+    "WebParts.WebZone.EmptyZoneText = \"Catalog Zone contains no Catalog Parts.\"",
+    "WebParts.WebZone.EmptyZoneText set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.EmptyZoneTextStyle": [
+    "WebParts.WebZone.EmptyZoneTextStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.ErrorStyle": [
+    "WebParts.WebZone.ErrorStyle = ErrorStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #FFFF0000 Color [Red]; Height=; IsEmpty=false; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.FooterStyle": [
+    "WebParts.WebZone.FooterStyle = TitleStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=false; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=false}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.GetEffectiveChromeType": [
+    "WebParts.WebZone.GetEffectiveChromeType(WebParts.Part) = \"-> System.ArgumentNullException: Value cannot be null. [param part]\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.HasFooter": [
+    "WebParts.WebZone.HasFooter = \"true\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.HasHeader": [
+    "WebParts.WebZone.HasHeader = \"true\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.HeaderStyle": [
+    "WebParts.WebZone.HeaderStyle = TitleStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=false; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=false}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.HeaderText": [
+    "WebParts.WebZone.HeaderText = \"Catalog Zone\"",
+    "WebParts.WebZone.HeaderText set = \"Abc 123\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.LoadViewState": [
+    "WebParts.WebZone.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.OnInit": [
+    "WebParts.WebZone.OnInit(EventArgs) = \"-> System.InvalidOperationException: You must enable Web Parts by adding a WebPartManager to your page.  The WebPartManager must be placed before any Web Part controls on the page.\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.OnPreRender": [
+    "WebParts.WebZone.OnPreRender(EventArgs) = \"ok\"",
+    "WebParts.WebZone.OnPreRender(EventArgs) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.Padding": [
+    "WebParts.WebZone.Padding = \"Int32 2\"",
+    "WebParts.WebZone.Padding set = \"Int32 1\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.PartChromePadding": [
+    "WebParts.WebZone.PartChromePadding = Unit 5px",
+    "WebParts.WebZone.PartChromePadding set = Unit 120px"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.PartChromeStyle": [
+    "WebParts.WebZone.PartChromeStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.PartChromeType": [
+    "WebParts.WebZone.PartChromeType = \"PartChromeType.Default\"",
+    "WebParts.WebZone.PartChromeType set = \"PartChromeType.TitleAndBorder\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.PartStyle": [
+    "WebParts.WebZone.PartStyle = TableStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CellPadding=Int32 -1; CellSpacing=Int32 -1; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; GridLines=None; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.PartTitleStyle": [
+    "WebParts.WebZone.PartTitleStyle = TitleStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=false; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=false}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.RenderBeginTag": [
+    "WebParts.WebZone.RenderBeginTag(HtmlTextWriter) = \"-> System.Web.HttpException: Request is not available in this context\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.RenderBody": [
+    "WebParts.WebZone.RenderBody(HtmlTextWriter) = \"ok\"",
+    "WebParts.WebZone.RenderBody(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"width:100%;height:100%;\">",
+    "  | \t<tr>",
+    "  | \t\t<td valign=\"top\">Catalog Zone contains no Catalog Parts.</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "WebParts.WebZone.RenderBody(HtmlTextWriter) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.RenderClientScript": [
+    "WebParts.WebZone.RenderClientScript = \"false\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.RenderContents": [
+    "WebParts.WebZone.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebParts.WebZone.RenderContents(HtmlTextWriter) writer:",
+    "  | <tr>",
+    "  | \t<td style=\"white-space:nowrap;\"><table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"width:100%;\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td style=\"width:100%;white-space:nowrap;\">Catalog Zone</td><td style=\"white-space:nowrap;\"><a title=\"Closes Zone\" href=\"javascript:__doPostBack(&#39;czProbe&#39;,&#39;headerClose&#39;)\">Close</a></td>",
+    "  | \t\t</tr>",
+    "  | \t</table></td>",
+    "  | </tr><tr>",
+    "  | \t<td style=\"height:100%;\"><table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"width:100%;height:100%;\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td valign=\"top\">Catalog Zone contains no Catalog Parts.</td>",
+    "  | \t\t</tr>",
+    "  | \t</table></td>",
+    "  | </tr><tr>",
+    "  | \t<td style=\"white-space:nowrap;\"><div style=\"margin:4px;\">",
+    "  | \t\t<label>Add to:</label>&nbsp;&nbsp;<input type=\"button\" value=\"Add\" disabled=\"disabled\" title=\"Adds a Web Part to a Zone\" class=\"Abc 123\" />&nbsp;<input type=\"button\" value=\"Close\" onclick=\"javascript:__doPostBack(&#39;czProbe&#39;,&#39;close&#39;)\" title=\"Closes Catalog\" />",
+    "  | \t</div></td>",
+    "  | </tr>",
+    "WebParts.WebZone.RenderContents(HtmlTextWriter) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.RenderFooter": [
+    "WebParts.WebZone.RenderFooter(HtmlTextWriter) = \"ok\"",
+    "WebParts.WebZone.RenderFooter(HtmlTextWriter) writer:",
+    "  | <div style=\"margin:4px;\">",
+    "  | \t<label>Add to:</label>&nbsp;&nbsp;<input type=\"button\" value=\"Add\" disabled=\"disabled\" title=\"Adds a Web Part to a Zone\" class=\"Abc 123\" />&nbsp;<input type=\"button\" value=\"Close\" onclick=\"javascript:__doPostBack(&#39;czProbe&#39;,&#39;close&#39;)\" title=\"Closes Catalog\" />",
+    "  | </div>",
+    "WebParts.WebZone.RenderFooter(HtmlTextWriter) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.RenderHeader": [
+    "WebParts.WebZone.RenderHeader(HtmlTextWriter) = \"ok\"",
+    "WebParts.WebZone.RenderHeader(HtmlTextWriter) writer:",
+    "  | <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\" style=\"width:100%;\">",
+    "  | \t<tr>",
+    "  | \t\t<td style=\"width:100%;white-space:nowrap;\">Catalog Zone</td><td style=\"white-space:nowrap;\"><a title=\"Closes Zone\" href=\"javascript:__doPostBack(&#39;czProbe&#39;,&#39;headerClose&#39;)\">Close</a></td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "WebParts.WebZone.RenderHeader(HtmlTextWriter) after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.SaveViewState": [
+    "WebParts.WebZone.SaveViewState = null",
+    "WebParts.WebZone.SaveViewState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.TagKey": [
+    "WebParts.WebZone.TagKey = \"HtmlTextWriterTag.Table\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.TrackViewState": [
+    "WebParts.WebZone.TrackViewState = \"ok\"",
+    "WebParts.WebZone.TrackViewState after = CatalogZone#czProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"czProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EmptyZoneText=\"Catalog Zone contains no Catalog Parts.\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; HeaderText=\"Catalog Zone\"; Height=; ID=\"czProbe\"; InstructionText=\"Select the catalog you would like to browse.\"; Padding=Int32 2; PartChromePadding=5px; PartChromeType=Default; SelectTargetZoneText=\"Add to:\"; SelectedCatalogPartID=\"\"; ShowCatalogIcons=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"czProbe\"; ValidateRequestMode=Inherit; VerbButtonType=Button; ViewStateMode=Inherit; Visible=false; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.VerbButtonType": [
+    "WebParts.WebZone.VerbButtonType = \"ButtonType.Button\"",
+    "WebParts.WebZone.VerbButtonType set = \"ButtonType.Image\""
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.VerbStyle": [
+    "WebParts.WebZone.VerbStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "CatalogZone.Api.WebControls.WebParts.WebZone.WebPartManager": [
+    "WebParts.WebZone.WebPartManager = null"
+  ]
+}

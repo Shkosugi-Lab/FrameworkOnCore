@@ -1,0 +1,54 @@
+{
+  "_comment": "The Button's scenario layer (ButtonScenario.aspx, ButtonTarget.aspx; tests/WebControlsParity/README.md). A snapshot's tags ([postbackevent]...) are the mechanisms it covers: the report's mechanism coverage reads them. The log's request number is kept in view state: a click the browser cancelled leaves it as it was.",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/ButtonScenario.aspx" },
+    { "action": "snapshot", "name": "Button [render][databind][disabled] first request" },
+
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "Button [postbackevent][command][viewstate] submit button: Click, then Command" },
+
+    { "action": "click", "target": "btnScript" },
+    { "action": "snapshot", "name": "Button [postbackevent][submitbehavior] script postback (UseSubmitBehavior=false)" },
+
+    { "action": "click", "target": "btnConfirmNo" },
+    { "action": "snapshot", "name": "Button [clientclick] OnClientClick returns false: no request" },
+
+    { "action": "click", "target": "btnConfirmYes" },
+    { "action": "snapshot", "name": "Button [clientclick][postbackevent] OnClientClick returns true" },
+
+    { "action": "click", "target": "btnValidate" },
+    { "action": "snapshot", "name": "Button [causesvalidation] group g1, empty: invalid, Click raised" },
+
+    { "action": "fill", "target": "txtRequired", "value": "x" },
+    { "action": "click", "target": "btnValidate" },
+    { "action": "snapshot", "name": "Button [causesvalidation] group g1, filled: valid" },
+
+    { "action": "fill", "target": "txtRequired", "value": "" },
+    { "action": "click", "target": "btnNoValidate" },
+    { "action": "snapshot", "name": "Button [causesvalidation] CausesValidation=false: not validated" },
+
+    { "action": "click", "target": "btnClient" },
+    { "action": "snapshot", "name": "Button [causesvalidation] group g2 validated in the browser: no request" },
+
+    { "action": "click", "target": "btnPick" },
+    { "action": "snapshot", "name": "Button [command][databind] Command bubbled from a repeater item" },
+
+    { "action": "fill", "target": "txtDefault", "value": "enter" },
+    { "action": "press", "target": "txtDefault", "value": "Enter" },
+    { "action": "snapshot", "name": "Button [defaultbutton] Enter in a panel with DefaultButton" },
+
+    { "action": "click", "target": "btnDynamic" },
+    { "action": "snapshot", "name": "Button [dynamic][postbackevent] dynamically created button" },
+
+    { "action": "click", "target": "btnShow" },
+    { "action": "snapshot", "name": "Button [visible][viewstate] hidden button shown, its text changed" },
+
+    { "action": "click", "target": "btnHidden" },
+    { "action": "snapshot", "name": "Button [visible][viewstate][postbackevent] the button shown before raises Click, its text kept" },
+
+    { "action": "fill", "target": "txtCross", "value": "cross" },
+    { "action": "click", "target": "btnCross" },
+    { "action": "snapshot", "name": "Button [crosspage] cross-page postback (PostBackUrl)" }
+  ]
+}

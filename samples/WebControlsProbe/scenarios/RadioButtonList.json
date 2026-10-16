@@ -1,0 +1,44 @@
+{
+  "_comment": "The RadioButtonList's scenario layer (ListControlsScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/ListControlsScenario.aspx" },
+    { "action": "snapshot", "name": "RadioButtonList [render][databind][items] first request" },
+
+    { "action": "click", "target": "btnG2" },
+    { "action": "snapshot", "name": "RadioButtonList [validation] group g2, nothing chosen" },
+
+    { "action": "check", "target": "rblSize_2" },
+    { "action": "check", "target": "rblDynamic_1" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "RadioButtonList [postdata][change][dynamic] radios chosen" },
+
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "RadioButtonList [viewstate] posted again unchanged" },
+
+    { "action": "click", "target": "btnG2" },
+    { "action": "snapshot", "name": "RadioButtonList [validation] group g2, chosen" },
+
+    { "action": "check", "target": "rblAuto_1" },
+    { "action": "snapshot", "name": "RadioButtonList [autopostback][change] auto postback" },
+
+    { "action": "click", "target": "btnG3" },
+    { "action": "snapshot", "name": "RadioButtonList [clientvalidation] group g3 in the browser: no request" },
+
+    { "action": "click", "target": "btnShow" },
+    { "action": "snapshot", "name": "RadioButtonList [visible][viewstate][items] hidden lists shown with the items added in code" },
+
+    { "action": "check", "target": "rblBind_0" },
+    { "action": "click", "target": "btnUpdate" },
+    { "action": "snapshot", "name": "RadioButtonList [bind] two-way binding in a template" },
+
+    { "action": "evaluate", "target": "rblSize_0", "value": "e.value = 'X'; e.checked = true;" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "RadioButtonList [eventvalidation] a value the list does not have posted" },
+
+    { "action": "goto", "path": "/ListControlsScenario.aspx" },
+    { "action": "evaluate", "target": "rblSize_0", "value": "e.value = '<b>x</b>'; e.checked = true;" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "RadioButtonList [requestvalidation] markup posted" }
+  ]
+}

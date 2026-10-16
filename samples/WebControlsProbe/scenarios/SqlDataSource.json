@@ -1,0 +1,175 @@
+{
+  "_comment": "The SqlDataSource's scenario layer (DataSourceScenario.aspx; tests/WebControlsParity/README.md; written by more-scenarios.py). A snapshot's tags are the mechanisms it covers.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/DataSourceScenario.aspx?reset=1"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [render][databind][dynamic] first request: grids bound to each data source, the Access data source selected in code, ones made in code"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvObject",
+      "value": "Edit"
+    },
+    {
+      "action": "evaluate",
+      "target": "gvObject",
+      "value": "const inputs = e.querySelectorAll(\"input[type=text]\"); inputs[0].value = \"Pen (edited)\";"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvObject",
+      "value": "Update"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [viewstate] an object data source's row updated"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvObject",
+      "value": "Delete"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [viewstate] an object data source's row deleted"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvSql",
+      "value": "Name"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [viewstate] a SQL data source sorted"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvSql",
+      "value": "Edit"
+    },
+    {
+      "action": "evaluate",
+      "target": "gvSql",
+      "value": "const inputs = e.querySelectorAll(\"input[type=text]\"); inputs[0].value = \"Bag (edited)\"; inputs[1].value = \"25.5\";"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvSql",
+      "value": "Update"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [viewstate] a SQL data source's row updated (its update command's parameters)"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvSql",
+      "value": "Delete"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [viewstate] a SQL data source's row deleted"
+    },
+    {
+      "action": "evaluate",
+      "target": "dvSqlInsert",
+      "value": "const inputs = e.querySelectorAll(\"input[type=text]\"); inputs[0].value = \"Z9\"; inputs[1].value = \"Zipper\"; inputs[2].value = \"9.5\";"
+    },
+    {
+      "action": "clicktextin",
+      "target": "dvSqlInsert",
+      "value": "Insert"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [viewstate] a SQL data source's row inserted"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvLinq",
+      "value": "2"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [viewstate] a LINQ data source paged"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvLinq",
+      "value": "Price"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [viewstate] a LINQ data source sorted"
+    },
+    {
+      "action": "fill",
+      "target": "txtMinimum",
+      "value": "100"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [viewstate] a LINQ data source's where parameter from a text box"
+    },
+    {
+      "action": "fill",
+      "target": "txtSearch",
+      "value": "a"
+    },
+    {
+      "action": "click",
+      "target": "btnSubmit"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [viewstate] a query extender's search from a text box"
+    },
+    {
+      "action": "click",
+      "target": "btnModel"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [viewstate] a model error shown"
+    },
+    {
+      "action": "fill",
+      "target": "txtModelName",
+      "value": "named"
+    },
+    {
+      "action": "click",
+      "target": "btnModel"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [viewstate] no model error"
+    },
+    {
+      "action": "clicktextin",
+      "target": "gvDynamic",
+      "value": "Name"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [dynamic][viewstate] a grid sorted by a data source made in code"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "snapshot",
+      "name": "SqlDataSource [visible][viewstate] a hidden grid bound to a data source shown"
+    }
+  ]
+}

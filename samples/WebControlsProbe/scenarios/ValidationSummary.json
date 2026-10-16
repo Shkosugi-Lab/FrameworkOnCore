@@ -1,0 +1,68 @@
+{
+  "_comment": "The ValidationSummary's scenario layer (ValidatorsScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers. The log's request number is kept in view state: a postback the browser's validation held back leaves it as it was.",
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "action": "goto",
+      "path": "/ValidatorsScenario.aspx"
+    },
+    {
+      "action": "snapshot",
+      "name": "ValidationSummary [render][databind][dynamic] first request"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "ValidationSummary [summary][dynamic] the server's errors collected (bullets, single paragraph)"
+    },
+    {
+      "action": "click",
+      "target": "btnPageValidate"
+    },
+    {
+      "action": "snapshot",
+      "name": "ValidationSummary [summary] Page.Validate(group) in code"
+    },
+    {
+      "action": "click",
+      "target": "btnSumC"
+    },
+    {
+      "action": "snapshot",
+      "name": "ValidationSummary [summary][clientvalidate] the browser's errors collected (one shown only there): no request"
+    },
+    {
+      "action": "fill",
+      "target": "txtSumC",
+      "value": "a"
+    },
+    {
+      "action": "fill",
+      "target": "txtSumC2",
+      "value": "b"
+    },
+    {
+      "action": "click",
+      "target": "btnSumC"
+    },
+    {
+      "action": "snapshot",
+      "name": "ValidationSummary [summary][clientvalidate] all filled: posted"
+    },
+    {
+      "action": "click",
+      "target": "btnShow"
+    },
+    {
+      "action": "click",
+      "target": "btnServer"
+    },
+    {
+      "action": "snapshot",
+      "name": "ValidationSummary [visible][servervalidate] the hidden validator shown, then validating"
+    }
+  ]
+}

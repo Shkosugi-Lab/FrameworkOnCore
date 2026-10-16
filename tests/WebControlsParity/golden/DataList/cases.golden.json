@@ -1,0 +1,929 @@
+{
+  "DataList.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "DataList.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "DataList.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "DataList.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "DataList.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "DataList.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "DataList.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.ClientID": [
+    "Control.ClientID = \"dlItems\""
+  ],
+  "DataList.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "DataList.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "DataList.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "DataList.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "DataList.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "DataList.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "DataList.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "DataList.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "DataList.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "DataList.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "DataList.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "DataList.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "DataList.Api.Control.FindControl": [
+    "Control.FindControl(String) = null",
+    "Control.FindControl(String) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "DataList.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "DataList.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"dlItems\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "DataList.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.ID": [
+    "Control.ID = \"dlItems\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "DataList.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "DataList.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "DataList.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "DataList.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "DataList.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "DataList.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "DataList.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "DataList.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "DataList.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "DataList.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "DataList.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "DataList.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "DataList.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "DataList.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "DataList.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.Render(HtmlTextWriter) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "DataList.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.SaveViewState": [
+    "Control.SaveViewState = \"[null, null, null, null, null, null, null, null, null]\"",
+    "Control.SaveViewState after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "DataList.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "DataList.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "DataList.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "DataList.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.Control.UniqueID": [
+    "Control.UniqueID = \"dlItems\""
+  ],
+  "DataList.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "DataList.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "DataList.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "DataList.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "DataList.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "DataList.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "DataList.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=true; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "DataList.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "DataList.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "DataList.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "DataList.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "DataList.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "DataList.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.#ctor": [
+    "BaseDataList.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.BaseDataList because it is an abstract class.\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.AddParsedSubObject": [
+    "BaseDataList.AddParsedSubObject(Object) = \"ok\"",
+    "BaseDataList.AddParsedSubObject(Object) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.Caption": [
+    "BaseDataList.Caption = \"\"",
+    "BaseDataList.Caption set = \"Abc 123\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.CaptionAlign": [
+    "BaseDataList.CaptionAlign = \"TableCaptionAlign.NotSet\"",
+    "BaseDataList.CaptionAlign set = \"TableCaptionAlign.Top\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.CellPadding": [
+    "BaseDataList.CellPadding = \"Int32 -1\"",
+    "BaseDataList.CellPadding set = \"Int32 1\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.CellSpacing": [
+    "BaseDataList.CellSpacing = \"Int32 0\"",
+    "BaseDataList.CellSpacing set = \"Int32 1\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.Controls": [
+    "BaseDataList.Controls = ControlCollection []"
+  ],
+  "DataList.Api.WebControls.BaseDataList.CreateChildControls": [
+    "BaseDataList.CreateChildControls = \"ok\"",
+    "BaseDataList.CreateChildControls after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.CreateControlHierarchy": [
+    "BaseDataList.CreateControlHierarchy(Boolean) = \"ok\"",
+    "BaseDataList.CreateControlHierarchy(Boolean) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.CreateDataSourceSelectArguments": [
+    "BaseDataList.CreateDataSourceSelectArguments = DataSourceSelectArguments {MaximumRows=Int32 0; RetrieveTotalRowCount=false; SortExpression=\"\"; StartRowIndex=Int32 0; TotalRowCount=Int32 -1}",
+    "BaseDataList.CreateDataSourceSelectArguments after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.DataBind": [
+    "BaseDataList.DataBind = \"ok\"",
+    "BaseDataList.DataBind after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.DataKeyField": [
+    "BaseDataList.DataKeyField = \"\"",
+    "BaseDataList.DataKeyField set = \"Abc 123\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.DataKeys": [
+    "BaseDataList.DataKeys = \"[]\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.DataKeysArray": [
+    "BaseDataList.DataKeysArray = \"[]\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.DataMember": [
+    "BaseDataList.DataMember = \"\"",
+    "BaseDataList.DataMember set = \"Abc 123\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.DataSource": [
+    "BaseDataList.DataSource = \"[System.String Pen, System.String Bag]\"",
+    "BaseDataList.DataSource set = \"Abc 123\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.DataSourceID": [
+    "BaseDataList.DataSourceID = \"\"",
+    "BaseDataList.DataSourceID set = \"Abc 123\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.EnsureDataBound": [
+    "BaseDataList.EnsureDataBound = \"ok\"",
+    "BaseDataList.EnsureDataBound after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.GetData": [
+    "BaseDataList.GetData = \"[System.String Pen, System.String Bag]\"",
+    "BaseDataList.GetData after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.GridLines": [
+    "BaseDataList.GridLines = \"GridLines.None\"",
+    "BaseDataList.GridLines set = \"GridLines.Horizontal\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.HorizontalAlign": [
+    "BaseDataList.HorizontalAlign = \"HorizontalAlign.NotSet\"",
+    "BaseDataList.HorizontalAlign set = \"HorizontalAlign.Left\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.Initialized": [
+    "BaseDataList.Initialized = \"false\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.IsBindableType": [
+    "BaseDataList.IsBindableType(Type) = \"false\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.IsBoundUsingDataSourceID": [
+    "BaseDataList.IsBoundUsingDataSourceID = \"false\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.OnDataBinding": [
+    "BaseDataList.OnDataBinding(EventArgs) = \"ok\"",
+    "BaseDataList.OnDataBinding(EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.OnDataPropertyChanged": [
+    "BaseDataList.OnDataPropertyChanged = \"ok\"",
+    "BaseDataList.OnDataPropertyChanged after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.OnDataSourceViewChanged": [
+    "BaseDataList.OnDataSourceViewChanged(Object,EventArgs) = \"ok\"",
+    "BaseDataList.OnDataSourceViewChanged(Object,EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.OnInit": [
+    "BaseDataList.OnInit(EventArgs) = \"ok\"",
+    "BaseDataList.OnInit(EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.OnLoad": [
+    "BaseDataList.OnLoad(EventArgs) = \"ok\"",
+    "BaseDataList.OnLoad(EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.OnPreRender": [
+    "BaseDataList.OnPreRender(EventArgs) = \"ok\"",
+    "BaseDataList.OnPreRender(EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.OnSelectedIndexChanged": [
+    "BaseDataList.OnSelectedIndexChanged(EventArgs) = \"ok\"",
+    "BaseDataList.OnSelectedIndexChanged(EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.PrepareControlHierarchy": [
+    "BaseDataList.PrepareControlHierarchy = \"ok\"",
+    "BaseDataList.PrepareControlHierarchy after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.Render": [
+    "BaseDataList.Render(HtmlTextWriter) = \"ok\"",
+    "BaseDataList.Render(HtmlTextWriter) writer:",
+    "  | ",
+    "BaseDataList.Render(HtmlTextWriter) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.RequiresDataBinding": [
+    "BaseDataList.RequiresDataBinding = \"false\"",
+    "BaseDataList.RequiresDataBinding set = \"ok\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.SelectArguments": [
+    "BaseDataList.SelectArguments = DataSourceSelectArguments {MaximumRows=Int32 0; RetrieveTotalRowCount=false; SortExpression=\"\"; StartRowIndex=Int32 0; TotalRowCount=Int32 -1}"
+  ],
+  "DataList.Api.WebControls.BaseDataList.SelectedIndexChanged": [
+    "BaseDataList.SelectedIndexChanged = \"added and removed\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.SupportsDisabledAttribute": [
+    "BaseDataList.SupportsDisabledAttribute = \"false\""
+  ],
+  "DataList.Api.WebControls.BaseDataList.UseAccessibleHeader": [
+    "BaseDataList.UseAccessibleHeader = \"false\"",
+    "BaseDataList.UseAccessibleHeader set = \"true\""
+  ],
+  "DataList.Api.WebControls.DataList.#ctor": [
+    "DataList.#ctor = DataList# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=null; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.AlternatingItemStyle": [
+    "DataList.AlternatingItemStyle = TableItemStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=true}"
+  ],
+  "DataList.Api.WebControls.DataList.AlternatingItemTemplate": [
+    "DataList.AlternatingItemTemplate = null",
+    "DataList.AlternatingItemTemplate set = \"FrameworkOnCore.WebControlsParity.Component+SampleTemplate\""
+  ],
+  "DataList.Api.WebControls.DataList.CancelCommand": [
+    "DataList.CancelCommand = \"added and removed\""
+  ],
+  "DataList.Api.WebControls.DataList.CancelCommandName": [
+    "DataList.CancelCommandName = \"Cancel\""
+  ],
+  "DataList.Api.WebControls.DataList.CreateControlHierarchy": [
+    "DataList.CreateControlHierarchy(Boolean) = \"ok\"",
+    "DataList.CreateControlHierarchy(Boolean) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.CreateControlStyle": [
+    "DataList.CreateControlStyle = TableStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CellPadding=Int32 -1; CellSpacing=Int32 0; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; GridLines=None; Height=; HorizontalAlign=NotSet; IsEmpty=false; RegisteredCssClass=\"\"; Width=}",
+    "DataList.CreateControlStyle after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.CreateItem": [
+    "DataList.CreateItem(Int32,ListItemType) = DataListItem# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; ItemIndex=Int32 0; ItemType=Footer; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "DataList.CreateItem(Int32,ListItemType) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.DeleteCommand": [
+    "DataList.DeleteCommand = \"added and removed\""
+  ],
+  "DataList.Api.WebControls.DataList.DeleteCommandName": [
+    "DataList.DeleteCommandName = \"Delete\""
+  ],
+  "DataList.Api.WebControls.DataList.EditCommand": [
+    "DataList.EditCommand = \"added and removed\""
+  ],
+  "DataList.Api.WebControls.DataList.EditCommandName": [
+    "DataList.EditCommandName = \"Edit\""
+  ],
+  "DataList.Api.WebControls.DataList.EditItemIndex": [
+    "DataList.EditItemIndex = \"Int32 -1\"",
+    "DataList.EditItemIndex set = \"Int32 1\""
+  ],
+  "DataList.Api.WebControls.DataList.EditItemStyle": [
+    "DataList.EditItemStyle = TableItemStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=true}"
+  ],
+  "DataList.Api.WebControls.DataList.EditItemTemplate": [
+    "DataList.EditItemTemplate = null",
+    "DataList.EditItemTemplate set = \"FrameworkOnCore.WebControlsParity.Component+SampleTemplate\""
+  ],
+  "DataList.Api.WebControls.DataList.ExtractTemplateRows": [
+    "DataList.ExtractTemplateRows = \"false\"",
+    "DataList.ExtractTemplateRows set = \"true\""
+  ],
+  "DataList.Api.WebControls.DataList.FooterStyle": [
+    "DataList.FooterStyle = TableItemStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=true}"
+  ],
+  "DataList.Api.WebControls.DataList.FooterTemplate": [
+    "DataList.FooterTemplate = null",
+    "DataList.FooterTemplate set = \"FrameworkOnCore.WebControlsParity.Component+SampleTemplate\""
+  ],
+  "DataList.Api.WebControls.DataList.GridLines": [
+    "DataList.GridLines = \"GridLines.None\"",
+    "DataList.GridLines set = \"GridLines.Horizontal\""
+  ],
+  "DataList.Api.WebControls.DataList.HeaderStyle": [
+    "DataList.HeaderStyle = TableItemStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=true}"
+  ],
+  "DataList.Api.WebControls.DataList.HeaderTemplate": [
+    "DataList.HeaderTemplate = null",
+    "DataList.HeaderTemplate set = \"FrameworkOnCore.WebControlsParity.Component+SampleTemplate\""
+  ],
+  "DataList.Api.WebControls.DataList.InitializeItem": [
+    "DataList.InitializeItem(DataListItem) = \"ok\"",
+    "DataList.InitializeItem(DataListItem) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.ItemCommand": [
+    "DataList.ItemCommand = \"added and removed\""
+  ],
+  "DataList.Api.WebControls.DataList.ItemCreated": [
+    "DataList.ItemCreated = \"added and removed\""
+  ],
+  "DataList.Api.WebControls.DataList.ItemDataBound": [
+    "DataList.ItemDataBound = \"added and removed\""
+  ],
+  "DataList.Api.WebControls.DataList.ItemStyle": [
+    "DataList.ItemStyle = TableItemStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=true}"
+  ],
+  "DataList.Api.WebControls.DataList.ItemTemplate": [
+    "DataList.ItemTemplate = \"FrameworkOnCore.WebControlsParity.Component+SampleTemplate\"",
+    "DataList.ItemTemplate set = \"FrameworkOnCore.WebControlsParity.Component+SampleTemplate\""
+  ],
+  "DataList.Api.WebControls.DataList.Items": [
+    "DataList.Items = \"[]\""
+  ],
+  "DataList.Api.WebControls.DataList.LoadViewState": [
+    "DataList.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "DataList.Api.WebControls.DataList.OnBubbleEvent": [
+    "DataList.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "DataList.OnBubbleEvent(Object,EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.OnCancelCommand": [
+    "DataList.OnCancelCommand(DataListCommandEventArgs) = \"ok\"",
+    "DataList.OnCancelCommand(DataListCommandEventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.OnDeleteCommand": [
+    "DataList.OnDeleteCommand(DataListCommandEventArgs) = \"ok\"",
+    "DataList.OnDeleteCommand(DataListCommandEventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.OnEditCommand": [
+    "DataList.OnEditCommand(DataListCommandEventArgs) = \"ok\"",
+    "DataList.OnEditCommand(DataListCommandEventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.OnInit": [
+    "DataList.OnInit(EventArgs) = \"ok\"",
+    "DataList.OnInit(EventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.OnItemCommand": [
+    "DataList.OnItemCommand(DataListCommandEventArgs) = \"ok\"",
+    "DataList.OnItemCommand(DataListCommandEventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.OnItemCreated": [
+    "DataList.OnItemCreated(DataListItemEventArgs) = \"ok\"",
+    "DataList.OnItemCreated(DataListItemEventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.OnItemDataBound": [
+    "DataList.OnItemDataBound(DataListItemEventArgs) = \"ok\"",
+    "DataList.OnItemDataBound(DataListItemEventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.OnUpdateCommand": [
+    "DataList.OnUpdateCommand(DataListCommandEventArgs) = \"ok\"",
+    "DataList.OnUpdateCommand(DataListCommandEventArgs) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.PrepareControlHierarchy": [
+    "DataList.PrepareControlHierarchy = \"ok\"",
+    "DataList.PrepareControlHierarchy after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.RenderContents": [
+    "DataList.RenderContents(HtmlTextWriter) = \"ok\"",
+    "DataList.RenderContents(HtmlTextWriter) writer:",
+    "  | ",
+    "DataList.RenderContents(HtmlTextWriter) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.RepeatColumns": [
+    "DataList.RepeatColumns = \"Int32 0\"",
+    "DataList.RepeatColumns set = \"Int32 1\""
+  ],
+  "DataList.Api.WebControls.DataList.RepeatDirection": [
+    "DataList.RepeatDirection = \"RepeatDirection.Vertical\"",
+    "DataList.RepeatDirection set = \"RepeatDirection.Vertical\""
+  ],
+  "DataList.Api.WebControls.DataList.RepeatLayout": [
+    "DataList.RepeatLayout = \"RepeatLayout.Table\"",
+    "DataList.RepeatLayout set = \"RepeatLayout.Flow\""
+  ],
+  "DataList.Api.WebControls.DataList.SaveViewState": [
+    "DataList.SaveViewState = \"[null, null, null, null, null, null, null, null, null]\"",
+    "DataList.SaveViewState after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.SelectCommandName": [
+    "DataList.SelectCommandName = \"Select\""
+  ],
+  "DataList.Api.WebControls.DataList.SelectedIndex": [
+    "DataList.SelectedIndex = \"Int32 -1\"",
+    "DataList.SelectedIndex set = \"Int32 1\""
+  ],
+  "DataList.Api.WebControls.DataList.SelectedItem": [
+    "DataList.SelectedItem = null"
+  ],
+  "DataList.Api.WebControls.DataList.SelectedItemStyle": [
+    "DataList.SelectedItemStyle = TableItemStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=true}"
+  ],
+  "DataList.Api.WebControls.DataList.SelectedItemTemplate": [
+    "DataList.SelectedItemTemplate = null",
+    "DataList.SelectedItemTemplate set = \"FrameworkOnCore.WebControlsParity.Component+SampleTemplate\""
+  ],
+  "DataList.Api.WebControls.DataList.SelectedValue": [
+    "DataList.SelectedValue = \"-> System.InvalidOperationException: Data keys must be specified on DataList 'dlItems' before the selected data key can be retrieved.  Use the DataKeyField property to specify data keys.\""
+  ],
+  "DataList.Api.WebControls.DataList.SeparatorStyle": [
+    "DataList.SeparatorStyle = TableItemStyle {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; VerticalAlign=NotSet; Width=; Wrap=true}"
+  ],
+  "DataList.Api.WebControls.DataList.SeparatorTemplate": [
+    "DataList.SeparatorTemplate = null",
+    "DataList.SeparatorTemplate set = \"FrameworkOnCore.WebControlsParity.Component+SampleTemplate\""
+  ],
+  "DataList.Api.WebControls.DataList.ShowFooter": [
+    "DataList.ShowFooter = \"true\"",
+    "DataList.ShowFooter set = \"true\""
+  ],
+  "DataList.Api.WebControls.DataList.ShowHeader": [
+    "DataList.ShowHeader = \"true\"",
+    "DataList.ShowHeader set = \"true\""
+  ],
+  "DataList.Api.WebControls.DataList.TagKey": [
+    "DataList.TagKey = \"HtmlTextWriterTag.Table\""
+  ],
+  "DataList.Api.WebControls.DataList.TrackViewState": [
+    "DataList.TrackViewState = \"ok\"",
+    "DataList.TrackViewState after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.DataList.UpdateCommand": [
+    "DataList.UpdateCommand = \"added and removed\""
+  ],
+  "DataList.Api.WebControls.DataList.UpdateCommandName": [
+    "DataList.UpdateCommandName = \"Update\""
+  ],
+  "DataList.Api.WebControls.IRepeatInfoUser.GetItemStyle": [
+    "IRepeatInfoUser.GetItemStyle(ListItemType,Int32) = \"-> System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values. [param index]\""
+  ],
+  "DataList.Api.WebControls.IRepeatInfoUser.HasFooter": [
+    "IRepeatInfoUser.HasFooter = \"false\""
+  ],
+  "DataList.Api.WebControls.IRepeatInfoUser.HasHeader": [
+    "IRepeatInfoUser.HasHeader = \"false\""
+  ],
+  "DataList.Api.WebControls.IRepeatInfoUser.HasSeparators": [
+    "IRepeatInfoUser.HasSeparators = \"false\""
+  ],
+  "DataList.Api.WebControls.IRepeatInfoUser.RenderItem": [
+    "IRepeatInfoUser.RenderItem(ListItemType,Int32,RepeatInfo,HtmlTextWriter) = \"-> System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values. [param index]\""
+  ],
+  "DataList.Api.WebControls.IRepeatInfoUser.RepeatedItemCount": [
+    "IRepeatInfoUser.RepeatedItemCount = \"Int32 0\""
+  ],
+  "DataList.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "DataList.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "DataList.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "DataList.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "DataList.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "DataList.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "DataList.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = TableStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CellPadding=Int32 -1; CellSpacing=Int32 0; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; GridLines=None; Height=; HorizontalAlign=NotSet; IsEmpty=false; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "DataList.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "DataList.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = TableStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CellPadding=Int32 -1; CellSpacing=Int32 0; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; GridLines=None; Height=; HorizontalAlign=NotSet; IsEmpty=false; RegisteredCssClass=\"\"; Width=}",
+    "WebControl.CreateControlStyle after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "DataList.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "DataList.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "DataList.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "DataList.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "DataList.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "DataList.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "DataList.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "DataList.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "DataList.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Object[]'.\""
+  ],
+  "DataList.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"ok\"",
+    "WebControl.Render(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.Render(HtmlTextWriter) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <table id=\"dlItems\">",
+    "  | ",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.RenderContents(HtmlTextWriter) after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "DataList.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = \"[null, null, null, null, null, null, null, null, null]\"",
+    "WebControl.SaveViewState after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "DataList.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "DataList.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "DataList.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "DataList.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Table\""
+  ],
+  "DataList.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"table\""
+  ],
+  "DataList.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "DataList.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = DataList#dlItems {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; Caption=\"\"; CaptionAlign=NotSet; CellPadding=Int32 -1; CellSpacing=Int32 0; ClientID=\"dlItems\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataKeyField=\"\"; DataMember=\"\"; DataSourceID=\"\"; EditItemIndex=Int32 -1; EnableTheming=true; EnableViewState=true; Enabled=true; ExtractTemplateRows=false; ForeColor=Color #00000000 Color [Empty]; GridLines=None; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"dlItems\"; RepeatColumns=Int32 0; RepeatDirection=Vertical; RepeatLayout=Table; SelectedIndex=Int32 -1; ShowFooter=true; ShowHeader=true; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=\"dlItems\"; UseAccessibleHeader=false; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "DataList.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ]
+}

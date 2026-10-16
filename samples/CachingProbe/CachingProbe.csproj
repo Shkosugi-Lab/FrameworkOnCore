@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Caching as IIS runs it, against the converted application's (experiments/wf4c/sample-parity.ps1): the output cache
+       (VaryByParam, a profile of web.config's, post-cache substitution, a page taken out, a page depending on a cache
+       item), the cache headers of OutputCache's locations and of the cache policy set in code, the application cache
+       (expirations, key and file dependencies, Add, Remove, the removal callbacks), and the static files: their cache
+       headers (system.webServer/staticContent/clientCache) and types (mimeMap, the types IIS knows). -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9D4C2B7E-1F38-4A65-B0C9-7E2A5D8F3C14}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>CachingProbe</RootNamespace>
+    <AssemblyName>CachingProbe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Cached.aspx" />
+    <Content Include="CachedNone.aspx" />
+    <Content Include="Profile.aspx" />
+    <Content Include="ClientCache.aspx" />
+    <Content Include="ServerCache.aspx" />
+    <Content Include="DepCached.aspx" />
+    <Content Include="Invalidate.aspx" />
+    <Content Include="Policy.aspx" />
+    <Content Include="CacheApi.aspx" />
+    <Content Include="Check.htm" />
+    <Content Include="App_Data\dep.txt" />
+    <Content Include="Static\plain.css" />
+    <Content Include="Static\data.probedata" />
+    <Content Include="Static\MaxAge\a.css" />
+    <Content Include="Static\Expires\a.css" />
+    <Content Include="Static\NoCache\a.css" />
+    <Content Include="Static\types\a.css" />
+    <Content Include="Static\types\a.ico" />
+    <Content Include="Static\types\a.js" />
+    <Content Include="Static\types\a.json" />
+    <Content Include="Static\types\a.map" />
+    <Content Include="Static\types\a.mjs" />
+    <Content Include="Static\types\a.mp4" />
+    <Content Include="Static\types\a.svg" />
+    <Content Include="Static\types\a.txt" />
+    <Content Include="Static\types\a.webmanifest" />
+    <Content Include="Static\types\a.webp" />
+    <Content Include="Static\types\a.woff" />
+    <Content Include="Static\types\a.woff2" />
+    <Content Include="Static\types\a.xml" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CacheApi.aspx.cs">
+      <DependentUpon>CacheApi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CacheApi.aspx.designer.cs">
+      <DependentUpon>CacheApi.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Counter.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

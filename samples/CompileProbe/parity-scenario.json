@@ -1,0 +1,33 @@
+{
+  "_comment": "What ASP.NET compiles at run time: a CodeFile page with App_Code's class, user controls of web.config's, the expressions, a postback; a theme's skins and style sheets (the directive's, another set in PreInit, a style sheet theme); the culture from the browser's languages and the resources it chooses (the browser's own language, a page's culture set in code, ja, fr, de with no resources of its, a language that is none: answered, not compared).",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/Dynamic.aspx" },
+    { "action": "snapshot", "name": "codefile-a page and user controls compiled at run time, App_Code" },
+    { "action": "click", "target": "btnPost" },
+    { "action": "snapshot", "name": "codefile-a postback: the user controls' view state" },
+    { "action": "goto", "path": "/Themed.aspx" },
+    { "action": "snapshot", "name": "theme-Blue: skins, style sheets" },
+    { "action": "goto", "path": "/Themed.aspx?theme=Green" },
+    { "action": "snapshot", "name": "theme-Green set in PreInit" },
+    { "action": "goto", "path": "/Themed.aspx?sst=1" },
+    { "action": "snapshot", "name": "theme-a style sheet theme with a theme" },
+    { "action": "goto", "path": "/Culture.aspx" },
+    { "action": "snapshot", "name": "culture-the browser's own (its language)" },
+    { "action": "goto", "path": "/Culture.aspx?page=fr-FR" },
+    { "action": "snapshot", "name": "culture-the page's, set in InitializeCulture" },
+    { "action": "goto", "path": "/Check.htm?t=1&rh=Accept-Language:ja-JP,ja;q=0.9&u=/Culture.aspx" },
+    { "action": "snapshot", "name": "culture-Accept-Language ja-JP" },
+    { "action": "goto", "path": "/Check.htm?t=1&rh=Accept-Language:fr&u=/Culture.aspx" },
+    { "action": "snapshot", "name": "culture-Accept-Language fr (neutral)" },
+    { "action": "goto", "path": "/Check.htm?t=1&rh=Accept-Language:de-DE&u=/Culture.aspx" },
+    { "action": "snapshot", "name": "culture-Accept-Language de-DE (no resources of its own)" },
+    { "action": "goto", "path": "/Check.htm?h=content-type&rh=Accept-Language:xx-YY,zz&u=/Culture.aspx" },
+    { "action": "snapshot", "name": "culture-Accept-Language of no culture: answered (its formats: .NET Framework's are the invariant culture's, ICU's its default locale's)" }
+  ],
+  "crawl": {
+    "max": 20,
+    "depth": 0,
+    "urls": [ "/App_Code/Greeter.cs", "/Dynamic.aspx.cs", "/Controls/Widget.ascx", "/App_Themes/Blue/Controls.skin", "/App_Themes/Blue/blue.css", "/App_GlobalResources/Strings.resx", "/App_LocalResources/Culture.aspx.resx" ]
+  }
+}

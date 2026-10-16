@@ -1,0 +1,2045 @@
+{
+  "SourceUrl": "http://localhost:5097",
+  "Snapshots": [
+    {
+      "Name": "DataList [render][databind][datasource][datasourceid][templates][repeat][dynamic] first request",
+      "Path": "/datalistscenario",
+      "Title": "DataList scenario",
+      "Text": [
+        "Products",
+        "Pen Select Edit Delete Like | Bag Select Edit Delete Like | Cup <&> Select Edit Delete Like |",
+        "Desk Select Edit Delete Like | Eraser Select Edit Delete Like",
+        "End",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "No view state: Pen",
+        "No view state: Bag",
+        "No view state: Cup <&>",
+        "[dynamic: Pen (P1)] [dynamic: Cup <&> (C3)]",
+        "[dynamic: Bag (B2)]",
+        "Request 1: IsPostBack=False",
+        "DataList dlManual: Items=5 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlAuto: Items=7 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlEmpty: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlNoViewState: Items=3 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlHidden: Items=3 EditItemIndex=-1 SelectedIndex=-1 (hidden)",
+        "DataList dlDynamic: Items=3 EditItemIndex=-1 SelectedIndex=-1",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Products"
+          ],
+          [
+            "Pen Select Edit Delete Like",
+            "|",
+            "Bag Select Edit Delete Like",
+            "|",
+            "Cup <&> Select Edit Delete Like",
+            "|"
+          ],
+          [
+            "Desk Select Edit Delete Like",
+            "|",
+            "Eraser Select Edit Delete Like",
+            "",
+            "",
+            ""
+          ],
+          [
+            "End"
+          ]
+        ],
+        [
+          [
+            "Empty header"
+          ]
+        ],
+        [
+          [
+            "No view state: Pen"
+          ],
+          [
+            "No view state: Bag"
+          ],
+          [
+            "No view state: Cup <&>"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]",
+            "[dynamic: Cup <&> (C3)]"
+          ],
+          [
+            "[dynamic: Bag (B2)]",
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dlManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlManual_lblDlName_0": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_0": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_4": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlNoViewState": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataList [selection][rowcommand] the first item selected",
+      "Path": "/datalistscenario",
+      "Title": "DataList scenario",
+      "Text": [
+        "Products",
+        "Pen (selected) | Bag Select Edit Delete Like | Cup <&> Select Edit Delete Like |",
+        "Desk Select Edit Delete Like | Eraser Select Edit Delete Like",
+        "End",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "[dynamic: Pen (P1)] [dynamic: Cup <&> (C3)]",
+        "[dynamic: Bag (B2)]",
+        "Request 2: IsPostBack=True",
+        "ItemCommand: Select item 0 (Item)",
+        "SelectedIndexChanged: SelectedIndex=0 SelectedValue=P1",
+        "DataList dlManual: Items=5 EditItemIndex=-1 SelectedIndex=0",
+        "DataList dlAuto: Items=7 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlEmpty: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlNoViewState: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlHidden: Items=3 EditItemIndex=-1 SelectedIndex=-1 (hidden)",
+        "DataList dlDynamic: Items=3 EditItemIndex=-1 SelectedIndex=-1",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Products"
+          ],
+          [
+            "Pen (selected)",
+            "|",
+            "Bag Select Edit Delete Like",
+            "|",
+            "Cup <&> Select Edit Delete Like",
+            "|"
+          ],
+          [
+            "Desk Select Edit Delete Like",
+            "|",
+            "Eraser Select Edit Delete Like",
+            "",
+            "",
+            ""
+          ],
+          [
+            "End"
+          ]
+        ],
+        [
+          [
+            "Empty header"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]",
+            "[dynamic: Cup <&> (C3)]"
+          ],
+          [
+            "[dynamic: Bag (B2)]",
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dlManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlManual_lblDlName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_4": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataList [rowcommand] a command bubbled to ItemCommand",
+      "Path": "/datalistscenario",
+      "Title": "DataList scenario",
+      "Text": [
+        "Products",
+        "Pen (selected) | Bag Select Edit Delete Like | Cup <&> Select Edit Delete Like |",
+        "Desk Select Edit Delete Like | Eraser Select Edit Delete Like",
+        "End",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "[dynamic: Pen (P1)] [dynamic: Cup <&> (C3)]",
+        "[dynamic: Bag (B2)]",
+        "Request 3: IsPostBack=True",
+        "ItemCommand: like B2 item 1 (AlternatingItem)",
+        "DataList dlManual: Items=5 EditItemIndex=-1 SelectedIndex=0",
+        "DataList dlAuto: Items=7 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlEmpty: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlNoViewState: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlHidden: Items=3 EditItemIndex=-1 SelectedIndex=-1 (hidden)",
+        "DataList dlDynamic: Items=3 EditItemIndex=-1 SelectedIndex=-1",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Products"
+          ],
+          [
+            "Pen (selected)",
+            "|",
+            "Bag Select Edit Delete Like",
+            "|",
+            "Cup <&> Select Edit Delete Like",
+            "|"
+          ],
+          [
+            "Desk Select Edit Delete Like",
+            "|",
+            "Eraser Select Edit Delete Like",
+            "",
+            "",
+            ""
+          ],
+          [
+            "End"
+          ]
+        ],
+        [
+          [
+            "Empty header"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]",
+            "[dynamic: Cup <&> (C3)]"
+          ],
+          [
+            "[dynamic: Bag (B2)]",
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dlManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlManual_lblDlName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_4": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataList [editing][rowcommand] edit: EditCommand",
+      "Path": "/datalistscenario",
+      "Title": "DataList scenario",
+      "Text": [
+        "Products",
+        "Pen (selected) | Update Cancel | Cup <&> Select Edit Delete Like |",
+        "Desk Select Edit Delete Like | Eraser Select Edit Delete Like",
+        "End",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "[dynamic: Pen (P1)] [dynamic: Cup <&> (C3)]",
+        "[dynamic: Bag (B2)]",
+        "Request 4: IsPostBack=True",
+        "ItemCommand: Edit item 1 (AlternatingItem)",
+        "EditCommand: item 1 key B2",
+        "DataList dlManual: Items=5 EditItemIndex=1 SelectedIndex=0",
+        "DataList dlAuto: Items=7 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlEmpty: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlNoViewState: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlHidden: Items=3 EditItemIndex=-1 SelectedIndex=-1 (hidden)",
+        "DataList dlDynamic: Items=3 EditItemIndex=-1 SelectedIndex=-1",
+        "Store: P1:Pen:1.25:True B2:Bag:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Products"
+          ],
+          [
+            "Pen (selected)",
+            "|",
+            "Update Cancel",
+            "|",
+            "Cup <&> Select Edit Delete Like",
+            "|"
+          ],
+          [
+            "Desk Select Edit Delete Like",
+            "|",
+            "Eraser Select Edit Delete Like",
+            "",
+            "",
+            ""
+          ],
+          [
+            "End"
+          ]
+        ],
+        [
+          [
+            "Empty header"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]",
+            "[dynamic: Cup <&> (C3)]"
+          ],
+          [
+            "[dynamic: Bag (B2)]",
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {
+        "dlManual_txtDlName_1": "Bag"
+      },
+      "Elements": {
+        "dlManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlManual_txtDlName_1": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "dlManual_lnkDlUpdate_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlCancel_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_4": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataList [editing][rowcommand] updated: UpdateCommand, the data key",
+      "Path": "/datalistscenario",
+      "Title": "DataList scenario",
+      "Text": [
+        "Products",
+        "Pen (selected) | Renamed Select Edit Delete Like | Cup <&> Select Edit Delete Like |",
+        "Desk Select Edit Delete Like | Eraser Select Edit Delete Like",
+        "End",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "[dynamic: Pen (P1)] [dynamic: Cup <&> (C3)]",
+        "[dynamic: Bag (B2)]",
+        "Request 5: IsPostBack=True",
+        "ItemCommand: Update item 1 (EditItem)",
+        "UpdateCommand: item 1 key B2 name \"Renamed\"",
+        "DataList dlManual: Items=5 EditItemIndex=-1 SelectedIndex=0",
+        "DataList dlAuto: Items=7 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlEmpty: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlNoViewState: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlHidden: Items=3 EditItemIndex=-1 SelectedIndex=-1 (hidden)",
+        "DataList dlDynamic: Items=3 EditItemIndex=-1 SelectedIndex=-1",
+        "Store: P1:Pen:1.25:True B2:Renamed:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Products"
+          ],
+          [
+            "Pen (selected)",
+            "|",
+            "Renamed Select Edit Delete Like",
+            "|",
+            "Cup <&> Select Edit Delete Like",
+            "|"
+          ],
+          [
+            "Desk Select Edit Delete Like",
+            "|",
+            "Eraser Select Edit Delete Like",
+            "",
+            "",
+            ""
+          ],
+          [
+            "End"
+          ]
+        ],
+        [
+          [
+            "Empty header"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]",
+            "[dynamic: Cup <&> (C3)]"
+          ],
+          [
+            "[dynamic: Bag (B2)]",
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dlManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlManual_lblDlName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_4": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataList [editing] cancelled: CancelCommand",
+      "Path": "/datalistscenario",
+      "Title": "DataList scenario",
+      "Text": [
+        "Products",
+        "Pen (selected) | Renamed Select Edit Delete Like | Cup <&> Select Edit Delete Like |",
+        "Desk Select Edit Delete Like | Eraser Select Edit Delete Like",
+        "End",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "[dynamic: Pen (P1)] [dynamic: Cup <&> (C3)]",
+        "[dynamic: Bag (B2)]",
+        "Request 7: IsPostBack=True",
+        "ItemCommand: Cancel item 1 (EditItem)",
+        "CancelCommand: item 1",
+        "DataList dlManual: Items=5 EditItemIndex=-1 SelectedIndex=0",
+        "DataList dlAuto: Items=7 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlEmpty: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlNoViewState: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlHidden: Items=3 EditItemIndex=-1 SelectedIndex=-1 (hidden)",
+        "DataList dlDynamic: Items=3 EditItemIndex=-1 SelectedIndex=-1",
+        "Store: P1:Pen:1.25:True B2:Renamed:24.99:False C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Products"
+          ],
+          [
+            "Pen (selected)",
+            "|",
+            "Renamed Select Edit Delete Like",
+            "|",
+            "Cup <&> Select Edit Delete Like",
+            "|"
+          ],
+          [
+            "Desk Select Edit Delete Like",
+            "|",
+            "Eraser Select Edit Delete Like",
+            "",
+            "",
+            ""
+          ],
+          [
+            "End"
+          ]
+        ],
+        [
+          [
+            "Empty header"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]",
+            "[dynamic: Cup <&> (C3)]"
+          ],
+          [
+            "[dynamic: Bag (B2)]",
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dlManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlManual_lblDlName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_4": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataList [editing][rowcommand] deleted: DeleteCommand",
+      "Path": "/datalistscenario",
+      "Title": "DataList scenario",
+      "Text": [
+        "Products",
+        "Pen (selected) | Cup <&> Select Edit Delete Like | Desk Select Edit Delete Like |",
+        "Eraser Select Edit Delete Like | File Select Edit Delete Like",
+        "End",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "[dynamic: Pen (P1)] [dynamic: Cup <&> (C3)]",
+        "[dynamic: Bag (B2)]",
+        "Request 8: IsPostBack=True",
+        "ItemCommand: Delete item 1 (AlternatingItem)",
+        "DeleteCommand: item 1 key B2",
+        "DataList dlManual: Items=5 EditItemIndex=-1 SelectedIndex=0",
+        "DataList dlAuto: Items=7 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlEmpty: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlNoViewState: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlHidden: Items=3 EditItemIndex=-1 SelectedIndex=-1 (hidden)",
+        "DataList dlDynamic: Items=3 EditItemIndex=-1 SelectedIndex=-1",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Products"
+          ],
+          [
+            "Pen (selected)",
+            "|",
+            "Cup <&> Select Edit Delete Like",
+            "|",
+            "Desk Select Edit Delete Like",
+            "|"
+          ],
+          [
+            "Eraser Select Edit Delete Like",
+            "|",
+            "File Select Edit Delete Like",
+            "",
+            "",
+            ""
+          ],
+          [
+            "End"
+          ]
+        ],
+        [
+          [
+            "Empty header"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]",
+            "[dynamic: Cup <&> (C3)]"
+          ],
+          [
+            "[dynamic: Bag (B2)]",
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dlManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlManual_lblDlName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_4": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataList [viewstate] posted (the one without view state is empty)",
+      "Path": "/datalistscenario",
+      "Title": "DataList scenario",
+      "Text": [
+        "Products",
+        "Pen (selected) | Cup <&> Select Edit Delete Like | Desk Select Edit Delete Like |",
+        "Eraser Select Edit Delete Like | File Select Edit Delete Like",
+        "End",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "[dynamic: Pen (P1)] [dynamic: Cup <&> (C3)]",
+        "[dynamic: Bag (B2)]",
+        "Request 9: IsPostBack=True",
+        "DataList dlManual: Items=5 EditItemIndex=-1 SelectedIndex=0",
+        "DataList dlAuto: Items=7 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlEmpty: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlNoViewState: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlHidden: Items=3 EditItemIndex=-1 SelectedIndex=-1 (hidden)",
+        "DataList dlDynamic: Items=3 EditItemIndex=-1 SelectedIndex=-1",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Products"
+          ],
+          [
+            "Pen (selected)",
+            "|",
+            "Cup <&> Select Edit Delete Like",
+            "|",
+            "Desk Select Edit Delete Like",
+            "|"
+          ],
+          [
+            "Eraser Select Edit Delete Like",
+            "|",
+            "File Select Edit Delete Like",
+            "",
+            "",
+            ""
+          ],
+          [
+            "End"
+          ]
+        ],
+        [
+          [
+            "Empty header"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]",
+            "[dynamic: Cup <&> (C3)]"
+          ],
+          [
+            "[dynamic: Bag (B2)]",
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dlManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlManual_lblDlName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_4": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "DataList [visible][viewstate] the hidden data list shown",
+      "Path": "/datalistscenario",
+      "Title": "DataList scenario",
+      "Text": [
+        "Products",
+        "Pen (selected) | Cup <&> Select Edit Delete Like | Desk Select Edit Delete Like |",
+        "Eraser Select Edit Delete Like | File Select Edit Delete Like",
+        "End",
+        "P1B2C3D4E5F6G7",
+        "Empty header",
+        "Hidden: Pen",
+        "Hidden: Bag",
+        "Hidden: Cup <&>",
+        "[dynamic: Pen (P1)] [dynamic: Cup <&> (C3)]",
+        "[dynamic: Bag (B2)]",
+        "Request 10: IsPostBack=True",
+        "Click btnShow",
+        "DataList dlManual: Items=5 EditItemIndex=-1 SelectedIndex=0",
+        "DataList dlAuto: Items=7 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlEmpty: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlNoViewState: Items=0 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlHidden: Items=3 EditItemIndex=-1 SelectedIndex=-1",
+        "DataList dlDynamic: Items=3 EditItemIndex=-1 SelectedIndex=-1",
+        "Store: P1:Pen:1.25:True C3:Cup <&>:1234.5:True D4:Desk:150:True E5:Eraser:0.5:False F6:File:3:True G7:Glue:2.75:False"
+      ],
+      "Tables": [
+        [
+          [
+            "Products"
+          ],
+          [
+            "Pen (selected)",
+            "|",
+            "Cup <&> Select Edit Delete Like",
+            "|",
+            "Desk Select Edit Delete Like",
+            "|"
+          ],
+          [
+            "Eraser Select Edit Delete Like",
+            "|",
+            "File Select Edit Delete Like",
+            "",
+            "",
+            ""
+          ],
+          [
+            "End"
+          ]
+        ],
+        [
+          [
+            "Empty header"
+          ]
+        ],
+        [
+          [
+            "Hidden: Pen"
+          ],
+          [
+            "Hidden: Bag"
+          ],
+          [
+            "Hidden: Cup <&>"
+          ]
+        ],
+        [
+          [
+            "[dynamic: Pen (P1)]",
+            "[dynamic: Cup <&> (C3)]"
+          ],
+          [
+            "[dynamic: Bag (B2)]",
+            ""
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "dlManual": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlManual_lblDlName_1": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_1": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_2": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_2": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_3": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_3": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lblDlName_4": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlSelect_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlEdit_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlDelete_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlManual_lnkDlLike_4": {
+          "Tag": "a",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlAuto": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "dlEmpty": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlHidden": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "dlDynamic": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnShow": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

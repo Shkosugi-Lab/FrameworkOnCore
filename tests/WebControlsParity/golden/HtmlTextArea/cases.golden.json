@@ -1,0 +1,548 @@
+{
+  "HtmlTextArea.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "HtmlTextArea.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'HtmlTextArea' cannot have children of type 'String'.\""
+  ],
+  "HtmlTextArea.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "HtmlTextArea.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlTextArea.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "HtmlTextArea.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.ClientID": [
+    "Control.ClientID = \"txaNote\""
+  ],
+  "HtmlTextArea.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "HtmlTextArea.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "HtmlTextArea.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "HtmlTextArea.Api.Control.Controls": [
+    "Control.Controls = ControlCollection [LiteralControl#]"
+  ],
+  "HtmlTextArea.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "HtmlTextArea.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "HtmlTextArea.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "HtmlTextArea.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "HtmlTextArea.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "HtmlTextArea.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "HtmlTextArea.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "HtmlTextArea.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "HtmlTextArea.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "HtmlTextArea.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlTextArea.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"txaNote\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "HtmlTextArea.Api.Control.HasControls": [
+    "Control.HasControls = \"true\"",
+    "Control.HasControls after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.ID": [
+    "Control.ID = \"txaNote\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "HtmlTextArea.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "HtmlTextArea.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "HtmlTextArea.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "HtmlTextArea.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"true\"",
+    "Control.IsLiteralContent after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "HtmlTextArea.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "HtmlTextArea.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "HtmlTextArea.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlTextArea.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "HtmlTextArea.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlTextArea.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "HtmlTextArea.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "HtmlTextArea.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <textarea name=\"txaNote\" id=\"txaNote\">Line1</textarea>",
+    "Control.Render(HtmlTextWriter) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | Line1",
+    "Control.RenderChildren(HtmlTextWriter) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <textarea name=\"txaNote\" id=\"txaNote\">Line1</textarea>",
+    "Control.RenderControl(HtmlTextWriter) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <textarea name=\"txaNote\" id=\"txaNote\">Line1</textarea>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "HtmlTextArea.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "HtmlTextArea.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "HtmlTextArea.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "HtmlTextArea.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.Control.UniqueID": [
+    "Control.UniqueID = \"txaNote\""
+  ],
+  "HtmlTextArea.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "HtmlTextArea.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "HtmlTextArea.Api.Control.ViewState": [
+    "Control.ViewState = StateBag [innerhtml=\"Line1\"]"
+  ],
+  "HtmlTextArea.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlTextArea.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "HtmlTextArea.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlContainerControl.#ctor": [
+    "HtmlControls.HtmlContainerControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlContainerControl because it is an abstract class.\"",
+    "HtmlControls.HtmlContainerControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlContainerControl because it is an abstract class.\""
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlContainerControl.CreateControlCollection": [
+    "HtmlControls.HtmlContainerControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlContainerControl.CreateControlCollection after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlContainerControl.InnerHtml": [
+    "HtmlControls.HtmlContainerControl.InnerHtml = \"Line1\"",
+    "HtmlControls.HtmlContainerControl.InnerHtml set = \"Abc 123\""
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlContainerControl.InnerText": [
+    "HtmlControls.HtmlContainerControl.InnerText = \"Line1\"",
+    "HtmlControls.HtmlContainerControl.InnerText set = \"Abc 123\""
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlContainerControl.LoadViewState": [
+    "HtmlControls.HtmlContainerControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlContainerControl.Render": [
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) writer:",
+    "  | <textarea name=\"txaNote\" id=\"txaNote\">Line1</textarea>",
+    "HtmlControls.HtmlContainerControl.Render(HtmlTextWriter) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlContainerControl.RenderAttributes": [
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"txaNote\" id=\"txaNote\"",
+    "HtmlControls.HtmlContainerControl.RenderAttributes(HtmlTextWriter) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlContainerControl.RenderEndTag": [
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) writer:",
+    "  | </textarea>",
+    "HtmlControls.HtmlContainerControl.RenderEndTag(HtmlTextWriter) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlControl.#ctor": [
+    "HtmlControls.HtmlControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\"",
+    "HtmlControls.HtmlControl.#ctor(String) = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.HtmlControls.HtmlControl because it is an abstract class.\""
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlControl.Attributes": [
+    "HtmlControls.HtmlControl.Attributes = AttributeCollection [innerhtml=\"Line1\"]"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlControl.CreateControlCollection": [
+    "HtmlControls.HtmlControl.CreateControlCollection = ControlCollection []",
+    "HtmlControls.HtmlControl.CreateControlCollection after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlControl.Disabled": [
+    "HtmlControls.HtmlControl.Disabled = \"false\"",
+    "HtmlControls.HtmlControl.Disabled set = \"true\""
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlControl.GetAttribute": [
+    "HtmlControls.HtmlControl.GetAttribute(String) = null",
+    "HtmlControls.HtmlControl.GetAttribute(String) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlControl.Render": [
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) writer:",
+    "  | <textarea name=\"txaNote\" id=\"txaNote\">Line1</textarea>",
+    "HtmlControls.HtmlControl.Render(HtmlTextWriter) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlControl.RenderAttributes": [
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"txaNote\" id=\"txaNote\"",
+    "HtmlControls.HtmlControl.RenderAttributes(HtmlTextWriter) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlControl.RenderBeginTag": [
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <textarea name=\"txaNote\" id=\"txaNote\">",
+    "HtmlControls.HtmlControl.RenderBeginTag(HtmlTextWriter) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlControl.SetAttribute": [
+    "HtmlControls.HtmlControl.SetAttribute(String,String) = \"ok\"",
+    "HtmlControls.HtmlControl.SetAttribute(String,String) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlControl.Style": [
+    "HtmlControls.HtmlControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlControl.TagName": [
+    "HtmlControls.HtmlControl.TagName = \"textarea\""
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlControl.ViewStateIgnoresCase": [
+    "HtmlControls.HtmlControl.ViewStateIgnoresCase = \"true\""
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlTextArea.#ctor": [
+    "HtmlControls.HtmlTextArea.#ctor = HtmlTextArea# {ClientID=\"\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=null; InnerHtml=\"\"; InnerText=\"\"; Name=null; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=null; ValidateRequestMode=Inherit; Value=\"\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlTextArea.AddParsedSubObject": [
+    "HtmlControls.HtmlTextArea.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'HtmlTextArea' cannot have children of type 'String'.\""
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlTextArea.Cols": [
+    "HtmlControls.HtmlTextArea.Cols = \"Int32 -1\"",
+    "HtmlControls.HtmlTextArea.Cols set = \"Int32 1\""
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlTextArea.LoadPostData": [
+    "HtmlControls.HtmlTextArea.LoadPostData(String,NameValueCollection) = \"true\"",
+    "HtmlControls.HtmlTextArea.LoadPostData(String,NameValueCollection) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Hanako\"; InnerText=\"Hanako\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Hanako\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlTextArea.Name": [
+    "HtmlControls.HtmlTextArea.Name = \"txaNote\"",
+    "HtmlControls.HtmlTextArea.Name set = \"txaNote\""
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlTextArea.OnPreRender": [
+    "HtmlControls.HtmlTextArea.OnPreRender(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlTextArea.OnPreRender(EventArgs) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlTextArea.OnServerChange": [
+    "HtmlControls.HtmlTextArea.OnServerChange(EventArgs) = \"ok\"",
+    "HtmlControls.HtmlTextArea.OnServerChange(EventArgs) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlTextArea.RaisePostDataChangedEvent": [
+    "HtmlControls.HtmlTextArea.RaisePostDataChangedEvent = \"ok\"",
+    "HtmlControls.HtmlTextArea.RaisePostDataChangedEvent after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlTextArea.RenderAttributes": [
+    "HtmlControls.HtmlTextArea.RenderAttributes(HtmlTextWriter) = \"ok\"",
+    "HtmlControls.HtmlTextArea.RenderAttributes(HtmlTextWriter) writer:",
+    "  |  name=\"txaNote\" id=\"txaNote\"",
+    "HtmlControls.HtmlTextArea.RenderAttributes(HtmlTextWriter) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlTextArea.Rows": [
+    "HtmlControls.HtmlTextArea.Rows = \"Int32 -1\"",
+    "HtmlControls.HtmlTextArea.Rows set = \"Int32 1\""
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlTextArea.ServerChange": [
+    "HtmlControls.HtmlTextArea.ServerChange = \"added and removed\""
+  ],
+  "HtmlTextArea.Api.HtmlControls.HtmlTextArea.Value": [
+    "HtmlControls.HtmlTextArea.Value = \"Line1\"",
+    "HtmlControls.HtmlTextArea.Value set = \"Abc 123\""
+  ],
+  "HtmlTextArea.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "HtmlTextArea.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "HtmlTextArea.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "HtmlTextArea.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "HtmlTextArea.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "HtmlTextArea.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "HtmlTextArea.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"-> System.Web.HttpException: 'HtmlTextArea' cannot have children of type 'String'.\""
+  ],
+  "HtmlTextArea.Api.IPostBackDataHandler.LoadPostData": [
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) = \"true\"",
+    "IPostBackDataHandler.LoadPostData(String,NameValueCollection) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Hanako\"; InnerText=\"Hanako\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Hanako\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.IPostBackDataHandler.RaisePostDataChangedEvent": [
+    "IPostBackDataHandler.RaisePostDataChangedEvent = \"ok\"",
+    "IPostBackDataHandler.RaisePostDataChangedEvent after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "HtmlTextArea.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = HtmlTextArea#txaNote {ClientID=\"txaNote\"; ClientIDMode=Inherit; Cols=Int32 -1; Disabled=false; EnableTheming=true; EnableViewState=true; ID=\"txaNote\"; InnerHtml=\"Line1\"; InnerText=\"Line1\"; Name=\"txaNote\"; Rows=Int32 -1; SkinID=\"\"; TagName=\"textarea\"; UniqueID=\"txaNote\"; ValidateRequestMode=Inherit; Value=\"Line1\"; ViewStateMode=Inherit; Visible=true}"
+  ]
+}

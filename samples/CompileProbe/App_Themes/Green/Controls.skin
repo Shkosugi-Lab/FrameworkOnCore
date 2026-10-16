@@ -1,0 +1,3 @@
+<%-- The Green theme. --%>
+<asp:Button runat="server" BackColor="Green" ForeColor="Yellow" />
+<asp:Label runat="server" SkinID="Big" Font-Size="Large" ForeColor="Green" />

@@ -1,0 +1,763 @@
+{
+  "AdRotator.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "AdRotator.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "AdRotator.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "AdRotator.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "AdRotator.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AdRotator.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "AdRotator.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.ClientID": [
+    "Control.ClientID = \"adBanner\""
+  ],
+  "AdRotator.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "AdRotator.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "AdRotator.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "AdRotator.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "AdRotator.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.DataBind": [
+    "Control.DataBind = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "AdRotator.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "AdRotator.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "AdRotator.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "AdRotator.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "AdRotator.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "AdRotator.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "AdRotator.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "AdRotator.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "AdRotator.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AdRotator.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"adBanner\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "AdRotator.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.ID": [
+    "Control.ID = \"adBanner\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "AdRotator.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "AdRotator.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "AdRotator.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "AdRotator.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "AdRotator.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "AdRotator.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "AdRotator.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "AdRotator.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "AdRotator.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AdRotator.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "AdRotator.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AdRotator.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AdRotator.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "AdRotator.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "AdRotator.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "AdRotator.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Response is not available in this context.\""
+  ],
+  "AdRotator.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"-> System.Web.HttpException: Response is not available in this context.\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"-> System.Web.HttpException: Response is not available in this context.\""
+  ],
+  "AdRotator.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "AdRotator.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "AdRotator.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "AdRotator.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "AdRotator.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "AdRotator.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.Control.UniqueID": [
+    "Control.UniqueID = \"adBanner\""
+  ],
+  "AdRotator.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "AdRotator.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "AdRotator.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "AdRotator.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "AdRotator.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "AdRotator.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "AdRotator.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=true; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "AdRotator.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "AdRotator.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "AdRotator.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "AdRotator.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "AdRotator.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "AdRotator.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.AdRotator.#ctor": [
+    "AdRotator.#ctor = AdRotator# {AccessKey=\"\"; AdvertisementFile=\"\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.AdRotator.AdCreated": [
+    "AdRotator.AdCreated = \"added and removed\""
+  ],
+  "AdRotator.Api.WebControls.AdRotator.AdvertisementFile": [
+    "AdRotator.AdvertisementFile = \"~/App_Data/ads.xml\"",
+    "AdRotator.AdvertisementFile set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.AdRotator.AlternateTextField": [
+    "AdRotator.AlternateTextField = \"AlternateText\"",
+    "AdRotator.AlternateTextField set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.AdRotator.Font": [
+    "AdRotator.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "AdRotator.Api.WebControls.AdRotator.ImageUrlField": [
+    "AdRotator.ImageUrlField = \"ImageUrl\"",
+    "AdRotator.ImageUrlField set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.AdRotator.KeywordFilter": [
+    "AdRotator.KeywordFilter = \"\"",
+    "AdRotator.KeywordFilter set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.AdRotator.NavigateUrlField": [
+    "AdRotator.NavigateUrlField = \"NavigateUrl\"",
+    "AdRotator.NavigateUrlField set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.AdRotator.OnAdCreated": [
+    "AdRotator.OnAdCreated(AdCreatedEventArgs) = \"ok\"",
+    "AdRotator.OnAdCreated(AdCreatedEventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.AdRotator.OnInit": [
+    "AdRotator.OnInit(EventArgs) = \"ok\"",
+    "AdRotator.OnInit(EventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.AdRotator.OnPreRender": [
+    "AdRotator.OnPreRender(EventArgs) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AdRotator.Api.WebControls.AdRotator.PerformDataBinding": [
+    "AdRotator.PerformDataBinding(IEnumerable) = \"-> System.Web.HttpException: The AdRotator 'adBanner' is expecting the data type of the first item in the collection from the DataSource property to have advertisement properties such as ImageUrl, NavigateUrl, etc..  The current data type of the item is 'System.String'.\""
+  ],
+  "AdRotator.Api.WebControls.AdRotator.PerformSelect": [
+    "AdRotator.PerformSelect = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AdRotator.Api.WebControls.AdRotator.Render": [
+    "AdRotator.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Response is not available in this context.\""
+  ],
+  "AdRotator.Api.WebControls.AdRotator.TagKey": [
+    "AdRotator.TagKey = \"HtmlTextWriterTag.A\""
+  ],
+  "AdRotator.Api.WebControls.AdRotator.Target": [
+    "AdRotator.Target = \"_top\"",
+    "AdRotator.Target set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.AdRotator.UniqueID": [
+    "AdRotator.UniqueID = \"adBanner\""
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.#ctor": [
+    "BaseDataBoundControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.BaseDataBoundControl because it is an abstract class.\""
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.ConfirmInitState": [
+    "BaseDataBoundControl.ConfirmInitState = \"ok\"",
+    "BaseDataBoundControl.ConfirmInitState after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.DataBind": [
+    "BaseDataBoundControl.DataBind = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.DataBound": [
+    "BaseDataBoundControl.DataBound = \"added and removed\""
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.DataSource": [
+    "BaseDataBoundControl.DataSource = null",
+    "BaseDataBoundControl.DataSource set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.DataSourceID": [
+    "BaseDataBoundControl.DataSourceID = \"\"",
+    "BaseDataBoundControl.DataSourceID set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.EnsureDataBound": [
+    "BaseDataBoundControl.EnsureDataBound = \"ok\"",
+    "BaseDataBoundControl.EnsureDataBound after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.Initialized": [
+    "BaseDataBoundControl.Initialized = \"false\""
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.IsBoundUsingDataSourceID": [
+    "BaseDataBoundControl.IsBoundUsingDataSourceID = \"false\""
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.IsDataBindingAutomatic": [
+    "BaseDataBoundControl.IsDataBindingAutomatic = \"false\""
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.IsUsingModelBinders": [
+    "BaseDataBoundControl.IsUsingModelBinders = \"false\""
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.OnDataBound": [
+    "BaseDataBoundControl.OnDataBound(EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnDataBound(EventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.OnDataPropertyChanged": [
+    "BaseDataBoundControl.OnDataPropertyChanged = \"ok\"",
+    "BaseDataBoundControl.OnDataPropertyChanged after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.OnInit": [
+    "BaseDataBoundControl.OnInit(EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnInit(EventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.OnPagePreLoad": [
+    "BaseDataBoundControl.OnPagePreLoad(Object,EventArgs) = \"ok\"",
+    "BaseDataBoundControl.OnPagePreLoad(Object,EventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.OnPreRender": [
+    "BaseDataBoundControl.OnPreRender(EventArgs) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.PerformSelect": [
+    "BaseDataBoundControl.PerformSelect = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.RequiresDataBinding": [
+    "BaseDataBoundControl.RequiresDataBinding = \"false\"",
+    "BaseDataBoundControl.RequiresDataBinding set = \"ok\""
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.SupportsDisabledAttribute": [
+    "BaseDataBoundControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "AdRotator.Api.WebControls.BaseDataBoundControl.ValidateDataSource": [
+    "BaseDataBoundControl.ValidateDataSource(Object) = \"ok\"",
+    "BaseDataBoundControl.ValidateDataSource(Object) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.#ctor": [
+    "DataBoundControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.DataBoundControl because it is an abstract class.\""
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.CallingDataMethods": [
+    "DataBoundControl.CallingDataMethods = \"added and removed\""
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.CreateDataSourceSelectArguments": [
+    "DataBoundControl.CreateDataSourceSelectArguments = DataSourceSelectArguments {MaximumRows=Int32 0; RetrieveTotalRowCount=false; SortExpression=\"\"; StartRowIndex=Int32 0; TotalRowCount=Int32 -1}",
+    "DataBoundControl.CreateDataSourceSelectArguments after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.CreatingModelDataSource": [
+    "DataBoundControl.CreatingModelDataSource = \"added and removed\""
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.DataMember": [
+    "DataBoundControl.DataMember = \"\"",
+    "DataBoundControl.DataMember set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.DataSourceID": [
+    "DataBoundControl.DataSourceID = \"\"",
+    "DataBoundControl.DataSourceID set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.DataSourceObject": [
+    "DataBoundControl.DataSourceObject = null"
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.GetData": [
+    "DataBoundControl.GetData = ReadOnlyDataSourceView {CanDelete=false; CanInsert=false; CanPage=false; CanRetrieveTotalRowCount=false; CanSort=false; CanUpdate=false; Name=\"\"}",
+    "DataBoundControl.GetData after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.GetDataSource": [
+    "DataBoundControl.GetDataSource = null",
+    "DataBoundControl.GetDataSource after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.IsUsingModelBinders": [
+    "DataBoundControl.IsUsingModelBinders = \"false\""
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.ItemType": [
+    "DataBoundControl.ItemType = \"\"",
+    "DataBoundControl.ItemType set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.LoadViewState": [
+    "DataBoundControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.MarkAsDataBound": [
+    "DataBoundControl.MarkAsDataBound = \"ok\"",
+    "DataBoundControl.MarkAsDataBound after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.OnCreatingModelDataSource": [
+    "DataBoundControl.OnCreatingModelDataSource(CreatingModelDataSourceEventArgs) = \"ok\"",
+    "DataBoundControl.OnCreatingModelDataSource(CreatingModelDataSourceEventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.OnDataPropertyChanged": [
+    "DataBoundControl.OnDataPropertyChanged = \"ok\"",
+    "DataBoundControl.OnDataPropertyChanged after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.OnDataSourceViewChanged": [
+    "DataBoundControl.OnDataSourceViewChanged(Object,EventArgs) = \"ok\"",
+    "DataBoundControl.OnDataSourceViewChanged(Object,EventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.OnLoad": [
+    "DataBoundControl.OnLoad(EventArgs) = \"ok\"",
+    "DataBoundControl.OnLoad(EventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.OnPagePreLoad": [
+    "DataBoundControl.OnPagePreLoad(Object,EventArgs) = \"ok\"",
+    "DataBoundControl.OnPagePreLoad(Object,EventArgs) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.PerformDataBinding": [
+    "DataBoundControl.PerformDataBinding(IEnumerable) = \"-> System.Web.HttpException: The AdRotator 'adBanner' is expecting the data type of the first item in the collection from the DataSource property to have advertisement properties such as ImageUrl, NavigateUrl, etc..  The current data type of the item is 'System.String'.\""
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.PerformSelect": [
+    "DataBoundControl.PerformSelect = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.SaveViewState": [
+    "DataBoundControl.SaveViewState = null",
+    "DataBoundControl.SaveViewState after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.SelectArguments": [
+    "DataBoundControl.SelectArguments = DataSourceSelectArguments {MaximumRows=Int32 0; RetrieveTotalRowCount=false; SortExpression=\"\"; StartRowIndex=Int32 0; TotalRowCount=Int32 -1}"
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.SelectMethod": [
+    "DataBoundControl.SelectMethod = \"\"",
+    "DataBoundControl.SelectMethod set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.TrackViewState": [
+    "DataBoundControl.TrackViewState = \"ok\"",
+    "DataBoundControl.TrackViewState after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.DataBoundControl.ValidateDataSource": [
+    "DataBoundControl.ValidateDataSource(Object) = \"ok\"",
+    "DataBoundControl.ValidateDataSource(Object) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "AdRotator.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "AdRotator.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}"
+  ],
+  "AdRotator.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = Style {BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; ForeColor=Color #00000000 Color [Empty]; Height=; IsEmpty=true; RegisteredCssClass=\"\"; Width=}",
+    "WebControl.CreateControlStyle after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "AdRotator.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "AdRotator.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"-> System.Web.HttpException: Response is not available in this context.\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <a id=\"adBanner\">",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.RenderContents(HtmlTextWriter) after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "AdRotator.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.A\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"a\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "AdRotator.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = AdRotator#adBanner {AccessKey=\"\"; AdvertisementFile=\"~/App_Data/ads.xml\"; AlternateTextField=\"AlternateText\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"adBanner\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DataMember=\"\"; DataSourceID=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"adBanner\"; ImageUrlField=\"ImageUrl\"; ItemType=\"\"; KeywordFilter=\"\"; NavigateUrlField=\"NavigateUrl\"; SelectMethod=\"\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Target=\"_top\"; ToolTip=\"\"; UniqueID=\"adBanner\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "AdRotator.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ]
+}

@@ -1,0 +1,13 @@
+﻿<%-- The theme the rendering layer's "[themed]" validator cases render with: a default skin and a named one (SkinID="probe") for each validator. --%>
+<asp:RequiredFieldValidator runat="server" CssClass="skinned" ForeColor="Purple" />
+<asp:RequiredFieldValidator runat="server" SkinID="probe" CssClass="skinned-probe" Display="Dynamic" />
+<asp:RegularExpressionValidator runat="server" CssClass="skinned" ForeColor="Purple" />
+<asp:RegularExpressionValidator runat="server" SkinID="probe" CssClass="skinned-probe" Display="Dynamic" />
+<asp:CompareValidator runat="server" CssClass="skinned" ForeColor="Purple" />
+<asp:CompareValidator runat="server" SkinID="probe" CssClass="skinned-probe" Display="Dynamic" />
+<asp:CustomValidator runat="server" CssClass="skinned" ForeColor="Purple" />
+<asp:CustomValidator runat="server" SkinID="probe" CssClass="skinned-probe" Display="Dynamic" />
+<asp:RangeValidator runat="server" CssClass="skinned" ForeColor="Purple" />
+<asp:RangeValidator runat="server" SkinID="probe" CssClass="skinned-probe" Display="Dynamic" />
+<asp:ValidationSummary runat="server" CssClass="skinned" ForeColor="Purple" />
+<asp:ValidationSummary runat="server" SkinID="probe" CssClass="skinned-probe" DisplayMode="List" />

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- The site map of the probe site: the navigation controls' (SiteMapPath, SiteMapDataSource, TreeView and Menu bound to it). -->
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+  <siteMapNode url="~/Cases.aspx" title="Home" description="The cases">
+    <siteMapNode url="~/RenderProbe.aspx" title="Render probe" description="One case" />
+    <siteMapNode url="~/NavigationScenario.aspx" title="Navigation" description="The navigation scenario">
+      <siteMapNode url="~/ButtonTarget.aspx" title="Target &amp; more" description="A target" />
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>

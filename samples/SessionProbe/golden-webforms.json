@@ -1,0 +1,754 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "session-first request: a new session, Session_Start",
+      "Path": "/",
+      "Title": "Session probe",
+      "Text": [
+        "IsPostBack=False",
+        "Mode=InProc Timeout=7 IsCookieless=False IsReadOnly=False IsNewSession=True",
+        "Same session as the last request: False",
+        "SessionID length: 24",
+        "Keys: (Count 0)",
+        "Request cookies: ASP.NET_SessionId",
+        "Global: Session_Start, Session_Start"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnStore": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnMutate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRemove": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnClear": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnAbandon": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "session-an object that is not serializable stored",
+      "Path": "/",
+      "Title": "Session probe",
+      "Text": [
+        "IsPostBack=True",
+        "Click Store",
+        "Mode=InProc Timeout=7 IsCookieless=False IsReadOnly=False IsNewSession=False",
+        "Same session as the last request: True",
+        "SessionID length: 24",
+        "Keys: cart,count,text (Count 3)",
+        "cart = Cart [pen]",
+        "count = 1",
+        "text = stored",
+        "Request cookies: ASP.NET_SessionId",
+        "Global: Session_Start, Session_Start"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnStore": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnMutate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRemove": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnClear": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnAbandon": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "session-the next request: the object kept",
+      "Path": "/",
+      "Title": "Session probe",
+      "Text": [
+        "IsPostBack=True",
+        "Mode=InProc Timeout=7 IsCookieless=False IsReadOnly=False IsNewSession=False",
+        "Same session as the last request: True",
+        "SessionID length: 24",
+        "Keys: cart,count,text (Count 3)",
+        "cart = Cart [pen]",
+        "count = 1",
+        "text = stored",
+        "Request cookies: ASP.NET_SessionId",
+        "Global: Session_Start, Session_Start"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnStore": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnMutate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRemove": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnClear": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnAbandon": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "session-the object changed in place",
+      "Path": "/",
+      "Title": "Session probe",
+      "Text": [
+        "IsPostBack=True",
+        "Click Mutate (cart changed in place)",
+        "Mode=InProc Timeout=7 IsCookieless=False IsReadOnly=False IsNewSession=False",
+        "Same session as the last request: True",
+        "SessionID length: 24",
+        "Keys: cart,count,text (Count 3)",
+        "cart = Cart [pen,bag]",
+        "count = 1",
+        "text = stored",
+        "Request cookies: ASP.NET_SessionId",
+        "Global: Session_Start, Session_Start"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnStore": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnMutate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRemove": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnClear": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnAbandon": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "session-the next request: the change kept",
+      "Path": "/",
+      "Title": "Session probe",
+      "Text": [
+        "IsPostBack=True",
+        "Mode=InProc Timeout=7 IsCookieless=False IsReadOnly=False IsNewSession=False",
+        "Same session as the last request: True",
+        "SessionID length: 24",
+        "Keys: cart,count,text (Count 3)",
+        "cart = Cart [pen,bag]",
+        "count = 1",
+        "text = stored",
+        "Request cookies: ASP.NET_SessionId",
+        "Global: Session_Start, Session_Start"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnStore": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnMutate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRemove": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnClear": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnAbandon": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "session-a read-only page writes",
+      "Path": "/readonly",
+      "Title": "Read-only session",
+      "Text": [
+        "IsReadOnly=True",
+        "cart=Cart [pen,bag]",
+        "write: written"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "session-after the read-only page's write",
+      "Path": "/",
+      "Title": "Session probe",
+      "Text": [
+        "IsPostBack=False",
+        "Mode=InProc Timeout=7 IsCookieless=False IsReadOnly=False IsNewSession=False",
+        "Same session as the last request: True",
+        "SessionID length: 24",
+        "Keys: cart,count,text,written-by-read-only (Count 4)",
+        "cart = Cart [pen,bag]",
+        "count = 1",
+        "text = stored",
+        "written-by-read-only = yes",
+        "Request cookies: ASP.NET_SessionId",
+        "Global: Session_Start, Session_Start"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnStore": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnMutate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRemove": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnClear": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnAbandon": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "session-a page without session",
+      "Path": "/nosession",
+      "Title": "No session",
+      "Text": [
+        "System.Web.HttpException: Session state can only be used when enableSessionState is set to true, either in a configuration file or in the Page directive. Please also make sure that System.Web.SessionStateModule or a custom session state module is included in the <configuration>\\<system.web>\\<httpModules> section in the application configuration.",
+        "Context.Session=null"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "session-a handler with IRequiresSessionState",
+      "Path": "/handler.ashx",
+      "Title": "Handler with session",
+      "Text": [
+        "Session=set cart=Cart [pen,bag]"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "session-a handler without",
+      "Path": "/nosessionhandler.ashx",
+      "Title": "Handler without session",
+      "Text": [
+        "Session=null"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "session-an item removed",
+      "Path": "/",
+      "Title": "Session probe",
+      "Text": [
+        "IsPostBack=True",
+        "Click Remove",
+        "Mode=InProc Timeout=7 IsCookieless=False IsReadOnly=False IsNewSession=False",
+        "Same session as the last request: True",
+        "SessionID length: 24",
+        "Keys: cart,count,written-by-read-only (Count 3)",
+        "cart = Cart [pen,bag]",
+        "count = 1",
+        "written-by-read-only = yes",
+        "Request cookies: ASP.NET_SessionId",
+        "Global: Session_Start, Session_Start"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnStore": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnMutate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRemove": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnClear": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnAbandon": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "session-cleared",
+      "Path": "/",
+      "Title": "Session probe",
+      "Text": [
+        "IsPostBack=True",
+        "Click Clear",
+        "Mode=InProc Timeout=7 IsCookieless=False IsReadOnly=False IsNewSession=False",
+        "Same session as the last request: True",
+        "SessionID length: 24",
+        "Keys: (Count 0)",
+        "Request cookies: ASP.NET_SessionId",
+        "Global: Session_Start, Session_Start"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnStore": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnMutate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRemove": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnClear": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnAbandon": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "session-abandoned: Session_End",
+      "Path": "/",
+      "Title": "Session probe",
+      "Text": [
+        "IsPostBack=True",
+        "Click Abandon",
+        "Mode=InProc Timeout=7 IsCookieless=False IsReadOnly=False IsNewSession=False",
+        "Same session as the last request: True",
+        "SessionID length: 24",
+        "Keys: cart,count,text (Count 3)",
+        "cart = Cart [pen]",
+        "count = 1",
+        "text = stored",
+        "Request cookies: ASP.NET_SessionId",
+        "Global: Session_Start, Session_Start"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnStore": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnMutate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRemove": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnClear": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnAbandon": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    },
+    {
+      "Name": "session-after Abandon: a new session",
+      "Path": "/",
+      "Title": "Session probe",
+      "Text": [
+        "IsPostBack=True",
+        "Mode=InProc Timeout=7 IsCookieless=False IsReadOnly=False IsNewSession=True",
+        "Same session as the last request: True",
+        "SessionID length: 24",
+        "Keys: (Count 0)",
+        "Request cookies: ASP.NET_SessionId",
+        "Global: Session_Start, Session_Start, Session_End(3 items), Session_Start"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "btnStore": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnMutate": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnRemove": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnClear": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnAbandon": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnSubmit": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      }
+    }
+  ],
+  "Links": null
+}

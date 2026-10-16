@@ -13,12 +13,17 @@ namespace FrameworkOnCore.ParityTest;
 /// posts of three external blogs, fetched live - present or not depending on the network
 /// at capture time, and different every week when present.
 /// </param>
+/// <param name="MaskIds">
+/// Regular expressions of DOM ids (parts of them) made up at random by the application, masked on both sides: a web
+/// part added at run time is "wp" and a random number (WebPartManager's dynamic IDs).
+/// </param>
 public sealed record ParityScenario(
     List<string>? IgnorePatterns,
     List<ParityStep> Steps,
     bool CompareRawIds = true,
     List<string>? IgnoreSelectors = null,
-    CrawlOptions? Crawl = null);
+    CrawlOptions? Crawl = null,
+    List<string>? MaskIds = null);
 
 /// <summary>
 /// The links of the application, after the steps: from the pages the scenario opens (and <paramref name="Urls"/>), the
@@ -46,6 +51,10 @@ public sealed record LinkResult(
 /// <summary>
 /// One scenario step.
 /// action: goto(path) / fill(target, value) / click(target) / clicktext(value) / clicksubmit(value) / select(target, value)
+///         / press(target, value: a key, Tab by default) / setvalue(target, value: by script, readonly or not)
+///         / selectmany(target, value: comma-separated) / evaluate(target, value: a script on the element e)
+///         / upload(target, value: "name.txt:content", a file chosen in a file input)
+///         / clicktextin(target, value: a link or button by its text inside the target)
 ///         / check(target) / uncheck(target) / waitMs(ms) / snapshot(name)
 /// </summary>
 public sealed record ParityStep(

@@ -1,0 +1,430 @@
+{
+  "ScriptManagerProxy.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "ScriptManagerProxy.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "ScriptManagerProxy.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "ScriptManagerProxy.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "ScriptManagerProxy.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.ClientID": [
+    "Control.ClientID = \"smpProbe\""
+  ],
+  "ScriptManagerProxy.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "ScriptManagerProxy.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "ScriptManagerProxy.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "ScriptManagerProxy.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "ScriptManagerProxy.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "ScriptManagerProxy.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "ScriptManagerProxy.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "ScriptManagerProxy.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "ScriptManagerProxy.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "ScriptManagerProxy.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "ScriptManagerProxy.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "ScriptManagerProxy.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "ScriptManagerProxy.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "ScriptManagerProxy.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "ScriptManagerProxy.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"smpProbe\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "ScriptManagerProxy.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.ID": [
+    "Control.ID = \"smpProbe\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "ScriptManagerProxy.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "ScriptManagerProxy.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "ScriptManagerProxy.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "ScriptManagerProxy.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "ScriptManagerProxy.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "ScriptManagerProxy.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "ScriptManagerProxy.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Collections.ArrayList'.\""
+  ],
+  "ScriptManagerProxy.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "ScriptManagerProxy.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "ScriptManagerProxy.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"-> System.InvalidOperationException: The control with ID 'smpProbe' requires a ScriptManager on the page. The ScriptManager must appear before any controls that need it.\""
+  ],
+  "ScriptManagerProxy.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "ScriptManagerProxy.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.Parent": [
+    "Control.Parent = PlaceHolder# {ClientID=\"ctl00\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"ctl00\"; SkinID=\"\"; UniqueID=\"ctl00\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "ScriptManagerProxy.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.Render(HtmlTextWriter) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "ScriptManagerProxy.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "ScriptManagerProxy.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "ScriptManagerProxy.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "ScriptManagerProxy.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.Control.UniqueID": [
+    "Control.UniqueID = \"smpProbe\""
+  ],
+  "ScriptManagerProxy.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "ScriptManagerProxy.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "ScriptManagerProxy.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "ScriptManagerProxy.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "ScriptManagerProxy.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "ScriptManagerProxy.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"-> System.NotImplementedException: The method or operation is not implemented.\""
+  ],
+  "ScriptManagerProxy.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "ScriptManagerProxy.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "ScriptManagerProxy.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "ScriptManagerProxy.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "ScriptManagerProxy.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "ScriptManagerProxy.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "ScriptManagerProxy.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = ScriptManagerProxy#smpProbe {ClientID=\"smpProbe\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"smpProbe\"; SkinID=\"\"; UniqueID=\"smpProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.ScriptManagerProxy.#ctor": [
+    "ScriptManagerProxy.#ctor = ScriptManagerProxy# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "ScriptManagerProxy.Api.ScriptManagerProxy.AuthenticationService": [
+    "ScriptManagerProxy.AuthenticationService = AuthenticationServiceManager {Path=\"\"}"
+  ],
+  "ScriptManagerProxy.Api.ScriptManagerProxy.CompositeScript": [
+    "ScriptManagerProxy.CompositeScript = CompositeScriptReference {NotifyScriptLoaded=true; Path=\"\"; ScriptMode=Auto}"
+  ],
+  "ScriptManagerProxy.Api.ScriptManagerProxy.Navigate": [
+    "ScriptManagerProxy.Navigate = \"added and removed\""
+  ],
+  "ScriptManagerProxy.Api.ScriptManagerProxy.OnInit": [
+    "ScriptManagerProxy.OnInit(EventArgs) = \"-> System.InvalidOperationException: The control with ID 'smpProbe' requires a ScriptManager on the page. The ScriptManager must appear before any controls that need it.\""
+  ],
+  "ScriptManagerProxy.Api.ScriptManagerProxy.ProfileService": [
+    "ScriptManagerProxy.ProfileService = ProfileServiceManager {Path=\"\"}"
+  ],
+  "ScriptManagerProxy.Api.ScriptManagerProxy.RoleService": [
+    "ScriptManagerProxy.RoleService = RoleServiceManager {LoadRoles=false; Path=\"\"}"
+  ],
+  "ScriptManagerProxy.Api.ScriptManagerProxy.Scripts": [
+    "ScriptManagerProxy.Scripts = \"[]\""
+  ],
+  "ScriptManagerProxy.Api.ScriptManagerProxy.Services": [
+    "ScriptManagerProxy.Services = \"[]\""
+  ],
+  "ScriptManagerProxy.Api.ScriptManagerProxy.Visible": [
+    "ScriptManagerProxy.Visible = \"true\"",
+    "ScriptManagerProxy.Visible set = \"-> System.NotImplementedException: The method or operation is not implemented.\""
+  ]
+}

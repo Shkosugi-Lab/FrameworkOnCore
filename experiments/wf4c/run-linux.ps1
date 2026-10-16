@@ -120,7 +120,9 @@ docker rm -f $container 2>$null | Out-Null
 $caseArguments = @()
 if ($CaseInsensitive) { $caseArguments = '-v', "$(Join-Path $PSScriptRoot 'casefs\out'):/foccase:ro" }
 $caseArguments += @($Environment.Keys | ForEach-Object { '-e'; "$_=$($Environment[$_])" })
-docker run -d --name $container @network @caseArguments -e "LANG=$($Culture.Replace('-', '_')).UTF-8" -p "${Port}:${Port}" -v "${PSScriptRoot}:/src:ro" -v "${overlay}:/overlay:ro" -v w2l-nuget:/root/.nuget/packages $Image bash -c $script | Out-Null
+# The golden data was recorded from IIS's own machine (a local client: IIS's detailed error pages, the application's
+# error answers left): this machine taken as the container's (HttpErrors:LocalAddresses).
+docker run -d --name $container @network @caseArguments -e 'HttpErrors__LocalAddresses=*' -e "LANG=$($Culture.Replace('-', '_')).UTF-8" -p "${Port}:${Port}" -v "${PSScriptRoot}:/src:ro" -v "${overlay}:/overlay:ro" -v w2l-nuget:/root/.nuget/packages $Image bash -c $script | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "docker run failed" }
 try {
     # Build (restore included) and start-up: wait until the app answers, or the container stops.

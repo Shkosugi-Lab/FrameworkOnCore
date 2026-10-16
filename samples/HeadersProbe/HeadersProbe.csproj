@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- IIS's response headers (system.webServer/httpProtocol: customHeaders, redirectHeaders; a location's, a folder's
+       web.config) and its HTTP redirection (httpRedirect: relative and exact destinations, $S $Q $V, childOnly, the
+       statuses, wildcards, another server, a folder that turns it off, a file). Against the converted application:
+       experiments/wf4c/sample-parity.ps1, experiments/wf4c/headers-check.ps1 (each answer as sent). -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8E4A1D27-3C6B-4F09-B5D2-6A91C7E0F4B3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>HeadersProbe</RootNamespace>
+    <AssemblyName>HeadersProbe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="a.htm" />
+    <Content Include="big.htm" />
+    <Content Include="big.js" />
+    <Content Include="big.png" />
+    <Content Include="small.htm" />
+    <Content Include="Check.htm" />
+    <Content Include="browse\b.htm" />
+    <Content Include="browse\web.config" />
+    <Content Include="child\c.htm" />
+    <Content Include="docs\home.htm" />
+    <Content Include="docs\web.config" />
+    <Content Include="loc\l.htm" />
+    <Content Include="new\n.htm" />
+    <Content Include="old\o.htm" />
+    <Content Include="secure\s.htm" />
+    <Content Include="secure\web.config" />
+    <Content Include="Show.aspx" />
+    <Content Include="upload\u.htm" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

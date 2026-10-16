@@ -1,0 +1,716 @@
+{
+  "LinqDataSource.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LinqDataSource.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "LinqDataSource.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "LinqDataSource.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "LinqDataSource.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "LinqDataSource.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "LinqDataSource.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.ClientID": [
+    "Control.ClientID = \"ldsProducts\""
+  ],
+  "LinqDataSource.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"-> System.NotSupportedException: Specified method is not supported.\""
+  ],
+  "LinqDataSource.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "LinqDataSource.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "LinqDataSource.Api.Control.Controls": [
+    "Control.Controls = ControlCollection []"
+  ],
+  "LinqDataSource.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "LinqDataSource.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "LinqDataSource.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "LinqDataSource.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "LinqDataSource.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "LinqDataSource.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"false\"",
+    "Control.EnableTheming set = \"-> System.NotSupportedException: Control of type 'LinqDataSource' does not support theming.\""
+  ],
+  "LinqDataSource.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "LinqDataSource.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "LinqDataSource.Api.Control.FindControl": [
+    "Control.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "Control.FindControl(String) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.Focus": [
+    "Control.Focus = \"-> System.NotSupportedException: Control of type 'LinqDataSource' does not support the Focus operation.\""
+  ],
+  "LinqDataSource.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[]\"",
+    "Control.GetDesignModeState after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "LinqDataSource.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"ldsProducts\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "LinqDataSource.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.HasEvents": [
+    "Control.HasEvents = \"true\"",
+    "Control.HasEvents after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.ID": [
+    "Control.ID = \"ldsProducts\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "LinqDataSource.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "LinqDataSource.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "LinqDataSource.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "LinqDataSource.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "LinqDataSource.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "LinqDataSource.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "LinqDataSource.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "LinqDataSource.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "LinqDataSource.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "LinqDataSource.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "LinqDataSource.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"ok\"",
+    "Control.OnPreRender(EventArgs) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "LinqDataSource.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "LinqDataSource.Api.Control.Parent": [
+    "Control.Parent = HtmlForm#form1 {Action=\"\"; ClientID=\"form1\"; ClientIDMode=Inherit; DefaultButton=\"\"; DefaultFocus=\"\"; Disabled=false; EnableTheming=true; EnableViewState=true; Enctype=\"\"; ID=\"form1\"; InnerHtml=!HttpException; InnerText=!HttpException; Method=\"post\"; Name=\"form1\"; SkinID=\"\"; SubmitDisabledControls=false; TagName=\"form\"; Target=\"\"; UniqueID=\"form1\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LinqDataSource.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "LinqDataSource.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.Render(HtmlTextWriter) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | ",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "LinqDataSource.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.SaveViewState": [
+    "Control.SaveViewState = Pair {}",
+    "Control.SaveViewState after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "LinqDataSource.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"-> System.NotSupportedException: Control of type 'LinqDataSource' does not support theming.\""
+  ],
+  "LinqDataSource.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "LinqDataSource.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "LinqDataSource.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.Control.UniqueID": [
+    "Control.UniqueID = \"ldsProducts\""
+  ],
+  "LinqDataSource.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "LinqDataSource.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "LinqDataSource.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "LinqDataSource.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "LinqDataSource.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "LinqDataSource.Api.Control.Visible": [
+    "Control.Visible = \"false\"",
+    "Control.Visible set = \"-> System.NotSupportedException: Control of type 'LinqDataSource' is a non-visual control and does not support setting the Visible property.\""
+  ],
+  "LinqDataSource.Api.DataSourceControl.#ctor": [
+    "DataSourceControl.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.DataSourceControl because it is an abstract class.\""
+  ],
+  "LinqDataSource.Api.DataSourceControl.ApplyStyleSheetSkin": [
+    "DataSourceControl.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "DataSourceControl.ApplyStyleSheetSkin(Page) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.DataSourceControl.ClientID": [
+    "DataSourceControl.ClientID = \"ldsProducts\""
+  ],
+  "LinqDataSource.Api.DataSourceControl.ClientIDMode": [
+    "DataSourceControl.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "DataSourceControl.ClientIDMode set = \"-> System.NotSupportedException: Specified method is not supported.\""
+  ],
+  "LinqDataSource.Api.DataSourceControl.Controls": [
+    "DataSourceControl.Controls = ControlCollection []"
+  ],
+  "LinqDataSource.Api.DataSourceControl.CreateControlCollection": [
+    "DataSourceControl.CreateControlCollection = ControlCollection []",
+    "DataSourceControl.CreateControlCollection after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.DataSourceControl.EnableTheming": [
+    "DataSourceControl.EnableTheming = \"false\"",
+    "DataSourceControl.EnableTheming set = \"-> System.NotSupportedException: Control of type 'LinqDataSource' does not support theming.\""
+  ],
+  "LinqDataSource.Api.DataSourceControl.FindControl": [
+    "DataSourceControl.FindControl(String) = Label#lblTitle {AccessKey=\"\"; AssociatedControlID=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"lblTitle\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=\"lblTitle\"; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Text=\"Title\"; ToolTip=\"\"; UniqueID=\"lblTitle\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "DataSourceControl.FindControl(String) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.DataSourceControl.Focus": [
+    "DataSourceControl.Focus = \"-> System.NotSupportedException: Control of type 'LinqDataSource' does not support the Focus operation.\""
+  ],
+  "LinqDataSource.Api.DataSourceControl.GetView": [
+    "DataSourceControl.GetView(String) = \"-> System.ArgumentException: LinqDataSource 'ldsProducts' only supports a single view named 'DefaultView'. You may also leave the view name empty for the default view to be chosen. [param viewName]\""
+  ],
+  "LinqDataSource.Api.DataSourceControl.GetViewNames": [
+    "DataSourceControl.GetViewNames = \"[System.String DefaultView]\"",
+    "DataSourceControl.GetViewNames after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.DataSourceControl.HasControls": [
+    "DataSourceControl.HasControls = \"false\"",
+    "DataSourceControl.HasControls after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.DataSourceControl.RaiseDataSourceChangedEvent": [
+    "DataSourceControl.RaiseDataSourceChangedEvent(EventArgs) = \"ok\"",
+    "DataSourceControl.RaiseDataSourceChangedEvent(EventArgs) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.DataSourceControl.RenderControl": [
+    "DataSourceControl.RenderControl(HtmlTextWriter) = \"ok\"",
+    "DataSourceControl.RenderControl(HtmlTextWriter) writer:",
+    "  | ",
+    "DataSourceControl.RenderControl(HtmlTextWriter) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.DataSourceControl.SkinID": [
+    "DataSourceControl.SkinID = \"\"",
+    "DataSourceControl.SkinID set = \"-> System.NotSupportedException: Control of type 'LinqDataSource' does not support theming.\""
+  ],
+  "LinqDataSource.Api.DataSourceControl.Visible": [
+    "DataSourceControl.Visible = \"false\"",
+    "DataSourceControl.Visible set = \"-> System.NotSupportedException: Control of type 'LinqDataSource' is a non-visual control and does not support setting the Visible property.\""
+  ],
+  "LinqDataSource.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "LinqDataSource.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "LinqDataSource.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "LinqDataSource.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "LinqDataSource.Api.IDataSource.DataSourceChanged": [
+    "IDataSource.DataSourceChanged = \"added and removed\""
+  ],
+  "LinqDataSource.Api.IDataSource.GetView": [
+    "IDataSource.GetView(String) = \"-> System.ArgumentException: LinqDataSource 'ldsProducts' only supports a single view named 'DefaultView'. You may also leave the view name empty for the default view to be chosen. [param viewName]\""
+  ],
+  "LinqDataSource.Api.IDataSource.GetViewNames": [
+    "IDataSource.GetViewNames = \"[System.String DefaultView]\"",
+    "IDataSource.GetViewNames after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "LinqDataSource.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "LinqDataSource.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.System.Web.DynamicData.IDynamicDataSource.AutoGenerateWhereClause": [
+    "DynamicData.IDynamicDataSource.AutoGenerateWhereClause = \"false\"",
+    "DynamicData.IDynamicDataSource.AutoGenerateWhereClause set = \"true\""
+  ],
+  "LinqDataSource.Api.System.Web.DynamicData.IDynamicDataSource.ContextType": [
+    "DynamicData.IDynamicDataSource.ContextType = \"System.RuntimeType System.Object\"",
+    "DynamicData.IDynamicDataSource.ContextType set = \"System.RuntimeType System.Web.UI.WebControls.Label\""
+  ],
+  "LinqDataSource.Api.System.Web.DynamicData.IDynamicDataSource.EnableDelete": [
+    "DynamicData.IDynamicDataSource.EnableDelete = \"false\"",
+    "DynamicData.IDynamicDataSource.EnableDelete set = \"true\""
+  ],
+  "LinqDataSource.Api.System.Web.DynamicData.IDynamicDataSource.EnableInsert": [
+    "DynamicData.IDynamicDataSource.EnableInsert = \"false\"",
+    "DynamicData.IDynamicDataSource.EnableInsert set = \"true\""
+  ],
+  "LinqDataSource.Api.System.Web.DynamicData.IDynamicDataSource.EnableUpdate": [
+    "DynamicData.IDynamicDataSource.EnableUpdate = \"false\"",
+    "DynamicData.IDynamicDataSource.EnableUpdate set = \"true\""
+  ],
+  "LinqDataSource.Api.System.Web.DynamicData.IDynamicDataSource.EntitySetName": [
+    "DynamicData.IDynamicDataSource.EntitySetName = \"Products\"",
+    "DynamicData.IDynamicDataSource.EntitySetName set = \"Abc 123\""
+  ],
+  "LinqDataSource.Api.System.Web.DynamicData.IDynamicDataSource.Exception": [
+    "DynamicData.IDynamicDataSource.Exception = \"added and removed\""
+  ],
+  "LinqDataSource.Api.System.Web.DynamicData.IDynamicDataSource.Where": [
+    "DynamicData.IDynamicDataSource.Where = \"\"",
+    "DynamicData.IDynamicDataSource.Where set = \"Abc 123\""
+  ],
+  "LinqDataSource.Api.System.Web.DynamicData.IDynamicDataSource.WhereParameters": [
+    "DynamicData.IDynamicDataSource.WhereParameters = \"[]\""
+  ],
+  "LinqDataSource.Api.WebControls.ContextDataSource.#ctor": [
+    "ContextDataSource.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.ContextDataSource because it is an abstract class.\""
+  ],
+  "LinqDataSource.Api.WebControls.ContextDataSource.ContextTypeName": [
+    "ContextDataSource.ContextTypeName = \"System.Object\"",
+    "ContextDataSource.ContextTypeName set = \"Abc 123\""
+  ],
+  "LinqDataSource.Api.WebControls.ContextDataSource.EntitySetName": [
+    "ContextDataSource.EntitySetName = \"Products\"",
+    "ContextDataSource.EntitySetName set = \"ok\""
+  ],
+  "LinqDataSource.Api.WebControls.ContextDataSource.EntityTypeName": [
+    "ContextDataSource.EntityTypeName = \"\"",
+    "ContextDataSource.EntityTypeName set = \"Abc 123\""
+  ],
+  "LinqDataSource.Api.WebControls.IQueryableDataSource.QueryCreated": [
+    "IQueryableDataSource.QueryCreated = \"added and removed\""
+  ],
+  "LinqDataSource.Api.WebControls.IQueryableDataSource.RaiseViewChanged": [
+    "IQueryableDataSource.RaiseViewChanged = \"ok\"",
+    "IQueryableDataSource.RaiseViewChanged after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.#ctor": [
+    "LinqDataSource.#ctor = LinqDataSource# {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"\"; ClientIDMode=Inherit; ContextTypeName=\"\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=null; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.AutoGenerateOrderByClause": [
+    "LinqDataSource.AutoGenerateOrderByClause = \"false\"",
+    "LinqDataSource.AutoGenerateOrderByClause set = \"true\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.AutoGenerateWhereClause": [
+    "LinqDataSource.AutoGenerateWhereClause = \"false\"",
+    "LinqDataSource.AutoGenerateWhereClause set = \"true\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.AutoPage": [
+    "LinqDataSource.AutoPage = \"true\"",
+    "LinqDataSource.AutoPage set = \"true\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.AutoSort": [
+    "LinqDataSource.AutoSort = \"true\"",
+    "LinqDataSource.AutoSort set = \"true\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.ContextCreated": [
+    "LinqDataSource.ContextCreated = \"added and removed\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.ContextCreating": [
+    "LinqDataSource.ContextCreating = \"added and removed\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.ContextDisposing": [
+    "LinqDataSource.ContextDisposing = \"added and removed\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.ContextTypeName": [
+    "LinqDataSource.ContextTypeName = \"System.Object\"",
+    "LinqDataSource.ContextTypeName set = \"Abc 123\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.CreateQueryableView": [
+    "LinqDataSource.CreateQueryableView = LinqDataSourceView {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; CanDelete=false; CanInsert=false; CanPage=true; CanRetrieveTotalRowCount=true; CanSort=true; CanUpdate=false; ContextTypeName=\"\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableUpdate=false; EntitySetName=\"\"; EntityTypeName=\"\"; GroupBy=\"\"; Name=\"DefaultView\"; OrderBy=\"\"; OrderGroupsBy=\"\"; SelectNew=\"\"; StoreOriginalValuesInViewState=true; TableName=\"\"; Where=\"\"}",
+    "LinqDataSource.CreateQueryableView after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.CreateView": [
+    "LinqDataSource.CreateView = LinqDataSourceView {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; CanDelete=false; CanInsert=false; CanPage=true; CanRetrieveTotalRowCount=true; CanSort=true; CanUpdate=false; ContextTypeName=\"\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableUpdate=false; EntitySetName=\"\"; EntityTypeName=\"\"; GroupBy=\"\"; Name=\"DefaultView\"; OrderBy=\"\"; OrderGroupsBy=\"\"; SelectNew=\"\"; StoreOriginalValuesInViewState=true; TableName=\"\"; Where=\"\"}",
+    "LinqDataSource.CreateView after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.Delete": [
+    "LinqDataSource.Delete(IDictionary,IDictionary) = \"-> System.NotSupportedException: LinqDataSource 'ldsProducts' does not support the Delete operation unless EnableDelete is true.\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.DeleteParameters": [
+    "LinqDataSource.DeleteParameters = \"[]\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.Deleted": [
+    "LinqDataSource.Deleted = \"added and removed\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.Deleting": [
+    "LinqDataSource.Deleting = \"added and removed\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.EnableDelete": [
+    "LinqDataSource.EnableDelete = \"false\"",
+    "LinqDataSource.EnableDelete set = \"true\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.EnableInsert": [
+    "LinqDataSource.EnableInsert = \"false\"",
+    "LinqDataSource.EnableInsert set = \"true\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.EnableObjectTracking": [
+    "LinqDataSource.EnableObjectTracking = \"true\"",
+    "LinqDataSource.EnableObjectTracking set = \"true\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.EnableUpdate": [
+    "LinqDataSource.EnableUpdate = \"false\"",
+    "LinqDataSource.EnableUpdate set = \"true\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.GroupBy": [
+    "LinqDataSource.GroupBy = \"\"",
+    "LinqDataSource.GroupBy set = \"Abc 123\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.GroupByParameters": [
+    "LinqDataSource.GroupByParameters = \"[]\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.Insert": [
+    "LinqDataSource.Insert(IDictionary) = \"-> System.NotSupportedException: LinqDataSource 'ldsProducts' does not support the Insert operation unless EnableInsert is true.\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.InsertParameters": [
+    "LinqDataSource.InsertParameters = \"[]\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.Inserted": [
+    "LinqDataSource.Inserted = \"added and removed\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.Inserting": [
+    "LinqDataSource.Inserting = \"added and removed\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.OnInit": [
+    "LinqDataSource.OnInit(EventArgs) = \"ok\"",
+    "LinqDataSource.OnInit(EventArgs) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.OnUnload": [
+    "LinqDataSource.OnUnload(EventArgs) = \"ok\"",
+    "LinqDataSource.OnUnload(EventArgs) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.OrderBy": [
+    "LinqDataSource.OrderBy = \"\"",
+    "LinqDataSource.OrderBy set = \"Abc 123\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.OrderByParameters": [
+    "LinqDataSource.OrderByParameters = \"[]\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.OrderGroupsBy": [
+    "LinqDataSource.OrderGroupsBy = \"\"",
+    "LinqDataSource.OrderGroupsBy set = \"Abc 123\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.OrderGroupsByParameters": [
+    "LinqDataSource.OrderGroupsByParameters = \"[]\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.Select": [
+    "LinqDataSource.Select = \"\"",
+    "LinqDataSource.Select set = \"Abc 123\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.SelectParameters": [
+    "LinqDataSource.SelectParameters = \"[]\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.Selected": [
+    "LinqDataSource.Selected = \"added and removed\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.Selecting": [
+    "LinqDataSource.Selecting = \"added and removed\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.StoreOriginalValuesInViewState": [
+    "LinqDataSource.StoreOriginalValuesInViewState = \"true\"",
+    "LinqDataSource.StoreOriginalValuesInViewState set = \"true\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.TableName": [
+    "LinqDataSource.TableName = \"Products\"",
+    "LinqDataSource.TableName set = \"Abc 123\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.Update": [
+    "LinqDataSource.Update(IDictionary,IDictionary,IDictionary) = \"-> System.NotSupportedException: LinqDataSource 'ldsProducts' does not support the Update operation unless EnableUpdate is true.\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.UpdateParameters": [
+    "LinqDataSource.UpdateParameters = \"[]\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.Updated": [
+    "LinqDataSource.Updated = \"added and removed\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.Updating": [
+    "LinqDataSource.Updating = \"added and removed\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.Where": [
+    "LinqDataSource.Where = \"\"",
+    "LinqDataSource.Where set = \"Abc 123\""
+  ],
+  "LinqDataSource.Api.WebControls.LinqDataSource.WhereParameters": [
+    "LinqDataSource.WhereParameters = \"[]\""
+  ],
+  "LinqDataSource.Api.WebControls.QueryableDataSource.#ctor": [
+    "QueryableDataSource.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.QueryableDataSource because it is an abstract class.\""
+  ],
+  "LinqDataSource.Api.WebControls.QueryableDataSource.CreateQueryableView": [
+    "QueryableDataSource.CreateQueryableView = LinqDataSourceView {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; CanDelete=false; CanInsert=false; CanPage=true; CanRetrieveTotalRowCount=true; CanSort=true; CanUpdate=false; ContextTypeName=\"\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableUpdate=false; EntitySetName=\"\"; EntityTypeName=\"\"; GroupBy=\"\"; Name=\"DefaultView\"; OrderBy=\"\"; OrderGroupsBy=\"\"; SelectNew=\"\"; StoreOriginalValuesInViewState=true; TableName=\"\"; Where=\"\"}",
+    "QueryableDataSource.CreateQueryableView after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.WebControls.QueryableDataSource.GetView": [
+    "QueryableDataSource.GetView(String) = \"-> System.ArgumentException: LinqDataSource 'ldsProducts' only supports a single view named 'DefaultView'. You may also leave the view name empty for the default view to be chosen. [param viewName]\""
+  ],
+  "LinqDataSource.Api.WebControls.QueryableDataSource.GetViewNames": [
+    "QueryableDataSource.GetViewNames = \"[System.String DefaultView]\"",
+    "QueryableDataSource.GetViewNames after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.WebControls.QueryableDataSource.LoadViewState": [
+    "QueryableDataSource.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "LinqDataSource.Api.WebControls.QueryableDataSource.OnInit": [
+    "QueryableDataSource.OnInit(EventArgs) = \"ok\"",
+    "QueryableDataSource.OnInit(EventArgs) after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.WebControls.QueryableDataSource.QueryCreated": [
+    "QueryableDataSource.QueryCreated = \"added and removed\""
+  ],
+  "LinqDataSource.Api.WebControls.QueryableDataSource.RaiseViewChanged": [
+    "QueryableDataSource.RaiseViewChanged = \"ok\"",
+    "QueryableDataSource.RaiseViewChanged after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.WebControls.QueryableDataSource.SaveViewState": [
+    "QueryableDataSource.SaveViewState = Pair {}",
+    "QueryableDataSource.SaveViewState after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.WebControls.QueryableDataSource.TrackViewState": [
+    "QueryableDataSource.TrackViewState = \"ok\"",
+    "QueryableDataSource.TrackViewState after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ],
+  "LinqDataSource.Api.WebControls.QueryableDataSource.UpdateParameterVales": [
+    "QueryableDataSource.UpdateParameterVales = \"ok\"",
+    "QueryableDataSource.UpdateParameterVales after = LinqDataSource#ldsProducts {AutoGenerateOrderByClause=false; AutoGenerateWhereClause=false; AutoPage=true; AutoSort=true; ClientID=\"ldsProducts\"; ClientIDMode=Inherit; ContextTypeName=\"System.Object\"; EnableDelete=false; EnableInsert=false; EnableObjectTracking=true; EnableTheming=false; EnableUpdate=false; EnableViewState=true; EntityTypeName=\"\"; GroupBy=\"\"; ID=\"ldsProducts\"; OrderBy=\"\"; OrderGroupsBy=\"\"; Select=\"\"; SkinID=\"\"; StoreOriginalValuesInViewState=true; TableName=\"Products\"; UniqueID=\"ldsProducts\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=false; Where=\"\"}"
+  ]
+}

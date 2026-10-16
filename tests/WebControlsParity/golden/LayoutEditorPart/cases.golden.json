@@ -1,0 +1,805 @@
+{
+  "LayoutEditorPart.Api.Control.#ctor": [
+    "Control.#ctor = Control# {ClientID=\"\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=null; SkinID=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LayoutEditorPart.Api.Control.Adapter": [
+    "Control.Adapter = null"
+  ],
+  "LayoutEditorPart.Api.Control.AddParsedSubObject": [
+    "Control.AddParsedSubObject(Object) = \"ok\"",
+    "Control.AddParsedSubObject(Object) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.AddedControl": [
+    "Control.AddedControl(Control,Int32) = \"ok\"",
+    "Control.AddedControl(Control,Int32) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.AppRelativeTemplateSourceDirectory": [
+    "Control.AppRelativeTemplateSourceDirectory = \"\"",
+    "Control.AppRelativeTemplateSourceDirectory set = \"-> System.ArgumentException: The relative virtual path 'Abc 123' is not allowed here.\""
+  ],
+  "LayoutEditorPart.Api.Control.ApplyStyleSheetSkin": [
+    "Control.ApplyStyleSheetSkin(Page) = \"ok\"",
+    "Control.ApplyStyleSheetSkin(Page) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.BeginRenderTracing": [
+    "Control.BeginRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.BeginRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.BeginRenderTracing(TextWriter,Object) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.BindingContainer": [
+    "Control.BindingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "LayoutEditorPart.Api.Control.BuildProfileTree": [
+    "Control.BuildProfileTree(String,Boolean) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "LayoutEditorPart.Api.Control.ChildControlsCreated": [
+    "Control.ChildControlsCreated = \"false\"",
+    "Control.ChildControlsCreated set = \"ok\""
+  ],
+  "LayoutEditorPart.Api.Control.ClearCachedClientID": [
+    "Control.ClearCachedClientID = \"ok\"",
+    "Control.ClearCachedClientID after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.ClearChildControlState": [
+    "Control.ClearChildControlState = \"ok\"",
+    "Control.ClearChildControlState after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.ClearChildState": [
+    "Control.ClearChildState = \"ok\"",
+    "Control.ClearChildState after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.ClearChildViewState": [
+    "Control.ClearChildViewState = \"ok\"",
+    "Control.ClearChildViewState after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.ClearEffectiveClientIDMode": [
+    "Control.ClearEffectiveClientIDMode = \"ok\"",
+    "Control.ClearEffectiveClientIDMode after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.ClientID": [
+    "Control.ClientID = \"lepProbe\""
+  ],
+  "LayoutEditorPart.Api.Control.ClientIDMode": [
+    "Control.ClientIDMode = \"ClientIDMode.Inherit\"",
+    "Control.ClientIDMode set = \"ClientIDMode.AutoID\""
+  ],
+  "LayoutEditorPart.Api.Control.ClientIDSeparator": [
+    "Control.ClientIDSeparator = \"'_'\""
+  ],
+  "LayoutEditorPart.Api.Control.Context": [
+    "Control.Context = null"
+  ],
+  "LayoutEditorPart.Api.Control.Controls": [
+    "Control.Controls = ControlCollection [DropDownList#, DropDownList#, TextBox#]"
+  ],
+  "LayoutEditorPart.Api.Control.CreateChildControls": [
+    "Control.CreateChildControls = \"ok\"",
+    "Control.CreateChildControls after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.CreateControlCollection": [
+    "Control.CreateControlCollection = ControlCollection []",
+    "Control.CreateControlCollection after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.DataBind": [
+    "Control.DataBind = \"ok\"",
+    "Control.DataBind after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.DataBind(Boolean) = \"ok\"",
+    "Control.DataBind(Boolean) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.DataBindChildren": [
+    "Control.DataBindChildren = \"ok\"",
+    "Control.DataBindChildren after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.DataBinding": [
+    "Control.DataBinding = \"added and removed\""
+  ],
+  "LayoutEditorPart.Api.Control.DataItemContainer": [
+    "Control.DataItemContainer = null"
+  ],
+  "LayoutEditorPart.Api.Control.DataKeysContainer": [
+    "Control.DataKeysContainer = null"
+  ],
+  "LayoutEditorPart.Api.Control.DesignMode": [
+    "Control.DesignMode = \"false\""
+  ],
+  "LayoutEditorPart.Api.Control.Dispose": [
+    "Control.Dispose = \"ok\"",
+    "Control.Dispose after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.Disposed": [
+    "Control.Disposed = \"added and removed\""
+  ],
+  "LayoutEditorPart.Api.Control.EnableTheming": [
+    "Control.EnableTheming = \"true\"",
+    "Control.EnableTheming set = \"true\""
+  ],
+  "LayoutEditorPart.Api.Control.EnableViewState": [
+    "Control.EnableViewState = \"true\"",
+    "Control.EnableViewState set = \"true\""
+  ],
+  "LayoutEditorPart.Api.Control.EndRenderTracing": [
+    "Control.EndRenderTracing(TextWriter,Object) = \"ok\"",
+    "Control.EndRenderTracing(TextWriter,Object) writer:",
+    "  | ",
+    "Control.EndRenderTracing(TextWriter,Object) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.EnsureChildControls": [
+    "Control.EnsureChildControls = \"ok\"",
+    "Control.EnsureChildControls after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.EnsureID": [
+    "Control.EnsureID = \"ok\"",
+    "Control.EnsureID after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.Events": [
+    "Control.Events = \"System.ComponentModel.EventHandlerList\""
+  ],
+  "LayoutEditorPart.Api.Control.FindControl": [
+    "Control.FindControl(String) = null",
+    "Control.FindControl(String) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.FindControl(String,Int32) = null",
+    "Control.FindControl(String,Int32) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.Focus": [
+    "Control.Focus = \"-> System.InvalidOperationException: A form tag with runat=server must exist on the Page to use SetFocus() or the Focus property.\""
+  ],
+  "LayoutEditorPart.Api.Control.GetDesignModeState": [
+    "Control.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "Control.GetDesignModeState after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.GetRouteUrl": [
+    "Control.GetRouteUrl(Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Object) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(String,Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\"",
+    "Control.GetRouteUrl(Routing.RouteValueDictionary) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "LayoutEditorPart.Api.Control.GetUniqueIDRelativeTo": [
+    "Control.GetUniqueIDRelativeTo(Control) = \"lepProbe\"",
+    "Control.GetUniqueIDRelativeTo(Control) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.HasChildViewState": [
+    "Control.HasChildViewState = \"false\""
+  ],
+  "LayoutEditorPart.Api.Control.HasControls": [
+    "Control.HasControls = \"false\"",
+    "Control.HasControls after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.HasEvents": [
+    "Control.HasEvents = \"false\"",
+    "Control.HasEvents after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.ID": [
+    "Control.ID = \"lepProbe\"",
+    "Control.ID set = \"Abc 123\""
+  ],
+  "LayoutEditorPart.Api.Control.IdSeparator": [
+    "Control.IdSeparator = \"'$'\""
+  ],
+  "LayoutEditorPart.Api.Control.Init": [
+    "Control.Init = \"added and removed\""
+  ],
+  "LayoutEditorPart.Api.Control.IsChildControlStateCleared": [
+    "Control.IsChildControlStateCleared = \"false\""
+  ],
+  "LayoutEditorPart.Api.Control.IsLiteralContent": [
+    "Control.IsLiteralContent = \"false\"",
+    "Control.IsLiteralContent after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.IsTrackingViewState": [
+    "Control.IsTrackingViewState = \"false\""
+  ],
+  "LayoutEditorPart.Api.Control.IsViewStateEnabled": [
+    "Control.IsViewStateEnabled = \"true\""
+  ],
+  "LayoutEditorPart.Api.Control.Load": [
+    "Control.Load = \"added and removed\""
+  ],
+  "LayoutEditorPart.Api.Control.LoadControlState": [
+    "Control.LoadControlState(Object) = \"ok\"",
+    "Control.LoadControlState(Object) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.LoadViewState": [
+    "Control.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "LayoutEditorPart.Api.Control.LoadViewStateByID": [
+    "Control.LoadViewStateByID = \"false\""
+  ],
+  "LayoutEditorPart.Api.Control.MapPathSecure": [
+    "Control.MapPathSecure(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "LayoutEditorPart.Api.Control.NamingContainer": [
+    "Control.NamingContainer = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "LayoutEditorPart.Api.Control.OnBubbleEvent": [
+    "Control.OnBubbleEvent(Object,EventArgs) = \"false\"",
+    "Control.OnBubbleEvent(Object,EventArgs) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.OnDataBinding": [
+    "Control.OnDataBinding(EventArgs) = \"ok\"",
+    "Control.OnDataBinding(EventArgs) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.OnInit": [
+    "Control.OnInit(EventArgs) = \"ok\"",
+    "Control.OnInit(EventArgs) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.OnLoad": [
+    "Control.OnLoad(EventArgs) = \"ok\"",
+    "Control.OnLoad(EventArgs) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.OnPreRender": [
+    "Control.OnPreRender(EventArgs) = \"-> System.InvalidOperationException: EditorPart 'lepProbe' must be placed in an EditorZone.\""
+  ],
+  "LayoutEditorPart.Api.Control.OnUnload": [
+    "Control.OnUnload(EventArgs) = \"ok\"",
+    "Control.OnUnload(EventArgs) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.OpenFile": [
+    "Control.OpenFile(String) = \"-> System.NullReferenceException: Object reference not set to an instance of an object.\""
+  ],
+  "LayoutEditorPart.Api.Control.Page": [
+    "Control.Page = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.Page set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "LayoutEditorPart.Api.Control.Parent": [
+    "Control.Parent = PlaceHolder# {ClientID=\"ctl00\"; ClientIDMode=Inherit; EnableTheming=true; EnableViewState=true; ID=\"ctl00\"; SkinID=\"\"; UniqueID=\"ctl00\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true}"
+  ],
+  "LayoutEditorPart.Api.Control.PreRender": [
+    "Control.PreRender = \"added and removed\""
+  ],
+  "LayoutEditorPart.Api.Control.RaiseBubbleEvent": [
+    "Control.RaiseBubbleEvent(Object,EventArgs) = \"ok\"",
+    "Control.RaiseBubbleEvent(Object,EventArgs) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.RemovedControl": [
+    "Control.RemovedControl(Control) = \"ok\"",
+    "Control.RemovedControl(Control) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.Render": [
+    "Control.Render(HtmlTextWriter) = \"ok\"",
+    "Control.Render(HtmlTextWriter) writer:",
+    "  | <div id=\"lepProbe\">",
+    "  | \t<table border=\"0\" cellspacing=\"4\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td><label for=\"lepProbe_ctl00\">Chrome State:</label><br />",
+    "  | \t\t\t<select name=\"lepProbe$ctl00\" id=\"lepProbe_ctl00\">",
+    "  | \t\t\t\t<option value=\"Normal\">Normal</option>",
+    "  | \t\t\t\t<option value=\"Minimized\">Minimized</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"lepProbe_ctl01\">Zone:</label><br />",
+    "  | \t\t\t<select name=\"lepProbe$ctl01\" id=\"lepProbe_ctl01\">",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"lepProbe_ctl02\">Zone Index:</label><br />",
+    "  | \t\t\t<input name=\"lepProbe$ctl02\" type=\"text\" size=\"10\" id=\"lepProbe_ctl02\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr>",
+    "  | \t</table>",
+    "  | </div>",
+    "Control.Render(HtmlTextWriter) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.RenderChildren": [
+    "Control.RenderChildren(HtmlTextWriter) = \"ok\"",
+    "Control.RenderChildren(HtmlTextWriter) writer:",
+    "  | ",
+    "Control.RenderChildren(HtmlTextWriter) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.RenderControl": [
+    "Control.RenderControl(HtmlTextWriter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter) writer:",
+    "  | <div id=\"lepProbe\">",
+    "  | \t<table border=\"0\" cellspacing=\"4\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td><label for=\"lepProbe_ctl00\">Chrome State:</label><br />",
+    "  | \t\t\t<select name=\"lepProbe$ctl00\" id=\"lepProbe_ctl00\">",
+    "  | \t\t\t\t<option value=\"Normal\">Normal</option>",
+    "  | \t\t\t\t<option value=\"Minimized\">Minimized</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"lepProbe_ctl01\">Zone:</label><br />",
+    "  | \t\t\t<select name=\"lepProbe$ctl01\" id=\"lepProbe_ctl01\">",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"lepProbe_ctl02\">Zone Index:</label><br />",
+    "  | \t\t\t<input name=\"lepProbe$ctl02\" type=\"text\" size=\"10\" id=\"lepProbe_ctl02\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr>",
+    "  | \t</table>",
+    "  | </div>",
+    "Control.RenderControl(HtmlTextWriter) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) = \"ok\"",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) writer:",
+    "  | <div id=\"lepProbe\">",
+    "  | \t<table border=\"0\" cellspacing=\"4\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td><label for=\"lepProbe_ctl00\">Chrome State:</label><br />",
+    "  | \t\t\t<select name=\"lepProbe$ctl00\" id=\"lepProbe_ctl00\">",
+    "  | \t\t\t\t<option value=\"Normal\">Normal</option>",
+    "  | \t\t\t\t<option value=\"Minimized\">Minimized</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"lepProbe_ctl01\">Zone:</label><br />",
+    "  | \t\t\t<select name=\"lepProbe$ctl01\" id=\"lepProbe_ctl01\">",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"lepProbe_ctl02\">Zone Index:</label><br />",
+    "  | \t\t\t<input name=\"lepProbe$ctl02\" type=\"text\" size=\"10\" id=\"lepProbe_ctl02\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr>",
+    "  | \t</table>",
+    "  | </div>",
+    "Control.RenderControl(HtmlTextWriter,Adapters.ControlAdapter) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.RenderingCompatibility": [
+    "Control.RenderingCompatibility = \"System.Version 4.0\"",
+    "Control.RenderingCompatibility set = \"System.Version 4.0\""
+  ],
+  "LayoutEditorPart.Api.Control.ResolveAdapter": [
+    "Control.ResolveAdapter = null",
+    "Control.ResolveAdapter after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.ResolveClientUrl": [
+    "Control.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveClientUrl(String) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.ResolveUrl": [
+    "Control.ResolveUrl(String) = \"~/Default.aspx\"",
+    "Control.ResolveUrl(String) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.SaveControlState": [
+    "Control.SaveControlState = null",
+    "Control.SaveControlState after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.SaveViewState": [
+    "Control.SaveViewState = null",
+    "Control.SaveViewState after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.SetDesignModeState": [
+    "Control.SetDesignModeState(IDictionary) = \"ok\"",
+    "Control.SetDesignModeState(IDictionary) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.SetRenderMethodDelegate": [
+    "Control.SetRenderMethodDelegate(RenderMethod) = \"ok\"",
+    "Control.SetRenderMethodDelegate(RenderMethod) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.SetTraceData": [
+    "Control.SetTraceData(Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}",
+    "Control.SetTraceData(Object,Object,Object) = \"ok\"",
+    "Control.SetTraceData(Object,Object,Object) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.Site": [
+    "Control.Site = null",
+    "Control.Site set = null"
+  ],
+  "LayoutEditorPart.Api.Control.SkinID": [
+    "Control.SkinID = \"\"",
+    "Control.SkinID set = \"Abc 123\""
+  ],
+  "LayoutEditorPart.Api.Control.TemplateControl": [
+    "Control.TemplateControl = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}",
+    "Control.TemplateControl set = Page#__Page {AppRelativeVirtualPath=null; Buffer=!HttpException; ClientID=\"__Page\"; ClientIDMode=Inherit; ClientQueryString=\"\"; ClientTarget=\"\"; CodePage=!HttpException; ContentType=!HttpException; Culture=\"Invariant Language (Invariant Country)\"; EnableEventValidation=false; EnableTheming=true; EnableViewState=true; EnableViewStateMac=true; ErrorPage=null; ID=\"__Page\"; IdSeparator='$'; IsAsync=false; IsCallback=false; IsCrossPagePostBack=false; IsPostBack=false; IsPostBackEventControlRegistered=false; IsReusable=false; IsValid=!HttpException; LCID=Int32 127; MaintainScrollPositionOnPostBack=false; MasterPageFile=null; MaxPageStateFieldLength=Int32 -1; MetaDescription=!NullReferenceException; MetaKeywords=!NullReferenceException; ResponseEncoding=!HttpException; SkinID=\"\"; SkipFormActionValidation=false; SmartNavigation=false; StyleSheetTheme=null; Theme=null; Title=!NullReferenceException; TraceEnabled=!NullReferenceException; TraceModeValue=!NullReferenceException; UICulture=\"Invariant Language (Invariant Country)\"; UniqueID=\"__Page\"; UnobtrusiveValidationMode=None; ValidateRequestMode=Enabled; ViewStateEncryptionMode=Auto; ViewStateMode=Inherit; ViewStateUserKey=null; Visible=true}"
+  ],
+  "LayoutEditorPart.Api.Control.TemplateSourceDirectory": [
+    "Control.TemplateSourceDirectory = \"\""
+  ],
+  "LayoutEditorPart.Api.Control.TrackViewState": [
+    "Control.TrackViewState = \"ok\"",
+    "Control.TrackViewState after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.Control.UniqueID": [
+    "Control.UniqueID = \"lepProbe\""
+  ],
+  "LayoutEditorPart.Api.Control.Unload": [
+    "Control.Unload = \"added and removed\""
+  ],
+  "LayoutEditorPart.Api.Control.ValidateRequestMode": [
+    "Control.ValidateRequestMode = \"ValidateRequestMode.Inherit\"",
+    "Control.ValidateRequestMode set = \"ValidateRequestMode.Disabled\""
+  ],
+  "LayoutEditorPart.Api.Control.ViewState": [
+    "Control.ViewState = StateBag []"
+  ],
+  "LayoutEditorPart.Api.Control.ViewStateIgnoresCase": [
+    "Control.ViewStateIgnoresCase = \"false\""
+  ],
+  "LayoutEditorPart.Api.Control.ViewStateMode": [
+    "Control.ViewStateMode = \"ViewStateMode.Inherit\"",
+    "Control.ViewStateMode set = \"ViewStateMode.Enabled\""
+  ],
+  "LayoutEditorPart.Api.Control.Visible": [
+    "Control.Visible = \"true\"",
+    "Control.Visible set = \"true\""
+  ],
+  "LayoutEditorPart.Api.IAttributeAccessor.GetAttribute": [
+    "IAttributeAccessor.GetAttribute(String) = null",
+    "IAttributeAccessor.GetAttribute(String) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.IAttributeAccessor.SetAttribute": [
+    "IAttributeAccessor.SetAttribute(String,String) = \"ok\"",
+    "IAttributeAccessor.SetAttribute(String,String) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=true; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.IControlBuilderAccessor.ControlBuilder": [
+    "IControlBuilderAccessor.ControlBuilder = null"
+  ],
+  "LayoutEditorPart.Api.IControlDesignerAccessor.GetDesignModeState": [
+    "IControlDesignerAccessor.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "IControlDesignerAccessor.GetDesignModeState after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.IControlDesignerAccessor.SetDesignModeState": [
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) = \"ok\"",
+    "IControlDesignerAccessor.SetDesignModeState(IDictionary) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.IControlDesignerAccessor.SetOwnerControl": [
+    "IControlDesignerAccessor.SetOwnerControl(Control) = \"ok\"",
+    "IControlDesignerAccessor.SetOwnerControl(Control) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.IControlDesignerAccessor.UserData": [
+    "IControlDesignerAccessor.UserData = \"[]\""
+  ],
+  "LayoutEditorPart.Api.IDataBindingsAccessor.DataBindings": [
+    "IDataBindingsAccessor.DataBindings = \"[]\""
+  ],
+  "LayoutEditorPart.Api.IDataBindingsAccessor.HasDataBindings": [
+    "IDataBindingsAccessor.HasDataBindings = \"false\""
+  ],
+  "LayoutEditorPart.Api.IExpressionsAccessor.Expressions": [
+    "IExpressionsAccessor.Expressions = \"[]\""
+  ],
+  "LayoutEditorPart.Api.IExpressionsAccessor.HasExpressions": [
+    "IExpressionsAccessor.HasExpressions = \"false\""
+  ],
+  "LayoutEditorPart.Api.IParserAccessor.AddParsedSubObject": [
+    "IParserAccessor.AddParsedSubObject(Object) = \"ok\"",
+    "IParserAccessor.AddParsedSubObject(Object) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.IUrlResolutionService.ResolveClientUrl": [
+    "IUrlResolutionService.ResolveClientUrl(String) = \"~/Default.aspx\"",
+    "IUrlResolutionService.ResolveClientUrl(String) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.ICompositeControlDesignerAccessor.RecreateChildControls": [
+    "ICompositeControlDesignerAccessor.RecreateChildControls = \"ok\"",
+    "ICompositeControlDesignerAccessor.RecreateChildControls after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.Panel.#ctor": [
+    "Panel.#ctor = Panel# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Direction=NotSet; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=null; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.Panel.AddAttributesToRender": [
+    "Panel.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "Panel.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "Panel.AddAttributesToRender(HtmlTextWriter) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.Panel.BackImageUrl": [
+    "Panel.BackImageUrl = \"\"",
+    "Panel.BackImageUrl set = \"Abc 123\""
+  ],
+  "LayoutEditorPart.Api.WebControls.Panel.CreateControlStyle": [
+    "Panel.CreateControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}",
+    "Panel.CreateControlStyle after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.Panel.DefaultButton": [
+    "Panel.DefaultButton = \"\"",
+    "Panel.DefaultButton set = \"Abc 123\""
+  ],
+  "LayoutEditorPart.Api.WebControls.Panel.Direction": [
+    "Panel.Direction = \"ContentDirection.NotSet\"",
+    "Panel.Direction set = \"ContentDirection.LeftToRight\""
+  ],
+  "LayoutEditorPart.Api.WebControls.Panel.GroupingText": [
+    "Panel.GroupingText = \"\"",
+    "Panel.GroupingText set = \"Abc 123\""
+  ],
+  "LayoutEditorPart.Api.WebControls.Panel.HorizontalAlign": [
+    "Panel.HorizontalAlign = \"HorizontalAlign.NotSet\"",
+    "Panel.HorizontalAlign set = \"HorizontalAlign.Left\""
+  ],
+  "LayoutEditorPart.Api.WebControls.Panel.RenderBeginTag": [
+    "Panel.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "Panel.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <div id=\"lepProbe\">",
+    "  | ",
+    "Panel.RenderBeginTag(HtmlTextWriter) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.Panel.RenderEndTag": [
+    "Panel.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "LayoutEditorPart.Api.WebControls.Panel.ScrollBars": [
+    "Panel.ScrollBars = \"ScrollBars.None\"",
+    "Panel.ScrollBars set = \"ScrollBars.Horizontal\""
+  ],
+  "LayoutEditorPart.Api.WebControls.Panel.SupportsDisabledAttribute": [
+    "Panel.SupportsDisabledAttribute = \"false\""
+  ],
+  "LayoutEditorPart.Api.WebControls.Panel.Wrap": [
+    "Panel.Wrap = \"true\"",
+    "Panel.Wrap set = \"true\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.#ctor": [
+    "WebControl.#ctor = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(String) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}",
+    "WebControl.#ctor(HtmlTextWriterTag) = WebControl# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; HasAttributes=false; Height=; ID=null; SkinID=\"\"; SupportsDisabledAttribute=true; TabIndex=Int16 0; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.AccessKey": [
+    "WebControl.AccessKey = \"\"",
+    "WebControl.AccessKey set = \"-> System.ArgumentOutOfRangeException: AccessKey too long, cannot be more than one character. [param value]\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.AddAttributesToRender": [
+    "WebControl.AddAttributesToRender(HtmlTextWriter) = \"ok\"",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) writer:",
+    "  | ",
+    "WebControl.AddAttributesToRender(HtmlTextWriter) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.ApplyStyle": [
+    "WebControl.ApplyStyle(Style) = \"ok\"",
+    "WebControl.ApplyStyle(Style) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.Attributes": [
+    "WebControl.Attributes = AttributeCollection []"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.BackColor": [
+    "WebControl.BackColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BackColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.BorderColor": [
+    "WebControl.BorderColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.BorderColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.BorderStyle": [
+    "WebControl.BorderStyle = \"BorderStyle.NotSet\"",
+    "WebControl.BorderStyle set = \"BorderStyle.None\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.BorderWidth": [
+    "WebControl.BorderWidth = Unit ",
+    "WebControl.BorderWidth set = Unit 120px"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.ControlStyle": [
+    "WebControl.ControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.ControlStyleCreated": [
+    "WebControl.ControlStyleCreated = \"false\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.CopyBaseAttributes": [
+    "WebControl.CopyBaseAttributes(WebControl) = \"ok\"",
+    "WebControl.CopyBaseAttributes(WebControl) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.CreateControlStyle": [
+    "WebControl.CreateControlStyle = PanelStyle {BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; CssClass=\"\"; Direction=NotSet; ForeColor=Color #00000000 Color [Empty]; Height=; HorizontalAlign=NotSet; IsEmpty=true; RegisteredCssClass=\"\"; ScrollBars=None; Width=; Wrap=true}",
+    "WebControl.CreateControlStyle after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.CssClass": [
+    "WebControl.CssClass = \"\"",
+    "WebControl.CssClass set = \"Abc 123\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.DisabledCssClass": [
+    "WebControl.DisabledCssClass = \"aspNetDisabled\"",
+    "WebControl.DisabledCssClass set = \"Abc 123\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.EnableTheming": [
+    "WebControl.EnableTheming = \"true\"",
+    "WebControl.EnableTheming set = \"true\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.Enabled": [
+    "WebControl.Enabled = \"true\"",
+    "WebControl.Enabled set = \"true\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.Font": [
+    "WebControl.Font = FontInfo {Bold=false; Italic=false; Name=\"\"; Overline=false; Size=; Strikeout=false; Underline=false}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.ForeColor": [
+    "WebControl.ForeColor = \"Color #00000000 Color [Empty]\"",
+    "WebControl.ForeColor set = \"Color #FF3366CC Color [A=255, R=51, G=102, B=204]\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.HasAttributes": [
+    "WebControl.HasAttributes = \"false\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.Height": [
+    "WebControl.Height = Unit ",
+    "WebControl.Height set = Unit 120px"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.IsEnabled": [
+    "WebControl.IsEnabled = \"true\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.LoadViewState": [
+    "WebControl.LoadViewState(Object) = \"-> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'System.Web.UI.Pair'.\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.MergeStyle": [
+    "WebControl.MergeStyle(Style) = \"ok\"",
+    "WebControl.MergeStyle(Style) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=2px; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=true; CssClass=\"merged\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #FF3366CC Color [A=255, R=51, G=102, B=204]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.Render": [
+    "WebControl.Render(HtmlTextWriter) = \"ok\"",
+    "WebControl.Render(HtmlTextWriter) writer:",
+    "  | <div id=\"lepProbe\">",
+    "  | \t<table border=\"0\" cellspacing=\"4\">",
+    "  | \t\t<tr>",
+    "  | \t\t\t<td><label for=\"lepProbe_ctl00\">Chrome State:</label><br />",
+    "  | \t\t\t<select name=\"lepProbe$ctl00\" id=\"lepProbe_ctl00\">",
+    "  | \t\t\t\t<option value=\"Normal\">Normal</option>",
+    "  | \t\t\t\t<option value=\"Minimized\">Minimized</option>",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"lepProbe_ctl01\">Zone:</label><br />",
+    "  | \t\t\t<select name=\"lepProbe$ctl01\" id=\"lepProbe_ctl01\">",
+    "  | ",
+    "  | \t\t\t</select><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr><tr>",
+    "  | \t\t\t<td><label for=\"lepProbe_ctl02\">Zone Index:</label><br />",
+    "  | \t\t\t<input name=\"lepProbe$ctl02\" type=\"text\" size=\"10\" id=\"lepProbe_ctl02\" /><br />",
+    "  | \t\t\t</td>",
+    "  | \t\t</tr>",
+    "  | \t</table>",
+    "  | </div>",
+    "WebControl.Render(HtmlTextWriter) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.RenderBeginTag": [
+    "WebControl.RenderBeginTag(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderBeginTag(HtmlTextWriter) writer:",
+    "  | <div id=\"lepProbe\">",
+    "  | ",
+    "WebControl.RenderBeginTag(HtmlTextWriter) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.RenderContents": [
+    "WebControl.RenderContents(HtmlTextWriter) = \"ok\"",
+    "WebControl.RenderContents(HtmlTextWriter) writer:",
+    "  | <table border=\"0\" cellspacing=\"4\">",
+    "  | \t<tr>",
+    "  | \t\t<td><label for=\"lepProbe_ctl00\">Chrome State:</label><br />",
+    "  | \t\t<select name=\"lepProbe$ctl00\" id=\"lepProbe_ctl00\">",
+    "  | \t\t\t<option value=\"Normal\">Normal</option>",
+    "  | \t\t\t<option value=\"Minimized\">Minimized</option>",
+    "  | ",
+    "  | \t\t</select><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><label for=\"lepProbe_ctl01\">Zone:</label><br />",
+    "  | \t\t<select name=\"lepProbe$ctl01\" id=\"lepProbe_ctl01\">",
+    "  | ",
+    "  | \t\t</select><br />",
+    "  | \t\t</td>",
+    "  | \t</tr><tr>",
+    "  | \t\t<td><label for=\"lepProbe_ctl02\">Zone Index:</label><br />",
+    "  | \t\t<input name=\"lepProbe$ctl02\" type=\"text\" size=\"10\" id=\"lepProbe_ctl02\" /><br />",
+    "  | \t\t</td>",
+    "  | \t</tr>",
+    "  | </table>",
+    "WebControl.RenderContents(HtmlTextWriter) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.RenderEndTag": [
+    "WebControl.RenderEndTag(HtmlTextWriter) = \"-> System.InvalidOperationException: A PopEndTag was called without a corresponding PushEndTag.\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.SaveViewState": [
+    "WebControl.SaveViewState = null",
+    "WebControl.SaveViewState after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.SkinID": [
+    "WebControl.SkinID = \"\"",
+    "WebControl.SkinID set = \"Abc 123\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.Style": [
+    "WebControl.Style = CssStyleCollection {Count=Int32 0; Value=null}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.SupportsDisabledAttribute": [
+    "WebControl.SupportsDisabledAttribute = \"false\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.TabIndex": [
+    "WebControl.TabIndex = \"Int16 0\"",
+    "WebControl.TabIndex set = \"Int16 1\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.TagKey": [
+    "WebControl.TagKey = \"HtmlTextWriterTag.Div\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.TagName": [
+    "WebControl.TagName = \"div\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.ToolTip": [
+    "WebControl.ToolTip = \"\"",
+    "WebControl.ToolTip set = \"Abc 123\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.TrackViewState": [
+    "WebControl.TrackViewState = \"ok\"",
+    "WebControl.TrackViewState after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebControl.Width": [
+    "WebControl.Width = Unit ",
+    "WebControl.Width set = Unit 120px"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.EditorPart.#ctor": [
+    "WebParts.EditorPart.#ctor = \"-> System.MemberAccessException: Cannot create an instance of System.Web.UI.WebControls.WebParts.EditorPart because it is an abstract class.\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.EditorPart.ApplyChanges": [
+    "WebParts.EditorPart.ApplyChanges = \"true\"",
+    "WebParts.EditorPart.ApplyChanges after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.EditorPart.Display": [
+    "WebParts.EditorPart.Display = \"true\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.EditorPart.DisplayTitle": [
+    "WebParts.EditorPart.DisplayTitle = \"Layout\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.EditorPart.GetDesignModeState": [
+    "WebParts.EditorPart.GetDesignModeState = \"[DictionaryEntry \"Zone\"=null]\"",
+    "WebParts.EditorPart.GetDesignModeState after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.EditorPart.OnPreRender": [
+    "WebParts.EditorPart.OnPreRender(EventArgs) = \"-> System.InvalidOperationException: EditorPart 'lepProbe' must be placed in an EditorZone.\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.EditorPart.SetDesignModeState": [
+    "WebParts.EditorPart.SetDesignModeState(IDictionary) = \"ok\"",
+    "WebParts.EditorPart.SetDesignModeState(IDictionary) after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.EditorPart.SyncChanges": [
+    "WebParts.EditorPart.SyncChanges = \"ok\"",
+    "WebParts.EditorPart.SyncChanges after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.EditorPart.WebPartManager": [
+    "WebParts.EditorPart.WebPartManager = null"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.EditorPart.WebPartToEdit": [
+    "WebParts.EditorPart.WebPartToEdit = null"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.EditorPart.Zone": [
+    "WebParts.EditorPart.Zone = null"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.LayoutEditorPart.#ctor": [
+    "WebParts.LayoutEditorPart.#ctor = LayoutEditorPart# {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=null; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=null; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.LayoutEditorPart.ApplyChanges": [
+    "WebParts.LayoutEditorPart.ApplyChanges = \"true\"",
+    "WebParts.LayoutEditorPart.ApplyChanges after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.LayoutEditorPart.DefaultButton": [
+    "WebParts.LayoutEditorPart.DefaultButton = \"\"",
+    "WebParts.LayoutEditorPart.DefaultButton set = \"Abc 123\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.LayoutEditorPart.Display": [
+    "WebParts.LayoutEditorPart.Display = \"true\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.LayoutEditorPart.SyncChanges": [
+    "WebParts.LayoutEditorPart.SyncChanges = \"ok\"",
+    "WebParts.LayoutEditorPart.SyncChanges after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.LayoutEditorPart.Title": [
+    "WebParts.LayoutEditorPart.Title = \"Layout\"",
+    "WebParts.LayoutEditorPart.Title set = \"Abc 123\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.Part.ChromeState": [
+    "WebParts.Part.ChromeState = \"PartChromeState.Normal\"",
+    "WebParts.Part.ChromeState set = \"PartChromeState.Minimized\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.Part.ChromeType": [
+    "WebParts.Part.ChromeType = \"PartChromeType.Default\"",
+    "WebParts.Part.ChromeType set = \"PartChromeType.TitleAndBorder\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.Part.Controls": [
+    "WebParts.Part.Controls = ControlCollection [DropDownList#, DropDownList#, TextBox#]"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.Part.DataBind": [
+    "WebParts.Part.DataBind = \"ok\"",
+    "WebParts.Part.DataBind after = LayoutEditorPart#lepProbe {AccessKey=\"\"; BackColor=Color #00000000 Color [Empty]; BackImageUrl=\"\"; BorderColor=Color #00000000 Color [Empty]; BorderStyle=NotSet; BorderWidth=; ChromeState=Normal; ChromeType=Default; ClientID=\"lepProbe\"; ClientIDMode=Inherit; ControlStyleCreated=false; CssClass=\"\"; DefaultButton=\"\"; Description=\"\"; Direction=NotSet; Display=true; DisplayTitle=\"Layout\"; EnableTheming=true; EnableViewState=true; Enabled=true; ForeColor=Color #00000000 Color [Empty]; GroupingText=\"\"; HasAttributes=false; Height=; HorizontalAlign=NotSet; ID=\"lepProbe\"; ScrollBars=None; SkinID=\"\"; SupportsDisabledAttribute=false; TabIndex=Int16 0; Title=\"Layout\"; ToolTip=\"\"; UniqueID=\"lepProbe\"; ValidateRequestMode=Inherit; ViewStateMode=Inherit; Visible=true; Width=; Wrap=true}"
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.Part.Description": [
+    "WebParts.Part.Description = \"\"",
+    "WebParts.Part.Description set = \"Abc 123\""
+  ],
+  "LayoutEditorPart.Api.WebControls.WebParts.Part.Title": [
+    "WebParts.Part.Title = \"Layout\"",
+    "WebParts.Part.Title set = \"Abc 123\""
+  ]
+}

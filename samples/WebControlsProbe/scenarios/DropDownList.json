@@ -1,0 +1,47 @@
+{
+  "_comment": "The DropDownList's scenario layer (ListControlsScenario.aspx; tests/WebControlsParity/README.md). A snapshot's tags are the mechanisms it covers. The log's request number is kept in view state: a postback the browser held back leaves it as it was.",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/ListControlsScenario.aspx" },
+    { "action": "snapshot", "name": "DropDownList [render][databind][items] first request" },
+
+    { "action": "select", "target": "ddlSize", "value": "L" },
+    { "action": "select", "target": "ddlNoViewState", "value": "M" },
+    { "action": "select", "target": "ddlDynamic", "value": "2" },
+    { "action": "select", "target": "ddlBound", "value": "B2" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "DropDownList [postdata][change][dynamic] selections posted" },
+
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "DropDownList [viewstate][change] posted again unchanged" },
+
+    { "action": "select", "target": "ddlAuto", "value": "M" },
+    { "action": "snapshot", "name": "DropDownList [autopostback][change] auto postback" },
+
+    { "action": "click", "target": "btnG1" },
+    { "action": "snapshot", "name": "DropDownList [validation] group g1, nothing chosen" },
+
+    { "action": "select", "target": "ddlValidated", "value": "A" },
+    { "action": "click", "target": "btnG1" },
+    { "action": "snapshot", "name": "DropDownList [validation] group g1, chosen" },
+
+    { "action": "click", "target": "btnG3" },
+    { "action": "snapshot", "name": "DropDownList [clientvalidation] group g3 in the browser: no request" },
+
+    { "action": "click", "target": "btnShow" },
+    { "action": "snapshot", "name": "DropDownList [visible][viewstate][items] hidden lists shown with the items added in code" },
+
+    { "action": "select", "target": "ddlBind", "value": "P1" },
+    { "action": "click", "target": "btnUpdate" },
+    { "action": "snapshot", "name": "DropDownList [bind] two-way binding in a template" },
+
+    { "action": "evaluate", "target": "ddlSize", "value": "const o = document.createElement('option'); o.value = 'X'; o.text = 'X'; e.add(o); e.value = 'X';" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "DropDownList [eventvalidation] a value the list does not have posted" },
+
+    { "action": "goto", "path": "/ListControlsScenario.aspx" },
+    { "action": "evaluate", "target": "ddlSize", "value": "const o = document.createElement('option'); o.value = '<b>x</b>'; o.text = 'x'; e.add(o); e.value = '<b>x</b>';" },
+    { "action": "click", "target": "btnSubmit" },
+    { "action": "snapshot", "name": "DropDownList [requestvalidation] markup posted" }
+  ]
+}

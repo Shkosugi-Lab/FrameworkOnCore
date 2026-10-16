@@ -18,10 +18,14 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
     /// <summary>Set from the scenario: elements whose text is not compared (see ParityScenario).</summary>
     private List<string> _ignoreSelectors = [];
 
+    /// <summary>Set from the scenario: ids (parts of them) made up at random, masked (see ParityScenario).</summary>
+    private List<Regex> _maskIds = [];
+
     public async Task<List<Snapshot>> RunAsync(ParityScenario scenario)
     {
         _compareRawIds = scenario.CompareRawIds;
         _ignoreSelectors = scenario.IgnoreSelectors ?? [];
+        _maskIds = (scenario.MaskIds ?? []).Select(pattern => new Regex(pattern)).ToList();
 
         // Always answer confirm() etc. with "OK". Both apps get the same response,
         // which keeps the comparison deterministic.
@@ -39,13 +43,15 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                         // answers the URLs the original answered (a URL the original rewrote, such as
                         // BlogEngine's /archive, is no file: a 404 here is a difference, not something
                         // to work around by opening /archive.aspx). An error without a body makes
-                        // Playwright throw; the browser's own error page is then what is compared.
+                        // Playwright throw; the browser's own error page is then what is compared. A page whose
+                        // script fetches a no-store answer never lets the network be idle (Edge): its timeout too
+                        // (System.TimeoutException) waits for the load instead.
                         var path = step.Path ?? "/";
                         try
                         {
                             await page.GotoAsync(_root + path, new() { WaitUntil = WaitUntilState.NetworkIdle });
                         }
-                        catch (PlaywrightException) when (path != "/")
+                        catch (Exception ex) when (path != "/" && ex is PlaywrightException or TimeoutException)
                         {
                             try
                             {
@@ -81,6 +87,15 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                     await WaitUntilSettledAsync(page);
                     break;
 
+                case "clicktextin":
+                    // A link or button by its text inside one control (a grid's Edit of its first row, when the page has two grids).
+                    await (await ResolveAsync(step.Target!)).Locator("a, input[type=submit], input[type=button], button", new() { HasTextString = step.Value })
+                        .Or((await ResolveAsync(step.Target!)).Locator($"input[value='{step.Value}']")).First.ClickAsync();
+                    await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+                    await page.WaitForTimeoutAsync(1200);
+                    await WaitUntilSettledAsync(page);
+                    break;
+
                 case "clicksubmit":
                     // A form's button without an ID (MVC views: <input type="submit" value="Create" />) by its text.
                     await page.Locator($"input[type=submit][value='{step.Value}'], button:text-is('{step.Value}')").First.ClickAsync();
@@ -109,6 +124,46 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                     await page.WaitForTimeoutAsync(1200);
                     await WaitUntilSettledAsync(page);
                     break;
+
+                case "press":
+                    // A key on a control (Tab: the change event an AutoPostBack text box posts back on).
+                    await (await ResolveAsync(step.Target!)).PressAsync(step.Value ?? "Tab");
+                    await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+                    await page.WaitForTimeoutAsync(1200);
+                    await WaitUntilSettledAsync(page);
+                    break;
+
+                case "selectmany":
+                    // Several options of a multiple-selection list (comma-separated values).
+                    await (await ResolveAsync(step.Target!)).SelectOptionAsync((step.Value ?? "").Split(','));
+                    break;
+
+                case "evaluate":
+                    // Script on the element e (the body of a function): what a client that does not keep to the page posts,
+                    // an option the list does not have.
+                    await (await ResolveAsync(step.Target!)).EvaluateAsync("e => { " + (step.Value ?? "") + " }");
+                    break;
+
+                case "setvalue":
+                    // The value set by script, as a client that does not honour readonly would post it.
+                    await (await ResolveAsync(step.Target!)).EvaluateAsync("(e, v) => e.value = v", step.Value ?? "");
+                    break;
+
+                case "upload":
+                    // A file chosen in a file input: "name.txt:its content" (text, as UTF-8).
+                    {
+                        var spec = step.Value ?? "probe.txt:";
+                        var colon = spec.IndexOf(':');
+                        var fileName = colon < 0 ? spec : spec[..colon];
+                        var content = colon < 0 ? "" : spec[(colon + 1)..];
+                        await (await ResolveAsync(step.Target!)).SetInputFilesAsync(new FilePayload
+                        {
+                            Name = fileName,
+                            MimeType = "text/plain",
+                            Buffer = System.Text.Encoding.UTF8.GetBytes(content),
+                        });
+                        break;
+                    }
 
                 case "waitms":
                     await page.WaitForTimeoutAsync(step.Ms ?? 500);
@@ -356,6 +411,7 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
     /// </summary>
     private string NormalizeControlId(string id)
     {
+        foreach (var mask in _maskIds) id = mask.Replace(id, "{id}");
         if (_compareRawIds)
         {
             return id;

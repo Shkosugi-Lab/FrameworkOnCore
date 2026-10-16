@@ -60,7 +60,9 @@ var app = builder.Build();
 // The sites Studio runs on this machine end with it (IIS's sites it added are removed).
 app.Lifetime.ApplicationStopping.Register(() => { originals.StopAll(); natives.StopAll(); });
 app.UseDefaultFiles();
-app.UseStaticFiles();
+// The page asked again each time (no-cache: answered 304 while it is the same): a browser does not keep the page of a
+// Studio before an update (without it, a browser reuses it for a while as it judges, its Last-Modified that of the zip).
+app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = context => context.Context.Response.Headers.CacheControl = "no-cache" });
 
 var api = app.MapGroup("/api");
 

@@ -21,6 +21,8 @@ on:
       - 'experiments/wf4c/frameworkoncore.slnx'
       - 'src/FrameworkOnCore.Converter/rules/packages.json'
       - 'tests/SqlClientTests/**'
+      # The tests it runs on Linux: a test added or changed is run there too (Studio's, the converter's).
+      - 'tests/FrameworkOnCore.Tests/**'
       - '.github/workflows/frameworkoncore-packages.yml'
   workflow_dispatch:
     inputs:

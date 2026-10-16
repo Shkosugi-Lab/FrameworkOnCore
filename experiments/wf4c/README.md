@@ -1236,6 +1236,18 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
     (ツールの deps.json が FrameworkOnCore のものを選ぶ)。成否を逆に返していたのも直した。
   - 確認: net10.0・net48 × dotnet build・MSBuild 18 × 別プロセス・プロセス内の 7 通りすべてで生成でき、内容は同じ。
 
+### パッケージを 1.6.5-w2l.16 に上げて公開(2026-10-17)
+
+別のマシンで Studio から n2 を変換すると、変換後のアプリが起動時に止まった(`'WebApplicationBuilder' does not contain a definition for 'AddWebFormsW3CLogging'`)。
+GitHub Release の 1.6.5-w2l.15 は 2026-10-03 に公開したもので、その後の FrameworkOnCore.Runtime の変更(W3C ログ、IIS の機能のホスト層、上の「w2l.15 のまま作り直した」もの)は
+この PC で同じ版番号のまま作り直していただけだった。ほかのマシンは Release の古い w2l.15 を取得し、変換器が書く Program.cs の呼び出しが無かった
+(変換器はコンパイルできない呼び出しを PlatformNotSupportedException のスタブにする)。
+
+- 版番号を 1.6.5-w2l.16 に上げた(`rules/packages.json`、`pack-frameworkoncore.ps1`、`convert-project.ps1`、`template.csproj.txt`、shim と比較テストのプロジェクト)。
+  push で Actions(FrameworkOnCore packages)がビルドし、Linux のテストの後に Release frameworkoncore-1.6.5-w2l.16 を公開する。
+- 今後: FrameworkOnCore.Runtime を変えたら版番号を上げる(同じ版番号で作り直すと、ほかのマシンと NuGet のキャッシュは古いままになる)。
+- 確認: この PC で w2l.16 を作り(21 パッケージ)、テスト 4,408 件合格(スキップ 20)、HeadersProbe を w2l.16 で変換して Windows で IIS と 3/3 一致。
+
 ### フォルダーごとの設定、フォルダーの一覧、httpErrors・圧縮の調査(2026-10-16、ユーザーの指示)
 
 - **フォルダーの web.config・location が効かなかった所を直した**(IisConfiguration で URL のフォルダーごとに重ねる。ドキュメントでどれも

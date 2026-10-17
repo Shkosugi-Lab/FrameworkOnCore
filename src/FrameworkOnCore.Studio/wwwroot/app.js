@@ -112,7 +112,7 @@ async function select(id) {
   const step = /\/c\//.test(linked) ? 2 : +(linked.match(/\/step\/([1-4])/)?.[1] ?? 1);
   Object.assign(state, {
     id, entry: null, result: null, choices: null, saved: null, command: null, errors: [], conversion: null,
-    container: null, runOpen: false, runEnv: null, emulateChoice: null, docker: null, dockerStarting: false, step,
+    container: null, runOpen: false, runEnv: null, docker: null, dockerStarting: false, step,
     original: null, originalEnv: null, native: null, nativeEnv: null, report: null, advice: null, buildOriginalChoice: null, originalSteps: null, savedSteps: null,
   });
   state.expanded.clear();
@@ -871,7 +871,7 @@ function renderContainer() {
         <a class="btn primary" href="${esc(c.url)}" target="_blank" rel="noopener">↗ 開く</a>
         <button class="btn ghost" id="run-log">コンテナのログ</button>
         <button class="btn ghost danger" id="run-stop">停止</button></div></div>
-      <div class="run-url"><code>${esc(c.url)}</code> <span class="muted">(${esc(c.image)}${c.emulateX64 ? ' ・ x64 エミュレーション' : ''} ・ 最初の応答 ${c.firstStatus})</span></div>
+      <div class="run-url"><code>${esc(c.url)}</code> <span class="muted">(${esc(c.image)} ・ 最初の応答 ${c.firstStatus})</span></div>
       ${failing ? '<div class="stale">⚠ サイトは動いていますが、エラー(500 番台)を返しています。データベースの接続文字列などを確かめてください(コンテナのログに詳細があります)。</div>' : ''}
       ${logBlock}`;
   } else {
@@ -887,13 +887,11 @@ function renderContainer() {
         <textarea id="run-env" rows="6" spellcheck="false">${esc(state.runEnv ?? state.container?.environment ?? '')}</textarea>
         <span class="muted">コンテナの中から見えるデータベースを指定します(Windows の LocalDB やこのマシンの localhost は見えません。このマシンの SQL Server なら host.docker.internal)。</span>
       </label>
-      ${emulation(d)}
       <div class="convert-actions left"><button class="btn primary" id="run-start" ${d?.available ? '' : 'disabled'}>▶ ビルドして起動</button></div>
       ${logBlock}`;
   }
   root.innerHTML = html;
   $('#run-env')?.addEventListener('input', ev => (state.runEnv = ev.target.value));
-  $('#run-x64')?.addEventListener('change', ev => (state.emulateChoice = ev.target.checked));
   $('#run-start')?.addEventListener('click', () => startContainer().catch(e => toast(e.message)));
   $('#run-stop')?.addEventListener('click', () => stopContainer().catch(e => toast(e.message)));
   $('#run-log')?.addEventListener('click', () => showContainerLog().catch(e => toast(e.message)));
@@ -906,26 +904,8 @@ function renderContainer() {
   if (pre) pre.scrollTop = pre.scrollHeight;
 }
 
-// Whether the container runs as x64 (docker --platform linux/amd64, emulated on an arm64 machine): checked when the
-// application has native libraries Linux has for x64 only (System.Data.SQLite's SQLite.Interop.dll), unless the user
-// chose otherwise.
-function emulateX64() {
-  return state.emulateChoice ?? (state.container?.x64Only?.length > 0);
-}
-
-function emulation(d) {
-  const only = state.container?.x64Only ?? [];
-  const arch = d?.architecture;
-  const advice = only.length
-    ? `自動判定: <b>エミュレーションする</b> ・ x64 用しかないネイティブライブラリ: ${only.map(n => `<code>${esc(n)}</code>`).join('、')}`
-    : '自動判定: しない(x64 用しかないネイティブライブラリはありません)';
-  return `<label class="check"><input type="checkbox" id="run-x64" ${emulateX64() ? 'checked' : ''}>
-      x64 エミュレーションで動かす <span class="muted">(--platform linux/amd64。Arm のマシン(Apple シリコン、Windows on Arm)で、x64 用しかないネイティブライブラリを使うアプリ向け。遅くなります${arch ? `。Docker: ${esc(arch)}` : ''})</span></label>
-    <div class="advice ${only.length ? 'need' : ''}">${advice}</div>`;
-}
-
 async function startContainer() {
-  await api(`/analyses/${state.id}/container`, { method: 'POST', body: JSON.stringify({ environment: $('#run-env')?.value ?? null, emulateX64: $('#run-x64')?.checked ?? emulateX64() }) });
+  await api(`/analyses/${state.id}/container`, { method: 'POST', body: JSON.stringify({ environment: $('#run-env')?.value ?? null }) });
   state.runEnv = null;
   await loadContainer();
 }

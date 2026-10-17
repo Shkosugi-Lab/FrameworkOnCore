@@ -120,6 +120,16 @@ namespace Microsoft.AspNetCore.Builder
 			// again once it is started.
 			if (HostingEnvironment.ShutdownInitiated)
 			{
+				// The listening sockets stay (ListenerHandoff): the request again, on a new connection, waits in their queue
+				// for the next worker, and is answered as IIS answers it from the next AppDomain (307 keeps a POST's method
+				// and body). This connection, kept alive by the client, is this worker's, which is ending.
+				if (ListenerHandoff.Active)
+				{
+					context.Response.StatusCode = 307;
+					context.Response.Headers["Location"] = context.Request.PathBase.Add(context.Request.Path).ToUriComponent() + context.Request.QueryString.ToUriComponent();
+					context.Response.Headers["Connection"] = "close";
+					return;
+				}
 				context.Response.StatusCode = 503;
 				context.Response.Headers["Retry-After"] = "1";
 				context.Response.Headers["Connection"] = "close";

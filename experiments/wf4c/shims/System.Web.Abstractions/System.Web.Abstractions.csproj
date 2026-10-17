@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- FrameworkOnCore's package version (rules/packages.json). -->
-  <Import Project="$(MSBuildThisFileDirectory)../../FrameworkOnCoreVersion.props" />
+  <!-- FrameworkOnCore's package version: the converter's (FrameworkOnCoreVersion.g.props, RuntimeSetup.WriteShimsVersion); else rules/packages.json's. -->
+  <Import Project="$(MSBuildThisFileDirectory)../FrameworkOnCoreVersion.g.props" Condition="Exists('$(MSBuildThisFileDirectory)../FrameworkOnCoreVersion.g.props')" />
+  <Import Project="$(MSBuildThisFileDirectory)../../FrameworkOnCoreVersion.props" Condition="Exists('$(MSBuildThisFileDirectory)../../FrameworkOnCoreVersion.props')" />
   <!-- .NET Framework 4's System.Web.Abstractions.dll: a facade forwarding its types to System.Web, where WebFormsForCore
        has them. web.config files and .NET Framework packages (MVC, Web API, routing modules) name it,
        so it has to exist under its own name and at least its version. Forwards.cs is generated from

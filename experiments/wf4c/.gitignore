@@ -6,6 +6,8 @@
 !/shims/
 shims/*/bin/
 shims/*/obj/
+# The converter's version of FrameworkOnCore's packages for the shims (RuntimeSetup.WriteShimsVersion).
+shims/FrameworkOnCoreVersion.g.props
 !/icu/
 icu/*/bin/
 icu/*/obj/

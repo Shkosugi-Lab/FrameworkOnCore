@@ -1258,6 +1258,31 @@ GitHub Release の 1.6.5-w2l.15 は 2026-10-03 に公開したもので、その
      レポートの未解決に出してビルドを失敗にする(`BuildFixer.HostFiles`、`BuildFixerHostTests`)。アプリのソースは今までどおり。
 - 確認: この PC で w2l.16 を作り(21 パッケージ)、テスト 4,408 件合格(スキップ 20)、HeadersProbe を w2l.16 で変換して Windows で IIS と 3/3 一致。
 
+### アプリの再起動の間の要求を待たせる(1.6.5-w2l.17、2026-10-17、ユーザーの指示)
+
+別のマシンで Studio のコンテナ起動の n2 をインストールすると、管理者のパスワードの登録の直後に「Service Unavailable」になった。
+
+- 原因: インストーラーが web.config を書き換え、アプリが再起動する(作業プロセスが終了コード 75 で終わり、親が新しい作業プロセスを起動する。約 3.5 秒)。
+  その間、古い作業プロセスは 503(Retry-After)を返し、終わってから新しい作業プロセスが待ち受けるまでは接続できなかった。
+  インストーラーは登録の直後に次のページへ移るので、ブラウザーに 503 が出た。`n2-install.ps1` は 5 秒待っていたので気付かなかった。
+- IIS(観察): ページで web.config を書き換えた直後の要求は、すぐに 200 で、新しい AppDomain が答えた(エラーなし)。
+- 直したこと(FrameworkOnCore.Web、`ListenerHandoff`): 作業プロセスを起動する親が待ち受けのソケットを持ち続け、各作業プロセスに渡す
+  (Linux・macOS: 継承する記述子。作業プロセスの Kestrel はホスティング スタートアップで `SocketTransportOptions.CreateBoundListenSocket` からそれを使う)。
+  再起動の間の新しい接続はソケットの待ち行列で次の作業プロセスを待つ。古い作業プロセスに来た要求(ブラウザーが保った接続)には、
+  同じ URL への 307(`Connection: close`。POST の本文も送り直される)を返し、新しい接続で待たせる。
+  待ち受けるのは URL(`--urls`、`ASPNETCORE_URLS`、`DOTNET_URLS`、appsettings の `urls`、無ければ `ASPNETCORE_HTTP_PORTS`、無ければ http://localhost:5000)の http だけ。
+  https と Kestrel:Endpoints は作業プロセスが今までどおり自分で待ち受ける。
+- Windows は今までどおり(503 と、待ち受けまでの接続の失敗)。Windows のソケットは一生に 1 つの I/O 完了ポートにしか結び付けられず、
+  WSADuplicateSocket で渡したものは 1 代目の作業プロセスでは使えたが、2 代目では accept が失敗した
+  (「Asynchronous operations are not allowed on this socket ... already bound to an IO completion port」)。
+- 確認: 再起動を起こすサンプル(ページで web.config を書き換える)を Linux のコンテナで、書き換えの直後の要求(保った接続・新しい接続・POST とそのリダイレクト)が
+  すべて 200(2〜3 秒待つ)。n2 のインストーラーを待ち時間なしで進めて、登録の POST から次のページまで 200。
+  テスト Windows 4,410 件・Linux 4,408 件と SqlClientTests 204 件、HeadersProbe Windows・Linux 3/3、be Windows・Linux 5/5、wt Windows 6/8・Linux 5/8(以前と同じ)。
+- あわせて直したこと: 前回の「版番号を 1 か所に」で、shim(System.Web.Abstractions・Routing)がリポジトリの規則から版番号を読むようにしたが、
+  Linux の検証(`run-linux.ps1`)は shim だけをコンテナにコピーしてビルドするので、版番号が無かった(NU1015)。変換器が自分の版番号を
+  `shims/FrameworkOnCoreVersion.g.props` に書き(`RuntimeSetup.WriteShimsVersion`。生成物、Git には入れない)、shim はそれを読む。
+  `run-tests-linux.ps1` は `FrameworkOnCoreVersion.props` もコピーする。
+
 ### フォルダーごとの設定、フォルダーの一覧、httpErrors・圧縮の調査(2026-10-16、ユーザーの指示)
 
 - **フォルダーの web.config・location が効かなかった所を直した**(IisConfiguration で URL のフォルダーごとに重ねる。ドキュメントでどれも

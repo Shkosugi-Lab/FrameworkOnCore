@@ -36,6 +36,7 @@ public static class RuntimeSetup
     /// <summary>FrameworkOnCore's packages in &lt;runtime&gt;/_feed: fetched (<see cref="FeedSource"/>) when FrameworkOnCore.Web of the version is not there.</summary>
     public static void EnsureFeed(string runtimeDirectory, string frameworkOnCoreVersion, Action<string>? log = null, string? source = null)
     {
+        WriteShimsVersion(runtimeDirectory, frameworkOnCoreVersion);
         var feed = Path.Combine(runtimeDirectory, "_feed");
         if (File.Exists(Path.Combine(feed, $"FrameworkOnCore.Web.{frameworkOnCoreVersion}.nupkg"))) return;
         source ??= FeedSource(frameworkOnCoreVersion);
@@ -134,6 +135,29 @@ public static class RuntimeSetup
     /// </summary>
     public static bool ForDllsOnly(string shimProject) =>
         Path.GetFileNameWithoutExtension(shimProject).EndsWith(".ForDlls", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// The version of FrameworkOnCore's packages the shims reference (those that reference them: System.Web.Abstractions,
+    /// System.Web.Routing), the converter's: &lt;runtime&gt;/shims/FrameworkOnCoreVersion.g.props, which they import. It goes
+    /// where the shims go (a container builds the output with the runtime's shims, without the repository's rules, which
+    /// FrameworkOnCoreVersion.props reads otherwise).
+    /// </summary>
+    public static void WriteShimsVersion(string runtimeDirectory, string frameworkOnCoreVersion)
+    {
+        var shims = Path.Combine(runtimeDirectory, "shims");
+        if (!Directory.Exists(shims)) return;
+        var file = Path.Combine(shims, "FrameworkOnCoreVersion.g.props");
+        var text = $$"""
+            <Project>
+              <!-- Written by the converter (RuntimeSetup.WriteShimsVersion): its version of FrameworkOnCore's packages. -->
+              <PropertyGroup>
+                <FrameworkOnCoreVersion Condition="'$(FrameworkOnCoreVersion)' == ''">{{System.Security.SecurityElement.Escape(frameworkOnCoreVersion)}}</FrameworkOnCoreVersion>
+              </PropertyGroup>
+            </Project>
+
+            """;
+        if (!File.Exists(file) || File.ReadAllText(file) != text) File.WriteAllText(file, text);
+    }
 
     /// <summary>The shim projects (&lt;runtime&gt;/shims/**/*.csproj, not their build output).</summary>
     public static List<string> ShimProjects(string runtimeDirectory)

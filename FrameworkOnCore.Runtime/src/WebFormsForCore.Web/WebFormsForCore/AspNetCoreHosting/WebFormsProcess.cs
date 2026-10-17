@@ -57,6 +57,8 @@ namespace System.Web.Hosting
 			var shadowBase = Path.Combine(Path.GetTempPath(), "WebFormsForCore", "shadow",
 				((uint)StringComparer.OrdinalIgnoreCase.GetHashCode(appPath)).ToString("x8"));
 
+			// The listening sockets, kept while the workers come and go (ListenerHandoff): a request during a restart waits.
+			var sockets = ListenerHandoff.Bind(args, appPath);
 			Process worker = null;
 			using var stop = new ManualResetEventSlim();
 			// Ctrl+C reaches the worker too (same console); a termination signal is passed on to it.
@@ -83,14 +85,21 @@ namespace System.Web.Hosting
 				start.Environment[WorkerVariable] = "1";
 				start.Environment[AppPathVariable] = appPath;
 				start.Environment[SupervisorVariable] = Environment.ProcessId.ToString(System.Globalization.CultureInfo.InvariantCulture);
-				worker = Process.Start(start);
+				ListenerHandoff.Prepare(start, sockets);
+				ListenerHandoff.Inherit(sockets, true);
+				try { worker = Process.Start(start); }
+				finally { ListenerHandoff.Inherit(sockets, false); }
 				worker.WaitForExit();
 				exitCode = worker.ExitCode;
 				worker.Dispose();
 				worker = null;
 				try { Directory.Delete(shadow, recursive: true); } catch (IOException) { } catch (UnauthorizedAccessException) { }
 
-				if (exitCode != ProcessRestart.ExitCode || stop.IsSet) return true;
+				if (exitCode != ProcessRestart.ExitCode || stop.IsSet)
+				{
+					foreach (var (_, socket) in sockets) socket.Dispose();
+					return true;
+				}
 				Console.Error.WriteLine($"WebFormsForCore: the application restarts (worker {generation + 1}).");
 			}
 		}

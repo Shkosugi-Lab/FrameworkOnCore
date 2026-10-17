@@ -34,6 +34,8 @@ for d in src/FrameworkOnCore.Analyzers src/FrameworkOnCore.Analysis src/Framewor
 done
 # FrameworkOnCore's packages: the Chart control's and the mobile controls' parity programs reference the port as converted applications do.
 mkdir -p /w/experiments/wf4c/_feed && cp /repo/experiments/wf4c/_feed/*.nupkg /w/experiments/wf4c/_feed/
+# Their version: rules/packages.json's, read by FrameworkOnCoreVersion.props.
+cp /repo/experiments/wf4c/FrameworkOnCoreVersion.props /w/experiments/wf4c/
 # What the LINQ to SQL port's csproj links from its parent (FrameworkOnCore's version attributes).
 cp /repo/FrameworkOnCore.Runtime/src/VersionInfo.cs /w/FrameworkOnCore.Runtime/src/
 cd /w

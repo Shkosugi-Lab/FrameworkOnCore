@@ -1,4 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <!-- FrameworkOnCore's version the tests run the port of (rules/packages.json frameworkOnCoreVersion; -p:FrameworkOnCoreVersion= for another). -->
+  <Import Project="$(MSBuildThisFileDirectory)../../experiments/wf4c/FrameworkOnCoreVersion.props" />
   <!-- The unit cases of every System.Web.Mobile API (the mobile controls), compiled twice: net48 against .NET
        Framework's assembly (the old: record.ps1 writes the goldens from it) and net10.0 against the port, FrameworkOnCore's
        FrameworkOnCore.Web.Mobile package (the new: MobileParityTests runs this program and compares
@@ -16,8 +18,6 @@
     <IsPackable>false</IsPackable>
     <!-- CA1416: System.Drawing (colors, fonts of the styles) on Linux too. CS0618, SYSLIB0011: the API's own obsolete members (the whole assembly is [Obsolete]), called as they are. -->
     <NoWarn>$(NoWarn);CA1416;CS0618;SYSLIB0011;SYSLIB0051</NoWarn>
-    <!-- FrameworkOnCore's version the tests run the port of (rules/packages.json frameworkOnCoreVersion). -->
-    <FrameworkOnCoreVersion Condition="'$(FrameworkOnCoreVersion)' == ''">1.6.5-w2l.16</FrameworkOnCoreVersion>
     <RestoreAdditionalProjectSources>$(MSBuildThisFileDirectory)..\..\experiments\wf4c\_feed</RestoreAdditionalProjectSources>
   </PropertyGroup>
 

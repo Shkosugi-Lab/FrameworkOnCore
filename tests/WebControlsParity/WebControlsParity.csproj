@@ -1,4 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <!-- FrameworkOnCore's version the tests run the port of (rules/packages.json frameworkOnCoreVersion; -p:FrameworkOnCoreVersion= for another). -->
+  <Import Project="$(MSBuildThisFileDirectory)../../experiments/wf4c/FrameworkOnCoreVersion.props" />
   <!-- The component parity of System.Web's controls (docs: README.md): the API layer, compiled twice: net48 against .NET
        Framework's System.Web (the old: parity.ps1 -Record writes the goldens from it) and net10.0 against the port,
        FrameworkOnCore's FrameworkOnCore.Web package (the new), as converted applications get it: from FrameworkOnCore's
@@ -17,8 +19,6 @@
     <IsPackable>false</IsPackable>
     <!-- CA1416: System.Drawing (the styles' colors) on Linux too. CS0618, SYSLIB: the API's own obsolete members, called as they are. -->
     <NoWarn>$(NoWarn);CA1416;CS0618;SYSLIB0011;SYSLIB0051</NoWarn>
-    <!-- FrameworkOnCore's version the tests run the port of (rules/packages.json frameworkOnCoreVersion). -->
-    <FrameworkOnCoreVersion Condition="'$(FrameworkOnCoreVersion)' == ''">1.6.5-w2l.16</FrameworkOnCoreVersion>
     <RestoreAdditionalProjectSources>$(MSBuildThisFileDirectory)..\..\experiments\wf4c\_feed</RestoreAdditionalProjectSources>
   </PropertyGroup>
 

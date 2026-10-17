@@ -8,12 +8,19 @@
 # Build order matters upstream (Web.Extensions fails when built before its references), so -Build
 # All builds in dependency order, after src/WebFormsForCore.Build when it was not built yet (it emits the
 # FakeStrongName targets every project imports).
+#
+# The version is rules/packages.json's frameworkOnCoreVersion (frameworkoncore-version.ps1), unless -Version is given. A
+# version published already is packed again only as it was published: when the packages' sources changed since, the
+# pack stops (a new version is needed: other machines take the published packages).
 param(
-    [string]$Version = '1.6.5-w2l.16',
+    [string]$Version,
     [ValidateSet('Web', 'All', 'None')][string]$Build = 'Web'
 )
 
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'frameworkoncore-version.ps1')
+if (-not $Version) { $Version = Get-FrameworkOnCoreVersion }
+Assert-FrameworkOnCoreVersionUnchanged $Version
 # Release, as Microsoft shipped the originals and upstream ships its packages: a Debug build has referencesource's
 # Debug.Assert (about 630 in the packed assemblies), and on .NET a failed Debug.Assert ends the process (found by the
 # System.Data.Linq parity cases: SingleResult's assert, not true for Translate(DbDataReader)).

@@ -16,11 +16,8 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $repo = Resolve-Path (Join-Path $PSScriptRoot '..\..')
-if (-not $Version) {
-    # The rules have comments (ConvertFrom-Json of Windows PowerShell does not take them): the one property.
-    $rules = Get-Content (Join-Path $repo 'src\FrameworkOnCore.Converter\rules\packages.json') -Raw
-    $Version = [regex]::Match($rules, '"frameworkOnCoreVersion"\s*:\s*"([^"]+)"').Groups[1].Value
-}
+. (Join-Path $PSScriptRoot 'frameworkoncore-version.ps1')
+if (-not $Version) { $Version = Get-FrameworkOnCoreVersion }
 $feed = Join-Path $PSScriptRoot '_feed'
 $packages = @(Get-ChildItem $feed -File | Where-Object { $_.Name -like "*.$Version.nupkg" -or $_.Name -like "*.$Version.snupkg" })
 if (-not ($packages | Where-Object Name -eq "FrameworkOnCore.Web.$Version.nupkg")) { throw "FrameworkOnCore.Web.$Version.nupkg is not in $feed (pack-frameworkoncore.ps1)" }

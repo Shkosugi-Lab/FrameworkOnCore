@@ -35,6 +35,14 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
     /// <summary>The builds' log (MSBuild's, minimal: each project as it is built), read while they run (Studio); none if null.</summary>
     public string? Log { get; init; }
 
+    /// <summary>
+    /// The host the converter wrote (the web project's Program.cs, Program.vb): written for FrameworkOnCore's packages of
+    /// this version, it is not made to compile (its calls stubbed, the application would stop as it starts). An error in it
+    /// is the packages': older than the converter (a version published again with other contents, or an old build of it
+    /// in the feed or NuGet's cache).
+    /// </summary>
+    public IReadOnlyCollection<string> HostFiles { get; init; } = [];
+
     // .NET's obsoletions (SYSLIB): members that are there but throw PlatformNotSupportedException, or will
     // go (Thread.Abort, AppDomain.CreateDomain). They compile; the calls fail at run time: reported.
     static readonly Regex obsoletion = new(@"^(?<file>.+?)\((?<line>\d+),(?<col>\d+)\): warning (?<code>SYSLIB\d+): (?<msg>.*?)(?: \[[^\]]+\])?$", RegexOptions.Compiled);
@@ -167,6 +175,14 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
             var fixable = errors.Where(e => e.File != null && SourceLanguage.For(e.File) is { } language &&
                                             e.Code.StartsWith(language == SourceLanguage.CSharp ? "CS" : "BC", StringComparison.Ordinal) && IsUnder(e.File, outRoot) &&
                                             !Regex.IsMatch(e.File, @"[\\/]obj[\\/]")).ToList();
+            var host = fixable.Where(e => HostFiles.Any(h => Path.GetFullPath(h).Equals(Path.GetFullPath(e.File!), StringComparison.OrdinalIgnoreCase))).ToList();
+            if (host.Count > 0)
+            {
+                foreach (var e in host.DistinctBy(e => (e.Code, e.Message)))
+                    report.Add(Report.Kind.Error, Relative(e.File!), $"{e.Code} at {e.Line}: {e.Message}");
+                report.Add(Report.Kind.Error, "FrameworkOnCore packages", HostError(rules.FrameworkOnCoreVersion));
+                return false;
+            }
             if (fixable.Count == 0 || errors.Count == 0)
             {
                 foreach (var e in errors.DistinctBy(e => (e.Code, e.Message))) report.Add(Report.Kind.Error, e.File ?? e.Project ?? "build", $"{e.Code}: {e.Message}");
@@ -297,6 +313,12 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
     }
 
     // ------------------------------------------------------------------------------------------
+
+    /// <summary>The error for the host that does not compile: the packages are not those of the converter.</summary>
+    public static string HostError(string version) =>
+        $"the host the converter wrote (Program.cs) does not compile with FrameworkOnCore {version}: the packages are older than the converter. " +
+        $"Delete experiments/wf4c/_feed/*.{version}.* and the NuGet cache's frameworkoncore.* {version} (dotnet nuget locals global-packages --list), " +
+        "then convert again (the release's packages are fetched); if it stays, the release of this version is not what the converter was written for: a new version is needed";
 
     enum Action { Alias, RemoveNode, RemoveOverride, StubBody, RemoveInitializer, ExcludeFile, ExplicitExtension, ReplaceMember, LateBound }
 

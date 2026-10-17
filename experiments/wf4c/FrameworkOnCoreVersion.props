@@ -1,0 +1,7 @@
+<Project>
+  <!-- FrameworkOnCore's package version, from the one place it is written: src/FrameworkOnCore.Converter/rules/packages.json
+       (frameworkOnCoreVersion). Given (-p:FrameworkOnCoreVersion=...), that one. -->
+  <PropertyGroup>
+    <FrameworkOnCoreVersion Condition="'$(FrameworkOnCoreVersion)' == ''">$([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('$(MSBuildThisFileDirectory)..\..\src\FrameworkOnCore.Converter\rules\packages.json')), '(?s)^.*?"frameworkOnCoreVersion"\s*:\s*"([^"]+)".*$', '$1'))</FrameworkOnCoreVersion>
+  </PropertyGroup>
+</Project>

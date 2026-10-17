@@ -22,7 +22,8 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$FrameworkOnCoreVersion = '1.6.5-w2l.16'
+. (Join-Path $PSScriptRoot 'frameworkoncore-version.ps1')
+$FrameworkOnCoreVersion = Get-FrameworkOnCoreVersion
 $msbuildNs = @{ m = 'http://schemas.microsoft.com/developer/msbuild/2003' }
 $msbuildUri = 'http://schemas.microsoft.com/developer/msbuild/2003'
 
@@ -405,7 +406,7 @@ function Convert-OldProject([string]$projectPath, [string]$targetPath, [string]$
 
     # The project file.
     if ($isWeb) {
-        $text = (Get-Content (Join-Path $PSScriptRoot 'template.csproj.txt') -Raw -Encoding UTF8).Replace('__NAME__', $assemblyName)
+        $text = (Get-Content (Join-Path $PSScriptRoot 'template.csproj.txt') -Raw -Encoding UTF8).Replace('__NAME__', $assemblyName).Replace('__FOC_VERSION__', $FrameworkOnCoreVersion)
         if ($rootNamespace) { $text = $text.Replace("<RootNamespace>$assemblyName</RootNamespace>", "<RootNamespace>$rootNamespace</RootNamespace>") }
         # The template's own four package references are covered by the list below.
         $text = [regex]::Replace($text, '(?s)  <ItemGroup>\s*<PackageReference Include="FrameworkOnCore.Runtime\.Web".*?</ItemGroup>\s*', '')

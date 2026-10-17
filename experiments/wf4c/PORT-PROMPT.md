@@ -81,7 +81,7 @@ System.ServiceModel(CoreWCF)は「移植」ではなく別の作業なので、�
 
 ### 6. 配布と記録
 
-- FrameworkOnCore のパッケージの版を上げる: `pack-frameworkoncore.ps1 -Build All -Version`。更新箇所は rules/packages.json の `frameworkOnCoreVersion`、shims の csproj、template.csproj.txt、convert-project.ps1、pack-frameworkoncore.ps1 の既定。配るときは版を上げて push する(GitHub Actions の `frameworkoncore-packages.yml` がビルド・Linux のテストの後に GitHub Release に置く。手元からは `publish-frameworkoncore.ps1`)。新プロジェクトは pack-frameworkoncore.ps1 の `$projects` にも足す。
+- FrameworkOnCore のパッケージの版を上げる: rules/packages.json の `frameworkOnCoreVersion` だけを書き換える(スクリプトは `frameworkoncore-version.ps1`、プロジェクトは `FrameworkOnCoreVersion.props` でそこを読む)。FrameworkOnCore.Runtime を変えたら必ず上げる: 公開済みの版のまま `pack-frameworkoncore.ps1` を実行すると、公開後にパッケージの元が変わっていれば止まる(Actions のビルドも失敗する)。配るときは版を上げて push する(GitHub Actions の `frameworkoncore-packages.yml` がビルド・Linux のテストの後に GitHub Release に置く。手元からは `publish-frameworkoncore.ps1`)。新プロジェクトは pack-frameworkoncore.ps1 の `$projects` にも足す。
 - ドキュメント: FRAMEWORK-ONLY-APIS.md(スタブ → 移植済み)、experiments/wf4c/README.md に記録(日付・やったこと・テストマトリクス・既知の課題)、ルート README.md の「状態」。
 - コミット: メッセージは UTF-8(BOM 無し)のファイル(`.git/MSG.txt` に printf)で `git -c user.name=shkosugi -c user.email=sin.kosugi@gmail.com commit -q -F`。`git add -A -- . ':!CLAUDE.md'`(CLAUDE.md は含めない)。末尾はその時の環境の指示の Co-Authored-By 行。push は指示があってから。
 

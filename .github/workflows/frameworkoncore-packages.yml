@@ -4,9 +4,11 @@
 # frameworkoncore-<frameworkOnCoreVersion> (publish-frameworkoncore.ps1) that the converter, the analysis and Studio fetch.
 #
 # A version is published once. A push that changes FrameworkOnCore's WebFormsForCore (FrameworkOnCore.Runtime/, pack-frameworkoncore.ps1, the rules' frameworkOnCoreVersion)
-# publishes its version when there is no release of it yet; with one, the run warns (changed packages is a new version:
-# raise frameworkOnCoreVersion in src/FrameworkOnCore.Converter/rules/packages.json, and pack-frameworkoncore.ps1's default). Run by hand
-# (workflow_dispatch) it builds and tests, and publishes only when asked.
+# publishes its version when there is no release of it yet. With one, the build fails when the packages' sources changed
+# since the release's commit (pack-frameworkoncore.ps1, frameworkoncore-version.ps1: changed packages are a new version,
+# raise frameworkOnCoreVersion in src/FrameworkOnCore.Converter/rules/packages.json, the one place it is written), and
+# passes without publishing when they did not (a change of the tests). Run by hand (workflow_dispatch) it builds and
+# tests, and publishes only when asked.
 #
 # The Windows tests are not run here: their goldens are this project's Windows machine's (GDI+ drawing with its fonts,
 # a Japanese Windows' system font, IIS, SQL Server Express); run them there (dotnet test tests/FrameworkOnCore.Tests).
@@ -114,8 +116,8 @@ jobs:
           gh release view "frameworkoncore-$env:VERSION" --repo $env:GITHUB_REPOSITORY *> $null
           if ($LASTEXITCODE -eq 0) {
             "exists=true" >> $env:GITHUB_OUTPUT
-            # Not published again. If the push changed FrameworkOnCore's WebFormsForCore, its packages are not the published ones.
-            "::warning::frameworkoncore-$env:VERSION is published already: not published again. If FrameworkOnCore's WebFormsForCore changed (FrameworkOnCore.Runtime/), raise frameworkOnCoreVersion (src/FrameworkOnCore.Converter/rules/packages.json and pack-frameworkoncore.ps1)"
+            # Not published again: its packages' sources are those it was published from (the build's pack checked them).
+            "::notice::frameworkoncore-$env:VERSION is published already, from the same packages' sources: not published again"
           } else { "exists=false" >> $env:GITHUB_OUTPUT }
           exit 0
       - uses: actions/download-artifact@v4

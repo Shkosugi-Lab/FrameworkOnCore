@@ -191,7 +191,11 @@ var succeeded = true;
 // The builds' log (next to the output, as the original's is): what is being built, while it is (Studio shows it).
 var buildLog = outRoot.TrimEnd('\\', '/') + ".build.log";
 File.Delete(buildLog);
-if (build) succeeded = new BuildFixer(report, converter.Converted, outRoot, rules) { Log = buildLog }.Run(buildTarget);
+if (build) succeeded = new BuildFixer(report, converter.Converted, outRoot, rules)
+{
+    Log = buildLog,
+    HostFiles = [Path.Combine(Path.GetDirectoryName(web.TargetPath)!, ProjectConverter.ProgramFile(web.TargetPath))],
+}.Run(buildTarget);
 // DLLs without source that refer to types where .NET 10 does not have them: retargeted into foc-retargeted, which
 // the projects' build copies in their place (FocUseRetargetedAssemblies); built again to take them.
 var preferred = AssemblyRetargeter.PreferredAssemblies(runtime.Feed, runtime.ShimProjects);

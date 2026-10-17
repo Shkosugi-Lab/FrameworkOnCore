@@ -1246,6 +1246,16 @@ GitHub Release の 1.6.5-w2l.15 は 2026-10-03 に公開したもので、その
 - 版番号を 1.6.5-w2l.16 に上げた(`rules/packages.json`、`pack-frameworkoncore.ps1`、`convert-project.ps1`、`template.csproj.txt`、shim と比較テストのプロジェクト)。
   push で Actions(FrameworkOnCore packages)がビルドし、Linux のテストの後に Release frameworkoncore-1.6.5-w2l.16 を公開する。
 - 今後: FrameworkOnCore.Runtime を変えたら版番号を上げる(同じ版番号で作り直すと、ほかのマシンと NuGet のキャッシュは古いままになる)。
+  忘れても気付くように、次の 3 つを入れた(ユーザーの指示):
+  1. **公開済みの版の作り直しを止める**: `pack-frameworkoncore.ps1` は、版が公開済み(Release のタグがある)で、そのコミットから
+     パッケージの元(`FrameworkOnCore.Runtime/`、`frameworkoncore.slnx`。未コミットの変更と新しいファイルも)が変わっていれば、
+     作らずに止まる(`frameworkoncore-version.ps1` の `Assert-FrameworkOnCoreVersionUnchanged`)。変わっていなければ作り直せる(テストだけの push の Actions)。
+     Actions のビルドも同じスクリプトなので失敗する(以前は警告だけで成功だった)。GitHub に接続できないときは警告だけ。
+  2. **版番号を書くのは 1 か所**: `rules/packages.json` の `frameworkOnCoreVersion`。スクリプト(pack・publish・convert-project)は
+     `frameworkoncore-version.ps1` で、プロジェクト(shim、比較テスト)は `FrameworkOnCoreVersion.props` で読む。template.csproj.txt は `__FOC_VERSION__`。
+  3. **古いパッケージは変換の時点で止める**: 変換器が書いたホスト(Program.cs、Program.vb)がコンパイルできないときは、
+     スタブにせず(以前はスタブにしてビルドが通り、起動時に止まった)、「パッケージが変換器より古い」という説明と対処を
+     レポートの未解決に出してビルドを失敗にする(`BuildFixer.HostFiles`、`BuildFixerHostTests`)。アプリのソースは今までどおり。
 - 確認: この PC で w2l.16 を作り(21 パッケージ)、テスト 4,408 件合格(スキップ 20)、HeadersProbe を w2l.16 で変換して Windows で IIS と 3/3 一致。
 
 ### フォルダーごとの設定、フォルダーの一覧、httpErrors・圧縮の調査(2026-10-16、ユーザーの指示)

@@ -19,10 +19,15 @@ public sealed record ContainerEntry
     /// <summary>The first answer of the site (its status code): a 500 is a site that runs and fails.</summary>
     public int? FirstStatus { get; init; }
     public string? Error { get; init; }
+    /// <summary>Built and run as x64 (docker --platform linux/amd64), emulated on a machine of another architecture.</summary>
+    public bool EmulateX64 { get; init; }
 }
 
-/// <summary>The environment the container gets (NAME=value lines: SQLCONNSTR_&lt;name&gt;, APPSETTING_&lt;key&gt;).</summary>
-public sealed record ContainerRequest(string? Environment);
+/// <summary>
+/// The environment the container gets (NAME=value lines: SQLCONNSTR_&lt;name&gt;, APPSETTING_&lt;key&gt;), and whether it runs
+/// as x64 (null: as the application's native libraries need, X64OnlyLibraries).
+/// </summary>
+public sealed record ContainerRequest(string? Environment, bool? EmulateX64 = null);
 
 /// <summary>
 /// Runs a converted application on Linux, in Docker, from its conversion's output: the Dockerfile the converter wrote
@@ -69,9 +74,11 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
     /// </summary>
     public static object Status()
     {
-        var version = Docker("version --format {{.Server.Version}}");
+        var version = Docker("version --format {{.Server.Version}}|{{.Server.Arch}}");
         var reason = version.Exit == 0 ? null : version.Output.Split('\n').Select(l => l.Trim()).FirstOrDefault(l => l.Length > 0);
-        return new { available = version.Exit == 0, version = version.Exit == 0 ? version.Output.Trim() : null, reason, desktop = DockerDesktop() != null };
+        var parts = version.Exit == 0 ? version.Output.Trim().Split('|') : [];
+        // The engine's architecture (amd64, arm64): its containers' unless told otherwise (--platform).
+        return new { available = version.Exit == 0, version = parts.FirstOrDefault(), architecture = parts.Skip(1).FirstOrDefault(), reason, desktop = DockerDesktop() != null };
     }
 
     // Docker Desktop, installed for all users (Program Files) or for this one (its per-user installation).
@@ -123,7 +130,15 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
         return true;
     }
 
-    public ContainerEntry Start(string id, string? environment)
+    /// <summary>
+    /// The native libraries of the site that Linux has for x64 only (runtimes/linux-x64/native, none for arm64: System.Data.SQLite's
+    /// SQLite.Interop.dll): on an arm64 machine (Apple silicon, Windows on Arm) its container cannot load them, unless it
+    /// runs as x64 (emulated). From the site's deps.json files (their runtime targets) and its bin/runtimes folders.
+    /// </summary>
+    public IReadOnlyList<string> X64OnlyLibraries(string id) =>
+        conversions.Site(id) is { } site ? NativeLibraries.X64Only(Path.Combine(site, "bin")) : [];
+
+    public ContainerEntry Start(string id, string? environment, bool? emulateX64 = null)
     {
         if (store.Get(id) is not { } analysis) throw new InvalidOperationException("no such analysis");
         if (conversions.Get(id) is not { State: "done" }) throw new InvalidOperationException("the conversion is not built");
@@ -133,7 +148,9 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
         {
             State = "building", Started = DateTimeOffset.UtcNow,
             Image = $"foc-studio/{(slug.Length > 0 ? slug : "app")}:{id[^8..]}", Name = $"foc-studio-{id[^8..]}",
+            EmulateX64 = emulateX64 ?? X64OnlyLibraries(id).Count > 0,
         };
+        string[] platform = entry.EmulateX64 ? ["--platform", "linux/amd64"] : [];
         Directory.CreateDirectory(Folder(id));
         if (environment != null) File.WriteAllText(EnvironmentFile(id), environment);
         var cancel = new CancellationTokenSource();
@@ -154,8 +171,8 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
                 await store.Heavy.WaitAsync(cancel.Token);
                 try
                 {
-                    log.Enqueue($"> docker build -t {entry.Image} .");
-                    var build = await Run(["build", "-t", entry.Image, conversions.Output(id)], log, cancel.Token);
+                    log.Enqueue($"> docker build {string.Join(' ', platform)}{(platform.Length > 0 ? " " : "")}-t {entry.Image} .");
+                    var build = await Run(["build", .. platform, "-t", entry.Image, conversions.Output(id)], log, cancel.Token);
                     if (build != 0) throw new InvalidOperationException($"docker build が失敗しました(終了コード {build})");
                 }
                 finally { store.Heavy.Release(); }
@@ -163,8 +180,8 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
                 var port = Runs.FreePort(8080);
                 File.WriteAllLines(envFile, Variables(environment ?? (File.Exists(EnvironmentFile(id)) ? File.ReadAllText(EnvironmentFile(id)) : "")));
                 Save(id, entry = entry with { State = "starting", Port = port, Url = $"http://localhost:{port}/" });
-                log.Enqueue($"> docker run -d --name {entry.Name} -p 127.0.0.1:{port}:8080 --env-file run.env {entry.Image}");
-                var run = await Run(["run", "-d", "--name", entry.Name, "--label", $"{Label}={id}", "-p", $"127.0.0.1:{port}:8080", "--env-file", envFile, entry.Image], log, cancel.Token);
+                log.Enqueue($"> docker run -d {string.Join(' ', platform)}{(platform.Length > 0 ? " " : "")}--name {entry.Name} -p 127.0.0.1:{port}:8080 --env-file run.env {entry.Image}");
+                var run = await Run(["run", "-d", .. platform, "--name", entry.Name, "--label", $"{Label}={id}", "-p", $"127.0.0.1:{port}:8080", "--env-file", envFile, entry.Image], log, cancel.Token);
                 File.Delete(envFile);
                 if (run != 0) throw new InvalidOperationException($"docker run が失敗しました(終了コード {run})");
 

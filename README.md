@@ -70,7 +70,7 @@ Studio は 4 つの手順のウィザードです(画面の上の手順から、
 1. **分析**: 「新しい解析」で .NET Framework の Web プロジェクト(.csproj / .vbproj)を指定すると、解析結果が出ます(数値、状態別の内訳、部品と API)。「元のアプリを起動(テスト起動)」で、変換の前のアプリをこの PC で動かして確かめられます(リポジトリのコピーをそのビルド手順でビルドし、IIS Express、無ければ IIS で起動。IIS は Studio を管理者として起動したときだけ)。
 2. **方針決定**: 選べる対応がある部品ごとに対応を選び(API ごとにも変えられる)、アプリの設定を選び、DLL の参照の付け替えを確かめて保存します。アプリの設定には、ファイル名の大文字小文字のほか、IIS の機能の動かし方(要求のログ・URL Rewrite・エラー ページ・圧縮: IIS 互換〈既定〉/ ASP.NET Core 標準 / オフ)があり、変換後の `appsettings.json` に書かれます(変換後もそこで変えられます)。
 3. **変換・ビルド**: 保存した選択で変換とビルドを行います。`--build-original`(元のアプリをそのビルド手順でビルドし、配置されるサイトから組み立てる)の要否は、リポジトリから自動で判定して初期値にし、理由を表示します(Cake のビルド、Web プロジェクトのフォルダーへ出力・コピーするほかのプロジェクト、ビルドで作られる web.config、リポジトリ独自のビルドファイル)。元のビルドのあとに実行するリポジトリのセットアップ手順(`--original-step`。N2 の `build\n2.proj;Templates-PrepareDependencies` など)も、1 行に 1 つ「プロジェクト;ターゲット」で指定できます(元のアプリのテスト起動と共通。「変換のコマンドをコピー」のコマンドにも入ります)。変換レポートは節ごとに開いて見られます。
-4. **デプロイ**: Linux に配置できる形(Dockerfile と systemd 用のスクリプト付き、`obj` を除く)の ZIP のダウンロード、この PC の dotnet での起動(ネイティブ起動、Docker 不要)、Dockerfile からイメージを作って localhost のポートでのコンテナ起動(Docker Desktop が要ります。Studio のコンテナは一度に一つ)。どちらも接続文字列などを環境変数(`SQLCONNSTR_<名前>`、`APPSETTING_<キー>`)で渡せます(それぞれ別に保存。コンテナの中からは LocalDB やこの PC の localhost は見えないので、`host.docker.internal` を使う)。ECR への発行は予定です。コマンドラインで変換するためのコマンドもコピーできます。
+4. **デプロイ**: Linux に配置できる形(Dockerfile と systemd 用のスクリプト付き、`obj` を除く)の ZIP のダウンロード、この PC の dotnet での起動(ネイティブ起動、Docker 不要)、Dockerfile からイメージを作って localhost のポートでのコンテナ起動(Docker Desktop が要ります。Studio のコンテナは一度に一つ)。コンテナは x64 エミュレーション(`--platform linux/amd64`)でも動かせます。Linux 用に x64 版しかないネイティブライブラリ(System.Data.SQLite の `SQLite.Interop.dll` など)を使うアプリは、既定でそうします(Arm のマシン向け。チェックで変えられます)。どちらも接続文字列などを環境変数(`SQLCONNSTR_<名前>`、`APPSETTING_<キー>`)で渡せます(それぞれ別に保存。コンテナの中からは LocalDB やこの PC の localhost は見えないので、`host.docker.internal` を使う)。ECR への発行は予定です。コマンドラインで変換するためのコマンドもコピーできます。
 
 Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、Studio を止めると止まります(強制終了でも止まり、IIS に作ったサイトは次の起動で消えます)。
 
@@ -103,7 +103,7 @@ dotnet test tests\FrameworkOnCore.Tests
 
 ### `FrameworkOnCore.Runtime/` を変えるとき(開発者向け)
 
-ソースは `FrameworkOnCore.Runtime/` です。直したら `experiments/wf4c/pack-frameworkoncore.ps1 -Build All` で `_feed` にパッケージを作ります(`_feed` にある版は取得されません)。配るときは版を上げ(`pack-frameworkoncore.ps1 -Version` の既定と `rules/packages.json` の `frameworkOnCoreVersion`)、push します。GitHub Actions(`.github/workflows/frameworkoncore-packages.yml`)が同じ手順でビルドし、Linux でテストして、まだ無い版なら GitHub Release に置きます(手で動かすときは Actions の「FrameworkOnCore packages」の Run workflow。publish にチェックを入れたときだけ公開)。手元から置くときは `experiments/wf4c/publish-frameworkoncore.ps1`。
+ソースは `FrameworkOnCore.Runtime/` です。直したら `experiments/wf4c/pack-frameworkoncore.ps1 -Build All` で `_feed` にパッケージを作ります(`_feed` にある版は取得されません)。配るときは版を上げ(`rules/packages.json` の `frameworkOnCoreVersion`。版番号を書くのはそこだけ。公開済みの版のまま `FrameworkOnCore.Runtime/` を変えると、`pack-frameworkoncore.ps1` は止まります)、push します。GitHub Actions(`.github/workflows/frameworkoncore-packages.yml`)が同じ手順でビルドし、Linux でテストして、まだ無い版なら GitHub Release に置きます(手で動かすときは Actions の「FrameworkOnCore packages」の Run workflow。publish にチェックを入れたときだけ公開)。手元から置くときは `experiments/wf4c/publish-frameworkoncore.ps1`。
 
 ## 状態
 

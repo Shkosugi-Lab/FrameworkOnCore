@@ -172,11 +172,11 @@ api.MapGet("/docker", () => Results.Ok(Containers.Status()));
 api.MapPost("/docker/start", () => Containers.StartDockerDesktop() ? Results.NoContent() : Results.NotFound());
 
 api.MapGet("/analyses/{id}/container", (string id, Containers containers) =>
-    Results.Ok(new { container = containers.Get(id), environment = containers.Environment(id), log = containers.Log(id).TakeLast(300) }));
+    Results.Ok(new { container = containers.Get(id), environment = containers.Environment(id), x64Only = containers.X64OnlyLibraries(id), log = containers.Log(id).TakeLast(300) }));
 
 api.MapPost("/analyses/{id}/container", (string id, ContainerRequest? request, Containers containers) =>
 {
-    try { return Results.Ok(containers.Start(id, request?.Environment)); }
+    try { return Results.Ok(containers.Start(id, request?.Environment, request?.EmulateX64)); }
     catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
 });
 

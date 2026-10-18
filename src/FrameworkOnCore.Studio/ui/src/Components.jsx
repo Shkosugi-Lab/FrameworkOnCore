@@ -1,6 +1,6 @@
-// The components (① to look at them, ② to choose): a search and the statuses to show, then a container for each
-// component with its numbers, its options (② tiles to choose; ① what is chosen) and its APIs (a table, opened on demand).
-import { useMemo, useState } from 'react';
+// ③ The components with options to choose: a search and the statuses to show, then a container for each component with
+// its numbers, what the converter does for its APIs, its options (tiles) and its APIs (a table, opened on demand).
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Container from '@cloudscape-design/components/container';
 import Header from '@cloudscape-design/components/header';
 import SpaceBetween from '@cloudscape-design/components/space-between';
@@ -12,22 +12,22 @@ import Badge from '@cloudscape-design/components/badge';
 import Tiles from '@cloudscape-design/components/tiles';
 import ExpandableSection from '@cloudscape-design/components/expandable-section';
 import Table from '@cloudscape-design/components/table';
-import Link from '@cloudscape-design/components/link';
 import Select from '@cloudscape-design/components/select';
 import Button from '@cloudscape-design/components/button';
-import { api } from './api.js';
-import { t, fmt, known } from './i18n.js';
-import { DLL_COMPONENT, ORDER, apisOf, choosable, defaultOf } from './choices.js';
-import { Code, Muted, Status } from './Parts.jsx';
+import { t, fmt } from './i18n.js';
+import { DLL_COMPONENT, HANDLINGS, HANDLING_COLOR, ORDER, apisOf, choosable, defaultOf, handlingOf } from './choices.js';
+import { Muted, Status } from './Parts.jsx';
+import { ApiName, Handling, Place } from './Apis.jsx';
 
 const ROWS = 60;
 
 const Number_ = ({ value, label }) => <div><Box variant="awsui-key-label">{label}</Box><Box fontSize="heading-m" fontWeight="bold">{fmt(value)}</Box></div>;
 
-export function ComponentList({ ctx, deciding = false }) {
+export function ComponentList({ ctx }) {
   const { result } = ctx;
   const [q, setQ] = useState('');
-  const pool = useMemo(() => result.components.filter(c => !deciding || choosable(c)), [result, deciding]);
+  const pool = useMemo(() => result.components.filter(choosable), [result]);
+  const components = useMemo(() => new Map(result.components.map(c => [c.id, c])), [result]);
   const counts = Object.fromEntries(ORDER.map(s => [s, pool.filter(c => c.status === s).length]));
   const statusOptions = ORDER.filter(s => counts[s] > 0).map(s => ({ value: s, label: t(`status.${s}`), tags: [fmt(counts[s])] }));
   const [statuses, setStatuses] = useState(() => statusOptions.filter(o => o.value !== 'Available'));
@@ -56,36 +56,37 @@ export function ComponentList({ ctx, deciding = false }) {
       </ColumnLayout>
       {shown.length === 0
         ? <Container><Box textAlign="center" color="text-body-secondary">{t('components.none')}</Box></Container>
-        : shown.map(c => <ComponentCard key={c.id} c={c} ctx={ctx} deciding={deciding} />)}
+        : shown.map(c => <ComponentCard key={c.id} c={c} ctx={ctx} components={components} />)}
     </SpaceBetween>
   );
 }
 
-function ComponentCard({ c, ctx, deciding }) {
+function ComponentCard({ c, ctx, components }) {
   const { choices, setChoices } = ctx;
   const options = c.options ?? [];
   const chosen = choices.components[c.id] ?? defaultOf(options);
-  const apis = apisOf(ctx.byComponent, c);
+  const apis = useMemo(() => apisOf(ctx.byComponent, c).map(a => ({ ...a, handling: handlingOf(a, components, choices) })), [ctx.byComponent, c, components, choices]);
+  const handlings = HANDLINGS.map(k => [k, apis.filter(a => a.handling.kind === k).length]).filter(([, n]) => n > 0);
+  const ref = useRef(null);
+  useEffect(() => { if (ctx.linked === c.id) ref.current?.scrollIntoView({ block: 'start' }); }, [ctx.linked, c.id]);
   const changed = chosen !== defaultOf(options) || apis.some(a => choices.apis[a.id]);
   const choose = value => setChoices({ ...choices, components: { ...choices.components, [c.id]: value } });
-  const picked = options.find(o => o.id === chosen);
 
   return (
-    <div id={`c-${c.id}`}>
+    <div id={`c-${c.id}`} ref={ref}>
       <Container
         header={<Header variant="h2"
           description={c.note}
           info={<SpaceBetween direction="horizontal" size="xs">
             <Status status={c.status} />
             {c.attentionCount === 0 && c.binaryReferences > 0 && <Badge>{t('components.dllOnly')}</Badge>}
-            {c.retargetedApis > 0 && <Badge color="blue">{t('components.retargeted', fmt(c.retargetedApis))}</Badge>}
             {changed && <Badge color="severity-medium">{t('common.changed')}</Badge>}
           </SpaceBetween>}>
           {c.title} <Box variant="code" display="inline" fontSize="body-s">{c.id}</Box>
         </Header>}
         footer={
           <ExpandableSection headerText={t('components.apis', fmt(apis.length))} defaultExpanded={ctx.linked === c.id} variant="footer">
-            {c.id === DLL_COMPONENT ? <RetargetTable apis={apis} /> : <ApiTable c={c} apis={apis} ctx={ctx} options={deciding ? options : []} />}
+            {c.id === DLL_COMPONENT ? <RetargetTable apis={apis} /> : <ApiTable apis={apis} ctx={ctx} options={options} components={components} />}
           </ExpandableSection>
         }>
         <SpaceBetween size="m">
@@ -95,20 +96,20 @@ function ComponentCard({ c, ctx, deciding }) {
             <Number_ value={c.files} label={t('components.files')} />
             {c.binaryReferences ? <Number_ value={c.binaryReferences} label={t('components.dllReferences')} /> : null}
           </ColumnLayout>
-          {deciding && choosable(c)
-            ? <Tiles value={chosen} onChange={ev => choose(ev.detail.value)} columns={Math.min(options.length, 3)}
-                items={options.map(o => ({ value: o.id, label: <>{o.title} {o.default && <Badge>{t('common.default')}</Badge>}</>, description: o.description, disabled: o.planned }))} />
-            : choosable(c)
-              ? <Box>{t('components.chosen')}: <b>{picked?.title}</b> {chosen === defaultOf(options) && <Muted>{t('components.chosenDefault')}</Muted>}</Box>
-              : <Muted>{t('components.noChoice', options[0]?.title ?? '')}</Muted>}
+          <SpaceBetween direction="horizontal" size="xs">
+            <Box variant="awsui-key-label">{t('components.handlings')}</Box>
+            {handlings.map(([k, n]) => <Badge key={k} color={HANDLING_COLOR[k]}>{t(`handling.${k}`)} {fmt(n)}</Badge>)}
+          </SpaceBetween>
+          <Tiles value={chosen} onChange={ev => choose(ev.detail.value)} columns={Math.min(options.length, 3)}
+            items={options.map(o => ({ value: o.id, label: <>{o.title} {o.default && <Badge>{t('common.default')}</Badge>}</>, description: o.description, disabled: o.planned }))} />
         </SpaceBetween>
       </Container>
     </div>
   );
 }
 
-function ApiTable({ c, apis, ctx, options }) {
-  const { choices, setChoices, setSplit } = ctx;
+function ApiTable({ apis, ctx, options, components }) {
+  const { choices, setChoices } = ctx;
   const [limit, setLimit] = useState(ROWS);
   const overridable = options.filter(o => !o.planned).length > 1;
   const choose = (api_, value) => {
@@ -116,36 +117,12 @@ function ApiTable({ c, apis, ctx, options }) {
     if (value) next[api_] = value; else delete next[api_];
     setChoices({ ...choices, apis: next });
   };
-  const openSource = async (place, name) => {
-    setSplit({ header: `${place.file}:${place.line}`, description: name, content: <Muted>{t('common.loading')}</Muted> });
-    try {
-      const src = await api(`/analyses/${ctx.id}/source?file=${encodeURIComponent(place.file)}&line=${place.line}`);
-      setSplit({ header: `${place.file}:${place.line}`, description: name, content: <Code lines={src.lines} start={src.start} hit={place.line} /> });
-    } catch {
-      setSplit({ header: `${place.file}:${place.line}`, description: name, content: <Muted>{t('source.unreadable')}</Muted> });
-    }
-  };
   const columns = [
-    {
-      id: 'api', header: 'API', cell: a => <>
-        <Box variant="code" fontSize="body-s">{a.name}</Box>
-        {(a.obsolete || a.note) && <Muted>{known(a.obsolete ?? a.note)}</Muted>}
-        {a.retargetedTo && <Muted>↪ {a.callReplaced ? t('api.callReplaced') : t('api.retargeted')}: {a.assembly} → {a.retargetedTo}</Muted>}
-      </>,
-    },
+    { id: 'api', header: 'API', cell: a => <ApiName a={a} /> },
+    { id: 'handling', header: t('api.handling'), cell: a => <Handling a={a} ctx={ctx} components={components} /> },
     { id: 'status', header: t('api.status'), cell: a => <Status status={a.status} /> },
     { id: 'count', header: t('api.count'), cell: a => fmt(a.count) },
-    {
-      id: 'place', header: t('api.place'), cell: a => {
-        const place = a.places?.[0];
-        const dlls = (a.binaries ?? []).map(b => b.file.split('/').pop());
-        return <>
-          {place ? <Link onFollow={() => openSource(place, a.name)}>{place.file}:{place.line}</Link> : '—'}
-          {a.files.length > 1 && <Muted>{t('api.otherFiles', a.files.length - 1)}</Muted>}
-          {dlls.length > 0 && <Muted>DLL: {dlls.slice(0, 3).join(', ')}{dlls.length > 3 ? ` ${t('api.andMore', dlls.length - 3)}` : ''}</Muted>}
-        </>;
-      },
-    },
+    { id: 'place', header: t('api.place'), cell: a => <Place a={a} ctx={ctx} /> },
     ...(overridable ? [{
       id: 'override', header: t('api.override'), cell: a => {
         const list = [{ value: '', label: t('api.followComponent') }, ...options.filter(o => !o.planned).map(o => ({ value: o.id, label: o.title }))];

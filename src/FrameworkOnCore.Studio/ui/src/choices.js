@@ -77,6 +77,42 @@ export function apisOf(byComponent, c) {
   return (attention.length ? attention : all).slice().sort((a, b) => ORDER.indexOf(a.status) - ORDER.indexOf(b.status) || b.count - a.count);
 }
 
+/**
+ * What the converter does for each API, with the choices as they are: its DLLs' references retargeted (or their calls
+ * replaced: dll-references), its component's option (a component with options to choose, the option not none: the API's
+ * own if it has one), else what its status means: it works as it is, it works differently (or is obsolete), or nothing
+ * is done (missing: a stub, throws when it runs; throws). The worst first.
+ */
+export const HANDLINGS = ['none', 'option', 'callReplaced', 'retarget', 'differs', 'works'];
+export const HANDLING_COLOR = { none: 'red', option: 'blue', callReplaced: 'blue', retarget: 'blue', differs: 'grey', works: 'green' };
+
+export function handlingOf(a, components, choices) {
+  if (a.retargetedTo) {
+    const dll = components.get(DLL_COMPONENT);
+    const option = choices.components[DLL_COMPONENT] ?? defaultOf(dll?.options ?? []);
+    if (option !== 'none') return { kind: a.callReplaced ? 'callReplaced' : 'retarget', component: DLL_COMPONENT };
+    return { kind: 'none', component: DLL_COMPONENT };
+  }
+  const c = components.get(a.component);
+  if (c && choosable(c) && (a.status !== 'Available' || c.status !== 'Available')) {
+    const id = choices.apis[a.id] ?? choices.components[c.id] ?? defaultOf(c.options);
+    if (id !== 'none') return { kind: 'option', component: c.id, option: c.options.find(o => o.id === id) };
+  }
+  if (a.status === 'Available') return { kind: 'works' };
+  if (a.status === 'Behavior' || a.status === 'Obsolete') return { kind: 'differs' };
+  return { kind: 'none' };
+}
+
+/** The APIs with their handling (and their DLLs' references), the worst first, then the most used. */
+export function withHandling(result, choices) {
+  const components = new Map(result.components.map(c => [c.id, c]));
+  return result.apis.map(a => ({
+    ...a, handling: handlingOf(a, components, choices),
+    references: (a.binaries ?? []).reduce((s, b) => s + b.count, 0),
+  })).sort((x, y) => HANDLINGS.indexOf(x.handling.kind) - HANDLINGS.indexOf(y.handling.kind)
+    || ORDER.indexOf(x.status) - ORDER.indexOf(y.status) || y.count - x.count || y.references - x.references);
+}
+
 /** The repository's setup steps after its build (--original-step), one a line. */
 export const parseSteps = text => String(text ?? '').split('\n').map(s => s.trim()).filter(s => s);
 

@@ -124,6 +124,7 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
     notify('success', running ? t('analysis.cancelledDeleted') : t('analysis.deleted'));
   }
 
+  // A new analysis of the same project (② only: what it changes is the analysis).
   async function reanalyze() {
     const started = await post('/analyses', { project: entry.project, root: entry.root, configuration: entry.configuration, name: entry.name });
     await loadAnalyses();
@@ -141,7 +142,6 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
         ? <>{result.repository} / <code>{result.entry}</code> ・ {t('analysis.configuration', result.configuration)} ・ {when(result.analyzed)} ・ {t('analysis.catalog', result.catalogVersion)}</>
         : entry && <><code>{entry.project}</code> ・ {t('analysis.configuration', entry.configuration)}</>}
       actions={<SpaceBetween direction="horizontal" size="xs">
-        {entry?.state === 'done' && <Button iconName="refresh" onClick={() => reanalyze().catch(e => notify('error', e.message))}>{t('analysis.reanalyze')}</Button>}
         <Button onClick={() => del().catch(e => notify('error', e.message))}>
           {entry && entry.state !== 'done' && entry.state !== 'failed' ? t('analysis.cancelAndDelete') : t('common.delete')}</Button>
       </SpaceBetween>}>
@@ -157,6 +157,7 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
     conversion, setConversion, buildOriginal, setBuildOriginalChoice, stepsText, setStepsTyped, setSavedSteps,
     command, copyCommand, unsaved, save, loadAnalyses, loadConversion, linked: route.component,
   };
+  const reanalyzeButton = <Button iconName="refresh" onClick={() => reanalyze().catch(e => notify('error', e.message))}>{t('analysis.reanalyze')}</Button>;
   const bar = ready && <ChoicesBar ctx={ctx} errors={errors} saving={saving}
     onReset={() => { setChoices(empty()); setErrors([]); }} onDiscard={() => { setChoices(clone(saved)); setErrors([]); }} />;
 
@@ -185,7 +186,7 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
 
   const failed = entry.state === 'failed';
   const running = (
-    <Container header={<Header variant="h2" description={failed ? undefined : t('analysis.runningHint')}>
+    <Container header={<Header variant="h2" description={failed ? undefined : t('analysis.runningHint')} actions={failed && reanalyzeButton}>
       {failed ? t('analysis.failed') : entry.state === 'queued' ? t('analysis.waiting') : t('analysis.running')}</Header>}>
       <SpaceBetween size="m">
         {failed ? <Alert type="error">{entry.error}</Alert> : <ProgressBar status="in-progress" />}
@@ -219,9 +220,9 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
         steps={STEPS.map((key, i) => ({
           title: t(`steps.${key}.title`), description: stepState(i + 1),
           content: key === 'load' ? <Load ctx={ctx} />
-            : key === 'analysis' ? (ready ? <Overview ctx={ctx} /> : running)
+            : key === 'analysis' ? (ready ? <Overview ctx={ctx} actions={reanalyzeButton} /> : running)
               : !ready ? later
-                : key === 'components' ? <SpaceBetween size="l">{bar}<ComponentList ctx={ctx} deciding /></SpaceBetween>
+                : key === 'components' ? <SpaceBetween size="l">{bar}<ComponentList ctx={ctx} /></SpaceBetween>
                   : key === 'settings' ? <SpaceBetween size="l">{bar}<Settings ctx={ctx} /></SpaceBetween>
                     : key === 'convert' ? <Convert ctx={ctx} onNext={() => go(6)} />
                       : <Deploy ctx={ctx} />,

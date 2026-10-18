@@ -178,7 +178,9 @@ public sealed class AnalysisStore
 
     static AnalysisSummary Summarize(AnalysisResult result) => new(
         result.Apis.Count, result.Apis.Sum(a => a.Count),
-        result.Components.Count(c => c.Status < ApiStatus.Available),
+        // The components with options to choose (as the page's ③), and the DLLs' references when some are retargeted.
+        result.Components.Count(c => c.Status < ApiStatus.Available && (c.Options.Count(o => !o.Planned) > 1 || c.Options.Any(o => o.Planned)))
+            + (result.Apis.Any(a => a.RetargetedTo != null) ? 1 : 0),
         result.Projects.Sum(p => p.Unresolved), result.Projects.Sum(p => p.FrameworkCalls));
 
     void Save(AnalysisEntry entry)

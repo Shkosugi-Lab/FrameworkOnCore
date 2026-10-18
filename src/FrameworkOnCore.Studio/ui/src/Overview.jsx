@@ -1,16 +1,22 @@
-// ② The analysis: the numbers, the uses that do not work as they were by status, and the components with their APIs
-// (their options are chosen in ③).
+// ② The analysis: the numbers, the APIs by what the converter does for them (or by status), and every API (one by one,
+// not by component: an assembly's APIs no component gathers are handled each its own way). Options are chosen in ③.
+import { useMemo, useState } from 'react';
 import Container from '@cloudscape-design/components/container';
 import Header from '@cloudscape-design/components/header';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
 import Box from '@cloudscape-design/components/box';
 import BarChart from '@cloudscape-design/components/bar-chart';
+import SegmentedControl from '@cloudscape-design/components/segmented-control';
 import * as tokens from '@cloudscape-design/design-tokens';
 import { t, fmt } from './i18n.js';
-import { ORDER } from './choices.js';
-import { ComponentList } from './Components.jsx';
+import { HANDLINGS, ORDER, choosable, withHandling } from './choices.js';
+import { ApiList } from './Apis.jsx';
 
+const HANDLING_CHART = {
+  none: tokens.colorChartsStatusCritical, option: tokens.colorChartsPaletteCategorical1, callReplaced: tokens.colorChartsPaletteCategorical4,
+  retarget: tokens.colorChartsPaletteCategorical2, differs: tokens.colorChartsStatusNeutral, works: tokens.colorChartsStatusPositive,
+};
 const STATUS_COLOR = {
   Missing: tokens.colorChartsStatusCritical, Throws: tokens.colorChartsStatusHigh, WindowsOnly: tokens.colorChartsStatusMedium,
   Behavior: tokens.colorChartsStatusLow, Obsolete: tokens.colorChartsStatusNeutral, Available: tokens.colorChartsStatusPositive,
@@ -24,45 +30,62 @@ const Metric = ({ label, value, unit, foot }) => (
   </div>
 );
 
-export default function Overview({ ctx }) {
+export default function Overview({ ctx, actions }) {
   const r = ctx.result;
+  const components = useMemo(() => new Map(r.components.map(c => [c.id, c])), [r]);
+  const apis = useMemo(() => withHandling(r, ctx.choices), [r, ctx.choices]);
+  const [by, setBy] = useState('handling');
+  const [measure, setMeasure] = useState('apis');
+
   const uses = r.apis.reduce((s, a) => s + a.count, 0);
   const frameworkUses = r.projects.reduce((s, p) => s + p.frameworkCalls, 0);
   const unresolved = r.projects.reduce((s, p) => s + p.unresolved, 0);
   const files = new Set(r.apis.flatMap(a => a.files.map(f => f.file))).size;
-  const attention = r.components.filter(c => c.status !== 'Available');
-  const count = status => attention.filter(c => c.status === status).length;
+  const deciding = r.components.filter(c => choosable(c) && c.status !== 'Available');
+  const handled = kind => apis.filter(a => a.handling.kind === kind).length;
   const resolvedRate = frameworkUses + unresolved === 0 ? 100 : (100 * frameworkUses / (frameworkUses + unresolved));
 
-  // Part-to-whole of the uses that do not work as they were, by status.
-  const totals = Object.fromEntries(ORDER.map(s => [s, 0]));
-  for (const a of r.apis) totals[a.status] += a.count;
-  const all = ORDER.reduce((s, k) => s + totals[k], 0);
-  const shown = ORDER.slice(0, 5).filter(s => totals[s] > 0);
+  // Part-to-whole of the APIs (or their uses) that do not work as they were: by handling, or by status.
+  const keys = by === 'handling' ? HANDLINGS : ORDER;
+  const fine = by === 'handling' ? 'works' : 'Available';
+  const value = a => measure === 'apis' ? 1 : a.count + a.references;
+  const totals = Object.fromEntries(keys.map(k => [k, 0]));
+  for (const a of apis) totals[by === 'handling' ? a.handling.kind : a.status] += value(a);
+  const all = keys.reduce((s, k) => s + totals[k], 0);
+  const shown = keys.filter(k => k !== fine && totals[k] > 0);
   const sum = shown.reduce((s, k) => s + totals[k], 0);
+  const label = k => by === 'handling' ? t(`handling.${k}`) : t(`status.${k}`);
+  const color = k => by === 'handling' ? HANDLING_CHART[k] : STATUS_COLOR[k];
+  const axis = measure === 'apis' ? t('step1.apisAxis') : t('step1.usesAxis');
 
   return (
     <SpaceBetween size="l">
       <Box variant="p">{t('step1.intro')}</Box>
-      <Container header={<Header variant="h2">{t('step1.numbers')}</Header>}>
+      <Container header={<Header variant="h2" actions={actions}>{t('step1.numbers')}</Header>}>
         <ColumnLayout columns={4} variant="text-grid">
-          <Metric label={t('step1.toDecide')} value={fmt(attention.length)} unit={t('unit.items')}
-            foot={t('step1.toDecideFoot', count('Missing'), count('Throws') + count('WindowsOnly'), count('Behavior'))} />
           <Metric label={t('step1.apis')} value={fmt(r.apis.length)} unit={t('unit.kinds')} foot={t('step1.projects', fmt(r.projects.filter(p => !p.skipped).length))} />
-          <Metric label={t('step1.uses')} value={fmt(uses)} unit={t('unit.times')} foot={t('step1.files', fmt(files))} />
-          <Metric label={t('step1.resolved')} value={resolvedRate.toFixed(1)} unit="%" foot={t('step1.unresolved', fmt(unresolved))} />
+          <Metric label={t('step1.handled')} value={fmt(handled('option') + handled('retarget') + handled('callReplaced'))} unit={t('unit.kinds')}
+            foot={t('step1.handledFoot', fmt(handled('none')), fmt(handled('differs')))} />
+          <Metric label={t('step1.toDecide')} value={fmt(deciding.length)} unit={t('unit.items')} foot={t('step1.toDecideFoot')} />
+          <Metric label={t('step1.uses')} value={fmt(uses)} unit={t('unit.times')} foot={<>{t('step1.files', fmt(files))} ・ {t('step1.resolvedShort', resolvedRate.toFixed(1))}{unresolved > 0 && <> ・ {t('step1.unresolved', fmt(unresolved))}</>}</>} />
         </ColumnLayout>
       </Container>
-      <Container header={<Header variant="h2" description={all ? t('step1.breakdownHint', (100 * totals.Available / all).toFixed(1), fmt(sum)) : undefined}>{t('step1.breakdown')}</Header>}>
+      <Container header={<Header variant="h2"
+        description={all ? t(measure === 'apis' ? 'step1.breakdownApisHint' : 'step1.breakdownHint', (100 * totals[fine] / all).toFixed(1), fmt(sum)) : undefined}
+        actions={<SpaceBetween direction="horizontal" size="xs">
+          <SegmentedControl selectedId={by} onChange={ev => setBy(ev.detail.selectedId)} label={t('step1.by')}
+            options={[{ id: 'handling', text: t('step1.byHandling') }, { id: 'status', text: t('step1.byStatus') }]} />
+          <SegmentedControl selectedId={measure} onChange={ev => setMeasure(ev.detail.selectedId)} label={t('step1.measure')}
+            options={[{ id: 'apis', text: t('step1.apisAxis') }, { id: 'uses', text: t('step1.usesAxis') }]} />
+        </SpaceBetween>}>{t('step1.breakdown')}</Header>}>
         {shown.length
           ? <BarChart horizontalBars stackedBars hideFilter height={80} xScaleType="categorical"
-              series={shown.map(s => ({ title: t(`status.${s}`), type: 'bar', color: STATUS_COLOR[s], data: [{ x: t('step1.usesAxis'), y: totals[s] }],
+              series={shown.map(k => ({ title: label(k), type: 'bar', color: color(k), data: [{ x: axis, y: totals[k] }],
                 valueFormatter: v => `${fmt(v)} (${(100 * v / sum).toFixed(1)}%)` }))}
               ariaLabel={t('step1.breakdown')} i18nStrings={{ legendAriaLabel: t('chart.legend'), chartAriaRoleDescription: t('chart.bar') }} />
           : <Box color="text-body-secondary">{t('step1.noAttention')}</Box>}
       </Container>
-      <Header variant="h2" description={t('step1.componentsHint')}>{t('step1.components')}</Header>
-      <ComponentList ctx={ctx} />
+      <ApiList ctx={ctx} apis={apis} components={components} />
     </SpaceBetween>
   );
 }

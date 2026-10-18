@@ -33,7 +33,30 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
 
         var snapshots = new List<Snapshot>();
 
-        foreach (var step in scenario.Steps)
+        for (var index = 0; index < scenario.Steps.Count; index++)
+        {
+            try
+            {
+                await RunStepAsync(scenario.Steps[index], snapshots);
+            }
+            catch (Exception ex) when (ex is PlaywrightException or TimeoutException or InvalidOperationException)
+            {
+                var step = scenario.Steps[index];
+                string text;
+                try { text = await page.InnerTextAsync("body", new() { Timeout = 2000 }); }
+                catch (PlaywrightException) { text = "(no body)"; }
+                text = Regex.Replace(text, @"\s+", " ");
+                throw new InvalidOperationException(
+                    $"step {index + 1} ({step.Action} {step.Target ?? step.Path ?? step.Name} {step.Value}) failed at {page.Url}" +
+                    $" after snapshot '{snapshots.LastOrDefault()?.Name}': {ex.Message}\npage: {text[..Math.Min(text.Length, 1500)]}", ex);
+            }
+        }
+
+        return snapshots;
+    }
+
+    private async Task RunStepAsync(ParityStep step, List<Snapshot> snapshots)
+    {
         {
             switch (step.Action.ToLowerInvariant())
             {
@@ -177,8 +200,6 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                     throw new InvalidOperationException($"不明なアクション: {step.Action}");
             }
         }
-
-        return snapshots;
     }
 
     /// <summary>

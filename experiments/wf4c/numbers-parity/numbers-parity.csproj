@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- FrameworkOnCore.Compat's FrameworkNumbers against .NET Framework 4.8's text of doubles and floats
+       (framework-golden.ps1, Windows PowerShell). -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\shims\FrameworkOnCore.Compat\FrameworkNumbers.cs" Link="FrameworkNumbers.cs" />
+    <RuntimeHostConfigurationOption Include="System.Globalization.UseNls" Value="true" />
+  </ItemGroup>
+</Project>

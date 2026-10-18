@@ -712,12 +712,12 @@ namespace System.Web.UI.WebControls {
                     }
                     else {
                         if (formatSpecified) {
-                            item.Text = String.Format(CultureInfo.CurrentCulture, textFormat, dataItem);
+                            item.Text = String.Format(CultureInfo.CurrentCulture, textFormat, System.Web.Util.FrameworkNumbers.Formattable(dataItem));
                         }
                         else {
-                            item.Text = dataItem.ToString();
+                            item.Text = System.Web.Util.FrameworkNumbers.ToString(dataItem);
                         }
-                        item.Value = dataItem.ToString();
+                        item.Value = System.Web.Util.FrameworkNumbers.ToString(dataItem);
                     }
 
                     Items.Add(item);

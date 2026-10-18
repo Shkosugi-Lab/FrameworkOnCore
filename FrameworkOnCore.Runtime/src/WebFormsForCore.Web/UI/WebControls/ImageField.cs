@@ -326,14 +326,14 @@ namespace System.Web.UI.WebControls {
             string formatting = DataImageUrlFormatString;
 
             if (!DataBinder.IsNull(dataValue)) {
-                string dataValueString = dataValue.ToString();
+                string dataValueString = System.Web.Util.FrameworkNumbers.ToString(dataValue);
 
                 if (dataValueString.Length > 0) {
                     if (formatting.Length == 0) {
                         formattedValue = dataValueString;
                     }
                     else {
-                        formattedValue = String.Format(CultureInfo.CurrentCulture, formatting, dataValue);
+                        formattedValue = String.Format(CultureInfo.CurrentCulture, formatting, System.Web.Util.FrameworkNumbers.Formattable(dataValue));
                     }
                 }
             }
@@ -356,11 +356,11 @@ namespace System.Web.UI.WebControls {
                 object value = GetValue(controlContainer, altTextField, ref _altTextFieldDesc);
                 string strValue = String.Empty;
                 if (!DataBinder.IsNull(value)) {
-                    strValue = value.ToString();
+                    strValue = System.Web.Util.FrameworkNumbers.ToString(value);
                 }
 
                 if (altTextFormatString.Length > 0) {
-                    formattedAlternateText = String.Format(CultureInfo.CurrentCulture, altTextFormatString, value);
+                    formattedAlternateText = String.Format(CultureInfo.CurrentCulture, altTextFormatString, System.Web.Util.FrameworkNumbers.Formattable(value));
                 }
                 else {
                     formattedAlternateText = strValue;
@@ -518,7 +518,7 @@ namespace System.Web.UI.WebControls {
                 if (!(boundControl is TextBox)) {
                     throw new HttpException(SR.GetString(SR.ImageField_WrongControlType, DataImageUrlField));
                 }
-                ((TextBox)boundControl).Text = data.ToString();
+                ((TextBox)boundControl).Text = System.Web.Util.FrameworkNumbers.ToString(data);
                 ((TextBox)boundControl).ToolTip = altText;
 
                 if (data != null) {

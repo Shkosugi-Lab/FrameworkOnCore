@@ -177,10 +177,10 @@ namespace System.Web.UI.WebControls {
             if (!DataBinder.IsNull(dataTextValue)) {
                 string formatting = DataTextFormatString;
                 if (formatting.Length == 0) {
-                    formattedTextValue = dataTextValue.ToString();
+                    formattedTextValue = System.Web.Util.FrameworkNumbers.ToString(dataTextValue);
                 }
                 else {
-                    formattedTextValue = String.Format(CultureInfo.CurrentCulture, formatting, dataTextValue);
+                    formattedTextValue = String.Format(CultureInfo.CurrentCulture, formatting, System.Web.Util.FrameworkNumbers.Formattable(dataTextValue));
                 }
             }
 

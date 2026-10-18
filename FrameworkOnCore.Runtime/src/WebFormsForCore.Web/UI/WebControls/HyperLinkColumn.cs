@@ -203,10 +203,10 @@ namespace System.Web.UI.WebControls {
             if (!DataBinder.IsNull(dataUrlValue)) {
                 string formatting = DataNavigateUrlFormatString;
                 if (formatting.Length == 0) {
-                    formattedUrlValue = dataUrlValue.ToString();
+                    formattedUrlValue = System.Web.Util.FrameworkNumbers.ToString(dataUrlValue);
                 }
                 else {
-                    formattedUrlValue = String.Format(CultureInfo.CurrentCulture, formatting, dataUrlValue);
+                    formattedUrlValue = String.Format(CultureInfo.CurrentCulture, formatting, System.Web.Util.FrameworkNumbers.Formattable(dataUrlValue));
                 }
             }
 
@@ -222,10 +222,10 @@ namespace System.Web.UI.WebControls {
             if (!DataBinder.IsNull(dataTextValue)) {
                 string formatting = DataTextFormatString;
                 if (formatting.Length == 0) {
-                    formattedTextValue = dataTextValue.ToString();
+                    formattedTextValue = System.Web.Util.FrameworkNumbers.ToString(dataTextValue);
                 }
                 else {
-                    formattedTextValue = String.Format(CultureInfo.CurrentCulture, formatting, dataTextValue);
+                    formattedTextValue = String.Format(CultureInfo.CurrentCulture, formatting, System.Web.Util.FrameworkNumbers.Formattable(dataTextValue));
                 }
             }
 

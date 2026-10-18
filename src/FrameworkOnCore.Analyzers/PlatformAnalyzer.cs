@@ -79,13 +79,13 @@ public sealed class PlatformAnalyzer : DiagnosticAnalyzer
             _ => (null, ImmutableArray<IArgumentOperation>.Empty),
         };
         if (symbol?.ContainingType == null) return;
-        var type = symbol.ContainingType.ToDisplayString();
+        var type = Located.FullName(symbol.ContainingType);
         var name = symbol is IMethodSymbol { MethodKind: MethodKind.Constructor } ? ".ctor" : symbol.Name;
         foreach (var rule in rules)
         {
             if (rule.Type != type || rule.Member != name) continue;
             if (rule.Arguments is { } count && arguments.Count(a => a.ArgumentKind != ArgumentKind.DefaultValue) != count) continue;
-            if (rule.ParameterType != null && !(symbol is IMethodSymbol m && m.Parameters.Any(p => p.Type.ToDisplayString() == rule.ParameterType))) continue;
+            if (rule.ParameterType != null && !(symbol is IMethodSymbol m && m.Parameters.Any(p => Located.FullName(p.Type) == rule.ParameterType))) continue;
             var target = operation;
             if (rule.Then != null)
             {

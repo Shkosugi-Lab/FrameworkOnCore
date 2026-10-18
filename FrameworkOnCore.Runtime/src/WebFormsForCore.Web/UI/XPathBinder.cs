@@ -78,10 +78,10 @@ namespace System.Web.UI {
             }
             else {
                 if (String.IsNullOrEmpty(format)) {
-                    return value.ToString();
+                    return System.Web.Util.FrameworkNumbers.ToString(value);
                 }
                 else {
-                    return String.Format(format, value);
+                    return String.Format(format, System.Web.Util.FrameworkNumbers.Formattable(value));
                 }
             }
         }

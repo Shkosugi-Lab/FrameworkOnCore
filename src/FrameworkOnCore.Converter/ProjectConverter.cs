@@ -489,6 +489,16 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
                   </ItemGroup>
 
                 """);
+            // The choice of .NET's text of doubles and floats: FrameworkOnCore's System.Web writes bound values and rewrites
+            // what the server compiles as .NET Framework did unless switched off.
+            if (!rules.IsChosen("floating-point:framework"))
+                text.Append("""
+                      <!-- Doubles and floats as .NET writes them (the choice floating-point: none). -->
+                      <ItemGroup>
+                        <RuntimeHostConfigurationOption Include="FrameworkOnCore.FloatingPointText" Value="false" />
+                      </ItemGroup>
+
+                    """);
         }
         if (usesWebFormsForCore) text.Append('\n').Append(AliasTarget).Append('\n');
         text.Append($"\n  <PropertyGroup>\n    <FocRetargetedAssemblies>{SecurityElement.Escape(Paths.FromProject(target, Path.Combine(outRoot, RetargetedFolder)))}\\</FocRetargetedAssemblies>\n  </PropertyGroup>\n");

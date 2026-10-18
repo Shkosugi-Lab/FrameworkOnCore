@@ -1158,7 +1158,7 @@ namespace System.Web {
                 return htmlString.ToHtmlString();
             }
 
-            return HtmlEncode(Convert.ToString(value, CultureInfo.CurrentCulture));
+            return HtmlEncode(System.Web.Util.FrameworkNumbers.ConvertToString(value, CultureInfo.CurrentCulture));
         }
 
 

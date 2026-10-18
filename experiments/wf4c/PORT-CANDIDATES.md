@@ -26,6 +26,7 @@
 | System.Web.Mobile | .NET に無い | FrameworkOnCore.Web.Mobile(referencesource) | `mobile-controls`(移植版 / 対応しない) |
 | DbProviderFactories(System.Data.Common) | 構成ファイル(machine.config・web.config の `system.data/DbProviderFactories`)を読まず、.NET Framework が組み込みで持つプロバイダー(System.Data.SqlClient・OleDb・Odbc)も登録されていない。`GetFactory("System.Data.SqlClient")` が ArgumentException(SqlDataSource の `ProviderName="System.Data.SqlClient"`、アプリのコード) | 移植ではなく FrameworkOnCore.Web が登録する: 最初の要求の初期化で、.NET Framework の組み込みの 3 つと web.config の `add`・`remove`・`clear` を `DbProviderFactories.RegisterFactory` で(型の名前で。解決は使う時。2026-10-11)。SqlDataSource は要求の外でも組み込みの 3 つを登録する。Web アプリ以外(コンソール)は対象外 | なし(常に) |
 | WCF のサーバー側(.svc、system.serviceModel、System.ServiceModel.Activation) | .NET はクライアントのみ | 移植ではなく CoreWCF で動かす: FrameworkOnCore.ServiceModel(System.ServiceModel.Activation の名前。AspNetCompatibilityRequirementsAttribute を持つ)。.svc と serviceActivations、web.config のエンドポイント・バインド・動作、WCF 4 の既定のエンドポイント、WSDL、ASP.NET AJAX の enableWebScript(w2l.15)。クライアントの型の FaultException は CoreWCF の障害として返す | `wcf-server`(CoreWCF / 対応しない) |
+| double・float の文字列化と読み取り(System.Private.CoreLib) | .NET Core 3.0 から、書式なしは往復できる最短の桁(0.1 + 0.2 は `0.30000000000000004`。.NET Framework は 15 桁で `0.3`、float は 7 桁)、負のゼロと 0 に丸まる負の数は符号付き(`-0`、`-0.00`)、桁を決めた書式は 2 進の値そのものを偶数に丸める(2.675 の N2 は 2.67、22.5 の C0 は ¥22。.NET Framework は 15 桁から四捨五入で 2.68、¥23)。大きすぎる数の Parse は無限大(.NET Framework は OverflowException)。TimeSpan.From*(double) はミリ秒に丸めない | 移植ではなく置き換え: FrameworkOnCore.Compat の FrameworkNumbers・FrameworkParsing(.NET Framework の number.cpp の FormatDouble と同じく、15 桁〈float は 7 桁、R・G16 以上・E15 以上は 17 桁〉を正確な値から四捨五入で取り、その桁の decimal〈範囲外は整数〉を書式化)。変換器が、アプリの文字列化(ToString、連結、補間、string.Format の引数、Convert.ToString、Append・Write、VB の & と CStr)を書き換える(FOC1008。式ツリーの中は除く)。FrameworkOnCore の System.Web も同じ実装(System.Web.Util.FrameworkNumbers)で、バインドした値(Eval、BoundField などの書式、リストの項目、`<%= %>`、JavaScriptSerializer)を書き、サーバーがコンパイルするコード(ページの式、App_Code、CodeFile)を同じ解析で書き換える(w2l.18。2026-10-19)。.NET Framework 4.8 との比較 2,647,080 件(値・書式 58・カルチャ 9、double と float)で一致 | `floating-point`(.NET Framework と同じ / .NET のまま) |
 
 ## 候補
 
@@ -62,7 +63,7 @@
 - AppDomain の作成、Remoting、Code Access Security(Evidence など)
   - 見つかった所: be・dnn・mojo・n2・nop390 の System.Web.WebPages.Deployment.dll、NuGet.Core.dll、imis の ReportViewer、n2 の log4net.dll。
 - `LambdaExpression.CompileToMethod`(be の SimpleInjector.dll)、`Debug.Listeners`、`ServicePointManager.CertificatePolicy`(mojo の Mono.Security.dll)。
-- 数値の書式の丸め。wt の ¥23 と ¥22 で、`double` の 22.5 の通貨書式が .NET Framework と .NET で違う。
+- (対応済み: 上の「移植済み」の double・float の文字列化。wt の ¥23 と ¥22 は一致するようになった。2026-10-19)
 - デザイナー(System.Design、`ControlDesigner` など)。Visual Studio のデザイン時だけのもの。
 - 文字列のハッシュ値のランダム化。.NET はプロセスごとに `string.GetHashCode` を変える(.NET Framework は変えない)ため、Hashtable の列挙順が違う。
   StateBag(項目が多いと Hashtable)が保存する ViewState の項目の並び、WebPartManager.AvailableTransformers の並び。中身は同じ(コントロールの比較で見つけた。2026-10-11)。
@@ -85,6 +86,19 @@
   FrameworkOnCore の System.Web(10.0.29.0)を同じコンテキストに読み込めない。アプリ・ツールは deps.json で FrameworkOnCore のものを選ぶ(ビルドタスクのデザイナー
   ファイルの生成で見つけた。2026-10-12)。
 - `DictionaryEntry.ToString`。.NET 5 から「[キー, 値]」を返す(.NET Framework は型の名前)。
+- 例外のメッセージ(CoreLib・ほかのアセンブリの文言)。.NET は値を入れる(`The input string 'abc' was not in a correct format.`、`The given key 'x' was not present in the dictionary.`)、
+  引数名を `(Parameter 'x')` と書く(.NET Framework は「\r\nParameter name: x」)、Regex の構文エラーは RegexParseException、Base64・Substring・PadLeft なども文が違う。
+  `lblError.Text = ex.Message` のアプリでは画面に出る。BclProbe(samples/BclProbe)の Errors.aspx で約 60 件(2026-10-19)。
+- Unicode の版。.NET は新しい文字の分類を持つ(U+20BF ₿ は CurrencySymbol、.NET Framework は OtherNotAssigned)、StringInfo は拡張書記素クラスター(絵文字の ZWJ 列が 1 つ)、
+  `\w` が新しい文字に合う。UTF-8 の不正なバイト列の置き換えの数(U+FFFD)も違う。
+- Linux の照合(ICU)。Windows は UseNls で .NET Framework と同じ。Linux では `"abc".IndexOf("\0")` が 0、ゼロ幅の文字・ß と ss・カナの比較、並び順(`co-op` と `coop`、記号、全角)が違う。
+- `Environment.NewLine`。Linux では `\n`(XmlSerializer のインデント、例外の文、WriteLine)。.NET Framework は常に `\r\n`。
+- タイムゾーンの表示名。.NET は UI カルチャの名前(ICU)、.NET Framework は OS の言語の名前。Linux は IANA の ID(`TimeZoneInfo.Local.Id` が `Asia/Tokyo`)と歴史(東京は 1948〜51 年に夏時間があり SupportsDaylightSavingTime が真)。
+  オフセットと変換は同じ: 変換器はコンテナ・systemd に元のサーバーのタイムゾーンを `TZ` で渡す(capture-culture.ps1 の TimeZone。無ければ変換したマシンの。2026-10-19。それまでコンテナは UTC だった)。
+- XmlSerializer の名前空間の宣言の順(`xmlns:xsi` と `xmlns:xsd`)、制御文字(.NET Framework は `&#x1;` で書き、.NET は例外)。XmlConvert・DataSet・XDocument の double の `R`(.NET Framework は 17 桁、.NET は最短)。
+- `Math.Sin` などの結果の最後の桁(C ランタイムの違い。`Math.Sin(Math.PI)` が 1.22460635382238E-16 と 1.22464679914735E-16)。
+- `System.Web.HttpUtility`。.NET の共有フレームワークにもあり、FrameworkOnCore の System.Web は .NET のものへ型転送している(.NET 10 でアプリの `HttpUtility` は System.Web.HttpUtility.dll のもの)。
+  `ParseQueryString(...).ToString()` が空のキーの `=` を落とす(`b&=c` が `b&c`)。web.config の `httpRuntime encoderType`(AntiXssEncoder など)をアプリの `HttpUtility.HtmlEncode` が使わない(候補: FrameworkOnCore の HttpUtility を使う。CS0433 を避ける参照の仕方が要る)。
 - パスに使えない文字(`<`、`>`、`"`)。.NET Framework のファイルの API は先に検査して ArgumentException(Illegal characters in path)、.NET はシステムに任せる
   (Windows は IOException、Linux では使える文字なので見つからない)。Xml コントロールの DocumentSource などで見つけた。
 - OLE DB(System.Data.OleDb)は Windows のみ。Linux ではパッケージに実装が無い(`OleDbFactory.Instance` が null)。AccessDataSource(Access のファイル)は

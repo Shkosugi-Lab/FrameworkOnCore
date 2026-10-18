@@ -10,6 +10,7 @@
 #   .\experiments\wf4c\sample-parity.ps1 -Name MobileProbe -Record -LinksOnly   # its links (crawl) only, its snapshots kept
 #   .\experiments\wf4c\sample-parity.ps1 -Name MobileProbe -Windows
 #   .\experiments\wf4c\sample-parity.ps1 -Name MobileProbe -Linux       # Docker
+#   .\experiments\wf4c\sample-parity.ps1 -Name BclProbe -Windows -Diff   # also recorded: sample-diff.ps1 -Recorded shows every line that differs
 #
 # A sample with samples\<Name>\database.json ({ "name": "<database>", "connection": "<connectionStrings name>",
 # "regsql": "mrp" }) gets its database made afresh on SQL Server Express (.\SQLEXPRESS) before each run, with
@@ -22,6 +23,8 @@ param(
     [switch]$LinksOnly,
     [switch]$Windows,
     [switch]$Linux,
+    # Also record what the converted application showed (_samples\<Name>\recorded-windows.json, recorded-linux.json).
+    [switch]$Diff,
     [int]$Port = 5096,
     # The original server's IIS settings for the site (capture-iis.ps1), given to the converter (--iis-profile).
     [string]$IisProfile
@@ -154,6 +157,8 @@ if ($Windows) {
         Wait-Site "http://localhost:$Port"
         & dotnet $verifier verify --url "http://localhost:$Port" --scenario $scenario --golden $golden
         $exit = $LASTEXITCODE
+        # -Diff: what it showed, recorded (a second run of the scenario) for sample-diff.ps1 -Recorded: every line that differs.
+        if ($Diff) { & dotnet $verifier record --url "http://localhost:$Port" --scenario $scenario --out (Join-Path $work 'recorded-windows.json') | Out-Null }
     }
     # The tree: the application runs in a worker process its process starts (FrameworkOnCore's System.Web).
     # Ended by itself (an exception at its start): its error shown, not taskkill's on a process no longer there.
@@ -184,6 +189,8 @@ if ($Linux) {
         Wait-Site "http://localhost:$Port"
         & dotnet $verifier verify --url "http://localhost:$Port" --scenario $scenario --golden $golden
         $exit = $LASTEXITCODE
+        # -Diff: what it showed, recorded (a second run of the scenario) for sample-diff.ps1 -Recorded: every line that differs.
+        if ($Diff) { & dotnet $verifier record --url "http://localhost:$Port" --scenario $scenario --out (Join-Path $work 'recorded-linux.json') | Out-Null }
     }
     finally {
         docker logs $image *> (Join-Path $work 'linux-server.log')

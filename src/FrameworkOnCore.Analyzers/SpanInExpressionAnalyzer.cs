@@ -45,7 +45,7 @@ public sealed class SpanInExpressionAnalyzer : DiagnosticAnalyzer
     }
 
     // Inside a lambda converted to an expression tree (Expression<TDelegate>, what IQueryable's operators take).
-    static bool InExpressionTree(IOperation operation)
+    internal static bool InExpressionTree(IOperation operation)
     {
         for (var o = operation.Parent; o != null; o = o.Parent)
         {

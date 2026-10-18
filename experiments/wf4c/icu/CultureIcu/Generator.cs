@@ -21,6 +21,24 @@ sealed class Generator(string profilePath, string icuVersion, string outDirector
         "(¤n)", "-¤n", "¤-n", "¤n-", "(n¤)", "-n¤", "n-¤", "n¤-", "-n ¤", "-¤ n", "n ¤-", "¤ n-", "¤ -n", "n- ¤", "(¤ n)", "(n ¤)", "¤- n",
     };
     static readonly string[] numberNegative = { "(n)", "-n", "- n", "n-", "n -" };
+    // NumberFormatInfo.PercentPositivePattern / PercentNegativePattern as ICU patterns; 'n' the number, '%' the sign.
+    static readonly string[] percentPositive = { "n %", "n%", "%n", "% n" };
+    static readonly string[] percentNegative = { "-n %", "-n%", "-%n", "%-n", "%n-", "n-%", "n%-", "-% n", "n %-", "% n-", "% -n", "n- %" };
+
+    // The ICU calendar of a .NET calendar: a culture's date patterns and names are its calendar's (th-TH's Buddhist,
+    // ar-SA's Um al-Qura, fa-IR's Persian), not the Gregorian ones.
+    static string IcuCalendar(Calendar calendar) => calendar switch
+    {
+        ThaiBuddhistCalendar => "buddhist",
+        UmAlQuraCalendar => "islamic-umalqura",
+        HijriCalendar => "islamic",
+        PersianCalendar => "persian",
+        JapaneseCalendar => "japanese",
+        TaiwanCalendar => "roc",
+        HebrewCalendar => "hebrew",
+        KoreanCalendar => "dangi",
+        _ => "gregorian",
+    };
 
     string TreeName => $"icudt{icuVersion.Split('.')[0]}l";
 
@@ -34,21 +52,33 @@ sealed class Generator(string profilePath, string icuVersion, string outDirector
             // A culture ICU does not have (a browser's language of no culture, "xx-YY": .NET Framework makes it with the
             // invariant culture's data): a bundle of its own made .NET's month names too short (ArgumentOutOfRange formatting
             // a date in March). Left as .NET makes it, reported.
-            if (!known.Contains(culture.Key))
+            // A Windows name ICU has as an alias (zh-CN: zh_CN is "%%ALIAS"{"zh_Hans_CN"}; .NET lists zh-Hans-CN): the
+            // bundle written is the one the alias names, which ICU reads for it.
+            var id = Aliased("locales", culture.Key.Replace('-', '_'));
+            if (!known.Contains(culture.Key) && id == culture.Key.Replace('-', '_'))
             {
                 notRepresented.Add($"{culture.Key}: not one of ICU's cultures ({culture.Count()} differences left)");
                 continue;
             }
             var info = CultureInfo.GetCultureInfo(culture.Key);
-            var id = info.Name.Replace('-', '_');
             var chain = Chain(id);
             var locale = Load("locales", id) ?? new IcuBundle(id, new IcuTable());
-            var currency = Load("curr", id) ?? new IcuBundle(id, new IcuTable());
+            var currencyId = Aliased("curr", culture.Key.Replace('-', '_'));
+            var currency = Load("curr", currencyId) ?? new IcuBundle(currencyId, new IcuTable());
             var localeChanged = false;
             var currencyChanged = false;
             var expected = culture.ToDictionary(d => d.Property, d => d.Expected);
             string? Expected(string property) => expected.TryGetValue(property, out var value) ? value : null;
             var number = info.NumberFormat;
+            var calendars = new[] { "gregorian", IcuCalendar(info.Calendar) }.Distinct().ToArray();
+            // A culture whose numbers ICU writes in another numbering system's symbols by default (ar-SA's arab: ٫ ٬ and
+            // a mark before the sign), where .NET Framework's were Latin: the Latin system's, whose symbols are set here.
+            if (culture.Any(d => d.Property.StartsWith("NumberFormat.", StringComparison.Ordinal) && d.Property.EndsWith("Separator", StringComparison.Ordinal)) &&
+                Inherited("locales", chain, "NumberElements/default") is IcuString numbering && numbering.Escaped != "latn")
+            {
+                locale.Set("NumberElements/default", IcuString.FromValue("latn"));
+                localeChanged = true;
+            }
 
             foreach (var difference in culture)
             {
@@ -92,6 +122,22 @@ sealed class Generator(string profilePath, string icuVersion, string outDirector
                             localeChanged = true;
                             break;
                         }
+                    case "NumberFormat.PercentPositivePattern":
+                    case "NumberFormat.PercentNegativePattern":
+                        {
+                            var positive = int.Parse(Expected("NumberFormat.PercentPositivePattern") ?? number.PercentPositivePattern.ToString());
+                            var negative = int.Parse(Expected("NumberFormat.PercentNegativePattern") ?? number.PercentNegativePattern.ToString());
+                            var body = NumberBody(Expected("NumberFormat.PercentGroupSizes") ?? string.Join(",", number.PercentGroupSizes), "");
+                            locale.Set("NumberElements/latn/patterns/percentFormat",
+                                IcuString.FromValue(percentPositive[positive].Replace("n", body) + ";" + percentNegative[negative].Replace("n", body)));
+                            localeChanged = true;
+                            break;
+                        }
+                    case "NumberFormat.PercentDecimalSeparator":
+                    case "NumberFormat.PercentGroupSeparator":
+                        // The number's symbols (the numbering system's, above): what is left after them is reported.
+                        if (Expected(property.Replace("Percent", "Number")) is { } same && same != difference.Expected) notRepresented.Add(difference.ToString());
+                        break;
                     case "NumberFormat.NumberDecimalSeparator": SetSymbol("decimal"); break;
                     case "NumberFormat.NumberGroupSeparator": SetSymbol("group"); break;
                     case "NumberFormat.CurrencyDecimalSeparator": SetSymbol("currencyDecimal"); break;
@@ -118,10 +164,12 @@ sealed class Generator(string profilePath, string icuVersion, string outDirector
                     case "DateTimeFormat.DayNames": SetNames("dayNames", "wide", difference.Expected); break;
                     case "DateTimeFormat.AbbreviatedDayNames": SetNames("dayNames", "abbreviated", difference.Expected); break;
                     case "DateTimeFormat.ShortestDayNames": SetNames("dayNames", "short", difference.Expected); break;
-                    case "DateTimeFormat.MonthNames":
-                    case "DateTimeFormat.MonthGenitiveNames": SetNames("monthNames", "wide", difference.Expected); break;
-                    case "DateTimeFormat.AbbreviatedMonthNames":
-                    case "DateTimeFormat.AbbreviatedMonthGenitiveNames": SetNames("monthNames", "abbreviated", difference.Expected); break;
+                    // .NET's month names are ICU's stand-alone ones, its genitive names the format ones (ru-RU: "Март" and
+                    // "марта", "4 марта 2026 г.").
+                    case "DateTimeFormat.MonthNames": SetNames("monthNames", "wide", difference.Expected, "stand-alone"); break;
+                    case "DateTimeFormat.MonthGenitiveNames": SetNames("monthNames", "wide", difference.Expected, "format"); break;
+                    case "DateTimeFormat.AbbreviatedMonthNames": SetNames("monthNames", "abbreviated", difference.Expected, "stand-alone"); break;
+                    case "DateTimeFormat.AbbreviatedMonthGenitiveNames": SetNames("monthNames", "abbreviated", difference.Expected, "format"); break;
                     default:
                         // Alternative patterns (parsing), week data (supplemental), ...: reported.
                         if (!property.StartsWith("AllDateTimePatterns")) notRepresented.Add(difference.ToString());
@@ -139,44 +187,52 @@ sealed class Generator(string profilePath, string icuVersion, string outDirector
             if (currencyChanged) Compile("curr", currency);
             continue;
 
+            // In the Gregorian calendar and the culture's (where they differ): .NET reads the culture's.
             void SetPatterns(string dotnetPattern, params int[] indexes)
             {
-                var patterns = (Inherited("locales", chain, "calendar/gregorian/DateTimePatterns") as IcuArray)?.Copy() as IcuArray;
-                if (patterns == null) { notRepresented.Add($"{culture.Key}: no calendar/gregorian/DateTimePatterns"); return; }
-                foreach (var index in indexes) patterns.Items[index] = IcuString.FromValue(ToIcuPattern(dotnetPattern));
-                locale.Set("calendar/gregorian/DateTimePatterns", patterns);
-                localeChanged = true;
+                foreach (var calendar in calendars)
+                {
+                    var patterns = (Inherited("locales", chain, $"calendar/{calendar}/DateTimePatterns") as IcuArray
+                        ?? Inherited("locales", chain, "calendar/generic/DateTimePatterns") as IcuArray
+                        ?? Inherited("locales", chain, "calendar/gregorian/DateTimePatterns") as IcuArray)?.Copy() as IcuArray;
+                    if (patterns == null) { notRepresented.Add($"{culture.Key}: no calendar/{calendar}/DateTimePatterns"); continue; }
+                    foreach (var index in indexes) patterns.Items[index] = IcuString.FromValue(ToIcuPattern(dotnetPattern));
+                    locale.Set($"calendar/{calendar}/DateTimePatterns", patterns);
+                    localeChanged = true;
+                }
             }
 
             void SetSkeleton(string skeleton, string dotnetPattern)
             {
-                locale.Set($"calendar/gregorian/availableFormats/{skeleton}", IcuString.FromValue(ToIcuPattern(dotnetPattern)));
+                foreach (var calendar in calendars)
+                    locale.Set($"calendar/{calendar}/availableFormats/{skeleton}", IcuString.FromValue(ToIcuPattern(dotnetPattern)));
                 localeChanged = true;
             }
 
             void SetAmPm(int index, string value)
             {
-                foreach (var key in new[] { "AmPmMarkers", "AmPmMarkersAbbr", "AmPmMarkersNarrow" })
-                {
-                    var markers = (Inherited("locales", chain, $"calendar/gregorian/{key}") as IcuArray)?.Copy() as IcuArray;
-                    if (markers == null) continue;
-                    markers.Items[index] = IcuString.FromValue(value);
-                    locale.Set($"calendar/gregorian/{key}", markers);
-                    localeChanged = true;
-                }
+                foreach (var calendar in calendars)
+                    foreach (var key in new[] { "AmPmMarkers", "AmPmMarkersAbbr", "AmPmMarkersNarrow" })
+                    {
+                        var markers = (Inherited("locales", chain, $"calendar/{calendar}/{key}") as IcuArray
+                            ?? Inherited("locales", chain, $"calendar/gregorian/{key}") as IcuArray)?.Copy() as IcuArray;
+                        if (markers == null) continue;
+                        markers.Items[index] = IcuString.FromValue(value);
+                        locale.Set($"calendar/{calendar}/{key}", markers);
+                        localeChanged = true;
+                    }
             }
 
-            void SetNames(string kind, string width, string commaSeparated)
+            void SetNames(string kind, string width, string commaSeparated, params string[] contexts)
             {
                 var names = new IcuArray();
                 // .NET's month name lists have a 13th (empty) name; ICU's have 12.
                 var values = commaSeparated.Split(',').ToList();
                 if (kind == "monthNames" && values.Count == 13 && values[12] == "") values.RemoveAt(12);
                 foreach (var value in values) names.Items.Add(IcuString.FromValue(value));
-                foreach (var context in new[] { "format", "stand-alone" })
-                {
-                    locale.Set($"calendar/gregorian/{kind}/{context}/{width}", names.Copy());
-                }
+                foreach (var calendar in calendars)
+                    foreach (var context in contexts.Length > 0 ? contexts : new[] { "format", "stand-alone" })
+                        locale.Set($"calendar/{calendar}/{kind}/{context}/{width}", names.Copy());
                 localeChanged = true;
             }
         }
@@ -225,14 +281,34 @@ sealed class Generator(string profilePath, string icuVersion, string outDirector
         return result.ToString();
     }
 
-    // ja_JP, ja, root.
+    /// <summary>The bundle a bundle's "%%ALIAS" names (zh_CN: zh_Hans_CN), followed; the name itself without one.</summary>
+    string Aliased(string tree, string name)
+    {
+        for (var hops = 0; hops < 4; hops++)
+        {
+            if (Load(tree, name) == null) return name;
+            var source = Path.Combine(outDirectory, "source", tree, name + ".txt");
+            var alias = File.Exists(source) ? System.Text.RegularExpressions.Regex.Match(File.ReadAllText(source), "\"%%ALIAS\"\\s*\\{\\s*\"(?<to>[^\"]+)\"") : null;
+            if (alias == null || !alias.Success) return name;
+            name = alias.Groups["to"].Value;
+        }
+        return name;
+    }
+
+    // ja_JP, ja, root; a bundle's "%%Parent" where it names one (zh_Hant: root, not zh's simplified data).
     List<string> Chain(string id)
     {
         var chain = new List<string>();
-        for (var name = id; ; name = name[..name.LastIndexOf('_')])
+        for (var name = id; name != "root" && chain.Count < 8;)
         {
             chain.Add(name);
-            if (!name.Contains('_')) break;
+            var source = Path.Combine(outDirectory, "source", "locales", name + ".txt");
+            var parent = Load("locales", name) != null && File.Exists(source)
+                ? System.Text.RegularExpressions.Regex.Match(File.ReadAllText(source), "\"%%Parent\"\\s*\\{\\s*\"(?<to>[^\"]+)\"")
+                : null;
+            if (parent is { Success: true }) name = parent.Groups["to"].Value;
+            else if (name.Contains('_')) name = name[..name.LastIndexOf('_')];
+            else break;
         }
         chain.Add("root");
         return chain;

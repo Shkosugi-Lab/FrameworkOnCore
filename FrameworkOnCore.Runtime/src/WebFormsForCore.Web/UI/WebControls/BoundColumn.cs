@@ -115,10 +115,10 @@ namespace System.Web.UI.WebControls {
 
             if (!DataBinder.IsNull(dataValue)) {
                 if (formatting.Length == 0) {
-                    formattedValue = dataValue.ToString();
+                    formattedValue = System.Web.Util.FrameworkNumbers.ToString(dataValue);
                 }
                 else {
-                    formattedValue = String.Format(CultureInfo.CurrentCulture, formatting, dataValue);
+                    formattedValue = String.Format(CultureInfo.CurrentCulture, formatting, System.Web.Util.FrameworkNumbers.Formattable(dataValue));
                 }
             }
 

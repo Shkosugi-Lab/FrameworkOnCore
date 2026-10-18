@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- The base class library as the pages show it, against the original on IIS (experiments/wf4c/sample-parity.ps1):
+       numbers without a format, culture-sensitive text, exception messages, cultures and time zones, serializers,
+       bound values. Each page writes "case = value" lines. -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5C1B9E27-4D3A-4F60-9E8B-12A7C4D6E853}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BclProbe</RootNamespace>
+    <AssemblyName>BclProbe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Numbers.aspx" />
+    <Content Include="Strings.aspx" />
+    <Content Include="Errors.aspx" />
+    <Content Include="Cultures.aspx" />
+    <Content Include="Serialization.aspx" />
+    <Content Include="Bound.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Probe.cs" />
+    <Compile Include="Numbers.aspx.cs"><DependentUpon>Numbers.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Strings.aspx.cs"><DependentUpon>Strings.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Errors.aspx.cs"><DependentUpon>Errors.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Cultures.aspx.cs"><DependentUpon>Cultures.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Serialization.aspx.cs"><DependentUpon>Serialization.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Bound.aspx.cs"><DependentUpon>Bound.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Bound.aspx.designer.cs"><DependentUpon>Bound.aspx</DependentUpon></Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

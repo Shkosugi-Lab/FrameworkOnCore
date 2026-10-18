@@ -57,8 +57,17 @@ public abstract class SourceLanguage
     /// <summary>Whether the tree uses the name where only a constant can be (by name).</summary>
     public abstract bool UsedAsConstant(SyntaxNode root, string name);
 
+    /// <summary>A rewritten expression where the original stood, kept an expression of its place: in a C# interpolation's
+    /// hole, parenthesized (its "global::" would start the hole's format).</summary>
+    public virtual SyntaxNode InPlaceOf(SyntaxNode original, SyntaxNode rewritten) => rewritten;
+
     sealed class CSharpLanguage : SourceLanguage
     {
+        public override SyntaxNode InPlaceOf(SyntaxNode original, SyntaxNode rewritten) =>
+            original.Parent is CSS.InterpolationSyntax && rewritten is CSS.ExpressionSyntax expression && rewritten is not CSS.ParenthesizedExpressionSyntax && rewritten.ToString().Contains("::")
+                ? CS.SyntaxFactory.ParenthesizedExpression(expression.WithoutTrivia()).WithTriviaFrom(rewritten)
+                : rewritten;
+
         public override SyntaxTree Parse(SourceText text, string path, IEnumerable<string> symbols) =>
             CS.CSharpSyntaxTree.ParseText(text, new CS.CSharpParseOptions(CS.LanguageVersion.Preview, preprocessorSymbols: symbols), path);
 

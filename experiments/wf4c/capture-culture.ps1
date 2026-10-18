@@ -63,6 +63,8 @@ $profile = [ordered]@{
     }
     DefaultCulture   = $default
     DefaultUICulture = $defaultUI
+    # The server's time zone (Windows' id): IIS ran the application in it; a Linux container runs in UTC (TZ).
+    TimeZone         = [TimeZoneInfo]::Local.Id
     Cultures         = [ordered]@{}
 }
 foreach ($name in ($names | Where-Object { $_ } | Select-Object -Unique)) {

@@ -278,6 +278,10 @@ namespace System.Web.Script.Serialization {
                 // Ignore indexed properties
                 if (getMethodInfo.GetParameters().Length > 0) continue;
 
+                // FrameworkOnCore: what .NET added to its types after .NET Framework 4.8 (TimeSpan.Microseconds...): not
+                // written, the object as .NET Framework wrote it.
+                if (IsAddedSinceFramework(propInfo)) continue;
+
                 if (!first) sb.Append(',');
                 SerializeString(propInfo.Name, sb);
                 sb.Append(':');
@@ -288,6 +292,16 @@ namespace System.Web.Script.Serialization {
             sb.Append('}');
         }
 
+        // FrameworkOnCore: public properties .NET added to the types .NET Framework 4.8 had, which an object of theirs
+        // serialized by its properties would gain.
+        static readonly Dictionary<Type, HashSet<string>> addedSinceFramework = new Dictionary<Type, HashSet<string>> {
+            { typeof(TimeSpan), new HashSet<string> { "Microseconds", "Nanoseconds", "TotalMicroseconds", "TotalNanoseconds" } },
+            { typeof(DateTime), new HashSet<string> { "Microsecond", "Nanosecond" } },
+            { typeof(DateTimeOffset), new HashSet<string> { "Microsecond", "Nanosecond", "TotalOffsetMinutes" } },
+        };
+
+        static bool IsAddedSinceFramework(PropertyInfo property) =>
+            property.DeclaringType != null && addedSinceFramework.TryGetValue(property.DeclaringType, out var added) && added.Contains(property.Name);
         private bool CheckScriptIgnoreAttribute(MemberInfo memberInfo) {
             // Ignore all members marked as [ScriptIgnore]
             if (memberInfo.IsDefined(typeof(ScriptIgnoreAttribute), true /*inherits*/)) return true;
@@ -452,12 +466,13 @@ namespace System.Web.Script.Serialization {
 
             // Have to special case floats to get full precision
             if (o is double) {
-                sb.Append(((double)o).ToString("r", CultureInfo.InvariantCulture));
+                // FrameworkOnCore: "r" as .NET Framework wrote it (15 digits, or 17 when 15 do not round-trip; a float's 7 or 9).
+                sb.Append(System.Web.Util.FrameworkNumbers.Format((double)o, "r", CultureInfo.InvariantCulture));
                 return;
             }
 
             if (o is float) {
-                sb.Append(((float)o).ToString("r", CultureInfo.InvariantCulture));
+                sb.Append(System.Web.Util.FrameworkNumbers.Format((float)o, "r", CultureInfo.InvariantCulture));
                 return;
             }
 

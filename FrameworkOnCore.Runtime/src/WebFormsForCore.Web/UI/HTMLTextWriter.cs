@@ -419,7 +419,7 @@ namespace System.Web.UI {
             if (tabsPending) {
                 OutputTabs();
             }
-            writer.Write(value);
+            writer.Write(System.Web.Util.FrameworkNumbers.ToString(value, writer.FormatProvider));
         }
 
         // Writes the text representation of a Single to the text stream.
@@ -427,7 +427,7 @@ namespace System.Web.UI {
             if (tabsPending) {
                 OutputTabs();
             }
-            writer.Write(value);
+            writer.Write(System.Web.Util.FrameworkNumbers.ToString(value, writer.FormatProvider));
         }
 
         // Writes the text representation of an integer to the text stream.
@@ -451,7 +451,9 @@ namespace System.Web.UI {
             if (tabsPending) {
                 OutputTabs();
             }
-            writer.Write(value);
+            // FrameworkOnCore: a double or float as .NET Framework wrote it (System.Web.Util.FrameworkNumbers).
+            if (value is double || value is float) writer.Write(System.Web.Util.FrameworkNumbers.ConvertToString(value, writer.FormatProvider));
+            else writer.Write(value);
         }
 
         // Writes out a formatted string, using the same semantics as specified.

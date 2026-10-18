@@ -2449,10 +2449,10 @@ namespace System.Web.UI {
 
                 object convertedValue = evalValue;
                 if (entry.Type == typeof(string)) {
-                    convertedValue = System.Convert.ToString(evalValue, CultureInfo.CurrentCulture);
+                    convertedValue = System.Web.Util.FrameworkNumbers.ConvertToString(evalValue, CultureInfo.CurrentCulture);
                 }
                 else if (evalValue != null && !entry.Type.IsAssignableFrom(evalValue.GetType())) {
-                    convertedValue = PropertyConverter.ObjectFromString(entry.Type, memberInfo, System.Convert.ToString(evalValue, CultureInfo.CurrentCulture));
+                    convertedValue = PropertyConverter.ObjectFromString(entry.Type, memberInfo, System.Web.Util.FrameworkNumbers.ConvertToString(evalValue, CultureInfo.CurrentCulture));
                 }
 
                 PropertyMapper.SetMappedPropertyValue(sender, objectModelName, convertedValue, InDesigner);

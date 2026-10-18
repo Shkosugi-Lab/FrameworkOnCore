@@ -389,7 +389,7 @@ namespace System.Web.UI.WebControls {
             string formattedValue = String.Empty;
 
             if (!DataBinder.IsNull(dataValue)) {
-                string dataValueString = dataValue.ToString();
+                string dataValueString = System.Web.Util.FrameworkNumbers.ToString(dataValue);
                 string formatting = DataFormatString;
                 int dataValueStringLength = dataValueString.Length;
 
@@ -410,7 +410,7 @@ namespace System.Web.UI.WebControls {
                             formattedValue = String.Format(CultureInfo.CurrentCulture, formatting, dataValueString);
                         }
                         else {
-                            formattedValue = String.Format(CultureInfo.CurrentCulture, formatting, dataValue);
+                            formattedValue = String.Format(CultureInfo.CurrentCulture, formatting, System.Web.Util.FrameworkNumbers.Formattable(dataValue));
                         }
                     }
                 }
@@ -425,7 +425,7 @@ namespace System.Web.UI.WebControls {
                         // If there's a format string, apply it to the raw data value
                         // If there's no format string, then dataValueString already has the right value
                         if (!String.IsNullOrEmpty(formatting)) {
-                            dataValueString = String.Format(CultureInfo.CurrentCulture, formatting, dataValue);
+                            dataValueString = String.Format(CultureInfo.CurrentCulture, formatting, System.Web.Util.FrameworkNumbers.Formattable(dataValue));
                         }
 
                         // Optionally HTML encode the value (including the format string, if any was applied)
@@ -620,7 +620,7 @@ namespace System.Web.UI.WebControls {
                 }
                 else {
                     if (data != null) {
-                        ((TextBox)boundControl).Text = data.ToString();
+                        ((TextBox)boundControl).Text = System.Web.Util.FrameworkNumbers.ToString(data);
                     }
                 }
                 

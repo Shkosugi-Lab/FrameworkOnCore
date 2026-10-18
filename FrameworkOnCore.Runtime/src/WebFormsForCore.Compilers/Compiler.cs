@@ -59,6 +59,9 @@ namespace WebFormsForCore.Compilers
 						new object[] { clientPath, workingDirectory, sdkPath, tempPath },
 						null);*/
 
+                // FrameworkOnCore: a double or float made text, as .NET Framework wrote it (FloatingTextRewriter).
+                FloatingTextRewriter.Rewrite(arguments, file.Equals("vbc.dll", StringComparison.OrdinalIgnoreCase), workingDirectory, sdkPath);
+
                 if (file.Equals("csc.dll", StringComparison.OrdinalIgnoreCase)) {
 					var cscType = assembly.GetType("Microsoft.CodeAnalysis.CSharp.CommandLine.Csc");
 					exitCode = (int)cscType.GetMethod("Run", BindingFlags.NonPublic | BindingFlags.Static)

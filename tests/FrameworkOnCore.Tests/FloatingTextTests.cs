@@ -1,0 +1,135 @@
+namespace FrameworkOnCore.Tests;
+
+/// <summary>
+/// FOC1008 and the floating-point rules: where the application makes text of a double or a float, the converter writes
+/// FrameworkOnCore.FrameworkNumbers (as .NET Framework wrote it); Parse, TryParse and TimeSpan.From* of a double,
+/// FrameworkParsing. C# and Visual Basic.
+/// </summary>
+public class FloatingTextTests
+{
+    const string N = "global::FrameworkOnCore.FrameworkNumbers.";
+
+    static string CSharp(string body) =>
+        RewriteHarness.CSharp("using System; using System.Text; using System.Linq; using System.Linq.Expressions;\npublic class C {\n" + body + "\n}");
+
+    [Fact]
+    public void ToString_of_a_double_and_a_float()
+    {
+        var written = CSharp("string F(double d, float f) => d.ToString() + f.ToString(\"N2\") + d.ToString(System.Globalization.CultureInfo.InvariantCulture);");
+        Assert.Contains(N + "ToString(d)", written);
+        Assert.Contains(N + "ToString(f, \"N2\")", written);
+        Assert.Contains(N + "ToString(d, System.Globalization.CultureInfo.InvariantCulture)", written);
+    }
+
+    [Fact]
+    public void Concatenation_and_compound_assignment()
+    {
+        var written = CSharp("string F(double d, double? n, object o) { var s = \"a\" + d + n; s += d; return s + o; }");
+        Assert.Contains("\"a\" + " + N + "Text(d) + " + N + "Text(n)", written);
+        Assert.Contains("s += " + N + "Text(d)", written);
+        Assert.Contains("s + " + N + "Text(o)", written);
+    }
+
+    [Fact]
+    public void An_interpolations_hole_is_parenthesized()
+    {
+        var written = CSharp("string F(double d) => $\"{d} {d,8:N2} {d.ToString(\"F1\")}\";");
+        Assert.Contains("{(" + N + "Formattable(d))}", written);
+        Assert.Contains("{(" + N + "Formattable(d)),8:N2}", written);
+        Assert.Contains("{(" + N + "ToString(d, \"F1\"))}", written);
+    }
+
+    [Fact]
+    public void Composite_formats_and_writers()
+    {
+        var written = CSharp("""
+            string F(double d, float f, StringBuilder sb, System.IO.TextWriter w)
+            {
+                sb.Append(d).AppendFormat("{0:N1}", f);
+                w.Write(d);
+                w.WriteLine("{0} {1}", d, "x");
+                return string.Format("{0:C} {1}", d, 1) + Convert.ToString(d) + string.Join(",", new[] { d });
+            }
+            """);
+        Assert.Contains("sb.Append(" + N + "Text(d))", written);
+        Assert.Contains("AppendFormat(\"{0:N1}\", " + N + "Formattable(f))", written);
+        Assert.Contains("w.Write(" + N + "Text(d))", written);
+        Assert.Contains("w.WriteLine(\"{0} {1}\", " + N + "Formattable(d), \"x\")", written);
+        Assert.Contains("string.Format(\"{0:C} {1}\", " + N + "Formattable(d), 1)", written);
+        Assert.Contains(N + "ConvertToString(d)", written);
+        Assert.Contains("string.Join(\",\", " + N + "Texts(new[] { d }))", written);
+    }
+
+    [Fact]
+    public void An_objects_ToString_a_DataRow_field()
+    {
+        var written = CSharp("string F(System.Data.DataRow row, object o) => row[\"Price\"].ToString() + Convert.ToString(o, System.Globalization.CultureInfo.CurrentCulture);");
+        Assert.Contains(N + "ToString(row[\"Price\"])", written);
+        Assert.Contains(N + "ConvertToString(o, System.Globalization.CultureInfo.CurrentCulture)", written);
+    }
+
+    [Fact]
+    public void What_is_not_a_double_and_expression_trees_are_left()
+    {
+        const string source = """
+            string F(int i, string s, decimal m) => i.ToString() + s + m + $"{i}" + string.Format("{0}", s);
+            Expression<Func<double, string>> G() => d => d.ToString();
+            string H() => base.ToString() + this.ToString();
+            void Log(string format, params object[] args) { }
+            void L(double d) => Log("{0}", d);
+            """;
+        Assert.DoesNotContain("FrameworkNumbers", CSharp(source));
+    }
+
+    [Fact]
+    public void Visual_Basic()
+    {
+        var written = RewriteHarness.VisualBasic("""
+            Imports System
+            Public Class C
+                Function Build(d As Double, f As Single, row As System.Data.DataRow) As String
+                    Dim s As String = "a" & d & row("Price")
+                    s = s & CStr(f) & d.ToString("N2") & $"{d:F1}" & String.Format("{0}", d)
+                    Return s
+                End Function
+            End Class
+            """);
+        Assert.True(written.Contains("\"a\" & Global.FrameworkOnCore.FrameworkNumbers.Text(d) & Global.FrameworkOnCore.FrameworkNumbers.Text(row(\"Price\"))"), written);
+        Assert.Contains("CStr(Global.FrameworkOnCore.FrameworkNumbers.Text(f))", written);
+        Assert.Contains("Global.FrameworkOnCore.FrameworkNumbers.ToString(d, \"N2\")", written);
+        Assert.Contains("{Global.FrameworkOnCore.FrameworkNumbers.Formattable(d):F1}", written);
+        Assert.Contains("String.Format(\"{0}\", Global.FrameworkOnCore.FrameworkNumbers.Formattable(d))", written);
+    }
+
+    [Fact]
+    public void Parsing_and_TimeSpan()
+    {
+        var written = CSharp("""
+            double F(string s, out double d) => double.Parse(s) + (double.TryParse(s, out d) ? 1 : 0) + float.Parse(s, System.Globalization.CultureInfo.InvariantCulture)
+                + TimeSpan.FromSeconds(0.5).TotalMilliseconds + TimeSpan.FromMilliseconds(1.5).Ticks + TimeSpan.FromSeconds(30).Ticks;
+            """);
+        Assert.Contains("global::FrameworkOnCore.FrameworkParsing.ParseDouble(s)", written);
+        Assert.Contains("global::FrameworkOnCore.FrameworkParsing.TryParseDouble(s, out d)", written);
+        Assert.Contains("global::FrameworkOnCore.FrameworkParsing.ParseSingle(s, System.Globalization.CultureInfo.InvariantCulture)", written);
+        Assert.Contains("global::FrameworkOnCore.FrameworkParsing.FromSeconds(0.5)", written);
+        Assert.Contains("global::FrameworkOnCore.FrameworkParsing.FromMilliseconds(1.5)", written);
+        // An integer: .NET's TimeSpan.FromSeconds(long), exact as .NET Framework's.
+        Assert.Contains("TimeSpan.FromSeconds(30)", written);
+    }
+
+    [Fact]
+    public void The_framework_formats()
+    {
+        Assert.Equal("0.3", FrameworkNumbers.ToString(0.1 + 0.2, System.Globalization.CultureInfo.InvariantCulture));
+        Assert.Equal("0", FrameworkNumbers.ToString(-0.0, System.Globalization.CultureInfo.InvariantCulture));
+        Assert.Equal("2.68", FrameworkNumbers.ToString(2.675, "N2", System.Globalization.CultureInfo.InvariantCulture));
+        Assert.Equal("0.00", FrameworkNumbers.ToString(-0.004, "F2", System.Globalization.CultureInfo.InvariantCulture));
+        Assert.Equal("0.33333333333333331", FrameworkNumbers.ToString(1.0 / 3, "R", System.Globalization.CultureInfo.InvariantCulture));
+        Assert.Equal("0.3333333", FrameworkNumbers.ToString(1f / 3, System.Globalization.CultureInfo.InvariantCulture));
+        Assert.Equal("$23", string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:C0}", FrameworkNumbers.Formattable(22.5)));
+        Assert.Throws<OverflowException>(() => FrameworkParsing.ParseDouble("1e400", System.Globalization.CultureInfo.InvariantCulture));
+        Assert.False(FrameworkParsing.TryParseDouble("1e400", System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out _));
+        Assert.Equal(TimeSpan.FromMilliseconds(2), FrameworkParsing.FromMilliseconds(1.5));
+        Assert.Equal(TimeSpan.Zero, FrameworkParsing.FromSeconds(0.00015));
+    }
+}

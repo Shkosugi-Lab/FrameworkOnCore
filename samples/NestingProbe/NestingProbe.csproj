@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Controls composed the hard way, against the original on IIS (experiments/wf4c/sample-parity.ps1): a GridView
+       in every row of a GridView (paged, sorted, edited), templates three levels deep with command bubbling,
+       FormView/DetailsView bound in code with two-way Bind, user controls nested and made dynamically, and a page
+       that dumps a panel's rendered HTML verbatim for the comparison. -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3A7F0C52-1E8D-4B96-A24C-7D5E90B1F386}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NestingProbe</RootNamespace>
+    <AssemblyName>NestingProbe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="NestedGrid.aspx" />
+    <Content Include="DeepTemplates.aspx" />
+    <Content Include="MasterDetail.aspx" />
+    <Content Include="UserControls.aspx" />
+    <Content Include="RenderHtml.aspx" />
+    <Content Include="InnerTemplate.ascx" />
+    <Content Include="ChildPanel.ascx" />
+    <Content Include="GrandChild.ascx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data.cs" />
+    <Compile Include="NestedGrid.aspx.cs">
+      <DependentUpon>NestedGrid.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NestedGrid.aspx.designer.cs">
+      <DependentUpon>NestedGrid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DeepTemplates.aspx.cs">
+      <DependentUpon>DeepTemplates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DeepTemplates.aspx.designer.cs">
+      <DependentUpon>DeepTemplates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterDetail.aspx.cs">
+      <DependentUpon>MasterDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterDetail.aspx.designer.cs">
+      <DependentUpon>MasterDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls.aspx.cs">
+      <DependentUpon>UserControls.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls.aspx.designer.cs">
+      <DependentUpon>UserControls.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RenderHtml.aspx.cs">
+      <DependentUpon>RenderHtml.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RenderHtml.aspx.designer.cs">
+      <DependentUpon>RenderHtml.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ChildPanel.ascx.cs">
+      <DependentUpon>ChildPanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChildPanel.ascx.designer.cs">
+      <DependentUpon>ChildPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="GrandChild.ascx.cs">
+      <DependentUpon>GrandChild.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GrandChild.ascx.designer.cs">
+      <DependentUpon>GrandChild.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

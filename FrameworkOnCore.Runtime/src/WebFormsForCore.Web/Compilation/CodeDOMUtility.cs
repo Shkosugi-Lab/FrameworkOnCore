@@ -299,11 +299,13 @@ internal static class CodeDomUtility {
     }
 
     // Generate a call to System.Convert.ToString(value, CultureInfo.CurrentCulture)
+    // FrameworkOnCore: System.Web.Util.FrameworkNumbers.ConvertToString, the same with a double or float written as .NET
+    // Framework wrote it (.NET Core 3.0: 0.1 + 0.2 bound is "0.30000000000000004").
     internal static CodeExpression GenerateConvertToString(CodeExpression value) {
 
         CodeMethodInvokeExpression invokeExpr = new CodeMethodInvokeExpression();
-        invokeExpr.Method.TargetObject = BuildGlobalCodeTypeReferenceExpression(typeof(System.Convert));
-        invokeExpr.Method.MethodName = "ToString";
+        invokeExpr.Method.TargetObject = BuildGlobalCodeTypeReferenceExpression(typeof(System.Web.Util.FrameworkNumbers));
+        invokeExpr.Method.MethodName = "ConvertToString";
         invokeExpr.Parameters.Add(value);
         invokeExpr.Parameters.Add(new CodePropertyReferenceExpression(
             BuildGlobalCodeTypeReferenceExpression(typeof(CultureInfo)), "CurrentCulture"));

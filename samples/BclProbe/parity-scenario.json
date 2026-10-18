@@ -1,0 +1,20 @@
+{
+  "_comment": "The base class library as the pages show it: each page writes 'case = value' lines (Probe.cs), compared line by line with the original's. Numbers: double/float without a format, negative zero, infinities, parsing, rounding, decimal. Strings: culture-sensitive search and sorting, case mapping, whitespace and Unicode categories, Regex, encodings. Errors: the messages of the exceptions applications show. Cultures: the cultures of cultures.txt, calendars, parsing, time zones by Windows names, the server's local time zone. Serialization: JavaScriptSerializer, DataContractJsonSerializer, XmlSerializer, DataSet, XML as text, HttpUtility and Uri. Bound: doubles and dates through GridView, Eval, Bind, a DropDownList and ViewState, posted back.",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/Numbers.aspx" },
+    { "action": "snapshot", "name": "numbers" },
+    { "action": "goto", "path": "/Strings.aspx" },
+    { "action": "snapshot", "name": "strings" },
+    { "action": "goto", "path": "/Errors.aspx" },
+    { "action": "snapshot", "name": "errors" },
+    { "action": "goto", "path": "/Cultures.aspx" },
+    { "action": "snapshot", "name": "cultures" },
+    { "action": "goto", "path": "/Serialization.aspx" },
+    { "action": "snapshot", "name": "serialization" },
+    { "action": "goto", "path": "/Bound.aspx" },
+    { "action": "snapshot", "name": "bound" },
+    { "action": "click", "target": "btnPost" },
+    { "action": "snapshot", "name": "bound-postback" }
+  ]
+}

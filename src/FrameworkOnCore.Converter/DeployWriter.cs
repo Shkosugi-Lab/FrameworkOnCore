@@ -14,7 +14,8 @@ namespace FrameworkOnCore.Converter;
 /// does not:
 /// - the original server's culture data (ICU data built from the culture profile, on the machine the
 ///   application runs on: they are for its ICU version; ICU_DATA);
-/// - its culture (the profile's default culture: LANG);
+/// - its culture (the profile's default culture: LANG) and time zone (the profile's, else this machine's: TZ, the IANA id;
+///   a container runs in UTC otherwise: DateTime.Now, ToLocalTime);
 /// - the deployment's settings: environment variables as Azure App Service gives them to .NET Framework
 ///   applications (APPSETTING_key, SQLCONNSTR_name: the runtime reads them), and files laid over the
 ///   site from a configuration folder (CONFIG_DIR) for the rest;
@@ -38,13 +39,16 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         Directory.CreateDirectory(deploy);
 
         string? culture = null;
+        string? zone = null;
         if (cultureProfile != null)
         {
             using var profile = JsonDocument.Parse(File.ReadAllText(cultureProfile));
             if (profile.RootElement.TryGetProperty("DefaultCulture", out var c)) culture = c.GetString();
+            if (profile.RootElement.TryGetProperty("TimeZone", out var z)) zone = z.GetString();
             WriteIcu(Path.Combine(deploy, "icu"), cultureProfile);
         }
         var lang = culture != null ? culture.Replace('-', '_') + ".UTF-8" : "C.UTF-8";
+        var (tz, tzSource) = TimeZoneOf(zone);
 
         if (caseInsensitive) caseInsensitive = WriteCaseLibraries(Path.Combine(deploy, "casefs"));
         var drawing = DrawingUsers(site);
@@ -53,7 +57,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         WriteText(Path.Combine(deploy, "start.sh"), StartScript.Replace("__DLL__", assembly));
         if (container)
         {
-            WriteText(Path.Combine(outRoot, "Dockerfile"), Dockerfile(siteRelative, lang, cultureProfile != null, caseInsensitive, drawing.Count > 0));
+            WriteText(Path.Combine(outRoot, "Dockerfile"), Dockerfile(siteRelative, lang, tz, cultureProfile != null, caseInsensitive, drawing.Count > 0));
             // The site the output itself (the web project built in place): all of it ("!." takes nothing back from "*").
             WriteText(Path.Combine(outRoot, ".dockerignore"), siteRelative == "."
                 ? "# The build context is the conversion's output, the site itself (the web project built in place).\n**/obj\n"
@@ -62,12 +66,24 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         if (linux)
         {
             WriteText(Path.Combine(deploy, "linux", "install.sh"), InstallScript
-                .Replace("__APP__", app).Replace("__SITE__", siteRelative).Replace("__LANG__", lang)
+                .Replace("__APP__", app).Replace("__SITE__", siteRelative).Replace("__LANG__", lang).Replace("__TZ__", tz)
                 .Replace("__ICU__", cultureProfile != null ? "1" : "").Replace("__GDIPLUS__", drawing.Count > 0 ? "1" : ""));
         }
-        WriteText(Path.Combine(deploy, "README.md"), Readme(app, assembly, siteRelative, lang, container, linux, cultureProfile != null, caseInsensitive, drawing.Count > 0));
-        report.Add(Report.Kind.Project, "deploy", $"{(container ? "Dockerfile" : "")}{(container && linux ? " and " : "")}{(linux ? "deploy/linux/install.sh (systemd)" : "")}: {app}, site {siteRelative}, culture {lang}, " +
+        WriteText(Path.Combine(deploy, "README.md"), Readme(app, assembly, siteRelative, lang, tz, tzSource, container, linux, cultureProfile != null, caseInsensitive, drawing.Count > 0));
+        report.Add(Report.Kind.Project, "deploy", $"{(container ? "Dockerfile" : "")}{(container && linux ? " and " : "")}{(linux ? "deploy/linux/install.sh (systemd)" : "")}: {app}, site {siteRelative}, culture {lang}, time zone {tz} ({tzSource}), " +
             $"file names {(caseInsensitive ? "without regard to case (deploy/casefs; FOC_CASE_INSENSITIVE=0 turns it off)" : "case-sensitive")} (deploy/README.md)");
+    }
+
+    /// <summary>
+    /// The IANA time zone (TZ) of the original server's (the profile's Windows id), else of this machine's: IIS ran the
+    /// application in the server's time zone; a container, without TZ, in UTC.
+    /// </summary>
+    static (string Tz, string Source) TimeZoneOf(string? windowsId)
+    {
+        var source = windowsId != null ? "the original server's" : "this machine's";
+        var id = windowsId ?? TimeZoneInfo.Local.Id;
+        if (id.Contains('/') || id == "UTC") return (id, source);
+        return TimeZoneInfo.TryConvertWindowsIdToIanaId(id, out var iana) ? (iana, source) : ("UTC", $"{source} {id} has no IANA id");
     }
 
     /// <summary>
@@ -220,7 +236,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
 
         """;
 
-    static string Dockerfile(string site, string lang, bool icu, bool caseInsensitive, bool gdiplus)
+    static string Dockerfile(string site, string lang, string tz, bool icu, bool caseInsensitive, bool gdiplus)
     {
         var text = new StringBuilder("""
             # Generated by FrameworkOnCore. Built from the conversion's output folder:
@@ -266,7 +282,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         if (caseInsensitive) text.Append("# File names without regard to case, as on Windows (start.sh preloads it; FOC_CASE_INSENSITIVE=0 turns it off).\nCOPY deploy/casefs /opt/foc/casefs\n");
         if (icu) text.Append("COPY --from=icu /opt/foc/icu-data /opt/foc/icu-data\nENV ICU_DATA=/opt/foc/icu-data\n");
         text.Append($"""
-            ENV APP_DIR=/app CONFIG_DIR=/config LANG={lang} ASPNETCORE_HTTP_PORTS=8080
+            ENV APP_DIR=/app CONFIG_DIR=/config LANG={lang} TZ={tz} ASPNETCORE_HTTP_PORTS=8080
             USER app
             # The application's data: kept when the container is replaced.
             VOLUME /app/App_Data
@@ -357,6 +373,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         APP_DIR=$prefix/site
         CONFIG_DIR=/etc/$app/config
         LANG=__LANG__
+        TZ=__TZ__
         ASPNETCORE_URLS=http://0.0.0.0:$port
         $icu
         EOF
@@ -394,7 +411,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
 
         """;
 
-    static string Readme(string app, string assembly, string site, string lang, bool container, bool linux, bool icu, bool caseInsensitive, bool gdiplus)
+    static string Readme(string app, string assembly, string site, string lang, string tz, string tzSource, bool container, bool linux, bool icu, bool caseInsensitive, bool gdiplus)
     {
         var text = new StringBuilder($"""
             # {app} の配置(FrameworkOnCore が生成)
@@ -408,6 +425,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
               - `APPSETTING_<キー>`: appSettings の `<キー>` を設定する(無ければ加える)。
             - それ以外の設定ファイルは、設定フォルダー(`CONFIG_DIR`)に置いたものがサイトに上書きされてから起動する。
             - カルチャ: `LANG={lang}`(元のサーバーの既定のカルチャ)。{(icu ? "元のサーバーのカルチャのデータ(通貨記号、日付の書式)は、動かすマシンで ICU のデータとして作る(`deploy/icu`。ICU の版に合わせるため。github.com への接続が要る)。" : "カルチャのプロファイルが無かったので、ICU のデータは作らない(Linux の既定のカルチャのデータになる)。")}
+            - タイムゾーン: `TZ={tz}`({(tzSource.StartsWith("the original") ? "元のサーバーのタイムゾーン" : tzSource.Contains("IANA") ? "変換したマシンのタイムゾーンに IANA の名前が無く UTC" : "変換したマシンのタイムゾーン。カルチャのプロファイルに無かった")})。IIS はサーバーのタイムゾーンでアプリを動かしていた(`DateTime.Now`、`ToLocalTime`)。コンテナは `TZ` が無いと UTC。
             - アプリは作業プロセスの中で bin のコピーから動き、web.config や bin が変わると自分で再起動する。
             - URL(`Request.Url`、絶対 URL へのリダイレクト)は、クライアントが送った Host ヘッダーのホスト名とポートから作る。HTTPS を終端するリバースプロキシの後ろでは `ASPNETCORE_FORWARDEDHEADERS_ENABLED=true` を設定し、プロキシが `X-Forwarded-Proto` と元の `Host` を渡すようにする。
             - アプリが書き込む場所: `App_Data`。ほかにも書き込むアプリがある(インストーラーがモジュールを置くなど)ので、サイト全体をアプリのユーザーが書けるようにしてある。

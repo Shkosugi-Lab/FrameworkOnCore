@@ -21,6 +21,12 @@ public static class Located
 
     static string Tail(SyntaxNode node, string? tag) => $" [len={node.Span.Length}{(tag != null ? "," + tag : "")}]";
 
+    static readonly SymbolDisplayFormat qualified = SymbolDisplayFormat.CSharpErrorMessageFormat
+        .RemoveMiscellaneousOptions(SymbolDisplayMiscellaneousOptions.UseSpecialTypes | SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier);
+
+    /// <summary>A type's full name as .NET writes it (System.Double, not C#'s double or Visual Basic's Double; System.String for a string?).</summary>
+    public static string FullName(ITypeSymbol type) => type.ToDisplayString(qualified);
+
     /// <summary>A list of assembly names the converter passes as an MSBuild property (CompilerVisibleProperty).</summary>
     public static HashSet<string> Names(AnalyzerConfigOptions options, string property)
     {

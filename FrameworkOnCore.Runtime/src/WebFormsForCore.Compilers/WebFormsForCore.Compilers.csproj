@@ -53,6 +53,10 @@
             <PackagePath>\</PackagePath>
         </None>
         <Compile Include="..\VersionInfo.cs" Link="Properties\VersionInfo.cs" />
+        <!-- FrameworkOnCore: the converter's analyzer of doubles and floats made text, run on what the server compiles (FloatingTextRewriter). -->
+        <Compile Include="..\..\..\src\FrameworkOnCore.Analyzers\FloatingTextAnalyzer.cs" Link="Analyzers\FloatingTextAnalyzer.cs" />
+        <Compile Include="..\..\..\src\FrameworkOnCore.Analyzers\SpanInExpressionAnalyzer.cs" Link="Analyzers\SpanInExpressionAnalyzer.cs" />
+        <Compile Include="..\..\..\src\FrameworkOnCore.Analyzers\Located.cs" Link="Analyzers\Located.cs" />
     </ItemGroup>
 
     <ItemGroup>

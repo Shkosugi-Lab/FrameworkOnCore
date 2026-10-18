@@ -132,10 +132,10 @@ using System.Web.Util;
             }
             else {
                 if (String.IsNullOrEmpty(format)) {
-                    return value.ToString();
+                    return System.Web.Util.FrameworkNumbers.ToString(value);
                 }
                 else {
-                    return String.Format(format, value);
+                    return String.Format(format, System.Web.Util.FrameworkNumbers.Formattable(value));
                 }
             }
         }
@@ -191,10 +191,10 @@ using System.Web.Util;
             }
             else {
                 if (String.IsNullOrEmpty(format)) {
-                    return value.ToString();
+                    return System.Web.Util.FrameworkNumbers.ToString(value);
                 }
                 else {
-                    return string.Format(format, value);
+                    return string.Format(format, System.Web.Util.FrameworkNumbers.Formattable(value));
                 }
             }
         }
@@ -298,10 +298,10 @@ using System.Web.Util;
             }
             else {
                 if (String.IsNullOrEmpty(format)) {
-                    return value.ToString();
+                    return System.Web.Util.FrameworkNumbers.ToString(value);
                 }
                 else {
-                    return string.Format(format, value);
+                    return string.Format(format, System.Web.Util.FrameworkNumbers.Formattable(value));
                 }
             }
         }

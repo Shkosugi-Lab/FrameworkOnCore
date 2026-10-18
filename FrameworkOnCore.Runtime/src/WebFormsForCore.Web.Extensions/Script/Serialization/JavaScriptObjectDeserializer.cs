@@ -258,7 +258,9 @@ namespace System.Web.Script.Serialization {
 
             // either we have an exponent or the number couldn't be parsed into any previous type. 
             Double d;
-            if (Double.TryParse(input, NumberStyles.Float, CultureInfo.InvariantCulture, out d)) {
+            // FrameworkOnCore: a number too large for a double is infinity on .NET; .NET Framework's TryParse failed (an invalid
+            // JSON primitive).
+            if (Double.TryParse(input, NumberStyles.Float, CultureInfo.InvariantCulture, out d) && !Double.IsInfinity(d)) {
                 // NumberStyles.Float: AllowLeadingWhite, AllowTrailingWhite, AllowLeadingSign, AllowDecimalPoint, AllowExponent
                 return d;
             }

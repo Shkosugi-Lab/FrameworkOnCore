@@ -33,6 +33,8 @@ public sealed record Pointed(string Code, int Line, int Column, int? Length, str
 /// - FOC1005: AsyncDelegate.BeginInvoke(d, new object[] { args }, callback, state); (T)AsyncDelegate.EndInvoke(result).
 /// - FOC1006: rules/packages.json platformReplacements (by the rule's number).
 /// - FOC1007: Enumerable.Contains(array, x) for array.Contains(x) in an expression tree (C# 14 bound it to a span method).
+/// - FOC1008: a double or float made text, through FrameworkOnCore.FrameworkNumbers (as .NET Framework wrote it), by the
+///   tag: x.ToString(...) -> ToString(x, ...), Convert.ToString(x) -> ConvertToString(x), Text(x), Formattable(x), Texts(x).
 /// - CS9258 (C#): field -> @field. SYSLIB0007 (C#): the .NET Framework default algorithm.
 /// </summary>
 public sealed class SourceEdits(SourceLanguage language, Rules rules)
@@ -78,6 +80,7 @@ public sealed class SourceEdits(SourceLanguage language, Rules rules)
         }
 
         var data = new List<(SyntaxNode Node, string Reason)>();
+        var floating = new List<string>();
         foreach (var p in pointed.OrderBy(p => p.Line).ThenBy(p => p.Column))
         {
             if (p.Line < 1 || p.Line > text.Lines.Count) continue;
@@ -158,6 +161,28 @@ public sealed class SourceEdits(SourceLanguage language, Rules rules)
                             : null);
                         done.Add(new Done(LineOf(node), p.Code, $"{node.WithoutTrivia()} -> Enumerable.{enumerable}(...) (FOC1007: in an expression tree C# 14 binds an array's {enumerable} to MemoryExtensions' span method, which a query provider such as Entity Framework does not translate)", Report.Kind.Platform));
                         break;
+                    case "FOC1008":
+                        if (!rules.IsChosen("floating-point:framework")) break;
+                        var numbers = language.Global("FrameworkOnCore.FrameworkNumbers.");
+                        switch (p.Tag)
+                        {
+                            case "call_instance":
+                                if (!language.TrySplitCall(node, out var formatted, out _, out _) || formatted == null) { left.Add(p); continue; }
+                                Put(node, inner => language.TrySplitCall(inner, out var receiver, out _, out _) && receiver != null ? language.Retarget(inner, numbers + "ToString", receiver) : null, Shape);
+                                break;
+                            case "convert":
+                                Put(node, inner => language.Retarget(inner, numbers + "ConvertToString"), Shape);
+                                break;
+                            case "text" or "formattable" or "texts":
+                                var helperName = p.Tag == "text" ? "Text" : p.Tag == "formattable" ? "Formattable" : "Texts";
+                                Add(node, inner => language.Call(numbers + helperName, new[] { inner.WithoutTrivia().ToString() }), Wrap);
+                                break;
+                            default:
+                                left.Add(p);
+                                continue;
+                        }
+                        floating.Add(p.Message.Replace("A double or float made text, which .NET writes otherwise than .NET Framework: ", ""));
+                        break;
                     case "FOC1006":
                         var instanceCall = p.Tag?.EndsWith("_instance", StringComparison.Ordinal) == true;
                         if (p.Tag is not { } tag || !tag.StartsWith("rule", StringComparison.Ordinal) || !int.TryParse(tag[4..^(instanceCall ? "_instance".Length : 0)], out var number) ||
@@ -215,11 +240,16 @@ public sealed class SourceEdits(SourceLanguage language, Rules rules)
                 $"{data.Count} path argument(s) from data -> WindowsPath.Native(...) (FOC1004: {string.Join(", ", data.Select(d => d.Reason.Replace("A path from data passed to a file API: Windows' separators in it are not Linux's ", "")).Distinct().OrderBy(r => r, StringComparer.Ordinal).Take(4))})",
                 Report.Kind.Platform));
 
+        if (floating.Count > 0)
+            done.Add(new Done(0, "FOC1008",
+                $"{floating.Count} double/float made text -> FrameworkNumbers (FOC1008: .NET writes 0.1 + 0.2 as 0.30000000000000004, -0, 2.675 as N2 2.67; as .NET Framework: {string.Join(", ", floating.GroupBy(w => w).OrderByDescending(g => g.Count()).Take(4).Select(g => $"{g.Key} x{g.Count()}"))})",
+                Report.Kind.Platform));
+
         if (edits.Count == 0) return (text.ToString(), done, left);
         var rewritten = root.ReplaceNodes(edits.Keys, (original, inner) =>
         {
             foreach (var edit in edits[original].Values) inner = edit(inner) ?? inner;
-            return inner;
+            return language.InPlaceOf(original, inner);
         });
         return (rewritten.ToFullString(), done, left);
     }

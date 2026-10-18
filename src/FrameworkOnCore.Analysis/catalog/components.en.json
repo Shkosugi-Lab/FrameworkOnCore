@@ -18,6 +18,10 @@
       "framework": { "title": "As .NET Framework (the ANSI code page)", "description": "Encoding.Default is replaced with Platform.DefaultEncoding (Windows: the OS's setting; Linux: LANG's culture)" },
       "none": { "title": "As .NET (UTF-8)", "description": "The bytes of files and hashes may differ from .NET Framework's" }
     },
+    "floating-point": {
+      "framework": { "title": "As .NET Framework", "description": "Doubles and floats made text (ToString, concatenation, interpolation, string.Format, Convert.ToString, Append and Write) go through FrameworkNumbers; Parse, TryParse and TimeSpan.From* through FrameworkParsing. FrameworkOnCore's System.Web writes bound values the same way" },
+      "none": { "title": "As .NET", "description": "0.1 + 0.2 is 0.30000000000000004, -0 is \"-0\", 2.675 as N2 is 2.67; parsing a number too large gives infinity" }
+    },
     "code-pages": {
       "register": { "title": "Registered (always)", "description": "FrameworkOnCore's System.Web (UseWebForms) registers CodePagesEncodingProvider at start: Shift_JIS, EUC-JP and the others are there" }
     },
@@ -111,6 +115,7 @@
     "async-delegates": { "title": "Asynchronous delegate calls (BeginInvoke / EndInvoke)", "note": "Converter: replaced with FrameworkOnCore.AsyncDelegate (run on the thread pool)" },
     "binary-formatter": { "title": "BinaryFormatter / SoapFormatter", "note": "Converter: the compatibility package System.Runtime.Serialization.Formatters and EnableUnsafeBinaryFormatterSerialization (reading untrusted data is dangerous)" },
     "encoding-default": { "title": "Encoding.Default (the default encoding)", "note": ".NET Framework's is the ANSI code page (Shift_JIS on a Japanese Windows), .NET's is UTF-8. Converter: replaced with Platform.DefaultEncoding" },
+    "floating-point": { "title": "Doubles and floats as text, and read from text", "note": "Since .NET Core 3.0 a double without a format is the shortest text that round-trips (0.1 + 0.2 is 0.30000000000000004; .NET Framework: 15 digits, 0.3), negative zero is \"-0\", a fixed precision rounds the exact binary value to even (2.675 as N2 is 2.67; .NET Framework: 2.68, from its 15 digits). Parsing a number too large gives infinity (.NET Framework: an exception). TimeSpan.FromSeconds(0.00015) and the others are not rounded to milliseconds. Converter: replaced with FrameworkNumbers and FrameworkParsing (FOC1008, platformReplacements)" },
     "code-pages": { "title": "Code pages (Shift_JIS and others)", "note": "Without a registered provider .NET has only Unicode, ASCII and Latin-1. FrameworkOnCore's System.Web (UseWebForms) registers it at start" },
     "system-drawing": { "title": "System.Drawing (images and fonts, GDI+)", "note": ".NET's System.Drawing.Common is Windows-only since .NET 7. Converter: FrameworkOnCore's System.Drawing.Common (a port with dotnet/runtime 6.0's Linux implementation, libgdiplus). What it draws (antialiasing, text) differs a little between Windows and Linux. Windows' fonts are not on Linux (Arial and others are replaced with compatible fonts)" },
     "charts": { "title": "Charts (the Chart control)", "note": "Ported from referencesource (MIT): package FrameworkOnCore.Web.DataVisualization (the Chart control, ChartImg.axd). Drawn with the ported System.Drawing (libgdiplus on Linux). When ChartImg.axd's image folder (appSettings ChartImageHandler's dir) is on C:, the deployment's setting (APPSETTING_ChartImageHandler) changes it on Linux. Windows Forms' System.Windows.Forms.DataVisualization is not ported" },

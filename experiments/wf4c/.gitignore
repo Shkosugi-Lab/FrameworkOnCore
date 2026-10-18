@@ -22,3 +22,8 @@ api-probe/obj/
 perf-baseline/bin/
 perf-baseline/obj/
 perf-baseline/out/
+# The text of doubles and floats against .NET Framework's (framework-golden.ps1 writes the golden data: generated, 110 MB).
+!/numbers-parity/
+numbers-parity/bin/
+numbers-parity/obj/
+numbers-parity/framework-golden.txt

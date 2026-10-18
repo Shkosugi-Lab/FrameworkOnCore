@@ -18,5 +18,7 @@
   <ItemGroup>
     <!-- The components and what is known of their APIs on .NET: data, as the converter's rules. -->
     <EmbeddedResource Include="catalog\components.json" LogicalName="components.json" />
+    <!-- Not a culture's resource (MSBuild puts a file named ".en." in a satellite assembly). -->
+    <EmbeddedResource Include="catalog\components.en.json" LogicalName="components.en.json" WithCulture="false" />
   </ItemGroup>
 </Project>

@@ -43,6 +43,9 @@ public sealed class AnalysisStore
     readonly ConcurrentDictionary<string, bool> cancelled = new(StringComparer.Ordinal);
 
     public Catalog Catalog { get; } = Catalog.Default();
+    /// <summary>The catalog with its texts in English, for a page in English.</summary>
+    public Catalog EnglishCatalog => english ??= Catalog.InEnglish();
+    Catalog? english;
 
     /// <summary>One heavy job at a time, analyses and conversions alike (each compiles the whole application: memory).</summary>
     public SemaphoreSlim Heavy => one;

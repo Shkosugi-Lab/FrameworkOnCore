@@ -14,7 +14,7 @@ public static partial class OriginalBuildAdvice
 {
     public sealed record Advice(bool Needed, IReadOnlyList<string> Reasons);
 
-    public static Advice Of(string webProject, string root)
+    public static Advice Of(string webProject, string root, bool english = false)
     {
         webProject = Path.GetFullPath(webProject);
         root = Path.GetFullPath(root);
@@ -26,9 +26,9 @@ public static partial class OriginalBuildAdvice
 
         // A Cake build (Cake Frosting's project, a .cake script): the converter runs it.
         if (projects.FirstOrDefault(p => Regex.IsMatch(Text(p), @"Include=""Cake\.Frosting""", RegexOptions.IgnoreCase)) is { } frosting)
-            reasons.Add($"Cake のビルド({Relative(frosting)})がある");
+            reasons.Add(english ? $"a Cake build ({Relative(frosting)})" : $"Cake のビルド({Relative(frosting)})がある");
         else if (Directory.EnumerateFiles(root, "*.cake").FirstOrDefault() is { } script)
-            reasons.Add($"Cake のビルドスクリプト({Relative(script)})がある");
+            reasons.Add(english ? $"a Cake build script ({Relative(script)})" : $"Cake のビルドスクリプト({Relative(script)})がある");
 
         // Other projects that build into the web project's folder. Not those it references (the conversion converts them
         // and builds them into its bin: YAF's libraries), nor other web projects beside it (YAF-MySql.csproj, the same site
@@ -43,22 +43,22 @@ public static partial class OriginalBuildAdvice
             {
                 if (Inside(Resolve(output.Groups["v"].Value, directory, root), web))
                 {
-                    reasons.Add($"{Relative(project)} の出力先が Web プロジェクトのフォルダーの中({output.Groups["v"].Value.Trim()})");
+                    reasons.Add(english ? $"{Relative(project)} builds into the web project's folder ({output.Groups["v"].Value.Trim()})" : $"{Relative(project)} の出力先が Web プロジェクトのフォルダーの中({output.Groups["v"].Value.Trim()})");
                     break;
                 }
             }
             if (CopiesInto(text, directory, root, web) is { } copy)
-                reasons.Add($"{Relative(project)} のビルド後の処理が Web プロジェクトのフォルダーへコピーする({copy})");
+                reasons.Add(english ? $"{Relative(project)}'s post-build copies into the web project's folder ({copy})" : $"{Relative(project)} のビルド後の処理が Web プロジェクトのフォルダーへコピーする({copy})");
         }
 
         // The web project's own build making files of the site.
         var own = WithoutComments(Text(webProject));
         if (Regex.IsMatch(own, @"<TransformXml\b", RegexOptions.IgnoreCase))
-            reasons.Add("Web プロジェクトのビルドが web.config を変換して作る(TransformXml)");
+            reasons.Add(english ? "the web project's build makes web.config by a transform (TransformXml)" : "Web プロジェクトのビルドが web.config を変換して作る(TransformXml)");
         if (CopiesInto(own, web, root, web) is { } ownCopy)
-            reasons.Add($"Web プロジェクトのビルド後の処理がファイルをコピーする({ownCopy})");
+            reasons.Add(english ? $"the web project's post-build copies files ({ownCopy})" : $"Web プロジェクトのビルド後の処理がファイルをコピーする({ownCopy})");
         if (!Directory.EnumerateFiles(web, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).Any())
-            reasons.Add("Web プロジェクトのフォルダーに web.config が無い(ビルドで作られる)");
+            reasons.Add(english ? "the web project's folder has no web.config (the build makes it)" : "Web プロジェクトのフォルダーに web.config が無い(ビルドで作られる)");
 
         // A build file of the repository's own, at its root or in its build folder (when no Cake build was found).
         if (!reasons.Any(r => r.StartsWith("Cake", StringComparison.Ordinal)))
@@ -67,7 +67,7 @@ public static partial class OriginalBuildAdvice
             var script = folders.SelectMany(f => Directory.EnumerateFiles(f))
                 .FirstOrDefault(f => Path.GetExtension(f).ToLowerInvariant() is ".proj" or ".build" ||
                                      Path.GetFileName(f).ToLowerInvariant() is "build.ps1" or "build.cmd" or "build.bat" or "build.sh" or "psakefile.ps1");
-            if (script != null) reasons.Add($"リポジトリ独自のビルドファイル({Relative(script)})がある");
+            if (script != null) reasons.Add(english ? $"the repository's own build file ({Relative(script)})" : $"リポジトリ独自のビルドファイル({Relative(script)})がある");
         }
         return new Advice(reasons.Count > 0, reasons);
     }

@@ -1,0 +1,21 @@
+{
+  "name": "frameworkoncore-studio-ui",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "@cloudscape-design/components": "3.0.1401",
+    "@cloudscape-design/design-tokens": "3.0.114",
+    "@cloudscape-design/global-styles": "1.0.71",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "6.1.2",
+    "vite": "8.3.4"
+  }
+}

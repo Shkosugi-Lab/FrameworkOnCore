@@ -38,7 +38,7 @@ public static class RunEnvironment
     /// <summary>To fill in: the connection strings of the site's web.config, each one's variable without a value.</summary>
     public static string Template(string? site)
     {
-        var lines = new List<string> { "# 1 行に 1 つ、名前=値。# で始まる行と、値の無い行は渡しません。" };
+        var lines = new List<string> { Lang.T("# 1 行に 1 つ、名前=値。# で始まる行と、値の無い行は渡しません。", "# One a line, NAME=value. Lines starting with # and lines without a value are not given.") };
         if (site != null && Directory.Exists(site) && Directory.EnumerateFiles(site, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault() is { } config)
         {
             try
@@ -50,13 +50,13 @@ public static class RunEnvironment
                     var provider = (string?)add.Attribute("providerName") ?? "";
                     var prefix = provider is "" or "System.Data.SqlClient" or "Microsoft.Data.SqlClient" ? "SQLCONNSTR_"
                         : provider.Contains("MySql", StringComparison.OrdinalIgnoreCase) ? "MYSQLCONNSTR_" : "CUSTOMCONNSTR_";
-                    lines.Add($"# web.config の {name}: {(string?)add.Attribute("connectionString")}");
+                    lines.Add(Lang.T($"# web.config の {name}: {(string?)add.Attribute("connectionString")}", $"# web.config's {name}: {(string?)add.Attribute("connectionString")}"));
                     lines.Add($"{prefix}{name}=");
                 }
             }
             catch (System.Xml.XmlException) { }
         }
-        lines.Add("# 例: APPSETTING_<キー>=<値>(appSettings)");
+        lines.Add(Lang.T("# 例: APPSETTING_<キー>=<値>(appSettings)", "# For example: APPSETTING_<key>=<value> (appSettings)"));
         return string.Join('\n', lines) + '\n';
     }
 
@@ -113,7 +113,7 @@ public abstract class Runs
     // The work in the background: stopped when cancelled (what it started released), failed with its message.
     protected RunEntry Begin(string id, RunEntry entry, Func<StudioLog, CancellationToken, Task> work)
     {
-        if (working.ContainsKey(id)) throw new InvalidOperationException("起動の途中です");
+        if (working.ContainsKey(id)) throw new InvalidOperationException(Lang.T("起動の途中です", "It is starting"));
         if (Get(id) is { State: "running" } before) Release(id, before);
         var cancel = new CancellationTokenSource();
         working[id] = cancel;
@@ -154,7 +154,7 @@ public abstract class Runs
         while (true)
         {
             cancel.ThrowIfCancellationRequested();
-            if (!alive()) throw new InvalidOperationException("サイトが起動の途中で止まりました(ログを見てください)");
+            if (!alive()) throw new InvalidOperationException(Lang.T("サイトが起動の途中で止まりました(ログを見てください)", "The site stopped while it started (see the log)"));
             try
             {
                 // While it is asked, the process is watched: one that ends does not leave the request waiting.
@@ -177,7 +177,7 @@ public abstract class Runs
             }
             catch (HttpRequestException) { }
             catch (OperationCanceledException) when (!cancel.IsCancellationRequested) { }
-            if (deadline.IsCancellationRequested) throw new InvalidOperationException($"{minutes} 分待っても応答がありません(ログを見てください。データベースに接続できているか)");
+            if (deadline.IsCancellationRequested) throw new InvalidOperationException(Lang.T($"{minutes} 分待っても応答がありません(ログを見てください。データベースに接続できているか)", $"No answer after {minutes} minutes (see the log: can it reach its database?)"));
             await Task.Delay(2000, cancel);
         }
     }
@@ -210,7 +210,7 @@ public abstract class Runs
             }
             catch (SocketException) { }
         }
-        throw new InvalidOperationException($"{first}〜{first + 99} に空いているポートがありません");
+        throw new InvalidOperationException(Lang.T($"{first}〜{first + 99} に空いているポートがありません", $"No free port in {first}-{first + 99}"));
     }
 
     /// <summary>A process whose output and errors go to the log.</summary>
@@ -334,9 +334,9 @@ public sealed class Originals(AnalysisStore store) : Runs
     {
         var host = IisExpress() != null ? "iisexpress" : Iis ? "iis" : null;
         var reason = host != null ? null
-            : !OperatingSystem.IsWindows() ? "元のアプリ(.NET Framework)は Windows で動かします"
-            : File.Exists(AppCmd) ? "IIS Express をインストールするか、Studio を管理者として起動してください(IIS で動かします)"
-            : "IIS Express をインストールしてください(Visual Studio の「ASP.NET と Web 開発」に含まれます。単体は https://www.microsoft.com/download/details.aspx?id=48264)";
+            : !OperatingSystem.IsWindows() ? Lang.T("元のアプリ(.NET Framework)は Windows で動かします", "The original application (.NET Framework) runs on Windows")
+            : File.Exists(AppCmd) ? Lang.T("IIS Express をインストールするか、Studio を管理者として起動してください(IIS で動かします)", "Install IIS Express, or start Studio as an administrator (it runs on IIS then)")
+            : Lang.T("IIS Express をインストールしてください(Visual Studio の「ASP.NET と Web 開発」に含まれます。単体は https://www.microsoft.com/download/details.aspx?id=48264)", "Install IIS Express (Visual Studio's ASP.NET and web development has it; on its own: https://www.microsoft.com/download/details.aspx?id=48264)");
         return (host, reason);
     }
 
@@ -351,7 +351,8 @@ public sealed class Originals(AnalysisStore store) : Runs
     /// given last. Others than those of the last build: built again.</param>
     public RunEntry Start(string id, bool rebuild, string? environment = null, IReadOnlyList<string>? originalSteps = null)
     {
-        if (store.Get(id) is not { State: "done" } analysis) throw new InvalidOperationException("the analysis is not done");
+        // The original application is built from the analysis' project, whether or not its analysis is done (the first step).
+        if (store.Get(id) is not { } analysis) throw new InvalidOperationException("no such analysis");
         var iisExpress = IisExpress();
         if (Hosts() is { Host: null, Reason: var reason }) throw new InvalidOperationException(reason);
         if (originalSteps != null)
@@ -509,7 +510,7 @@ public sealed class Originals(AnalysisStore store) : Runs
             }
             var site = log.Texts.Reverse().Select(l => Regex.Match(l, "^site: (.+)$")).FirstOrDefault(m => m.Success)?.Groups[1].Value;
             if (process.ExitCode != 0 || site == null)
-                throw new InvalidOperationException($"元のアプリをビルドできませんでした(ログと {buildLog} を見てください)");
+                throw new InvalidOperationException(Lang.T($"元のアプリをビルドできませんでした(ログと {buildLog} を見てください)", $"The original application could not be built (see the log and {buildLog})"));
             File.WriteAllText(SiteFile(id), site);
             return site;
         }
@@ -543,7 +544,7 @@ public sealed class Originals(AnalysisStore store) : Runs
 
     static void AppCmdRun(string arguments, StudioLog? log, bool quiet = false)
     {
-        if (Run(AppCmd, arguments, log, quiet) != 0 && !quiet) throw new InvalidOperationException($"appcmd {arguments} が失敗しました");
+        if (Run(AppCmd, arguments, log, quiet) != 0 && !quiet) throw new InvalidOperationException(Lang.T($"appcmd {arguments} が失敗しました", $"appcmd {arguments} failed"));
     }
 
     static int Run(string file, string arguments, StudioLog? log, bool quiet)
@@ -577,10 +578,10 @@ public sealed class Natives(AnalysisStore store, Conversions conversions) : Runs
     {
         if (store.Get(id) == null) throw new InvalidOperationException("no such analysis");
         if (conversions.Get(id) is not { State: "done" }) throw new InvalidOperationException("the conversion is not built");
-        var site = conversions.Site(id) ?? throw new InvalidOperationException("変換の出力にサイトが見つかりません(Dockerfile)");
+        var site = conversions.Site(id) ?? throw new InvalidOperationException(Lang.T("変換の出力にサイトが見つかりません(Dockerfile)", "The conversion's output has no site (Dockerfile)"));
         var start = Path.Combine(conversions.Output(id), "deploy", "start.sh");
         var dll = File.Exists(start) ? Regex.Match(File.ReadAllText(start), @"exec dotnet ""bin/(.+?)\.dll""") : null;
-        if (dll is not { Success: true }) throw new InvalidOperationException("変換の出力に deploy/start.sh がありません");
+        if (dll is not { Success: true }) throw new InvalidOperationException(Lang.T("変換の出力に deploy/start.sh がありません", "The conversion's output has no deploy/start.sh"));
         if (environment != null)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(EnvironmentFile(id))!);
@@ -605,7 +606,7 @@ public sealed class Natives(AnalysisStore store, Conversions conversions) : Runs
                     log.Enqueue($"exited ({process.ExitCode})");
                     if (process.ExitCode == 75 && processes.TryGetValue(id, out var current) && current == process && !cancel.IsCancellationRequested) Launch();
                     else if (entries.TryGetValue(id, out var now) && now.State == "running" && processes.TryGetValue(id, out current) && current == process)
-                        entries[id] = now with { State = "stopped", Error = $"アプリが終了しました(終了コード {process.ExitCode})" };
+                        entries[id] = now with { State = "stopped", Error = Lang.T($"アプリが終了しました(終了コード {process.ExitCode})", $"The application ended (exit code {process.ExitCode})") };
                 };
                 return process;
             }

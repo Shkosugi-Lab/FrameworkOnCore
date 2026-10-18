@@ -30,12 +30,12 @@ public static class FileBrowser
 
         path = path.Trim().Trim('"');
         // Not against Studio's own folder: a path from the root only.
-        if (!System.IO.Path.IsPathFullyQualified(path)) return new Listing(null, null, [], places, "フルパスを入力してください(例: C:\\src\\MyApp)");
+        if (!System.IO.Path.IsPathFullyQualified(path)) return new Listing(null, null, [], places, Lang.T("フルパスを入力してください(例: C:\\src\\MyApp)", "Type a full path (C:\\src\\MyApp)"));
         var full = System.IO.Path.GetFullPath(path);
         // A project file given: its folder, the project marked.
         if (File.Exists(full)) full = System.IO.Path.GetDirectoryName(full)!;
         var parent = Directory.GetParent(full)?.FullName;
-        if (!Directory.Exists(full)) return new Listing(full, parent, [], places, "フォルダーがありません");
+        if (!Directory.Exists(full)) return new Listing(full, parent, [], places, Lang.T("フォルダーがありません", "No such folder"));
         try
         {
             var directory = new DirectoryInfo(full);
@@ -51,7 +51,7 @@ public static class FileBrowser
         }
         catch (Exception e) when (e is UnauthorizedAccessException or IOException)
         {
-            return new Listing(full, parent, [], places, "このフォルダーは読めません");
+            return new Listing(full, parent, [], places, Lang.T("このフォルダーは読めません", "This folder cannot be read"));
         }
     }
 
@@ -66,7 +66,7 @@ public static class FileBrowser
     {
         var places = new List<Place>();
         var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        if (Directory.Exists(home)) places.Add(new Place("ホーム", home));
+        if (Directory.Exists(home)) places.Add(new Place(Lang.T("ホーム", "Home"), home));
         foreach (var candidate in new[] { System.IO.Path.Combine(home, "source", "repos"), @"C:\git", @"C:\src" })
             if (Directory.Exists(candidate)) places.Add(new Place(Label(candidate), candidate));
         // The repositories analysed before, the latest first.

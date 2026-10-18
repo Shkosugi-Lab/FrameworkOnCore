@@ -30,9 +30,11 @@ runtime = Path.GetFullPath(runtime ?? FrameworkOnCore.Converter.RuntimeSetup.Fin
 if (PortTaken(port))
 {
     Console.Error.WriteLine(await AnswersAsStudio(port)
-        ? $"Studio はすでに起動しています(ポート {port})。http://127.0.0.1:{port}/ を開いてください。\n" +
-          "新しい版で起動し直すには、その Studio を止めてから(起動したウィンドウで Ctrl+C)、もう一度起動してください。"
-        : $"ポート {port} は別のプログラムが使っています。別のポートで起動してください(例: .\\studio.ps1 --port 5310)。");
+        ? Lang.Console($"Studio はすでに起動しています(ポート {port})。http://127.0.0.1:{port}/ を開いてください。\n" +
+            "新しい版で起動し直すには、その Studio を止めてから(起動したウィンドウで Ctrl+C)、もう一度起動してください。",
+            $"Studio is running already (port {port}): open http://127.0.0.1:{port}/.\n" +
+            "To start a newer one, stop that Studio first (Ctrl+C in its window), then start it again.")
+        : PortInUse(port));
     return 1;
 }
 
@@ -64,14 +66,25 @@ app.UseDefaultFiles();
 // Studio before an update (without it, a browser reuses it for a while as it judges, its Last-Modified that of the zip).
 app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = context => context.Context.Response.Headers.CacheControl = "no-cache" });
 
+// The language of Studio's messages: the page's (Accept-Language: Japanese, else English).
+app.Use((context, next) =>
+{
+    if (context.Request.Path.StartsWithSegments("/api")) Lang.From(context.Request.Headers.AcceptLanguage);
+    return next(context);
+});
+
 var api = app.MapGroup("/api");
 
-// The catalog: every component's options, the settings.
-api.MapGet("/catalog", (AnalysisStore store) => new
+// The catalog: every component's options, the settings; in the page's language.
+api.MapGet("/catalog", (AnalysisStore store) =>
 {
-    store.Catalog.Version,
-    Components = store.Catalog.Components.Select(c => new { c.Id, c.Title, c.Note, Options = store.Catalog.OptionsOf(c.Id) }),
-    store.Catalog.Settings,
+    var catalog = Lang.English ? store.EnglishCatalog : store.Catalog;
+    return new
+    {
+        catalog.Version,
+        Components = catalog.Components.Select(c => new { c.Id, c.Title, c.Note, Options = catalog.OptionsOf(c.Id) }),
+        catalog.Settings,
+    };
 });
 
 api.MapGet("/analyses", (AnalysisStore store) => store.List());
@@ -87,6 +100,10 @@ api.MapPost("/analyses", (AnalysisRequest request, AnalysisStore store) =>
     try { return Results.Ok(store.Start(request)); }
     catch (ArgumentException e) { return Results.BadRequest(new { error = e.Message }); }
 });
+
+// What the project's files say without an analysis (the first step).
+api.MapGet("/analyses/{id}/project", (string id, AnalysisStore store) =>
+    store.Get(id) is { } entry && ProjectInfo.Of(entry.Project, entry.Root) is { } info ? Results.Ok(info) : Results.NotFound());
 
 api.MapGet("/analyses/{id}", (string id, AnalysisStore store) =>
     store.Get(id) is { } entry ? Results.Ok(new { entry, log = store.Log(id).TakeLast(200) }) : Results.NotFound());
@@ -135,7 +152,7 @@ api.MapGet("/analyses/{id}/command", (string id, AnalysisStore store) =>
     return Results.Ok(new
     {
         // With the runtime Studio uses: run from any folder (Studio itself may be a build outside the repository, studio.ps1's).
-        command = $"dotnet \"{converter}\" \"{entry.Project}\" --root \"{entry.Root}\" --configuration {entry.Configuration} --choices \"{store.ChoicesFile(id)}\" --runtime \"{runtime}\" --out <出力先>",
+        command = $"dotnet \"{converter}\" \"{entry.Project}\" --root \"{entry.Root}\" --configuration {entry.Configuration} --choices \"{store.ChoicesFile(id)}\" --runtime \"{runtime}\" --out " + Lang.T("<出力先>", "<output>"),
     });
 });
 
@@ -144,7 +161,7 @@ api.MapGet("/analyses/{id}/command", (string id, AnalysisStore store) =>
 var advices = new System.Collections.Concurrent.ConcurrentDictionary<string, FrameworkOnCore.Converter.OriginalBuildAdvice.Advice>();
 api.MapGet("/analyses/{id}/original-build-advice", (string id, AnalysisStore store) =>
     store.Get(id) is { } entry
-        ? Results.Ok(advices.GetOrAdd(id, _ => FrameworkOnCore.Converter.OriginalBuildAdvice.Of(entry.Project, entry.Root)))
+        ? Results.Ok(advices.GetOrAdd(id + (Lang.English ? ":en" : ":ja"), _ => FrameworkOnCore.Converter.OriginalBuildAdvice.Of(entry.Project, entry.Root, Lang.English)))
         : Results.NotFound());
 
 // Converting and building in Studio (the saved choices), and the output as a zip.
@@ -218,9 +235,10 @@ try { app.Run(); }
 catch (IOException e) when (e.InnerException is Microsoft.AspNetCore.Connections.AddressInUseException)
 {
     // Taken between the check and the start.
-    Console.Error.WriteLine($"ポート {port} は別のプログラムが使っています。別のポートで起動してください(例: .\\studio.ps1 --port 5310)。");
+    Console.Error.WriteLine(PortInUse(port));
     return 1;
 }
+
 return 0;
 
 static bool PortTaken(int port)
@@ -247,3 +265,6 @@ static async Task<bool> AnswersAsStudio(int port)
     catch (Exception e) when (e is HttpRequestException or TaskCanceledException) { return false; }
 }
 
+static string PortInUse(int port) => Lang.Console(
+    $"ポート {port} は別のプログラムが使っています。別のポートで起動してください(例: .\\studio.ps1 --port 5310)。",
+    $"Port {port} is used by another program. Start Studio on another port (.\\studio.ps1 --port 5310).");

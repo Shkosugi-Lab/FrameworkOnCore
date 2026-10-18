@@ -53,7 +53,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
         }
         // Running as far as Studio knows: the container may have stopped (or Docker, or the machine) since.
         if (entry.State == "running" && !working.ContainsKey(id) && Docker($"inspect -f {{{{.State.Running}}}} {entry.Name}").Output.Trim() != "true")
-            Save(id, entry = entry with { State = "stopped", Error = "コンテナが止まっています" });
+            Save(id, entry = entry with { State = "stopped", Error = Lang.T("コンテナが止まっています", "The container has stopped") });
         return entry;
     }
 
@@ -149,14 +149,14 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
                 foreach (var other in Docker($"ps -aq --filter label={Label}").Output.Split('\n', StringSplitOptions.RemoveEmptyEntries))
                     Docker($"rm -f {other}");
                 foreach (var (other, before) in entries.Where(e => e.Key != id && e.Value.State is "running" or "starting"))
-                    Save(other, before with { State = "stopped", Error = "ほかのアプリを起動したので止めました" });
+                    Save(other, before with { State = "stopped", Error = Lang.T("ほかのアプリを起動したので止めました", "Stopped: another application was started") });
 
                 await store.Heavy.WaitAsync(cancel.Token);
                 try
                 {
                     log.Enqueue($"> docker build -t {entry.Image} .");
                     var build = await Run(["build", "-t", entry.Image, conversions.Output(id)], log, cancel.Token);
-                    if (build != 0) throw new InvalidOperationException($"docker build が失敗しました(終了コード {build})");
+                    if (build != 0) throw new InvalidOperationException(Lang.T($"docker build が失敗しました(終了コード {build})", $"docker build failed (exit code {build})"));
                 }
                 finally { store.Heavy.Release(); }
 
@@ -166,7 +166,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
                 log.Enqueue($"> docker run -d --name {entry.Name} -p 127.0.0.1:{port}:8080 --env-file run.env {entry.Image}");
                 var run = await Run(["run", "-d", "--name", entry.Name, "--label", $"{Label}={id}", "-p", $"127.0.0.1:{port}:8080", "--env-file", envFile, entry.Image], log, cancel.Token);
                 File.Delete(envFile);
-                if (run != 0) throw new InvalidOperationException($"docker run が失敗しました(終了コード {run})");
+                if (run != 0) throw new InvalidOperationException(Lang.T($"docker run が失敗しました(終了コード {run})", $"docker run failed (exit code {run})"));
 
                 // Up when the site answers (any status: a 500 is a site that runs); the first request compiles pages
                 // (and may create a database). Waited for by the clock: a request that does not answer counts its time.
@@ -181,7 +181,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
                     if (Docker($"inspect -f {{{{.State.Running}}}} {entry.Name}").Output.Trim() != "true")
                     {
                         following.WaitForExit(5000);  // its last lines: it ends with the container
-                        throw new InvalidOperationException("コンテナが起動の途中で止まりました(ログを見てください)");
+                        throw new InvalidOperationException(Lang.T("コンテナが起動の途中で止まりました(ログを見てください)", "The container stopped while it started (see the log)"));
                     }
                     try
                     {
@@ -198,7 +198,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
                     }
                     catch (HttpRequestException) { }
                     catch (TaskCanceledException) when (!cancel.IsCancellationRequested) { }
-                    if (DateTime.UtcNow > until) throw new InvalidOperationException("10 分待っても応答がありません(ログを見てください。データベースに接続できているか)");
+                    if (DateTime.UtcNow > until) throw new InvalidOperationException(Lang.T("10 分待っても応答がありません(ログを見てください。データベースに接続できているか)", "No answer after 10 minutes (see the log: can it reach its database?)"));
                     await Task.Delay(2000, cancel.Token);
                 }
             }
@@ -303,7 +303,7 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
             process.WaitForExit();
             return (process.ExitCode, output + error);
         }
-        catch (System.ComponentModel.Win32Exception) { return (-1, "docker が見つかりません"); }
+        catch (System.ComponentModel.Win32Exception) { return (-1, Lang.T("docker が見つかりません", "docker was not found")); }
     }
 
     void Save(string id, ContainerEntry entry)

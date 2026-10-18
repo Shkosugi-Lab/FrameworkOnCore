@@ -69,6 +69,40 @@ public sealed class Catalog
         return Load(stream);
     }
 
+    /// <summary>
+    /// The catalog with its texts in English (titles, notes, descriptions; components.json has them in Japanese), from
+    /// components.en.json: the same ids, options and matches. A text it has not got stays as it is.
+    /// </summary>
+    public Catalog InEnglish()
+    {
+        using var stream = typeof(Catalog).Assembly.GetManifestResourceStream("components.en.json")!;
+        using var document = JsonDocument.Parse(stream, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
+        var en = document.RootElement;
+        static string? Text(JsonElement e, params string[] path)
+        {
+            foreach (var name in path)
+                if (e.ValueKind != JsonValueKind.Object || !e.TryGetProperty(name, out e)) return null;
+            return e.ValueKind == JsonValueKind.String ? e.GetString() : null;
+        }
+        ComponentOption Option(ComponentOption o, JsonElement texts) =>
+            o with { Title = Text(texts, o.Id, "title") ?? o.Title, Description = Text(texts, o.Id, "description") ?? o.Description };
+        var noneTexts = en.TryGetProperty("noneOption", out var n) ? n : default;
+        var englishNone = none with { Title = Text(noneTexts, "title") ?? none.Title, Description = Text(noneTexts, "description") ?? none.Description };
+        var optionTexts = en.TryGetProperty("options", out var ot) ? ot : default;
+        var englishOptions = options.ToDictionary(p => p.Key, p => (IReadOnlyList<ComponentOption>)p.Value
+            .Select(o => o.Id == "none" && Text(optionTexts, p.Key, o.Id, "title") == null ? o with { Title = englishNone.Title } : o)
+            .Select(o => optionTexts.ValueKind == JsonValueKind.Object && optionTexts.TryGetProperty(p.Key, out var texts) ? Option(o, texts) : o).ToList());
+        var settingTexts = en.TryGetProperty("settings", out var st) ? st : default;
+        var englishSettings = Settings.Select(s => s with
+        {
+            Title = Text(settingTexts, s.Id, "title") ?? s.Title,
+            Options = s.Options.Select(o => settingTexts.ValueKind == JsonValueKind.Object && settingTexts.TryGetProperty(s.Id, out var se) && se.TryGetProperty("options", out var so) ? Option(o, so) : o).ToList(),
+        }).ToList();
+        var componentTexts = en.TryGetProperty("components", out var ct) ? ct : default;
+        var englishComponents = Components.Select(c => c with { Title = Text(componentTexts, c.Id, "title") ?? c.Title, Note = Text(componentTexts, c.Id, "note") ?? c.Note }).ToList();
+        return new Catalog(Version, englishComponents, ThrowingObsoletions, englishOptions, englishNone, englishSettings);
+    }
+
     /// <summary>The component of an API: the first that matches, or its assembly's ("fw:System.Xml").</summary>
     public (string Id, string Title, Component? Component) ComponentOf(ApiKey api)
     {

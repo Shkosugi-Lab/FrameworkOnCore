@@ -7,7 +7,23 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>FrameworkOnCore.Studio</RootNamespace>
+    <!-- The page's sources (React, Cloudscape) and their packages are not the server's items. -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);ui\**</DefaultItemExcludes>
   </PropertyGroup>
+
+  <!-- The page (ui/: React and Cloudscape, built by Vite into wwwroot, which is committed): built again when its sources
+       are newer than wwwroot/app.js and npm is there. Without npm, the committed wwwroot is used as it is. -->
+  <ItemGroup>
+    <UiSource Include="ui/src/**;ui/index.html;ui/vite.config.js;ui/package.json;ui/package-lock.json" />
+  </ItemGroup>
+  <Target Name="BuildUi" BeforeTargets="BeforeBuild" Inputs="@(UiSource)" Outputs="wwwroot/app.js" Condition="'$(SkipUiBuild)' != 'true'">
+    <Exec Command="npm --version" ContinueOnError="true" IgnoreExitCode="true" StandardOutputImportance="low" StandardErrorImportance="low">
+      <Output TaskParameter="ExitCode" PropertyName="NpmExitCode" />
+    </Exec>
+    <Warning Condition="'$(NpmExitCode)' != '0'" Text="npm was not found: the page in wwwroot is used as it is (ui/ changed? install Node.js and build again)." />
+    <Exec Condition="'$(NpmExitCode)' == '0' And !Exists('ui/node_modules')" Command="npm ci --no-audit --no-fund" WorkingDirectory="ui" />
+    <Exec Condition="'$(NpmExitCode)' == '0'" Command="npm run build" WorkingDirectory="ui" />
+  </Target>
 
   <ItemGroup>
     <!-- The UI next to the server (it is run from its build output, from any folder). -->

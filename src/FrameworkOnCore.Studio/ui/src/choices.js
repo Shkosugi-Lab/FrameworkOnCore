@@ -1,0 +1,85 @@
+// The user's choices (foc-choices.json: components, APIs, settings) as the page compares and saves them.
+
+export const DLL_COMPONENT = 'dll-references';
+export const ORDER = ['Missing', 'Throws', 'WindowsOnly', 'Behavior', 'Obsolete', 'Available'];
+
+export const defaultOf = options => (options.find(o => o.default) ?? options[0])?.id;
+
+/** A component with options to choose from (one only, or one with others planned, is not a decision). */
+export function choosable(c) {
+  const options = c.options ?? [];
+  return options.filter(o => !o.planned).length > 1 || options.some(o => o.planned);
+}
+
+export const normalize = c => ({ schema: c?.schema ?? 1, components: { ...(c?.components ?? {}) }, apis: { ...(c?.apis ?? {}) }, settings: { ...(c?.settings ?? {}) } });
+export const clone = o => JSON.parse(JSON.stringify(o));
+export const empty = () => ({ schema: 1, components: {}, apis: {}, settings: {} });
+
+/** The choices as the conversion reads them: an option at its default is the same as none. */
+export function effective(result, c) {
+  const out = { components: {}, apis: { ...c.apis }, settings: {} };
+  for (const comp of result?.components ?? []) {
+    const option = c.components[comp.id];
+    if (option && option !== defaultOf(comp.options ?? [])) out.components[comp.id] = option;
+  }
+  for (const s of result?.settings ?? []) {
+    const option = c.settings[s.id];
+    if (option && option !== defaultOf(s.options)) out.settings[s.id] = option;
+  }
+  return out;
+}
+
+/** How many choices differ between two (the parts given: components and APIs, settings). */
+export function changes(result, a, b, parts = ['components', 'apis', 'settings']) {
+  if (!a || !b) return 0;
+  const x = effective(result, a), y = effective(result, b);
+  let n = 0;
+  for (const part of parts)
+    for (const k of new Set([...Object.keys(x[part]), ...Object.keys(y[part])])) if (x[part][k] !== y[part][k]) n++;
+  return n;
+}
+
+/**
+ * The analysis' result as the page shows it: the catalog's titles and options now (in the page's language: an analysis
+ * keeps those of its time), and the DLLs' references the converter retargets (the APIs' retargetedTo) as the component
+ * their choice is made for (dll-references: retargeted, or left). Their APIs are their own components' too; without the
+ * choice they fail where they are used (the type is not in the assembly the DLL names): Missing.
+ */
+export function prepare(result, catalog) {
+  const byId = new Map((catalog.components ?? []).map(c => [c.id, c]));
+  result.settings = catalog.settings ?? result.settings;
+  for (const c of result.components) {
+    const known = byId.get(c.id);
+    if (known) Object.assign(c, { title: known.title, note: known.note, options: known.options });
+  }
+  const byComponent = new Map();
+  for (const a of result.apis) {
+    if (!byComponent.has(a.component)) byComponent.set(a.component, []);
+    byComponent.get(a.component).push(a);
+  }
+  const dll = byId.get(DLL_COMPONENT);
+  const retargeted = result.apis.filter(a => a.retargetedTo);
+  if (dll && retargeted.length && !result.components.some(c => c.id === DLL_COMPONENT)) {
+    const count = retargeted.reduce((s, a) => s + a.count, 0);
+    const references = retargeted.reduce((s, a) => s + (a.binaries ?? []).reduce((t, b) => t + b.count, 0), 0);
+    result.components.push({ id: dll.id, title: dll.title, note: dll.note, status: 'Missing', options: dll.options, apis: retargeted.length,
+      count, files: 0, attentionApis: retargeted.length, attentionCount: count, binaryReferences: references, projects: [], retargetedApis: 0 });
+    byComponent.set(DLL_COMPONENT, retargeted);
+  }
+  return byComponent;
+}
+
+/** A component's APIs that do not work as they were (all of them for one that does), the most used first. */
+export function apisOf(byComponent, c) {
+  const all = byComponent.get(c.id) ?? [];
+  if (c.id === DLL_COMPONENT) return all;
+  const attention = all.filter(a => a.status !== 'Available');
+  return (attention.length ? attention : all).slice().sort((a, b) => ORDER.indexOf(a.status) - ORDER.indexOf(b.status) || b.count - a.count);
+}
+
+/** The repository's setup steps after its build (--original-step), one a line. */
+export const parseSteps = text => String(text ?? '').split('\n').map(s => s.trim()).filter(s => s);
+
+/** The conversion as a command line: the server's (with the choices file), and the original build with its steps. */
+export const commandLine = (command, buildOriginal, steps) =>
+  command + (buildOriginal ? ' --build-original' : '') + (buildOriginal ? steps : []).map(s => ` --original-step "${s}"`).join('');

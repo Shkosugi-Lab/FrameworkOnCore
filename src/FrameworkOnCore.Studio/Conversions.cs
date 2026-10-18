@@ -110,8 +110,8 @@ public sealed class Conversions(AnalysisStore store, string runtime)
                 if (exit != 0)
                 {
                     Save(id, entry with { State = "failed", Finished = DateTimeOffset.UtcNow, Sections = sections, Error = File.Exists(Report(id))
-                        ? "変換はできましたが、ビルドが通りませんでした(レポートの「未解決」を見てください)"
-                        : $"変換器が終了コード {exit} で止まりました" });
+                        ? Lang.T("変換はできましたが、ビルドが通りませんでした(レポートの「未解決」を見てください)", "Converted, but the build failed (see the report's Unresolved)")
+                        : Lang.T($"変換器が終了コード {exit} で止まりました", $"The converter stopped with exit code {exit}") });
                     return;
                 }
                 log.Enqueue("zipping the output (without obj)");
@@ -176,11 +176,11 @@ public sealed class Conversions(AnalysisStore store, string runtime)
             var project = parts[0].Trim();
             var target = parts.Length > 1 ? parts[1].Trim() : "";
             if (project.Length == 0 || parts.Length > 1 && target.Length == 0)
-                throw new ArgumentException($"追加の手順「{step}」: 「プロジェクト;ターゲット」の形で書いてください");
+                throw new ArgumentException(Lang.T($"追加の手順「{step}」: 「プロジェクト;ターゲット」の形で書いてください", $"Setup step \"{step}\": write it as project;target"));
             // Either separator, as the repository's own build files write it (build\n2.proj), on any system.
             var full = Path.GetFullPath(Path.Combine(root, project.Replace('\\', '/').Replace('/', Path.DirectorySeparatorChar)));
             if (!full.StartsWith(Path.GetFullPath(root).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) || !File.Exists(full))
-                throw new ArgumentException($"追加の手順「{step}」: {project} がリポジトリ({root})にありません");
+                throw new ArgumentException(Lang.T($"追加の手順「{step}」: {project} がリポジトリ({root})にありません", $"Setup step \"{step}\": {project} is not in the repository ({root})"));
             steps.Add(target.Length > 0 ? $"{project};{target}" : project);
         }
         return steps;

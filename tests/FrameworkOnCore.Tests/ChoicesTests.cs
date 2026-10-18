@@ -149,4 +149,16 @@ public sealed class ChoicesTests
         Assert.Equal("insensitive", defaults.Settings["file-name-case"]);
         Assert.Empty(defaults.Validate(catalog));
     }
+
+    [Fact] // the DLLs' references without their types (no API of its own: the analysis' retargeted APIs): retargeted unless "none"
+    public void The_DLLs_references_are_retargeted_unless_chosen_not_to_be()
+    {
+        Assert.Equal("retarget", new Choices().OptionOf(catalog, "dll-references"));
+        var none = Of("""{ "components": { "dll-references": "none" } }""");
+        Assert.Empty(none.Validate(catalog));
+        Assert.Equal("none", none.OptionOf(catalog, "dll-references"));
+        Assert.Contains("no option copy", Assert.Single(Of("""{ "components": { "dll-references": "copy" } }""").Validate(catalog)));
+        // Its match is empty: an API stays its own component's.
+        Assert.NotEqual("dll-references", catalog.ComponentOf(ApiKey.From("T:System.Runtime.Remoting.Messaging.CallContext", "mscorlib")).Id);
+    }
 }

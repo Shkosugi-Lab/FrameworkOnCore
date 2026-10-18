@@ -1,8 +1,8 @@
-// FrameworkOnCore Studio: the analyses (sidebar), and one analysis as a wizard of four steps: ① the analysis (the
-// original application run here, the numbers, the components and their APIs), ② the decisions (each component's
-// option, the application's settings, the DLLs' references retargeted; saved through PUT /api/analyses/{id}/choices),
-// ③ the conversion and its build (its report), ④ the deployment (the zip, the converted application run here or in a
-// container). Everything comes from the HTTP API: the page holds no data of its own.
+// FrameworkOnCore Studio: the analyses (sidebar), and one analysis as a wizard of five steps: ① the analysis (the
+// original application run here, the numbers, the components and their APIs), ② each component's option (the DLLs'
+// references without their types among them), ③ the application's settings (② and ③ saved through PUT
+// /api/analyses/{id}/choices), ④ the conversion and its build (its report), ⑤ the deployment (the zip, the converted
+// application run here or in a container). Everything comes from the HTTP API: the page holds no data of its own.
 
 // Statuses: the reserved status colors, always with an icon and a label (never the color alone).
 const STATUS = {
@@ -23,9 +23,11 @@ const state = {
 };
 
 // The wizard's steps.
+const DLL_COMPONENT = 'dll-references';
 const STEPS = [
   { title: '分析', sub: '読み込み・テスト起動・結果' },
-  { title: '方針決定', sub: '部品の対応・設定・DLL の参照' },
+  { title: '部品ごとの対応', sub: '部品・API・参照先のない DLL' },
+  { title: 'アプリの設定', sub: 'ファイル名・IIS の機能' },
   { title: '変換・ビルド', sub: '変換の設定と実行・レポート' },
   { title: 'デプロイ', sub: 'ZIP・ネイティブ・コンテナ' },
 ];
@@ -109,7 +111,7 @@ async function select(id) {
   clearTimeout(state.nativePoll);
   // The step of the link (#/a/<analysis>/step/<n>; a component's link is of ②), else the first.
   const linked = location.hash.startsWith(`#/a/${id}/`) ? location.hash : '';
-  const step = /\/c\//.test(linked) ? 2 : +(linked.match(/\/step\/([1-4])/)?.[1] ?? 1);
+  const step = /\/c\//.test(linked) ? 2 : +(linked.match(/\/step\/([1-5])/)?.[1] ?? 1);
   Object.assign(state, {
     id, entry: null, result: null, choices: null, saved: null, command: null, errors: [], conversion: null,
     container: null, runOpen: false, runEnv: null, docker: null, dockerStarting: false, step,
@@ -143,6 +145,18 @@ async function refresh() {
     for (const a of result.apis) {
       if (!state.byComponent.has(a.component)) state.byComponent.set(a.component, []);
       state.byComponent.get(a.component).push(a);
+    }
+    // The DLLs' references the converter retargets (the APIs' retargetedTo), as the component their choice is made for
+    // (dll-references: retargeted, or left). Their APIs are their own components' too; without the choice they fail
+    // where they are used (the type is not in the assembly the DLL names): Missing.
+    const dll = catalog.components?.find(c => c.id === DLL_COMPONENT);
+    const retargeted = result.apis.filter(a => a.retargetedTo);
+    if (dll && retargeted.length && !result.components.some(c => c.id === DLL_COMPONENT)) {
+      const count = retargeted.reduce((s, a) => s + a.count, 0);
+      const references = retargeted.reduce((s, a) => s + (a.binaries ?? []).reduce((t, b) => t + b.count, 0), 0);
+      result.components.push({ id: dll.id, title: dll.title, note: dll.note, status: 'Missing', options: dll.options, apis: retargeted.length,
+        count, files: 0, attentionApis: retargeted.length, attentionCount: count, binaryReferences: references, projects: [], retargetedApis: 0 });
+      state.byComponent.set(DLL_COMPONENT, retargeted);
     }
     state.choices = normalize(choices);
     state.saved = clone(state.choices);
@@ -218,20 +232,20 @@ function renderResult() {
 function stepState(n) {
   const c = state.conversion?.conversion;
   if (n === 1) return state.original?.original?.state === 'running' ? { text: '元のアプリ実行中', on: true } : { text: '完了', done: true };
-  if (n === 2) {
-    const k = changes();
+  if (n === 2 || n === 3) {
+    const k = changes(n === 2 ? ['components', 'apis'] : ['settings']);
     return k > 0 ? { text: `未保存 ${k} 件`, warn: true } : { text: '保存済み', done: !!c };
   }
-  if (n === 3) return c ? { text: CONVERSION[c.state].label, done: c.state === 'done', warn: c.state === 'failed', on: c.state === 'queued' || c.state === 'running' } : { text: '未実行' };
+  if (n === 4) return c ? { text: CONVERSION[c.state].label, done: c.state === 'done', warn: c.state === 'failed', on: c.state === 'queued' || c.state === 'running' } : { text: '未実行' };
   const running = [state.native?.native, state.container?.container].filter(x => x?.state === 'running').length;
   return running ? { text: `${running} 件実行中`, on: true } : c?.state === 'done' ? { text: '準備完了' } : { text: 'ビルド後' };
 }
 
-// Which steps can be opened: ① always, ②③ once the analysis is done, ④ once the conversion is built.
+// Which steps can be opened: ① always, ②③④ once the analysis is done, ⑤ once the conversion is built.
 function stepOpen(n) {
   if (n === 1) return true;
   if (state.entry?.state !== 'done') return false;
-  return n < 4 || state.conversion?.conversion?.state === 'done';
+  return n < 5 || state.conversion?.conversion?.state === 'done';
 }
 
 function stepper(withStates = true) {
@@ -255,10 +269,10 @@ function renderStepper() {
   root.querySelectorAll('.step-tab').forEach(b => b.addEventListener('click', () => goStep(+b.dataset.step).catch(e => toast(e.message))));
 }
 
-// To a step: forward from ② the choices are saved first (what is converted is what is saved).
+// To a step: forward from ② or ③ to the conversion the choices are saved first (what is converted is what is saved).
 async function goStep(n) {
   if (n === state.step || !stepOpen(n)) return;
-  if (state.step === 2 && n > 2 && isDirty()) {
+  if (choosing() && n > 3 && isDirty()) {
     await save();
     if (state.errors.length) return;
   }
@@ -280,7 +294,7 @@ function renderStep() {
   const root = $('#step');
   if (!root) return;
   const r = state.result;
-  state.runOpen = state.step === 4;
+  state.runOpen = state.step === 5;
   if (state.step === 1) {
     const uses = r.apis.reduce((s, a) => s + a.count, 0);
     const frameworkUses = r.projects.reduce((s, p) => s + p.frameworkCalls, 0);
@@ -305,33 +319,34 @@ function renderStep() {
         <div class="legend" id="legend"></div>
       </div>
       <h2 class="step-h">部品と API</h2>
-      <div class="hint">部品ごとの対応は、次の「方針決定」で選びます。</div>
+      <div class="hint">部品ごとの対応は、次の「部品ごとの対応」で選びます。</div>
       ${componentList()}
-      ${stepNav(0, { step: 2, label: '次へ: 方針決定' })}`;
+      ${stepNav(0, { step: 2, label: '次へ: 部品ごとの対応' })}`;
     renderOriginal();
     renderBreakdown();
     wireComponentList();
   } else if (state.step === 2) {
     root.innerHTML = `
-      <p class="step-intro">変換で使う選択です。既定のままでも変換できます。選んだら保存して、変換に進みます。</p>
-      <h2 class="step-h">部品ごとの対応</h2>
-      <div class="hint">選べる対応がある部品だけを並べています。API ごとに変えることもできます(「API を見る」)。</div>
+      <p class="step-intro">変換で使う、部品ごとの対応の選択です。既定のままでも変換できます。次の「アプリの設定」のあと、保存して変換に進みます。</p>
+      <div class="hint">選べる対応がある部品だけを並べています。API ごとに変えることもできます(「API を見る」)。ソースの無い DLL が .NET 10 では別のアセンブリにある型を参照するときは、「参照先のない DLL」で付け替えるかどうかを選びます。</div>
       ${componentList()}
-      <div class="card card-pad settings">
-        <h2>アプリの設定</h2>
-        <div class="hint">API ではなく、アプリ全体に対する選択です。</div>
-        <div id="settings"></div>
-      </div>
-      ${retargetCard(r) || '<div class="card card-pad retarget"><h2><span class="retarget-ic" aria-hidden="true">↪</span> DLL の参照の付け替え</h2><div class="hint">付け替えるものはありません(ソースの無い DLL が、.NET 10 で別のアセンブリにある型を参照していません)。</div></div>'}
-      ${stepNav(1, { step: 3, label: 'saveNext' })}`;
-    renderSettings();
+      ${stepNav(1, { step: 3, label: '次へ: アプリの設定' })}`;
     wireComponentList();
   } else if (state.step === 3) {
+    root.innerHTML = `
+      <p class="step-intro">API ではなく、アプリ全体に対する選択です。既定のままでも変換できます。選んだら保存して、変換に進みます。</p>
+      <div class="card card-pad settings">
+        <h2>アプリの設定</h2>
+        <div id="settings"></div>
+      </div>
+      ${stepNav(2, { step: 4, label: 'saveNext' })}`;
+    renderSettings();
+  } else if (state.step === 4) {
     root.innerHTML = `
       <p class="step-intro">保存した選択で .NET 10 のプロジェクトに変換し、そのままビルドします。</p>
       <div class="card card-pad convert" id="convert"></div>
       <div id="report"></div>
-      ${stepNav(2, { step: 4, label: '次へ: デプロイ' })}`;
+      ${stepNav(3, { step: 5, label: '次へ: デプロイ' })}`;
     renderConversion();
     renderReport();
   } else {
@@ -347,7 +362,7 @@ function renderStep() {
       </div>
       <div class="card card-pad runner" id="native"></div>
       <div class="card card-pad runner" id="run"></div>
-      ${stepNav(3, null)}`;
+      ${stepNav(4, null)}`;
     renderZip();
     renderNative();
     renderContainer();
@@ -358,10 +373,10 @@ function renderStep() {
   renderSavebar();
 }
 
-// ② forward: "save and go on" while there are changes.
+// ③ forward: "save and go on" while there are changes.
 function renderStepNext() {
-  const next = $('#step .step-nav [data-go="3"]');
-  if (next && state.step === 2) next.textContent = `${isDirty() ? '保存して次へ' : '次へ'}: 変換・ビルド →`;
+  const next = $('#step .step-nav [data-go="4"]');
+  if (next && state.step === 3) next.textContent = `${isDirty() ? '保存して次へ' : '次へ'}: 変換・ビルド →`;
 }
 
 // The components (① to look at them, ② to choose): the search, the statuses, the cards.
@@ -539,19 +554,17 @@ function componentCard(c) {
     ${deciding && choosable(c)
       ? `<div class="options">${options.map(o => optionCard(`component:${c.id}`, o, chosen)).join('')}</div>`
       : choosable(c)
-        ? `<div class="single">対応: <b>${esc(options.find(o => o.id === chosen)?.title ?? '')}</b>${chosen === defaultOf(options) ? ' <span class="muted">(既定 ・ 「方針決定」で選べます)</span>' : ''}</div>`
+        ? `<div class="single">対応: <b>${esc(options.find(o => o.id === chosen)?.title ?? '')}</b>${chosen === defaultOf(options) ? ' <span class="muted">(既定 ・ 「部品ごとの対応」で選べます)</span>' : ''}</div>`
         : `<div class="single" title="${esc(options[0]?.description ?? '')}">選べる対応はありません(${esc(options[0]?.title ?? '')})</div>`}
     <button class="expander" data-id="${esc(c.id)}" aria-expanded="${expanded}"><span class="chev">▸</span>
       API を見る(${fmt(attentionApis.length)} 件)</button>
-    ${expanded ? apiTable(c, attentionApis, deciding ? options : []) : ''}
+    ${expanded ? (c.id === DLL_COMPONENT ? retargetTable(attentionApis) : apiTable(c, attentionApis, deciding ? options : [])) : ''}
   </article>`;
 }
 
 // The DLLs' references the converter retargets: .NET has the type, not in the assembly the DLL names (FrameworkOnCore's
 // CallContext is in its System.Web, the DLL looks in mscorlib). Grouped by from -> to.
-function retargetCard(r) {
-  const apis = r.apis.filter(a => a.retargetedTo);
-  if (!apis.length) return '';
+function retargetTable(apis) {
   const groups = new Map();
   for (const a of apis) {
     const key = `${a.assembly} → ${a.retargetedTo}${a.callReplaced ? ' call' : ''}`;
@@ -571,13 +584,10 @@ function retargetCard(r) {
       <td class="dlls">${[...g.dlls].map(d => `<div>${esc(d)}</div>`).join('')}</td>
     </tr>`;
   }).join('');
-  return `<div class="card card-pad retarget">
-    <h2><span class="retarget-ic" aria-hidden="true">↪</span> DLL の参照の付け替え <span class="muted">(${fmt(apis.length)} API)</span></h2>
-    <div class="hint">ソースの無い DLL は型を「アセンブリ + 型名」で参照します。次の型は .NET 10 にありますが、DLL が参照するアセンブリには無いので、変換器が DLL の参照先を付け替えます(そのまま動きます。変換レポートの「references retargeted」)。</div>
+  return `<div class="hint retarget-hint">次の型は .NET 10 にありますが、DLL が参照するアセンブリには無いものです。「付け替える」なら変換器が DLL の参照先を付け替えます(変換レポートの「references retargeted」)。</div>
     <div class="api-wrap"><table class="api-table">
       <thead><tr><th>参照先 → 付け替え先</th><th>型</th><th>DLL</th></tr></thead>
-      <tbody>${rows}</tbody></table></div>
-  </div>`;
+      <tbody>${rows}</tbody></table></div>`;
 }
 
 function num(n, label) { return `<div class="num"><div class="n">${fmt(n)}</div><div class="l">${esc(label)}</div></div>`; }
@@ -585,6 +595,7 @@ function num(n, label) { return `<div class="num"><div class="n">${fmt(n)}</div>
 // A component's APIs that do not work as they were (all of them for one that does), the most used first.
 function apisOf(c) {
   const all = state.byComponent.get(c.id) ?? [];
+  if (c.id === DLL_COMPONENT) return all;
   const attention = all.filter(a => a.status !== 'Available');
   return (attention.length ? attention : all).slice().sort((a, b) => ORDER.indexOf(a.status) - ORDER.indexOf(b.status) || b.count - a.count);
 }
@@ -636,16 +647,16 @@ async function loadConversion() {
   state.conversion = body;
   state.savedSteps = body.originalSteps;
   // ④ (a link to it) without a built conversion: ③.
-  if (state.step === 4 && !stepOpen(4)) {
-    state.step = 3;
-    history.replaceState(null, '', `#/a/${id}/step/3`);
+  if (state.step === 5 && !stepOpen(5)) {
+    state.step = 4;
+    history.replaceState(null, '', `#/a/${id}/step/4`);
     renderStep();
   }
   renderConversion();
   renderZip();
   renderStepper();
   renderStepNext();
-  $('#step .step-nav [data-go="4"]')?.toggleAttribute('disabled', !stepOpen(4));
+  $('#step .step-nav [data-go="5"]')?.toggleAttribute('disabled', !stepOpen(5));
   const c = body.conversion;
   if (c && (c.state === 'queued' || c.state === 'running'))
     state.convertPoll = setTimeout(() => loadConversion().catch(console.error), 2000);
@@ -715,7 +726,7 @@ function renderConversion() {
   $('#original-steps')?.addEventListener('input', ev => (state.originalSteps = ev.target.value));
   $('#convert-start')?.addEventListener('click', () => startConversion().catch(e => toast(e.message)));
   $('#convert-cancel')?.addEventListener('click', () => cancelConversion().catch(e => toast(e.message)));
-  $('#convert-next')?.addEventListener('click', () => goStep(4).catch(e => toast(e.message)));
+  $('#convert-next')?.addEventListener('click', () => goStep(5).catch(e => toast(e.message)));
   const pre = root.querySelector('.log');
   if (pre) pre.scrollTop = pre.scrollHeight;
 }
@@ -1127,11 +1138,14 @@ function effective(c) {
   return out;
 }
 
-function changes() {
+// The steps where the choices are made: ② the components', ③ the settings.
+const choosing = () => state.step === 2 || state.step === 3;
+
+function changes(parts = ['components', 'apis', 'settings']) {
   if (!state.choices || !state.saved) return 0;
   const a = effective(state.choices), b = effective(state.saved);
   let n = 0;
-  for (const part of ['components', 'apis', 'settings']) {
+  for (const part of parts) {
     for (const k of new Set([...Object.keys(a[part]), ...Object.keys(b[part])])) if (a[part][k] !== b[part][k]) n++;
   }
   return n;
@@ -1143,7 +1157,7 @@ function renderSavebar() {
   const bar = $('#savebar');
   renderStepper();
   renderStepNext();
-  if (!state.result || state.step !== 2) { bar.hidden = true; return; }
+  if (!state.result || !choosing()) { bar.hidden = true; return; }
   bar.hidden = false;
   const n = changes();
   const e = effective(state.choices);

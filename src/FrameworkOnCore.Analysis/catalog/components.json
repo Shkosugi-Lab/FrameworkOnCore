@@ -55,6 +55,10 @@
       { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Data.Linq(パッケージ FrameworkOnCore.Data.Linq)", "default": true },
       { "id": "none", "title": "対応しない", "description": "スタブ。DLL が参照する場合(System.Web.Mvc のモデルバインドなど)も例外になる" }
     ],
+    "dll-references": [
+      { "id": "retarget", "title": "付け替える", "description": "ソースの無い DLL が「アセンブリ + 型名」で参照する型のうち、.NET 10 では別のアセンブリにあるもの(FrameworkOnCore の System.Web にある CallContext など)へ、変換器が DLL の参照先を付け替える。型はあってメンバーが無いものは、互換アセンブリの拡張メンバーの呼び出しに置き換える。DLL はそのまま動く(書き換えた DLL は出力の foc-retargeted)", "default": true },
+      { "id": "none", "title": "対応しない", "description": "DLL は元のまま。その型やメンバーを使うところで、実行時に TypeLoadException・MissingMethodException になる" }
+    ],
     "sql-client": [
       { "id": "port", "title": "移植版を使う", "description": "FrameworkOnCore の System.Data.SqlClient(パッケージ FrameworkOnCore.Data.SqlClient。dotnet/maintenance-packages 4.9.0 のソース)。接続文字列の |DataDirectory| を .NET Framework と同じく App_Data に展開し、.NET が拒否する Asynchronous Processing・Network Library・Connection Reset も受け付ける(SqlConnectionStringBuilder の同名のプロパティもある)。Web プロジェクトに常に付き、Entity Framework や DLL が開く接続もこれになる", "default": true },
       { "id": "dotnet", "title": ".NET 版を使う", "description": "Microsoft の System.Data.SqlClient パッケージ(4.9.0)。コードで組み立てた接続文字列の |DataDirectory| は例外になる(構成の接続文字列はランタイムが展開する)。Asynchronous Processing・Network Library・Connection Reset のある接続文字列も例外になる" }
@@ -269,6 +273,11 @@
       "id": "visual-basic-runtime", "title": "Visual Basic のランタイム(Microsoft.VisualBasic)",
       "match": { "assemblies": [ "Microsoft.VisualBasic" ] },
       "note": ".NET の Microsoft.VisualBasic.Core。My の型の一部は互換アセンブリ"
+    },
+    {
+      "id": "dll-references", "title": "参照先のない DLL",
+      "match": {},
+      "note": "ソースの無い DLL は型を「アセンブリ + 型名」で参照する。その型が .NET 10 では別のアセンブリにあるもの(どの型かは「API を見る」。API はそれぞれの部品にも数えている)"
     }
   ]
 }

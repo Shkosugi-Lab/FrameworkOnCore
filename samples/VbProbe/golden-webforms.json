@@ -1,0 +1,951 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "runtime",
+      "Path": "/runtime",
+      "Title": "Runtime",
+      "Text": [
+        "## formatting",
+        "CStr(d) = [0.3]",
+        "d & \"\" = [0.3]",
+        "Str(d) = [ .3]",
+        "Str(-0.5) = [-.5]",
+        "Format(d) = [0.3]",
+        "Format(third, \"0.00\") = [0.33]",
+        "Format(2.675, \"Fixed\") = [2.68]",
+        "Format(1234.5, \"Currency\") = [$1,234.50]",
+        "Format(0.125, \"Percent\") = [12.50%]",
+        "Format(1234567, \"Standard\") = [1,234,567.00]",
+        "Format(Now date) = [2026/03/04 13:05:09]",
+        "Format(date, \"Long Date\") = [Wednesday, March 4, 2026]",
+        "Format(True, \"Yes/No\") = [Yes]",
+        "FormatNumber(2.675, 2) = [2.68]",
+        "FormatNumber(-0.004, 2) = [0.00]",
+        "FormatNumber(1234.5, 1, , TriState.True) = [(1,234.5)]",
+        "FormatCurrency(22.5, 0) = [$23]",
+        "FormatCurrency(-1234.5) = [($1,234.50)]",
+        "FormatPercent(0.125, 1) = [12.5%]",
+        "FormatDateTime(LongDate) = [Wednesday, March 4, 2026]",
+        "FormatDateTime(GeneralDate) = [3/4/2026 1:05:09 PM]",
+        "Hex/Oct = [FF 10 FFFFFFFF]",
+        "## conversions",
+        "CDbl(\"1,234.5\") = [1234.5]",
+        "CDbl(\"1e400\") = !System.OverflowException: [Value was either too large or too small for a Double.]",
+        "CInt(2.5) = [2]",
+        "CInt(3.5) = [4]",
+        "CInt(\"&H1F\") = [31]",
+        "CLng(\"1e3\") = [1000]",
+        "CDec(\"1,000.50\") = [1000.50]",
+        "CBool(\"True\") = [True]",
+        "CBool(\"1\") = [True]",
+        "CBool(\"yes\") = !System.InvalidCastException: [Conversion from string \"yes\" to type 'Boolean' is not valid.]",
+        "CDate(\"2026/3/4\") = [2026-03-04T00:00:00]",
+        "CDate(\"March 4, 2026 1:05 PM\") = [2026-03-04T13:05:00]",
+        "CDate(\"4.3.2026\") = [2026-04-03T00:00:00]",
+        "CInt(\"abc\") = !System.InvalidCastException: [Conversion from string \"abc\" to type 'Integer' is not valid.]",
+        "Val(\"12abc\") = [12]",
+        "Val(\" 1 2 3\") = [123]",
+        "Val(\"&HFF\") = [255]",
+        "Val(\"1,5\") = [1]",
+        "Val(\"1e400\") = !System.OverflowException: [Overflow.]",
+        "IsNumeric(\"1,000\") = [True]",
+        "IsNumeric(\"$5\") = [True]",
+        "IsNumeric(\"&H10\") = [True]",
+        "IsNumeric(\"1e5\") = [True]",
+        "IsNumeric(\" 7 \") = [True]",
+        "IsNumeric(\"１２\") = [False]",
+        "IsDate(\"2026-02-30\") = [False]",
+        "IsDate(\"March 4\") = [True]",
+        "CStr(Nothing) = [True]",
+        "CStr(date) = [3/4/2026]",
+        "CStr(date time) = [3/4/2026 1:05:09 PM]",
+        "CStr(True) = [True]",
+        "TypeName/VarType = [Double 5 Nothing Integer()]",
+        "## strings",
+        "Left/Right/Mid = [Hel|rld|lo, W|]",
+        "InStr/InStrRev = [5 9 0 5]",
+        "Replace count = [bba]",
+        "Split/Join = [a||b]",
+        "LCase/UCase = [åbcSTRAßE]",
+        "StrReverse = [\uD83D\uDE00cba]",
+        "Space/StrDup = [[ xxx]]",
+        "Trim full-width = [[a]]",
+        "Len(Nothing) = [0]",
+        "Asc(\"あ\") = [-32096]",
+        "AscW(\"あ\") = [12354]",
+        "Chr(&H82A0) = !System.ArgumentException: [Procedure call or argument is not valid.]",
+        "Chr(200) = [200]",
+        "ChrW(&H3042) = [あ]",
+        "LenB-like = [5]",
+        "StrConv Wide = [ａｂｃ１２３アイウ]",
+        "StrConv Narrow = [ABC123ｱｲｳ]",
+        "StrConv Katakana = [ヒラガナ]",
+        "StrConv Hiragana = [かたかな]",
+        "StrConv ProperCase = [Hello World]",
+        "Like = [True True True True]",
+        "Option Compare = [False False -1]",
+        "Filter = [banana]",
+        "Format string = [><@@@-@@]",
+        "## dates",
+        "DateAdd = [2026-02-28T00:00:00]",
+        "DateAdd string = [2026-03-18T13:05:09]",
+        "DateDiff = [62 1 9]",
+        "DatePart = [4 10 1 63]",
+        "DatePart week FirstFourDays = [53]",
+        "Weekday/Names = [4 Wednesday March Mar]",
+        "DateSerial = [2027-01-31T00:00:00]",
+        "TimeSerial = [0001-01-02T02:01:00]",
+        "DateValue/TimeValue = [2026-03-04T00:00:00 0001-01-01T13:05:00]",
+        "Year/Month/Day/Hour = [2026/3/4 13:5:9]",
+        "## math and random",
+        "Fix/Int = [-2 -3 2 2]",
+        "CInt vs Math.Round = [0 2 2]",
+        "\\ and Mod = [3 -3 -1 1.5]",
+        "^ = [1024 1.4142135623731]",
+        "Rnd seeded = [0.9078093 0.6110868 16]",
+        "IIf/Choose/Switch = [y b z]",
+        "overflow = !System.OverflowException: [Arithmetic operation resulted in an overflow.]",
+        "divide by zero = !System.DivideByZeroException: [Attempted to divide by zero.]",
+        "double divide by zero = [∞]",
+        "## late binding (Option Strict Off)",
+        "\"12\" + 3 = [15]",
+        "\"12\" & 3 = [123]",
+        "\"1.5\" * 2 = [3]",
+        "\"a\" + 1 = !System.InvalidCastException: [Conversion from string \"a\" to type 'Double' is not valid.]",
+        "Nothing + 1 = [1]",
+        "\"10\" > 9 = [True]",
+        "\"10\" > \"9\" = [False]",
+        "obj.Length = [4]",
+        "obj.Missing = !System.MissingMemberException: [Public member 'NoSuchMember' on type 'String' not found.]",
+        "CallByName = [ABC]",
+        "late double = [0.3]",
+        "## Err",
+        "Err.Raise = [5 Procedure call or argument is not valid.]",
+        "Err from exception = [9 Index was outside the bounds of the array. IndexOutOfRangeException]",
+        "Err.Raise custom = [-2147220991 Probe custom message]",
+        "Error(11) = [Division by zero.]",
+        "Error(53) = [File not found.]"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "out": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      },
+      "Source": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<meta charset=\"utf-8\">",
+        "<title>Runtime</title>",
+        "</head>",
+        "<body>",
+        "<pre id=\"out\">## formatting",
+        "CStr(d) = [0.3]",
+        "d &amp; \"\" = [0.3]",
+        "Str(d) = [ .3]",
+        "Str(-0.5) = [-.5]",
+        "Format(d) = [0.3]",
+        "Format(third, \"0.00\") = [0.33]",
+        "Format(2.675, \"Fixed\") = [2.68]",
+        "Format(1234.5, \"Currency\") = [$1,234.50]",
+        "Format(0.125, \"Percent\") = [12.50%]",
+        "Format(1234567, \"Standard\") = [1,234,567.00]",
+        "Format(Now date) = [2026/03/04 13:05:09]",
+        "Format(date, \"Long Date\") = [Wednesday, March 4, 2026]",
+        "Format(True, \"Yes/No\") = [Yes]",
+        "FormatNumber(2.675, 2) = [2.68]",
+        "FormatNumber(-0.004, 2) = [0.00]",
+        "FormatNumber(1234.5, 1, , TriState.True) = [(1,234.5)]",
+        "FormatCurrency(22.5, 0) = [$23]",
+        "FormatCurrency(-1234.5) = [($1,234.50)]",
+        "FormatPercent(0.125, 1) = [12.5%]",
+        "FormatDateTime(LongDate) = [Wednesday, March 4, 2026]",
+        "FormatDateTime(GeneralDate) = [3/4/2026 1:05:09 PM]",
+        "Hex/Oct = [FF 10 FFFFFFFF]",
+        "## conversions",
+        "CDbl(\"1,234.5\") = [1234.5]",
+        "CDbl(\"1e400\") = !System.OverflowException: [Value was either too large or too small for a Double.]",
+        "CInt(2.5) = [2]",
+        "CInt(3.5) = [4]",
+        "CInt(\"&amp;H1F\") = [31]",
+        "CLng(\"1e3\") = [1000]",
+        "CDec(\"1,000.50\") = [1000.50]",
+        "CBool(\"True\") = [True]",
+        "CBool(\"1\") = [True]",
+        "CBool(\"yes\") = !System.InvalidCastException: [Conversion from string \"yes\" to type 'Boolean' is not valid.]",
+        "CDate(\"2026/3/4\") = [2026-03-04T00:00:00]",
+        "CDate(\"March 4, 2026 1:05 PM\") = [2026-03-04T13:05:00]",
+        "CDate(\"4.3.2026\") = [2026-04-03T00:00:00]",
+        "CInt(\"abc\") = !System.InvalidCastException: [Conversion from string \"abc\" to type 'Integer' is not valid.]",
+        "Val(\"12abc\") = [12]",
+        "Val(\"  1 2 3\") = [123]",
+        "Val(\"&amp;HFF\") = [255]",
+        "Val(\"1,5\") = [1]",
+        "Val(\"1e400\") = !System.OverflowException: [Overflow.]",
+        "IsNumeric(\"1,000\") = [True]",
+        "IsNumeric(\"$5\") = [True]",
+        "IsNumeric(\"&amp;H10\") = [True]",
+        "IsNumeric(\"1e5\") = [True]",
+        "IsNumeric(\" 7 \") = [True]",
+        "IsNumeric(\"１２\") = [False]",
+        "IsDate(\"2026-02-30\") = [False]",
+        "IsDate(\"March 4\") = [True]",
+        "CStr(Nothing) = [True]",
+        "CStr(date) = [3/4/2026]",
+        "CStr(date time) = [3/4/2026 1:05:09 PM]",
+        "CStr(True) = [True]",
+        "TypeName/VarType = [Double 5 Nothing Integer()]",
+        "## strings",
+        "Left/Right/Mid = [Hel|rld|lo, W|]",
+        "InStr/InStrRev = [5 9 0 5]",
+        "Replace count = [bba]",
+        "Split/Join = [a||b]",
+        "LCase/UCase = [åbcSTRAßE]",
+        "StrReverse = [\uD83D\uDE00cba]",
+        "Space/StrDup = [[   xxx]]",
+        "Trim full-width = [[a]]",
+        "Len(Nothing) = [0]",
+        "Asc(\"あ\") = [-32096]",
+        "AscW(\"あ\") = [12354]",
+        "Chr(&amp;H82A0) = !System.ArgumentException: [Procedure call or argument is not valid.]",
+        "Chr(200) = [200]",
+        "ChrW(&amp;H3042) = [あ]",
+        "LenB-like = [5]",
+        "StrConv Wide = [ａｂｃ１２３アイウ]",
+        "StrConv Narrow = [ABC123ｱｲｳ]",
+        "StrConv Katakana = [ヒラガナ]",
+        "StrConv Hiragana = [かたかな]",
+        "StrConv ProperCase = [Hello World]",
+        "Like = [True True True True]",
+        "Option Compare = [False False -1]",
+        "Filter = [banana]",
+        "Format string = [&gt;&lt;@@@-@@]",
+        "## dates",
+        "DateAdd = [2026-02-28T00:00:00]",
+        "DateAdd string = [2026-03-18T13:05:09]",
+        "DateDiff = [62 1 9]",
+        "DatePart = [4 10 1 63]",
+        "DatePart week FirstFourDays = [53]",
+        "Weekday/Names = [4 Wednesday March Mar]",
+        "DateSerial = [2027-01-31T00:00:00]",
+        "TimeSerial = [0001-01-02T02:01:00]",
+        "DateValue/TimeValue = [2026-03-04T00:00:00 0001-01-01T13:05:00]",
+        "Year/Month/Day/Hour = [2026/3/4 13:5:9]",
+        "## math and random",
+        "Fix/Int = [-2 -3 2 2]",
+        "CInt vs Math.Round = [0 2 2]",
+        "\\ and Mod = [3 -3 -1 1.5]",
+        "^ = [1024 1.4142135623731]",
+        "Rnd seeded = [0.9078093 0.6110868 16]",
+        "IIf/Choose/Switch = [y b z]",
+        "overflow = !System.OverflowException: [Arithmetic operation resulted in an overflow.]",
+        "divide by zero = !System.DivideByZeroException: [Attempted to divide by zero.]",
+        "double divide by zero = [∞]",
+        "## late binding (Option Strict Off)",
+        "\"12\" + 3 = [15]",
+        "\"12\" &amp; 3 = [123]",
+        "\"1.5\" * 2 = [3]",
+        "\"a\" + 1 = !System.InvalidCastException: [Conversion from string \"a\" to type 'Double' is not valid.]",
+        "Nothing + 1 = [1]",
+        "\"10\" &gt; 9 = [True]",
+        "\"10\" &gt; \"9\" = [False]",
+        "obj.Length = [4]",
+        "obj.Missing = !System.MissingMemberException: [Public member 'NoSuchMember' on type 'String' not found.]",
+        "CallByName = [ABC]",
+        "late double = [0.3]",
+        "## Err",
+        "Err.Raise = [5 Procedure call or argument is not valid.]",
+        "Err from exception = [9 Index was outside the bounds of the array. IndexOutOfRangeException]",
+        "Err.Raise custom = [-2147220991 Probe custom message]",
+        "Error(11) = [Division by zero.]",
+        "Error(53) = [File not found.]</pre>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "Name": "markup",
+      "Path": "/markup",
+      "Title": "VB markup",
+      "Text": [
+        "expression: 0.3",
+        "method: 0.3",
+        "concatenated: total 0.3",
+        "encoded: 0.333333333333333",
+        "formatted: $23",
+        "script: 0.3 0.333333333333333 0.3 2.68",
+        "Name Price C0 Eval",
+        "pen 22.5 $23 0.3333333 | 22.50 | 24.75 | x0.3333333",
+        "ink 2.675 $3 0.3 | 2.68 | 2.9425 | x0.3",
+        "0: 7.51: 0.891666666666667"
+      ],
+      "Tables": [
+        [
+          [
+            "Name",
+            "Price",
+            "C0",
+            "Eval"
+          ],
+          [
+            "pen",
+            "22.5",
+            "$23",
+            "0.3333333 | 22.50 | 24.75 | x0.3333333"
+          ],
+          [
+            "ink",
+            "2.675",
+            "$3",
+            "0.3 | 2.68 | 2.9425 | x0.3"
+          ]
+        ]
+      ],
+      "Inputs": {},
+      "Elements": {
+        "inline": {
+          "Tag": "ul",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblScript": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "gv": {
+          "Tag": "table",
+          "Attributes": {
+            "cellspacing": "0",
+            "rules": "all",
+            "border": "1"
+          },
+          "Style": {
+            "border-collapse": "collapse"
+          }
+        }
+      },
+      "Source": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<title>",
+        "VB markup",
+        "</title>",
+        "</head>",
+        "<body>",
+        "<form method=\"post\" action=\"./Markup.aspx\" id=\"form1\">",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"{masked}\">",
+        "</div>",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" id=\"__VIEWSTATEGENERATOR\" value=\"{masked}\">",
+        "</div>",
+        "<ul id=\"inline\">",
+        "<li>expression: 0.3</li>",
+        "<li>method: 0.3</li>",
+        "<li>concatenated: total 0.3</li>",
+        "<li>encoded: 0.333333333333333</li>",
+        "<li>formatted: $23</li>",
+        "</ul>",
+        "<span id=\"lblScript\">script: 0.3 0.333333333333333 0.3 2.68</span>",
+        "<div>",
+        "<table cellspacing=\"0\" rules=\"all\" border=\"1\" id=\"gv\" style=\"border-collapse:collapse;\">",
+        "<tbody>",
+        "<tr>",
+        "<th scope=\"col\">Name</th>",
+        "<th scope=\"col\">Price</th>",
+        "<th scope=\"col\">C0</th>",
+        "<th scope=\"col\">Eval</th>",
+        "</tr>",
+        "<tr>",
+        "<td>pen</td>",
+        "<td>22.5</td>",
+        "<td>$23</td>",
+        "<td>0.3333333 | 22.50 | 24.75 | x0.3333333</td>",
+        "</tr>",
+        "<tr>",
+        "<td>ink</td>",
+        "<td>2.675</td>",
+        "<td>$3</td>",
+        "<td>0.3 | 2.68 | 2.9425 | x0.3</td>",
+        "</tr>",
+        "</tbody>",
+        "</table>",
+        "</div>",
+        "<span class=\"r\">0: 7.5</span>",
+        "<span class=\"r\">1: 0.891666666666667</span>",
+        "</form>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "Name": "events-get",
+      "Path": "/events",
+      "Title": "VB events",
+      "Text": [
+        "Alpha",
+        "Beta",
+        "Init",
+        "Load IsPostBack=False",
+        "PreRender"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "",
+        "ddlKind": "a"
+      },
+      "Elements": {
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ddlKind": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnGo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnXml": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      },
+      "Source": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<title>",
+        "VB events",
+        "</title>",
+        "</head>",
+        "<body>",
+        "<form method=\"post\" action=\"./Events.aspx\" id=\"form1\">",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\">",
+        "<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\">",
+        "<input type=\"hidden\" name=\"__LASTFOCUS\" id=\"__LASTFOCUS\" value=\"\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"{masked}\">",
+        "</div>",
+        "<script type=\"text/javascript\">",
+        "//<![CDATA[",
+        "var theForm = document.forms['form1'];",
+        "if (!theForm) {",
+        "theForm = document.form1;",
+        "}",
+        "function __doPostBack(eventTarget, eventArgument) {",
+        "if (!theForm.onsubmit || (theForm.onsubmit() != false)) {",
+        "theForm.__EVENTTARGET.value = eventTarget;",
+        "theForm.__EVENTARGUMENT.value = eventArgument;",
+        "theForm.submit();",
+        "}",
+        "}",
+        "//]]>",
+        "</script>",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" id=\"__VIEWSTATEGENERATOR\" value=\"{masked}\">",
+        "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"{masked}\">",
+        "</div>",
+        "<input name=\"txtName\" type=\"text\" id=\"txtName\">",
+        "<select name=\"ddlKind\" onchange=\"javascript:setTimeout('__doPostBack(\\'ddlKind\\',\\'\\')', 0)\" id=\"ddlKind\">",
+        "<option selected=\"selected\" value=\"a\">Alpha</option>",
+        "<option value=\"b\">Beta</option>",
+        "</select>",
+        "<input type=\"submit\" name=\"btnGo\" value=\"Go\" id=\"btnGo\">",
+        "<input type=\"submit\" name=\"btnXml\" value=\"Xml\" id=\"btnXml\">",
+        "<input type=\"submit\" name=\"btnDynamic\" value=\"Dynamic\" id=\"btnDynamic\">",
+        "<pre id=\"log\">Init",
+        "Load IsPostBack=False",
+        "PreRender</pre>",
+        "</form>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "Name": "events-go",
+      "Path": "/events",
+      "Title": "VB events",
+      "Text": [
+        "Alpha",
+        "Beta",
+        "Init",
+        "Load IsPostBack=True",
+        "TextChanged Ann & Bo",
+        "Click btnGo name=Ann & Bo",
+        "PreRender"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "Ann & Bo",
+        "ddlKind": "a"
+      },
+      "Elements": {
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ddlKind": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnGo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnXml": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      },
+      "Source": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<title>",
+        "VB events",
+        "</title>",
+        "</head>",
+        "<body>",
+        "<form method=\"post\" action=\"./Events.aspx\" id=\"form1\">",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\">",
+        "<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\">",
+        "<input type=\"hidden\" name=\"__LASTFOCUS\" id=\"__LASTFOCUS\" value=\"\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"{masked}\">",
+        "</div>",
+        "<script type=\"text/javascript\">",
+        "//<![CDATA[",
+        "var theForm = document.forms['form1'];",
+        "if (!theForm) {",
+        "theForm = document.form1;",
+        "}",
+        "function __doPostBack(eventTarget, eventArgument) {",
+        "if (!theForm.onsubmit || (theForm.onsubmit() != false)) {",
+        "theForm.__EVENTTARGET.value = eventTarget;",
+        "theForm.__EVENTARGUMENT.value = eventArgument;",
+        "theForm.submit();",
+        "}",
+        "}",
+        "//]]>",
+        "</script>",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" id=\"__VIEWSTATEGENERATOR\" value=\"{masked}\">",
+        "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"{masked}\">",
+        "</div>",
+        "<input name=\"txtName\" type=\"text\" value=\"Ann &amp; Bo\" id=\"txtName\">",
+        "<select name=\"ddlKind\" onchange=\"javascript:setTimeout('__doPostBack(\\'ddlKind\\',\\'\\')', 0)\" id=\"ddlKind\">",
+        "<option selected=\"selected\" value=\"a\">Alpha</option>",
+        "<option value=\"b\">Beta</option>",
+        "</select>",
+        "<input type=\"submit\" name=\"btnGo\" value=\"Go\" id=\"btnGo\">",
+        "<input type=\"submit\" name=\"btnXml\" value=\"Xml\" id=\"btnXml\">",
+        "<input type=\"submit\" name=\"btnDynamic\" value=\"Dynamic\" id=\"btnDynamic\">",
+        "<pre id=\"log\">Init",
+        "Load IsPostBack=True",
+        "TextChanged Ann &amp; Bo",
+        "Click btnGo name=Ann &amp; Bo",
+        "PreRender</pre>",
+        "</form>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "Name": "events-kind",
+      "Path": "/events",
+      "Title": "VB events",
+      "Text": [
+        "Alpha",
+        "Beta",
+        "Init",
+        "Load IsPostBack=True",
+        "SelectedIndexChanged b",
+        "PreRender"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "Ann & Bo",
+        "ddlKind": "b"
+      },
+      "Elements": {
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ddlKind": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnGo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnXml": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      },
+      "Source": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<title>",
+        "VB events",
+        "</title>",
+        "</head>",
+        "<body>",
+        "<form method=\"post\" action=\"./Events.aspx\" id=\"form1\">",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\">",
+        "<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\">",
+        "<input type=\"hidden\" name=\"__LASTFOCUS\" id=\"__LASTFOCUS\" value=\"\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"{masked}\">",
+        "</div>",
+        "<script type=\"text/javascript\">",
+        "//<![CDATA[",
+        "var theForm = document.forms['form1'];",
+        "if (!theForm) {",
+        "theForm = document.form1;",
+        "}",
+        "function __doPostBack(eventTarget, eventArgument) {",
+        "if (!theForm.onsubmit || (theForm.onsubmit() != false)) {",
+        "theForm.__EVENTTARGET.value = eventTarget;",
+        "theForm.__EVENTARGUMENT.value = eventArgument;",
+        "theForm.submit();",
+        "}",
+        "}",
+        "//]]>",
+        "</script>",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" id=\"__VIEWSTATEGENERATOR\" value=\"{masked}\">",
+        "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"{masked}\">",
+        "</div>",
+        "<input name=\"txtName\" type=\"text\" value=\"Ann &amp; Bo\" id=\"txtName\">",
+        "<select name=\"ddlKind\" onchange=\"javascript:setTimeout('__doPostBack(\\'ddlKind\\',\\'\\')', 0)\" id=\"ddlKind\">",
+        "<option value=\"a\">Alpha</option>",
+        "<option selected=\"selected\" value=\"b\">Beta</option>",
+        "</select>",
+        "<input type=\"submit\" name=\"btnGo\" value=\"Go\" id=\"btnGo\">",
+        "<input type=\"submit\" name=\"btnXml\" value=\"Xml\" id=\"btnXml\">",
+        "<input type=\"submit\" name=\"btnDynamic\" value=\"Dynamic\" id=\"btnDynamic\">",
+        "<pre id=\"log\">Init",
+        "Load IsPostBack=True",
+        "SelectedIndexChanged b",
+        "PreRender</pre>",
+        "</form>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "Name": "events-xml",
+      "Path": "/events",
+      "Title": "VB events",
+      "Text": [
+        "Alpha",
+        "Beta",
+        "Init",
+        "Load IsPostBack=True",
+        "TextChanged Cy",
+        "Click btnXml name=Cy",
+        "<order id=\"7\" customer=\"Cy\">",
+        "<line sku=\"A1\" qty=\"2\" price=\"1.25\" />",
+        "<line sku=\"B&amp;2\" qty=\"1\" price=\"0.3\" />",
+        "<!-- a comment -->",
+        "</order>",
+        "lines=2 first sku=A1 total qty=3",
+        "descendants=A1,B&2",
+        "PreRender"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "Cy",
+        "ddlKind": "b"
+      },
+      "Elements": {
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ddlKind": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnGo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnXml": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      },
+      "Source": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<title>",
+        "VB events",
+        "</title>",
+        "</head>",
+        "<body>",
+        "<form method=\"post\" action=\"./Events.aspx\" id=\"form1\">",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\">",
+        "<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\">",
+        "<input type=\"hidden\" name=\"__LASTFOCUS\" id=\"__LASTFOCUS\" value=\"\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"{masked}\">",
+        "</div>",
+        "<script type=\"text/javascript\">",
+        "//<![CDATA[",
+        "var theForm = document.forms['form1'];",
+        "if (!theForm) {",
+        "theForm = document.form1;",
+        "}",
+        "function __doPostBack(eventTarget, eventArgument) {",
+        "if (!theForm.onsubmit || (theForm.onsubmit() != false)) {",
+        "theForm.__EVENTTARGET.value = eventTarget;",
+        "theForm.__EVENTARGUMENT.value = eventArgument;",
+        "theForm.submit();",
+        "}",
+        "}",
+        "//]]>",
+        "</script>",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" id=\"__VIEWSTATEGENERATOR\" value=\"{masked}\">",
+        "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"{masked}\">",
+        "</div>",
+        "<input name=\"txtName\" type=\"text\" value=\"Cy\" id=\"txtName\">",
+        "<select name=\"ddlKind\" onchange=\"javascript:setTimeout('__doPostBack(\\'ddlKind\\',\\'\\')', 0)\" id=\"ddlKind\">",
+        "<option value=\"a\">Alpha</option>",
+        "<option selected=\"selected\" value=\"b\">Beta</option>",
+        "</select>",
+        "<input type=\"submit\" name=\"btnGo\" value=\"Go\" id=\"btnGo\">",
+        "<input type=\"submit\" name=\"btnXml\" value=\"Xml\" id=\"btnXml\">",
+        "<input type=\"submit\" name=\"btnDynamic\" value=\"Dynamic\" id=\"btnDynamic\">",
+        "<pre id=\"log\">Init",
+        "Load IsPostBack=True",
+        "TextChanged Cy",
+        "Click btnXml name=Cy",
+        "&lt;order id=\"7\" customer=\"Cy\"&gt;",
+        "&lt;line sku=\"A1\" qty=\"2\" price=\"1.25\" /&gt;",
+        "&lt;line sku=\"B&amp;amp;2\" qty=\"1\" price=\"0.3\" /&gt;",
+        "&lt;!-- a comment --&gt;",
+        "&lt;/order&gt;",
+        "lines=2 first sku=A1 total qty=3",
+        "descendants=A1,B&amp;2",
+        "PreRender</pre>",
+        "</form>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "Name": "events-dynamic",
+      "Path": "/events",
+      "Title": "VB events",
+      "Text": [
+        "Alpha",
+        "Beta",
+        "Init",
+        "Load IsPostBack=True",
+        "Dynamic clicked",
+        "PreRender"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "Cy",
+        "ddlKind": "b"
+      },
+      "Elements": {
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ddlKind": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnGo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnXml": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "btnDynamic": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "log": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      },
+      "Source": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<title>",
+        "VB events",
+        "</title>",
+        "</head>",
+        "<body>",
+        "<form method=\"post\" action=\"./Events.aspx\" id=\"form1\">",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\">",
+        "<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\">",
+        "<input type=\"hidden\" name=\"__LASTFOCUS\" id=\"__LASTFOCUS\" value=\"\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"{masked}\">",
+        "</div>",
+        "<script type=\"text/javascript\">",
+        "//<![CDATA[",
+        "var theForm = document.forms['form1'];",
+        "if (!theForm) {",
+        "theForm = document.form1;",
+        "}",
+        "function __doPostBack(eventTarget, eventArgument) {",
+        "if (!theForm.onsubmit || (theForm.onsubmit() != false)) {",
+        "theForm.__EVENTTARGET.value = eventTarget;",
+        "theForm.__EVENTARGUMENT.value = eventArgument;",
+        "theForm.submit();",
+        "}",
+        "}",
+        "//]]>",
+        "</script>",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" id=\"__VIEWSTATEGENERATOR\" value=\"{masked}\">",
+        "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"{masked}\">",
+        "</div>",
+        "<input name=\"txtName\" type=\"text\" value=\"Cy\" id=\"txtName\">",
+        "<select name=\"ddlKind\" onchange=\"javascript:setTimeout('__doPostBack(\\'ddlKind\\',\\'\\')', 0)\" id=\"ddlKind\">",
+        "<option value=\"a\">Alpha</option>",
+        "<option selected=\"selected\" value=\"b\">Beta</option>",
+        "</select>",
+        "<input type=\"submit\" name=\"btnGo\" value=\"Go\" id=\"btnGo\">",
+        "<input type=\"submit\" name=\"btnXml\" value=\"Xml\" id=\"btnXml\">",
+        "<input type=\"submit\" name=\"btnDynamic\" value=\"Dynamic\" id=\"btnDynamic\">",
+        "<pre id=\"log\">Init",
+        "Load IsPostBack=True",
+        "Dynamic clicked",
+        "PreRender</pre>",
+        "</form>",
+        "</body>",
+        "</html>"
+      ]
+    }
+  ],
+  "Links": null
+}

@@ -75,6 +75,26 @@ namespace FrameworkOnCore
         public static IEnumerable<string> Texts(IEnumerable<double> values) => values?.Select(v => Format(v, null, null));
         public static IEnumerable<string> Texts(IEnumerable<float> values) => values?.Select(v => Format(v, null, null));
 
+        /// <summary>The value as the decimal of its 15 significant digits (a float's 7), which a fixed format (N2, C0, F)
+        /// rounds as .NET Framework rounded the double; beyond a decimal's range (or NaN, infinity) the value itself.</summary>
+        public static object AsDecimal(double value) => DecimalOf(value, false) ?? (object)value;
+        public static object AsDecimal(float value) => DecimalOf(value, true) ?? (object)value;
+
+        static decimal? DecimalOf(double value, bool single)
+        {
+            if (double.IsNaN(value) || double.IsInfinity(value)) return null;
+            if (value == 0) return 0m;
+            var precision = single ? 7 : 15;
+            var mantissa = Digits(value, single, precision, precision, out var exponent).TrimEnd('0');
+            if (mantissa.Length == 0) return 0m;
+            var scale = mantissa.Length - 1 - exponent;
+            if (exponent >= 28 || scale > 28) return null;
+            var number = scale <= 0
+                ? decimal.Parse(mantissa + new string('0', -scale), NumberStyles.None, CultureInfo.InvariantCulture)
+                : Decimal(ulong.Parse(mantissa, NumberStyles.None, CultureInfo.InvariantCulture), (byte)scale);
+            return value < 0 ? -number : number;
+        }
+
         public static string Format(double value, string format, IFormatProvider provider) => Format(value, false, format, provider);
         public static string Format(float value, string format, IFormatProvider provider) => Format(value, true, format, provider);
 

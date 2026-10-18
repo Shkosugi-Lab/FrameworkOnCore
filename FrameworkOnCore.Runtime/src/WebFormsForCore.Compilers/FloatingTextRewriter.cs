@@ -108,6 +108,10 @@ namespace WebFormsForCore.Compilers
 					if (Split(node, out var receiver, out var arguments) && receiver != null)
 						text = Global(visualBasic) + "ToString(" + string.Join(", ", new[] { receiver }.Concat(arguments)) + ")";
 					break;
+				case "vbparse":
+				case "vbparse_single":
+					text = Global(visualBasic) + (tag == "vbparse" ? "VisualBasicToDouble" : "VisualBasicToSingle") + "(" + node.WithoutTrivia().ToString() + ")";
+					break;
 				case "convert":
 					if (Split(node, out _, out var convertArguments))
 						text = Global(visualBasic) + "ConvertToString(" + string.Join(", ", convertArguments) + ")";

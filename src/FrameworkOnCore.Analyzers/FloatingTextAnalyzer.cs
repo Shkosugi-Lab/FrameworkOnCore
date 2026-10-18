@@ -110,6 +110,14 @@ public sealed class FloatingTextAnalyzer : DiagnosticAnalyzer
             return;
         }
 
+        // HttpUtility.HtmlEncode(object) of a double (<%: d %>): an object of another type keeps its own (an IHtmlString).
+        if (typeName == "System.Web.HttpUtility" && method.Name == "HtmlEncode" && method.Parameters.Length == 1 && IsObject(method.Parameters[0].Type) &&
+            invocation.Arguments.FirstOrDefault()?.Value is { } encoded && IsFloating(Unboxed(encoded).Type))
+        {
+            Report(context, Unboxed(encoded), "HttpUtility.HtmlEncode's argument", "text");
+            return;
+        }
+
         var writes = method.Name is "Write" or "WriteLine" && (DerivesFrom(type, "System.IO.TextWriter") || typeName is "System.Console" or "System.Web.HttpResponse" or "System.Web.HttpResponseBase" or "System.Web.HttpResponseWrapper")
             || method.Name is "Append" or "Insert" or "AppendLine" && typeName == "System.Text.StringBuilder";
         // Composite formatting (its arguments formatted by the format's items), .NET's own: another method taking a
@@ -196,11 +204,19 @@ public sealed class FloatingTextAnalyzer : DiagnosticAnalyzer
     }
 
     // Visual Basic's conversion of a double to String (CStr(x), a String assigned a Double); a concatenation's operands
-    // are its own (Binary).
+    // are its own (Binary). And of a String to a Double or Single (CDbl(s), a Double assigned a String): too large a
+    // number is infinity on .NET, an OverflowException on .NET Framework (vbparse: the string, as
+    // FrameworkOnCore.VisualBasicText.ToDouble's).
     static void Conversion(OperationAnalysisContext context)
     {
         var conversion = (IConversionOperation)context.Operation;
-        if (conversion.Language != LanguageNames.VisualBasic || conversion.Type?.SpecialType != SpecialType.System_String) return;
+        if (conversion.Language != LanguageNames.VisualBasic) return;
+        if (conversion.Operand.Type?.SpecialType == SpecialType.System_String && conversion.Type?.SpecialType is SpecialType.System_Double or SpecialType.System_Single)
+        {
+            Report(context, conversion.Operand, "conversion of a String to a " + conversion.Type.Name, conversion.Type.SpecialType == SpecialType.System_Double ? "vbparse" : "vbparse_single");
+            return;
+        }
+        if (conversion.Type?.SpecialType != SpecialType.System_String) return;
         if (conversion.IsImplicit && conversion.Parent is IBinaryOperation { OperatorKind: BinaryOperatorKind.Concatenate } or ICompoundAssignmentOperation { OperatorKind: BinaryOperatorKind.Concatenate }) return;
         if (!IsFloating(conversion.Operand.Type)) return;
         Report(context, conversion.Operand, "conversion to String", "text");

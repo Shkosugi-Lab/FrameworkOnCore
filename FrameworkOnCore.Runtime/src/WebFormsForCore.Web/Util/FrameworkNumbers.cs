@@ -75,6 +75,29 @@ namespace System.Web.Util
             return value;
         }
 
+        /// <summary>Visual Basic's conversion of a String to a Double or Single (CDbl, CSng) in what the server compiles:
+        /// too large a number throws OverflowException, as on .NET Framework (.NET: infinity).</summary>
+        public static double VisualBasicToDouble(string value)
+        {
+            var result = Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(value);
+            if (enabled && double.IsInfinity(result) && !IsInfinitySymbol(value)) throw new OverflowException("Value was either too large or too small for a Double.");
+            return result;
+        }
+
+        public static float VisualBasicToSingle(string value)
+        {
+            var result = Microsoft.VisualBasic.CompilerServices.Conversions.ToSingle(value);
+            if (enabled && float.IsInfinity(result) && !IsInfinitySymbol(value)) throw new OverflowException("Value was either too large or too small for a Single.");
+            return result;
+        }
+
+        static bool IsInfinitySymbol(string value)
+        {
+            var info = NumberFormatInfo.CurrentInfo;
+            var t = (value ?? "").Trim();
+            return t == info.PositiveInfinitySymbol || t == info.NegativeInfinitySymbol;
+        }
+
         /// <summary>The values of a composite format (HyperLinkField's URL fields), each as Formattable.</summary>
         public static object[] Formattables(object[] values) => values?.Select(Formattable).ToArray();
 

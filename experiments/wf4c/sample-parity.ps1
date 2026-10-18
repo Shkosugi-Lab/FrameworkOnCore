@@ -36,6 +36,9 @@ $sample = Join-Path $repo "samples\$Name"
 $scenario = Join-Path $sample 'parity-scenario.json'
 $golden = Join-Path $sample 'golden-webforms.json'
 $work = Join-Path $PSScriptRoot "_samples\$Name"
+# The sample's project: C# or Visual Basic.
+$projectFile = @("$Name.csproj", "$Name.vbproj") | Where-Object { Test-Path (Join-Path $sample $_) } | Select-Object -First 1
+if (-not $projectFile) { throw "samples\$Name has no $Name.csproj or $Name.vbproj" }
 New-Item -ItemType Directory $work -Force | Out-Null
 $verifier = Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt\FrameworkOnCore.ParityTest.dll'
 & {  # built every time (incremental: quick): the verifier run is the one of this checkout
@@ -101,7 +104,7 @@ if ($Record) {
     $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
     $msbuild = if (Test-Path $vswhere) { & $vswhere -latest -products * -requires Microsoft.Component.MSBuild -find 'MSBuild\**\Bin\MSBuild.exe' | Select-Object -First 1 }
     if (-not $msbuild) { $msbuild = 'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe' }
-    & $msbuild (Join-Path $site "$Name.csproj") /nologo /v:q /p:Configuration=Debug
+    & $msbuild (Join-Path $site $projectFile) /nologo /v:q /p:Configuration=Debug
     if ($LASTEXITCODE -ne 0) { throw 'the sample did not build for .NET Framework' }
     $pool = "frameworkoncore-$($Name.ToLowerInvariant())"
     & $appcmd delete site $pool 2>&1 | Out-Null
@@ -144,7 +147,7 @@ if (Test-Path $culturesFile) {
     $cultureArguments = @('--culture-profile', $cultureProfile)
 }
 if ($IisProfile) { $cultureArguments += @('--iis-profile', (Resolve-Path $IisProfile).Path) }
-& dotnet $converter (Join-Path $sample "$Name.csproj") --out $converted --root $sample --deploy container @cultureArguments
+& dotnet $converter (Join-Path $sample $projectFile) --out $converted --root $sample --deploy container @cultureArguments
 if ($LASTEXITCODE -ne 0) { throw 'the conversion failed' }
 
 $exit = 0

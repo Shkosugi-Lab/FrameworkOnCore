@@ -34,7 +34,8 @@ public sealed record Pointed(string Code, int Line, int Column, int? Length, str
 /// - FOC1006: rules/packages.json platformReplacements (by the rule's number).
 /// - FOC1007: Enumerable.Contains(array, x) for array.Contains(x) in an expression tree (C# 14 bound it to a span method).
 /// - FOC1008: a double or float made text, through FrameworkOnCore.FrameworkNumbers (as .NET Framework wrote it), by the
-///   tag: x.ToString(...) -> ToString(x, ...), Convert.ToString(x) -> ConvertToString(x), Text(x), Formattable(x), Texts(x).
+///   tag: x.ToString(...) -> ToString(x, ...), Convert.ToString(x) -> ConvertToString(x), Text(x), Formattable(x), Texts(x);
+///   Visual Basic's String converted to a Double: VisualBasicText.ToDouble(s).
 /// - CS9258 (C#): field -> @field. SYSLIB0007 (C#): the .NET Framework default algorithm.
 /// </summary>
 public sealed class SourceEdits(SourceLanguage language, Rules rules)
@@ -176,6 +177,10 @@ public sealed class SourceEdits(SourceLanguage language, Rules rules)
                             case "text" or "formattable" or "texts":
                                 var helperName = p.Tag == "text" ? "Text" : p.Tag == "formattable" ? "Formattable" : "Texts";
                                 Add(node, inner => language.Call(numbers + helperName, new[] { inner.WithoutTrivia().ToString() }), Wrap);
+                                break;
+                            case "vbparse" or "vbparse_single":
+                                var parse = language.Global("FrameworkOnCore.VisualBasicText." + (p.Tag == "vbparse" ? "ToDouble" : "ToSingle"));
+                                Add(node, inner => language.Call(parse, new[] { inner.WithoutTrivia().ToString() }), Wrap);
                                 break;
                             default:
                                 left.Add(p);

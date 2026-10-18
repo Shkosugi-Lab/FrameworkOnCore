@@ -44,7 +44,7 @@
 | `tests/MobileParity` | 移植した System.Web.Mobile(モバイル コントロール)の全 API の新旧比較のケース(同じ方法) |
 | `tests/WebControlsParity` | System.Web のコントロール（TextBox など）ごとの新旧比較。① 全メンバー（API）、② 全プロパティの描画（HTML、実リクエスト）、③ WebForms の機構（ブラウザでのシナリオ）の 3 層で、結果は `reports/<コントロール>/` に Markdown で出す（仕組みは同フォルダーの README）。System.Web・System.Web.Extensions のコントロール 124 すべてが Windows・Linux とも一致（既知の差分 8 件を除く） |
 | `tests/Parity.Core` | 新旧比較の共通部分(観測値の書き方、ケースの実行、ゴールデンの書き出し、API の一覧から型とメンバーごとにケースを作る仕組み) |
-| `samples/` | 検証用の小さな Web Forms アプリ(RuntimeProbe、グラフの ChartProbe、モバイル コントロールの MobileProbe、コントロールごとの新旧比較の WebControlsProbe、Ajax Control Toolkit の ToolkitScriptManager の ToolkitProbe、WCF のサービスの WcfProbe、セッションの状態の SessionProbe、差が出るように作ったコーパスの NestingProbe〈コントロールの入れ子・HTML・ブラウザーの操作〉、BclProbe〈数値・文字列・例外・カルチャ・シリアル化〉、PageProbe〈ページの仕組み。HTML そのものも比べる〉など) |
+| `samples/` | 検証用の小さな Web Forms アプリ(RuntimeProbe、グラフの ChartProbe、モバイル コントロールの MobileProbe、コントロールごとの新旧比較の WebControlsProbe、Ajax Control Toolkit の ToolkitScriptManager の ToolkitProbe、WCF のサービスの WcfProbe、セッションの状態の SessionProbe、差が出るように作ったコーパスの NestingProbe〈コントロールの入れ子・HTML・ブラウザーの操作〉、BclProbe〈数値・文字列・例外・カルチャ・シリアル化〉、PageProbe〈ページの仕組み。HTML そのものも比べる〉、VbProbe〈Visual Basic のランタイムとイベント〉など) |
 | `corpora/` | 実在の OSS アプリ(コーパス)の取得スクリプトと記録。本体は取得して使う(リポジトリには含めない) |
 
 ## 準備

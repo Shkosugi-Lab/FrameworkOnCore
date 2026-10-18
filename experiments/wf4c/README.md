@@ -1306,6 +1306,21 @@ Windows・Linux で比べた(`sample-parity.ps1`)。1 つのコーパスは変�
   無ければこのマシンのものを capture-culture.ps1 で採る(既定のカルチャ、web.config の globalization、ページのディレクティブの Culture・UICulture。
   タイムゾーンも)。元のサーバーのものを `--culture-profile` で渡すほうがよい(変換するマシンがサーバーと違うとき)と変換レポートに出す。PageProbe Linux 31/31。
 - 回帰: サンプル 21 件(AuthProbe から WcfProbe まで)Windows・Linux とも一致、NestingProbe Linux 41/41。
+
+4 つ目のコーパス(Visual Basic):
+
+- `samples/VbProbe`(VB の Web アプリケーション、`compareSource`): VB ランタイムの関数(Format・FormatNumber・FormatCurrency・FormatPercent・Str・
+  Val・IsNumeric・CDbl などの変換、文字列関数、StrConv の全角・半角・カタカナ・ひらがな、Asc・Chr、Like、日付の関数、Rnd の種、IIf・Choose、Err の番号と文)、
+  Option Strict Off の遅延バインド、Handles と WithEvents、AddHandler、XML リテラル、コードがマークアップにあるページ(サーバーの vbc がコンパイル)。
+  最初の差: Windows 7 行(Str・Format・FormatNumber・FormatCurrency の double、CDbl("1e400")、Asc("あ")、`<%: 1 / 3 %>`)、Linux はさらに StrConv 5 行
+  (.NET は Windows 以外で PlatformNotSupportedException。ProperCase も)。
+- 直したもの(互換アセンブリ VisualBasicText、platformReplacements): VB の Str・Format・FormatNumber・FormatCurrency・FormatPercent の double は
+  .NET Framework の桁(FormatNumber 系は 15 桁の decimal にして VB ランタイムに渡す)、文字列から Double・Single への VB の変換(CDbl、暗黙)は大きすぎる数で
+  OverflowException(FOC1008 の vbparse。サーバーがコンパイルする VB も)、Asc はシステムの ANSI コードページ(.NET は カルチャの)、StrConv は Windows 以外で
+  Windows と同じ変換(ロケールの ANSI コードページで往復してから: Shift_JIS に無い文字は最適な文字か「?」、`\` と `＼` はそのまま、ヾ の半角は ヽﾞ。
+  Windows の StrConv と全文字の範囲で比べて一致するテスト)。`HttpUtility.HtmlEncode(object)` の double(`<%: d %>`)も FrameworkNumbers。
+- 結果: VbProbe Windows・Linux とも 7/7。回帰: テスト 4,426 件、be 5/5、wt 8/8、NestingProbe 41/41、PageProbe 31/31(Windows)。
+- `sample-parity.ps1` は VB のサンプル(`<名前>.vbproj`)も扱う。
 ### パッケージを 1.6.5-w2l.16 に上げて公開(2026-10-17)
 
 別のマシンで Studio から n2 を変換すると、変換後のアプリが起動時に止まった(`'WebApplicationBuilder' does not contain a definition for 'AddWebFormsW3CLogging'`)。

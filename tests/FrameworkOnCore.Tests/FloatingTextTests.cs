@@ -102,6 +102,80 @@ public class FloatingTextTests
     }
 
     [Fact]
+    public void Visual_Basic_runtime_functions()
+    {
+        var written = RewriteHarness.VisualBasic("""
+            Imports Microsoft.VisualBasic
+            Public Class C
+                Function Build(d As Double, s As String) As String
+                    Dim x As Double = CDbl(s)
+                    Dim y As Double = s
+                    Return Str(d) & Format(d, "Fixed") & FormatNumber(d, 2) & FormatCurrency(d, 0, , TriState.True) & FormatPercent(d) & Asc("a").ToString()
+                End Function
+            End Class
+            """);
+        Assert.True(written.Contains("CDbl(Global.FrameworkOnCore.VisualBasicText.ToDouble(s))"), written);
+        Assert.Contains("Dim y As Double = Global.FrameworkOnCore.VisualBasicText.ToDouble(s)", written);
+        Assert.Contains("Global.FrameworkOnCore.VisualBasicText.Str(d)", written);
+        Assert.Contains("Global.FrameworkOnCore.VisualBasicText.Format(d, \"Fixed\")", written);
+        Assert.Contains("Global.FrameworkOnCore.VisualBasicText.FormatNumber(d, 2)", written);
+        Assert.Contains("Global.FrameworkOnCore.VisualBasicText.FormatCurrency(d, 0, , TriState.True)", written);
+        Assert.Contains("Global.FrameworkOnCore.VisualBasicText.Asc(\"a\")", written);
+    }
+
+    [Fact]
+    public void The_Visual_Basic_runtime_as_Framework()
+    {
+        // en-US as Windows has it (NLS: two decimals; this test process's ICU data has three).
+        var us = (System.Globalization.CultureInfo)System.Globalization.CultureInfo.GetCultureInfo("en-US").Clone();
+        us.NumberFormat.NumberDecimalDigits = us.NumberFormat.CurrencyDecimalDigits = us.NumberFormat.PercentDecimalDigits = 2;
+        var saved = System.Globalization.CultureInfo.CurrentCulture;
+        System.Globalization.CultureInfo.CurrentCulture = us;
+        try
+        {
+            Assert.Equal(" .3", VisualBasicText.Str(0.1 + 0.2));
+            Assert.Equal("-.5", VisualBasicText.Str(-0.5));
+            Assert.Equal("2.68", VisualBasicText.Format(2.675, "Fixed"));
+            Assert.Equal("12.50%", VisualBasicText.Format(0.125, "Percent"));
+            Assert.Equal("0.00", VisualBasicText.FormatNumber(-0.004, 2));
+            Assert.Equal("$23", VisualBasicText.FormatCurrency(22.5, 0));
+            Assert.Equal("3/4/2026", VisualBasicText.Format(new DateTime(2026, 3, 4), "Short Date"));
+            Assert.Throws<OverflowException>(() => VisualBasicText.ToDouble("1e400"));
+            Assert.Equal(16.0, VisualBasicText.ToDouble("&H10"));
+        }
+        finally
+        {
+            System.Globalization.CultureInfo.CurrentCulture = saved;
+        }
+    }
+
+    /// <summary>StrConv away from Windows (.NET throws there) against Windows' own (LCMapString), Japanese.</summary>
+    [SkippableFact]
+    public void StrConv_elsewhere_as_Windows()
+    {
+        Skip.IfNot(OperatingSystem.IsWindows());
+        // The runtime's StrConv encodes in the locale's code page (932), as FrameworkOnCore's System.Web registers at start.
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+        var samples = new List<string> { "abc ABC 123 !~\\", "ｶﾞｷﾞｸﾞｹﾞｺﾞ ﾊﾟﾋﾟﾌﾟﾍﾟﾎﾟ ｳﾞ ｶﾞﾟ ﾞ ｱﾞ", "ガギグゲゴ パピプペポ ヴ ヷ", "ひらがな ゝゞ カタカナ ヽヾ ー", "漢字とｶﾅと1２3" };
+        samples.Add(new string(Enumerable.Range(0xFF61, 0x3F).Select(i => (char)i).ToArray()));
+        samples.Add(new string(Enumerable.Range(0x3041, 0x56).Select(i => (char)i).ToArray()));
+        samples.Add(new string(Enumerable.Range(0x30A1, 0x5A).Select(i => (char)i).ToArray()));
+        samples.Add(new string(Enumerable.Range(0xFF01, 0x5E).Select(i => (char)i).ToArray()));
+        var conversions = new[] { Microsoft.VisualBasic.VbStrConv.Wide, Microsoft.VisualBasic.VbStrConv.Narrow, Microsoft.VisualBasic.VbStrConv.Katakana,
+            Microsoft.VisualBasic.VbStrConv.Hiragana, Microsoft.VisualBasic.VbStrConv.Wide | Microsoft.VisualBasic.VbStrConv.Katakana,
+            Microsoft.VisualBasic.VbStrConv.Narrow | Microsoft.VisualBasic.VbStrConv.Katakana, Microsoft.VisualBasic.VbStrConv.Uppercase | Microsoft.VisualBasic.VbStrConv.Wide };
+        var differences = new List<string>();
+        foreach (var conversion in conversions)
+            foreach (var s in samples)
+            {
+                var windows = Microsoft.VisualBasic.Strings.StrConv(s, conversion, 0x411);
+                var ours = VisualBasicText.StrConvElsewhere(s, conversion, 0x411);
+                if (windows != ours) differences.Add($"{conversion} [{s}]: windows [{windows}] ours [{ours}]");
+            }
+        Assert.True(differences.Count == 0, string.Join("\n", differences));
+    }
+
+    [Fact]
     public void Parsing_and_TimeSpan()
     {
         var written = CSharp("""

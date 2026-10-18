@@ -140,12 +140,12 @@
     },
     {
       "id": "encoding-default", "title": "Encoding.Default(既定の文字コード)",
-      "match": { "members": [ "System.Text.Encoding.Default" ] }, "status": "Behavior",
+      "match": { "members": [ "System.Text.Encoding.Default", "Microsoft.VisualBasic.Strings.Asc" ] }, "status": "Behavior",
       "note": ".NET Framework は ANSI コードページ(日本語の Windows では Shift_JIS)、.NET は UTF-8。変換器: Platform.DefaultEncoding に置き換える"
     },
     {
       "id": "floating-point", "title": "double・float の文字列化と読み取り",
-      "match": { "members": [ "System.Double.ToString", "System.Single.ToString", "System.Double.Parse", "System.Double.TryParse", "System.Single.Parse", "System.Single.TryParse", "System.TimeSpan.FromMilliseconds", "System.TimeSpan.FromSeconds", "System.TimeSpan.FromMinutes", "System.TimeSpan.FromHours", "System.TimeSpan.FromDays" ] }, "status": "Behavior",
+      "match": { "members": [ "System.Double.ToString", "System.Single.ToString", "System.Double.Parse", "System.Double.TryParse", "System.Single.Parse", "System.Single.TryParse", "System.TimeSpan.FromMilliseconds", "System.TimeSpan.FromSeconds", "System.TimeSpan.FromMinutes", "System.TimeSpan.FromHours", "System.TimeSpan.FromDays", "Microsoft.VisualBasic.Strings.Format", "Microsoft.VisualBasic.Strings.FormatNumber", "Microsoft.VisualBasic.Strings.FormatCurrency", "Microsoft.VisualBasic.Strings.FormatPercent", "Microsoft.VisualBasic.Conversion.Str" ] }, "status": "Behavior",
       "note": ".NET Core 3.0 から、書式なしの double は往復できる最短の桁(0.1 + 0.2 は 0.30000000000000004。.NET Framework は 15 桁で 0.3)、負のゼロは \"-0\"、桁を決めた書式は 2 進の値そのものを偶数に丸める(2.675 の N2 は 2.67。.NET Framework は 15 桁から四捨五入で 2.68)。大きすぎる数の Parse は無限大(.NET Framework は例外)。TimeSpan.FromSeconds(0.00015) などはミリ秒に丸めない。変換器: FrameworkNumbers・FrameworkParsing に置き換える(FOC1008、platformReplacements)"
     },
     {

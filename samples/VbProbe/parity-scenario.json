@@ -1,0 +1,23 @@
+{
+  "_comment": "Visual Basic. Runtime: the VB runtime's functions as a page writes them, a line each (number formats Format/FormatNumber/FormatCurrency/Str, conversions CDbl/CInt/CDate/Val/IsNumeric, string functions, StrConv's Japanese wide/narrow/kana conversions, Asc/Chr of the ANSI code page, Like, the date functions, Rnd with a seed, late binding with Option Strict Off, Err's numbers and messages). Markup: a page whose code is its own script and expressions (compiled by the server's vbc: 0.1 + 0.2, Eval of doubles, a BoundField). Events: Handles and WithEvents, a dynamic control's AddHandler, the order they run in, XML literals and axis properties. compareSource: the HTML too.",
+  "ignorePatterns": [],
+  "compareSource": true,
+  "steps": [
+    { "action": "goto", "path": "/Runtime.aspx" },
+    { "action": "snapshot", "name": "runtime" },
+    { "action": "goto", "path": "/Markup.aspx" },
+    { "action": "snapshot", "name": "markup" },
+    { "action": "goto", "path": "/Events.aspx" },
+    { "action": "snapshot", "name": "events-get" },
+    { "action": "fill", "target": "txtName", "value": "Ann & Bo" },
+    { "action": "click", "target": "btnGo" },
+    { "action": "snapshot", "name": "events-go" },
+    { "action": "select", "target": "ddlKind", "value": "b" },
+    { "action": "snapshot", "name": "events-kind" },
+    { "action": "fill", "target": "txtName", "value": "Cy" },
+    { "action": "click", "target": "btnXml" },
+    { "action": "snapshot", "name": "events-xml" },
+    { "action": "click", "target": "btnDynamic" },
+    { "action": "snapshot", "name": "events-dynamic" }
+  ]
+}

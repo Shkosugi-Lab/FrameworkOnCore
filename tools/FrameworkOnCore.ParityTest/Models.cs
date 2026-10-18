@@ -17,13 +17,21 @@ namespace FrameworkOnCore.ParityTest;
 /// Regular expressions of DOM ids (parts of them) made up at random by the application, masked on both sides: a web
 /// part added at run time is "wp" and a random number (WebPartManager's dynamic IDs).
 /// </param>
+/// <param name="CompareSource">
+/// Compare each snapshot's HTML too: the document as the browser holds it (its scripts, hidden fields, every attribute),
+/// a tag a line. What a machine makes differ is masked on both sides: the view state and event validation, the keys of
+/// WebResource.axd and ScriptResource.axd, the server's address.
+/// </param>
+/// <param name="SourceMasks">More regular expressions masked in the HTML ("{masked}"), on both sides.</param>
 public sealed record ParityScenario(
     List<string>? IgnorePatterns,
     List<ParityStep> Steps,
     bool CompareRawIds = true,
     List<string>? IgnoreSelectors = null,
     CrawlOptions? Crawl = null,
-    List<string>? MaskIds = null);
+    List<string>? MaskIds = null,
+    bool CompareSource = false,
+    List<string>? SourceMasks = null);
 
 /// <summary>
 /// The links of the application, after the steps: from the pages the scenario opens (and <paramref name="Urls"/>), the
@@ -79,7 +87,8 @@ public sealed record Snapshot(
     List<string> Text,
     List<List<List<string>>> Tables,
     Dictionary<string, string> Inputs,
-    Dictionary<string, ElementInfo> Elements);
+    Dictionary<string, ElementInfo> Elements,
+    List<string>? Source = null);
 
 /// <summary>Output of the record command (= the golden data).</summary>
 public sealed record GoldenFile(

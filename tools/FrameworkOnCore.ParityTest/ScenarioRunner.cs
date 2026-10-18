@@ -21,11 +21,17 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
     /// <summary>Set from the scenario: ids (parts of them) made up at random, masked (see ParityScenario).</summary>
     private List<Regex> _maskIds = [];
 
+    /// <summary>Set from the scenario: the HTML compared, with these masked (see ParityScenario).</summary>
+    private bool _compareSource;
+    private List<Regex> _sourceMasks = [];
+
     public async Task<List<Snapshot>> RunAsync(ParityScenario scenario)
     {
         _compareRawIds = scenario.CompareRawIds;
         _ignoreSelectors = scenario.IgnoreSelectors ?? [];
         _maskIds = (scenario.MaskIds ?? []).Select(pattern => new Regex(pattern)).ToList();
+        _compareSource = scenario.CompareSource;
+        _sourceMasks = (scenario.SourceMasks ?? []).Select(pattern => new Regex(pattern)).ToList();
 
         // Always answer confirm() etc. with "OK". Both apps get the same response,
         // which keeps the comparison deterministic.
@@ -211,7 +217,7 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
     /// </summary>
     private async Task<ILocator> ResolveAsync(string target)
     {
-        foreach (var selector in new[] { $"#{target}", $"[id$='_{target}']", $"[id*='_{target}_']", $"[id*='{target}']", $"[name='{target}']" })
+        foreach (var selector in new[] { $"[id='{target}']", $"[id$='_{target}']", $"[id*='_{target}_']", $"[id*='{target}']", $"[name='{target}']" })
         {
             var locator = page.Locator(selector);
             if (await locator.CountAsync() > 0)
@@ -301,7 +307,28 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
             text,
             [.. (tables ?? []).Select(table => table.Select(row => row.ToList()).ToList())],
             BuildInputMap(inputs ?? []),
-            BuildElementMap(elements ?? []));
+            BuildElementMap(elements ?? []),
+            _compareSource ? NormalizeSource(await page.ContentAsync()) : null);
+    }
+
+    // What a machine makes differ in a page's HTML: the view state and event validation (machine key), the resource
+    // handlers' keys (d: the machine key; t: the assembly's build time), the server's own address.
+    static readonly Regex HiddenState = new(@"(<input\b[^>]*\bname=""__(?:VIEWSTATE\w*|EVENTVALIDATION|PREVIOUSPAGE)""[^>]*\bvalue="")[^""]*", RegexOptions.Compiled);
+    static readonly Regex ResourceKeys = new(@"((?:WebResource|ScriptResource)\.axd\?d=)[^""'&]*((?:&amp;|&)t=)[^""'&]*", RegexOptions.Compiled);
+
+    /// <summary>The document as the browser holds it, a tag a line, what differs by machine masked (CompareSource).</summary>
+    private List<string> NormalizeSource(string html)
+    {
+        html = HiddenState.Replace(html, "$1{masked}");
+        html = ResourceKeys.Replace(html, "$1{masked}$2{masked}");
+        html = html.Replace(_root, "{root}");
+        var host = new Uri(_root).Authority;
+        html = html.Replace(host, "{host}");
+        foreach (var mask in _sourceMasks) html = mask.Replace(html, "{masked}");
+        return html.Replace("\r\n", "\n").Replace("><", ">\n<").Split('\n')
+            .Select(line => line.Trim())
+            .Where(line => line.Length > 0)
+            .ToList();
     }
 
     /// <summary>Presentation attributes to compare (affect appearance and must agree between old and new).</summary>

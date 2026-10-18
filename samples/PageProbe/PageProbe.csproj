@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- The page's machinery, against the original on IIS, its HTML compared too (experiments/wf4c/sample-parity.ps1,
+       compareSource): the order of events with a master, a user control and custom controls, ClientIDMode, ViewStateMode
+       and positional view state, ClientScriptManager and a callback, expression builders and inline code, cookies,
+       Request.Browser, what the application writes around the page. -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8E2D4B71-5C9A-4E03-B6F8-2A1D7C9E5B44}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>PageProbe</RootNamespace>
+    <AssemblyName>PageProbe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Site.master" />
+    <Content Include="Part.ascx" />
+    <Content Include="Lifecycle.aspx" />
+    <Content Include="ClientIds.aspx" />
+    <Content Include="Scripts.aspx" />
+    <Content Include="State.aspx" />
+    <Content Include="Expressions.aspx" />
+    <Content Include="Cookies.aspx" />
+    <Content Include="Browser.aspx" />
+    <Content Include="Output.aspx" />
+    <Content Include="probe.js" />
+    <Content Include="probe.css" />
+    <Content Include="App_GlobalResources\Strings.resx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls.cs" />
+    <Compile Include="Site.master.cs"><DependentUpon>Site.master</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Site.master.designer.cs"><DependentUpon>Site.master</DependentUpon></Compile>
+    <Compile Include="Part.ascx.cs"><DependentUpon>Part.ascx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Part.ascx.designer.cs"><DependentUpon>Part.ascx</DependentUpon></Compile>
+    <Compile Include="Lifecycle.aspx.cs"><DependentUpon>Lifecycle.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Lifecycle.aspx.designer.cs"><DependentUpon>Lifecycle.aspx</DependentUpon></Compile>
+    <Compile Include="ClientIds.aspx.cs"><DependentUpon>ClientIds.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="ClientIds.aspx.designer.cs"><DependentUpon>ClientIds.aspx</DependentUpon></Compile>
+    <Compile Include="Scripts.aspx.cs"><DependentUpon>Scripts.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Scripts.aspx.designer.cs"><DependentUpon>Scripts.aspx</DependentUpon></Compile>
+    <Compile Include="State.aspx.cs"><DependentUpon>State.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="State.aspx.designer.cs"><DependentUpon>State.aspx</DependentUpon></Compile>
+    <Compile Include="Expressions.aspx.cs"><DependentUpon>Expressions.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Expressions.aspx.designer.cs"><DependentUpon>Expressions.aspx</DependentUpon></Compile>
+    <Compile Include="Cookies.aspx.cs"><DependentUpon>Cookies.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Browser.aspx.cs"><DependentUpon>Browser.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Output.aspx.cs"><DependentUpon>Output.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Output.aspx.designer.cs"><DependentUpon>Output.aspx</DependentUpon></Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

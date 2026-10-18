@@ -1,0 +1,15 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="PageProbe.Site" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Page probe</title>
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="masterbar"><asp:Label ID="lblMaster" runat="server" Text="master" /></div>
+        <asp:ContentPlaceHolder ID="main" runat="server" />
+        <pre id="log"><asp:Literal ID="Log" runat="server" EnableViewState="false" /></pre>
+    </form>
+</body>
+</html>

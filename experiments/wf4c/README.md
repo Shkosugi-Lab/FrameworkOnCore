@@ -1289,6 +1289,23 @@ Windows・Linux で比べた(`sample-parity.ps1`)。1 つのコーパスは変�
 (FloatingTextRewriter と同じ仕組みで足せる)。
 
 回帰: テスト Windows 4,423 件、be Windows 5/5・Linux 5/5、wt Windows 8/8・Linux 7/8、NestingProbe Windows・Linux 41/41。
+
+3 つ目のコーパスと、画面の HTML の比較:
+
+- ParityTest の `compareSource`(シナリオの設定): スナップショットごとにページの HTML も比べる(ブラウザーが持つ文書を 1 タグ 1 行に。
+  スクリプト、hidden の値、すべての属性。ViewState・イベント検証の値、WebResource.axd・ScriptResource.axd の鍵、サーバーのアドレスは両側で伏せる。
+  `sourceMasks` で追加)。本文の比較は空白をまとめるので、U+202F と空白の違いは HTML の比較でだけ見える。
+- `samples/PageProbe`(`compareSource`、web.config は `controlRenderingCompatibilityVersion="4.0"`): マスター・ユーザーコントロール・独自のコントロール
+  (TagKey と属性の WebControl、CompositeControl、IPostBackDataHandler・IPostBackEventHandler・コントロールの状態、テンプレートのデータバインド)の
+  イベントの順、変更イベントとクリックの順、Load と PreRender で足したコントロール、ClientIDMode のすべての形(ClientIDRowSuffix、検証コントロールと
+  ラベルの参照する ID)、ClientScriptManager のすべての登録とクライアントのコールバック、ViewStateMode と位置で決まる動的コントロールの ViewState、
+  式ビルダー・グローバルリソース・インラインのコード、Cookie(複数の値、HttpOnly、パス、期限切れ。サーバーとスクリプトで読む)、Request.Browser、
+  応答のフィルター・ページの前の書き込み・text/plain・Clear・Flush・コードで作るヘッダー。31 スナップショット、HTML 2,154 行: Windows は最初から一致。
+  Linux は 1 件(時刻の PM の前が ICU の U+202F)。
+- 変換器: **カルチャのプロファイルが無いと Linux は ICU の既定のデータ**だった(U+202F、ja-JP の通貨記号など)。Linux に配置するときは、
+  無ければこのマシンのものを capture-culture.ps1 で採る(既定のカルチャ、web.config の globalization、ページのディレクティブの Culture・UICulture。
+  タイムゾーンも)。元のサーバーのものを `--culture-profile` で渡すほうがよい(変換するマシンがサーバーと違うとき)と変換レポートに出す。PageProbe Linux 31/31。
+- 回帰: サンプル 21 件(AuthProbe から WcfProbe まで)Windows・Linux とも一致、NestingProbe Linux 41/41。
 ### パッケージを 1.6.5-w2l.16 に上げて公開(2026-10-17)
 
 別のマシンで Studio から n2 を変換すると、変換後のアプリが起動時に止まった(`'WebApplicationBuilder' does not contain a definition for 'AddWebFormsW3CLogging'`)。

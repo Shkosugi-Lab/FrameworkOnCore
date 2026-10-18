@@ -156,6 +156,10 @@ if (buildOriginal)
 Console.WriteLine($"copying {sourceRoot} -> {outRoot}");
 Paths.CopyTree(sourceRoot, outRoot);
 
+// Deployed on Linux without the original server's culture profile: this machine's (CultureCapture).
+if (cultureProfile == null && deployKinds is "container" or "linux" or "both")
+    cultureProfile = CultureCapture.FromThisMachine(project, runtimeDirectory, outRoot, report);
+
 var converter = new ProjectConverter(rules, report, new Conditions(configuration ?? "Debug", "AnyCPU", report), sourceRoot, outRoot, runtime);
 if (site != null) converter.DeployedBin = Path.Combine(site, "bin");
 var web = converter.Convert(project, isWeb: true);

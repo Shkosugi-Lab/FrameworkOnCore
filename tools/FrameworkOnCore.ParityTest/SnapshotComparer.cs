@@ -18,6 +18,7 @@ public static class SnapshotComparer
         }
 
         CompareTextLines(golden.Text, actual.Text, problems);
+        if (golden.Source != null && actual.Source != null) CompareTextLines(golden.Source, actual.Source, problems, "HTML");
         CompareTables(golden.Tables, actual.Tables, problems);
         CompareInputs(golden.Inputs, actual.Inputs, problems);
         CompareElements(golden.Elements, actual.Elements, problems);
@@ -89,7 +90,7 @@ public static class SnapshotComparer
         }
     }
 
-    private static void CompareTextLines(List<string> golden, List<string> actual, List<string> problems)
+    private static void CompareTextLines(List<string> golden, List<string> actual, List<string> problems, string what = "本文テキスト")
     {
         if (golden.SequenceEqual(actual))
         {
@@ -104,7 +105,7 @@ public static class SnapshotComparer
 
         var expected = index < golden.Count ? golden[index] : "(行なし)";
         var got = index < actual.Count ? actual[index] : "(行なし)";
-        problems.Add($"本文テキスト {index + 1} 行目から相違: 期待 '{expected}' / 実際 '{got}'"
+        problems.Add($"{what} {index + 1} 行目から相違: 期待 '{expected}' / 実際 '{got}'"
                      + $"(期待 {golden.Count} 行 / 実際 {actual.Count} 行)");
 
         // Also summarize lines unique to either side (helps distinguish reordering from omission)

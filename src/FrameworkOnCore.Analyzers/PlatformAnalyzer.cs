@@ -54,10 +54,18 @@ public sealed class PlatformAnalyzer : DiagnosticAnalyzer
         static string? Empty(string s) => s.Length == 0 ? null : s;
     }
 
+    // Generated code too: FrameworkOnCore's System.Web runs it on what the server compiles (ASP.NET's generated files hold
+    // the pages' code). The build's (the converter's) leaves designers' files.
+    readonly bool generatedCode;
+
+    public PlatformAnalyzer() : this(false) { }
+
+    public PlatformAnalyzer(bool generatedCode) => this.generatedCode = generatedCode;
+
     public override void Initialize(AnalysisContext context)
     {
         context.EnableConcurrentExecution();
-        context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
+        context.ConfigureGeneratedCodeAnalysis(generatedCode ? GeneratedCodeAnalysisFlags.Analyze | GeneratedCodeAnalysisFlags.ReportDiagnostics : GeneratedCodeAnalysisFlags.None);
         context.RegisterCompilationStartAction(start =>
         {
             var file = start.Options.AdditionalFiles.FirstOrDefault(f => f.Path.EndsWith(RulesFile, StringComparison.OrdinalIgnoreCase));

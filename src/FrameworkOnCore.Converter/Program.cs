@@ -260,6 +260,11 @@ if (build && succeeded && site != null)
 if (build && succeeded)
 {
     var deployedSite = site != null ? Path.Combine(outRoot, "site") : Path.GetDirectoryName(web.TargetPath)!;
+    // The platform rules as chosen, for what the server compiles (App_Code, CodeFile pages, the pages' code: FrameworkOnCore.Compilers
+    // rewrites it as the build's was): PlatformAnalyzer's line, then how it is replaced.
+    var siteBin = Path.Combine(deployedSite, "bin");
+    if (Directory.Exists(siteBin))
+        File.WriteAllLines(Path.Combine(siteBin, "frameworkoncore.platform.txt"), rules.PlatformReplacements.Select(r => $"{r.Line}|{r.Replace}|{r.Replacement}"), new UTF8Encoding(false));
     new DeployWriter(report, outRoot, runtimeDirectory).Write(deployKinds, deployedSite, web, cultureProfile, caseInsensitive.Value);
 }
 

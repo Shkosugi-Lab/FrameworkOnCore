@@ -1285,8 +1285,7 @@ Windows・Linux で比べた(`sample-parity.ps1`)。1 つのコーパスは変�
 
 残り(既知の差として PORT-CANDIDATES.md の「移植では対応できないもの」に書いた): 例外のメッセージ(約 60 件)、Unicode の版、Linux の照合
 (ICU)、Environment.NewLine、タイムゾーンの表示名、XmlSerializer・XmlConvert の書き方、Math の最後の桁、`HttpUtility`(.NET のものへ型転送)。
-サーバーがコンパイルするコードには、ほかの書き換え(Windows のパス FOC1001〜1004、platformReplacements など)はまだ掛かっていない
-(FloatingTextRewriter と同じ仕組みで足せる)。
+サーバーがコンパイルするコードには、Windows のパスの書き換え(FOC1001〜1004)はまだ掛かっていない(platformReplacements は下の 4 つ目のコーパスで足した)。
 
 回帰: テスト Windows 4,423 件、be Windows 5/5・Linux 5/5、wt Windows 8/8・Linux 7/8、NestingProbe Windows・Linux 41/41。
 
@@ -1321,6 +1320,10 @@ Windows・Linux で比べた(`sample-parity.ps1`)。1 つのコーパスは変�
   Windows の StrConv と全文字の範囲で比べて一致するテスト)。`HttpUtility.HtmlEncode(object)` の double(`<%: d %>`)も FrameworkNumbers。
 - 結果: VbProbe Windows・Linux とも 7/7。回帰: テスト 4,426 件、be 5/5、wt 8/8、NestingProbe 41/41、PageProbe 31/31(Windows)。
 - `sample-parity.ps1` は VB のサンプル(`<名前>.vbproj`)も扱う。
+- サーバーがコンパイルするコード(App_Code、CodeFile のページ、マークアップのコード)にも platformReplacements を掛ける: 変換器が選んだ規則をサイトの bin の
+  `frameworkoncore.platform.txt`(PlatformAnalyzer の行と置き換え)に書き、FrameworkOnCore.Compilers の書き換え(FloatingTextRewriter)が PlatformAnalyzer も動かす。
+  VbProbe のマークアップの Str・FormatCurrency・FormatNumber・StrConv が Windows・Linux で .NET Framework と同じに(それまで StrConv は Linux で例外)。
+  回帰: サンプル 24 件 Windows・23 件 Linux(VbProbe は別に 7/7)、be Windows・Linux 5/5、wt Windows 8/8・Linux 7/8(error-page)。
 ### パッケージを 1.6.5-w2l.16 に上げて公開(2026-10-17)
 
 別のマシンで Studio から n2 を変換すると、変換後のアプリが起動時に止まった(`'WebApplicationBuilder' does not contain a definition for 'AddWebFormsW3CLogging'`)。

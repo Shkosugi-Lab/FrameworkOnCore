@@ -278,7 +278,7 @@
         "concatenated: total 0.3",
         "encoded: 0.333333333333333",
         "formatted: $23",
-        "script: 0.3 0.333333333333333 0.3 2.68",
+        "script: 0.3 0.333333333333333 0.3 2.68 runtime: .3 $23 0.00 アイウガ ａｂｃ Hello World",
         "Name Price C0 Eval",
         "pen 22.5 $23 0.3333333 | 22.50 | 24.75 | x0.3333333",
         "ink 2.675 $3 0.3 | 2.68 | 2.9425 | x0.3",
@@ -314,6 +314,11 @@
           "Style": {}
         },
         "lblScript": {
+          "Tag": "span",
+          "Attributes": {},
+          "Style": {}
+        },
+        "lblRuntime": {
           "Tag": "span",
           "Attributes": {},
           "Style": {}
@@ -354,6 +359,7 @@
         "<li>formatted: $23</li>",
         "</ul>",
         "<span id=\"lblScript\">script: 0.3 0.333333333333333 0.3 2.68</span>",
+        "<span id=\"lblRuntime\">runtime:  .3 $23 0.00 アイウガ\u3000ａｂｃ Hello World</span>",
         "<div>",
         "<table cellspacing=\"0\" rules=\"all\" border=\"1\" id=\"gv\" style=\"border-collapse:collapse;\">",
         "<tbody>",

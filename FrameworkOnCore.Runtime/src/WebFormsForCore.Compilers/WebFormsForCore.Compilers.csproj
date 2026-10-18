@@ -57,6 +57,7 @@
         <Compile Include="..\..\..\src\FrameworkOnCore.Analyzers\FloatingTextAnalyzer.cs" Link="Analyzers\FloatingTextAnalyzer.cs" />
         <Compile Include="..\..\..\src\FrameworkOnCore.Analyzers\SpanInExpressionAnalyzer.cs" Link="Analyzers\SpanInExpressionAnalyzer.cs" />
         <Compile Include="..\..\..\src\FrameworkOnCore.Analyzers\Located.cs" Link="Analyzers\Located.cs" />
+        <Compile Include="..\..\..\src\FrameworkOnCore.Analyzers\PlatformAnalyzer.cs" Link="Analyzers\PlatformAnalyzer.cs" />
     </ItemGroup>
 
     <ItemGroup>

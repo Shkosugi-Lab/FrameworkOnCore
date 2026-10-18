@@ -21,6 +21,8 @@
         rpt.DataSource = items
         DataBind()
         lblScript.Text = "script: " & Total() & " " & CStr(1 / 3) & " " & (0.1 + 0.2).ToString() & " " & Format(2.675, "0.00")
+        ' The runtime's functions in what the server compiles: rewritten there as in the project (platformReplacements).
+        lblRuntime.Text = "runtime: " & Str(0.1 + 0.2) & " " & FormatCurrency(22.5, 0) & " " & FormatNumber(-0.004, 2) & " " & StrConv("ｱｲｳｶﾞ abc", VbStrConv.Wide, &H411) & " " & StrConv("hello world", VbStrConv.ProperCase)
     End Sub
 </script>
 <!DOCTYPE html>
@@ -36,6 +38,7 @@
             <li>formatted: <%= String.Format("{0:C0}", 22.5) %></li>
         </ul>
         <asp:Label ID="lblScript" runat="server" />
+        <asp:Label ID="lblRuntime" runat="server" />
         <asp:GridView ID="gv" runat="server" AutoGenerateColumns="false">
             <Columns>
                 <asp:BoundField DataField="Name" HeaderText="Name" />

@@ -34,7 +34,8 @@
       { "id": "none", "title": ".NET のまま", "description": "0.1 + 0.2 が 0.30000000000000004、-0 が \"-0\"、2.675 の N2 が 2.67 になる。大きすぎる数の Parse は無限大" }
     ],
     "language-packs": [
-      { "id": "framework", "title": "元のサーバーと同じ", "description": "元のサーバーにある .NET Framework の言語パック(capture-culture.ps1 が記録。なければこのマシンの)の System.Web などのメッセージを、FrameworkOnCore の同じアセンブリのサテライトにして bin に置く。UI カルチャがその言語のとき、Calendar の見出し、Login のラベル、エラーページなどがその言語になる", "default": true },
+      { "id": "translations", "title": "FrameworkOnCore の翻訳", "description": "System.Web の文言(Calendar の見出し、Login のラベル、Wizard・GridView のボタン、エラーページなど)を FrameworkOnCore 独自の訳(リポジトリの translations/、MIT)で、元のサーバーに言語パックがあった言語(capture-culture.ps1 が記録。無ければ変換したマシンの)だけ出す。訳文は Microsoft の言語パックと同じとは限らない", "default": true },
+      { "id": "framework", "title": "Microsoft の言語パック(Windows のみ)", "description": "変換したマシンの .NET Framework の言語パックからサテライトを作る(元のサーバーと同じ訳文)。Microsoft の使用許諾が Windows 以外で動かすための配布を禁じるので、Linux に配置しないとき(--deploy none)だけ。配置には Microsoft の使用許諾が適用される" },
       { "id": "none", "title": "置かない(英語)", "description": "UI カルチャにかかわらず英語" }
     ],
     "code-pages": [
@@ -155,7 +156,7 @@
     {
       "id": "language-packs", "title": ".NET Framework の言語パック(System.Web などの日本語のメッセージ、カルチャの表示名)",
       "match": { "members": [ "System.Globalization.CultureInfo.DisplayName" ] }, "status": "Behavior",
-      "note": "言語パックのあるサーバー(日本語の Windows では普通 ja)では、UI カルチャがその言語のとき System.Web のテキストがその言語になる(Calendar の「カレンダー」「先月へ移動」、Login の「ユーザー名:」、Wizard の「次へ」、GridView の「編集」、エラーページ)。.NET には言語パックがない。変換器: このマシンの言語パックから FrameworkOnCore の System.Web・System.Web.Extensions(MicrosoftAjax のメッセージも)・System.Web.Services などのサテライトを作って bin に置く。CultureInfo.DisplayName(.NET は Windows の表示言語の名前)も mscorlib と言語パックの名前に(FrameworkCultures)"
+      "note": "言語パックのあるサーバー(日本語の Windows では普通 ja)では、UI カルチャがその言語のとき System.Web のテキストがその言語になる(Calendar の「カレンダー」「先月へ移動」、Login の「ユーザー名:」、Wizard の「次へ」、GridView の「編集」、エラーページ)。.NET には言語パックがない。変換器: FrameworkOnCore 独自の訳(translations/)を、元のサーバーに言語パックがあった言語で使う(Microsoft の言語パックは使用許諾が Windows 以外への配布を禁じるので、Windows だけに配置するときに選んだ場合だけ)。CultureInfo.DisplayName(.NET は Windows の表示言語の名前)も mscorlib と言語パックの名前に(FrameworkCultures)"
     },
     {
       "id": "code-pages", "title": "コードページ(Shift_JIS など)",

@@ -67,6 +67,10 @@
         <EmbeddedResource Include="*.resx">
             <LogicalName>%(FileName).resources</LogicalName>
         </EmbeddedResource>
+        <!-- FrameworkOnCore's own translations (translations\<culture>\System.Web.<culture>.resx, MIT): satellites. -->
+        <EmbeddedResource Include="..\..\..\translations\*\System.Web.*.resx">
+            <LogicalName>%(FileName).resources</LogicalName>
+        </EmbeddedResource>
         <EmbeddedResource Include="Resources\System\Web\UI\**\*.*" Exclude="Resources\System\Web\UI\**\TreeView_*.*">
             <LogicalName>$([System.String]::new('%(RelativeDir)%(FileName)%(Extension)').Replace('Resources\', '').Replace('\','.'))</LogicalName>
         </EmbeddedResource>
@@ -150,6 +154,20 @@
         <StrongNamePublicKey>002400000480000094000000060200000024000052534131000400000100010007D1FA57C4AED9F0A32E84AA0FAEFD0DE9E8FD6AEC8F87FB03766C834C99921EB23BE79AD9D5DCC1DD9AD236132102900B723CF980957FC4E177108FC607774F29E8320E92EA05ECE4E821C0A5EFE8F1645C4C0C93C1AB99285D622CAA652C1DFAD63D745D6F2DE5F17E5EAF0FC4963D261C8A12436518206DC093344D5AD293</StrongNamePublicKey>
         <StrongNamePublicKeyToken>b03f5f7f11d50a3a</StrongNamePublicKeyToken>
     </PropertyGroup>
+
+    <!-- FrameworkOnCore: the translations' satellites with System.Web's public key (ResourceManager asks for the main
+         assembly's name, version and key in the culture; the build signs them with the project's). -->
+    <Target Name="FakeStrongNameSatellites" AfterTargets="CoreGenerateSatelliteAssemblies" Condition="$(TargetFramework) != 'net48' And '@(IntermediateSatelliteAssembliesWithTargetPath)' != ''">
+        <!-- Their time kept: a satellite newer than its translation is not built again (the next change would not be taken). -->
+        <ItemGroup>
+            <_FocSatellite Include="@(IntermediateSatelliteAssembliesWithTargetPath)" Condition="Exists('%(Identity)')" Time="%(ModifiedTime)" />
+        </ItemGroup>
+        <FakeStrongName Assemblies="@(_FocSatellite)"
+            PublicKey="$(StrongNamePublicKey)"
+            PublicKeyToken="$(StrongNamePublicKeyToken)"
+            AssemblyPath="$(MSBuildThisFileDirectory)..\..\lib\WebFormsForCore.Build\netstandard2.0\" />
+        <Touch Files="%(_FocSatellite.Identity)" Time="%(_FocSatellite.Time)" />
+    </Target>
 
     <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
         <ItemGroup>

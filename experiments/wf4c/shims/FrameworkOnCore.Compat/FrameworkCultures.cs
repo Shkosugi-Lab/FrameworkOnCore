@@ -62,7 +62,12 @@ namespace FrameworkOnCore
 
         static string Localized(CultureInfo culture)
         {
-            if (Names.Count == 0) return HasLanguagePack(CultureInfo.CurrentUICulture) ? culture.DisplayName : culture.EnglishName;
+            // Without the names (FrameworkOnCore's translations, or none): the language pack's language as .NET names it, else English
+            // (the original server's Windows' name from the culture profile: ICU's are "Chinese (Taiwan)" for "Chinese (Traditional, Taiwan)");
+            // a culture Windows makes up (LCID 4096: xx-YY) as .NET Framework, by its native name.
+            if (Names.Count == 0)
+                return culture.LCID == 4096 && !culture.IsNeutralCulture ? NativeName(culture)
+                    : HasLanguagePack(CultureInfo.CurrentUICulture) ? culture.DisplayName : EnglishName(culture);
             for (var ui = CultureInfo.CurrentUICulture; ui != null && ui.Name.Length > 0; ui = ui.Parent)
             {
                 if (Names.TryGetValue(ui.Name, out var localized) && localized.TryGetValue(culture.Name, out var name)) return name;

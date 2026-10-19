@@ -11,6 +11,14 @@ namespace FrameworkOnCore.Converter;
 /// v4.0_4.0.0.0_ja_...) has the same resources by the same names: made a satellite of the port's assembly (its name,
 /// version and public key), with the resources the port has, in bin\&lt;culture&gt;.
 /// The cultures: the original server's (capture-culture.ps1 records LanguagePacks), else this machine's.
+///
+/// The choice (component language-packs):
+/// - translations (the default): FrameworkOnCore's own translations (translations\, MIT; the packages' satellites), kept
+///   for the original server's languages and removed for the others (a server without the ja pack showed English);
+/// - framework: Microsoft's language packs as described above. Their license (Supplemental License Terms for the .NET
+///   Framework and its language packs) lets them be distributed only to run on Windows: only with --deploy none
+///   (Windows), else FrameworkOnCore's translations;
+/// - none: English (FrameworkOnCore's translations removed).
 /// </summary>
 static class LanguagePacks
 {
@@ -47,10 +55,21 @@ static class LanguagePacks
 
     public const string CultureNamesFile = "frameworkoncore.culturenames.txt";
 
-    public static void Write(string bin, string? cultureProfile, Report report)
+    // FrameworkOnCore's assemblies with translations of their own (translations\<culture>\<assembly>.<culture>.resx).
+    static readonly string[] Translated = ["System.Web"];
+
+    public static void Write(string bin, string? cultureProfile, string option, string deployKinds, Report report)
     {
         var fromProfile = OfProfile(cultureProfile);
         var cultures = fromProfile ?? OfThisMachine();
+        KeepTranslations(bin, option == "none" ? [] : cultures, report);
+        if (option != "framework") return;
+        if (deployKinds != "none")
+        {
+            report.Add(Report.Kind.Unsupported, "language-packs", "Microsoft's .NET Framework language packs not used: their license lets them be distributed only to run on Windows, and this conversion deploys on Linux (--deploy " + deployKinds + "); FrameworkOnCore's translations instead");
+            return;
+        }
+        report.Add(Report.Kind.Project, "language-packs", "Microsoft's .NET Framework language packs from this machine (the choice framework, Windows only): Microsoft's Supplemental License Terms for the .NET Framework and its language packs apply to the deployment (Distributable Code: to run on Windows only, unmodified copyright notices)");
         var here = OfThisMachine().ToHashSet(StringComparer.OrdinalIgnoreCase);
         WriteCultureNames(bin, cultures.Where(here.Contains).ToList(), report);
         if (cultures.Count == 0) return;
@@ -132,5 +151,34 @@ static class LanguagePacks
                 if (entry.Key is string key && key.StartsWith(prefix, StringComparison.Ordinal) && entry.Value is string name)
                     lines.Add($"{language}\t{key[prefix.Length..]}\t{name}");
         }
+    }
+
+    // FrameworkOnCore's translations in bin (the packages' satellites) for the languages given, the others removed.
+    static void KeepTranslations(string bin, List<string> cultures, Report report)
+    {
+        var kept = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+        var removed = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var folder in Directory.Exists(bin) ? Directory.EnumerateDirectories(bin) : [])
+        {
+            var culture = Path.GetFileName(folder);
+            foreach (var assembly in Translated)
+            {
+                var satellite = Path.Combine(folder, assembly + ".resources.dll");
+                if (!File.Exists(satellite)) continue;
+                // A pack's language covers its culture's (ja: ja-JP) and the other way round.
+                if (cultures.Any(c => c.Equals(culture, StringComparison.OrdinalIgnoreCase)
+                    || c.StartsWith(culture + "-", StringComparison.OrdinalIgnoreCase) || culture.StartsWith(c + "-", StringComparison.OrdinalIgnoreCase)))
+                    kept.Add(culture);
+                else
+                {
+                    File.Delete(satellite);
+                    removed.Add(culture);
+                }
+            }
+        }
+        if (kept.Count > 0)
+            report.Add(Report.Kind.Project, "language-packs", $"FrameworkOnCore's own translations of System.Web's texts ({string.Join(", ", kept)}), as the original server's language packs showed them in that language (the wording is FrameworkOnCore's, not Microsoft's)");
+        if (removed.Count > 0)
+            report.Add(Report.Kind.Project, "language-packs", $"FrameworkOnCore's translations removed ({string.Join(", ", removed)}): the original server had no language pack for them (English there)");
     }
 }

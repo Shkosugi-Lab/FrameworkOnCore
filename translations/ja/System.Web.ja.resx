@@ -1,0 +1,989 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdditionalConfigErrorInfo" xml:space="preserve">
+    <value>追加のエラー情報を表示するにはここをクリックしてください</value>
+    <comment>Click here to show additional error information</comment>
+  </data>
+  <data name="AppearanceEditorPart_PartTitle" xml:space="preserve">
+    <value>外観</value>
+    <comment>Appearance</comment>
+  </data>
+  <data name="BehaviorEditorPart_PartTitle" xml:space="preserve">
+    <value>動作</value>
+    <comment>Behavior</comment>
+  </data>
+  <data name="Calendar_NextMonthTitle" xml:space="preserve">
+    <value>次の月を表示</value>
+    <comment>Go to the next month</comment>
+  </data>
+  <data name="Calendar_PreviousMonthTitle" xml:space="preserve">
+    <value>前の月を表示</value>
+    <comment>Go to the previous month</comment>
+  </data>
+  <data name="Calendar_SelectMonthTitle" xml:space="preserve">
+    <value>月全体を選択</value>
+    <comment>Select the whole month</comment>
+  </data>
+  <data name="Calendar_SelectWeekTitle" xml:space="preserve">
+    <value>第 {0} 週を選択</value>
+    <comment>Select week {0}</comment>
+  </data>
+  <data name="Calendar_TitleText" xml:space="preserve">
+    <value>カレンダー</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="CatalogZoneBase_DefaultEmptyZoneText" xml:space="preserve">
+    <value>このカタログ ゾーンにはカタログ パーツがありません。</value>
+    <comment>Catalog Zone contains no Catalog Parts.</comment>
+  </data>
+  <data name="CatalogZoneBase_DefaultSelectTargetZoneText" xml:space="preserve">
+    <value>追加先:</value>
+    <comment>Add to:</comment>
+  </data>
+  <data name="CatalogZoneBase_HeaderText" xml:space="preserve">
+    <value>カタログ ゾーン</value>
+    <comment>Catalog Zone</comment>
+  </data>
+  <data name="CatalogZoneBase_InstructionText" xml:space="preserve">
+    <value>参照するカタログを選んでください。</value>
+    <comment>Select the catalog you would like to browse.</comment>
+  </data>
+  <data name="ChangePassword_DefaultCancelButtonText" xml:space="preserve">
+    <value>キャンセル</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="ChangePassword_DefaultChangePasswordButtonText" xml:space="preserve">
+    <value>パスワードの変更</value>
+    <comment>Change Password</comment>
+  </data>
+  <data name="ChangePassword_DefaultChangePasswordFailureText" xml:space="preserve">
+    <value>現在のパスワードが違うか、新しいパスワードが条件を満たしていません。新しいパスワードの最小の長さ: {0}。必要な英数字以外の文字の数: {1}。</value>
+    <comment>Password incorrect or New Password invalid. New Password length minimum: {0}. Non-alphanumeric characters required: {1}.</comment>
+  </data>
+  <data name="ChangePassword_DefaultChangePasswordTitleText" xml:space="preserve">
+    <value>パスワードの変更</value>
+    <comment>Change Your Password</comment>
+  </data>
+  <data name="ChangePassword_DefaultConfirmNewPasswordLabelText" xml:space="preserve">
+    <value>新しいパスワード (確認):</value>
+    <comment>Confirm New Password:</comment>
+  </data>
+  <data name="ChangePassword_DefaultConfirmPasswordCompareErrorMessage" xml:space="preserve">
+    <value>確認用のパスワードが新しいパスワードと一致しません。</value>
+    <comment>The Confirm New Password must match the New Password entry.</comment>
+  </data>
+  <data name="ChangePassword_DefaultConfirmPasswordRequiredErrorMessage" xml:space="preserve">
+    <value>確認用のパスワードを入力してください。</value>
+    <comment>Confirm New Password is required.</comment>
+  </data>
+  <data name="ChangePassword_DefaultContinueButtonText" xml:space="preserve">
+    <value>続行</value>
+    <comment>Continue</comment>
+  </data>
+  <data name="ChangePassword_DefaultNewPasswordLabelText" xml:space="preserve">
+    <value>新しいパスワード:</value>
+    <comment>New Password:</comment>
+  </data>
+  <data name="ChangePassword_DefaultNewPasswordRequiredErrorMessage" xml:space="preserve">
+    <value>新しいパスワードを入力してください。</value>
+    <comment>New Password is required.</comment>
+  </data>
+  <data name="ChangePassword_DefaultPasswordRequiredErrorMessage" xml:space="preserve">
+    <value>パスワードを入力してください。</value>
+    <comment>Password is required.</comment>
+  </data>
+  <data name="ChangePassword_DefaultSuccessText" xml:space="preserve">
+    <value>パスワードを変更しました。</value>
+    <comment>Your password has been changed!</comment>
+  </data>
+  <data name="ChangePassword_DefaultSuccessTitleText" xml:space="preserve">
+    <value>パスワードの変更の完了</value>
+    <comment>Change Password Complete</comment>
+  </data>
+  <data name="ChangePassword_DefaultUserNameLabelText" xml:space="preserve">
+    <value>ユーザー名:</value>
+    <comment>User Name:</comment>
+  </data>
+  <data name="ChangePassword_DefaultUserNameRequiredErrorMessage" xml:space="preserve">
+    <value>ユーザー名を入力してください。</value>
+    <comment>User Name is required.</comment>
+  </data>
+  <data name="CommandField_DefaultCancelCaption" xml:space="preserve">
+    <value>キャンセル</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="CommandField_DefaultDeleteCaption" xml:space="preserve">
+    <value>削除</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="CommandField_DefaultEditCaption" xml:space="preserve">
+    <value>編集</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="CommandField_DefaultInsertCaption" xml:space="preserve">
+    <value>挿入</value>
+    <comment>Insert</comment>
+  </data>
+  <data name="CommandField_DefaultNewCaption" xml:space="preserve">
+    <value>新規</value>
+    <comment>New</comment>
+  </data>
+  <data name="CommandField_DefaultSelectCaption" xml:space="preserve">
+    <value>選択</value>
+    <comment>Select</comment>
+  </data>
+  <data name="CommandField_DefaultUpdateCaption" xml:space="preserve">
+    <value>更新</value>
+    <comment>Update</comment>
+  </data>
+  <data name="Config_Desc" xml:space="preserve">
+    <value>この要求の処理に必要な構成ファイルの処理中にエラーが発生しました。以下のエラーの詳細を確認し、構成ファイルを適切に修正してください。</value>
+    <comment>An error occurred during the processing of a configuration file required to service this request. Please review the specific error details below and modify your configuration file appropriately.</comment>
+  </data>
+  <data name="Config_Error" xml:space="preserve">
+    <value>構成エラー</value>
+    <comment>Configuration Error</comment>
+  </data>
+  <data name="ConnectionsZone_ConfigureConnectionTitle" xml:space="preserve">
+    <value>接続の構成</value>
+    <comment>Configure Connection</comment>
+  </data>
+  <data name="ConnectionsZone_ConnectToConsumerInstructionText" xml:space="preserve">
+    <value>この Web パーツのコンシューマー接続を作成します。</value>
+    <comment>Create consumer connections for this Web Part.</comment>
+  </data>
+  <data name="ConnectionsZone_ConnectToConsumerText" xml:space="preserve">
+    <value>コンシューマーへの接続を作成</value>
+    <comment>Create a connection to a Consumer</comment>
+  </data>
+  <data name="ConnectionsZone_ConnectToConsumerTitle" xml:space="preserve">
+    <value>Web パーツへデータを送る</value>
+    <comment>Send Data to Web Part</comment>
+  </data>
+  <data name="ConnectionsZone_ConnectToProviderInstructionText" xml:space="preserve">
+    <value>この Web パーツのプロバイダー接続を作成します。</value>
+    <comment>Create provider connections for this Web Part.</comment>
+  </data>
+  <data name="ConnectionsZone_ConnectToProviderText" xml:space="preserve">
+    <value>プロバイダーへの接続を作成</value>
+    <comment>Create a connection to a Provider</comment>
+  </data>
+  <data name="ConnectionsZone_ConnectToProviderTitle" xml:space="preserve">
+    <value>Web パーツからデータを受け取る</value>
+    <comment>Get Data from Web Part</comment>
+  </data>
+  <data name="ConnectionsZone_ConsumersInstructionText" xml:space="preserve">
+    <value>現在の Web パーツが情報を送る Web パーツ:</value>
+    <comment>Web parts that the current Web part sends information to:</comment>
+  </data>
+  <data name="ConnectionsZone_ConsumersTitle" xml:space="preserve">
+    <value>コンシューマー</value>
+    <comment>Consumers</comment>
+  </data>
+  <data name="ConnectionsZone_ErrorCantContinueConnectionCreation" xml:space="preserve">
+    <value>Web パーツか接続ポイントの少なくとも 1 つが無くなったか、選択中の Web パーツと互換性がなくなったか、複数の接続に対応しない別の接続で使われているため、この接続の作成を続けられません。</value>
+    <comment>Can&apos;t continue with the creation of this connection because at least one of the Web Parts or connection points has disappeared or has become incompatible with the currently selected Web Part or is already used by another connection and doesn&apos;t support multiple connections.</comment>
+  </data>
+  <data name="ConnectionsZone_Get" xml:space="preserve">
+    <value>受け取る:</value>
+    <comment>Get:</comment>
+  </data>
+  <data name="ConnectionsZone_GetFromText" xml:space="preserve">
+    <value>送り元:</value>
+    <comment>From:</comment>
+  </data>
+  <data name="ConnectionsZone_HeaderText" xml:space="preserve">
+    <value>接続ゾーン</value>
+    <comment>Connections Zone</comment>
+  </data>
+  <data name="ConnectionsZone_InstructionText" xml:space="preserve">
+    <value>現在の Web パーツの接続を管理します。</value>
+    <comment>Manage the connections for the current Web part.</comment>
+  </data>
+  <data name="ConnectionsZone_InstructionTitle" xml:space="preserve">
+    <value>{0} の接続の管理</value>
+    <comment>Manage the connections for {0}</comment>
+  </data>
+  <data name="ConnectionsZone_NoExistingConnectionInstructionText" xml:space="preserve">
+    <value>この Web パーツには有効な接続がありません。互換性のある Web パーツがページにあれば、上のリンクから新しい接続を作成できます。</value>
+    <comment>There are no active connections available in your Web Part. You may create a new connection by selecting the links above if there are compatible Web Parts on the page.</comment>
+  </data>
+  <data name="ConnectionsZone_NoExistingConnectionTitle" xml:space="preserve">
+    <value>有効な接続はありません</value>
+    <comment>No active connections</comment>
+  </data>
+  <data name="ConnectionsZone_ProvidersInstructionText" xml:space="preserve">
+    <value>現在の Web パーツが情報を受け取る Web パーツ:</value>
+    <comment>Web parts that the current Web part gets information from:</comment>
+  </data>
+  <data name="ConnectionsZone_ProvidersTitle" xml:space="preserve">
+    <value>プロバイダー</value>
+    <comment>Providers</comment>
+  </data>
+  <data name="ConnectionsZone_SendText" xml:space="preserve">
+    <value>送る:</value>
+    <comment>Send:</comment>
+  </data>
+  <data name="ConnectionsZone_SendToText" xml:space="preserve">
+    <value>送り先:</value>
+    <comment>To:</comment>
+  </data>
+  <data name="ConnectionsZone_WarningConnectionDisabled" xml:space="preserve">
+    <value>接続先のどちらかを使えないため、この接続は現在無効です。</value>
+    <comment>This connection is currently inactive due to the unavailability of one of its end points.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultAnswerLabelText" xml:space="preserve">
+    <value>秘密の質問の答え:</value>
+    <comment>Security Answer:</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultAnswerRequiredErrorMessage" xml:space="preserve">
+    <value>秘密の質問の答えを入力してください。</value>
+    <comment>Security answer is required.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultCompleteSuccessText" xml:space="preserve">
+    <value>アカウントを作成しました。</value>
+    <comment>Your account has been successfully created.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultCompleteTitleText" xml:space="preserve">
+    <value>完了</value>
+    <comment>Complete</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultConfirmPasswordCompareErrorMessage" xml:space="preserve">
+    <value>パスワードと確認用のパスワードが一致しません。</value>
+    <comment>The Password and Confirmation Password must match.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultConfirmPasswordLabelText" xml:space="preserve">
+    <value>パスワード (確認):</value>
+    <comment>Confirm Password:</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultConfirmPasswordRequiredErrorMessage" xml:space="preserve">
+    <value>確認用のパスワードを入力してください。</value>
+    <comment>Confirm Password is required.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultContinueButtonText" xml:space="preserve">
+    <value>続行</value>
+    <comment>Continue</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultCreateUserButtonText" xml:space="preserve">
+    <value>ユーザーの作成</value>
+    <comment>Create User</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultCreateUserTitleText" xml:space="preserve">
+    <value>新しいアカウントの登録</value>
+    <comment>Sign Up for Your New Account</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultDuplicateEmailErrorMessage" xml:space="preserve">
+    <value>入力された電子メール アドレスは既に使われています。別の電子メール アドレスを入力してください。</value>
+    <comment>The e-mail address that you entered is already in use. Please enter a different e-mail address.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultDuplicateUserNameErrorMessage" xml:space="preserve">
+    <value>別のユーザー名を入力してください。</value>
+    <comment>Please enter a different user name.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultEmailLabelText" xml:space="preserve">
+    <value>電子メール:</value>
+    <comment>E-mail:</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultEmailRegularExpressionErrorMessage" xml:space="preserve">
+    <value>別の電子メール アドレスを入力してください。</value>
+    <comment>Please enter a different e-mail.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultEmailRequiredErrorMessage" xml:space="preserve">
+    <value>電子メール アドレスを入力してください。</value>
+    <comment>E-mail is required.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultInvalidAnswerErrorMessage" xml:space="preserve">
+    <value>別の秘密の質問の答えを入力してください。</value>
+    <comment>Please enter a different security answer.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultInvalidEmailErrorMessage" xml:space="preserve">
+    <value>正しい電子メール アドレスを入力してください。</value>
+    <comment>Please enter a valid e-mail address.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultInvalidPasswordErrorMessage" xml:space="preserve">
+    <value>パスワードの最小の長さ: {0}。必要な英数字以外の文字の数: {1}。</value>
+    <comment>Password length minimum: {0}. Non-alphanumeric characters required: {1}.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultInvalidQuestionErrorMessage" xml:space="preserve">
+    <value>別の秘密の質問を入力してください。</value>
+    <comment>Please enter a different security question.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultPasswordRequiredErrorMessage" xml:space="preserve">
+    <value>パスワードを入力してください。</value>
+    <comment>Password is required.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultQuestionLabelText" xml:space="preserve">
+    <value>秘密の質問:</value>
+    <comment>Security Question:</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultQuestionRequiredErrorMessage" xml:space="preserve">
+    <value>秘密の質問を入力してください。</value>
+    <comment>Security question is required.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultUnknownErrorMessage" xml:space="preserve">
+    <value>アカウントを作成できませんでした。もう一度お試しください。</value>
+    <comment>Your account was not created. Please try again.</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultUserNameLabelText" xml:space="preserve">
+    <value>ユーザー名:</value>
+    <comment>User Name:</comment>
+  </data>
+  <data name="CreateUserWizard_DefaultUserNameRequiredErrorMessage" xml:space="preserve">
+    <value>ユーザー名を入力してください。</value>
+    <comment>User Name is required.</comment>
+  </data>
+  <data name="CustomErrorFailed_Err_Desc" xml:space="preserve">
+    <value>要求の処理中に例外が発生し、さらに、その例外のためのカスタム エラー ページの実行中にも別の例外が発生しました。要求は終了しました。</value>
+    <comment>An exception occurred while processing your request. Additionally, another exception occurred while executing the custom error page for the first exception. The request has been terminated.</comment>
+  </data>
+  <data name="DeclarativeCatalogPart_PartTitle" xml:space="preserve">
+    <value>宣言カタログ</value>
+    <comment>Declarative Catalog</comment>
+  </data>
+  <data name="EditorZoneBase_DefaultEmptyZoneText" xml:space="preserve">
+    <value>このエディター ゾーンにはエディター パーツがありません。</value>
+    <comment>Editor Zone contains no Editor Parts.</comment>
+  </data>
+  <data name="EditorZoneBase_DefaultErrorText" xml:space="preserve">
+    <value>1 つ以上のエディター パーツの適用中にエラーが発生しました。</value>
+    <comment>There was an error applying one or more Editor Parts.</comment>
+  </data>
+  <data name="EditorZoneBase_DefaultHeaderText" xml:space="preserve">
+    <value>エディター ゾーン</value>
+    <comment>Editor Zone</comment>
+  </data>
+  <data name="EditorZoneBase_DefaultInstructionText" xml:space="preserve">
+    <value>Web パーツのプロパティを変更し、[OK] か [適用] をクリックして変更を反映してください。</value>
+    <comment>Modify the properties of the Web Part, then click OK or Apply to apply your changes.</comment>
+  </data>
+  <data name="Error_Formatter_ASPNET_Build" xml:space="preserve">
+    <value>; ASP.NET バージョン:</value>
+    <comment>; ASP.NET Version:</comment>
+  </data>
+  <data name="Error_Formatter_ASPNET_Error" xml:space="preserve">
+    <value>アプリケーション &apos;{0}&apos; のサーバー エラー</value>
+    <comment>Server Error in &apos;{0}&apos; Application.</comment>
+  </data>
+  <data name="Error_Formatter_CLR_Build" xml:space="preserve">
+    <value>Microsoft .NET Framework バージョン:</value>
+    <comment>Microsoft .NET Framework Version:</comment>
+  </data>
+  <data name="Error_Formatter_CLR_Core_Build" xml:space="preserve">
+    <value>Microsoft .NET バージョン:</value>
+    <comment>Microsoft .NET Version:</comment>
+  </data>
+  <data name="Error_Formatter_Description" xml:space="preserve">
+    <value>説明:</value>
+    <comment>Description:</comment>
+  </data>
+  <data name="Error_Formatter_FusionLog" xml:space="preserve">
+    <value>アセンブリの読み込みのトレース</value>
+    <comment>Assembly Load Trace</comment>
+  </data>
+  <data name="Error_Formatter_FusionLogDesc" xml:space="preserve">
+    <value>次の情報は、アセンブリ &apos;{0}&apos; を読み込めなかった原因を調べるのに役立ちます。</value>
+    <comment>The following information can be helpful to determine why the assembly &apos;{0}&apos; could not be loaded.</comment>
+  </data>
+  <data name="Error_Formatter_Line" xml:space="preserve">
+    <value>行:</value>
+    <comment>Line:</comment>
+  </data>
+  <data name="Error_Formatter_No_Source_File" xml:space="preserve">
+    <value>なし</value>
+    <comment>none</comment>
+  </data>
+  <data name="Error_Formatter_Source_File" xml:space="preserve">
+    <value>ソース ファイル:</value>
+    <comment>Source File:</comment>
+  </data>
+  <data name="Error_Formatter_Version" xml:space="preserve">
+    <value>バージョン情報:</value>
+    <comment>Version Information:</comment>
+  </data>
+  <data name="Forbidden_Extension_Desc" xml:space="preserve">
+    <value>要求された種類のページは、明示的に禁止されているため提供されません。{0}   URL のつづりが正しいか確認してください。</value>
+    <comment>The type of page you have requested is not served because it has been explicitly forbidden.  {0}   Please review the URL below and make sure that it is spelled correctly.</comment>
+  </data>
+  <data name="Forbidden_Extension_Incorrect" xml:space="preserve">
+    <value>拡張子 &apos;{0}&apos; が正しくない可能性があります。</value>
+    <comment>The extension &apos;{0}&apos; may be incorrect.</comment>
+  </data>
+  <data name="Forbidden_Type_Not_Served" xml:space="preserve">
+    <value>この種類のページは提供されません。</value>
+    <comment>This type of page is not served.</comment>
+  </data>
+  <data name="Generic_Err_Details_Title" xml:space="preserve">
+    <value>詳細</value>
+    <comment>Details</comment>
+  </data>
+  <data name="Generic_Err_Notes_Desc" xml:space="preserve">
+    <value>このエラー ページは、アプリケーションの &lt;customErrors&gt; 構成タグの &quot;defaultRedirect&quot; 属性にカスタム エラー ページの URL を指定すると置き換えられます。</value>
+    <comment>The current error page you are seeing can be replaced by a custom error page by modifying the &quot;defaultRedirect&quot; attribute of the application&apos;s &lt;customErrors&gt; configuration tag to point to a custom error page URL.</comment>
+  </data>
+  <data name="Generic_Err_Notes_Title" xml:space="preserve">
+    <value>注意</value>
+    <comment>Notes</comment>
+  </data>
+  <data name="Generic_Err_Remote_Desc" xml:space="preserve">
+    <value>サーバーでアプリケーション エラーが発生しました。このアプリケーションの現在のカスタム エラーの設定では、セキュリティのため、エラーの詳細をリモートからは表示できません。サーバー上のブラウザーからは表示できます。</value>
+    <comment>An application error occurred on the server. The current custom error settings for this application prevent the details of the application error from being viewed remotely (for security reasons). It could, however, be viewed by browsers running on the local server machine.</comment>
+  </data>
+  <data name="Generic_Err_Title" xml:space="preserve">
+    <value>ランタイム エラー</value>
+    <comment>Runtime Error</comment>
+  </data>
+  <data name="ImportCatalogPart_Browse" xml:space="preserve">
+    <value>ファイル名 (.WebPart) を入力するか、[参照] をクリックして Web パーツを探してください。</value>
+    <comment>Type a file name (.WebPart) or click &quot;Browse&quot; to locate a Web Part.</comment>
+  </data>
+  <data name="ImportCatalogPart_ImportedPartErrorLabel" xml:space="preserve">
+    <value>Web パーツのインポート中のエラー</value>
+    <comment>Error while importing Web Part</comment>
+  </data>
+  <data name="ImportCatalogPart_ImportedPartLabel" xml:space="preserve">
+    <value>インポートした Web パーツ</value>
+    <comment>Imported Web Part</comment>
+  </data>
+  <data name="ImportCatalogPart_PartTitle" xml:space="preserve">
+    <value>インポートした Web パーツのカタログ</value>
+    <comment>Imported Web Part Catalog</comment>
+  </data>
+  <data name="ImportCatalogPart_Upload" xml:space="preserve">
+    <value>インポートする Web パーツのファイルを選んだら、[アップロード] をクリックしてください。</value>
+    <comment>Once you have selected a Web Part file to import, click the Upload button.</comment>
+  </data>
+  <data name="ImportCatalogPart_UploadButton" xml:space="preserve">
+    <value>アップロード</value>
+    <comment>Upload</comment>
+  </data>
+  <data name="LayoutEditorPart_PartTitle" xml:space="preserve">
+    <value>レイアウト</value>
+    <comment>Layout</comment>
+  </data>
+  <data name="Login_DefaultFailureText" xml:space="preserve">
+    <value>ログインできませんでした。もう一度お試しください。</value>
+    <comment>Your login attempt was not successful. Please try again.</comment>
+  </data>
+  <data name="Login_DefaultLoginButtonText" xml:space="preserve">
+    <value>ログイン</value>
+    <comment>Log In</comment>
+  </data>
+  <data name="Login_DefaultPasswordRequiredErrorMessage" xml:space="preserve">
+    <value>パスワードを入力してください。</value>
+    <comment>Password is required.</comment>
+  </data>
+  <data name="Login_DefaultRememberMeText" xml:space="preserve">
+    <value>次回から自動的にログインする</value>
+    <comment>Remember me next time.</comment>
+  </data>
+  <data name="Login_DefaultTitleText" xml:space="preserve">
+    <value>ログイン</value>
+    <comment>Log In</comment>
+  </data>
+  <data name="Login_DefaultUserNameLabelText" xml:space="preserve">
+    <value>ユーザー名:</value>
+    <comment>User Name:</comment>
+  </data>
+  <data name="Login_DefaultUserNameRequiredErrorMessage" xml:space="preserve">
+    <value>ユーザー名を入力してください。</value>
+    <comment>User Name is required.</comment>
+  </data>
+  <data name="LoginControls_DefaultPasswordLabelText" xml:space="preserve">
+    <value>パスワード:</value>
+    <comment>Password:</comment>
+  </data>
+  <data name="LoginStatus_DefaultLoginText" xml:space="preserve">
+    <value>ログイン</value>
+    <comment>Login</comment>
+  </data>
+  <data name="LoginStatus_DefaultLogoutText" xml:space="preserve">
+    <value>ログアウト</value>
+    <comment>Logout</comment>
+  </data>
+  <data name="Menu_ScrollDown" xml:space="preserve">
+    <value>下へスクロール</value>
+    <comment>Scroll down</comment>
+  </data>
+  <data name="Menu_ScrollUp" xml:space="preserve">
+    <value>上へスクロール</value>
+    <comment>Scroll up</comment>
+  </data>
+  <data name="Menu_SkipLinkTextDefault" xml:space="preserve">
+    <value>ナビゲーション リンクをスキップ</value>
+    <comment>Skip Navigation Links</comment>
+  </data>
+  <data name="MenuAdapter_Expand" xml:space="preserve">
+    <value>{0} を展開</value>
+    <comment>Expand {0}</comment>
+  </data>
+  <data name="NotFound_Http_404" xml:space="preserve">
+    <value>HTTP 404。探しているリソース (またはその依存先) は、削除されたか、名前が変わったか、一時的に使えない可能性があります。次の URL のつづりが正しいか確認してください。</value>
+    <comment>HTTP 404. The resource you are looking for (or one of its dependencies) could have been removed, had its name changed, or is temporarily unavailable.  Please review the following URL and make sure that it is spelled correctly.</comment>
+  </data>
+  <data name="NotFound_Requested_Url" xml:space="preserve">
+    <value>要求された URL</value>
+    <comment>Requested URL</comment>
+  </data>
+  <data name="NotFound_Resource_Not_Found" xml:space="preserve">
+    <value>リソースが見つかりません。</value>
+    <comment>The resource cannot be found.</comment>
+  </data>
+  <data name="PageCatalogPart_PartTitle" xml:space="preserve">
+    <value>ページ カタログ</value>
+    <comment>Page Catalog</comment>
+  </data>
+  <data name="Parser_Desc" xml:space="preserve">
+    <value>この要求の処理に必要なリソースの解析中にエラーが発生しました。以下の解析エラーの詳細を確認し、ソース ファイルを適切に修正してください。</value>
+    <comment>An error occurred during the parsing of a resource required to service this request.   Please review the following specific parse error details and modify your source file appropriately.</comment>
+  </data>
+  <data name="Parser_Error" xml:space="preserve">
+    <value>パーサー エラー</value>
+    <comment>Parser Error</comment>
+  </data>
+  <data name="Parser_Error_Message" xml:space="preserve">
+    <value>パーサー エラー メッセージ</value>
+    <comment>Parser Error Message</comment>
+  </data>
+  <data name="Parser_Source_Error" xml:space="preserve">
+    <value>ソース エラー</value>
+    <comment>Source Error</comment>
+  </data>
+  <data name="Password_InvalidPasswordErrorMessage" xml:space="preserve">
+    <value>別のパスワードを入力してください。</value>
+    <comment>Please enter a different password.</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultAnswerLabelText" xml:space="preserve">
+    <value>答え:</value>
+    <comment>Answer:</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultAnswerRequiredErrorMessage" xml:space="preserve">
+    <value>答えを入力してください。</value>
+    <comment>Answer is required.</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultBody" xml:space="preserve">
+    <value>サイトに戻り、次の情報でログインしてください。
+ユーザー名: &lt;%UserName%&gt;
+パスワード: &lt;%Password%&gt;
+
+</value>
+    <comment>Please return to the site and log in using the following information.
+User Name: &lt;%UserName%&gt;
+Password: &lt;%Password%&gt;
+
+</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultGeneralFailureText" xml:space="preserve">
+    <value>パスワードを取得できませんでした。もう一度お試しください。</value>
+    <comment>Your attempt to retrieve your password was not successful. Please try again.</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultQuestionFailureText" xml:space="preserve">
+    <value>答えを確認できませんでした。もう一度お試しください。</value>
+    <comment>Your answer could not be verified. Please try again.</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultQuestionInstructionText" xml:space="preserve">
+    <value>パスワードを受け取るには、次の質問に答えてください。</value>
+    <comment>Answer the following question to receive your password.</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultQuestionLabelText" xml:space="preserve">
+    <value>質問:</value>
+    <comment>Question:</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultQuestionTitleText" xml:space="preserve">
+    <value>本人確認</value>
+    <comment>Identity Confirmation</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultSubject" xml:space="preserve">
+    <value>パスワード</value>
+    <comment>Password</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultSubmitButtonText" xml:space="preserve">
+    <value>送信</value>
+    <comment>Submit</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultSuccessText" xml:space="preserve">
+    <value>パスワードを送信しました。</value>
+    <comment>Your password has been sent to you.</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultUserNameFailureText" xml:space="preserve">
+    <value>情報にアクセスできませんでした。もう一度お試しください。</value>
+    <comment>We were unable to access your information. Please try again.</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultUserNameInstructionText" xml:space="preserve">
+    <value>パスワードを受け取るには、ユーザー名を入力してください。</value>
+    <comment>Enter your User Name to receive your password.</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultUserNameLabelText" xml:space="preserve">
+    <value>ユーザー名:</value>
+    <comment>User Name:</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultUserNameRequiredErrorMessage" xml:space="preserve">
+    <value>ユーザー名を入力してください。</value>
+    <comment>User Name is required.</comment>
+  </data>
+  <data name="PasswordRecovery_DefaultUserNameTitleText" xml:space="preserve">
+    <value>パスワードをお忘れですか?</value>
+    <comment>Forgot Your Password?</comment>
+  </data>
+  <data name="PropertyGridEditorPart_PartTitle" xml:space="preserve">
+    <value>プロパティ グリッド</value>
+    <comment>Property Grid</comment>
+  </data>
+  <data name="Security_Err_Desc" xml:space="preserve">
+    <value>アプリケーションが、セキュリティ ポリシーで許可されていない操作を実行しようとしました。必要なアクセス許可を与えるには、システム管理者に連絡するか、構成ファイルでアプリケーションの信頼レベルを変更してください。</value>
+    <comment>The application attempted to perform an operation not allowed by the security policy.  To grant this application the required permission please contact your system administrator or change the application&apos;s trust level in the configuration file.</comment>
+  </data>
+  <data name="Security_Err_Error" xml:space="preserve">
+    <value>セキュリティ例外</value>
+    <comment>Security Exception</comment>
+  </data>
+  <data name="SiteMapPath_Default_SkipToContentText" xml:space="preserve">
+    <value>ナビゲーション リンクをスキップ</value>
+    <comment>Skip Navigation Links</comment>
+  </data>
+  <data name="Src_not_available" xml:space="preserve">
+    <value>このエラーを発生させたソース コードは、デバッグ モードでコンパイルしたときだけ表示できます。表示するには、次のどちらかを行ってから URL を要求してください。
+
+1. エラーを発生させたファイルの先頭に &quot;Debug=true&quot; ディレクティブを追加する。例:
+
+{0}   &lt;%@ Page Language=&quot;C#&quot; Debug=&quot;true&quot; %&gt;{1}
+
+または:
+
+2) アプリケーションの構成ファイルに次のセクションを追加する:
+
+{2}&lt;configuration&gt;
+    &lt;system.web&gt;
+        &lt;compilation debug=&quot;true&quot;/&gt;
+    &lt;/system.web&gt;
+&lt;/configuration&gt;{3}
+
+ 2 番目の方法では、アプリケーションのすべてのファイルがデバッグ モードでコンパイルされます。1 番目の方法では、そのファイルだけがデバッグ モードでコンパイルされます。
+
+重要: デバッグ モードで実行すると、メモリと性能に負荷がかかります。運用環境に配置する前に、アプリケーションのデバッグを無効にしてください。</value>
+    <comment>The source code that generated this unhandled exception can only be shown when compiled in debug mode. To enable this, please follow one of the below steps, then request the URL:
+
+1. Add a &quot;Debug=true&quot; directive at the top of the file that generated the error. Example:
+
+{0}   &lt;%@ Page Language=&quot;C#&quot; Debug=&quot;true&quot; %&gt;{1}
+
+or:
+
+2) Add the following section to the configuration file of your application:
+
+{2}&lt;configuration&gt;
+    &lt;system.web&gt;
+        &lt;compilation debug=&quot;true&quot;/&gt;
+    &lt;/system.web&gt;
+&lt;/configuration&gt;{3}
+
+ Note that this second technique will cause all files within a given application to be compiled in debug mode. The first technique will cause only that particular file to be compiled in debug mode.
+
+Important: Running applications in debug mode does incur a memory/performance overhead. You should make sure that an application has debugging disabled before deploying into production scenario.</comment>
+  </data>
+  <data name="Src_not_available_nodebug" xml:space="preserve">
+    <value>現在の Web 要求の実行中に、処理されない例外が発生しました。例外の発生元と場所は、次の例外のスタック トレースで確認できます。</value>
+    <comment>An unhandled exception was generated during the execution of the current web request. Information regarding the origin and location of the exception can be identified using the exception stack trace below.</comment>
+  </data>
+  <data name="TmplCompilerCompleteOutput" xml:space="preserve">
+    <value>コンパイラの詳しい出力を表示</value>
+    <comment>Show Detailed Compiler Output</comment>
+  </data>
+  <data name="TmplCompilerErrorDesc" xml:space="preserve">
+    <value>この要求の処理に必要なリソースのコンパイル中にエラーが発生しました。以下のエラーの詳細を確認し、ソース コードを適切に修正してください。</value>
+    <comment>An error occurred during the compilation of a resource required to service this request. Please review the following specific error details and modify your source code appropriately.</comment>
+  </data>
+  <data name="TmplCompilerErrorSecTitle" xml:space="preserve">
+    <value>コンパイラ エラー メッセージ</value>
+    <comment>Compiler Error Message</comment>
+  </data>
+  <data name="TmplCompilerErrorTitle" xml:space="preserve">
+    <value>コンパイル エラー</value>
+    <comment>Compilation Error</comment>
+  </data>
+  <data name="TmplCompilerFatalError" xml:space="preserve">
+    <value>コンパイラがエラー コード {0} で失敗しました。</value>
+    <comment>The compiler failed with error code {0}.</comment>
+  </data>
+  <data name="TmplCompilerGeneratedFile" xml:space="preserve">
+    <value>コンパイルしたソース全体を表示</value>
+    <comment>Show Complete Compilation Source</comment>
+  </data>
+  <data name="TmplCompilerLineHeader" xml:space="preserve">
+    <value>行 {0}:</value>
+    <comment>Line {0}:</comment>
+  </data>
+  <data name="TmplCompilerSourceFileLine" xml:space="preserve">
+    <value>行</value>
+    <comment>Line</comment>
+  </data>
+  <data name="TmplCompilerSourceFileTitle" xml:space="preserve">
+    <value>ソース ファイル</value>
+    <comment>Source File</comment>
+  </data>
+  <data name="TmplCompilerSourceSecTitle" xml:space="preserve">
+    <value>ソース エラー</value>
+    <comment>Source Error</comment>
+  </data>
+  <data name="TmplCompilerWarningBanner" xml:space="preserve">
+    <value>コンパイラの警告メッセージ</value>
+    <comment>Compiler Warning Messages</comment>
+  </data>
+  <data name="TmplCompilerWarningSecTitle" xml:space="preserve">
+    <value>警告</value>
+    <comment>Warning</comment>
+  </data>
+  <data name="TmplConfigurationAdditionalError" xml:space="preserve">
+    <value>構成のその他のエラーを表示</value>
+    <comment>Show Additional Configuration Errors</comment>
+  </data>
+  <data name="TreeView_CollapseImageToolTipDefaultValue" xml:space="preserve">
+    <value>{0} を折りたたむ</value>
+    <comment>Collapse {0}</comment>
+  </data>
+  <data name="TreeView_Default_SkipLinkText" xml:space="preserve">
+    <value>ナビゲーション リンクをスキップ。</value>
+    <comment>Skip Navigation Links.</comment>
+  </data>
+  <data name="TreeView_ExpandImageToolTipDefaultValue" xml:space="preserve">
+    <value>{0} を展開</value>
+    <comment>Expand {0}</comment>
+  </data>
+  <data name="Unauthorized_Err_Desc1" xml:space="preserve">
+    <value>ASP.NET には、要求されたリソースへのアクセスが許可されていません。ASP.NET の要求の ID にリソースへのアクセス権を与えることを検討してください。ASP.NET には基本のプロセス ID (IIS 5 では通常 {MACHINE}\ASPNET、IIS 6・IIS 7 では Network Service、IIS 7.5 では構成されたアプリケーション プールの ID) があり、アプリケーションが偽装していないときはそれが使われます。&lt;identity impersonate=&quot;true&quot;/&gt; で偽装しているときは、匿名ユーザー (通常は IUSR_MACHINENAME) か、認証された要求のユーザーの ID になります。</value>
+    <comment>ASP.NET is not authorized to access the requested resource. Consider granting access rights to the resource to the ASP.NET request identity. ASP.NET has a base process identity (typically {MACHINE}\ASPNET on IIS 5 or Network Service on IIS 6 and IIS 7, and the configured application pool identity on IIS 7.5) that is used if the application is not impersonating.  If the application is impersonating via &lt;identity impersonate=&quot;true&quot;/&gt;, the identity will be the anonymous user (typically IUSR_MACHINENAME) or the authenticated request user.</comment>
+  </data>
+  <data name="Unauthorized_Err_Desc2" xml:space="preserve">
+    <value>ASP.NET にファイルへのアクセスを許可するには、エクスプローラーでファイルを右クリックし、[プロパティ] を選んで [セキュリティ] タブを開きます。[追加] をクリックして適切なユーザーかグループを追加し、ASP.NET のアカウントを選んで、必要なアクセス許可のチェック ボックスをオンにしてください。</value>
+    <comment>To grant ASP.NET access to a file, right-click the file in File Explorer, choose &quot;Properties&quot; and select the Security tab. Click &quot;Add&quot; to add the appropriate user or group. Highlight the ASP.NET account, and check the boxes for the desired access.</comment>
+  </data>
+  <data name="Unhandled_Err_Desc" xml:space="preserve">
+    <value>現在の Web 要求の実行中に、処理されない例外が発生しました。エラーと発生元の詳細はスタック トレースで確認してください。
+</value>
+    <comment>An unhandled exception occurred during the execution of the current web request. Please review the stack trace for more information about the error and where it originated in the code.
+</comment>
+  </data>
+  <data name="Unhandled_Err_Error" xml:space="preserve">
+    <value>処理されない実行エラー</value>
+    <comment>Unhandled Execution Error</comment>
+  </data>
+  <data name="Unhandled_Err_Exception_Details" xml:space="preserve">
+    <value>例外の詳細</value>
+    <comment>Exception Details</comment>
+  </data>
+  <data name="Unhandled_Err_Stack_Trace" xml:space="preserve">
+    <value>スタック トレース</value>
+    <comment>Stack Trace</comment>
+  </data>
+  <data name="WebPart_DefaultImportErrorMessage" xml:space="preserve">
+    <value>この Web パーツはインポートできません。</value>
+    <comment>Cannot import this Web Part.</comment>
+  </data>
+  <data name="WebPartCatalogAddVerb_Description" xml:space="preserve">
+    <value>Web パーツをゾーンに追加します</value>
+    <comment>Adds a Web Part to a Zone</comment>
+  </data>
+  <data name="WebPartCatalogAddVerb_Text" xml:space="preserve">
+    <value>追加</value>
+    <comment>Add</comment>
+  </data>
+  <data name="WebPartCatalogCloseVerb_Description" xml:space="preserve">
+    <value>カタログを閉じます</value>
+    <comment>Closes Catalog</comment>
+  </data>
+  <data name="WebPartCatalogCloseVerb_Text" xml:space="preserve">
+    <value>閉じる</value>
+    <comment>Close</comment>
+  </data>
+  <data name="WebPartChrome_ConfirmExportSensitive" xml:space="preserve">
+    <value>この Web パーツ ページは個人用に設定されているため、Web パーツのプロパティに機密の情報が含まれている可能性があります。プロパティの内容が他の人に読まれても問題ないことを確認してください。この Web パーツをエクスポートした後は、Web パーツの記述ファイル (.WebPart) のプロパティをメモ帳などのテキスト エディターで確認できます。</value>
+    <comment>This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.</comment>
+  </data>
+  <data name="WebPartCloseVerb_Description" xml:space="preserve">
+    <value>&apos;{0}&apos; を閉じます</value>
+    <comment>Closes &apos;{0}&apos;</comment>
+  </data>
+  <data name="WebPartCloseVerb_Text" xml:space="preserve">
+    <value>閉じる</value>
+    <comment>Close</comment>
+  </data>
+  <data name="WebPartConnectionsCancelVerb_Description" xml:space="preserve">
+    <value>現在の操作を取り消します</value>
+    <comment>Cancels the current action</comment>
+  </data>
+  <data name="WebPartConnectionsCancelVerb_Text" xml:space="preserve">
+    <value>キャンセル</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="WebPartConnectionsCloseVerb_Description" xml:space="preserve">
+    <value>接続エディターを閉じます</value>
+    <comment>Closes Connections Editor</comment>
+  </data>
+  <data name="WebPartConnectionsCloseVerb_Text" xml:space="preserve">
+    <value>閉じる</value>
+    <comment>Close</comment>
+  </data>
+  <data name="WebPartConnectionsConfigureVerb_Description" xml:space="preserve">
+    <value>接続の構成を変更します</value>
+    <comment>Modifies the configuration of the connection</comment>
+  </data>
+  <data name="WebPartConnectionsConfigureVerb_Text" xml:space="preserve">
+    <value>編集...</value>
+    <comment>Edit...</comment>
+  </data>
+  <data name="WebPartConnectionsConnectVerb_Description" xml:space="preserve">
+    <value>Web パーツを接続します</value>
+    <comment>Connects the Web Parts</comment>
+  </data>
+  <data name="WebPartConnectionsConnectVerb_Text" xml:space="preserve">
+    <value>接続</value>
+    <comment>Connect</comment>
+  </data>
+  <data name="WebPartConnectionsDisconnectVerb_Description" xml:space="preserve">
+    <value>Web パーツの接続を切断します</value>
+    <comment>Disconnects the Web Parts</comment>
+  </data>
+  <data name="WebPartConnectionsDisconnectVerb_Text" xml:space="preserve">
+    <value>切断</value>
+    <comment>Disconnect</comment>
+  </data>
+  <data name="WebPartConnectVerb_Description" xml:space="preserve">
+    <value>&apos;{0}&apos; の接続を編集します</value>
+    <comment>Edits the connections for &apos;{0}&apos;</comment>
+  </data>
+  <data name="WebPartConnectVerb_Text" xml:space="preserve">
+    <value>接続</value>
+    <comment>Connect</comment>
+  </data>
+  <data name="WebPartDeleteVerb_Description" xml:space="preserve">
+    <value>&apos;{0}&apos; を削除します</value>
+    <comment>Deletes &apos;{0}&apos;</comment>
+  </data>
+  <data name="WebPartDeleteVerb_Text" xml:space="preserve">
+    <value>削除</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="WebPartEditorApplyVerb_Description" xml:space="preserve">
+    <value>変更を適用します</value>
+    <comment>Applies changes</comment>
+  </data>
+  <data name="WebPartEditorApplyVerb_Text" xml:space="preserve">
+    <value>適用</value>
+    <comment>Apply</comment>
+  </data>
+  <data name="WebPartEditorCancelVerb_Description" xml:space="preserve">
+    <value>変更を取り消します</value>
+    <comment>Cancels changes</comment>
+  </data>
+  <data name="WebPartEditorCancelVerb_Text" xml:space="preserve">
+    <value>キャンセル</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="WebPartEditorOKVerb_Description" xml:space="preserve">
+    <value>変更を適用してエディターを閉じます</value>
+    <comment>Applies changes and closes editor</comment>
+  </data>
+  <data name="WebPartEditorOKVerb_Text" xml:space="preserve">
+    <value>OK</value>
+    <comment>OK</comment>
+  </data>
+  <data name="WebPartEditVerb_Description" xml:space="preserve">
+    <value>&apos;{0}&apos; を編集します</value>
+    <comment>Edits &apos;{0}&apos;</comment>
+  </data>
+  <data name="WebPartEditVerb_Text" xml:space="preserve">
+    <value>編集</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="WebPartExportVerb_Description" xml:space="preserve">
+    <value>&apos;{0}&apos; の個人用設定のデータを XML ファイルとしてエクスポートします</value>
+    <comment>Exports the personalization data for &apos;{0}&apos; as an XML file</comment>
+  </data>
+  <data name="WebPartExportVerb_Text" xml:space="preserve">
+    <value>エクスポート</value>
+    <comment>Export</comment>
+  </data>
+  <data name="WebPartHeaderCloseVerb_Description" xml:space="preserve">
+    <value>ゾーンを閉じます</value>
+    <comment>Closes Zone</comment>
+  </data>
+  <data name="WebPartHeaderCloseVerb_Text" xml:space="preserve">
+    <value>閉じる</value>
+    <comment>Close</comment>
+  </data>
+  <data name="WebPartHelpVerb_Description" xml:space="preserve">
+    <value>&apos;{0}&apos; のヘルプを表示します</value>
+    <comment>Shows help for &apos;{0}&apos;</comment>
+  </data>
+  <data name="WebPartHelpVerb_Text" xml:space="preserve">
+    <value>ヘルプ</value>
+    <comment>Help</comment>
+  </data>
+  <data name="WebPartManager_DefaultCloseProviderWarning" xml:space="preserve">
+    <value>この Web パーツを閉じようとしています。この Web パーツは現在ほかの Web パーツにデータを提供していて、閉じるとそれらの接続は削除されます。閉じるには [OK]、残すには [キャンセル] をクリックしてください。</value>
+    <comment>You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.</comment>
+  </data>
+  <data name="WebPartManager_DefaultDeleteWarning" xml:space="preserve">
+    <value>この Web パーツを完全に削除しようとしています。よろしいですか? 削除するには [OK]、残すには [キャンセル] をクリックしてください。</value>
+    <comment>You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.</comment>
+  </data>
+  <data name="WebPartMinimizeVerb_Description" xml:space="preserve">
+    <value>&apos;{0}&apos; を最小化します</value>
+    <comment>Minimizes &apos;{0}&apos;</comment>
+  </data>
+  <data name="WebPartMinimizeVerb_Text" xml:space="preserve">
+    <value>最小化</value>
+    <comment>Minimize</comment>
+  </data>
+  <data name="WebPartRestoreVerb_Description" xml:space="preserve">
+    <value>&apos;{0}&apos; を元に戻します</value>
+    <comment>Restores &apos;{0}&apos;</comment>
+  </data>
+  <data name="WebPartRestoreVerb_Text" xml:space="preserve">
+    <value>元に戻す</value>
+    <comment>Restore</comment>
+  </data>
+  <data name="WebPartZoneBase_DefaultEmptyZoneText" xml:space="preserve">
+    <value>ここに Web パーツをドロップすると、このゾーンに追加できます。</value>
+    <comment>Add a Web Part to this zone by dropping it here.</comment>
+  </data>
+  <data name="WithFile_Line_Num" xml:space="preserve">
+    <value>行 {0}:</value>
+    <comment>Line {0}:</comment>
+  </data>
+  <data name="WithFile_No_Relevant_Line" xml:space="preserve">
+    <value>[関連するソース行はありません]</value>
+    <comment>[No relevant source lines]</comment>
+  </data>
+  <data name="Wizard_Default_CancelButtonText" xml:space="preserve">
+    <value>キャンセル</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="Wizard_Default_FinishButtonText" xml:space="preserve">
+    <value>完了</value>
+    <comment>Finish</comment>
+  </data>
+  <data name="Wizard_Default_SkipToContentText" xml:space="preserve">
+    <value>ナビゲーション リンクをスキップ。</value>
+    <comment>Skip Navigation Links.</comment>
+  </data>
+  <data name="Wizard_Default_StepNextButtonText" xml:space="preserve">
+    <value>次へ</value>
+    <comment>Next</comment>
+  </data>
+  <data name="Wizard_Default_StepPreviousButtonText" xml:space="preserve">
+    <value>前へ</value>
+    <comment>Previous</comment>
+  </data>
+</root>

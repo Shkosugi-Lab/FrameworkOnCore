@@ -1263,13 +1263,17 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
   `ConfigurationManagerInternalFactory` が無いアセンブリ名(WebFormsForCore.Configuration)で型を探していて、`Properties.Settings.Default` が動かなかった
   (同じ間違いが BrowserCapabilitiesFactory の Menu のアダプター〈Generic Downlevel〉にもあった)。接続文字列の `|DataDirectory|` を読むときに展開していた:
   自分で展開するプロバイダーには値のまま返す。
-- **.NET Framework の言語パック**(LocaleProbe): 日本語の Windows の IIS では、UI カルチャが ja のとき Calendar の title が「カレンダー」「先月へ移動」になる
-  (System.Web の言語パック)。変換器が、元のサーバーの言語パック(capture-culture.ps1 の LanguagePacks)の GAC のサテライトから FrameworkOnCore の
-  System.Web・System.Web.Extensions・System.Web.Services・System.Web.ApplicationServices・System.Configuration.ConfigurationManager のサテライトを作って bin に置く
-  (Mono.Cecil で名前・版・公開鍵を移植版のものに。部品 `language-packs`)。
+- **.NET Framework の言語パック**(LocaleProbe): 日本語の Windows の IIS では、UI カルチャが ja のとき Calendar の title が「カレンダー」などになる
+  (System.Web の言語パック)。最初は変換器が Microsoft の言語パックからサテライトを作っていたが、その使用許諾(.NET Framework と言語パックの
+  Supplemental License Terms 1.c)が Windows 以外で動かすための配布を禁じるので、やめた(ユーザーの決定)。代わりに、英語の原文から独自に訳した
+  `translations/ja/System.Web.ja.resx`(画面に出る 232 件。GitHub で管理。`translations/check.ps1` と単体テストで検査)を FrameworkOnCore.Web の
+  サテライトにし、変換器は元のサーバーに言語パックがあった言語の訳だけ残す(部品 `language-packs`: 既定は FrameworkOnCore の翻訳。Microsoft の言語パックは
+  `--deploy none` で選んだときだけ)。サテライトの公開鍵を System.Web のものに書き換える処理が時刻を新しくして訳の変更が取り込まれなくなっていたので、時刻を戻す。
+  文言は Microsoft の訳と違うことがある(「前の月を表示」と「先月へ移動」)ので、LocaleProbe の form-ja-JP は差として残る。
 - **カルチャの名前と親**: Page.Culture・CultureInfo.DisplayName は .NET Framework では mscorlib の名前(「Chinese (Simplified, PRC)」、言語パックの言語ならその言語、
-  最初に作った要求の UI カルチャのまま)。.NET は Windows の表示言語の名前(日本語の Windows では de-DE の UI でも「ドイツ語 (ドイツ)」)。変換器が mscorlib と
-  言語パックから名前の表を bin に書き(frameworkoncore.culturenames.txt)、FrameworkOnCore の System.Web と FrameworkOnCore.Compat の FrameworkCultures が読む。
+  最初に作った要求の UI カルチャのまま)。.NET は Windows の表示言語の名前(日本語の Windows では de-DE の UI でも「ドイツ語 (ドイツ)」)。FrameworkOnCore の
+  System.Web と FrameworkOnCore.Compat の FrameworkCultures が、訳のある言語の UI カルチャでは .NET の名前、ほかは元のサーバーの英語名(カルチャ プロファイル)を
+  返す(mscorlib の名前の表は Microsoft の言語パックを選んだ Windows 配置だけ)。
   zh-CN・zh-TW の親(.NET Framework は zh-CHS・zh-CHT)で、App_GlobalResources・App_LocalResources の Strings.zh-CHS.resx が見つからなかった: リソースの
   プロバイダーが .NET Framework の並びで探す(戻りながら探す ResourceManager は親のセットを子の名前で覚えるので、それ用の ResourceManager で 1 つずつ)。
   アプリの `CultureInfo.Parent`・`EnglishName`・`NativeName` も置き換える(platformReplacements がインスタンスのプロパティの読み取りも書き換えるようにした)。
@@ -1289,10 +1293,10 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
 |---|---|---|---|
 | LegacyRenderProbe | 14 | 14/14 | 14/14 |
 | ConfigProbe | 2 | 0/2 → 2/2 | 2/2 |
-| LocaleProbe | 32 | 18/29(最初の 29 件)→ 32/32 | 18/32 → 31/32 |
+| LocaleProbe | 32 | 18/29(最初の 29 件)→ 29/32 | 18/32 → 28/32 |
 | DataFileProbe | 2(140 行) | 10 行 → 5 行 | 28 行 → 25 行 |
 
-残り(PORT-CANDIDATES.md の「移植では対応できないもの」): LocaleProbe の未知のカルチャ(xx-YY: Windows は「不明なロケール」、ICU は「xx (YY)」)。
+残り(PORT-CANDIDATES.md の「移植では対応できないもの」): LocaleProbe の独自訳の文言(form-ja-JP)、mscorlib 独自の英語名(zh-CN の「PRC」、zh-HK の「S.A.R.」)、Linux の未知のカルチャ(xx-YY: Windows は「不明なロケール」、ICU は「xx (YY)」)。
 DataFileProbe の System.Data の式の中の double と DataSet の XML の R(.NET の System.Data・System.Xml が書く)、Linux の照合(ICU)・改行・ドライブ付きの
 Windows のパスのリテラル。回帰: サンプル 29 件(既知の差の BclProbe 115 → 113 行・DataFileProbe・LocaleProbe の Linux 1 件のほかは一致)、be 5/5(Windows・
 Linux)、wt 8/8(Windows)・7/8(Linux、error-page は検証環境)。単体テスト 4,428 件。

@@ -34,13 +34,15 @@ public sealed class ChoicesTests
         Assert.Contains(errors, e => e.StartsWith("setting colour: not in the catalog"));
     }
 
-    // The language packs' languages: an option (server, none) or the languages chosen, each one the catalog lists.
+    // The language packs' languages: the default (server: English and the original server's) or the languages chosen,
+    // each one the catalog lists (English alone: English only).
     [Fact]
     public void The_languages_are_an_option_or_languages_listed()
     {
         Assert.Empty(Of("""{ "settings": { "languages": "server" } }""").Validate(catalog));
-        Assert.Empty(Of("""{ "settings": { "languages": "none" } }""").Validate(catalog));
-        Assert.Empty(Of("""{ "settings": { "languages": "ja,de, zh-Hans" } }""").Validate(catalog));
+        Assert.Empty(Of("""{ "settings": { "languages": "en" } }""").Validate(catalog));
+        Assert.Contains(Of("""{ "settings": { "languages": "none" } }""").Validate(catalog), e => e.StartsWith("setting languages: no language none"));
+        Assert.Empty(Of("""{ "settings": { "languages": "en,ja,de, zh-Hans" } }""").Validate(catalog));
         Assert.Contains(Of("""{ "settings": { "languages": "ja,xx" } }""").Validate(catalog), e => e.StartsWith("setting languages: no language xx"));
         Assert.Contains(Of("""{ "settings": { "languages": "" } }""").Validate(catalog), e => e.StartsWith("setting languages: no option or language"));
         var setting = catalog.Settings.First(s => s.Id == "languages");

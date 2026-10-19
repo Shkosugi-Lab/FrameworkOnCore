@@ -77,10 +77,9 @@
     "languages": {
       "title": "Language packs (the language of ASP.NET's texts)",
       "options": {
-        "server": { "title": "As the original server", "description": "The languages the original server had .NET Framework language packs for (capture-culture.ps1 records them; else this machine's). When the UI culture is one of them, Calendar's, Login's, Wizard's and GridView's texts and error pages are in it" },
-        "none": { "title": "None (English)", "description": "English, whatever the UI culture" }
+        "server": { "title": "As the original server", "description": "English and the languages the original server had .NET Framework language packs for (capture-culture.ps1 records them; else this machine's). When the UI culture is one chosen, Calendar's, Login's, Wizard's and GridView's texts and error pages are in it. English alone: English whatever the UI culture." }
       },
-      "languages": { "ar": "Arabic", "cs": "Czech", "da": "Danish", "de": "German", "el": "Greek", "es": "Spanish", "fi": "Finnish", "fr": "French", "he": "Hebrew", "hu": "Hungarian", "it": "Italian", "ja": "Japanese", "ko": "Korean", "nb": "Norwegian (Bokmål)", "nl": "Dutch", "pl": "Polish", "pt-BR": "Portuguese (Brazil)", "pt-PT": "Portuguese (Portugal)", "ru": "Russian", "sv": "Swedish", "tr": "Turkish", "zh-Hans": "Chinese (Simplified)", "zh-Hant": "Chinese (Traditional)" }
+      "languages": { "en": "English (the original)", "ar": "Arabic", "cs": "Czech", "da": "Danish", "de": "German", "el": "Greek", "es": "Spanish", "fi": "Finnish", "fr": "French", "he": "Hebrew", "hu": "Hungarian", "it": "Italian", "ja": "Japanese", "ko": "Korean", "nb": "Norwegian (Bokmål)", "nl": "Dutch", "pl": "Polish", "pt-BR": "Portuguese (Brazil)", "pt-PT": "Portuguese (Portugal)", "ru": "Russian", "sv": "Swedish", "tr": "Turkish", "zh-Hans": "Chinese (Simplified)", "zh-Hant": "Chinese (Traditional)" }
     },
     "file-name-case": {
       "title": "File names' case (Linux)",

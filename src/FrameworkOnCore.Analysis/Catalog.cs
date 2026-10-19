@@ -136,12 +136,14 @@ public sealed record ComponentOption(string Id, string Title, string? Descriptio
 
 /// <summary>
 /// A choice of the application's that is no API's (file names' case on Linux), with its options. One with languages (the
-/// language packs') takes, besides its options, a list of them: "ja,de".
+/// language packs') is the languages chosen ("en,ja,de"), its option the default (the original server's).
 /// </summary>
 public sealed record Setting(string Id, string Title, IReadOnlyList<ComponentOption> Options)
 {
     public ComponentOption DefaultOption => Options.FirstOrDefault(o => o.Default) ?? Options[0];
     public IReadOnlyList<SettingLanguage> Languages { get; init; } = [];
+    /// <summary>The languages its default option stands for where they are known (Studio: this machine's language packs).</summary>
+    public IReadOnlyList<string> DefaultLanguages { get; init; } = [];
 
     /// <summary>The languages a value names ("ja,de"), or null when it is one of the options.</summary>
     public IReadOnlyList<string>? LanguagesOf(string value) =>

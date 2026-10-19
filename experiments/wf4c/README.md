@@ -1270,8 +1270,8 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
   サテライトにし、変換器は元のサーバーに言語パックがあった言語の訳だけ残す(部品 `language-packs`: 既定は FrameworkOnCore の翻訳。Microsoft の言語パックは
   `--deploy none` で選んだときだけ)。サテライトの公開鍵を System.Web のものに書き換える処理が時刻を新しくして訳の変更が取り込まれなくなっていたので、時刻を戻す。
   文言は Microsoft の訳と違うことがある(「前の月を表示」と「先月へ移動」)ので、LocaleProbe の form-ja-JP は差として残る。
-  使う言語は Studio の「アプリの設定」の「言語パック」(設定 `languages`)で選ぶ(ユーザーの指示): 既定は元のサーバーに言语パックがあった言語、
-  「使わない(英語)」、または .NET Framework の言語パックの 23 言語から複数(`ja,de`。訳の無い言語は画面で「訳はまだ無い」と出し、変換レポートにも出す)。
+  使う言語は Studio の「アプリの設定」の「言語パック」(設定 `languages`)で選ぶ(ユーザーの指示): 英語(原文)と .NET Framework の言語パックの 23 言語から複数。
+  既定は英語と元のサーバーに言語パックがあった言語。英語だけを選べば英語のみ(訳の無い言語は画面で「訳はまだ無い」と出し、変換レポートにも出す)。
 - **カルチャの名前と親**: Page.Culture・CultureInfo.DisplayName は .NET Framework では mscorlib の名前(「Chinese (Simplified, PRC)」、言語パックの言語ならその言語、
   最初に作った要求の UI カルチャのまま)。.NET は Windows の表示言語の名前(日本語の Windows では de-DE の UI でも「ドイツ語 (ドイツ)」)。FrameworkOnCore の
   System.Web と FrameworkOnCore.Compat の FrameworkCultures が、訳のある言語の UI カルチャでは .NET の名前、ほかは元のサーバーの英語名(カルチャ プロファイル)を

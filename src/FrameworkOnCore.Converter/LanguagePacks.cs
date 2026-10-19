@@ -18,10 +18,10 @@ namespace FrameworkOnCore.Converter;
 /// - framework: Microsoft's language packs as described above. Their license (Supplemental License Terms for the .NET
 ///   Framework and its language packs) lets them be distributed only to run on Windows: only with --deploy none
 ///   (Windows), else FrameworkOnCore's translations;
-/// The languages: the application's setting "languages" (Language packs): server (the default: the original server's
-/// language packs' languages), none (English), or the languages chosen ("ja,de").
+/// The languages: the application's setting "languages" (Language packs): the languages chosen ("en,ja,de"; English is
+/// the original, always there), by default (server) English and the original server's language packs' languages.
 /// </summary>
-static class LanguagePacks
+public static class LanguagePacks
 {
     // The ports named otherwise than the assembly they port (the satellite is the original's).
     static readonly Dictionary<string, string> Originals = new(StringComparer.OrdinalIgnoreCase)
@@ -62,18 +62,14 @@ static class LanguagePacks
     public static void Write(string bin, string? cultureProfile, string option, string languages, string deployKinds, Report report)
     {
         var fromProfile = OfProfile(cultureProfile);
-        var cultures = languages switch
-        {
-            "server" => fromProfile ?? OfThisMachine(),
-            "none" => [],
-            _ => languages.Split([',', ' '], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList(),
-        };
-        report.Add(Report.Kind.Project, "language-packs", languages switch
-        {
-            "server" => $"languages: the original server's language packs' ({(cultures.Count == 0 ? "none: English" : string.Join(", ", cultures))}; {(fromProfile != null ? "its culture profile" : "this machine's, no culture profile given")})",
-            "none" => "languages: none (English; the setting)",
-            _ => $"languages: {string.Join(", ", cultures)} (the setting)",
-        });
+        // English is the original's (the texts with no translation): not a language pack.
+        var cultures = (languages == "server" ? fromProfile ?? OfThisMachine()
+            : languages.Split([',', ' '], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList())
+            .Where(c => !c.Equals("en", StringComparison.OrdinalIgnoreCase) && !c.StartsWith("en-", StringComparison.OrdinalIgnoreCase)).ToList();
+        var named = string.Join(", ", new[] { "en" }.Concat(cultures));
+        report.Add(Report.Kind.Project, "language-packs", languages == "server"
+            ? $"languages: {named} (the default: the original server's language packs', from {(fromProfile != null ? "its culture profile" : "this machine, no culture profile given")})"
+            : $"languages: {named} (the setting)");
         KeepTranslations(bin, cultures, report);
         if (option != "framework") return;
         if (deployKinds != "none")

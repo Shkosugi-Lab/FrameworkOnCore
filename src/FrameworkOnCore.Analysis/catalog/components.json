@@ -128,10 +128,10 @@
     {
       "id": "languages", "title": "言語パック(ASP.NET の文言の言語)",
       "options": [
-        { "id": "server", "title": "元のサーバーと同じ", "description": "元のサーバーに .NET Framework の言語パックが入っていた言語(capture-culture.ps1 が記録。無ければ変換したマシンの)。UI カルチャがその言語のとき、Calendar・Login・Wizard・GridView・エラーページなどの文言がその言語になる", "default": true },
-        { "id": "none", "title": "使わない(英語)", "description": "UI カルチャにかかわらず英語" }
+        { "id": "server", "title": "元のサーバーと同じ", "description": "英語と、元のサーバーに .NET Framework の言語パックが入っていた言語(capture-culture.ps1 が記録。無ければ変換したマシンの)。UI カルチャが選んだ言語のとき、Calendar・Login・Wizard・GridView・エラーページなどの文言がその言語になる。英語だけを選べば、UI カルチャにかかわらず英語。", "default": true }
       ],
       "languages": [
+        { "id": "en", "title": "英語(原文)", "translated": true },
         { "id": "ar", "title": "アラビア語" },
         { "id": "cs", "title": "チェコ語" },
         { "id": "da", "title": "デンマーク語" },

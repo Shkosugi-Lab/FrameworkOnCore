@@ -19,10 +19,10 @@ OPERATING SYSTEM)の 1.c で「Windows 以外のプラットフォームで動�
 
 - `<言語>\System.Web.<言語>.resx` は FrameworkOnCore.Web パッケージのサテライト(`lib/net10.0/<言語>/System.Web.resources.dll`)になります
   (FrameworkOnCore.Runtime の LICENSE と同じ MIT)。
-- 使う言語は Studio の「アプリの設定」の「言語パック」(`foc-choices.json` の `settings.languages`)で選びます。既定は「元のサーバーと同じ」:
-  元のサーバーに .NET Framework の言語パックがあった言語(`capture-culture.ps1` が LanguagePacks に記録。無ければ変換したマシンの)。
-  「使わない(英語)」(`none`)、または言語を選ぶ(`ja,de` のように .NET Framework の言語パックの 23 言語から)。選ばれていない言語の訳は bin から除きます。
-  訳がまだ無い言語を選んだときは、変換レポートに出て、その言語では英語になります。
+- 使う言語は Studio の「アプリの設定」の「言語パック」(`foc-choices.json` の `settings.languages`)で選びます。.NET Framework の言語パックの 23 言語と
+  英語(原文)から複数選べます(`en,ja,de`)。既定は、英語と、元のサーバーに .NET Framework の言語パックが入っていた言語
+  (`capture-culture.ps1` が LanguagePacks に記録。無ければ変換したマシンの)。英語だけを選べば、UI カルチャにかかわらず英語です。
+  選ばれていない言語の訳は bin から除きます。訳がまだ無い言語を選んだときは、変換レポートに出て、その言語では英語になります。
 - 訳の出どころは部品 `language-packs` で選びます: `translations`(既定。この翻訳)、`framework`(Microsoft の言語パック。Linux に配置しないときだけ)。
 - 訳の無い文言は英語になります。
 

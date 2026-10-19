@@ -63,6 +63,13 @@ public sealed record Choices
         foreach (var (setting, option) in Settings)
         {
             if (catalog.Settings.FirstOrDefault(s => s.Id == setting) is not { } known) errors.Add($"setting {setting}: not in the catalog");
+            // A setting of languages: an option, or the languages ("ja,de"), each one it lists.
+            else if (known.LanguagesOf(option) is { } languages)
+            {
+                if (languages.Count == 0) errors.Add($"setting {setting}: no option or language ({string.Join(", ", known.Options.Select(o => o.Id))}, or languages)");
+                foreach (var language in languages.Where(l => !known.Languages.Any(k => string.Equals(k.Id, l, StringComparison.OrdinalIgnoreCase))))
+                    errors.Add($"setting {setting}: no language {language} ({string.Join(", ", known.Languages.Select(l => l.Id))})");
+            }
             else Check("setting", setting, known.Options, option);
         }
         return errors;

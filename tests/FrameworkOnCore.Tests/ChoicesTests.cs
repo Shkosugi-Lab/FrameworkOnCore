@@ -34,6 +34,22 @@ public sealed class ChoicesTests
         Assert.Contains(errors, e => e.StartsWith("setting colour: not in the catalog"));
     }
 
+    // The language packs' languages: an option (server, none) or the languages chosen, each one the catalog lists.
+    [Fact]
+    public void The_languages_are_an_option_or_languages_listed()
+    {
+        Assert.Empty(Of("""{ "settings": { "languages": "server" } }""").Validate(catalog));
+        Assert.Empty(Of("""{ "settings": { "languages": "none" } }""").Validate(catalog));
+        Assert.Empty(Of("""{ "settings": { "languages": "ja,de, zh-Hans" } }""").Validate(catalog));
+        Assert.Contains(Of("""{ "settings": { "languages": "ja,xx" } }""").Validate(catalog), e => e.StartsWith("setting languages: no language xx"));
+        Assert.Contains(Of("""{ "settings": { "languages": "" } }""").Validate(catalog), e => e.StartsWith("setting languages: no option or language"));
+        var setting = catalog.Settings.First(s => s.Id == "languages");
+        Assert.Equal("server", setting.DefaultOption.Id);
+        Assert.Equal(["ja", "de"], setting.LanguagesOf("ja, de"));
+        Assert.Null(setting.LanguagesOf("server"));
+        Assert.Equal("Japanese", catalog.InEnglish().Settings.First(s => s.Id == "languages").Languages.First(l => l.Id == "ja").Title);
+    }
+
     [Fact]
     public void No_choice_is_the_default_and_the_rules_are_as_they_are()
     {

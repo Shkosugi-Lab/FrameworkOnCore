@@ -57,7 +57,13 @@ public sealed class Catalog
             o.TryGetProperty("default", out var isDefault) && isDefault.GetBoolean(), o.TryGetProperty("planned", out var planned) && planned.GetBoolean());
         var options = root.TryGetProperty("options", out var o) ? o.EnumerateObject().ToDictionary(p => p.Name, p => (IReadOnlyList<ComponentOption>)p.Value.EnumerateArray().Select(Option).ToList()) : [];
         var settings = root.TryGetProperty("settings", out var s)
-            ? s.EnumerateArray().Select(e => new Setting(e.GetProperty("id").GetString()!, e.GetProperty("title").GetString()!, e.GetProperty("options").EnumerateArray().Select(Option).ToList())).ToList()
+            ? s.EnumerateArray().Select(e => new Setting(e.GetProperty("id").GetString()!, e.GetProperty("title").GetString()!, e.GetProperty("options").EnumerateArray().Select(Option).ToList())
+            {
+                Languages = e.TryGetProperty("languages", out var languages)
+                    ? languages.EnumerateArray().Select(l => new SettingLanguage(l.GetProperty("id").GetString()!, l.GetProperty("title").GetString()!,
+                        l.TryGetProperty("translated", out var translated) && translated.GetBoolean())).ToList()
+                    : [],
+            }).ToList()
             : [];
         return new Catalog(root.GetProperty("version").GetInt32(), components, throwing, options, Option(root.GetProperty("noneOption")), settings);
     }
@@ -97,6 +103,7 @@ public sealed class Catalog
         {
             Title = Text(settingTexts, s.Id, "title") ?? s.Title,
             Options = s.Options.Select(o => settingTexts.ValueKind == JsonValueKind.Object && settingTexts.TryGetProperty(s.Id, out var se) && se.TryGetProperty("options", out var so) ? Option(o, so) : o).ToList(),
+            Languages = s.Languages.Select(l => l with { Title = Text(settingTexts, s.Id, "languages", l.Id) ?? l.Title }).ToList(),
         }).ToList();
         var componentTexts = en.TryGetProperty("components", out var ct) ? ct : default;
         var englishComponents = Components.Select(c => c with { Title = Text(componentTexts, c.Id, "title") ?? c.Title, Note = Text(componentTexts, c.Id, "note") ?? c.Note }).ToList();
@@ -127,11 +134,23 @@ public sealed class Catalog
 /// <summary>An option of a component (or a setting): what the conversion does with it. Planned: not there yet.</summary>
 public sealed record ComponentOption(string Id, string Title, string? Description, bool Default, bool Planned);
 
-/// <summary>A choice of the application's that is no API's (file names' case on Linux), with its options.</summary>
+/// <summary>
+/// A choice of the application's that is no API's (file names' case on Linux), with its options. One with languages (the
+/// language packs') takes, besides its options, a list of them: "ja,de".
+/// </summary>
 public sealed record Setting(string Id, string Title, IReadOnlyList<ComponentOption> Options)
 {
     public ComponentOption DefaultOption => Options.FirstOrDefault(o => o.Default) ?? Options[0];
+    public IReadOnlyList<SettingLanguage> Languages { get; init; } = [];
+
+    /// <summary>The languages a value names ("ja,de"), or null when it is one of the options.</summary>
+    public IReadOnlyList<string>? LanguagesOf(string value) =>
+        Languages.Count == 0 || Options.Any(o => o.Id == value) ? null
+            : value.Split([',', ' '], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
 }
+
+/// <summary>A language a setting lists: its culture name (ja, zh-Hans), its name, whether FrameworkOnCore has a translation in it.</summary>
+public sealed record SettingLanguage(string Id, string Title, bool Translated);
 
 /// <summary>
 /// An API, by its documentation id, with what the catalog matches it by: its type's full name without generic arity

@@ -36,6 +36,16 @@ public class TranslationsTests
         return data;
     }
 
+    // The setting "languages" (Studio's language packs) marks the languages FrameworkOnCore has a translation in: the
+    // translations' folders, no more, no fewer.
+    [Fact]
+    public void The_catalog_marks_the_translated_languages()
+    {
+        var folders = Directory.EnumerateDirectories(Path.Combine(Repository, "translations")).Select(Path.GetFileName).Order(StringComparer.OrdinalIgnoreCase);
+        var marked = FrameworkOnCore.Analysis.Catalog.Default().Settings.First(s => s.Id == "languages").Languages.Where(l => l.Translated).Select(l => l.Id).Order(StringComparer.OrdinalIgnoreCase);
+        Assert.Equal(folders, marked);
+    }
+
     [Theory]
     [MemberData(nameof(Files))]
     public void A_translation_is_of_System_Webs_resources(string file)

@@ -219,6 +219,14 @@ export const M = {
   'step3.intro': ['API ではなく、アプリ全体に対する選択です。既定のままでも変換できます。選んだら保存して、変換に進みます。',
     'Choices for the whole application rather than for its APIs. The defaults convert as they are; save what you choose and go on to the conversion.'],
   'step3.settings': ['アプリの設定', 'Application settings'],
+  'step3.languages.choose': ['言語を選ぶ', 'Choose the languages'],
+  'step3.languages.chooseDescription': ['元のサーバーの言語パックにかかわらず、選んだ言語で文言を出す(FrameworkOnCore の訳がある言語だけその言語になる)', 'The texts in the languages chosen, whatever the original server had (in a language FrameworkOnCore has a translation in)'],
+  'step3.languages.label': ['使う言語', 'Languages'],
+  'step3.languages.hint': ['UI カルチャがその言語のとき、Calendar・Login・Wizard・GridView・エラーページなどの文言がその言語になる', 'When the UI culture is one of them, Calendar\'s, Login\'s, Wizard\'s and GridView\'s texts and error pages are in it'],
+  'step3.languages.placeholder': ['言語を選ぶ', 'Choose languages'],
+  'step3.languages.empty': ['言語を 1 つ以上選んでください(英語だけなら「使わない(英語)」)', 'Choose a language at least (for English only: None)'],
+  'step3.languages.translated': ['FrameworkOnCore の訳あり', 'FrameworkOnCore has a translation'],
+  'step3.languages.untranslated': ['訳はまだ無い(英語になる)', 'No translation yet (English)'],
 
   // ④ The conversion
   'step4.intro': ['保存した選択で .NET 10 のプロジェクトに変換し、そのままビルドします。', 'The application is converted into .NET 10 projects with the saved choices, and built.'],

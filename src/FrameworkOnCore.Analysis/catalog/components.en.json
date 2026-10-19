@@ -23,9 +23,8 @@
       "none": { "title": "As .NET", "description": "0.1 + 0.2 is 0.30000000000000004, -0 is \"-0\", 2.675 as N2 is 2.67; parsing a number too large gives infinity" }
     },
     "language-packs": {
-      "translations": { "title": "FrameworkOnCore's translations", "description": "System.Web's texts (Calendar's titles, Login's labels, Wizard's and GridView's buttons, error pages) in FrameworkOnCore's own translations (the repository's translations/, MIT), for the languages the original server had a language pack for (capture-culture.ps1 records them; else this machine's). The wording may differ from Microsoft's" },
-      "framework": { "title": "Microsoft's language packs (Windows only)", "description": "Satellites made from this machine's .NET Framework language packs (the original server's wording). Microsoft's license forbids distributing them to run on another platform than Windows: only when not deployed on Linux (--deploy none). Microsoft's license terms apply to the deployment" },
-      "none": { "title": "None (English)", "description": "English, whatever the UI culture" }
+      "translations": { "title": "FrameworkOnCore's translations", "description": "System.Web's texts (Calendar's titles, Login's labels, Wizard's and GridView's buttons, error pages) in FrameworkOnCore's own translations (the repository's translations/, MIT), in the languages chosen in the application's setting 'Language packs' (by default the ones the original server had language packs for). The wording may differ from Microsoft's" },
+      "framework": { "title": "Microsoft's language packs (Windows only)", "description": "Satellites made from this machine's .NET Framework language packs (the original server's wording). Microsoft's license forbids distributing them to run on another platform than Windows: only when not deployed on Linux (--deploy none). Microsoft's license terms apply to the deployment" }
     },
     "code-pages": {
       "register": { "title": "Registered (always)", "description": "FrameworkOnCore's System.Web (UseWebForms) registers CodePagesEncodingProvider at start: Shift_JIS, EUC-JP and the others are there" }
@@ -75,6 +74,14 @@
     }
   },
   "settings": {
+    "languages": {
+      "title": "Language packs (the language of ASP.NET's texts)",
+      "options": {
+        "server": { "title": "As the original server", "description": "The languages the original server had .NET Framework language packs for (capture-culture.ps1 records them; else this machine's). When the UI culture is one of them, Calendar's, Login's, Wizard's and GridView's texts and error pages are in it" },
+        "none": { "title": "None (English)", "description": "English, whatever the UI culture" }
+      },
+      "languages": { "ar": "Arabic", "cs": "Czech", "da": "Danish", "de": "German", "el": "Greek", "es": "Spanish", "fi": "Finnish", "fr": "French", "he": "Hebrew", "hu": "Hungarian", "it": "Italian", "ja": "Japanese", "ko": "Korean", "nb": "Norwegian (Bokmål)", "nl": "Dutch", "pl": "Polish", "pt-BR": "Portuguese (Brazil)", "pt-PT": "Portuguese (Portugal)", "ru": "Russian", "sv": "Swedish", "tr": "Turkish", "zh-Hans": "Chinese (Simplified)", "zh-Hant": "Chinese (Traditional)" }
+    },
     "file-name-case": {
       "title": "File names' case (Linux)",
       "options": {
@@ -121,7 +128,7 @@
     "binary-formatter": { "title": "BinaryFormatter / SoapFormatter", "note": "Converter: the compatibility package System.Runtime.Serialization.Formatters and EnableUnsafeBinaryFormatterSerialization (reading untrusted data is dangerous)" },
     "encoding-default": { "title": "Encoding.Default (the default encoding)", "note": ".NET Framework's is the ANSI code page (Shift_JIS on a Japanese Windows), .NET's is UTF-8. Converter: replaced with Platform.DefaultEncoding" },
     "floating-point": { "title": "Doubles and floats as text, and read from text", "note": "Since .NET Core 3.0 a double without a format is the shortest text that round-trips (0.1 + 0.2 is 0.30000000000000004; .NET Framework: 15 digits, 0.3), negative zero is \"-0\", a fixed precision rounds the exact binary value to even (2.675 as N2 is 2.67; .NET Framework: 2.68, from its 15 digits). Parsing a number too large gives infinity (.NET Framework: an exception). TimeSpan.FromSeconds(0.00015) and the others are not rounded to milliseconds. Converter: replaced with FrameworkNumbers and FrameworkParsing (FOC1008, platformReplacements)" },
-    "language-packs": { "title": ".NET Framework language packs (System.Web's messages in Japanese and other languages)", "note": "On a server with a language pack (ja on a Japanese Windows, usually) System.Web's texts are in its language when the UI culture is (Calendar's titles, Login's labels, Wizard's buttons, GridView's commands, error pages). .NET has no language packs. Converter: FrameworkOnCore's own translations (translations/) for the languages the original server had packs for (Microsoft's packs only when chosen and deployed on Windows only: their license forbids distributing them to run elsewhere). CultureInfo.DisplayName (.NET: in the language of Windows' UI) as mscorlib's and the packs' names (FrameworkCultures)" },
+    "language-packs": { "title": ".NET Framework language packs (System.Web's messages in Japanese and other languages)", "note": "On a server with a language pack (ja on a Japanese Windows, usually) System.Web's texts are in its language when the UI culture is (Calendar's titles, Login's labels, Wizard's buttons, GridView's commands, error pages). .NET has no language packs. Converter: FrameworkOnCore's own translations (translations/) in the languages of the application's setting 'Language packs' (by default the original server's; Microsoft's packs only when chosen and deployed on Windows only: their license forbids distributing them to run elsewhere). CultureInfo.DisplayName (.NET: in the language of Windows' UI): in a translated language that language's, else the original server's English name (FrameworkCultures)" },
     "code-pages": { "title": "Code pages (Shift_JIS and others)", "note": "Without a registered provider .NET has only Unicode, ASCII and Latin-1. FrameworkOnCore's System.Web (UseWebForms) registers it at start" },
     "system-drawing": { "title": "System.Drawing (images and fonts, GDI+)", "note": ".NET's System.Drawing.Common is Windows-only since .NET 7. Converter: FrameworkOnCore's System.Drawing.Common (a port with dotnet/runtime 6.0's Linux implementation, libgdiplus). What it draws (antialiasing, text) differs a little between Windows and Linux. Windows' fonts are not on Linux (Arial and others are replaced with compatible fonts)" },
     "charts": { "title": "Charts (the Chart control)", "note": "Ported from referencesource (MIT): package FrameworkOnCore.Web.DataVisualization (the Chart control, ChartImg.axd). Drawn with the ported System.Drawing (libgdiplus on Linux). When ChartImg.axd's image folder (appSettings ChartImageHandler's dir) is on C:, the deployment's setting (APPSETTING_ChartImageHandler) changes it on Linux. Windows Forms' System.Windows.Forms.DataVisualization is not ported" },

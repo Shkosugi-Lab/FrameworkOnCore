@@ -19,9 +19,11 @@ OPERATING SYSTEM)の 1.c で「Windows 以外のプラットフォームで動�
 
 - `<言語>\System.Web.<言語>.resx` は FrameworkOnCore.Web パッケージのサテライト(`lib/net10.0/<言語>/System.Web.resources.dll`)になります
   (FrameworkOnCore.Runtime の LICENSE と同じ MIT)。
-- 変換器は、元のサーバーに .NET Framework の言語パックがあった言語(`capture-culture.ps1` が LanguagePacks に記録。無ければ変換したマシンの)の訳だけを残し、
-  ほかの言語の訳は bin から除きます。言語パックの無いサーバー(英語で表示していた)では英語のままです。部品 `language-packs` の選択:
-  `translations`(既定。この翻訳)、`framework`(Microsoft の言語パック。Linux に配置しないときだけ)、`none`(英語)。
+- 使う言語は Studio の「アプリの設定」の「言語パック」(`foc-choices.json` の `settings.languages`)で選びます。既定は「元のサーバーと同じ」:
+  元のサーバーに .NET Framework の言語パックがあった言語(`capture-culture.ps1` が LanguagePacks に記録。無ければ変換したマシンの)。
+  「使わない(英語)」(`none`)、または言語を選ぶ(`ja,de` のように .NET Framework の言語パックの 23 言語から)。選ばれていない言語の訳は bin から除きます。
+  訳がまだ無い言語を選んだときは、変換レポートに出て、その言語では英語になります。
+- 訳の出どころは部品 `language-packs` で選びます: `translations`(既定。この翻訳)、`framework`(Microsoft の言語パック。Linux に配置しないときだけ)。
 - 訳の無い文言は英語になります。
 
 ## ファイルの形
@@ -53,7 +55,8 @@ OPERATING SYSTEM)の 1.c で「Windows 以外のプラットフォームで動�
 1. GitHub で Issue を立てるか、このフォルダーの `.resx` を直した Pull Request を送ってください。
 2. 新しい言語は `<言語>\System.Web.<言語>.resx`(例: `zh-Hans\System.Web.zh-Hans.resx`)を作ります。言語の名前は .NET Framework の言語パックの
    カルチャ名(`ja`、`de`、`zh-Hans` など)にしてください。
-3. `check.ps1` が通ることを確かめてください。
+3. `src/FrameworkOnCore.Analysis/catalog/components.json` の設定 `languages` で、その言語に `"translated": true` を付けてください(単体テストが、訳のフォルダーと一致するか確かめます)。
+4. `check.ps1` が通ることを確かめてください。
 
 ## 訳の方針(日本語)
 

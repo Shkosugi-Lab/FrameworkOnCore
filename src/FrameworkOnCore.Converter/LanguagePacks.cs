@@ -18,7 +18,8 @@ namespace FrameworkOnCore.Converter;
 /// - framework: Microsoft's language packs as described above. Their license (Supplemental License Terms for the .NET
 ///   Framework and its language packs) lets them be distributed only to run on Windows: only with --deploy none
 ///   (Windows), else FrameworkOnCore's translations;
-/// - none: English (FrameworkOnCore's translations removed).
+/// The languages: the application's setting "languages" (Language packs): server (the default: the original server's
+/// language packs' languages), none (English), or the languages chosen ("ja,de").
 /// </summary>
 static class LanguagePacks
 {
@@ -58,11 +59,22 @@ static class LanguagePacks
     // FrameworkOnCore's assemblies with translations of their own (translations\<culture>\<assembly>.<culture>.resx).
     static readonly string[] Translated = ["System.Web"];
 
-    public static void Write(string bin, string? cultureProfile, string option, string deployKinds, Report report)
+    public static void Write(string bin, string? cultureProfile, string option, string languages, string deployKinds, Report report)
     {
         var fromProfile = OfProfile(cultureProfile);
-        var cultures = fromProfile ?? OfThisMachine();
-        KeepTranslations(bin, option == "none" ? [] : cultures, report);
+        var cultures = languages switch
+        {
+            "server" => fromProfile ?? OfThisMachine(),
+            "none" => [],
+            _ => languages.Split([',', ' '], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList(),
+        };
+        report.Add(Report.Kind.Project, "language-packs", languages switch
+        {
+            "server" => $"languages: the original server's language packs' ({(cultures.Count == 0 ? "none: English" : string.Join(", ", cultures))}; {(fromProfile != null ? "its culture profile" : "this machine's, no culture profile given")})",
+            "none" => "languages: none (English; the setting)",
+            _ => $"languages: {string.Join(", ", cultures)} (the setting)",
+        });
+        KeepTranslations(bin, cultures, report);
         if (option != "framework") return;
         if (deployKinds != "none")
         {
@@ -177,8 +189,11 @@ static class LanguagePacks
             }
         }
         if (kept.Count > 0)
-            report.Add(Report.Kind.Project, "language-packs", $"FrameworkOnCore's own translations of System.Web's texts ({string.Join(", ", kept)}), as the original server's language packs showed them in that language (the wording is FrameworkOnCore's, not Microsoft's)");
+            report.Add(Report.Kind.Project, "language-packs", $"FrameworkOnCore's own translations of System.Web's texts ({string.Join(", ", kept)}): in that language when the UI culture is (the wording is FrameworkOnCore's, not Microsoft's)");
         if (removed.Count > 0)
-            report.Add(Report.Kind.Project, "language-packs", $"FrameworkOnCore's translations removed ({string.Join(", ", removed)}): the original server had no language pack for them (English there)");
+            report.Add(Report.Kind.Project, "language-packs", $"FrameworkOnCore's translations removed ({string.Join(", ", removed)}): not among the languages (English in them)");
+        var untranslated = cultures.Where(c => !kept.Any(k => k.Equals(c, StringComparison.OrdinalIgnoreCase) || c.StartsWith(k + "-", StringComparison.OrdinalIgnoreCase))).ToList();
+        if (untranslated.Count > 0)
+            report.Add(Report.Kind.Unsupported, "language-packs", $"no FrameworkOnCore translation in {string.Join(", ", untranslated)} yet: System.Web's texts in English in them (translations/README.md: how to add one)");
     }
 }

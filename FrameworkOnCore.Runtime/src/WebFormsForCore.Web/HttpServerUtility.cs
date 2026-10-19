@@ -172,7 +172,7 @@ namespace System.Web {
                 // To be threadsafe, get the lock before creating
                 lock (_cultureCache) {
                     if (_cultureCache[name] == null) {
-                        _cultureCache[name] = CultureInfo.ReadOnly(new CultureInfo(name));
+                        _cultureCache[name] = CultureInfo.ReadOnly(System.Web.Util.CultureOverlay.Apply(new CultureInfo(name)));
                     }
                 }
             }
@@ -189,7 +189,7 @@ namespace System.Web {
                 //To be threadsafe, get the lock before creating
                 lock (_cultureCache) {
                     if (_cultureCache[ci.Name] == null) {
-                        _cultureCache[ci.Name] = CultureInfo.ReadOnly(ci);
+                        _cultureCache[ci.Name] = CultureInfo.ReadOnly(System.Web.Util.CultureOverlay.Apply(ci));
                     }
                 }
             }
@@ -202,7 +202,7 @@ namespace System.Web {
                 // To be threadsafe, get the lock before creating
                 lock (_cultureCache) {
                     if (_cultureCache[culture] == null) {
-                        _cultureCache[culture] = CultureInfo.ReadOnly(new CultureInfo(culture));
+                        _cultureCache[culture] = CultureInfo.ReadOnly(System.Web.Util.CultureOverlay.Apply(new CultureInfo(culture)));
                     }
                 }
             }

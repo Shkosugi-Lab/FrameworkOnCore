@@ -1,0 +1,2 @@
+file ä.txt
+line2

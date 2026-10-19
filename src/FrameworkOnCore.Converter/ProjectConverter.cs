@@ -500,6 +500,20 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
 
                     """);
         }
+        // UTF-7 named in the sources (Encoding.GetEncoding("utf-7"), 65000, Encoding.UTF7): .NET Framework gave it, .NET
+        // throws NotSupportedException for GetEncoding unless switched on (SYSLIB0001; disabled for its XSS risk).
+        if (NamesUtf7(compile.Select(c => Path.Combine(source, c)).Concat(isWeb ? PageFiles(source) : [])))
+        {
+            text.Append("""
+
+                  <!-- UTF-7, which the sources name, as .NET Framework gave it (.NET: switched off, SYSLIB0001). -->
+                  <ItemGroup>
+                    <RuntimeHostConfigurationOption Include="System.Text.Encoding.EnableUnsafeUTF7Encoding" Value="true" />
+                  </ItemGroup>
+
+                """);
+            report.Add(Report.Kind.Project, name, "UTF-7 named in the sources: switched on (System.Text.Encoding.EnableUnsafeUTF7Encoding), as .NET Framework had it; .NET switches it off for its XSS risk");
+        }
         if (usesWebFormsForCore) text.Append('\n').Append(AliasTarget).Append('\n');
         text.Append($"\n  <PropertyGroup>\n    <FocRetargetedAssemblies>{SecurityElement.Escape(Paths.FromProject(target, Path.Combine(outRoot, RetargetedFolder)))}\\</FocRetargetedAssemblies>\n  </PropertyGroup>\n");
         text.Append(RetargetTarget).Append('\n');
@@ -686,6 +700,16 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         }
         return resources;
     }
+
+    // A UTF-7 encoding named: its names ("utf-7", "unicode-1-1-utf-7"), its code page, Encoding.UTF7, UTF7Encoding.
+    static bool NamesUtf7(IEnumerable<string> files) =>
+        files.Where(File.Exists).Any(f => Regex.IsMatch(File.ReadAllText(f), @"[""']utf-7[""']|unicode-1-1-utf-7|GetEncoding\(\s*65000\s*\)|\bUTF7(Encoding)?\b", RegexOptions.IgnoreCase));
+
+    // The pages, user controls, handlers and App_Code of a web project: the code the server compiles.
+    static IEnumerable<string> PageFiles(string directory) =>
+        Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories)
+            .Where(f => Path.GetExtension(f).ToLowerInvariant() is ".aspx" or ".ascx" or ".master" or ".ashx" or ".asmx" or ".asax" or ".cs" or ".vb")
+            .Where(f => !f.Contains(Path.DirectorySeparatorChar + "bin" + Path.DirectorySeparatorChar) && !f.Contains(Path.DirectorySeparatorChar + "obj" + Path.DirectorySeparatorChar));
 
     // Visual Basic's My: a desktop application's (MyType Windows, WindowsForms, Console: My.Application, My.Computer, My.User)
     // is in .NET's Windows desktop only (Microsoft.VisualBasic.Forms); the compiler's My template would name its types, in no

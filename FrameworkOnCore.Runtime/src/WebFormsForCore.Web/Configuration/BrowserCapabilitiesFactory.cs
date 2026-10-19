@@ -1513,7 +1513,8 @@ namespace System.Web.Configuration {
             browserCaps.Adapters["System.Web.UI.WebControls.Menu, System.Web, Version=4.0.0.0, Culture=neutral, Pub" +
                 "licKeyToken=b03f5f7f11d50a3a"] = "System.Web.UI.WebControls.Adapters.MenuAdapter";
 #else
-			browserCaps.Adapters["System.Web.UI.WebControls.Menu, WebFormsForCore.Web"] = "System.Web.UI.WebControls.Adapters.MenuAdapter";
+			// The port's Menu as GetAdapter looks it up (its assembly-qualified name: System.Web, not WebFormsForCore.Web).
+			browserCaps.Adapters[typeof(System.Web.UI.WebControls.Menu).AssemblyQualifiedName] = "System.Web.UI.WebControls.Adapters.MenuAdapter";
 #endif
 			browserCaps.AddBrowser("GenericDownlevel");
             this.GenericdownlevelProcessGateways(headers, browserCaps);

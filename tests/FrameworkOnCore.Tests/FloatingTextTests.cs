@@ -191,6 +191,56 @@ public class FloatingTextTests
         Assert.Contains("TimeSpan.FromSeconds(30)", written);
     }
 
+    // A property of an object replaced by a call with it (platformReplacements: an instance property, "call").
+    [Fact]
+    public void Culture_names_and_parents()
+    {
+        var written = CSharp("""
+            string F(System.Globalization.CultureInfo c) => c.DisplayName + System.Globalization.CultureInfo.CurrentUICulture.Parent.Name + $"{c.DisplayName}";
+            """);
+        Assert.Contains("global::FrameworkOnCore.FrameworkCultures.DisplayName(c)", written);
+        Assert.Contains("global::FrameworkOnCore.FrameworkCultures.Parent(System.Globalization.CultureInfo.CurrentUICulture).Name", written);
+        var vb = RewriteHarness.VisualBasic("""
+            Public Class C
+                Function F(c As System.Globalization.CultureInfo) As String
+                    Return c.DisplayName & c.Parent.Name
+                End Function
+            End Class
+            """);
+        Assert.Contains("Global.FrameworkOnCore.FrameworkCultures.DisplayName(c)", vb);
+        Assert.Contains("Global.FrameworkOnCore.FrameworkCultures.Parent(c).Name", vb);
+        Assert.Equal("zh-CHS", FrameworkCultures.Parent(System.Globalization.CultureInfo.GetCultureInfo("zh-CN")).Name);
+        Assert.Equal("zh-CHT", FrameworkCultures.Parent(System.Globalization.CultureInfo.GetCultureInfo("zh-HK")).Name);
+        Assert.Equal("de", FrameworkCultures.Parent(System.Globalization.CultureInfo.GetCultureInfo("de-DE")).Name);
+    }
+
+    [Fact]
+    public void Files_listed_as_on_Windows()
+    {
+        var written = CSharp("""
+            string[] F(string d) => System.IO.Directory.GetFiles(d, "*.xls").Concat(new System.IO.DirectoryInfo(d).GetFiles().Select(f => f.Name)).Concat(System.IO.Path.GetInvalidFileNameChars().Select(c => c.ToString())).ToArray();
+            """);
+        // (the path from data on the platform: WindowsPath.Native, FOC1004)
+        Assert.Contains("global::FrameworkOnCore.FrameworkFiles.GetFiles(global::FrameworkOnCore.WindowsPath.Native(d), \"*.xls\")", written);
+        Assert.Contains("global::FrameworkOnCore.FrameworkFiles.GetFiles(new System.IO.DirectoryInfo(global::FrameworkOnCore.WindowsPath.Native(d)))", written);
+        Assert.Contains("global::FrameworkOnCore.FrameworkFiles.GetInvalidFileNameChars()", written);
+        var folder = Directory.CreateTempSubdirectory("foc-files").FullName;
+        try
+        {
+            foreach (var name in new[] { "b.txt", "A.txt", "book.xls", "book.xlsx", ".hidden", "noext", "page.html" })
+                File.WriteAllText(Path.Combine(folder, name), name);
+            Assert.Equal(new[] { "book.xls", "book.xlsx" }, FrameworkFiles.GetFiles(folder, "*.xls").Select(Path.GetFileName));
+            Assert.Equal(new[] { "page.html" }, FrameworkFiles.GetFiles(folder, "*.htm").Select(Path.GetFileName));
+            Assert.Equal(new[] { ".hidden", "noext" }, FrameworkFiles.GetFiles(folder, "*.").Select(Path.GetFileName));
+            Assert.Equal(new[] { ".hidden", "A.txt", "b.txt", "book.xls", "book.xlsx", "noext", "page.html" }, FrameworkFiles.GetFiles(folder).Select(Path.GetFileName));
+            Assert.Equal(36, FrameworkFiles.GetInvalidPathChars().Length);
+            Assert.Equal(41, FrameworkFiles.GetInvalidFileNameChars().Length);
+            Assert.Equal("0.70000000000000007", FrameworkNumbers.XmlText(0.7000000000000001));
+            Assert.Equal("-INF", FrameworkNumbers.XmlText(double.NegativeInfinity));
+        }
+        finally { Directory.Delete(folder, true); }
+    }
+
     [Fact]
     public void The_framework_formats()
     {

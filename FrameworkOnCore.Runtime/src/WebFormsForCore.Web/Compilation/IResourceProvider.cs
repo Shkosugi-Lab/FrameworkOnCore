@@ -56,8 +56,55 @@ namespace System.Web.Compilation {
             if (culture == null)
                 culture = CultureInfo.CurrentUICulture;
 
+#if !NETFRAMEWORK
+            // FrameworkOnCore: .NET Framework's parents of the Chinese cultures, zh-CN -> zh-CHS -> zh-Hans and zh-TW (zh-HK,
+            // zh-MO) -> zh-CHT -> zh-Hant; .NET's skip the old names (zh-CN -> zh-Hans). An application's Strings.zh-CHS.resx
+            // (App_GlobalResources, App_LocalResources) is found for zh-CN, as on .NET Framework: the chain walked culture by
+            // culture, by a ResourceManager of its own (one that falls back caches the parent's set under the culture's name).
+            if (HasLegacyParent(culture)) {
+                if (_exact == null) _exact = CreateResourceManager();
+                for (var c = culture; c != null; c = FrameworkParent(c)) {
+                    if (ResourceSetOf(c)?.GetObject(resourceKey) is { } value) return value;
+                    if (c.Name.Length == 0) break;
+                }
+                return null;
+            }
+#endif
             return _resourceManager.GetObject(resourceKey, culture);
         }
+
+#if !NETFRAMEWORK
+        private ResourceManager _exact;
+
+        ResourceSet ResourceSetOf(CultureInfo culture) {
+            try {
+                return _exact.GetResourceSet(culture, createIfNotExists: true, tryParents: false);
+            }
+            catch (MissingManifestResourceException) {
+                return null;
+            }
+        }
+
+        // A culture's parent as .NET Framework's (FrameworkOnCore.Compat's FrameworkCultures.Parent is the same).
+        static CultureInfo FrameworkParent(CultureInfo culture) {
+            switch (culture.Name.ToLowerInvariant()) {
+                case "zh-cn": case "zh-sg": return CultureInfo.GetCultureInfo("zh-CHS");
+                case "zh-tw": case "zh-hk": case "zh-mo": return CultureInfo.GetCultureInfo("zh-CHT");
+                // (ICU's parents of the old names are not these)
+                case "zh-chs": return CultureInfo.GetCultureInfo("zh-Hans");
+                case "zh-cht": return CultureInfo.GetCultureInfo("zh-Hant");
+                default: return culture.Parent;
+            }
+        }
+
+        static bool HasLegacyParent(CultureInfo culture) {
+            for (var c = culture; c != null && c.Name.Length > 0; c = c.Parent) {
+                if (FrameworkParent(c).Name != c.Parent.Name) return true;
+                if (c.Parent.Name == c.Name) break;
+            }
+            return false;
+        }
+#endif
 
         public virtual IResourceReader ResourceReader { get { return null; } }
 

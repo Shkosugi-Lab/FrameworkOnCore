@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Cultures as pages take them: Culture="auto" from the browser's Accept-Language, App_GlobalResources and
+       App_LocalResources falling back by the culture's parents, a form in a culture by InitializeCulture (Calendar in
+       Buddhist, Hijri and Persian calendars, the validators' client data, typed values parsed, bound values formatted).
+       The HTML compared (compareSource). -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3E9A51C7-2B84-4D06-A1F3-6C8D0B7E4F95}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>LocaleProbe</RootNamespace>
+    <AssemblyName>LocaleProbe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Auto.aspx" />
+    <Content Include="Form.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="App_GlobalResources\Strings.resx" />
+    <Content Include="App_GlobalResources\Strings.de.resx" />
+    <Content Include="App_GlobalResources\Strings.de-CH.resx" />
+    <Content Include="App_GlobalResources\Strings.ja.resx" />
+    <Content Include="App_GlobalResources\Strings.fr.resx" />
+    <Content Include="App_GlobalResources\Strings.zh-Hant.resx" />
+    <Content Include="App_GlobalResources\Strings.zh-CHS.resx" />
+    <Content Include="App_LocalResources\Auto.aspx.resx" />
+    <Content Include="App_LocalResources\Auto.aspx.de.resx" />
+    <Content Include="App_LocalResources\Auto.aspx.ja-JP.resx" />
+    <Content Include="App_LocalResources\Auto.aspx.zh-CHT.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Auto.aspx.cs"><DependentUpon>Auto.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Auto.aspx.designer.cs"><DependentUpon>Auto.aspx</DependentUpon></Compile>
+    <Compile Include="Form.aspx.cs"><DependentUpon>Form.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Form.aspx.designer.cs"><DependentUpon>Form.aspx</DependentUpon></Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

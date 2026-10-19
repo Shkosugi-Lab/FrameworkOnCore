@@ -64,6 +64,7 @@ public sealed record LinkResult(
 ///         / upload(target, value: "name.txt:content", a file chosen in a file input)
 ///         / clicktextin(target, value: a link or button by its text inside the target)
 ///         / check(target) / uncheck(target) / waitMs(ms) / snapshot(name)
+///         / acceptlanguage(value: the Accept-Language header of the requests from then on, "de-DE,de;q=0.9")
 /// </summary>
 public sealed record ParityStep(
     string Action,

@@ -198,6 +198,11 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                     await page.WaitForTimeoutAsync(step.Ms ?? 500);
                     break;
 
+                // The browser's languages from now on (Accept-Language of every request): Culture="auto" pages.
+                case "acceptlanguage":
+                    await page.SetExtraHTTPHeadersAsync(new Dictionary<string, string> { ["Accept-Language"] = step.Value ?? "" });
+                    break;
+
                 case "snapshot":
                     snapshots.Add(await CaptureAsync(step.Name ?? $"snapshot-{snapshots.Count + 1}"));
                     break;

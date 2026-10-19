@@ -4518,7 +4518,7 @@ window.onload = WebForm_RestoreScrollPosition;
 					_dynamicCulture = newCulture;
 				}
 			}
-			get { return Thread.CurrentThread.CurrentCulture.DisplayName; }
+			get { return System.Web.Util.FrameworkCultures.DisplayName(Thread.CurrentThread.CurrentCulture); }
 		}
 
 		internal CultureInfo DynamicCulture
@@ -4605,7 +4605,7 @@ window.onload = WebForm_RestoreScrollPosition;
 					_dynamicUICulture = newUICulture;
 				}
 			}
-			get { return Thread.CurrentThread.CurrentUICulture.DisplayName; }
+			get { return System.Web.Util.FrameworkCultures.DisplayName(Thread.CurrentThread.CurrentUICulture); }
 		}
 
 		internal CultureInfo DynamicUICulture

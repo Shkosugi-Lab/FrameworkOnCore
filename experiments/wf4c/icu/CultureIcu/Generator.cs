@@ -87,6 +87,8 @@ sealed class Generator(string profilePath, string icuVersion, string outDirector
                 {
                     case "NumberFormat.CurrencySymbol":
                         {
+                            // A neutral culture (zh-Hans, named by a page) has no region, so no currency of its own in ICU.
+                            if (info.IsNeutralCulture) { notRepresented.Add($"{difference} (a neutral culture: no region)"); break; }
                             var iso = new RegionInfo(info.Name).ISOCurrencySymbol;
                             var names = (Inherited("curr", chain, $"Currencies/{iso}") as IcuArray)?.Copy() as IcuArray;
                             if (names == null || names.Items.Count == 0) { notRepresented.Add($"{difference} (no Currencies/{iso})"); break; }

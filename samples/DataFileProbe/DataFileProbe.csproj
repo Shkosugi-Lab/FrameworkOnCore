@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Data and files as applications sort, filter and read them: DataTable and DataView by their Locale and CaseSensitive
+       (Japanese kana and widths, Turkish I, German and Swedish letters), RowFilter, expressions and Compute over doubles,
+       keys and Merge, a DataSet's XML; Directory.GetFiles' order and patterns, paths in another case, Windows paths, text
+       in Shift_JIS, with a BOM, in UTF-16, the Japanese code pages' bytes. "case = value" lines. -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B41D7E58-3A92-4C6F-8E17-2D5F9A0C6B31}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>DataFileProbe</RootNamespace>
+    <AssemblyName>DataFileProbe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data.aspx" />
+    <Content Include="Files.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="App_Data\**\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Probe.cs" />
+    <Compile Include="Data.aspx.cs"><DependentUpon>Data.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Files.aspx.cs"><DependentUpon>Files.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

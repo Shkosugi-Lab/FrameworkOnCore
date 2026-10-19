@@ -180,7 +180,8 @@ namespace System.Web.Configuration {
         public virtual void Create() {
             DirectoryInfo browserDirInfo = new DirectoryInfo(_browsersDirectory);
             //get all the browser files and put them in the "tree"
-            FileInfo[] browserFiles = browserDirInfo.GetFiles("*.browser");
+            // FrameworkOnCore: in the order NTFS gives them (by name), as on Windows (Linux: the order the folder holds them).
+            FileInfo[] browserFiles = browserDirInfo.GetFiles("*.browser", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive, AttributesToSkip = 0 }).OrderBy(f => f.Name, StringComparer.OrdinalIgnoreCase).ToArray();
             
             if (browserFiles == null || browserFiles.Length == 0) {
                 return;
@@ -534,7 +535,8 @@ namespace System.Web.Configuration {
                 browserDirInfo = new DirectoryInfo(HostingEnvironment.MapPathInternal(virtualDir));
             }
 
-            allBrowserSubDirectories = browserDirInfo.GetDirectories();
+            // FrameworkOnCore: in the order NTFS gives them (by name), as on Windows (Linux: the order the folder holds them).
+            allBrowserSubDirectories = browserDirInfo.GetDirectories().OrderBy(d => d.Name, StringComparer.OrdinalIgnoreCase).ToArray();
             
             int j = 0;
             int length = allBrowserSubDirectories.Length;
@@ -650,13 +652,15 @@ namespace System.Web.Configuration {
         private static FileInfo[] GetFilesNotHidden(DirectoryInfo rootDirectory, DirectoryInfo browserDirInfo) {
             ArrayList fileList = new ArrayList();
             FileInfo[] files;
-            DirectoryInfo[] subDirectories = rootDirectory.GetDirectories("*", SearchOption.AllDirectories);
-            
-            files = rootDirectory.GetFiles("*.browser", SearchOption.TopDirectoryOnly);
+            // FrameworkOnCore: in the order NTFS gives them (a folder's by name, the deeper after), as on Windows.
+            DirectoryInfo[] subDirectories = rootDirectory.GetDirectories("*", SearchOption.AllDirectories)
+                .OrderBy(d => d.FullName.Split(Path.DirectorySeparatorChar).Length).ThenBy(d => d.FullName, StringComparer.OrdinalIgnoreCase).ToArray();
+
+            files = rootDirectory.GetFiles("*.browser", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive, AttributesToSkip = 0 }).OrderBy(f => f.Name, StringComparer.OrdinalIgnoreCase).ToArray();
             fileList.AddRange(files);
             for (int i = 0; i < subDirectories.Length; i++) {
                 if ((HasHiddenParent(subDirectories[i], browserDirInfo) == false)) {
-                    files = subDirectories[i].GetFiles("*.browser", SearchOption.TopDirectoryOnly);
+                    files = subDirectories[i].GetFiles("*.browser", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive, AttributesToSkip = 0 }).OrderBy(f => f.Name, StringComparer.OrdinalIgnoreCase).ToArray();
                     fileList.AddRange(files);
                 }
             }

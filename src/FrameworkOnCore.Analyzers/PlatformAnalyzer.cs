@@ -13,8 +13,8 @@ namespace FrameworkOnCore.Analyzers;
 /// FrameworkOnCore.Compat's (rules/packages.json platformReplacements; the converter gives them to the build as the
 /// additional file frameworkoncore.platform.txt). By symbol, in C# and Visual Basic alike: PrincipalPolicy.WindowsPrincipal,
 /// WindowsIdentity.GetCurrent().Name, Uri.TryCreate, new Uri(s, UriKind...), EventLog.WriteEntry. FOC1006 at the expression
-/// replaced, tagged with the rule's number, and "_instance" for a call of an instance method (the receiver is passed to the
-/// replacement: its syntax does not tell it from a type's name).
+/// replaced, tagged with the rule's number, and "_instance" for a call of an instance method or a read of an instance property
+/// (the receiver is passed to the replacement: its syntax does not tell it from a type's name; culture.DisplayName).
 /// </summary>
 [DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
 public sealed class PlatformAnalyzer : DiagnosticAnalyzer
@@ -101,7 +101,7 @@ public sealed class PlatformAnalyzer : DiagnosticAnalyzer
                 if (operation.Parent is not IPropertyReferenceOperation read || read.Instance != operation || read.Property.Name != rule.Then) continue;
                 target = read;
             }
-            var instance = rule.Then == null && operation is IInvocationOperation { TargetMethod.IsStatic: false } ? "_instance" : "";
+            var instance = rule.Then == null && operation is IInvocationOperation { TargetMethod.IsStatic: false } or IPropertyReferenceOperation { Property.IsStatic: false } ? "_instance" : "";
             context.ReportDiagnostic(Located.Create(Rule, target.Syntax, $"{type}.{name}{(rule.Then != null ? "." + rule.Then : "")}", "rule" + rule.Number + instance));
             return;
         }

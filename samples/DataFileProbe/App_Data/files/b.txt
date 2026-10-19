@@ -1,0 +1,2 @@
+file b.txt
+line2

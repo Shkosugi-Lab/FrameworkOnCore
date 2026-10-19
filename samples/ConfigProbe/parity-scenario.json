@@ -1,0 +1,10 @@
+﻿{
+  "_comment": "Configuration as the pages read it, at the root and in Sub (Sub/web.config after the root's <location path=\"Sub\">): appSettings with file=, connectionStrings and a section from configSource, machine.config's entries, NameValue/Dictionary/SingleTag handlers and an IConfigurationSectionHandler, a ConfigurationSection with a collection and validators, applicationSettings, a broken folder web.config, system.web's sections, OpenWebConfiguration. Each page writes 'case = value' lines.",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/Default.aspx" },
+    { "action": "snapshot", "name": "root" },
+    { "action": "goto", "path": "/Sub/Default.aspx" },
+    { "action": "snapshot", "name": "sub" }
+  ]
+}

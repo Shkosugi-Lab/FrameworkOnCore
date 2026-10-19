@@ -31,6 +31,10 @@ namespace FrameworkOnCore
         public static string ToString(float value, string format) => Format(value, format, null);
         public static string ToString(float value, string format, IFormatProvider provider) => Format(value, format, provider);
 
+        /// <summary>XmlConvert.ToString as .NET Framework's: INF, -INF, -0, else R (17 digits where 15 do not round-trip: 0.70000000000000007).</summary>
+        public static string XmlText(double value) => double.IsPositiveInfinity(value) ? "INF" : double.IsNegativeInfinity(value) ? "-INF" : value == 0 && double.IsNegative(value) ? "-0" : Format(value, "R", System.Globalization.NumberFormatInfo.InvariantInfo);
+        public static string XmlText(float value) => float.IsPositiveInfinity(value) ? "INF" : float.IsNegativeInfinity(value) ? "-INF" : value == 0 && float.IsNegative(value) ? "-0" : Format(value, "R", System.Globalization.NumberFormatInfo.InvariantInfo);
+
         /// <summary>value.ToString() of a value of another static type (object, a DataRow's field): a boxed double or float
         /// as .NET Framework wrote it, anything else its own ToString (a null throws, as the call did).</summary>
         public static string ToString(object value)

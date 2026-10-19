@@ -762,4 +762,116 @@
   <data name="Unable_To_Locate_Type" xml:space="preserve">
     <value>Unable to locate type.</value>
   </data>
+  <!-- System.dll's (where .NET Framework has AppSettingsReader, ApplicationSettingsBase, LocalFileSettingsProvider and System.Net's sections): the messages these classes throw. -->
+  <data name="AppSettingsReaderCantParse" xml:space="preserve">
+    <value>The value &apos;{0}&apos; was found in the appSettings configuration section for key &apos;{1}&apos;, and this value is not a valid {2}.</value>
+  </data>
+  <data name="AppSettingsReaderNoKey" xml:space="preserve">
+    <value>The key &apos;{0}&apos; does not exist in the appSettings configuration section.</value>
+  </data>
+  <data name="ArgumentOutOfRange_Bounds_Lower_Upper" xml:space="preserve">
+    <value>Argument must be between {0} and {1}.</value>
+  </data>
+  <data name="BothScopeAttributes" xml:space="preserve">
+    <value>The setting {0} has both an ApplicationScopedSettingAttribute and a UserScopedSettingAttribute.</value>
+  </data>
+  <data name="Config_base_required_attribute_empty" xml:space="preserve">
+    <value>Required attribute &apos;{0}&apos; cannot be empty.</value>
+  </data>
+  <data name="Could_not_create_from_default_value" xml:space="preserve">
+    <value>The property &apos;{0}&apos; could not be created from it&apos;s default value. Error message: {1}</value>
+  </data>
+  <data name="Could_not_create_from_default_value_2" xml:space="preserve">
+    <value>The property &apos;{0}&apos; could not be created from it&apos;s default value because the default value is of a different type.</value>
+  </data>
+  <data name="InvalidOperation_EnumOpCantHappen" xml:space="preserve">
+    <value>Enumerator is positioned before the first element or after the last element of the collection.</value>
+  </data>
+  <data name="net_config_authenticationmodules" xml:space="preserve">
+    <value>Error creating the modules specified in the &apos;system.net/authenticationModules&apos; configuration section.</value>
+  </data>
+  <data name="net_config_element_permission" xml:space="preserve">
+    <value>Insufficient permissions for setting the configuration element &apos;{0}&apos;.</value>
+  </data>
+  <data name="net_config_property_permission" xml:space="preserve">
+    <value>Insufficient permissions for setting the configuration property &apos;{0}&apos;.</value>
+  </data>
+  <data name="net_config_proxy" xml:space="preserve">
+    <value>Error creating the Web Proxy specified in the &apos;system.net/defaultProxy&apos; configuration section.</value>
+  </data>
+  <data name="net_config_proxy_module_not_public" xml:space="preserve">
+    <value>The specified proxy module type is not public.</value>
+  </data>
+  <data name="net_config_requestcaching" xml:space="preserve">
+    <value>Error creating the Web Request caching policy specified in the &apos;system.net/requestCaching&apos; configuration section.</value>
+  </data>
+  <data name="net_config_section_permission" xml:space="preserve">
+    <value>Insufficient permissions for setting the configuration section &apos;{0}&apos;.</value>
+  </data>
+  <data name="net_config_webrequestmodules" xml:space="preserve">
+    <value>Error creating the modules specified in the &apos;system.net/webRequestModules&apos; configuration section.</value>
+  </data>
+  <data name="net_invalid_cast" xml:space="preserve">
+    <value>Invalid cast from {0} to {1}.</value>
+  </data>
+  <data name="net_io_timeout_use_gt_zero" xml:space="preserve">
+    <value>Timeout can be only be set to &apos;System.Threading.Timeout.Infinite&apos; or a value &gt; 0.</value>
+  </data>
+  <data name="net_MethodNotImplementedException" xml:space="preserve">
+    <value>This method is not implemented by this class.</value>
+  </data>
+  <data name="net_MethodNotSupportedException" xml:space="preserve">
+    <value>This method is not supported by this class.</value>
+  </data>
+  <data name="net_PropertyNotImplementedException" xml:space="preserve">
+    <value>This property is not implemented by this class.</value>
+  </data>
+  <data name="net_PropertyNotSupportedException" xml:space="preserve">
+    <value>This property is not supported by this class.</value>
+  </data>
+  <data name="NoScopeAttributes" xml:space="preserve">
+    <value>The setting {0} does not have either an ApplicationScopedSettingAttribute or UserScopedSettingAttribute.</value>
+  </data>
+  <data name="NotSupported_CodeDomAPI" xml:space="preserve">
+    <value>This CodeDomProvider does not support this method.</value>
+  </data>
+  <data name="PositionOutOfRange" xml:space="preserve">
+    <value>Position cannot be less than zero.</value>
+  </data>
+  <data name="ProviderInstantiationFailed" xml:space="preserve">
+    <value>Failed to instantiate provider: {0}.</value>
+  </data>
+  <data name="ProviderTypeLoadFailed" xml:space="preserve">
+    <value>Failed to load provider type: {0}.</value>
+  </data>
+  <data name="SettingsPropertyNotFound" xml:space="preserve">
+    <value>The settings property &apos;{0}&apos; was not found.</value>
+  </data>
+  <data name="SettingsPropertyReadOnly" xml:space="preserve">
+    <value>The settings property &apos;{0}&apos; is read-only.</value>
+  </data>
+  <data name="SettingsPropertyWrongType" xml:space="preserve">
+    <value>The settings property &apos;{0}&apos; is of a non-compatible type.</value>
+  </data>
+  <data name="SettingsSaveFailed" xml:space="preserve">
+    <value>Failed to save settings: {0}</value>
+  </data>
+  <data name="SettingsSaveFailedNoSection" xml:space="preserve">
+    <value>Failed to save settings: unable to access the configuration section.</value>
+  </data>
+  <data name="Unable_to_convert_type_from_string" xml:space="preserve">
+    <value>Could not find a type-converter to convert object if type &apos;{0}&apos; from string.</value>
+  </data>
+  <data name="Unable_to_convert_type_to_string" xml:space="preserve">
+    <value>Could not find a type-converter to convert object if type &apos;{0}&apos; to string.</value>
+  </data>
+  <data name="UnknownSeekOrigin" xml:space="preserve">
+    <value>Unknown SeekOrigin specified.</value>
+  </data>
+  <data name="UnknownUserLevel" xml:space="preserve">
+    <value>Unknown ConfigurationUserLevel specified.</value>
+  </data>
+  <data name="UserSettingsNotSupported" xml:space="preserve">
+    <value>The current configuration system does not support user-scoped settings.</value>
+  </data>
 </root>

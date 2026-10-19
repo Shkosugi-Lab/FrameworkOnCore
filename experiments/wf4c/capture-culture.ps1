@@ -65,16 +65,27 @@ $profile = [ordered]@{
     DefaultUICulture = $defaultUI
     # The server's time zone (Windows' id): IIS ran the application in it; a Linux container runs in UTC (TZ).
     TimeZone         = [TimeZoneInfo]::Local.Id
+    # The .NET Framework language packs installed (System.Web's messages and controls' texts in that language when
+    # the UI culture is it: Calendar's titles, Login's labels, error pages): the converter gives them to the port.
+    LanguagePacks    = @(Get-ChildItem "$env:windir\Microsoft.NET\assembly\GAC_MSIL\System.Web.resources" -Directory -ErrorAction SilentlyContinue |
+        ForEach-Object { if ($_.Name -match '^v4\.0_[^_]+_([^_]+)_') { $Matches[1] } } | Sort-Object -Unique)
     Cultures         = [ordered]@{}
 }
 foreach ($name in ($names | Where-Object { $_ } | Select-Object -Unique)) {
     $culture = New-Object Globalization.CultureInfo $name
-    if ($culture.IsNeutralCulture -or $culture.Name -eq '') { continue }   # no formats of their own
+    if ($culture.Name -eq '') { continue }   # no formats of its own
+    # A neutral culture only when named (a page's UICulture="zh-Hans", Culture="de"): .NET Framework gives it formats.
+    if ($culture.IsNeutralCulture -and $Cultures -notcontains $name) { continue }
     $date = Get-Settable $culture.DateTimeFormat
     $all = [ordered]@{}
     foreach ($format in 'd', 'D', 't', 'T', 'y', 'Y') { $all[$format] = @($culture.DateTimeFormat.GetAllDateTimePatterns([char]$format)) }
     $date['AllDateTimePatterns'] = $all
+    # The calendar's: a two-digit year's century (Windows' setting: 2049 for the Gregorian, 2592 for the Thai Buddhist).
+    $date['TwoDigitYearMax'] = $culture.DateTimeFormat.Calendar.TwoDigitYearMax
     $profile.Cultures[$culture.Name] = [ordered]@{
+        # Windows' names (ICU's differ: "Chinese (Taiwan)" for "Chinese (Traditional, Taiwan)").
+        EnglishName    = $culture.EnglishName
+        NativeName     = $culture.NativeName
         NumberFormat   = Get-Settable $culture.NumberFormat
         DateTimeFormat = $date
     }

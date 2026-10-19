@@ -1236,6 +1236,66 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
     (ツールの deps.json が FrameworkOnCore のものを選ぶ)。成否を逆に返していたのも直した。
   - 確認: net10.0・net48 × dotnet build・MSBuild 18 × 別プロセス・プロセス内の 7 通りすべてで生成でき、内容は同じ。
 
+### 違う観点の意地悪なコーパス: LegacyRenderProbe・ConfigProbe・LocaleProbe・DataFileProbe(1.6.5-w2l.18、2026-10-19、ユーザーの指示)
+
+前のコーパス(コントロールの入れ子、BCL)と違う観点で、差が出そうなものを 4 つ作り、IIS の .NET Framework 4.8 で記録して変換後を Windows・Linux で
+比べた(`sample-parity.ps1`。1 つずつ順に、Linux は Docker を 1 つずつ)。
+
+- `samples/LegacyRenderProbe`(古い描画): web.config の `controlRenderingCompatibilityVersion="3.5"`・`xhtmlConformance mode="Legacy"`・`clientIDMode="AutoID"` で、
+  Menu・TreeView・Calendar・Panel(GroupingText・DefaultButton)・検証コントロール・無効なコントロール・リスト・GridView(ページング・並べ替え・画像の ButtonField)・
+  DetailsView・Wizard・Table・ImageButton。HTML を比べる(compareSource)14 スナップショット: Windows・Linux とも最初から一致。
+- `samples/ConfigProbe`(構成): appSettings の file=、connectionStrings と独自セクションの configSource、machine.config の LocalSqlServer、NameValue・Dictionary・
+  SingleTag の各ハンドラーと IConfigurationSectionHandler(コメント・CDATA を含むノード)、検証付きの ConfigurationSection とコレクション(remove・clear)、
+  applicationSettings(Settings.Default)、location とフォルダーの web.config(de-DE、別の httpRuntime)、壊れたフォルダーの web.config、system.web の各セクション、
+  OpenWebConfiguration。行の比較。
+- `samples/LocaleProbe`(カルチャ): Culture="auto:en-US" UICulture="auto" を Accept-Language を変えながら(ParityTest の新しい手順 `acceptlanguage`: q 値は無視して
+  先頭、未知の言語、`*`、空白)、App_GlobalResources・App_LocalResources の親カルチャへの戻り(zh-CHS・zh-CHT・zh-Hant・de-CH → de)、ページの値。
+  InitializeCulture で ?c= のカルチャにしたフォーム: 仏暦・ヒジュラ暦・ペルシア暦の Calendar、検証コントロールのクライアントの値(小数点・桁区切り・日付の順)と
+  通すもの、サーバーでの読み取り、バインドした値の書式。HTML を比べる 32 スナップショット。
+- `samples/DataFileProbe`(データとファイル): DataTable・DataView の Locale と CaseSensitive による並べ替えと比較(かな・幅、トルコ語の I、ß、Æ)、RowFilter、
+  式と Compute の double、主キーと Merge、DataSet の XML。Directory.GetFiles の順とパターン、別の大文字小文字のパス、Windows のパス、Shift_JIS・BOM・UTF-16 の
+  ファイル、日本語のコードページのバイト(WAVE DASH など)、UTF-7。行の比較。
+
+見つけて直したもの:
+
+- **System.Configuration**(ConfigProbe): .NET Framework では System.dll にあったクラスのメッセージ 37 件がリソースに無く、AppSettingsReader の例外が
+  `ArgumentNullException (Parameter 'format')` だった(.NET Framework のリソースから足した。ほかの移植のプロジェクトにリソースの欠けは無い)。
+  `ConfigurationManagerInternalFactory` が無いアセンブリ名(WebFormsForCore.Configuration)で型を探していて、`Properties.Settings.Default` が動かなかった
+  (同じ間違いが BrowserCapabilitiesFactory の Menu のアダプター〈Generic Downlevel〉にもあった)。接続文字列の `|DataDirectory|` を読むときに展開していた:
+  自分で展開するプロバイダーには値のまま返す。
+- **.NET Framework の言語パック**(LocaleProbe): 日本語の Windows の IIS では、UI カルチャが ja のとき Calendar の title が「カレンダー」「先月へ移動」になる
+  (System.Web の言語パック)。変換器が、元のサーバーの言語パック(capture-culture.ps1 の LanguagePacks)の GAC のサテライトから FrameworkOnCore の
+  System.Web・System.Web.Extensions・System.Web.Services・System.Web.ApplicationServices・System.Configuration.ConfigurationManager のサテライトを作って bin に置く
+  (Mono.Cecil で名前・版・公開鍵を移植版のものに。部品 `language-packs`)。
+- **カルチャの名前と親**: Page.Culture・CultureInfo.DisplayName は .NET Framework では mscorlib の名前(「Chinese (Simplified, PRC)」、言語パックの言語ならその言語、
+  最初に作った要求の UI カルチャのまま)。.NET は Windows の表示言語の名前(日本語の Windows では de-DE の UI でも「ドイツ語 (ドイツ)」)。変換器が mscorlib と
+  言語パックから名前の表を bin に書き(frameworkoncore.culturenames.txt)、FrameworkOnCore の System.Web と FrameworkOnCore.Compat の FrameworkCultures が読む。
+  zh-CN・zh-TW の親(.NET Framework は zh-CHS・zh-CHT)で、App_GlobalResources・App_LocalResources の Strings.zh-CHS.resx が見つからなかった: リソースの
+  プロバイダーが .NET Framework の並びで探す(戻りながら探す ResourceManager は親のセットを子の名前で覚えるので、それ用の ResourceManager で 1 つずつ)。
+  アプリの `CultureInfo.Parent`・`EnglishName`・`NativeName` も置き換える(platformReplacements がインスタンスのプロパティの読み取りも書き換えるようにした)。
+- **Linux のカルチャのデータ**: ICU のデータに入らないもの(th-TH の週の始まり〈Calendar の列〉、ar-SA の短い日付、es-419 の XDR、fa-IR の通貨の桁、
+  TwoDigitYearMax)を、FrameworkOnCore の System.Web が作るカルチャに App_Data\culture-profile.json から入れる(CultureOverlay)。capture-culture.ps1 は
+  TwoDigitYearMax・EnglishName・NativeName・名前を挙げた中立カルチャも記録する(CultureIcu は中立カルチャの通貨で落ちていた)。
+- **ファイルの一覧**(DataFileProbe): .NET Framework の `*.xls` は 8.3 名で book.xlsx も返す(`*.htm` の page.html、`*.` の .hidden)。Linux はフォルダーの持つ順で、
+  パターンが大文字小文字を区別する(`*.txt` が readme.TXT を返さない)。FrameworkOnCore.Compat の FrameworkFiles に置き換える(Windows の順・パターン)。
+  類似の箇所: FrameworkOnCore 自身の一覧(テーマの CSS・スキン、App_Browsers、bin の `*.dll`、バンドルの IncludeDirectory)も Linux で名前順・大文字小文字を
+  区別しないようにした。Path.GetInvalidPathChars・GetInvalidFileNameChars は Windows の 36・41。
+- UTF-7: ソースが名指しするときは `System.Text.Encoding.EnableUnsafeUTF7Encoding` を入れる。XmlConvert.ToString(double) は .NET Framework の R(17 桁)に。
+- FrameworkOnCore の AppContext.BaseDirectory はサイトのルート(.NET Framework と同じ)なので、bin を見るもの(ServiceModel の型の検索)はアセンブリの場所を使う。
+
+結果(Windows / Linux):
+
+| コーパス | スナップショット | Windows | Linux |
+|---|---|---|---|
+| LegacyRenderProbe | 14 | 14/14 | 14/14 |
+| ConfigProbe | 2 | 0/2 → 2/2 | 2/2 |
+| LocaleProbe | 32 | 18/29(最初の 29 件)→ 32/32 | 18/32 → 31/32 |
+| DataFileProbe | 2(140 行) | 10 行 → 5 行 | 28 行 → 25 行 |
+
+残り(PORT-CANDIDATES.md の「移植では対応できないもの」): LocaleProbe の未知のカルチャ(xx-YY: Windows は「不明なロケール」、ICU は「xx (YY)」)。
+DataFileProbe の System.Data の式の中の double と DataSet の XML の R(.NET の System.Data・System.Xml が書く)、Linux の照合(ICU)・改行・ドライブ付きの
+Windows のパスのリテラル。回帰: サンプル 29 件(既知の差の BclProbe 115 → 113 行・DataFileProbe・LocaleProbe の Linux 1 件のほかは一致)、be 5/5(Windows・
+Linux)、wt 8/8(Windows)・7/8(Linux、error-page は検証環境)。単体テスト 4,428 件。
 ### 差が出るように作ったコーパス: NestingProbe・BclProbe と double の文字列化(1.6.5-w2l.18、2026-10-19、ユーザーの指示)
 
 変換器の互換性を上げるため、差が出そうなケースを集めたサンプル(コーパス)を 2 つ作り、IIS の .NET Framework 4.8 で記録して変換後を

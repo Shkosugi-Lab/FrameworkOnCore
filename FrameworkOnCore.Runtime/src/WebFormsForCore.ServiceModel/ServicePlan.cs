@@ -386,7 +386,9 @@ namespace System.ServiceModel.Activation
                     return type;
                 }
             }
-            foreach (string dll in Directory.EnumerateFiles(AppContext.BaseDirectory, "*.dll"))
+            // bin (where this assembly is): AppContext.BaseDirectory is the site's root under FrameworkOnCore, as on .NET Framework.
+            var bin = Path.GetDirectoryName(typeof(ServicePlan).Assembly.Location);
+            foreach (string dll in Directory.EnumerateFiles(string.IsNullOrEmpty(bin) ? AppContext.BaseDirectory : bin, "*.dll"))
             {
                 try
                 {

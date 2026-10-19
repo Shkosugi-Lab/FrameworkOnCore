@@ -76,7 +76,8 @@ namespace System.Configuration {
 #if NETFRAMEWORK
                 return (string)base[_propConnectionString];
 #else
-                return ExpandDataDirectory(FromEnvironment(Name) ?? (string)base[_propConnectionString]);
+                var connectionString = FromEnvironment(Name) ?? (string)base[_propConnectionString];
+                return ProviderExpands(ProviderName) ? connectionString : ExpandDataDirectory(connectionString);
 #endif
             }
             set {
@@ -107,6 +108,16 @@ namespace System.Configuration {
             }
             return null;
         }
+
+        // The providers that expand it themselves, as .NET Framework's did, get the stored value, as on .NET Framework
+        // (what the application shows, parses or compares is the configuration's; machine.config's LocalSqlServer):
+        // FrameworkOnCore.Data.SqlClient for System.Data.SqlClient (also the default, and an empty providerName),
+        // System.Data.OleDb. Microsoft.Data.SqlClient's .NET build does not expand it (its providerName is its own; the
+        // packages bring it to every application, so its being in bin does not tell that the application uses it).
+        static bool ProviderExpands(string providerName) =>
+            string.IsNullOrEmpty(providerName)
+            || string.Equals(providerName, "System.Data.SqlClient", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(providerName, "System.Data.OleDb", StringComparison.OrdinalIgnoreCase);
 
         static string ExpandDataDirectory(string connectionString) {
             if (connectionString == null || connectionString.IndexOf(DataDirectoryToken, StringComparison.OrdinalIgnoreCase) < 0)

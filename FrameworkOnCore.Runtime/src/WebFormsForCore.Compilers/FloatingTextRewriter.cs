@@ -172,6 +172,15 @@ namespace WebFormsForCore.Compilers
 					receiver = null;
 					arguments = creation.ArgumentList?.Arguments.Select(a => a.WithoutTrivia().ToString()).ToList() ?? new List<string>();
 					return true;
+				// A property read (culture.DisplayName): its object, no arguments.
+				case CSS.MemberAccessExpressionSyntax access:
+					receiver = access.Expression.WithoutTrivia().ToString();
+					arguments = new List<string>();
+					return true;
+				case VBS.MemberAccessExpressionSyntax { Expression: { } target }:
+					receiver = target.WithoutTrivia().ToString();
+					arguments = new List<string>();
+					return true;
 				default:
 					return false;
 			}

@@ -8,7 +8,8 @@ namespace System.Configuration
 #if NETFRAMEWORK
         private const string ConfigurationManagerInternalTypeString = "System.Configuration.Internal.ConfigurationManagerInternal, System.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a";
 #else
-		private const string ConfigurationManagerInternalTypeString = "System.Configuration.Internal.ConfigurationManagerInternal, WebFormsForCore.Configuration";
+		// This assembly is System.Configuration.ConfigurationManager (not WebFormsForCore.Configuration): the type itself.
+		private static readonly string ConfigurationManagerInternalTypeString = typeof(ConfigurationManagerInternal).AssemblyQualifiedName;
 #endif
 		private static volatile IConfigurationManagerInternal s_instance;
 
@@ -20,7 +21,7 @@ namespace System.Configuration
 #if NETFRAMEWORK
 					ConfigurationManagerInternalFactory.s_instance = (IConfigurationManagerInternal)TypeUtil.CreateInstanceWithReflectionPermission("System.Configuration.Internal.ConfigurationManagerInternal, System.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a");
 #else
-					ConfigurationManagerInternalFactory.s_instance = (IConfigurationManagerInternal)TypeUtil.CreateInstanceWithReflectionPermission("System.Configuration.Internal.ConfigurationManagerInternal, WebFormsForCore.Configuration");
+					ConfigurationManagerInternalFactory.s_instance = (IConfigurationManagerInternal)TypeUtil.CreateInstanceWithReflectionPermission(ConfigurationManagerInternalTypeString);
 #endif
 				return ConfigurationManagerInternalFactory.s_instance;
 			}

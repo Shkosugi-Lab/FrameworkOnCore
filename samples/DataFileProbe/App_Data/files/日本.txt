@@ -1,0 +1,2 @@
+file 日本.txt
+line2

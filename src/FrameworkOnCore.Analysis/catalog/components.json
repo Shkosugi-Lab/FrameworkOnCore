@@ -33,6 +33,10 @@
       { "id": "framework", "title": ".NET Framework と同じ", "description": "double・float の文字列化(ToString、連結、補間、string.Format、Convert.ToString、Append・Write)を FrameworkNumbers に、Parse・TryParse・TimeSpan.From* を FrameworkParsing に置き換える。FrameworkOnCore の System.Web もバインドした値を同じく書く", "default": true },
       { "id": "none", "title": ".NET のまま", "description": "0.1 + 0.2 が 0.30000000000000004、-0 が \"-0\"、2.675 の N2 が 2.67 になる。大きすぎる数の Parse は無限大" }
     ],
+    "language-packs": [
+      { "id": "framework", "title": "元のサーバーと同じ", "description": "元のサーバーにある .NET Framework の言語パック(capture-culture.ps1 が記録。なければこのマシンの)の System.Web などのメッセージを、FrameworkOnCore の同じアセンブリのサテライトにして bin に置く。UI カルチャがその言語のとき、Calendar の見出し、Login のラベル、エラーページなどがその言語になる", "default": true },
+      { "id": "none", "title": "置かない(英語)", "description": "UI カルチャにかかわらず英語" }
+    ],
     "code-pages": [
       { "id": "register", "title": "登録する(常に)", "description": "FrameworkOnCore の System.Web(UseWebForms)が起動時に CodePagesEncodingProvider を登録する。Shift_JIS、EUC-JP などが使える", "default": true }
     ],
@@ -147,6 +151,11 @@
       "id": "floating-point", "title": "double・float の文字列化と読み取り",
       "match": { "members": [ "System.Double.ToString", "System.Single.ToString", "System.Double.Parse", "System.Double.TryParse", "System.Single.Parse", "System.Single.TryParse", "System.TimeSpan.FromMilliseconds", "System.TimeSpan.FromSeconds", "System.TimeSpan.FromMinutes", "System.TimeSpan.FromHours", "System.TimeSpan.FromDays", "Microsoft.VisualBasic.Strings.Format", "Microsoft.VisualBasic.Strings.FormatNumber", "Microsoft.VisualBasic.Strings.FormatCurrency", "Microsoft.VisualBasic.Strings.FormatPercent", "Microsoft.VisualBasic.Conversion.Str" ] }, "status": "Behavior",
       "note": ".NET Core 3.0 から、書式なしの double は往復できる最短の桁(0.1 + 0.2 は 0.30000000000000004。.NET Framework は 15 桁で 0.3)、負のゼロは \"-0\"、桁を決めた書式は 2 進の値そのものを偶数に丸める(2.675 の N2 は 2.67。.NET Framework は 15 桁から四捨五入で 2.68)。大きすぎる数の Parse は無限大(.NET Framework は例外)。TimeSpan.FromSeconds(0.00015) などはミリ秒に丸めない。変換器: FrameworkNumbers・FrameworkParsing に置き換える(FOC1008、platformReplacements)"
+    },
+    {
+      "id": "language-packs", "title": ".NET Framework の言語パック(System.Web などの日本語のメッセージ、カルチャの表示名)",
+      "match": { "members": [ "System.Globalization.CultureInfo.DisplayName" ] }, "status": "Behavior",
+      "note": "言語パックのあるサーバー(日本語の Windows では普通 ja)では、UI カルチャがその言語のとき System.Web のテキストがその言語になる(Calendar の「カレンダー」「先月へ移動」、Login の「ユーザー名:」、Wizard の「次へ」、GridView の「編集」、エラーページ)。.NET には言語パックがない。変換器: このマシンの言語パックから FrameworkOnCore の System.Web・System.Web.Extensions(MicrosoftAjax のメッセージも)・System.Web.Services などのサテライトを作って bin に置く。CultureInfo.DisplayName(.NET は Windows の表示言語の名前)も mscorlib と言語パックの名前に(FrameworkCultures)"
     },
     {
       "id": "code-pages", "title": "コードページ(Shift_JIS など)",

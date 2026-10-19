@@ -1,0 +1,1 @@
+en-US,de-DE,de-CH,ja-JP,fr-CA,fr-FR,zh-TW,zh-CN,zh-HK,zh-Hans,es-419,th-TH,ar-SA,fa-IR,he-IL,en-GB,hi-IN,sv-SE

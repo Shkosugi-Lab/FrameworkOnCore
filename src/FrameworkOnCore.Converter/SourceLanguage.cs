@@ -96,6 +96,10 @@ public abstract class SourceLanguage
                     name = creation.Type.ToString();
                     arguments = creation.ArgumentList?.Arguments.Select(a => a.WithoutTrivia().ToString()).ToList() ?? new List<string>();
                     return true;
+                // A property read (culture.DisplayName): its object, no arguments.
+                case CSS.MemberAccessExpressionSyntax access when node.Parent is not CSS.InvocationExpressionSyntax invoked || invoked.Expression != node:
+                    (receiver, name) = (access.Expression.WithoutTrivia().ToString(), access.Name.Identifier.Text);
+                    return true;
                 default:
                     return false;
             }
@@ -107,6 +111,7 @@ public abstract class SourceLanguage
             {
                 CSS.InvocationExpressionSyntax invocation => invocation.ArgumentList,
                 CSS.ObjectCreationExpressionSyntax creation => creation.ArgumentList ?? CS.SyntaxFactory.ArgumentList(),
+                CSS.MemberAccessExpressionSyntax => CS.SyntaxFactory.ArgumentList(),
                 _ => null,
             };
             if (arguments == null) return null;
@@ -218,6 +223,10 @@ public abstract class SourceLanguage
                     name = creation.Type.ToString();
                     arguments = creation.ArgumentList?.Arguments.Select(a => a.WithoutTrivia().ToString()).ToList() ?? new List<string>();
                     return true;
+                // A property read (culture.DisplayName): its object, no arguments.
+                case VBS.MemberAccessExpressionSyntax { Expression: { } target } access when node.Parent is not VBS.InvocationExpressionSyntax invoked || invoked.Expression != node:
+                    (receiver, name) = (target.WithoutTrivia().ToString(), access.Name.Identifier.Text);
+                    return true;
                 default:
                     return false;
             }
@@ -229,6 +238,7 @@ public abstract class SourceLanguage
             {
                 VBS.InvocationExpressionSyntax invocation => invocation.ArgumentList ?? VB.SyntaxFactory.ArgumentList(),
                 VBS.ObjectCreationExpressionSyntax creation => creation.ArgumentList ?? VB.SyntaxFactory.ArgumentList(),
+                VBS.MemberAccessExpressionSyntax => VB.SyntaxFactory.ArgumentList(),
                 _ => null,
             };
             if (arguments == null) return null;

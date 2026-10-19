@@ -1238,7 +1238,8 @@ namespace System.Web
 
         private void PreloadAssembliesFromBinRecursive(DirectoryInfo dirInfo) {
 
-            FileInfo[] binDlls = dirInfo.GetFiles("*.dll");
+            // FrameworkOnCore: Foo.DLL too, as on Windows (.NET elsewhere matches the pattern's case).
+                FileInfo[] binDlls = dirInfo.GetFiles("*.dll", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive, AttributesToSkip = 0 });
 
             // Pre-load all the assemblies, ignoring all exceptions
             foreach (FileInfo fi in binDlls) {

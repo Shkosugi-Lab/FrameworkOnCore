@@ -177,7 +177,9 @@ namespace System.Web.Util
 				if (infos == null)
 				{
 					var dir = new DirectoryInfo(_path);
-					if (dir.Exists) infos = dir.EnumerateFileSystemInfos("*.*", SearchOption.TopDirectoryOnly).ToArray();
+					// FrameworkOnCore: in the order NTFS gives them (by name, without regard to case), as on Windows: the
+					// themes' style sheets and skins, App_Browsers, App_Code (Linux lists them in the order the folder holds them).
+					if (dir.Exists) infos = dir.EnumerateFileSystemInfos("*.*", SearchOption.TopDirectoryOnly).OrderBy(i => i.Name, StringComparer.OrdinalIgnoreCase).ToArray();
 					else infos = Enumerable.Empty<FileSystemInfo>().ToArray();
 					index = 0;
 				}

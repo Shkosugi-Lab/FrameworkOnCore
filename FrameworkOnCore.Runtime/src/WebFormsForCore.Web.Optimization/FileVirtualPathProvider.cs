@@ -1,4 +1,5 @@
-﻿// Copyright (c) Microsoft Corporation, Inc. All rights reserved.
+﻿using System.Linq;
+// Copyright (c) Microsoft Corporation, Inc. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System.Collections;
@@ -84,7 +85,9 @@ namespace System.Web.Optimization {
             public override Collections.IEnumerable Files {
                 get {
                     List<VirtualFile> result = new List<VirtualFile>();
-                    foreach (var file in Directory.GetFiles()) {
+                    // FrameworkOnCore: in the order NTFS gives them (by name, without regard to case), as on Windows: a
+                    // bundle's IncludeDirectory joins them in this order (Linux lists them in the order the folder holds them).
+                    foreach (var file in Directory.GetFiles().OrderBy(f => f.Name, StringComparer.OrdinalIgnoreCase)) {
                         result.Add(new FileInfoVirtualFile(file.FullName, file));
                     }
                     return result;

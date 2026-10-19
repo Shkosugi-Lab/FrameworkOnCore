@@ -968,7 +968,8 @@ namespace System.Web.Configuration {
             else {
                 DirectoryInfo binPathDirectory = new DirectoryInfo(binPath);
                 // Get a list of all the DLL's in the bin directory
-                binDlls = binPathDirectory.GetFiles("*.dll");
+                // FrameworkOnCore: Foo.DLL too, as on Windows (.NET elsewhere matches the pattern's case).
+                    binDlls = binPathDirectory.GetFiles("*.dll", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive, AttributesToSkip = 0 });
 
                 if (binDlls.Length > 0) {
                     list = new ArrayList(binDlls.Length);

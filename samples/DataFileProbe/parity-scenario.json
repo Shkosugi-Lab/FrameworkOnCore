@@ -1,0 +1,10 @@
+﻿{
+  "_comment": "Data and files as applications sort, filter and read them: DataTable/DataView by Locale and CaseSensitive (kana and widths, Turkish I, German and Swedish letters), RowFilter, expressions and Compute over doubles, keys and Merge, a DataSet's XML; Directory.GetFiles' order and patterns (8.3 names), paths in another case, Windows paths, text in Shift_JIS, with a BOM, in UTF-16, the Japanese code pages' bytes. Each page writes 'case = value' lines.",
+  "ignorePatterns": [],
+  "steps": [
+    { "action": "goto", "path": "/Data.aspx" },
+    { "action": "snapshot", "name": "data" },
+    { "action": "goto", "path": "/Files.aspx" },
+    { "action": "snapshot", "name": "files" }
+  ]
+}

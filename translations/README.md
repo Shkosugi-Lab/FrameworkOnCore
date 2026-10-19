@@ -1,6 +1,6 @@
 # FrameworkOnCore の翻訳
 
-ASP.NET(System.Web)が自分で出す文言の、FrameworkOnCore 独自の翻訳です。Calendar の見出し、Login・CreateUserWizard などのラベルとメッセージ、
+ASP.NET(System.Web)が自分で出す文言(例外のメッセージ、デザイン時の説明を含む全 3,369 件)の、FrameworkOnCore 独自の翻訳です。Calendar の見出し、Login・CreateUserWizard などのラベルとメッセージ、
 Wizard・GridView のボタン、Menu・TreeView の補助テキスト、Web パーツの動作名、エラーページの見出しと説明がその言語になります。
 
 ## なぜ独自に訳すのか
@@ -46,7 +46,7 @@ OPERATING SYSTEM)の 1.c で「Windows 以外のプラットフォームで動�
 .\translations\check.ps1
 ```
 
-- エラー(終了コード 1): System.Web に無い名前、プレースホルダーの違い、空の訳。
+- エラー(終了コード 1): System.Web に無い名前、プレースホルダーの違い、空の訳、.NET Framework の文言より表示幅が広い訳(下の「長さ」)。
 - 警告: `comment` の英語が今の原文と違う(原文が変わったので訳を見直す。見直したら `comment` を今の原文にする)。
 - 単体テスト(`tests/FrameworkOnCore.Tests` の TranslationsTests)も同じことを確かめます。
 
@@ -58,8 +58,14 @@ OPERATING SYSTEM)の 1.c で「Windows 以外のプラットフォームで動�
 3. `src/FrameworkOnCore.Analysis/catalog/components.json` の設定 `languages` で、その言語に `"translated": true` を付けてください(単体テストが、訳のフォルダーと一致するか確かめます)。
 4. `check.ps1` が通ることを確かめてください。
 
+## 長さ
+
+画面のレイアウトが崩れないよう、訳は .NET Framework がその言語で表示していた文言より**表示幅が広くなってはいけません**(全角 2・半角 1 で数えます)。
+`check.ps1` は、このマシンに .NET Framework のその言語の言語パックがあるとき、その文言の表示幅だけを読んで比べます(文言そのものは使いません)。
+言語パックが無いマシンでは幅は検査されないので、日本語の Windows などで確かめてください。
+
 ## 訳の方針(日本語)
 
-- 画面の文言は、短く、です・ます調(ボタンやラベルは体言止め)。
+- 画面の文言は、短く、です・ます調(ボタンやラベルは体言止め)。必須の入力のメッセージは「〜は必須です。」。
 - 用語: Web パーツ、ゾーン、カタログ、エディター、プロバイダー、コンシューマー、電子メール アドレス、ユーザー名、パスワード、秘密の質問。
 - 英語の固有の名前(`Debug="true"`、`<customErrors>`、`IUSR_MACHINENAME` など)は訳さない。

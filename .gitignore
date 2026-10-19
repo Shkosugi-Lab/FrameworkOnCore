@@ -63,3 +63,5 @@ tools/legacy/packages/
 tools/legacy/reference-assemblies/
 # 以前 LocalDB を試したときのインストーラ(今は SQL Server Express を使う)
 tools/legacy/localdb/
+
+translations/_work/

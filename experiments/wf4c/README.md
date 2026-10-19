@@ -1266,7 +1266,7 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
 - **.NET Framework の言語パック**(LocaleProbe): 日本語の Windows の IIS では、UI カルチャが ja のとき Calendar の title が「カレンダー」などになる
   (System.Web の言語パック)。最初は変換器が Microsoft の言語パックからサテライトを作っていたが、その使用許諾(.NET Framework と言語パックの
   Supplemental License Terms 1.c)が Windows 以外で動かすための配布を禁じるので、やめた(ユーザーの決定)。代わりに、英語の原文から独自に訳した
-  `translations/ja/System.Web.ja.resx`(画面に出る 232 件。GitHub で管理。`translations/check.ps1` と単体テストで検査)を FrameworkOnCore.Web の
+  `translations/ja/System.Web.ja.resx`(System.Web の全 3,369 件。.NET Framework の日本語の文言より表示幅が広くならないように。GitHub で管理。`translations/check.ps1` と単体テストで検査)を FrameworkOnCore.Web の
   サテライトにし、変換器は元のサーバーに言語パックがあった言語の訳だけ残す(部品 `language-packs`: 既定は FrameworkOnCore の翻訳。Microsoft の言語パックは
   `--deploy none` で選んだときだけ)。サテライトの公開鍵を System.Web のものに書き換える処理が時刻を新しくして訳の変更が取り込まれなくなっていたので、時刻を戻す。
   文言は Microsoft の訳と違うことがある(「前の月を表示」と「先月へ移動」)ので、LocaleProbe の form-ja-JP は差として残る。

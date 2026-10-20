@@ -23,7 +23,7 @@
       "none": { "title": "As .NET", "description": "0.1 + 0.2 is 0.30000000000000004, -0 is \"-0\", 2.675 as N2 is 2.67; parsing a number too large gives infinity" }
     },
     "language-packs": {
-      "translations": { "title": "FrameworkOnCore's translations", "description": "System.Web's texts (Calendar's titles, Login's labels, Wizard's and GridView's buttons, error pages) in FrameworkOnCore's own translations (the repository's translations/, MIT), in the languages chosen in the application's setting 'Language packs' (by default the ones the original server had language packs for). The wording may differ from Microsoft's" },
+      "translations": { "title": "FrameworkOnCore's translations", "description": "The texts of System.Web and the other ports (Calendar's titles, Login's labels, Wizard's and GridView's buttons, error pages, the exceptions and messages of ASP.NET AJAX, Chart, ASMX, SqlClient and more) in FrameworkOnCore's own translations (the repository's translations/, MIT), in the languages chosen in the application's setting 'Language packs' (by default the ones the original server had language packs for). The wording may differ from Microsoft's" },
       "framework": { "title": "Microsoft's language packs (Windows only)", "description": "Satellites made from this machine's .NET Framework language packs (the original server's wording). Microsoft's license forbids distributing them to run on another platform than Windows: only when not deployed on Linux (--deploy none). Microsoft's license terms apply to the deployment" }
     },
     "code-pages": {

@@ -1,0 +1,91 @@
+{
+  "System.Web": {
+    "framework": "System.Web",
+    "resources": {
+      "System.Web": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web/System.Web.resx"
+    }
+  },
+  "System.Configuration.ConfigurationManager": {
+    "framework": "System.Configuration",
+    "resources": {
+      "System.Configuration": "FrameworkOnCore.Runtime/src/WebFormsForCore.Configuration/System/Configuration.resx"
+    }
+  },
+  "System.Data.SqlClient": {
+    "framework": "System.Data",
+    "resources": {
+      "System.Data.SqlClient.Strings": "FrameworkOnCore.Runtime/src/WebFormsForCore.Data.SqlClient/Resources/Strings.resx"
+    }
+  },
+  "System.Drawing.Common": {
+    "framework": "System.Drawing",
+    "resources": {
+      "System.Drawing.Common.Strings": "FrameworkOnCore.Runtime/src/WebFormsForCore.Drawing.Common/Resources/Strings.resx"
+    }
+  },
+  "WebFormsForCore.Serialization.Formatters": {
+    "framework": "mscorlib",
+    "resources": {
+      "FxResources.System.Runtime.Serialization.Formatters.SR": "FrameworkOnCore.Runtime/src/WebFormsForCore.Serialization.Formatters/Resources/Strings.resx"
+    }
+  },
+  "System.Web.ApplicationServices": {
+    "framework": "System.Web.ApplicationServices",
+    "resources": {
+      "System.Web.ApplicationServicesStrings": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.ApplicationServices/ApplicationServicesStrings.resx"
+    }
+  },
+  "System.Web.DataVisualization": {
+    "framework": "System.Web.DataVisualization",
+    "resources": {
+      "System.Web.UI.DataVisualization.Charting.SR": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.DataVisualization/Core/SR.resx"
+    }
+  },
+  "System.Web.DynamicData": {
+    "framework": "System.Web.DynamicData",
+    "resources": {
+      "WebFormsForCore.Web.DynamicData.Resources.DynamicDataResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.DynamicData/Resources/DynamicDataResources.resx"
+    }
+  },
+  "System.Web.Extensions": {
+    "framework": "System.Web.Extensions",
+    "resources": {
+      "System.Web.Resources.AtlasWeb": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Extensions/Resources/AtlasWeb.resx",
+      "System.Web.Resources.ScriptLibrary.Res": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Extensions/Resources/ScriptLibrary/Res.resx",
+      "System.Web.Resources.ScriptLibrary.WebForms.Res": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Extensions/Resources/ScriptLibrary/WebForms.Res.resx",
+      "System.Web.Resources.ScriptLibrary.Res.debug": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Extensions/Resources/ScriptLibrary/Res.debug.resx",
+      "System.Web.Resources.ScriptLibrary.WebForms.Res.debug": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Extensions/Resources/ScriptLibrary/WebForms.Res.debug.resx",
+      "System.Web.Resources.WCFModelStrings": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Extensions/Resources/WCFModelStrings.resx"
+    }
+  },
+  "System.Web.Mobile": {
+    "framework": "System.Web.Mobile",
+    "resources": {
+      "System.Web.Mobile": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Mobile/System.Web.Mobile.resx",
+      "System.Web.UI.MobileControls.Adapters": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Mobile/UI/MobileControls/Adapters.resx"
+    }
+  },
+  "System.Web.Optimization": {
+    "framework": null,
+    "resources": {
+      "System.Web.Optimization.Resources.OptimizationResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Optimization/Resources/OptimizationResources.resx"
+    }
+  },
+  "System.Web.Services": {
+    "framework": "System.Web.Services",
+    "resources": {
+      "System.Web.Services": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Services/System.Web.Services.resx"
+    }
+  },
+  "WebGrease": {
+    "framework": null,
+    "resources": {
+      "WebGrease.Ajax.Css.CssStrings": "FrameworkOnCore.Runtime/src/WebFormsForCore.WebGrease/Ajax/Css/CssStrings.resx",
+      "WebGrease.Ajax.JavaScript.JScript": "FrameworkOnCore.Runtime/src/WebFormsForCore.WebGrease/Ajax/JavaScript/JScript.resx",
+      "WebGrease.Ajax.Utilities.CommonStrings": "FrameworkOnCore.Runtime/src/WebFormsForCore.WebGrease/Ajax/Utilities/CommonStrings.resx",
+      "WebGrease.Css.CssStrings": "FrameworkOnCore.Runtime/src/WebFormsForCore.WebGrease/Css/CssStrings.resx",
+      "WebGrease.ImageAssemble.ImageAssembleStrings": "FrameworkOnCore.Runtime/src/WebFormsForCore.WebGrease/ImageAssemble/ImageAssembleStrings.resx",
+      "WebGrease.ResourceStrings": "FrameworkOnCore.Runtime/src/WebFormsForCore.WebGrease/ResourceStrings.resx"
+    }
+  }
+}

@@ -102,4 +102,6 @@
             <PackagePath>\</PackagePath>
         </None>
     </ItemGroup>
+
+    <Import Project="..\FrameworkOnCore.Translations.targets" />
 </Project>

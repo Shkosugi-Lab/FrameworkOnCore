@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="WmlObjectListAdapterDetails" xml:space="preserve">
+    <value>詳細</value>
+    <comment>Details</comment>
+  </data>
+  <data name="CalendarAdapterOptionChooseMonth" xml:space="preserve">
+    <value>月を選択</value>
+    <comment>Choose a month</comment>
+  </data>
+  <data name="XhtmlObjectListAdapter_InvalidPostedData" xml:space="preserve">
+    <value>ObjectList の現在の ViewMode では無効なポスト データです。(ポストバックで Page_Load で ObjectList がバインドされ、ViewMode がリセットされた可能性があります。IsPostBack が false の場合のみ Page_Load で DataBind を呼び出してください。)</value>
+    <comment>Invalid posted data for current ObjectList ViewMode.  (The ObjectList may have been databound on postback during Page_Load, resetting the ViewMode.  Call DataBind in Page_Load only if IsPostBack is false.)</comment>
+  </data>
+  <data name="WmlPageAdapterStackTrace" xml:space="preserve">
+    <value>スタック トレース:</value>
+    <comment>Stack Trace:</comment>
+  </data>
+  <data name="WmlMobileTextWriterBackLabel" xml:space="preserve">
+    <value>戻る</value>
+    <comment>Back</comment>
+  </data>
+  <data name="CalendarAdapterFirstPrompt" xml:space="preserve">
+    <value>カレンダー</value>
+    <comment>Calendar</comment>
+  </data>
+  <data name="CalendarAdapterTextBoxErrorMessage" xml:space="preserve">
+    <value>入力された日付が正しくありません。</value>
+    <comment>The date entered was incorrect.</comment>
+  </data>
+  <data name="ChtmlPageAdapterRedirectPageContent" xml:space="preserve">
+    <value>続行するには次のリンクをクリックしてください</value>
+    <comment>Please click on the following link to continue</comment>
+  </data>
+  <data name="CalendarAdapterOptionPrompt" xml:space="preserve">
+    <value>オプションを選択:</value>
+    <comment>Select an option:</comment>
+  </data>
+  <data name="ChtmlImageAdapterDecimalCodeExpectedAfterGroupChar" xml:space="preserve">
+    <value>グループ絵文字の後には 10 進コードが必要です。</value>
+    <comment>Decimal code is expected after the group picture character.</comment>
+  </data>
+  <data name="ChtmlPageAdapterRedirectLinkLabel" xml:space="preserve">
+    <value>続行</value>
+    <comment>Continue</comment>
+  </data>
+  <data name="CalendarAdapterOptionChooseWeek" xml:space="preserve">
+    <value>週を選択</value>
+    <comment>Choose a week</comment>
+  </data>
+  <data name="CalendarAdapterOptionChooseDate" xml:space="preserve">
+    <value>日付を選択</value>
+    <comment>Choose a date</comment>
+  </data>
+  <data name="ControlAdapterBasePagePropertyShouldNotBeSet" xml:space="preserve">
+    <value>Page プロパティの set メソッドは直接呼び出されることを想定していません。サブクラスでオーバーライドしてください。</value>
+    <comment>The set method of Page property is not expected to be called directly.  It should be overridden by subclasses.</comment>
+  </data>
+  <data name="XhtmlCssHandler_StylesheetNotFound" xml:space="preserve">
+    <value>動的に生成されたスタイルシートが見つかりません。</value>
+    <comment>Dynamically generated stylesheet not found.</comment>
+  </data>
+  <data name="CalendarAdapterOptionType" xml:space="preserve">
+    <value>日付を入力</value>
+    <comment>Type a date</comment>
+  </data>
+  <data name="WmlPageAdapterServerError" xml:space="preserve">
+    <value>{0} のサーバー エラー</value>
+    <comment>Server Error in {0}</comment>
+  </data>
+  <data name="XhtmlMobileTextWriter_SessionKeyNotSet" xml:space="preserve">
+    <value>SessionKey を取得する前に SetSessionKey を呼び出す必要があります。</value>
+    <comment>You must call SetSessionKey before getting the SessionKey.</comment>
+  </data>
+  <data name="ObjectListAdapter_InvalidPostedData" xml:space="preserve">
+    <value>ObjectList の現在の ViewMode では無効なポスト データです。(ポストバックで Page_Load で ObjectList がバインドされ、ViewMode がリセットされた可能性があります。IsPostBack が false の場合のみ Page_Load で DataBind を呼び出してください。)</value>
+    <comment>Invalid posted data for current ObjectList ViewMode.  (The ObjectList may have been databound on postback during Page_Load, resetting the ViewMode.  Call DataBind in Page_Load only if IsPostBack is false.)</comment>
+  </data>
+  <data name="CalendarAdapterOptionEra" xml:space="preserve">
+    <value>年号を選択:</value>
+    <comment>Select an era:</comment>
+  </data>
+  <data name="XhtmlMobileTextWriter_CacheKeyNotSet" xml:space="preserve">
+    <value>CacheKey を取得する前に SetCacheKey を呼び出す必要があります。</value>
+    <comment>You must call SetCacheKey before getting the CacheKey.</comment>
+  </data>
+  <data name="WmlPageAdapterMethod" xml:space="preserve">
+    <value>メソッド:</value>
+    <comment>Method:</comment>
+  </data>
+  <data name="WmlMobileTextWriterOKLabel" xml:space="preserve">
+    <value>OK</value>
+    <comment>OK</comment>
+  </data>
+  <data name="WmlPageAdapterPartialStackTrace" xml:space="preserve">
+    <value>部分スタック トレース:</value>
+    <comment>Partial Stack Trace:</comment>
+  </data>
+  <data name="WmlMobileTextWriterGoLabel" xml:space="preserve">
+    <value>移動</value>
+    <comment>Go</comment>
+  </data>
+  <data name="FormAdapterMultiControlsAttemptSecondaryUI" xml:space="preserve">
+    <value>複数のコントロールがセカンダリ UI を試行しています。</value>
+    <comment>Multiple controls attempting secondary UI.</comment>
+  </data>
+  <data name="XhtmlCssHandler_IdNotPresent" xml:space="preserve">
+    <value>クエリ文字列にスタイルシート ID がありません。</value>
+    <comment>Stylesheet id not present in query string.</comment>
+  </data>
+  <data name="MobileTextWriterNotMultiPart" xml:space="preserve">
+    <value>ターゲットはマルチパート ドキュメントをサポートしません。</value>
+    <comment>Target does not support multipart documents.</comment>
+  </data>
+</root>

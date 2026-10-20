@@ -82,4 +82,5 @@
 
 	</ItemGroup>
 
+    <Import Project="..\FrameworkOnCore.Translations.targets" />
 </Project>

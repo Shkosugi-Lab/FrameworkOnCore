@@ -56,8 +56,14 @@ public static class LanguagePacks
 
     public const string CultureNamesFile = "frameworkoncore.culturenames.txt";
 
-    // FrameworkOnCore's assemblies with translations of their own (translations\<culture>\<assembly>.<culture>.resx).
-    static readonly string[] Translated = ["System.Web"];
+    // FrameworkOnCore's assemblies with translations of their own (translations\<culture>\<assembly>\<resources>.<culture>.resx;
+    // translations\sources.json lists them).
+    public static readonly string[] Translated =
+    [
+        "System.Web", "System.Configuration.ConfigurationManager", "System.Data.SqlClient", "System.Drawing.Common",
+        "WebFormsForCore.Serialization.Formatters", "System.Web.ApplicationServices", "System.Web.DataVisualization",
+        "System.Web.DynamicData", "System.Web.Extensions", "System.Web.Mobile", "System.Web.Optimization", "System.Web.Services", "WebGrease",
+    ];
 
     public static void Write(string bin, string? cultureProfile, string option, string languages, string deployKinds, Report report)
     {
@@ -165,6 +171,7 @@ public static class LanguagePacks
     static void KeepTranslations(string bin, List<string> cultures, Report report)
     {
         var kept = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+        var assemblies = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
         var removed = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach (var folder in Directory.Exists(bin) ? Directory.EnumerateDirectories(bin) : [])
         {
@@ -176,7 +183,10 @@ public static class LanguagePacks
                 // A pack's language covers its culture's (ja: ja-JP) and the other way round.
                 if (cultures.Any(c => c.Equals(culture, StringComparison.OrdinalIgnoreCase)
                     || c.StartsWith(culture + "-", StringComparison.OrdinalIgnoreCase) || culture.StartsWith(c + "-", StringComparison.OrdinalIgnoreCase)))
+                {
                     kept.Add(culture);
+                    assemblies.Add(assembly);
+                }
                 else
                 {
                     File.Delete(satellite);
@@ -185,11 +195,11 @@ public static class LanguagePacks
             }
         }
         if (kept.Count > 0)
-            report.Add(Report.Kind.Project, "language-packs", $"FrameworkOnCore's own translations of System.Web's texts ({string.Join(", ", kept)}): in that language when the UI culture is (the wording is FrameworkOnCore's, not Microsoft's)");
+            report.Add(Report.Kind.Project, "language-packs", $"FrameworkOnCore's own translations ({string.Join(", ", kept)}) of the texts of {string.Join(", ", assemblies)}: in that language when the UI culture is (the wording is FrameworkOnCore's, not Microsoft's)");
         if (removed.Count > 0)
             report.Add(Report.Kind.Project, "language-packs", $"FrameworkOnCore's translations removed ({string.Join(", ", removed)}): not among the languages (English in them)");
         var untranslated = cultures.Where(c => !kept.Any(k => k.Equals(c, StringComparison.OrdinalIgnoreCase) || c.StartsWith(k + "-", StringComparison.OrdinalIgnoreCase))).ToList();
         if (untranslated.Count > 0)
-            report.Add(Report.Kind.Unsupported, "language-packs", $"no FrameworkOnCore translation in {string.Join(", ", untranslated)} yet: System.Web's texts in English in them (translations/README.md: how to add one)");
+            report.Add(Report.Kind.Unsupported, "language-packs", $"no FrameworkOnCore translation in {string.Join(", ", untranslated)} yet: FrameworkOnCore's texts in English in them (translations/README.md: how to add one)");
     }
 }

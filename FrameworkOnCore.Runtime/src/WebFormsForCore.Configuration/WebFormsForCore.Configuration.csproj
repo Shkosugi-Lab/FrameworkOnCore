@@ -182,4 +182,5 @@
         <StrongNamePublicKeyToken>cc7b13ffcd2ddd51</StrongNamePublicKeyToken>
     </PropertyGroup>
 
+    <Import Project="..\FrameworkOnCore.Translations.targets" />
 </Project>

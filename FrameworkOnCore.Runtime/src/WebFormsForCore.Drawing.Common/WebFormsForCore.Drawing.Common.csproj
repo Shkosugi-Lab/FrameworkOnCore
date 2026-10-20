@@ -95,4 +95,6 @@
     <None Include="bin\windows\$(Configuration)\$(TargetFramework)\System.Drawing.Common.dll" Pack="true" PackagePath="runtimes\win\lib\$(TargetFramework)" Visible="false" />
     <None Include="bin\unix\$(Configuration)\$(TargetFramework)\System.Drawing.Common.dll" Pack="true" PackagePath="runtimes\unix\lib\$(TargetFramework)" Visible="false" />
   </ItemGroup>
+
+    <Import Project="..\FrameworkOnCore.Translations.targets" />
 </Project>

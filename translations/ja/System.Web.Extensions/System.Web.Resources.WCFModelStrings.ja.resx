@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ReferenceGroup_FailedToLoadAssembly" xml:space="preserve">
+    <value>共有アセンブリ '{0}' を読み込めませんでした。参照先のプロジェクトの場合は、先にプロジェクトをビルドしてください。</value>
+    <comment>Shared assembly '{0}' could not be loaded. If this is a referenced project, please make sure that you have built the project first.</comment>
+  </data>
+  <data name="ReferenceGroup_EmptyProtocol" xml:space="preserve">
+    <value>プロトコルは必須です。</value>
+    <comment>Protocol must be specified.</comment>
+  </data>
+  <data name="ReferenceGroup_FieldDefinedDifferentlyInDuplicatedMessage" xml:space="preserve">
+    <value>メッセージ コントラクト '{1}' のメッセージ部分 '{0}' が '{2}' と '{3}' で異なります。</value>
+    <comment>The message part '{0}' in message contract '{1}' is different in '{2}' and '{3}'.</comment>
+  </data>
+  <data name="DataService_MoreThanOneMetadataFile" xml:space="preserve">
+    <value>'{0}' にある指定された .datasvcmap ファイルに複数のメタデータ ファイルが含まれています。これはサポートされていません。</value>
+    <comment>The specified .datasvcmap file at '{0}' has more than one metadata file in it. That is not supported by the system.</comment>
+  </data>
+  <data name="ReferenceGroup_AppendLinePosition" xml:space="preserve">
+    <value>{0} 行 {1}、位置 {2}。</value>
+    <comment>{0} Line {1}, position {2}.</comment>
+  </data>
+  <data name="ReferenceGroup_EmptyAddress" xml:space="preserve">
+    <value>アドレスは必須です。</value>
+    <comment>Address must be specified.</comment>
+  </data>
+  <data name="ReferenceGroup_ServiceContractMappingMissMatch" xml:space="preserve">
+    <value>サービス コントラクト マッピングの型 '{0}' の TargetNamespace('{1}') と Name('{2}') が、サービス参照ファイルの TargetNamespace('{3}') と Name('{4}') と異なります。</value>
+    <comment>The type '{0}' in the service contract mapping has different TargetNamespace('{1}') and Name('{2}') than the TargetNamespace('{3}') and Name('{4}') in the service reference file.</comment>
+  </data>
+  <data name="ReferenceGroup_OperationDefinedInOneOfDuplicatedServiceContract" xml:space="preserve">
+    <value>サービス コントラクト '{0}' は '{1}' と '{2}' の両方で定義されていますが、操作 '{3}' を含むのは一方だけです。</value>
+    <comment>The service contract '{0}' is defined in both '{1}' and '{2}', but only one of them contains the operation '{3}'.</comment>
+  </data>
+  <data name="ReferenceGroup_SharedTypeMustBePublic" xml:space="preserve">
+    <value>型 '{0}' はパブリックでないため、型の共有に使用できません。</value>
+    <comment>The type '{0}' cannot be used in type sharing because it is not public.</comment>
+  </data>
+  <data name="ReferenceGroup_DuplicatedSchemaItemsIgnored" xml:space="preserve">
+    <value>グローバル {0} ('{1}') が '{2}' と '{3}' の両方で定義されています。両者の違い ('{4}') は無視されます。</value>
+    <comment>The global {0} ('{1}') has been defined in both '{2}' and '{3}'. The difference between them ('{4}') is ignored.</comment>
+  </data>
+  <data name="ReferenceGroup_InvalidFileName" xml:space="preserve">
+    <value>'{0}' は無効なファイル名です。絶対パスと相対パスはサポートされていません。</value>
+    <comment>'{0}' is invalid file name.  Absolute or relative path is not supported.</comment>
+  </data>
+  <data name="ReferenceGroup_FieldDefinedInOneOfDuplicatedMessage" xml:space="preserve">
+    <value>メッセージ コントラクト '{0}' は '{1}' と '{2}' の両方で定義されていますが、メッセージ部分 '{3}' を含むのは一方だけです。</value>
+    <comment>The message contract '{0}' is defined in both '{1}' and '{2}', but only one contains message part '{3}'.</comment>
+  </data>
+  <data name="ReferenceGroup_OperationDefinedDifferently" xml:space="preserve">
+    <value>サービス コントラクト '{1}' の操作 '{0}' が '{2}' と '{3}' で異なります。操作の入力、出力、エラー メッセージを確認してください。</value>
+    <comment>The operation '{0}' in service contract '{1}' is different in '{2}' and '{3}'. Check the input, output and fault messages of the operation.</comment>
+  </data>
+  <data name="ReferenceGroup_DataContractExcludedAndIncluded" xml:space="preserve">
+    <value>型 '{0}' は共有データ コントラクト型と型共有の除外リストの両方にあります。</value>
+    <comment>The type '{0}' is listed as a shared data contract type, but is also listed in the type sharing exclusion list.</comment>
+  </data>
+  <data name="ReferenceGroup_DuplicatedSchemaItems" xml:space="preserve">
+    <value>グローバル {0} ('{1}') が '{2}' と '{3}' の両方で定義されています。'{4}' で違いがあります。</value>
+    <comment>The global {0} ('{1}') has been defined in both '{2}' and '{3}'. They are different at '{4}'.</comment>
+  </data>
+  <data name="ReferenceGroup_FailedToGenerateCode" xml:space="preserve">
+    <value>サービス参照 '{0}' のコードを生成できませんでした。
+{1}</value>
+    <comment>Failed to generate code for the service reference '{0}'.
+{1}</comment>
+  </data>
+  <data name="DataService_NoMetadataFiles" xml:space="preserve">
+    <value>データ サービス '{0}' のメタデータ ファイルが見つからないか、読み込めませんでした。</value>
+    <comment>No metadata files found or failed to load them for data service '{0}'.</comment>
+  </data>
+  <data name="ReferenceGroup_InvalidSourceId" xml:space="preserve">
+    <value>メタデータ ソースの SourceId は正の整数である必要があります。</value>
+    <comment>SourceId of a metadata source should be a positive integer.</comment>
+  </data>
+  <data name="ReferenceGroup_TwoExternalFilesWithSameName" xml:space="preserve">
+    <value>.svcmap 内の 2 つのメタデータ項目または拡張項目のファイル名が同じ '{0}' です。</value>
+    <comment>Two metadata items or extension items in the .svcmap file have the same file name '{0}'.</comment>
+  </data>
+</root>

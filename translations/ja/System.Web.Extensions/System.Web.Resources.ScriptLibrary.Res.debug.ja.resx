@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="addHandlerCantBeUsedForError" xml:space="preserve">
+    <value>このメソッドでは error イベントのハンドラーを追加できません。代わりに window.onerror プロパティを設定してください。</value>
+    <comment>Can't add a handler for the error event using this method. Please set the window.onerror property instead.</comment>
+  </data>
+  <data name="appDuplicateComponent" xml:space="preserve">
+    <value>同じ id '{0}' のコンポーネントを 2 つアプリケーションに追加できません。</value>
+    <comment>Two components with the same id '{0}' can't be added to the application.</comment>
+  </data>
+  <data name="argumentDomNode" xml:space="preserve">
+    <value>値は DOM 要素またはテキスト ノードである必要があります。</value>
+    <comment>Value must be a DOM element or a text node.</comment>
+  </data>
+  <data name="argumentTypeName" xml:space="preserve">
+    <value>値は既存の型の名前ではありません。</value>
+    <comment>Value is not the name of an existing type.</comment>
+  </data>
+  <data name="arrayParseBadFormat" xml:space="preserve">
+    <value>値は配列を表す有効な文字列である必要があります。'[' で始まり ']' で終わる必要があります。</value>
+    <comment>Value must be a valid string representation for an array. It must start with a '[' and end with a ']'.</comment>
+  </data>
+  <data name="badTypeName" xml:space="preserve">
+    <value>値が登録中の型の名前ではないか、予約語です。</value>
+    <comment>Value is not the name of the type being registered or the name is a reserved word.</comment>
+  </data>
+  <data name="baseNotAClass" xml:space="preserve">
+    <value>値はクラスではありません。</value>
+    <comment>Value is not a class.</comment>
+  </data>
+  <data name="behaviorDuplicateName" xml:space="preserve">
+    <value>名前 '{0}' のビヘイビアーは既に存在するか、対象要素の既存のプロパティ名です。</value>
+    <comment>A behavior with name '{0}' already exists or it is the name of an existing property on the target element.</comment>
+  </data>
+  <data name="boolTrueOrFalse" xml:space="preserve">
+    <value>値は 'true' または 'false' である必要があります。</value>
+    <comment>Value must be 'true' or 'false'.</comment>
+  </data>
+  <data name="cantAddNonFunctionhandler" xml:space="preserve">
+    <value>関数でないハンドラーは追加できません。</value>
+    <comment>Can't add a handler that is not a function.</comment>
+  </data>
+  <data name="cantAddWithoutId" xml:space="preserve">
+    <value>id のないコンポーネントは追加できません。</value>
+    <comment>Can't add a component that doesn't have an id.</comment>
+  </data>
+  <data name="cantBeCalledAfterDispose" xml:space="preserve">
+    <value>dispose 後には呼び出せません。</value>
+    <comment>Can't be called after dispose.</comment>
+  </data>
+  <data name="cantSetId" xml:space="preserve">
+    <value>このオブジェクトの id プロパティは設定できません。</value>
+    <comment>The id property can't be set on this object.</comment>
+  </data>
+  <data name="cantSetNameAfterInit" xml:space="preserve">
+    <value>初期化後は、このオブジェクトの name プロパティを設定できません。</value>
+    <comment>The name property can't be set on this object after initialization.</comment>
+  </data>
+  <data name="circularParentChain" xml:space="preserve">
+    <value>親コントロールの連鎖に循環参照は使えません。</value>
+    <comment>The chain of control parents can't have circular references.</comment>
+  </data>
+  <data name="componentCantSetIdAfterAddedToApp" xml:space="preserve">
+    <value>Application オブジェクトに追加された後は、コンポーネントの id プロパティを設定できません。</value>
+    <comment>The id property of a component can't be set after it's been added to the Application object.</comment>
+  </data>
+  <data name="componentCantSetIdTwice" xml:space="preserve">
+    <value>コンポーネントの id プロパティは複数回設定できません。</value>
+    <comment>The id property of a component can't be set more than once.</comment>
+  </data>
+  <data name="controlAlreadyDefined" xml:space="preserve">
+    <value>要素には既にコントロールが関連付けられています。</value>
+    <comment>A control is already associated with the element.</comment>
+  </data>
+  <data name="createComponentOnDom" xml:space="preserve">
+    <value>Control でも Behavior でもない Component の場合、値は null にしてください。</value>
+    <comment>Value must be null for Components that are not Controls or Behaviors.</comment>
+  </data>
+  <data name="createNoDom" xml:space="preserve">
+    <value>Control と Behavior では値に null は使えません。</value>
+    <comment>Value must not be null for Controls and Behaviors.</comment>
+  </data>
+  <data name="createNotComponent" xml:space="preserve">
+    <value>{0} は Sys.Component から派生していません。</value>
+    <comment>{0} does not derive from Sys.Component.</comment>
+  </data>
+  <data name="enumInvalidValueName" xml:space="preserve">
+    <value>'{0}' は列挙値の有効な名前ではありません。</value>
+    <comment>'{0}' is not a valid name for an enum value.</comment>
+  </data>
+  <data name="enumReservedName" xml:space="preserve">
+    <value>'{0}' は予約された名前のため、列挙値の名前に使用できません。</value>
+    <comment>'{0}' is a reserved name that can't be used as an enum value name.</comment>
+  </data>
+  <data name="enumValueNotInteger" xml:space="preserve">
+    <value>列挙型の定義には整数値しか含められません。</value>
+    <comment>An enumeration definition can only contain integer values.</comment>
+  </data>
+  <data name="eventHandlerInvalid" xml:space="preserve">
+    <value>ハンドラーは Sys.UI.DomEvent.addHandler メソッドで追加されていません。</value>
+    <comment>Handler was not added through the Sys.UI.DomEvent.addHandler method.</comment>
+  </data>
+  <data name="eventHandlerNotFunction" xml:space="preserve">
+    <value>ハンドラーは関数である必要があります。</value>
+    <comment>Handler must be a function.</comment>
+  </data>
+  <data name="invalidNameSpace" xml:space="preserve">
+    <value>値は有効な名前空間識別子ではありません。</value>
+    <comment>Value is not a valid namespace identifier.</comment>
+  </data>
+  <data name="methodNotFound" xml:space="preserve">
+    <value>名前 '{0}' のメソッドが見つかりません。</value>
+    <comment>No method found with name '{0}'.</comment>
+  </data>
+  <data name="namespaceContainsNonObject" xml:space="preserve">
+    <value>オブジェクト {0} は既に存在し、オブジェクトではありません。</value>
+    <comment>Object {0} already exists and is not an object.</comment>
+  </data>
+  <data name="namespaceContainsClass" xml:space="preserve">
+    <value>オブジェクト {0} はクラス、列挙型、またはインターフェイスとして既に存在します。</value>
+    <comment>Object {0} already exists as a class, enum, or interface.</comment>
+  </data>
+  <data name="notAnInterface" xml:space="preserve">
+    <value>値は有効なインターフェイスではありません。</value>
+    <comment>Value is not a valid interface.</comment>
+  </data>
+  <data name="notATypeName" xml:space="preserve">
+    <value>値は有効な型名ではありません。</value>
+    <comment>Value is not a valid type name.</comment>
+  </data>
+  <data name="propertyNotAnArray" xml:space="preserve">
+    <value>'{0}' は Array プロパティではありません。</value>
+    <comment>'{0}' is not an Array property.</comment>
+  </data>
+  <data name="propertyNotWritable" xml:space="preserve">
+    <value>'{0}' は書き込み可能なプロパティではありません。</value>
+    <comment>'{0}' is not a writable property.</comment>
+  </data>
+  <data name="propertyNullOrUndefined" xml:space="preserve">
+    <value>'{0}' が null を返したため、プロパティを設定できません。</value>
+    <comment>Cannot set the properties of '{0}' because it returned a null value.</comment>
+  </data>
+  <data name="propertyUndefined" xml:space="preserve">
+    <value>'{0}' はプロパティでも既存のフィールドでもありません。</value>
+    <comment>'{0}' is not a property or an existing field.</comment>
+  </data>
+  <data name="referenceNotFound" xml:space="preserve">
+    <value>コンポーネント '{0}' が見つかりません。</value>
+    <comment>Component '{0}' was not found.</comment>
+  </data>
+  <data name="scriptLoadFailedDebug" xml:space="preserve">
+    <value>スクリプト '{0}' を読み込めませんでした。次を確認してください:
+ アクセスできないパス。
+ スクリプト エラー。(IE) 詳細設定の 'Display a notification about every script error' を有効にします。</value>
+    <comment>The script '{0}' failed to load. Check for:
+ Inaccessible path.
+ Script errors. (IE) Enable 'Display a notification about every script error' under advanced settings.</comment>
+  </data>
+  <data name="stringFormatBraceMismatch" xml:space="preserve">
+    <value>書式指定文字列に、対応しない開きまたは閉じ中かっこがあります。</value>
+    <comment>The format string contains an unmatched opening or closing brace.</comment>
+  </data>
+  <data name="stringFormatInvalid" xml:space="preserve">
+    <value>書式指定文字列が無効です。</value>
+    <comment>The format string is invalid.</comment>
+  </data>
+  <data name="typeRegisteredTwice" xml:space="preserve">
+    <value>型 {0} は既に登録されています。型が複数回定義されているか、型を定義するスクリプト ファイルが既に読み込まれている可能性があります。部分更新中の設定変更が原因として考えられます。</value>
+    <comment>Type {0} has already been registered. The type may be defined multiple times or the script file that defines it may have already been loaded. A possible cause is a change of settings during a partial update.</comment>
+  </data>
+  <data name="undefinedEvent" xml:space="preserve">
+    <value>'{0}' はイベントではありません。</value>
+    <comment>'{0}' is not an event.</comment>
+  </data>
+  <data name="historyMissingFrame" xml:space="preserve">
+    <value>IE で履歴機能を使うには、ページに id '__historyFrame' の iFrame 要素が必要です。この要素は、'title' クエリ文字列パラメーターからタイトルを取得し親ウィンドウの Sys.Application._onIFrameLoad() を呼ぶページを指す必要があります。ScriptManager の EnableHistory を true にすると設定されます。</value>
+    <comment>For the history feature to work in IE, the page must have an iFrame element with id '__historyFrame' pointed to a page that gets its title from the 'title' query string parameter and calls Sys.Application._onIFrameLoad() on the parent window. This can be done by setting EnableHistory to true on ScriptManager.</comment>
+  </data>
+  <data name="stateFieldNameInvalid" xml:space="preserve">
+    <value>状態フィールド名に '=' 文字を含めることはできません。</value>
+    <comment>State field names must not contain any '=' characters.</comment>
+  </data>
+  <data name="stateMustBeStringDictionary" xml:space="preserve">
+    <value>状態オブジェクトには null と文字列のフィールドしか持てません。</value>
+    <comment>The state object can only have null and string fields.</comment>
+  </data>
+  <data name="urlTooLong" xml:space="preserve">
+    <value>履歴状態は、URL が {0} 文字を超えない程度に小さくする必要があります。</value>
+    <comment>The history state must be small enough to not make the url larger than {0} characters.</comment>
+  </data>
+  <data name="scriptLoadFailedNoHead" xml:space="preserve">
+    <value>ScriptLoader を使うページには &lt;head&gt; 要素が必要です。</value>
+    <comment>ScriptLoader requires pages to contain a &lt;head&gt; element.</comment>
+  </data>
+  <data name="historyCannotEnableHistory" xml:space="preserve">
+    <value>初期化後は enableHistory を設定できません。</value>
+    <comment>Cannot set enableHistory after initialization.</comment>
+  </data>
+  <data name="historyCannotAddHistoryPointWithHistoryDisabled" xml:space="preserve">
+    <value>履歴ポイントは enableHistory が true の場合にのみ追加できます。</value>
+    <comment>A history point can only be added if enableHistory is set to true.</comment>
+  </data>
+  <data name="elementNotFound" xml:space="preserve">
+    <value>id '{0}' の要素が見つかりません。</value>
+    <comment>An element with id '{0}' could not be found.</comment>
+  </data>
+  <data name="expectedElementOrId" xml:space="preserve">
+    <value>値には DOM 要素または DOM 要素 Id が必要です。</value>
+    <comment>Value must be a DOM element or DOM element Id.</comment>
+  </data>
+  <data name="notObservable" xml:space="preserve">
+    <value>型 '{0}' のインスタンスは監視できません。</value>
+    <comment>Instances of type '{0}' cannot be observed.</comment>
+  </data>
+  <data name="observableConflict" xml:space="preserve">
+    <value>オブジェクトには既に名前 '{0}' のメンバーがあります。</value>
+    <comment>Object already contains a member with the name '{0}'.</comment>
+  </data>
+</root>

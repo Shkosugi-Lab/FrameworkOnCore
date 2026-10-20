@@ -1272,6 +1272,11 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
   文言は Microsoft の訳と違うことがある(「前の月を表示」と「先月へ移動」)ので、LocaleProbe の form-ja-JP は差として残る。
   使う言語は Studio の「アプリの設定」の「言語パック」(設定 `languages`)で選ぶ(ユーザーの指示): 英語(原文)と .NET Framework の言語パックの 23 言語から複数。
   既定は英語と元のサーバーに言語パックがあった言語。英語だけを選べば英語のみ(訳の無い言語は画面で「訳はまだ無い」と出し、変換レポートにも出す)。
+  訳は System.Web のほか、パッケージにしている 12 アセンブリの全文言(System.Web.Extensions・DataVisualization・DynamicData・Mobile・Services・
+  ApplicationServices・Optimization・WebGrease・ConfigurationManager・SqlClient・Drawing.Common・Serialization.Formatters の 4,061 件。合計 7,430 件)に広げた
+  (ユーザーの指示「全部やりきってください」。2026-10-20)。置き場所は `translations/<言語>/<アセンブリ>/<リソース>.<言語>.resx`、一覧は `translations/sources.json`。
+  各プロジェクトが `FrameworkOnCore.Runtime/src/FrameworkOnCore.Translations.targets` を読み込み、サテライトを作って本体と同じ公開鍵にする。
+  幅の上限は .NET Framework の日本語の文言の表示幅、.NET Framework に無い文言(Optimization・WebGrease、FrameworkOnCore で増えたもの)は英語の幅(12 未満なら + 4)。
 - **カルチャの名前と親**: Page.Culture・CultureInfo.DisplayName は .NET Framework では mscorlib の名前(「Chinese (Simplified, PRC)」、言語パックの言語ならその言語、
   最初に作った要求の UI カルチャのまま)。.NET は Windows の表示言語の名前(日本語の Windows では de-DE の UI でも「ドイツ語 (ドイツ)」)。FrameworkOnCore の
   System.Web と FrameworkOnCore.Compat の FrameworkCultures が、訳のある言語の UI カルチャでは .NET の名前、ほかは元のサーバーの英語名(カルチャ プロファイル)を

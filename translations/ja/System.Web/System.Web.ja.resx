@@ -3380,7 +3380,6 @@
   </data>
   <data name="Unhandled_Err_Desc" xml:space="preserve">
     <value>現在の Web 要求の実行中に、処理されない例外が発生しました。エラーと発生元の詳細はスタック トレースで確認してください。
-
 </value>
     <comment>An unhandled exception occurred during the execution of the current web request. Please review the stack trace for more information about the error and where it originated in the code.
 </comment>
@@ -8341,12 +8340,8 @@ To get a list of enabled tables in the database, please use SqlCacheDependencyMa
   </data>
   <data name="PasswordRecovery_DefaultBody" xml:space="preserve">
     <value>次の情報でサイトにログインしてください。
-
 ユーザー名: &lt;%UserName%&gt;
-
 パスワード: &lt;%Password%&gt;
-
-
 
 </value>
     <comment>Please return to the site and log in using the following information.
@@ -11726,39 +11721,21 @@ The failing SQL command is:
   <data name="Src_not_available" xml:space="preserve">
     <value>このエラーを発生させたソース コードは、デバッグ モードでコンパイルしたときだけ表示できます。表示するには、次のどちらかを行ってから URL を要求してください。
 
-
-
 1. エラーを発生させたファイルの先頭に &quot;Debug=true&quot; ディレクティブを追加する。例:
-
-
 
 {0}   &lt;%@ Page Language=&quot;C#&quot; Debug=&quot;true&quot; %&gt;{1}
 
-
-
 または:
-
-
 
 2) アプリケーションの構成ファイルに次のセクションを追加する:
 
-
-
 {2}&lt;configuration&gt;
-
     &lt;system.web&gt;
-
         &lt;compilation debug=&quot;true&quot;/&gt;
-
     &lt;/system.web&gt;
-
 &lt;/configuration&gt;{3}
 
-
-
  2 番目の方法では、アプリケーションのすべてのファイルがデバッグ モードでコンパイルされます。1 番目の方法では、そのファイルだけがデバッグ モードでコンパイルされます。
-
-
 
 重要: デバッグ モードで実行すると、メモリと性能に負荷がかかります。運用環境に配置する前に、アプリケーションのデバッグを無効にしてください。</value>
     <comment>The source code that generated this unhandled exception can only be shown when compiled in debug mode. To enable this, please follow one of the below steps, then request the URL:
@@ -13644,7 +13621,7 @@ Detailed error message: {1}</comment>
     <comment>Unable to locate type.</comment>
   </data>
   <data name="Error_Formatter_CLR_Core_Build" xml:space="preserve">
-    <value>Microsoft .NET バージョン:</value>
+    <value>Microsoft .NET 版:</value>
     <comment>Microsoft .NET Version:</comment>
   </data>
   <data name="NonStringPropertyDetailedComment" xml:space="preserve">

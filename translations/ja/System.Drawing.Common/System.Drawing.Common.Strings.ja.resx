@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CantTellPrinterName" xml:space="preserve">
+    <value>(プリンター名はセキュリティ制限により保護されています)</value>
+    <comment>(printer name protected due to security restrictions)</comment>
+  </data>
+  <data name="CantChangeImmutableObjects" xml:space="preserve">
+    <value>アクセス許可が無効なため、{0} を変更できません。</value>
+    <comment>Changes cannot be made to {0} because permissions are not valid.</comment>
+  </data>
+  <data name="CantMakeIconTransparent" xml:space="preserve">
+    <value>アイコンであるビットマップは透明にできません。アイコンはネイティブで透明をサポートしています。アイコンを作成するには Icon コンストラクターを使用してください。</value>
+    <comment>Bitmaps that are icons cannot be made transparent. Icons natively support transparency. Use the Icon constructor to create an icon.</comment>
+  </data>
+  <data name="ColorNotSystemColor" xml:space="preserve">
+    <value>色 {0} はシステム カラーではありません。</value>
+    <comment>The color {0} is not a system color.</comment>
+  </data>
+  <data name="DotNET_ComponentType" xml:space="preserve">
+    <value>.NET Component</value>
+    <comment>.NET Component</comment>
+  </data>
+  <data name="GdiplusAborted" xml:space="preserve">
+    <value>関数が終了しました。</value>
+    <comment>Function was ended.</comment>
+  </data>
+  <data name="GdiplusAccessDenied" xml:space="preserve">
+    <value>ファイル アクセスが拒否されました。</value>
+    <comment>File access is denied.</comment>
+  </data>
+  <data name="GdiplusCannotCreateGraphicsFromIndexedPixelFormat" xml:space="preserve">
+    <value>インデックス付きピクセル形式のイメージから Graphics オブジェクトを作成することはできません。</value>
+    <comment>A Graphics object cannot be created from an image that has an indexed pixel format.</comment>
+  </data>
+  <data name="GdiplusCannotSetPixelFromIndexedPixelFormat" xml:space="preserve">
+    <value>インデックス付きピクセル形式のイメージでは SetPixel はサポートされていません。</value>
+    <comment>SetPixel is not supported for images with indexed pixel formats.</comment>
+  </data>
+  <data name="GdiplusDestPointsInvalidParallelogram" xml:space="preserve">
+    <value>転送先の点は平行四辺形を定義するため、長さが 3 である必要があります。これらの点は左上、右上、左下の座標を (この順序で) 表します。</value>
+    <comment>Destination points define a parallelogram which must have a length of 3. These points will represent the upper-left, upper-right, and lower-left coordinates (defined in that order).</comment>
+  </data>
+  <data name="GdiplusDestPointsInvalidLength" xml:space="preserve">
+    <value>転送先の点は長さ 3 または 4 の配列である必要があります。長さ 3 は左上、右上、左下の角による平行四辺形を定義します。長さ 4 は四辺形を定義し、配列の 4 番目の要素で右下の座標を指定します。</value>
+    <comment>Destination points must be an array with a length of 3 or 4. A length of 3 defines a parallelogram with the upper-left, upper-right, and lower-left corners. A length of 4 defines a quadrilateral with the fourth element of the array specifying the lower-right coordinate.</comment>
+  </data>
+  <data name="GdiplusFileNotFound" xml:space="preserve">
+    <value>ファイルが見つかりません。</value>
+    <comment>File not found.</comment>
+  </data>
+  <data name="GdiplusFontFamilyNotFound" xml:space="preserve">
+    <value>フォント '{0}' が見つかりません。</value>
+    <comment>Font '{0}' cannot be found.</comment>
+  </data>
+  <data name="GdiplusFontStyleNotFound" xml:space="preserve">
+    <value>フォント '{0}' はスタイル '{1}' をサポートしていません。</value>
+    <comment>Font '{0}' does not support style '{1}'.</comment>
+  </data>
+  <data name="GdiplusGenericError" xml:space="preserve">
+    <value>GDI+ で汎用エラーが発生しました。</value>
+    <comment>A generic error occurred in GDI+.</comment>
+  </data>
+  <data name="GdiplusInsufficientBuffer" xml:space="preserve">
+    <value>バッファーが小さすぎます (GDI+ 内部エラー)。</value>
+    <comment>Buffer is too small (internal GDI+ error).</comment>
+  </data>
+  <data name="GdiplusInvalidParameter" xml:space="preserve">
+    <value>パラメーターが無効です。</value>
+    <comment>Parameter is not valid.</comment>
+  </data>
+  <data name="GdiplusInvalidRectangle" xml:space="preserve">
+    <value>四角形 '{0}' の幅または高さを 0 にすることはできません。</value>
+    <comment>Rectangle '{0}' cannot have a width or height equal to 0.</comment>
+  </data>
+  <data name="GdiplusInvalidSize" xml:space="preserve">
+    <value>この操作には GDI+ から GDI へのイメージの変換が必要です。GDI は 32767 を超える幅または高さのイメージをサポートしません。</value>
+    <comment>Operation requires a transformation of the image from GDI+ to GDI. GDI does not support images with a width or height greater than 32767.</comment>
+  </data>
+  <data name="GdiplusOutOfMemory" xml:space="preserve">
+    <value>メモリが不足しています。</value>
+    <comment>Out of memory.</comment>
+  </data>
+  <data name="GdiplusNotImplemented" xml:space="preserve">
+    <value>実装されていません。</value>
+    <comment>Not implemented.</comment>
+  </data>
+  <data name="GdiplusNotInitialized" xml:space="preserve">
+    <value>GDI+ が正しく初期化されていません (GDI+ 内部エラー)。</value>
+    <comment>GDI+ is not properly initialized (internal GDI+ error).</comment>
+  </data>
+  <data name="GdiplusNotTrueTypeFont" xml:space="preserve">
+    <value>TrueType フォントのみサポートされています。'{0}' は TrueType フォントではありません。</value>
+    <comment>Only TrueType fonts are supported. '{0}' is not a TrueType font.</comment>
+  </data>
+  <data name="GdiplusNotTrueTypeFont_NoName" xml:space="preserve">
+    <value>TrueType フォントのみサポートされています。これは TrueType フォントではありません。</value>
+    <comment>Only TrueType fonts are supported. This is not a TrueType font.</comment>
+  </data>
+  <data name="GdiplusObjectBusy" xml:space="preserve">
+    <value>オブジェクトは現在別の場所で使用中です。</value>
+    <comment>Object is currently in use elsewhere.</comment>
+  </data>
+  <data name="GdiplusOverflow" xml:space="preserve">
+    <value>オーバーフロー エラーです。</value>
+    <comment>Overflow error.</comment>
+  </data>
+  <data name="GdiplusPropertyNotFoundError" xml:space="preserve">
+    <value>プロパティが見つかりません。</value>
+    <comment>Property cannot be found.</comment>
+  </data>
+  <data name="GdiplusPropertyNotSupportedError" xml:space="preserve">
+    <value>プロパティはサポートされていません。</value>
+    <comment>Property is not supported.</comment>
+  </data>
+  <data name="GdiplusUnknown" xml:space="preserve">
+    <value>不明な GDI+ エラーが発生しました。</value>
+    <comment>Unknown GDI+ error occurred.</comment>
+  </data>
+  <data name="GdiplusUnknownImageFormat" xml:space="preserve">
+    <value>不明なイメージ形式です。</value>
+    <comment>Image format is unknown.</comment>
+  </data>
+  <data name="GdiplusUnsupportedGdiplusVersion" xml:space="preserve">
+    <value>現在の GDI+ バージョンはこの機能に未対応です。</value>
+    <comment>Current version of GDI+ does not support this feature.</comment>
+  </data>
+  <data name="GdiplusWrongState" xml:space="preserve">
+    <value>ビットマップ領域は既にロックされています。</value>
+    <comment>Bitmap region is already locked.</comment>
+  </data>
+  <data name="GlobalAssemblyCache" xml:space="preserve">
+    <value> (グローバル アセンブリキャッシュ)</value>
+    <comment> (Global Assembly Cache)</comment>
+  </data>
+  <data name="GraphicsBufferCurrentlyBusy" xml:space="preserve">
+    <value>バッファー操作が進行中のため、BufferedGraphicsContext を破棄できません。</value>
+    <comment>BufferedGraphicsContext cannot be disposed of because a buffer operation is currently in progress.</comment>
+  </data>
+  <data name="GraphicsBufferQueryFail" xml:space="preserve">
+    <value>画面互換のビットマップを作成できません。画面のビットマップ形式を特定できません。</value>
+    <comment>Screen-compatible bitmap cannot be created. The screen bitmap format cannot be determined.</comment>
+  </data>
+  <data name="IconInvalidMaskLength" xml:space="preserve">
+    <value>'{0}' のデータ長: 予期 {1}、読み取り {2}</value>
+    <comment>'{0}' data length expected {1}, read {2}</comment>
+  </data>
+  <data name="ToolboxItemLocked" xml:space="preserve">
+    <value>ツールボックス項目は変更できません。</value>
+    <comment>Toolbox item cannot be modified.</comment>
+  </data>
+  <data name="ToolboxItemInvalidPropertyType" xml:space="preserve">
+    <value>プロパティ {0} には型 {1} の引数が必要です。</value>
+    <comment>Property {0} requires an argument of type {1}.</comment>
+  </data>
+  <data name="ToolboxItemValueNotSerializable" xml:space="preserve">
+    <value>データ型 {0} はシリアル化できません。プロパティ ディクショナリへの追加項目はシリアル化可能である必要があります。</value>
+    <comment>Data type {0} is not serializable. Items added to a property dictionary must be serializable.</comment>
+  </data>
+  <data name="ToolboxItemInvalidKey" xml:space="preserve">
+    <value>引数は空でない文字列である必要があります。</value>
+    <comment>Argument should be a non-empty string.</comment>
+  </data>
+  <data name="IllegalState" xml:space="preserve">
+    <value>{0} クラスの内部状態が無効です。</value>
+    <comment>Internal state of the {0} class is invalid.</comment>
+  </data>
+  <data name="InterpolationColorsColorBlendNotSet" xml:space="preserve">
+    <value>補間色を使用するには、プロパティに有効な ColorBlend オブジェクトを設定する必要があります。</value>
+    <comment>Property must be set to a valid ColorBlend object to use interpolation colors.</comment>
+  </data>
+  <data name="InterpolationColorsCommon" xml:space="preserve">
+    <value>{0}{1} ColorBlend オブジェクトは、同じ数の位置と色の値で構築する必要があります。位置は 0.0 から 1.0 の間である必要があり、1.0 は配列の最後の要素を示します。</value>
+    <comment>{0}{1} ColorBlend objects must be constructed with the same number of positions and color values. Positions must be between 0.0 and 1.0, 1.0 indicating the last element in the array.</comment>
+  </data>
+  <data name="InterpolationColorsInvalidColorBlendObject" xml:space="preserve">
+    <value>設定された ColorBlend オブジェクトは無効です。</value>
+    <comment>ColorBlend object that was set is not valid.</comment>
+  </data>
+  <data name="InterpolationColorsInvalidStartPosition" xml:space="preserve">
+    <value>位置の最初の要素は 0 にする必要があります。</value>
+    <comment>Position's first element must be equal to 0.</comment>
+  </data>
+  <data name="InterpolationColorsInvalidEndPosition" xml:space="preserve">
+    <value>位置の最後の要素は 1.0 にする必要があります。</value>
+    <comment>Position's last element must be equal to 1.0.</comment>
+  </data>
+  <data name="InterpolationColorsLength" xml:space="preserve">
+    <value>色と位置の配列には少なくとも 2 つの要素が必要です。</value>
+    <comment>Array of colors and positions must contain at least two elements.</comment>
+  </data>
+  <data name="InterpolationColorsLengthsDiffer" xml:space="preserve">
+    <value>色と位置の要素数が一致しません。</value>
+    <comment>Colors and positions do not have the same number of elements.</comment>
+  </data>
+  <data name="InvalidArgumentValue" xml:space="preserve">
+    <value>'{1}' は '{0}' の値として無効です。</value>
+    <comment>Value of '{1}' is not valid for '{0}'.</comment>
+  </data>
+  <data name="InvalidArgumentValueFontConverter" xml:space="preserve">
+    <value>'{0}' はフォント サイズ単位の値として無効です。</value>
+    <comment>Value of '{0}' is not valid for font size unit.</comment>
+  </data>
+  <data name="InvalidBoundArgument" xml:space="preserve">
+    <value>'{1}' は '{0}' の値として無効です。'{0}' は {2} より大きく {3} 以下である必要があります。</value>
+    <comment>Value of '{1}' is not valid for '{0}'. '{0}' should be greater than {2} and less than or equal to {3}.</comment>
+  </data>
+  <data name="InvalidClassName" xml:space="preserve">
+    <value>クラス名が無効です。</value>
+    <comment>Class name is not valid.</comment>
+  </data>
+  <data name="InvalidColor" xml:space="preserve">
+    <value>色 '{0}' は無効です。</value>
+    <comment>Color '{0}' is not valid.</comment>
+  </data>
+  <data name="InvalidDashPattern" xml:space="preserve">
+    <value>DashPattern の値が無効です。</value>
+    <comment>DashPattern value is not valid.</comment>
+  </data>
+  <data name="InvalidEx2BoundArgument" xml:space="preserve">
+    <value>'{1}' は '{0}' の値として無効です。'{0}' は {2} 以上 {3} 以下である必要があります。</value>
+    <comment>Value of '{1}' is not valid for '{0}'. '{0}' should be greater than or equal to {2} and less than or equal to {3}.</comment>
+  </data>
+  <data name="InvalidGDIHandle" xml:space="preserve">
+    <value>{0} に渡された Win32 ハンドルが無効か、型が正しくありません。</value>
+    <comment>Win32 handle that was passed to {0} is not valid or is the wrong type.</comment>
+  </data>
+  <data name="InvalidImage" xml:space="preserve">
+    <value>不明なイメージの種類です。</value>
+    <comment>Image type is unknown.</comment>
+  </data>
+  <data name="InvalidLowBoundArgumentEx" xml:space="preserve">
+    <value>'{1}' は '{0}' の値として無効です。'{0}' は {2} 以上である必要があります。</value>
+    <comment>Value of '{1}' is not valid for '{0}'. '{0}' must be greater than or equal to {2}.</comment>
+  </data>
+  <data name="InvalidPermissionLevel" xml:space="preserve">
+    <value>アクセス許可レベルが無効です。</value>
+    <comment>Permission level is not valid.</comment>
+  </data>
+  <data name="InvalidPermissionState" xml:space="preserve">
+    <value>アクセス許可の状態が無効です。</value>
+    <comment>Permission state is not valid.</comment>
+  </data>
+  <data name="InvalidPictureType" xml:space="preserve">
+    <value>引数 '{0}' は {1} として使用できる画像である必要があります。</value>
+    <comment>Argument '{0}' must be a picture that can be used as a {1}.</comment>
+  </data>
+  <data name="InvalidPrinterException_InvalidPrinter" xml:space="preserve">
+    <value>プリンター '{0}' にアクセスするための設定が無効です。</value>
+    <comment>Settings to access printer '{0}' are not valid.</comment>
+  </data>
+  <data name="InvalidPrinterException_NoDefaultPrinter" xml:space="preserve">
+    <value>プリンターがインストールされていません。</value>
+    <comment>No printers are installed.</comment>
+  </data>
+  <data name="InvalidPrinterHandle" xml:space="preserve">
+    <value>ハンドル {0} は無効です。</value>
+    <comment>Handle {0} is not valid.</comment>
+  </data>
+  <data name="ValidRangeX" xml:space="preserve">
+    <value>パラメーターは正の値で、かつ &lt; Width である必要があります。</value>
+    <comment>Parameter must be positive and &lt; Width.</comment>
+  </data>
+  <data name="ValidRangeY" xml:space="preserve">
+    <value>パラメーターは正の値で、かつ &lt; Height である必要があります。</value>
+    <comment>Parameter must be positive and &lt; Height.</comment>
+  </data>
+  <data name="NativeHandle0" xml:space="preserve">
+    <value>ネイティブ ハンドルが 0 です。</value>
+    <comment>Native handle is 0.</comment>
+  </data>
+  <data name="NoDefaultPrinter" xml:space="preserve">
+    <value>既定のプリンターが設定されていません。</value>
+    <comment>Default printer is not set.</comment>
+  </data>
+  <data name="NotImplemented" xml:space="preserve">
+    <value>実装されていません。</value>
+    <comment>Not implemented.</comment>
+  </data>
+  <data name="PDOCbeginPrintDescr" xml:space="preserve">
+    <value>ドキュメントの印刷開始直前に発生します。</value>
+    <comment>Occurs when the document is about to be printed.</comment>
+  </data>
+  <data name="PDOCdocumentNameDescr" xml:space="preserve">
+    <value>ユーザーに表示されるドキュメントの名前</value>
+    <comment>The name of the document shown to the user.</comment>
+  </data>
+  <data name="PDOCdocumentPageSettingsDescr" xml:space="preserve">
+    <value>現在印刷中のページのページ設定</value>
+    <comment>The page settings of the page currently being printed.</comment>
+  </data>
+  <data name="PDOCendPrintDescr" xml:space="preserve">
+    <value>ドキュメントの印刷後に発生します。</value>
+    <comment>Occurs after the document has been printed.</comment>
+  </data>
+  <data name="PDOCoriginAtMarginsDescr" xml:space="preserve">
+    <value>グラフィックスの原点がユーザー指定のページ余白にあるかどうか</value>
+    <comment>Indicates that the graphics origin is located at the user-specified page margins.</comment>
+  </data>
+  <data name="PDOCprintControllerDescr" xml:space="preserve">
+    <value>このドキュメントの印刷コントローラー</value>
+    <comment>Retrieves the print controller for this document.</comment>
+  </data>
+  <data name="PDOCprintPageDescr" xml:space="preserve">
+    <value>印刷ページごとに 1 回発生します。</value>
+    <comment>Occurs once for each page to be printed.</comment>
+  </data>
+  <data name="PDOCprinterSettingsDescr" xml:space="preserve">
+    <value>ドキュメントの現在の印刷先プリンターの設定</value>
+    <comment>Retrieves the settings for the printer the document is currently being printed to.</comment>
+  </data>
+  <data name="PDOCqueryPageSettingsDescr" xml:space="preserve">
+    <value>各ページの印刷前に発生します。特定のページの PageSettings を変更する場合に便利です。</value>
+    <comment>Occurs before each page is printed.  Useful for changing PageSettings for a particular page.</comment>
+  </data>
+  <data name="PlatformNotSupported_Drawing" xml:space="preserve">
+    <value>System.Drawing はこのプラットフォームで未対応です</value>
+    <comment>System.Drawing is not supported on this platform.</comment>
+  </data>
+  <data name="PlatformNotSupported_Unix" xml:space="preserve">
+    <value>System.Drawing.Common は Windows 以外では未対応です。詳細は https://aka.ms/systemdrawingnonwindows を参照してください。</value>
+    <comment>System.Drawing.Common is not supported on non-Windows platforms. See https://aka.ms/systemdrawingnonwindows for more information.</comment>
+  </data>
+  <data name="PrintDocumentDesc" xml:space="preserve">
+    <value>プリンターに出力を送信するオブジェクト</value>
+    <comment>Defines an object that sends output to a printer.</comment>
+  </data>
+  <data name="PrintingPermissionBadXml" xml:space="preserve">
+    <value>XML が無効です。</value>
+    <comment>XML is not valid.</comment>
+  </data>
+  <data name="PrintingPermissionAttributeInvalidPermissionLevel" xml:space="preserve">
+    <value>アクセス許可レベルは PrintingPermissionLevel.NoPrinting から PrintingPermissionLevel.AllPrinting の間である必要があります。</value>
+    <comment>Permission level must be between PrintingPermissionLevel.NoPrinting and PrintingPermissionLevel.AllPrinting.</comment>
+  </data>
+  <data name="PropertyValueInvalidEntry" xml:space="preserve">
+    <value>IDictionary パラメーターに無効なエントリが 1 つ以上含まれています。すべての値がオブジェクトのプロパティと一致していることを確認してください。</value>
+    <comment>IDictionary parameter contains at least one entry that is not valid. Ensure all values are consistent with the object's properties.</comment>
+  </data>
+  <data name="PSizeNotCustom" xml:space="preserve">
+    <value>PaperSize は、Kind プロパティが Custom の場合のみ変更できます。</value>
+    <comment>PaperSize cannot be changed unless the Kind property is set to Custom.</comment>
+  </data>
+  <data name="ResourceNotFound" xml:space="preserve">
+    <value>クラス '{0}' にリソース '{1}' が見つかりません。</value>
+    <comment>Resource '{1}' cannot be found in class '{0}'.</comment>
+  </data>
+  <data name="TargetNotPrintingPermission" xml:space="preserve">
+    <value>ターゲットに印刷のアクセス許可がありません。</value>
+    <comment>Target does not have permission to print.</comment>
+  </data>
+  <data name="TextParseFailedFormat" xml:space="preserve">
+    <value>テキスト "{0}" を解析できません。必要なテキスト形式は "{1}" です。</value>
+    <comment>Text "{0}" cannot be parsed. The expected text format is "{1}".</comment>
+  </data>
+  <data name="TriStateCompareError" xml:space="preserve">
+    <value>TriState.Default は Boolean に変換不能です。</value>
+    <comment>TriState.Default cannot be converted into a Boolean.</comment>
+  </data>
+  <data name="toStringIcon" xml:space="preserve">
+    <value>(アイコン)</value>
+    <comment>(Icon)</comment>
+  </data>
+  <data name="toStringNone" xml:space="preserve">
+    <value>(なし)</value>
+    <comment>(none)</comment>
+  </data>
+  <data name="DCTypeInvalid" xml:space="preserve">
+    <value>この dc の GetObjectType が無効な値を返しました。</value>
+    <comment>GetObjectType on this dc returned an invalid value.</comment>
+  </data>
+  <data name="InvalidEnumArgument" xml:space="preserve">
+    <value>引数 '{0}' の値 ({1}) は列挙型 '{2}' に対して無効です。</value>
+    <comment>The value of argument '{0}' ({1}) is invalid for Enum type '{2}'.</comment>
+  </data>
+  <data name="ConvertInvalidPrimitive" xml:space="preserve">
+    <value>{0} は {1} に無効な値です。</value>
+    <comment>{0} is not a valid value for {1}.</comment>
+  </data>
+  <data name="BlendObjectMustHaveTwoElements" xml:space="preserve">
+    <value>Blend オブジェクトが無効です。factors と positions の各配列に 2 つ以上の要素が必要です。</value>
+    <comment>Invalid Blend object. It should have at least 2 elements in each of the factors and positions arrays.</comment>
+  </data>
+  <data name="BlendObjectFirstElementInvalid" xml:space="preserve">
+    <value>Blend オブジェクトが無効です。positions 配列の最初の要素は 0.0 が必要です。</value>
+    <comment>Invalid Blend object. The positions array must have 0.0 as its first element.</comment>
+  </data>
+  <data name="BlendObjectLastElementInvalid" xml:space="preserve">
+    <value>Blend オブジェクトが無効です。positions 配列の最後の要素は 1.0 が必要です。</value>
+    <comment>Invalid Blend object. The positions array must have 1.0 as its last element.</comment>
+  </data>
+  <data name="DllNotFoundExceptionMessage" xml:space="preserve">
+    <value>DLL '{0}' を読み込めません: 指定されたモジュールが見つかりません。</value>
+    <comment>Unable to load DLL '{0}': The specified module could not be found.</comment>
+  </data>
+  <data name="EntryPointNotFoundExceptionMessage" xml:space="preserve">
+    <value>DLL '{1}' にエントリ ポイント '{0}' が見つかりません。</value>
+    <comment>Unable to find an entry point named '{0}' in DLL '{1}'.</comment>
+  </data>
+  <data name="AvailableOnlyOnWMF" xml:space="preserve">
+    <value>{0} は WMF ファイル専用です。</value>
+    <comment>{0} only available on WMF files.</comment>
+  </data>
+  <data name="CannotCreateGraphics" xml:space="preserve">
+    <value>インデックス画像から Graphics を作成できません</value>
+    <comment>Cannot create Graphics from an indexed bitmap.</comment>
+  </data>
+  <data name="CouldNotOpenDisplay" xml:space="preserve">
+    <value>ディスプレイを開けません (X-Server が必要です。DISPLAY 環境変数を確認してください)</value>
+    <comment>Could not open display (X-Server required. Check your DISPLAY environment variable)</comment>
+  </data>
+  <data name="CouldntFindSpecifiedFile" xml:space="preserve">
+    <value>指定ファイルがありません。</value>
+    <comment>Couldn't find specified file.</comment>
+  </data>
+  <data name="IconInstanceWasDisposed" xml:space="preserve">
+    <value>アイコンは破棄済みです。</value>
+    <comment>Icon instance was disposed.</comment>
+  </data>
+  <data name="InvalidGraphicsUnit" xml:space="preserve">
+    <value>無効な GraphicsUnit</value>
+    <comment>Invalid GraphicsUnit</comment>
+  </data>
+  <data name="InvalidThumbnailSize" xml:space="preserve">
+    <value>無効なサムネイルサイズ</value>
+    <comment>Invalid thumbnail size</comment>
+  </data>
+  <data name="NoCodecAvailableForFormat" xml:space="preserve">
+    <value>形式のコーデックがありません:{0}</value>
+    <comment>No codec available for format:{0}</comment>
+  </data>
+  <data name="NotImplementedUnderX11" xml:space="preserve">
+    <value>X11 では未実装の操作です</value>
+    <comment>Operation not implemented under X11</comment>
+  </data>
+  <data name="none" xml:space="preserve">
+    <value>(なし)</value>
+    <comment>(none)</comment>
+  </data>
+  <data name="NoValidIconImageFound" xml:space="preserve">
+    <value>有効なアイコン画像なし</value>
+    <comment>No valid icon image found</comment>
+  </data>
+  <data name="NullOrEmptyPath" xml:space="preserve">
+    <value>null か空のパスです</value>
+    <comment>Null or empty path.</comment>
+  </data>
+  <data name="NumberOfPointsAndTypesMustBeSame" xml:space="preserve">
+    <value>無効なパラメーターです。点と種類の数は同じである必要があります。</value>
+    <comment>Invalid parameter passed. Number of points and types must be same.</comment>
+  </data>
+  <data name="ObjectDisposed" xml:space="preserve">
+    <value>オブジェクトは破棄済み。</value>
+    <comment>Object has been disposed.</comment>
+  </data>
+  <data name="ValueLessThenZero" xml:space="preserve">
+    <value>{0} プロパティの値が 0 未満です。</value>
+    <comment>The value of the {0} property is less than zero.</comment>
+  </data>
+  <data name="ValueNotOneOfValues" xml:space="preserve">
+    <value>{0} プロパティの値が {1} 値のいずれでもありません</value>
+    <comment>The value of the {0} property is not one of the {1} values</comment>
+  </data>
+  <data name="TargetDirectoryDoesNotExist" xml:space="preserve">
+    <value>ファイル名 {1} のディレクトリ {0} は存在しません。</value>
+    <comment>The directory {0} of the filename {1} does not exist.</comment>
+  </data>
+  <data name="SystemDrawingCommon_PlatformNotSupported" xml:space="preserve">
+    <value>System.Drawing.Common はこのプラットフォームで未対応です</value>
+    <comment>System.Drawing.Common is not supported on this platform.</comment>
+  </data>
+</root>

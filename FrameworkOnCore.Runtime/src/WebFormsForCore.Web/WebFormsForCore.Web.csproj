@@ -67,10 +67,6 @@
         <EmbeddedResource Include="*.resx">
             <LogicalName>%(FileName).resources</LogicalName>
         </EmbeddedResource>
-        <!-- FrameworkOnCore's own translations (translations\<culture>\System.Web.<culture>.resx, MIT): satellites. -->
-        <EmbeddedResource Include="..\..\..\translations\*\System.Web.*.resx">
-            <LogicalName>%(FileName).resources</LogicalName>
-        </EmbeddedResource>
         <EmbeddedResource Include="Resources\System\Web\UI\**\*.*" Exclude="Resources\System\Web\UI\**\TreeView_*.*">
             <LogicalName>$([System.String]::new('%(RelativeDir)%(FileName)%(Extension)').Replace('Resources\', '').Replace('\','.'))</LogicalName>
         </EmbeddedResource>
@@ -155,20 +151,6 @@
         <StrongNamePublicKeyToken>b03f5f7f11d50a3a</StrongNamePublicKeyToken>
     </PropertyGroup>
 
-    <!-- FrameworkOnCore: the translations' satellites with System.Web's public key (ResourceManager asks for the main
-         assembly's name, version and key in the culture; the build signs them with the project's). -->
-    <Target Name="FakeStrongNameSatellites" AfterTargets="CoreGenerateSatelliteAssemblies" Condition="$(TargetFramework) != 'net48' And '@(IntermediateSatelliteAssembliesWithTargetPath)' != ''">
-        <!-- Their time kept: a satellite newer than its translation is not built again (the next change would not be taken). -->
-        <ItemGroup>
-            <_FocSatellite Include="@(IntermediateSatelliteAssembliesWithTargetPath)" Condition="Exists('%(Identity)')" Time="%(ModifiedTime)" />
-        </ItemGroup>
-        <FakeStrongName Assemblies="@(_FocSatellite)"
-            PublicKey="$(StrongNamePublicKey)"
-            PublicKeyToken="$(StrongNamePublicKeyToken)"
-            AssemblyPath="$(MSBuildThisFileDirectory)..\..\lib\WebFormsForCore.Build\netstandard2.0\" />
-        <Touch Files="%(_FocSatellite.Identity)" Time="%(_FocSatellite.Time)" />
-    </Target>
-
     <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
         <ItemGroup>
             <!-- Do not import System.Configuration.ConfigurationManager version 8 -->
@@ -180,4 +162,5 @@
         </ItemGroup>
     </Target>
 
+    <Import Project="..\FrameworkOnCore.Translations.targets" />
 </Project>

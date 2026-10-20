@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Arg_HTCapacityOverflow" xml:space="preserve">
+    <value>Hashtable の容量がオーバーフローして負になりました。負荷係数、容量、およびテーブルの現在のサイズを確認してください。</value>
+    <comment>Hashtable's capacity overflowed and went negative. Check load factor, capacity and the current size of the table.</comment>
+  </data>
+  <data name="Serialization_NonSerType" xml:space="preserve">
+    <value>アセンブリ '{1}' の型 '{0}' はシリアル化可能とマークされていません。</value>
+    <comment>Type '{0}' in Assembly '{1}' is not marked as serializable.</comment>
+  </data>
+  <data name="Argument_DataLengthDifferent" xml:space="preserve">
+    <value>パラメーター 'members' と 'data' は同じ長さである必要があります。</value>
+    <comment>Parameters 'members' and 'data' must have the same length.</comment>
+  </data>
+  <data name="ArgumentNull_NullMember" xml:space="preserve">
+    <value>位置 {0} のメンバーが null です。</value>
+    <comment>Member at position {0} was null.</comment>
+  </data>
+  <data name="Serialization_UnknownMemberInfo" xml:space="preserve">
+    <value>FieldInfo、PropertyInfo、SerializationMemberInfo のみ認識されます。</value>
+    <comment>Only FieldInfo, PropertyInfo, and SerializationMemberInfo are recognized.</comment>
+  </data>
+  <data name="Serialization_NoID" xml:space="preserve">
+    <value>オブジェクトに objectID が未割り当てです。</value>
+    <comment>Object has never been assigned an objectID.</comment>
+  </data>
+  <data name="Serialization_TooManyElements" xml:space="preserve">
+    <value>内部配列を Int32.MaxValue 個を超える要素に拡張できません。</value>
+    <comment>The internal array cannot expand to greater than Int32.MaxValue elements.</comment>
+  </data>
+  <data name="Argument_InvalidFieldInfo" xml:space="preserve">
+    <value>FieldInfo オブジェクトが無効です。</value>
+    <comment>The FieldInfo object is not valid.</comment>
+  </data>
+  <data name="Serialization_NeverSeen" xml:space="preserve">
+    <value>ID {0} のオブジェクトに fixup が登録されていますが、そのオブジェクトはグラフ内にありません。</value>
+    <comment>A fixup is registered to the object with ID {0}, but the object does not appear in the graph.</comment>
+  </data>
+  <data name="Serialization_IORIncomplete" xml:space="preserve">
+    <value>ID {0} のオブジェクトは IObjectReference インターフェイスを実装していますが、そのすべての依存関係を解決できません。IObjectReference の 2 つのインスタンスの相互依存が原因と考えられます。</value>
+    <comment>The object with ID {0} implements the IObjectReference interface for which all dependencies cannot be resolved. The likely cause is two instances of IObjectReference that have a mutual dependency on each other.</comment>
+  </data>
+  <data name="Serialization_ObjectNotSupplied" xml:space="preserve">
+    <value>ID {0} のオブジェクトは fixup で参照されましたが、存在しません。</value>
+    <comment>The object with ID {0} was referenced in a fixup but does not exist.</comment>
+  </data>
+  <data name="Serialization_NotCyclicallyReferenceableSurrogate" xml:space="preserve">
+    <value>{0}.SetObjectData が、null でも最初のパラメーターと等しくもない値を返しました。このようなサロゲートは循環参照に含めることができません。</value>
+    <comment>{0}.SetObjectData returns a value that is neither null nor equal to the first parameter. Such Surrogates cannot be part of cyclical reference.</comment>
+  </data>
+  <data name="Serialization_TooManyReferences" xml:space="preserve">
+    <value>IObjectReference インターフェイスの実装が、IObjectReference を実装する他のオブジェクトへの入れ子の参照を返しすぎています。</value>
+    <comment>The implementation of the IObjectReference interface returns too many nested references to other objects that implement IObjectReference.</comment>
+  </data>
+  <data name="Serialization_MissingObject" xml:space="preserve">
+    <value>ID {0} のオブジェクトは fixup で参照されましたが、登録されていません。</value>
+    <comment>The object with ID {0} was referenced in a fixup but has not been registered.</comment>
+  </data>
+  <data name="Serialization_InvalidFixupDiscovered" xml:space="preserve">
+    <value>ISerializable を実装するかサロゲートを持つオブジェクトの fixup が、SerializationInfo を使用できないオブジェクトに対して検出されました。</value>
+    <comment>A fixup on an object implementing ISerializable or having a surrogate was discovered for an object which does not have a SerializationInfo available.</comment>
+  </data>
+  <data name="Serialization_TypeLoadFailure" xml:space="preserve">
+    <value>逆シリアル化に必要な型 {0} を読み込めません。</value>
+    <comment>Unable to load type {0} required for deserialization.</comment>
+  </data>
+  <data name="Serialization_ValueTypeFixup" xml:space="preserve">
+    <value>配列に対する ValueType fixup は実装されていません。</value>
+    <comment>ValueType fixup on Arrays is not implemented.</comment>
+  </data>
+  <data name="Serialization_PartialValueTypeFixup" xml:space="preserve">
+    <value>部分的に使用可能な ValueType チェーンの fixup は実装されていません。</value>
+    <comment>Fixing up a partially available ValueType chain is not implemented.</comment>
+  </data>
+  <data name="Serialization_UnableToFixup" xml:space="preserve">
+    <value>fixup を実行できません。</value>
+    <comment>Cannot perform fixup.</comment>
+  </data>
+  <data name="ArgumentOutOfRange_ObjectID" xml:space="preserve">
+    <value>objectID は 0 以下にできません。</value>
+    <comment>objectID cannot be less than or equal to zero.</comment>
+  </data>
+  <data name="Serialization_RegisterTwice" xml:space="preserve">
+    <value>オブジェクトを 2 回登録することはできません。</value>
+    <comment>An object cannot be registered twice.</comment>
+  </data>
+  <data name="Serialization_NotISer" xml:space="preserve">
+    <value>指定のオブジェクトは ISerializable を実装していません。</value>
+    <comment>The given object does not implement the ISerializable interface.</comment>
+  </data>
+  <data name="Serialization_ConstructorNotFound" xml:space="preserve">
+    <value>型 '{0}' のオブジェクトを逆シリアル化するコンストラクターが見つかりません。</value>
+    <comment>The constructor to deserialize an object of type '{0}' was not found.</comment>
+  </data>
+  <data name="Serialization_IncorrectNumberOfFixups" xml:space="preserve">
+    <value>ObjectManager が無効な数の fixup を検出しました。通常、これは Formatter の問題を示しています。</value>
+    <comment>The ObjectManager found an invalid number of fixups. This usually indicates a problem in the Formatter.</comment>
+  </data>
+  <data name="Serialization_InvalidFixupType" xml:space="preserve">
+    <value>ISerializable を実装するかサロゲートを持つオブジェクトに、メンバー fixup が登録されました。この場合は、遅延 fixup を使用する必要があります。</value>
+    <comment>A member fixup was registered for an object which implements ISerializable or has a surrogate. In this situation, a delayed fixup must be used.</comment>
+  </data>
+  <data name="Serialization_IdTooSmall" xml:space="preserve">
+    <value>オブジェクト ID は 0 より大きくする必要があります。</value>
+    <comment>Object IDs must be greater than zero.</comment>
+  </data>
+  <data name="Serialization_ParentChildIdentical" xml:space="preserve">
+    <value>親オブジェクトの ID をオブジェクト ID と同じにすることはできません。</value>
+    <comment>The ID of the containing object cannot be the same as the object ID.</comment>
+  </data>
+  <data name="Serialization_InvalidType" xml:space="preserve">
+    <value>GetUninitializedObject メソッドに渡せるのはシステム提供の型のみです。'{0}' は型の有効なインスタンスではありません。</value>
+    <comment>Only system-provided types can be passed to the GetUninitializedObject method. '{0}' is not a valid instance of a type.</comment>
+  </data>
+  <data name="Argument_MustSupplyParent" xml:space="preserve">
+    <value>親オブジェクトの ID を指定する場合は、そのオブジェクト内の現在のフィールドを識別する FieldInfo も指定する必要があります。</value>
+    <comment>When supplying the ID of a containing object, the FieldInfo that identifies the current field within that object must also be supplied.</comment>
+  </data>
+  <data name="Argument_MemberAndArray" xml:space="preserve">
+    <value>値型の親を示すために MemberInfo と Array の両方を指定することはできません。</value>
+    <comment>Cannot supply both a MemberInfo and an Array to indicate the parent of a value type.</comment>
+  </data>
+  <data name="Serialization_CorruptedStream" xml:space="preserve">
+    <value>BinaryFormatter ストリームが無効です。</value>
+    <comment>Invalid BinaryFormatter stream.</comment>
+  </data>
+  <data name="Serialization_Stream" xml:space="preserve">
+    <value>空のストリームを逆シリアル化しようとしています。</value>
+    <comment>Attempting to deserialize an empty stream.</comment>
+  </data>
+  <data name="Serialization_BinaryHeader" xml:space="preserve">
+    <value>バイナリ ストリーム '{0}' に有効な BinaryHeader が含まれていません。ストリームが無効か、シリアル化と逆シリアル化の間でオブジェクトのバージョンが変わったことが原因と考えられます。</value>
+    <comment>Binary stream '{0}' does not contain a valid BinaryHeader. Possible causes are invalid stream or object version change between serialization and deserialization.</comment>
+  </data>
+  <data name="Serialization_TypeExpected" xml:space="preserve">
+    <value>予期した型が無効です</value>
+    <comment>Invalid expected type.</comment>
+  </data>
+  <data name="Serialization_StreamEnd" xml:space="preserve">
+    <value>解析が完了する前にストリームの終わりに達しました。</value>
+    <comment>End of Stream encountered before parsing was completed.</comment>
+  </data>
+  <data name="Serialization_CrossAppDomainError" xml:space="preserve">
+    <value>AppDomain 間の BinaryFormatter エラー: '{0}' が必要ですが '{1}' を受け取りました。</value>
+    <comment>Cross-AppDomain BinaryFormatter error; expected '{0}' but received '{1}'.</comment>
+  </data>
+  <data name="Serialization_Map" xml:space="preserve">
+    <value>オブジェクト '{0}' のマップがありません。</value>
+    <comment>No map for object '{0}'.</comment>
+  </data>
+  <data name="Serialization_Assembly" xml:space="preserve">
+    <value>転送中のオブジェクト '{0}' にアセンブリ情報がありません。</value>
+    <comment>No assembly information is available for object on the wire, '{0}'.</comment>
+  </data>
+  <data name="Serialization_ObjectTypeEnum" xml:space="preserve">
+    <value>無効な ObjectTypeEnum {0} です。</value>
+    <comment>Invalid ObjectTypeEnum {0}.</comment>
+  </data>
+  <data name="Serialization_AssemblyId" xml:space="preserve">
+    <value>オブジェクト型 '{0}' のアセンブリ ID がありません。</value>
+    <comment>No assembly ID for object type '{0}'.</comment>
+  </data>
+  <data name="Serialization_ArrayType" xml:space="preserve">
+    <value>無効な配列型 '{0}' です。</value>
+    <comment>Invalid array type '{0}'.</comment>
+  </data>
+  <data name="Serialization_TypeCode" xml:space="preserve">
+    <value>ストリーム内の型コード '{0}' が無効です。</value>
+    <comment>Invalid type code in stream '{0}'.</comment>
+  </data>
+  <data name="Serialization_TypeWrite" xml:space="preserve">
+    <value>無効な書き込み型要求 '{0}' です。</value>
+    <comment>Invalid write type request '{0}'.</comment>
+  </data>
+  <data name="Serialization_TypeRead" xml:space="preserve">
+    <value>無効な読み取り型要求 '{0}' です。</value>
+    <comment>Invalid read type request '{0}'.</comment>
+  </data>
+  <data name="Serialization_AssemblyNotFound" xml:space="preserve">
+    <value>アセンブリ '{0}' が見つかりません。</value>
+    <comment>Unable to find assembly '{0}'.</comment>
+  </data>
+  <data name="Serialization_InvalidFormat" xml:space="preserve">
+    <value>入力ストリームは有効なバイナリ形式ではありません。先頭の内容 (バイト): {0} ...</value>
+    <comment>The input stream is not a valid binary format. The starting contents (in bytes) are: {0} ...</comment>
+  </data>
+  <data name="Serialization_TopObject" xml:space="preserve">
+    <value>最上位オブジェクトがありません。</value>
+    <comment>No top object.</comment>
+  </data>
+  <data name="Serialization_XMLElement" xml:space="preserve">
+    <value>無効な要素 '{0}' です。</value>
+    <comment>Invalid element '{0}'.</comment>
+  </data>
+  <data name="Serialization_TopObjectInstantiate" xml:space="preserve">
+    <value>要素 '{0}' の最上位オブジェクトをインスタンス化できません。</value>
+    <comment>Top object cannot be instantiated for element '{0}'.</comment>
+  </data>
+  <data name="Serialization_ArrayTypeObject" xml:space="preserve">
+    <value>配列要素の型が Object で、'dt' 属性が null です。</value>
+    <comment>Array element type is Object, 'dt' attribute is null.</comment>
+  </data>
+  <data name="Serialization_TypeMissing" xml:space="preserve">
+    <value>Object 型のメンバー '{0}' の型がありません。</value>
+    <comment>Type is missing for member of type Object '{0}'.</comment>
+  </data>
+  <data name="Serialization_ObjNoID" xml:space="preserve">
+    <value>オブジェクト {0} に objectID が割り当てられていません。</value>
+    <comment>Object {0} has never been assigned an objectID.</comment>
+  </data>
+  <data name="Serialization_SerMemberInfo" xml:space="preserve">
+    <value>MemberInfo 型 {0} はシリアル化できません。</value>
+    <comment>MemberInfo type {0} cannot be serialized.</comment>
+  </data>
+  <data name="Argument_MustSupplyContainer" xml:space="preserve">
+    <value>入れ子の型を修正するために FieldInfo を指定する場合は、それを含むオブジェクトの有効な ID も指定する必要があります。</value>
+    <comment>When supplying a FieldInfo for fixing up a nested type, a valid ID for that containing object must also be supplied.</comment>
+  </data>
+  <data name="Serialization_ParseError" xml:space="preserve">
+    <value>解析エラーです。現在の要素は次の要素 {0} と互換性がありません。</value>
+    <comment>Parse error. Current element is not compatible with the next element, {0}.</comment>
+  </data>
+  <data name="Serialization_ISerializableMemberInfo" xml:space="preserve">
+    <value>ISerializable 型の MemberInfo を要求しました。</value>
+    <comment>MemberInfo requested for ISerializable type.</comment>
+  </data>
+  <data name="Serialization_MemberInfo" xml:space="preserve">
+    <value>ISerialized オブジェクト '{0}' の MemberInfo を取得できません。</value>
+    <comment>MemberInfo cannot be obtained for ISerialized Object '{0}'.</comment>
+  </data>
+  <data name="Serialization_ISerializableTypes" xml:space="preserve">
+    <value>ISerializable オブジェクト '{0}' の型を取得できません。</value>
+    <comment>Types not available for ISerializable object '{0}'.</comment>
+  </data>
+  <data name="Serialization_MissingMember" xml:space="preserve">
+    <value>クラス '{1}' のメンバー '{0}' がシリアル化ストリームになく、{2} でマークされていません。</value>
+    <comment>Member '{0}' in class '{1}' is not present in the serialized stream and is not marked with {2}.</comment>
+  </data>
+  <data name="Serialization_NoMemberInfo" xml:space="preserve">
+    <value>オブジェクト {0} の MemberInfo がありません。</value>
+    <comment>No MemberInfo for Object {0}.</comment>
+  </data>
+  <data name="Serialization_SurrogateCycleInArgument" xml:space="preserve">
+    <value>セレクターに循環が含まれています。</value>
+    <comment>Selector contained a cycle.</comment>
+  </data>
+  <data name="Serialization_SurrogateCycle" xml:space="preserve">
+    <value>セレクターを追加すると循環が発生します。</value>
+    <comment>Adding selector will introduce a cycle.</comment>
+  </data>
+  <data name="IO_EOF_ReadBeyondEOF" xml:space="preserve">
+    <value>ストリームの末尾を越えて読み取れません。</value>
+    <comment>Unable to read beyond the end of the stream.</comment>
+  </data>
+  <data name="BinaryFormatter_SerializationDisallowed" xml:space="preserve">
+    <value>BinaryFormatter のシリアル化と逆シリアル化は、このアプリケーションでは無効です。詳細: https://aka.ms/binaryformatter</value>
+    <comment>BinaryFormatter serialization and deserialization are disabled within this application. See https://aka.ms/binaryformatter for more information.</comment>
+  </data>
+  <data name="BinaryFormatter_SerializationNotSupportedOnThisPlatform" xml:space="preserve">
+    <value>BinaryFormatter のシリアル化と逆シリアル化は、このプラットフォームではサポートされていません。詳細: https://aka.ms/binaryformatter</value>
+    <comment>BinaryFormatter serialization and deserialization are not supported on this platform. See https://aka.ms/binaryformatter for more information.</comment>
+  </data>
+  <data name="Serialization_DangerousDeserialization" xml:space="preserve">
+    <value>逆シリアル化中に、セキュリティの脆弱性につながる可能性のある操作が試みられたため、中止しました。</value>
+    <comment>An action was attempted during deserialization that could lead to a security vulnerability. The action has been aborted.</comment>
+  </data>
+  <data name="Serialization_DangerousDeserialization_Switch" xml:space="preserve">
+    <value>逆シリアル化中に、セキュリティの脆弱性につながる可能性のある操作が試みられたため、中止しました。この操作を許可するには、AppContext スイッチ '{0}' を true に設定してください。</value>
+    <comment>An action was attempted during deserialization that could lead to a security vulnerability. The action has been aborted. To allow the action, set the '{0}' AppContext switch to true.</comment>
+  </data>
+</root>

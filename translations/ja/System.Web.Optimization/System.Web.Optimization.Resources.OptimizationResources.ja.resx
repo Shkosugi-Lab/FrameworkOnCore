@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BundleDirectory_does_not_exist" xml:space="preserve">
+    <value>ディレクトリがありません</value>
+    <comment>Directory does not exist.</comment>
+  </data>
+  <data name="CdnFallBackScriptString" xml:space="preserve">
+    <value>&lt;script&gt;({0})||document.write('&lt;script src="{1}"&gt;&lt;\/script&gt;');&lt;/script&gt;</value>
+    <comment>&lt;script&gt;({0})||document.write('&lt;script src="{1}"&gt;&lt;\/script&gt;');&lt;/script&gt;</comment>
+  </data>
+  <data name="DynamicFolderBundle_InvalidPath" xml:space="preserve">
+    <value>DynamicFolderBundle の Path は '/' または '~' 文字で始めることはできず、'?' 文字を含めることもできません。</value>
+    <comment>The Path for DynamicFolderBundles cannot start with a '/' or '~' character and it cannot contain a '?' character.</comment>
+  </data>
+  <data name="File_does_not_exist" xml:space="preserve">
+    <value>ファイルがありません</value>
+    <comment>File does not exist.</comment>
+  </data>
+  <data name="InvalidOptimizationMode" xml:space="preserve">
+    <value>OptimizationMode の値が無効です。有効な値: Always、WhenEnabled、WhenDisabled。</value>
+    <comment>Invalid OptimizationMode value, valid values are: Always, WhenEnabled, WhenDisabled.</comment>
+  </data>
+  <data name="InvalidPattern" xml:space="preserve">
+    <value>無効なパターン: '{0}'。ワイルドカードは最後のパス セグメントでのみ使用でき、先頭または末尾に 1 つだけ含めることができ、{{version}} とは併用できません。</value>
+    <comment>Invalid pattern: '{0}'. Wildcards are only allowed in the last path segment, can contain only one leading or trailing wildcard, and cannot be used with {{version}}.</comment>
+  </data>
+  <data name="InvalidWildcardSearchPattern" xml:space="preserve">
+    <value>'*' や '*.*' だけの検索パターンはサポートされません。</value>
+    <comment>Pure wildcard search patterns '*' and '*.*' are not supported.</comment>
+  </data>
+  <data name="MinifyError" xml:space="preserve">
+    <value>縮小に失敗しました。未縮小の内容を返します。</value>
+    <comment>Minification failed. Returning unminified contents.</comment>
+  </data>
+  <data name="Parameter_NullOrEmpty" xml:space="preserve">
+    <value>文字列引数 '{0}' は null または空にできません。</value>
+    <comment>The string parameter '{0}' cannot be null or empty.</comment>
+  </data>
+  <data name="Property_NullOrEmpty" xml:space="preserve">
+    <value>プロパティ '{0}' に割り当てる値は null または空にできません。</value>
+    <comment>The value assigned to property '{0}' cannot be null or empty.</comment>
+  </data>
+  <data name="Type_doesnt_inherit_from_type" xml:space="preserve">
+    <value>型 '{0}' は '{1}' を継承していません。</value>
+    <comment>Type '{0}' does not inherit from '{1}'.</comment>
+  </data>
+  <data name="UrlMappings_only_app_relative_url_allowed" xml:space="preserve">
+    <value>URL '{0}' は無効です。アプリケーション相対 URL (~/url) のみ使用できます。</value>
+    <comment>The URL '{0}' is not valid. Only application relative URLs (~/url) are allowed.</comment>
+  </data>
+</root>

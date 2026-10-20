@@ -1,0 +1,1819 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="WebMethodMissingParams" xml:space="preserve">
+    <value>メソッド {0}.{1} の最後の 2 つのパラメーターは型 {2} と {3} である必要があります。</value>
+    <comment>The last two parameters of method {0}.{1} must be of type {2} and {3}.</comment>
+  </data>
+  <data name="MessageHasNoParts1" xml:space="preserve">
+    <value>メッセージ '{0}' にパートがありません。</value>
+    <comment>Message '{0}' has no parts.</comment>
+  </data>
+  <data name="OnlyOperationInputOrOperationOutputTypes" xml:space="preserve">
+    <value>OperationInput または OperationOutput 型のオブジェクトのみ追加できます。</value>
+    <comment>Only objects of type OperationInput or OperationOutput may be added.</comment>
+  </data>
+  <data name="CodegenWarningDetails" xml:space="preserve">
+    <value>CODEGEN: {0}</value>
+    <comment>CODEGEN: {0}</comment>
+  </data>
+  <data name="CodeGenSupportReturnTypeAttributes" xml:space="preserve">
+    <value>戻り値のカスタム属性は {0} ではサポートされません。</value>
+    <comment>Custom attributes on return value are not supported by {0}.</comment>
+  </data>
+  <data name="HelpGeneratorStyletd" xml:space="preserve">
+    <value>color: #000000; font-family: Verdana; font-size: .7em;</value>
+    <comment>color: #000000; font-family: Verdana; font-size: .7em;</comment>
+  </data>
+  <data name="HelpGeneratorStyleul" xml:space="preserve">
+    <value>margin-top: 10px; margin-left: 20px;</value>
+    <comment>margin-top: 10px; margin-left: 20px;</comment>
+  </data>
+  <data name="HelpGeneratorStyleh2" xml:space="preserve">
+    <value>font-size: 1.5em; font-weight: bold; margin-top: 25px; margin-bottom: 10px; border-top: 1px solid #003366; margin-left: -15px; color: #003366;</value>
+    <comment>font-size: 1.5em; font-weight: bold; margin-top: 25px; margin-bottom: 10px; border-top: 1px solid #003366; margin-left: -15px; color: #003366;</comment>
+  </data>
+  <data name="HelpGeneratorStyleh3" xml:space="preserve">
+    <value>font-size: 1.1em; color: #000000; margin-left: -15px; margin-top: 10px; margin-bottom: 10px;</value>
+    <comment>font-size: 1.1em; color: #000000; margin-left: -15px; margin-top: 10px; margin-bottom: 10px;</comment>
+  </data>
+  <data name="HelpGeneratorStyleli" xml:space="preserve">
+    <value>margin-top: 10px; color: #000000;</value>
+    <comment>margin-top: 10px; color: #000000;</comment>
+  </data>
+  <data name="HelpGeneratorStyleol" xml:space="preserve">
+    <value>margin-top: 10px; margin-left: 20px;</value>
+    <comment>margin-top: 10px; margin-left: 20px;</comment>
+  </data>
+  <data name="MissingSoapBodyOutputBinding0" xml:space="preserve">
+    <value>soap:body 出力バインディングがありません。</value>
+    <comment>Missing soap:body output binding.</comment>
+  </data>
+  <data name="WebHeaderInvalidRelay" xml:space="preserve">
+    <value>'{0}' は 'relay' 属性の有効な値ではありません。有効な値は '0'、'1'、'true'、'false' です。</value>
+    <comment>'{0}' is not a valid value for the 'relay' attribute. Valid values are '0', '1', 'true', and 'false'.</comment>
+  </data>
+  <data name="WebServiceSession" xml:space="preserve">
+    <value>現在の要求の ASP.NET セッション オブジェクト</value>
+    <comment>The ASP.NET session object for the current request.</comment>
+  </data>
+  <data name="HelpGeneratorParameter" xml:space="preserve">
+    <value>パラメーター</value>
+    <comment>Parameter</comment>
+  </data>
+  <data name="WebInvalidEnvelopeNamespace" xml:space="preserve">
+    <value>SOAP バージョンの不一致の可能性があります: エンベロープの名前空間 {0} は予期しないものです。{1} が必要です。</value>
+    <comment>Possible SOAP version mismatch: Envelope namespace {0} was unexpected. Expecting {1}.</comment>
+  </data>
+  <data name="WebCannotUnderstandHeader" xml:space="preserve">
+    <value>SOAP ヘッダー {0} を認識できませんでした。</value>
+    <comment>SOAP header {0} was not understood.</comment>
+  </data>
+  <data name="WebDescriptionMissingItem" xml:space="preserve">
+    <value>名前空間 {2} の {1} という名前の要素 {0} がありません。</value>
+    <comment>Element {0} named {1} from namespace {2} is missing.</comment>
+  </data>
+  <data name="TheEncodingIsNotSupported1" xml:space="preserve">
+    <value>エンコード '{0}' はサポートされません。</value>
+    <comment>The encoding '{0}' is not supported.</comment>
+  </data>
+  <data name="Operation" xml:space="preserve">
+    <value>名前空間 '{2}' の portType '{1}' の操作 '{0}'。</value>
+    <comment>Operation '{0}' on portType '{1}' from namespace '{2}'.</comment>
+  </data>
+  <data name="HeaderFault" xml:space="preserve">
+    <value>名前空間 '{3}' の portType '{2}' の操作 '{1}' の {0}。{4}</value>
+    <comment>{0} on operation '{1}' on portType '{2}' from namespace '{3}'. {4}</comment>
+  </data>
+  <data name="HelpGeneratorStyleAvisited" xml:space="preserve">
+    <value>color: #6699cc; font-weight: bold; text-decoration: underline;</value>
+    <comment>color: #6699cc; font-weight: bold; text-decoration: underline;</comment>
+  </data>
+  <data name="HelpGeneratorSoapTitle" xml:space="preserve">
+    <value>SOAP 1.1</value>
+    <comment>SOAP 1.1</comment>
+  </data>
+  <data name="WebServiceServer" xml:space="preserve">
+    <value>現在の要求の ASP.NET ユーティリティ オブジェクト</value>
+    <comment>The ASP.NET utility object for the current request.</comment>
+  </data>
+  <data name="TheOperation0FromNamespace1WasIgnored2" xml:space="preserve">
+    <value>名前空間 '{1}' の操作 '{0}' は無視されました。{2}</value>
+    <comment>The operation '{0}' from namespace '{1}' was ignored.  {2}</comment>
+  </data>
+  <data name="MissingMessagePartForMessageFromNamespace3" xml:space="preserve">
+    <value>名前空間 '{2}' のメッセージ '{1}' のメッセージ パート '{0}' がありません。</value>
+    <comment>Missing message part '{0}' for message '{1}' from namespace '{2}'.</comment>
+  </data>
+  <data name="UnableToImportBindingFromNamespace2" xml:space="preserve">
+    <value>名前空間 '{1}' のバインド '{0}' を読み込めません。</value>
+    <comment>Unable to import binding '{0}' from namespace '{1}'.</comment>
+  </data>
+  <data name="WsdlGenRpcLitAnonimousType" xml:space="preserve">
+    <value>メソッド {0}.{1} をリフレクションできません。パラメーター '{2}' は匿名スキーマ型で宣言されているため、Rpc\Literal SOAP メッセージでは使用できません。rpc\literal SOAP メッセージで使用できるのは最上位の名前付き型のみです。</value>
+    <comment>Method {0}.{1} can not be reflected. Parameter '{2}' may not be used with Rpc\Literal SOAP messages because it is declared using an anonymous schema type, only top-level named types can be used with rpc\literal SOAP messages.</comment>
+  </data>
+  <data name="StackTraceEnd" xml:space="preserve">
+    <value>--- 内部例外トレースの終わり ---</value>
+    <comment>--- End of inner exception stack trace ---</comment>
+  </data>
+  <data name="DiscoveryIsNotPossibleBecauseTypeIsMissing1" xml:space="preserve">
+    <value>型 '{0}' に WebServiceBinding 属性がないため、探索できません。</value>
+    <comment>Discovery is not possible because type '{0}' is missing a WebServiceBinding attribute.</comment>
+  </data>
+  <data name="WebTextMatchMissingPattern" xml:space="preserve">
+    <value>各 match 要素に、有効な正規表現の pattern 属性が必要です。</value>
+    <comment>Each match element must have a pattern attribute containing a valid regular expression.</comment>
+  </data>
+  <data name="TraceWriteHeaders" xml:space="preserve">
+    <value>XmlSerializer [SOAP ヘッダーの書き込み]</value>
+    <comment>XmlSerializer [Write SOAP Headers]</comment>
+  </data>
+  <data name="WebMissingClientProtocol" xml:space="preserve">
+    <value>最初に ClientProtocol を設定する必要があります。</value>
+    <comment>ClientProtocol must be set first.</comment>
+  </data>
+  <data name="MissingSoapBodyInputBinding0" xml:space="preserve">
+    <value>soap:body 入力バインディングがありません。</value>
+    <comment>Missing soap:body input binding.</comment>
+  </data>
+  <data name="ClientProtocolUrl" xml:space="preserve">
+    <value>要求に使用するサーバーのベース URL</value>
+    <comment>The base URL to the server to use for requests.</comment>
+  </data>
+  <data name="WebMultiDimArray" xml:space="preserve">
+    <value>多次元配列はサポートされません。ジャグ配列を使用してください。</value>
+    <comment>Multi-dimensional arrays are not supported. Use a jagged array instead.</comment>
+  </data>
+  <data name="HelpGeneratorInternalError" xml:space="preserve">
+    <value>XML Web サービス ヘルプ ページで内部エラーが発生しました。</value>
+    <comment>The XML Web service help page encountered an internal error.</comment>
+  </data>
+  <data name="RequestResponseIsNotSupported0" xml:space="preserve">
+    <value>RequestResponse はサポートされません。</value>
+    <comment>RequestResponse is not supported.</comment>
+  </data>
+  <data name="ElementEncodedExtension" xml:space="preserve">
+    <value>名前空間 '{2}' のバインディング '{1}' の要素 '{0}' に無効な属性 {3}='{4}' があります。</value>
+    <comment>Element '{0}' on Binding '{1}' from namespace '{2}' has invalid attribute {3}='{4}'.</comment>
+  </data>
+  <data name="TheHTMLDocumentDoesNotContainDiscoveryInformation" xml:space="preserve">
+    <value>HTML ドキュメントに Web サービス探索情報が含まれていません。</value>
+    <comment>The HTML document does not contain Web service discovery information.</comment>
+  </data>
+  <data name="Binding" xml:space="preserve">
+    <value>名前空間 '{1}' のバインディング '{0}'。</value>
+    <comment>Binding '{0}' from namespace '{1}'.</comment>
+  </data>
+  <data name="WsdlGenRpcLitAccessorNamespace" xml:space="preserve">
+    <value>メソッド {0}.{1} をリフレクションできません。パラメーター '{2}' のアクセサーが無効です: Rpc\Literal メソッドではパートの名前空間を設定できます。</value>
+    <comment>Method {0}.{1} can not be reflected. Parameter '{2}' has invalid accessor: If you are using the Rpc\Literal method, you can set the part's namespace.</comment>
+  </data>
+  <data name="WebServiceContext" xml:space="preserve">
+    <value>現在の要求の ASP.NET コンテキスト オブジェクト</value>
+    <comment>The ASP.NET context object for the current request.</comment>
+  </data>
+  <data name="WebInvalidRequestFormat" xml:space="preserve">
+    <value>無効な要求形式です。</value>
+    <comment>Request format is invalid.</comment>
+  </data>
+  <data name="WebDiscoRefReport" xml:space="preserve">
+    <value>'{0}' のレポート: '{1}'</value>
+    <comment>Report from '{0}' is '{1}'.</comment>
+  </data>
+  <data name="WebBadHex" xml:space="preserve">
+    <value>無効な 16 進数字: '{0}'。</value>
+    <comment>Invalid hex digit: '{0}'.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceDetails" xml:space="preserve">
+    <value>以下の各規範ステートメント違反を確認してください。推奨事項に従って修正するか、&amp;lt;webServices&amp;gt; 構成セクションに設定を追加して、vroot 全体の BP 1.1 準拠警告を無効にしてください。</value>
+    <comment>Please examine each of the normative statement violations below. Follow the recommendations to remedy it, or add setting to the &amp;lt;webServices&amp;gt; config section to turn off BP 1.1 conformance warnings for the entire vroot.</comment>
+  </data>
+  <data name="TheOperationBindingFromNamespaceHadInvalid3" xml:space="preserve">
+    <value>名前空間 '{1}' の操作バインディング '{0}' の構文が無効です。{2}</value>
+    <comment>The operation binding '{0}' from namespace '{1}' had invalid syntax.  {2}</comment>
+  </data>
+  <data name="WebInvalidFormat" xml:space="preserve">
+    <value>ドキュメント形式を認識できません。</value>
+    <comment>The document format is not recognized.</comment>
+  </data>
+  <data name="WebPathNotFound" xml:space="preserve">
+    <value>パス:{0} が見つかりませんでした。</value>
+    <comment>Path:{0} could not be found.</comment>
+  </data>
+  <data name="WebTextMatchIgnoredTypeWarning" xml:space="preserve">
+    <value>match にサブマッチがないため、省略可能な属性 'type' は無視されました。</value>
+    <comment>Optional attribute 'type' was ignored because the match does not contain sub-matches.</comment>
+  </data>
+  <data name="CanTMergeService" xml:space="preserve">
+    <value>targetNamespace='{0}' のサービス記述を追加できません: name='{1}' のサービスが既に記述コレクションに存在します。</value>
+    <comment>Cannot add service description with targetNamespace='{0}': service with name='{1}' already present in the description collection.</comment>
+  </data>
+  <data name="CannotRunInPartialTrustOutsideAspNet" xml:space="preserve">
+    <value>ASP.NET 環境の外では部分信頼で実行できません。</value>
+    <comment>Cannot run in partial trust outside the ASP.NET environment.</comment>
+  </data>
+  <data name="HelpGeneratorNoHttpGetTest" xml:space="preserve">
+    <value>このサービスまたはメソッドは HTTP GET をサポートしていないため、テスト フォームは使用できません。</value>
+    <comment>No test form is available as this service or method does not support the HTTP GET protocol.</comment>
+  </data>
+  <data name="WebSuppressedExceptionMessage" xml:space="preserve">
+    <value>サーバーでエラーが発生しました。</value>
+    <comment>An error occurred on the server.</comment>
+  </data>
+  <data name="TheWSDLDocumentContainsLinksThatCouldNotBeResolved" xml:space="preserve">
+    <value>WSDL ドキュメントに解決できないリンクが含まれています。</value>
+    <comment>The WSDL document contains links that could not be resolved.</comment>
+  </data>
+  <data name="OutputElement" xml:space="preserve">
+    <value>名前空間 '{3}' の portType '{2}' の操作 '{1}' の出力要素 {0}。{4}</value>
+    <comment>Output element {0} of operation '{1}' on portType '{2}' from namespace '{3}'. {4}</comment>
+  </data>
+  <data name="WebTextMatchBadCaptureIndex" xml:space="preserve">
+    <value>{0} は match '{1}' の有効なキャプチャ インデックスではありません。この match で有効な最大のキャプチャ インデックスは {2} です。</value>
+    <comment>{0} is not a valid capture index for match '{1}'. The highest valid capture index for this match is {2}.</comment>
+  </data>
+  <data name="WebUnrecognizedRequestFormat" xml:space="preserve">
+    <value>認識できない要求形式です。</value>
+    <comment>Request format is unrecognized.</comment>
+  </data>
+  <data name="ElementTypeMustBeObjectOrSoapReflectedException" xml:space="preserve">
+    <value>elementType は SoapReflectedExtension または Object のいずれかである必要があります。</value>
+    <comment>The elementType must be one of SoapReflectedExtension or Object.</comment>
+  </data>
+  <data name="WebShemaReferenceName" xml:space="preserve">
+    <value>XML スキーマ</value>
+    <comment>XML Schema</comment>
+  </data>
+  <data name="UnableToHandleRequest0" xml:space="preserve">
+    <value>要求を処理できません。</value>
+    <comment>Unable to handle request.</comment>
+  </data>
+  <data name="ConfigKeyNotFoundInElementCollection" xml:space="preserve">
+    <value>ConfigurationElementCollection にキー {0} と一致する要素が見つかりません。</value>
+    <comment>No elements matching the key {0} were found in the ConfigurationElementCollection.</comment>
+  </data>
+  <data name="CanTMergeMessage" xml:space="preserve">
+    <value>targetNamespace='{0}' のサービス記述を追加できません: name='{1}' のメッセージが既に記述コレクションに存在します。</value>
+    <comment>Cannot add service description with targetNamespace='{0}': message with name='{1}' already present in the description collection.</comment>
+  </data>
+  <data name="WebBadOutParameter" xml:space="preserve">
+    <value>{1}.{2} メソッドの {0} パラメーターは入力専用パラメーターである必要があります。</value>
+    <comment>The {0} parameter of the {1}.{2} method must be an input-only parameter.</comment>
+  </data>
+  <data name="TheRootElementForTheRequestCouldNotBeDetermined0" xml:space="preserve">
+    <value>要求のルート要素を特定できませんでした。RoutingStyle が RequestElement に設定されている場合、メソッドの属性で構成された SoapExtensions は、読み取られる前の要求ストリームを変更できません。拡張機能は web.config の SoapExtensionTypes 要素で構成するか、要求をクリア テキストでサーバーに送信する必要があります。</value>
+    <comment>The root element for the request could not be determined. When RoutingStyle is set to RequestElement, SoapExtensions configured via an attribute on the method cannot modify the request stream before it is read. The extension must be configured via the SoapExtensionTypes element in web.config, or the request must arrive at the server as clear text.</comment>
+  </data>
+  <data name="WebAsyncTransaction" xml:space="preserve">
+    <value>非同期メソッド呼び出しではトランザクションはサポートされていません。メソッドの同期バージョンを用意するか、WebMethodAttribute の TransactionOption プロパティの設定を解除してください。</value>
+    <comment>Transactions are not supported for asynchronous method calls. Provide a synchronous version of the method or unset the TransactionOption property of the WebMethodAttribute.</comment>
+  </data>
+  <data name="WebMissingCustomAttribute" xml:space="preserve">
+    <value>{0} には {1} カスタム属性が必要です。</value>
+    <comment>{0} must have the {1} custom attribute.</comment>
+  </data>
+  <data name="UnknownWebServicesProtocolInConfigFile1" xml:space="preserve">
+    <value>構成ファイル内の XML Web サービス プロトコル '{0}' は不明です。</value>
+    <comment>Unknown XML Web services protocol '{0}' in config file.</comment>
+  </data>
+  <data name="WireSignatureEmpty" xml:space="preserve">
+    <value>名前空間 '{1}' の入力メッセージ '{0}' に要素がありません (空のワイヤ シグネチャ)</value>
+    <comment>Input message '{0}' from namespace '{1}' has no elements (empty wire signature)</comment>
+  </data>
+  <data name="TheRequestElementXmlnsWasNotRecognized2" xml:space="preserve">
+    <value>要求要素 &lt;{0} xmlns='{1}'&gt; を認識できませんでした。</value>
+    <comment>The request element &lt;{0} xmlns='{1}'&gt; was not recognized.</comment>
+  </data>
+  <data name="WebRefInvalidAttribute" xml:space="preserve">
+    <value>無効な Web 参照が見つかりました。必須の '{0}' 属性がありません。</value>
+    <comment>Invalid web reference encountered. Missing required '{0}' attribute.</comment>
+  </data>
+  <data name="ClientProtocolProxyName" xml:space="preserve">
+    <value>要求に使用するプロキシ サーバーの名前</value>
+    <comment>The name of the proxy server to use for requests.</comment>
+  </data>
+  <data name="ClientProtocolProxyPort" xml:space="preserve">
+    <value>要求に使用するプロキシ サーバーのポート番号</value>
+    <comment>The port number of the proxy server to use for requests.</comment>
+  </data>
+  <data name="WebDuplicateImport" xml:space="preserve">
+    <value>'{0}' という名前の import が複数指定されました。各 import には一意の名前が必要です。</value>
+    <comment>More than one import named '{0}' was specified. Each import must have a unique name.</comment>
+  </data>
+  <data name="WebServiceDescriptionIgnoredRequired" xml:space="preserve">
+    <value>名前空間 '{1}' の必須 WSDL 拡張要素 '{0}' は処理されませんでした。</value>
+    <comment>The required WSDL extension element '{0}' from namespace '{1}' was not handled.</comment>
+  </data>
+  <data name="WebUnrecognizedRequestFormatUrl" xml:space="preserve">
+    <value>末尾が予期せず '{0}' である URL の要求形式を認識できません。</value>
+    <comment>Request format is unrecognized for URL unexpectedly ending in '{0}'.</comment>
+  </data>
+  <data name="HelpGeneratorNoTestNonPrimitive" xml:space="preserve">
+    <value>テスト フォームは、プリミティブ型をパラメーターとするメソッドでのみ使用できます。</value>
+    <comment>The test form is only available for methods with primitive types as parameters.</comment>
+  </data>
+  <data name="BindingMultipleParts" xml:space="preserve">
+    <value>名前空間 '{1}' のバインディング '{0}' の拡張要素の 1 つで、'{2}' 属性に複数のパートが指定されています。</value>
+    <comment>One of the extensibility elements on Binding '{0}' from namespace '{1}' has more then one part listed in the '{2}' attribute.</comment>
+  </data>
+  <data name="WebDuplicateOperationFault" xml:space="preserve">
+    <value>'{0}' という名前の操作フォールトが複数指定されました。各操作フォールトには一意の名前が必要です。</value>
+    <comment>More than one operation fault named '{0}' was specified. Each operation fault must have a unique name.</comment>
+  </data>
+  <data name="TheSchemaDocumentContainsLinksThatCouldNotBeResolved" xml:space="preserve">
+    <value>XML スキーマ ドキュメントに解決できないリンクが含まれています。</value>
+    <comment>The XML schema document contains links that could not be resolved.</comment>
+  </data>
+  <data name="NoMethodsWereFoundInTheWSDLForThisProtocol" xml:space="preserve">
+    <value>このプロトコルのメソッドが WSDL に見つかりませんでした。</value>
+    <comment>No methods were found in the WSDL for this protocol.</comment>
+  </data>
+  <data name="MissingOutputBinding0" xml:space="preserve">
+    <value>出力バインディングがありません。</value>
+    <comment>Missing output binding.</comment>
+  </data>
+  <data name="WebDuplicatePortType" xml:space="preserve">
+    <value>'{0}' という名前のポートの種類が複数指定されました。各ポートの種類には一意の名前が必要です。</value>
+    <comment>More than one port type named '{0}' was specified. Each port type must have a unique name.</comment>
+  </data>
+  <data name="WebWsiViolation" xml:space="preserve">
+    <value>サービス '{0}' は WS-I Basic Profile v1.1 に準拠していません。以下の各規範ステートメント違反を確認してください。準拠チェックを無効にするには、対応する WebServiceBinding 属性の ConformanceClaims プロパティを WsiClaims.None に設定してください。
+{1}</value>
+    <comment>Service '{0}' does not conform to WS-I Basic Profile v1.1. Please examine each of the normative statement violations below. To turn off conformance check set the ConformanceClaims property on corresponding WebServiceBinding attribute to WsiClaims.None.
+{1}</comment>
+  </data>
+  <data name="NotificationIsNotSupported0" xml:space="preserve">
+    <value>Notification はサポートされません。</value>
+    <comment>Notification is not supported.</comment>
+  </data>
+  <data name="MissingBinding0" xml:space="preserve">
+    <value>操作に一致するバインディングがありません。Binding セクションと PortType セクションで、操作名、入力名、出力名が一致するか確認してください。</value>
+    <comment>The operation has no matching binding. Check if the operation, input and output names in the Binding section match with the corresponding names in the PortType section.</comment>
+  </data>
+  <data name="WebClientBindingAttributeRequired" xml:space="preserve">
+    <value>プロキシ クラスに WebServiceBindingAttribute が必要です。</value>
+    <comment>WebServiceBindingAttribute is required on proxy classes.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceConfig" xml:space="preserve">
+    <value>vroot 全体の BP 1.1 準拠警告を無効にするには、アプリケーションの構成ファイルの &amp;lt;conformanceWarnings&amp;gt; セクションから 'BP1.1' 値を削除してください:</value>
+    <comment>To turn off BP 1.1 conformance warnings for the entire vroot remove the 'BP1.1' value from the &amp;lt;conformanceWarnings&amp;gt; section of the configuration file of your application:</comment>
+  </data>
+  <data name="TheDocumentWasUnderstoodButContainsErrors" xml:space="preserve">
+    <value>ドキュメントは認識されましたが、処理できませんでした。</value>
+    <comment>The document was understood, but it could not be processed.</comment>
+  </data>
+  <data name="TypeIsMissingWebServiceBindingAttributeThat2" xml:space="preserve">
+    <value>型 '{0}' に '{1}' という名前のバインディングを定める WebServiceBinding 属性がありません。</value>
+    <comment>Type '{0}' is missing WebServiceBinding attribute that defines a binding named '{1}'.</comment>
+  </data>
+  <data name="NonClsCompliantException" xml:space="preserve">
+    <value>CLS 非準拠の例外 (System.Exception から派生していないオブジェクト) がスローされました。</value>
+    <comment>A non-CLS Compliant Exception (i.e. an object that does not derive from System.Exception) was thrown.</comment>
+  </data>
+  <data name="WebResponseBadXml" xml:space="preserve">
+    <value>応答は整形式 XML ではありません。</value>
+    <comment>Response is not well-formed XML.</comment>
+  </data>
+  <data name="WebNegativeValue" xml:space="preserve">
+    <value>'{0}' の値は負にできません。</value>
+    <comment>The value for '{0}' cannot be negative.</comment>
+  </data>
+  <data name="WsdlInstanceValidation" xml:space="preserve">
+    <value>警告: {0}</value>
+    <comment>Warning: {0}</comment>
+  </data>
+  <data name="WebExtensionError" xml:space="preserve">
+    <value>構成ファイルで (または属性によって) 指定された拡張機能の実行中に例外が発生しました。</value>
+    <comment>There was an exception running the extensions specified in the config file (or via an attribute).</comment>
+  </data>
+  <data name="WebNullWriterForMessage" xml:space="preserve">
+    <value>GetWriterForMessage メソッドは null を返すことができません。</value>
+    <comment>The GetWriterForMessage method cannot return null.</comment>
+  </data>
+  <data name="WebRefDuplicateService" xml:space="preserve">
+    <value>'{1}' からの TargetNamespace='{0}' の重複したサービス記述を無視します。</value>
+    <comment>Ignoring duplicate service description with TargetNamespace='{0}' from '{1}'.</comment>
+  </data>
+  <data name="WebMissingHelpContext" xml:space="preserve">
+    <value>HttpContext を使用できません。このクラスは ASP.NET 要求内でのみ使用できます。</value>
+    <comment>HttpContext is not available.   This class can only be used in the context of an ASP.NET request.</comment>
+  </data>
+  <data name="ThereWasAnErrorDuringAsyncProcessing" xml:space="preserve">
+    <value>非同期処理中にエラーが発生しました。</value>
+    <comment>There was an error during async processing.</comment>
+  </data>
+  <data name="CanTMergePortType" xml:space="preserve">
+    <value>targetNamespace='{0}' のサービス記述を追加できません: name='{1}' の portType が既に記述コレクションに存在します。</value>
+    <comment>Cannot add service description with targetNamespace='{0}': portType with name='{1}' already present in the description collection.</comment>
+  </data>
+  <data name="OneWayIsNotSupported0" xml:space="preserve">
+    <value>OneWay はサポートされません。</value>
+    <comment>OneWay is not supported.</comment>
+  </data>
+  <data name="TracePostWorkItemOut" xml:space="preserve">
+    <value>WorkItem.Post({0}) からの戻り</value>
+    <comment>Return from WorkItem.Post({0})</comment>
+  </data>
+  <data name="CanTSpecifyElementOnEncodedMessagePartsPart" xml:space="preserve">
+    <value>エンコードされたメッセージ パートでは element 属性は使用できません。誤りのあるパートは、メッセージ '{1}' 内の '{0}' という名前のパートです。</value>
+    <comment>The element attribute is not allowed on encoded message parts. The erroneous part is named '{0}' in message '{1}'.</comment>
+  </data>
+  <data name="WebMissingDocument" xml:space="preserve">
+    <value>URL {0} の探索ドキュメントが見つかりませんでした。</value>
+    <comment>Discovery document at the URL {0} could not be found.</comment>
+  </data>
+  <data name="OperationOverload" xml:space="preserve">
+    <value>名前空間 '{1}' のバインディング '{0}' に、ワイヤ シグネチャが一致する操作が含まれています。メッセージ '{2}' のワイヤ シグネチャがメッセージ '{3}' と一致します。</value>
+    <comment>Binding '{0}' from namespace '{1}' contains operations with matching wire signatures. Wire signature of message '{2}' matches message '{3}'.</comment>
+  </data>
+  <data name="WebResponseContent" xml:space="preserve">
+    <value>クライアントで応答のコンテンツ タイプ '{0}' を受信しましたが、'{1}' が必要です。</value>
+    <comment>Client found response content type of '{0}', but expected '{1}'.</comment>
+  </data>
+  <data name="WebWsiContentTypeEncoding" xml:space="preserve">
+    <value>入力メッセージが Simple SOAP Binding Profile Version 1.0 に準拠していません。要件 R1012: MESSAGE は UTF-8 または UTF-16 文字エンコードを使用してエンベロープをシリアル化する必要があります。</value>
+    <comment>Input message does not conform to Simple SOAP Binding Profile Version 1.0. Requirement R1012: A MESSAGE MUST serialize the envelope using either UTF-8 or UTF-16 character encoding.</comment>
+  </data>
+  <data name="XmlSchema" xml:space="preserve">
+    <value>targetNamespace='{0}' のスキーマの構文が無効です。{1}</value>
+    <comment>Schema with targetNamespace='{0}' has invalid syntax. {1}</comment>
+  </data>
+  <data name="OperationFlowNotification" xml:space="preserve">
+    <value>名前空間 '{2}' の portType '{1}' の操作 '{0}' は Notification として定義されています。</value>
+    <comment>Operation '{0}' on portType '{1}' from namespace '{2}' defined as Notification.</comment>
+  </data>
+  <data name="Missing2" xml:space="preserve">
+    <value>{0}.{1} がありません。</value>
+    <comment>Missing {0}.{1}</comment>
+  </data>
+  <data name="HelpGeneratorEnableHttpPostInstructions" xml:space="preserve">
+    <value>HTTP POST プロトコルを有効にするには、アプリケーションまたはサイトのルート ディレクトリにある web.config ファイルに次の内容を追加してください。</value>
+    <comment>To enable the http post protocol add the following to the web.config file in your application or site root directory.</comment>
+  </data>
+  <data name="WebUnknownAttribute" xml:space="preserve">
+    <value>予期しない属性が見つかりました: {0}='{1}'.</value>
+    <comment>An unexpected attribute was encountered: {0}='{1}'.</comment>
+  </data>
+  <data name="CodeGenSupportReferenceParameters" xml:space="preserve">
+    <value>{0} では 'out' や 'ref' パラメーターの宣言はサポートされません。</value>
+    <comment>Declaring parameters to be 'out' or 'ref' is not supported by {0}.</comment>
+  </data>
+  <data name="HelpGeneratorSoapText" xml:space="preserve">
+    <value>SOAP 1.1 の要求と応答の例を次に示します。表示された &lt;font class=value&gt;プレースホルダー&lt;/font&gt; は、実際の値に置き換える必要があります。</value>
+    <comment>The following is a sample SOAP 1.1 request and response.  The &lt;font class=value&gt;placeholders&lt;/font&gt; shown need to be replaced with actual values.</comment>
+  </data>
+  <data name="ValidationError" xml:space="preserve">
+    <value>エラー: {0} 行 {1}, 位置 {2}.</value>
+    <comment>Error: {0} Line {1}, position {2}.</comment>
+  </data>
+  <data name="BindingMissingAttribute" xml:space="preserve">
+    <value>名前空間 '{1}' のバインディング '{0}' に必須の '{2}' 属性がありません。</value>
+    <comment>Binding '{0}' from namespace '{1}' missing required '{2}' attribute.</comment>
+  </data>
+  <data name="HelpGeneratorTestHeader" xml:space="preserve">
+    <value>テスト</value>
+    <comment>Test</comment>
+  </data>
+  <data name="TheBinding0FromNamespace1WasIgnored2" xml:space="preserve">
+    <value>'{1}' のバインディング '{0}' を無視しました。{2}</value>
+    <comment>The binding '{0}' from namespace '{1}' was ignored.  {2}</comment>
+  </data>
+  <data name="BindingInvalidAttribute" xml:space="preserve">
+    <value>名前空間 '{1}' のバインディング '{0}' の属性が無効です: {2}='{3}'.</value>
+    <comment>Binding '{0}' from namespace '{1}' has invalid attribute: {2}='{3}'.</comment>
+  </data>
+  <data name="TraceExceptionDetails" xml:space="preserve">
+    <value>例外の詳細:
+{0}</value>
+    <comment>Exception Details:
+{0}</comment>
+  </data>
+  <data name="WebConfigInvalidExtensionPriority" xml:space="preserve">
+    <value>{0} は無効な拡張優先順位です。優先順位は 0 以上にしてください。</value>
+    <comment>{0} is an invalid value for the extension priority. The priority must be nonnegative.</comment>
+  </data>
+  <data name="TheBindingNamedFromNamespaceWasNotFoundIn3" xml:space="preserve">
+    <value>'{2}' にある探索ドキュメントに、名前空間 '{1}' の '{0}' という名前のバインディングが見つかりませんでした。</value>
+    <comment>The binding named '{0}' from namespace '{1}' was not found in the discovery document found at '{2}'.</comment>
+  </data>
+  <data name="HelpGeneratorTestText" xml:space="preserve">
+    <value>HTTP POST プロトコルで操作をテストするには、'実行' ボタンをクリックしてください。</value>
+    <comment>To test the operation using the HTTP POST protocol, click the 'Invoke' button.</comment>
+  </data>
+  <data name="UnexpectedFlush" xml:space="preserve">
+    <value>予期しないフラッシュ</value>
+    <comment>Unexpected flush</comment>
+  </data>
+  <data name="ThereWasAnErrorDownloading0" xml:space="preserve">
+    <value>'{0}' のダウンロード中にエラーが発生しました。</value>
+    <comment>There was an error downloading '{0}'.</comment>
+  </data>
+  <data name="WebInvalidMethodNameCase" xml:space="preserve">
+    <value>メソッド名 '{0}' は無効です。メソッド名は大文字と小文字を区別します。大文字小文字だけが異なるメソッド '{1}' が見つかりました。</value>
+    <comment>Invalid method name '{0}',  method names are case sensitive.   The method name '{1}' with the same name but different casing was found.</comment>
+  </data>
+  <data name="WebRequestUnableToRead" xml:space="preserve">
+    <value>サーバーは要求を読み取れませんでした。</value>
+    <comment>Server was unable to read request.</comment>
+  </data>
+  <data name="WebDuplicateBinding" xml:space="preserve">
+    <value>'{0}' という名前のバインディングが複数指定されました。バインディングには一意の名前が必要です。</value>
+    <comment>More than one binding named '{0}' was specified. Each binding must have a unique name.</comment>
+  </data>
+  <data name="WebHeaderStatic" xml:space="preserve">
+    <value>ヘッダー プロパティ/フィールド {0}.{1} は static にできません。</value>
+    <comment>The header property/field {0}.{1} cannot be static.</comment>
+  </data>
+  <data name="XmlSchemaItem" xml:space="preserve">
+    <value>名前空間 '{0}' のスキーマ項目 '{1}'。{2}</value>
+    <comment>Schema item '{1}' from namespace '{0}'. {2}</comment>
+  </data>
+  <data name="WebDuplicateOperationMessage" xml:space="preserve">
+    <value>'{0}' という名前の操作メッセージが複数指定されました。各操作メッセージには一意の名前が必要です。</value>
+    <comment>More than one operation message named '{0}' was specified. Each operation message must have a unique name.</comment>
+  </data>
+  <data name="WebDuplicateMessage" xml:space="preserve">
+    <value>'{0}' という名前のメッセージが複数指定されました。各メッセージには一意の名前が必要です。</value>
+    <comment>More than one message named '{0}' was specified. Each message must have a unique name.</comment>
+  </data>
+  <data name="NeedConcreteType" xml:space="preserve">
+    <value>インターフェイス {0} のインスタンスは作成できません。代わりにインターフェイスの具象実装を指定してください。</value>
+    <comment>Cannot create an instance of an interface {0}. Please specify a concrete implementation of the interface instead.</comment>
+  </data>
+  <data name="WebDescriptionPartTypeRequired" xml:space="preserve">
+    <value>名前空間 '{2}' のメッセージ '{1}' のパート '{0}' に type 属性がありません。Use=Encoded のヘッダーは type 属性が必須です。</value>
+    <comment>Part '{0}' from message '{1}' in namespace '{2}' is missing the type attribute. The type attribute is required for headers when Use=Encoded.</comment>
+  </data>
+  <data name="WsdlInstanceValidationDetails" xml:space="preserve">
+    <value>警告: {0} 行 {1}, 位置 {2}.</value>
+    <comment>Warning: {0} Line {1}, position {2}.</comment>
+  </data>
+  <data name="WebQNamePrefixUndefined" xml:space="preserve">
+    <value>名前空間プレフィックス '{0}' が定義されていません</value>
+    <comment>Namespace prefix '{0}' not defined</comment>
+  </data>
+  <data name="TheMethodsAndUseTheSameRequestElementXmlns4" xml:space="preserve">
+    <value>メソッド {0} と {1} が同じ要求要素 &lt;{2} xmlns='{3}'&gt; を使用しています。XML Web サービスの RoutingStyle が RequestElement の場合、要求要素は XML Web サービスのメソッド間で一意である必要があります。Rpc スタイルを使用している場合は、SoapRpcMethodAttribute の RequestElementName パラメーターと RequestElementNamespace パラメーターでメッセージ名を変更できます。ラップされたパラメーター スタイルを使用するドキュメント スタイルでは、SoapDocumentMethodAttribute の RequestElementName パラメーターと RequestElementNamespace パラメーターを使用してください。ベア パラメーター スタイルでは、パラメーターを表す要素を変更する必要があります。または、XML Web サービスに RoutingStyle として SoapAction を指定することもできます。</value>
+    <comment>The methods {0} and {1} use the same request element &lt;{2} xmlns='{3}'&gt;. When the RoutingStyle of the XML Web service is RequestElement, request elements must be unique across methods on the XML Web service. If you are using the Rpc style, you can change the message name with the RequestElementName and RequestElementNamespace parameters to SoapRpcMethodAttribute. For document style using wrapped parameter style, use the RequestElementName and RequestElementNamespace parameters to SoapDocumentMethodAttribute. For the bare parameter style, you must change the element that represents the parameter. Alternatively, you can specify a RoutingStyle of SoapAction on the XML Web service.</comment>
+  </data>
+  <data name="WebHeaderMissing" xml:space="preserve">
+    <value>ヘッダー プロパティ/フィールド {0}.{1} がないか、public ではありません。</value>
+    <comment>The header property/field {0}.{1} is missing or not public.</comment>
+  </data>
+  <data name="TraceUrlReferrer" xml:space="preserve">
+    <value>Http 参照元: {0}</value>
+    <comment>Http referrer: {0}</comment>
+  </data>
+  <data name="ClientProtocolClientCertificates" xml:space="preserve">
+    <value>サーバーが要求した場合にサーバーに送信されるクライアント証明書</value>
+    <comment>The client certificates that will be sent to the server, if the server requests them.</comment>
+  </data>
+  <data name="HelpGeneratorStyleAhover" xml:space="preserve">
+    <value>color: cc3300; font-weight: bold; text-decoration: underline;</value>
+    <comment>color: cc3300; font-weight: bold; text-decoration: underline;</comment>
+  </data>
+  <data name="XmlSchemaAttributeReference" xml:space="preserve">
+    <value>名前空間 '{2}' のスキーマ型 '{1}' で宣言された属性参照 '{0}'。</value>
+    <comment>Attribute reference '{0}' declared in schema type '{1}' from namespace '{2}'.</comment>
+  </data>
+  <data name="CanTMergeTypes" xml:space="preserve">
+    <value>targetNamespace='{0}' のサービス記述を追加できません: targetNamespace='{1}' のスキーマが既にコレクションに存在します。</value>
+    <comment>Cannot add service description with targetNamespace='{0}': schema with targetNamespace='{1}' already present in the description collection.</comment>
+  </data>
+  <data name="WebUnknownElement" xml:space="preserve">
+    <value>このコンテキストでは要素は予期されていません: {0}。</value>
+    <comment>The element was not expected in this context: {0}.</comment>
+  </data>
+  <data name="WebOneWayReturnValue" xml:space="preserve">
+    <value>一方向メソッドは戻り値を持つことができません。</value>
+    <comment>One-way methods cannot have return values.</comment>
+  </data>
+  <data name="HelpGeneratorStylecontent" xml:space="preserve">
+    <value>margin-left: 30px; font-size: .70em; padding-bottom: 2em;</value>
+    <comment>margin-left: 30px; font-size: .70em; padding-bottom: 2em;</comment>
+  </data>
+  <data name="TraceReadResponse" xml:space="preserve">
+    <value>XmlSerializer [応答の読み取り]</value>
+    <comment>XmlSerializer [Read Response]</comment>
+  </data>
+  <data name="TraceExceptionThrown" xml:space="preserve">
+    <value>{0} で例外がスローされました。
+    {1}: {2}</value>
+    <comment>Exception thrown in {0}.
+    {1}: {2}</comment>
+  </data>
+  <data name="HelpGeneratorImplementation" xml:space="preserve">
+    <value>実装</value>
+    <comment>implementation</comment>
+  </data>
+  <data name="TraceWriteRequest" xml:space="preserve">
+    <value>XmlSerializer [要求の書き込み]</value>
+    <comment>XmlSerializer [Write Request]</comment>
+  </data>
+  <data name="ClientProtocolDomain" xml:space="preserve">
+    <value>基本認証およびダイジェスト認証に使用するドメイン</value>
+    <comment>The domain to be used for basic and digest authentication.</comment>
+  </data>
+  <data name="TraceCreateSerializer" xml:space="preserve">
+    <value>XmlSerializer [XmlSerializer の作成]</value>
+    <comment>XmlSerializer [Create XmlSerializer]</comment>
+  </data>
+  <data name="HelpGeneratorOperationsIntro" xml:space="preserve">
+    <value>次の操作がサポートされています。正式な定義については、&lt;a href="{0}"&gt;サービス記述&lt;/a&gt; を確認してください。</value>
+    <comment>The following operations are supported.  For a formal definition, please review the &lt;a href="{0}"&gt;Service Description&lt;/a&gt;.</comment>
+  </data>
+  <data name="NoInputHTTPFormatsWereRecognized0" xml:space="preserve">
+    <value>入力 HTTP 形式が認識されませんでした。</value>
+    <comment>No input HTTP formats were recognized.</comment>
+  </data>
+  <data name="TraceUrl" xml:space="preserve">
+    <value>要求 URL: [{0}] {1}</value>
+    <comment>Request Url: [{0}] {1}</comment>
+  </data>
+  <data name="ClientProtocolUsername" xml:space="preserve">
+    <value>基本認証およびダイジェスト認証で送信するユーザー名</value>
+    <comment>The user name to be sent for basic and digest authentication.</comment>
+  </data>
+  <data name="SchemaSyntaxErrorDetails" xml:space="preserve">
+    <value>targetNamespace='{0}' のスキーマの構文が無効です。{1} 行 {2}, 位置 {3}.</value>
+    <comment>Schema with targetNamespace='{0}' has invalid syntax. {1} Line {2}, position {3}.</comment>
+  </data>
+  <data name="NoInputMIMEFormatsWereRecognized0" xml:space="preserve">
+    <value>入力 MIME 形式が認識されませんでした。</value>
+    <comment>No input MIME formats were recognized.</comment>
+  </data>
+  <data name="WebDuplicatePort" xml:space="preserve">
+    <value>'{0}' という名前のポートが複数指定されました。各ポートには一意の名前が必要です。</value>
+    <comment>More than one port named '{0}' was specified. Each port must have a unique name.</comment>
+  </data>
+  <data name="WebChangeTypeFailed" xml:space="preserve">
+    <value>{0} を {1} に変換できません。</value>
+    <comment>Cannot convert {0} to {1}.</comment>
+  </data>
+  <data name="MissingInputBinding0" xml:space="preserve">
+    <value>入力バインディングがありません。</value>
+    <comment>Missing input binding.</comment>
+  </data>
+  <data name="WebServiceUser" xml:space="preserve">
+    <value>現在の要求の ASP.NET ユーザー オブジェクト。このオブジェクトは承認に使用されます。</value>
+    <comment>The ASP.NET user object for the current request.  The object is used for authorization.</comment>
+  </data>
+  <data name="WhenUsingAMessageStyleOfParametersAsDocument0" xml:space="preserve">
+    <value>Bare パラメーター スタイルとサービスの RoutingStyle RequestElement を使用する場合、メソッドにはパラメーターがちょうど 1 つ必要です。</value>
+    <comment>When using a Bare parameter style and a service RoutingStyle of RequestElement, the method must have exactly one parameter.</comment>
+  </data>
+  <data name="WebInvalidRequestFormatDetails" xml:space="preserve">
+    <value>無効な要求形式です: {0}.</value>
+    <comment>Request format is invalid: {0}.</comment>
+  </data>
+  <data name="WebInvalidBindingPlacement" xml:space="preserve">
+    <value>{0} の Binding プロパティはこのコンテキストでは指定できません。</value>
+    <comment>The Binding property of {0} may not be specified in this context.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformance" xml:space="preserve">
+    <value>この Web サービスは WS-I Basic Profile v1.1 に非準拠です。</value>
+    <comment>This web service does not conform to WS-I Basic Profile v1.1.</comment>
+  </data>
+  <data name="ThereIsNoSoapTransportImporterThatUnderstands1" xml:space="preserve">
+    <value>トランスポート '{0}' を理解する SoapTransportImporter がありません。</value>
+    <comment>There is no SoapTransportImporter that understands the transport '{0}'.</comment>
+  </data>
+  <data name="CanTMergeBinding" xml:space="preserve">
+    <value>targetNamespace='{0}' のサービス記述を追加できません: name='{1}' のバインディングが既に記述コレクションに存在します。</value>
+    <comment>Cannot add service description with targetNamespace='{0}': binding with name='{1}' already present in the description collection.</comment>
+  </data>
+  <data name="HelpGeneratorInvokeButton" xml:space="preserve">
+    <value>実行</value>
+    <comment>Invoke</comment>
+  </data>
+  <data name="MultipleBindingsWithSameName2" xml:space="preserve">
+    <value>型 '{0}' に '{1}' という名前のバインディングを定義する WebServiceBinding 属性が複数あります。</value>
+    <comment>Type '{0}' has multiple WebServiceBinding attributes that define a binding named '{1}'.</comment>
+  </data>
+  <data name="BothAndUseTheMessageNameUseTheMessageName3" xml:space="preserve">
+    <value>{0} と {1} の両方がメッセージ名 '{2}' を使用しています。WebMethod カスタム属性の MessageName プロパティを使用して、メソッドに一意のメッセージ名を指定してください。</value>
+    <comment>Both {0} and {1} use the message name '{2}'.  Use the MessageName property of the WebMethod custom attribute to specify unique message names for the methods.</comment>
+  </data>
+  <data name="TraceExceptionCought" xml:space="preserve">
+    <value>{0} で例外がキャッチされました。
+    {1}: {2}</value>
+    <comment>Exception caught in {0}.
+    {1}: {2}</comment>
+  </data>
+  <data name="WebNullAsyncResultInEnd" xml:space="preserve">
+    <value>非同期メソッド呼び出しでは、End メソッドを呼び出すときに null 以外の IAsyncResult インスタンスを指定する必要があります。</value>
+    <comment>For asynchronous method calls, you must supply a non-null IAsyncResult instance when you call the End method.</comment>
+  </data>
+  <data name="Element" xml:space="preserve">
+    <value>targetNamespace='{1}' のサービス記述の {0}。</value>
+    <comment>{0} from service description with targetNamespace='{1}'.</comment>
+  </data>
+  <data name="WebDuplicateOperationBinding" xml:space="preserve">
+    <value>'{0}' という名前の操作バインディングが複数指定されました。操作バインディングには一意の名前が必要です。</value>
+    <comment>More than one operation binding named '{0}' was specified. Each operation binding must have a unique name.</comment>
+  </data>
+  <data name="WebNullAsyncResultInBegin" xml:space="preserve">
+    <value>サーバー側の非同期メソッド呼び出しでは、Begin メソッドは有効な IAsyncResult を返す必要があります。Begin メソッドは null を返すことができません。</value>
+    <comment>For server-side asynchronous method calls, your Begin method must return a valid IAsyncResult. Your Begin method cannot return null.</comment>
+  </data>
+  <data name="TracePostWorkItemIn" xml:space="preserve">
+    <value>WorkItem.Post({0}) を呼び出し中</value>
+    <comment>Calling WorkItem.Post({0})</comment>
+  </data>
+  <data name="WebRefDuplicateSchema" xml:space="preserve">
+    <value>'{1}' からの TargetNamespace='{0}' の重複したスキーマを無視します。</value>
+    <comment>Ignoring duplicate schema with TargetNamespace='{0}' from '{1}'.</comment>
+  </data>
+  <data name="SpecifyingATypeForUseLiteralMessagesIs0" xml:space="preserve">
+    <value>use=literal メッセージの型指定はサポートされません。</value>
+    <comment>Specifying a type for use=literal messages is not supported.</comment>
+  </data>
+  <data name="Invalid_priority_group_value" xml:space="preserve">
+    <value>Group 属性は有効な PriorityGroup 値である必要があります。</value>
+    <comment>The Group attribute must be set to a valid PriorityGroup value.</comment>
+  </data>
+  <data name="HelpGeneratorHttpGetText" xml:space="preserve">
+    <value>HTTP GET の要求と応答の例を次に示します。表示されている &lt;font class=value&gt;プレースホルダー&lt;/font&gt; は、実際の値に置き換える必要があります。</value>
+    <comment>The following is a sample HTTP GET request and response.  The &lt;font class=value&gt;placeholders&lt;/font&gt; shown need to be replaced with actual values.</comment>
+  </data>
+  <data name="WebMissingHeader" xml:space="preserve">
+    <value>必須ヘッダー '{0}' がありません。</value>
+    <comment>Missing required header '{0}'.</comment>
+  </data>
+  <data name="HelpGeneratorSoap1_2Title" xml:space="preserve">
+    <value>SOAP 1.2</value>
+    <comment>SOAP 1.2</comment>
+  </data>
+  <data name="WebDiscoveryDocumentReferenceName" xml:space="preserve">
+    <value>DISCO ドキュメント</value>
+    <comment>DISCO Document</comment>
+  </data>
+  <data name="XmlSchemaNamedItem" xml:space="preserve">
+    <value>名前空間 '{0}' の '{2}' という名前のスキーマ項目 '{1}' は無効です。{3}</value>
+    <comment>Schema item '{1}' named '{2}' from namespace '{0}' is invalid. {3}</comment>
+  </data>
+  <data name="IfAppSettingBaseUrlArgumentIsSpecifiedThen0" xml:space="preserve">
+    <value>'appSettingBaseUrl' 引数を指定する場合は、'url' 引数も指定する必要があります。</value>
+    <comment>If 'appSettingBaseUrl' argument is specified then 'url' argument must also be specified.</comment>
+  </data>
+  <data name="Fault" xml:space="preserve">
+    <value>名前空間 '{3}' の portType '{2}' の操作 '{1}' の soapbind:fault '{0}'。{4}</value>
+    <comment>soapbind:fault '{0}' on operation '{1}' on portType '{2}' from namespace '{3}'. {4}</comment>
+  </data>
+  <data name="ElementTypeMustBeObjectOrSoapExtensionOrSoapReflectedException" xml:space="preserve">
+    <value>elementType は SoapExtension、SoapReflectedExtension、Object のいずれかである必要があります。</value>
+    <comment>The elementType must be one of SoapExtension, SoapReflectedExtension, or Object.</comment>
+  </data>
+  <data name="InputElement" xml:space="preserve">
+    <value>名前空間 '{3}' の portType '{2}' の操作 '{1}' の入力要素 {0}。{4}</value>
+    <comment>Input element {0} of operation '{1}' on portType '{2}' from namespace '{3}'. {4}</comment>
+  </data>
+  <data name="Rxxxx" xml:space="preserve">
+    <value>SOAP 1.1 バインディングが見つかりません</value>
+    <comment>SOAP 1.1 binding was not found</comment>
+  </data>
+  <data name="WebResponseUnknownError" xml:space="preserve">
+    <value>要求が失敗しました。エラー メッセージ:</value>
+    <comment>The request failed with the error message:</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR1014" xml:space="preserve">
+    <value>ENVELOPE 内の soap:Body 要素の子は、名前空間で修飾されている必要があります。修飾されていない要素名を使用すると名前の競合が発生する可能性があるため、soap:Body の子には修飾名を使用する必要があります。</value>
+    <comment>The children of the soap:Body element in a ENVELOPE MUST be namespace qualified. The use of unqualified element names may cause naming conflicts, therefore qualified names must be used for the children of soap:Body.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2701" xml:space="preserve">
+    <value>DESCRIPTION の wsdl:binding 要素では、soapbind:binding 子要素で transport 属性を指定する必要があります。 </value>
+    <comment>The wsdl:binding element in a DESCRIPTION MUST be constructed so that its soapbind:binding child element specifies the transport attribute. </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2702" xml:space="preserve">
+    <value>DESCRIPTION の wsdl:binding 要素では、SOAP バインディングで HTTP トランスポート プロトコルを指定する必要があります。つまり、soapbind:binding 子要素の transport 属性値は "http://schemas.xmlsoap.org/soap/http" である必要があります。なお、HTTPS の使用は禁止されません。R5000 を参照してください。</value>
+    <comment>A wsdl:binding element in a DESCRIPTION MUST specify the HTTP transport protocol with SOAP binding. Specifically, the transport attribute of its soapbind:binding child MUST have the value "http://schemas.xmlsoap.org/soap/http". Note that this requirement does not prohibit the use of HTTPS; See R5000.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2705" xml:space="preserve">
+    <value>DESCRIPTION の SOAP バインディング記述では、portType 内の全操作の style 属性に同じ値 ('rpc' または 'document') を使用する必要があります。 </value>
+    <comment>A DESCRIPTION MUST use the same value of, either 'rpc' or 'document' for the style attribute for all of its operations in a portType, in the SOAP Binding description. </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2706" xml:space="preserve">
+    <value>DESCRIPTION の wsdl:binding では、すべての soapbind:body、soapbind:fault、soapbind:header、soapbind:headerfault 要素の use 属性に値 "literal" を使用する必要があります。 </value>
+    <comment>A wsdl:binding in a DESCRIPTION MUST use the value of "literal" for the use attribute in all soapbind:body, soapbind:fault, soapbind:header and soapbind:headerfault elements. </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2720" xml:space="preserve">
+    <value>DESCRIPTION 内の wsdl:binding では、含まれるすべての soapbind:header 要素と soapbind:headerfault 要素で、スキーマ型 "NMTOKEN" の part という属性を使用する必要があります。</value>
+    <comment>A wsdl:binding in a DESCRIPTION MUST use the attribute named part with a schema type of "NMTOKEN" on all contained soapbind:header and soapbind:headerfault elements.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2721" xml:space="preserve">
+    <value>DESCRIPTION の wsdl:binding では、すべての soapbind:fault 要素に name 属性の指定が必要です。 </value>
+    <comment>A wsdl:binding in a DESCRIPTION MUST have the name attribute specified on all contained soapbind:fault elements. </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2726" xml:space="preserve">
+    <value>DESCRIPTION の rpc-literal バインディングでは、soapbind:header、soapbind:headerfault、soapbind:fault 要素で namespace 属性を指定してはなりません。 </value>
+    <comment>An rpc-literal binding in a DESCRIPTION MUST NOT have the namespace attribute specified on contained soapbind:header, soapbind:headerfault and soapbind:fault elements. </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2710" xml:space="preserve">
+    <value>DESCRIPTION の wsdl:binding の操作は、互いに異なるワイヤ シグネチャになる必要があります。複数の操作をサポートするエンドポイントは、受信した入力メッセージに基づいて、呼び出される操作を一意に識別する必要があります。これは、エンドポイントに関連付けられた wsdl:binding のすべての操作が一意のワイヤ シグネチャを持つ場合にのみ可能です。 </value>
+    <comment>The operations in a wsdl:binding in a DESCRIPTION MUST result in wire signatures that are different from one another. An endpoint that supports multiple operations must unambiguously identify the operation being invoked based on the input message that it receives. This is only possible if all the operations specified in the wsdl:binding associated with an endpoint have a unique wire signature. </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2717" xml:space="preserve">
+    <value>DESCRIPTION 内の rpc-literal バインディングでは、含まれる soapbind:body 要素で namespace 属性を指定する必要があり、その値は絶対 URI である必要があります。 </value>
+    <comment>An rpc-literal binding in a DESCRIPTION MUST have the namespace attribute specified, the value of which MUST be an absolute URI, on contained soapbind:body elements. </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2716" xml:space="preserve">
+    <value>DESCRIPTION 内の document-literal バインディングでは、含まれる soapbind:body、soapbind:header、soapbind:headerfault、soapbind:fault 要素で namespace 属性を指定してはなりません。 </value>
+    <comment>A document-literal binding in a DESCRIPTION MUST NOT have the namespace attribute specified on contained soapbind:body, soapbind:header, soapbind:headerfault and soapbind:fault elements. </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2718" xml:space="preserve">
+    <value>DESCRIPTION の wsdl:binding には、参照先 wsdl:portType と同じ wsdl:operations が必要です。</value>
+    <comment>A wsdl:binding in a DESCRIPTION MUST have the same set of wsdl:operations as the wsdl:portType to which it refers.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2749" xml:space="preserve">
+    <value>DESCRIPTION の wsdl:binding では、soapbind:header と soapbind:headerfault 要素に parts 属性を使用してはなりません。 </value>
+    <comment>A wsdl:binding in a DESCRIPTION MUST NOT use the attribute named parts on contained soapbind:header and soapbind:headerfault elements. </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2754" xml:space="preserve">
+    <value>DESCRIPTION では、soapbind:fault 要素の name 属性の値は親の wsdl:fault 要素の name 属性の値と一致する必要があります。 </value>
+    <comment>In a DESCRIPTION, the value of the name attribute on a soapbind:fault element MUST match the value of the name attribute on its parent wsdl:fault element. </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2205" xml:space="preserve">
+    <value>DESCRIPTION の wsdl:binding では、soapbind:header、soapbind:headerfault、soapbind:fault の各要素で、element 属性で定義された wsdl:part 要素のみを参照する必要があります。フォールトとヘッダーにはパラメーターが含まれないため、soapbind:fault、soapbind:header、soapbind:headerfault は WSDL 1.1 に従い、style 属性の値を 'document' と見なします。R2204 では、soapbind:body にバインドされ、style 属性の値が 'document' であるすべての wsdl:part 要素を element 属性で定義することが求められています。この要件は、soapbind:fault、soapbind:header、soapbind:headerfault 要素に対して同じことを求めるものです。 </value>
+    <comment>A wsdl:binding in a DESCRIPTION MUST refer, in each of its soapbind:header, soapbind:headerfault and soapbind:fault elements, only to wsdl:part element(s) that have been defined using the element attribute. Because faults and headers do not contain parameters, soapbind:fault, soapbind:header and soapbind:headerfault assume, per WSDL 1.1, that the value of the style attribute is 'document'. R2204 requires that all wsdl:part elements with a style attribute whose value is 'document' that are bound to soapbind:body be defined using the element attribute. This requirement does the same for soapbind:fault, soapbind:header and soapbind:headerfault elements. </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2204" xml:space="preserve">
+    <value>DESCRIPTION の document-literal バインディングの各 soapbind:body 要素は element 属性で定義した wsdl:part 要素のみ参照できます。 </value>
+    <comment>A document-literal binding in a DESCRIPTION MUST refer, in each of its soapbind:body element(s), only to wsdl:part element(s) that have been defined using the element attribute. </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2201" xml:space="preserve">
+    <value>DESCRIPTION の document-literal バインディングでは、parts 属性を指定する場合、各 soapbind:body 要素の parts 属性に列挙できるパートは 1 つまでです。</value>
+    <comment>A document-literal binding in a DESCRIPTION MUST, in each of its soapbind:body element(s), have at most one part listed in the parts attribute, if the parts attribute is specified.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2203" xml:space="preserve">
+    <value>DESCRIPTION の rpc-literal バインディングの soapbind:body 要素は、type 属性で定義した wsdl:part 要素のみ参照できます。 </value>
+    <comment>An rpc-literal binding in a DESCRIPTION MUST refer, in its soapbind:body element(s), only to wsdl:part element(s) that have been defined using the type attribute. </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2210" xml:space="preserve">
+    <value>DESCRIPTION の document-literal バインディングが soapbind:body 要素で parts 属性を指定しない場合、対応する抽象 wsdl:message で 0 個か 1 個の wsdl:parts を定義する必要があります。</value>
+    <comment>If a document-literal binding in a DESCRIPTION does not specify the parts attribute on a soapbind:body element, the corresponding abstract wsdl:message MUST define zero or one wsdl:parts.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2304" xml:space="preserve">
+    <value>wsdl:portType での操作名のオーバーロードはプロファイルで禁止されています。DESCRIPTION の wsdl:portType では、操作の name 属性値がすべて異なる必要があります。この要件は、特定の wsdl:portType 内の wsdl:operations にのみ適用されます。wsdl:portType には、他の wsdl:portType と同名の wsdl:operations があってもかまいません。</value>
+    <comment>Operation name overloading in a wsdl:portType is disallowed by the Profile. A wsdl:portType in a DESCRIPTION MUST have operations with distinct values for their name attributes. Note that this requirement applies only to the wsdl:operations within a given wsdl:portType. A wsdl:portType may have wsdl:operations with names that are the same as those found in other wsdl:portTypes.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2306" xml:space="preserve">
+    <value>DESCRIPTION の wsdl:message では、同じ wsdl:part に type 属性と element 属性の両方を指定できません。</value>
+    <comment>A wsdl:message in a DESCRIPTION MUST NOT specify both type and element attributes on the same wsdl:part.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2303" xml:space="preserve">
+    <value>DESCRIPTION では、wsdl:portType 定義で Solicit-Response 型と Notification 型の操作を使用してはなりません。これらの操作は WSDL 1.1 で十分に定義されておらず、さらに WSDL 1.1 ではそれらのバインディングが定義されていません。 </value>
+    <comment>A DESCRIPTION MUST NOT use Solicit-Response and Notification type operations in a wsdl:portType definition. Solicit-Response and Notification operations are not well defined by WSDL 1.1; furthermore, WSDL 1.1 does not define bindings for them. </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2026" xml:space="preserve">
+    <value>DESCRIPTION では、プロファイル準拠を主張する WSDL 構成要素 (wsdl:binding、wsdl:portType、wsdl:message、wsdl:types、wsdl:import) にwsdl:required 属性値が "true" の拡張要素を含めないでください。</value>
+    <comment>A DESCRIPTION SHOULD NOT include extension elements with a wsdl:required attribute value of "true" on any WSDL construct (wsdl:binding, wsdl:portType, wsdl:message, wsdl:types or wsdl:import) that claims conformance to the Profile.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2028" xml:space="preserve">
+    <value>WSDL 名前空間と WSDL SOAP バインディング名前空間を使用する DESCRIPTION は、http://schemas.xmlsoap.org/wsdl/2003-02-11.xsd と http://schemas.xmlsoap.org/wsdl/soap/2003-02-11.xsd にある XML スキーマに従って有効である必要があります。</value>
+    <comment>A DESCRIPTION using the WSDL namespace and the WSDL SOAP binding namespace MUST be valid according to the XML Schemas found at http://schemas.xmlsoap.org/wsdl/2003-02-11.xsd and http://schemas.xmlsoap.org/wsdl/soap/2003-02-11.xsd.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2007" xml:space="preserve">
+    <value>DESCRIPTION では、wsdl:import 要素に空でない location 属性を指定する必要があります。wsdl:import ステートメントは xsd:import ステートメントをモデルにしていますが、location 属性は wsdl:import では必須であるのに対し、xsd:import の対応する属性 schemaLocation は省略可能です。location は必須であり、その内容は空にすることを想定していません。</value>
+    <comment>A DESCRIPTION MUST specify a non-empty location attribute on the wsdl:import element. Although the wsdl:import statement is modeled after the xsd:import statement, the location attribute is required by wsdl:import while the corresponding attribute on xsd:import, schemaLocation is optional. Consistent with location being required, its content is not intended to be empty.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2105" xml:space="preserve">
+    <value>DESCRIPTION の wsdl:types 要素内のすべての xsd:schema 要素には、有効で null でない targetNamespace 属性が必要です。ただし、xsd:schema 要素の子要素が xsd:import または xsd:annotation (または両方) だけの場合は除きます。 </value>
+    <comment>All xsd:schema elements contained in a wsdl:types element of a DESCRIPTION MUST have a targetNamespace attribute with a valid and non-null value, UNLESS the xsd:schema element has xsd:import and/or xsd:annotation as its only child element(s). </comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2803" xml:space="preserve">
+    <value>DESCRIPTION の wsdl:import の namespace 属性は相対 URI にできません。</value>
+    <comment>In a DESCRIPTION, the namespace attribute of the wsdl:import MUST NOT be a relative URI.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceRxxxx" xml:space="preserve">
+    <value>WS-I Basic Profile 1.1 は、相互運用可能な Web サービスの開発に向けて、主要な Web サービス仕様群の組み合わせ方を推奨する実装ガイドラインです。1.1 プロファイルの対象仕様は SOAP 1.1、WSDL 1.1、UDDI 2.0、XML 1.0、XML Schema です。</value>
+    <comment>WS-I's Basic Profile 1.1 consists of implementation guidelines that recommend how a set of core Web services specifications should be used together to develop interoperable Web services. For the 1.1 Profile, those specifications are SOAP 1.1, WSDL 1.1, UDDI 2.0, XML 1.0 and XML Schema.</comment>
+  </data>
+  <data name="HelpGeneratorStyleAactive" xml:space="preserve">
+    <value>color: #336699; font-weight: bold; text-decoration: underline;</value>
+    <comment>color: #336699; font-weight: bold; text-decoration: underline;</comment>
+  </data>
+  <data name="WebRequestContent" xml:space="preserve">
+    <value>サーバーで要求のコンテンツ タイプ '{0}' を受信しましたが、'{1}' が必要です。</value>
+    <comment>Server found request content type to be '{0}', but expected '{1}'.</comment>
+  </data>
+  <data name="TraceReadHeaders" xml:space="preserve">
+    <value>XmlSerializer [SOAP ヘッダーの読み取り]</value>
+    <comment>XmlSerializer [Read SOAP Headers]</comment>
+  </data>
+  <data name="TraceExceptionIgnored" xml:space="preserve">
+    <value>{0} で例外が無視されました。
+    {1}: {2}</value>
+    <comment>Exception ignored in {0}.
+    {1}: {2}</comment>
+  </data>
+  <data name="ClientProtocolEnableDecompression" xml:space="preserve">
+    <value>IIS 6 に組み込まれた HTTP 圧縮をユーザーが簡単に利用できるようにします。</value>
+    <comment>This allows user to easily leverage HTTP compression that's built into IIS 6.</comment>
+  </data>
+  <data name="DuplicateInputOutputNames0" xml:space="preserve">
+    <value>重複した入出力名です。</value>
+    <comment>Duplicate input/output names.</comment>
+  </data>
+  <data name="SpecifyingATypeForUseLiteralMessagesIsAny" xml:space="preserve">
+    <value>use=literal メッセージの型指定はサポートされません。targetNamespace='{1}' の型名 '{0}' は最上位の any 要素として使用できません。</value>
+    <comment>Specifying a type for use=literal messages is not supported. Type name='{0}' from targetNamespace='{1}' cannot be used as top-level any element.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceRxxxx_r" xml:space="preserve">
+    <value>Web サービスで SOAP 1.1 プロトコルを有効にするには、アプリケーションまたはサイトのルートにある web.config の構成設定の変更を検討してください。</value>
+    <comment>Consider changing config settings in web.config file in your application or site root directory to enable SOAP 1.1 protocol for your Web service.</comment>
+  </data>
+  <data name="WebCannotAccessValue" xml:space="preserve">
+    <value>メッセージ処理中に例外が発生したため、値にアクセスできません。</value>
+    <comment>The value can not be accessed because there was an exception during message processing.</comment>
+  </data>
+  <data name="internalError0" xml:space="preserve">
+    <value>内部エラーが発生しました。</value>
+    <comment>An internal error occurred.</comment>
+  </data>
+  <data name="FaultBinding" xml:space="preserve">
+    <value>名前空間 '{3}' のバインディング '{2}' の操作 '{1}' のフォールト '{0}'。</value>
+    <comment>Fault '{0}' on operation '{1}' on binding '{2}' from namespace '{3}'.</comment>
+  </data>
+  <data name="BindingOperationMissing" xml:space="preserve">
+    <value>名前空間 '{1}' のバインディング '{0}' に、名前空間 '{3}' の portType '{2}' で定義された一部の操作がありません。</value>
+    <comment>Binding '{0}' from namespace '{1}' missing some operations defined on portType '{2}' from namespace '{3}'.</comment>
+  </data>
+  <data name="WebInOutParameter" xml:space="preserve">
+    <value>{1}.{2} メソッドの {0} パラメーターは出力専用パラメーターである必要があります。</value>
+    <comment>The {0} parameter of the {1}.{2} method must be an output-only parameter.</comment>
+  </data>
+  <data name="TraceReadRequest" xml:space="preserve">
+    <value>XmlSerializer [要求の読み取り]</value>
+    <comment>XmlSerializer [Read Request]</comment>
+  </data>
+  <data name="WebRequestUnableToProcess" xml:space="preserve">
+    <value>サーバーは要求を処理できませんでした。</value>
+    <comment>Server was unable to process request.</comment>
+  </data>
+  <data name="HelpGeneratorStylefrmheader" xml:space="preserve">
+    <value>color: #000000; background: #dcdcdc; font-family: Verdana; font-size: .7em; font-weight: normal; border-bottom: 1px solid #dcdcdc; padding-top: 2px; padding-bottom: 2px;</value>
+    <comment>color: #000000; background: #dcdcdc; font-family: Verdana; font-size: .7em; font-weight: normal; border-bottom: 1px solid #dcdcdc; padding-top: 2px; padding-bottom: 2px;</comment>
+  </data>
+  <data name="WebServiceSoapVersion" xml:space="preserve">
+    <value>要求に使用された SOAP プロトコルのバージョン</value>
+    <comment>The version of the SOAP protocol used for the request.</comment>
+  </data>
+  <data name="ContractOverride" xml:space="preserve">
+    <value>型 {1} のメソッド {0} はサービス コントラクト インターフェイス {2} の実装です。サービス記述を変える属性はサービス実装に指定できません。カスタム属性はインターフェイス宣言に付けてください: インターフェイス: {2}、メソッド: {3}、属性: {4}。</value>
+    <comment>Method {0} on type {1} is an implementation of the service contract interface {2}. Service Description altering attributes cannot be specified on service implementation.  Please place custom attribute on the interface declaration: interface: {2}, method: {3}, attribute: {4}.</comment>
+  </data>
+  <data name="WebEmptyRef" xml:space="preserve">
+    <value>URI '{1}' のドキュメントに型 '{0}' の無効な空の参照があります。</value>
+    <comment>Invalid empty reference of type '{0}' encountered in the document at URI '{1}'.</comment>
+  </data>
+  <data name="HelpGeneratorEnableHttpPostHeader" xml:space="preserve">
+    <value>構成での http post プロトコルの有効化</value>
+    <comment>Enabling http post protocol in configuration</comment>
+  </data>
+  <data name="HelpGeneratorHttpGetTitle" xml:space="preserve">
+    <value>HTTP GET</value>
+    <comment>HTTP GET</comment>
+  </data>
+  <data name="TheMethodsAndUseTheSameSoapActionWhenTheService3" xml:space="preserve">
+    <value>メソッド {0} と {1} が同じ SOAPAction '{2}' を使用しています。XML Web サービスの RoutingStyle が SoapAction の場合、SOAPAction の値は XML Web サービスのメソッド間で一意である必要があります。SoapDocumentMethod 属性または SoapRpcMethod 属性の Action パラメーターで SOAPAction を変更するか、XML Web サービスに RoutingStyle として RequestElement を指定できます。</value>
+    <comment>The methods {0} and {1} use the same SOAPAction '{2}'. When the RoutingStyle of the XML Web service is SoapAction, SOAPAction values must be unique across methods on the XML Web service. You can change the SOAPAction with the Action parameter to the SoapDocumentMethod or SoapRpcMethod attributes, or you can specify a RoutingStyle of RequestElement on the XML Web service.</comment>
+  </data>
+  <data name="WebHeaderWrite" xml:space="preserve">
+    <value>ヘッダー プロパティ/フィールド {0}.{1} に書き込めませんでした。</value>
+    <comment>The header property/field {0}.{1} could not be written to.</comment>
+  </data>
+  <data name="WebDuplicateOperation" xml:space="preserve">
+    <value>'{0}' という名前の操作が複数指定されました。各操作には一意の名前が必要です。</value>
+    <comment>More than one operation named '{0}' was specified. Each operation must have a unique name.</comment>
+  </data>
+  <data name="CodeGenSupportParameterAttributes" xml:space="preserve">
+    <value>パラメーター宣言のカスタム属性は {0} ではサポートされません。</value>
+    <comment>Custom attributes on parameter declarations are not supported by {0}.</comment>
+  </data>
+  <data name="InitFailed" xml:space="preserve">
+    <value>初期化に失敗しました。入力オプションとドキュメントが有効か確認してください。</value>
+    <comment>Initialization failure. Please review input options and documents for validity.</comment>
+  </data>
+  <data name="HelpGeneratorLinkBack" xml:space="preserve">
+    <value>操作の完全な一覧は &lt;a href="{0}"&gt;ここ&lt;/a&gt; をクリックしてください。</value>
+    <comment>Click &lt;a href="{0}"&gt;here&lt;/a&gt; for a complete list of operations.</comment>
+  </data>
+  <data name="TraceCallExit" xml:space="preserve">
+    <value>{0} から戻りました
+    呼び出し元: {1}</value>
+    <comment>Return from {0}
+    Caller: {1}</comment>
+  </data>
+  <data name="ClientProtocolPreAuthenticate" xml:space="preserve">
+    <value>要求の事前認証を有効にします。</value>
+    <comment>Enables pre authentication of the request.</comment>
+  </data>
+  <data name="BPConformanceHeaderFault" xml:space="preserve">
+    <value>WebService {1} の WebMethod {0} は準拠を主張しています。準拠メソッドでは、{2}={3}.{4} の SOAP ヘッダーを使用できません。 </value>
+    <comment>WebMethod {0} on WebService {1} claims conformance. Using SOAP header with {2}={3}.{4} is not allowed on conformant methods. </comment>
+  </data>
+  <data name="HelpGeneratorStyleP" xml:space="preserve">
+    <value>color: #000000; margin-top: 0px; margin-bottom: 12px; font-family: Verdana;</value>
+    <comment>color: #000000; margin-top: 0px; margin-bottom: 12px; font-family: Verdana;</comment>
+  </data>
+  <data name="EachMessagePartInAnUseEncodedMessageMustSpecify0" xml:space="preserve">
+    <value>use=encoded メッセージの各メッセージ パートには型の指定が必要です。</value>
+    <comment>Each message part in an use=encoded message must specify a type.</comment>
+  </data>
+  <data name="HelpGeneratorStyleheading1" xml:space="preserve">
+    <value>color: #ffffff; font-family: Tahoma; font-size: 26px; font-weight: normal; background-color: #003366; margin-top: 0px; margin-bottom: 0px; margin-left: -30px; padding-top: 10px; padding-bottom: 3px; padding-left: 15px; width: 105%;</value>
+    <comment>color: #ffffff; font-family: Tahoma; font-size: 26px; font-weight: normal; background-color: #003366; margin-top: 0px; margin-bottom: 0px; margin-left: -30px; padding-top: 10px; padding-bottom: 3px; padding-left: 15px; width: 105%;</comment>
+  </data>
+  <data name="XmlSchemaContentDef" xml:space="preserve">
+    <value>名前空間 '{1}' のスキーマ型 '{0}' のコンテンツ定義を確認してください。{2}</value>
+    <comment>Check content definition of schema type '{0}' from namespace '{1}'. {2}</comment>
+  </data>
+  <data name="OperationBinding" xml:space="preserve">
+    <value>名前空間 '{2}' のバインディング '{1}' の操作 '{0}'。</value>
+    <comment>Operation '{0}' on binding '{1}' from namespace '{2}'.</comment>
+  </data>
+  <data name="CanTCallTheEndMethodOfAnAsyncCallMoreThan" xml:space="preserve">
+    <value>非同期呼び出しの End メソッドを複数回呼び出すことはできません。</value>
+    <comment>Can't call the end method of an async call more than once.</comment>
+  </data>
+  <data name="WebDescriptionPartElementWarning" xml:space="preserve">
+    <value>名前空間 '{2}' のメッセージ '{1}' のパート '{0}' に element 属性と type 属性の両方があります。Use=Literal のヘッダーでは element 属性のみ使用します。</value>
+    <comment>Part '{0}' from message '{1}' in namespace '{2}' defines both the element and type attributes. Only the element attribute is used for headers when Use=Literal.</comment>
+  </data>
+  <data name="SpecifyingAnElementForUseEncodedMessageParts0" xml:space="preserve">
+    <value>use=encoded メッセージ パートでは要素を指定できません。</value>
+    <comment>Specifying an element for use=encoded message parts is not supported.</comment>
+  </data>
+  <data name="TraceCallEnter" xml:space="preserve">
+    <value>{0} を呼び出し中
+    呼び出し元: {1}</value>
+    <comment>Calling {0}
+    Caller: {1}</comment>
+  </data>
+  <data name="MissingMessage2" xml:space="preserve">
+    <value>名前空間 '{1}' のメッセージ '{0}' がありません。</value>
+    <comment>Missing message '{0}' from namespace '{1}'.</comment>
+  </data>
+  <data name="ClientProtocolTimeout" xml:space="preserve">
+    <value>同期呼び出しに使用するタイムアウト (ミリ秒)。既定値 -1 は無期限を意味します。</value>
+    <comment>Sets the timeout in milliseconds to be used for synchronous calls.  The default of -1 means infinite.</comment>
+  </data>
+  <data name="SchemaValidationWarning" xml:space="preserve">
+    <value>スキーマ検証の警告: {0}</value>
+    <comment>Schema validation warning: {0}</comment>
+  </data>
+  <data name="ClientProtocolSoapVersion" xml:space="preserve">
+    <value>要求に使用する SOAP プロトコルのバージョン。既定では SOAP 1.1 が使用されます。</value>
+    <comment>The version of the SOAP protocol to use for requests. By default, SOAP 1.1 will be used.</comment>
+  </data>
+  <data name="UnableToHandleRequestActionRequired0" xml:space="preserve">
+    <value>有効な action パラメーターがないと要求を処理できません。有効な SOAP アクションが必要です。</value>
+    <comment>Unable to handle request without a valid action parameter. Please supply a valid soap action.</comment>
+  </data>
+  <data name="ProtocolWithNameIsNotRecognized1" xml:space="preserve">
+    <value>名前 '{0}' のプロトコルは認識されません。</value>
+    <comment>Protocol with name '{0}' is not recognized.</comment>
+  </data>
+  <data name="HelpGeneratorStylefrmtext" xml:space="preserve">
+    <value>font-family: Verdana; font-size: .7em; margin-top: 8px; margin-bottom: 0px; margin-left: 32px;</value>
+    <comment>font-family: Verdana; font-size: .7em; margin-top: 8px; margin-bottom: 0px; margin-left: 32px;</comment>
+  </data>
+  <data name="HelpGeneratorWebService" xml:space="preserve">
+    <value>Web サービス</value>
+    <comment>Web Service</comment>
+  </data>
+  <data name="WebResponseKnownError" xml:space="preserve">
+    <value>要求は HTTP 状態 {0} で失敗しました: {1}。</value>
+    <comment>The request failed with HTTP status {0}: {1}.</comment>
+  </data>
+  <data name="WebResultNotXml" xml:space="preserve">
+    <value>結果が XML ではありません。</value>
+    <comment>Result was not XML.</comment>
+  </data>
+  <data name="AsyncDuplicateUserState" xml:space="preserve">
+    <value>非同期処理中にエラーが発生しました。複数の非同期操作の同時実行には一意の状態オブジェクトが必要です。</value>
+    <comment>There was an error during asynchronous processing. Unique state object is required for multiple asynchronous simultaneous operations to be outstanding.</comment>
+  </data>
+  <data name="SolicitResponseIsNotSupported0" xml:space="preserve">
+    <value>SolicitResponse はサポートされません。</value>
+    <comment>SolicitResponse is not supported.</comment>
+  </data>
+  <data name="WebMultiplyDeclaredHeaderTypes" xml:space="preserve">
+    <value>操作では、特定の型の入力ヘッダーまたは出力ヘッダーを 1 つしか持つことができません。{0}.{1} は、同じ型と方向の別のヘッダー フィールドと競合しています。</value>
+    <comment>An operation can have only one in or out header of a given type. {0}.{1} conflicts with another header field of the same type and direction.</comment>
+  </data>
+  <data name="WebBadEnum" xml:space="preserve">
+    <value>列挙型 '{1}' に値 '{0}' が見つかりませんでした。</value>
+    <comment>The value '{0}' was not found in the enum type '{1}'.</comment>
+  </data>
+  <data name="MissingSoapOperationBinding0" xml:space="preserve">
+    <value>soap:operation バインディングがありません。</value>
+    <comment>Missing soap:operation binding.</comment>
+  </data>
+  <data name="WebDescriptionTooManyMessages" xml:space="preserve">
+    <value>入力と出力のメッセージはそれぞれ 1 つまでしか指定できません。</value>
+    <comment>No more than one input and one output message may be specified.</comment>
+  </data>
+  <data name="HelpGeneratorSoap1_2Text" xml:space="preserve">
+    <value>SOAP 1.2 の要求と応答の例を次に示します。表示されている &lt;font class=value&gt;プレースホルダー&lt;/font&gt; は、実際の値に置き換える必要があります。</value>
+    <comment>The following is a sample SOAP 1.2 request and response.  The &lt;font class=value&gt;placeholders&lt;/font&gt; shown need to be replaced with actual values.</comment>
+  </data>
+  <data name="WebDuplicateFormatExtension" xml:space="preserve">
+    <value>'{0}' という名前の形式拡張が複数指定されました。各形式拡張には一意の名前が必要です。</value>
+    <comment>More than one format extension named '{0}' was specified. Each format extension must have a unique name.</comment>
+  </data>
+  <data name="TheSyntaxOfTypeMayNotBeExtended1" xml:space="preserve">
+    <value>型 {0} の構文は拡張できません。</value>
+    <comment>The syntax of type {0} may not be extended.</comment>
+  </data>
+  <data name="SyntaxErrorInWSDLDocumentMessageDoesNotHave1" xml:space="preserve">
+    <value>WSDL ドキュメントの構文エラー: メッセージ '{0}' に関連付けられた操作が portType にありません。</value>
+    <comment>Syntax error in WSDL document: Message '{0}' does not have an operation associated with it in the portType.</comment>
+  </data>
+  <data name="TheMethodsAndUseTheSameRequestElementAndSoapActionXmlns6" xml:space="preserve">
+    <value>メソッド {0} と {1} が同じ要求要素 &lt;{2} xmlns='{3}'&gt; を使用し、メソッド {0} と {4} が同じ SOAPAction '{5}' を使用しています。XML Web サービスの各メソッドには、一意の SOAPAction または要求要素が必要です。Rpc スタイルを使用している場合は、SoapRpcMethodAttribute の RequestElementName パラメーターと RequestElementNamespace パラメーターでメッセージ名を変更できます。ラップされたパラメーター スタイルを使用するドキュメント スタイルでは、SoapDocumentMethodAttribute の RequestElementName パラメーターと RequestElementNamespace パラメーターを使用してください。ベア パラメーター スタイルでは、パラメーターを表す要素を変更する必要があります。または、SoapRpcMethodAttribute または SoapDocumentMethodAttribute の Action パラメーターを使用して、メソッドごとに一意の SoapAction を指定することもできます。</value>
+    <comment>The methods {0} and {1} use the same request element &lt;{2} xmlns='{3}'&gt; and the methods {0} and {4} use the same SOAPAction '{5}'. Each method on the XML Web service must have a unique SOAPAction or request element. If you are using the Rpc style, you can change the message name with the RequestElementName and RequestElementNamespace parameters to SoapRpcMethodAttribute. For document style using wrapped parameter style, use the RequestElementName and RequestElementNamespace parameters to SoapDocumentMethodAttribute. For the bare parameter style, you must change the element that represents the parameter. Alternatively, you can specify a unique SoapAction for each method using the Action parameter to SoapRpcMethodAttribute or SoapDocumentMethodAttribute.</comment>
+  </data>
+  <data name="WebBothMethodAttrs" xml:space="preserve">
+    <value>Web サービス メソッドに SoapDocumentMethodAttribute と SoapRpcMethodAttribute の両方を指定することはできません。どちらか一方を使用してください。</value>
+    <comment>A web service method can't have both a SoapDocumentMethodAttribute and a SoapRpcMethodAttribute. Use one or the other.</comment>
+  </data>
+  <data name="InternalConfigurationError0" xml:space="preserve">
+    <value>内部構成エラーです。</value>
+    <comment>Internal configuration error.</comment>
+  </data>
+  <data name="XmlLang" xml:space="preserve">
+    <value>ja</value>
+    <comment>en</comment>
+  </data>
+  <data name="HelpGeneratorRecommendation" xml:space="preserve">
+    <value>推奨</value>
+    <comment>Recommendation</comment>
+  </data>
+  <data name="WebSoap11EncodingStyleNotSupported1" xml:space="preserve">
+    <value>SOAP 1.1 のエンコード スタイルは、SOAP 1.2 を使用する操作ではサポートされません。SOAP 1.2 のエンコード スタイルを参照するには URI '{0}' を使用してください。</value>
+    <comment>The SOAP 1.1 encoding style is not supported for operations that use SOAP 1.2. Use the URI '{0}' to refer to the SOAP 1.2 encoding style.</comment>
+  </data>
+  <data name="OperationMissingBinding" xml:space="preserve">
+    <value>名前空間 '{2}' の portType '{1}' の操作 '{0}' のバインディングがありません。</value>
+    <comment>Operation '{0}' on portType '{1}' from namespace '{2}' has no matching binding.</comment>
+  </data>
+  <data name="TheOperationStyleRpcButBothMessagesAreNot0" xml:space="preserve">
+    <value>操作は style=rpc ですが、両メッセージが use=encoded ではありません。</value>
+    <comment>The operation style=rpc but both messages are not use=encoded.</comment>
+  </data>
+  <data name="TraceUserHostName" xml:space="preserve">
+    <value>要求ホスト名: {0}</value>
+    <comment>Request Host Name: {0}</comment>
+  </data>
+  <data name="ConfigKeysDoNotMatch" xml:space="preserve">
+    <value>キーがインデクサーのキーと一致しません。要素のキー (予期される値): {0}。インデクサーに指定されたキー: {1}。</value>
+    <comment>The key does not match the indexer key. Key on element (expected value): {0}. Key provided to indexer: {1}.</comment>
+  </data>
+  <data name="MissingHttpOperationElement0" xml:space="preserve">
+    <value>http:operation 要素がありません。</value>
+    <comment>Missing http:operation element.</comment>
+  </data>
+  <data name="HelpGeneratorStylebutton" xml:space="preserve">
+    <value>background-color: #dcdcdc; font-family: Verdana; font-size: 1em; border-top: #cccccc 1px solid; border-bottom: #666666 1px solid; border-left: #cccccc 1px solid; border-right: #666666 1px solid;</value>
+    <comment>background-color: #dcdcdc; font-family: Verdana; font-size: 1em; border-top: #cccccc 1px solid; border-bottom: #666666 1px solid; border-left: #cccccc 1px solid; border-right: #666666 1px solid;</comment>
+  </data>
+  <data name="FailedToHandleRequest0" xml:space="preserve">
+    <value>要求の処理に失敗しました。</value>
+    <comment>Failed to handle request.</comment>
+  </data>
+  <data name="WebInvalidMethodName" xml:space="preserve">
+    <value>{0} は無効な Web サービス メソッド名です。</value>
+    <comment>{0} Web Service method name is not valid.</comment>
+  </data>
+  <data name="WebNoReturnValue" xml:space="preserve">
+    <value>戻り値がありません。</value>
+    <comment>There is no return value.</comment>
+  </data>
+  <data name="TraceWriteResponse" xml:space="preserve">
+    <value>XmlSerializer [応答の書き込み]</value>
+    <comment>XmlSerializer [Write Response]</comment>
+  </data>
+  <data name="SchemaSyntaxErrorItemDetails" xml:space="preserve">
+    <value>targetNamespace='{0}' のスキーマの構文が無効です。'{2}' という名前のスキーマ項目 '{1}' を確認してください: {3}</value>
+    <comment>Schema with targetNamespace='{0}' has invalid syntax. Check schema item '{1}' named '{2}': {3}</comment>
+  </data>
+  <data name="WebNullRef" xml:space="preserve">
+    <value>探索ドキュメントで無効な null の Web 参照が見つかりました。</value>
+    <comment>Invalid null web reference encountered in the discovery document.</comment>
+  </data>
+  <data name="ProtocolDoesNotAsyncSerialize" xml:space="preserve">
+    <value>プロトコルは非同期シリアル化をサポートしません。</value>
+    <comment>The protocol does not support async serialization.</comment>
+  </data>
+  <data name="WebMissingPath" xml:space="preserve">
+    <value>Send メソッドの呼び出し前に Path プロパティの設定が必要です。</value>
+    <comment>Path property must be set before calling the Send method.</comment>
+  </data>
+  <data name="WebDescriptionPartTypeWarning" xml:space="preserve">
+    <value>名前空間 '{2}' のメッセージ '{1}' のパート '{0}' に element 属性と type 属性の両方があります。Use=Encoded のヘッダーは type 属性のみ使います。</value>
+    <comment>Part '{0}' from message '{1}' in namespace '{2}' defines both the element and type attributes. Only the type attribute is used for headers when Use=Encoded.</comment>
+  </data>
+  <data name="HelpGeneratorHttpPostTitle" xml:space="preserve">
+    <value>HTTP POST</value>
+    <comment>HTTP POST</comment>
+  </data>
+  <data name="UnableToImportOperation1" xml:space="preserve">
+    <value>操作 '{0}' をインポートできません。</value>
+    <comment>Unable to import operation '{0}'.</comment>
+  </data>
+  <data name="StreamDoesNotRead" xml:space="preserve">
+    <value>このストリームは読み取り操作をサポートしません。</value>
+    <comment>This stream does not support read operations.</comment>
+  </data>
+  <data name="StreamDoesNotSeek" xml:space="preserve">
+    <value>このストリームはシーク操作をサポートしません。</value>
+    <comment>This stream does not support seeking operations.</comment>
+  </data>
+  <data name="RequiredXmlFormatExtensionAttributeIsMissing1" xml:space="preserve">
+    <value>クラス {0} に必須の XmlFormatExtension 属性がありません。</value>
+    <comment>Required XmlFormatExtension attribute is missing on class {0}.</comment>
+  </data>
+  <data name="WebMissingParameter" xml:space="preserve">
+    <value>パラメーターがありません: {0}.</value>
+    <comment>Missing parameter: {0}.</comment>
+  </data>
+  <data name="WebOneWayOutParameters" xml:space="preserve">
+    <value>一方向メソッドに out パラメーターや ref パラメーターは使用できません。</value>
+    <comment>One-way methods cannot have out or ref parameters.</comment>
+  </data>
+  <data name="WebInvalidContentType" xml:space="preserve">
+    <value>ドキュメントの形式を認識できません (コンテンツ タイプは '{0}' です)。</value>
+    <comment>The document format is not recognized (the content type is '{0}').</comment>
+  </data>
+  <data name="WebHttpHeader" xml:space="preserve">
+    <value>サーバーは HTTP ヘッダー {0} の値を認識できません: {1}.</value>
+    <comment>Server did not recognize the value of HTTP Header {0}: {1}.</comment>
+  </data>
+  <data name="EachMessagePartInRpcUseLiteralMessageMustSpecify0" xml:space="preserve">
+    <value>use=literal style=rpc メッセージの各メッセージ パートには型の指定が必要です。</value>
+    <comment>Each message part in a use=literal style=rpc message must specify a type.</comment>
+  </data>
+  <data name="ClientProtocolAllowAutoRedirect" xml:space="preserve">
+    <value>サーバー リダイレクトの自動処理を有効化</value>
+    <comment>Enable automatic handling of server redirects.</comment>
+  </data>
+  <data name="HelpGeneratorDefaultNamespaceWarning1" xml:space="preserve">
+    <value>この Web サービスは既定の名前空間として http://tempuri.org/ を使用しています。</value>
+    <comment>This web service is using http://tempuri.org/ as its default namespace.</comment>
+  </data>
+  <data name="HelpGeneratorDefaultNamespaceWarning2" xml:space="preserve">
+    <value>推奨: XML Web サービスを公開する前に、既定の名前空間を変更してください。</value>
+    <comment>Recommendation: Change the default namespace before the XML Web service is made public.</comment>
+  </data>
+  <data name="TraceUserHostAddress" xml:space="preserve">
+    <value>要求ホスト アドレス: {0}</value>
+    <comment>Request Host Address: {0}</comment>
+  </data>
+  <data name="WebMissingBodyElement" xml:space="preserve">
+    <value>無効な要求形式です: 必須の soap:Body 要素がありません。</value>
+    <comment>Request format is invalid: Missing required soap:Body element.</comment>
+  </data>
+  <data name="HelpGeneratorNoHttpPostTest" xml:space="preserve">
+    <value>このサービスまたはメソッドは HTTP POST をサポートしていないため、テスト フォームは使用できません。</value>
+    <comment>No test form is available as this service or method does not support the HTTP POST protocol.</comment>
+  </data>
+  <data name="WebHeaderRead" xml:space="preserve">
+    <value>ヘッダー プロパティ/フィールド {0}.{1} を読み取れませんでした。</value>
+    <comment>The header property/field {0}.{1} could not be  read.</comment>
+  </data>
+  <data name="WebHeaderType" xml:space="preserve">
+    <value>ヘッダー プロパティ/フィールド {0}.{1} の型は SoapHeader かその派生型、または SoapHeader か SoapUnknownHeader の配列にしてください。</value>
+    <comment>The header property/field {0}.{1} must be of type SoapHeader or a derived type, or an array of SoapHeader or SoapUnknownHeader.</comment>
+  </data>
+  <data name="EachMessagePartInAUseLiteralMessageMustSpecify0" xml:space="preserve">
+    <value>use=literal メッセージの各メッセージ パートには要素の指定が必要です。</value>
+    <comment>Each message part in a use=literal message must specify an element.</comment>
+  </data>
+  <data name="TheDocumentWasNotRecognizedAsAKnownDocumentType" xml:space="preserve">
+    <value>ドキュメントは既知のドキュメントの種類 (WSDL, XML スキーマ, または探索ドキュメント) として認識されませんでした。理由: 
+  - {0}</value>
+    <comment>The document was not recognized as a known document type (WSDL, XML Schema, or Discovery document) for the following reason: 
+  - {0}</comment>
+  </data>
+  <data name="TheOperationFromNamespaceHadInvalidSyntax3" xml:space="preserve">
+    <value>名前空間 '{2}' の portType '{1}' の操作 '{0}' に次の構文エラーがあります: {3}</value>
+    <comment>The operation '{0}' on portType '{1}' from namespace '{2}' had the following syntax error:  {3}</comment>
+  </data>
+  <data name="WireSignature" xml:space="preserve">
+    <value>名前空間 '{1}' の入力メッセージ '{0}' のワイヤ シグネチャは '{2}:{3}' です。</value>
+    <comment>Input message '{0}' from namespace '{1}' has wire signature '{2}:{3}'.</comment>
+  </data>
+  <data name="TheMethodDoesNotHaveARequestElementEither1" xml:space="preserve">
+    <value>メソッド {0} には要求要素がありません。XML Web サービスで RoutingStyle に SoapAction を使うか、メソッドで Wrapped パラメーター スタイルを使用するか、メソッドにパラメーターを追加してください。</value>
+    <comment>The method {0} does not have a request element. You can use a RoutingStyle of SoapAction on the XML Web service, use the Wrapped parameter style on the method, or add a parameter to the method.</comment>
+  </data>
+  <data name="TheCombinationOfStyleRpcWithUseLiteralIsNot0" xml:space="preserve">
+    <value>style=rpc と use=literal の併用はサポートされません。</value>
+    <comment>The combination of style=rpc with use=literal is not supported.</comment>
+  </data>
+  <data name="HelpGeneratorMethodNotFound" xml:space="preserve">
+    <value>メソッドが見つかりません</value>
+    <comment>Method Not Found</comment>
+  </data>
+  <data name="HelpGeneratorStylefrmInput" xml:space="preserve">
+    <value>font-family: Verdana; font-size: 1em;</value>
+    <comment>font-family: Verdana; font-size: 1em;</comment>
+  </data>
+  <data name="MissingMatchElement0" xml:space="preserve">
+    <value>match 要素がありません。</value>
+    <comment>Missing match element.</comment>
+  </data>
+  <data name="WebResolveMissingClientProtocol" xml:space="preserve">
+    <value>Resolve を呼び出す前に ClientProtocol プロパティを設定する必要があります。</value>
+    <comment>ClientProtocol property must be set before calling Resolve.</comment>
+  </data>
+  <data name="PortTypeOperationMissing" xml:space="preserve">
+    <value>名前空間 '{2}' のバインディング '{1}' の操作 '{0}' に一致する操作が、名前空間 '{4}' の portType '{3}' にありません。</value>
+    <comment>Operation '{0}' on binding '{1}' from namespace '{2}' has no matching operation on portType '{3}' from namespace '{4}'.</comment>
+  </data>
+  <data name="HelpGeneratorStylefontkey" xml:space="preserve">
+    <value>color: darkgreen; font: bold;</value>
+    <comment>color: darkgreen; font: bold;</comment>
+  </data>
+  <data name="CodeRemarks" xml:space="preserve">
+    <value>&lt;remarks/&gt;</value>
+    <comment>&lt;remarks/&gt;</comment>
+  </data>
+  <data name="WebInvalidBindingName" xml:space="preserve">
+    <value>Binding プロパティ '{0}' がインターフェイス バインディング '{1}' と一致しません。</value>
+    <comment>The Binding property '{0}' does not match interface binding '{1}'.</comment>
+  </data>
+  <data name="HelpGeneratorHttpPostText" xml:space="preserve">
+    <value>次に示すのは HTTP POST 要求と応答のサンプルです。&lt;font class=value&gt;プレースホルダー&lt;/font&gt; は実際の値に置き換える必要があります。</value>
+    <comment>The following is a sample HTTP POST request and response.  The &lt;font class=value&gt;placeholders&lt;/font&gt; shown need to be replaced with actual values.</comment>
+  </data>
+  <data name="OnlyXmlElementsOrTypesDerivingFromServiceDescriptionFormatExtension0" xml:space="preserve">
+    <value>追加できるのは XmlElement または ServiceDescriptionFormatExtension の派生型のみです。</value>
+    <comment>Only XmlElements or types deriving from ServiceDescriptionFormatExtension may be added.</comment>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>targetNamespace='{1}' のサービス記述のメッセージ '{0}'。</value>
+    <comment>Message '{0}' from service description with targetNamespace='{1}'.</comment>
+  </data>
+  <data name="WebBadStreamState" xml:space="preserve">
+    <value>BeforeSerialize ステージではストリームのプロパティとメソッドにアクセスできません。</value>
+    <comment>Properties and methods of the stream can't be accessed in the BeforeSerialize stage.</comment>
+  </data>
+  <data name="WebAsyncMissingEnd" xml:space="preserve">
+    <value>非同期メソッド {0}.{1} に対応する {2} メソッドがありません。</value>
+    <comment>Asynchronous method {0}.{1} does not have a corresponding {2} method.</comment>
+  </data>
+  <data name="WebVirtualDisoRoot" xml:space="preserve">
+    <value>Web ディレクトリ '{0}' は '{1}' かその配下である必要があります。</value>
+    <comment>Web Directory '{0}' must be same or below to '{1}'.</comment>
+  </data>
+  <data name="indexMustBeBetweenAnd0Inclusive" xml:space="preserve">
+    <value>index は 0 以上 {0} 以下である必要があります。</value>
+    <comment>index must be between 0 and {0}, inclusive.</comment>
+  </data>
+  <data name="TheOperationBinding0FromNamespace1WasIgnored" xml:space="preserve">
+    <value>名前空間 '{1}' の操作バインド '{0}' を無視。 {2}</value>
+    <comment>The operation binding '{0}' from namespace '{1}' was ignored.  {2}</comment>
+  </data>
+  <data name="ClientProtocolCookieContainer" xml:space="preserve">
+    <value>現在のセッションでサーバーから受信したすべての Cookie のコンテナー。</value>
+    <comment>A container for all cookies received from servers in the current session.</comment>
+  </data>
+  <data name="WebConfigExtensionError" xml:space="preserve">
+    <value>構成ファイルで指定された拡張機能の実行中に例外が発生しました。</value>
+    <comment>There was an exception running the extensions specified in the config file.</comment>
+  </data>
+  <data name="NoOutputMIMEFormatsWereRecognized0" xml:space="preserve">
+    <value>出力 MIME 形式を認識できませんでした。</value>
+    <comment>No output MIME formats were recognized.</comment>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>targetNamespace='{0}' のサービス記述。</value>
+    <comment>Service description with targetNamespace='{0}'.</comment>
+  </data>
+  <data name="ServiceDescriptionWasNotFound0" xml:space="preserve">
+    <value>XML Web サービスの記述が見つかりません。</value>
+    <comment>XML Web service description was not found.</comment>
+  </data>
+  <data name="WebDuplicateService" xml:space="preserve">
+    <value>'{0}' という名前のサービスが複数指定されました。各サービスには一意の名前が必要です。</value>
+    <comment>More than one service named '{0}' was specified. Each service must have a unique name.</comment>
+  </data>
+  <data name="WebMissingEnvelopeElement" xml:space="preserve">
+    <value>要求の形式が無効です: 必須の soap:Envelope 要素がありません。</value>
+    <comment>Request format is invalid: Missing required soap:Envelope element.</comment>
+  </data>
+  <data name="WebMethodStatic" xml:space="preserve">
+    <value>Web サービスのメソッドを static にすることはできません。</value>
+    <comment>Web Service methods cannot be static.</comment>
+  </data>
+  <data name="WebDescriptionHeaderAndBodyUseMismatch" xml:space="preserve">
+    <value>soap:header 要素で定義する use の値は、soap:body 要素で定義された値と一致する必要があります。</value>
+    <comment>The value of use defined on the soap:header element must match that defined on the soap:body element.</comment>
+  </data>
+  <data name="WebSchemaNotFound" xml:space="preserve">
+    <value>スキーマが見つかりません。</value>
+    <comment>Schema not found.</comment>
+  </data>
+  <data name="WebTextMatchBadGroupIndex" xml:space="preserve">
+    <value>{0} はマッチ '{1}' の有効なグループ インデックスではありません。このマッチの有効なグループ インデックスの最大値は {2} です。</value>
+    <comment>{0} is not a valid group index for match '{1}'. The highest valid group index for this match is {2}.</comment>
+  </data>
+  <data name="WebUnknownEncodingStyle" xml:space="preserve">
+    <value>エンコード スタイル '{0}' はサポートされません。</value>
+    <comment>The encoding style '{0}' is not supported.</comment>
+  </data>
+  <data name="WebUnknownAttribute3" xml:space="preserve">
+    <value>このコンテキストでは属性 {0}='{1}' は予期されていません。予期される属性: {2}。</value>
+    <comment>The attribute was not expected in this context: {0}='{1}'. Expected attributes: {2}.</comment>
+  </data>
+  <data name="WebUnknownAttribute2" xml:space="preserve">
+    <value>予期しない属性 {0}='{1}' が見つかりました。このスコープでは属性は予期されていません。</value>
+    <comment>An unexpected attribute was encountered: {0}='{1}'. No attributes were expected in this scope.</comment>
+  </data>
+  <data name="WebReflectionError" xml:space="preserve">
+    <value>{0}.{1} のリフレクション エラー。</value>
+    <comment>Error reflecting {0}.{1}.</comment>
+  </data>
+  <data name="UriValueRelative" xml:space="preserve">
+    <value>値 '{0}' は絶対 URI ではありません。</value>
+    <comment>Value '{0}' is not an absolute URI.</comment>
+  </data>
+  <data name="WebContractReferenceName" xml:space="preserve">
+    <value>WSDL ドキュメント</value>
+    <comment>WSDL Document</comment>
+  </data>
+  <data name="HelpGeneratorMethodNotFoundText" xml:space="preserve">
+    <value>サービス {1} にメソッド '{0}' がありません。</value>
+    <comment>Method '{0}' was not found in service {1}.</comment>
+  </data>
+  <data name="HelpGeneratorStylepre" xml:space="preserve">
+    <value>background-color: #e5e5cc; padding: 5px; font-family: Courier New; font-size: x-small; margin-top: -5px; border: 1px #f0f0e0 solid;</value>
+    <comment>background-color: #e5e5cc; padding: 5px; font-family: Courier New; font-size: x-small; margin-top: -5px; border: 1px #f0f0e0 solid;</comment>
+  </data>
+  <data name="WebDuplicateFaultBinding" xml:space="preserve">
+    <value>'{0}' という名前のフォールト バインディングが複数指定されました。各バインディングには一意の名前が必要です。</value>
+    <comment>More than one fault binding named '{0}' was specified. Each fault binding must have a unique name.</comment>
+  </data>
+  <data name="WebDuplicateUnknownElement" xml:space="preserve">
+    <value>'{1}' という名前の {0} が複数指定されました。各 {0} には一意の名前が必要です。</value>
+    <comment>More than one {0} named '{1}' was specified. Each {0} must have a unique name.</comment>
+  </data>
+  <data name="WebMissingResource" xml:space="preserve">
+    <value>URL {0} のドキュメントは既知のドキュメントの種類として認識されませんでした。
+既知の各種類からのエラー メッセージが問題の解決に役立つ場合があります:</value>
+    <comment>The document at the url {0} was not recognized as a known document type.
+The error message from each known type may help you fix the problem:</comment>
+  </data>
+  <data name="HelpGeneratorNoTestFormRemote" xml:space="preserve">
+    <value>テスト フォームは、ローカル コンピューターからの要求に対してのみ使用できます。</value>
+    <comment>The test form is only available for requests from the local machine.</comment>
+  </data>
+  <data name="HelpGeneratorDefaultNamespaceHelp6" xml:space="preserve">
+    <value>URI の詳細については、&lt;a href="http://www.ietf.org/rfc/rfc2396.txt"&gt;RFC 2396&lt;/a&gt; を参照してください。</value>
+    <comment>For more details on URIs, see &lt;a href="http://www.ietf.org/rfc/rfc2396.txt"&gt;RFC 2396&lt;/a&gt;.</comment>
+  </data>
+  <data name="HelpGeneratorDefaultNamespaceHelp4" xml:space="preserve">
+    <value>XML 名前空間の詳細については、W3C 勧告の &lt;a href="http://www.w3.org/TR/REC-xml-names/"&gt;Namespaces in XML&lt;/A&gt; を参照してください。</value>
+    <comment>For more details on XML namespaces, see the W3C recommendation on &lt;a href="http://www.w3.org/TR/REC-xml-names/"&gt;Namespaces in XML&lt;/A&gt;.</comment>
+  </data>
+  <data name="HelpGeneratorDefaultNamespaceHelp5" xml:space="preserve">
+    <value>WSDL の詳細については、&lt;a href="http://www.w3.org/TR/wsdl"&gt;WSDL 仕様&lt;/a&gt; を参照してください。</value>
+    <comment>For more details on WSDL, see the &lt;a href="http://www.w3.org/TR/wsdl"&gt;WSDL Specification&lt;/a&gt;.</comment>
+  </data>
+  <data name="HelpGeneratorDefaultNamespaceHelp2" xml:space="preserve">
+    <value>XML Web サービスは、自分で管理する名前空間で識別する必要があります。たとえば、会社のインターネット ドメイン名を名前空間の一部として使用できます。XML Web サービスの名前空間の多くは URL のように見えますが、Web 上の実際のリソースを指している必要はありません。(XML Web サービスの名前空間は URI です。)</value>
+    <comment>Your XML Web service should be identified by a namespace that you control. For example, you can use your company's Internet domain name as part of the namespace. Although many XML Web service namespaces look like URLs, they need not point to actual resources on the Web. (XML Web service namespaces are URIs.)</comment>
+  </data>
+  <data name="HelpGeneratorDefaultNamespaceHelp3" xml:space="preserve">
+    <value>ASP.NET で作成した XML Web サービスでは、WebService 属性の Namespace プロパティで既定の名前空間を変更できます。WebService 属性は、XML Web サービスのメソッドを含むクラスに適用する属性です。次のコード例では、名前空間を "http://microsoft.com/webservices/" に設定しています:</value>
+    <comment>For XML Web services creating using ASP.NET, the default namespace can be changed using the WebService attribute's Namespace property. The WebService attribute is an attribute applied to the class that contains the XML Web service methods. Below is a code example that sets the namespace to "http://microsoft.com/webservices/":</comment>
+  </data>
+  <data name="HelpGeneratorDefaultNamespaceHelp1" xml:space="preserve">
+    <value>クライアント アプリケーションが Web 上の他のサービスと区別できるよう、各 XML Web サービスには一意の名前空間が必要です。http://tempuri.org/ は開発中の XML Web サービスに使用できますが、公開する XML Web サービスにはより永続的な名前空間を使用してください。</value>
+    <comment>Each XML Web service needs a unique namespace in order for client applications to distinguish it from other services on the Web. http://tempuri.org/ is available for XML Web services that are under development, but published XML Web services should use a more permanent namespace.</comment>
+  </data>
+  <data name="HelpGeneratorStylefontvalue" xml:space="preserve">
+    <value>color: darkblue; font: bold;</value>
+    <comment>color: darkblue; font: bold;</comment>
+  </data>
+  <data name="WebInvalidDocType" xml:space="preserve">
+    <value>ドキュメントの種類が無効です。'{0}' が必要ですが、'{1}' でした。
+ドキュメントの URI は '{2}' です。</value>
+    <comment>Invalid Document type. Expecting '{0}', got '{1}'.
+Document URI is '{2}'.</comment>
+  </data>
+  <data name="WebHeaderOneWayOut" xml:space="preserve">
+    <value>メソッドが一方向のため、ヘッダー プロパティ/フィールド {0}.{1} を out ヘッダーにすることはできません。</value>
+    <comment>The header property/field {0}.{1} cannot be an out header because the method is one-way.</comment>
+  </data>
+  <data name="WebUnreferencedObject" xml:space="preserve">
+    <value>項目 id='{0}' は参照されませんでした: {1}。</value>
+    <comment>Item id='{0}' was not referenced: {1}.</comment>
+  </data>
+  <data name="HelpGeneratorStylefontError" xml:space="preserve">
+    <value>color: darkred; font: bold;</value>
+    <comment>color: darkred; font: bold;</comment>
+  </data>
+  <data name="WebDuplicateServiceDescription" xml:space="preserve">
+    <value>targetNamespace '{0}' のサービス記述が複数指定されました。</value>
+    <comment>More than one service description with targetNamespace '{0}' was specified.</comment>
+  </data>
+  <data name="XmlSchemaElementReference" xml:space="preserve">
+    <value>名前空間 '{2}' のスキーマ型 '{1}' で宣言された要素参照 '{0}'。</value>
+    <comment>Element reference '{0}' declared in schema type '{1}' from namespace '{2}'.</comment>
+  </data>
+  <data name="WebHeaderInvalidMustUnderstand" xml:space="preserve">
+    <value>'{0}' はフィールド EncodedMustUnderstand の有効な値ではありません。有効な値は '0'、'1'、'true'、'false' です。</value>
+    <comment>'{0}' is not a valid value for the field EncodedMustUnderstand. Valid values are '0', '1', 'true', and 'false'.</comment>
+  </data>
+  <data name="UnsupportedMessageStyle1" xml:space="preserve">
+    <value>メッセージ スタイル {0} はサポートされません。</value>
+    <comment>Message style {0} is not supported.</comment>
+  </data>
+  <data name="WebCannotAccessValueStage" xml:space="preserve">
+    <value>メッセージ ステージ {0} では値にアクセスできません。</value>
+    <comment>The value may not be accessed in message stage {0}.</comment>
+  </data>
+  <data name="OnlyOneWebServiceBindingAttributeMayBeSpecified1" xml:space="preserve">
+    <value>型 '{0}' の WebServiceBinding 属性は 1 つのみです。</value>
+    <comment>Only one WebServiceBinding attribute may be specified on type '{0}'.</comment>
+  </data>
+  <data name="ClientProtocolUserAgent" xml:space="preserve">
+    <value>要求の User-Agent HTTP ヘッダーを設定します。</value>
+    <comment>Sets the user agent http header for the request.</comment>
+  </data>
+  <data name="WebReflectionErrorMethod" xml:space="preserve">
+    <value>{0}.{1} のリフレクションに失敗。</value>
+    <comment>Method {0}.{1} can not be reflected.</comment>
+  </data>
+  <data name="WebServiceDescriptionIgnoredOptional" xml:space="preserve">
+    <value>名前空間 '{1}' の省略可能な WSDL 拡張要素 '{0}' は未処理です。</value>
+    <comment>The optional WSDL extension element '{0}' from namespace '{1}' was not handled.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR1014_r" xml:space="preserve">
+    <value>バインディングを準拠させるには、すべての応答要素と要求要素が名前空間で修飾されていることを確認してください。名前空間を制御するには、SoapDocumentMethod 属性または SoapRpcMethod 属性の RequestNamespace プロパティと ResponseNamespace プロパティを使用します。</value>
+    <comment>To make binding conformant make sure that all response and request elements are namespace qualified. Use RequestNamespace and ResponseNamespace properties on the SoapDocumentMethod or SoapRpcMethod attribute to control the namespace.</comment>
+  </data>
+  <data name="OperationFlowSolicitResponse" xml:space="preserve">
+    <value>名前空間 '{2}' の portType '{1}' の操作 '{0}' は Solicit-Response として定義されています。</value>
+    <comment>Operation '{0}' on portType '{1}' from namespace '{2}' defined as Solicit-Response.</comment>
+  </data>
+  <data name="WebDescriptionPartElementRequired" xml:space="preserve">
+    <value>名前空間 '{2}' のメッセージ '{1}' のパート '{0}' に element 属性がありません。Use=Literal のヘッダーには element 属性が必要です。</value>
+    <comment>Part '{0}' from message '{1}' in namespace '{2}' is missing the element attribute. The element attribute is required for headers when Use=Literal.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceHelp" xml:space="preserve">
+    <value>Basic Profile Version 1.1 の詳細は、&lt;a href="http://www.ws-i.org/Profiles/BasicProfile-1.1.html"&gt; Basic Profile の仕様&lt;/a&gt; を参照してください。</value>
+    <comment>For more details on Basic Profile Version 1.1, see the &lt;a href="http://www.ws-i.org/Profiles/BasicProfile-1.1.html"&gt; Basic Profile Specification&lt;/a&gt;.</comment>
+  </data>
+  <data name="WebDescriptionMissingBodyUseAttribute" xml:space="preserve">
+    <value>'soap:body' 要素に必須の 'use' 属性がありません。</value>
+    <comment>Missing required 'use' attribute on 'soap:body' element.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2705_r" xml:space="preserve">
+    <value>バインディングを準拠させるには、このバインディングのすべての WebMethod に明示的な SoapRpcMethod 属性または SoapDocumentMethod 属性を追加してください。</value>
+    <comment>To make binding conformant add explicit SoapRpcMethod or SoapDocumentMethod attribute to all WebMethods of this binding.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2706_r" xml:space="preserve">
+    <value>準拠させるには、'rpc-literal' または 'document-literal' の SOAP メッセージを使用するようにサービスの実装を変更してください。すべてのサービス レベルとメソッド レベルの属性 (SoapRpcService、SoapRpcMethod、SoapDocumentService、SoapDocumentMethod) に明示的な &lt;font class=value&gt;Use=SoapBindingUse.Literal&lt;/font&gt; プロパティを追加する必要があります。</value>
+    <comment>To make it conformant change the implementation of the service to use 'rpc-literal' or 'document-literal' SOAP messages. You need to add explicit &lt;font class=value&gt;Use=SoapBindingUse.Literal&lt;/font&gt; property to all service and method level attributes: SoapRpcService, SoapRpcMethod, SoapDocumentService, SoapDocumentMethod.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2710_r" xml:space="preserve">
+    <value>Profile では、wsdl:binding 内の操作の "ワイヤ シグネチャ" を、その操作が記述する SOAP 入力メッセージの soap:Body の子要素の完全修飾名と定義しています。soap:Body が空の場合、この名前は空文字列です。rpc-literal バインディングの場合、操作名がパート アクセサーのラッパーとして使用されます。document-literal の場合は操作名のラッパーが存在しないため、この要件を満たすようにメッセージ シグネチャを正しく設計する必要があります。</value>
+    <comment>The Profile defines the "wire signature" of an operation in a wsdl:binding to be the fully qualified name of the child element of the soap:Body of the SOAP input message it describes. For the case of an empty soap:Body this name is an empty string. In the case of rpc-literal binding, the operation name is used as a wrapper for the part accessors. In the document-literal case, since a wrapper with the operation name is not present, the message signatures must be correctly designed so that they meet this requirement.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2210_r" xml:space="preserve">
+    <value>Document-literal バインディングでは、element 属性で抽象定義されたパートのうち soap:Body 要素にシリアル化できるのは最大 1 つと Profile で規定されています。Bare パラメーター スタイルでは、準拠メソッドのパラメーターは最大 1 つです。</value>
+    <comment>For Document-literal bindings, the Profile requires that at most one part, abstractly defined with the element attribute, be serialized into the soap:Body element. When using a Bare parameter style, a conformant method must have at most one parameter.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2304_r" xml:space="preserve">
+    <value>サービスを準拠させるには、同じバインディングに属するすべての Web メソッドの名前が一意であることを確認してください。</value>
+    <comment>To make service conformant please make sure that all web methods belonging to the same binding have unique names.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2007_r" xml:space="preserve">
+    <value>準拠させるには、すべての import ステートメントに空でない location 属性を含めてください。</value>
+    <comment>To make it conformant modify all import statements to include a non-empty location attribute.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2105_r" xml:space="preserve">
+    <value>スキーマ定義を確認し、明示的な targetNamespace 属性を追加してください。wsdl:types の子であるすべての xsd:schema 要素に targetNamespace を必須とすることは良い方法であり、WSDL ドキュメントの作成者の負担は最小限で、定義が明確でないケースも回避できます。</value>
+    <comment>Please examine your schema definitions and add explicit targetNamespace attribute. Requiring a targetNamespace on all xsd:schema elements that are children of wsdl:types is a good practice, places a minimal burden on authors of WSDL documents, and avoids the cases that are not as clearly defined as they might be.</comment>
+  </data>
+  <data name="HelpGeneratorServiceConformanceR2803_r" xml:space="preserve">
+    <value>準拠させるには、すべての import ステートメントで namespace 属性の値に絶対 URI を使用してください。</value>
+    <comment>To make it conformant modify all import statements to use an absolute URI for namespace attribute value.</comment>
+  </data>
+  <data name="SchemaValidationError" xml:space="preserve">
+    <value>スキーマ検証エラー: {0}</value>
+    <comment>Schema validation error: {0}</comment>
+  </data>
+  <data name="TraceCallEnterDetails" xml:space="preserve">
+    <value>{0} を呼び出し中
+    メソッド: {2}
+    呼び出し元: {1}</value>
+    <comment>Calling {0}
+    Method: {2}
+    Caller: {1}</comment>
+  </data>
+  <data name="WebTimeout" xml:space="preserve">
+    <value>応答を受信する前にタイムアウトしました。</value>
+    <comment>The timeout period expired before the response was received.</comment>
+  </data>
+  <data name="WebNullReaderForMessage" xml:space="preserve">
+    <value>GetReaderForMessage メソッドは null を返すことはできません。</value>
+    <comment>The GetReaderForMessage method cannot return null.</comment>
+  </data>
+  <data name="HelpGeneratorStyleBODY" xml:space="preserve">
+    <value>color: #000000; background-color: white; font-family: Verdana; margin-left: 0px; margin-top: 0px;</value>
+    <comment>color: #000000; background-color: white; font-family: Verdana; margin-left: 0px; margin-top: 0px;</comment>
+  </data>
+  <data name="WebResponseUnknownErrorEmptyBody" xml:space="preserve">
+    <value>要求は空の応答で失敗しました。</value>
+    <comment>The request failed with an empty response.</comment>
+  </data>
+  <data name="ClientProtocolEncoding" xml:space="preserve">
+    <value>要求に使うエンコーディング</value>
+    <comment>The encoding to use for requests.</comment>
+  </data>
+  <data name="HelpGeneratorLanguageConfig" xml:space="preserve">
+    <value>言語 '{0}' の CodeDom プロバイダーが定義されていません。</value>
+    <comment>There is no CodeDom provider defined for the language '{0}'.</comment>
+  </data>
+  <data name="HelpGeneratorStyleAlink" xml:space="preserve">
+    <value>color: #336699; font-weight: bold; text-decoration: underline;</value>
+    <comment>color: #336699; font-weight: bold; text-decoration: underline;</comment>
+  </data>
+  <data name="BPConformanceSoapEncodedMethod" xml:space="preserve">
+    <value>WebService {1} の WebMethod {0} は準拠を宣言していますが、WS-I Basic Profile v1.1 では use=encoded は非準拠です。</value>
+    <comment>WebMethod {0} on WebService {1} claims conformance, but use=encoded is non-conformant according to WS-I Basic Profile v1.1.</comment>
+  </data>
+  <data name="UnableToHandleRequestActionNotRecognized1" xml:space="preserve">
+    <value>要求を処理できません。アクション '{0}' は認識されませんでした。</value>
+    <comment>Unable to handle request. The action '{0}' was not recognized.</comment>
+  </data>
+  <data name="Part" xml:space="preserve">
+    <value>targetNamespace='{2}' のサービス記述のメッセージ '{1}' のパート '{0}'。</value>
+    <comment>Part '{0}' of message '{1}' from service description with targetNamespace='{2}'.</comment>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>namespace='{2}' のサービス {1} のポート '{0}'。</value>
+    <comment>Port '{0}' on service {1} from namespace='{2}'.</comment>
+  </data>
+  <data name="HelpGeneratorValue" xml:space="preserve">
+    <value>値</value>
+    <comment>Value</comment>
+  </data>
+  <data name="WebRefInvalidAttribute2" xml:space="preserve">
+    <value>型 '{0}' の無効な空の参照が見つかりました。必須の '{1}' 属性がありません。</value>
+    <comment>Invalid empty reference of type '{0}' encountered. Missing required '{1}' attribute.</comment>
+  </data>
+  <data name="ClientProtocolPassword" xml:space="preserve">
+    <value>基本認証およびダイジェスト認証に使用するパスワード</value>
+    <comment>The password to be used for basic and digest authentication.</comment>
+  </data>
+  <data name="WebBothServiceAttrs" xml:space="preserve">
+    <value>Web サービスに SoapDocumentServiceAttribute と SoapRpcServiceAttribute の両方を指定することはできません。どちらか一方を使用してください。</value>
+    <comment>A web service can't have both a SoapDocumentServiceAttribute and a SoapRpcServiceAttribute. Use one or the other.</comment>
+  </data>
+  <data name="WebDuplicateMessagePart" xml:space="preserve">
+    <value>'{0}' という名前のメッセージ パートが複数指定されました。各メッセージ パートには一意の名前が必要です。</value>
+    <comment>More than one message part named '{0}' was specified. Each message part must have a unique name.</comment>
+  </data>
+  <data name="WebDescriptionMissing" xml:space="preserve">
+    <value>{0} の定義が見つかりません。名前空間 {1} のサービス記述がありません。</value>
+    <comment>Cannot find definition for {0}.  Service Description with namespace {1} is missing.</comment>
+  </data>
+  <data name="HelpGeneratorStyleintro" xml:space="preserve">
+    <value>margin-left: -15px;</value>
+    <comment>margin-left: -15px;</comment>
+  </data>
+  <data name="WebUnknownElement2" xml:space="preserve">
+    <value>このコンテキストでは要素 {0} は予期されていません。予期される要素: {1}。</value>
+    <comment>The element was not expected in this context: {0}. Expected elements: {1}.</comment>
+  </data>
+  <data name="WebUnknownElement1" xml:space="preserve">
+    <value>予期しない要素 {0} が見つかりました。このスコープでは要素は予期されていません。</value>
+    <comment>An unexpected element was encountered: {0}. No elements were expected in this scope.</comment>
+  </data>
+  <data name="XmlConfigurationDuplicateExtension" xml:space="preserve">
+    <value>拡張名が重複しています。名前 '{0}' の schemaImporterExtension は既に追加されています。</value>
+    <comment>Duplicate extension name.  schemaImporterExtension with name '{0}' already been added.</comment>
+  </data>
+  <data name="XmlExtensionComment" xml:space="preserve">
+    <value>この型定義は {0} スキーマ インポーター拡張で生成されました。</value>
+    <comment>This type definition was generated by {0} schema importer extension.</comment>
+  </data>
+  <data name="XmlExtensionDuplicateDefinition" xml:space="preserve">
+    <value>スキーマ インポーター拡張 {0} が重複する型定義を生成しました: {1}。</value>
+    <comment>Schema importer extension {0} generated duplicate type definitions: {1}.</comment>
+  </data>
+  <data name="XmlInvalidSchemaExtension" xml:space="preserve">
+    <value>'{0}' は無効な SchemaExtensionType です。</value>
+    <comment>'{0}' is not a valid SchemaExtensionType.</comment>
+  </data>
+  <data name="XmlCodegenWarningDetails" xml:space="preserve">
+    <value>CODEGEN 警告: {0}</value>
+    <comment>CODEGEN Warning: {0}</comment>
+  </data>
+  <data name="XmlMappingsScopeMismatch" xml:space="preserve">
+    <value>同じインポーターのマッピングのみエクスポート可能</value>
+    <comment>Exported mappings must come from the same importer.</comment>
+  </data>
+  <data name="Xml_InvalidNameChars" xml:space="preserve">
+    <value>'{0}' の名前文字が無効です。</value>
+    <comment>Invalid name character in '{0}'.</comment>
+  </data>
+  <data name="XmlCircularDerivation" xml:space="preserve">
+    <value>IXmlSerializable 型 '{0}' の派生に循環参照があります。</value>
+    <comment>Circular reference in derivation of IXmlSerializable type '{0}'.</comment>
+  </data>
+  <data name="XmlGetSchemaEmptyTypeName" xml:space="preserve">
+    <value>{0}.{1}() は有効な型名を返してください。</value>
+    <comment>{0}.{1}() must return a valid type name.</comment>
+  </data>
+  <data name="XmlGetSchemaInclude" xml:space="preserve">
+    <value>targetNamespace='{0}' の複数のスキーマが {1}.{2}() から返されました。メイン (親) スキーマのみを使用し、他は Includes に追加してください。</value>
+    <comment>Multiple schemas with targetNamespace='{0}' returned by {1}.{2}().  Please use only the main (parent) schema, and add the others to the schema Includes.</comment>
+  </data>
+  <data name="XmlGetSchemaMethodReturnType" xml:space="preserve">
+    <value>{2} で指定された {0}.{1}() のシグネチャが無効です: 戻り値の型は {3} と互換である必要があります。</value>
+    <comment>Method {0}.{1}() specified by {2} has invalid signature: return type must be compatible with {3}.</comment>
+  </data>
+  <data name="XmlGetSchemaTypeMissing" xml:space="preserve">
+    <value>{0}.{1}() は有効な型名を返す必要があります。型 '{2}' が targetNamespace='{3}' に見つかりません。</value>
+    <comment>{0}.{1}() must return a valid type name. Type '{2}' cannot be found in the targetNamespace='{3}'.</comment>
+  </data>
+  <data name="XmlHiddenMember" xml:space="preserve">
+    <value>{2} 型のメンバー {0}.{1} が基底の {5} 型メンバー {3}.{4} を隠します。XmlElementAttribute か XmlAttributeAttribute で別名を指定してください。</value>
+    <comment>Member {0}.{1} of type {2} hides base class member {3}.{4} of type {5}. Use XmlElementAttribute or XmlAttributeAttribute to specify a new name.</comment>
+  </data>
+  <data name="XmlIllegalSimpleContentExtension" xml:space="preserve">
+    <value>型 '{0}' のオブジェクトをシリアル化できません。基本型 '{1}' は simpleContent を持ち、XmlAttribute 要素の追加によってのみ拡張できます。基本クラスの XmlText メンバーを文字列配列にすることを検討してください。</value>
+    <comment>Cannot serialize object of type '{0}'. Base type '{1}' has simpleContent and can only be extended by adding XmlAttribute elements. Please consider changing XmlText member of the base class to string array.</comment>
+  </data>
+  <data name="XmlIllegalTypedTextAttribute" xml:space="preserve">
+    <value>型 '{0}' をシリアル化できません。XmlText メンバー '{0}.{1}' の型を {2} から string か string 配列への変更を検討してください。</value>
+    <comment>Cannot serialize object of type '{0}'. Consider changing type of XmlText member '{0}.{1}' from {2} to string or string array.</comment>
+  </data>
+  <data name="XmlInvalidXmlOverride" xml:space="preserve">
+    <value>メンバー '{0}.{1}' は継承メンバー '{2}.{3}' を隠しますが、カスタム属性が異なります。</value>
+    <comment>Member '{0}.{1}' hides inherited member '{2}.{3}', but has different custom attributes.</comment>
+  </data>
+  <data name="XmlMissingSchema" xml:space="preserve">
+    <value>スキーマ欠落: targetNamespace="{0}"</value>
+    <comment>Missing schema targetNamespace="{0}".</comment>
+  </data>
+  <data name="XmlRemarks" xml:space="preserve">
+    <value>&lt;remarks/&gt;</value>
+    <comment>&lt;remarks/&gt;</comment>
+  </data>
+  <data name="XmlSerializableNameMissing1" xml:space="preserve">
+    <value>スキーマ Id がありません。{0}.GetSchema() が返すスキーマには Id が必要です。</value>
+    <comment>Schema Id is missing. The schema returned from {0}.GetSchema() must have an Id.</comment>
+  </data>
+  <data name="XmlSerializableSchemaError" xml:space="preserve">
+    <value>{0} が提供したスキーマ型情報が無効です: {1}</value>
+    <comment>Schema type information provided by {0} is invalid: {1}</comment>
+  </data>
+  <data name="XmlUnsupportedTypeKind" xml:space="preserve">
+    <value>型 {0} はシリアル化できません。</value>
+    <comment>The type {0} may not be serialized.</comment>
+  </data>
+  <data name="XmlConvert_BadFormat" xml:space="preserve">
+    <value>文字列 '{0}' は無効な {1} 値です。</value>
+    <comment>The string '{0}' is not a valid {1} value.</comment>
+  </data>
+  <data name="XmlInvalidSpecifiedType" xml:space="preserve">
+    <value>型 {1} のメンバー '{0}' はシリアル化できません。名前が 'Specified' で終わるメンバーは XmlSerializer にとって特別な意味を持ちます。省略可能な ValueType メンバーのシリアル化を制御するもので、型 {2} である必要があります。</value>
+    <comment>Member '{0}' of type {1} cannot be serialized.  Members with names ending on 'Specified' suffix have special meaning to the XmlSerializer: they control serialization of optional ValueType members and have to be of type {2}.</comment>
+  </data>
+  <data name="XmlMismatchSchemaObjects" xml:space="preserve">
+    <value>警告: 名前空間 '{2}' の {0} '{1}' を共有できません。一致しないスキーマ宣言が複数見つかりました。</value>
+    <comment>Warning: Cannot share {0} named '{1}' from '{2}' namespace. Several mismatched schema declarations were found.</comment>
+  </data>
+  <data name="XmlSerializableRootDupName" xml:space="preserve">
+    <value>'{0}' のスキーマを調整できません。要素宣言の重複を避けるため、[XmlRoot] 属性を使用して最上位要素の既定の名前または名前空間を変更してください: element name='{1}' namespace='{2}'。</value>
+    <comment>Cannot reconcile schema for '{0}'. Please use [XmlRoot] attribute to change default name or namespace of the top-level element to avoid duplicate element declarations: element name='{1}' namespace='{2}'.</comment>
+  </data>
+  <data name="XmlSerializerUnsupportedMember" xml:space="preserve">
+    <value>型 '{1}' のメンバー '{0}' をシリアル化できません。内部例外を参照してください。</value>
+    <comment>Cannot serialize member '{0}' of type '{1}', see inner exception for more details.</comment>
+  </data>
+  <data name="XmlSerializerUnsupportedType" xml:space="preserve">
+    <value>{0} はサポートされていない型です。[XmlIgnore] 属性で、この型のメンバーをシリアル化グラフから除外してください。</value>
+    <comment>{0} is an unsupported type. Please use [XmlIgnore] attribute to exclude members of this type from serialization graph.</comment>
+  </data>
+</root>

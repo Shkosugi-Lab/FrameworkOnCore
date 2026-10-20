@@ -65,4 +65,6 @@
         </None>
         <Compile Include="..\VersionInfo.cs" Link="Properties\VersionInfo.cs" />
     </ItemGroup>
+
+    <Import Project="..\FrameworkOnCore.Translations.targets" />
 </Project>

@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SyntaxError" xml:space="preserve">
+    <value>構文エラー</value>
+    <comment>Syntax error</comment>
+  </data>
+  <data name="NoColon" xml:space="preserve">
+    <value>':' が必要</value>
+    <comment>Expected ':'</comment>
+  </data>
+  <data name="NoSemicolon" xml:space="preserve">
+    <value>';' が必要</value>
+    <comment>Expected ';'</comment>
+  </data>
+  <data name="NoLeftParenthesis" xml:space="preserve">
+    <value>'(' が必要</value>
+    <comment>Expected '('</comment>
+  </data>
+  <data name="NoRightParenthesis" xml:space="preserve">
+    <value>')' が必要</value>
+    <comment>Expected ')'</comment>
+  </data>
+  <data name="NoRightBracket" xml:space="preserve">
+    <value>']' が必要</value>
+    <comment>Expected ']'</comment>
+  </data>
+  <data name="NoLeftCurly" xml:space="preserve">
+    <value>'{' が必要</value>
+    <comment>Expected '{'</comment>
+  </data>
+  <data name="NoRightCurly" xml:space="preserve">
+    <value>'}' が必要</value>
+    <comment>Expected '}'</comment>
+  </data>
+  <data name="NoIdentifier" xml:space="preserve">
+    <value>識別子が必要</value>
+    <comment>Expected identifier</comment>
+  </data>
+  <data name="NoEqual" xml:space="preserve">
+    <value>'=' が必要</value>
+    <comment>Expected '='</comment>
+  </data>
+  <data name="IllegalChar" xml:space="preserve">
+    <value>無効な文字</value>
+    <comment>Invalid character</comment>
+  </data>
+  <data name="UnterminatedString" xml:space="preserve">
+    <value>未終了の文字列定数</value>
+    <comment>Unterminated string constant</comment>
+  </data>
+  <data name="NoCommentEnd" xml:space="preserve">
+    <value>未終了のコメント</value>
+    <comment>Unterminated comment</comment>
+  </data>
+  <data name="BadReturn" xml:space="preserve">
+    <value>関数外の 'return' ステートメント</value>
+    <comment>'return' statement outside of function</comment>
+  </data>
+  <data name="BadBreak" xml:space="preserve">
+    <value>ループ外に 'break' は置けません</value>
+    <comment>Can't have 'break' outside of loop</comment>
+  </data>
+  <data name="BadContinue" xml:space="preserve">
+    <value>ループ外に 'continue' は置けません</value>
+    <comment>Can't have 'continue' outside of loop</comment>
+  </data>
+  <data name="BadHexEscapeSequence" xml:space="preserve">
+    <value>無効な 16 進エスケープ シーケンス</value>
+    <comment>Invalid hexadecimal escape sequence</comment>
+  </data>
+  <data name="NoWhile" xml:space="preserve">
+    <value>'while' が必要</value>
+    <comment>Expected 'while'</comment>
+  </data>
+  <data name="BadLabel" xml:space="preserve">
+    <value>ラベルの再定義</value>
+    <comment>Label redefined</comment>
+  </data>
+  <data name="NoLabel" xml:space="preserve">
+    <value>ラベル未検出</value>
+    <comment>Label not found</comment>
+  </data>
+  <data name="DupDefault" xml:space="preserve">
+    <value>'default' は 'switch' 文に 1 つしか置けません</value>
+    <comment>'default' can only appear once in a 'switch' statement</comment>
+  </data>
+  <data name="NoMemberIdentifier" xml:space="preserve">
+    <value>識別子または文字列が必要</value>
+    <comment>Expected identifier or string</comment>
+  </data>
+  <data name="NoCCEnd" xml:space="preserve">
+    <value>'@end' が必要</value>
+    <comment>Expected '@end'</comment>
+  </data>
+  <data name="CCOff" xml:space="preserve">
+    <value>条件付きコンパイルはオフです</value>
+    <comment>Conditional compilation is turned off</comment>
+  </data>
+  <data name="NoCatch" xml:space="preserve">
+    <value>'catch' が必要</value>
+    <comment>Expected 'catch'</comment>
+  </data>
+  <data name="InvalidElse" xml:space="preserve">
+    <value>対応する 'if' がない 'else'</value>
+    <comment>Unmatched 'else'; no 'if' defined</comment>
+  </data>
+  <data name="NoComma" xml:space="preserve">
+    <value>',' が必要</value>
+    <comment>Expected ','</comment>
+  </data>
+  <data name="BadSwitch" xml:space="preserve">
+    <value>'case' か 'default' 文がありません</value>
+    <comment>Missing 'case' or 'default' statement</comment>
+  </data>
+  <data name="CCInvalidEnd" xml:space="preserve">
+    <value>対応する '@if' がない '@end'</value>
+    <comment>Unmatched '@end'; no '@if' defined</comment>
+  </data>
+  <data name="CCInvalidElse" xml:space="preserve">
+    <value>対応する '@if' がない '@else'</value>
+    <comment>Unmatched '@else'; no '@if' defined</comment>
+  </data>
+  <data name="CCInvalidElseIf" xml:space="preserve">
+    <value>対応する '@if' がない '@elif'</value>
+    <comment>Unmatched '@elif'; no '@if' defined</comment>
+  </data>
+  <data name="ErrorEndOfFile" xml:space="preserve">
+    <value>ソース文字がさらに必要です</value>
+    <comment>Expecting more source characters</comment>
+  </data>
+  <data name="DuplicateName" xml:space="preserve">
+    <value>名前が定義済みです</value>
+    <comment>Name is already defined</comment>
+  </data>
+  <data name="UndeclaredVariable" xml:space="preserve">
+    <value>変数が宣言されていません</value>
+    <comment>Variable has not been declared</comment>
+  </data>
+  <data name="KeywordUsedAsIdentifier" xml:space="preserve">
+    <value>予約語は識別子として使用しないでください。ブラウザー間で動作が異なります</value>
+    <comment>Reserved words and should not be used as an identifier; cross-browser differences</comment>
+  </data>
+  <data name="NoRightParenthesisOrComma" xml:space="preserve">
+    <value>',' か ')' が必要</value>
+    <comment>Expected ',' or ')'</comment>
+  </data>
+  <data name="NoRightBracketOrComma" xml:space="preserve">
+    <value>',' か ']' が必要</value>
+    <comment>Expected ',' or ']'</comment>
+  </data>
+  <data name="ExpressionExpected" xml:space="preserve">
+    <value>式が必要</value>
+    <comment>Expected expression</comment>
+  </data>
+  <data name="UnexpectedSemicolon" xml:space="preserve">
+    <value>予期しない ';'</value>
+    <comment>Unexpected ';'</comment>
+  </data>
+  <data name="TooManyTokensSkipped" xml:space="preserve">
+    <value>エラーが多すぎます。JavaScript ではない可能性があります</value>
+    <comment>Too many errors. The file might not be a JavaScript file</comment>
+  </data>
+  <data name="SuspectAssignment" xml:space="preserve">
+    <value>不審な代入演算子</value>
+    <comment>Suspect assignment operator</comment>
+  </data>
+  <data name="SuspectSemicolon" xml:space="preserve">
+    <value>不審なセミコロン</value>
+    <comment>Suspect semicolon</comment>
+  </data>
+  <data name="ParameterListNotLast" xml:space="preserve">
+    <value>可変個引数リストは最後の引数である必要があります</value>
+    <comment>A variable argument list must be the last argument</comment>
+  </data>
+  <data name="IllegalAssignment" xml:space="preserve">
+    <value>不正な代入</value>
+    <comment>Illegal assignment</comment>
+  </data>
+  <data name="RegExpSyntax" xml:space="preserve">
+    <value>正規表現の構文エラー</value>
+    <comment>Syntax error in regular expression</comment>
+  </data>
+  <data name="StatementBlockExpected" xml:space="preserve">
+    <value>常に文ブロックを使用してください</value>
+    <comment>Always use full statement blocks</comment>
+  </data>
+  <data name="UndeclaredFunction" xml:space="preserve">
+    <value>関数が定義されていません</value>
+    <comment>Function has not been defined</comment>
+  </data>
+  <data name="VariableDefinedNotReferenced" xml:space="preserve">
+    <value>変数は定義済みですが未参照です</value>
+    <comment>Variable defined but not referenced</comment>
+  </data>
+  <data name="ArgumentNotReferenced" xml:space="preserve">
+    <value>引数は定義済みですが未参照です</value>
+    <comment>Argument defined but not referenced</comment>
+  </data>
+  <data name="WithNotRecommended" xml:space="preserve">
+    <value>'with' 文は非推奨です</value>
+    <comment>'with' statement not recommended</comment>
+  </data>
+  <data name="FunctionNotReferenced" xml:space="preserve">
+    <value>関数は定義済みですが未参照です</value>
+    <comment>Function defined but not referenced</comment>
+  </data>
+  <data name="AmbiguousCatchVar" xml:space="preserve">
+    <value>あいまいな catch 識別子です。ブラウザー間で動作が異なります。 </value>
+    <comment>Ambiguous catch identifier. Cross-browser behavior difference. </comment>
+  </data>
+  <data name="FunctionExpressionExpected" xml:space="preserve">
+    <value>関数式が必要</value>
+    <comment>Function expression expected</comment>
+  </data>
+  <data name="ObjectConstructorTakesNoArguments" xml:space="preserve">
+    <value>Object コンストラクターに引数は不要です</value>
+    <comment>Object constructor should take no arguments</comment>
+  </data>
+  <data name="JSParserException" xml:space="preserve">
+    <value>JSParser 例外</value>
+    <comment>JSParser Exception</comment>
+  </data>
+  <data name="NumericOverflow" xml:space="preserve">
+    <value>数値リテラルが Number.POSITIVE_INFINITY か Number.NEGATIVE_INFINITY になります</value>
+    <comment>Numeric literal evaluates to Number.POSITIVE_INFINITY or Number.NEGATIVE_INFINITY</comment>
+  </data>
+  <data name="NumericMaximum" xml:space="preserve">
+    <value>最大数値リテラルは Number.MAX_VALUE に置換を検討してください</value>
+    <comment>Consider replacing maximum numeric literal with Number.MAX_VALUE</comment>
+  </data>
+  <data name="NumericMinimum" xml:space="preserve">
+    <value>最小数値リテラルは Number.MIN_VALUE に置換を検討してください</value>
+    <comment>Consider replacing minimum numeric literal with Number.MIN_VALUE</comment>
+  </data>
+  <data name="ResourceReferenceMustBeConstant" xml:space="preserve">
+    <value>リソース参照は単一の定数引数である必要があります</value>
+    <comment>Resource reference must be single constant argument</comment>
+  </data>
+  <data name="AmbiguousNamedFunctionExpression" xml:space="preserve">
+    <value>名前付き関数式へのあいまいな参照です。ブラウザー間で動作が異なります</value>
+    <comment>Ambiguous reference to named function expression. Cross-browser behavior difference</comment>
+  </data>
+  <data name="ConditionalCompilationTooComplex" xml:space="preserve">
+    <value>条件付きコンパイル式はサポートされません。コメントを無視しました</value>
+    <comment>Conditional compilation expression not supported. Comment ignored</comment>
+  </data>
+  <data name="UnterminatedAspNetBlock" xml:space="preserve">
+    <value>未終了の ASP.NET ブロック</value>
+    <comment>Unterminated ASP.NET block</comment>
+  </data>
+  <data name="MisplacedFunctionDeclaration" xml:space="preserve">
+    <value>関数宣言はステートメント内に置かないでください。ブラウザー間で動作が異なります</value>
+    <comment>Function declaration should not be inside a statement. Cross-browser behavior difference</comment>
+  </data>
+  <data name="OctalLiteralsDeprecated" xml:space="preserve">
+    <value>8 進リテラルは非推奨です。ブラウザー間で動作が異なる可能性があります</value>
+    <comment>Octal literals are deprecated. Possible cross-browser behavior difference</comment>
+  </data>
+  <data name="FunctionNameMustBeIdentifier" xml:space="preserve">
+    <value>関数名は単純な識別子にしてください。ブラウザー固有の実装の可能性があります</value>
+    <comment>Function name should be a simple identifier; possible browser-specific implementation</comment>
+  </data>
+  <data name="StrictComparisonIsAlwaysTrueOrFalse" xml:space="preserve">
+    <value>厳密演算子は常に true か false に評価されます</value>
+    <comment>Strict operator always evaluates to true or false</comment>
+  </data>
+  <data name="StrictModeNoWith" xml:space="preserve">
+    <value>strict モードでは with 文を使用できません</value>
+    <comment>Strict-mode does not allow with-statements</comment>
+  </data>
+  <data name="StrictModeDuplicateArgument" xml:space="preserve">
+    <value>strict モードでは引数名を重複できません</value>
+    <comment>Strict-mode does not allow duplicate argument names</comment>
+  </data>
+  <data name="StrictModeVariableName" xml:space="preserve">
+    <value>strict モードでは一部の変数名は使用できません</value>
+    <comment>Strict-mode does not allow certain variable names</comment>
+  </data>
+  <data name="StrictModeFunctionName" xml:space="preserve">
+    <value>strict モードでは一部の関数名は使用できません</value>
+    <comment>Strict-mode does not allow certain function names</comment>
+  </data>
+  <data name="StrictModeDuplicateProperty" xml:space="preserve">
+    <value>strict モードではプロパティ名を重複できません</value>
+    <comment>Strict-mode does not allow duplicate property names</comment>
+  </data>
+  <data name="StrictModeInvalidAssign" xml:space="preserve">
+    <value>strict モードでは一部の変数に代入できません</value>
+    <comment>Strict-mode does not allow assignment to certain variables</comment>
+  </data>
+  <data name="StrictModeInvalidPreOrPost" xml:space="preserve">
+    <value>strict モードでは一部オブジェクトに ++/-- を使えません</value>
+    <comment>Strict-mode does not allow ++ or -- on certain objects</comment>
+  </data>
+  <data name="StrictModeInvalidDelete" xml:space="preserve">
+    <value>strict モードでは一部の delete オペランドは不可</value>
+    <comment>Strict-mode does not allow certain delete operands</comment>
+  </data>
+  <data name="StrictModeArgumentName" xml:space="preserve">
+    <value>strict モードでは一部の引数名は使用できません</value>
+    <comment>Strict-mode does not allow certain argument names</comment>
+  </data>
+  <data name="DuplicateConstantDeclaration" xml:space="preserve">
+    <value>定数は既に宣言されています</value>
+    <comment>Constant declaration already declared</comment>
+  </data>
+  <data name="AssignmentToConstant" xml:space="preserve">
+    <value>定数への代入</value>
+    <comment>Assignment to constant</comment>
+  </data>
+  <data name="StringNotInlineSafe" xml:space="preserve">
+    <value>インラインに安全でない文字列リテラル</value>
+    <comment>String literal is not safe for inline</comment>
+  </data>
+  <data name="StrictModeUndefinedVariable" xml:space="preserve">
+    <value>strict モードでは未定義の変数に代入できません</value>
+    <comment>Strict-mode does not allow assignment to undefined variables</comment>
+  </data>
+  <data name="UnclosedFunction" xml:space="preserve">
+    <value>関数が正しく閉じられる前にファイルの終わりに達しました</value>
+    <comment>End of file encountered before function is properly closed</comment>
+  </data>
+  <data name="ObjectLiteralKeyword" xml:space="preserve">
+    <value>予約語をオブジェクト リテラルのプロパティ名に使用 (ブラウザー間の問題)。</value>
+    <comment>Reserved word used as object literal property name; cross-browser issue.</comment>
+  </data>
+  <data name="NoEndDebugDirective" xml:space="preserve">
+    <value>///#ENDDEBUG 命令が必要</value>
+    <comment>Expected ///#ENDDEBUG directive</comment>
+  </data>
+  <data name="NoEndIfDirective" xml:space="preserve">
+    <value>///#ENDIF 命令が必要</value>
+    <comment>Expected ///#ENDIF directive</comment>
+  </data>
+  <data name="ApplicationError" xml:space="preserve">
+    <value>アプリケーション エラー。報告してください。</value>
+    <comment>Application failed. Please report this issue.</comment>
+  </data>
+  <data name="BadNumericLiteral" xml:space="preserve">
+    <value>無効な数値リテラル</value>
+    <comment>Invalid numeric literal</comment>
+  </data>
+  <data name="DuplicateLexicalDeclaration" xml:space="preserve">
+    <value>字句宣言が重複しています。let や const の変数は再定義できません</value>
+    <comment>Duplicate lexical declaration; cannot redefine let or const variables</comment>
+  </data>
+  <data name="DuplicateCatch" xml:space="preserve">
+    <value>変数または関数の宣言が catch のエラー名を再定義しています</value>
+    <comment>Variable or function declaration redefines the catch error name</comment>
+  </data>
+  <data name="SuspectEquality" xml:space="preserve">
+    <value>不審な等値比較</value>
+    <comment>Suspect equality comparison</comment>
+  </data>
+  <data name="SemicolonInsertion" xml:space="preserve">
+    <value>セミコロン挿入規則を適用しました</value>
+    <comment>Semicolon insertion rules applied</comment>
+  </data>
+  <data name="ArrayLiteralTrailingComma" xml:space="preserve">
+    <value>配列リテラルの末尾コンマ。ブラウザー間で異なります</value>
+    <comment>Trailing comma in array literal; cross-browser difference</comment>
+  </data>
+  <data name="StrictModeCatchName" xml:space="preserve">
+    <value>strict モードでは一部の catch バインド名は使えません</value>
+    <comment>Strict-mode does not allow certain catch binding names</comment>
+  </data>
+  <data name="BindingPatternRequiresInitializer" xml:space="preserve">
+    <value>バインド パターンには初期化子が必要</value>
+    <comment>Binding pattern requires initializer</comment>
+  </data>
+  <data name="ImplicitPropertyNameMustBeIdentifier" xml:space="preserve">
+    <value>暗黙のプロパティ名は識別子にしてください</value>
+    <comment>Implicit property name must be identifier</comment>
+  </data>
+  <data name="SetterMustHaveOneParameter" xml:space="preserve">
+    <value>setter メソッドには仮引数が 1 つだけ必要です</value>
+    <comment>Setter methods must have a single formal argument</comment>
+  </data>
+  <data name="RestParameterNotLast" xml:space="preserve">
+    <value>rest パラメーターは最後にのみ指定できます</value>
+    <comment>Rest parameter can only be in last position</comment>
+  </data>
+  <data name="UnableToConvertFromBinding" xml:space="preserve">
+    <value>バインドから参照に変換できません</value>
+    <comment>Unable to convert from binding to reference</comment>
+  </data>
+  <data name="UnableToConvertToBinding" xml:space="preserve">
+    <value>参照からバインドに変換できません</value>
+    <comment>Unable to convert from reference to binding</comment>
+  </data>
+  <data name="BadBindingSyntax" xml:space="preserve">
+    <value>無効なバインド構文</value>
+    <comment>Invalid binding syntax</comment>
+  </data>
+  <data name="MethodsNotAllowedInBindings" xml:space="preserve">
+    <value>オブジェクト リテラル バインドにメソッド不可</value>
+    <comment>Methods not allowed in object literal bindings</comment>
+  </data>
+  <data name="NoForOrIf" xml:space="preserve">
+    <value>'for' か 'if' キーワードが必要</value>
+    <comment>Expected 'for' or 'if' keyword</comment>
+  </data>
+  <data name="ClassElementExpected" xml:space="preserve">
+    <value>クラス要素が必要</value>
+    <comment>Expected class element</comment>
+  </data>
+  <data name="DuplicateClassElementName" xml:space="preserve">
+    <value>クラス要素名が重複しています</value>
+    <comment>Duplicate class element name</comment>
+  </data>
+  <data name="SpecialConstructor" xml:space="preserve">
+    <value>コンストラクターは通常のメソッドに限る</value>
+    <comment>Class constructor must be normal method</comment>
+  </data>
+  <data name="StaticPrototype" xml:space="preserve">
+    <value>static メソッド名に "prototype" は使えません</value>
+    <comment>Class static method cannot be named "prototype"</comment>
+  </data>
+  <data name="UnusedLabel" xml:space="preserve">
+    <value>ラベルが一度も参照されていません</value>
+    <comment>Statement label never referenced</comment>
+  </data>
+  <data name="NoBinding" xml:space="preserve">
+    <value>バインド構文が必要</value>
+    <comment>Expected binding syntax</comment>
+  </data>
+  <data name="MultipleDefaultExports" xml:space="preserve">
+    <value>既定エクスポートが複数</value>
+    <comment>Multiple default exports</comment>
+  </data>
+  <data name="ImportNoModuleName" xml:space="preserve">
+    <value>import 文にはモジュール名が必要です</value>
+    <comment>Import statement must include module name</comment>
+  </data>
+  <data name="DuplicateModuleDeclaration" xml:space="preserve">
+    <value>モジュール宣言の重複</value>
+    <comment>Duplicate module declaration</comment>
+  </data>
+  <data name="NoDefaultModuleExport" xml:space="preserve">
+    <value>モジュールに既定のエクスポートがない</value>
+    <comment>Imported module has no default export</comment>
+  </data>
+  <data name="NoModuleExport" xml:space="preserve">
+    <value>その名前はエクスポートされていません</value>
+    <comment>Imported module does not export name</comment>
+  </data>
+  <data name="NewLineNotAllowed" xml:space="preserve">
+    <value>改行は使用できません</value>
+    <comment>New line not allowed</comment>
+  </data>
+  <data name="NoExpectedFrom" xml:space="preserve">
+    <value>"from" が必要</value>
+    <comment>Expected "from"</comment>
+  </data>
+  <data name="NoSpecifierSet" xml:space="preserve">
+    <value>指定子セットが必要</value>
+    <comment>Expected specifier set</comment>
+  </data>
+  <data name="NoStringLiteral" xml:space="preserve">
+    <value>文字列リテラルが必要</value>
+    <comment>Expected string literal</comment>
+  </data>
+  <data name="ExportNotAtModuleLevel" xml:space="preserve">
+    <value>export 文はモジュールの最上位に置いてください</value>
+    <comment>Export statements must be at top level of module</comment>
+  </data>
+  <data name="NoSource" xml:space="preserve">
+    <value>パーサーのソース未設定</value>
+    <comment>No source set on parser</comment>
+  </data>
+  <data name="ArrowCannotBeConstructor" xml:space="preserve">
+    <value>アロー関数はコンストラクターにできない</value>
+    <comment>Arrow functions cannot be constructors</comment>
+  </data>
+  <data name="HighSurrogate" xml:space="preserve">
+    <value>上位サロゲート値の後に下位サロゲート値がありません</value>
+    <comment>High-surrogate pair value not followed by low-surrogate value</comment>
+  </data>
+  <data name="LowSurrogate" xml:space="preserve">
+    <value>下位サロゲート値の前に上位サロゲート値がありません</value>
+    <comment>Low-surrogate pair value not following a high-surrogate value</comment>
+  </data>
+</root>

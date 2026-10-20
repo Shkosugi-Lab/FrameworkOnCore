@@ -1,0 +1,1905 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Style_ErrorMessageTitle" xml:space="preserve">
+    <value>スタイル エディター</value>
+    <comment>Styles Editor</comment>
+  </data>
+  <data name="StylesEditorDialog_DeleteStyleCaption" xml:space="preserve">
+    <value>スタイル削除の確認</value>
+    <comment>Confirm Style Deletion</comment>
+  </data>
+  <data name="MobileWebFormDesigner_MessageBoxTitle" xml:space="preserve">
+    <value>モバイル インターネット デザイナー</value>
+    <comment>Mobile Internet Designer</comment>
+  </data>
+  <data name="Form_OnActivate" xml:space="preserve">
+    <value>フォームがアクティブになったときにイベントを発生させます。</value>
+    <comment>Raises an event when the form becomes active.</comment>
+  </data>
+  <data name="ListGeneralPage_SelectTypeCheckBox" xml:space="preserve">
+    <value>CheckBox</value>
+    <comment>CheckBox</comment>
+  </data>
+  <data name="EditableTreeList_AddDescription" xml:space="preserve">
+    <value>リストに新しい項目を追加</value>
+    <comment>Add a new item to the list.</comment>
+  </data>
+  <data name="CompareValidator_Type" xml:space="preserve">
+    <value>比較する値のデータ型</value>
+    <comment>Data type of values for comparison.</comment>
+  </data>
+  <data name="ObjectList_DetailsCommandText" xml:space="preserve">
+    <value>詳細ビューへのリンクのテキスト</value>
+    <comment>Text for the link to details view.</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_Method" xml:space="preserve">
+    <value>メソッド(&amp;M):</value>
+    <comment>&amp;Method:</comment>
+  </data>
+  <data name="ObjectListFieldsPage_FieldListGroupLabel" xml:space="preserve">
+    <value>フィールド一覧</value>
+    <comment>Field list</comment>
+  </data>
+  <data name="PagedControl_OnLoadItems" xml:space="preserve">
+    <value>コントロールがカスタム ページングを使用し、追加のデータを要求したときにイベントを発生させます。</value>
+    <comment>Raises an event when the control uses custom paging and requests more data.</comment>
+  </data>
+  <data name="ObjectListCommandsPage_DefaultCommandCaption" xml:space="preserve">
+    <value>既定のコマンド(&amp;D):</value>
+    <comment>&amp;Default command:</comment>
+  </data>
+  <data name="Stylesheet_EditBtnCaption" xml:space="preserve">
+    <value>編集(&amp;D)...</value>
+    <comment>E&amp;dit...</comment>
+  </data>
+  <data name="DeviceFilterNode_DefaultFilterName" xml:space="preserve">
+    <value>DeviceFilter</value>
+    <comment>DeviceFilter</comment>
+  </data>
+  <data name="DevCapSect_UnrecognizedTag" xml:space="preserve">
+    <value>認識できないタグ '{0}'。</value>
+    <comment>Unrecognized tag '{0}'.</comment>
+  </data>
+  <data name="UrlPath_CannotExitUpTopDirectory" xml:space="preserve">
+    <value>先頭の '..' でルート ディレクトリ外は参照できません。</value>
+    <comment>Cannot use a leading '..' to refer to locations outside the root directory.</comment>
+  </data>
+  <data name="MobileControl_SettingGenericChoiceDescription" xml:space="preserve">
+    <value>プロパティのオーバーライドに使うデバイス フィルターを選択します。</value>
+    <comment>Select the device filters to use for property overrides.</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_NewDeviceFilter" xml:space="preserve">
+    <value>新しいデバイス フィルター(&amp;N)</value>
+    <comment>&amp;New Device Filter</comment>
+  </data>
+  <data name="Style_Alignment" xml:space="preserve">
+    <value>コントロールの水平方向の配置</value>
+    <comment>Horizontal alignment of the control.</comment>
+  </data>
+  <data name="ControlAdapter_PhoneCallLabel" xml:space="preserve">
+    <value>電話</value>
+    <comment>Call</comment>
+  </data>
+  <data name="ListItemsPage_ItemsAsLinksCaption" xml:space="preserve">
+    <value>リスト項目をハイパーリンクで表示(&amp;R)</value>
+    <comment>&amp;Render list items as hyperlinks</comment>
+  </data>
+  <data name="Command_CommandArgument" xml:space="preserve">
+    <value>コマンドに関連付けられた引数</value>
+    <comment>The argument associated with the command.</comment>
+  </data>
+  <data name="EditableTreeList_MoveDownName" xml:space="preserve">
+    <value>下へ移動</value>
+    <comment>Move Down</comment>
+  </data>
+  <data name="ListGeneralPage_SelectTypeRadio" xml:space="preserve">
+    <value>Radio</value>
+    <comment>Radio</comment>
+  </data>
+  <data name="ControlAdapter_NextLabel" xml:space="preserve">
+    <value>次へ</value>
+    <comment>Next</comment>
+  </data>
+  <data name="TextBox_Size" xml:space="preserve">
+    <value>入力の予想文字数</value>
+    <comment>The expected character length of the input.</comment>
+  </data>
+  <data name="MobileControlsSectionHandler_UnknownElementName" xml:space="preserve">
+    <value>不明な要素名 ({0} が必要)</value>
+    <comment>Unknown element name - {0} expected.</comment>
+  </data>
+  <data name="MobileControlsSectionHandler_CircularReference" xml:space="preserve">
+    <value>デバイス構成 '{0}' に循環参照があります</value>
+    <comment>The device configuration '{0}' contains a circular reference</comment>
+  </data>
+  <data name="MobileErrorInfo_CompilationErrorMiscTitle" xml:space="preserve">
+    <value>コンパイラ エラー メッセージ</value>
+    <comment>Compiler Error Message</comment>
+  </data>
+  <data name="StylesEditorDialog_DuplicateStyleException" xml:space="preserve">
+    <value>同じ名前のスタイルが複数宣言されたスタイル シートは、StylesEditorDialog で編集できません。</value>
+    <comment>StylesEditorDialog cannot edit a style sheet with multiple styles declared which share the same name.</comment>
+  </data>
+  <data name="StyleSheet_MustContainID" xml:space="preserve">
+    <value>Style 要素には 'Name' 属性が必要です。</value>
+    <comment>Style elements must contain a 'Name' attribute.</comment>
+  </data>
+  <data name="MobileErrorInfo_ParserErrorDescription" xml:space="preserve">
+    <value>この要求の処理に必要なリソースの解析中にエラーが発生しました。以下の解析エラーの詳細を確認し、ソース ファイルを適切に修正してください。</value>
+    <comment>An error occurred during the parsing of a resource required to service this request. Please review the following specific parse error details and modify your source file appropriately.</comment>
+  </data>
+  <data name="Command_OnItemCommand" xml:space="preserve">
+    <value>ユーザーがコマンドを実行したときに発生するイベント。親コントロールにバブルされます。</value>
+    <comment>Raises an event when the user activates the command. The event is bubbled up to parent controls.</comment>
+  </data>
+  <data name="PagedControl_ItemCount" xml:space="preserve">
+    <value>コントロールに表示する項目数。'0' の場合は自動ページングです。</value>
+    <comment>Number of items to render in the control. The value '0' indicates automatic pagination.</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_Equality" xml:space="preserve">
+    <value>等値比較(&amp;C)</value>
+    <comment>Equality &amp;Comparison</comment>
+  </data>
+  <data name="MobileErrorInfo_CompilationErrorType" xml:space="preserve">
+    <value>コンパイル エラー</value>
+    <comment>Compilation Error</comment>
+  </data>
+  <data name="ObjectListGeneralPage_BackCommandTextCaption" xml:space="preserve">
+    <value>BackCommandText(&amp;B):</value>
+    <comment>&amp;BackCommandText:</comment>
+  </data>
+  <data name="ObjectList_FieldNotFound" xml:space="preserve">
+    <value>フィールド {0} が見つかりません</value>
+    <comment>Field {0} not found</comment>
+  </data>
+  <data name="Calendar_OnSelectionChanged" xml:space="preserve">
+    <value>ユーザーが選択を変更したときに発生するイベント</value>
+    <comment>Raises an event when the user changes the selection.</comment>
+  </data>
+  <data name="StyleSheet_DuplicateStyleNamesMessage" xml:space="preserve">
+    <value>このスタイル シートには、次の名前のスタイルが複数あります: {0}。各スタイルの 'Name' 属性は一意である必要があります。</value>
+    <comment>This style sheet contains multiple styles which have the following names: {0}. Each style must have a unique 'Name' attribute.</comment>
+  </data>
+  <data name="ObjectListGeneralPage_PagingGroupLabel" xml:space="preserve">
+    <value>ページング</value>
+    <comment>Paging</comment>
+  </data>
+  <data name="ControlAdapter_BackLabel" xml:space="preserve">
+    <value>戻る</value>
+    <comment>Back</comment>
+  </data>
+  <data name="MobileControl_AppliedDeviceFiltersDescription" xml:space="preserve">
+    <value>このコントロールのカスタマイズに使えるデバイス フィルターのコレクション</value>
+    <comment>The collection of device filters you can use to customize this control.</comment>
+  </data>
+  <data name="List_DataSource" xml:space="preserve">
+    <value>リストの項目を設定するデータ ソース</value>
+    <comment>Data source that populates items in the list.</comment>
+  </data>
+  <data name="DeviceFilter_NoChoice" xml:space="preserve">
+    <value>(なし)</value>
+    <comment>(None)</comment>
+  </data>
+  <data name="ListItemsPage_ItemListGroupLabel" xml:space="preserve">
+    <value>項目一覧</value>
+    <comment>Item list</comment>
+  </data>
+  <data name="StyleSheet_DefaultMessage" xml:space="preserve">
+    <value>右クリックして [スタイルの編集] を選び、スタイルを定義します。</value>
+    <comment>Right-click and choose the Edit Styles command to define styles.</comment>
+  </data>
+  <data name="StyleSheetRefUrlEditor_Caption" xml:space="preserve">
+    <value>ASCX ファイルの選択</value>
+    <comment>Select ASCX File</comment>
+  </data>
+  <data name="ListGeneralPage_DecorationNone" xml:space="preserve">
+    <value>なし</value>
+    <comment>None</comment>
+  </data>
+  <data name="UrlPath_PhysicalPathNotAllowed" xml:space="preserve">
+    <value>'{0}' は物理パスです。ここでは使用できません</value>
+    <comment>'{0}' is a physical path, which is not allowed here</comment>
+  </data>
+  <data name="Form_PropertyNotAccessible" xml:space="preserve">
+    <value>Form の '{0}' プロパティにはアクセスできません。</value>
+    <comment>The '{0}' property is not accessible for the Form.</comment>
+  </data>
+  <data name="ErrorFormatterPage_ServerError" xml:space="preserve">
+    <value>{0} のサーバー エラー</value>
+    <comment>Server Error in {0}</comment>
+  </data>
+  <data name="ObjectListFieldsPage_NoneComboEntry" xml:space="preserve">
+    <value>(なし)</value>
+    <comment>(None)</comment>
+  </data>
+  <data name="ObjectList_BackCommandText" xml:space="preserve">
+    <value>詳細ビューの戻るリンクのテキスト</value>
+    <comment>Text for back link in details view.</comment>
+  </data>
+  <data name="Category_Behavior" xml:space="preserve">
+    <value>動作</value>
+    <comment>Behavior</comment>
+  </data>
+  <data name="Style_Name" xml:space="preserve">
+    <value>スタイルの名前</value>
+    <comment>Name of the style.</comment>
+  </data>
+  <data name="Style_Font" xml:space="preserve">
+    <value>コントロール内のテキストのフォント</value>
+    <comment>Font for text within the control.</comment>
+  </data>
+  <data name="Style_ReferenceCauseCircularLoop" xml:space="preserve">
+    <value>この参照は循環を生じます。別のスタイル参照を選んでください。</value>
+    <comment>This reference creates a circular loop. Please choose another style reference.</comment>
+  </data>
+  <data name="PropertyBuilderVerb" xml:space="preserve">
+    <value>プロパティ ビルダー(&amp;B)...</value>
+    <comment>Property &amp;Builder...</comment>
+  </data>
+  <data name="DataSourceHelper_DataSourceWithoutDataMember" xml:space="preserve">
+    <value>{0} (データ メンバーなし)</value>
+    <comment>{0} without data member</comment>
+  </data>
+  <data name="AppliedDeviceFiltersDialog_Title" xml:space="preserve">
+    <value>適用済みデバイス フィルター</value>
+    <comment>Applied Device Filters</comment>
+  </data>
+  <data name="MobileErrorInfo_ParserErrorType" xml:space="preserve">
+    <value>パーサー エラー</value>
+    <comment>Parser Error</comment>
+  </data>
+  <data name="StyleSheet_PropNotSet" xml:space="preserve">
+    <value>(なし)</value>
+    <comment>(None)</comment>
+  </data>
+  <data name="RangeValidator_RangeOverlap" xml:space="preserve">
+    <value>{2} の MaximumValue {0} は MinimumValue {1} より小さくできません。</value>
+    <comment>The MaximumValue {0} cannot be less than the MinimumValue {1} of {2}.</comment>
+  </data>
+  <data name="ObjectListFieldsPage_VisibleCaption" xml:space="preserve">
+    <value>表示(&amp;V)</value>
+    <comment>&amp;Visible</comment>
+  </data>
+  <data name="Toolbox_TabName" xml:space="preserve">
+    <value>モバイル Web フォーム</value>
+    <comment>Mobile Web Forms</comment>
+  </data>
+  <data name="StyleSheet_StylesEditorVerb" xml:space="preserve">
+    <value>スタイルの編集(&amp;L)...</value>
+    <comment>Edit Sty&amp;les...</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_Argument" xml:space="preserve">
+    <value>引数(&amp;A):</value>
+    <comment>&amp;Argument:</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_UnnamedFilter" xml:space="preserve">
+    <value>デバイス フィルター名は空にできません。名前を入力してください。</value>
+    <comment>A device filter name cannot be empty. Please type a name.</comment>
+  </data>
+  <data name="DevCapSect_MustSpecify" xml:space="preserve">
+    <value>フィルター名と比較値 (例: &lt;filter name="capability" compare="capabilityName" argument="argument"/&gt;)、または型とメソッド (例: &lt;filter name="capability" type="typeName" method="methodName"/&gt;) を指定する必要があります。</value>
+    <comment>You must specify either a filter name and comparison value (e.g., &lt;filter name="capability" compare="capabilityName" argument="argument"/&gt;) or a type and method (e.g., &lt;filter name="capability" type="typeName" method="methodName"/&gt;).</comment>
+  </data>
+  <data name="GenericDialog_CloseBtnCaption" xml:space="preserve">
+    <value>閉じる</value>
+    <comment>Close</comment>
+  </data>
+  <data name="EditableTreeList_MoveDownDescription" xml:space="preserve">
+    <value>選択した項目を一覧の下へ移動</value>
+    <comment>Move the selected item down in the list</comment>
+  </data>
+  <data name="List_DataTextField" xml:space="preserve">
+    <value>項目のテキスト プロパティを決めるのに使う、データ バインド項目のプロパティ</value>
+    <comment>Specifies which property of a databound item to use to determine the item's text property.</comment>
+  </data>
+  <data name="BaseValidator_Display" xml:space="preserve">
+    <value>検証コントロールの外観</value>
+    <comment>Appearance of the validator.</comment>
+  </data>
+  <data name="DeviceSpecific_OnlyChoiceElementsAllowed" xml:space="preserve">
+    <value>DeviceSpecific 要素には Choice 要素のみ使えます。</value>
+    <comment>Only Choice elements are allowed in a DeviceSpecific element.</comment>
+  </data>
+  <data name="AppliedDeviceFiltersDialog_AppliedDeviceFilters" xml:space="preserve">
+    <value>適用済みデバイス フィルター(&amp;P):</value>
+    <comment>A&amp;pplied Device Filters:</comment>
+  </data>
+  <data name="List_Decoration" xml:space="preserve">
+    <value>項目に使うリストの形式</value>
+    <comment>List format used for the items.</comment>
+  </data>
+  <data name="ControlAdapter_InvalidDefaultLabel" xml:space="preserve">
+    <value>既定のラベル ID が無効です。</value>
+    <comment>The default label ID specified is invalid.</comment>
+  </data>
+  <data name="ErrorFormatterPage_MiscErrorMessage" xml:space="preserve">
+    <value>{0}: {1}</value>
+    <comment>{0}: {1}</comment>
+  </data>
+  <data name="RangeValidator_MaximumValue" xml:space="preserve">
+    <value>検証対象コントロールの最大値</value>
+    <comment>Maximum value for the control being validated.</comment>
+  </data>
+  <data name="MobileControlsSectionHandler_TypeNotFound" xml:space="preserve">
+    <value>{1} として使う型 '{0}' が見つかりません。</value>
+    <comment>Type '{0}' used as {1} not found.</comment>
+  </data>
+  <data name="Style_UnregisteredProperty" xml:space="preserve">
+    <value>未登録のプロパティ: {0}</value>
+    <comment>Unregistered property: {0}</comment>
+  </data>
+  <data name="SelectionList_SelectType" xml:space="preserve">
+    <value>選択リストの種類</value>
+    <comment>The type of selection list.</comment>
+  </data>
+  <data name="Calendar_SelectionMode" xml:space="preserve">
+    <value>日、週、月のどれを選択可能にするか</value>
+    <comment>Determines whether days, weeks, and months are selectable.</comment>
+  </data>
+  <data name="ValidationSummary_ErrorMessage" xml:space="preserve">
+    <value>エラー メッセージ {0}。</value>
+    <comment>Error message {0}.</comment>
+  </data>
+  <data name="IndividualDeviceConfig_ControlWithIncorrectPageAdapter" xml:space="preserve">
+    <value>コントロール '{0}' は、ページ アダプター '{1}' のデバイスに登録されていません。</value>
+    <comment>Control '{0}' is not registered with device with page adapter '{1}'.</comment>
+  </data>
+  <data name="AppliedDeviceFiltersDialog_DuplicateChoices" xml:space="preserve">
+    <value>次のフィルターが同じ引数で複数回適用されています: '{0}'。重複するフィルターを削除するか、引数を変更してください。</value>
+    <comment>The following filters have been applied multiple times with the same argument: '{0}'.  Please remove the duplicate filters or change their arguments.</comment>
+  </data>
+  <data name="Form_PropertyNotSettable" xml:space="preserve">
+    <value>Form の '{0}' プロパティは設定できません。</value>
+    <comment>The '{0}' property is not settable on the Form.</comment>
+  </data>
+  <data name="SelectionList_OnSelectedIndexChanged" xml:space="preserve">
+    <value>ユーザーが選択を変更したときに発生するイベント</value>
+    <comment>Raises an event when the user changes a selection.</comment>
+  </data>
+  <data name="ObjectListFieldsPage_PropertiesGroupLabel" xml:space="preserve">
+    <value>プロパティ</value>
+    <comment>Properties</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_WebConfigParsingError" xml:space="preserve">
+    <value>このプロジェクトの Web.config ファイルの解析中に次のエラーが発生しました:
+
+{0}
+
+Web.config ファイルでこの問題を修正してください。</value>
+    <comment>The following error was encountered while attempting to parse this project's Web.config file:
+
+{0}
+
+Please correct this condition in the Web.config file.</comment>
+  </data>
+  <data name="StyleSheet_PropertyNotSettable" xml:space="preserve">
+    <value>次のスタイル シート プロパティは設定できません: '{0}'</value>
+    <comment>The following style sheet property is not settable: '{0}'</comment>
+  </data>
+  <data name="ListGeneralPage_SelectTypeListBox" xml:space="preserve">
+    <value>ListBox</value>
+    <comment>ListBox</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_TypeGl" xml:space="preserve">
+    <value>型</value>
+    <comment>Type</comment>
+  </data>
+  <data name="WebConfig_FileLoadException" xml:space="preserve">
+    <value>Web.config ファイルの読み取り中にエラーが発生しました。</value>
+    <comment>An error occurred when attempting to read the Web.config file.</comment>
+  </data>
+  <data name="MobilePage_FormNotFound" xml:space="preserve">
+    <value>Form が見つかりません: '{0}'</value>
+    <comment>Form not found: '{0}'</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_DeviceFilters" xml:space="preserve">
+    <value>デバイス フィルター(&amp;F):</value>
+    <comment>Device &amp;Filters:</comment>
+  </data>
+  <data name="MobileControlsSectionHandler_DeviceConfigNotFound" xml:space="preserve">
+    <value>デバイス構成が見つかりません: '{0}'</value>
+    <comment>The following device configuration is not found: '{0}'</comment>
+  </data>
+  <data name="ObjectListCommandsPage_EmptyNameError" xml:space="preserve">
+    <value>コマンド名は空にできません。名前を入力してください。</value>
+    <comment>A command name cannot be empty. Please type a name.</comment>
+  </data>
+  <data name="PhoneCall_AlternateFormat" xml:space="preserve">
+    <value>電話をかけられないデバイスに表示するテキスト形式</value>
+    <comment>Text format that appears for devices that cannot make phone calls.</comment>
+  </data>
+  <data name="StyleSheet_PropertyNotAccessible" xml:space="preserve">
+    <value>次のスタイル シート プロパティにはアクセスできません: '{0}'</value>
+    <comment>The following style sheet property is not accessible: '{0}'</comment>
+  </data>
+  <data name="ObjectList_Commands" xml:space="preserve">
+    <value>リストの各項目のコマンドのコレクション</value>
+    <comment>Collection of commands for each item in the list.</comment>
+  </data>
+  <data name="ObjectList_MoreText" xml:space="preserve">
+    <value>詳細とコマンドへのリンクのテキスト</value>
+    <comment>Text for the link to more details and commands.</comment>
+  </data>
+  <data name="PhoneCall_EmptyPhoneNumber" xml:space="preserve">
+    <value>次の PhoneCall コントロールの PhoneNumber プロパティは空にできません: '{0}'</value>
+    <comment>The property PhoneNumber of the following PhoneCall control cannot be empty: '{0}'</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_DuplicateName" xml:space="preserve">
+    <value>デバイス フィルター '{0}' は既に存在します。別の名前を選んでください。</value>
+    <comment>The following device filter already exists: '{0}'. Please choose another name.</comment>
+  </data>
+  <data name="ImageUrlPicker_ImageFilter" xml:space="preserve">
+    <value>画像ファイル(*.gif;*.jpg;*.jpeg;*.bmp;*.wmf;*.png;*.wbmp)|*.gif;*.jpg;*.jpeg;*.bmp;*.wmf;*.png;*.wbmp|すべてのファイル(*.*)|*.*|</value>
+    <comment>Image Files(*.gif;*.jpg;*.jpeg;*.bmp;*.wmf;*.png;*.wbmp)|*.gif;*.jpg;*.jpeg;*.bmp;*.wmf;*.png;*.wbmp|All Files(*.*)|*.*|</comment>
+  </data>
+  <data name="StyleSheet_SettingGenericStyleChoiceDescription" xml:space="preserve">
+    <value>スタイルごとに、このスタイル シートのテンプレートとプロパティのオーバーライドに使うデバイス フィルターを選択します。</value>
+    <comment>For each style, select the device filters to use for this style sheet's templates and property overrides.</comment>
+  </data>
+  <data name="DataSourceHelper_MissingDataMember" xml:space="preserve">
+    <value>データ メンバー '{0}' がありません</value>
+    <comment>Missing data member '{0}'</comment>
+  </data>
+  <data name="DevCapSect_EmptyClass" xml:space="preserve">
+    <value>type 属性を null または空文字列にはできません。</value>
+    <comment>The type attribute cannot be null or an empty string.</comment>
+  </data>
+  <data name="TemplatingOptionsDialog_Title" xml:space="preserve">
+    <value>テンプレート オプション</value>
+    <comment>Templating Options</comment>
+  </data>
+  <data name="ObjectListGeneralPage_DetailsCommandTextCaption" xml:space="preserve">
+    <value>DetailsCommandText(&amp;T):</value>
+    <comment>De&amp;tailsCommandText:</comment>
+  </data>
+  <data name="DeviceSpecificChoice_CantFindFilter" xml:space="preserve">
+    <value>デバイス機能 '{0}' も、System.Web.Mobile.MobileCapabilities と System.String を引数に取り System.Boolean を返すページのパブリック非静的メソッド '{0}' も見つかりません。</value>
+    <comment>Can find neither a device capability named '{0}' nor a public non-static method on the page named '{0}' that returns a System.Boolean and takes System.Web.Mobile.MobileCapabilities and System.String as arguments.</comment>
+  </data>
+  <data name="Image_Coverage" xml:space="preserve">
+    <value>画像が使う画面領域の割合</value>
+    <comment>Percentage of the screen area the image should use.</comment>
+  </data>
+  <data name="ListGeneralPage_SelectTypeDropDown" xml:space="preserve">
+    <value>DropDown</value>
+    <comment>DropDown</comment>
+  </data>
+  <data name="MobileControl_InvalidAccessKey" xml:space="preserve">
+    <value>次の AccessKey プロパティは 0-9、# または * である必要があります: '{0}'</value>
+    <comment>The following AccessKey property must be 0-9, # or *: '{0}'</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_DuplicateNames" xml:space="preserve">
+    <value>このプロジェクトの Web.config ファイルに同じ名前のデバイス フィルターが複数あるため、操作を完了できませんでした。Web.config ファイルで重複するフィルター定義を修正してください。</value>
+    <comment>This action could not be completed because multiple device filters that share the same name exist in this project's Web.config file.  Please correct these duplicate filter definitions in the Web.config file.</comment>
+  </data>
+  <data name="ObjectList_OnShowItemCommands" xml:space="preserve">
+    <value>項目のコマンド一覧を表示する前に発生するイベント</value>
+    <comment>Raises an event before showing the set of commands for an item.</comment>
+  </data>
+  <data name="CompareValidator_ControlToCompare" xml:space="preserve">
+    <value>比較対象のコントロールの ID</value>
+    <comment>ID of the control to compare to.</comment>
+  </data>
+  <data name="TemplatingOptionsDialog_EditBtnCaption" xml:space="preserve">
+    <value>編集(&amp;E)...</value>
+    <comment>&amp;Edit...</comment>
+  </data>
+  <data name="DevCapSect_ComparisonAlreadySpecified" xml:space="preserve">
+    <value>比較が既に指定されています。method 属性は不要です。</value>
+    <comment>A comparison has already been specified. You need not specify a method attribute.</comment>
+  </data>
+  <data name="DeviceSpecificChoice_OverridingPropertyNotFound" xml:space="preserve">
+    <value>オーバーライドするプロパティ '{0}' がありません。</value>
+    <comment>Property '{0}' to override not found.</comment>
+  </data>
+  <data name="ListGeneralPage_DecorationBulleted" xml:space="preserve">
+    <value>箇条書き</value>
+    <comment>Bulleted</comment>
+  </data>
+  <data name="Calendar_ShowDayHeader" xml:space="preserve">
+    <value>曜日のヘッダーを表示する場合は true</value>
+    <comment>True if showing days of week header.</comment>
+  </data>
+  <data name="ObjectList_MustBeInDetailsModeToGetDetails" xml:space="preserve">
+    <value>ViewMode プロパティを先に ObjectListViewMode.Details に設定しないと、Details プロパティにアクセスできません。</value>
+    <comment>Cannot access the Details property unless the ViewMode property is first set to ObjectListViewMode.Details.</comment>
+  </data>
+  <data name="MobileControl_StrictlyFormPanelContainmentErrorMessage" xml:space="preserve">
+    <value>このコントロールは Form または Panel コントロール内に配置する必要があります。移動または削除してください。</value>
+    <comment>This control must be placed in a Form or Panel control. Please move or delete this control.</comment>
+  </data>
+  <data name="Form_Title" xml:space="preserve">
+    <value>フォームを識別するタイトル</value>
+    <comment>The title used to identify the form.</comment>
+  </data>
+  <data name="SelectionList_OutOfRange" xml:space="preserve">
+    <value>予期しない値 {0} です。SelectedIndex は -1 以上、項目数未満である必要があります。</value>
+    <comment>Unexpected value {0}.  The value of SelectedIndex must be at least -1 and less than the number of items.</comment>
+  </data>
+  <data name="Calendar_SelectedDate" xml:space="preserve">
+    <value>現在選択されている日付</value>
+    <comment>The currently selected date.</comment>
+  </data>
+  <data name="Category_DeviceSpecific" xml:space="preserve">
+    <value>デバイス固有</value>
+    <comment>Device Specific</comment>
+  </data>
+  <data name="ObjectListGeneralPage_TableFieldsSelectedListLabel" xml:space="preserve">
+    <value>選択済みフィールド(&amp;S):</value>
+    <comment>&amp;Selected Fields:</comment>
+  </data>
+  <data name="ObjectListGeneralPage_UnboundComboEntry" xml:space="preserve">
+    <value>(非バインド)</value>
+    <comment>(Unbound)</comment>
+  </data>
+  <data name="Style_Reference" xml:space="preserve">
+    <value>継承元のスタイルへの参照</value>
+    <comment>Reference to another style to inherit from.</comment>
+  </data>
+  <data name="ObjectListGeneralPage_LabelFieldCaption" xml:space="preserve">
+    <value>LabelField(&amp;L):</value>
+    <comment>&amp;LabelField:</comment>
+  </data>
+  <data name="AdRotator_KeywordFilter" xml:space="preserve">
+    <value>広告の選択を絞り込むキーワード</value>
+    <comment>Keyword for limiting selection of advertisements.</comment>
+  </data>
+  <data name="MobileControl_InnerTextCannotContainTags" xml:space="preserve">
+    <value>ID {1} のコントロールの内部テキストにタグがあります。{0} コントロールの内部テキストにタグは使えません。</value>
+    <comment>The control with id {1} contains tags in its inner text.  A {0} control cannot contain tags in its inner text.</comment>
+  </data>
+  <data name="ObjectListGeneralPage_Title" xml:space="preserve">
+    <value>全般</value>
+    <comment>General</comment>
+  </data>
+  <data name="MobileControl_DefaultErrorMessage" xml:space="preserve">
+    <value>内部エラーが発生しました。</value>
+    <comment>An internal error occurred.</comment>
+  </data>
+  <data name="ObjectList_OnItemDataBind" xml:space="preserve">
+    <value>項目がデータ ソースにバインドされた後に発生するイベント</value>
+    <comment>Raises an event after an item is bound to a data source.</comment>
+  </data>
+  <data name="Form_InvalidSubControlType" xml:space="preserve">
+    <value>'{0}' はフォームの最上位要素にできません。</value>
+    <comment>'{0}' cannot be a top-level form element.</comment>
+  </data>
+  <data name="TextBox_Numeric" xml:space="preserve">
+    <value>入力を数値に制限するかどうか</value>
+    <comment>Whether the input is restricted to numeric values.</comment>
+  </data>
+  <data name="UnsettableComboBox_NotSetCompactText" xml:space="preserve">
+    <value>NotSet</value>
+    <comment>NotSet</comment>
+  </data>
+  <data name="DeviceSpecificChoice_InvalidPropertyOverride" xml:space="preserve">
+    <value>無効なプロパティのオーバーライド: '{0}'</value>
+    <comment>Invalid property override: '{0}'</comment>
+  </data>
+  <data name="BaseTemplatedMobileComponentEditor_TemplateModeErrorTitle" xml:space="preserve">
+    <value>プロパティ ビルダー</value>
+    <comment>Property Builder</comment>
+  </data>
+  <data name="EditableTreeList_DeleteName" xml:space="preserve">
+    <value>削除</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="TemplateableDesigner_SettingGenericChoiceDescription" xml:space="preserve">
+    <value>このコントロールのテンプレートとプロパティのオーバーライドに使うデバイス フィルターを選択します。</value>
+    <comment>Select the device filters to use for this control's templates and property overrides.</comment>
+  </data>
+  <data name="Security_ReturnUrlCannotBeAbsolute" xml:space="preserve">
+    <value>ReturnUrl の値 "{0}" は絶対 URL のため無効です。</value>
+    <comment>The ReturnUrl value "{0}" is invalid because it is absolute.</comment>
+  </data>
+  <data name="StylesEditorDialog_DeleteStyleMessage" xml:space="preserve">
+    <value>このスタイルに関連付けられたテンプレートとプロパティのオーバーライドがすべて削除されます。
+続行しますか?</value>
+    <comment>This will remove any templates and property overrides associated with this style.
+Are you sure you want to continue?</comment>
+  </data>
+  <data name="Command_OnClick" xml:space="preserve">
+    <value>ユーザーがコマンドを実行したときに発生するイベント</value>
+    <comment>Raises an event when the user activates the command.</comment>
+  </data>
+  <data name="Style_StyleNotFoundOnGenericUserControl" xml:space="preserve">
+    <value>スタイルが見つかりません: {0}。System.Web.UI.UserControl ではスタイルは見つかりません。System.Web.UI.MobileControls.MobileUserControl を使ってください。</value>
+    <comment>Style not found: {0}.  Note that Styles will never be found on a System.Web.UI.UserControl.  Use System.Web.UI.MobileControls.MobileUserControl instead.</comment>
+  </data>
+  <data name="MobileControl_NoCustomAttributes" xml:space="preserve">
+    <value>このページのモバイル コントロールにはカスタム属性を設定できません。指定されたカスタム属性: {0}。</value>
+    <comment>Cannot set custom attributes on mobile controls in this page.  Custom attributes specified are: {0}.</comment>
+  </data>
+  <data name="DevCapSect_UnableAddDelegate" xml:space="preserve">
+    <value>次のエラーのため、デリゲート '{0}' を追加できません: '{1}'。</value>
+    <comment>Delegate '{0}' cannot be added because of the following error: '{1}'.</comment>
+  </data>
+  <data name="Style_Wrapping" xml:space="preserve">
+    <value>コントロール内のテキストの折り返し動作</value>
+    <comment>Wrapping behavior of text in the control.</comment>
+  </data>
+  <data name="Image_SoftkeyLabel" xml:space="preserve">
+    <value>ソフトキーに表示するときの画像のラベル。ソフトキー対応デバイスにのみ適用されます。</value>
+    <comment>Label used for the image when rendered on a softkey. Only applies to devices that support softkeys.</comment>
+  </data>
+  <data name="EditableTreeList_AddName" xml:space="preserve">
+    <value>追加</value>
+    <comment>Add</comment>
+  </data>
+  <data name="PropertyOverridesDialog_DuplicateChoices" xml:space="preserve">
+    <value>次のフィルターが同じ引数で複数回適用されています: '{0}'。プロパティのオーバーライドを編集する前に [適用済みデバイス フィルター] ダイアログで重複するフィルターを削除してください。</value>
+    <comment>The following filters have been applied multiple times with the same argument: '{0}'.  Please remove the duplicate filters in the Applied Device Filters dialog before editing property overrides.</comment>
+  </data>
+  <data name="BaseValidator_ControlNotFound" xml:space="preserve">
+    <value>コントロール '{2}' の {1} プロパティが参照する ID '{0}' のコントロールが見つかりません。</value>
+    <comment>Unable to find control with the id '{0}' referenced by the {1} property of the control '{2}'.</comment>
+  </data>
+  <data name="MobileControl_InnerTextCannotContainTagsDesigner" xml:space="preserve">
+    <value>このコントロールの内部テキストにタグは使えません。</value>
+    <comment>This control cannot contain tags in its inner text.</comment>
+  </data>
+  <data name="ValidationSummary_FormToValidate" xml:space="preserve">
+    <value>検証するフォームの ID</value>
+    <comment>ID of the form to validate.</comment>
+  </data>
+  <data name="TextBox_Password" xml:space="preserve">
+    <value>入力を隠すかどうか</value>
+    <comment>Whether the input is hidden.</comment>
+  </data>
+  <data name="ObjectListGeneralPage_PrivateDataSourceMessage" xml:space="preserve">
+    <value>{0} はプライベート メンバーです。</value>
+    <comment>{0} is marked as private member.</comment>
+  </data>
+  <data name="StylesEditorDialog_SampleCaption" xml:space="preserve">
+    <value>サンプル:</value>
+    <comment>Sample:</comment>
+  </data>
+  <data name="ListGeneralPage_AppearanceGroupLabel" xml:space="preserve">
+    <value>外観</value>
+    <comment>Appearance</comment>
+  </data>
+  <data name="ObjectList_CannotSetViewModeWithNoSelectedItem" xml:space="preserve">
+    <value>ViewMode を Commands または Details に設定するには、先に項目を選択する必要があります。</value>
+    <comment>To set the ViewMode to Commands or Details, you must first select an item.</comment>
+  </data>
+  <data name="BaseValidator_BadControlType" xml:space="preserve">
+    <value>コントロール '{2}' の '{1}' プロパティが参照する ID '{0}' のコントロールは検証できません。</value>
+    <comment>The control with the id '{0}', referenced by the '{1}' property of the control '{2}', cannot be validated.</comment>
+  </data>
+  <data name="BaseValidator_ControlToValidateBlank" xml:space="preserve">
+    <value>'{0}' の ControlToValidate プロパティは空にできません。</value>
+    <comment>The ControlToValidate property of '{0}' cannot be blank.</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_TypeTxt" xml:space="preserve">
+    <value>型(&amp;T):</value>
+    <comment>&amp;Type:</comment>
+  </data>
+  <data name="RangeValidator_Type" xml:space="preserve">
+    <value>比較する値のデータ型</value>
+    <comment>Data type of values for comparison.</comment>
+  </data>
+  <data name="Category_Appearance" xml:space="preserve">
+    <value>外観</value>
+    <comment>Appearance</comment>
+  </data>
+  <data name="MobileControl_MustBeInForm" xml:space="preserve">
+    <value>ID {0}、型 {1} のコントロールは Form 内に配置する必要があります。</value>
+    <comment>The control with id {0} of type {1} must be contained within a Form.</comment>
+  </data>
+  <data name="ControlAdapter_GoLabel" xml:space="preserve">
+    <value>移動</value>
+    <comment>Go</comment>
+  </data>
+  <data name="StyleSheet_SettingTemplatingStyleChoiceDescription" xml:space="preserve">
+    <value>スタイルごとに、このスタイル シートのテンプレートに使うデバイス フィルターを選択してください。</value>
+    <comment>For each style, select the device filters to use for this stylesheet's templates.</comment>
+  </data>
+  <data name="TemplateFrame_ContentTemplate" xml:space="preserve">
+    <value>コンテンツ テンプレート(&amp;C)</value>
+    <comment>&amp;Content Template</comment>
+  </data>
+  <data name="EditableTreeList_DeleteDescription" xml:space="preserve">
+    <value>選択した項目を一覧から削除</value>
+    <comment>Delete the selected item from the list</comment>
+  </data>
+  <data name="StylesEditorDialog_AvailableStylesCaption" xml:space="preserve">
+    <value>スタイルの型(&amp;T):</value>
+    <comment>Style &amp;Types:</comment>
+  </data>
+  <data name="ListItemsPage_DefaultItemText" xml:space="preserve">
+    <value>テキスト</value>
+    <comment>Text</comment>
+  </data>
+  <data name="ListGeneralPage_SelectTypeMultiSelectListBox" xml:space="preserve">
+    <value>MultiSelectListBox</value>
+    <comment>MultiSelectListBox</comment>
+  </data>
+  <data name="AdRotator_AdCreated" xml:space="preserve">
+    <value>AdvertisementFile から広告を取得した後に発生するイベント</value>
+    <comment>Raises an event after an advertisement is retrieved from the AdvertisementFile.</comment>
+  </data>
+  <data name="MSHTMLHost_Not_Implemented" xml:space="preserve">
+    <value>未実装</value>
+    <comment>Not Implemented</comment>
+  </data>
+  <data name="MobileControl_TopPageContainmentErrorMessage" xml:space="preserve">
+    <value>このコントロールはページに直接配置する必要があります。移動または削除してください。</value>
+    <comment>This control must be placed directly on the page. Please move or delete this control.</comment>
+  </data>
+  <data name="Control_AccessKey" xml:space="preserve">
+    <value>i-mode 電話で directkey 機能を使ってコントロールにフォーカスを移すアクセス キー</value>
+    <comment>The access key used to give focus to the control on i-mode phones, using the directkey function.</comment>
+  </data>
+  <data name="ListGeneralPage_DataSourceCaption" xml:space="preserve">
+    <value>DataSource(&amp;D):</value>
+    <comment>&amp;DataSource:</comment>
+  </data>
+  <data name="GenericDialog_OKBtnCaption" xml:space="preserve">
+    <value>OK</value>
+    <comment>OK</comment>
+  </data>
+  <data name="MobileControl_BackColor" xml:space="preserve">
+    <value>コントロールの背景色</value>
+    <comment>Background color of the control.</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_Compare" xml:space="preserve">
+    <value>比較(&amp;O):</value>
+    <comment>C&amp;ompare:</comment>
+  </data>
+  <data name="PhoneCall_InvalidPhoneNumberFormat" xml:space="preserve">
+    <value>'{0}' プロパティの値の形式が正しくありません: '{1}'</value>
+    <comment>The value of the '{0}' property is not in a correct format: '{1}'</comment>
+  </data>
+  <data name="List_Items" xml:space="preserve">
+    <value>リストの項目のコレクション</value>
+    <comment>Collection of items in the list.</comment>
+  </data>
+  <data name="Panel_Paginate" xml:space="preserve">
+    <value>内容をページに分割できるかどうか</value>
+    <comment>Whether the contents can be divided into pages.</comment>
+  </data>
+  <data name="ControlAdapter_OptionsLabel" xml:space="preserve">
+    <value>オプション</value>
+    <comment>Options</comment>
+  </data>
+  <data name="Image_NavigateUrl" xml:space="preserve">
+    <value>移動先の URL または Form</value>
+    <comment>The URL or Form to navigate to.</comment>
+  </data>
+  <data name="ObjectListCommandsPage_PropertiesGroupLabel" xml:space="preserve">
+    <value>プロパティ</value>
+    <comment>Properties</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_Attributes" xml:space="preserve">
+    <value>属性</value>
+    <comment>Attributes</comment>
+  </data>
+  <data name="TemplatingOptionsDialog_SchemaCaption" xml:space="preserve">
+    <value>マークアップ スキーマ(&amp;K):</value>
+    <comment>Mar&amp;kup Schema:</comment>
+  </data>
+  <data name="PagerStyle_PreviousPageText_DefaultValue" xml:space="preserve">
+    <value>前へ</value>
+    <comment>Previous</comment>
+  </data>
+  <data name="ObjectListCommandsPage_Title" xml:space="preserve">
+    <value>コマンド</value>
+    <comment>Commands</comment>
+  </data>
+  <data name="Form_OnPaginated" xml:space="preserve">
+    <value>フォームがページングされた後に発生するイベント</value>
+    <comment>Raises an event after the form is paginated.</comment>
+  </data>
+  <data name="TemplatingOptionsDialog_FilterCaption" xml:space="preserve">
+    <value>適用済みデバイス フィルター(&amp;F):</value>
+    <comment>Applied Device &amp;Filter:</comment>
+  </data>
+  <data name="MobileControl_DeviceSpecificPropsDescription" xml:space="preserve">
+    <value>このコントロールに関連付けられたプロパティのオーバーライドのコレクション</value>
+    <comment>The collection of property overrides associated with this control.</comment>
+  </data>
+  <data name="PagerStyle_NextPageText" xml:space="preserve">
+    <value>次のページへのリンクのラベル</value>
+    <comment>Label for the link to the next page.</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_IllegalDefaultName" xml:space="preserve">
+    <value>'(Default)' という名前のデバイス フィルターは作成できません。この名前は既定のフィルター用に予約されています。別の名前を選んでください。</value>
+    <comment>You cannot create a device filter named '(Default)'. This name is reserved for the default filter. Please choose another name.</comment>
+  </data>
+  <data name="ObjectListCommandsPage_TextCaption" xml:space="preserve">
+    <value>テキスト(&amp;T):</value>
+    <comment>&amp;Text:</comment>
+  </data>
+  <data name="AdRotator_AdvertisementFile" xml:space="preserve">
+    <value>広告を含む XML ファイル</value>
+    <comment>XML file that contains advertisements.</comment>
+  </data>
+  <data name="List_DataValueField" xml:space="preserve">
+    <value>項目の値プロパティを決めるのに使う、データ バインド項目のプロパティ</value>
+    <comment>Specifies which property of a databound item to use to determine the item's value property.</comment>
+  </data>
+  <data name="ObjectListFieldsPage_DefaultFieldName" xml:space="preserve">
+    <value>フィールド</value>
+    <comment>Field</comment>
+  </data>
+  <data name="PropertyOverridesDialog_InvalidPropertyValue" xml:space="preserve">
+    <value>'{0}' はプロパティ '{1}' の無効な値です。このプロパティは既定値にリセットされました。</value>
+    <comment>'{0}' is an invalid value for the following property: '{1}'.  This property has been reset to its default value.</comment>
+  </data>
+  <data name="RegularExpressionValidator_ValidationExpression" xml:space="preserve">
+    <value>有効性を判定する正規表現</value>
+    <comment>Regular expression to determine validity.</comment>
+  </data>
+  <data name="MobileControlsSectionHandler_CantCreateMethodOnClass" xml:space="preserve">
+    <value>クラス '{1}' に適切な述語メソッド '{0}' が見つかりません</value>
+    <comment>Unable to find suitable predicate method '{0}' on class '{1}'</comment>
+  </data>
+  <data name="ListItemsPage_NewItemCaption" xml:space="preserve">
+    <value>新しい項目(&amp;C)</value>
+    <comment>&amp;Create New Item</comment>
+  </data>
+  <data name="ObjectListFieldsPage_NewFieldBtnCaption" xml:space="preserve">
+    <value>新しいフィールド(&amp;C)</value>
+    <comment>&amp;Create New Field</comment>
+  </data>
+  <data name="PagedControl_ItemsPerPage" xml:space="preserve">
+    <value>コントロールの各ページに表示する項目数。'0' の場合は既定のページングです。</value>
+    <comment>Number of items to render in each page of the control. The value '0' indicates default pagination.</comment>
+  </data>
+  <data name="MobileControlBuilder_StyleMustBeInStyleSheet" xml:space="preserve">
+    <value>スタイルは StyleSheet 内で定義する必要があります。</value>
+    <comment>Styles must be defined in a StyleSheet.</comment>
+  </data>
+  <data name="GenericDialog_CancelBtnCaption" xml:space="preserve">
+    <value>キャンセル</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="TemplateableDesigner_SettingTemplatingChoiceDescription" xml:space="preserve">
+    <value>このコントロールのテンプレートに使うデバイス フィルターを選択します。</value>
+    <comment>Select the device filters to use for this control's templates.</comment>
+  </data>
+  <data name="StyleSheet_RefCycleErrorMessage" xml:space="preserve">
+    <value>循環参照があります: {0}。修正してください。</value>
+    <comment>A circular reference is present: {0}. Please correct this problem.</comment>
+  </data>
+  <data name="StylesEditorDialog_DefinedStylesCaption" xml:space="preserve">
+    <value>定義済みスタイル(&amp;D):</value>
+    <comment>&amp;Defined Styles:</comment>
+  </data>
+  <data name="TextBox_MaxLength" xml:space="preserve">
+    <value>入力できる最大文字数</value>
+    <comment>The maximum number of characters that can be entered.</comment>
+  </data>
+  <data name="ObjectListCommandsPage_NewCommandBtnCaption" xml:space="preserve">
+    <value>新しいコマンド(&amp;C)</value>
+    <comment>&amp;Create New Command</comment>
+  </data>
+  <data name="BaseValidator_ControlToValidate" xml:space="preserve">
+    <value>検証するコントロールの ID</value>
+    <comment>ID of the control to validate.</comment>
+  </data>
+  <data name="ObjectListFieldsPage_AutoGenerateFieldsCaption" xml:space="preserve">
+    <value>実行時にフィールドを自動生成(&amp;F)</value>
+    <comment>Create &amp;fields automatically at run time</comment>
+  </data>
+  <data name="PhoneCall_PhoneNumber" xml:space="preserve">
+    <value>電話をかけられるデバイスでダイヤルする電話番号</value>
+    <comment>The phone number to dial for devices that can make phone calls.</comment>
+  </data>
+  <data name="PhoneCall_SoftkeyLabel" xml:space="preserve">
+    <value>ソフトキーに表示するときの電話発信のラベル。ソフトキー対応デバイスにのみ適用されます。</value>
+    <comment>Label used for the phone call when rendered on a softkey. Only applies to devices that support softkeys.</comment>
+  </data>
+  <data name="MobileWebFormDesigner_NonMobileControlCreatedWarning" xml:space="preserve">
+    <value>モバイル以外のコントロールはテンプレート内でのみ使えます。
+このコントロールを削除するか、テンプレート内に移動してください。</value>
+    <comment>Non-mobile controls are permitted only inside templates.
+Please delete this control or move it into a template.</comment>
+  </data>
+  <data name="DevCapSect_NoCapabilityEval" xml:space="preserve">
+    <value>次のエラーのため、メソッド '{0}' の機能評価関数を作成できません: '{1}'。</value>
+    <comment>Could not create capability evaluator for method '{0}' because of the following error: '{1}'.</comment>
+  </data>
+  <data name="DeviceSpecific_DefaultMessage" xml:space="preserve">
+    <value>右クリックして [テンプレート オプション] を選び、デバイス フィルターを適用します。</value>
+    <comment>Right-click and select the Templating Options command to apply device filters.</comment>
+  </data>
+  <data name="ListGeneralPage_SelectTypeCaption" xml:space="preserve">
+    <value>SelectType(&amp;S):</value>
+    <comment>&amp;SelectType:</comment>
+  </data>
+  <data name="MobileControl_StyleReference" xml:space="preserve">
+    <value>このコントロールが使うスタイル</value>
+    <comment>Style that this control uses.</comment>
+  </data>
+  <data name="PagerStyle_PageLabel" xml:space="preserve">
+    <value>現在のページのラベル</value>
+    <comment>Label for current page.</comment>
+  </data>
+  <data name="ObjectListField_DataFieldNotFound" xml:space="preserve">
+    <value>DataField '{0}' はソース データにありません。別の DataField プロパティを指定するか、フィールドを削除してください。</value>
+    <comment>The DataField '{0}' does not exist in the source data.  Specify a different DataField property, or remove the field.</comment>
+  </data>
+  <data name="Category_Navigation" xml:space="preserve">
+    <value>ナビゲーション</value>
+    <comment>Navigation</comment>
+  </data>
+  <data name="StyleSheet_DuplicateName" xml:space="preserve">
+    <value>スタイル シート内に {0} という名前の Style 要素が重複しています。</value>
+    <comment>Duplicate Style elements named {0} found within a style sheet.</comment>
+  </data>
+  <data name="StyleSheet_TemplateStyleDescription" xml:space="preserve">
+    <value>このコントロールのテンプレートに使うスタイル</value>
+    <comment>The style used for the templating of this control.</comment>
+  </data>
+  <data name="Style_BackColor" xml:space="preserve">
+    <value>コントロールの背景色</value>
+    <comment>Background color of the control.</comment>
+  </data>
+  <data name="StylesEditorDialog_EmptyName" xml:space="preserve">
+    <value>スタイル名は空にできません。名前を入力してください。</value>
+    <comment>A style name cannot be empty. Please type a name.</comment>
+  </data>
+  <data name="RTL" xml:space="preserve">
+    <value>RTL_False</value>
+    <comment>RTL_False</comment>
+  </data>
+  <data name="MobileControl_MobilePageErrorMessage" xml:space="preserve">
+    <value>このコントロールは MobilePage 型のページでのみ動作します。</value>
+    <comment>This control only works in pages of type MobilePage.</comment>
+  </data>
+  <data name="MarkupSchema_cHTML10" xml:space="preserve">
+    <value>http://schemas.microsoft.com/mobile/chtml10template</value>
+    <comment>http://schemas.microsoft.com/mobile/chtml10template</comment>
+  </data>
+  <data name="UrlPath_PathMustBeRooted" xml:space="preserve">
+    <value>パスはルートから始めてください。</value>
+    <comment>Path must be rooted.</comment>
+  </data>
+  <data name="DeviceSpecific_DuplicateWarningMessage" xml:space="preserve">
+    <value>このコンテナーに置ける DeviceSpecific コントロールは 1 つだけです。余分な DeviceSpecific コントロールを削除してください。</value>
+    <comment>Only one DeviceSpecific control is allowed in this container. Please remove all extra DeviceSpecific controls.</comment>
+  </data>
+  <data name="ObjectList_LabelField" xml:space="preserve">
+    <value>リスト ビューで項目を簡潔に表示するのに使うデータ ソースのフィールド</value>
+    <comment>Field in the data source to use for a compact representation of the items in list view.</comment>
+  </data>
+  <data name="BaseTemplatedMobileComponentEditor_TemplateModeErrorMessage" xml:space="preserve">
+    <value>テンプレート編集モードの間は、このコントロールのプロパティを編集できません。プロパティ ビルダーを使う前にテンプレートの編集を終了してください。</value>
+    <comment>The control does not support property editing while it is in template editing mode. You must complete template editing before using the Property Builder.</comment>
+  </data>
+  <data name="TemplateableDesigner_TemplateChoiceDescription" xml:space="preserve">
+    <value>このコントロールのテンプレートの表示や編集に使うデバイス フィルター</value>
+    <comment>Identifies the device filter used to display or edit this control's templates.</comment>
+  </data>
+  <data name="ObjectList_LabelStyle" xml:space="preserve">
+    <value>ヘッダー ラベルのスタイル</value>
+    <comment>The style applied to the header label.</comment>
+  </data>
+  <data name="BaseValidator_ErrorMessage" xml:space="preserve">
+    <value>検証失敗時に表示するメッセージ</value>
+    <comment>Message to display when validation fails.</comment>
+  </data>
+  <data name="Theme_Not_Supported_On_MobileControls" xml:space="preserve">
+    <value>'Theme' 機能はモバイル コントロールでサポートされません。</value>
+    <comment>The 'Theme' feature is not supported on mobile controls.</comment>
+  </data>
+  <data name="Form_PagerStyle" xml:space="preserve">
+    <value>コントロールのページング プロパティに使うスタイル</value>
+    <comment>The styles used for pagination properties in the control.</comment>
+  </data>
+  <data name="Form_NestedForms" xml:space="preserve">
+    <value>フォームは入れ子にできません。ID '{1}' の Form 内に ID '{0}' の Form があります。</value>
+    <comment>Forms cannot be nested.  Found Form with ID '{0}' inside Form with ID '{1}'.</comment>
+  </data>
+  <data name="StyleSheet_NoStyleSheetInExternalFile" xml:space="preserve">
+    <value>外部ファイルにスタイル シート コントロールがありません。</value>
+    <comment>External file does not contain a style sheet control.</comment>
+  </data>
+  <data name="ValidationSummary_HeaderText" xml:space="preserve">
+    <value>概要に表示するヘッダー テキスト</value>
+    <comment>Header text that appears in the summary.</comment>
+  </data>
+  <data name="ObjectListGeneralPage_TableFieldsGroupLabel" xml:space="preserve">
+    <value>TableFields</value>
+    <comment>TableFields</comment>
+  </data>
+  <data name="TemplateFrame_SeparatorTemplate" xml:space="preserve">
+    <value>区切りテンプレート(&amp;S)</value>
+    <comment>&amp;Separator Template</comment>
+  </data>
+  <data name="MobileControl_Font" xml:space="preserve">
+    <value>このコントロールのフォント</value>
+    <comment>Font that this control uses.</comment>
+  </data>
+  <data name="UrlPath_EmptyPathHasNoDirectory" xml:space="preserve">
+    <value>空のパスにはディレクトリがありません。</value>
+    <comment>Empty path has no directory.</comment>
+  </data>
+  <data name="MobileControl_Alignment" xml:space="preserve">
+    <value>コントロールの水平方向の配置</value>
+    <comment>Horizontal alignment of the control.</comment>
+  </data>
+  <data name="ObjectListFieldsPage_ErrorMessageTitle" xml:space="preserve">
+    <value>フィールド編集ページ</value>
+    <comment>Fields Editor Page</comment>
+  </data>
+  <data name="ListItemsPage_ItemCaption" xml:space="preserve">
+    <value>項目テキスト(&amp;T):</value>
+    <comment>Item &amp;Text:</comment>
+  </data>
+  <data name="Validator_ValueBadType" xml:space="preserve">
+    <value>ID {2} のコントロールの {1} プロパティに設定された値 {0} は、必要な型 {3} に変換できません。有効な値を使ってください。</value>
+    <comment>The {1} property of the control with id {2} is set to the value {0}, which cannot be converted to the required type {3}. Use a legal value.</comment>
+  </data>
+  <data name="MobileControl_TextCannotContainNewlines" xml:space="preserve">
+    <value>ID {1} のコントロールの内部テキストに改行文字があります。{0} コントロールの内部テキストに改行文字は使えません。</value>
+    <comment>The control with id {1} contains newline characters in its inner text.  A {0} control cannot contain newline characters in its inner text.</comment>
+  </data>
+  <data name="MobCap_CantFindCapability" xml:space="preserve">
+    <value>機能 '{0}' が見つかりません。</value>
+    <comment>Cannot find a capability named '{0}'.</comment>
+  </data>
+  <data name="ObjectList_Fields" xml:space="preserve">
+    <value>詳細ビューで項目を表すフィールドのコレクション</value>
+    <comment>Collection of fields representing the items in details view.</comment>
+  </data>
+  <data name="AppliedDeviceFiltersDialog_ApplyDeviceFilter" xml:space="preserve">
+    <value>一覧に追加(&amp;A)</value>
+    <comment>&amp;Add To List</comment>
+  </data>
+  <data name="ControlAdapter_PreviousLabel" xml:space="preserve">
+    <value>前へ</value>
+    <comment>Prev</comment>
+  </data>
+  <data name="GenericDialog_HelpBtnCaption" xml:space="preserve">
+    <value>ヘルプ</value>
+    <comment>Help</comment>
+  </data>
+  <data name="SessionViewState_InvalidSessionStateHistory" xml:space="preserve">
+    <value>セッション状態の履歴の値が無効です。</value>
+    <comment>Invalid value for session state history.</comment>
+  </data>
+  <data name="MobileWebFormDesigner_NonMobileControlOnPageWarning" xml:space="preserve">
+    <value>モバイル以外のコントロールはテンプレート内でのみ使えます。
+これらのコントロールを削除するか、テンプレート内に移動してください。</value>
+    <comment>Non-mobile controls are permitted only inside templates.
+Please delete these controls or move them into templates.</comment>
+  </data>
+  <data name="MobilePage_RequiresSessionState" xml:space="preserve">
+    <value>ページはビュー ステートを保存する必要がありますが、セッション状態が無効か読み取り専用です。セッション状態を有効にするか、ページのビュー ステートを無効にしてください。</value>
+    <comment>The page needs to save viewstate, but session state is disabled or readonly. Enable session state, or disable viewstate for the page.</comment>
+  </data>
+  <data name="TemplatingOptionsDialog_CHTMLSchemaFriendly" xml:space="preserve">
+    <value>モバイル cHTML 1.0 テンプレート</value>
+    <comment>Mobile cHTML 1.0 Template</comment>
+  </data>
+  <data name="MarkupSchema_HTML32" xml:space="preserve">
+    <value>http://schemas.microsoft.com/mobile/html32template</value>
+    <comment>http://schemas.microsoft.com/mobile/html32template</comment>
+  </data>
+  <data name="ListItemsPage_ItemSelectedCaption" xml:space="preserve">
+    <value>選択(&amp;S)</value>
+    <comment>&amp;Selected</comment>
+  </data>
+  <data name="AdRotator_ImageKey" xml:space="preserve">
+    <value>取得する画像 URL を指定する XML 要素名</value>
+    <comment>XML element name that specifies which image URL to retrieve.</comment>
+  </data>
+  <data name="ObjectListGeneralPage_NoneComboEntry" xml:space="preserve">
+    <value>(なし)</value>
+    <comment>(None)</comment>
+  </data>
+  <data name="MobileTypeNameConverter_TypeNotResolved" xml:space="preserve">
+    <value>型 '{0}' を解決できません。スペルが正しいか、完全な型名を指定しているか確認してください。</value>
+    <comment>The type '{0}' cannot be resolved. Please verify the spelling is correct or that the full type name is provided.</comment>
+  </data>
+  <data name="FontInfo_Italic" xml:space="preserve">
+    <value>フォントの斜体設定</value>
+    <comment>Italic setting for the font.</comment>
+  </data>
+  <data name="List_ItemsAsLinks" xml:space="preserve">
+    <value>リストの項目をハイパーリンクとして扱うかどうか</value>
+    <comment>Whether the items in the list should be interpreted as hyperlinks.</comment>
+  </data>
+  <data name="MobileControl_Wrapping" xml:space="preserve">
+    <value>コントロール内のテキストの折り返し動作</value>
+    <comment>The wrapping behavior of text in the control.</comment>
+  </data>
+  <data name="DeviceFilter_DefaultChoice" xml:space="preserve">
+    <value>(既定)</value>
+    <comment>(Default)</comment>
+  </data>
+  <data name="AppliedDeviceFiltersDialog_Argument" xml:space="preserve">
+    <value>引数(&amp;R):</value>
+    <comment>A&amp;rgument:</comment>
+  </data>
+  <data name="ListGeneralPage_NoneComboEntry" xml:space="preserve">
+    <value>(なし)</value>
+    <comment>(None)</comment>
+  </data>
+  <data name="ValidationSummary_InvalidFormToValidate" xml:space="preserve">
+    <value>ValidationSummary コントロール '{1}' が参照する ID {0} のフォームは存在しません。FormToValidate プロパティを有効なフォームに変更してください。</value>
+    <comment>The form with id {0}, referenced by the ValidationSummary control '{1}', does not exist. Change the FormToValidate property to a valid form.</comment>
+  </data>
+  <data name="DevCapSect_NoTypeInfo" xml:space="preserve">
+    <value>型 '{0}' の型情報を取得できません。有効な型を指定してください。</value>
+    <comment>Unable to get type information for type '{0}'. Specify a valid type.</comment>
+  </data>
+  <data name="ObjectList_OnItemCommand" xml:space="preserve">
+    <value>ユーザーが項目に関連付けられたコマンドを選択したときに発生するイベント</value>
+    <comment>Raises an event when the user selects a command associated with the item.</comment>
+  </data>
+  <data name="Category_Action" xml:space="preserve">
+    <value>アクション</value>
+    <comment>Action</comment>
+  </data>
+  <data name="MobileListItemCollection_ViewStateManagementError" xml:space="preserve">
+    <value>ViewState 管理エラー</value>
+    <comment>Viewstate management error</comment>
+  </data>
+  <data name="ListItemsPage_Title" xml:space="preserve">
+    <value>項目</value>
+    <comment>Items</comment>
+  </data>
+  <data name="IndividualDeviceConfig_TypeMustSupportInterface" xml:space="preserve">
+    <value>型 '{0}' はインターフェイス '{1}' を実装していないため、有効なデバイス アダプターではありません。別の型を使うか、インターフェイスを実装するよう型を変更してください。</value>
+    <comment>The type '{0}' is not a valid device adapter, because it does not implement the interface '{1}'.  Use another type, or modify the type to implement the interface.</comment>
+  </data>
+  <data name="RangeValidator_MinimumValue" xml:space="preserve">
+    <value>検証対象コントロールの最小値</value>
+    <comment>Minimum value of the control being validated.</comment>
+  </data>
+  <data name="ObjectList_CommandStyle" xml:space="preserve">
+    <value>リスト内のコマンドのスタイル</value>
+    <comment>The style applied to the commands in the list.</comment>
+  </data>
+  <data name="MobilePage_AtLeastOneFormInPage" xml:space="preserve">
+    <value>ページには Form が 1 つ以上必要です。</value>
+    <comment>Page must contain at least one Form.</comment>
+  </data>
+  <data name="PagerStyle_PreviousPageText" xml:space="preserve">
+    <value>前のページへのリンクのラベル</value>
+    <comment>Label for the link to the previous page.</comment>
+  </data>
+  <data name="Form_Method" xml:space="preserve">
+    <value>フォームをサーバーに送信する方法</value>
+    <comment>The method used to submit the form to the server.</comment>
+  </data>
+  <data name="Style_ForeColor" xml:space="preserve">
+    <value>コントロール内のテキストの色</value>
+    <comment>Color of the text within the control.</comment>
+  </data>
+  <data name="ListGeneralPage_RowsCaption" xml:space="preserve">
+    <value>行数(&amp;R):</value>
+    <comment>&amp;Rows:</comment>
+  </data>
+  <data name="DeviceSpecificChoice_OverridingPropertyTypeCast" xml:space="preserve">
+    <value>プロパティ '{0}' はテキストから変換できません。</value>
+    <comment>Property '{0}' cannot be converted from text.</comment>
+  </data>
+  <data name="EditableTreeList_MoveUpName" xml:space="preserve">
+    <value>上へ移動</value>
+    <comment>Move Up</comment>
+  </data>
+  <data name="StylesEditorDialog_StylePropertiesGroupLabel" xml:space="preserve">
+    <value>スタイル プロパティ</value>
+    <comment>Style Properties</comment>
+  </data>
+  <data name="Command_Format" xml:space="preserve">
+    <value>コントロールの外観</value>
+    <comment>The visual appearance of the control.</comment>
+  </data>
+  <data name="MobileControl_InfiniteTemplateRecursion" xml:space="preserve">
+    <value>テンプレートで循環参照を検出しました。</value>
+    <comment>A circular reference was detected in a template.</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_WebConfigMissingOnOpen" xml:space="preserve">
+    <value>デバイス フィルターの作成前に、このプロジェクトに Web.config ファイルを追加してください。</value>
+    <comment>Before you can create Device Filters you must add a Web.config file to this project.</comment>
+  </data>
+  <data name="PagedControl_ItemsPerPageCantBeNegative" xml:space="preserve">
+    <value>ItemsPerPage は負にできません: {0}</value>
+    <comment>ItemsPerPage cannot be negative: {0}</comment>
+  </data>
+  <data name="Calendar_FirstDayOfWeek" xml:space="preserve">
+    <value>最初に表示する曜日</value>
+    <comment>The day of the week that appears first.</comment>
+  </data>
+  <data name="GenericDialog_Edit" xml:space="preserve">
+    <value>編集(&amp;E)...</value>
+    <comment>&amp;Edit...</comment>
+  </data>
+  <data name="ListGeneralPage_DecorationNumbered" xml:space="preserve">
+    <value>番号</value>
+    <comment>Numbered</comment>
+  </data>
+  <data name="ObjectList_DataSource" xml:space="preserve">
+    <value>リストの項目を設定するデータ ソース</value>
+    <comment>Data source that populates items in the list.</comment>
+  </data>
+  <data name="Style_NameChangeCauseCircularLoop" xml:space="preserve">
+    <value>この名前の変更は循環を生じます。別の名前を選んでください。</value>
+    <comment>This name change creates a circular loop. Please choose another name.</comment>
+  </data>
+  <data name="MobilePage_InvalidApplicationUrl" xml:space="preserve">
+    <value>無効なアプリケーション URL - {0}</value>
+    <comment>Invalid application URL - {0}</comment>
+  </data>
+  <data name="ListGeneralPage_ItemCountCaption" xml:space="preserve">
+    <value>ItemCount(&amp;C):</value>
+    <comment>Item&amp;Count:</comment>
+  </data>
+  <data name="ObjectList_SelectedIndexTooSmall" xml:space="preserve">
+    <value>SelectedIndex プロパティは -1 未満にできません: '{0}'。</value>
+    <comment>The SelectedIndex property cannot be set to less than -1: '{0}'.</comment>
+  </data>
+  <data name="DeviceSpecificChoice_OverridingPropertyNotDeclarable" xml:space="preserve">
+    <value>プロパティ '{0}' は宣言できないため、オーバーライドできません。</value>
+    <comment>Property '{0}' is not declarable, and cannot be overridden.</comment>
+  </data>
+  <data name="EditableTreeList_Rename" xml:space="preserve">
+    <value>名前の変更(&amp;R)</value>
+    <comment>&amp;Rename</comment>
+  </data>
+  <data name="MobileControlsSectionHandler_NotAssignable" xml:space="preserve">
+    <value>'{0}' は '{1}' に代入できません</value>
+    <comment>'{0}' is not assignable to '{1}'</comment>
+  </data>
+  <data name="Command_SoftkeyLabel" xml:space="preserve">
+    <value>ソフトキーに表示するときのコマンドのラベル。ソフトキー対応デバイスにのみ適用されます。</value>
+    <comment>Label used for the command when rendered on a softkey. Only applies to devices that support softkeys.</comment>
+  </data>
+  <data name="StyleSheet_DuplicateWarningMessage" xml:space="preserve">
+    <value>スタイル シートはページごとに 1 つだけ指定できます。余分なスタイル シートを削除してください。</value>
+    <comment>You can specify only one style sheet per page. Please remove all extra style sheets.</comment>
+  </data>
+  <data name="TemplateFrame_IllFormedWarning" xml:space="preserve">
+    <value>このテンプレートは正しい形式ではありません。HTML ビューに切り替えて編集してください。</value>
+    <comment>This template is not well formed. Switch to HTML view to edit the content.</comment>
+  </data>
+  <data name="PhoneCall_AlternateUrl" xml:space="preserve">
+    <value>電話をかけられないデバイスの移動先 URL</value>
+    <comment>The target URL for devices that cannot make phone calls.</comment>
+  </data>
+  <data name="ObjectListCommandsPage_DataGroupLabel" xml:space="preserve">
+    <value>データ</value>
+    <comment>Data</comment>
+  </data>
+  <data name="ObjectListGeneralPage_DataSourceCaption" xml:space="preserve">
+    <value>DataSource(&amp;D):</value>
+    <comment>&amp;DataSource:</comment>
+  </data>
+  <data name="ConfigSect_InvalidIntegerAttr" xml:space="preserve">
+    <value>無効な整数属性 '{0}' です。</value>
+    <comment>Invalid integer attribute '{0}'.</comment>
+  </data>
+  <data name="ConfigSect_MissingValue" xml:space="preserve">
+    <value>属性 '{0}' には値が必要です。</value>
+    <comment>Attribute '{0}' must have a value.</comment>
+  </data>
+  <data name="ObjectList_MustBeInListModeToClearSelectedIndex" xml:space="preserve">
+    <value>SelectedIndex を -1 に設定するには、先に ViewMode プロパティを ObjectListViewMode.List に設定する必要があります。</value>
+    <comment>To set the SelectedIndex to -1, the ViewMode property must first be set to ObjectListViewMode.List.</comment>
+  </data>
+  <data name="TextView_Text" xml:space="preserve">
+    <value>コントロールに表示するテキスト</value>
+    <comment>Text that appears in the control.</comment>
+  </data>
+  <data name="ListGeneralPage_DataGroupLabel" xml:space="preserve">
+    <value>データ</value>
+    <comment>Data</comment>
+  </data>
+  <data name="ControlsConfig_NoDeviceConfigRegistered" xml:space="preserve">
+    <value>要求元デバイスに対するモバイル コントロールのデバイス構成が登録されていません。ユーザー エージェント文字列は '{0}' です。</value>
+    <comment>No mobile controls device configuration was registered for the requesting device.  User agent string is '{0}'.</comment>
+  </data>
+  <data name="StylesEditorDialog_DuplicateStyleNames" xml:space="preserve">
+    <value>このスタイル シートに同じ名前のスタイルが複数定義されているため、操作を完了できませんでした。先に HTML ビューでこの問題を修正してください。</value>
+    <comment>This action could not be completed because there are multiple styles defined in this style sheet that share the same name.  Please first correct this problem in the HTML view.</comment>
+  </data>
+  <data name="ObjectListCommandsPage_CommandListGroupLabel" xml:space="preserve">
+    <value>コマンド一覧</value>
+    <comment>Command list</comment>
+  </data>
+  <data name="MobileErrorInfo_Unknown" xml:space="preserve">
+    <value>不明</value>
+    <comment>Unknown</comment>
+  </data>
+  <data name="ControlAdapter_LinkLabel" xml:space="preserve">
+    <value>リンク</value>
+    <comment>Link</comment>
+  </data>
+  <data name="FactoryGenerator_Error_FactoryInterface" xml:space="preserve">
+    <value>FactoryGenerator でエラーが発生しました。戻り値の型が正しく定義されていません。</value>
+    <comment>An error has occurred in FactoryGenerator.  The return type is not correctly defined.</comment>
+  </data>
+  <data name="CompareValidator_BadCompareControl" xml:space="preserve">
+    <value>コントロール '{0}' の ControlToValidate と ControlToCompare に同じ値 '{1}' は指定できません。</value>
+    <comment>Control '{0}' cannot have the same value '{1}' for both ControlToValidate and ControlToCompare.</comment>
+  </data>
+  <data name="Form_InvalidControlToPaginateForm" xml:space="preserve">
+    <value>ControlToPaginate はアクティブなフォーム内にある必要があります。</value>
+    <comment>ControlToPaginate must be inside the active form.</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_Evaluator" xml:space="preserve">
+    <value>評価デリゲート(&amp;D)</value>
+    <comment>Evaluator &amp;Delegate</comment>
+  </data>
+  <data name="MobileControl_NoMultipleDeviceSpecifics" xml:space="preserve">
+    <value>DeviceSpecific 要素はコントロールごとに 1 つだけ指定できます。</value>
+    <comment>You can specify only one DeviceSpecific element per control.</comment>
+  </data>
+  <data name="PagerStyle_NextPageText_DefaultValue" xml:space="preserve">
+    <value>次へ</value>
+    <comment>Next</comment>
+  </data>
+  <data name="TextBox_NotNegativeNumber" xml:space="preserve">
+    <value>0 以上である必要があります。</value>
+    <comment>must be greater than or equal to zero.</comment>
+  </data>
+  <data name="Style_DuplicateName" xml:space="preserve">
+    <value>その名前のスタイルは既に存在します。別の名前を選んでください。</value>
+    <comment>A style with that name already exists. Please choose another name.</comment>
+  </data>
+  <data name="ListGeneralPage_UnboundComboEntry" xml:space="preserve">
+    <value>(非バインド)</value>
+    <comment>(Unbound)</comment>
+  </data>
+  <data name="ImageUrlPicker_ImageCaption" xml:space="preserve">
+    <value>画像の選択</value>
+    <comment>Select Image</comment>
+  </data>
+  <data name="Style_EmptyName" xml:space="preserve">
+    <value>スタイル名は空にできません。</value>
+    <comment>A style name cannot be empty.</comment>
+  </data>
+  <data name="AppliedDeviceFiltersDialog_DefaultFilterAlreadyApplied" xml:space="preserve">
+    <value>既定のフィルターは 1 回だけ適用できます。</value>
+    <comment>The default filter may only be applied once.</comment>
+  </data>
+  <data name="MobileControlsSectionHandler_DuplicatedDeviceName" xml:space="preserve">
+    <value>次のデバイス アダプター セットは登録済みです: '{0}'</value>
+    <comment>The following device adapter set is already registered: '{0}'</comment>
+  </data>
+  <data name="Form_Action" xml:space="preserve">
+    <value>フォームの送信先 URL</value>
+    <comment>The URL to which the form should be submitted.</comment>
+  </data>
+  <data name="ObjectListCommandsPage_CommandNameCaption" xml:space="preserve">
+    <value>コマンド名(&amp;N):</value>
+    <comment>Command &amp;Name:</comment>
+  </data>
+  <data name="MobileErrorInfo_SourceObject" xml:space="preserve">
+    <value>ソース オブジェクト</value>
+    <comment>Source Object</comment>
+  </data>
+  <data name="ListGeneralPage_PrivateMemberCaption" xml:space="preserve">
+    <value>選択するには、DataSource の修飾子を public に変更する必要があります。</value>
+    <comment>The DataSource's modifier must be changed to public before you can select it.</comment>
+  </data>
+  <data name="WebConfig_FileNotFoundException" xml:space="preserve">
+    <value>このプロジェクトのディレクトリに Web.config ファイルがありません。</value>
+    <comment>No Web.config file exists in this project's directory.</comment>
+  </data>
+  <data name="ValidationSummary_BackLabel" xml:space="preserve">
+    <value>問題のフォームに戻るリンクのラベル</value>
+    <comment>Label for the link that returns to the offending form.</comment>
+  </data>
+  <data name="NavigateUrlConverter_SelectURITarget" xml:space="preserve">
+    <value>(URL の選択...)</value>
+    <comment>(Select URL...)</comment>
+  </data>
+  <data name="PropertyOverridesDialog_AppliedDeviceFilters" xml:space="preserve">
+    <value>適用済みデバイス フィルター(&amp;A):</value>
+    <comment>&amp;Applied Device Filter:</comment>
+  </data>
+  <data name="MobileControl_NonHtmlSchemaErrorMessage" xml:space="preserve">
+    <value>デザイン ビューで編集できるのは HTML ベースのテンプレートのみです。HTML ビューに切り替えてテンプレートの内容を編集してください。</value>
+    <comment>You can edit only HTML-based templates in Design view. Switch to HTML view to edit the template contents.</comment>
+  </data>
+  <data name="ObjectList_OnItemSelect" xml:space="preserve">
+    <value>ユーザーがリスト ビューで項目を選択したときに発生するイベント</value>
+    <comment>Raises an event when the user selects an item in the list view.</comment>
+  </data>
+  <data name="MobileRedirect_RedirectNotAllowed" xml:space="preserve">
+    <value>ポストバックで Response.Redirect を呼び出すと、モバイル デバイスやゲートウェイで予期しない結果になる場合があります。代わりに RedirectToMobilePage メソッドを使ってください。</value>
+    <comment>Calling Response.Redirect on a postback can have unpredictable results on mobile devices and gateways. Use RedirectToMobilePage method instead.</comment>
+  </data>
+  <data name="Form_OnDeactivate" xml:space="preserve">
+    <value>アクティブだったフォームが非アクティブになったときに発生するイベント</value>
+    <comment>Raises an event when a previously active form becomes inactive.</comment>
+  </data>
+  <data name="MobCap_DelegateNameNoValue" xml:space="preserve">
+    <value>delegateName には値が必要です。</value>
+    <comment>delegateName must have a value.</comment>
+  </data>
+  <data name="MobileControl_UserControlWarningMessage" xml:space="preserve">
+    <value>Web ユーザー コントロール内に配置したこのコントロールはデザイン ビューでサポートされません。代わりにモバイル ユーザー コントロールを使ってください。</value>
+    <comment>This control is not supported in Design view when placed inside a Web User Control, use Mobile User Control instead.</comment>
+  </data>
+  <data name="Category_Paging" xml:space="preserve">
+    <value>ページング</value>
+    <comment>Paging</comment>
+  </data>
+  <data name="DevCapSect_ExtraCompareDelegator" xml:space="preserve">
+    <value>評価デリゲートが既に指定されています。compare 属性は不要です。</value>
+    <comment>An evaluator delegate has already been specified.  A compare attribute is not necessary.</comment>
+  </data>
+  <data name="StylesEditorDialog_StyleListGroupLabel" xml:space="preserve">
+    <value>スタイル一覧</value>
+    <comment>Style List</comment>
+  </data>
+  <data name="MobileControl_FormPanelContainmentErrorMessage" xml:space="preserve">
+    <value>このコントロールは Form または Panel コントロール内、またはテンプレート内に配置する必要があります。移動または削除してください。</value>
+    <comment>This control must be placed in a Form or Panel control, or within a template. Please move or delete this control.</comment>
+  </data>
+  <data name="ListGeneralPage_PagingGroupLabel" xml:space="preserve">
+    <value>ページング</value>
+    <comment>Paging</comment>
+  </data>
+  <data name="ObjectListFieldsPage_EmptyNameError" xml:space="preserve">
+    <value>フィールド名は空にできません。名前を入力してください。</value>
+    <comment>A field name cannot be empty. Please type a name.</comment>
+  </data>
+  <data name="Category_Style" xml:space="preserve">
+    <value>スタイル</value>
+    <comment>Style</comment>
+  </data>
+  <data name="StylesEditorDialog_AddBtnCation" xml:space="preserve">
+    <value>&gt;</value>
+    <comment>&gt;</comment>
+  </data>
+  <data name="TemplatingOptionsDialog_HTMLSchemaFriendly" xml:space="preserve">
+    <value>モバイル HTML 3.2 テンプレート</value>
+    <comment>Mobile HTML 3.2 Template</comment>
+  </data>
+  <data name="MobileControl_BreakAfter" xml:space="preserve">
+    <value>実行時にコントロールの後に改行を入れるかどうか</value>
+    <comment>Whether to add a line break after the control at run time.</comment>
+  </data>
+  <data name="Input_Title" xml:space="preserve">
+    <value>対応デバイスで入力領域の上に表示するタイトル</value>
+    <comment>The title shown above the input area on devices that support it.</comment>
+  </data>
+  <data name="ObjectList_TableFields" xml:space="preserve">
+    <value>リスト ビューで項目を展開表示するのに使うデータ ソースのフィールド</value>
+    <comment>Fields in the data source to use for an expanded representation of the items in list view.</comment>
+  </data>
+  <data name="DeviceSpecific_PropNotSet" xml:space="preserve">
+    <value>(なし)</value>
+    <comment>(None)</comment>
+  </data>
+  <data name="Calendar_VisibleDate" xml:space="preserve">
+    <value>表示される月</value>
+    <comment>The month that appears.</comment>
+  </data>
+  <data name="StylesEditorDialog_PreviewText" xml:space="preserve">
+    <value>AaBbYyZz</value>
+    <comment>AaBbYyZz</comment>
+  </data>
+  <data name="SessionViewState_ExpiredOrCookieless" xml:space="preserve">
+    <value>このページには、もう利用できないセッション状態が必要です。セッションの有効期限が切れたか、クライアントが有効なセッション Cookie を送信しなかったか、セッション状態の履歴サイズが小さすぎます。履歴サイズかセッションの有効期限を増やしてみてください。</value>
+    <comment>The page requires session state that is no longer available. Either the session has expired, the client did not send a valid session cookie, or the session state history size is too small. Try increasing the history size or session expiry limit.</comment>
+  </data>
+  <data name="Image_AutoFormat" xml:space="preserve">
+    <value>デバイスの機能に合わせて元画像を自動整形するかどうか</value>
+    <comment>Whether the source image should be auto-formatted to match device capabilities.</comment>
+  </data>
+  <data name="ObjectListField_DataBoundText" xml:space="preserve">
+    <value>DataBound</value>
+    <comment>DataBound</comment>
+  </data>
+  <data name="Category_Data" xml:space="preserve">
+    <value>データ</value>
+    <comment>Data</comment>
+  </data>
+  <data name="AdRotator_NavigateUrlKey" xml:space="preserve">
+    <value>取得する広告 Web ページ URL を指定する XML 要素名</value>
+    <comment>XML element name that specifies which advertisement Web page URL to retrieve.</comment>
+  </data>
+  <data name="Command_CommandName" xml:space="preserve">
+    <value>コマンドに関連付けられた名前</value>
+    <comment>The name associated with the command.</comment>
+  </data>
+  <data name="StyleSheet_TemplateEditingMessage" xml:space="preserve">
+    <value>右クリックして [スタイルの編集] を選び、スタイルを定義します。現在のスタイルとデバイス フィルターのテンプレートを編集するには [テンプレートの編集] を使います。</value>
+    <comment>Right-click and choose the Edit Styles command to define styles. Use the Edit Template command to edit templates for the current style and device filter.</comment>
+  </data>
+  <data name="ControlAdapter_OKLabel" xml:space="preserve">
+    <value>OK</value>
+    <comment>OK</comment>
+  </data>
+  <data name="FontInfo_Bold" xml:space="preserve">
+    <value>フォントの太字設定</value>
+    <comment>Bold setting for the font.</comment>
+  </data>
+  <data name="FontInfo_Name" xml:space="preserve">
+    <value>コントロールの優先フォント</value>
+    <comment>The preferred font for the control.</comment>
+  </data>
+  <data name="FontInfo_Size" xml:space="preserve">
+    <value>フォントの相対サイズ</value>
+    <comment>The relative size of the font.</comment>
+  </data>
+  <data name="AppliedDeviceFiltersDialog_AvailableDeviceFilters" xml:space="preserve">
+    <value>使用可能なデバイス フィルター(&amp;V):</value>
+    <comment>A&amp;vailable Device Filters:</comment>
+  </data>
+  <data name="DeviceSpecificChoice_PropertyNotAnAttribute" xml:space="preserve">
+    <value>指定したプロパティは属性ではありません。</value>
+    <comment>Specified property is not an attribute.</comment>
+  </data>
+  <data name="StyleSheet_StyleAlreadyOwned" xml:space="preserve">
+    <value>Style '{0}' は既に別のスタイル シート '{1}' にあるのに、スタイル シートに挿入しようとしています。1 つの Style を所有できるスタイル シートは 1 つだけです。</value>
+    <comment>Attempting to insert Style named '{0}' into style sheet even though it's already in another style sheet named '{1}'.  Only one style sheet can own a given Style.</comment>
+  </data>
+  <data name="ListGeneralPage_DecorationCaption" xml:space="preserve">
+    <value>装飾(&amp;R):</value>
+    <comment>Deco&amp;ration:</comment>
+  </data>
+  <data name="Link_NavigateUrl" xml:space="preserve">
+    <value>リンク先の URL または Form</value>
+    <comment>The URL or Form to link to.</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_InvalidFilter" xml:space="preserve">
+    <value>次のデバイス フィルターは指定内容が無効です:
+
+{0}
+
+等値比較のデバイス フィルターには Compare プロパティが、評価デリゲートのデバイス フィルターには Type と Method プロパティが必要です。これらのフィルターを修正してください。</value>
+    <comment>The following device filters are not valid as specified:
+
+{0}
+
+Equality Comparison device filters must have a defined Compare property.  Evaluator Delegate device filters must have defined Type and Method properties.  Please correct these filters.</comment>
+  </data>
+  <data name="TemplateFrame_HeaderFooterTemplates" xml:space="preserve">
+    <value>ヘッダーとフッターのテンプレート(&amp;H)</value>
+    <comment>&amp;Header and Footer Templates</comment>
+  </data>
+  <data name="TextBox_OnTextChanged" xml:space="preserve">
+    <value>ユーザーがテキスト プロパティを変更した後に発生するイベント。サーバーへのポストバック後にのみ発生します。</value>
+    <comment>Raises an event after the user changes the text property. The event occurs only after a postback to the server.</comment>
+  </data>
+  <data name="UnsettableComboBox_NotSetText" xml:space="preserve">
+    <value>&lt;未設定&gt;</value>
+    <comment>&lt;Not Set&gt;</comment>
+  </data>
+  <data name="List_OnItemDataBind" xml:space="preserve">
+    <value>項目がデータ バインドされた後に発生するイベント</value>
+    <comment>Raises an event after an item has been databound.</comment>
+  </data>
+  <data name="CompareValidator_Operator" xml:space="preserve">
+    <value>値に適用する比較演算</value>
+    <comment>Comparison operation to apply to values.</comment>
+  </data>
+  <data name="ObjectListFieldsPage_TitleCaption" xml:space="preserve">
+    <value>タイトル(&amp;T):</value>
+    <comment>&amp;Title:</comment>
+  </data>
+  <data name="TemplateFrame_ItemTemplates" xml:space="preserve">
+    <value>項目テンプレート(&amp;I)</value>
+    <comment>&amp;Item Templates</comment>
+  </data>
+  <data name="ListGeneralPage_Title" xml:space="preserve">
+    <value>全般</value>
+    <comment>General</comment>
+  </data>
+  <data name="ObjectListGeneralPage_TableFieldsAvailableListLabel" xml:space="preserve">
+    <value>使用可能なフィールド(&amp;V):</value>
+    <comment>A&amp;vailable Fields:</comment>
+  </data>
+  <data name="List_DataMember" xml:space="preserve">
+    <value>データ ソースが DataSet のときにバインドに使うテーブル</value>
+    <comment>Table used for binding when a DataSet is used as the data source.</comment>
+  </data>
+  <data name="MobileErrorInfo_ParserErrorMiscTitle" xml:space="preserve">
+    <value>パーサー エラー メッセージ</value>
+    <comment>Parser Error Message</comment>
+  </data>
+  <data name="ConfigSect_InvalidBooleanAttr" xml:space="preserve">
+    <value>無効なブール属性 '{0}' です。</value>
+    <comment>Invalid boolean attribute '{0}'.</comment>
+  </data>
+  <data name="StyleSheet_InvalidStyleName" xml:space="preserve">
+    <value>Style '{0}' をスタイル シートのキー '{1}' に設定しようとしています。これらの値は一致する必要があります。</value>
+    <comment>Attempting to set Style named '{0}' into style sheet key '{1}'.  These values must match.</comment>
+  </data>
+  <data name="ObjectListFieldsPage_DataFieldCaption" xml:space="preserve">
+    <value>DataField(&amp;D):</value>
+    <comment>&amp;DataField:</comment>
+  </data>
+  <data name="MobileControl_NoTemplatesDefined" xml:space="preserve">
+    <value>テンプレートが定義されていないため、テンプレート UI を作成できません。</value>
+    <comment>Cannot create templated UI because no templates are defined.</comment>
+  </data>
+  <data name="ObjectList_SelectedIndexTooBig" xml:space="preserve">
+    <value>SelectedIndex は項目数未満である必要があります。SelectedIndex に {0} を設定しようとしましたが、項目数は {1} です。  </value>
+    <comment>SelectedIndex must be less than the item count.  SelectedIndex is being set to {0}, but the item count is {1}.  </comment>
+  </data>
+  <data name="ConfigSect_UnknownAttr" xml:space="preserve">
+    <value>予期しない属性 '{0}'。</value>
+    <comment>Unexpected attribute '{0}'.</comment>
+  </data>
+  <data name="ObjectList_ItemTitle" xml:space="preserve">
+    <value>項目</value>
+    <comment>Item</comment>
+  </data>
+  <data name="ObjectListFieldsPage_DataFormatStringCaption" xml:space="preserve">
+    <value>DataFormatString(&amp;S):</value>
+    <comment>DataFormat&amp;String:</comment>
+  </data>
+  <data name="Image_ImageUrl" xml:space="preserve">
+    <value>表示する画像の URL</value>
+    <comment>The URL of the image to be rendered.</comment>
+  </data>
+  <data name="ListItemsPage_ItemValueCaption" xml:space="preserve">
+    <value>値(&amp;V):</value>
+    <comment>&amp;Value:</comment>
+  </data>
+  <data name="StyleSheetRefUrlEditor_Filter" xml:space="preserve">
+    <value>ASCX ファイル(*.ascx)|*.ascx|</value>
+    <comment>ASCX Files(*.ascx)|*.ascx|</comment>
+  </data>
+  <data name="LiteralTextParser_InvalidTagFormat" xml:space="preserve">
+    <value>テキストに構文が無効なタグがあります。正しい構文のタグを指定してください。</value>
+    <comment>The text contains a tag with invalid syntax.  Specify tags that use correct syntax.</comment>
+  </data>
+  <data name="StylesEditorDialog_TypeCaption" xml:space="preserve">
+    <value>型(&amp;Y):</value>
+    <comment>T&amp;ype:</comment>
+  </data>
+  <data name="Image_AlternateText" xml:space="preserve">
+    <value>画像を表示できないときの代替テキスト</value>
+    <comment>The alternate text displayed when the image cannot be rendered.</comment>
+  </data>
+  <data name="ListGeneralPage_PrivateMemberMessage" xml:space="preserve">
+    <value>{0} はプライベート メンバーです。</value>
+    <comment>{0} is marked as private member.</comment>
+  </data>
+  <data name="ObjectListGeneralPage_DataMemberCaption" xml:space="preserve">
+    <value>DataMember(&amp;M):</value>
+    <comment>Data&amp;Member:</comment>
+  </data>
+  <data name="ObjectListGeneralPage_AppearanceGroupLabel" xml:space="preserve">
+    <value>外観</value>
+    <comment>Appearance</comment>
+  </data>
+  <data name="Command_CausesValidation" xml:space="preserve">
+    <value>実行時にフォームの検証を行うかどうか</value>
+    <comment>Whether to invoke validation on the form when activated.</comment>
+  </data>
+  <data name="ObjectListGeneralPage_DataGroupLabel" xml:space="preserve">
+    <value>データ</value>
+    <comment>Data</comment>
+  </data>
+  <data name="ObjectList_MustHaveOneOrMoreFields" xml:space="preserve">
+    <value>データ バインドには 1 つ以上のフィールドが必要です。(空の DataSource からフィールドが自動生成された可能性があります。項目をクリアするには DataSource を null に設定してください。)</value>
+    <comment>Must have one or more fields to databind.  (Application may have autogenerated fields from an empty DataSource.  To clear items, set DataSource to null.)</comment>
+  </data>
+  <data name="Calendar_CalendarEntryText" xml:space="preserve">
+    <value>日付選択用リンクのテキスト。複数の手順が必要な場合にのみ使われます。</value>
+    <comment>Text for the link that provides date selection. This link is only used when a series of steps is needed.</comment>
+  </data>
+  <data name="ObjectList_DefaultCommand" xml:space="preserve">
+    <value>リスト ビューで項目を選択したときに発生するコマンド</value>
+    <comment>Command raised when an item is selected in list view.</comment>
+  </data>
+  <data name="TemplateableDesigner_SetTemplatesFilterVerb" xml:space="preserve">
+    <value>テンプレート オプション(&amp;O)...</value>
+    <comment>Templating &amp;Options...</comment>
+  </data>
+  <data name="SelectionList_Rows" xml:space="preserve">
+    <value>表示する行数</value>
+    <comment>The number of visible rows to render.</comment>
+  </data>
+  <data name="Style_CircularReference" xml:space="preserve">
+    <value>次のスタイルに循環参照があります: '{0}'</value>
+    <comment>The following style contains a circular reference: '{0}'</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_Title" xml:space="preserve">
+    <value>デバイス フィルター編集</value>
+    <comment>Device Filter Editor</comment>
+  </data>
+  <data name="ConfigSect_UnrecognizedXML" xml:space="preserve">
+    <value>認識できない XML です。</value>
+    <comment>Unrecognized XML.</comment>
+  </data>
+  <data name="ObjectListGeneralPage_MoreTextCaption" xml:space="preserve">
+    <value>MoreText(&amp;O):</value>
+    <comment>M&amp;oreText:</comment>
+  </data>
+  <data name="PropertyOverridesDialog_Title" xml:space="preserve">
+    <value>プロパティ オーバーライド</value>
+    <comment>Property Overrides</comment>
+  </data>
+  <data name="Style_StyleNotFound" xml:space="preserve">
+    <value>スタイルが見つかりません: {0}</value>
+    <comment>Style not found: {0}</comment>
+  </data>
+  <data name="EditableTreeList_MoveUpDescription" xml:space="preserve">
+    <value>選択した項目をリスト内で上へ移動</value>
+    <comment>Move the selected item up in the list</comment>
+  </data>
+  <data name="UrlPicker_DefaultCaption" xml:space="preserve">
+    <value>URL の選択</value>
+    <comment>Select URL</comment>
+  </data>
+  <data name="Feature_Not_Supported_On_MobilePage" xml:space="preserve">
+    <value>'{0}' 機能はモバイル ページでサポートされていません。</value>
+    <comment>The '{0}' feature is not supported on a mobile page.</comment>
+  </data>
+  <data name="ObjectListFieldsPage_FieldNameCaption" xml:space="preserve">
+    <value>フィールド名(&amp;N):</value>
+    <comment>Field &amp;Name:</comment>
+  </data>
+  <data name="MobileTypeNameConverter_UnsupportedValueType" xml:space="preserve">
+    <value>コンバーターは型 '{1}' の値 '{0}' を変換できません。</value>
+    <comment>The converter cannot convert value '{0}' with type '{1}'.</comment>
+  </data>
+  <data name="ConfigSect_MissingAttr" xml:space="preserve">
+    <value>必須属性 '{0}' がありません。</value>
+    <comment>Required attribute '{0}' is missing.</comment>
+  </data>
+  <data name="StyleSheet_LoopReference" xml:space="preserve">
+    <value>次のスタイル シートには、外部スタイル シートへの循環参照が含まれています: '{0}'</value>
+    <comment>The following style sheet contains a circular reference to an external style sheet: '{0}'</comment>
+  </data>
+  <data name="PropertyOverridesDialog_NotICloneable" xml:space="preserve">
+    <value>'{0}' は ExpandableObjectConverter を使いますが、型 '{1}' は ICloneable を実装しません。</value>
+    <comment>'{0}' uses ExpandableObjectConverter, but type '{1}' does not implement ICloneable.</comment>
+  </data>
+  <data name="ObjectList_AutoGenerateFields" xml:space="preserve">
+    <value>関連付けられたデータ ソースに基づいて、実行時にフィールドを自動生成するかどうか</value>
+    <comment>Whether the fields are generated automatically at run time based on the associated data source.</comment>
+  </data>
+  <data name="RequiredFieldValidator_InitialValue" xml:space="preserve">
+    <value>検証するフィールドの初期値</value>
+    <comment>Initial value of the field to validate.</comment>
+  </data>
+  <data name="SelectionList_AdapterNotHandlingLoadPostData" xml:space="preserve">
+    <value>デバイス アダプターは SelectionList の LoadPostData を処理する必要があります。</value>
+    <comment>Device adapter must handle LoadPostData for SelectionList.</comment>
+  </data>
+  <data name="StylesEditorDialog_Title" xml:space="preserve">
+    <value>スタイル エディター</value>
+    <comment>Styles Editor</comment>
+  </data>
+  <data name="ListGeneralPage_DataTextFieldCaption" xml:space="preserve">
+    <value>DataTextField(&amp;T):</value>
+    <comment>Data&amp;TextField:</comment>
+  </data>
+  <data name="StylesEditorDialog_PropertiesCaption" xml:space="preserve">
+    <value>プロパティ(&amp;P):</value>
+    <comment>&amp;Properties:</comment>
+  </data>
+  <data name="DeviceSpecific_TemplateEditingMessage" xml:space="preserve">
+    <value>右クリックしてテンプレート セットを選択し、デバイス固有のコンテンツを編集します。</value>
+    <comment>Right-click and select a set of templates to edit their device-specific content.</comment>
+  </data>
+  <data name="MobileControl_MustBeInMobilePage" xml:space="preserve">
+    <value>MobileControl は MobilePage 内に含める必要があります: {0}</value>
+    <comment>MobileControl must be contained within a MobilePage: {0}</comment>
+  </data>
+  <data name="ListGeneralPage_ItemsPerPageCaption" xml:space="preserve">
+    <value>ItemsPerPage(&amp;P):</value>
+    <comment>ItemsPer&amp;Page:</comment>
+  </data>
+  <data name="ObjectListCommandsPage_ErrorMessageTitle" xml:space="preserve">
+    <value>コマンド エディター ページ</value>
+    <comment>Commands Editor Page</comment>
+  </data>
+  <data name="DevCapSect_ExtraArgumentDelegator" xml:space="preserve">
+    <value>評価デリゲートは既に指定されています。argument 属性は不要です。</value>
+    <comment>An evaluator delegate has already been specified.  An argument attribute is not necessary.</comment>
+  </data>
+  <data name="ErrorFormatterPage_File" xml:space="preserve">
+    <value>ファイル: {0}</value>
+    <comment>File: {0}</comment>
+  </data>
+  <data name="ErrorFormatterPage_Line" xml:space="preserve">
+    <value>行: {0}</value>
+    <comment>Line: {0}</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_Header" xml:space="preserve">
+    <value>このアプリケーションのコントロールのテンプレート化とプロパティ オーバーライド用のデバイス フィルターを作成します。フィルターは Web.config 管理ファイルに格納されます。</value>
+    <comment>Create device filters for control templating and property overrides in this application.  These filters are stored in the Web.config management file.</comment>
+  </data>
+  <data name="StyleSheet_StylesCaption" xml:space="preserve">
+    <value>スタイル(&amp;Y):</value>
+    <comment>St&amp;yle:</comment>
+  </data>
+  <data name="ListGeneralPage_DataMemberCaption" xml:space="preserve">
+    <value>DataMember(&amp;M):</value>
+    <comment>Data&amp;Member:</comment>
+  </data>
+  <data name="StyleSheet_ReferencePath" xml:space="preserve">
+    <value>StyleSheet コントロールを含むユーザー コントロールへの相対ファイル パス</value>
+    <comment>Relative file path to a user control containing a StyleSheet control.</comment>
+  </data>
+  <data name="DevFiltDict_FoundLoop" xml:space="preserve">
+    <value>フィルター '{0}' は既に直接または間接的にフィルター '{1}' に依存しています。ループが発生しないようにフィルターを構成してください。</value>
+    <comment>The filter '{0}' is already directly or indirectly dependent on the filter '{1}'. Construct your filters to avoid loops.</comment>
+  </data>
+  <data name="ObjectListFieldsPage_Title" xml:space="preserve">
+    <value>フィールド</value>
+    <comment>Fields</comment>
+  </data>
+  <data name="Link_SoftkeyLabel" xml:space="preserve">
+    <value>ソフトキーにレンダリングされるときのリンクのラベル。ソフトキーをサポートするデバイスでのみ使用されます。</value>
+    <comment>Label used for the link when rendered on a softkey. Only used on devices that support softkeys.</comment>
+  </data>
+  <data name="ListGeneralPage_DataValueFieldCaption" xml:space="preserve">
+    <value>DataValueField(&amp;V):</value>
+    <comment>Data&amp;ValueField:</comment>
+  </data>
+  <data name="MobileControlBuilder_ControlMustBeTopLevelOfPage" xml:space="preserve">
+    <value>{0} はページの最上位レベルで定義する必要があります。</value>
+    <comment>{0} must be defined at the top level of a page.</comment>
+  </data>
+  <data name="ObjectListCommandsPage_DefaultCommandName" xml:space="preserve">
+    <value>コマンド</value>
+    <comment>Command</comment>
+  </data>
+  <data name="ControlAdapter_MoreLabel" xml:space="preserve">
+    <value>続き</value>
+    <comment>More</comment>
+  </data>
+  <data name="DeviceSpecificChoice_ChoiceOnlyExistInDeviceSpecific" xml:space="preserve">
+    <value>Choice 要素は DeviceSpecific 要素にのみ存在できます。</value>
+    <comment>Choice elements can only exist in a DeviceSpecific element.</comment>
+  </data>
+  <data name="CustomValidator_OnServerValidate" xml:space="preserve">
+    <value>サーバーで検証を実行するときに呼び出されます。</value>
+    <comment>Called to perform validation on the server.</comment>
+  </data>
+  <data name="UrlPicker_DefaultFilter" xml:space="preserve">
+    <value>すべてのファイル(*.*)|*.*|</value>
+    <comment>All Files(*.*)|*.*|</comment>
+  </data>
+  <data name="List_OnItemCommand" xml:space="preserve">
+    <value>個々のリスト項目がユーザー操作によってイベントを生成したときに発生するイベント</value>
+    <comment>Raises an event when an individual list item generates an event as a result of a user action.</comment>
+  </data>
+  <data name="TextControl_Text" xml:space="preserve">
+    <value>コントロールに表示されるテキスト</value>
+    <comment>Text that appears in the control.</comment>
+  </data>
+  <data name="PagedControl_ItemCountCantBeNegative" xml:space="preserve">
+    <value>ItemCount を負にすることはできません: {0}</value>
+    <comment>ItemCount cannot be negative: {0}</comment>
+  </data>
+  <data name="MobileErrorInfo_CompilationErrorDescription" xml:space="preserve">
+    <value>この要求の処理に必要なリソースのコンパイル中にエラーが発生しました。以下のエラーの詳細を確認し、ソース コードを適切に修正してください。</value>
+    <comment>An error occurred during the compilation of a resource required to service this request. Please review the following specific error details and modify your source code appropriately.</comment>
+  </data>
+  <data name="AppliedDeviceFiltersDialog_AssociatedItemsWillBeLost" xml:space="preserve">
+    <value>このデバイス フィルターに関連付けられたテンプレートとプロパティ オーバーライドはすべて失われます。続行しますか?</value>
+    <comment>Any templates and property overrides associated with this device filter will be lost. Are you sure you want to continue?</comment>
+  </data>
+  <data name="CompareValidator_ValueToCompare" xml:space="preserve">
+    <value>比較対象の値</value>
+    <comment>Value to compare to.</comment>
+  </data>
+  <data name="DeviceFilterEditorDialog_WebConfigMissing" xml:space="preserve">
+    <value>このプロジェクトの Web.config ファイルが削除されたか名前が変更されたため、操作を完了できませんでした。</value>
+    <comment>The action could not be completed because this project's Web.config file has been deleted or renamed.</comment>
+  </data>
+  <data name="PropertyOverridesDialog_DeviceSpecificProperties" xml:space="preserve">
+    <value>デバイス固有のプロパティ(&amp;P):</value>
+    <comment>Device-Specific &amp;Properties:</comment>
+  </data>
+</root>

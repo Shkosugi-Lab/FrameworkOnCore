@@ -34,7 +34,7 @@
       { "id": "none", "title": ".NET のまま", "description": "0.1 + 0.2 が 0.30000000000000004、-0 が \"-0\"、2.675 の N2 が 2.67 になる。大きすぎる数の Parse は無限大" }
     ],
     "language-packs": [
-      { "id": "translations", "title": "FrameworkOnCore の翻訳", "description": "System.Web の文言(Calendar の見出し、Login のラベル、Wizard・GridView のボタン、エラーページなど)を FrameworkOnCore 独自の訳(リポジトリの translations/、MIT)で、アプリの設定「言語パック」で選んだ言語(既定は元のサーバーに言語パックがあった言語)で出す。訳文は Microsoft の言語パックと同じとは限らない", "default": true },
+      { "id": "translations", "title": "FrameworkOnCore の翻訳", "description": "System.Web などの文言(Calendar の見出し、Login のラベル、Wizard・GridView のボタン、エラーページ、ASP.NET AJAX・Chart・ASMX・SqlClient などの例外とメッセージ)を FrameworkOnCore 独自の訳(リポジトリの translations/、MIT)で、アプリの設定「言語パック」で選んだ言語(既定は元のサーバーに言語パックがあった言語)で出す。訳文は Microsoft の言語パックと同じとは限らない", "default": true },
       { "id": "framework", "title": "Microsoft の言語パック(Windows のみ)", "description": "変換したマシンの .NET Framework の言語パックからサテライトを作る(元のサーバーと同じ訳文)。Microsoft の使用許諾が Windows 以外で動かすための配布を禁じるので、Linux に配置しないとき(--deploy none)だけ。配置には Microsoft の使用許諾が適用される" }
     ],
     "code-pages": [

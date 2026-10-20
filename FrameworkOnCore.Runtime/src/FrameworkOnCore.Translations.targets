@@ -1,0 +1,25 @@
+<Project>
+    <!-- FrameworkOnCore's own translations of the assembly's texts (translations\<culture>\<assembly>\<resources>.<culture>.resx,
+         MIT; translations\sources.json lists them): its satellites (<culture>\<assembly>.resources.dll). Imported at the
+         end of the project (after its own resources, its AssemblyName and its StrongNamePublicKey). -->
+    <ItemGroup Condition="'$(TargetFramework)' != 'net48'">
+        <EmbeddedResource Include="$(MSBuildThisFileDirectory)..\..\translations\*\$(AssemblyName)\*.resx" Visible="false">
+            <LogicalName>%(FileName).resources</LogicalName>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <!-- The satellites with the assembly's fake public key (ResourceManager asks for the main assembly's name, version and
+         key in the culture; the build signs them with the project's). -->
+    <Target Name="FakeStrongNameSatellites" AfterTargets="CoreGenerateSatelliteAssemblies"
+            Condition="'$(TargetFramework)' != 'net48' And '$(StrongNamePublicKeyToken)' != '' And '@(IntermediateSatelliteAssembliesWithTargetPath)' != ''">
+        <!-- Their time kept: a satellite newer than its translation is not built again (the next change would not be taken). -->
+        <ItemGroup>
+            <_FocSatellite Include="@(IntermediateSatelliteAssembliesWithTargetPath)" Condition="Exists('%(Identity)')" Time="%(ModifiedTime)" />
+        </ItemGroup>
+        <FakeStrongName Assemblies="@(_FocSatellite)"
+            PublicKey="$(StrongNamePublicKey)"
+            PublicKeyToken="$(StrongNamePublicKeyToken)"
+            AssemblyPath="$(MSBuildThisFileDirectory)..\lib\WebFormsForCore.Build\netstandard2.0\" />
+        <Touch Files="%(_FocSatellite.Identity)" Time="%(_FocSatellite.Time)" />
+    </Target>
+</Project>

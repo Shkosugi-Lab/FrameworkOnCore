@@ -1,17 +1,16 @@
-﻿# Checks FrameworkOnCore's own translations (translations\<culture>\<assembly>.<culture>.resx) against the English
-# resources they translate: every key is one the assembly has, the placeholders ({0}, {1}...) are the same, and the
-# English in each entry's comment is still the assembly's (else the English changed since: the translation to review), and,
-# where this machine has .NET Framework's language pack of the language, no translation is wider than its text there.
+﻿# Checks FrameworkOnCore's own translations (translations\<culture>\<assembly>\<resources>.<culture>.resx) against the
+# English resources they translate (sources.json: the assemblies, their resources and where their English is): every key
+# is one the resources have, the placeholders ({0}, {1}...) are the same, and the English in each entry's comment is
+# still the resources' (else the English changed since: the translation to review), and, where this machine has .NET
+# Framework's language pack of the language, no translation is wider than its text there (an entry it has no text for,
+# or an empty one: than the English, a short one's (under 12) plus 4).
 #
 #   .\translations\check.ps1            # errors fail (exit 1); English changed since is a warning
 param([switch]$Quiet)
 
 $ErrorActionPreference = 'Stop'
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
-# The assemblies translated and where their English resources are.
-$sources = @{
-    'System.Web' = 'FrameworkOnCore.Runtime\src\WebFormsForCore.Web\System.Web.resx'
-}
+$sources = Get-Content (Join-Path $PSScriptRoot 'sources.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 
 function Read-Resx($path) {
     $doc = New-Object Xml.XmlDocument
@@ -19,7 +18,9 @@ function Read-Resx($path) {
     $doc.Load($path)
     $entries = [ordered]@{}
     foreach ($data in $doc.SelectNodes('/root/data')) {
-        $entries[$data.GetAttribute('name')] = @{ Value = $data.SelectSingleNode('value').InnerText; Comment = $(if ($c = $data.SelectSingleNode('comment')) { $c.InnerText } else { $null }) }
+        if ($data.GetAttribute('type') -or $data.GetAttribute('mimetype')) { continue }
+        # Line ends as LF (a resx's CRLF is a character reference in some).
+        $entries[$data.GetAttribute('name')] = @{ Value = $data.SelectSingleNode('value').InnerText.Replace("`r`n", "`n"); Comment = $(if ($c = $data.SelectSingleNode('comment')) { $c.InnerText.Replace("`r`n", "`n") } else { $null }) }
     }
     return $entries
 }
@@ -34,42 +35,73 @@ function Width([string]$s) {
     $w
 }
 
-# The widths of .NET Framework's own texts in a language, where this machine has its language pack (only their widths
-# are used: a translation is not to be longer, so that pages keep their layout; the texts themselves are not read
-# into the translations, see README.md).
-function Get-FrameworkWidths([string]$assembly, [string]$culture) {
-    $widths = @{}
-    $main = Join-Path $env:windir "Microsoft.NET\Framework64\v4.0.30319\$assembly.dll"
-    if (-not (Test-Path $main)) { return $widths }
-    try {
-        $manager = New-Object Resources.ResourceManager($assembly, [Reflection.Assembly]::LoadFile($main))
-        $set = $manager.GetResourceSet([Globalization.CultureInfo]$culture, $true, $false)
-        if ($set) { foreach ($entry in $set) { $widths[[string]$entry.Key] = Width ([string]$entry.Value) } }
+# The widths of .NET Framework's own texts in a language (its language pack's satellite of the assembly in the GAC), by
+# name, where this machine has the pack (only their widths are used: a translation is not to be longer, so that pages
+# keep their layout; the texts themselves are not read into the translations, see README.md): by resources ('' : the
+# first of any). $null: no pack here.
+function Get-FrameworkWidths($framework, [string]$culture) {
+    # Not one of .NET Framework's (a package's: System.Web.Optimization, WebGrease): the English widths.
+    if (-not $framework) { return @{ '' = @{} } }
+    $folder = Join-Path $env:windir "Microsoft.NET\assembly\GAC_MSIL\$framework.resources"
+    $satellite = Get-ChildItem $folder -Directory -Filter "*_$($culture)_*" -ErrorAction SilentlyContinue | Select-Object -First 1
+    if (-not $satellite) { return $null }
+    $widths = @{ '' = @{} }
+    $assembly = [Reflection.Assembly]::ReflectionOnlyLoadFrom((Get-ChildItem $satellite.FullName -Filter *.dll | Select-Object -First 1).FullName)
+    foreach ($name in $assembly.GetManifestResourceNames()) {
+        if ($name -notlike '*.resources') { continue }
+        try {
+            $own = $widths[$name -replace "\.$([regex]::Escape($culture))\.resources$", ''] = @{}
+            $reader = New-Object Resources.ResourceReader($assembly.GetManifestResourceStream($name))
+            $e = $reader.GetEnumerator()
+            while ($e.MoveNext()) {
+                try {
+                    if ($e.Value -isnot [string]) { continue }
+                    $own[[string]$e.Key] = Width $e.Value
+                    if (-not $widths[''].ContainsKey([string]$e.Key)) { $widths[''][[string]$e.Key] = $own[[string]$e.Key] }
+                }
+                catch { }
+            }
+            $reader.Close()
+        }
+        catch { }
     }
-    catch { }
     return $widths
 }
 
 function Placeholders($text) { ([regex]::Matches($text, '\{\d+(,[^}]*)?(:[^}]*)?\}') | ForEach-Object Value | Sort-Object -Unique) -join ' ' }
 
 $errors = 0; $warnings = 0
-foreach ($file in Get-ChildItem (Join-Path $repo 'translations') -Recurse -Filter *.resx) {
-    $culture = $file.Directory.Name
-    $assembly = $file.Name -replace "\.$([regex]::Escape($culture))\.resx$", ''
-    if (-not $sources.ContainsKey($assembly)) { Write-Host "ERROR $($file.Name): no English resources known for $assembly (check.ps1's sources)"; $errors++; continue }
-    $english = Read-Resx (Join-Path $repo $sources[$assembly])
-    $translated = Read-Resx $file.FullName
-    $widths = Get-FrameworkWidths $assembly $culture
-    foreach ($key in $translated.Keys) {
-        $entry = $translated[$key]
-        if (-not $english.Contains($key)) { Write-Host "ERROR $culture $key`: $assembly has no such resource"; $errors++; continue }
-        $source = $english[$key].Value
-        if ((Placeholders $source) -ne (Placeholders $entry.Value)) { Write-Host "ERROR $culture $key`: placeholders [$(Placeholders $source)] translated as [$(Placeholders $entry.Value)]"; $errors++ }
-        if ($widths.ContainsKey($key) -and (Width $entry.Value) -gt $widths[$key]) { Write-Host "ERROR $culture $key`: wider than .NET Framework's text ($(Width $entry.Value) > $($widths[$key])): '$($entry.Value)'"; $errors++ }
-        if ([string]::IsNullOrWhiteSpace($entry.Value)) { Write-Host "ERROR $culture $key`: empty"; $errors++ }
-        if ($entry.Comment -ne $source) { Write-Host "WARN  $culture $key`: the English changed since the translation (comment: '$($entry.Comment)'; now: '$source')"; $warnings++ }
+$frameworkWidths = @{}
+foreach ($culture in Get-ChildItem (Join-Path $repo 'translations') -Directory | Where-Object { -not $_.Name.StartsWith('_') }) {
+    foreach ($folder in Get-ChildItem $culture.FullName -Directory) {
+        $assembly = $folder.Name
+        $source = $sources.$assembly
+        if (-not $source) { Write-Host "ERROR $($culture.Name)\$assembly`: not an assembly sources.json lists"; $errors++; continue }
+        $key = "$($source.framework)|$($culture.Name)"
+        if (-not $frameworkWidths.ContainsKey($key)) { $frameworkWidths[$key] = Get-FrameworkWidths $source.framework $culture.Name }
+        $widths = $frameworkWidths[$key]
+        foreach ($file in Get-ChildItem $folder.FullName -Filter *.resx) {
+            $resources = $file.Name -replace "\.$([regex]::Escape($culture.Name))\.resx$", ''
+            $path = $source.resources.$resources
+            if (-not $path) { Write-Host "ERROR $($file.Name): $assembly has no resources $resources (sources.json)"; $errors++; continue }
+            $english = Read-Resx (Join-Path $repo $path)
+            $translated = Read-Resx $file.FullName
+            foreach ($name in $translated.Keys) {
+                $entry = $translated[$name]
+                if (-not $english.Contains($name)) { Write-Host "ERROR $($culture.Name) $resources $name`: no such resource"; $errors++; continue }
+                $text = $english[$name].Value
+                if ((Placeholders $text) -ne (Placeholders $entry.Value)) { Write-Host "ERROR $($culture.Name) $resources $name`: placeholders [$(Placeholders $text)] translated as [$(Placeholders $entry.Value)]"; $errors++ }
+                if ($null -ne $widths) {
+                    $own = if ($widths.ContainsKey($resources)) { $widths[$resources] } else { $widths[''] }
+                    $limit = if ($own.ContainsKey($name) -and $own[$name] -gt 0) { $own[$name] } else { $w = Width $text; if ($w -lt 12) { $w + 4 } else { $w } }
+                    if ((Width $entry.Value) -gt $limit) { Write-Host "ERROR $($culture.Name) $resources $name`: wider than .NET Framework's text ($(Width $entry.Value) > $limit): '$($entry.Value)'"; $errors++ }
+                }
+                if ([string]::IsNullOrWhiteSpace($entry.Value) -and -not [string]::IsNullOrWhiteSpace($text)) { Write-Host "ERROR $($culture.Name) $resources $name`: empty"; $errors++ }
+                if ($entry.Comment -ne $text) { Write-Host "WARN  $($culture.Name) $resources $name`: the English changed since the translation (comment: '$($entry.Comment)'; now: '$text')"; $warnings++ }
+            }
+            if (-not $Quiet) { Write-Host "$($culture.Name) $resources`: $($translated.Count) of $($english.Count) translated$(if ($null -eq $widths) { ' (widths not checked: no .NET Framework language pack here)' })" }
+        }
     }
-    if (-not $Quiet) { Write-Host "$culture $assembly`: $($translated.Count) of $($english.Count) translated$(if ($widths.Count -eq 0) { ' (widths not checked: no .NET Framework language pack here)' })" }
 }
 Write-Host "$errors error(s), $warnings warning(s)"
 exit ([int]($errors -gt 0))

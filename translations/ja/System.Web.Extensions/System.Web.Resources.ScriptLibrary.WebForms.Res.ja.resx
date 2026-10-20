@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PRM_CannotRegisterTwice" xml:space="preserve">
+    <value>PageRequestManager は複数回初期化できません。</value>
+    <comment>The PageRequestManager cannot be initialized more than once.</comment>
+  </data>
+  <data name="PRM_MissingPanel" xml:space="preserve">
+    <value>ID '{0}' の UpdatePanel が見つかりません。動的に更新する場合は、別の UpdatePanel 内に配置する必要があります。</value>
+    <comment>Could not find UpdatePanel with ID '{0}'. If it is being updated dynamically then it must be inside another UpdatePanel.</comment>
+  </data>
+  <data name="PRM_ParserError" xml:space="preserve">
+    <value>サーバーから受信したメッセージを解析できませんでした。このエラーの一般的な原因は、Response.Write() の呼び出し、応答フィルター、HttpModules によって応答が変更された場合や、サーバー トレースが有効な場合です。
+詳細: {0}</value>
+    <comment>The message received from the server could not be parsed. Common causes for this error are when the response is modified by calls to Response.Write(), response filters, HttpModules, or server trace is enabled.
+Details: {0}</comment>
+  </data>
+  <data name="PRM_ParserErrorDetails" xml:space="preserve">
+    <value>'{0}' 付近の解析エラーです。</value>
+    <comment>Error parsing near '{0}'.</comment>
+  </data>
+  <data name="PRM_ServerError" xml:space="preserve">
+    <value>サーバーで要求を処理中に不明なエラーが発生しました。サーバーから返された状態コード: {0}</value>
+    <comment>An unknown error occurred while processing the request on the server. The status code returned from the server was: {0}</comment>
+  </data>
+  <data name="PRM_TimeoutError" xml:space="preserve">
+    <value>サーバー要求がタイムアウトしました。</value>
+    <comment>The server request timed out.</comment>
+  </data>
+  <data name="PRM_UnknownToken" xml:space="preserve">
+    <value>不明なトークン: '{0}'。</value>
+    <comment>Unknown token: '{0}'.</comment>
+  </data>
+</root>

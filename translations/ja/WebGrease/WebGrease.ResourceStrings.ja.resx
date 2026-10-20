@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ConfigurationFileParseError" xml:space="preserve">
+    <value>構成ファイルの読み込み中にエラーが発生しました。ファイルが有効な XML であることを確認して再試行してください。</value>
+    <comment>There was an error loading the configuration file. Please double check that the file is valid XML and try again.</comment>
+  </data>
+  <data name="DuplicateFoundFormat" xml:space="preserve">
+    <value>重複あり: {0} {1} {2}</value>
+    <comment>Duplicate found: {0} {1} {2}</comment>
+  </data>
+  <data name="ErrorsInFileFormat" xml:space="preserve">
+    <value>{0} のエラー:</value>
+    <comment>Errors in {0}:</comment>
+  </data>
+  <data name="GeneralErrorMessage" xml:space="preserve">
+    <value>要求の処理中にエラーが発生しました。入力内容を確認してもう一度実行してください。</value>
+    <comment>An error was encountered while processing your request. Please verify your inputs and try again.</comment>
+  </data>
+  <data name="InvalidBundlingOutputFile" xml:space="preserve">
+    <value>"{0}" はバンドル出力のファイル名として無効です。</value>
+    <comment>"{0}" is not a valid file name for bundling output.</comment>
+  </data>
+  <data name="MoreThan256Colours" xml:space="preserve">
+    <value>256 色を超えています</value>
+    <comment>More than 256 colors found</comment>
+  </data>
+  <data name="MultipleSwitches" xml:space="preserve">
+    <value>wg.exe の 1 回の実行で設定できる操作スイッチは 1 つだけです。</value>
+    <comment>Only 1 operation switch may be set per execution run of wg.exe.</comment>
+  </data>
+  <data name="NoFilesProcessed" xml:space="preserve">
+    <value>処理ファイルなし。</value>
+    <comment>No files processed.</comment>
+  </data>
+  <data name="SemiTransparencyFound" xml:space="preserve">
+    <value>半透明が見つかりました</value>
+    <comment>Semitransparency found</comment>
+  </data>
+  <data name="Usage" xml:space="preserve">
+    <value>使用法:
+wg.exe &lt;operation switch&gt; -c:&lt;configFile&gt; -type:&lt;configType&gt; [-in:&lt;basePath&gt;]
+または 
+wg.exe &lt;operation switch&gt; -in:&lt;inputPath&gt; -out:&lt;outputPath&gt;
+
+スイッチ (一度に 1 つのみ使用可能)
+
+	-m : セット内のファイルを縮小します。
+
+	-v : JavaScript ファイルのコードを検証します。
+	
+	-s : css ファイル内の背景画像をスプライト化します。 
+	
+	-a : 出力ファイルに自動で名前を付けます (-out パラメーターがファイルではなくディレクトリの場合)。
+	
+	-b : すべての入力ファイルを 1 つの出力ファイルにバンドルします。-out パラメーターがファイルの場合は必須です。
+
+パラメーター
+
+  -c : 構成ファイルを指定します。構成ファイルを指定した場合、他のパラメーター (type を除く) はすべて無視されます。
+
+  -type: 設定に使用する構成の種類名を指定します。
+  
+  -in : 入力パス。単一ファイルまたはフォルダーを指定できます。フォルダーの場合は、その中のすべてのファイルが処理されます。構成ファイルと共に使用すると、このパラメーターは構成ファイル内の相対入力パスに適用される基本パスになります。
+
+  -out : 出力パス。フォルダーまたは単一のファイルを指定できます。単一のファイルで入力がフォルダーの場合は、バンドルを有効にするために -b スイッチを設定する必要があります。構成ファイルと共に使用すると、このパラメーターは構成ファイル内のすべての相対出力パスに適用される基本パスになります。
+
+  -images : CSS スプライト化用の画像を含むパス。-s スイッチを設定した場合は必須です。</value>
+    <comment>Usage:
+wg.exe &lt;operation switch&gt; -c:&lt;configFile&gt; -type:&lt;configType&gt; [-in:&lt;basePath&gt;]
+OR 
+wg.exe &lt;operation switch&gt; -in:&lt;inputPath&gt; -out:&lt;outputPath&gt;
+
+Switches (only 1 may be used at a time)
+
+	-m : Minifies files in the set.
+
+	-v : Validates the code in the JavaScript files.
+	
+	-s : Sprites any background images in css files. 
+	
+	-a : Auto names output files (if the -out parameter is a Directory and not a file).
+	
+	-b : Bundles all input files into a single output file. Required if the -out parameter is a file.
+
+Parameters
+
+  -c : Specify a config file. All other parameters (except type) are ignored if a a config file is specified.
+
+  -type: specifies a config type name to use for settings.
+  
+  -in : Input path. This can be a single file or a folder. If it is a folder, all files within will be processed. When used with a configuration file, this parameter serves as a base path applied to any relative input paths in the configuration file.
+
+  -out : Output path. This can be a folder or a single file. If this is a single file and the input is a folder, the -b switch must be set to enable bundling. When used with a configuration file, this parameter serves as a base path applied to all relative output paths in the configuration file.
+
+  -images : Path containing images for CSS spriting. Required when the -s switch is set.</comment>
+  </data>
+  <data name="BundlingFiles" xml:space="preserve">
+    <value>バンドル中。</value>
+    <comment>Bundling files.</comment>
+  </data>
+  <data name="ThereWereErrorsWhileBundlingFiles" xml:space="preserve">
+    <value>バンドル中にエラーが発生しました。</value>
+    <comment>There were errors while bundling files.</comment>
+  </data>
+  <data name="ResolvingTokensAndPerformingLocalization" xml:space="preserve">
+    <value>トークンを解決し、ローカライズしています。</value>
+    <comment>Resolving tokens and performing localization.</comment>
+  </data>
+  <data name="MinifyingCssFilesAndSpritingBackgroundImages" xml:space="preserve">
+    <value>css ファイルを縮小し背景画像をスプライト化中。</value>
+    <comment>Minifying css files, and spriting background images.</comment>
+  </data>
+  <data name="ThereWereErrorsWhileMinifyingTheCssFiles" xml:space="preserve">
+    <value>css ファイルの縮小中にエラーが発生しました。</value>
+    <comment>There were errors while minifying the css files.</comment>
+  </data>
+  <data name="ThereWereErrorsWhileApplyingCssresources" xml:space="preserve">
+    <value>css ファイルへのリソースの適用中にエラーが発生しました。</value>
+    <comment>There were errors while applying resources to the css files.</comment>
+  </data>
+  <data name="FileHasherActivityErrorOccurred" xml:space="preserve">
+    <value>ファイル ハッシュ処理の実行中にエラーが発生しました。</value>
+    <comment>An error occurred while executing the file hasher activity.</comment>
+  </data>
+  <data name="FileHasheActivityCouldNotLocateDirectory" xml:space="preserve">
+    <value>ファイル ハッシュ処理でソース ディレクトリが見つかりません: {0}</value>
+    <comment>The file hasher activity could not locate the source directory at {0}</comment>
+  </data>
+  <data name="PreprocessingInitializeEnd" xml:space="preserve">
+    <value>前処理の初期化終了;</value>
+    <comment>Preprocessing initialize end;</comment>
+  </data>
+  <data name="PreprocessingInitializeStart" xml:space="preserve">
+    <value>前処理の初期化開始; プラグイン パス: {0}</value>
+    <comment>preprocessing initialize start; from plugin path: {0}</comment>
+  </data>
+  <data name="PreprocessingCouldNotFindThePluginPath" xml:space="preserve">
+    <value>プラグイン パスがありません: {0}</value>
+    <comment>Could not find the plugin path {0}</comment>
+  </data>
+  <data name="PreprocessingPluginPath" xml:space="preserve">
+    <value>前処理プラグイン パス: {0}</value>
+    <comment>preprocessing plugin path: {0}</comment>
+  </data>
+  <data name="PreprocessingLoadingError" xml:space="preserve">
+    <value>プリプロセッサーの読み込みエラー。</value>
+    <comment>Error occurred while loading preprocessors.</comment>
+  </data>
+  <data name="PreprocessingEngineFound" xml:space="preserve">
+    <value>前処理エンジンを検出: {0}</value>
+    <comment>preprocessing engine found: {0}</comment>
+  </data>
+  <data name="ResourceResolverDuplicateKeyExceptionMessage" xml:space="preserve">
+    <value>キー '{0}' が resx ファイル '{1}' で重複しています。区切り記号の違う同じキーがある可能性があります。</value>
+    <comment>Duplicate key: '{0}' found in the resx file '{1}'. Same key may exist with different delimiters in the resx file.</comment>
+  </data>
+  <data name="ResourcePivotActivityError" xml:space="preserve">
+    <value>ResourcePivotActivity - リソース展開アクティビティの実行中にエラーが発生しました</value>
+    <comment>ResourcePivotActivity - Error occured while executing the expand resources activity</comment>
+  </data>
+  <data name="ResourcePivotActivityDuplicateKeysError" xml:space="preserve">
+    <value>ResourcePivotActivity - {0} に複数の値が割り当てられています。ライブラリと機能では、キー名ごとに 1 つの値のみ許可されます。リソース キーのオーバーライドは製品レベルでのみ許可されます。</value>
+    <comment>ResourcePivotActivity - {0} has more than one value assigned. Only one value per key name is allowed in libraries and features. Resource key overrides are allowed at the product level only.</comment>
+  </data>
+  <data name="OverrideFileLoadErrorMessage" xml:space="preserve">
+    <value>WebGrease のオーバーライド xml ファイルの読み込みエラー: {0}</value>
+    <comment>Error occurred while loading the WebGrease override xml file: {0}</comment>
+  </data>
+  <data name="SafeLockFailedMessage" xml:space="preserve">
+    <value>Safe.Lock は {0}ms 以内にロックを取得できません</value>
+    <comment>Safe.Lock wasn't able to acquire a lock in {0}ms</comment>
+  </data>
+</root>

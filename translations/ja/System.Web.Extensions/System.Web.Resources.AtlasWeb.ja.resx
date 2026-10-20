@@ -1,0 +1,1799 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Common_PageCannotBeNull" xml:space="preserve">
+    <value>Page は null にできません。ASP.NET 要求のコンテキストでこの操作を実行してください。</value>
+    <comment>Page cannot be null. Please ensure that this operation is being performed in the context of an ASP.NET request.</comment>
+  </data>
+  <data name="Common_ScriptManagerRequired" xml:space="preserve">
+    <value>ID '{0}' のコントロールには、ページに ScriptManager が必要です。ScriptManager は、それを必要とするコントロールより前に配置する必要があります。</value>
+    <comment>The control with ID '{0}' requires a ScriptManager on the page. The ScriptManager must appear before any controls that need it.</comment>
+  </data>
+  <data name="ScriptManager_AjaxFrameworkMode" xml:space="preserve">
+    <value>Microsoft Ajax Framework のスクリプトをページに含める方法</value>
+    <comment>Indicates how Microsoft Ajax Framework scripts should be included on the page.</comment>
+  </data>
+  <data name="ScriptManager_OnlyOneScriptManager" xml:space="preserve">
+    <value>ページに追加できる ScriptManager のインスタンスは 1 つだけです。</value>
+    <comment>Only one instance of a ScriptManager can be added to the page.</comment>
+  </data>
+  <data name="ScriptReference_AssemblyRequiresName" xml:space="preserve">
+    <value>Assembly には Name が必要です。</value>
+    <comment>Assembly cannot be defined without Name.</comment>
+  </data>
+  <data name="ScriptManager_CannotChangeEnablePartialRendering" xml:space="preserve">
+    <value>EnablePartialRendering プロパティは Init イベント後に変更できません。</value>
+    <comment>The EnablePartialRendering property cannot be changed after the Init event.</comment>
+  </data>
+  <data name="ScriptManager_AsyncPostBackNotInPartialRenderingMode" xml:space="preserve">
+    <value>ページは非同期ポストバックを実行していますが、ScriptManager.SupportsPartialRendering プロパティが false に設定されています。非同期ポストバック中はこのプロパティを true に設定してください。</value>
+    <comment>The page is performing an async postback but the ScriptManager.SupportsPartialRendering property is set to false. Ensure that the property is set to true during an async postback.</comment>
+  </data>
+  <data name="UpdatePanel_CannotModifyControlCollection" xml:space="preserve">
+    <value>ID '{0}' の UpdatePanel の Controls プロパティは直接変更できません。UpdatePanel の内容を変更するには、ContentTemplateContainer プロパティの子コントロールを変更してください。</value>
+    <comment>The Controls property of UpdatePanel with ID '{0}' cannot be modified directly. To change the contents of the UpdatePanel modify the child controls of the ContentTemplateContainer property.</comment>
+  </data>
+  <data name="UpdatePanel_SetPartialRenderingModeCalledOnce" xml:space="preserve">
+    <value>SetPartialRenderingMode は 1 回だけ呼び出せます。</value>
+    <comment>SetPartialRenderingMode can only be called once.</comment>
+  </data>
+  <data name="ScriptManager_InvalidControlRegistration" xml:space="preserve">
+    <value>RegisterAsyncPostBackControl または RegisterPostBackControl で登録する ID '{0}' のコントロールは、INamingContainer、IPostBackDataHandler、IPostBackEventHandler のいずれかを実装する必要があります。</value>
+    <comment>Control with ID '{0}' being registered through RegisterAsyncPostBackControl or RegisterPostBackControl must implement either INamingContainer, IPostBackDataHandler, or IPostBackEventHandler.</comment>
+  </data>
+  <data name="ScriptManager_UpdatePanelNotRegistered" xml:space="preserve">
+    <value>ID '{0}' の UpdatePanel は ScriptManager に登録されていないため、登録を解除できません。これは、UpdatePanel がコントロール ツリーから削除された後に再度追加された場合に発生することがあり、この操作はサポートされていません。</value>
+    <comment>Cannot unregister UpdatePanel with ID '{0}' since it was not registered with the ScriptManager. This might occur if the UpdatePanel was removed from the control tree and later added again, which is not supported.</comment>
+  </data>
+  <data name="UpdatePanel_CannotSetContentTemplate" xml:space="preserve">
+    <value>ID '{0}' の UpdatePanel の ContentTemplate は、インスタンス化後に変更できません。</value>
+    <comment>The ContentTemplate of UpdatePanel with ID '{0}' cannot be changed after it has been instantiated.</comment>
+  </data>
+  <data name="UpdatePanel_UpdateConditional" xml:space="preserve">
+    <value>ID '{0}' の UpdatePanel の Update メソッドは、UpdateMode が Conditional の場合にのみ呼び出せます。</value>
+    <comment>The Update method can only be called on UpdatePanel with ID '{0}' when UpdateMode is set to Conditional.</comment>
+  </data>
+  <data name="UpdatePanel_UpdateTooLate" xml:space="preserve">
+    <value>ID '{0}' の UpdatePanel の Update メソッドは、Render の前にのみ呼び出せます。</value>
+    <comment>The Update method can only be called on UpdatePanel with ID '{0}' before Render.</comment>
+  </data>
+  <data name="JSON_ArrayTypeNotSupported" xml:space="preserve">
+    <value>型 '{0}' は配列の逆シリアル化でサポートされていません。</value>
+    <comment>Type '{0}' is not supported for deserialization of an array.</comment>
+  </data>
+  <data name="JSON_CannotConvertObjectToType" xml:space="preserve">
+    <value>型 '{0}' のオブジェクトを型 '{1}' に変換できません</value>
+    <comment>Cannot convert object of type '{0}' to type '{1}'</comment>
+  </data>
+  <data name="JSON_CircularReference" xml:space="preserve">
+    <value>型 '{0}' のオブジェクトのシリアル化中に循環参照が検出されました。</value>
+    <comment>A circular reference was detected while serializing an object of type '{0}'.</comment>
+  </data>
+  <data name="JSON_DepthLimitExceeded" xml:space="preserve">
+    <value>RecursionLimit を超えました。</value>
+    <comment>RecursionLimit exceeded.</comment>
+  </data>
+  <data name="JSON_DeserializerTypeMismatch" xml:space="preserve">
+    <value>オブジェクト グラフを型 '{0}' に逆シリアル化できません。</value>
+    <comment>Cannot deserialize object graph into type of '{0}'.</comment>
+  </data>
+  <data name="JSON_DictionaryTypeNotSupported" xml:space="preserve">
+    <value>型 '{0}' はディクショナリのシリアル化/逆シリアル化でサポートされません。キーは文字列またはオブジェクトである必要があります。</value>
+    <comment>Type '{0}' is not supported for serialization/deserialization of a dictionary, keys must be strings or objects.</comment>
+  </data>
+  <data name="WebService_InvalidVerbRequest" xml:space="preserve">
+    <value>{1} 要求でメソッド '{0}' を呼び出そうとしましたが、許可されていません。</value>
+    <comment>An attempt was made to call the method '{0}' using a {1} request, which is not allowed.</comment>
+  </data>
+  <data name="JSON_InvalidRecursionLimit" xml:space="preserve">
+    <value>RecursionLimit は正の整数である必要があります。</value>
+    <comment>RecursionLimit must be a positive integer.</comment>
+  </data>
+  <data name="WebService_InvalidXmlReturnType" xml:space="preserve">
+    <value>メソッド '{0}' は型 '{1}' の値を返しますが、Xml にシリアル化できません。元のエラー: {2}</value>
+    <comment>The method '{0}' returns a value of type '{1}', which cannot be serialized as Xml. Original error: {2}</comment>
+  </data>
+  <data name="WebService_UnknownWebMethod" xml:space="preserve">
+    <value>不明な Web メソッド {0}。</value>
+    <comment>Unknown web method {0}.</comment>
+  </data>
+  <data name="JSON_UnterminatedString" xml:space="preserve">
+    <value>文字列が終端されていません。</value>
+    <comment>Unterminated string passed in.</comment>
+  </data>
+  <data name="JSON_IllegalPrimitive" xml:space="preserve">
+    <value>無効な JSON プリミティブ: {0}。</value>
+    <comment>Invalid JSON primitive: {0}.</comment>
+  </data>
+  <data name="JSON_BadEscape" xml:space="preserve">
+    <value>認識されないエスケープ シーケンスです。</value>
+    <comment>Unrecognized escape sequence.</comment>
+  </data>
+  <data name="JSON_CannotCreateListType" xml:space="preserve">
+    <value>{0} のインスタンスを作成できません。</value>
+    <comment>Cannot create instance of {0}.</comment>
+  </data>
+  <data name="JSON_ExpectedOpenBrace" xml:space="preserve">
+    <value>無効なオブジェクトです。'{' が必要です。</value>
+    <comment>Invalid object passed in, '{' expected.</comment>
+  </data>
+  <data name="JSON_InvalidArrayExpectComma" xml:space="preserve">
+    <value>無効な配列です。',' が必要です。</value>
+    <comment>Invalid array passed in, ',' expected.</comment>
+  </data>
+  <data name="JSON_InvalidArrayExtraComma" xml:space="preserve">
+    <value>無効な配列です。末尾に余分な ',' があります。</value>
+    <comment>Invalid array passed in, extra trailing ','.</comment>
+  </data>
+  <data name="JSON_InvalidArrayStart" xml:space="preserve">
+    <value>無効な配列です。'[' が必要です。</value>
+    <comment>Invalid array passed in, '[' expected.</comment>
+  </data>
+  <data name="JSON_InvalidMemberName" xml:space="preserve">
+    <value>無効なオブジェクトです。メンバー名が必要です。</value>
+    <comment>Invalid object passed in, member name expected.</comment>
+  </data>
+  <data name="JSON_InvalidObject" xml:space="preserve">
+    <value>無効なオブジェクトです。':' または '}' が必要です。</value>
+    <comment>Invalid object passed in, ':' or '}' expected.</comment>
+  </data>
+  <data name="JSON_StringNotQuoted" xml:space="preserve">
+    <value>無効な文字列です。'\"' が必要です。</value>
+    <comment>Invalid string passed in, '\"' expected.</comment>
+  </data>
+  <data name="JSON_ValueTypeCannotBeNull" xml:space="preserve">
+    <value>null を値型に変換できません。</value>
+    <comment>Cannot convert null to a value type.</comment>
+  </data>
+  <data name="JSON_InvalidMaxJsonLength" xml:space="preserve">
+    <value>値は正の整数である必要があります。</value>
+    <comment>Value must be a positive integer.</comment>
+  </data>
+  <data name="JSON_MaxJsonLengthExceeded" xml:space="preserve">
+    <value>JSON JavaScriptSerializer を使用したシリアル化または逆シリアル化中にエラーが発生しました。文字列の長さが maxJsonLength プロパティに設定された値を超えています。</value>
+    <comment>Error during serialization or deserialization using the JSON JavaScriptSerializer. The length of the string exceeds the value set on the maxJsonLength property.</comment>
+  </data>
+  <data name="WebService_InvalidWebServiceCall" xml:space="preserve">
+    <value>無効な Web サービス呼び出しです。/js/&lt;Method&gt; 形式のパス情報が必要です。</value>
+    <comment>Invalid web service call, expected path info of /js/&lt;Method&gt;.</comment>
+  </data>
+  <data name="JSON_NoConstructor" xml:space="preserve">
+    <value>型 '{0}' にパラメーターなしのコンストラクターが定義されていません。</value>
+    <comment>No parameterless constructor defined for type of '{0}'.</comment>
+  </data>
+  <data name="JSON_InvalidArrayEnd" xml:space="preserve">
+    <value>無効な配列です。']' が必要です。</value>
+    <comment>Invalid array passed in, ']' expected.</comment>
+  </data>
+  <data name="WebService_NoScriptServiceAttribute" xml:space="preserve">
+    <value>クラス定義に [ScriptService] 属性がある Web サービスのみ、スクリプトから呼び出せます。</value>
+    <comment>Only Web services with a [ScriptService] attribute on the class definition can be called from script.</comment>
+  </data>
+  <data name="WebService_InvalidGenerateScriptType" xml:space="preserve">
+    <value>GenerateScriptTypes 属性は、次の種類の型ではサポートされていません: プリミティブ型、DateTime、複数の型パラメーターを持つジェネリック型、IEnumerable または IDictionary を実装する型、インターフェイス、抽象クラス、パブリックな既定のコンストラクターがないクラス。</value>
+    <comment>Using the GenerateScriptTypes attribute is not supported for types in the following categories: primitive types; DateTime; generic types taking more than one parameter; types implementing IEnumerable or IDictionary; interfaces; Abstract classes; classes without a public default constructor.</comment>
+  </data>
+  <data name="WebService_MissingArg" xml:space="preserve">
+    <value>無効な Web サービス呼び出しです。パラメーター '{0}' の値がありません。</value>
+    <comment>Invalid web service call, missing value for parameter: '{0}'.</comment>
+  </data>
+  <data name="WebService_NoWebServiceData" xml:space="preserve">
+    <value>{0} に Web サービスが見つかりません。</value>
+    <comment>No web service found at: {0}.</comment>
+  </data>
+  <data name="ScriptReference_InvalidReleaseScriptName" xml:space="preserve">
+    <value>'{0}' は無効なスクリプト名です。'.js' で終わる必要があります。</value>
+    <comment>'{0}' is not a valid script name.  The name must end in '.js'.</comment>
+  </data>
+  <data name="ScriptReference_InvalidReleaseScriptPath" xml:space="preserve">
+    <value>'{0}' は無効なスクリプト パスです。パスは '.js' で終わる必要があります。</value>
+    <comment>'{0}' is not a valid script path.  The path must end in '.js'.</comment>
+  </data>
+  <data name="ScriptReference_NameAndPathCannotBeEmpty" xml:space="preserve">
+    <value>Name と Path の両方を空にはできません。</value>
+    <comment>Name and Path cannot both be empty.</comment>
+  </data>
+  <data name="ScriptResourceDefinition_NameAndPathCannotBeEmpty" xml:space="preserve">
+    <value>ResourceName と Path の両方を空にはできません。</value>
+    <comment>ResourceName and Path cannot both be empty.</comment>
+  </data>
+  <data name="WebResourceUtil_AssemblyDoesNotContainDebugWebResource" xml:space="preserve">
+    <value>アセンブリ '{0}' に Web リソース '{1}' がありません。ScriptReference.ScriptMode プロパティを ScriptMode.Auto または ScriptMode.Release に設定すると、リリース スクリプトが使用されます。</value>
+    <comment>Assembly '{0}' does not contain a Web resource with name '{1}'.  Setting the ScriptReference.ScriptMode property to ScriptMode.Auto or ScriptMode.Release will cause the release script to be used.</comment>
+  </data>
+  <data name="WebResourceUtil_AssemblyDoesNotContainEmbeddedResource" xml:space="preserve">
+    <value>アセンブリ '{0}' には Web リソース '{1}' がありますが、埋め込みリソース '{1}' がありません。</value>
+    <comment>Assembly '{0}' contains a Web resource with name '{1}', but does not contain an embedded resource with name '{1}'.</comment>
+  </data>
+  <data name="WebResourceUtil_AssemblyDoesNotContainReleaseWebResource" xml:space="preserve">
+    <value>アセンブリ '{0}' に Web リソース '{1}' がありません。</value>
+    <comment>Assembly '{0}' does not contain a Web resource with name '{1}'.</comment>
+  </data>
+  <data name="ServiceReference_PathCannotBeEmpty" xml:space="preserve">
+    <value>パスは空にできません。</value>
+    <comment>Path cannot be empty.</comment>
+  </data>
+  <data name="ScriptRegistrationManager_ControlNotOnPage" xml:space="preserve">
+    <value>コントロールはページのコントロール ツリー内にある必要があります。</value>
+    <comment>The control must be in the control tree of a page.</comment>
+  </data>
+  <data name="ScriptManager_AsyncPostBackTimeout" xml:space="preserve">
+    <value>非同期ポストバックのタイムアウト期間 (秒)。0 はタイムアウトなしを示します。</value>
+    <comment>The timeout period in seconds for async postbacks. A value of zero indicates no timeout.</comment>
+  </data>
+  <data name="ScriptManager_EnablePartialRendering" xml:space="preserve">
+    <value>サポートされているブラウザーで UpdatePanel コントロールの非同期ポストバックを有効にします。既定のブラウザー サポート検出をオーバーライドするには、SupportsPartialRendering プロパティを設定します。</value>
+    <comment>Enables asynchronous postbacks for the UpdatePanel control on supported browsers. To override the default browser support detection you can set the SupportsPartialRendering property.</comment>
+  </data>
+  <data name="ScriptManager_ScriptMode" xml:space="preserve">
+    <value>複数の種類がある場合に読み込むスクリプトの種類</value>
+    <comment>Indicates the type of scripts to load when more than one type is available.</comment>
+  </data>
+  <data name="ScriptManager_Scripts" xml:space="preserve">
+    <value>ScriptManager がページに含めるスクリプト参照のコレクション。ScriptManager と ScriptManagerProxy コントロールの Scripts コレクションは実行時にマージされます。</value>
+    <comment>A collection of script references that the ScriptManager should include in the page. The Scripts collections on the ScriptManager and ScriptManagerProxy controls are merged at runtime.</comment>
+  </data>
+  <data name="UpdatePanel_ChildrenAsTriggers" xml:space="preserve">
+    <value>UpdatePanel の子コントロールからのポストバックで UpdatePanel を更新するかどうか</value>
+    <comment>Indicates whether postbacks coming from the UpdatePanel's child controls will cause the UpdatePanel to refresh.</comment>
+  </data>
+  <data name="UpdatePanel_RenderMode" xml:space="preserve">
+    <value>UpdatePanel をブロック タグ (&lt;div&gt;) とインライン タグ (&lt;span&gt;) のどちらで表示するか</value>
+    <comment>Indicates whether the UpdatePanel should render as a block tag (&lt;div&gt;) or an inline tag (&lt;span&gt;).</comment>
+  </data>
+  <data name="UpdatePanel_UpdateMode" xml:space="preserve">
+    <value>UpdatePanel を非同期ポストバックごとに更新するか、UpdatePanel.Update() の呼び出しなど特定の操作の結果としてのみ更新するか</value>
+    <comment>Indicates whether the UpdatePanel will refresh on every asynchronous postback or only as the result of a specific action, such as a call to UpdatePanel.Update().</comment>
+  </data>
+  <data name="ScriptManager_ScriptPath" xml:space="preserve">
+    <value>アセンブリの Web リソースではなく、このパスからスクリプトを読み込むことを指定します。</value>
+    <comment>Specifies that scripts should be loaded from this path instead of from assembly web resources.</comment>
+  </data>
+  <data name="ScriptManager_Services" xml:space="preserve">
+    <value>ScriptManager がページに含めるサービス参照のコレクション。ScriptManager と ScriptManagerProxy コントロールの Services コレクションは実行時にマージされます。</value>
+    <comment>A collection of service references that the ScriptManager should include in the page. The Services collections on the ScriptManager and ScriptManagerProxy controls are merged at runtime.</comment>
+  </data>
+  <data name="ScriptManager_ProfileService" xml:space="preserve">
+    <value>クライアント側プロファイル サービスの設定</value>
+    <comment>Contains preferences for the client side profile service.</comment>
+  </data>
+  <data name="ScriptManager_AuthenticationService" xml:space="preserve">
+    <value>クライアント側認証サービスの設定</value>
+    <comment>Contains preferences for the client side authentication service.</comment>
+  </data>
+  <data name="ScriptRegistrationManager_InvalidChars" xml:space="preserve">
+    <value>型 '{0}'、キー '{1}' で登録されたスクリプト タグの、script タグの外側に無効な文字があります: {2}。正しい形式の script タグのみ登録できます。</value>
+    <comment>The script tag registered for type '{0}' and key '{1}' has invalid characters outside of the script tags: {2}. Only properly formatted script tags can be registered.</comment>
+  </data>
+  <data name="ScriptRegistrationManager_NoCloseTag" xml:space="preserve">
+    <value>型 '{0}'、キー '{1}' で登録されたスクリプト タグに、対応する終了タグがありません。</value>
+    <comment>The script tag registered for type '{0}' and key '{1}' is missing a matching close tag.</comment>
+  </data>
+  <data name="ScriptRegistrationManager_NoTags" xml:space="preserve">
+    <value>型 '{0}'、キー '{1}' で登録されたスクリプト タグに、有効な script タグが含まれていません。</value>
+    <comment>The script tag registered for type '{0}' and key '{1}' does not contain any valid script tags.</comment>
+  </data>
+  <data name="ScriptManager_ResolveScriptReference" xml:space="preserve">
+    <value>スクリプト参照を表示前に変更できるように発生するイベント</value>
+    <comment>This event is raised to allow modifications to script references before they are rendered.</comment>
+  </data>
+  <data name="ExtenderControl_TargetControlID" xml:space="preserve">
+    <value>拡張するコントロール</value>
+    <comment>Identifies the control to extend.</comment>
+  </data>
+  <data name="ExtenderControl_TargetControlIDEmpty" xml:space="preserve">
+    <value>'{0}' の TargetControlID が無効です。値は null または空にできません。</value>
+    <comment>The TargetControlID of '{0}' is not valid. The value cannot be null or empty.</comment>
+  </data>
+  <data name="ExtenderControl_TargetControlIDInvalid" xml:space="preserve">
+    <value>'{0}' の TargetControlID が無効です。ID '{1}' のコントロールが見つかりませんでした。</value>
+    <comment>The TargetControlID of '{0}' is not valid. A control with ID '{1}' could not be found.</comment>
+  </data>
+  <data name="ExtenderControl_TargetControlDifferentUpdatePanel" xml:space="preserve">
+    <value>エクステンダーは、拡張するコントロールと異なる UpdatePanel に配置できません。</value>
+    <comment>An extender can't be in a different UpdatePanel than the control it extends.</comment>
+  </data>
+  <data name="ScriptControlManager_TargetControlTypeInvalid" xml:space="preserve">
+    <value>エクステンダー コントロール '{0}' は '{1}' を拡張できません。型 '{2}' のエクステンダー コントロールは型 '{3}' のコントロールを拡張できません。</value>
+    <comment>Extender control '{0}' cannot extend '{1}'. Extender controls of type '{2}' cannot extend controls of type '{3}'.</comment>
+  </data>
+  <data name="ScriptControlManager_NoTargetControlTypes" xml:space="preserve">
+    <value>エクステンダー コントロール型 '{0}' には型 '{1}' の属性がありません。エクステンダー コントロール型には、型 '{1}' の属性が 1 つ以上必要です。</value>
+    <comment>Extender control type '{0}' does not have any attributes of type '{1}'. Extender control types must have at least one attribute of type '{1}'.</comment>
+  </data>
+  <data name="ConvertersCollection_NotJavaScriptConverter" xml:space="preserve">
+    <value>型: '{0}' は JavaScriptConverter を継承していません。</value>
+    <comment>Type: '{0}' does not inherits from JavaScriptConverter.</comment>
+  </data>
+  <data name="ConvertersCollection_UnknownType" xml:space="preserve">
+    <value>型: '{0}' が見つかりません。</value>
+    <comment>Type: '{0}' cannot be found.</comment>
+  </data>
+  <data name="WebService_InvalidInlineVirtualPath" xml:space="preserve">
+    <value>パス "{0}" はサポートされていません。InlineScript=true の場合、パスは現在のページと同じ Web アプリケーションを指す相対パスである必要があります。</value>
+    <comment>The path "{0}" is not supported. When InlineScript=true, the path should be a relative path pointing to the same web application as the current page.</comment>
+  </data>
+  <data name="ServiceReference_InlineScript" xml:space="preserve">
+    <value>このサービス参照のプロキシ スクリプトをページ内にインラインで出力するかどうか</value>
+    <comment>Indicates whether this service reference should have its proxy script rendered inline in the page.</comment>
+  </data>
+  <data name="ServiceReference_Path" xml:space="preserve">
+    <value>参照するサービスのパス</value>
+    <comment>The path to the service being referenced.</comment>
+  </data>
+  <data name="AppService_Disabled" xml:space="preserve">
+    <value>{0} は無効です。</value>
+    <comment>{0} is disabled.</comment>
+  </data>
+  <data name="AppService_MultiplePaths" xml:space="preserve">
+    <value>複数の一意パスは指定できません。</value>
+    <comment>Cannot specify more than one unique path.</comment>
+  </data>
+  <data name="AppService_RequiredSSL" xml:space="preserve">
+    <value>この操作には SSL が必要です。</value>
+    <comment>SSL is required for this operation.</comment>
+  </data>
+  <data name="AppService_UnknownProfileProperty" xml:space="preserve">
+    <value>不明なプロファイル プロパティ '{0}'。</value>
+    <comment>Unknown profile property '{0}'.</comment>
+  </data>
+  <data name="AsyncPostBackTrigger_CannotFindEvent" xml:space="preserve">
+    <value>UpdatePanel '{2}' のトリガーの関連コントロール '{1}' に、イベント '{0}' が見つかりませんでした。</value>
+    <comment>Could not find an event named '{0}' on associated control '{1}' for the trigger in UpdatePanel '{2}'.</comment>
+  </data>
+  <data name="AsyncPostBackTrigger_InvalidEvent" xml:space="preserve">
+    <value>UpdatePanel '{2}' のトリガーの関連コントロール '{1}' の '{0}' イベントが、標準のイベント ハンドラーのシグネチャと一致しません。</value>
+    <comment>The '{0}' event on associated control '{1}' for the trigger in UpdatePanel '{2}' does not match the standard event handler signature.</comment>
+  </data>
+  <data name="UpdatePanelControlTrigger_ControlNotFound" xml:space="preserve">
+    <value>UpdatePanel '{1}' のトリガーに対する ID '{0}' のコントロールが見つかりません。</value>
+    <comment>A control with ID '{0}' could not be found for the trigger in UpdatePanel '{1}'.</comment>
+  </data>
+  <data name="UpdatePanelControlTrigger_NoControlID" xml:space="preserve">
+    <value>UpdatePanel '{0}' のトリガーには ControlID プロパティの設定が必要です。</value>
+    <comment>The ControlID property must be set on the trigger in UpdatePanel '{0}'.</comment>
+  </data>
+  <data name="UpdatePanel_Triggers" xml:space="preserve">
+    <value>UpdatePanel の更新を引き起こすトリガーのコレクション</value>
+    <comment>A collection of triggers that can cause the UpdatePanel to be updated.</comment>
+  </data>
+  <data name="ScriptManager_CannotRegisterBothPostBacks" xml:space="preserve">
+    <value>ID '{0}' のコントロールを RegisterAsyncPostBackControl と RegisterPostBackControl の両方で登録することはできません。これは、対象コントロールに競合するトリガーが関連付けられている場合に発生することがあります。</value>
+    <comment>Control with ID '{0}' cannot be registered through both RegisterAsyncPostBackControl and RegisterPostBackControl. This can happen if you have conflicting triggers associated with the target control.</comment>
+  </data>
+  <data name="AsyncPostBackTrigger_EventName" xml:space="preserve">
+    <value>UpdatePanel を更新するかどうかを判断するためにトリガーがフックするイベント。このプロパティが設定されていない場合、UpdatePanel は対象コントロールがポストバックを開始した場合にのみ更新されます。</value>
+    <comment>The event that the trigger will hook up to determine whether to refresh the UpdatePanel. If the property is not set then the UpdatePanel will be refreshed only if the postback was initiated by the target control.</comment>
+  </data>
+  <data name="UpdatePanelControlTrigger_ControlID" xml:space="preserve">
+    <value>トリガーの対象コントロールの ID。</value>
+    <comment>The trigger's target control ID.</comment>
+  </data>
+  <data name="PageRequestManager_RegisterDataItemInNonAsyncRequest" xml:space="preserve">
+    <value>RegisterDataItem は非同期ポストバック中にのみ呼び出せます。</value>
+    <comment>RegisterDataItem can only be called during an async postback.</comment>
+  </data>
+  <data name="PageRequestManager_RegisterDataItemTwice" xml:space="preserve">
+    <value>コントロール '{0}' には既にデータ項目が登録されています。</value>
+    <comment>The control '{0}' already has a data item registered.</comment>
+  </data>
+  <data name="UpdatePanel_ChildrenTriggersAndUpdateAlways" xml:space="preserve">
+    <value>UpdatePanel '{0}' の UpdateMode が Always に設定されている場合、ChildrenAsTriggers を false に設定することはできません。</value>
+    <comment>ChildrenAsTriggers cannot be set to false when UpdateMode is set to Always on UpdatePanel '{0}'.</comment>
+  </data>
+  <data name="ScriptManager_AsyncPostBackError" xml:space="preserve">
+    <value>非同期ポストバック中にクライアントに送信するエラー メッセージをカスタマイズできるように発生するイベント</value>
+    <comment>This event is raised to allow customization of the error message sent to the client during an async postback.</comment>
+  </data>
+  <data name="ScriptManager_AllowCustomErrorsRedirect" xml:space="preserve">
+    <value>非同期ポストバック中にカスタム エラーのリダイレクトを行うかどうか</value>
+    <comment>Indicates whether custom error redirects will occur during an async postback.</comment>
+  </data>
+  <data name="ScriptManager_AsyncPostBackErrorMessage" xml:space="preserve">
+    <value>サーバーで未処理の例外が発生したときにクライアントに送信するエラー メッセージ。このプロパティは、ページ マークアップで宣言的に設定するか、ScriptManager の AsyncPostBackError イベント中に設定できます。値が空の場合は例外のメッセージが使用されます。</value>
+    <comment>The error message to be sent to the client when an unhandled exception occurs on the server. The property can be set declaratively in the page markup or during the ScriptManager's AsyncPostBackError event. If the value is empty the exception's message will be used.</comment>
+  </data>
+  <data name="Timer_IntervalMustBeGreaterThanZero" xml:space="preserve">
+    <value>間隔は 0 より大きくする必要があります。</value>
+    <comment>The interval must be greater than zero.</comment>
+  </data>
+  <data name="Timer_TimerEnable" xml:space="preserve">
+    <value>Tick イベントの発生を有効にします。</value>
+    <comment>Enables raising of Tick events.</comment>
+  </data>
+  <data name="Timer_TimerInterval" xml:space="preserve">
+    <value>Tick イベント間の時間 (ミリ秒)</value>
+    <comment>The duration between Tick events in milliseconds.</comment>
+  </data>
+  <data name="Timer_TimerTick" xml:space="preserve">
+    <value>指定した間隔が経過するたびに発生します。</value>
+    <comment>Occurs whenever the specified interval time elapses.</comment>
+  </data>
+  <data name="Common_NullOrEmpty" xml:space="preserve">
+    <value>null または空は無効です。</value>
+    <comment>Value cannot be null or empty.</comment>
+  </data>
+  <data name="ApplicationServiceManager_Path" xml:space="preserve">
+    <value>Web サービスへのパスを指定します。</value>
+    <comment>Specifies the path to the web service.</comment>
+  </data>
+  <data name="ProfileServiceManager_LoadProperties" xml:space="preserve">
+    <value>ページにインラインで出力するプロファイル プロパティを指定します。</value>
+    <comment>Specifies profile properties that should be rendered inline with the page.</comment>
+  </data>
+  <data name="UpdateProgress_DisplayAfter" xml:space="preserve">
+    <value>ProgressTemplate を表示するまでの時間 (ms)</value>
+    <comment>Time in ms after which the ProgressTemplate is displayed.</comment>
+  </data>
+  <data name="UpdateProgress_DisplayAfterInvalid" xml:space="preserve">
+    <value>DisplayAfter には 0 以上の整数が必要です。</value>
+    <comment>DisplayAfter must be a non negative integer.</comment>
+  </data>
+  <data name="UpdateProgress_DynamicLayout" xml:space="preserve">
+    <value>進行状況テンプレートを動的に表示するかどうか</value>
+    <comment>Determines whether the progress template is dynamically rendered.</comment>
+  </data>
+  <data name="UpdateProgress_ProgressTemplate" xml:space="preserve">
+    <value>非同期ポストバック中に表示される ProgressTemplate</value>
+    <comment>ProgressTemplate which is displayed during async postbacks.</comment>
+  </data>
+  <data name="WebService_RedirectError" xml:space="preserve">
+    <value>認証に失敗しました。</value>
+    <comment>Authentication failed.</comment>
+  </data>
+  <data name="UpdateProgress_AssociatedUpdatePanelID" xml:space="preserve">
+    <value>この UpdateProgress が関連付けられた UpdatePanel</value>
+    <comment>UpdatePanel that this UpdateProgress is associated with.</comment>
+  </data>
+  <data name="UpdateProgress_NoUpdatePanel" xml:space="preserve">
+    <value>AssociatedUpdatePanelID '{0}' の UpdatePanel が見つかりません。</value>
+    <comment>No UpdatePanel found for AssociatedUpdatePanelID '{0}'.</comment>
+  </data>
+  <data name="ScriptReference_Assembly" xml:space="preserve">
+    <value>スクリプトを Web リソースとして含むアセンブリ</value>
+    <comment>The assembly that contains the script as a web resource.</comment>
+  </data>
+  <data name="ScriptReference_IgnoreScriptPath" xml:space="preserve">
+    <value>このスクリプト参照で ScriptManager.ScriptPath プロパティを無視するかどうか</value>
+    <comment>Indicates whether this script reference should ignore the ScriptManager.ScriptPath property.</comment>
+  </data>
+  <data name="ScriptReference_Name" xml:space="preserve">
+    <value>Web リソースの名前</value>
+    <comment>The name of the web resource.</comment>
+  </data>
+  <data name="ScriptReference_Path" xml:space="preserve">
+    <value>スクリプトのパス</value>
+    <comment>The path to the script.</comment>
+  </data>
+  <data name="ScriptReference_ScriptMode" xml:space="preserve">
+    <value>デバッグ スクリプトとリリース スクリプトを選択するアルゴリズムを指定します。</value>
+    <comment>Specifies the algorithm for choosing between the debug and release scripts.</comment>
+  </data>
+  <data name="ScriptManager_CannotChangeSupportsPartialRendering" xml:space="preserve">
+    <value>SupportsPartialRendering プロパティは Init イベント後に変更できません。</value>
+    <comment>The SupportsPartialRendering property cannot be changed after the Init event.</comment>
+  </data>
+  <data name="ScriptManager_CannotSetSupportsPartialRenderingWhenDisabled" xml:space="preserve">
+    <value>EnablePartialRendering が false の場合、SupportsPartialRendering プロパティは設定できません。</value>
+    <comment>The SupportsPartialRendering property cannot be set when EnablePartialRendering is false.</comment>
+  </data>
+  <data name="ScriptControlManager_RegisterScriptControlTooEarly" xml:space="preserve">
+    <value>PreRender 前にスクリプト コントロールは登録できません。</value>
+    <comment>Script controls may not be registered before PreRender.</comment>
+  </data>
+  <data name="ScriptControlManager_RegisterExtenderControlTooEarly" xml:space="preserve">
+    <value>PreRender 前にエクステンダー コントロールは登録できません。</value>
+    <comment>Extender controls may not be registered before PreRender.</comment>
+  </data>
+  <data name="ScriptManager_CannotChangeEnableScriptGlobalization" xml:space="preserve">
+    <value>EnableScriptGlobalization プロパティは非同期ポストバック中や Init イベント後に変更できません。</value>
+    <comment>The EnableScriptGlobalization property cannot be changed during async postbacks or after the Init event.</comment>
+  </data>
+  <data name="ScriptManager_EnableScriptGlobalization" xml:space="preserve">
+    <value>ScriptManager が現在のカルチャのクライアント側グローバリゼーション情報をページに追加できるようにします。</value>
+    <comment>Enables ScriptManager to add client-side globalization information to the page for the current culture.</comment>
+  </data>
+  <data name="ScriptResourceHandler_InvalidRequest" xml:space="preserve">
+    <value>無効なスクリプト リソース要求です。</value>
+    <comment>This is an invalid script resource request.</comment>
+  </data>
+  <data name="ScriptResourceHandler_TypeNameMismatch" xml:space="preserve">
+    <value>リソース {0} のデバッグ版とリリース版の型名が一致しません。</value>
+    <comment>The type names for the debug and release versions of resource {0} don't match.</comment>
+  </data>
+  <data name="ScriptManager_EnableScriptLocalization" xml:space="preserve">
+    <value>ScriptManager が、利用可能な場合にローカライズされたスクリプト ファイルを生成できるようにします。</value>
+    <comment>Enables ScriptManager to generate localized versions of script files if they are available.</comment>
+  </data>
+  <data name="ScriptReference_ResourceUICultures" xml:space="preserve">
+    <value>パスがサポートする有効な UI カルチャのコンマ区切り文字列。ResourceUICultures は Path 使用時のみ有効です。</value>
+    <comment>A comma-delimited string of valid UI cultures supported by the path. ResourceUICultures is only valid with Path.</comment>
+  </data>
+  <data name="ScriptResourceHandler_UnknownResource" xml:space="preserve">
+    <value>Web リソース '{0}' が見つかりません。</value>
+    <comment>Web resource '{0}' was not found.</comment>
+  </data>
+  <data name="WebService_Error" xml:space="preserve">
+    <value>要求の処理中にエラーが発生しました。</value>
+    <comment>There was an error processing the request.</comment>
+  </data>
+  <data name="ScriptReference_NotifyScriptLoaded" xml:space="preserve">
+    <value>スクリプト リソース ローダーがスクリプト読み込み完了の通知ステートメントを自動的に追加するかどうかを指定します。</value>
+    <comment>Specifies if the script resource loader should automatically append a script loaded notification statement.</comment>
+  </data>
+  <data name="ScriptControlManager_RegisterExtenderControlTooLate" xml:space="preserve">
+    <value>PreRender 後にエクステンダー コントロールは登録できません。</value>
+    <comment>Extender controls may not be registered after PreRender.</comment>
+  </data>
+  <data name="ScriptControlManager_RegisterScriptControlTooLate" xml:space="preserve">
+    <value>PreRender 後にスクリプト コントロールは登録できません。</value>
+    <comment>Script controls may not be registered after PreRender.</comment>
+  </data>
+  <data name="Common_ArgumentInvalidType" xml:space="preserve">
+    <value>値は型 '{0}' である必要があります。</value>
+    <comment>Value must be of type '{0}'.</comment>
+  </data>
+  <data name="ScriptControlManager_ExtenderControlNotRegistered" xml:space="preserve">
+    <value>エクステンダー コントロール '{0}' は登録済みのエクステンダー コントロールではありません。RegisterScriptDescriptors() を呼び出す前に、RegisterExtenderControl() を使用してエクステンダー コントロールを登録する必要があります。</value>
+    <comment>Extender control '{0}' is not a registered extender control. Extender controls must be registered using RegisterExtenderControl() before calling RegisterScriptDescriptors().</comment>
+  </data>
+  <data name="ScriptControlManager_ScriptControlNotRegistered" xml:space="preserve">
+    <value>スクリプト コントロール '{0}' は登録済みのスクリプト コントロールではありません。RegisterScriptDescriptors() を呼び出す前に、RegisterScriptControl() を使用してスクリプト コントロールを登録する必要があります。</value>
+    <comment>Script control '{0}' is not a registered script control. Script controls must be registered using RegisterScriptControl() before calling RegisterScriptDescriptors().</comment>
+  </data>
+  <data name="ScriptControlDescriptor_IDNotSettable" xml:space="preserve">
+    <value>ScriptControlDescriptor の 'ID' プロパティは設定できません。スクリプト コントロールのクライアント ID は常にその要素 ID と同じです。</value>
+    <comment>The 'ID' property on ScriptControlDescriptor is not settable. The client ID of a script control is always equal to its element ID.</comment>
+  </data>
+  <data name="ScriptManager_LoadScriptsBeforeUI" xml:space="preserve">
+    <value>ブラウザーで UI を表示する前にスクリプト参照を読み込むことを指定します。</value>
+    <comment>Specifies that script references should be loaded before the UI is rendered in the browser.</comment>
+  </data>
+  <data name="ScriptManager_EnablePageMethods" xml:space="preserve">
+    <value>ページ メソッドを有効にします。</value>
+    <comment>Enables page methods.</comment>
+  </data>
+  <data name="ScriptManager_RoleService" xml:space="preserve">
+    <value>クライアント側認証サービスの設定</value>
+    <comment>Contains preferences for the client side authentication service.</comment>
+  </data>
+  <data name="RoleServiceManager_LoadRoles" xml:space="preserve">
+    <value>ユーザーのロールをページにインラインで出力するかどうか</value>
+    <comment>Indicates whether user roles are rendered inline with the page.</comment>
+  </data>
+  <data name="ProxyGenerator_UnsupportedType" xml:space="preserve">
+    <value>型 {0} はサポートされていません。</value>
+    <comment>Type {0} is not supported.</comment>
+  </data>
+  <data name="ScriptManager_FrameworkFailedToLoad" xml:space="preserve">
+    <value>ASP.NET Ajax クライアント側フレームワークを読み込めませんでした。</value>
+    <comment>ASP.NET Ajax client-side framework failed to load.</comment>
+  </data>
+  <data name="ScriptResourceHandler_DuplicateScriptResources" xml:space="preserve">
+    <value>アセンブリ '{1}' のスクリプト '{0}' を指す ScriptResourceAttribute が複数あります。</value>
+    <comment>More than one ScriptResourceAttribute points to script '{0}' in assembly '{1}'.</comment>
+  </data>
+  <data name="ProfileServiceManager_LoadProperitesWithNonDefaultPath" xml:space="preserve">
+    <value>'LoadProperties' 属性は、既定の ProfileService を使用する場合にのみ使用できます。</value>
+    <comment>The attribute 'LoadProperties' can only be used when using the default ProfileService.</comment>
+  </data>
+  <data name="RoleServiceManager_LoadRolesWithNonDefaultPath" xml:space="preserve">
+    <value>RoleService で 'path' プロパティを既定値以外に設定する場合は、'loadRoles' プロパティを false に設定する必要があります。</value>
+    <comment>For RoleService, 'loadRoles' property must be set to false when the 'path' property is set to a value different from the default value.</comment>
+  </data>
+  <data name="ArgumentMustBeNull" xml:space="preserve">
+    <value>引数は null または空である必要があります。</value>
+    <comment>Argument must be null or empty.</comment>
+  </data>
+  <data name="AttributeNotRecognized" xml:space="preserve">
+    <value>次の構成属性は認識されませんでした: '{0}'</value>
+    <comment>The following configuration attribute was not recognized: '{0}'</comment>
+  </data>
+  <data name="DataPager_ControlIsntPageable" xml:space="preserve">
+    <value>コントロール '{0}' は IPageableItemContainer を実装していません。</value>
+    <comment>Control '{0}' does not implement IPageableItemContainer.</comment>
+  </data>
+  <data name="DataPager_Fields" xml:space="preserve">
+    <value>DataPagerFields のコレクション</value>
+    <comment>The collection of DataPagerFields.</comment>
+  </data>
+  <data name="DataPager_NoNamingContainer" xml:space="preserve">
+    <value>DataPager コントロール '{0}' に名前付けコンテナーがありません。DataBind を呼び出す前に DataPager をページに追加してください。</value>
+    <comment>The DataPager control '{0}' does not have a naming container.  Ensure that the DataPager is added to the page before calling DataBind.</comment>
+  </data>
+  <data name="DataPager_NoPageableItemContainer" xml:space="preserve">
+    <value>IPageableItemContainer が見つかりませんでした。DataPager が IPageableItemContainer 内にあるか、PagedControlID が IPageableItemContainer のコントロール ID に設定されていることを確認してください。</value>
+    <comment>No IPageableItemContainer was found. Verify that either the DataPager is inside an IPageableItemContainer or PagedControlID is set to the control ID of an IPageableItemContainer.</comment>
+  </data>
+  <data name="DataPager_PageableItemContainerNotFound" xml:space="preserve">
+    <value>IPageableItemContainer '{0}' が見つかりません。</value>
+    <comment>IPageableItemContainer '{0}' not found.</comment>
+  </data>
+  <data name="DataPager_PagedControlID" xml:space="preserve">
+    <value>この DataPager がページングするコントロールの ID</value>
+    <comment>The ID of the control this DataPager should page.</comment>
+  </data>
+  <data name="DataPager_PagePropertiesCannotBeSet" xml:space="preserve">
+    <value>IPageableItemContainer が見つからないため、ページ プロパティを設定できません。</value>
+    <comment>Page properties cannot be set because no IPageableItemContainer has been found.</comment>
+  </data>
+  <data name="DataPager_PageSize" xml:space="preserve">
+    <value>ページング対象コントロールが 1 ページに表示するレコード数</value>
+    <comment>The number of records displayed in a page by the paged control.</comment>
+  </data>
+  <data name="DataPagerField_Visible" xml:space="preserve">
+    <value>データ ページャー フィールドを表示するかどうか</value>
+    <comment>Whether the data pager field is visible.</comment>
+  </data>
+  <data name="ListView_AlternatingItemTemplate" xml:space="preserve">
+    <value>交互の項目に使用するテンプレート</value>
+    <comment>The template used for alternating items.</comment>
+  </data>
+  <data name="ListView_ContainerNameMustNotBeEmpty" xml:space="preserve">
+    <value>{0} の値は空にできません。</value>
+    <comment>The value of {0} must not be empty.</comment>
+  </data>
+  <data name="ListView_ConvertEmptyStringToNull" xml:space="preserve">
+    <value>項目から値を取得するときに、ListView が空の文字列を null として扱うかどうか</value>
+    <comment>Whether the ListView treats empty strings as null when the value is extracted from the item.</comment>
+  </data>
+  <data name="ListView_DataKeyNames" xml:space="preserve">
+    <value>データ ソースのキー フィールドのコンマ区切りリスト</value>
+    <comment>A comma-separated list of key fields in the data source.</comment>
+  </data>
+  <data name="ListView_DataKeyNamesMustBeSpecified" xml:space="preserve">
+    <value>選択されたデータ キーを取得する前に、ListView '{0}' でデータ キーを指定する必要があります。DataKeyNames プロパティを使用してデータ キーを指定してください。</value>
+    <comment>Data keys must be specified on ListView '{0}' before the selected data keys can be retrieved.  Use the DataKeyNames property to specify data keys.</comment>
+  </data>
+  <data name="ListView_DataKeys" xml:space="preserve">
+    <value>データ キー フィールド値のコレクション</value>
+    <comment>The collection of data key field values.</comment>
+  </data>
+  <data name="ListView_DataSourceDoesntSupportPaging" xml:space="preserve">
+    <value>データ ソース '{0}' はサーバー側ページングをサポートしておらず、ICollection 以外を返しました</value>
+    <comment>The data source '{0}' does not support server-side paging and it returned non-ICollection</comment>
+  </data>
+  <data name="ListView_DataSourceMustBeCollectionWhenNotDataBinding" xml:space="preserve">
+    <value>dataBinding=false で CreateChildControls を呼び出す場合、データ ソースは ICollection を実装する必要があります。</value>
+    <comment>Data source must implement ICollection when calling CreateChildControls with dataBinding=false.</comment>
+  </data>
+  <data name="ListView_EditIndex" xml:space="preserve">
+    <value>編集モードで表示する項目のインデックス</value>
+    <comment>The index of the item shown in edit mode.</comment>
+  </data>
+  <data name="ListView_EditItem" xml:space="preserve">
+    <value>現在編集中の ListViewItem</value>
+    <comment>The ListViewItem that is currently being edited.</comment>
+  </data>
+  <data name="ListView_EditItemTemplate" xml:space="preserve">
+    <value>編集モードの項目に使用するテンプレート</value>
+    <comment>The template used for items in edit mode.</comment>
+  </data>
+  <data name="ListView_EmptyDataTemplate" xml:space="preserve">
+    <value>データ ソースからデータが返されないときに使用するテンプレート。使用時は LayoutTemplate の代わりになります。</value>
+    <comment>The template used when no data is returned from the data source. This template replaces the LayoutTemplate when used.</comment>
+  </data>
+  <data name="ListView_EmptyItemTemplate" xml:space="preserve">
+    <value>残りのデータ項目数が GroupItemCount より少ないときに GroupTemplate で使用するテンプレート</value>
+    <comment>The template used in the GroupTemplate when the number of remaining data items is less than the GroupItemCount.</comment>
+  </data>
+  <data name="ListView_GroupContainerID" xml:space="preserve">
+    <value>GroupTemplate のインスタンスで置き換えられるサーバー コントロールの ID</value>
+    <comment>The ID of the server control that will be replaced with instances of the GroupTemplate.</comment>
+  </data>
+  <data name="ListView_GroupItemCount" xml:space="preserve">
+    <value>GroupTemplate 内に表示する項目の数</value>
+    <comment>The number of items that are rendered inside the GroupTemplate.</comment>
+  </data>
+  <data name="ListView_GroupItemCountNoGroupTemplate" xml:space="preserve">
+    <value>ListView '{0}' に GroupItemCount が指定されていますが、GroupTemplate がありません。ListView でグループを表示するには GroupTemplate が必要です。</value>
+    <comment>ListView '{0}' has a GroupItemCount specified on it but no GroupTemplate. A GroupTemplate must be present for ListView to render groups.</comment>
+  </data>
+  <data name="ListView_GroupSeparatorTemplate" xml:space="preserve">
+    <value>GroupTemplate 間のグループ区切りに使用するテンプレート</value>
+    <comment>The template used for group separators between GroupTemplates.</comment>
+  </data>
+  <data name="ListView_GroupTemplate" xml:space="preserve">
+    <value>項目グループに使用するテンプレート</value>
+    <comment>The template used for item groups.</comment>
+  </data>
+  <data name="ListView_InsertItem" xml:space="preserve">
+    <value>現在挿入中の ListViewItem</value>
+    <comment>The ListViewItem that is currently being inserted.</comment>
+  </data>
+  <data name="ListView_InsertItemPosition" xml:space="preserve">
+    <value>ListView 内の挿入項目の位置</value>
+    <comment>The position of the insert item within the ListView.</comment>
+  </data>
+  <data name="ListView_InsertItemTemplate" xml:space="preserve">
+    <value>挿入モードの項目に使用するテンプレート</value>
+    <comment>The template used for items in insert mode.</comment>
+  </data>
+  <data name="ListView_InsertTemplateRequired" xml:space="preserve">
+    <value>InsertItemPosition が FirstItem または LastItem に設定されている場合、ListView '{0}' に InsertItemTemplate を定義する必要があります。</value>
+    <comment>An InsertItemTemplate must be defined on ListView '{0}' if InsertItemPosition is set to FirstItem or LastItem.</comment>
+  </data>
+  <data name="ListView_InvalidCancel" xml:space="preserve">
+    <value>Cancel は、現在編集中のレコードまたは挿入項目からのみ呼び出せます。</value>
+    <comment>Cancel can only be called from the currently-edited record or an insert item.</comment>
+  </data>
+  <data name="ListView_InvalidDelete" xml:space="preserve">
+    <value>Delete は有効なデータ項目でのみ呼び出せます。</value>
+    <comment>Delete can only be called on a valid data item.</comment>
+  </data>
+  <data name="ListView_InvalidEdit" xml:space="preserve">
+    <value>Edit は有効なデータ項目でのみ呼び出せます。</value>
+    <comment>Edit can only be called on a valid data item.</comment>
+  </data>
+  <data name="ListView_InvalidInsert" xml:space="preserve">
+    <value>Insert は挿入項目でのみ呼び出せます。CommandName=Insert のボタンが InsertTemplate にのみあることを確認してください。</value>
+    <comment>Insert can only be called on an insert item. Ensure only the InsertTemplate has a button with CommandName=Insert.</comment>
+  </data>
+  <data name="ListView_InvalidSelect" xml:space="preserve">
+    <value>Select は有効なデータ項目でのみ呼び出せます。</value>
+    <comment>Select can only be called on a valid data item.</comment>
+  </data>
+  <data name="ListView_InvalidUpdate" xml:space="preserve">
+    <value>Update は有効なデータ項目でのみ呼び出せます。</value>
+    <comment>Update can only be called on a valid data item.</comment>
+  </data>
+  <data name="ListView_ItemPlaceholderID" xml:space="preserve">
+    <value>ItemTemplate のインスタンスで置き換えられるサーバー コントロールの ID</value>
+    <comment>The ID of the server control that will be replaced with instances of the ItemTemplate.</comment>
+  </data>
+  <data name="ListView_Items" xml:space="preserve">
+    <value>表示される項目のコレクション</value>
+    <comment>The collection of visible items.</comment>
+  </data>
+  <data name="ListView_ItemSeparatorTemplate" xml:space="preserve">
+    <value>区切り項目に使用するテンプレート</value>
+    <comment>The template used for separator items.</comment>
+  </data>
+  <data name="ListView_ItemsNotDataItems" xml:space="preserve">
+    <value>型が DataItem の ListViewItem は ListViewDataItem 型である必要があります。</value>
+    <comment>ListViewItems that have type DataItem must be of type ListViewDataItem.</comment>
+  </data>
+  <data name="ListView_ItemTemplate" xml:space="preserve">
+    <value>項目のテンプレート</value>
+    <comment>The template used for items.</comment>
+  </data>
+  <data name="ListView_ItemTemplateRequired" xml:space="preserve">
+    <value>ListView '{0}' に ItemTemplate を定義する必要があります。</value>
+    <comment>An ItemTemplate must be defined on ListView '{0}'.</comment>
+  </data>
+  <data name="ListView_LayoutTemplate" xml:space="preserve">
+    <value>ListView のレイアウトに使用するテンプレート</value>
+    <comment>The template used for the ListView layout.</comment>
+  </data>
+  <data name="ListView_Missing_VirtualItemCount" xml:space="preserve">
+    <value>ID '{0}' の ListView には、ICollection を実装するデータ ソース、または AllowPaging が true の場合にデータ ソース ページングを実行できるデータ ソースが必要です。</value>
+    <comment>ListView with id '{0}' must have a data source that either implements ICollection or can perform data source paging if AllowPaging is true.</comment>
+  </data>
+  <data name="ListView_NeedICollectionOrTotalRowCount" xml:space="preserve">
+    <value>データ ソースが ICollection を返さず、合計行数も返せない場合、{0} でサーバー側ページングを実装するためにそのデータ ソースを使用することはできません。</value>
+    <comment>If a data source does not return ICollection and cannot return the total row count, it cannot be used by the {0} to implement server-side paging.</comment>
+  </data>
+  <data name="ListView_NoGroupPlaceholder" xml:space="preserve">
+    <value>GroupTemplate が定義されている場合は、ListView '{0}' にグループ プレースホルダーを指定する必要があります。ID プロパティを "{1}" に設定してグループ プレースホルダーを指定してください。グループ プレースホルダー コントロールでは runat="server" も必要です。</value>
+    <comment>A group placeholder must be specified on ListView '{0}' when the GroupTemplate is defined. Specify a group placeholder by setting its ID property to "{1}". The group placeholder control must also specify runat="server".</comment>
+  </data>
+  <data name="ListView_NoInsertItem" xml:space="preserve">
+    <value>挿入項目が見つかりません。</value>
+    <comment>An insert item wasn't found.</comment>
+  </data>
+  <data name="ListView_NoItemPlaceholder" xml:space="preserve">
+    <value>ListView '{0}' に項目プレースホルダーを指定する必要があります。コントロールの ID プロパティを "{1}" に設定して項目プレースホルダーを指定してください。項目プレースホルダー コントロールでは runat="server" も必要です。</value>
+    <comment>An item placeholder must be specified on ListView '{0}'. Specify an item placeholder by setting a control's ID property to "{1}". The item placeholder control must also specify runat="server".</comment>
+  </data>
+  <data name="ListView_NullView" xml:space="preserve">
+    <value>'{0}' で取得したデータ ソースが null の DataSourceView を返しました。</value>
+    <comment>The data source retrieved by '{0}' returned a null DataSourceView.</comment>
+  </data>
+  <data name="ListView_OnItemCanceling" xml:space="preserve">
+    <value>ListView 内で Cancel イベントが生成されると発生します。</value>
+    <comment>Fires when a Cancel event is generated within the ListView.</comment>
+  </data>
+  <data name="ListView_OnItemCommand" xml:space="preserve">
+    <value>ListView 内でイベントが生成されると発生します。</value>
+    <comment>Fires when an event is generated within the ListView.</comment>
+  </data>
+  <data name="ListView_OnItemCreated" xml:space="preserve">
+    <value>項目が作成されたときに発生します。</value>
+    <comment>Fires when an item is created.</comment>
+  </data>
+  <data name="ListView_OnItemDataBound" xml:space="preserve">
+    <value>項目のデータ バインド後に発生します。</value>
+    <comment>Fires after an item has been data-bound.</comment>
+  </data>
+  <data name="ListView_OnItemDeleted" xml:space="preserve">
+    <value>データ ソースで Delete コマンドの実行後に発生します。</value>
+    <comment>Fires after a Delete Command is executed on the data source.</comment>
+  </data>
+  <data name="ListView_OnItemDeleting" xml:space="preserve">
+    <value>データ ソースで Delete コマンドの実行前に発生します。</value>
+    <comment>Fires before a Delete Command is executed on the data source.</comment>
+  </data>
+  <data name="ListView_OnItemEditing" xml:space="preserve">
+    <value>ListView 内で Edit イベントが生成されると発生します。</value>
+    <comment>Fires when an Edit event is generated within the ListView.</comment>
+  </data>
+  <data name="ListView_OnItemInserted" xml:space="preserve">
+    <value>データ ソースで Insert コマンドの実行後に発生します。</value>
+    <comment>Fires after an Insert Command is executed on the data source.</comment>
+  </data>
+  <data name="ListView_OnItemInserting" xml:space="preserve">
+    <value>データ ソースで Insert コマンドの実行前に発生します。</value>
+    <comment>Fires before an Insert Command is executed on the data source.</comment>
+  </data>
+  <data name="ListView_OnItemUpdated" xml:space="preserve">
+    <value>データ ソースで Update コマンドの実行後に発生します。</value>
+    <comment>Fires after an Update Command is executed on the data source.</comment>
+  </data>
+  <data name="ListView_OnItemUpdating" xml:space="preserve">
+    <value>データ ソースで Update コマンドの実行前に発生します。</value>
+    <comment>Fires before an Update Command is executed on the data source.</comment>
+  </data>
+  <data name="ListView_OnLayoutCreated" xml:space="preserve">
+    <value>ListView のレイアウトが作成されると発生します。</value>
+    <comment>Fires when the ListView's layout is created.</comment>
+  </data>
+  <data name="ListView_OnPagePropertiesChanged" xml:space="preserve">
+    <value>ListView のページング プロパティが変更されたときに発生します。</value>
+    <comment>Fires when the ListView's paging properties have changed.</comment>
+  </data>
+  <data name="ListView_OnPagePropertiesChanging" xml:space="preserve">
+    <value>ListView のページング プロパティが変更されるときに発生します。</value>
+    <comment>Fires when the ListView's paging properties are changing.</comment>
+  </data>
+  <data name="ListView_OnSelectedIndexChanged" xml:space="preserve">
+    <value>ListView で項目の選択が完了した後に発生します。</value>
+    <comment>Fires when an item is selected in the ListView, after the selection is complete.</comment>
+  </data>
+  <data name="ListView_OnSelectedIndexChanging" xml:space="preserve">
+    <value>ListView で項目が選択される前に発生します。</value>
+    <comment>Fires when an item is selected in the ListView, before the item is selected.</comment>
+  </data>
+  <data name="ListView_OnSorted" xml:space="preserve">
+    <value>ListView でフィールドの並べ替えが完了した後に発生します。</value>
+    <comment>Fires when a field is sorted in the ListView, after the sort is complete.</comment>
+  </data>
+  <data name="ListView_OnSorting" xml:space="preserve">
+    <value>ListView でフィールドが並べ替えられる前に発生します。</value>
+    <comment>Fires when a field is sorted in the ListView, before the sort occurs.</comment>
+  </data>
+  <data name="ListView_SelectedIndex" xml:space="preserve">
+    <value>現在選択されている項目のインデックス</value>
+    <comment>The index of the currently selected item.</comment>
+  </data>
+  <data name="ListView_SelectedItemTemplate" xml:space="preserve">
+    <value>現在選択されている項目のテンプレート</value>
+    <comment>The template used for the currently selected item.</comment>
+  </data>
+  <data name="ListView_SortDirection" xml:space="preserve">
+    <value>フィールドの並べ替え方向</value>
+    <comment>The direction in which to sort the field.</comment>
+  </data>
+  <data name="ListView_SortExpression" xml:space="preserve">
+    <value>ListView のバインド先データ ソースの並べ替えに使用する式</value>
+    <comment>Sort expression used to sort the data source to which the ListView is binding.</comment>
+  </data>
+  <data name="ListView_StyleNotSupported" xml:space="preserve">
+    <value>ListView はスタイル プロパティをサポートしていません。</value>
+    <comment>Style properties are not supported on ListView.</comment>
+  </data>
+  <data name="ListView_StylePropertiesNotSupported" xml:space="preserve">
+    <value>ListView はスタイル プロパティをサポートしていません。ListView のテンプレート内の要素にスタイルまたは CSS クラスを適用してください。</value>
+    <comment>Style properties are not supported on ListView.  Apply styling or CSS classes to the elements inside ListView's templates.</comment>
+  </data>
+  <data name="ListView_UnhandledEvent" xml:space="preserve">
+    <value>ListView '{0}' で発生したイベント {1} が処理されませんでした。</value>
+    <comment>The ListView '{0}' raised event {1} which wasn't handled.</comment>
+  </data>
+  <data name="ListViewPagedDataSource_CannotGetCount" xml:space="preserve">
+    <value>ICollection を実装していないデータ ソースの Count は計算できません。</value>
+    <comment>Cannot compute Count for a data source that does not implement ICollection.</comment>
+  </data>
+  <data name="ListViewPagedDataSource_EnumeratorMoveNextNotCalled" xml:space="preserve">
+    <value>Current プロパティにアクセスする前に、IEnumerator の MoveNext を呼び出す必要があります。</value>
+    <comment>You must call MoveNext on IEnumerator before accessing the Current property.</comment>
+  </data>
+  <data name="NextPreviousPagerField_ButtonCssClass" xml:space="preserve">
+    <value>次へボタンと前へボタンに適用される CSS クラス</value>
+    <comment>The CSS class applied to the next and previous buttons.</comment>
+  </data>
+  <data name="NextPreviousPagerField_ButtonType" xml:space="preserve">
+    <value>ページャー フィールド内のボタンの種類</value>
+    <comment>The type of button contained within the pager field.</comment>
+  </data>
+  <data name="NextPreviousPagerField_FirstPageImageUrl" xml:space="preserve">
+    <value>ButtonType が Image の場合の最初のページ ボタンの画像の URL</value>
+    <comment>The URL of the image of the first page button if the ButtonType is Image.</comment>
+  </data>
+  <data name="NextPreviousPagerField_FirstPageText" xml:space="preserve">
+    <value>最初のページ ボタンのテキスト</value>
+    <comment>The text of the first page button.</comment>
+  </data>
+  <data name="NextPreviousPagerField_LastPageImageUrl" xml:space="preserve">
+    <value>ButtonType が Image の場合の最後のページ ボタンの画像の URL</value>
+    <comment>The URL of the image of the last page button if the ButtonType is Image.</comment>
+  </data>
+  <data name="NextPreviousPagerField_LastPageText" xml:space="preserve">
+    <value>最後のページ ボタンのテキスト</value>
+    <comment>The text of the last page button.</comment>
+  </data>
+  <data name="NextPreviousPagerField_NextPageImageUrl" xml:space="preserve">
+    <value>ButtonType が Image の場合の次ページ ボタンの画像の URL</value>
+    <comment>The URL of the image of the next page button if the ButtonType is Image.</comment>
+  </data>
+  <data name="NextPreviousPagerField_NextPageText" xml:space="preserve">
+    <value>次ページ ボタンのテキスト</value>
+    <comment>The text of the next page button.</comment>
+  </data>
+  <data name="NextPreviousPagerField_PreviousPageImageUrl" xml:space="preserve">
+    <value>ButtonType が Image の場合の前ページ ボタンの画像の URL</value>
+    <comment>The URL of the image of the previous page button if the ButtonType is Image.</comment>
+  </data>
+  <data name="NextPreviousPagerField_PreviousPageText" xml:space="preserve">
+    <value>前ページ ボタンのテキスト</value>
+    <comment>The text of the previous page button.</comment>
+  </data>
+  <data name="NextPreviousPagerField_ShowFirstPageButton" xml:space="preserve">
+    <value>ページャー フィールドに最初のページ ボタンを表示するかどうか</value>
+    <comment>Whether the pager field should display the first page button.</comment>
+  </data>
+  <data name="NextPreviousPagerField_ShowLastPageButton" xml:space="preserve">
+    <value>ページャー フィールドに最後のページ ボタンを表示するかどうか</value>
+    <comment>Whether the pager field should display the last page button.</comment>
+  </data>
+  <data name="NextPreviousPagerField_ShowNextPageButton" xml:space="preserve">
+    <value>ページャー フィールドに次ページ ボタンを表示するかどうか</value>
+    <comment>Whether the pager field should display the next page button.</comment>
+  </data>
+  <data name="NextPreviousPagerField_ShowPreviousPageButton" xml:space="preserve">
+    <value>ページャー フィールドに前ページ ボタンを表示するかどうか</value>
+    <comment>Whether the pager field should display the previous page button.</comment>
+  </data>
+  <data name="NextPrevPagerField_DefaultFirstPageText" xml:space="preserve">
+    <value>最初</value>
+    <comment>First</comment>
+  </data>
+  <data name="NextPrevPagerField_DefaultLastPageText" xml:space="preserve">
+    <value>最後</value>
+    <comment>Last</comment>
+  </data>
+  <data name="NextPrevPagerField_DefaultNextPageText" xml:space="preserve">
+    <value>次へ</value>
+    <comment>Next</comment>
+  </data>
+  <data name="NextPrevPagerField_DefaultPreviousPageText" xml:space="preserve">
+    <value>前へ</value>
+    <comment>Previous</comment>
+  </data>
+  <data name="NumericPagerField_ButtonCount" xml:space="preserve">
+    <value>ページャー フィールドに表示できるページ番号ボタンの最大数</value>
+    <comment>The maximum number of page number buttons that can be displayed by the pager field.</comment>
+  </data>
+  <data name="NumericPagerField_ButtonType" xml:space="preserve">
+    <value>ページャー フィールド内のボタンの種類</value>
+    <comment>The type of button contained within the pager field.</comment>
+  </data>
+  <data name="NumericPagerField_CurrentPageLabelCssClass" xml:space="preserve">
+    <value>現在のページ番号を含むラベルに適用される CSS クラス</value>
+    <comment>The CSS class applied to the label containing the current page number.</comment>
+  </data>
+  <data name="NumericPagerField_DefaultNextPageText" xml:space="preserve">
+    <value>...</value>
+    <comment>...</comment>
+  </data>
+  <data name="NumericPagerField_DefaultPreviousPageText" xml:space="preserve">
+    <value>...</value>
+    <comment>...</comment>
+  </data>
+  <data name="NumericPagerField_NextPageImageUrl" xml:space="preserve">
+    <value>ButtonType が Image の場合の次ページ ボタンの画像の URL</value>
+    <comment>The URL of the image of the next page button if the ButtonType is Image.</comment>
+  </data>
+  <data name="NumericPagerField_NextPageText" xml:space="preserve">
+    <value>次ページ ボタンのテキスト</value>
+    <comment>The text of the next page button.</comment>
+  </data>
+  <data name="NumericPagerField_NextPreviousButtonCssClass" xml:space="preserve">
+    <value>次へボタンと前へボタンに適用される CSS クラス</value>
+    <comment>The CSS class applied to the next and previous buttons.</comment>
+  </data>
+  <data name="NumericPagerField_NumericButtonCssClass" xml:space="preserve">
+    <value>数値ページャー ボタンに適用される CSS クラス</value>
+    <comment>The CSS class applied to the numeric pager buttons.</comment>
+  </data>
+  <data name="NumericPagerField_PreviousPageImageUrl" xml:space="preserve">
+    <value>ButtonType が Image の場合の前ページ ボタンの画像の URL</value>
+    <comment>The URL of the image of the previous page button if the ButtonType is Image.</comment>
+  </data>
+  <data name="NumericPagerField_PreviousPageText" xml:space="preserve">
+    <value>前ページ ボタンのテキスト</value>
+    <comment>The text of the previous page button.</comment>
+  </data>
+  <data name="PagerFieldCollection_InvalidType" xml:space="preserve">
+    <value>オブジェクトは DataPagerField ではありません。</value>
+    <comment>Object is not a DataPagerField.</comment>
+  </data>
+  <data name="PagerFieldCollection_InvalidTypeIndex" xml:space="preserve">
+    <value>型インデックスが範囲外です。</value>
+    <comment>Type index is out of bounds.</comment>
+  </data>
+  <data name="RoleService_RoleProviderNotFound" xml:space="preserve">
+    <value>ロール プロバイダーが見つかりません。</value>
+    <comment>Role Provider could not be found.</comment>
+  </data>
+  <data name="RoleService_RolesFeatureNotEnabled" xml:space="preserve">
+    <value>ロール マネージャー機能が有効になっていません。</value>
+    <comment>The Role Manager feature has not been enabled.</comment>
+  </data>
+  <data name="TemplatePagerField_OnPagerCommand" xml:space="preserve">
+    <value>ページャー フィールド内でイベントが生成されると発生します。</value>
+    <comment>Fires when an event is generated within the pager field.</comment>
+  </data>
+  <data name="TemplatePagerField_PagerTemplate" xml:space="preserve">
+    <value>ページャー フィールドで使用するテンプレート</value>
+    <comment>The template used in the pager field.</comment>
+  </data>
+  <data name="TemplatePagerField_UnhandledEvent" xml:space="preserve">
+    <value>TemplatePagerField で発生したイベント {0} が処理されませんでした。</value>
+    <comment>The TemplatePagerField raised event {0} which wasn't handled.</comment>
+  </data>
+  <data name="UnhandledExceptionEventLogMessage" xml:space="preserve">
+    <value>未処理の例外が発生しました。</value>
+    <comment>An unhandled exception has occurred.</comment>
+  </data>
+  <data name="UserIsNotAuthenticated" xml:space="preserve">
+    <value>このメソッドを呼び出すにはログオンが必要です。</value>
+    <comment>You must log on to call this method.</comment>
+  </data>
+  <data name="ArgumentMustBeCurrentUser" xml:space="preserve">
+    <value>引数は null、空、または現在のユーザーと同じである必要があります。</value>
+    <comment>Argument must be null, empty or same as the current user.</comment>
+  </data>
+  <data name="ProxyHelper_BadStatusCode" xml:space="preserve">
+    <value>Web サービスからエラー状態コード {0} が返されました。サービスのエラー詳細: {1}</value>
+    <comment>Error status code returned by the Web Service: {0}. Error details from service: {1}</comment>
+  </data>
+  <data name="ServiceUriNotFound" xml:space="preserve">
+    <value>serviceUri 構成設定が見つかりません。</value>
+    <comment>The serviceUri configuration setting was not found.</comment>
+  </data>
+  <data name="SqlHelper_SqlEverywhereNotInstalled" xml:space="preserve">
+    <value>指定された接続文字列を使用して Microsoft SQL Everywhere Service に接続できません。Microsoft SQL Server Everywhere がこのコンピューターに正しくインストールされていることを確認してください。</value>
+    <comment>Unable to connect to the Microsoft SQL Everywhere Service using the specified connection string. Make sure that Microsoft SQL Server Everywhere is correctly installed on this computer.</comment>
+  </data>
+  <data name="ClientService_BadJsonResponse" xml:space="preserve">
+    <value>サーバー メソッドが無効なデータを返しました。</value>
+    <comment>The server method returned invalid data.</comment>
+  </data>
+  <data name="LinqDataSource_AutoGenerateOrderByClause" xml:space="preserve">
+    <value>OrderByParameters から OrderBy 句を自動生成するかどうか</value>
+    <comment>Specifies whether to automatically generate the OrderBy clause from the OrderByParameters.</comment>
+  </data>
+  <data name="LinqDataSource_AutoGenerateWhereClause" xml:space="preserve">
+    <value>WhereParameters から Where 句を自動生成するかどうか</value>
+    <comment>Specifies whether to automatically generate the Where clause from the WhereParameters.</comment>
+  </data>
+  <data name="LinqDataSource_AutoPage" xml:space="preserve">
+    <value>データを自動的にページングするかどうか</value>
+    <comment>Specifies whether data is automatically paged.</comment>
+  </data>
+  <data name="LinqDataSource_AutoSort" xml:space="preserve">
+    <value>データを自動的に並べ替えるかどうか</value>
+    <comment>Specifies whether data is automatically sorted.</comment>
+  </data>
+  <data name="LinqDataSource_ContextCreated" xml:space="preserve">
+    <value>コンテキストの作成後に発生するイベント (Selecting イベントでクエリ結果が指定された場合を除く)</value>
+    <comment>Event raised after the context is created unless a query result is specified during the Selecting event.</comment>
+  </data>
+  <data name="LinqDataSource_ContextCreating" xml:space="preserve">
+    <value>コンテキストの作成前に発生するイベント (Selecting イベントでクエリ結果が指定された場合を除く)</value>
+    <comment>Event raised before the context is created unless a query result is specified during the Selecting event.</comment>
+  </data>
+  <data name="LinqDataSource_ContextDisposing" xml:space="preserve">
+    <value>コンテキストの破棄前に発生するイベント</value>
+    <comment>Event raised before the context is disposed.</comment>
+  </data>
+  <data name="LinqDataSource_ContextTypeName" xml:space="preserve">
+    <value>テーブル プロパティを含むデータ コンテキストの型</value>
+    <comment>The data context type that contains the table property.</comment>
+  </data>
+  <data name="LinqDataSource_Deleted" xml:space="preserve">
+    <value>Delete 操作の完了後に発生するイベント</value>
+    <comment>Event raised after the Delete operation is completed.</comment>
+  </data>
+  <data name="LinqDataSource_DeleteParameters" xml:space="preserve">
+    <value>Delete 操作で使用するパラメーターのコレクション。これらのパラメーターは、データ バインド コントロールが提供するパラメーターとマージされます。</value>
+    <comment>Collection of parameters used during the Delete operation. These parameters are merged with the parameters provided by data-bound controls.</comment>
+  </data>
+  <data name="LinqDataSource_Deleting" xml:space="preserve">
+    <value>Delete 操作の実行前に発生するイベント</value>
+    <comment>Event raised before the Delete operation is executed.</comment>
+  </data>
+  <data name="LinqDataSource_Description" xml:space="preserve">
+    <value>LINQ を使用して、アプリケーションの Bin または App_Code ディレクトリにある DataContext またはオブジェクトに接続します。</value>
+    <comment>Use LINQ to connect to a DataContext or object in the Bin or App_Code directory for the application.</comment>
+  </data>
+  <data name="LinqDataSource_DisplayName" xml:space="preserve">
+    <value>LINQ</value>
+    <comment>LINQ</comment>
+  </data>
+  <data name="LinqDataSource_EnableDelete" xml:space="preserve">
+    <value>Delete 操作を有効にするかどうか</value>
+    <comment>Specifies whether the Delete operation is enabled.</comment>
+  </data>
+  <data name="LinqDataSource_EnableInsert" xml:space="preserve">
+    <value>Insert 操作を有効にするかどうか</value>
+    <comment>Specifies whether the Insert operation is enabled.</comment>
+  </data>
+  <data name="LinqDataSource_EnableUpdate" xml:space="preserve">
+    <value>Update 操作を有効にするかどうか</value>
+    <comment>Specifies whether the Update operation is enabled.</comment>
+  </data>
+  <data name="LinqDataSource_GroupBy" xml:space="preserve">
+    <value>Select クエリで GroupBy 演算子に渡す式</value>
+    <comment>The expression passed to the GroupBy operator during the Select query.</comment>
+  </data>
+  <data name="LinqDataSource_GroupByParameters" xml:space="preserve">
+    <value>Select クエリで GroupBy 演算子に使用するパラメーターのコレクション</value>
+    <comment>Collection of parameters used for the GroupBy operator during the Select query.</comment>
+  </data>
+  <data name="LinqDataSource_Inserted" xml:space="preserve">
+    <value>Insert 操作の完了後に発生するイベント</value>
+    <comment>Event raised after the Insert operation is completed.</comment>
+  </data>
+  <data name="LinqDataSource_Inserting" xml:space="preserve">
+    <value>Insert 操作の実行前に発生するイベント</value>
+    <comment>Event raised before the Insert operation is executed.</comment>
+  </data>
+  <data name="LinqDataSource_InsertParameters" xml:space="preserve">
+    <value>Insert 操作で使用するパラメーターのコレクション。これらのパラメーターは、データ バインド コントロールが提供するパラメーターとマージされます。</value>
+    <comment>Collection of parameters used during the Insert operation. These parameters are merged with the parameters provided by data-bound controls.</comment>
+  </data>
+  <data name="LinqDataSource_InvalidViewName" xml:space="preserve">
+    <value>LinqDataSource '{0}' は '{1}' という名前の単一のビューのみをサポートします。既定のビューを使うには、ビュー名を空のままにすることもできます。</value>
+    <comment>LinqDataSource '{0}' only supports a single view named '{1}'. You may also leave the view name empty for the default view to be chosen.</comment>
+  </data>
+  <data name="LinqDataSource_OrderBy" xml:space="preserve">
+    <value>Select クエリで OrderBy 演算子に渡す式</value>
+    <comment>The expression passed to the OrderBy operator during the Select query.</comment>
+  </data>
+  <data name="LinqDataSource_OrderByParameters" xml:space="preserve">
+    <value>Select クエリで OrderBy 演算子に使用するパラメーターのコレクション</value>
+    <comment>Collection of parameters used for the OrderBy operator during the Select query.</comment>
+  </data>
+  <data name="LinqDataSource_Select" xml:space="preserve">
+    <value>Select クエリで使用する射影を定義する式</value>
+    <comment>The expression defining a projection used during the Select query.</comment>
+  </data>
+  <data name="LinqDataSource_Selected" xml:space="preserve">
+    <value>Select 操作の完了後に発生するイベント</value>
+    <comment>Event raised after the Select operation is completed.</comment>
+  </data>
+  <data name="LinqDataSource_Selecting" xml:space="preserve">
+    <value>Select 操作の実行前に発生するイベント</value>
+    <comment>Event raised before the Select operation is executed.</comment>
+  </data>
+  <data name="LinqDataSource_SelectParameters" xml:space="preserve">
+    <value>Select クエリの射影で使用するパラメーターのコレクション</value>
+    <comment>Collection of parameters used in the projection during the Select query.</comment>
+  </data>
+  <data name="LinqDataSource_StoreOriginalValuesInViewState" xml:space="preserve">
+    <value>元のデータ値を ViewState に格納するかどうか。このプロパティは、Update 操作と Delete 操作の競合検出に使用されます。</value>
+    <comment>Specifies whether to store original data values in ViewState.  This property is used for conflict detection during Update and Delete operations.</comment>
+  </data>
+  <data name="LinqDataSource_TableName" xml:space="preserve">
+    <value>データ コンテキストのテーブル プロパティの名前</value>
+    <comment>The name of the table property on the data context.</comment>
+  </data>
+  <data name="LinqDataSource_Updated" xml:space="preserve">
+    <value>Update 操作の完了後に発生するイベント</value>
+    <comment>Event raised after the Update operation is completed.</comment>
+  </data>
+  <data name="LinqDataSource_UpdateParameters" xml:space="preserve">
+    <value>Update 操作で使用するパラメーターのコレクション。これらのパラメーターは、データ バインド コントロールが提供するパラメーターとマージされます。</value>
+    <comment>Collection of parameters used during the Update operation. These parameters are merged with the parameters provided by data-bound controls.</comment>
+  </data>
+  <data name="LinqDataSource_Updating" xml:space="preserve">
+    <value>Update 操作の実行前に発生するイベント</value>
+    <comment>Event raised before the Update operation is executed.</comment>
+  </data>
+  <data name="LinqDataSource_Where" xml:space="preserve">
+    <value>Select クエリで Where 演算子に渡す式</value>
+    <comment>The expression passed to the Where operator during the Select query.</comment>
+  </data>
+  <data name="LinqDataSource_WhereParameters" xml:space="preserve">
+    <value>Select クエリで Where 演算子に使用するパラメーターのコレクション</value>
+    <comment>Collection of parameters used for the Where operator during the Select query.</comment>
+  </data>
+  <data name="LinqDataSourceView_CannotConvertType" xml:space="preserve">
+    <value>パラメーター '{0}' の値を '{1}' から '{2}' に変換できません。</value>
+    <comment>Cannot convert value of parameter '{0}' from '{1}' to '{2}'.</comment>
+  </data>
+  <data name="LinqDataSourceView_ContextTypeNameNotFound" xml:space="preserve">
+    <value>LinqDataSource '{0}' の ContextTypeName プロパティで指定された型が見つかりませんでした。</value>
+    <comment>Could not find the type specified in the ContextTypeName property of LinqDataSource '{0}'.</comment>
+  </data>
+  <data name="LinqDataSourceView_ContextTypeNameNotSpecified" xml:space="preserve">
+    <value>LinqDataSource '{0}' の ContextTypeName プロパティにはデータ コンテキスト型を指定する必要があります。</value>
+    <comment>The ContextTypeName property of LinqDataSource '{0}' must specify a data context type.</comment>
+  </data>
+  <data name="LinqDataSourceView_DeleteNotSupported" xml:space="preserve">
+    <value>LinqDataSource '{0}' は、EnableDelete が true でない限り Delete 操作をサポートしません。</value>
+    <comment>LinqDataSource '{0}' does not support the Delete operation unless EnableDelete is true.</comment>
+  </data>
+  <data name="LinqDataSourceView_GroupByNotSupportedOnEdit" xml:space="preserve">
+    <value>Delete、Insert、または Update 操作が有効な場合、LinqDataSource '{0}' は GroupBy プロパティをサポートしません。</value>
+    <comment>LinqDataSource '{0}' does not support the GroupBy property when the Delete, Insert or Update operations are enabled.</comment>
+  </data>
+  <data name="LinqDataSourceView_InsertNotSupported" xml:space="preserve">
+    <value>LinqDataSource '{0}' は、EnableInsert が true でない限り Insert 操作をサポートしません。</value>
+    <comment>LinqDataSource '{0}' does not support the Insert operation unless EnableInsert is true.</comment>
+  </data>
+  <data name="LinqDataSourceView_InsertRequiresValues" xml:space="preserve">
+    <value>LinqDataSource '{0}' には挿入する値がありません。'values' ディクショナリに値があるか確認してください。</value>
+    <comment>LinqDataSource '{0}' has no values to insert. Check that the 'values' dictionary contains values.</comment>
+  </data>
+  <data name="LinqDataSourceView_InvalidContextType" xml:space="preserve">
+    <value>Delete、Insert、または Update 操作が有効な場合、LinqDataSource '{0}' が使用するデータ コンテキストは DataContext を拡張している必要があります。</value>
+    <comment>The data context used by LinqDataSource '{0}' must extend DataContext when the Delete, Insert or Update operations are enabled.</comment>
+  </data>
+  <data name="LinqDataSourceView_InvalidOrderByFieldName" xml:space="preserve">
+    <value>パラメーター '{1}' の値 '{0}' は有効な OrderBy フィールド名ではありません。</value>
+    <comment>The value '{0}' for parameter '{1}' is not a valid OrderBy field name.</comment>
+  </data>
+  <data name="LinqDataSourceView_InvalidTablePropertyType" xml:space="preserve">
+    <value>Delete、Insert、または Update 操作が有効な場合、LinqDataSource '{0}' が使用するテーブル プロパティは、ITable を拡張し、型パラメーターを 1 つ持つジェネリック型である必要があります。</value>
+    <comment>The table property used by LinqDataSource '{0}' must be a generic type with one parameter that extends ITable, when the Delete, Insert or Update operations are enabled.</comment>
+  </data>
+  <data name="LinqDataSourceView_OrderByAlreadySpecified" xml:space="preserve">
+    <value>AutoGenerateOrderByClause が true の場合、LinqDataSource '{0}' は OrderBy プロパティをサポートしません。</value>
+    <comment>LinqDataSource '{0}' does not support the OrderBy property when AutoGenerateOrderByClause is true.</comment>
+  </data>
+  <data name="LinqDataSourceView_OriginalValuesNotFound" xml:space="preserve">
+    <value>ViewState に格納された元の値に、指定されたキーと一致する行が見つかりません。'keys' ディクショナリに、前回の Select 操作で返された行に対応する一意のキー値が含まれているか確認してください。</value>
+    <comment>Could not find a row that matches the given keys in the original values stored in ViewState.  Ensure that the 'keys' dictionary contains unique key values that correspond to a row returned from the previous Select operation.</comment>
+  </data>
+  <data name="LinqDataSourceView_SelectNewNotSupportedOnEdit" xml:space="preserve">
+    <value>Delete、Insert、または Update 操作が有効な場合、LinqDataSource '{0}' は Select プロパティをサポートしません。</value>
+    <comment>LinqDataSource '{0}' does not support the Select property when the Delete, Insert or Update operations are enabled.</comment>
+  </data>
+  <data name="LinqDataSourceView_TableNameNotFound" xml:space="preserve">
+    <value>LinqDataSource '{2}' のデータ コンテキスト型 '{1}' に '{0}' というプロパティまたはフィールドが見つかりません。</value>
+    <comment>Could not find a property or field called '{0}' on the data context type '{1}' of LinqDataSource '{2}'.</comment>
+  </data>
+  <data name="LinqDataSourceView_TableNameNotSpecified" xml:space="preserve">
+    <value>LinqDataSource '{0}' の TableName プロパティには、データ コンテキスト型のテーブル プロパティまたはフィールドを指定する必要があります。</value>
+    <comment>The TableName property of LinqDataSource '{0}' must specify a table property or field on the data context type.</comment>
+  </data>
+  <data name="LinqDataSourceView_UpdateNotSupported" xml:space="preserve">
+    <value>LinqDataSource '{0}' は、EnableUpdate が true でない限り Update 操作をサポートしません。</value>
+    <comment>LinqDataSource '{0}' does not support the Update operation unless EnableUpdate is true.</comment>
+  </data>
+  <data name="LinqDataSourceView_WhereAlreadySpecified" xml:space="preserve">
+    <value>AutoGenerateWhereClause が true の場合、LinqDataSource '{0}' は Where プロパティをサポートしません。</value>
+    <comment>LinqDataSource '{0}' does not support the Where property when AutoGenerateWhereClause is true.</comment>
+  </data>
+  <data name="ExpressionParser_AmbiguousConstructorInvocation" xml:space="preserve">
+    <value>'{0}' コンストラクターの呼び出しがあいまいです</value>
+    <comment>Ambiguous invocation of '{0}' constructor</comment>
+  </data>
+  <data name="ExpressionParser_AmbiguousIndexerInvocation" xml:space="preserve">
+    <value>型 '{0}' のインデクサーの呼び出しがあいまいです</value>
+    <comment>Ambiguous invocation of indexer in type '{0}'</comment>
+  </data>
+  <data name="ExpressionParser_AmbiguousMethodInvocation" xml:space="preserve">
+    <value>型 '{1}' のメソッド '{0}' の呼び出しがあいまいです</value>
+    <comment>Ambiguous invocation of method '{0}' in type '{1}'</comment>
+  </data>
+  <data name="ExpressionParser_ArgsIncompatibleWithLambda" xml:space="preserve">
+    <value>引数リストがラムダ式と非互換です</value>
+    <comment>Argument list incompatible with lambda expression</comment>
+  </data>
+  <data name="ExpressionParser_BothTypesConvertToOther" xml:space="preserve">
+    <value>型 '{0}' と '{1}' はどちらも相手に変換できます</value>
+    <comment>Both of the types '{0}' and '{1}' convert to the other</comment>
+  </data>
+  <data name="ExpressionParser_CannotConvertValue" xml:space="preserve">
+    <value>型 '{0}' の値を型 '{1}' に変換できません</value>
+    <comment>A value of type '{0}' cannot be converted to type '{1}'</comment>
+  </data>
+  <data name="ExpressionParser_CannotIndexMultipleDimensionalArray" xml:space="preserve">
+    <value>多次元配列のインデックス指定はサポートされていません</value>
+    <comment>Indexing of multiple-dimensional arrays is not supported</comment>
+  </data>
+  <data name="ExpressionParser_CloseBracketOrCommaExpected" xml:space="preserve">
+    <value>']' か ',' が必要です</value>
+    <comment>']' or ',' expected</comment>
+  </data>
+  <data name="ExpressionParser_CloseParenOrCommaExpected" xml:space="preserve">
+    <value>')' か ',' が必要です</value>
+    <comment>')' or ',' expected</comment>
+  </data>
+  <data name="ExpressionParser_CloseParenOrOperatorExpected" xml:space="preserve">
+    <value>')' か演算子が必要です</value>
+    <comment>')' or operator expected</comment>
+  </data>
+  <data name="ExpressionParser_ColonExpected" xml:space="preserve">
+    <value>':' が必要です</value>
+    <comment>':' expected</comment>
+  </data>
+  <data name="ExpressionParser_DigitExpected" xml:space="preserve">
+    <value>数字が必要です</value>
+    <comment>Digit expected</comment>
+  </data>
+  <data name="ExpressionParser_DotOrOpenParenExpected" xml:space="preserve">
+    <value>'.' か '(' が必要です</value>
+    <comment>'.' or '(' expected</comment>
+  </data>
+  <data name="ExpressionParser_DuplicateIdentifier" xml:space="preserve">
+    <value>識別子 '{0}' の定義が重複しています</value>
+    <comment>The identifier '{0}' was defined more than once</comment>
+  </data>
+  <data name="ExpressionParser_ExpressionExpected" xml:space="preserve">
+    <value>式が必要です</value>
+    <comment>Expression expected</comment>
+  </data>
+  <data name="ExpressionParser_ExpressionTypeMismatch" xml:space="preserve">
+    <value>'{0}' 型の式が必要です</value>
+    <comment>Expression of type '{0}' expected</comment>
+  </data>
+  <data name="ExpressionParser_FirstExprMustBeBool" xml:space="preserve">
+    <value>最初の式は 'Boolean' 型である必要があります</value>
+    <comment>The first expression must be of type 'Boolean'</comment>
+  </data>
+  <data name="ExpressionParser_IdentifierExpected" xml:space="preserve">
+    <value>識別子が必要です</value>
+    <comment>Identifier expected</comment>
+  </data>
+  <data name="ExpressionParser_IifRequiresThreeArgs" xml:space="preserve">
+    <value>'iif' 関数には 3 つの引数が必要です</value>
+    <comment>The 'iif' function requires three arguments</comment>
+  </data>
+  <data name="ExpressionParser_IncompatibleOperand" xml:space="preserve">
+    <value>演算子 '{0}' はオペランド型 '{1}' と非互換です</value>
+    <comment>Operator '{0}' incompatible with operand type '{1}'</comment>
+  </data>
+  <data name="ExpressionParser_IncompatibleOperands" xml:space="preserve">
+    <value>演算子 '{0}' はオペランド型 '{1}' および '{2}' と非互換です</value>
+    <comment>Operator '{0}' incompatible with operand types '{1}' and '{2}'</comment>
+  </data>
+  <data name="ExpressionParser_InvalidCharacter" xml:space="preserve">
+    <value>構文エラー '{0}'</value>
+    <comment>Syntax error '{0}'</comment>
+  </data>
+  <data name="ExpressionParser_InvalidCharacterLiteral" xml:space="preserve">
+    <value>文字リテラルは 1 文字である必要があります</value>
+    <comment>Character literal must contain exactly one character</comment>
+  </data>
+  <data name="ExpressionParser_InvalidIndex" xml:space="preserve">
+    <value>配列インデックスは整数式である必要があります</value>
+    <comment>Array index must be an integer expression</comment>
+  </data>
+  <data name="ExpressionParser_InvalidIntegerLiteral" xml:space="preserve">
+    <value>無効な整数リテラル '{0}'</value>
+    <comment>Invalid integer literal '{0}'</comment>
+  </data>
+  <data name="ExpressionParser_InvalidRealLiteral" xml:space="preserve">
+    <value>無効な実数リテラル '{0}'</value>
+    <comment>Invalid real literal '{0}'</comment>
+  </data>
+  <data name="ExpressionParser_MethodIsVoid" xml:space="preserve">
+    <value>型 '{1}' のメソッド '{0}' は値を返しません</value>
+    <comment>Method '{0}' in type '{1}' does not return a value</comment>
+  </data>
+  <data name="ExpressionParser_MethodsAreInaccessible" xml:space="preserve">
+    <value>型 '{0}' のメソッドにアクセスできません</value>
+    <comment>Methods on type '{0}' are not accessible</comment>
+  </data>
+  <data name="ExpressionParser_MissingAsClause" xml:space="preserve">
+    <value>式に 'as' 句がありません</value>
+    <comment>Expression is missing an 'as' clause</comment>
+  </data>
+  <data name="ExpressionParser_NeitherTypeConvertsToOther" xml:space="preserve">
+    <value>型 '{0}' と '{1}' はどちらも相手に変換できません</value>
+    <comment>Neither of the types '{0}' and '{1}' converts to the other</comment>
+  </data>
+  <data name="ExpressionParser_NoApplicableAggregate" xml:space="preserve">
+    <value>適用可能な集計メソッド '{0}' がありません</value>
+    <comment>No applicable aggregate method '{0}' exists</comment>
+  </data>
+  <data name="ExpressionParser_NoApplicableIndexer" xml:space="preserve">
+    <value>型 '{0}' に適用可能なインデクサーがありません</value>
+    <comment>No applicable indexer exists in type '{0}'</comment>
+  </data>
+  <data name="ExpressionParser_NoApplicableMethod" xml:space="preserve">
+    <value>型 '{1}' に適用可能なメソッド '{0}' がありません</value>
+    <comment>No applicable method '{0}' exists in type '{1}'</comment>
+  </data>
+  <data name="ExpressionParser_NoItInScope" xml:space="preserve">
+    <value>スコープに 'it' がありません</value>
+    <comment>No 'it' is in scope</comment>
+  </data>
+  <data name="ExpressionParser_NoMatchingConstructor" xml:space="preserve">
+    <value>型 '{0}' に一致するコンストラクターがありません</value>
+    <comment>No matching constructor in type '{0}'</comment>
+  </data>
+  <data name="ExpressionParser_OpenBracketExpected" xml:space="preserve">
+    <value>'[' が必要です</value>
+    <comment>'[' expected</comment>
+  </data>
+  <data name="ExpressionParser_OpenParenExpected" xml:space="preserve">
+    <value>'(' が必要です</value>
+    <comment>'(' expected</comment>
+  </data>
+  <data name="ExpressionParser_SyntaxError" xml:space="preserve">
+    <value>構文エラー</value>
+    <comment>Syntax error</comment>
+  </data>
+  <data name="ExpressionParser_TokenExpected" xml:space="preserve">
+    <value>{0} が必要です</value>
+    <comment>{0} expected</comment>
+  </data>
+  <data name="ExpressionParser_TypeHasNoNullableForm" xml:space="preserve">
+    <value>型 '{0}' には null 許容の形式がありません</value>
+    <comment>Type '{0}' has no nullable form</comment>
+  </data>
+  <data name="ExpressionParser_UnknownIdentifier" xml:space="preserve">
+    <value>不明な識別子 '{0}'</value>
+    <comment>Unknown identifier '{0}'</comment>
+  </data>
+  <data name="ExpressionParser_UnknownPropertyOrField" xml:space="preserve">
+    <value>型 '{1}' にプロパティまたはフィールド '{0}' がありません</value>
+    <comment>No property or field '{0}' exists in type '{1}'</comment>
+  </data>
+  <data name="ExpressionParser_UnterminatedStringLiteral" xml:space="preserve">
+    <value>閉じていない文字列</value>
+    <comment>Unterminated string literal</comment>
+  </data>
+  <data name="ParseException_ParseExceptionFormat" xml:space="preserve">
+    <value>{0} (インデックス {1})</value>
+    <comment>{0} (at index {1})</comment>
+  </data>
+  <data name="LinqDataSourceView_PagingNotHandled" xml:space="preserve">
+    <value>LinqDataSource {0} で AutoPage が無効ですが、ページングが処理されていません。LinqDataSourceSelectArguments.Arguments.TotalRowCount プロパティに行の総数を設定したことを確認してください。</value>
+    <comment>AutoPage is disabled on LinqDataSource {0} but paging has not been handled.  Ensure you have set the LinqDataSourceSelectArguments.Arguments.TotalRowCount property to the total number of rows.</comment>
+  </data>
+  <data name="NextPreviousPagerField_RenderDisabledButtonsAsLabels" xml:space="preserve">
+    <value>無効なページャー リンクをボタンではなくラベルとして表示するかどうか</value>
+    <comment>Whether disabled pager links should be rendered as labels rather than buttons.</comment>
+  </data>
+  <data name="NextPreviousPagerField_RenderNonBreakingSpacesBetweenControls" xml:space="preserve">
+    <value>ページャー コントロールの間に改行なしスペースを表示するかどうか</value>
+    <comment>Whether non-breaking spaces should be rendered between pager controls.</comment>
+  </data>
+  <data name="NumericPagerField_RenderNonBreakingSpacesBetweenControls" xml:space="preserve">
+    <value>ページャー コントロールの間に改行なしスペースを表示するかどうか</value>
+    <comment>Whether non-breaking spaces should be rendered between pager controls.</comment>
+  </data>
+  <data name="DataBoundControlHelper_NoNamingContainer" xml:space="preserve">
+    <value>{0} コントロール '{1}' に名前付けコンテナーがありません。DataBind を呼び出す前に、コントロールがページに追加されているか確認してください。</value>
+    <comment>The {0} control '{1}' does not have a naming container.  Ensure that the control is added to the page before calling DataBind.</comment>
+  </data>
+  <data name="WebService_NoWebServiceDataInlineScript" xml:space="preserve">
+    <value>{0} に Web サービスが見つかりません。このエラーは、WCF サービスへの ServiceReference で InlineScript が 'true' に設定されている場合に発生することがあります。WCF サービスでは InlineScript を 'false' にする必要があります。</value>
+    <comment>No web service found at: {0}. This error can occur if a ServiceReference to a WCF service has InlineScript set to 'true'. For WCF services InlineScript should be 'false'.</comment>
+  </data>
+  <data name="LinqDataSourceView_ParametersMustBeNamed" xml:space="preserve">
+    <value>AutoGenerateOrderBy に使用されない LinqDataSource '{0}' のパラメーターには名前が必要です。</value>
+    <comment>Parameters for LinqDataSource '{0}' that are not used for AutoGenerateOrderBy must be named.</comment>
+  </data>
+  <data name="LinqDataSourceView_ContextTypeNameChanged" xml:space="preserve">
+    <value>データ コンテキストの作成後は、LinqDataSource '{0}' の ContextTypeName プロパティを変更できません。</value>
+    <comment>The ContextTypeName property of LinqDataSource '{0}' cannot be changed after the data context has been created.</comment>
+  </data>
+  <data name="LinqDataSourceView_TableNameChanged" xml:space="preserve">
+    <value>データ コンテキストの作成後は、LinqDataSource '{0}' の TableName プロパティを変更できません。</value>
+    <comment>The TableName property of LinqDataSource '{0}' cannot be changed after the data context has been created.</comment>
+  </data>
+  <data name="LinqDataSourceView_InvalidParameterName" xml:space="preserve">
+    <value>LinqDataSource '{1}' のパラメーター '{0}' の名前は有効な識別子ではありません。</value>
+    <comment>The name for parameter '{0}' on LinqDataSource '{1}' is not a valid identifier name.</comment>
+  </data>
+  <data name="Category_Sorting" xml:space="preserve">
+    <value>並べ替え</value>
+    <comment>Sorting</comment>
+  </data>
+  <data name="LinqDataSourceView_ValidationFailed" xml:space="preserve">
+    <value>型 {0} の 1 つ以上のプロパティを設定できません。 {1}</value>
+    <comment>Failed to set one or more properties on type {0}.  {1}</comment>
+  </data>
+  <data name="DataPager_QueryStringField" xml:space="preserve">
+    <value>現在のページ インデックスを表すクエリ文字列フィールドの名前。このプロパティを設定すると、ページャーはクエリ文字列を使用します。</value>
+    <comment>The name of the query string field for the current page index. The pager will use the query string when this property is set.</comment>
+  </data>
+  <data name="LinqDataSourceValidationException_ValidationFailed" xml:space="preserve">
+    <value>データ オブジェクトの 1 つ以上のプロパティを設定できませんでした。入力値が有効で、対応するプロパティの型に変換できるか確認してください。</value>
+    <comment>Failed to set one or more properties on the data object.  Ensure that the input values are valid and can be converted to the corresponding property types.</comment>
+  </data>
+  <data name="LinqDataSource_OrderGroupsBy" xml:space="preserve">
+    <value>Select クエリで GroupBy の実行後にグループの並べ替えに使用する OrderBy 演算子に渡す式</value>
+    <comment>The expression passed to the OrderBy operator used for ordering groups after a GroupBy has been performed during the Select query.</comment>
+  </data>
+  <data name="LinqDataSource_OrderGroupsByParameters" xml:space="preserve">
+    <value>Select クエリで OrderGroupsBy 演算子に使用するパラメーターのコレクション</value>
+    <comment>Collection of parameters used for the OrderGroupsBy operator during the Select query.</comment>
+  </data>
+  <data name="LinqDataSourceView_OrderGroupsByRequiresGroupBy" xml:space="preserve">
+    <value>GroupsBy プロパティが設定されていない場合、LinqDataSource '{0}' は OrderGroupsBy プロパティをサポートしません。</value>
+    <comment>LinqDataSource '{0}' does not support the OrderGroupsBy property when the GroupsBy property has not been set.</comment>
+  </data>
+  <data name="Common_GreaterThanOrEqualToZero" xml:space="preserve">
+    <value>値は 0 以上にしてください。</value>
+    <comment>Value must be greater than or equal to 0.</comment>
+  </data>
+  <data name="Common_GreaterThanOrEqualToZeroAndLessThanOrEqualToOne" xml:space="preserve">
+    <value>値は 0 以上 1 以下にしてください。</value>
+    <comment>Value must be greater than or equal to 0 and less than or equal to 1.</comment>
+  </data>
+  <data name="ScriptManager_EmptyPageUrl" xml:space="preserve">
+    <value>Internet Explorer で履歴を管理するために使用する空のページの URL。このプロパティが指定されていない場合、スクリプト マネージャーはリソースベースの組み込みページを使用します。</value>
+    <comment>The URL of an empty page that will be used to manage history on Internet Explorer. The script manager uses a built-in, resource-based page if this property is unspecified.</comment>
+  </data>
+  <data name="ScriptManager_Navigate" xml:space="preserve">
+    <value>サーバー側の履歴状態が変化したときに、非同期ポストバック中に発生するイベント</value>
+    <comment>This event is raised during asynchronous postbacks when the server-side history state changes.</comment>
+  </data>
+  <data name="ScriptManager_EnableHistory" xml:space="preserve">
+    <value>サポートされているブラウザーで ScriptManager がブラウザーの履歴を管理できるようにします。</value>
+    <comment>Enables ScriptManager to manage browser history on supported browsers.</comment>
+  </data>
+  <data name="ScriptManager_EnableSecureHistoryState" xml:space="preserve">
+    <value>true の場合、サーバー側の履歴状態は ViewState と同じ設定でハッシュされます。false の場合、サーバーの履歴状態は平文の文字列ディクショナリとなり、エンド ユーザーが URL を変更することで変更できます。</value>
+    <comment>When true, the server-side history state is hashed using the same settings as ViewState. When false, the server history state is a clear-text string dictionary that can be modified by the end user by modifying the url.</comment>
+  </data>
+  <data name="DynamicControlBase_ConvertEmptyStringToNull" xml:space="preserve">
+    <value>フィールド値を null 参照に変換するかどうか</value>
+    <comment>Specifies whether the field value should be converted to a null reference.</comment>
+  </data>
+  <data name="DynamicControlBase_DataField" xml:space="preserve">
+    <value>DynamicControl のバインド先データ フィールドの名前</value>
+    <comment>Specifies the name of the data field to which the DynamicControl will bind.</comment>
+  </data>
+  <data name="DynamicControlBase_DataFormatString" xml:space="preserve">
+    <value>フィールド値の表示形式</value>
+    <comment>Specifies the display format for the field value.</comment>
+  </data>
+  <data name="DynamicControlBase_HtmlEncode" xml:space="preserve">
+    <value>表示前にフィールド値を HTML エンコードするかどうか</value>
+    <comment>Specifies whether the field value is HTML-encoded before it is displayed.</comment>
+  </data>
+  <data name="DynamicControlBase_NullDisplayText" xml:space="preserve">
+    <value>フィールド値が null のときに表示するキャプション</value>
+    <comment>Specifies the caption displayed when the field value is null.</comment>
+  </data>
+  <data name="DynamicControlBase_UIHint" xml:space="preserve">
+    <value>フィールドの表示に使用するユーザー コントロール</value>
+    <comment>Specifies the user control with which the field should be rendered.</comment>
+  </data>
+  <data name="DynamicControlBase_ValidationGroup" xml:space="preserve">
+    <value>DynamicControl 内の検証コントロールが属する検証グループの名前</value>
+    <comment>Specifies the name of the validation group to which validation controls in the DynamicControl belong.</comment>
+  </data>
+  <data name="DynamicFilterRepeater_DynamicFilterContainerId" xml:space="preserve">
+    <value>ItemTemplate 内にある DynamicFilter コントロールの ID</value>
+    <comment>The ID of the DynamicFilter control that exists in the ItemTemplate.</comment>
+  </data>
+  <data name="FilterRepeater_TableName" xml:space="preserve">
+    <value>FilterRepeater で使用するテーブル名のオーバーライド。既定では、テーブルはページの URL から推測されます。</value>
+    <comment>Specifies an override for the table name used by the FilterRepeater. By default the table is inferred from the page URL.</comment>
+  </data>
+  <data name="ScriptManager_CannotAddHistoryPointOutsideOfAsyncPostBack" xml:space="preserve">
+    <value>履歴ポイントは非同期ポストバック中にのみ作成できます。</value>
+    <comment>A history point can only be created during an asynchronous postback.</comment>
+  </data>
+  <data name="JSON_InvalidEnumType" xml:space="preserve">
+    <value>System.Int64 または System.UInt64 に基づく列挙型は、JavaScript が必要な精度をサポートしていないため、JSON シリアル化できません。</value>
+    <comment>Enums based on System.Int64 or System.UInt64 are not JSON-serializable because JavaScript does not support the necessary precision.</comment>
+  </data>
+  <data name="LinqDataSource_EnableObjectTracking" xml:space="preserve">
+    <value>読み取り専用の Linq to SQL データ コンテキストで ObjectTracking を無効にするかどうか</value>
+    <comment>Specifies whether ObjectTracking should be disabled on read-only Linq to SQL data contexts.</comment>
+  </data>
+  <data name="LinqDataSourceView_EnableObjectTrackingChanged" xml:space="preserve">
+    <value>データ コンテキストの作成後は、LinqDataSource '{0}' の EnableObjectTracking プロパティを変更できません。</value>
+    <comment>The EnableObjectTracking property of LinqDataSource '{0}' cannot be changed after the data context has been created.</comment>
+  </data>
+  <data name="DynamicNavigatorDataSource_NoAccessibleTablesFound" xml:space="preserve">
+    <value>アクセス可能なテーブルが見つかりません。スキャフォールディングが有効になっているか、モデルのカスタム テンプレートが存在することを確認してください。</value>
+    <comment>No accessible tables found. Make sure scaffolds are enabled or custom templates exist for your model.</comment>
+  </data>
+  <data name="DynamicNavigatorDataSource_NoModelsRegistered" xml:space="preserve">
+    <value>データ モデルが登録されていません。</value>
+    <comment>No data models have been registered.</comment>
+  </data>
+  <data name="DynamicNavigatorDataSource_NoTablesInModels" xml:space="preserve">
+    <value>登録されたデータ モデルにテーブルが定義されていません。</value>
+    <comment>There are no tables defined in the registered data models.</comment>
+  </data>
+  <data name="CompositeScriptReference_Scripts" xml:space="preserve">
+    <value>CompositeScriptReference がページに含めるスクリプト参照のコレクション</value>
+    <comment>A collection of script references that the CompositeScriptReference should include in the page.</comment>
+  </data>
+  <data name="ScriptManager_CannotRegisterScriptInMultipleCompositeReferences" xml:space="preserve">
+    <value>スクリプト参照は複合スクリプト参照に複数回含められません。</value>
+    <comment>A script reference cannot be included multiple times in composite script references.</comment>
+  </data>
+  <data name="ScriptManager_ResolveCompositeScriptReference" xml:space="preserve">
+    <value>複合スクリプト参照をレンダリング前に変更できるように発生するイベント</value>
+    <comment>This event is raised to allow modifications to composite script references before they are rendered.</comment>
+  </data>
+  <data name="LinqDataSourceView_TableCannotBeStatic" xml:space="preserve">
+    <value>LinqDataSource '{2}' のデータ コンテキスト型 '{1}' のメンバー '{0}' は有効なテーブルではありません。Insert、Update、Delete では、テーブルは静的メンバーであってはなりません。</value>
+    <comment>Member '{0}' on the data context type '{1}' of LinqDataSource '{2}' is not a valid table. For Insert, Update and Delete the table must not be a static member.</comment>
+  </data>
+  <data name="ListView_EnableDataBoundControlManager" xml:space="preserve">
+    <value>データ バインド コントロールが、ページ上のデータ バインド コントロール マネージャーに自身を登録するかどうか</value>
+    <comment>Whether the data bound control will register itself with a data bound control manager on the page.</comment>
+  </data>
+  <data name="ListView_EnableModelValidation" xml:space="preserve">
+    <value>モデルでの検証後にページの検証を実行するかどうか</value>
+    <comment>Whether page validation will be performed after validation is done in the model.</comment>
+  </data>
+  <data name="ScriptManager_CannotAddHistoryPointWithHistoryDisabled" xml:space="preserve">
+    <value>履歴ポイントは EnableHistory が true の場合にのみ追加できます。</value>
+    <comment>A history point can only be added if EnableHistory is set to true.</comment>
+  </data>
+  <data name="ScriptManager_CannotChangeEnableHistory" xml:space="preserve">
+    <value>Init イベント後は EnableHistory プロパティを変更できません。</value>
+    <comment>The EnableHistory property cannot be changed after the Init event.</comment>
+  </data>
+  <data name="ScriptManager_CompositeScript" xml:space="preserve">
+    <value>個々のスクリプト参照を 1 つに結合し、サーバーへの要求数を最小限にします。</value>
+    <comment>Enables the composition of individual script references into one to minimize the number of requests to the server.</comment>
+  </data>
+  <data name="ScriptManager_ClientNavigateHandler" xml:space="preserve">
+    <value>navigate イベントのクライアント側イベント ハンドラー名</value>
+    <comment>Specifies a client-side event handler name for the navigate event.</comment>
+  </data>
+  <data name="ScriptManager_PageUntitled" xml:space="preserve">
+    <value>無題のページ</value>
+    <comment>Untitled Page</comment>
+  </data>
+  <data name="ScriptResourceHandler_ResourceUrlTooLong" xml:space="preserve">
+    <value>リソース URL は {0} 文字以下にする必要があります。CompositeScriptReference を使用している場合は、含まれる ScriptReference の数を減らすか、それらを 1 つの静的ファイルに結合し、その場所を Path プロパティに設定してください。</value>
+    <comment>The resource URL cannot be longer than {0} characters. If using a CompositeScriptReference, reduce the number of ScriptReferences it contains, or combine them into a single static file and set the Path property to the location of it.</comment>
+  </data>
+  <data name="ScriptManager_CannotChangeAjaxFrameworkMode" xml:space="preserve">
+    <value>Init イベント後は AjaxFrameworkMode プロパティを変更できません。</value>
+    <comment>TheAjaxFrameworkMode property cannot be changed after the Init event.</comment>
+  </data>
+  <data name="ListView_PersistedSelectionRequiresDataKeysNames" xml:space="preserve">
+    <value>永続的な選択には DataKeyNames の指定が必要です。</value>
+    <comment>DataKeyNames must be specified for persisted selection to work.</comment>
+  </data>
+  <data name="ListView_EnablePersistedSelection" xml:space="preserve">
+    <value>選択の基準を DataKeys と行インデックスのどちらにするか</value>
+    <comment>Whether selection should be based on DataKeys or row index.</comment>
+  </data>
+  <data name="DataSourceControlExtender_TargetControlIDMustBeSpecified" xml:space="preserve">
+    <value>TargetControlID は必須です。</value>
+    <comment>TargetControlID must be specified.</comment>
+  </data>
+  <data name="DataSourceControlExtender_TargetControlMustImplementIDataSource" xml:space="preserve">
+    <value>TargetControl '{0}' は IDataSource を実装する必要があります。</value>
+    <comment>TargetControl '{0}' must implement IDataSource.</comment>
+  </data>
+  <data name="QueryExtender_DataSourceMustBeIQueryableDataSource" xml:space="preserve">
+    <value>DataSource '{0}' は IQueryableDataSource を実装する必要があります。</value>
+    <comment>DataSource '{0}' must implement IQueryableDataSource.</comment>
+  </data>
+  <data name="Expressions_DataFieldRequired" xml:space="preserve">
+    <value>DataField は必須です。</value>
+    <comment>DataField must be specified.</comment>
+  </data>
+  <data name="RangeExpression_MaximumValueRequired" xml:space="preserve">
+    <value>最大値は必須です。</value>
+    <comment>A maximum value must be specified.</comment>
+  </data>
+  <data name="RangeExpression_MinimumValueRequired" xml:space="preserve">
+    <value>最小値は必須です。</value>
+    <comment>A minimum value must be specified.</comment>
+  </data>
+  <data name="RangeExpression_RangeTypeMustBeSpecified" xml:space="preserve">
+    <value>最小値と最大値の RangeType は必須です。</value>
+    <comment>A minimum and maximum RangeType must be specified.</comment>
+  </data>
+  <data name="SearchExpression_ParameterRequired" xml:space="preserve">
+    <value>検索パラメーターは必須です。</value>
+    <comment>A search parameter is required.</comment>
+  </data>
+  <data name="MethodExpression_MethodNameMustBeSpecified" xml:space="preserve">
+    <value>MethodName は必須です。</value>
+    <comment>A MethodName must be specified.</comment>
+  </data>
+  <data name="MethodExpression_MethodNotFound" xml:space="preserve">
+    <value>メソッド '{0}' が見つかりません。</value>
+    <comment>Method '{0}' was not found.</comment>
+  </data>
+  <data name="MethodExpression_ParameterNotFound" xml:space="preserve">
+    <value>'{0}' のパラメーター '{1}' が指定されていません。</value>
+    <comment>'{0}' has a parameter named '{1}' which was not specified.</comment>
+  </data>
+  <data name="MethodExpression_DataSourceMustBeIDynamicDataSource" xml:space="preserve">
+    <value>書式指定文字列を使用するには、DataSource が IDynamicDataSource を実装する必要があります。</value>
+    <comment>The DataSource must implement IDynamicDataSource for a format string to be used.</comment>
+  </data>
+  <data name="MethodExpression_ChangingTheReturnTypeIsNotAllowed" xml:space="preserve">
+    <value>MethodExpression でクエリの結果型は変更できません。'IEnumerable&lt;{0}&gt;' 型の戻り値が必要です。</value>
+    <comment>Changing the result type of a query in a MethodExpression is not supported. Expected a return value of type 'IEnumerable&lt;{0}&gt;'.</comment>
+  </data>
+  <data name="MethodExpression_FirstParamterMustBeCorrectType" xml:space="preserve">
+    <value>'{0}' の最初のパラメーターは型 '{1}' である必要があります。</value>
+    <comment>The first parameter of '{0}' must be of type '{1}'.</comment>
+  </data>
+  <data name="MethodExpression_MethodMustBeStatic" xml:space="preserve">
+    <value>メソッド '{0}' は静的である必要があります。</value>
+    <comment>Method '{0}' must be static.</comment>
+  </data>
+  <data name="ListView_InvalidCommand" xml:space="preserve">
+    <value>カスタム コマンドは有効なデータ項目に対してのみ呼び出せます。</value>
+    <comment>Custom commands can only be called on a valid data item.</comment>
+  </data>
+  <data name="ScriptManager_AjaxFrameworkAssembly" xml:space="preserve">
+    <value>Microsoft ASP.NET AJAX Framework スクリプトを埋め込んだアセンブリ</value>
+    <comment>The assembly the Microsoft ASP.NET AJAX Framework scripts are embedded within.</comment>
+  </data>
+  <data name="ScriptReference_ResourceRequiresAjaxAssembly" xml:space="preserve">
+    <value>要求されたスクリプト リソース '{0}' には、ASP.NET AJAX Framework のバージョン '{1}' が必要です。このリソースを使用するには、アプリケーションがバージョン '{1}' を参照しているか確認してください。</value>
+    <comment>The requested script resource '{0}' requires version '{1}' of the ASP.NET AJAX Framework. To use this resource, make sure that the application references version '{1}'.</comment>
+  </data>
+  <data name="WebResourceUtil_SystemWebExtensionsDoesNotContainReleaseWebResource" xml:space="preserve">
+    <value>アセンブリ '{0}' に、名前 '{1}' の Web リソースが含まれていません。リソース名のスペルが正しいか確認してください。</value>
+    <comment>The assembly '{0}' does not contain a Web resource that has the name '{1}'. Make sure that the resource name is spelled correctly.</comment>
+  </data>
+  <data name="ScriptManager_MustHaveGreaterVersion" xml:space="preserve">
+    <value>アセンブリ '{0}' は、サポートされているバージョンの ASP.NET AJAX Framework アセンブリではありません。アプリケーションが参照する ASP.NET AJAX Framework アセンブリのバージョンが '{1}' より新しいか確認してください。</value>
+    <comment>The assembly '{0}' is not a supported version of an ASP.NET AJAX Framework assembly. Make sure that the application references a version greater than '{1}' of an ASP.NET AJAX Framework assembly.</comment>
+  </data>
+  <data name="ScriptManager_CannotChangeEnableCdn" xml:space="preserve">
+    <value>PreRender イベント後は EnableCdn プロパティを変更できません。</value>
+    <comment>The EnableCdn property cannot be changed after the PreRender event.</comment>
+  </data>
+  <data name="ScriptManager_EnableCdn" xml:space="preserve">
+    <value>可能な場合、ScriptManager がコンテンツ配信ネットワークからスクリプトを読み込めるようにします。</value>
+    <comment>Enables ScriptManager to load scripts from a content delivery network when available.</comment>
+  </data>
+  <data name="ScriptManager_EnableCdnFallback" xml:space="preserve">
+    <value>コンテンツ配信ネットワークが使用できない場合、ScriptManager がスクリプトをローカルから読み込めるようにします。</value>
+    <comment>Enables ScriptManager to load scripts locally when the content delivery network is unavailable.</comment>
+  </data>
+  <data name="OfTypeExpression_CannotFindType" xml:space="preserve">
+    <value>'{1}' で宣言された OfTypeExpression の TypeName プロパティで指定された型 '{0}' が見つかりません。</value>
+    <comment>Could not find the type '{0}' specified by the TypeName property of OfTypeExpression declared on '{1}'.</comment>
+  </data>
+  <data name="OfTypeExpression_TypeNameNotSpecified" xml:space="preserve">
+    <value>'{0}' で宣言された OfTypeExpression の TypeName プロパティには型名を指定する必要があります。</value>
+    <comment>The TypeName property of OfTypeExpression declared on '{0}' must specify a type name.</comment>
+  </data>
+  <data name="ScriptResourceDefinition_InvalidPath" xml:space="preserve">
+    <value>パス マッピング '{0}' が無効です。ScriptResourceDefinition のパスは、相対でない仮想パスまたはエンコードされた絶対 URI にしてください。</value>
+    <comment>Invalid path mapping '{0}'. A path in a ScriptResourceDefinition must be a non-relative virtual path or an encoded absolute URI.</comment>
+  </data>
+  <data name="QueryExtender_Expressions" xml:space="preserve">
+    <value>QueryExtender で使用できる式のコレクション</value>
+    <comment>A collection of expressions that can be used with the QueryExtender.</comment>
+  </data>
+  <data name="ScriptManager_CannotChangeEnableCdnFallback" xml:space="preserve">
+    <value>PreRender イベント後は EnableCdnFallback プロパティを変更できません。</value>
+    <comment>The EnableCdnFallback property cannot be changed after the PreRender event.</comment>
+  </data>
+  <data name="JSON_CannotSerializeMemberGeneric" xml:space="preserve">
+    <value>型 '{1}' のメンバー '{0}' をシリアル化できません。</value>
+    <comment>Cannot serialize member '{0}' on type '{1}'.</comment>
+  </data>
+</root>

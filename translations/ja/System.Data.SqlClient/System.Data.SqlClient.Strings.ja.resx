@@ -1,0 +1,1643 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ADP_CollectionIndexInt32" xml:space="preserve">
+    <value>Count={2} の {1} に対してインデックス {0} は無効です。</value>
+    <comment>Invalid index {0} for this {1} with Count={2}.</comment>
+  </data>
+  <data name="ADP_CollectionIndexString" xml:space="preserve">
+    <value>{1} '{2}' を持つ {0} はこの {3} に含まれていません。</value>
+    <comment>An {0} with {1} '{2}' is not contained by this {3}.</comment>
+  </data>
+  <data name="ADP_CollectionInvalidType" xml:space="preserve">
+    <value>{0} は null 以外の {1} 型オブジェクトのみ受け入れます ({2} オブジェクトは不可)。</value>
+    <comment>The {0} only accepts non-null {1} type objects, not {2} objects.</comment>
+  </data>
+  <data name="ADP_CollectionIsNotParent" xml:space="preserve">
+    <value>{0} は既に別の {1} に含まれています。</value>
+    <comment>The {0} is already contained by another {1}.</comment>
+  </data>
+  <data name="ADP_CollectionNullValue" xml:space="preserve">
+    <value>{0} は null 以外の {1} 型オブジェクトのみ受け入れます。</value>
+    <comment>The {0} only accepts non-null {1} type objects.</comment>
+  </data>
+  <data name="ADP_CollectionRemoveInvalidObject" xml:space="preserve">
+    <value>この {1} に含まれない {0} を削除しようとしました。</value>
+    <comment>Attempted to remove an {0} that is not contained by this {1}.</comment>
+  </data>
+  <data name="ADP_ConnectionAlreadyOpen" xml:space="preserve">
+    <value>接続が閉じられていません。{0}</value>
+    <comment>The connection was not closed. {0}</comment>
+  </data>
+  <data name="ADP_ConnectionStateMsg_Closed" xml:space="preserve">
+    <value>接続は現在閉じています。</value>
+    <comment>The connection's current state is closed.</comment>
+  </data>
+  <data name="ADP_ConnectionStateMsg_Connecting" xml:space="preserve">
+    <value>接続は現在接続中です。</value>
+    <comment>The connection's current state is connecting.</comment>
+  </data>
+  <data name="ADP_ConnectionStateMsg_Open" xml:space="preserve">
+    <value>接続は現在開いています。</value>
+    <comment>The connection's current state is open.</comment>
+  </data>
+  <data name="ADP_ConnectionStateMsg_OpenExecuting" xml:space="preserve">
+    <value>接続は現在実行中です。</value>
+    <comment>The connection's current state is executing.</comment>
+  </data>
+  <data name="ADP_ConnectionStateMsg_OpenFetching" xml:space="preserve">
+    <value>接続は現在フェッチ中です。</value>
+    <comment>The connection's current state is fetching.</comment>
+  </data>
+  <data name="ADP_ConnectionStateMsg" xml:space="preserve">
+    <value>接続の現在の状態: {0}。</value>
+    <comment>The connection's current state: {0}.</comment>
+  </data>
+  <data name="ADP_ConnectionStringSyntax" xml:space="preserve">
+    <value>初期化文字列の形式がインデックス {0} 以降で仕様に違反しています。</value>
+    <comment>Format of the initialization string does not conform to specification starting at index {0}.</comment>
+  </data>
+  <data name="ADP_DataReaderClosed" xml:space="preserve">
+    <value>リーダーが閉じているときに {0} は呼び出せません。</value>
+    <comment>Invalid attempt to call {0} when reader is closed.</comment>
+  </data>
+  <data name="ADP_InternalConnectionError" xml:space="preserve">
+    <value>内部 DbConnection エラー: {0}</value>
+    <comment>Internal DbConnection Error: {0}</comment>
+  </data>
+  <data name="ADP_InvalidEnumerationValue" xml:space="preserve">
+    <value>無効な {0} 列挙値: {1}。</value>
+    <comment>The {0} enumeration value, {1}, is invalid.</comment>
+  </data>
+  <data name="ADP_NotSupportedEnumerationValue" xml:space="preserve">
+    <value>{0} の列挙値 {1} は {2} メソッドでサポートされていません。</value>
+    <comment>The {0} enumeration value, {1}, is not supported by the {2} method.</comment>
+  </data>
+  <data name="ADP_InvalidOffsetValue" xml:space="preserve">
+    <value>パラメーターの Offset 値 '{0}' が無効です。値は 0 以上である必要があります。</value>
+    <comment>Invalid parameter Offset value '{0}'. The value must be greater than or equal to 0.</comment>
+  </data>
+  <data name="ADP_TransactionPresent" xml:space="preserve">
+    <value>接続には現在トランザクションが参加しています。現在のトランザクションを完了してから再試行してください。</value>
+    <comment>Connection currently has transaction enlisted.  Finish current transaction and retry.</comment>
+  </data>
+  <data name="ADP_LocalTransactionPresent" xml:space="preserve">
+    <value>接続でローカル トランザクションが進行中のため、トランザクションに参加できません。ローカル トランザクションを完了してから再試行してください。</value>
+    <comment>Cannot enlist in the transaction because a local transaction is in progress on the connection.  Finish local transaction and retry.</comment>
+  </data>
+  <data name="ADP_NoConnectionString" xml:space="preserve">
+    <value>ConnectionString プロパティが初期化されていません。</value>
+    <comment>The ConnectionString property has not been initialized.</comment>
+  </data>
+  <data name="ADP_OpenConnectionPropertySet" xml:space="preserve">
+    <value>'{0}' プロパティは変更できません。{1}</value>
+    <comment>Not allowed to change the '{0}' property. {1}</comment>
+  </data>
+  <data name="ADP_PendingAsyncOperation" xml:space="preserve">
+    <value>非同期操作の保留中は、別の操作を開始できません。</value>
+    <comment>Can not start another operation while there is an asynchronous operation pending.</comment>
+  </data>
+  <data name="ADP_PooledOpenTimeout" xml:space="preserve">
+    <value>タイムアウトしました。プールから接続を取得する前にタイムアウト期間が経過しました。すべてのプール接続が使用中で、最大プール サイズに達した可能性があります。</value>
+    <comment>Timeout expired.  The timeout period elapsed prior to obtaining a connection from the pool.  This may have occurred because all pooled connections were in use and max pool size was reached.</comment>
+  </data>
+  <data name="ADP_NonPooledOpenTimeout" xml:space="preserve">
+    <value>接続を開く際にタイムアウトしました。接続を開く前に時間制限を超えました。プールされない同時接続の試行が多すぎる可能性があります。</value>
+    <comment>Timeout attempting to open the connection.  The time period elapsed prior to attempting to open the connection has been exceeded.  This may have occurred because of too many simultaneous non-pooled connection attempts.</comment>
+  </data>
+  <data name="ADP_SingleValuedProperty" xml:space="preserve">
+    <value>プロパティ '{0}' の有効な値は '{1}' のみです。</value>
+    <comment>The only acceptable value for the property '{0}' is '{1}'.</comment>
+  </data>
+  <data name="ADP_DoubleValuedProperty" xml:space="preserve">
+    <value>プロパティ '{0}' の有効な値は '{1}' または '{2}' です。</value>
+    <comment>The acceptable values for the property '{0}' are '{1}' or '{2}'.</comment>
+  </data>
+  <data name="ADP_InvalidPrefixSuffix" xml:space="preserve">
+    <value>指定された QuotePrefix と QuoteSuffix の値が一致しません。</value>
+    <comment>Specified QuotePrefix and QuoteSuffix values do not match.</comment>
+  </data>
+  <data name="Arg_ArrayPlusOffTooSmall" xml:space="preserve">
+    <value>コピー先の配列が短く、コレクションの全項目をコピーできません。配列のインデックスと長さを確認してください。</value>
+    <comment>Destination array is not long enough to copy all the items in the collection. Check array index and length.</comment>
+  </data>
+  <data name="Arg_RankMultiDimNotSupported" xml:space="preserve">
+    <value>要求された操作では 1 次元配列のみサポートされています。</value>
+    <comment>Only single dimensional arrays are supported for the requested action.</comment>
+  </data>
+  <data name="Arg_RemoveArgNotFound" xml:space="preserve">
+    <value>指定された項目は指定されたコレクション内に見つからなかったため、削除できません。</value>
+    <comment>Cannot remove the specified item because it was not found in the specified Collection.</comment>
+  </data>
+  <data name="ArgumentOutOfRange_NeedNonNegNum" xml:space="preserve">
+    <value>負でない数値が必要です。</value>
+    <comment>Non-negative number required.</comment>
+  </data>
+  <data name="Data_InvalidOffsetLength" xml:space="preserve">
+    <value>オフセットと長さが配列の範囲外か、カウントがインデックスからソース コレクションの末尾までの要素数より大きくなっています。</value>
+    <comment>Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.</comment>
+  </data>
+  <data name="SqlConvert_ConvertFailed" xml:space="preserve">
+    <value>型 '{0}' のオブジェクトを型 '{1}' のオブジェクトに変換できません。</value>
+    <comment>Cannot convert object of type '{0}' to object of type '{1}'.</comment>
+  </data>
+  <data name="SQL_WrongType" xml:space="preserve">
+    <value>型 {1} の引数が必要ですが、型 {0} を受け取りました。</value>
+    <comment>Expecting argument of type {1}, but received type {0}.</comment>
+  </data>
+  <data name="ADP_DeriveParametersNotSupported" xml:space="preserve">
+    <value>{0} DeriveParameters は CommandType.StoredProcedure のみに対応し、CommandType. {1} は非対応です。</value>
+    <comment>{0} DeriveParameters only supports CommandType.StoredProcedure, not CommandType. {1}.</comment>
+  </data>
+  <data name="ADP_NoStoredProcedureExists" xml:space="preserve">
+    <value>ストアド プロシージャ '{0}' は存在しません。</value>
+    <comment>The stored procedure '{0}' doesn't exist.</comment>
+  </data>
+  <data name="ADP_InvalidConnectionOptionValue" xml:space="preserve">
+    <value>キー '{0}' の値が無効です。</value>
+    <comment>Invalid value for key '{0}'.</comment>
+  </data>
+  <data name="ADP_MissingConnectionOptionValue" xml:space="preserve">
+    <value>キー '{0}' を使用するには、キー '{1}' が必要です。</value>
+    <comment>Use of key '{0}' requires the key '{1}' to be present.</comment>
+  </data>
+  <data name="ADP_InvalidConnectionOptionValueLength" xml:space="preserve">
+    <value>キー '{0}' の値の長さが上限 '{1}' を超えています。</value>
+    <comment>The value's length for key '{0}' exceeds it's limit of '{1}'.</comment>
+  </data>
+  <data name="ADP_KeywordNotSupported" xml:space="preserve">
+    <value>サポートされないキーワード: '{0}'。</value>
+    <comment>Keyword not supported: '{0}'.</comment>
+  </data>
+  <data name="ADP_InternalProviderError" xml:space="preserve">
+    <value>内部 .NET Framework データ プロバイダー エラー {0}。</value>
+    <comment>Internal .NET Framework Data Provider error {0}.</comment>
+  </data>
+  <data name="ADP_InvalidMultipartName" xml:space="preserve">
+    <value>{0} '{1}'.</value>
+    <comment>{0} '{1}'.</comment>
+  </data>
+  <data name="ADP_InvalidMultipartNameQuoteUsage" xml:space="preserve">
+    <value>{0} '{1}'、引用符の使用が不正です。</value>
+    <comment>{0} '{1}', incorrect usage of quotes.</comment>
+  </data>
+  <data name="ADP_InvalidMultipartNameToManyParts" xml:space="preserve">
+    <value>{0} '{1}'、現在の上限 '{2}' では不足です。</value>
+    <comment>{0} '{1}', the current limit of '{2}' is insufficient.</comment>
+  </data>
+  <data name="SQL_SqlCommandCommandText" xml:space="preserve">
+    <value>SqlCommand.CommandText プロパティの値が無効なマルチパート名のため、SqlCommand.DeriveParameters が失敗しました。</value>
+    <comment>SqlCommand.DeriveParameters failed because the SqlCommand.CommandText property value is an invalid multipart name</comment>
+  </data>
+  <data name="SQL_BatchedUpdatesNotAvailableOnContextConnection" xml:space="preserve">
+    <value>コンテキスト接続では更新のバッチ処理はサポートされていません。</value>
+    <comment>Batching updates is not supported on the context connection.</comment>
+  </data>
+  <data name="SQL_BulkCopyDestinationTableName" xml:space="preserve">
+    <value>SqlBulkCopy.DestinationTableName が無効なマルチパート名のため、SqlBulkCopy.WriteToServer が失敗しました。</value>
+    <comment>SqlBulkCopy.WriteToServer failed because the SqlBulkCopy.DestinationTableName is an invalid multipart name</comment>
+  </data>
+  <data name="SQL_TDSParserTableName" xml:space="preserve">
+    <value>無効なマルチパート名のため、SQL Server からの結果の処理に失敗しました。</value>
+    <comment>Processing of results from SQL Server failed because of an invalid multipart name</comment>
+  </data>
+  <data name="SQL_TypeName" xml:space="preserve">
+    <value>SqlParameter.TypeName が無効なマルチパート名です</value>
+    <comment>SqlParameter.TypeName is an invalid multipart name</comment>
+  </data>
+  <data name="SQLMSF_FailoverPartnerNotSupported" xml:space="preserve">
+    <value>MultiSubnetFailover 接続オプションを使用したミラー化 SQL Server インスタンスへの接続はサポートされていません。</value>
+    <comment>Connecting to a mirrored SQL Server instance using the MultiSubnetFailover connection option is not supported.</comment>
+  </data>
+  <data name="SQL_NotSupportedEnumerationValue" xml:space="preserve">
+    <value>{0} の列挙値 {1} は .NET Framework SqlClient データ プロバイダーでサポートされていません。</value>
+    <comment>The {0} enumeration value, {1}, is not supported by the .NET Framework SqlClient Data Provider.</comment>
+  </data>
+  <data name="ADP_CommandTextRequired" xml:space="preserve">
+    <value>{0}: CommandText プロパティが初期化されていません</value>
+    <comment>{0}: CommandText property has not been initialized</comment>
+  </data>
+  <data name="ADP_ConnectionRequired" xml:space="preserve">
+    <value>{0}: Connection プロパティが初期化されていません。</value>
+    <comment>{0}: Connection property has not been initialized.</comment>
+  </data>
+  <data name="ADP_OpenConnectionRequired" xml:space="preserve">
+    <value>{0} には、開いていて使用可能な Connection が必要です。{1}</value>
+    <comment>{0} requires an open and available Connection. {1}</comment>
+  </data>
+  <data name="ADP_TransactionConnectionMismatch" xml:space="preserve">
+    <value>トランザクションは現在の接続に関連付けられていないか、完了済みです。</value>
+    <comment>The transaction is either not associated with the current connection or has been completed.</comment>
+  </data>
+  <data name="ADP_TransactionRequired" xml:space="preserve">
+    <value>コマンドに割り当てられた接続が保留中のローカル トランザクション内にある場合、{0} ではコマンドにトランザクションが必要です。コマンドの Transaction プロパティが初期化されていません。</value>
+    <comment>{0} requires the command to have a transaction when the connection assigned to the command is in a pending local transaction.  The Transaction property of the command has not been initialized.</comment>
+  </data>
+  <data name="ADP_OpenReaderExists" xml:space="preserve">
+    <value>この Command に関連付けられた DataReader が既に開かれています。先に閉じる必要があります。</value>
+    <comment>There is already an open DataReader associated with this Command which must be closed first.</comment>
+  </data>
+  <data name="ADP_CalledTwice" xml:space="preserve">
+    <value>メソッド '{0}' は同じ実行で複数回呼び出せません。</value>
+    <comment>The method '{0}' cannot be called more than once for the same execution.</comment>
+  </data>
+  <data name="ADP_InvalidCommandTimeout" xml:space="preserve">
+    <value>CommandTimeout の値 {0} は無効です。値は 0 以上にしてください。</value>
+    <comment>Invalid CommandTimeout value {0}; the value must be &gt;= 0.</comment>
+  </data>
+  <data name="ADP_UninitializedParameterSize" xml:space="preserve">
+    <value>{1}[{0}]: Size プロパティのサイズ 0 は無効です。</value>
+    <comment>{1}[{0}]: the Size property has an invalid size of 0.</comment>
+  </data>
+  <data name="ADP_PrepareParameterType" xml:space="preserve">
+    <value>{0}.Prepare メソッドでは、すべてのパラメーターの型を明示的に設定する必要があります。</value>
+    <comment>{0}.Prepare method requires all parameters to have an explicitly set type.</comment>
+  </data>
+  <data name="ADP_PrepareParameterSize" xml:space="preserve">
+    <value>{0}.Prepare メソッドでは、すべての可変長パラメーターに 0 以外の Size を明示的に設定する必要があります。</value>
+    <comment>{0}.Prepare method requires all variable length parameters to have an explicitly set non-zero Size.</comment>
+  </data>
+  <data name="ADP_PrepareParameterScale" xml:space="preserve">
+    <value>{0}.Prepare メソッドでは、型 '{1}' のパラメーターに Precision と Scale を明示的に設定する必要があります。</value>
+    <comment>{0}.Prepare method requires parameters of type '{1}' have an explicitly set Precision and Scale.</comment>
+  </data>
+  <data name="ADP_MismatchedAsyncResult" xml:space="preserve">
+    <value>asyncResult の End メソッド呼び出しが一致しません。{0} の呼び出しが必要ですが、{1} が呼び出されました。</value>
+    <comment>Mismatched end method call for asyncResult.  Expected call to {0} but {1} was called instead.</comment>
+  </data>
+  <data name="ADP_ClosedConnectionError" xml:space="preserve">
+    <value>無効な操作です。接続は閉じています。</value>
+    <comment>Invalid operation. The connection is closed.</comment>
+  </data>
+  <data name="ADP_ConnectionIsDisabled" xml:space="preserve">
+    <value>接続は無効化されています。</value>
+    <comment>The connection has been disabled.</comment>
+  </data>
+  <data name="ADP_EmptyDatabaseName" xml:space="preserve">
+    <value>データベースを null、空の文字列、空白のみの文字列にはできません。</value>
+    <comment>Database cannot be null, the empty string, or string of only whitespace.</comment>
+  </data>
+  <data name="ADP_InvalidSourceBufferIndex" xml:space="preserve">
+    <value>無効なソース バッファー (サイズ {0}) のオフセット: {1}</value>
+    <comment>Invalid source buffer (size of {0}) offset: {1}</comment>
+  </data>
+  <data name="ADP_InvalidDestinationBufferIndex" xml:space="preserve">
+    <value>無効な転送先バッファー (サイズ {0}) のオフセット: {1}</value>
+    <comment>Invalid destination buffer (size of {0}) offset: {1}</comment>
+  </data>
+  <data name="ADP_StreamClosed" xml:space="preserve">
+    <value>ストリームが閉じているときに {0} を実行することはできません。</value>
+    <comment>Invalid attempt to {0} when stream is closed.</comment>
+  </data>
+  <data name="ADP_InvalidSeekOrigin" xml:space="preserve">
+    <value>指定された SeekOrigin 値は無効です。</value>
+    <comment>Specified SeekOrigin value is invalid.</comment>
+  </data>
+  <data name="ADP_NonSequentialColumnAccess" xml:space="preserve">
+    <value>列序数 '{0}' からの読み取りは無効です。CommandBehavior.SequentialAccess では、列序数 '{1}' 以上からのみ読み取ることができます。</value>
+    <comment>Invalid attempt to read from column ordinal '{0}'.  With CommandBehavior.SequentialAccess, you may only read from column ordinal '{1}' or greater.</comment>
+  </data>
+  <data name="ADP_InvalidDataType" xml:space="preserve">
+    <value>{0} のパラメーター データ型が無効です。</value>
+    <comment>The parameter data type of {0} is invalid.</comment>
+  </data>
+  <data name="ADP_UnknownDataType" xml:space="preserve">
+    <value>オブジェクト型 {0} から既知のマネージド プロバイダー ネイティブ型へのマップがありません。</value>
+    <comment>No mapping exists from object type {0} to a known managed provider native type.</comment>
+  </data>
+  <data name="ADP_UnknownDataTypeCode" xml:space="preserve">
+    <value>型 {1} が返した不明な TypeCode {0} を処理できません。</value>
+    <comment>Unable to handle an unknown TypeCode {0} returned by Type {1}.</comment>
+  </data>
+  <data name="ADP_DbTypeNotSupported" xml:space="preserve">
+    <value>DbType {0} から既知の {1} へのマッピングがありません。</value>
+    <comment>No mapping exists from DbType {0} to a known {1}.</comment>
+  </data>
+  <data name="ADP_VersionDoesNotSupportDataType" xml:space="preserve">
+    <value>使用中の SQL Server のバージョンはデータ型 '{0}' をサポートしていません。</value>
+    <comment>The version of SQL Server in use does not support datatype '{0}'.</comment>
+  </data>
+  <data name="ADP_ParameterValueOutOfRange" xml:space="preserve">
+    <value>パラメーター値 '{0}' は範囲外です。</value>
+    <comment>Parameter value '{0}' is out of range.</comment>
+  </data>
+  <data name="ADP_BadParameterName" xml:space="preserve">
+    <value>指定のパラメーター名 '{0}' は無効です。</value>
+    <comment>Specified parameter name '{0}' is not valid.</comment>
+  </data>
+  <data name="ADP_InvalidSizeValue" xml:space="preserve">
+    <value>パラメーターの Size 値 '{0}' が無効です。値は 0 以上である必要があります。</value>
+    <comment>Invalid parameter Size value '{0}'. The value must be greater than or equal to 0.</comment>
+  </data>
+  <data name="ADP_NegativeParameter" xml:space="preserve">
+    <value>引数 '{0}' の値が無効です。値は 0 以上にしてください。</value>
+    <comment>Invalid value for argument '{0}'. The value must be greater than or equal to 0.</comment>
+  </data>
+  <data name="ADP_InvalidMetaDataValue" xml:space="preserve">
+    <value>このメタデータに無効な値です。</value>
+    <comment>Invalid value for this metadata.</comment>
+  </data>
+  <data name="ADP_ParameterConversionFailed" xml:space="preserve">
+    <value>パラメーター値を {0} から {1} に変換できませんでした。</value>
+    <comment>Failed to convert parameter value from a {0} to a {1}.</comment>
+  </data>
+  <data name="ADP_ParallelTransactionsNotSupported" xml:space="preserve">
+    <value>{0} は並列トランザクションをサポートしていません。</value>
+    <comment>{0} does not support parallel transactions.</comment>
+  </data>
+  <data name="ADP_TransactionZombied" xml:space="preserve">
+    <value>この {0} は完了しています。もう使用できません。</value>
+    <comment>This {0} has completed; it is no longer usable.</comment>
+  </data>
+  <data name="ADP_InvalidDataLength2" xml:space="preserve">
+    <value>指定された長さ '{0}' は範囲外です。</value>
+    <comment>Specified length '{0}' is out of range.</comment>
+  </data>
+  <data name="ADP_NonSeqByteAccess" xml:space="preserve">
+    <value>dataIndex '{0}' での {2} の試行は無効です。CommandBehavior.SequentialAccess では、dataIndex '{1}' 以上からのみ読み取れます。</value>
+    <comment>Invalid {2} attempt at dataIndex '{0}'.  With CommandBehavior.SequentialAccess, you may only read from dataIndex '{1}' or greater.</comment>
+  </data>
+  <data name="ADP_InvalidMinMaxPoolSizeValues" xml:space="preserve">
+    <value>最小または最大プール サイズの値が無効です。最小プール サイズを最大プール サイズより大きくすることはできません。</value>
+    <comment>Invalid min or max pool size values, min pool size cannot be greater than the max pool size.</comment>
+  </data>
+  <data name="SQL_InvalidPacketSizeValue" xml:space="preserve">
+    <value>'Packet Size' が無効です。値は 512 以上 32768 以下の整数である必要があります。</value>
+    <comment>Invalid 'Packet Size'.  The value must be an integer &gt;= 512 and &lt;= 32768.</comment>
+  </data>
+  <data name="SQL_NullEmptyTransactionName" xml:space="preserve">
+    <value>トランザクションが無効か、トランザクション内の保存ポイントの名前が無効です。</value>
+    <comment>Invalid transaction or invalid name for a point at which to save within the transaction.</comment>
+  </data>
+  <data name="SQL_UserInstanceFailoverNotCompatible" xml:space="preserve">
+    <value>User Instance と Failover は互換性のないオプションです。接続文字列ではどちらか一方のみを選択してください。</value>
+    <comment>User Instance and Failover are not compatible options.  Please choose only one of the two in the connection string.</comment>
+  </data>
+  <data name="SQL_EncryptionNotSupportedByClient" xml:space="preserve">
+    <value>接続しようとした SQL Server のインスタンスは暗号化を必要としますが、このコンピューターは暗号化をサポートしていません。</value>
+    <comment>The instance of SQL Server you attempted to connect to requires encryption but this machine does not support it.</comment>
+  </data>
+  <data name="SQL_EncryptionNotSupportedByServer" xml:space="preserve">
+    <value>接続先の SQL Server インスタンスは暗号化をサポートしていません。</value>
+    <comment>The instance of SQL Server you attempted to connect to does not support encryption.</comment>
+  </data>
+  <data name="SQL_InvalidSQLServerVersionUnknown" xml:space="preserve">
+    <value>未対応の SQL Server バージョンです。.NET Framework SqlClient データ プロバイダーは SQL Server 7.0 以降でのみ使用できます。</value>
+    <comment>Unsupported SQL Server version.  The .NET Framework SqlClient Data Provider can only be used with SQL Server versions 7.0 and later.</comment>
+  </data>
+  <data name="SQL_CannotCreateNormalizer" xml:space="preserve">
+    <value>'{0}' の正規化子を作成できません。</value>
+    <comment>Cannot create normalizer for '{0}'.</comment>
+  </data>
+  <data name="SQL_CannotModifyPropertyAsyncOperationInProgress" xml:space="preserve">
+    <value>非同期操作の実行中は {0} を変更できません。</value>
+    <comment>{0} cannot be changed while async operation is in progress.</comment>
+  </data>
+  <data name="SQL_InstanceFailure" xml:space="preserve">
+    <value>インスタンスの障害です。</value>
+    <comment>Instance failure.</comment>
+  </data>
+  <data name="SQL_InvalidPartnerConfiguration" xml:space="preserve">
+    <value>サーバー {0}、データベース {1} はデータベース ミラーリング用に構成されていません。</value>
+    <comment>Server {0}, database {1} is not configured for database mirroring.</comment>
+  </data>
+  <data name="SQL_MarsUnsupportedOnConnection" xml:space="preserve">
+    <value>接続は MultipleActiveResultSets をサポートしていません。</value>
+    <comment>The connection does not support MultipleActiveResultSets.</comment>
+  </data>
+  <data name="SQL_NonLocalSSEInstance" xml:space="preserve">
+    <value>非ローカル ユーザー インスタンスでは SSE インスタンスのリダイレクトはサポートされていません。</value>
+    <comment>SSE Instance re-direction is not supported for non-local user instances.</comment>
+  </data>
+  <data name="SQL_PendingBeginXXXExists" xml:space="preserve">
+    <value>保留中の非同期操作が既に進行中のため、コマンドを実行できません。</value>
+    <comment>The command execution cannot proceed due to a pending asynchronous operation already in progress.</comment>
+  </data>
+  <data name="SQL_NonXmlResult" xml:space="preserve">
+    <value>ExecuteXmlReader に無効なコマンドが送信されました。コマンドは Xml の結果を返す必要があります。</value>
+    <comment>Invalid command sent to ExecuteXmlReader.  The command must return an Xml result.</comment>
+  </data>
+  <data name="SQL_InvalidParameterTypeNameFormat" xml:space="preserve">
+    <value>TypeName の 3 部構成名の形式が無効です。</value>
+    <comment>Invalid 3 part name format for TypeName.</comment>
+  </data>
+  <data name="SQL_InvalidParameterNameLength" xml:space="preserve">
+    <value>パラメーター '{0}' の長さが上限の 128 文字を超えています。</value>
+    <comment>The length of the parameter '{0}' exceeds the limit of 128 characters.</comment>
+  </data>
+  <data name="SQL_PrecisionValueOutOfRange" xml:space="preserve">
+    <value>有効桁数の値 '{0}' が 0 未満か、最大有効桁数 38 を超えています。</value>
+    <comment>Precision value '{0}' is either less than 0 or greater than the maximum allowed precision of 38.</comment>
+  </data>
+  <data name="SQL_ScaleValueOutOfRange" xml:space="preserve">
+    <value>小数点以下桁数の値 '{0}' が 0 未満か、最大小数点以下桁数 38 を超えています。</value>
+    <comment>Scale value '{0}' is either less than 0 or greater than the maximum allowed scale of 38.</comment>
+  </data>
+  <data name="SQL_TimeScaleValueOutOfRange" xml:space="preserve">
+    <value>小数点以下桁数の値 '{0}' が 0 未満か、最大小数点以下桁数 7 を超えています。</value>
+    <comment>Scale value '{0}' is either less than 0 or greater than the maximum allowed scale of 7.</comment>
+  </data>
+  <data name="SQL_ParameterInvalidVariant" xml:space="preserve">
+    <value>パラメーター '{0}' は sql_variant データ型のサイズ制限を超えています。</value>
+    <comment>Parameter '{0}' exceeds the size limit for the sql_variant datatype.</comment>
+  </data>
+  <data name="SQL_ParameterTypeNameRequired" xml:space="preserve">
+    <value>{0} 型パラメーター '{1}' には有効な型名が必要です。</value>
+    <comment>The {0} type parameter '{1}' must have a valid type name.</comment>
+  </data>
+  <data name="SQL_InvalidInternalPacketSize" xml:space="preserve">
+    <value>無効な内部パケット サイズ:</value>
+    <comment>Invalid internal packet size:</comment>
+  </data>
+  <data name="SQL_InvalidTDSVersion" xml:space="preserve">
+    <value>SQL Server インスタンスがログイン ネゴシエーション中に無効またはサポートされていないプロトコル バージョンを返しました。</value>
+    <comment>The SQL Server instance returned an invalid or unsupported protocol version during login negotiation.</comment>
+  </data>
+  <data name="SQL_InvalidTDSPacketSize" xml:space="preserve">
+    <value>パケット サイズが無効です。</value>
+    <comment>Invalid Packet Size.</comment>
+  </data>
+  <data name="SQL_ParsingError" xml:space="preserve">
+    <value>内部接続の致命的なエラーです。</value>
+    <comment>Internal connection fatal error.</comment>
+  </data>
+  <data name="SQL_ConnectionLockedForBcpEvent" xml:space="preserve">
+    <value>完了する必要がある操作が進行中のため、接続を使用できません。</value>
+    <comment>The connection cannot be used because there is an ongoing operation that must be finished.</comment>
+  </data>
+  <data name="SQL_SNIPacketAllocationFailure" xml:space="preserve">
+    <value>内部接続のメモリ割り当てに失敗しました。</value>
+    <comment>Memory allocation for internal connection failed.</comment>
+  </data>
+  <data name="SQL_SmallDateTimeOverflow" xml:space="preserve">
+    <value>SqlDbType.SmallDateTime のオーバーフローです。値 '{0}' は範囲外です。1/1/1900 12:00:00 AM から 6/6/2079 11:59:59 PM の間である必要があります。</value>
+    <comment>SqlDbType.SmallDateTime overflow.  Value '{0}' is out of range.  Must be between 1/1/1900 12:00:00 AM and 6/6/2079 11:59:59 PM.</comment>
+  </data>
+  <data name="SQL_TimeOverflow" xml:space="preserve">
+    <value>SqlDbType.Time のオーバーフローです。値 '{0}' は範囲外です。00:00:00.0000000 から 23:59:59.9999999 の間である必要があります。</value>
+    <comment>SqlDbType.Time overflow.  Value '{0}' is out of range.  Must be between 00:00:00.0000000 and 23:59:59.9999999.</comment>
+  </data>
+  <data name="SQL_MoneyOverflow" xml:space="preserve">
+    <value>SqlDbType.SmallMoney のオーバーフローです。値 '{0}' は範囲外です。-214,748.3648 から 214,748.3647 の間である必要があります。</value>
+    <comment>SqlDbType.SmallMoney overflow.  Value '{0}' is out of range.  Must be between -214,748.3648 and 214,748.3647.</comment>
+  </data>
+  <data name="SQL_CultureIdError" xml:space="preserve">
+    <value>SQL Server が指定した照合順序はサポートされていません。</value>
+    <comment>The Collation specified by SQL Server is not supported.</comment>
+  </data>
+  <data name="SQL_OperationCancelled" xml:space="preserve">
+    <value>ユーザーによって操作が取り消されました。</value>
+    <comment>Operation cancelled by user.</comment>
+  </data>
+  <data name="SQL_SevereError" xml:space="preserve">
+    <value>現在のコマンドで重大なエラーが発生しました。結果があれば破棄してください。</value>
+    <comment>A severe error occurred on the current command.  The results, if any, should be discarded.</comment>
+  </data>
+  <data name="SQL_SSPIGenerateError" xml:space="preserve">
+    <value>SSPI コンテキストを生成できませんでした。</value>
+    <comment>Failed to generate SSPI context.</comment>
+  </data>
+  <data name="SQL_KerberosTicketMissingError" xml:space="preserve">
+    <value>Kerberos を使用して認証できません。'kinit' でクライアントの Kerberos が初期化されていること、および Kerberos 認証用に SQL Server のサービス プリンシパル名が登録されていることを確認してください。</value>
+    <comment>Cannot authenticate using Kerberos. Ensure Kerberos has been initialized on the client with 'kinit' and a Service Principal Name has been registered for the SQL Server to allow Kerberos authentication.</comment>
+  </data>
+  <data name="SQL_SqlServerBrowserNotAccessible" xml:space="preserve">
+    <value>SQL Server Browser に接続できません。開始されているか確認してください。</value>
+    <comment>Cannot connect to SQL Server Browser. Ensure SQL Server Browser has been started.</comment>
+  </data>
+  <data name="SQL_InvalidSSPIPacketSize" xml:space="preserve">
+    <value>SSPI パケット サイズが無効です。</value>
+    <comment>Invalid SSPI packet size.</comment>
+  </data>
+  <data name="SQL_SSPIInitializeError" xml:space="preserve">
+    <value>SSPI パッケージを初期化できません。</value>
+    <comment>Cannot initialize SSPI package.</comment>
+  </data>
+  <data name="SQL_Timeout" xml:space="preserve">
+    <value>タイムアウトしました。操作の完了前にタイムアウト期間が経過したか、サーバーが応答していません。</value>
+    <comment>Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.</comment>
+  </data>
+  <data name="SQL_Timeout_PreLogin_Begin" xml:space="preserve">
+    <value>接続がタイムアウトしました。プレログイン フェーズの開始時にタイムアウト期間が経過しました。接続タイムアウトの時間が不足している可能性があります。</value>
+    <comment>Connection Timeout Expired.  The timeout period elapsed at the start of the pre-login phase.  This could be because of insufficient time provided for connection timeout.</comment>
+  </data>
+  <data name="SQL_Timeout_PreLogin_InitializeConnection" xml:space="preserve">
+    <value>接続がタイムアウトしました。サーバーへのソケットの作成と初期化中にタイムアウト期間が経過しました。サーバーに到達できなかったか、時間内に応答できなかった可能性があります。</value>
+    <comment>Connection Timeout Expired.  The timeout period elapsed while attempting to create and initialize a socket to the server.  This could be either because the server was unreachable or unable to respond back in time.</comment>
+  </data>
+  <data name="SQL_Timeout_PreLogin_SendHandshake" xml:space="preserve">
+    <value>接続がタイムアウトしました。プレログイン ハンドシェイク要求の実行中にタイムアウト期間が経過しました。サーバーが時間内に応答できなかった可能性があります。</value>
+    <comment>Connection Timeout Expired.  The timeout period elapsed while making a pre-login handshake request.  This could be because the server was unable to respond back in time.</comment>
+  </data>
+  <data name="SQL_Timeout_PreLogin_ConsumeHandshake" xml:space="preserve">
+    <value>接続がタイムアウトしました。プレログイン ハンドシェイクの確認応答の処理中にタイムアウト期間が経過しました。プレログイン ハンドシェイクが失敗したか、サーバーが時間内に応答できなかった可能性があります。</value>
+    <comment>Connection Timeout Expired.  The timeout period elapsed while attempting to consume the pre-login handshake acknowledgement.  This could be because the pre-login handshake failed or the server was unable to respond back in time.</comment>
+  </data>
+  <data name="SQL_Timeout_Login_Begin" xml:space="preserve">
+    <value>接続がタイムアウトしました。ログイン フェーズの開始時にタイムアウト期間が経過しました。接続タイムアウトの時間が不足している可能性があります。</value>
+    <comment>Connection Timeout Expired.  The timeout period elapsed at the start of the login phase.  This could be because of insufficient time provided for connection timeout.</comment>
+  </data>
+  <data name="SQL_Timeout_Login_ProcessConnectionAuth" xml:space="preserve">
+    <value>接続がタイムアウトしました。ログイン認証中にタイムアウト期間が経過しました。サーバーがユーザーを認証できなかったか、時間内に応答できなかった可能性があります。</value>
+    <comment>Connection Timeout Expired.  The timeout period elapsed while attempting to authenticate the login.  This could be because the server failed to authenticate the user or the server was unable to respond back in time.</comment>
+  </data>
+  <data name="SQL_Timeout_PostLogin" xml:space="preserve">
+    <value>接続がタイムアウトしました。ログイン後のフェーズでタイムアウト期間が経過しました。サーバーがログイン処理を完了して応答するのを待機中か、複数のアクティブな接続の作成中にタイムアウトした可能性があります。</value>
+    <comment>Connection Timeout Expired.  The timeout period elapsed during the post-login phase.  The connection could have timed out while waiting for server to complete the login process and respond; Or it could have timed out while attempting to create multiple active connections.</comment>
+  </data>
+  <data name="SQL_Timeout_FailoverInfo" xml:space="preserve">
+    <value>このエラーは {0} サーバーへの接続中に発生しました。</value>
+    <comment>This failure occurred while attempting to connect to the {0} server.</comment>
+  </data>
+  <data name="SQL_Timeout_RoutingDestinationInfo" xml:space="preserve">
+    <value>このエラーはルーティング先への接続中に発生しました。元のサーバーへの接続時間: [Pre-Login] initialization={0}; handshake={1}; [Login] initialization={2}; authentication={3}; [Post-Login] complete={4};  </value>
+    <comment>This failure occurred while attempting to connect to the routing destination. The duration spent while attempting to connect to the original server was - [Pre-Login] initialization={0}; handshake={1}; [Login] initialization={2}; authentication={3}; [Post-Login] complete={4};  </comment>
+  </data>
+  <data name="SQL_Duration_PreLogin_Begin" xml:space="preserve">
+    <value>このサーバーへの接続時間: [Pre-Login] initialization={0};</value>
+    <comment>The duration spent while attempting to connect to this server was - [Pre-Login] initialization={0};</comment>
+  </data>
+  <data name="SQL_Duration_PreLoginHandshake" xml:space="preserve">
+    <value>このサーバーへの接続時間: [Pre-Login] initialization={0}; handshake={1}; </value>
+    <comment>The duration spent while attempting to connect to this server was - [Pre-Login] initialization={0}; handshake={1}; </comment>
+  </data>
+  <data name="SQL_Duration_Login_Begin" xml:space="preserve">
+    <value>このサーバーへの接続時間: [Pre-Login] initialization={0}; handshake={1}; [Login] initialization={2}; </value>
+    <comment>The duration spent while attempting to connect to this server was - [Pre-Login] initialization={0}; handshake={1}; [Login] initialization={2}; </comment>
+  </data>
+  <data name="SQL_Duration_Login_ProcessConnectionAuth" xml:space="preserve">
+    <value>このサーバーへの接続時間: [Pre-Login] initialization={0}; handshake={1}; [Login] initialization={2}; authentication={3}; </value>
+    <comment>The duration spent while attempting to connect to this server was - [Pre-Login] initialization={0}; handshake={1}; [Login] initialization={2}; authentication={3}; </comment>
+  </data>
+  <data name="SQL_Duration_PostLogin" xml:space="preserve">
+    <value>このサーバーへの接続時間: [Pre-Login] initialization={0}; handshake={1}; [Login] initialization={2}; authentication={3}; [Post-Login] complete={4}; </value>
+    <comment>The duration spent while attempting to connect to this server was - [Pre-Login] initialization={0}; handshake={1}; [Login] initialization={2}; authentication={3}; [Post-Login] complete={4}; </comment>
+  </data>
+  <data name="SQL_UserInstanceFailure" xml:space="preserve">
+    <value>接続文字列でユーザー インスタンスが要求されましたが、指定されたサーバーはこのオプションをサポートしていません。</value>
+    <comment>A user instance was requested in the connection string but the server specified does not support this option.</comment>
+  </data>
+  <data name="SQL_InvalidRead" xml:space="preserve">
+    <value>データがないときの読み取りは無効です。</value>
+    <comment>Invalid attempt to read when no data is present.</comment>
+  </data>
+  <data name="SQL_NonBlobColumn" xml:space="preserve">
+    <value>列 '{0}' に対する GetBytes の試行は無効です。GetBytes 関数は、Text, NText, Image 型の列でのみ使用できます。</value>
+    <comment>Invalid attempt to GetBytes on column '{0}'.  The GetBytes function can only be used on columns of type Text, NText, or Image.</comment>
+  </data>
+  <data name="SQL_NonCharColumn" xml:space="preserve">
+    <value>列 '{0}' に対する GetChars の試行は無効です。GetChars 関数は、Text, NText, Xml, VarChar, NVarChar 型の列でのみ使用できます。</value>
+    <comment>Invalid attempt to GetChars on column '{0}'.  The GetChars function can only be used on columns of type Text, NText, Xml, VarChar or NVarChar.</comment>
+  </data>
+  <data name="SQL_StreamNotSupportOnColumnType" xml:space="preserve">
+    <value>列 '{0}' に対する GetStream の試行は無効です。GetStream 関数は、Binary, Image, Udt, VarBinary 型の列でのみ使用できます。</value>
+    <comment>Invalid attempt to GetStream on column '{0}'. The GetStream function can only be used on columns of type Binary, Image, Udt or VarBinary.</comment>
+  </data>
+  <data name="SQL_TextReaderNotSupportOnColumnType" xml:space="preserve">
+    <value>列 '{0}' に対する GetTextReader の試行は無効です。GetTextReader 関数は、Char, NChar, NText, NVarChar, Text, VarChar 型の列でのみ使用できます。</value>
+    <comment>Invalid attempt to GetTextReader on column '{0}'. The GetTextReader function can only be used on columns of type Char, NChar, NText, NVarChar, Text or VarChar.</comment>
+  </data>
+  <data name="SQL_XmlReaderNotSupportOnColumnType" xml:space="preserve">
+    <value>列 '{0}' に対する GetXmlReader の試行は無効です。GetXmlReader 関数は、Xml 型の列でのみ使用できます。</value>
+    <comment>Invalid attempt to GetXmlReader on column '{0}'. The GetXmlReader function can only be used on columns of type Xml.</comment>
+  </data>
+  <data name="SqlDelegatedTransaction_PromotionFailed" xml:space="preserve">
+    <value>トランザクションの昇格中にエラーが発生しました。</value>
+    <comment>Failure while attempting to promote transaction.</comment>
+  </data>
+  <data name="SQL_InvalidBufferSizeOrIndex" xml:space="preserve">
+    <value>バッファー オフセット '{1}' と使用可能なバイト数 '{0}' の合計が、渡されたバッファーの長さを超えています。</value>
+    <comment>Buffer offset '{1}' plus the bytes available '{0}' is greater than the length of the passed in buffer.</comment>
+  </data>
+  <data name="SQL_InvalidDataLength" xml:space="preserve">
+    <value>データ長 '{0}' が 0 未満です。</value>
+    <comment>Data length '{0}' is less than 0.</comment>
+  </data>
+  <data name="SQL_BulkLoadMappingInaccessible" xml:space="preserve">
+    <value>マップされたコレクションは使用中のため、現在アクセスできません。</value>
+    <comment>The mapped collection is in use and cannot be accessed at this time;</comment>
+  </data>
+  <data name="SQL_BulkLoadMappingsNamesOrOrdinalsOnly" xml:space="preserve">
+    <value>マッピングはすべて名前ベースか、すべて序数ベースにする必要があります。</value>
+    <comment>Mappings must be either all name or all ordinal based.</comment>
+  </data>
+  <data name="SQL_BulkLoadCannotConvertValue" xml:space="preserve">
+    <value>型 {0} のデータ ソースの値を、対象列の型 {1} に変換できません。</value>
+    <comment>The given value of type {0} from the data source cannot be converted to type {1} of the specified target column.</comment>
+  </data>
+  <data name="SQL_BulkLoadNonMatchingColumnMapping" xml:space="preserve">
+    <value>指定された ColumnMapping は、ソースまたはコピー先のどの列とも一致しません。</value>
+    <comment>The given ColumnMapping does not match up with any column in the source or destination.</comment>
+  </data>
+  <data name="SQL_BulkLoadNonMatchingColumnName" xml:space="preserve">
+    <value>指定された ColumnName '{0}' は、データ ソースのどの列とも一致しません。</value>
+    <comment>The given ColumnName '{0}' does not match up with any column in data source.</comment>
+  </data>
+  <data name="SQL_BulkLoadStringTooLong" xml:space="preserve">
+    <value>文字列またはバイナリ データが切り捨てられます。</value>
+    <comment>String or binary data would be truncated.</comment>
+  </data>
+  <data name="SQL_BulkLoadInvalidTimeout" xml:space="preserve">
+    <value>タイムアウト値 '{0}' が負です。</value>
+    <comment>Timeout Value '{0}' is less than 0.</comment>
+  </data>
+  <data name="SQL_BulkLoadInvalidVariantValue" xml:space="preserve">
+    <value>SqlVariant に変換できない値です。</value>
+    <comment>Value cannot be converted to SqlVariant.</comment>
+  </data>
+  <data name="SQL_BulkLoadExistingTransaction" xml:space="preserve">
+    <value>予期しない既存のトランザクションがあります。</value>
+    <comment>Unexpected existing transaction.</comment>
+  </data>
+  <data name="SQL_BulkLoadNoCollation" xml:space="preserve">
+    <value>コピー先テーブルの列の照合順序情報を取得できませんでした。現在のデータベースにないテーブルは、データベース名で修飾する必要があります (例: [mydb]..[mytable])。一時テーブルも同様です (例: #mytable は tempdb..#mytable と指定)。</value>
+    <comment>Failed to obtain column collation information for the destination table. If the table is not in the current database the name must be qualified using the database name (e.g. [mydb]..[mytable](e.g. [mydb]..[mytable]); this also applies to temporary-tables (e.g. #mytable would be specified as tempdb..#mytable).</comment>
+  </data>
+  <data name="SQL_BulkLoadConflictingTransactionOption" xml:space="preserve">
+    <value>SqlBulkCopyOption.UseInternalTransaction を指定し、同時に外部 Transaction を渡すことはできません。</value>
+    <comment>Must not specify SqlBulkCopyOption.UseInternalTransaction and pass an external Transaction at the same time.</comment>
+  </data>
+  <data name="SQL_BulkLoadInvalidOperationInsideEvent" xml:space="preserve">
+    <value>イベント中にこの関数は呼び出せません。</value>
+    <comment>Function must not be called during event.</comment>
+  </data>
+  <data name="SQL_BulkLoadMissingDestinationTable" xml:space="preserve">
+    <value>このメソッドを呼び出す前に DestinationTableName プロパティを設定する必要があります。</value>
+    <comment>The DestinationTableName property must be set before calling this method.</comment>
+  </data>
+  <data name="SQL_BulkLoadInvalidDestinationTable" xml:space="preserve">
+    <value>対象テーブル '{0}' にアクセスできません。</value>
+    <comment>Cannot access destination table '{0}'.</comment>
+  </data>
+  <data name="SQL_BulkLoadNotAllowDBNull" xml:space="preserve">
+    <value>列 '{0}' は DBNull.Value を許可しません。</value>
+    <comment>Column '{0}' does not allow DBNull.Value.</comment>
+  </data>
+  <data name="Sql_BulkLoadLcidMismatch" xml:space="preserve">
+    <value>ソース列 '{1}' のロケール ID '{0}' とコピー先列 '{3}' のロケール ID '{2}' が一致しません。</value>
+    <comment>The locale id '{0}' of the source column '{1}' and the locale id '{2}' of the destination column '{3}' do not match.</comment>
+  </data>
+  <data name="SQL_BulkLoadPendingOperation" xml:space="preserve">
+    <value>保留中の操作があるオブジェクトで一括コピーを実行しようとしました。</value>
+    <comment>Attempt to invoke bulk copy on an object that has a pending operation.</comment>
+  </data>
+  <data name="SQL_CannotGetDTCAddress" xml:space="preserve">
+    <value>サーバーから、サーバーの分散トランザクション コーディネーターのアドレスを取得できません。サーバーで DTC が有効になっていますか?</value>
+    <comment>Unable to get the address of the distributed transaction coordinator for the server, from the server.  Is DTC enabled on the server?</comment>
+  </data>
+  <data name="SQL_ConnectionDoomed" xml:space="preserve">
+    <value>接続が切断されたため、要求された操作を完了できません。</value>
+    <comment>The requested operation cannot be completed because the connection has been broken.</comment>
+  </data>
+  <data name="SQL_OpenResultCountExceeded" xml:space="preserve">
+    <value>開いた結果数が上限を超えました。</value>
+    <comment>Open result count exceeded.</comment>
+  </data>
+  <data name="SQL_StreamWriteNotSupported" xml:space="preserve">
+    <value>Stream は書き込みをサポートしていません。</value>
+    <comment>The Stream does not support writing.</comment>
+  </data>
+  <data name="SQL_StreamReadNotSupported" xml:space="preserve">
+    <value>Stream は読み取りをサポートしていません。</value>
+    <comment>The Stream does not support reading.</comment>
+  </data>
+  <data name="SQL_StreamSeekNotSupported" xml:space="preserve">
+    <value>Stream はシークできません。</value>
+    <comment>The Stream does not support seeking.</comment>
+  </data>
+  <data name="SQL_ExClientConnectionId" xml:space="preserve">
+    <value>ClientConnectionId:{0}</value>
+    <comment>ClientConnectionId:{0}</comment>
+  </data>
+  <data name="SQL_ExErrorNumberStateClass" xml:space="preserve">
+    <value>エラー番号:{0},状態:{1},クラス:{2}</value>
+    <comment>Error Number:{0},State:{1},Class:{2}</comment>
+  </data>
+  <data name="SQL_ExOriginalClientConnectionId" xml:space="preserve">
+    <value>ルーティング前の ClientConnectionId:{0}</value>
+    <comment>ClientConnectionId before routing:{0}</comment>
+  </data>
+  <data name="SQL_ExRoutingDestination" xml:space="preserve">
+    <value>ルーティング先:{0}</value>
+    <comment>Routing Destination:{0}</comment>
+  </data>
+  <data name="SQL_UnsupportedSysTxVersion" xml:space="preserve">
+    <value>読み込まれた System.Transactions.dll はグローバル トランザクションに未対応です。</value>
+    <comment>The currently loaded System.Transactions.dll does not support Global Transactions.</comment>
+  </data>
+  <data name="SqlMisc_NullString" xml:space="preserve">
+    <value>Null</value>
+    <comment>Null</comment>
+  </data>
+  <data name="SqlMisc_MessageString" xml:space="preserve">
+    <value>メッセージ</value>
+    <comment>Message</comment>
+  </data>
+  <data name="SqlMisc_ArithOverflowMessage" xml:space="preserve">
+    <value>算術オーバーフローです。</value>
+    <comment>Arithmetic Overflow.</comment>
+  </data>
+  <data name="SqlMisc_DivideByZeroMessage" xml:space="preserve">
+    <value>0 による除算エラーです。</value>
+    <comment>Divide by zero error encountered.</comment>
+  </data>
+  <data name="SqlMisc_NullValueMessage" xml:space="preserve">
+    <value>データが Null です。Null 値ではこのメソッドやプロパティは呼び出せません。</value>
+    <comment>Data is Null. This method or property cannot be called on Null values.</comment>
+  </data>
+  <data name="SqlMisc_TruncationMessage" xml:space="preserve">
+    <value>数値演算で切り捨てが発生します。</value>
+    <comment>Numeric arithmetic causes truncation.</comment>
+  </data>
+  <data name="SqlMisc_DateTimeOverflowMessage" xml:space="preserve">
+    <value>SqlDateTime のオーバーフローです。1/1/1753 12:00:00 AM から 12/31/9999 11:59:59 PM の間である必要があります。</value>
+    <comment>SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.</comment>
+  </data>
+  <data name="SqlMisc_ConcatDiffCollationMessage" xml:space="preserve">
+    <value>連結する 2 つの文字列の照合順序が異なります。</value>
+    <comment>Two strings to be concatenated have different collation.</comment>
+  </data>
+  <data name="SqlMisc_CompareDiffCollationMessage" xml:space="preserve">
+    <value>比較する 2 つの文字列の照合順序が異なります。</value>
+    <comment>Two strings to be compared have different collation.</comment>
+  </data>
+  <data name="SqlMisc_InvalidFlagMessage" xml:space="preserve">
+    <value>無効なフラグ値です。</value>
+    <comment>Invalid flag value.</comment>
+  </data>
+  <data name="SqlMisc_NumeToDecOverflowMessage" xml:space="preserve">
+    <value>SqlDecimal を Decimal に変換するとオーバーフローします。</value>
+    <comment>Conversion from SqlDecimal to Decimal overflows.</comment>
+  </data>
+  <data name="SqlMisc_ConversionOverflowMessage" xml:space="preserve">
+    <value>変換オーバーフローです。</value>
+    <comment>Conversion overflows.</comment>
+  </data>
+  <data name="SqlMisc_InvalidDateTimeMessage" xml:space="preserve">
+    <value>SqlDateTime が無効です。</value>
+    <comment>Invalid SqlDateTime.</comment>
+  </data>
+  <data name="SqlMisc_TimeZoneSpecifiedMessage" xml:space="preserve">
+    <value>タイム ゾーンが指定されました。SqlDateTime はタイム ゾーンをサポートしていません。</value>
+    <comment>A time zone was specified. SqlDateTime does not support time zones.</comment>
+  </data>
+  <data name="SqlMisc_InvalidArraySizeMessage" xml:space="preserve">
+    <value>無効な配列サイズです。</value>
+    <comment>Invalid array size.</comment>
+  </data>
+  <data name="SqlMisc_InvalidPrecScaleMessage" xml:space="preserve">
+    <value>数値の精度/スケールが無効です。</value>
+    <comment>Invalid numeric precision/scale.</comment>
+  </data>
+  <data name="SqlMisc_FormatMessage" xml:space="preserve">
+    <value>入力の形式が正しくありません。</value>
+    <comment>The input wasn't in a correct format.</comment>
+  </data>
+  <data name="SqlMisc_StreamErrorMessage" xml:space="preserve">
+    <value>読み取り中にエラーが発生しました。</value>
+    <comment>An error occurred while reading.</comment>
+  </data>
+  <data name="SqlMisc_TruncationMaxDataMessage" xml:space="preserve">
+    <value>返されたデータのサイズが 2Gb を超えています。すべてのデータを取得するには、コマンド動作 SequentialAccess を使用してください。</value>
+    <comment>Data returned is larger than 2Gb in size. Use SequentialAccess command behavior in order to get all of the data.</comment>
+  </data>
+  <data name="SqlMisc_NotFilledMessage" xml:space="preserve">
+    <value>SQL 型にデータが読み込まれていません。</value>
+    <comment>SQL Type has not been loaded with data.</comment>
+  </data>
+  <data name="SqlMisc_AlreadyFilledMessage" xml:space="preserve">
+    <value>SQL 型には既にデータが読み込まれています。</value>
+    <comment>SQL Type has already been loaded with data.</comment>
+  </data>
+  <data name="SqlMisc_ClosedXmlReaderMessage" xml:space="preserve">
+    <value>閉じた XmlReader にアクセスしようとしました。</value>
+    <comment>Invalid attempt to access a closed XmlReader.</comment>
+  </data>
+  <data name="SqlMisc_InvalidOpStreamClosed" xml:space="preserve">
+    <value>ストリームが閉じている状態で {0} を呼び出すことはできません。</value>
+    <comment>Invalid attempt to call {0} when the stream is closed.</comment>
+  </data>
+  <data name="SqlMisc_InvalidOpStreamNonWritable" xml:space="preserve">
+    <value>ストリームが書き込み不可の状態で {0} を呼び出すことはできません。</value>
+    <comment>Invalid attempt to call {0} when the stream non-writable.</comment>
+  </data>
+  <data name="SqlMisc_InvalidOpStreamNonReadable" xml:space="preserve">
+    <value>ストリームが読み取り不可の状態で {0} を呼び出すことはできません。</value>
+    <comment>Invalid attempt to call {0} when the stream non-readable.</comment>
+  </data>
+  <data name="SqlMisc_InvalidOpStreamNonSeekable" xml:space="preserve">
+    <value>ストリームがシーク不可の状態で {0} を呼び出すことはできません。</value>
+    <comment>Invalid attempt to call {0} when the stream is non-seekable.</comment>
+  </data>
+  <data name="SqlMisc_SubclassMustOverride" xml:space="preserve">
+    <value>サブクラスが必要なメソッドをオーバーライドしていません。</value>
+    <comment>Subclass did not override a required method.</comment>
+  </data>
+  <data name="SqlUdtReason_NoUdtAttribute" xml:space="preserve">
+    <value>UDT 属性がありません</value>
+    <comment>no UDT attribute</comment>
+  </data>
+  <data name="SQLUDT_InvalidSqlType" xml:space="preserve">
+    <value>指定された型は対象サーバーに登録されていません。{0}。</value>
+    <comment>Specified type is not registered on the target server. {0}.</comment>
+  </data>
+  <data name="Sql_InternalError" xml:space="preserve">
+    <value>内部エラー</value>
+    <comment>Internal Error</comment>
+  </data>
+  <data name="ADP_OperationAborted" xml:space="preserve">
+    <value>操作は中止されました。</value>
+    <comment>Operation aborted.</comment>
+  </data>
+  <data name="ADP_OperationAbortedExceptionMessage" xml:space="preserve">
+    <value>例外により操作が中止されました (詳細は InnerException を参照)。</value>
+    <comment>Operation aborted due to an exception (see InnerException for details).</comment>
+  </data>
+  <data name="ADP_TransactionCompletedButNotDisposed" xml:space="preserve">
+    <value>現在の接続に関連付けられたトランザクションは完了しましたが、破棄されていません。SQL ステートメントの実行に接続を使用するには、トランザクションを破棄する必要があります。</value>
+    <comment>The transaction associated with the current connection has completed but has not been disposed.  The transaction must be disposed before the connection can be used to execute SQL statements.</comment>
+  </data>
+  <data name="SqlParameter_UnsupportedTVPOutputParameter" xml:space="preserve">
+    <value>パラメーター '{1}' に指定された ParameterDirection '{0}' はサポートされていません。テーブル値パラメーターは ParameterDirection.Input のみをサポートします。</value>
+    <comment>ParameterDirection '{0}' specified for parameter '{1}' is not supported. Table-valued parameters only support ParameterDirection.Input.</comment>
+  </data>
+  <data name="SqlParameter_DBNullNotSupportedForTVP" xml:space="preserve">
+    <value>パラメーター '{0}' の DBNull 値はサポートされていません。テーブル値パラメーターに DBNull は指定できません。</value>
+    <comment>DBNull value for parameter '{0}' is not supported. Table-valued parameters cannot be DBNull.</comment>
+  </data>
+  <data name="SqlParameter_UnexpectedTypeNameForNonStruct" xml:space="preserve">
+    <value>パラメーター '{0}' に TypeName が指定されました。TypeName は Structured パラメーターにのみ設定できます。</value>
+    <comment>TypeName specified for parameter '{0}'.  TypeName must only be set for Structured parameters.</comment>
+  </data>
+  <data name="NullSchemaTableDataTypeNotSupported" xml:space="preserve">
+    <value>スキーマ テーブルのフィールド '{0}' の DateType 列が null です。DataType は null 以外である必要があります。</value>
+    <comment>DateType column for field '{0}' in schema table is null.  DataType must be non-null.</comment>
+  </data>
+  <data name="InvalidSchemaTableOrdinals" xml:space="preserve">
+    <value>スキーマ テーブルの列序数が無効です。ColumnOrdinals を指定する場合、重複や欠番があってはなりません。</value>
+    <comment>Invalid column ordinals in schema table.  ColumnOrdinals, if present, must not have duplicates or gaps.</comment>
+  </data>
+  <data name="SQL_EnumeratedRecordMetaDataChanged" xml:space="preserve">
+    <value>レコード '{1}' のフィールド '{0}' のメタデータが元のレコードのメタデータと一致しません。</value>
+    <comment>Metadata for field '{0}' of record '{1}' did not match the original record's metadata.</comment>
+  </data>
+  <data name="SQL_EnumeratedRecordFieldCountChanged" xml:space="preserve">
+    <value>レコード '{0}' のフィールド数が元のレコードと一致しません。</value>
+    <comment>Number of fields in record '{0}' does not match the number in the original record.</comment>
+  </data>
+  <data name="GT_Disabled" xml:space="preserve">
+    <value>この Azure SQL Database ではグローバル トランザクションが無効です。Azure SQL Database サポートにお問い合わせください。</value>
+    <comment>Global Transactions are not enabled for this Azure SQL Database. Please contact Azure SQL Database support for assistance.</comment>
+  </data>
+  <data name="SQL_UnknownSysTxIsolationLevel" xml:space="preserve">
+    <value>System.Transactions.IsolationLevel の列挙値 {0} を認識できません。</value>
+    <comment>Unrecognized System.Transactions.IsolationLevel enumeration value: {0}.</comment>
+  </data>
+  <data name="SQLNotify_AlreadyHasCommand" xml:space="preserve">
+    <value>この SqlCommand オブジェクトは既に別の SqlDependency オブジェクトに関連付けられています。</value>
+    <comment>This SqlCommand object is already associated with another SqlDependency object.</comment>
+  </data>
+  <data name="SqlDependency_DatabaseBrokerDisabled" xml:space="preserve">
+    <value>現在のデータベースの SQL Server Service Broker が有効ではないため、クエリ通知はサポートされません。通知を使用する場合は、このデータベースの Service Broker を有効にしてください。</value>
+    <comment>The SQL Server Service Broker for the current database is not enabled, and as a result query notifications are not supported.  Please enable the Service Broker for this database if you wish to use notifications.</comment>
+  </data>
+  <data name="SqlDependency_DefaultOptionsButNoStart" xml:space="preserve">
+    <value>オプション値を指定せずに SqlDependency を使用する場合、SqlDependency インスタンスに追加したコマンドを実行する前に SqlDependency.Start() を呼び出す必要があります。</value>
+    <comment>When using SqlDependency without providing an options value, SqlDependency.Start() must be called prior to execution of a command added to the SqlDependency instance.</comment>
+  </data>
+  <data name="SqlDependency_NoMatchingServerStart" xml:space="preserve">
+    <value>オプション値を指定せずに SqlDependency を使用する場合、実行対象のサーバーごとに SqlDependency.Start() を呼び出す必要があります。</value>
+    <comment>When using SqlDependency without providing an options value, SqlDependency.Start() must be called for each server that is being executed against.</comment>
+  </data>
+  <data name="SqlDependency_NoMatchingServerDatabaseStart" xml:space="preserve">
+    <value>コマンドの実行対象サーバーに対して SqlDependency.Start が複数回呼び出されましたが、現在のコマンドに一致するサーバー/ユーザー/データベースの Start() 呼び出しがありません。</value>
+    <comment>SqlDependency.Start has been called for the server the command is executing against more than once, but there is no matching server/user/database Start() call for current command.</comment>
+  </data>
+  <data name="SqlDependency_EventNoDuplicate" xml:space="preserve">
+    <value>SqlDependency.OnChange は同じデリゲートの複数のイベント登録をサポートしていません。</value>
+    <comment>SqlDependency.OnChange does not support multiple event registrations for the same delegate.</comment>
+  </data>
+  <data name="SqlDependency_IdMismatch" xml:space="preserve">
+    <value>キーの SqlDependency がありません。</value>
+    <comment>No SqlDependency exists for the key.</comment>
+  </data>
+  <data name="SqlDependency_InvalidTimeout" xml:space="preserve">
+    <value>指定されたタイムアウトが無効です。タイムアウトに 0 未満は指定できません。</value>
+    <comment>Timeout specified is invalid. Timeout cannot be &lt; 0.</comment>
+  </data>
+  <data name="SqlDependency_DuplicateStart" xml:space="preserve">
+    <value>SqlDependency では、同じアプリケーション ドメイン内で、サーバー、ユーザー、データベースが同じで接続文字列が異なる Start() の呼び出しはサポートされていません。</value>
+    <comment>SqlDependency does not support calling Start() with different connection strings having the same server, user, and database in the same app domain.</comment>
+  </data>
+  <data name="SqlMetaData_InvalidSqlDbTypeForConstructorFormat" xml:space="preserve">
+    <value>dbType {0} はこのコンストラクターでは無効です。</value>
+    <comment>The dbType {0} is invalid for this constructor.</comment>
+  </data>
+  <data name="SqlMetaData_NameTooLong" xml:space="preserve">
+    <value>名前が長すぎます。</value>
+    <comment>The name is too long.</comment>
+  </data>
+  <data name="SqlMetaData_SpecifyBothSortOrderAndOrdinal" xml:space="preserve">
+    <value>並べ替え順序と序数は、両方指定するか、どちらも指定しない (SortOrder.Unspecified と -1) 必要があります。指定された値: order = {0}, ordinal = {1}。</value>
+    <comment>The sort order and ordinal must either both be specified, or neither should be specified (SortOrder.Unspecified and -1).  The values given were: order = {0}, ordinal = {1}.</comment>
+  </data>
+  <data name="SqlProvider_InvalidDataColumnType" xml:space="preserve">
+    <value>列 '{0}' の型はサポートされていません。型: '{1}'</value>
+    <comment>The type of column '{0}' is not supported.  The type is '{1}'</comment>
+  </data>
+  <data name="SqlProvider_NotEnoughColumnsInStructuredType" xml:space="preserve">
+    <value>Structured 型のフィールドが不足しています。Structured 型には少なくとも 1 つのフィールドが必要です。</value>
+    <comment>There are not enough fields in the Structured type.  Structured types must have at least one field.</comment>
+  </data>
+  <data name="SqlProvider_DuplicateSortOrdinal" xml:space="preserve">
+    <value>並べ替え序数 {0} が 2 回指定されました。</value>
+    <comment>The sort ordinal {0} was specified twice.</comment>
+  </data>
+  <data name="SqlProvider_MissingSortOrdinal" xml:space="preserve">
+    <value>並べ替え序数 {0} が指定されていません。</value>
+    <comment>The sort ordinal {0} was not specified.</comment>
+  </data>
+  <data name="SqlProvider_SortOrdinalGreaterThanFieldCount" xml:space="preserve">
+    <value>フィールド {1} の並べ替え序数 {0} がフィールドの総数を超えています。</value>
+    <comment>The sort ordinal {0} on field {1} exceeds the total number of fields.</comment>
+  </data>
+  <data name="SQLUDT_MaxByteSizeValue" xml:space="preserve">
+    <value>範囲: 0-8000</value>
+    <comment>range: 0-8000</comment>
+  </data>
+  <data name="SQLUDT_Unexpected" xml:space="preserve">
+    <value>SqlClient データ プロバイダーで予期しないエラーが発生しました。{0}</value>
+    <comment>unexpected error encountered in SqlClient data provider. {0}</comment>
+  </data>
+  <data name="SQLUDT_UnexpectedUdtTypeName" xml:space="preserve">
+    <value>UdtTypeName プロパティは UDT パラメーターにのみ設定できます。</value>
+    <comment>UdtTypeName property must be set only for UDT parameters.</comment>
+  </data>
+  <data name="SQLUDT_InvalidUdtTypeName" xml:space="preserve">
+    <value>UDT パラメーターには UdtTypeName プロパティを設定する必要があります。</value>
+    <comment>UdtTypeName property must be set for UDT parameters.</comment>
+  </data>
+  <data name="SqlUdt_InvalidUdtMessage" xml:space="preserve">
+    <value>'{0}' は無効なユーザー定義型です。理由: {1}。</value>
+    <comment>'{0}' is an invalid user defined type, reason: {1}.</comment>
+  </data>
+  <data name="SQL_UDTTypeName" xml:space="preserve">
+    <value>SqlParameter.UdtTypeName は無効なマルチパート名です</value>
+    <comment>SqlParameter.UdtTypeName is an invalid multipart name</comment>
+  </data>
+  <data name="SQL_InvalidUdt3PartNameFormat" xml:space="preserve">
+    <value>UdtTypeName の 3 部構成名の形式が無効です。</value>
+    <comment>Invalid 3 part name format for UdtTypeName.</comment>
+  </data>
+  <data name="IEnumerableOfSqlDataRecordHasNoRows" xml:space="preserve">
+    <value>SqlDataRecord の列挙にレコードがありません。行のないテーブル値パラメーターを送信するには、代わりに値に null 参照を使用してください。</value>
+    <comment>There are no records in the SqlDataRecord enumeration. To send a table-valued parameter with no rows, use a null reference for the value instead.</comment>
+  </data>
+  <data name="SNI_ERROR_1" xml:space="preserve">
+    <value>読み取り/書き込み操作で I/O エラーが検出されました</value>
+    <comment>I/O Error detected in read/write operation</comment>
+  </data>
+  <data name="SNI_ERROR_2" xml:space="preserve">
+    <value>接続が終了しました</value>
+    <comment>Connection was terminated</comment>
+  </data>
+  <data name="SNI_ERROR_3" xml:space="preserve">
+    <value>非同期操作はサポートされていません</value>
+    <comment>Asynchronous operations not supported</comment>
+  </data>
+  <data name="SNI_ERROR_5" xml:space="preserve">
+    <value>無効なパラメーターが見つかりました</value>
+    <comment>Invalid parameter(s) found</comment>
+  </data>
+  <data name="SNI_ERROR_6" xml:space="preserve">
+    <value>サポートされていないプロトコルが指定されました</value>
+    <comment>Unsupported protocol specified</comment>
+  </data>
+  <data name="SNI_ERROR_7" xml:space="preserve">
+    <value>新しいセッション プロトコルの設定中に無効な接続が見つかりました</value>
+    <comment>Invalid connection found when setting up new session protocol</comment>
+  </data>
+  <data name="SNI_ERROR_8" xml:space="preserve">
+    <value>プロトコルはサポートされていません</value>
+    <comment>Protocol not supported</comment>
+  </data>
+  <data name="SNI_ERROR_9" xml:space="preserve">
+    <value>ポートと I/O 完了メカニズムの関連付けに失敗しました</value>
+    <comment>Associating port with I/O completion mechanism failed</comment>
+  </data>
+  <data name="SNI_ERROR_11" xml:space="preserve">
+    <value>タイムアウト エラー</value>
+    <comment>Timeout error</comment>
+  </data>
+  <data name="SNI_ERROR_12" xml:space="preserve">
+    <value>サーバー名が指定されていません</value>
+    <comment>No server name supplied</comment>
+  </data>
+  <data name="SNI_ERROR_13" xml:space="preserve">
+    <value>TerminateListener() が呼び出されました</value>
+    <comment>TerminateListener() has been called</comment>
+  </data>
+  <data name="SNI_ERROR_14" xml:space="preserve">
+    <value>Win9x はサポートされていません</value>
+    <comment>Win9x not supported</comment>
+  </data>
+  <data name="SNI_ERROR_15" xml:space="preserve">
+    <value>関数はサポートされていません</value>
+    <comment>Function not supported</comment>
+  </data>
+  <data name="SNI_ERROR_16" xml:space="preserve">
+    <value>共有メモリ ヒープ エラー</value>
+    <comment>Shared-Memory heap error</comment>
+  </data>
+  <data name="SNI_ERROR_17" xml:space="preserve">
+    <value>接続先の ip/ipv6 アドレスが見つかりません</value>
+    <comment>Cannot find an ip/ipv6 type address to connect</comment>
+  </data>
+  <data name="SNI_ERROR_18" xml:space="preserve">
+    <value>接続はピアによって閉じられました</value>
+    <comment>Connection has been closed by peer</comment>
+  </data>
+  <data name="SNI_ERROR_19" xml:space="preserve">
+    <value>物理接続は使用できません</value>
+    <comment>Physical connection is not usable</comment>
+  </data>
+  <data name="SNI_ERROR_20" xml:space="preserve">
+    <value>接続は閉じられました</value>
+    <comment>Connection has been closed</comment>
+  </data>
+  <data name="SNI_ERROR_21" xml:space="preserve">
+    <value>暗号化が必須ですが、有効な証明書がありません</value>
+    <comment>Encryption is enforced but there is no valid certificate</comment>
+  </data>
+  <data name="SNI_ERROR_22" xml:space="preserve">
+    <value>ライブラリを読み込めませんでした</value>
+    <comment>Couldn't load library</comment>
+  </data>
+  <data name="SNI_ERROR_23" xml:space="preserve">
+    <value>サーバー プロセスで新しいスレッドを開けません</value>
+    <comment>Cannot open a new thread in server process</comment>
+  </data>
+  <data name="SNI_ERROR_24" xml:space="preserve">
+    <value>完了ポートにイベントを送信できません</value>
+    <comment>Cannot post event to completion port</comment>
+  </data>
+  <data name="SNI_ERROR_25" xml:space="preserve">
+    <value>接続文字列が無効です</value>
+    <comment>Connection string is not valid</comment>
+  </data>
+  <data name="SNI_ERROR_26" xml:space="preserve">
+    <value>指定されたサーバー/インスタンスの検索中にエラーが発生しました</value>
+    <comment>Error Locating Server/Instance Specified</comment>
+  </data>
+  <data name="SNI_ERROR_27" xml:space="preserve">
+    <value>レジストリから有効なプロトコルの一覧を取得中にエラーが発生しました</value>
+    <comment>Error getting enabled protocols list from registry</comment>
+  </data>
+  <data name="SNI_ERROR_28" xml:space="preserve">
+    <value>サーバーは要求されたプロトコルをサポートしていません</value>
+    <comment>Server doesn't support requested protocol</comment>
+  </data>
+  <data name="SNI_ERROR_29" xml:space="preserve">
+    <value>クラスター化サーバーへの接続では共有メモリはサポートされていません</value>
+    <comment>Shared Memory is not supported for clustered server connectivity</comment>
+  </data>
+  <data name="SNI_ERROR_30" xml:space="preserve">
+    <value>共有メモリ セグメントへのバインドが無効です</value>
+    <comment>Invalid attempt bind to shared memory segment</comment>
+  </data>
+  <data name="SNI_ERROR_31" xml:space="preserve">
+    <value>暗号化 (ssl/tls) ハンドシェイクに失敗しました</value>
+    <comment>Encryption(ssl/tls) handshake failed</comment>
+  </data>
+  <data name="SNI_ERROR_32" xml:space="preserve">
+    <value>パケット サイズが SSL 暗号化/復号操作には大きすぎます</value>
+    <comment>Packet size too large for SSL Encrypt/Decrypt operations</comment>
+  </data>
+  <data name="SNI_ERROR_33" xml:space="preserve">
+    <value>SSRP エラー</value>
+    <comment>SSRP error</comment>
+  </data>
+  <data name="SNI_ERROR_34" xml:space="preserve">
+    <value>共有メモリ パイプに接続できませんでした</value>
+    <comment>Could not connect to the Shared Memory pipe</comment>
+  </data>
+  <data name="SNI_ERROR_35" xml:space="preserve">
+    <value>内部例外を捕捉しました</value>
+    <comment>An internal exception was caught</comment>
+  </data>
+  <data name="SNI_ERROR_36" xml:space="preserve">
+    <value>SQL Server 2000 への接続に使用する共有メモリ dll が見つかりませんでした</value>
+    <comment>The Shared Memory dll used to connect to SQL Server 2000 was not found</comment>
+  </data>
+  <data name="SNI_ERROR_37" xml:space="preserve">
+    <value>SQL Server 2000 の共有メモリ クライアント dll が無効か破損しているようです</value>
+    <comment>The SQL Server 2000 Shared Memory client dll appears to be invalid/corrupted</comment>
+  </data>
+  <data name="SNI_ERROR_38" xml:space="preserve">
+    <value>SQL Server 2000 への共有メモリ接続を開けません</value>
+    <comment>Cannot open a Shared Memory connection to SQL Server 2000</comment>
+  </data>
+  <data name="SNI_ERROR_39" xml:space="preserve">
+    <value>このコンピューターでは、SQL Server 2000 への共有メモリ接続が無効になっているか、使用できません</value>
+    <comment>Shared memory connectivity to SQL Server 2000 is either disabled or not available on this machine</comment>
+  </data>
+  <data name="SNI_ERROR_40" xml:space="preserve">
+    <value>SQL Server への接続を開けませんでした</value>
+    <comment>Could not open a connection to SQL Server</comment>
+  </data>
+  <data name="SNI_ERROR_41" xml:space="preserve">
+    <value>リモートの SQL Server への共有メモリ接続は開けません</value>
+    <comment>Cannot open a Shared Memory connection to a remote SQL server</comment>
+  </data>
+  <data name="SNI_ERROR_42" xml:space="preserve">
+    <value>既定のポートで専用管理者接続 (DAC) を確立できませんでした。DAC が有効になっていることを確認してください</value>
+    <comment>Could not establish dedicated administrator connection (DAC) on default port. Make sure that DAC is enabled</comment>
+  </data>
+  <data name="SNI_ERROR_43" xml:space="preserve">
+    <value>専用管理者接続 (DAC) のポートの取得中にエラーが発生しました。SQL Browser が実行されていることを確認するか、エラー ログでポート番号を確認してください</value>
+    <comment>An error occurred while obtaining the dedicated administrator connection (DAC) port. Make sure that SQL Browser is running, or check the error log for the port number</comment>
+  </data>
+  <data name="SNI_ERROR_44" xml:space="preserve">
+    <value>Windows 統合認証用のサービス プリンシパル名 (SPN) を作成できませんでした。考えられる原因は、接続 API 呼び出しでのサーバーの誤指定、ドメイン ネーム システム (DNS) の参照エラー、またはメモリ不足です</value>
+    <comment>Could not compose Service Principal Name (SPN) for Windows Integrated Authentication. Possible causes are server(s) incorrectly specified to connection API calls, Domain Name System (DNS) lookup failure or memory shortage</comment>
+  </data>
+  <data name="SNI_ERROR_47" xml:space="preserve">
+    <value>64 を超える IP アドレスが構成された SQL Server インスタンスへの、MultiSubnetFailover 接続オプションを使用した接続はサポートされていません。</value>
+    <comment>Connecting with the MultiSubnetFailover connection option to a SQL Server instance configured with more than 64 IP addresses is not supported.</comment>
+  </data>
+  <data name="SNI_ERROR_48" xml:space="preserve">
+    <value>MultiSubnetFailover 接続オプションによる名前付き SQL Server インスタンスへの接続は未対応です。</value>
+    <comment>Connecting to a named SQL Server instance using the MultiSubnetFailover connection option is not supported.</comment>
+  </data>
+  <data name="SNI_ERROR_49" xml:space="preserve">
+    <value>MultiSubnetFailover 接続オプションを使用した SQL Server インスタンスへの接続は、TCP プロトコル使用時のみサポートされます。</value>
+    <comment>Connecting to a SQL Server instance using the MultiSubnetFailover connection option is only supported when using the TCP protocol.</comment>
+  </data>
+  <data name="SNI_ERROR_50" xml:space="preserve">
+    <value>Local Database Runtime のエラーです。 </value>
+    <comment>Local Database Runtime error occurred. </comment>
+  </data>
+  <data name="SNI_ERROR_51" xml:space="preserve">
+    <value>Local Database Runtime への接続中にインスタンス名が指定されませんでした。インスタンス名は (localdb)\instance_name の形式で指定してください。</value>
+    <comment>An instance name was not specified while connecting to a Local Database Runtime. Specify an instance name in the format (localdb)\instance_name.</comment>
+  </data>
+  <data name="SNI_ERROR_52" xml:space="preserve">
+    <value>Local Database Runtime のインストールが見つかりません。SQL Server Express が正しくインストールされ、Local Database Runtime 機能が有効になっていることを確認してください。</value>
+    <comment>Unable to locate a Local Database Runtime installation. Verify that SQL Server Express is properly installed and that the Local Database Runtime feature is enabled.</comment>
+  </data>
+  <data name="SNI_ERROR_53" xml:space="preserve">
+    <value>無効な Local Database Runtime レジストリ構成が見つかりました。SQL Server Express が正しくインストールされていることを確認してください。</value>
+    <comment>Invalid Local Database Runtime registry configuration found. Verify that SQL Server Express is properly installed.</comment>
+  </data>
+  <data name="SNI_ERROR_54" xml:space="preserve">
+    <value>SQLUserInstance.dll のファイル パスのレジストリ エントリがありません。SQL Server Express の Local Database Runtime 機能が正しくインストールされていることを確認してください。</value>
+    <comment>Unable to locate the registry entry for SQLUserInstance.dll file path. Verify that the Local Database Runtime feature of SQL Server Express is properly installed.</comment>
+  </data>
+  <data name="SNI_ERROR_55" xml:space="preserve">
+    <value>レジストリ値に無効な SQLUserInstance.dll ファイル パスが含まれています。SQL Server Express の Local Database Runtime 機能が正しくインストールされていることを確認してください。</value>
+    <comment>Registry value contains an invalid SQLUserInstance.dll file path. Verify that the Local Database Runtime feature of SQL Server Express is properly installed.</comment>
+  </data>
+  <data name="SNI_ERROR_56" xml:space="preserve">
+    <value>レジストリで指定された場所から SQLUserInstance.dll を読み込めません。SQL Server Express の Local Database Runtime 機能が正しくインストールされていることを確認してください。</value>
+    <comment>Unable to load the SQLUserInstance.dll from the location specified in the registry. Verify that the Local Database Runtime feature of SQL Server Express is properly installed.</comment>
+  </data>
+  <data name="SNI_ERROR_57" xml:space="preserve">
+    <value>レジストリで指定された場所に無効な SQLUserInstance.dll があります。SQL Server Express の Local Database Runtime 機能が正しくインストールされていることを確認してください。</value>
+    <comment>Invalid SQLUserInstance.dll found at the location specified in the registry. Verify that the Local Database Runtime feature of SQL Server Express is properly installed.</comment>
+  </data>
+  <data name="Snix_Connect" xml:space="preserve">
+    <value>SQL Server への接続の確立中に、ネットワーク関連またはインスタンス固有のエラーが発生しました。サーバーが見つからないか、アクセスできませんでした。インスタンス名が正しいこと、SQL Server がリモート接続を許可するように構成されていることを確認してください。</value>
+    <comment>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections.</comment>
+  </data>
+  <data name="Snix_PreLoginBeforeSuccessfulWrite" xml:space="preserve">
+    <value>ログイン前の接続初期化処理中のエラーにより、クライアントは接続を確立できませんでした。考えられる原因: クライアントがサポートされていないバージョンの SQL Server に接続しようとした、サーバーがビジーで新しい接続を受け付けられなかった、またはサーバーでリソースが制限されていた (メモリ不足または接続数の上限)。</value>
+    <comment>The client was unable to establish a connection because of an error during connection initialization process before login. Possible causes include the following:  the client tried to connect to an unsupported version of SQL Server; the server was too busy to accept new connections; or there was a resource limitation (insufficient memory or maximum allowed connections) on the server.</comment>
+  </data>
+  <data name="Snix_PreLogin" xml:space="preserve">
+    <value>サーバーとの接続は確立されましたが、ログイン前のハンドシェイク中にエラーが発生しました。</value>
+    <comment>A connection was successfully established with the server, but then an error occurred during the pre-login handshake.</comment>
+  </data>
+  <data name="Snix_LoginSspi" xml:space="preserve">
+    <value>サーバーとの接続は確立されましたが、統合セキュリティ ログインのセキュリティ/SSPI コンテキスト情報の取得中にエラーが発生しました。</value>
+    <comment>A connection was successfully established with the server, but then an error occurred when obtaining the security/SSPI context information for integrated security login.</comment>
+  </data>
+  <data name="Snix_Login" xml:space="preserve">
+    <value>サーバーに接続しましたが、ログイン中にエラーが発生しました。</value>
+    <comment>A connection was successfully established with the server, but then an error occurred during the login process.</comment>
+  </data>
+  <data name="Snix_EnableMars" xml:space="preserve">
+    <value>接続とログインに成功しましたが、この接続で MARS を有効にする際にエラーが発生しました。</value>
+    <comment>Connection open and login was successful, but then an error occurred while enabling MARS for this connection.</comment>
+  </data>
+  <data name="Snix_AutoEnlist" xml:space="preserve">
+    <value>接続とログインに成功しましたが、現在の分散トランザクションへの参加中にエラーが発生しました。</value>
+    <comment>Connection open and login was successful, but then an error occurred while enlisting the connection into the current distributed transaction.</comment>
+  </data>
+  <data name="Snix_GetMarsSession" xml:space="preserve">
+    <value>サーバーに要求を送信する準備として MARS セッションを確立できませんでした。</value>
+    <comment>Failed to establish a MARS session in preparation to send the request to the server.</comment>
+  </data>
+  <data name="Snix_Execute" xml:space="preserve">
+    <value>サーバーへの要求の送信時にトランスポート レベルのエラーが発生しました。</value>
+    <comment>A transport-level error has occurred when sending the request to the server.</comment>
+  </data>
+  <data name="Snix_Read" xml:space="preserve">
+    <value>サーバーからの結果の受信時にトランスポート レベルのエラーが発生しました。</value>
+    <comment>A transport-level error has occurred when receiving results from the server.</comment>
+  </data>
+  <data name="Snix_Close" xml:space="preserve">
+    <value>接続のクリーンアップ中にトランスポート レベルのエラーが発生しました。</value>
+    <comment>A transport-level error has occurred during connection clean-up.</comment>
+  </data>
+  <data name="Snix_SendRows" xml:space="preserve">
+    <value>サーバーへの情報の送信中にトランスポート レベルのエラーが発生しました。</value>
+    <comment>A transport-level error has occurred while sending information to the server.</comment>
+  </data>
+  <data name="Snix_ProcessSspi" xml:space="preserve">
+    <value>SSPI ハンドシェイク中にトランスポート レベルのエラーが発生しました。</value>
+    <comment>A transport-level error has occurred during SSPI handshake.</comment>
+  </data>
+  <data name="LocalDB_FailedGetDLLHandle" xml:space="preserve">
+    <value>Local Database Runtime: SQLUserInstance.dll を読み込めません。</value>
+    <comment>Local Database Runtime: Cannot load SQLUserInstance.dll.</comment>
+  </data>
+  <data name="LocalDB_MethodNotFound" xml:space="preserve">
+    <value>レジストリで指定された場所に無効な SQLUserInstance.dll があります。SQL Server Express の Local Database Runtime 機能が正しくインストールされていることを確認してください。</value>
+    <comment>Invalid SQLUserInstance.dll found at the location specified in the registry. Verify that the Local Database Runtime feature of SQL Server Express is properly installed.</comment>
+  </data>
+  <data name="LocalDB_UnobtainableMessage" xml:space="preserve">
+    <value>Local Database Runtime エラー メッセージを取得できません</value>
+    <comment>Cannot obtain Local Database Runtime error message</comment>
+  </data>
+  <data name="SQLROR_RecursiveRoutingNotSupported" xml:space="preserve">
+    <value>リダイレクトが 2 回以上発生しました。リダイレクトはログインごとに 1 回のみ可能です。</value>
+    <comment>Two or more redirections have occurred. Only one redirection per login is allowed.</comment>
+  </data>
+  <data name="SQLROR_FailoverNotSupported" xml:space="preserve">
+    <value>ApplicationIntent ReadOnly 接続オプションを使用したミラー化 SQL Server インスタンスへの接続はサポートされていません。</value>
+    <comment>Connecting to a mirrored SQL Server instance using the ApplicationIntent ReadOnly connection option is not supported.</comment>
+  </data>
+  <data name="SQLROR_UnexpectedRoutingInfo" xml:space="preserve">
+    <value>予期しないルーティング情報を受信しました。</value>
+    <comment>Unexpected routing information received.</comment>
+  </data>
+  <data name="SQLROR_InvalidRoutingInfo" xml:space="preserve">
+    <value>無効なルーティング情報を受信しました。</value>
+    <comment>Invalid routing information received.</comment>
+  </data>
+  <data name="SQLROR_TimeoutAfterRoutingInfo" xml:space="preserve">
+    <value>サーバーがルーティング情報を返しましたが、既にタイムアウトしています。</value>
+    <comment>Server provided routing information, but timeout already expired.</comment>
+  </data>
+  <data name="SQLCR_InvalidConnectRetryCountValue" xml:space="preserve">
+    <value>ConnectRetryCount 値が無効です (有効範囲 0-255)。</value>
+    <comment>Invalid ConnectRetryCount value (should be 0-255).</comment>
+  </data>
+  <data name="SQLCR_InvalidConnectRetryIntervalValue" xml:space="preserve">
+    <value>ConnectRetryInterval 値が無効です (有効範囲 1-60)。</value>
+    <comment>Invalid ConnectRetryInterval value (should be 1-60).</comment>
+  </data>
+  <data name="SQLCR_NextAttemptWillExceedQueryTimeout" xml:space="preserve">
+    <value>次の再接続試行はクエリ タイムアウトを超えます。再接続は終了しました。</value>
+    <comment>Next reconnection attempt will exceed query timeout. Reconnection was terminated.</comment>
+  </data>
+  <data name="SQLCR_EncryptionChanged" xml:space="preserve">
+    <value>サーバーが回復試行中に SSL 暗号化を維持しなかったため、接続を回復できません。</value>
+    <comment>The server did not preserve SSL encryption during a recovery attempt, connection recovery is not possible.</comment>
+  </data>
+  <data name="SQLCR_TDSVestionNotPreserved" xml:space="preserve">
+    <value>サーバーが回復試行中に、要求されたクライアント TDS バージョンを正確に維持しなかったため、接続を回復できません。</value>
+    <comment>The server did not preserve the exact client TDS version requested during a recovery attempt, connection recovery is not possible.</comment>
+  </data>
+  <data name="SQLCR_AllAttemptsFailed" xml:space="preserve">
+    <value>接続が切断されており、回復できません。クライアント ドライバーは接続の回復を 1 回以上試みましたが、すべて失敗しました。回復の試行回数を増やすには、ConnectRetryCount の値を増やしてください。</value>
+    <comment>The connection is broken and recovery is not possible.  The client driver attempted to recover the connection one or more times and all attempts failed.  Increase the value of ConnectRetryCount to increase the number of recovery attempts.</comment>
+  </data>
+  <data name="SQLCR_UnrecoverableServer" xml:space="preserve">
+    <value>接続が切断されており、回復できません。サーバーが接続を回復不能とマークしています。接続の復元は試行されませんでした。</value>
+    <comment>The connection is broken and recovery is not possible.  The connection is marked by the server as unrecoverable.  No attempt was made to restore the connection.</comment>
+  </data>
+  <data name="SQLCR_UnrecoverableClient" xml:space="preserve">
+    <value>接続が切断されており、回復できません。クライアント ドライバーが接続を回復不能とマークしています。接続の復元は試行されませんでした。</value>
+    <comment>The connection is broken and recovery is not possible.  The connection is marked by the client driver as unrecoverable.  No attempt was made to restore the connection.</comment>
+  </data>
+  <data name="SQLCR_NoCRAckAtReconnection" xml:space="preserve">
+    <value>サーバーが回復試行を確認しなかったため、接続を回復できません。</value>
+    <comment>The server did not acknowledge a recovery attempt, connection recovery is not possible.</comment>
+  </data>
+  <data name="SQL_UnsupportedKeyword" xml:space="preserve">
+    <value>キーワード '{0}' はこのプラットフォームで未対応です</value>
+    <comment>The keyword '{0}' is not supported on this platform.</comment>
+  </data>
+  <data name="SQL_UnsupportedFeature" xml:space="preserve">
+    <value>サーバーが、このプラットフォームで未対応の機能を使用しようとしています。</value>
+    <comment>The server is attempting to use a feature that is not supported on this platform.</comment>
+  </data>
+  <data name="SQL_UnsupportedToken" xml:space="preserve">
+    <value>サーバーからの読み取り中に未対応のトークン '{0}' を受信しました。</value>
+    <comment>Received an unsupported token '{0}' while reading data from the server.</comment>
+  </data>
+  <data name="SQL_DbTypeNotSupportedOnThisPlatform" xml:space="preserve">
+    <value>型 {0} はこのプラットフォームで未対応です。</value>
+    <comment>Type {0} is not supported on this platform.</comment>
+  </data>
+  <data name="SQL_NetworkLibraryNotSupported" xml:space="preserve">
+    <value>キーワード 'Network Library' はこのプラットフォームで未対応です。代わりに 'Data Source' の前に目的のプロトコルを付けてください ('tcp:' は TCP 接続、'np:' は名前付きパイプ接続)。</value>
+    <comment>The keyword 'Network Library' is not supported on this platform, prefix the 'Data Source' with the protocol desired instead ('tcp:' for a TCP connection, or 'np:' for a Named Pipe connection).</comment>
+  </data>
+  <data name="SNI_PN0" xml:space="preserve">
+    <value>HTTP Provider</value>
+    <comment>HTTP Provider</comment>
+  </data>
+  <data name="SNI_PN1" xml:space="preserve">
+    <value>Named Pipes Provider</value>
+    <comment>Named Pipes Provider</comment>
+  </data>
+  <data name="SNI_PN2" xml:space="preserve">
+    <value>Session Provider</value>
+    <comment>Session Provider</comment>
+  </data>
+  <data name="SNI_PN3" xml:space="preserve">
+    <value>Sign Provider</value>
+    <comment>Sign Provider</comment>
+  </data>
+  <data name="SNI_PN4" xml:space="preserve">
+    <value>Shared Memory Provider</value>
+    <comment>Shared Memory Provider</comment>
+  </data>
+  <data name="SNI_PN5" xml:space="preserve">
+    <value>SMux Provider</value>
+    <comment>SMux Provider</comment>
+  </data>
+  <data name="SNI_PN6" xml:space="preserve">
+    <value>SSL Provider</value>
+    <comment>SSL Provider</comment>
+  </data>
+  <data name="SNI_PN7" xml:space="preserve">
+    <value>TCP Provider</value>
+    <comment>TCP Provider</comment>
+  </data>
+  <data name="SNI_PN8" xml:space="preserve">
+    <value></value>
+    <comment></comment>
+  </data>
+  <data name="SNI_PN9" xml:space="preserve">
+    <value>SQL Network Interfaces</value>
+    <comment>SQL Network Interfaces</comment>
+  </data>
+  <data name="AZURESQL_GenericEndpoint" xml:space="preserve">
+    <value>.database.windows.net</value>
+    <comment>.database.windows.net</comment>
+  </data>
+  <data name="AZURESQL_GermanEndpoint" xml:space="preserve">
+    <value>.database.cloudapi.de</value>
+    <comment>.database.cloudapi.de</comment>
+  </data>
+  <data name="AZURESQL_UsGovEndpoint" xml:space="preserve">
+    <value>.database.usgovcloudapi.net</value>
+    <comment>.database.usgovcloudapi.net</comment>
+  </data>
+  <data name="AZURESQL_ChinaEndpoint" xml:space="preserve">
+    <value>.database.chinacloudapi.cn</value>
+    <comment>.database.chinacloudapi.cn</comment>
+  </data>
+  <data name="net_gssapi_operation_failed_detailed" xml:space="preserve">
+    <value>GSSAPI 操作がエラーで失敗しました - {0} ({1})。</value>
+    <comment>GSSAPI operation failed with error - {0} ({1}).</comment>
+  </data>
+  <data name="net_gssapi_operation_failed" xml:space="preserve">
+    <value>GSSAPI 操作が失敗しました。状態: {0} (マイナー状態: {1})。</value>
+    <comment>GSSAPI operation failed with status: {0} (Minor status: {1}).</comment>
+  </data>
+  <data name="net_gssapi_operation_failed_detailed_majoronly" xml:space="preserve">
+    <value>GSSAPI 操作がエラーで失敗しました - {0}。</value>
+    <comment>GSSAPI operation failed with error - {0}.</comment>
+  </data>
+  <data name="net_gssapi_operation_failed_majoronly" xml:space="preserve">
+    <value>GSSAPI 操作が失敗しました。状態: {0}。</value>
+    <comment>GSSAPI operation failed with status: {0}.</comment>
+  </data>
+  <data name="net_gssapi_ntlm_missing_plugin" xml:space="preserve">
+    <value>NTLM 認証には GSSAPI プラグイン 'gss-ntlmssp' が必要です。</value>
+    <comment>NTLM authentication requires the GSSAPI plugin 'gss-ntlmssp'.</comment>
+  </data>
+  <data name="net_ntlm_not_possible_default_cred" xml:space="preserve">
+    <value>このプラットフォームでは、既定の資格情報で NTLM 認証を行うことはできません。</value>
+    <comment>NTLM authentication is not possible with default credentials on this platform.</comment>
+  </data>
+  <data name="net_nego_not_supported_empty_target_with_defaultcreds" xml:space="preserve">
+    <value>既定の資格情報を渡す場合は、ターゲット名を空にしないでください。</value>
+    <comment>Target name should be non empty if default credentials are passed.</comment>
+  </data>
+  <data name="net_nego_server_not_supported" xml:space="preserve">
+    <value>サーバー実装はサポートされていません</value>
+    <comment>Server implementation is not supported</comment>
+  </data>
+  <data name="net_nego_protection_level_not_supported" xml:space="preserve">
+    <value>要求された保護レベルは、現在インストールされている GSSAPI 実装ではサポートされていません。</value>
+    <comment>Requested protection level is not supported with the GSSAPI implementation currently installed.</comment>
+  </data>
+  <data name="net_context_buffer_too_small" xml:space="preserve">
+    <value>バッファー領域が不足しています。必要: {0} 実際: {1}。</value>
+    <comment>Insufficient buffer space. Required: {0} Actual: {1}.</comment>
+  </data>
+  <data name="net_auth_message_not_encrypted" xml:space="preserve">
+    <value>プロトコル エラー: 受信したメッセージには有効な署名が含まれていますが、有効な保護レベルで要求されている暗号化が行われていません。</value>
+    <comment>Protocol error: A received message contains a valid signature but it was not encrypted as required by the effective Protection Level.</comment>
+  </data>
+  <data name="net_securitypackagesupport" xml:space="preserve">
+    <value>要求されたセキュリティ パッケージは未対応です。</value>
+    <comment>The requested security package is not supported.</comment>
+  </data>
+  <data name="net_log_operation_failed_with_error" xml:space="preserve">
+    <value>{0} がエラー {1} で失敗。</value>
+    <comment>{0} failed with error {1}.</comment>
+  </data>
+  <data name="net_MethodNotImplementedException" xml:space="preserve">
+    <value>このメソッドはこのクラスで未実装です。</value>
+    <comment>This method is not implemented by this class.</comment>
+  </data>
+  <data name="event_OperationReturnedSomething" xml:space="preserve">
+    <value>{0} の戻り値: {1}</value>
+    <comment>{0} returned {1}.</comment>
+  </data>
+  <data name="net_invalid_enum" xml:space="preserve">
+    <value>指定された値は列挙型 '{0}' で無効です。</value>
+    <comment>The specified value is not valid in the '{0}' enumeration.</comment>
+  </data>
+  <data name="SSPIInvalidHandleType" xml:space="preserve">
+    <value>'{0}' は未対応のハンドル型です。</value>
+    <comment>'{0}' is not a supported handle type.</comment>
+  </data>
+  <data name="LocalDBNotSupported" xml:space="preserve">
+    <value>LocalDB はこのプラットフォームで未対応です</value>
+    <comment>LocalDB is not supported on this platform.</comment>
+  </data>
+  <data name="PlatformNotSupported_DataSqlClient" xml:space="preserve">
+    <value>System.Data.SqlClient はこのプラットフォームで未対応です</value>
+    <comment>System.Data.SqlClient is not supported on this platform.</comment>
+  </data>
+  <data name="SqlParameter_InvalidTableDerivedPrecisionForTvp" xml:space="preserve">
+    <value>列 '{1}' のすべての値を送信するのに必要な精度 '{0}' が、サポートされる最大精度 '{2}' を超えています。値はすべて単一の精度に収まる必要があります。</value>
+    <comment>Precision '{0}' required to send all values in column '{1}' exceeds the maximum supported precision '{2}'. The values must all fit in a single precision.</comment>
+  </data>
+  <data name="SqlProvider_InvalidDataColumnMaxLength" xml:space="preserve">
+    <value>列 '{0}' のサイズはサポートされていません。サイズは {1} です。</value>
+    <comment>The size of column '{0}' is not supported. The size is {1}.</comment>
+  </data>
+  <data name="MDF_InvalidXmlInvalidValue" xml:space="preserve">
+    <value>メタデータ XML が無効です。{0} コレクションの {1} 列には空でない文字列が含まれている必要があります。</value>
+    <comment>The metadata XML is invalid. The {1} column of the {0} collection must contain a non-empty string.</comment>
+  </data>
+  <data name="MDF_CollectionNameISNotUnique" xml:space="preserve">
+    <value>'{0}' という名前のコレクションが複数あります。</value>
+    <comment>There are multiple collections named '{0}'.</comment>
+  </data>
+  <data name="MDF_InvalidXmlMissingColumn" xml:space="preserve">
+    <value>メタデータ XML が無効です。{0} コレクションには文字列型の {1} 列が必要です。</value>
+    <comment>The metadata XML is invalid. The {0} collection must contain a {1} column and it must be a string column.</comment>
+  </data>
+  <data name="MDF_InvalidXml" xml:space="preserve">
+    <value>メタデータ XML が無効です。</value>
+    <comment>The metadata XML is invalid.</comment>
+  </data>
+  <data name="MDF_NoColumns" xml:space="preserve">
+    <value>スキーマ テーブルに列がありません。</value>
+    <comment>The schema table contains no columns.</comment>
+  </data>
+  <data name="MDF_QueryFailed" xml:space="preserve">
+    <value>SQL クエリの実行に失敗したため、'{0}' コレクションを作成できません。詳細については内部例外を参照してください。</value>
+    <comment>Unable to build the '{0}' collection because execution of the SQL query failed. See the inner exception for details.</comment>
+  </data>
+  <data name="MDF_TooManyRestrictions" xml:space="preserve">
+    <value>要求されたスキーマ ('{0}') がサポートする数を超える制限が指定されました。</value>
+    <comment>More restrictions were provided than the requested schema ('{0}') supports.</comment>
+  </data>
+  <data name="MDF_DataTableDoesNotExist" xml:space="preserve">
+    <value>メタデータ XML に '{0}' がありません。</value>
+    <comment>The collection '{0}' is missing from the metadata XML.</comment>
+  </data>
+  <data name="MDF_UndefinedCollection" xml:space="preserve">
+    <value>要求されたコレクション ({0}) は定義されていません。</value>
+    <comment>The requested collection ({0}) is not defined.</comment>
+  </data>
+  <data name="MDF_UnsupportedVersion" xml:space="preserve">
+    <value>要求されたコレクション ({0}) は、このバージョンのプロバイダーではサポートされていません。</value>
+    <comment>The requested collection ({0}) is not supported by this version of the provider.</comment>
+  </data>
+  <data name="MDF_MissingRestrictionColumn" xml:space="preserve">
+    <value>制限コレクションの必須列が 1 つ以上ありません。</value>
+    <comment>One or more of the required columns of the restrictions collection is missing.</comment>
+  </data>
+  <data name="MDF_MissingRestrictionRow" xml:space="preserve">
+    <value>制限コレクションに一致する行がない制限があります。</value>
+    <comment>A restriction exists for which there is no matching row in the restrictions collection.</comment>
+  </data>
+  <data name="MDF_IncorrectNumberOfDataSourceInformationRows" xml:space="preserve">
+    <value>DataSourceInformation テーブルには行が 1 つだけ必要です。</value>
+    <comment>The DataSourceInformation table must contain exactly one row.</comment>
+  </data>
+  <data name="MDF_MissingDataSourceInformationColumn" xml:space="preserve">
+    <value>DataSourceInformation テーブルの必須列のいずれかがありません。</value>
+    <comment>One of the required DataSourceInformation tables columns is missing.</comment>
+  </data>
+  <data name="MDF_AmbigousCollectionName" xml:space="preserve">
+    <value>コレクション名 '{0}' は、大文字と小文字だけが異なる同名のコレクションの少なくとも 2 つと一致しますが、どれとも完全には一致しません。</value>
+    <comment>The collection name '{0}' matches at least two collections with the same name but with different case, but does not match any of them exactly.</comment>
+  </data>
+  <data name="MDF_UnableToBuildCollection" xml:space="preserve">
+    <value>スキーマ コレクション '{0}' を作成できません。</value>
+    <comment>Unable to build schema collection '{0}';</comment>
+  </data>
+  <data name="ADP_InvalidArgumentLength" xml:space="preserve">
+    <value>引数 '{0}' の長さが上限 '{1}' を超えています。</value>
+    <comment>The length of argument '{0}' exceeds its limit of '{1}'.</comment>
+  </data>
+  <data name="ADP_MustBeReadOnly" xml:space="preserve">
+    <value>{0} は読み取り専用にする必要があります。</value>
+    <comment>{0} must be marked as read only.</comment>
+  </data>
+  <data name="ADP_InvalidMixedUsageOfSecureAndClearCredential" xml:space="preserve">
+    <value>Credential は、接続文字列キーワード UserID、UID、Password、PWD と併用できません。</value>
+    <comment>Cannot use Credential with UserID, UID, Password, or PWD connection string keywords.</comment>
+  </data>
+  <data name="ADP_InvalidMixedUsageOfSecureCredentialAndIntegratedSecurity" xml:space="preserve">
+    <value>Credential は、接続文字列キーワード Integrated Security と併用できません。</value>
+    <comment>Cannot use Credential with Integrated Security connection string keyword.</comment>
+  </data>
+  <data name="SQL_ChangePasswordArgumentMissing" xml:space="preserve">
+    <value>引数 '{0}' は null または空にできません。</value>
+    <comment>The '{0}' argument must not be null or empty.</comment>
+  </data>
+  <data name="SQL_ChangePasswordConflictsWithSSPI" xml:space="preserve">
+    <value>ChangePassword は SQL 認証でのみ使用でき、統合セキュリティでは使用できません。</value>
+    <comment>ChangePassword can only be used with SQL authentication, not with integrated security.</comment>
+  </data>
+  <data name="SQL_ChangePasswordRequiresYukon" xml:space="preserve">
+    <value>ChangePassword には SQL Server 9.0 以降が必要です。</value>
+    <comment>ChangePassword requires SQL Server 9.0 or later.</comment>
+  </data>
+  <data name="SQL_ChangePasswordUseOfUnallowedKey" xml:space="preserve">
+    <value>ChangePassword の connectionString 引数にキーワード '{0}' を指定できません。</value>
+    <comment>The keyword '{0}' must not be specified in the connectionString argument to ChangePassword.</comment>
+  </data>
+  <data name="SQL_ParsingErrorWithState" xml:space="preserve">
+    <value>内部接続の致命的エラーです。エラー状態: {0}。</value>
+    <comment>Internal connection fatal error. Error state: {0}.</comment>
+  </data>
+  <data name="SQL_ParsingErrorValue" xml:space="preserve">
+    <value>内部接続の致命的エラーです。エラー状態: {0}、値: {1}。</value>
+    <comment>Internal connection fatal error. Error state: {0}, Value: {1}.</comment>
+  </data>
+  <data name="ADP_InvalidMixedUsageOfAccessTokenAndIntegratedSecurity" xml:space="preserve">
+    <value>接続文字列の 'Integrated Security' が 'true' または 'SSPI' に設定されている場合は、AccessToken プロパティを設定できません。</value>
+    <comment>Cannot set the AccessToken property if the 'Integrated Security' connection string keyword has been set to 'true' or 'SSPI'.</comment>
+  </data>
+  <data name="ADP_InvalidMixedUsageOfAccessTokenAndUserIDPassword" xml:space="preserve">
+    <value>接続文字列で 'UserID'、'UID'、'Password'、'PWD' のいずれかが指定済みの場合、AccessToken プロパティを設定できません。</value>
+    <comment>Cannot set the AccessToken property if 'UserID', 'UID', 'Password', or 'PWD' has been specified in connection string.</comment>
+  </data>
+  <data name="ADP_InvalidMixedUsageOfCredentialAndAccessToken" xml:space="preserve">
+    <value>AccessToken プロパティが既に設定されている場合は、Credential プロパティを設定できません。</value>
+    <comment>Cannot set the Credential property if the AccessToken property is already set.</comment>
+  </data>
+  <data name="SQL_ParsingErrorFeatureId" xml:space="preserve">
+    <value>内部接続の致命的エラーです。エラー状態: {0}、機能 ID: {1}。</value>
+    <comment>Internal connection fatal error. Error state: {0}, Feature Id: {1}.</comment>
+  </data>
+  <data name="SQL_ParsingErrorAuthLibraryType" xml:space="preserve">
+    <value>内部接続の致命的エラーです。エラー状態: {0}、認証ライブラリの種類: {1}。</value>
+    <comment>Internal connection fatal error. Error state: {0}, Authentication Library Type: {1}.</comment>
+  </data>
+  <data name="SqlFileStream_InvalidPath" xml:space="preserve">
+    <value>パス名が無効です。</value>
+    <comment>The path name is not valid.</comment>
+  </data>
+  <data name="SqlFileStream_PathNotValidDiskResource" xml:space="preserve">
+    <value>パス名が無効か、ディスク ファイルを指していません。</value>
+    <comment>The path name is invalid or does not point to a disk file.</comment>
+  </data>
+  <data name="SqlFileStream_FileAlreadyInTransaction" xml:space="preserve">
+    <value>指定されたファイルは別のトランザクションで開かれているため、プロセスはアクセスできません。</value>
+    <comment>The process cannot access the file specified because it has been opened in another transaction.</comment>
+  </data>
+  <data name="SqlFileStream_InvalidParameter" xml:space="preserve">
+    <value>関数に無効なパラメーターが渡されました。</value>
+    <comment>An invalid parameter was passed to the function.</comment>
+  </data>
+  <data name="SqlFileStream_NotSupported" xml:space="preserve">
+    <value>SqlFileStream はこのプラットフォームで未対応です</value>
+    <comment>SqlFileStream is not supported on this platform.</comment>
+  </data>
+</root>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="actualValue" xml:space="preserve">
+    <value>実際の値は {0} です。</value>
+    <comment>Actual value was {0}.</comment>
+  </data>
+  <data name="argument" xml:space="preserve">
+    <value>値が予期された範囲内にありません。</value>
+    <comment>Value does not fall within the expected range.</comment>
+  </data>
+  <data name="argumentDomElement" xml:space="preserve">
+    <value>値は DOM 要素である必要があります。</value>
+    <comment>Value must be a DOM element.</comment>
+  </data>
+  <data name="argumentInteger" xml:space="preserve">
+    <value>値は整数である必要があります。</value>
+    <comment>Value must be an integer.</comment>
+  </data>
+  <data name="argumentNull" xml:space="preserve">
+    <value>値は null にできません。</value>
+    <comment>Value cannot be null.</comment>
+  </data>
+  <data name="argumentOutOfRange" xml:space="preserve">
+    <value>指定された引数は有効な値の範囲外です。</value>
+    <comment>Specified argument was out of the range of valid values.</comment>
+  </data>
+  <data name="argumentType" xml:space="preserve">
+    <value>オブジェクトを必要な型に変換できません。</value>
+    <comment>Object cannot be converted to the required type.</comment>
+  </data>
+  <data name="argumentTypeWithTypes" xml:space="preserve">
+    <value>型 '{0}' のオブジェクトを型 '{1}' に変換できません。</value>
+    <comment>Object of type '{0}' cannot be converted to type '{1}'.</comment>
+  </data>
+  <data name="argumentUndefined" xml:space="preserve">
+    <value>値は undefined にできません。</value>
+    <comment>Value cannot be undefined.</comment>
+  </data>
+  <data name="assertFailed" xml:space="preserve">
+    <value>アサーション失敗: {0}</value>
+    <comment>Assertion Failed: {0}</comment>
+  </data>
+  <data name="assertFailedCaller" xml:space="preserve">
+    <value>アサーション失敗: {0}
+場所: {1}</value>
+    <comment>Assertion Failed: {0}
+at {1}</comment>
+  </data>
+  <data name="badBaseUrl1" xml:space="preserve">
+    <value>ベースURLに://がありません。</value>
+    <comment>Base URL does not contain ://.</comment>
+  </data>
+  <data name="badBaseUrl2" xml:space="preserve">
+    <value>ベース URL に別の / がありません。</value>
+    <comment>Base URL does not contain another /.</comment>
+  </data>
+  <data name="badBaseUrl3" xml:space="preserve">
+    <value>ベースURLの最後の / が見つかりません。</value>
+    <comment>Cannot find last / in base URL.</comment>
+  </data>
+  <data name="breakIntoDebugger" xml:space="preserve">
+    <value>{0}
+
+デバッガーで中断しますか?</value>
+    <comment>{0}
+
+Break into debugger?</comment>
+  </data>
+  <data name="cannotAbortBeforeStart" xml:space="preserve">
+    <value>executor の開始前は中止できません。</value>
+    <comment>Cannot abort when executor has not started.</comment>
+  </data>
+  <data name="cannotCallBeforeResponse" xml:space="preserve">
+    <value>responseAvailable が false のときは {0} を呼び出せません。</value>
+    <comment>Cannot call {0} when responseAvailable is false.</comment>
+  </data>
+  <data name="cannotCallOnceStarted" xml:space="preserve">
+    <value>開始後は {0} を呼び出せません。</value>
+    <comment>Cannot call {0} once started.</comment>
+  </data>
+  <data name="cannotCallOutsideHandler" xml:space="preserve">
+    <value>完了イベント ハンドラー外では {0} を呼び出せません。</value>
+    <comment>Cannot call {0} outside of a completed event handler.</comment>
+  </data>
+  <data name="cannotDeserializeEmptyString" xml:space="preserve">
+    <value>空の文字列は逆シリアル化できません。</value>
+    <comment>Cannot deserialize empty string.</comment>
+  </data>
+  <data name="cannotDeserializeInvalidJson" xml:space="preserve">
+    <value>逆シリアル化できません。データが有効な JSON ではありません。</value>
+    <comment>Cannot deserialize. The data does not correspond to valid JSON.</comment>
+  </data>
+  <data name="cannotSerializeNonFiniteNumbers" xml:space="preserve">
+    <value>非有限数はシリアル化できません。</value>
+    <comment>Cannot serialize non finite numbers.</comment>
+  </data>
+  <data name="cannotSerializeObjectWithCycle" xml:space="preserve">
+    <value>子プロパティに循環参照があるオブジェクトはシリアル化できません。</value>
+    <comment>Cannot serialize object with cyclic reference within child properties.</comment>
+  </data>
+  <data name="enumInvalidValue" xml:space="preserve">
+    <value>'{0}' は列挙型 {1} の有効な値ではありません。</value>
+    <comment>'{0}' is not a valid value for enum {1}.</comment>
+  </data>
+  <data name="eventHandlerInvalid" xml:space="preserve">
+    <value>ハンドラーは Sys.UI.DomEvent.addHandler メソッドで追加されていません。</value>
+    <comment>Handler was not added through the Sys.UI.DomEvent.addHandler method.</comment>
+  </data>
+  <data name="format" xml:space="preserve">
+    <value>指定された項目の 1 つの形式が無効です。</value>
+    <comment>One of the identified items was in an invalid format.</comment>
+  </data>
+  <data name="formatBadFormatSpecifier" xml:space="preserve">
+    <value>書式指定子が無効です。</value>
+    <comment>Format specifier was invalid.</comment>
+  </data>
+  <data name="formatInvalidString" xml:space="preserve">
+    <value>入力文字列の形式が正しくありません。</value>
+    <comment>Input string was not in a correct format.</comment>
+  </data>
+  <data name="invalidExecutorType" xml:space="preserve">
+    <value>{0} から有効な Sys.Net.WebRequestExecutor を作成できませんでした。</value>
+    <comment>Could not create a valid Sys.Net.WebRequestExecutor from: {0}.</comment>
+  </data>
+  <data name="invalidHttpVerb" xml:space="preserve">
+    <value>httpVerb に空または null の文字列は設定できません。</value>
+    <comment>httpVerb cannot be set to an empty or null string.</comment>
+  </data>
+  <data name="invalidOperation" xml:space="preserve">
+    <value>オブジェクトの現在の状態では無効な操作です。</value>
+    <comment>Operation is not valid due to the current state of the object.</comment>
+  </data>
+  <data name="invalidTimeout" xml:space="preserve">
+    <value>値は 0 以上にしてください。</value>
+    <comment>Value must be greater than or equal to zero.</comment>
+  </data>
+  <data name="invokeCalledTwice" xml:space="preserve">
+    <value>invoke を再度呼び出せません。</value>
+    <comment>Cannot call invoke more than once.</comment>
+  </data>
+  <data name="notImplemented" xml:space="preserve">
+    <value>メソッドまたは操作は実装されていません。</value>
+    <comment>The method or operation is not implemented.</comment>
+  </data>
+  <data name="nullWebRequest" xml:space="preserve">
+    <value>null の webRequest で executeRequest を呼び出せません。</value>
+    <comment>Cannot call executeRequest with a null webRequest.</comment>
+  </data>
+  <data name="parameterCount" xml:space="preserve">
+    <value>パラメーターの数が一致しません。</value>
+    <comment>Parameter count mismatch.</comment>
+  </data>
+  <data name="paramName" xml:space="preserve">
+    <value>パラメーター名: {0}</value>
+    <comment>Parameter name: {0}</comment>
+  </data>
+  <data name="scriptLoadFailed" xml:space="preserve">
+    <value>スクリプト '{0}' を読み込めません。</value>
+    <comment>The script '{0}' could not be loaded.</comment>
+  </data>
+  <data name="servicePathNotSet" xml:space="preserve">
+    <value>Web サービスのパスが設定されていません。</value>
+    <comment>The path to the web service has not been set.</comment>
+  </data>
+  <data name="setExecutorAfterActive" xml:space="preserve">
+    <value>アクティブ化後は executor を設定できません。</value>
+    <comment>Cannot set executor after it has become active.</comment>
+  </data>
+  <data name="webServiceFailed" xml:space="preserve">
+    <value>サーバー メソッド '{0}' が次のエラーで失敗しました: {1}</value>
+    <comment>The server method '{0}' failed with the following error: {1}</comment>
+  </data>
+  <data name="webServiceFailedNoMsg" xml:space="preserve">
+    <value>サーバー メソッド '{0}' が失敗しました。</value>
+    <comment>The server method '{0}' failed.</comment>
+  </data>
+  <data name="webServiceInvalidReturnType" xml:space="preserve">
+    <value>サーバー メソッド '{0}' の戻り値の型が無効です。必要な型: {1}</value>
+    <comment>The server method '{0}' returned an invalid type. Expected type: {1}</comment>
+  </data>
+  <data name="webServiceTimedOut" xml:space="preserve">
+    <value>サーバー メソッド '{0}' がタイムアウトしました。</value>
+    <comment>The server method '{0}' timed out.</comment>
+  </data>
+  <data name="scriptDependencyNotFound" xml:space="preserve">
+    <value>スクリプト '{0}' はスクリプト '{1}' に依存しているため、読み込めませんでした。</value>
+    <comment>The script '{0}' failed to load because it is dependent on script '{1}'.</comment>
+  </data>
+  <data name="scriptAlreadyLoaded" xml:space="preserve">
+    <value>スクリプト '{0}' が複数回参照されています。Microsoft AJAX スクリプトを明示的に参照する場合は、ScriptManager の MicrosoftAjaxMode プロパティを Explicit に設定します。</value>
+    <comment>The script '{0}' has been referenced multiple times. If referencing Microsoft AJAX scripts explicitly, set the MicrosoftAjaxMode property of the ScriptManager to Explicit.</comment>
+  </data>
+  <data name="requiredScriptReferenceNotIncluded" xml:space="preserve">
+    <value>'{0}' には '{1}' へのスクリプト参照が必要です。</value>
+    <comment>'{0}' requires that you have included a script reference to '{1}'.</comment>
+  </data>
+  <data name="nullReferenceInPath" xml:space="preserve">
+    <value>データ パス '{0}' の評価中に null 参照が発生しました。</value>
+    <comment>Null reference while evaluating data path: '{0}'.</comment>
+  </data>
+</root>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CssLowercaseValidationError" xml:space="preserve">
+    <value>CSS テキスト '{0}' の文字がすべて小文字ではありません。</value>
+    <comment>The characters in the Css text '{0}' are not all lower case.</comment>
+  </data>
+  <data name="CssLowercaseValidationParentNodeError" xml:space="preserve">
+    <value>小文字検証のために CSS を検証中にエラーが発生しました: {0}</value>
+    <comment>Error occurred while validating the Css for the lower case validation: {0}</comment>
+  </data>
+  <data name="CssSelectorHackError" xml:space="preserve">
+    <value>値 '{0}' はブラウザー間でサポートされていないため、セレクターには使用できません。</value>
+    <comment>The value '{0}' is not allowed for selectors as it is not cross-browser supported.</comment>
+  </data>
+  <data name="DuplicateBackgroundFormatError" xml:space="preserve">
+    <value>宣言 "background" と "background-image/background-position/background-repeat" は、同じセレクターのスコープ内で同時に使用できません。</value>
+    <comment>The declarations "background" and "background-image/background-position/background-repeat" cannot be used simultaneously used with in a scope of same selector.</comment>
+  </data>
+  <data name="DuplicateImageReferenceWithDifferentRulesError" xml:space="preserve">
+    <value>画像 '{0}' を結合するには、すべてのセレクターで絶対単位 px と no-repeat が指定されている必要があります。</value>
+    <comment>In order to assemble the image '{0}' it should meet the criteria of having the absolute units in px and no-repeat in all the selectors.</comment>
+  </data>
+  <data name="ExpectedAstNode" xml:space="preserve">
+    <value></value>
+    <comment></comment>
+  </data>
+  <data name="ExpectedEnum" xml:space="preserve">
+    <value></value>
+    <comment></comment>
+  </data>
+  <data name="ExpectedIdentifierOrString" xml:space="preserve">
+    <value></value>
+    <comment></comment>
+  </data>
+  <data name="ExpectedOperator" xml:space="preserve">
+    <value></value>
+    <comment></comment>
+  </data>
+  <data name="ExpectedSimpleSelector" xml:space="preserve">
+    <value></value>
+    <comment></comment>
+  </data>
+  <data name="ExpectedSingleValue" xml:space="preserve">
+    <value>項に同時に複数の値を持たせることはできません。</value>
+    <comment>A term cannot have more than one value at a time.</comment>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value></value>
+    <comment></comment>
+  </data>
+  <data name="FileNotFoundError" xml:space="preserve">
+    <value>ファイルが見つかりません: '{0}'</value>
+    <comment>File not found at location '{0}'.</comment>
+  </data>
+  <data name="InnerExceptionFile" xml:space="preserve">
+    <value>ファイル '{0}' の処理中にエラーが発生しました</value>
+    <comment>An error has occurred while processing file '{0}'</comment>
+  </data>
+  <data name="InnerExceptionSelector" xml:space="preserve">
+    <value>セレクター '{0}' の処理中にエラーが発生しました</value>
+    <comment>An error has occurred while processing selector '{0}'</comment>
+  </data>
+  <data name="InvalidDimensionsError" xml:space="preserve">
+    <value>'{0}' の画像サイズが無効な単位で指定されています。サイズはピクセル単位で指定してください。</value>
+    <comment>Image dimensions for '{0}' are specified in invalid units. Dimensions should be specified in pixels.</comment>
+  </data>
+  <data name="OriginalFileElementEmptyError" xml:space="preserve">
+    <value>画像結合ログ ファイル '{0}' の ‘originalfile’ 要素は空にできません。</value>
+    <comment>Element ‘originalfile’ cannot be empty in image assembly log file '{0}'.</comment>
+  </data>
+  <data name="RepeatedPropertyNameError" xml:space="preserve">
+    <value>CSS プロパティ '{0}' が同じセレクター内で複数回宣言されています。プロパティはセレクターのスコープ内で 1 回だけ指定する必要があります。</value>
+    <comment>CSS property '{0}' declared more than once within the same selector. Any property must be specified only once within the scope of a selector.</comment>
+  </data>
+  <data name="TooManyLengthsError" xml:space="preserve">
+    <value>項 '{0}' の背景位置に指定された長さが多すぎます。</value>
+    <comment>There are too many lengths specified for background position in term '{0}'.</comment>
+  </data>
+</root>

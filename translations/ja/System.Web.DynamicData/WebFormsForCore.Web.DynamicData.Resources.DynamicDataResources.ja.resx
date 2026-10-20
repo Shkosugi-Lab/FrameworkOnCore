@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Common_PageCannotBeNull" xml:space="preserve">
+    <value>Page は null にできません。ASP.NET 要求のコンテキストでこの操作を実行してください。</value>
+    <comment>Page cannot be null. Please ensure that this operation is being performed in the context of an ASP.NET request.</comment>
+  </data>
+  <data name="Misc_NoNamingContainer" xml:space="preserve">
+    <value>{0} コントロール '{1}' には名前付けコンテナーがありません。</value>
+    <comment>The {0} control '{1}' does not have a naming container.</comment>
+  </data>
+  <data name="SchemaCreator_UnknownModel" xml:space="preserve">
+    <value>不明なモデルの型 {0}。</value>
+    <comment>Unknown model type {0}.</comment>
+  </data>
+  <data name="FilterRepeater_CouldNotFindControlInTemplate" xml:space="preserve">
+    <value>FilterRepeater '{0}' の項目テンプレートに、ID '{2}' で型 '{1}' のコントロールがありません。</value>
+    <comment>FilterRepeater '{0}' does not contain a control of type '{1}' with ID '{2}' in its item templates.</comment>
+  </data>
+  <data name="MetaTable_NoSuchColumn" xml:space="preserve">
+    <value>テーブル '{0}' に '{1}' という名前の列がありません。</value>
+    <comment>The table '{0}' does not have a column named '{1}'.</comment>
+  </data>
+  <data name="QueryStringHandler_VirtualPathCannotBeEmpty" xml:space="preserve">
+    <value>仮想パスは空でない文字列である必要があります。</value>
+    <comment>The virtual path must be a non-empty string.</comment>
+  </data>
+  <data name="DynamicControlParameter_DynamicDataSourceColumnNotCompatibleWithTable" xml:space="preserve">
+    <value>列 '{0}' はテーブル '{1}' と互換性がありません。</value>
+    <comment>The column '{0}' is not compatible with the table '{1}'.</comment>
+  </data>
+  <data name="DynamicControlParameter_DynamicDataSourceControlCannotBeUsedAsParent" xml:space="preserve">
+    <value>コントロール '{0}' は親コントロールとして使用できません。</value>
+    <comment>The control '{0}' cannot be used as a parent control.</comment>
+  </data>
+  <data name="DynamicControlParameter_DynamicDataSourceControlNotFound" xml:space="preserve">
+    <value>コントロール '{0}' が見つかりませんでした。</value>
+    <comment>The control '{0}' could not be found.</comment>
+  </data>
+  <data name="DynamicControl_ControlMustHaveDateFieldAttribute" xml:space="preserve">
+    <value>'{0}' コントロール '{1}' には DataField 属性が必要です。</value>
+    <comment>The '{0}' control '{1}' must have a DataField attribute.</comment>
+  </data>
+  <data name="DynamicControl_ControlNeedsToExistInADataControlUsingDynamicDataSource" xml:space="preserve">
+    <value>DynamicControl/DynamicField は、Dynamic Data をサポートするデータ ソースにバインドされたデータ コントロール内にある必要があります。</value>
+    <comment>The DynamicControl/DynamicField needs to exist inside a data control that is bound to a data source that supports Dynamic Data.</comment>
+  </data>
+  <data name="DataSourceUtil_CantDetermineTable" xml:space="preserve">
+    <value>コントロール '{0}' からテーブルを取得できず、URL からテーブル名も推測できませんでした。</value>
+    <comment>Unable to retrieve table from control '{0}' and a table name could not be inferred from the URL.</comment>
+  </data>
+  <data name="FieldTemplateUserControl_ColumnIsNotFK" xml:space="preserve">
+    <value>'{0}' は外部キー列でないため、ここでは使えません。</value>
+    <comment>'{0}' is not a foreign key column and cannot be used here.</comment>
+  </data>
+  <data name="FieldTemplateUserControl_ColumnIsNotChildren" xml:space="preserve">
+    <value>'{0}' は子列でないため、ここでは使えません。</value>
+    <comment>'{0}' is not a children column and cannot be used here.</comment>
+  </data>
+  <data name="DynamicDataManager_OnlyOneDynamicDataManager" xml:space="preserve">
+    <value>ページに追加できる DynamicDataManager のインスタンスは 1 つだけです。</value>
+    <comment>Only one instance of a DynamicDataManager can be added to the page.</comment>
+  </data>
+  <data name="DynamicDataManager_AutoLoadForeignKeys" xml:space="preserve">
+    <value>Linq to SQL クエリの実行時に外部キーを自動的に読み込むかどうか</value>
+    <comment>Whether foreign keys should be loaded automatically when executing Linq to SQL queries.</comment>
+  </data>
+  <data name="DynamicDataManager_EnableQueryStringSelection" xml:space="preserve">
+    <value>クエリ文字列のキー値から選択を設定できるかどうか</value>
+    <comment>Sets whether the selection may be set from key values in the query string.</comment>
+  </data>
+  <data name="MetadataHandlerRegistration_InvalidDataContextType" xml:space="preserve">
+    <value>指定されたデータ コンテキスト型 '{0}' は、次のいずれかの型を継承する必要があります: {1}。</value>
+    <comment>The provided data context type '{0}' must inherit from one of the following types: {1}.</comment>
+  </data>
+  <data name="MetadataHandlerRegistration_ContextAlreadyRegistered" xml:space="preserve">
+    <value>データ コンテキスト '{0}' は既に登録されています。各データ コンテキストは 1 回だけ登録できます。</value>
+    <comment>The data context '{0}' has already been registered. Each data context can be registered only once.</comment>
+  </data>
+  <data name="DynamicDataExtensions_ContextTypePropertyOfDynamicDataSourceMustBeSpecified" xml:space="preserve">
+    <value>コントロール '{0}' の ContextTypeName プロパティでデータ コンテキストを指定する必要があります。</value>
+    <comment>The ContextTypeName property of control '{0}' must specify a data context.</comment>
+  </data>
+  <data name="MetaTable_CantFindDisplayColumn" xml:space="preserve">
+    <value>テーブル '{1}' の表示列 '{0}' が存在しません。</value>
+    <comment>The display column '{0}' specified for the table '{1}' does not exist.</comment>
+  </data>
+  <data name="MetaTable_CantFindSortColumn" xml:space="preserve">
+    <value>テーブル '{1}' の並べ替え列 '{0}' が存在しません。</value>
+    <comment>The sort column '{0}' specified for the table '{1}' does not exist.</comment>
+  </data>
+  <data name="MetaTable_CantUseChildrenColumnAsSortColumn" xml:space="preserve">
+    <value>テーブル '{1}' の列 '{0}' は 1 対多のリレーションシップを表すため、並べ替え列として使用できません。</value>
+    <comment>Cannot use the column '{0}' in table '{1}' as a sort column because it represents a 1-to-many relationship.</comment>
+  </data>
+  <data name="MetaModel_ContextAlreadyRegistered" xml:space="preserve">
+    <value>コンテキスト型 '{0}' は既に登録されています。コンテキスト型は 1 回だけ登録できます。</value>
+    <comment>The context type '{0}' has already been registered. A context type can only be registered once.</comment>
+  </data>
+  <data name="MetaModel_ContextTypeNotSupported" xml:space="preserve">
+    <value>コンテキスト型 '{0}' はサポートされません。</value>
+    <comment>The context type '{0}' is not supported.</comment>
+  </data>
+  <data name="MetaModel_EntityNameConflict" xml:space="preserve">
+    <value>コンテキスト '{1}' のエンティティ '{0}' の名前が、コンテキスト '{3}' のエンティティ '{2}' の名前と競合しています。</value>
+    <comment>The name for entity '{0}' in context '{1}' conflicts with the name for the entity '{2}' in context '{3}'.</comment>
+  </data>
+  <data name="MetaModel_EntityNameOverrideConflict" xml:space="preserve">
+    <value>コンテキスト '{2}' のエンティティ '{1}' に対する名前のオーバーライド '{0}' が、コンテキスト '{4}' のエンティティ '{3}' の名前と競合しています。</value>
+    <comment>The name override '{0}' for entity '{1}' in context '{2}' conflicts with the name for the entity '{3}' in context '{4}'.</comment>
+  </data>
+  <data name="MetaModel_UnknownContextType" xml:space="preserve">
+    <value>不明なコンテキスト型 '{0}'。このコンテキスト型は未登録です。</value>
+    <comment>Unknown context type '{0}'. This context type has not been registered.</comment>
+  </data>
+  <data name="MetaModel_UnknownEntityType" xml:space="preserve">
+    <value>不明なエンティティ型 '{0}' です。このエンティティ型は、登録済みのどのコンテキストにも含まれていません。</value>
+    <comment>Unknown entity type '{0}'. This entity type is not part of any registered context.</comment>
+  </data>
+  <data name="MetaModel_UnknownTable" xml:space="preserve">
+    <value>不明なテーブル名 '{0}'。</value>
+    <comment>Unknown table name '{0}'.</comment>
+  </data>
+  <data name="MetaModel_UnknownTableInContext" xml:space="preserve">
+    <value>コンテキスト '{0}' に、コンテキスト固有の名前 '{1}' のテーブルがありません。</value>
+    <comment>The context '{0}' does not have a table with the context-specific name '{1}'.</comment>
+  </data>
+  <data name="MetaModel_ContextDoesNotBelongToModel" xml:space="preserve">
+    <value>コンテキスト型 {0} は、登録済みのどのモデルにも属していません。</value>
+    <comment>The context type {0} does not belong to any registered model.</comment>
+  </data>
+  <data name="MetaModel_EntityTypeDoesNotBelongToModel" xml:space="preserve">
+    <value>エンティティ型 {0} は、登録済みのどのモデルにも属していません。</value>
+    <comment>The entity type {0} does not belong to any registered model.</comment>
+  </data>
+  <data name="MetadataValidator_UnknownContextType" xml:space="preserve">
+    <value>コンテキストの型 {0} が不明です。</value>
+    <comment>The context is of an unknown type {0}.</comment>
+  </data>
+  <data name="MetaModel_RegistrationErrorOccurred" xml:space="preserve">
+    <value>モデルの登録中にエラーが発生したため、この操作は実行できません。</value>
+    <comment>An error occurred during model registration and this operation cannot be performed.</comment>
+  </data>
+  <data name="FilterRepeater_InvalidContextTypeName" xml:space="preserve">
+    <value>FilterRepeater '{0}' のコンテキスト型名 '{1}' が無効です。ContextTypeName プロパティに有効なコンテキスト型名が含まれていることを確認してください。</value>
+    <comment>FilterRepeater '{0}' has an invalid context type name '{1}'. Make sure its ContextTypeName property contains a valid context type name.</comment>
+  </data>
+  <data name="DynamicControlDesignRender" xml:space="preserve">
+    <value>データバインド</value>
+    <comment>Databound</comment>
+  </data>
+  <data name="FilterUserControlBase_InvalidContextTypeName" xml:space="preserve">
+    <value>フィルター コントロール '{0}' のコンテキスト型名 '{1}' が無効です。ContextTypeName プロパティに有効なコンテキスト型名が含まれていることを確認してください。</value>
+    <comment>The filter control '{0}' has an invalid context type name '{1}'. Make sure its ContextTypeName property contains a valid context type name.</comment>
+  </data>
+  <data name="FilterUserControlBase_InvalidDataField" xml:space="preserve">
+    <value>フィルター コントロール '{0}' のデータ フィールド名 '{1}' が無効です。DataField プロパティに有効なフィールド名が含まれていることを確認してください。</value>
+    <comment>The filter control '{0}' has an invalid data field name '{1}'. Make sure its DataField property contains a valid field name.</comment>
+  </data>
+  <data name="FilterUserControlBase_InvalidTableName" xml:space="preserve">
+    <value>フィルター コントロール '{0}' のテーブル名 '{1}' が無効です。TableName プロパティに有効なテーブル名が含まれていることを確認してください。</value>
+    <comment>The filter control '{0}' has an invalid table name '{1}'. Make sure its TableName property contains a valid table name.</comment>
+  </data>
+  <data name="FilterUserControlBase_MissingContextTypeName" xml:space="preserve">
+    <value>フィルター コントロール '{0}' はテーブルに関連付けられていますが、コンテキスト型名がありません。ContextTypeName プロパティに有効なコンテキスト型名が含まれていることを確認してください。</value>
+    <comment>The filter control '{0}' is associated with a table but is missing the context type name. Make sure its ContextTypeName property contains a valid context type name.</comment>
+  </data>
+  <data name="FilterUserControlBase_MissingDataField" xml:space="preserve">
+    <value>フィルター コントロール '{0}' はフィールドに関連付けられていません。DataField プロパティに有効なフィールド名が含まれていることを確認してください。</value>
+    <comment>The filter control '{0}' is not associated with a field. Make sure its DataField property contains a valid field name.</comment>
+  </data>
+  <data name="FilterUserControlBase_MissingTableName" xml:space="preserve">
+    <value>フィルター コントロール '{0}' はコンテキスト型に関連付けられていますが、テーブル名がありません。TableName プロパティに有効なテーブル名が含まれていることを確認してください。</value>
+    <comment>The filter control '{0}' is associated with a context type but is missing the table name. Make sure its TableName property contains a valid table name.</comment>
+  </data>
+  <data name="FilterUserControlBase_SelectedDataKeyNotSupportedForThisField" xml:space="preserve">
+    <value>フィルター コントロール '{0}' はデータ フィールド '{1}' に関連付けられており、この操作をサポートしません。</value>
+    <comment>The filter control '{0}' is associated with the '{1}' data field and does not support this operation.</comment>
+  </data>
+  <data name="FilterUserControlBase_UnknownContextType" xml:space="preserve">
+    <value>フィルター コントロール '{0}' のコンテキスト型名 '{1}' は不明で、どのモデルにも登録されていません。ContextTypeName プロパティに、MetaModel に登録済みの有効なコンテキスト型名が含まれていることを確認してください。</value>
+    <comment>The filter control '{0}' has an unknown context type name '{1}' that is not registered with any model. Make sure its ContextTypeName property contains a valid context type name that has been registered with a MetaModel.</comment>
+  </data>
+  <data name="FilterUserControlBase_UnsupportedDataField" xml:space="preserve">
+    <value>フィルター コントロール '{0}' はサポートされていない列 '{1}' に関連付けられているため、この操作をサポートしません。</value>
+    <comment>The filter control '{0}' does not support this operation because it is associated with an unsupported column '{1}'.</comment>
+  </data>
+  <data name="FilterRepeater_MissingContextTypeName" xml:space="preserve">
+    <value>FilterRepeater '{0}' はテーブルに関連付けられていますが、コンテキスト型名がありません。ContextTypeName プロパティに有効なコンテキスト型が含まれていることを確認してください。</value>
+    <comment>FilterRepeater '{0}' is associated with a table but is missing a context type name. Make sure its ContextTypeName property has a valid context type.</comment>
+  </data>
+  <data name="FilterUserControlBase_CantInferInformationFromRequestUrl" xml:space="preserve">
+    <value>フィルター コントロール '{0}' にコンテキスト型名とテーブル名が指定されておらず、URL からも推測できませんでした。このコントロールの ContextTypeName と TableName プロパティを設定するか、この要求のパスが登録済みの Dynamic Data ルートに対応していることを確認してください。</value>
+    <comment>The filter control '{0}' does not specify a context type name and a table name and this information could not be inferred from the URL. Set the ContextTypeName and TableName properties on this control or make sure that the path for this request maps to a registered Dynamic Data Route.</comment>
+  </data>
+  <data name="FilterRepeater_CantInferInformationFromUrl" xml:space="preserve">
+    <value>FilterRepeater '{0}' にコンテキスト型名とテーブル名が指定されておらず、URL からも推測できませんでした。このコントロールの ContextTypeName と TableName プロパティを設定するか、この要求のパスが登録済みの Dynamic Data ルートに対応していることを確認してください。</value>
+    <comment>FilterRepeater '{0}' does not specify a context type name and a table name and this information could not be inferred from the URL. Set the ContextTypeName and TableName properties on this control or make sure that the path for this request maps to a registered Dynamic Data Route.</comment>
+  </data>
+  <data name="FilterRepeater_InvalidTableName" xml:space="preserve">
+    <value>FilterRepeater '{0}' のテーブル名 '{1}' が無効です。TableName プロパティに有効なテーブル名が含まれていることを確認してください。</value>
+    <comment>FilterRepeater '{0}' has an invalid table name '{1}'. Make sure its TableName property contains a valid table name.</comment>
+  </data>
+  <data name="FilterRepeater_MissingTableName" xml:space="preserve">
+    <value>FilterRepeater '{0}' はコンテキスト型に関連付けられていますが、テーブル名がありません。TableName プロパティに有効なテーブル名が含まれていることを確認してください。</value>
+    <comment>FilterRepeater '{0}' is associated with a context type but is missing the table name. Make sure its TableName property contains a valid table name.</comment>
+  </data>
+  <data name="FilterRepeater_UnknownContextTypeName" xml:space="preserve">
+    <value>FilterRepeater '{0}' のコンテキスト型名 '{1}' は不明で、どのモデルにも登録されていません。ContextTypeName プロパティに、MetaModel に登録済みの有効なコンテキスト型名が含まれていることを確認してください。</value>
+    <comment>FilterRepeater '{0}' has an unknown context type name '{1}' that is not registered with any model. Make sure its ContextTypeName property contains a valid context type name that has been registered with a MetaModel.</comment>
+  </data>
+  <data name="MetaModel_ContextFactoryReturnsNull" xml:space="preserve">
+    <value>コンテキスト ファクトリ関数は null 以外の値を返す必要があります。</value>
+    <comment>The context factory function must return a non-null value.</comment>
+  </data>
+  <data name="FilterUserControlBase_BooleanFilter_FalseString" xml:space="preserve">
+    <value>false</value>
+    <comment>false</comment>
+  </data>
+  <data name="FilterUserControlBase_BooleanFilter_TrueString" xml:space="preserve">
+    <value>true</value>
+    <comment>true</comment>
+  </data>
+  <data name="DynamicControlParameter_InvalidPK" xml:space="preserve">
+    <value>DynamicControlParameter に Name プロパティがないため、主キーを設定しようとしています。しかし、コントロール '{0}' はテーブル '{1}' 用で、テーブル '{2}' と互換性がありません。</value>
+    <comment>The DynamicControlParameter has no Name property, which means that you are setting the primary key. However, the control '{0}' is for table '{1}', which is not compatible with table '{2}'.</comment>
+  </data>
+  <data name="DynamicDataManager_UnsupportedControl" xml:space="preserve">
+    <value>型 {0} のコントロールはサポートされません。</value>
+    <comment>Controls of type {0} are not supported.</comment>
+  </data>
+  <data name="DynamicValidator_ControlNotFound" xml:space="preserve">
+    <value>'{1}' の 'ControlToValidate' プロパティが参照するコントロール ID '{0}' が見つかりません。</value>
+    <comment>Unable to find control id '{0}' referenced by the 'ControlToValidate' property of '{1}'.</comment>
+  </data>
+  <data name="FieldTemplateFactory_FolderNotFound" xml:space="preserve">
+    <value>フィールド テンプレート フォルダー '{0}' が存在しません。</value>
+    <comment>The field template folder '{0}' does not exist.</comment>
+  </data>
+  <data name="DynamicParameter_NeedExpansion" xml:space="preserve">
+    <value>{0} を使用するには、ページに DynamicManager コントロールを配置し、データ コントロールをそれに登録する必要があります。</value>
+    <comment>You need to have a DynamicManager control on the page and register your data control with it in order to use a {0}.</comment>
+  </data>
+  <data name="AssociationProvider_DirectionDoesNotSupportSorting" xml:space="preserve">
+    <value>この関連付けの方向は {0} で、並べ替えをサポートしていません。</value>
+    <comment>This association has direction {0} and does not support sorting.</comment>
+  </data>
+  <data name="AssociationProvider_SortColumnDoesNotBelongToEndTable" xml:space="preserve">
+    <value>指定した並べ替え列は、この関連付けの終端テーブルに属していません。</value>
+    <comment>The given sort column does not belong to this association's end table.</comment>
+  </data>
+  <data name="DynamicHyperLink_CannotSetTableAndContextWhenDatabinding" xml:space="preserve">
+    <value>DynamicHyperLink コントロール '{0}' では、データ バインド時に 'TableName' または 'ContextTypeName' プロパティを設定できません。</value>
+    <comment>The DynamicHyperLink control '{0}' cannot have the properties 'TableName' or 'ContextTypeName' set when data binding.</comment>
+  </data>
+  <data name="DynamicDataManager_ControlNotFound" xml:space="preserve">
+    <value>DynamicDataManager に登録する ID '{0}' の DataControl が見つかりませんでした。</value>
+    <comment>A DataControl with ID '{0}' could not be found for the DynamicDataManager to register.</comment>
+  </data>
+  <data name="DataControlReference_ControlID" xml:space="preserve">
+    <value>データ コントロールのコントロール ID。</value>
+    <comment>The data control's control ID.</comment>
+  </data>
+  <data name="DynamicEntity_CantFindTemplate" xml:space="preserve">
+    <value>エンティティ テンプレート パス '{1}' に、テーブル '{0}' のエンティティ テンプレートが見つかりません。</value>
+    <comment>Cannot find an entity template for table '{0}' under the entity template path: '{1}'.</comment>
+  </data>
+  <data name="DynamicEntity_ControlNeedsToExistInAContextSupportingDynamicData" xml:space="preserve">
+    <value>DynamicEntity コントロール '{0}' は、Dynamic Data をサポートするデータ ソースにバインドされたデータ コントロール内にある必要があります。</value>
+    <comment>The DynamicEntity control '{0}' needs to exist in a data control that is bound to a data source that supports Dynamic Data.</comment>
+  </data>
+  <data name="Misc_CannotConvertType" xml:space="preserve">
+    <value>型 '{0}' を '{1}' に変換できません</value>
+    <comment>Unable to convert type '{0}' to '{1}'</comment>
+  </data>
+  <data name="FieldTemplateUserControl_CompareValidationError_Date" xml:space="preserve">
+    <value>フィールド {0} は有効な日付である必要があります。</value>
+    <comment>The field {0} must be a valid date.</comment>
+  </data>
+  <data name="FieldTemplateUserControl_CompareValidationError_Decimal" xml:space="preserve">
+    <value>フィールド {0} は有効な 10 進数である必要があります。</value>
+    <comment>The field {0} must be a valid decimal.</comment>
+  </data>
+  <data name="FieldTemplateUserControl_CompareValidationError_Integer" xml:space="preserve">
+    <value>フィールド {0} は有効な整数である必要があります。</value>
+    <comment>The field {0} must be a valid integer.</comment>
+  </data>
+  <data name="DynamicValidator_CannotConvertValue" xml:space="preserve">
+    <value>値が無効です。</value>
+    <comment>The value is not valid.</comment>
+  </data>
+  <data name="DynamicHyperLink_CannotDetermineTable" xml:space="preserve">
+    <value>DynamicHyperLink コントロール '{0}' は、リンクの基になる MetaTable を特定できませんでした。コントロールが Dynamic Data ルートのコンテキストにあるページ内にあるか、ContextTypeName と TableName プロパティが正しく設定されていることを確認してください。</value>
+    <comment>The DynamicHyperLink control '{0}' could not determine the MetaTable to base the link on. Make sure that the the control is in a page that is in the context of a Dynamic Data route or that the ContextTypeName and TableName properties are set correctly.</comment>
+  </data>
+  <data name="DynamicHyperLink_CannotBindToNull" xml:space="preserve">
+    <value>DynamicHyperLink コントロール '{0}' は null 項目にデータ バインドできません。</value>
+    <comment>The DynamicHyperLink control '{0}' cannot data bind to a null item.</comment>
+  </data>
+  <data name="FilterFactory_ColumnHasNoDefaultFilter" xml:space="preserve">
+    <value>テーブル '{1}' の列 '{0}' に既定のフィルターがありません。</value>
+    <comment>The column '{0}' in table '{1}' does not have a default filter.</comment>
+  </data>
+  <data name="MetaTable_CannotGetTableFromRoute" xml:space="preserve">
+    <value>ルートからテーブルを特定できません。要求がルートを経由していないか、ルートが ASP.NET Dynamic Data 用に構成されていません。</value>
+    <comment>Cannot determine table from route. The request did not go through a route or the route is not configured to support ASP.NET Dynamic Data.</comment>
+  </data>
+  <data name="MetaTable_CannotGetTableFromDataSource" xml:space="preserve">
+    <value>データ ソースからテーブルを特定できません。MetaTable.MapTable メソッドを使用して、データ ソースと MetaTable インスタンスを関連付けてください。</value>
+    <comment>Cannot determine table from data source. Use the MetaTable.MapTable method to establish an association between a data source and a MetaTable instance.</comment>
+  </data>
+  <data name="MetaTable_CannotGetTableFromControl" xml:space="preserve">
+    <value>コントロールからテーブルを特定できません。MetaTable.MapControl メソッドを使用して、コントロールと MetaTable インスタンスを関連付けてください。</value>
+    <comment>Cannot determine table from control. Use the MetaTable.MapControl method to establish an association between a control and a MetaTable instance.</comment>
+  </data>
+  <data name="MetaTable_NamingContainerIsNotControl" xml:space="preserve">
+    <value>名前付けコンテナーはコントロールである必要があります。</value>
+    <comment>The naming container must be a control.</comment>
+  </data>
+  <data name="SimpleColumnProvider_ColumnTypeRequired" xml:space="preserve">
+    <value>列には型が必要です</value>
+    <comment>Column must have a type</comment>
+  </data>
+  <data name="DynamicControlFieldCommon_ApplyFormatInEditMode" xml:space="preserve">
+    <value>編集モードで、DataFormatString の書式を適用してデータを表示するかどうか。true の場合、データ ソースで更新する前にデータの書式を解除する必要がある場合があります。</value>
+    <comment>Whether the data should be shown with the DataFormatString formatting applied when in edit mode. If set to true, the data may have to be unformatted before it is updated in the data source.</comment>
+  </data>
+  <data name="DynamicControlFieldCommon_ConvertEmptyStringToNull" xml:space="preserve">
+    <value>フィールドから値を取得するときに、空の文字列を null として扱うかどうか</value>
+    <comment>Whether the field treats empty strings as null when the value is extracted from the field.</comment>
+  </data>
+  <data name="DynamicControlFieldCommon_DataField" xml:space="preserve">
+    <value>このフィールドがバインドされるモデル内のフィールドの名前</value>
+    <comment>The name of the field in the model to which this field is bound.</comment>
+  </data>
+  <data name="DynamicControlFieldCommon_DataFormatString" xml:space="preserve">
+    <value>バインドされた値に適用される書式。例: "{0:d}" や "{0:c}"。</value>
+    <comment>The formatting that is applied to the bound value. For example, "{0:d}" or "{0:c}".</comment>
+  </data>
+  <data name="DynamicControlFieldCommon_HtmlEncode" xml:space="preserve">
+    <value>ユーザーに表示するときにフィールドを HTML エンコードするかどうか</value>
+    <comment>Whether the field is HTML encoded when displayed to the user.</comment>
+  </data>
+  <data name="DynamicControlFieldCommon_NullDisplayText" xml:space="preserve">
+    <value>フィールドにバインドされたデータが null の場合に表示するテキスト</value>
+    <comment>The text displayed if the data bound to the field is null.</comment>
+  </data>
+  <data name="DynamicField_ReadOnly" xml:space="preserve">
+    <value>常に読み取り専用テンプレートを読み込むかどうか</value>
+    <comment>Whether to always load a read-only template.</comment>
+  </data>
+  <data name="DynamicControlFieldCommon_UIHint" xml:space="preserve">
+    <value>このフィールドを表すテンプレートの読み込みに使用する UI ヒント (省略可能)</value>
+    <comment>An optional UI hint used to load the template to represent this field.</comment>
+  </data>
+  <data name="DynamicControlFieldCommon_ValidationGroup" xml:space="preserve">
+    <value>このフィールドが検証を発生させる検証グループの名前</value>
+    <comment>The name of the validation group for which this field should cause validation.</comment>
+  </data>
+  <data name="DynamicControl_Mode" xml:space="preserve">
+    <value>FieldTemplate を表示するモード</value>
+    <comment>The mode in which to render the FieldTemplate.</comment>
+  </data>
+  <data name="DynamicEntity_Mode" xml:space="preserve">
+    <value>EntityTemplate を表示するモード</value>
+    <comment>The mode in which to render the EntityTemplate.</comment>
+  </data>
+  <data name="DynamicFilter_DataField" xml:space="preserve">
+    <value>このフィルターがバインドされるモデル内のフィールドの名前</value>
+    <comment>The name of the field in the model to which this filter is bound.</comment>
+  </data>
+  <data name="DynamicFilter_FilterUIHint" xml:space="preserve">
+    <value>このフィルターを表すテンプレートの読み込みに使用する UI ヒント (省略可能)</value>
+    <comment>An optional UI hint used to load the template to represent this filter.</comment>
+  </data>
+  <data name="DynamicHyperLink_Action" xml:space="preserve">
+    <value>URL を生成するアクション</value>
+    <comment>The action to generate a URL for.</comment>
+  </data>
+  <data name="DynamicHyperLink_ContextTypeName" xml:space="preserve">
+    <value>MetaModel を DynamicHyperLink に関連付けるために使用できる ContextTypeName (省略可能)</value>
+    <comment>An optional ContextTypeName that can be used to associate a MetaModel with the DynamicHyperLink.</comment>
+  </data>
+  <data name="DynamicHyperLink_DataField" xml:space="preserve">
+    <value>データ バインド コンテキストで、DynamicHyperLink のテキストに使用するフィールドを指定するために使用できる DataField (省略可能)</value>
+    <comment>An optional DataField that can be used in a data binding context to provide which field should be used for the text of the  DynamicHyperLink.</comment>
+  </data>
+  <data name="DynamicHyperLink_TableName" xml:space="preserve">
+    <value>MetaTable を DynamicHyperLink に関連付けるために使用できる TableName (省略可能)</value>
+    <comment>An optional TableName that can be used to associate a MetaTable with the DynamicHyperLink.</comment>
+  </data>
+  <data name="ControlFilterExpression_CouldNotFindControlID" xml:space="preserve">
+    <value>'{0}' に属する ControlFilterExpression で、ID '{1}' のコントロールが見つかりませんでした。ControlFilterExpression の ControlID プロパティの値を確認してください。</value>
+    <comment>The ControlFilterExpression belonging to '{0}' could not find a control with ID '{1}'. Please check the value of the ControlID property on the ControlFilterExpression.</comment>
+  </data>
+  <data name="MetaTableHelper_CantFindTable" xml:space="preserve">
+    <value>MetaTable を特定できませんでした。データ ソース '{0}' の MetaTable を特定できず、要求 URL からも推測できませんでした。テーブルがデータ ソースにマップされているか、データ ソースが有効なコンテキスト型とテーブル名で構成されているか、要求が登録済みの DynamicDataRoute の一部であることを確認してください。</value>
+    <comment>Could not determine a MetaTable. A MetaTable could not be determined for the data source '{0}' and one could not be inferred from the request URL. Make sure that the table is mapped to the data source, or that the data source is configured with a valid context type and table name, or that the request is part of a registered DynamicDataRoute.</comment>
+  </data>
+  <data name="MetaTable_ColumnNameConflict" xml:space="preserve">
+    <value>テーブル '{1}' の列 '{0}' が同じ名前の別の列と競合しています。</value>
+    <comment>Column '{0}' on table '{1}' conflicts with another column of the same name.</comment>
+  </data>
+  <data name="DynamicField_ValidateRequestMode" xml:space="preserve">
+    <value>コントロールがクライアント入力を検証するかどうか。既定では親から継承します。</value>
+    <comment>Determines whether the control validates client input or not. Defaults to inherit from parent.</comment>
+  </data>
+</root>

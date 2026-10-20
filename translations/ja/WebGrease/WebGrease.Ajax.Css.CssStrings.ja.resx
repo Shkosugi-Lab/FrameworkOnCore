@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ColorCanBeCollapsed" xml:space="preserve">
+    <value>色 {0} は {1} に短縮できます</value>
+    <comment>Color {0} can be collapsed to {1}</comment>
+  </data>
+  <data name="DecimalNoDigit" xml:space="preserve">
+    <value>小数点の後に数字がありません</value>
+    <comment>Decimal point not followed by numeric digit</comment>
+  </data>
+  <data name="DeclarationIgnored" xml:space="preserve">
+    <value>宣言を無視しました</value>
+    <comment>declaration ignored</comment>
+  </data>
+  <data name="DeclarationIgnoredFormat" xml:space="preserve">
+    <value>{0} ({1})</value>
+    <comment>{0} ({1})</comment>
+  </data>
+  <data name="EquivalentNumbers" xml:space="preserve">
+    <value>数値に不要な文字が含まれています: {0} は {1} と同じです。</value>
+    <comment>Numeric value contains unnecessary characters: {0} is equivalent to {1}.</comment>
+  </data>
+  <data name="ExpectedCharset" xml:space="preserve">
+    <value>'{0}' ではなく charset 文字列が必要</value>
+    <comment>Expected charset string, found '{0}'</comment>
+  </data>
+  <data name="ExpectedClosingBracket" xml:space="preserve">
+    <value>'{0}' ではなく閉じ角かっこが必要</value>
+    <comment>Expected closing bracket, found '{0}'</comment>
+  </data>
+  <data name="ExpectedColon" xml:space="preserve">
+    <value>'{0}' ではなくコロンが必要</value>
+    <comment>Expected colon, found '{0}'</comment>
+  </data>
+  <data name="ExpectedComma" xml:space="preserve">
+    <value>'{0}' でなくコンマが必要</value>
+    <comment>Expect comma, found '{0}'</comment>
+  </data>
+  <data name="ExpectedCommaOrOpenBrace" xml:space="preserve">
+    <value>'{0}' ではなくコンマか左中かっこが必要</value>
+    <comment>Expected comma or open brace, found '{0}'</comment>
+  </data>
+  <data name="ExpectedCommaOrSemicolon" xml:space="preserve">
+    <value>'{0}' ではなくコンマかセミコロンが必要</value>
+    <comment>Expected comma or semi-colon, found '{0}'</comment>
+  </data>
+  <data name="ExpectedEqualSign" xml:space="preserve">
+    <value>{0} ではなく等号が必要</value>
+    <comment>Expected equal sign, found {0}</comment>
+  </data>
+  <data name="ExpectedExpression" xml:space="preserve">
+    <value>'{0}' ではなく式が必要</value>
+    <comment>Expected expression, found '{0}'</comment>
+  </data>
+  <data name="ExpectedFunction" xml:space="preserve">
+    <value>'{0}' ではなく関数が必要</value>
+    <comment>Expected function, found '{0}'</comment>
+  </data>
+  <data name="ExpectedHexColor" xml:space="preserve">
+    <value>'{0}' ではなく 16 進色が必要</value>
+    <comment>Expected hex color, found '{0}'</comment>
+  </data>
+  <data name="ExpectedIdentifier" xml:space="preserve">
+    <value>'{0}' ではなく識別子が必要</value>
+    <comment>Expected identifier, found '{0}'</comment>
+  </data>
+  <data name="ExpectedIdentifierOrString" xml:space="preserve">
+    <value>'{0}' ではなく識別子か文字列が必要</value>
+    <comment>Expected identifier or string, found '{0}'</comment>
+  </data>
+  <data name="ExpectedImport" xml:space="preserve">
+    <value>'{0}' ではなく import 文字列か URI が必要</value>
+    <comment>Expected import string or uri, found '{0}'</comment>
+  </data>
+  <data name="ExpectedMediaIdentifier" xml:space="preserve">
+    <value>'{0}' ではなくメディア識別子が必要</value>
+    <comment>Expected media identifier, found '{0}'</comment>
+  </data>
+  <data name="ExpectedNamespace" xml:space="preserve">
+    <value>'{0}' ではなく名前空間文字列か URI が必要</value>
+    <comment>Expected namespace string or uri, found '{0}'</comment>
+  </data>
+  <data name="ExpectedOpenBrace" xml:space="preserve">
+    <value>'{0}' ではなく左中かっこが必要</value>
+    <comment>Expected open brace, found '{0}'</comment>
+  </data>
+  <data name="ExpectedOpenParenthesis" xml:space="preserve">
+    <value>開きかっこが必要</value>
+    <comment>Expected opening parenthesis</comment>
+  </data>
+  <data name="ExpectedProgId" xml:space="preserve">
+    <value>'{0}' ではなく progid が必要</value>
+    <comment>Expected progid, found '{0}'</comment>
+  </data>
+  <data name="ExpectedRgbNumberOrPercentage" xml:space="preserve">
+    <value>'{0}' ではなく rgb 関数の数値かパーセント値が必要</value>
+    <comment>Expected number or percentage value in rgb function, found '{0}'</comment>
+  </data>
+  <data name="ExpectedSelector" xml:space="preserve">
+    <value>'{0}' ではなくセレクターが必要</value>
+    <comment>Expected selector, found '{0}'</comment>
+  </data>
+  <data name="ExpectedSemicolon" xml:space="preserve">
+    <value>'{0}' ではなくセミコロンが必要</value>
+    <comment>Expected semi-colon, found '{0}'</comment>
+  </data>
+  <data name="ExpectedSemicolonOrOpenBrace" xml:space="preserve">
+    <value>'{0}' ではなくセミコロンか右中かっこが必要</value>
+    <comment>Expected semi-colon or close brace, found '{0}'</comment>
+  </data>
+  <data name="ExpectedTerm" xml:space="preserve">
+    <value>{0} ではなく項が必要</value>
+    <comment>Expected term, found {0}</comment>
+  </data>
+  <data name="HashAfterUnaryNotAllowed" xml:space="preserve">
+    <value>ハッシュ ({0}) は単項演算子の後に置けません</value>
+    <comment>Hash ({0}) not allowed after unary operator</comment>
+  </data>
+  <data name="HighSurrogateNoLow" xml:space="preserve">
+    <value>Unicode の上位サロゲート値 (0x{0:x}) の直後に Unicode エスケープされた下位サロゲート値がありません</value>
+    <comment>Unicode high-surrogate value (0x{0:x}) not immediately followed by unicode-escaped low-surrogate value</comment>
+  </data>
+  <data name="InvalidLowSurrogate" xml:space="preserve">
+    <value>Unicode の上位サロゲート値 (0x{0:x}) の後に無効な下位サロゲート値があります: 0x{1:x}</value>
+    <comment>Unicode high-surrogate value (0x{0:x}) followed by invalid low-surrogate value: 0x{1:x}</comment>
+  </data>
+  <data name="ParserSubsystem" xml:space="preserve">
+    <value>パーサー</value>
+    <comment>Parser</comment>
+  </data>
+  <data name="ProgIdIEOnly" xml:space="preserve">
+    <value>'progid:' は無効な CSS を生成する IE 専用の構文です</value>
+    <comment>'progid:' is an IE-only construct that generates invalid CSS</comment>
+  </data>
+  <data name="ScannerSubsystem" xml:space="preserve">
+    <value>スキャナー</value>
+    <comment>Scanner</comment>
+  </data>
+  <data name="TokenAfterUnaryNotAllowed" xml:space="preserve">
+    <value>単項演算子の後にトークンは使えません: '{0}'</value>
+    <comment>Token not allowed after unary operator: '{0}'</comment>
+  </data>
+  <data name="UnderscoreNotValid" xml:space="preserve">
+    <value>アンダースコアは CSS1/CSS2 の有効な識別子文字ではありません</value>
+    <comment>An underscore is not a valid CSS1 or CSS2 identifier character</comment>
+  </data>
+  <data name="UnexpectedAtKeyword" xml:space="preserve">
+    <value>予期しない at キーワード: '{0}'</value>
+    <comment>Unexpected at-keyword, found '{0}'</comment>
+  </data>
+  <data name="UnexpectedDimension" xml:space="preserve">
+    <value>予期しない寸法値: '{0}'</value>
+    <comment>Unexpected dimension: '{0}'</comment>
+  </data>
+  <data name="UnexpectedEscape" xml:space="preserve">
+    <value>予期しないエスケープ: \{0}</value>
+    <comment>Unexpected escape sequence: \{0}</comment>
+  </data>
+  <data name="UnexpectedNumberCharacter" xml:space="preserve">
+    <value>予期しない数値文字: {0}</value>
+    <comment>Unexpected number character: {0}</comment>
+  </data>
+  <data name="UnexpectedStringCharacter" xml:space="preserve">
+    <value>文字列内の予期しない文字: {0}</value>
+    <comment>Unexpected string character: {0}</comment>
+  </data>
+  <data name="UnexpectedToken" xml:space="preserve">
+    <value>予期しないトークン: '{0}'</value>
+    <comment>Unexpected token, found '{0}'</comment>
+  </data>
+  <data name="UnknownCharacterEncoding" xml:space="preserve">
+    <value>?</value>
+    <comment>?</comment>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>不明なエラー</value>
+    <comment>Unknown error</comment>
+  </data>
+  <data name="UnnecessaryUnits" xml:space="preserve">
+    <value>値 0 に不要な単位があります</value>
+    <comment>Unnecessary units on a value of zero</comment>
+  </data>
+  <data name="UnterminatedComment" xml:space="preserve">
+    <value>未終了のコメント。</value>
+    <comment>Unterminated comment.</comment>
+  </data>
+  <data name="UnterminatedString" xml:space="preserve">
+    <value>未終了の文字列: {0}</value>
+    <comment>Unterminated string: {0}</comment>
+  </data>
+  <data name="ExpectedEndOfFile" xml:space="preserve">
+    <value>ファイル終端が必要; 入力ファイルが無効</value>
+    <comment>Expected end of file; invalid input file</comment>
+  </data>
+  <data name="DuplicateNamespaceDeclaration" xml:space="preserve">
+    <value>名前空間の宣言が重複しています。'{0}' は宣言済みです</value>
+    <comment>Duplicate namespace declaration; already declared '{0}'</comment>
+  </data>
+  <data name="HackGeneratesInvalidCss" xml:space="preserve">
+    <value>ブラウザー ハックで CSS が無効に</value>
+    <comment>Browser hack generates invalid CSS</comment>
+  </data>
+  <data name="UndeclaredNamespace" xml:space="preserve">
+    <value>@namespace 文で未宣言の名前空間が使用されています: '{0}'</value>
+    <comment>Namespace used but not declared in a @namespace statement: '{0}'</comment>
+  </data>
+  <data name="InvalidUnicodeRange" xml:space="preserve">
+    <value>無効な Unicode 範囲トークン: '{0}'</value>
+    <comment>Invalid Unicode Range Token: '{0}'</comment>
+  </data>
+  <data name="ExpressionError" xml:space="preserve">
+    <value>expression 内の JavaScript エラー: {0}</value>
+    <comment>JavaScript error in expression property: {0}</comment>
+  </data>
+  <data name="ExpectedClosingParenthesis" xml:space="preserve">
+    <value>'{0}' ではなく閉じかっこが必要</value>
+    <comment>Expected closing parenthesis, found '{0}'</comment>
+  </data>
+  <data name="ExpectedMediaFeature" xml:space="preserve">
+    <value>'{0}' ではなくメディア特性が必要</value>
+    <comment>Expected media feature, found '{0}'</comment>
+  </data>
+  <data name="ExpectedMediaQuery" xml:space="preserve">
+    <value>'{0}' でなくメディア クエリが必要</value>
+    <comment>Expected media query, found '{0}'</comment>
+  </data>
+  <data name="ExpectedMediaQueryExpression" xml:space="preserve">
+    <value>'{0}' ではなくメディア クエリ式が必要</value>
+    <comment>Expected media-query expression, found '{0}'</comment>
+  </data>
+  <data name="MediaQueryRequiresSpace" xml:space="preserve">
+    <value>メディア クエリでは 'and' と開きかっこの間にスペースが必要です: '{0}'</value>
+    <comment>Media queries require a space between 'and' and the opening parenthesis: '{0}'</comment>
+  </data>
+  <data name="PossibleInvalidClassName" xml:space="preserve">
+    <value>ブラウザー間で無効な可能性のあるクラス名: {0}</value>
+    <comment>Possible cross-browser invalid class name: {0}</comment>
+  </data>
+  <data name="ExpectedClosingBrace" xml:space="preserve">
+    <value>'{0}' ではなく右中かっこが必要</value>
+    <comment>Expected closing curly-brace, found '{0}'</comment>
+  </data>
+  <data name="ExpectedPercentageFromOrTo" xml:space="preserve">
+    <value>'{0}' ではなくパーセント、'from'、'to' が必要</value>
+    <comment>Expected percentage, 'from', or 'to'; found '{0}'</comment>
+  </data>
+  <data name="ExpectedSemicolonOrClosingBrace" xml:space="preserve">
+    <value>'{0}' ではなくセミコロンか右中かっこが必要</value>
+    <comment>Expected semicolon or closing curly-brace, found '{0}'</comment>
+  </data>
+  <data name="UnexpectedFunction" xml:space="preserve">
+    <value>予期しない関数 '{0}'。ここで使えるのは calc( か attr( のみです</value>
+    <comment>Unexpected function; only calc( or attr( allowed here, found '{0}'</comment>
+  </data>
+  <data name="ExpectedProduct" xml:space="preserve">
+    <value>'{0}' ではなく計算の積が必要</value>
+    <comment>Expected calculation product, found '{0}'</comment>
+  </data>
+  <data name="ExpectedSum" xml:space="preserve">
+    <value>'{0}' ではなく計算の和が必要</value>
+    <comment>Expected calculation sum, found '{0}'</comment>
+  </data>
+  <data name="ExpectedUnit" xml:space="preserve">
+    <value>'{0}' ではなく計算の単位が必要</value>
+    <comment>Expected calculation unit, found '{0}'</comment>
+  </data>
+  <data name="UnexpectedEndOfFile" xml:space="preserve">
+    <value>予期しないファイルの終端です</value>
+    <comment>Unexpected end of file encountered</comment>
+  </data>
+  <data name="ExpectedNumber" xml:space="preserve">
+    <value>'{0}' ではなく数値が必要</value>
+    <comment>Expected number, found '{0}'</comment>
+  </data>
+  <data name="PossibleCharsetError" xml:space="preserve">
+    <value>ソース先頭の BOM はエンコードの問題を示している可能性があります。</value>
+    <comment>Byte-order mark at front of source indicates possible encoding issue.</comment>
+  </data>
+  <data name="UnexpectedCharset" xml:space="preserve">
+    <value>@charset はファイルの最初のトークンに限る</value>
+    <comment>@charset must be very first token in file</comment>
+  </data>
+</root>

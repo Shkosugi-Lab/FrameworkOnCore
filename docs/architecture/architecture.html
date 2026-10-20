@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>アーキテクチャ: .NET Framework・.NET・FrameworkOnCore</title>
+<!-- The three stacks side by side in kind: ?p=1 (Windows Server + .NET Framework), ?p=2 (.NET), ?p=3 (FrameworkOnCore).
+     PNGs: msedge --headless --screenshot=architecture-<p>.png --window-size=1220,830 "file:///.../architecture.html?p=<p>" -->
+<style>
+  body { margin: 0; background: #fff; font-family: "Yu Gothic UI", "Meiryo", sans-serif; }
+  #canvas { position: relative; width: 1220px; height: 830px; }
+  h1 { position: absolute; left: 10px; top: 4px; margin: 0; font-size: 22px; color: #333; }
+  .box { position: absolute; box-sizing: border-box; border: 2px solid #fff; padding: 4px 6px; overflow: hidden; }
+  .box .t { color: #fff; font-weight: bold; font-size: 15px; margin-bottom: 4px; white-space: nowrap; }
+  .box .i { display: inline-block; background: rgba(255,255,255,.88); border-radius: 3px; padding: 2px 6px; margin: 2px 3px 2px 0;
+            font-size: 12px; font-weight: bold; color: #333; vertical-align: top; }
+  .box.col .i { display: block; margin: 4px 0; }
+  .missing { background: repeating-linear-gradient(45deg, #fff, #fff 8px, #fde3e3 8px, #fde3e3 16px) !important; border: 2px dashed #d32f2f !important; }
+  .missing .t { color: #c62828; }
+  .legend { position: absolute; left: 10px; top: 800px; font-size: 12px; color: #333; }
+  .legend span { display: inline-block; width: 14px; height: 14px; vertical-align: middle; margin: 0 4px 0 14px; }
+</style>
+</head>
+<body>
+<div id="canvas"></div>
+<script>
+const C = {
+  app: '#f39a3d', ms: '#3b73b9', msLight: '#6d9ad3', net: '#7b5ea7', host: '#24508c', os: '#6b6b6b', hw: '#8a8a8a',
+  foc: '#c8102e', focLight: '#e05a47', compat: '#3aa357', dev: '#5b9bd5', side: '#eef4fb'
+};
+// [x, y, w, h, color, title, items, options]
+const P = {
+  1: { title: '① Windows Server + .NET Framework 4.8(元のサーバー)', boxes: [
+    [0, 40, 970, 110, C.app, 'お客様の ASP.NET アプリケーション', ['Web Forms(.aspx・.ascx・.master)', 'MVC 5・Web API 2', 'ASMX Web サービス', 'WCF サービス', 'C#・Visual Basic', 'App_Code・.aspx は IIS 上で実行時にコンパイル']],
+    [0, 155, 630, 185, C.ms, 'ASP.NET(System.Web 他)― Microsoft', ['ページ・コントロール', 'ASP.NET AJAX(System.Web.Extensions)', 'Chart(DataVisualization)', 'Dynamic Data', 'Mobile', 'ASMX(System.Web.Services)', '構成(web.config・System.Configuration)', 'メンバーシップ・ロール', 'セッション・キャッシュ', '実行時コンパイル(csc・vbc)', 'バンドル(Optimization・WebGrease)']],
+    [635, 155, 335, 185, C.ms, 'その他のライブラリ ― Microsoft', ['WCF(System.ServiceModel)', 'ADO.NET(System.Data・SqlClient)', 'System.Drawing(GDI+)', 'LINQ to SQL', 'BinaryFormatter']],
+    [0, 345, 970, 45, C.msLight, '.NET Framework 言語パック(ASP.NET などのメッセージが日本語に)', []],
+    [0, 395, 970, 110, C.net, '.NET Framework 4.8 基本クラスライブラリ + CLR 4', ['mscorlib・System', 'double の書式(15 桁で丸める)', 'カルチャのデータ = Windows の NLS', 'ファイル・パス(Windows)', 'エンコーディング(UTF-7 も)', 'CLR 4(JIT・GC・AppDomain・CAS)']],
+    [0, 510, 970, 95, C.host, 'IIS(Web サーバー)', ['統合パイプライン', 'アプリケーション プール', 'URL Rewrite', '静的ファイル・カーネル キャッシュ', 'customHeaders・httpRedirect', 'W3C ログ', 'Windows 認証']],
+    [0, 610, 970, 95, C.os, 'Windows Server', ['http.sys', 'NTFS(大文字小文字を区別しない・8.3 名)', 'NLS(カルチャのデータ)', 'Windows のタイムゾーン', 'GDI+', 'SChannel(TLS)', 'レジストリ・イベント ログ']],
+    [0, 710, 970, 80, C.hw, 'サーバー(x64 の物理マシン・仮想マシン)', []],
+    [980, 40, 240, 750, C.side, '', [], { side: [C.dev, '開発・配置', ['Visual Studio', 'MSBuild', 'Web Deploy', 'IIS マネージャー', 'SQL Server Express・SQL Server']] }],
+  ]},
+  2: { title: '② Windows / Linux サーバー + .NET 10(そのまま移すと)', boxes: [
+    [0, 40, 970, 110, C.app, 'お客様のアプリケーション ― 作り直しが必要', ['Web Forms・ASMX・WCF サービスはそのままでは動かない', 'ASP.NET Core MVC・Razor Pages・Blazor に書き直す', 'System.Web の API を使うコードは書き直す']],
+    [0, 155, 630, 135, C.ms, 'ASP.NET Core ― Microsoft', ['Kestrel', 'ミドルウェア', 'MVC・Razor Pages', 'Blazor', 'SignalR', '構成(appsettings.json)', 'ASP.NET Core Identity']],
+    [635, 155, 335, 135, C.ms, 'その他のライブラリ', ['CoreWCF(コミュニティ)', 'Microsoft.Data.SqlClient', 'System.Drawing.Common(Windows のみ)', 'BinaryFormatter(削除・例外)', 'LINQ to SQL(無し)']],
+    [0, 295, 970, 95, '#ffffff', 'ここに System.Web は無い', ['Web Forms', 'ASP.NET AJAX', 'Chart', 'Dynamic Data', 'Mobile', 'ASMX', 'web.config の system.web', '.NET Framework 言語パック(無し)'], { missing: true }],
+    [0, 395, 970, 110, C.net, '.NET 10 基本クラスライブラリ + CoreCLR(.NET Framework と同じ名前でも動きが違うものがある)', ['System.Private.CoreLib', 'double の書式(最短の桁・IEEE 準拠)', 'カルチャのデータ = ICU(Linux)', 'Parse の桁あふれ = 無限大', 'UTF-7 は無効', 'CoreCLR(AppDomain・CAS なし)']],
+    [0, 510, 480, 95, C.host, 'ホスト(Windows)', ['IIS + ASP.NET Core Module', 'Kestrel']],
+    [490, 510, 480, 95, C.host, 'ホスト(Linux)', ['Kestrel', 'nginx・Apache(リバース プロキシ)', 'systemd・Docker']],
+    [0, 610, 480, 95, C.os, 'Windows Server', ['NTFS', 'NLS または ICU', 'Windows のタイムゾーン', 'GDI+']],
+    [490, 610, 480, 95, C.os, 'Linux', ['ext4・xfs(大文字小文字を区別する)', 'ICU(カルチャのデータ)', 'IANA のタイムゾーン', 'GDI+ なし', 'OpenSSL']],
+    [0, 710, 970, 80, C.hw, 'サーバー・コンテナ・クラウド(x64・ARM64)', []],
+    [980, 40, 240, 750, C.side, '', [], { side: [C.dev, '開発・配置', ['Visual Studio・VS Code', 'dotnet CLI', 'Docker', 'GitHub Actions・Azure DevOps']] }],
+  ]},
+  3: { title: '③ Windows / Linux サーバー + FrameworkOnCore(.NET 10 の上で .NET Framework の ASP.NET を動かす)', boxes: [
+    [0, 40, 970, 110, C.app, 'お客様の ASP.NET アプリケーション ― ソースはほぼそのまま(差の出る呼び出しだけ変換器が書き換え)', ['Web Forms(.aspx・.ascx・.master)', 'MVC 5・Web API 2', 'ASMX Web サービス', 'WCF サービス', 'C#・Visual Basic', 'App_Code・.aspx は実行時にコンパイル']],
+    [0, 155, 630, 185, C.foc, 'FrameworkOnCore.Runtime(referencesource の移植)', ['System.Web(ページ・コントロール・セッション・メンバーシップ)', 'ASP.NET AJAX(Extensions)', 'Chart(DataVisualization)', 'Dynamic Data', 'Mobile', 'ASMX(Services)', '構成(web.config)', 'Optimization・WebGrease', 'FrameworkOnCore.Compilers(実行時コンパイル + 書き換え)']],
+    [635, 155, 335, 185, C.focLight, 'ライブラリの移植・代わり', ['WCF → CoreWCF(ServiceModel)', 'System.Data.SqlClient(移植)', 'System.Drawing.Common(Linux 版)', 'LINQ to SQL(移植)', 'BinaryFormatter(互換パッケージ)', 'MVC 5・Web API 2(Microsoft の DLL)']],
+    [0, 345, 630, 95, C.compat, 'FrameworkOnCore.Compat(.NET と違う所を .NET Framework の動きに)', ['FrameworkNumbers(double の書式)', 'FrameworkParsing', 'FrameworkFiles(ファイルの順・パターン)', 'FrameworkCultures', 'VisualBasicText', 'WindowsPath(Windows のパス)']],
+    [635, 345, 335, 95, C.compat, '言語・カルチャ', ['独自の翻訳(7,430 件・MIT)', 'カルチャ プロファイル(元のサーバーのカルチャ・タイムゾーン)']],
+    [0, 445, 970, 60, C.net, '.NET 10 基本クラスライブラリ + CoreCLR', ['System.Private.CoreLib', 'CoreCLR', 'カルチャのデータ = ICU(Linux)']],
+    [0, 510, 970, 95, C.foc, 'ホスト層(ASP.NET Core のミドルウェアで IIS の機能)', ['Kestrel', '統合パイプラインの再現', 'URL Rewrite(IIS 互換)', '静的ファイル・キャッシュ', 'customHeaders・httpRedirect', 'W3C ログ(IIS 互換)', '元の IIS の設定の取り込み', 'Windows では IIS + ANCM も可']],
+    [0, 610, 480, 95, C.os, 'Windows Server', ['NTFS', 'NLS', 'Windows のタイムゾーン']],
+    [490, 610, 480, 95, C.os, 'Linux(Docker・systemd)', ['ext4・xfs', 'ICU + カルチャ プロファイル', 'TZ = 元のサーバーのタイムゾーン', 'libgdiplus']],
+    [0, 710, 970, 80, C.hw, 'サーバー・コンテナ・クラウド(x64・ARM64)', []],
+    [980, 40, 240, 750, C.side, '', [], { side: [C.compat, 'FrameworkOnCore Studio(変換・検証)', ['① 読み込み・元のビルド', '② 解析(使っている API)', '③ 部品の選択', '④ アプリの設定(言語など)', '⑤ 変換器(アナライザー FOC・書き換え規則)', '⑥ 配置(Docker・systemd)', 'ParityTest(IIS の画面と比べる)', 'capture-culture・capture-iis(元のサーバーの設定)']] }],
+  ]},
+};
+const p = P[new URLSearchParams(location.search).get('p') || '3'];
+const canvas = document.getElementById('canvas');
+const h1 = document.createElement('h1'); h1.textContent = p.title; canvas.appendChild(h1);
+for (const [x, y, w, h, color, title, items, opt] of p.boxes) {
+  const d = document.createElement('div');
+  d.className = 'box' + (opt?.missing ? ' missing' : '');
+  Object.assign(d.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px', background: color });
+  if (opt?.side) {
+    // A column: its title bar and its items one a line.
+    const [c, t, list] = opt.side;
+    d.innerHTML = `<div class="box col" style="left:8px;top:8px;width:${w - 20}px;height:${h - 20}px;background:${c}"><div class="t" style="white-space:normal">${t}</div>${list.map(i => `<div class="i">${i}</div>`).join('')}</div>`;
+  } else {
+    d.innerHTML = `<div class="t">${title}</div>` + items.map(i => `<span class="i">${i}</span>`).join('');
+  }
+  canvas.appendChild(d);
+}
+const legend = document.createElement('div'); legend.className = 'legend';
+legend.innerHTML = [[C.app, 'お客様のアプリ'], [C.ms, 'Microsoft'], [C.net, '.NET の実行環境'], [C.foc, 'FrameworkOnCore'], [C.compat, 'FrameworkOnCore の互換・ツール'], [C.host, 'Web サーバー・ホスト'], [C.os, 'OS']]
+  .filter(([c]) => p.boxes.some(b => b[4] === c || b[7]?.side?.[0] === c))
+  .map(([c, t]) => `<span style="background:${c}"></span>${t}`).join('');
+canvas.appendChild(legend);
+</script>
+</body>
+</html>

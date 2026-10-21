@@ -1236,6 +1236,57 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
     (ツールの deps.json が FrameworkOnCore のものを選ぶ)。成否を逆に返していたのも直した。
   - 確認: net10.0・net48 × dotnet build・MSBuild 18 × 別プロセス・プロセス内の 7 通りすべてで生成でき、内容は同じ。
 
+### MVC 5・Web Pages・Razor 3 を AspNetWebStack から移植(1.6.5-w2l.19、2026-10-22、ユーザーの決定「b で行きます」)
+
+2026-10-14 の決定(Microsoft の DLL をそのまま使う、案 A)を改め、AspNetWebStack v3.3.0(Apache 2.0)から移植した(案 B)。理由は 2 つ。
+
+- **使用許諾**: MVC 5.3.0・Web API 5.3.0・Web Pages / Razor 3.3.0 の NuGet パッケージ(と Microsoft.AspNet.Mvc.ja などの言語別パッケージ)は
+  「MICROSOFT .NET LIBRARY」の許諾。Linux への配布を禁じる条項は無いが、逆アセンブルを禁じ(5 節)、配布を認めるのはオブジェクト コード(3.a)。
+  変換器は Microsoft の DLL を書き換えていた(mvcmovie: System.Web.Mvc.dll の型の参照 2 件、System.Web.WebPages.dll 1 件、
+  System.Web.WebPages.Deployment.dll の呼び出しの置き換え 1 件)。ソースの AspNetWebStack は Apache 2.0 で、変更も配布もできる。
+- **数値**: MVC 5.3.0 を .NET 10 で動かすと、.NET Framework 4.8 と違った(ja-JP):
+
+  | 呼び出し | .NET Framework 4.8 | Microsoft の DLL を .NET 10 で | 移植版 |
+  |---|---|---|---|
+  | ViewData の表示(0.1 + 0.2) | 0.3 | 0.30000000000000004 | 0.3 |
+  | 同(1 / 3) | 0.333333333333333 | 0.3333333333333333 | 0.333333333333333 |
+  | `{0:N2}`(2.675) | 2.68 | 2.67 | 2.68 |
+  | `{0:C0}`(22.5) | ¥23 | ¥22 | ¥23 |
+  | モデル バインド "1e400" | 例外(1e400 is not a valid value for Double.) | ∞ を受け付ける | 例外(同じ文) |
+
+やったこと:
+
+- `experiments/wf4c/port-aspnetwebstack.py`: AspNetWebStack の各プロジェクト(`_aspnetwebstack` に v3.3.0 を clone)を `FrameworkOnCore.Runtime/src` の
+  SDK 形式のプロジェクトにする。元のプロジェクトが挙げるソース(共有の `..\Common` は `Shared\` に)、リソースは設計クラスが求める名前、
+  アセンブリの名前・版(MVC 5.3.0.0、Web Pages・Razor 3.0.0.0)・公開鍵トークン(31bf3856ad364e35、FakeStrongName)は Microsoft のもの、
+  .NET Framework の参照は FrameworkOnCore の移植(System.Web、Configuration、Data.Linq、Drawing、Web.Infrastructure など)に。許諾は
+  `LICENSE-AspNetWebStack.txt`(パッケージにも入れる。パッケージの許諾は Apache-2.0)。
+- 移植したもの(パッケージ): System.Web.Razor(FrameworkOnCore.Web.Razor)、System.Web.WebPages(.Web.WebPages)、
+  System.Web.WebPages.Razor、System.Web.WebPages.Deployment、System.Web.Helpers、System.Web.Mvc(.Web.Mvc)。
+- .NET との違いを直した所(`FrameworkOnCore:` の印): WebPages.Deployment の bin の参照を読むのに AppDomain を作っていた(.NET に無い)のを
+  メタデータの読み取りに、SHA256Cng(Windows 専用)を SHA256 に、EF4 の System.Data.EntityState を型名で比べる、
+  WebPages から MVC・Helpers への InternalsVisibleTo にコンパイル時の鍵(FrameworkOnCore の鍵)を足す。
+- 数値: MVC・Web Pages・Helpers の `Convert.ToString` 46 か所を System.Web の `FrameworkNumbers.ConvertToString` に、ViewData と
+  テンプレートの書式付きの表示を `FrameworkNumbers.Formattable` に、モデル バインドと Web Pages の型変換(TypeConverter.ConvertFrom)を
+  `FrameworkNumbers.ConvertFrom`(大きすぎる数は .NET Framework と同じ例外)に、ルートの制約(double・float)と Web Pages の
+  `AsFloat`・`IsFloat` を `FrameworkNumbers.TryParseDouble`・`TryParseSingle` に。System.Web の FrameworkNumbers にこの 3 つを足した。
+- 変換器: `replacedPackages` で Microsoft.AspNet.Mvc・.WebPages・.Razor を移植のパッケージに(リポジトリに置かれた DLL も
+  アセンブリ名で)。新しい `packageCompanions`(置き換えたパッケージの他のアセンブリのパッケージを足す): Microsoft.AspNet.WebPages
+  には 4 つのアセンブリがある(WebPages、WebPages.Razor、WebPages.Deployment、Helpers)。
+- 類似の問題の調査で見つけて直したもの:
+  - System.Web.Optimization・Optimization.WebForms・WebGrease の移植の公開鍵が System.Web のもの(トークン b03f5f7f11d50a3a)で、宣言した
+    31bf3856ad364e35 と合っていなかった(全ての移植の鍵とトークンを突き合わせて、この 3 つだけ)。
+  - FakeStrongName(公開鍵の書き換え)が、参照先の列挙型の定数(引数の既定値の System.Web.HttpCacheability)を解決できずに失敗した。
+    参照先のフォルダー(プロジェクトとパッケージのものを .NET の参照パックより先)を探し、終わったら閉じる(開いたままだと次のビルドで
+    コピーに失敗した)。
+
+確認: 移植版の MVC で上の表の 5 件が .NET Framework と同じ。テスト 4,455 件合格。be(Razor・Web Pages を使う)Windows・Linux 5/5、
+wt Windows 8/8・Linux 7/8(error-page、以前から)。
+
+残り: Web API 2(System.Net.Http.Formatting、System.Web.Http、.WebHost、.Owin)の移植。移植した MVC・Web Pages の文言の独自の翻訳。
+MVC のコーパス(mvcmovie・nop390)での確認(コーパスの確認は be・wt 以外は指示があるときだけ)。Microsoft の言語別パッケージ
+(Microsoft.AspNet.Mvc.ja など)の扱い(移植版の版 5.3.0.0 とは合わないので使われない)。
+
 ### 違う観点の意地悪なコーパス: LegacyRenderProbe・ConfigProbe・LocaleProbe・DataFileProbe(1.6.5-w2l.18、2026-10-19、ユーザーの指示)
 
 前のコーパス(コントロールの入れ子、BCL)と違う観点で、差が出そうなものを 4 つ作り、IIS の .NET Framework 4.8 で記録して変換後を Windows・Linux で

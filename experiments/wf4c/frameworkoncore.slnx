@@ -23,4 +23,11 @@
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.DataVisualization/WebFormsForCore.Web.DataVisualization.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Mobile/WebFormsForCore.Web.Mobile.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.ServiceModel/WebFormsForCore.ServiceModel.csproj" />
+  <!-- MVC 5, Web Pages and Razor 3, ported from AspNetWebStack v3.3.0 (port-aspnetwebstack.py). -->
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Razor/WebFormsForCore.Web.Razor.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.WebPages.Deployment/WebFormsForCore.Web.WebPages.Deployment.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.WebPages/WebFormsForCore.Web.WebPages.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.WebPages.Razor/WebFormsForCore.Web.WebPages.Razor.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Helpers/WebFormsForCore.Web.Helpers.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Mvc/WebFormsForCore.Web.Mvc.csproj" />
 </Solution>

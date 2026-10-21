@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.IO;
+using System.Linq;
 using System.Diagnostics;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
@@ -28,6 +29,7 @@ namespace WebFormsForCore.Build
 		public ITaskItem? Key { get; set; }
 		public string? PublicKey { get; set; }
 		public string? PublicKeyToken { get; set; }
+		public ITaskItem[]? References { get; set; }
 		public bool LogToConsole { get; set; } = false;
 		byte[] StringToByteArray(string hex)
 		{
@@ -180,7 +182,20 @@ namespace WebFormsForCore.Build
 							//var symReader = new PdbReaderProvider();
 							//var symWriter = new PdbWriterProvider();
 							var mem = new MemoryStream();
-							var readerParameters = new ReaderParameters() { ReadWrite = true, InMemory = true, ReadSymbols = withSymbols };
+							// Constants of the referenced assemblies' enum types (a parameter's default) are resolved: the assembly's
+							// folder and the references' (References: the project's ReferencePath).
+							var resolver = new DefaultAssemblyResolver();
+							resolver.AddSearchDirectory(Path.GetDirectoryName(Path.GetFullPath(assemblyFileName)));
+							// The projects' and packages' folders before .NET's reference packs (whose System.Web is only HttpUtility).
+							if (References != null)
+								for (int pass = 0; pass < 2; pass++)
+									foreach (var reference in References)
+									{
+										var directory = Path.GetDirectoryName(Path.GetFullPath(reference.ItemSpec));
+										if ((directory.IndexOf(Path.DirectorySeparatorChar + "packs" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) >= 0) == (pass == 1))
+											resolver.AddSearchDirectory(directory);
+									}
+							var readerParameters = new ReaderParameters() { ReadWrite = true, InMemory = true, ReadSymbols = withSymbols, AssemblyResolver = resolver };
 							
 							/*if (withSymbols)
 							{
@@ -215,6 +230,8 @@ namespace WebFormsForCore.Build
 
 								success = true;
 							}
+							// The referenced assemblies the resolver opened: closed (an open one is a locked file for the next build).
+							resolver.Dispose();
 
 							if (success)
 							{

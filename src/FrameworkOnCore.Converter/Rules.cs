@@ -60,6 +60,9 @@ public sealed record Rules
     public required IReadOnlyDictionary<string, string> ShimPackages { get; init; }
     public required IReadOnlyDictionary<string, Package> FrameworkReferences { get; init; }
     public required IReadOnlyDictionary<string, IReadOnlyList<Package>> FrameworkCompanions { get; init; }
+    /// <summary>Added along with a replaced package (replacedPackages): what the package also contained, its assemblies
+    /// being FrameworkOnCore's packages each (Microsoft.AspNet.WebPages: System.Web.WebPages, .Razor, .Deployment, System.Web.Helpers).</summary>
+    public IReadOnlyDictionary<string, IReadOnlyList<Package>> PackageCompanions { get; init; } = new Dictionary<string, IReadOnlyList<Package>>(StringComparer.OrdinalIgnoreCase);
     public required IReadOnlySet<string> NoAnswer { get; init; }
     /// <summary>Framework references that are the user's choice (System.Data.Linq: the LINQ to SQL port): assembly ->
     /// the option that turns its frameworkReferences entry on. Not chosen, the assembly has no answer (Choose).</summary>
@@ -134,6 +137,7 @@ public sealed record Rules
             ReplacedPackages = ReplacedPackages.ToDictionary(p => p.Key, p => Instead(p.Value), StringComparer.OrdinalIgnoreCase),
             FrameworkReferences = frameworkReferences.ToDictionary(p => p.Key, p => Instead(p.Value), StringComparer.OrdinalIgnoreCase),
             FrameworkCompanions = FrameworkCompanions.ToDictionary(p => p.Key, p => (IReadOnlyList<Package>)p.Value.Select(Instead).ToList(), StringComparer.OrdinalIgnoreCase),
+            PackageCompanions = PackageCompanions.ToDictionary(p => p.Key, p => (IReadOnlyList<Package>)p.Value.Select(Instead).ToList(), StringComparer.OrdinalIgnoreCase),
             NoAnswer = noAnswer,
             SourcePackages = SourcePackages.Where(p => Holds(p.Option)).Select(p => p with { Package = Instead(p.Package) }).ToList(),
             SourceNotes = SourceNotes.Where(n => Holds(n.Option)).ToList(),
@@ -194,6 +198,9 @@ public sealed record Rules
             FrameworkReferences = Map("frameworkReferences"),
             FrameworkCompanions = root.GetProperty("frameworkCompanions").EnumerateObject().ToDictionary(
                 p => p.Name, p => (IReadOnlyList<Package>)p.Value.EnumerateArray().Select(PackageOf).ToList(), StringComparer.OrdinalIgnoreCase),
+            PackageCompanions = root.TryGetProperty("packageCompanions", out var packageCompanions)
+                ? packageCompanions.EnumerateObject().ToDictionary(p => p.Name, p => (IReadOnlyList<Package>)p.Value.EnumerateArray().Select(PackageOf).ToList(), StringComparer.OrdinalIgnoreCase)
+                : new Dictionary<string, IReadOnlyList<Package>>(StringComparer.OrdinalIgnoreCase),
             NoAnswer = Set("noAnswer"),
             FrameworkReferenceOptions = root.TryGetProperty("frameworkReferenceOptions", out var referenceOptions)
                 ? referenceOptions.EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.OrdinalIgnoreCase)

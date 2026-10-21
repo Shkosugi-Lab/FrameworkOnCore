@@ -1,6 +1,6 @@
 {
   "$comment": "Package and reference rules. \"$frameworkoncore\" stands for the version of FrameworkOnCore's packages (frameworkOnCoreVersion).",
-  "frameworkOnCoreVersion": "1.6.5-w2l.18",
+  "frameworkOnCoreVersion": "1.6.5-w2l.19",
 
   "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time). FrameworkOnCore.Data.SqlClient: whoever opens the connection (the sources, Entity Framework, a DLL), System.Data.SqlClient is the one expanding |DataDirectory| as .NET Framework's (its assembly version is above the package Entity Framework brings). The user's choice (portOptions): .NET's package, it is not added.",
   "webPackages": [ "FrameworkOnCore.Web", "FrameworkOnCore.Web.Extensions", "FrameworkOnCore.Configuration", "FrameworkOnCore.Web.DynamicData", "FrameworkOnCore.Data.SqlClient" ],
@@ -11,6 +11,18 @@
     "Microsoft.AspNet.Web.Optimization.WebForms": [ "FrameworkOnCore.Web.Optimization.WebForms", "$frameworkoncore" ],
     "WebGrease": [ "FrameworkOnCore.WebGrease", "$frameworkoncore" ],
     "Microsoft.Web.Infrastructure": [ "FrameworkOnCore.Web.Infrastructure", "$frameworkoncore" ],
+    // MVC 5, Web Pages and Razor 3: FrameworkOnCore's ports (AspNetWebStack v3.3.0, Apache 2.0), not Microsoft's .NET Framework
+    // DLLs (their license does not allow the DLL rewriting a conversion does; .NET's numbers in them). By package and,
+    // for DLLs checked into a repository, by assembly.
+    "Microsoft.AspNet.Mvc": [ "FrameworkOnCore.Web.Mvc", "$frameworkoncore" ],
+    "Microsoft.AspNet.WebPages": [ "FrameworkOnCore.Web.WebPages", "$frameworkoncore" ],
+    "Microsoft.AspNet.Razor": [ "FrameworkOnCore.Web.Razor", "$frameworkoncore" ],
+    "System.Web.Mvc": [ "FrameworkOnCore.Web.Mvc", "$frameworkoncore" ],
+    "System.Web.WebPages": [ "FrameworkOnCore.Web.WebPages", "$frameworkoncore" ],
+    "System.Web.WebPages.Razor": [ "FrameworkOnCore.Web.WebPages.Razor", "$frameworkoncore" ],
+    "System.Web.WebPages.Deployment": [ "FrameworkOnCore.Web.WebPages.Deployment", "$frameworkoncore" ],
+    "System.Web.Helpers": [ "FrameworkOnCore.Web.Helpers", "$frameworkoncore" ],
+    "System.Web.Razor": [ "FrameworkOnCore.Web.Razor", "$frameworkoncore" ],
     "AjaxControlToolkit": [ "FrameworkOnCore.AjaxControlToolkit", "$frameworkoncore" ],
     "EntityFramework": [ "EntityFramework", "6.5.1" ],
     // System.Drawing.Common from NuGet (Windows only since .NET 7): FrameworkOnCore's, which has the Linux implementation.
@@ -61,6 +73,10 @@
     "System.ServiceModel.Web": [ "System.ServiceModel.Http", "10.0.652802" ],
     // IIS's WCF activation (AspNetCompatibilityRequirements, the .svc files' hosting): FrameworkOnCore's, over CoreWCF.
     "System.ServiceModel.Activation": [ "FrameworkOnCore.ServiceModel", "$frameworkoncore" ]
+  },
+  "$comment_packageCompanions": "Added along with a replaced package: its other assemblies, a FrameworkOnCore package each.",
+  "packageCompanions": {
+    "Microsoft.AspNet.WebPages": [ [ "FrameworkOnCore.Web.WebPages.Razor", "$frameworkoncore" ], [ "FrameworkOnCore.Web.WebPages.Deployment", "$frameworkoncore" ], [ "FrameworkOnCore.Web.Helpers", "$frameworkoncore" ] ]
   },
   "$comment_frameworkCompanions": "Added along with a framework reference: what the .NET Framework assembly also contained.",
   "frameworkCompanions": {

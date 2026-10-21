@@ -258,6 +258,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
             }
             var package = rules.ReplacedPackages.TryGetValue(id, out var replaced) ? replaced : new Package(id, version);
             packages[package.Id] = package.Version;
+            if (rules.PackageCompanions.TryGetValue(id, out var companions)) foreach (var c in companions) AddPackage(c);
         }
         var config = Path.Combine(source, "packages.config");
         if (File.Exists(config))
@@ -317,6 +318,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
                 if (rules.ReplacedPackages.TryGetValue(assembly, out var replacement))
                 {
                     packages[replacement.Id] = replacement.Version;
+                    if (rules.PackageCompanions.TryGetValue(assembly, out var companions)) foreach (var c in companions) AddPackage(c);
                     report.Add(Report.Kind.Project, name, $"{assembly}: a DLL in the repository ({hint}), replaced by the package {replacement.Id} {replacement.Version} (replacedPackages)");
                     continue;
                 }
@@ -596,6 +598,9 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
             {
                 reference.SetAttributeValue("Include", replaced.Id);
                 if (reference.Attribute("Version") != null) reference.SetAttributeValue("Version", replaced.Version);
+                if (rules.PackageCompanions.TryGetValue(id, out var companions))
+                    foreach (var c in companions)
+                        reference.AddAfterSelf(new XElement(N("PackageReference"), new XAttribute("Include", c.Id), new XAttribute("Version", c.Version)));
             }
             if (rules.FrameworkAssets.TryGetValue(id, out var asset))
             {

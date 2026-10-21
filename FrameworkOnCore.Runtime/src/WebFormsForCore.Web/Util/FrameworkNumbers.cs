@@ -91,6 +91,49 @@ namespace System.Web.Util
             return result;
         }
 
+        /// <summary>Double.TryParse and Single.TryParse as .NET Framework: too large a number is not one (false; .NET:
+        /// infinity). For the ports that read numbers from requests (MVC's and Web API's route constraints, Web Pages).</summary>
+        public static bool TryParseDouble(string s, out double result) => TryParseDouble(s, NumberStyles.Float | NumberStyles.AllowThousands, null, out result);
+        public static bool TryParseDouble(string s, NumberStyles style, IFormatProvider provider, out double result)
+        {
+            if (!double.TryParse(s, style, provider, out result)) return false;
+            if (enabled && double.IsInfinity(result) && !IsInfinitySymbol(s, provider)) { result = 0; return false; }
+            return true;
+        }
+        public static bool TryParseSingle(string s, out float result) => TryParseSingle(s, NumberStyles.Float | NumberStyles.AllowThousands, null, out result);
+        public static bool TryParseSingle(string s, NumberStyles style, IFormatProvider provider, out float result)
+        {
+            if (!float.TryParse(s, style, provider, out result)) return false;
+            if (enabled && float.IsInfinity(result) && !IsInfinitySymbol(s, provider)) { result = 0; return false; }
+            return true;
+        }
+
+        /// <summary>
+        /// A TypeConverter's ConvertFrom of text (MVC's and Web Pages' model binding, Web API's): a double or float too large
+        /// fails as .NET Framework's DoubleConverter and SingleConverter failed ("... is not a valid value for Double.", the
+        /// OverflowException inside; .NET: infinity, accepted). Anything else as the converter does it.
+        /// </summary>
+        public static object ConvertFrom(System.ComponentModel.TypeConverter converter, System.ComponentModel.ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            var result = converter.ConvertFrom(context, culture, value);
+            if (enabled && value is string text && !IsInfinitySymbol(text, culture ?? CultureInfo.CurrentCulture)
+                && (result is double d && double.IsInfinity(d) || result is float f && float.IsInfinity(f)))
+            {
+                var type = result is double ? "Double" : "Single";
+                throw new Exception(text + " is not a valid value for " + type + ".",
+                    new OverflowException("Value was either too large or too small for a " + type + "."));
+            }
+            return result;
+        }
+        public static object ConvertFrom(System.ComponentModel.TypeConverter converter, object value) => ConvertFrom(converter, null, CultureInfo.CurrentCulture, value);
+
+        static bool IsInfinitySymbol(string value, IFormatProvider provider)
+        {
+            var info = NumberFormatInfo.GetInstance(provider);
+            var t = (value ?? "").Trim();
+            return t == info.PositiveInfinitySymbol || t == info.NegativeInfinitySymbol;
+        }
+
         static bool IsInfinitySymbol(string value)
         {
             var info = NumberFormatInfo.CurrentInfo;

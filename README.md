@@ -115,6 +115,7 @@ dotnet test tests\FrameworkOnCore.Tests
 
 - コーパス(Web Forms: BlogEngine.NET、WingtipToys、mojoPortal、YAF.NET、DNN、N2CMS、openIMIS(VB)、nopCommerce 1.90。MVC 5: MvcMovie、nopCommerce 3.90)を変換し、Windows と Linux で動作を確かめています。結果と既知の課題は `experiments/wf4c/README.md` にあります。
 - .NET Framework にしかない API の洗い出しと対応の状況は `experiments/wf4c/FRAMEWORK-ONLY-APIS.md` にあります。
+- MVC 5・Web Pages・Razor 3 は AspNetWebStack v3.3.0(Microsoft のソース、Apache 2.0)から `FrameworkOnCore.Runtime/` に移植済みで、変換後のアプリは Microsoft の DLL ではなくこれを使う(Microsoft の DLL の許諾は逆アセンブルを禁じ、.NET の数値の動きをするため)。数値の書式とモデル バインドは .NET Framework と同じ。Web API 2 は移植中(今は Microsoft の DLL)。
 - LINQ to SQL(System.Data.Linq)は referencesource(MIT)から `FrameworkOnCore.Runtime/` に移植済みで、既定で使われる。全 API(486)を .NET Framework と新旧比較して一致を確認している(`experiments/wf4c/README.md` の記録)。
 - System.Drawing は dotnet/runtime 6.0 の System.Drawing.Common(Linux 実装を持つ最後の版、MIT)を `FrameworkOnCore.Runtime/` に移植済みで、Windows は GDI+、Linux は libgdiplus で動く。全 API(3,354 のうち .NET にある 3,185 と、.NET が足した 40)を .NET Framework と新旧比較している(`experiments/wf4c/README.md` の記録)。
 - グラフ(System.Web.DataVisualization の Chart コントロール)は referencesource(MIT)から `FrameworkOnCore.Runtime/` に移植済みで、既定で使われる。全 API(1,661)を .NET Framework と新旧比較し、ChartImg.axd を使うサイト(`samples/ChartProbe`)を IIS と Windows・Linux で比べている(`experiments/wf4c/README.md` の記録)。

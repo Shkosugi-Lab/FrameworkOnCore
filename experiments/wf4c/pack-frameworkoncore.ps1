@@ -61,6 +61,14 @@ $projects = @(
     # WCF's services of the converted applications (.svc, system.serviceModel) served by CoreWCF; System.ServiceModel.Activation's
     # identity.
     'WebFormsForCore.ServiceModel\WebFormsForCore.ServiceModel.csproj'
+    # MVC 5, Web Pages and Razor 3 (Microsoft.AspNet.Mvc, .WebPages, .Razor), ported from AspNetWebStack v3.3.0 (Apache 2.0;
+    # port-aspnetwebstack.py): Microsoft's assembly names, versions and public key.
+    'WebFormsForCore.Web.Razor\WebFormsForCore.Web.Razor.csproj'
+    'WebFormsForCore.Web.WebPages.Deployment\WebFormsForCore.Web.WebPages.Deployment.csproj'
+    'WebFormsForCore.Web.WebPages\WebFormsForCore.Web.WebPages.csproj'
+    'WebFormsForCore.Web.WebPages.Razor\WebFormsForCore.Web.WebPages.Razor.csproj'
+    'WebFormsForCore.Web.Helpers\WebFormsForCore.Web.Helpers.csproj'
+    'WebFormsForCore.Web.Mvc\WebFormsForCore.Web.Mvc.csproj'
     # A submodule (git submodule update --init src/WebFormsForCore.AjaxControlToolkit): openIMIS uses it. Built and packed
     # for net10.0 only (the converted applications'; not its net48), after the solution.
     'WebFormsForCore.AjaxControlToolkit\AjaxControlToolkit\AjaxControlToolkit.csproj'

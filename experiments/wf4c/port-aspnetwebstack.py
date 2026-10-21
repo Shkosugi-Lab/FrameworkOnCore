@@ -10,7 +10,7 @@
 # marked "FrameworkOnCore:"); the project file is written every time. Each project's compile items as upstream's
 # project lists them (the shared ..\Common files copied under Shared\), its resources by the names its designer
 # classes ask for.
-import os, re, shutil, sys
+import glob, os, re, shutil, sys
 import xml.etree.ElementTree as ET
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -31,6 +31,8 @@ PROJECTS = {
     'System.Web.Http': ('WebFormsForCore.Web.Http', 'FrameworkOnCore.WebApi'),
     'System.Web.Http.WebHost': ('WebFormsForCore.Web.Http.WebHost', 'FrameworkOnCore.WebApi'),
     'System.Web.Http.Owin': ('WebFormsForCore.Web.Http.Owin', 'FrameworkOnCore.WebApi.Owin'),
+    'System.Web.Cors': ('WebFormsForCore.Web.Cors', 'FrameworkOnCore.Web.Cors'),
+    'System.Web.Http.Cors': ('WebFormsForCore.Web.Http.Cors', 'FrameworkOnCore.WebApi.Cors'),
 }
 # .NET Framework's references -> FrameworkOnCore's projects (None: .NET has it)
 REFERENCES = {
@@ -39,15 +41,35 @@ REFERENCES = {
     'System.Configuration': 'WebFormsForCore.Configuration', 'System.Data.Linq': 'WebFormsForCore.Data.Linq',
     'System.Drawing': 'WebFormsForCore.Drawing', 'Microsoft.Web.Infrastructure': 'WebFormsForCore.Web.Infrastructure',
 }
-PACKAGES = {'System.Runtime.Caching': ('System.Runtime.Caching', '10.0.0'), 'Newtonsoft.Json': ('Newtonsoft.Json', '13.0.4')}
+PACKAGES = {'System.Runtime.Caching': ('System.Runtime.Caching', '10.0.0'), 'Newtonsoft.Json': ('Newtonsoft.Json', '13.0.4'),
+            'Newtonsoft.Json.Bson': ('Newtonsoft.Json.Bson', '1.0.2'), 'Microsoft.Owin': ('Microsoft.Owin', '4.2.2'), 'Owin': ('Owin', '1.0.0')}
+# FrameworkOnCore's own references: System.Web's FrameworkNumbers (doubles written and read as .NET Framework did) for
+# Web API's core, which upstream keeps apart from System.Web (a converted application always has it).
+EXTRA_REFERENCES = {'System.Web.Http': ['WebFormsForCore.Web'], 'System.Net.Http.Formatting': ['WebFormsForCore.Web']}
 # What .NET Framework had in System.dll and .NET has in packages: every project gets them.
 ALWAYS = [('System.CodeDom', '10.0.0')]
 # Microsoft's key whose token is 31bf3856ad364e35 (as System.ServiceModel's port has it).
 PUBLIC_KEY = '0024000004800000940000000602000000240000525341310004000001000100b5fc90e7027f67871e773a8fde8938c81dd402ba65b9201d60593e96c492651e889cc13f1415ebb53fac1131ae0bd333c5ee6021672d9718ea31a8aebd0da0072f25d87dba6fc90ffd598ed4da35e44c398c454307e8e33b8426143daec9f596836f97c8f74750e5975c64e2189f45def46b2a2b1247adc3652bf5c308055da9'
 
 
-def items(project, kind):
-    return [(e.get('Include'), e) for e in project.iter(MS + kind)]
+def items(project, kind, src_dir=None):
+    """The project's items of a kind; a wildcard include (System.Net.Http.Formatting's **\\*.cs) expanded in src_dir,
+    without its Exclude."""
+    out = []
+    for e in project.iter(MS + kind):
+        include = e.get('Include')
+        if src_dir and '*' in include:
+            excluded = set()
+            for pattern in (e.get('Exclude') or '').split(';'):
+                if pattern:
+                    excluded |= {os.path.normcase(os.path.relpath(f, src_dir)) for f in glob.glob(os.path.join(src_dir, pattern.replace('\\', os.sep)), recursive=True)}
+            for f in sorted(glob.glob(os.path.join(src_dir, include.replace('\\', os.sep)), recursive=True)):
+                rel = os.path.relpath(f, src_dir)
+                if os.path.normcase(rel) not in excluded:
+                    out.append((rel.replace(os.sep, '\\'), e))
+        else:
+            out.append((include, e))
+    return out
 
 
 def target_of(include):
@@ -75,7 +97,7 @@ def port(name, sources):
     src_dir = os.path.join(UPSTREAM, name)
     dest = os.path.join(RUNTIME, folder)
     project = ET.parse(os.path.join(src_dir, name + '.csproj')).getroot()
-    compiles = [i for i, _ in items(project, 'Compile')]
+    compiles = list(dict.fromkeys(i for i, _ in items(project, 'Compile', src_dir)))
     resources = [i for i, _ in items(project, 'EmbeddedResource')]
     if sources and not os.path.exists(dest):
         for c in compiles + resources:
@@ -83,6 +105,7 @@ def port(name, sources):
             os.makedirs(os.path.dirname(to), exist_ok=True)
             shutil.copy2(os.path.join(src_dir, c), to)
         shutil.copy2(os.path.join(UPSTREAM, '..', 'LICENSE.txt'), os.path.join(dest, 'LICENSE-AspNetWebStack.txt'))
+    root = project.findtext(f'{MS}PropertyGroup/{MS}RootNamespace') or name
     defines = ';'.join(d for e in project.iter(MS + 'DefineConstants') for d in (e.text or '').split(';') if d and d != '$(DefineConstants)')
     references, packages = set(), set(ALWAYS)
     for include, _ in items(project, 'Reference'):
@@ -91,6 +114,7 @@ def port(name, sources):
             references.add(REFERENCES[ref])
         elif ref in PACKAGES:
             packages.add(PACKAGES[ref])
+    references.update(EXTRA_REFERENCES.get(name, []))
     for include, _ in items(project, 'ProjectReference'):
         references.add(PROJECTS[os.path.splitext(os.path.basename(include))[0]][0])
     lines = [
@@ -107,7 +131,7 @@ def port(name, sources):
         '        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>',
         '        <NoWarn>$(NoWarn);1591;CS0618;CS0672;SYSLIB0003;SYSLIB0011;SYSLIB0012;SYSLIB0050;SYSLIB0051</NoWarn>',
         f'        <DefineConstants>$(DefineConstants);{defines};WebFormsForCore</DefineConstants>',
-        f'        <RootNamespace>{name}</RootNamespace>',
+        f'        <RootNamespace>{root}</RootNamespace>',
         f'        <AssemblyName>{name}</AssemblyName>',
         '        <SignAssembly>True</SignAssembly>',
         '        <AssemblyOriginatorKeyFile>..\\SigningKey\\WebFormsForCore.snk</AssemblyOriginatorKeyFile>',
@@ -120,7 +144,7 @@ def port(name, sources):
     ]
     for r in resources:
         link = dict(items(project, 'EmbeddedResource'))[r].findtext(MS + 'Link') or r
-        lines.append(f'        <EmbeddedResource Include="{target_of(r)}" LogicalName="{resource_name(src_dir, r, compiles, name, link)}" />')
+        lines.append(f'        <EmbeddedResource Include="{target_of(r)}" LogicalName="{resource_name(src_dir, r, compiles, root, link)}" />')
     lines.append('        <None Include="LICENSE-AspNetWebStack.txt" Pack="true" PackagePath="\\" />')
     lines.append('    </ItemGroup>')
     lines.append('    <ItemGroup>')

@@ -596,10 +596,12 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
             }
             if (rules.ReplacedPackages.TryGetValue(id, out var replaced))
             {
+                // Two packages replaced by the same one (Microsoft.AspNet.WebApi and .WebApi.WebHost): referenced once.
+                if (HasPackage(replaced.Id)) { reference.Remove(); continue; }
                 reference.SetAttributeValue("Include", replaced.Id);
                 if (reference.Attribute("Version") != null) reference.SetAttributeValue("Version", replaced.Version);
                 if (rules.PackageCompanions.TryGetValue(id, out var companions))
-                    foreach (var c in companions)
+                    foreach (var c in companions.Where(c => !HasPackage(c.Id)))
                         reference.AddAfterSelf(new XElement(N("PackageReference"), new XAttribute("Include", c.Id), new XAttribute("Version", c.Version)));
             }
             if (rules.FrameworkAssets.TryGetValue(id, out var asset))

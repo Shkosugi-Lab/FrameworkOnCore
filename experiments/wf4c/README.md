@@ -1236,7 +1236,7 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
     (ツールの deps.json が FrameworkOnCore のものを選ぶ)。成否を逆に返していたのも直した。
   - 確認: net10.0・net48 × dotnet build・MSBuild 18 × 別プロセス・プロセス内の 7 通りすべてで生成でき、内容は同じ。
 
-### MVC 5・Web Pages・Razor 3 を AspNetWebStack から移植(1.6.5-w2l.19、2026-10-22、ユーザーの決定「b で行きます」)
+### MVC 5・Web API 2・Web Pages・Razor 3 を AspNetWebStack から移植(1.6.5-w2l.19、2026-10-22、ユーザーの決定「b で行きます」)
 
 2026-10-14 の決定(Microsoft の DLL をそのまま使う、案 A)を改め、AspNetWebStack v3.3.0(Apache 2.0)から移植した(案 B)。理由は 2 つ。
 
@@ -1283,9 +1283,32 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
 確認: 移植版の MVC で上の表の 5 件が .NET Framework と同じ。テスト 4,455 件合格。be(Razor・Web Pages を使う)Windows・Linux 5/5、
 wt Windows 8/8・Linux 7/8(error-page、以前から)。
 
-残り: Web API 2(System.Net.Http.Formatting、System.Web.Http、.WebHost、.Owin)の移植。移植した MVC・Web Pages の文言の独自の翻訳。
-MVC のコーパス(mvcmovie・nop390)での確認(コーパスの確認は be・wt 以外は指示があるときだけ)。Microsoft の言語別パッケージ
-(Microsoft.AspNet.Mvc.ja など)の扱い(移植版の版 5.3.0.0 とは合わないので使われない)。
+mvcmovie(ユーザーの指示で確認): Windows・Linux とも 12 中 11(create-invalid は以前からの既知の差: .NET の DataAnnotations の
+検証メッセージ「The field Price must be between 1 and 100.」。元のサーバーは .NET Framework の言語パックで日本語)。System.Web.Mvc.dll を
+書き換えなくなった(変換レポートの retarget から消えた)。
+
+**Web API 2 も移植した**(同じ日、ユーザーの指示): System.Net.Http.Formatting(6.0.0.0)、System.Web.Http、.WebHost、.Owin、
+System.Web.Cors、System.Web.Http.Cors(5.3.0.0)。パッケージ FrameworkOnCore.Net.Http.Formatting・.Web.Http・.Web.Http.WebHost・
+.Web.Http.Owin・.Web.Cors・.Web.Http.Cors。
+
+- 変換器: Microsoft.AspNet.WebApi(WebHost とその依存のパッケージ)・.WebApi.Core・.WebApi.WebHost・.WebApi.Client・.WebApi.Owin・
+  .Cors・.WebApi.Cors とそれぞれのアセンブリ名を移植のパッケージに。同じ移植のパッケージになる参照は 1 つにする(be は
+  Microsoft.AspNet.WebApi と .WebApi.WebHost の両方を参照していて、どちらも FrameworkOnCore.Web.Http.WebHost になる)。
+- .NET との違い: System.Net.Http.Formatting の TranscodingStream の .NET 向けの分岐(上流では一度もビルドされていない)が、
+  Decoder.Convert に Memory を渡し、Span を await の向こうに持っていた。Span と位置で書き直した。
+- 数値: Web API の `Convert.ToString` 21 か所、モデル バインド(ValueProviderResult の TypeConverter)、ルートの制約(double・float)を
+  MVC と同じく System.Web の FrameworkNumbers に。そのため Web API の中核(System.Web.Http、System.Net.Http.Formatting)が FrameworkOnCore の
+  System.Web を参照する(上流は System.Web から離しているが、変換後のアプリには常にある)。JSON は Newtonsoft.Json(他社)が書く。
+- yaf の `FieldAccessException`(アプリが `HttpControllerRouteHandler._instance`(static readonly)をリフレクションで書き換える。
+  .NET は初期化済みの static readonly への書き込みを拒む)を、そのフィールドを readonly でなくして直した。
+
+確認: テスト 4,455 件合格。be(Web API 2 を使う)Windows・Linux 5/5、wt Windows 8/8・Linux 7/8、mvcmovie Windows・Linux 11/12(以上
+以前と同じ)。be のシナリオは Web API を通らないので、変換後の be に直接要求した: `/api/categories` は 200 と JSON、存在しない
+コントローラーは 404 と Web API の JSON(`{"Message":"No HTTP resource was found that matches the request URI ..."}`)、例外は 500 と
+`{"Message":"An error has occurred."}`(.NET Framework のリモートの要求と同じ形)。
+
+残り: 移植した MVC・Web Pages・Web API の文言の独自の翻訳。Microsoft の言語別パッケージ(Microsoft.AspNet.Mvc.ja など)の扱い
+(移植版とは版が合わないので使われない)。Web API の IIS との比較(正解データのあるコーパスが無い: サンプルを作るか nop390 など)。
 
 ### 違う観点の意地悪なコーパス: LegacyRenderProbe・ConfigProbe・LocaleProbe・DataFileProbe(1.6.5-w2l.18、2026-10-19、ユーザーの指示)
 

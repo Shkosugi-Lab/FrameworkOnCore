@@ -30,4 +30,11 @@
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.WebPages.Razor/WebFormsForCore.Web.WebPages.Razor.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Helpers/WebFormsForCore.Web.Helpers.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Mvc/WebFormsForCore.Web.Mvc.csproj" />
+  <!-- Web API 2, ported from AspNetWebStack v3.3.0 likewise. -->
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Net.Http.Formatting/WebFormsForCore.Net.Http.Formatting.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Http/WebFormsForCore.Web.Http.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Http.WebHost/WebFormsForCore.Web.Http.WebHost.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Http.Owin/WebFormsForCore.Web.Http.Owin.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Cors/WebFormsForCore.Web.Cors.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Http.Cors/WebFormsForCore.Web.Http.Cors.csproj" />
 </Solution>

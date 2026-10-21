@@ -69,6 +69,13 @@ $projects = @(
     'WebFormsForCore.Web.WebPages.Razor\WebFormsForCore.Web.WebPages.Razor.csproj'
     'WebFormsForCore.Web.Helpers\WebFormsForCore.Web.Helpers.csproj'
     'WebFormsForCore.Web.Mvc\WebFormsForCore.Web.Mvc.csproj'
+    # Web API 2 (Microsoft.AspNet.WebApi.*, .Cors), likewise.
+    'WebFormsForCore.Net.Http.Formatting\WebFormsForCore.Net.Http.Formatting.csproj'
+    'WebFormsForCore.Web.Http\WebFormsForCore.Web.Http.csproj'
+    'WebFormsForCore.Web.Http.WebHost\WebFormsForCore.Web.Http.WebHost.csproj'
+    'WebFormsForCore.Web.Http.Owin\WebFormsForCore.Web.Http.Owin.csproj'
+    'WebFormsForCore.Web.Cors\WebFormsForCore.Web.Cors.csproj'
+    'WebFormsForCore.Web.Http.Cors\WebFormsForCore.Web.Http.Cors.csproj'
     # A submodule (git submodule update --init src/WebFormsForCore.AjaxControlToolkit): openIMIS uses it. Built and packed
     # for net10.0 only (the converted applications'; not its net48), after the solution.
     'WebFormsForCore.AjaxControlToolkit\AjaxControlToolkit\AjaxControlToolkit.csproj'

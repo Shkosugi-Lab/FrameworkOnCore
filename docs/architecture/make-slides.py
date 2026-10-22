@@ -205,7 +205,8 @@ STEP0, STEP1, STEP2 = 828, 876, 924
 SPLIT = 520                               # the class libraries | Compat
 HOST_W = 556                              # ③: the host (beside the libraries, under System.Web's core)
 NOTE = ('見方: 縦に並ぶ箱は、その上のアプリの種類が使う部品。横に広い箱は全種類で共通。右の階段は、アプリが直接使う層'
-        '(段ごとにその下の層に載る)。左の縦の帯は、いくつもの層の部品に付くもの。')
+        '(段ごとにその下の層に載る)。左の縦の帯は、いくつもの層の部品に付くもの。黄色の印は要求を受ける HTTP サーバー:'
+        'IIS は .NET を載せる側、Kestrel は .NET の上のライブラリなので、段が違う。')
 
 
 def rows(*spec):
@@ -282,6 +283,11 @@ def corelib(s, r, title, items, exception=True):
         s.badge(MAIN_W - 156, y + 5, 146, 20, '例外: 差し替え不可', size=11)
 
 
+def http_server(s, x, y, text='HTTP サーバー(要求を受ける)'):
+    """The mark of what receives the requests (IIS, Kestrel): the same on every slide, wherever the layer it is in."""
+    s.badge(x, y, width(text, 11) + 16, 20, text, fill=C['gold'], color=C['ink'], size=11)
+
+
 def band(s, top, end, title, color, missing=False):
     """A vertical band along the layers whose parts it belongs to."""
     if missing:
@@ -338,8 +344,9 @@ def slide1():
                                                                          ('System.Runtime.Serialization', 'rs')])
     corelib(s, r, 'mscorlib + CLR 4(一組で動く)', [('mscorlib: object・string・double・CultureInfo・BinaryFormatter', 'rs'),
                                                 ('CLR 4(clr.dll): JIT・GC・double の書式', 'closed')], exception=False)
-    full(s, r['NATIVE'], C['host'], 'IIS ― プロセスを載せる(w3wp)・統合パイプライン', [(i, 'closed') for i in ['アプリケーション プール', 'URL Rewrite', '静的ファイル',
+    full(s, r['NATIVE'], C['host'], 'IIS ― ネイティブ(C++)。.NET をプロセス(w3wp)に載せる側・統合パイプライン', [(i, 'closed') for i in ['アプリケーション プール', 'URL Rewrite', '静的ファイル',
                                                                                                  'customHeaders', 'W3C ログ', 'Windows 認証']])
+    http_server(s, MAIN_W - 190, r['NATIVE'][0] + 4)
     full(s, r['OS'], C['os'], 'Windows Server', [(i, 'closed') for i in ['http.sys', 'NTFS', 'NLS(カルチャのデータ)', 'タイムゾーン', 'GDI+', 'SChannel']])
     full(s, r['HW'], C['hw'], 'サーバー(x64 の物理マシン・仮想マシン)', anchor='middle')
     band(s, r['KINDS'][0], bottom(r['CORELIB']), '言語パック(サテライト。非公開)', C['msLight'])
@@ -368,14 +375,16 @@ def slide2():
         (C['msLight'], 'CoreWCF', ['.svc・basicHttp など', '一部の機能は無い']),
     ])
     staircase(s, r, 'お客様のアプリ\n全種類で共通(作り直し)', ['Global.asax → Program.cs', 'web.config → JSON 構成', 'App_Code は動かない', 'ライブラリを .NET 向けに'])
-    core(s, r, C['ms'], 'ASP.NET Core ― 全種類の土台(System.Web とは別物。System.Web のコアは無い)', ['Kestrel', 'ミドルウェア', 'ルーティング(新)', 'セッション(仕組みが違う)',
-                                                                                     'Cookie 認証・Identity', '実行時コンパイル無し'])
+    core(s, r, C['ms'], 'ASP.NET Core ― 全種類の土台(System.Web とは別物。System.Web のコアは無い)', ['Kestrel(.NET の上のライブラリ)', 'ミドルウェア', 'ルーティング(新)',
+                                                                                     'セッション(仕組みが違う)', 'Cookie 認証・Identity', '実行時コンパイル無し'])
+    http_server(s, STEP1 - 4 - 190, r['CORE'][0] + 4)
     libs(s, r, C['ms'], '.NET のライブラリ ― 全種類で共通', ['Microsoft.Data.SqlClient', 'EF Core・EF6', 'System.Drawing.Common(Windows のみ)', 'LINQ to SQL(無し)',
                                                           '構成(appsettings.json)'])
     full(s, r['CLASSLIBS'], C['net'], '.NET 10 クラスライブラリ', ['System.Data(DataTable)', 'System.Xml(XmlSerializer)', 'System.Text.Json', 'System.Net.Http',
                                                                 'BinaryFormatter(削除・例外)'])
     corelib(s, r, 'System.Private.CoreLib + CoreCLR(一組)', ['CoreLib: object・string・double・CultureInfo', 'double の書式・Parse・カルチャは .NET の動き'])
-    halves(s, r['NATIVE'], (C['host'], 'プロセスを載せる(Windows)', ['IIS + ASP.NET Core Module']), (C['host'], 'プロセスを載せる(Linux)', ['systemd・Docker', 'nginx・Apache(任意)']))
+    halves(s, r['NATIVE'], (C['host'], 'プロセスを載せる(Windows)', ['IIS + ANCM', 'Kestrel に転送(アウト プロセス)', '.NET を載せる(イン プロセス)']),
+           (C['host'], 'プロセスを載せる(Linux)', ['systemd・Docker', 'nginx・Apache(任意。Kestrel に転送する)']))
     halves(s, r['OS'], (C['os'], 'Windows Server', ['NTFS', 'NLS または ICU', 'タイムゾーン', 'GDI+']),
            (C['os'], 'Linux', ['ext4・xfs(大文字小文字を区別)', 'ICU', 'IANA のタイムゾーン', 'GDI+ なし']))
     full(s, r['HW'], C['hw'], 'サーバー・コンテナ・クラウド(x64・ARM64)', anchor='middle')
@@ -393,8 +402,8 @@ def slide3():
     app_kinds(s, r, APP_KINDS)
     kinds(s, r, [
         (C['foc'], 'FrameworkOnCore(移植)', ['System.Web.UI(ページ・コントロール)', 'ASP.NET AJAX(Extensions)', 'Chart・Dynamic Data・Mobile']),
-        (C['msLight'], 'Microsoft の DLL', ['MVC 5', 'Razor 3・WebPages']),
-        (C['msLight'], 'Microsoft の DLL', ['Web API 2', 'Http.WebHost', 'Newtonsoft.Json(他社)']),
+        (C['foc'], 'MVC 5(移植)', ['System.Web.Mvc', 'Razor 3・WebPages', 'AspNetWebStack から']),
+        (C['foc'], 'Web API 2(移植)', ['System.Web.Http', 'Http.WebHost', 'Newtonsoft.Json(他社)']),
         (C['foc'], 'ASMX(移植)', ['System.Web.Services', 'WSDL・SOAP']),
         (C['focLight'], 'CoreWCF + FOC', ['CoreWCF', 'ServiceModel(.svc)', 'AspNetCompatibility']),
     ], opt=(C['foc'], 'バンドル(System.Web.Optimization・WebGrease。移植)'))
@@ -410,14 +419,15 @@ def slide3():
             '既定のドキュメント・静的ファイル・フォルダーの一覧', 'セッション'])
     s.rect(LEFT, y + 65, HOST_W, 40, C['foc'], '作業プロセス(FrameworkOnCore。アプリケーション プールの役目)',
            ['web.config・bin の変更で再起動', 'bin のコピーから実行', '再起動中の要求を待たせる(Linux)'])
-    s.rect(LEFT, y + 108, HOST_W, 40, C['ms'], 'ASP.NET Core(Microsoft)', ['Kestrel(HTTP/1.1・HTTP/2・HTTPS)', 'ミドルウェアのパイプライン', '構成・ログ・DI'])
+    s.rect(LEFT, y + 108, HOST_W, 40, C['ms'], 'ASP.NET Core(Microsoft)', ['Kestrel(.NET の上のライブラリ)', 'ミドルウェアのパイプライン', '構成・ログ・DI'])
+    http_server(s, LEFT + HOST_W - 190, y + 110)
     libs(s, r, C['focLight'], 'ライブラリの移植・代わり ― 全種類で共通', ['SqlClient(移植)', 'LINQ to SQL(移植)', 'EF4 → EF6', 'Drawing.Common(Linux 版)',
                                                                    'BinaryFormatter(互換)', '構成(System.Configuration・移植)'], x0=LEFT + HOST_W + 4)
     halves(s, r['CLASSLIBS'], (C['net'], '.NET 10 クラスライブラリ(そのまま)', ['System.Data', 'System.Xml', 'System.Text.Json', 'System.Net.Http']),
            (C['compat'], 'FrameworkOnCore.Compat ― CoreLib の代わりにアプリが呼ぶ', ['FrameworkNumbers', 'FrameworkFiles', 'FrameworkCultures', 'VisualBasicText']),
            split=SPLIT)
     corelib(s, r, 'System.Private.CoreLib + CoreCLR(一組)', ['.NET のまま(ASP.NET Core は .NET の動きが前提)', 'アプリの呼び出しは Compat に書き換えて避ける'])
-    halves(s, r['NATIVE'], (C['host'], 'プロセスを載せる(Windows)', ['IIS + ANCM(任意)']), (C['host'], 'プロセスを載せる(Linux)', ['Docker・systemd']))
+    halves(s, r['NATIVE'], (C['host'], 'プロセスを載せる(Windows)', ['IIS + ANCM(任意): Kestrel に転送する・.NET を載せる']), (C['host'], 'プロセスを載せる(Linux)', ['Docker・systemd']))
     halves(s, r['OS'], (C['os'], 'Windows Server', ['NTFS', 'NLS', 'タイムゾーン']),
            (C['os'], 'Linux', ['ext4・xfs', 'ICU', 'TZ = 元のサーバーの', 'libgdiplus']))
     full(s, r['HW'], C['hw'], 'サーバー・コンテナ・クラウド(x64・ARM64)', anchor='middle')
@@ -425,7 +435,7 @@ def slide3():
     band(s, r['CLASSLIBS'][0], bottom(r['OS']), 'カルチャ プロファイル', C['compat'])
     side(s, C['compat'], 'FrameworkOnCore Studio', ['① 読み込み・元のビルド', '② 解析(使っている API)', '③ 部品の選択', '④ アプリの設定', '⑤ 変換(書き換え規則)',
                                                     '⑥ 配置(Docker・systemd)', 'ParityTest(IIS と比べる)', 'capture-culture・capture-iis'])
-    legend(s, [(C['app'], 'お客様のアプリ'), (C['foc'], 'FrameworkOnCore(移植)'), (C['focLight'], '移植・代わり'), (C['ms'], 'Microsoft'), (C['msLight'], 'Microsoft の DLL'),
+    legend(s, [(C['app'], 'お客様のアプリ'), (C['foc'], 'FrameworkOnCore(移植)'), (C['focLight'], '移植・代わり'), (C['ms'], 'Microsoft'),
                (C['compat'], '互換・ツール'), (C['net'], '.NET'), (C['core'], 'CoreLib + ランタイム'), (C['os'], 'OS')])
     return s
 

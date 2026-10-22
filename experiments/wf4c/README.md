@@ -1294,7 +1294,7 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
 - 取得(`fetch.ps1`): コミット 2ee1ad2a のソリューションのフォルダーだけを `corpora\work\ContosoUniversity` に。アーカイブのフォルダー名
   (コミット入り)のままだと、パッケージのパスが .NET Framework の MSBuild の上限(260 文字)を超え、「パッケージが無い」で止まった。
 - 元のビルド(`build-original.ps1`)、IIS での正解の記録(`record-webforms-golden.ps1`、ポート 8095。8094 は以前の実験の
-  `yaf-probe` のサイトが使っていて、それに答えられていた。そのサイトは消していない)、シナリオ(`corpora\regression\contoso.scenario.json`:
+  `yaf-probe` のサイトが使っていて、それに答えられていた。そのサイトとアプリケーション プールは後で消した)、シナリオ(`corpora\regression\contoso.scenario.json`:
   一覧・詳細・作成〈日付でない値、正しい値〉・編集・削除、HTML も比べる。偽造防止トークンは sourceMasks で伏せる)、変換・比較
   (`convert-corpora.ps1`、`analyze-corpora.ps1`、`verify-windows.ps1`)に足した。
 - 変換後は MVC・Web Pages・Razor の移植版を使う(bin の DLL が移植のパッケージのものと同じ。Microsoft の DLL の書き換えは無い)。

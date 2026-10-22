@@ -66,7 +66,7 @@
     }
   },
   "System.Web.Optimization": {
-    "framework": null,
+    "package": "Microsoft.AspNet.Web.Optimization",
     "resources": {
       "System.Web.Optimization.Resources.OptimizationResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Optimization/Resources/OptimizationResources.resx"
     }
@@ -92,6 +92,86 @@
     "framework": "System.ComponentModel.DataAnnotations",
     "resources": {
       "FxResources.System.ComponentModel.Annotations.SR": "FrameworkOnCore.Runtime/src/WebFormsForCore.Satellites.ComponentModel.Annotations/Resources/Strings.resx"
+    }
+  },
+  "System.Web.Mvc": {
+    "package": "Microsoft.AspNet.Mvc",
+    "resources": {
+      "System.Web.Mvc.Properties.MvcResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Mvc/Properties/MvcResources.resx"
+    }
+  },
+  "System.Web.WebPages": {
+    "package": "Microsoft.AspNet.WebPages",
+    "resources": {
+      "System.Web.WebPages.Common.CommonResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.WebPages/Shared/CommonResources.resx",
+      "System.Web.WebPages.Resources.WebPageResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.WebPages/Resources/WebPageResources.resx"
+    }
+  },
+  "System.Web.WebPages.Razor": {
+    "package": "Microsoft.AspNet.WebPages",
+    "resources": {
+      "System.Web.WebPages.Razor.Common.CommonResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.WebPages.Razor/Shared/CommonResources.resx",
+      "System.Web.WebPages.Razor.Resources.RazorWebResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.WebPages.Razor/Resources/RazorWebResources.resx"
+    }
+  },
+  "System.Web.WebPages.Deployment": {
+    "package": "Microsoft.AspNet.WebPages",
+    "resources": {
+      "System.Web.WebPages.Deployment.Common.CommonResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.WebPages.Deployment/Shared/CommonResources.resx",
+      "System.Web.WebPages.Deployment.Resources.ConfigurationResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.WebPages.Deployment/Resources/ConfigurationResources.resx"
+    }
+  },
+  "System.Web.Helpers": {
+    "package": "Microsoft.AspNet.WebPages",
+    "resources": {
+      "System.Web.Helpers.Resources.HelpersResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Helpers/Resources/HelpersResources.resx"
+    }
+  },
+  "System.Web.Razor": {
+    "package": "Microsoft.AspNet.Razor",
+    "resources": {
+      "System.Web.Razor.Common.CommonResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Razor/Shared/CommonResources.resx",
+      "System.Web.Razor.Resources.RazorResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Razor/Resources/RazorResources.resx"
+    }
+  },
+  "System.Net.Http.Formatting": {
+    "package": "Microsoft.AspNet.WebApi.Client",
+    "resources": {
+      "System.Net.Http.Properties.CommonWebApiResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Net.Http.Formatting/Shared/Common/CommonWebApiResources.resx",
+      "System.Net.Http.Properties.Resources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Net.Http.Formatting/Properties/Resources.resx"
+    }
+  },
+  "System.Web.Http": {
+    "package": "Microsoft.AspNet.WebApi.Core",
+    "resources": {
+      "System.Web.Http.Properties.CommonWebApiResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Http/Shared/Common/CommonWebApiResources.resx",
+      "System.Web.Http.Properties.SRResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Http/Properties/SRResources.resx"
+    }
+  },
+  "System.Web.Http.WebHost": {
+    "package": "Microsoft.AspNet.WebApi.WebHost",
+    "resources": {
+      "System.Web.Http.WebHost.Properties.CommonWebApiResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Http.WebHost/Shared/Common/CommonWebApiResources.resx",
+      "System.Web.Http.WebHost.Properties.SRResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Http.WebHost/Properties/SRResources.resx"
+    }
+  },
+  "System.Web.Http.Owin": {
+    "package": "Microsoft.AspNet.WebApi.Owin",
+    "resources": {
+      "System.Web.Http.Owin.Properties.CommonWebApiResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Http.Owin/Shared/Common/CommonWebApiResources.resx",
+      "System.Web.Http.Owin.Properties.OwinResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Http.Owin/Properties/OwinResources.resx"
+    }
+  },
+  "System.Web.Cors": {
+    "package": "Microsoft.AspNet.Cors",
+    "resources": {
+      "System.Web.Cors.Properties.SRResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Cors/Properties/SRResources.resx"
+    }
+  },
+  "System.Web.Http.Cors": {
+    "package": "Microsoft.AspNet.WebApi.Cors",
+    "resources": {
+      "System.Web.Http.Cors.Properties.SRResources": "FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Http.Cors/Properties/SRResources.resx"
     }
   }
 }

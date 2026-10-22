@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessControlRequestMethodCannotBeNullOrEmpty" xml:space="preserve">
+    <value>"Access-Control-Request-Method" ヘッダーの値を null または空にはできません。</value>
+    <comment>The "Access-Control-Request-Method" header value cannot be null or empty.</comment>
+  </data>
+  <data name="ArgumentCannotBeNullOrEmpty" xml:space="preserve">
+    <value>値を null または空の文字列にすることはできません。</value>
+    <comment>Value cannot be null or an empty string.</comment>
+  </data>
+  <data name="InvalidAccessControlRequestMethod" xml:space="preserve">
+    <value>"Access-Control-Request-Method" ヘッダーの値 '{0}' が無効です</value>
+    <comment>The "Access-Control-Request-Method" header value '{0}' is invalid.</comment>
+  </data>
+  <data name="NoConfiguration" xml:space="preserve">
+    <value>要求に関連付けられた構成オブジェクトがありません。</value>
+    <comment>The request does not have an associated configuration object.</comment>
+  </data>
+  <data name="OriginCannotBeNullOrEmpty" xml:space="preserve">
+    <value>指定されたポリシーのオリジンを null または空にはできません。</value>
+    <comment>The specified policy origin cannot be null or empty.</comment>
+  </data>
+  <data name="OriginCannotEndWithSlash" xml:space="preserve">
+    <value>指定されたポリシーのオリジン '{0}' は無効です。スラッシュで終えられません。</value>
+    <comment>The specified policy origin '{0}' is invalid. It cannot end with a forward slash.</comment>
+  </data>
+  <data name="OriginMustNotContainPathQueryOrFragment" xml:space="preserve">
+    <value>指定されたポリシーのオリジン '{0}' は無効です。パス、クエリ、フラグメントを含めることはできません。</value>
+    <comment>The specified policy origin '{0}' is invalid. It must not contain a path, query, or fragment.</comment>
+  </data>
+  <data name="OriginNotWellFormed" xml:space="preserve">
+    <value>指定されたポリシーのオリジン '{0}' は無効です。スキーム、ホスト、必要ならポートで正しく構成してください。</value>
+    <comment>The specified policy origin '{0}' is invalid. It must be correctly formed with the scheme, the host, and optionally, the port.</comment>
+  </data>
+  <data name="TraceCorsRequestContext" xml:space="preserve">
+    <value>CorsRequestContext: '{0}'</value>
+    <comment>CorsRequestContext: '{0}'</comment>
+  </data>
+  <data name="TraceEndCorsResultReturned" xml:space="preserve">
+    <value>返された CorsResult: '{0}'</value>
+    <comment>CorsResult returned: '{0}'</comment>
+  </data>
+  <data name="TraceEndNoCorsResultReturned" xml:space="preserve">
+    <value>CorsResult は返されませんでした。</value>
+    <comment>No CorsResult returned.</comment>
+  </data>
+  <data name="TraceEndNoPolicyProviderReturned" xml:space="preserve">
+    <value>CorsPolicyProvider は選択されませんでした</value>
+    <comment>No CorsPolicyProvider selected</comment>
+  </data>
+  <data name="TraceEndNoPolicyReturned" xml:space="preserve">
+    <value>CorsPolicy は未選択です</value>
+    <comment>No CorsPolicy selected</comment>
+  </data>
+  <data name="TraceEndPolicyProviderReturned" xml:space="preserve">
+    <value>選択された CorsPolicyProvider: '{0}'</value>
+    <comment>CorsPolicyProvider selected: '{0}'</comment>
+  </data>
+  <data name="TraceEndPolicyReturned" xml:space="preserve">
+    <value>選択された CorsPolicy: '{0}'</value>
+    <comment>CorsPolicy selected: '{0}'</comment>
+  </data>
+</root>

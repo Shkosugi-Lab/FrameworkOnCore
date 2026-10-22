@@ -65,9 +65,26 @@ public static class LanguagePacks
         "System.Web.DynamicData", "System.Web.Extensions", "System.Web.Mobile", "System.Web.Optimization", "System.Web.Services", "WebGrease",
         // .NET's own (FrameworkOnCore.Web's package has their satellites: FrameworkSatellites finds them in bin).
         "System.ComponentModel.Annotations",
+        // The ports of MVC, Web Pages and Web API (PackageTranslated).
+        "System.Web.Mvc", "System.Web.WebPages", "System.Web.WebPages.Razor", "System.Web.WebPages.Deployment", "System.Web.Helpers",
+        "System.Web.Razor", "System.Net.Http.Formatting", "System.Web.Http", "System.Web.Http.WebHost", "System.Web.Http.Owin",
+        "System.Web.Cors", "System.Web.Http.Cors",
     ];
 
-    public static void Write(string bin, string? cultureProfile, string option, string languages, string deployKinds, Report report)
+    // The ports whose texts were in a language on .NET Framework only with Microsoft's language package
+    // (Microsoft.AspNet.Mvc.ja; not .NET Framework's language packs): their translations are kept for the cultures the
+    // application had such a package of (ProjectConverter.LanguagePackageCultures), whatever the languages chosen.
+    static readonly HashSet<string> PackageTranslated = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "System.Web.Mvc", "System.Web.WebPages", "System.Web.WebPages.Razor", "System.Web.WebPages.Deployment", "System.Web.Helpers",
+        "System.Web.Razor", "System.Net.Http.Formatting", "System.Web.Http", "System.Web.Http.WebHost", "System.Web.Http.Owin",
+        "System.Web.Cors", "System.Web.Http.Cors",
+        // Microsoft.AspNet.Web.Optimization.ja; WebGrease had none (English on .NET Framework): with System.Web.Optimization's.
+        "System.Web.Optimization", "WebGrease",
+    };
+
+    public static void Write(string bin, string? cultureProfile, string option, string languages, string deployKinds, Report report,
+        IReadOnlyDictionary<string, SortedSet<string>>? packageCultures = null)
     {
         var fromProfile = OfProfile(cultureProfile);
         // English is the original's (the texts with no translation): not a language pack.
@@ -78,7 +95,7 @@ public static class LanguagePacks
         report.Add(Report.Kind.Project, "language-packs", languages == "server"
             ? $"languages: {named} (the default: the original server's language packs', from {(fromProfile != null ? "its culture profile" : "this machine, no culture profile given")})"
             : $"languages: {named} (the setting)");
-        KeepTranslations(bin, cultures, report);
+        KeepTranslations(bin, cultures, packageCultures ?? new Dictionary<string, SortedSet<string>>(), report);
         if (option != "framework") return;
         if (deployKinds != "none")
         {
@@ -170,11 +187,15 @@ public static class LanguagePacks
     }
 
     // FrameworkOnCore's translations in bin (the packages' satellites) for the languages given, the others removed.
-    static void KeepTranslations(string bin, List<string> cultures, Report report)
+    static void KeepTranslations(string bin, List<string> cultures, IReadOnlyDictionary<string, SortedSet<string>> packageCultures, Report report)
     {
         var kept = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
         var assemblies = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
         var removed = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+        var packageKept = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+        // A pack's language covers its culture's (ja: ja-JP) and the other way round.
+        static bool Covers(string c, string culture) => c.Equals(culture, StringComparison.OrdinalIgnoreCase)
+            || c.StartsWith(culture + "-", StringComparison.OrdinalIgnoreCase) || culture.StartsWith(c + "-", StringComparison.OrdinalIgnoreCase);
         foreach (var folder in Directory.Exists(bin) ? Directory.EnumerateDirectories(bin) : [])
         {
             var culture = Path.GetFileName(folder);
@@ -182,9 +203,13 @@ public static class LanguagePacks
             {
                 var satellite = Path.Combine(folder, assembly + ".resources.dll");
                 if (!File.Exists(satellite)) continue;
-                // A pack's language covers its culture's (ja: ja-JP) and the other way round.
-                if (cultures.Any(c => c.Equals(culture, StringComparison.OrdinalIgnoreCase)
-                    || c.StartsWith(culture + "-", StringComparison.OrdinalIgnoreCase) || culture.StartsWith(c + "-", StringComparison.OrdinalIgnoreCase)))
+                if (PackageTranslated.Contains(assembly))
+                {
+                    if (packageCultures.Any(p => Covers(p.Key, culture) && p.Value.Contains(assembly))) packageKept.Add($"{assembly} ({culture})");
+                    else File.Delete(satellite);
+                    continue;
+                }
+                if (cultures.Any(c => Covers(c, culture)))
                 {
                     kept.Add(culture);
                     assemblies.Add(assembly);
@@ -200,6 +225,8 @@ public static class LanguagePacks
             report.Add(Report.Kind.Project, "language-packs", $"FrameworkOnCore's own translations ({string.Join(", ", kept)}) of the texts of {string.Join(", ", assemblies)}: in that language when the UI culture is (the wording is FrameworkOnCore's, not Microsoft's)");
         if (removed.Count > 0)
             report.Add(Report.Kind.Project, "language-packs", $"FrameworkOnCore's translations removed ({string.Join(", ", removed)}): not among the languages (English in them)");
+        if (packageKept.Count > 0)
+            report.Add(Report.Kind.Project, "language-packs", $"FrameworkOnCore's own translations of {string.Join(", ", packageKept)}: the application had Microsoft's language package of them (the wording is FrameworkOnCore's, not Microsoft's; WebGrease's with System.Web.Optimization's, though it had none); MVC's, Web Pages', Web API's and the bundling's others in English, as without the package");
         var untranslated = cultures.Where(c => !kept.Any(k => k.Equals(c, StringComparison.OrdinalIgnoreCase) || c.StartsWith(k + "-", StringComparison.OrdinalIgnoreCase))).ToList();
         if (untranslated.Count > 0)
             report.Add(Report.Kind.Unsupported, "language-packs", $"no FrameworkOnCore translation in {string.Join(", ", untranslated)} yet: FrameworkOnCore's texts in English in them (translations/README.md: how to add one)");

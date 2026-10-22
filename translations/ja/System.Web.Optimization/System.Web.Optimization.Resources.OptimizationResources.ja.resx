@@ -53,7 +53,7 @@
     <comment>The value assigned to property '{0}' cannot be null or empty.</comment>
   </data>
   <data name="Type_doesnt_inherit_from_type" xml:space="preserve">
-    <value>型 '{0}' は '{1}' を継承していません。</value>
+    <value>型 '{0}' は '{1}' を継承しません。</value>
     <comment>Type '{0}' does not inherit from '{1}'.</comment>
   </data>
   <data name="UrlMappings_only_app_relative_url_allowed" xml:space="preserve">

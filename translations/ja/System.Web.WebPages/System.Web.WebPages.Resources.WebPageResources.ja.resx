@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AntiForgeryToken_AdditionalDataCheckFailed" xml:space="preserve">
+    <value>指定された偽造防止トークンは、カスタム データの検査に失敗しました。</value>
+    <comment>The provided anti-forgery token failed a custom data check.</comment>
+  </data>
+  <data name="AntiForgeryToken_ClaimUidMismatch" xml:space="preserve">
+    <value>偽造防止トークンは、現在のユーザーとは別のクレーム ベースのユーザーのものです。</value>
+    <comment>The provided anti-forgery token was meant for a different claims-based user than the current user.</comment>
+  </data>
+  <data name="AntiForgeryToken_CookieMissing" xml:space="preserve">
+    <value>必要な偽造防止 Cookie "{0}" がありません。</value>
+    <comment>The required anti-forgery cookie "{0}" is not present.</comment>
+  </data>
+  <data name="AntiForgeryToken_DeserializationFailed" xml:space="preserve">
+    <value>偽造防止トークンを復号できませんでした。このアプリケーションを Web ファームまたはクラスターでホストしている場合は、すべてのマシンで同じバージョンの ASP.NET Web Pages が動いていること、&lt;machineKey&gt; 構成で暗号化キーと検証キーを明示的に指定していることを確認してください。クラスターでは AutoGenerate は使えません。</value>
+    <comment>The anti-forgery token could not be decrypted. If this application is hosted by a Web Farm or cluster, ensure that all machines are running the same version of ASP.NET Web Pages and that the &lt;machineKey&gt; configuration specifies explicit encryption and validation keys. AutoGenerate cannot be used in a cluster.</comment>
+  </data>
+  <data name="AntiForgeryToken_FormFieldMissing" xml:space="preserve">
+    <value>必要な偽造防止フォーム フィールド "{0}" がありません。</value>
+    <comment>The required anti-forgery form field "{0}" is not present.</comment>
+  </data>
+  <data name="AntiForgeryToken_SecurityTokenMismatch" xml:space="preserve">
+    <value>偽造防止の Cookie とフォーム フィールドのトークンが一致しません。</value>
+    <comment>The anti-forgery cookie token and form field token do not match.</comment>
+  </data>
+  <data name="AntiForgeryToken_TokensSwapped" xml:space="preserve">
+    <value>偽造防止トークンの検証に失敗しました。Cookie "{0}" とフォーム フィールド "{1}" が入れ替わっています。</value>
+    <comment>Validation of the provided anti-forgery token failed. The cookie "{0}" and the form field "{1}" were swapped.</comment>
+  </data>
+  <data name="AntiForgeryToken_UsernameMismatch" xml:space="preserve">
+    <value>偽造防止トークンはユーザー "{0}" のものですが、現在のユーザーは "{1}" です。</value>
+    <comment>The provided anti-forgery token was meant for user "{0}", but the current user is "{1}".</comment>
+  </data>
+  <data name="AntiForgeryWorker_RequireSSL" xml:space="preserve">
+    <value>偽造防止システムの構成値は AntiForgeryConfig.RequireSsl = true ですが、現在の要求は SSL 要求ではありません。</value>
+    <comment>The anti-forgery system has the configuration value AntiForgeryConfig.RequireSsl = true, but the current request is not an SSL request.</comment>
+  </data>
+  <data name="ApplicationPart_ModuleAlreadyRegistered" xml:space="preserve">
+    <value>アセンブリ "{0}" は既に登録されています。</value>
+    <comment>The assembly "{0}" is already registered.</comment>
+  </data>
+  <data name="ApplicationPart_ModuleAlreadyRegisteredForVirtualPath" xml:space="preserve">
+    <value>仮想パス "{0}" にはアプリケーション モジュールが登録済みです。</value>
+    <comment>An application module is already registered for virtual path "{0}".</comment>
+  </data>
+  <data name="ApplicationPart_ModuleCannotBeFound" xml:space="preserve">
+    <value>"{0}" という名前のアプリケーション モジュールが見つかりません。</value>
+    <comment>Unable to find an application module with the name "{0}".</comment>
+  </data>
+  <data name="ApplicationPart_ModuleNotRegistered" xml:space="preserve">
+    <value>アセンブリ "{0}" は登録されたアプリケーション モジュールではありません。</value>
+    <comment>The assembly "{0}" is not a registered application module.</comment>
+  </data>
+  <data name="ApplicationPart_ResourceNotFound" xml:space="preserve">
+    <value>リソース ファイル "{0}" が見つかりません。</value>
+    <comment>The resource file "{0}" could not be found.</comment>
+  </data>
+  <data name="ClaimUidExtractor_ClaimNotPresent" xml:space="preserve">
+    <value>指定された ClaimsIdentity に、型 '{0}' のクレームがありません。</value>
+    <comment>A claim of type '{0}' was not present on the provided ClaimsIdentity.</comment>
+  </data>
+  <data name="ClaimUidExtractor_DefaultClaimsNotPresent" xml:space="preserve">
+    <value>指定された ClaimsIdentity に、型 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier' または 'http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider' のクレームがありません。クレーム ベースの認証で偽造防止トークンを使うには、構成したクレーム プロバイダーが、作成する ClaimsIdentity にこの両方のクレームを入れていることを確認してください。クレーム プロバイダーが一意の識別子として別のクレームの型を使う場合は、静的プロパティ AntiForgeryConfig.UniqueClaimTypeIdentifier で設定できます。</value>
+    <comment>A claim of type 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier' or 'http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider' was not present on the provided ClaimsIdentity. To enable anti-forgery token support with claims-based authentication, please verify that the configured claims provider is providing both of these claims on the ClaimsIdentity instances it generates. If the configured claims provider instead uses a different claim type as a unique identifier, it can be configured by setting the static property AntiForgeryConfig.UniqueClaimTypeIdentifier.</comment>
+  </data>
+  <data name="DynamicDictionary_InvalidNumberOfIndexes" xml:space="preserve">
+    <value>インデックスの長さはちょうど 1 にしてください。</value>
+    <comment>Index length must be exactly one.</comment>
+  </data>
+  <data name="DynamicHttpApplicationState_UseOnlyStringOrIntToGet" xml:space="preserve">
+    <value>値を取得するときのインデックスは、string または int 型にしてください。</value>
+    <comment>Index must be of type string or int when getting a value.</comment>
+  </data>
+  <data name="DynamicHttpApplicationState_UseOnlyStringToSet" xml:space="preserve">
+    <value>値を設定するときのインデックスは、string 型にしてください。</value>
+    <comment>Index must be of type string when setting a value.</comment>
+  </data>
+  <data name="HtmlHelper_ConversionThrew" xml:space="preserve">
+    <value>型 "{0}" から型 "{1}" へのパラメーターの変換に失敗しました。詳しくは内部例外を参照してください。</value>
+    <comment>The parameter conversion from type "{0}" to type "{1}" failed. See the inner exception for more information.</comment>
+  </data>
+  <data name="HtmlHelper_NoConverterExists" xml:space="preserve">
+    <value>型 "{0}" から型 "{1}" へのパラメーターの変換に失敗しました。これらの型の間で変換できる型コンバーターがありません</value>
+    <comment>The parameter conversion from type "{0}" to type "{1}" failed because no type converter can convert between these types.</comment>
+  </data>
+  <data name="HttpContextUnavailable" xml:space="preserve">
+    <value>この操作には HttpContext が必要です。この操作が Web 要求の処理中に行われていることを確認してください。</value>
+    <comment>An HttpContext is required to perform this operation. Check that this operation is being performed during a web request.</comment>
+  </data>
+  <data name="SessionState_InvalidValue" xml:space="preserve">
+    <value>"{1}" に指定された値 "{0}" は、SessionState ディレクティブの値として無効です。指定できる値: "{2}"。</value>
+    <comment>Value "{0}" specified in "{1}" is an invalid value for the SessionState directive. Possible values are: "{2}".</comment>
+  </data>
+  <data name="SessionState_TooManyValues" xml:space="preserve">
+    <value>SessionState の値は 1 ページに 1 つまでです。</value>
+    <comment>At most one SessionState value can be declared per page.</comment>
+  </data>
+  <data name="StateStorage_RequestScopeNotAvailable" xml:space="preserve">
+    <value>_AppStart の実行中は RequestScope を作成できません。</value>
+    <comment>RequestScope cannot be created when _AppStart is executing.</comment>
+  </data>
+  <data name="StateStorage_ScopeIsReadOnly" xml:space="preserve">
+    <value>ストレージ スコープは読み取り専用です。</value>
+    <comment>Storage scope is read only.</comment>
+  </data>
+  <data name="StateStorage_StorageScopesCannotBeCreated" xml:space="preserve">
+    <value>_AppStart の実行中はストレージ スコープを作成できません。</value>
+    <comment>Storage scopes cannot be created when _AppStart is executing.</comment>
+  </data>
+  <data name="TokenValidator_AuthenticatedUserWithoutUsername" xml:space="preserve">
+    <value>指定された型 '{0}' の ID は IsAuthenticated = true ですが、Name の値がありません。偽造防止システムは既定で、認証済みのすべての ID に一意の Name を求めます。この ID に一意の Name を指定できない場合は、静的プロパティ AntiForgeryConfig.AdditionalDataProvider に、現在のユーザーの一意の識別子を提供できる型のインスタンスを設定することを検討してください。</value>
+    <comment>The provided identity of type '{0}' is marked IsAuthenticated = true but does not have a value for Name. By default, the anti-forgery system requires that all authenticated identities have a unique Name. If it is not possible to provide a unique Name for this identity, consider setting the static property AntiForgeryConfig.AdditionalDataProvider to an instance of a type that can provide some form of unique identifier for the current user.</comment>
+  </data>
+  <data name="UnobtrusiveJavascript_ValidationParameterCannotBeEmpty" xml:space="preserve">
+    <value>控えめなクライアント検証の規則の検証パラメーター名を空にはできません。クライアント規則の型: {0}</value>
+    <comment>Validation parameter names in unobtrusive client validation rules cannot be empty. Client rule type: {0}</comment>
+  </data>
+  <data name="UnobtrusiveJavascript_ValidationParameterMustBeLegal" xml:space="preserve">
+    <value>控えめなクライアント検証の規則の検証パラメーター名は、小文字で始まり、小文字と数字だけで構成する必要があります。検証パラメーター名: {0}、クライアント規則の型: {1}</value>
+    <comment>Validation parameter names in unobtrusive client validation rules must start with a lowercase letter and consist of only lowercase letters or digits. Validation parameter name: {0}, client rule type: {1}</comment>
+  </data>
+  <data name="UnobtrusiveJavascript_ValidationTypeCannotBeEmpty" xml:space="preserve">
+    <value>控えめなクライアント検証の規則の検証の種類名を空にはできません。クライアント規則の型: {0}</value>
+    <comment>Validation type names in unobtrusive client validation rules cannot be empty. Client rule type: {0}</comment>
+  </data>
+  <data name="UnobtrusiveJavascript_ValidationTypeMustBeLegal" xml:space="preserve">
+    <value>控えめなクライアント検証の規則の検証の種類名は、小文字だけで構成してください。無効な名前: "{0}"、クライアント規則の型: {1}</value>
+    <comment>Validation type names in unobtrusive client validation rules must consist of only lowercase letters. Invalid name: "{0}", client rule type: {1}</comment>
+  </data>
+  <data name="UnobtrusiveJavascript_ValidationTypeMustBeUnique" xml:space="preserve">
+    <value>控えめなクライアント検証の規則の検証の種類名は一意にしてください。次の検証の種類が複数回出現しました: {0}</value>
+    <comment>Validation type names in unobtrusive client validation rules must be unique. The following validation type was seen more than once: {0}</comment>
+  </data>
+  <data name="UrlData_ReadOnly" xml:space="preserve">
+    <value>UrlData コレクションは読み取り専用です。</value>
+    <comment>The UrlData collection is read-only.</comment>
+  </data>
+  <data name="ValidationDefault_DataType" xml:space="preserve">
+    <value>入力形式が無効です。</value>
+    <comment>Input format is invalid.</comment>
+  </data>
+  <data name="ValidationDefault_EqualsTo" xml:space="preserve">
+    <value>値が一致しません。</value>
+    <comment>Values do not match.</comment>
+  </data>
+  <data name="ValidationDefault_FloatRange" xml:space="preserve">
+    <value>値は {0} から {1} の間の小数にしてください。</value>
+    <comment>Value must be a decimal between {0} and {1}.</comment>
+  </data>
+  <data name="ValidationDefault_IntegerRange" xml:space="preserve">
+    <value>値は {0} から {1} の間の整数にしてください。</value>
+    <comment>Value must be an integer between {0} and {1}.</comment>
+  </data>
+  <data name="ValidationDefault_Regex" xml:space="preserve">
+    <value>値が無効です。</value>
+    <comment>Value is invalid.</comment>
+  </data>
+  <data name="ValidationDefault_Required" xml:space="preserve">
+    <value>この項目は必須です。</value>
+    <comment>This field is required.</comment>
+  </data>
+  <data name="ValidationDefault_StringLength" xml:space="preserve">
+    <value>最大長: {0}。</value>
+    <comment>Max length: {0}.</comment>
+  </data>
+  <data name="ValidationDefault_StringLengthRange" xml:space="preserve">
+    <value>文字列は {0} 文字以上 {1} 文字以下です。</value>
+    <comment>String must be between {0} and {1} characters.</comment>
+  </data>
+  <data name="WebPageRoute_UnderscoreBlocked" xml:space="preserve">
+    <value>"_" で始まる名前のファイルは提供できません。</value>
+    <comment>Files with leading underscores ("_") cannot be served.</comment>
+  </data>
+  <data name="WebPage_CannotRequestDirectly" xml:space="preserve">
+    <value>ファイル "{0}" は "{1}" メソッドを呼び出すため、直接要求できません。</value>
+    <comment>The file "{0}" cannot be requested directly because it calls the "{1}" method.</comment>
+  </data>
+  <data name="WebPage_FileNotSupported" xml:space="preserve">
+    <value>拡張子 "{0}" がサポートされていない可能性があるため、次のファイルを表示できませんでした: "{1}"。</value>
+    <comment>The following file could not be rendered because its extension "{0}" might not be supported: "{1}".</comment>
+  </data>
+  <data name="WebPage_InvalidPageType" xml:space="preserve">
+    <value>ファイル "{0}" は存在しないか有効なページではないため、表示できませんでした。</value>
+    <comment>The file "{0}" could not be rendered, because it does not exist or is not a valid page.</comment>
+  </data>
+  <data name="WebPage_LayoutPageNotFound" xml:space="preserve">
+    <value>レイアウト ページ "{0}" が次のパスに見つかりません: "{1}"。</value>
+    <comment>The layout page "{0}" could not be found at the following path: "{1}".</comment>
+  </data>
+  <data name="WebPage_RenderBodyAlreadyCalled" xml:space="preserve">
+    <value>"RenderBody" メソッドは既に呼び出されています。</value>
+    <comment>The "RenderBody" method has already been called.</comment>
+  </data>
+  <data name="WebPage_RenderBodyNotCalled" xml:space="preserve">
+    <value>レイアウト ページ "{0}" で "RenderBody" メソッドが呼び出されていません。</value>
+    <comment>The "RenderBody" method has not been called for layout page "{0}".</comment>
+  </data>
+  <data name="WebPage_SectionAleadyDefined" xml:space="preserve">
+    <value>セクションは既に定義されています: "{0}"。</value>
+    <comment>Section already defined: "{0}".</comment>
+  </data>
+  <data name="WebPage_SectionAleadyRendered" xml:space="preserve">
+    <value>セクション "{0}" に対して "RenderSection" メソッドは既に呼び出されています。</value>
+    <comment>The "RenderSection" method has already been called for the section named "{0}".</comment>
+  </data>
+  <data name="WebPage_SectionNotDefined" xml:space="preserve">
+    <value>セクションが定義されていません: "{0}"。</value>
+    <comment>Section not defined: "{0}".</comment>
+  </data>
+  <data name="WebPage_SectionsNotRendered" xml:space="preserve">
+    <value>レイアウト ページ "{0}" で、次のセクションは定義されていますが表示されていません: "{1}"。</value>
+    <comment>The following sections have been defined but have not been rendered for the layout page "{0}": "{1}".</comment>
+  </data>
+</root>

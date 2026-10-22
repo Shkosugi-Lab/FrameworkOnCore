@@ -267,7 +267,7 @@ if (build && succeeded)
         File.WriteAllLines(Path.Combine(siteBin, "frameworkoncore.platform.txt"), rules.PlatformReplacements.Select(r => $"{r.Line}|{r.Replace}|{r.Replacement}"), new UTF8Encoding(false));
     // System.Web's texts in the language packs' languages, as on the original server (component language-packs).
     if (Directory.Exists(siteBin))
-        LanguagePacks.Write(siteBin, cultureProfile, choices.OptionOf(catalog, "language-packs") ?? "translations", choices.SettingOf(catalog, "languages"), deployKinds, report);
+        LanguagePacks.Write(siteBin, cultureProfile, choices.OptionOf(catalog, "language-packs") ?? "translations", choices.SettingOf(catalog, "languages"), deployKinds, report, converter.LanguagePackageCultures);
     new DeployWriter(report, outRoot, runtimeDirectory).Write(deployKinds, deployedSite, web, cultureProfile, caseInsensitive.Value);
 }
 

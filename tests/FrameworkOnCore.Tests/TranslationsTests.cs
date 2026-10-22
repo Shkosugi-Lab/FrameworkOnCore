@@ -65,6 +65,29 @@ public class TranslationsTests
         Assert.Equal(Sources.Keys.Order(StringComparer.Ordinal), FrameworkOnCore.Converter.LanguagePacks.Translated.Order(StringComparer.Ordinal));
     }
 
+    // MVC's texts were in Japanese on .NET Framework only with Microsoft.AspNet.Mvc.ja: the port's translation kept for the
+    // cultures of the language packages the application had, whatever the languages chosen; System.Web's for those.
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void The_ports_translations_are_kept_for_the_language_packages_the_application_had(bool hadPackage)
+    {
+        var bin = Path.Combine(Path.GetTempPath(), "foc-languages-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            Directory.CreateDirectory(Path.Combine(bin, "ja"));
+            foreach (var assembly in new[] { "System.Web", "System.Web.Mvc", "System.Web.Http" })
+                File.WriteAllText(Path.Combine(bin, "ja", assembly + ".resources.dll"), "");
+            var packages = new Dictionary<string, SortedSet<string>>();
+            if (hadPackage) packages["ja"] = new SortedSet<string> { "System.Web.Mvc" };
+            FrameworkOnCore.Converter.LanguagePacks.Write(bin, null, "translations", "en,ja", "none", new FrameworkOnCore.Converter.Report(), packages);
+            Assert.True(File.Exists(Path.Combine(bin, "ja", "System.Web.resources.dll")));
+            Assert.Equal(hadPackage, File.Exists(Path.Combine(bin, "ja", "System.Web.Mvc.resources.dll")));
+            Assert.False(File.Exists(Path.Combine(bin, "ja", "System.Web.Http.resources.dll")));
+        }
+        finally { Directory.Delete(bin, true); }
+    }
+
     [Theory]
     [MemberData(nameof(Files))]
     public void A_translation_is_of_its_assemblys_resources(string file)

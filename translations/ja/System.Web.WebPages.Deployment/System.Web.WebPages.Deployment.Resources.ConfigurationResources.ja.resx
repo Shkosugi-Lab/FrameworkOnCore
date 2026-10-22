@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="InstallPathNotFound" xml:space="preserve">
+    <value>Web Pages のレジストリ キー "{0}" に "InstallPath" という名前がありません。</value>
+    <comment>The "InstallPath" name was not found in the Web Pages registry key "{0}".</comment>
+  </data>
+  <data name="WebPagesImplicitVersionFailure" xml:space="preserve">
+    <value>使用する ASP.NET Web Pages のバージョンを特定できませんでした。
+
+このサイトを使うには、サイトの web.config ファイルでバージョンを指定してください。詳しくは、Microsoft サポート サイトの次の記事を参照してください: http://go.microsoft.com/fwlink/?LinkId=254126</value>
+    <comment>Could not determine which version of ASP.NET Web Pages to use.
+
+In order to use this site, specify a version in the site’s web.config file. For more information, see the following article on the Microsoft support site: http://go.microsoft.com/fwlink/?LinkId=254126</comment>
+  </data>
+  <data name="WebPagesRegistryKeyDoesNotExist" xml:space="preserve">
+    <value>Web Pages のレジストリ キー "{0}" がありません。</value>
+    <comment>The Web Pages registry key "{0}" does not exist.</comment>
+  </data>
+  <data name="WebPagesVersionChanges" xml:space="preserve">
+    <value>Web Pages のランタイムのバージョンに、アプリケーションの再コンパイルが必要な変更がありました。続けるには、ブラウザーのウィンドウを更新してください。</value>
+    <comment>Changes were detected in the Web Pages runtime version that require your application to be recompiled. Refresh your browser window to continue.</comment>
+  </data>
+  <data name="WebPagesVersionConflict" xml:space="preserve">
+    <value>ASP.NET Web Pages のバージョンの競合を検出しました: 指定されたバージョンは "{0}" ですが、bin のバージョンは "{1}" です。続けるには、アプリケーションの bin ディレクトリからファイルを削除するか、web.config のバージョンの指定を削除してください。</value>
+    <comment>Conflicting versions of ASP.NET Web Pages detected: specified version is "{0}", but the version in bin is "{1}". To continue, remove files from the application's bin directory or remove the version specification in web.config.</comment>
+  </data>
+  <data name="WebPagesVersionNotFound" xml:space="preserve">
+    <value>指定された Web Pages のバージョン "{0}" が見つかりません。web.config で別のバージョンを指定してください。現在のバージョン: "{1}"。</value>
+    <comment>Specified Web Pages version "{0}" could not be found. Update your web.config to specify a different version. Current version: "{1}".</comment>
+  </data>
+</root>

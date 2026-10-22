@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Chart_ArgumentConversionFailed" xml:space="preserve">
+    <value>型 "{0}" への引数の変換に失敗しました</value>
+    <comment>Argument conversion to type "{0}" failed.</comment>
+  </data>
+  <data name="Chart_ExceptionDataBindSeriesToString" xml:space="preserve">
+    <value>系列は文字列オブジェクトにデータ バインドできません</value>
+    <comment>A series cannot be data-bound to a string object.</comment>
+  </data>
+  <data name="Chart_ThemeFileNotFound" xml:space="preserve">
+    <value>テーマ ファイル "{0}" が見つかりません。</value>
+    <comment>The theme file "{0}" could not be found.</comment>
+  </data>
+  <data name="Crypto_NotSupportedHashAlg" xml:space="preserve">
+    <value>ハッシュ アルゴリズム '{0}' はサポートされていません。有効な値: sha256、sha1、md5</value>
+    <comment>The hash algorithm '{0}' is not supported, valid values are: sha256, sha1, md5</comment>
+  </data>
+  <data name="Image_IncorrectImageFormat" xml:space="preserve">
+    <value>"{0}" は無効な画像形式です。有効な値は "JPEG"、"BMP"、"GIF"、"PNG" などの画像形式の名前です。</value>
+    <comment>"{0}" is invalid image format. Valid values are image format names like: "JPEG", "BMP", "GIF", "PNG", etc.</comment>
+  </data>
+  <data name="Json_UnableToConvertType" xml:space="preserve">
+    <value>"{0}" に変換できません。代わりに Json.Decode&lt;T&gt; を使用してください。</value>
+    <comment>Unable to convert to "{0}". Use Json.Decode&lt;T&gt; instead.</comment>
+  </data>
+  <data name="ObjectInfo_PreviousDisplayed" xml:space="preserve">
+    <value>表示済み</value>
+    <comment>Previously Displayed</comment>
+  </data>
+  <data name="ObjectInfo_PropertyThrewException" xml:space="preserve">
+    <value>プロパティへのアクセスで例外が発生しました: </value>
+    <comment>Accessing a property threw an exception: </comment>
+  </data>
+  <data name="PathUtils_IncorrectPath" xml:space="preserve">
+    <value>ファイル パス "{0}" は無効です。</value>
+    <comment>File path "{0}" is invalid.</comment>
+  </data>
+  <data name="ServerInfo_AdditionalInfo" xml:space="preserve">
+    <value>ページを高い信頼レベルで実行すると、サーバーの追加情報を表示できます。</value>
+    <comment>Additional server information is available when the page is running with high trust.</comment>
+  </data>
+  <data name="ServerInfo_EnvVars" xml:space="preserve">
+    <value>環境変数</value>
+    <comment>Environment Variables</comment>
+  </data>
+  <data name="ServerInfo_Header" xml:space="preserve">
+    <value>ASP.NET サーバー情報</value>
+    <comment>ASP.NET Server Information</comment>
+  </data>
+  <data name="ServerInfo_HttpRuntime" xml:space="preserve">
+    <value>HTTP ランタイム情報</value>
+    <comment>HTTP Runtime Information</comment>
+  </data>
+  <data name="ServerInfo_LegacyCAS" xml:space="preserve">
+    <value>従来のコード アクセス セキュリティ</value>
+    <comment>Legacy Code Access Security</comment>
+  </data>
+  <data name="ServerInfo_LegacyCasHelpInfo" xml:space="preserve">
+    <value>このシステムで従来のコード アクセス セキュリティが検出されました。Microsoft WebPage の機能には、ASP.NET 4 のコード アクセス セキュリティ モデルが必要です。解決方法については、サーバーの管理者に問い合わせてください。</value>
+    <comment>Legacy Code Access Security has been detected on your system. Microsoft WebPage features require the ASP.NET 4 Code Access Security model. For information about how to resolve this, contact your server administrator.</comment>
+  </data>
+  <data name="ServerInfo_NoValue" xml:space="preserve">
+    <value>値なし</value>
+    <comment>no value</comment>
+  </data>
+  <data name="ServerInfo_ServerConfigTable" xml:space="preserve">
+    <value>サーバー構成</value>
+    <comment>Server Configuration</comment>
+  </data>
+  <data name="ServerInfo_ServerVars" xml:space="preserve">
+    <value>ASP.NET サーバー変数</value>
+    <comment>ASP.NET Server Variables</comment>
+  </data>
+  <data name="WebGrid_ColumnNameOrFormatRequired" xml:space="preserve">
+    <value>カスタムの書式を指定しない限り、列名を null または空の文字列にすることはできません。</value>
+    <comment>The column name cannot be null or an empty string unless a custom format is specified.</comment>
+  </data>
+  <data name="WebGrid_ColumnNotFound" xml:space="preserve">
+    <value>列 "{0}" がありません。</value>
+    <comment>Column "{0}" does not exist.</comment>
+  </data>
+  <data name="WebGrid_DataSourceBound" xml:space="preserve">
+    <value>WebGrid インスタンスは既にデータ ソースにバインドされています。</value>
+    <comment>The WebGrid instance is already bound to a data source.</comment>
+  </data>
+  <data name="WebGrid_NoDataSourceBound" xml:space="preserve">
+    <value>この操作の前にデータ ソースをバインドしてください。</value>
+    <comment>A data source must be bound before this operation can be performed.</comment>
+  </data>
+  <data name="WebGrid_NotSupportedIfPagingIsDisabled" xml:space="preserve">
+    <value>"WebGrid" オブジェクトのページングが無効なときは、この操作はサポートされていません。</value>
+    <comment>This operation is not supported when paging is disabled for the "WebGrid" object.</comment>
+  </data>
+  <data name="WebGrid_NotSupportedIfSortingIsDisabled" xml:space="preserve">
+    <value>"WebGrid" オブジェクトの並べ替えが無効なときは、この操作はサポートされていません。</value>
+    <comment>This operation is not supported when sorting is disabled for the "WebGrid" object.</comment>
+  </data>
+  <data name="WebGrid_PagerModeMustBeEnabled" xml:space="preserve">
+    <value>この引数を使うには、ページャー モード "{0}" を有効にしてください。</value>
+    <comment>To use this argument, pager mode "{0}" must be enabled.</comment>
+  </data>
+  <data name="WebGrid_PropertySetterNotSupportedAfterDataBound" xml:space="preserve">
+    <value>"WebGrid" オブジェクトが並べ替えまたはページングされた後は、このプロパティを設定できません。"Rows" プロパティを直接、または "GetHtml"、"Pager"、"Table" などのメソッドを通して呼び出す前に、このプロパティを設定してください。</value>
+    <comment>This property cannot be set after the "WebGrid" object has been sorted or paged. Make sure that this property is set prior to invoking the "Rows" property directly or indirectly through other methods such as "GetHtml", "Pager", "Table", etc.</comment>
+  </data>
+  <data name="WebGrid_RowCountNotSpecified" xml:space="preserve">
+    <value>"autoSortAndPage" が true でページングが有効なときは、"rowCount" の値を指定してください。</value>
+    <comment>A value for "rowCount" must be specified when "autoSortAndPage" is set to true and paging is enabled.</comment>
+  </data>
+  <data name="WebGrid_SelectLinkText" xml:space="preserve">
+    <value>選択</value>
+    <comment>Select</comment>
+  </data>
+  <data name="WebImage_IncorrectColorName" xml:space="preserve">
+    <value>"fontColor" の値が無効です。有効な値は "White"、"Black"、"DarkBlue" などの名前か、"#RRGGBB" または "#RGB" の形式の 16 進数の値です。</value>
+    <comment>The "fontColor" value is invalid. Valid values are names like "White", "Black", or "DarkBlue", or hexadecimal values in the form "#RRGGBB" or "#RGB".</comment>
+  </data>
+  <data name="WebImage_IncorrectFontFamily" xml:space="preserve">
+    <value>"fontFamily" の値が無効です。有効な値は "Arial"、"Times New Roman" などのフォント ファミリ名です。そのフォント ファミリがサーバーにインストールされていることを確認してください。</value>
+    <comment>The "fontFamily" value is invalid. Valid values are font family names like: "Arial", "Times New Roman", etc. Make sure that the font family you are trying to use is installed on the server.</comment>
+  </data>
+  <data name="WebImage_IncorrectFontStyle" xml:space="preserve">
+    <value>"fontStyle" の値が無効です。有効な値: "Regular"、"Bold"、"Italic"、"Underline"、"Strikeout"。</value>
+    <comment>The "fontStyle" value is invalid. Valid values are: "Regular", "Bold", "Italic", "Underline", and "Strikeout".</comment>
+  </data>
+  <data name="WebImage_IncorrectHorizontalAlignment" xml:space="preserve">
+    <value>"horizontalAlign" の値が無効です。有効な値: "Right"、"Left"、"Center"。</value>
+    <comment>The "horizontalAlign" value is invalid. Valid values are: "Right", "Left", and "Center".</comment>
+  </data>
+  <data name="WebImage_IncorrectVerticalAlignment" xml:space="preserve">
+    <value>"verticalAlign" の値が無効です。有効な値: "Top"、"Bottom"、"Middle"。</value>
+    <comment>The "verticalAlign" value is invalid. Valid values are: "Top", "Bottom", and "Middle".</comment>
+  </data>
+  <data name="WebImage_IncorrectWidthAndHeight" xml:space="preserve">
+    <value>透かしの幅と高さは、両方とも正の数か、両方とも 0 にしてください。</value>
+    <comment>Watermark width and height must both be positive or both be zero.</comment>
+  </data>
+  <data name="WebImage_InvalidImageContents" xml:space="preserve">
+    <value>指定された内容から画像を作成できませんでした。</value>
+    <comment>An image could not be constructed from the content provided.</comment>
+  </data>
+  <data name="WebMail_InvalidPriority" xml:space="preserve">
+    <value>"priority" の値が無効です。有効な値: "Low"、"Normal"、"High"。</value>
+    <comment>The "priority" value is invalid. Valid values are "Low", "Normal" and "High".</comment>
+  </data>
+  <data name="WebMail_ItemInCollectionIsNull" xml:space="preserve">
+    <value>コレクション内の文字列が null または空です。</value>
+    <comment>A string in the collection is null or empty.</comment>
+  </data>
+  <data name="WebMail_SmtpServerNotSpecified" xml:space="preserve">
+    <value>"SmtpServer" が指定されていません。</value>
+    <comment>"SmtpServer" was not specified.</comment>
+  </data>
+  <data name="WebMail_UnableToDetermineFrom" xml:space="preserve">
+    <value>"From" の電子メール アドレスが指定されておらず、既定値も割り当てられませんでした。</value>
+    <comment>No "From" email address was specified and a default value could not be assigned.</comment>
+  </data>
+</root>

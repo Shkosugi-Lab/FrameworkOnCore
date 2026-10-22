@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Argument_Cannot_Be_Null_Or_Empty" xml:space="preserve">
+    <value>値を null または空の文字列にすることはできません。</value>
+    <comment>Value cannot be null or an empty string.</comment>
+  </data>
+  <data name="Argument_Must_Be_Between" xml:space="preserve">
+    <value>値は {0} から {1} の間にしてください。</value>
+    <comment>Value must be between {0} and {1}.</comment>
+  </data>
+  <data name="Argument_Must_Be_Enum_Member" xml:space="preserve">
+    <value>値は列挙型 "{0}" の値にしてください。</value>
+    <comment>Value must be a value from the "{0}" enumeration.</comment>
+  </data>
+  <data name="Argument_Must_Be_GreaterThan" xml:space="preserve">
+    <value>値は {0} より大きくしてください。</value>
+    <comment>Value must be greater than {0}.</comment>
+  </data>
+  <data name="Argument_Must_Be_GreaterThanOrEqualTo" xml:space="preserve">
+    <value>値は {0} 以上にしてください。</value>
+    <comment>Value must be greater than or equal to {0}.</comment>
+  </data>
+  <data name="Argument_Must_Be_LessThan" xml:space="preserve">
+    <value>値は {0} より小さくしてください。</value>
+    <comment>Value must be less than {0}.</comment>
+  </data>
+  <data name="Argument_Must_Be_LessThanOrEqualTo" xml:space="preserve">
+    <value>値は {0} 以下にしてください。</value>
+    <comment>Value must be less than or equal to {0}.</comment>
+  </data>
+  <data name="Argument_Must_Be_Null_Or_Non_Empty" xml:space="preserve">
+    <value>値を空の文字列にすることはできません。null か空でない文字列にしてください。</value>
+    <comment>Value cannot be an empty string. It must either be null or a non-empty string.</comment>
+  </data>
+</root>

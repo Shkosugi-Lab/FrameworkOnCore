@@ -1236,6 +1236,28 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
     (ツールの deps.json が FrameworkOnCore のものを選ぶ)。成否を逆に返していたのも直した。
   - 確認: net10.0・net48 × dotnet build・MSBuild 18 × 別プロセス・プロセス内の 7 通りすべてで生成でき、内容は同じ。
 
+### MVC・Web Pages・Razor・Web API・CORS の文言の翻訳と、Microsoft の言語別パッケージ(1.6.5-w2l.20、2026-10-22、ユーザーの指示「残っていることをこの順で進めて」)
+
+- **.NET Framework での動き**: これらの文言は .NET Framework の言語パックには無く、Microsoft の言語別パッケージ(`Microsoft.AspNet.Mvc.ja`、
+  `.WebPages.ja`、`.Razor.ja`、`.WebApi.Core.ja`、`.WebApi.WebHost.ja`、`.WebApi.Client.ja`、`.WebApi.Owin.ja`、`.Cors.ja`、`.WebApi.Cors.ja`。
+  NuGet で確認)をアプリが入れたときだけ、その言語だった。バンドル(`Microsoft.AspNet.Web.Optimization.ja`)も同じ。WebGrease には無い。
+- **見つけた不具合**(変換器): 言語別パッケージはそのまま参照されていた。言語別パッケージは本体(`Microsoft.AspNet.Mvc` など)に依存するので、
+  移植版が置き換えたはずの Microsoft の DLL が復元に戻ってくる。
+- **対応**:
+  - 移植版 12 アセンブリの文言 664 件を独自に訳した(`translations\ja\System.Web.Mvc` ほか。英語は AspNetWebStack のリソース)。幅は Microsoft の
+    言語別パッケージの文言の幅以下(`check.ps1` が NuGet のキャッシュにある `.ja` パッケージから幅だけを読む。`sources.json` の `package`)。
+  - 変換器: `rules/packages.json` の `languagePackages`(本体のパッケージ → サテライトのアセンブリ)で `<本体>.<カルチャ>` を見分け、参照から外し、
+    そのカルチャを記録する(`ProjectConverter.LanguagePackageCultures`)。`LanguagePacks` は、これらのアセンブリと System.Web.Optimization・WebGrease の
+    訳を、記録したカルチャの分だけ残し、ほかは消す(「言語パック」の言語の選択とは別)。WebGrease は System.Web.Optimization と一緒に扱う
+    (.NET Framework では常に英語だったので、厳密には違う)。
+  - 以前は System.Web.Optimization・WebGrease の訳を、サーバーの言語パックの言語で残していた(.NET Framework では言語別パッケージが無ければ英語):
+    同じ規則に直した。
+  - 版の確認(`frameworkoncore-version.ps1`)が `translations\` の変更を見ていなかった(訳はパッケージのサテライトになる)ので加え、w2l.19 は公開済み
+    だったので w2l.20 にした。
+- 確認: 移植版のパッケージを参照したアプリで、ja-JP の UI カルチャで「{0} は日付にしてください。」「要求 URI '{0}' に一致する HTTP リソースが見つかりません。」
+  (en-US では英語)。be・wt は言語別パッケージが無いので、MVC・Web API・バンドルの訳は bin から除かれた。単体テスト 4,479 件成功。
+  回帰: be Windows・Linux 5/5、wt Windows 8/8・Linux 7/8(error-page、以前から)。
+
 ### DataAnnotations の文言の翻訳と、IIS の custerr ページの言語(2026-10-22、ユーザーの指示「残っていることを進めて」)
 
 - **DataAnnotations**: .NET の System.ComponentModel.Annotations の文言(62 件)を独自に訳した(`translations\ja\System.ComponentModel.Annotations`。

@@ -21,6 +21,8 @@ on:
       - 'FrameworkOnCore.Runtime/**'
       - 'experiments/wf4c/pack-frameworkoncore.ps1'
       - 'experiments/wf4c/frameworkoncore.slnx'
+      # The packages' satellites (FrameworkOnCore.Translations.targets).
+      - 'translations/**'
       - 'src/FrameworkOnCore.Converter/rules/packages.json'
       - 'tests/SqlClientTests/**'
       # The tests it runs on Linux: a test added or changed is run there too (Studio's, the converter's).

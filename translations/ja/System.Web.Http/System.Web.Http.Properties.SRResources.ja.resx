@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ModelBinderUtil_ModelCannotBeNull" xml:space="preserve">
+    <value>バインド コンテキストの Model は null ですが、このバインダーには型 '{0}' の null でないモデルが必要です。</value>
+    <comment>The binding context has a null Model, but this binder requires a non-null model of type '{0}'.</comment>
+  </data>
+  <data name="ModelBinderUtil_ModelInstanceIsWrong" xml:space="preserve">
+    <value>バインド コンテキストの Model の型は '{0}' ですが、このバインダーは型 '{1}' のモデルでしか動作しません。</value>
+    <comment>The binding context has a Model of type '{0}', but this binder can only operate on models of type '{1}'.</comment>
+  </data>
+  <data name="ModelBinderUtil_ModelMetadataCannotBeNull" xml:space="preserve">
+    <value>バインド コンテキストの ModelMetadata を null にはできません。</value>
+    <comment>The binding context cannot have a null ModelMetadata.</comment>
+  </data>
+  <data name="ModelBinderUtil_ModelTypeIsWrong" xml:space="preserve">
+    <value>バインド コンテキストの ModelType は '{0}' ですが、このバインダーは型 '{1}' のモデルでしか動作しません。</value>
+    <comment>The binding context has a ModelType of '{0}', but this binder can only operate on models of type '{1}'.</comment>
+  </data>
+  <data name="ModelBinderConfig_ValueInvalid" xml:space="preserve">
+    <value>値 '{0}' は {1} に対して無効です。</value>
+    <comment>The value '{0}' is not valid for {1}.</comment>
+  </data>
+  <data name="ModelBinderConfig_ValueRequired" xml:space="preserve">
+    <value>値が必要です。</value>
+    <comment>A value is required.</comment>
+  </data>
+  <data name="ModelBindingContext_ModelMetadataMustBeSet" xml:space="preserve">
+    <value>このプロパティにアクセスする前に、ModelMetadata プロパティを設定してください。</value>
+    <comment>The ModelMetadata property must be set before accessing this property.</comment>
+  </data>
+  <data name="Common_PropertyNotFound" xml:space="preserve">
+    <value>プロパティ {0}.{1} が見つかりません。</value>
+    <comment>The property {0}.{1} could not be found.</comment>
+  </data>
+  <data name="ModelBinderProviderCollection_InvalidBinderType" xml:space="preserve">
+    <value>型 '{0}' は {1} を継承しておらず、インターフェイス {2} も実装していません。</value>
+    <comment>The type '{0}' does not subclass {1} or implement the interface {2}.</comment>
+  </data>
+  <data name="ValueProviderResult_ConversionThrew" xml:space="preserve">
+    <value>型 '{0}' から型 '{1}' へのパラメーターの変換に失敗しました。詳しくは内部例外を参照してください。</value>
+    <comment>The parameter conversion from type '{0}' to type '{1}' failed. See the inner exception for more information.</comment>
+  </data>
+  <data name="ValueProviderResult_NoConverterExists" xml:space="preserve">
+    <value>型 '{0}' から型 '{1}' へのパラメーターの変換に失敗しました。これらの型の間で変換できる型コンバーターがありません。</value>
+    <comment>The parameter conversion from type '{0}' to type '{1}' failed because no type converter can convert between these types.</comment>
+  </data>
+  <data name="Common_TypeMustDriveFromType" xml:space="preserve">
+    <value>型 {0} は {1} から派生する必要があります。</value>
+    <comment>The type {0} must derive from {1}.</comment>
+  </data>
+  <data name="DataAnnotationsModelValidatorProvider_ConstructorRequirements" xml:space="preserve">
+    <value>型 {0} には、型 {1}、{2}、{3} の 3 つのパラメーターを受け取るパブリック コンストラクターが必要です。</value>
+    <comment>The type {0} must have a public constructor which accepts three parameters of types {1}, {2}, and {3}.</comment>
+  </data>
+  <data name="DataAnnotationsModelValidatorProvider_ValidatableConstructorRequirements" xml:space="preserve">
+    <value>型 {0} には、型 {1} と {2} の 2 つのパラメーターを受け取るパブリック コンストラクターが必要です。</value>
+    <comment>The type {0} must have a public constructor which accepts two parameters of types {1} and {2}.</comment>
+  </data>
+  <data name="ValidatableObjectAdapter_IncompatibleType" xml:space="preserve">
+    <value>メタデータ内のモデル オブジェクトは {0} と互換性があるとされていましたが、実際は {1} でした。</value>
+    <comment>The model object inside the metadata claimed to be compatible with {0}, but was actually {1}.</comment>
+  </data>
+  <data name="HttpResponseExceptionMessage" xml:space="preserve">
+    <value>HTTP 要求の処理で例外が発生しました。詳しくは、この例外の 'Response' プロパティが返す HTTP 応答を参照してください。</value>
+    <comment>Processing of the HTTP request resulted in an exception. Please see the HTTP response returned by the 'Response' property of this exception for details.</comment>
+  </data>
+  <data name="ApiControllerActionSelector_AmbiguousMatch" xml:space="preserve">
+    <value>要求に一致するアクションが複数見つかりました: {0}</value>
+    <comment>Multiple actions were found that match the request: {0}</comment>
+  </data>
+  <data name="DefaultControllerFactory_ControllerNameAmbiguous_WithRouteTemplate" xml:space="preserve">
+    <value>'{0}' という名前のコントローラーに一致する型が複数見つかりました。この要求を処理するルート ('{1}') で、名前が同じで名前空間が違うコントローラーが複数見つかった場合に起こります。これはサポートされていません。{3}{3}'{0}' の要求で、次の一致するコントローラーが見つかりました:{2}</value>
+    <comment>Multiple types were found that match the controller named '{0}'. This can happen if the route that services this request ('{1}') found multiple controllers defined with the same name but differing namespaces, which is not supported.{3}{3}The request for '{0}' has found the following matching controllers:{2}</comment>
+  </data>
+  <data name="DefaultControllerFactory_ControllerNameNotFound" xml:space="preserve">
+    <value>'{0}' という名前のコントローラーに一致する型が見つかりません。</value>
+    <comment>No type was found that matches the controller named '{0}'.</comment>
+  </data>
+  <data name="DefaultControllerFactory_ErrorCreatingController" xml:space="preserve">
+    <value>型 '{0}' のコントローラーの作成中にエラーが発生しました。コントローラーにパラメーターなしのパブリック コンストラクターがあることを確認してください。</value>
+    <comment>An error occurred when trying to create a controller of type '{0}'. Make sure that the controller has a parameterless public constructor.</comment>
+  </data>
+  <data name="DependencyResolverNoService" xml:space="preserve">
+    <value>型 '{0}' のサービスが登録されていません。</value>
+    <comment>No service registered for type '{0}'.</comment>
+  </data>
+  <data name="ApiControllerActionSelector_ActionNotFound" xml:space="preserve">
+    <value>コントローラー '{0}' に、要求に一致するアクションが見つかりません。</value>
+    <comment>No action was found on the controller '{0}' that matches the request.</comment>
+  </data>
+  <data name="ApiControllerActionSelector_ActionNameNotFound" xml:space="preserve">
+    <value>コントローラー '{0}' に、名前 '{1}' に一致するアクションが見つかりません。</value>
+    <comment>No action was found on the controller '{0}' that matches the name '{1}'.</comment>
+  </data>
+  <data name="ApiControllerActionSelector_HttpMethodNotSupported" xml:space="preserve">
+    <value>要求されたリソースは HTTP メソッド '{0}' をサポートしていません。</value>
+    <comment>The requested resource does not support http method '{0}'.</comment>
+  </data>
+  <data name="ActionSelector_AmbiguousMatchType" xml:space="preserve">
+    <value>型 {1} の {0}</value>
+    <comment>{0} on type {1}</comment>
+  </data>
+  <data name="ReflectedActionDescriptor_ParameterCannotBeNull" xml:space="preserve">
+    <value>パラメーター ディクショナリに、'{3}' のメソッド '{2}' の null 非許容型 '{1}' のパラメーター '{0}' に対する null のエントリがあります。省略可能なパラメーターは、参照型または null 許容型にするか、省略可能なパラメーターとして宣言する必要があります。</value>
+    <comment>The parameters dictionary contains a null entry for parameter '{0}' of non-nullable type '{1}' for method '{2}' in '{3}'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.</comment>
+  </data>
+  <data name="ReflectedActionDescriptor_ParameterNotInDictionary" xml:space="preserve">
+    <value>パラメーター ディクショナリに、'{3}' のメソッド '{2}' の型 '{1}' のパラメーター '{0}' のエントリがありません。ディクショナリには、値が null のものを含め、すべてのパラメーターのエントリが必要です。</value>
+    <comment>The parameters dictionary does not contain an entry for parameter '{0}' of type '{1}' for method '{2}' in '{3}'. The dictionary must contain an entry for each parameter, including parameters that have null values.</comment>
+  </data>
+  <data name="ReflectedActionDescriptor_ParameterValueHasWrongType" xml:space="preserve">
+    <value>パラメーター ディクショナリに、'{2}' のメソッド '{1}' のパラメーター '{0}' に対する無効なエントリがあります。ディクショナリの値の型は '{3}' ですが、パラメーターには型 '{4}' の値が必要です。</value>
+    <comment>The parameters dictionary contains an invalid entry for parameter '{0}' for method '{1}' in '{2}'. The dictionary contains a value of type '{3}', but the parameter requires a value of type '{4}'.</comment>
+  </data>
+  <data name="Route_CannotHaveCatchAllInMultiSegment" xml:space="preserve">
+    <value>リテラルやパラメーターなど、複数の部分を含むパス セグメントには、キャッチオール パラメーターを含めることはできません。</value>
+    <comment>A path segment that contains more than one section, such as a literal section or a parameter, cannot contain a catch-all parameter.</comment>
+  </data>
+  <data name="Route_CannotHaveConsecutiveParameters" xml:space="preserve">
+    <value>パス セグメントにパラメーターを 2 つ続けて含めることはできません。'/' またはリテラル文字列で区切ってください。</value>
+    <comment>A path segment cannot contain two consecutive parameters. They must be separated by a '/' or by a literal string.</comment>
+  </data>
+  <data name="Route_CannotHaveConsecutiveSeparators" xml:space="preserve">
+    <value>ルート テンプレートの区切り文字 '/' を続けて使うことはできません。パラメーターまたはリテラル値で区切ってください。</value>
+    <comment>The route template separator character '/' cannot appear consecutively. It must be separated by either a parameter or a literal value.</comment>
+  </data>
+  <data name="Route_CatchAllMustBeLast" xml:space="preserve">
+    <value>キャッチオール パラメーターは、ルート テンプレートの最後のセグメントにしか置けません。</value>
+    <comment>A catch-all parameter can only appear as the last segment of the route template.</comment>
+  </data>
+  <data name="Route_InvalidParameterName" xml:space="preserve">
+    <value>ルート パラメーター名 '{0}' は無効です。ルート パラメーター名は空にできず、次の文字を含められません: "{{"、"}}"、"/"、"?"</value>
+    <comment>The route parameter name '{0}' is invalid. Route parameter names must be non-empty and cannot contain these characters: "{{", "}}", "/", "?"</comment>
+  </data>
+  <data name="Route_InvalidRouteTemplate" xml:space="preserve">
+    <value>ルート テンプレートは '/' または '~' 文字で始めることはできず、'?' 文字を含めることもできません。</value>
+    <comment>The route template cannot start with a '/' or '~' character and it cannot contain a '?' character.</comment>
+  </data>
+  <data name="Route_MismatchedParameter" xml:space="preserve">
+    <value>このパス セグメントに不完全なパラメーターがあります: '{0}'。'{{' 文字ごとに対応する '}}' 文字があることを確認してください。</value>
+    <comment>There is an incomplete parameter in this path segment: '{0}'. Check that each '{{' character has a matching '}}' character.</comment>
+  </data>
+  <data name="Route_RepeatedParameter" xml:space="preserve">
+    <value>ルート パラメーター名 '{0}' が、ルート テンプレートに複数回出現しています。</value>
+    <comment>The route parameter name '{0}' appears more than one time in the route template.</comment>
+  </data>
+  <data name="Route_ValidationMustBeStringOrCustomConstraint" xml:space="preserve">
+    <value>ルート テンプレート '{1}' のルートの制約エントリ '{0}' は、文字列値を持つか、'{2}' を実装する型である必要があります。</value>
+    <comment>The constraint entry '{0}' on the route with route template '{1}' must have a string value or be of a type which implements '{2}'.</comment>
+  </data>
+  <data name="Route_AddRemoveWithNoKeyNotSupported" xml:space="preserve">
+    <value>'{0}' での項目の追加と削除はサポートされていません。項目の追加と削除にはキーを使ってください。</value>
+    <comment>Adding or removing items from a '{0}' is not supported. Please use a key when adding and removing items.</comment>
+  </data>
+  <data name="ValueProviderFactory_Cannot_Create" xml:space="preserve">
+    <value>'{1}' から '{0}' を作成できませんでした。'{0}' から派生し、パラメーターなしのパブリック コンストラクターがあることを確認してください。</value>
+    <comment>Could not create a '{0}' from '{1}'. Please ensure it derives from '{0}' and has a public parameterless constructor.</comment>
+  </data>
+  <data name="Validation_ValueNotFound" xml:space="preserve">
+    <value>値が必要ですが、要求にありませんでした。</value>
+    <comment>A value is required but was not present in the request.</comment>
+  </data>
+  <data name="CannotSupportSingletonInstance" xml:space="preserve">
+    <value>'{0}' インスタンスは再利用できません。'{0}' は受信メッセージごとに作成する必要があります。カスタムの '{1}' が同じインスタンスを作らないことを確認してください。</value>
+    <comment>Cannot reuse an '{0}' instance. '{0}' has to be constructed per incoming message. Check your custom '{1}' and make sure that it will not manufacture the same instance.</comment>
+  </data>
+  <data name="ActionFilterAttribute_MustSupplyResponseOrException" xml:space="preserve">
+    <value>{0}.OnActionExecuted の呼び出し後、HttpActionExecutedContext のプロパティ Result と Exception が両方とも null でした。少なくとも一方は null でない必要があります。新しい応答を返すには Result オブジェクトを設定し、エラーを示すには例外をスローしてください。</value>
+    <comment>After calling {0}.OnActionExecuted, the HttpActionExecutedContext properties Result and Exception were both null. At least one of these values must be non-null. To provide a new response, please set the Result object; to indicate an error, please throw an exception.</comment>
+  </data>
+  <data name="TraceActionInvokeMessage" xml:space="preserve">
+    <value>Action='{0}'</value>
+    <comment>Action='{0}'</comment>
+  </data>
+  <data name="TraceActionFilterMessage" xml:space="preserve">
+    <value>'{0}' のアクション フィルター</value>
+    <comment>Action filter for '{0}'</comment>
+  </data>
+  <data name="TraceActionSelectedMessage" xml:space="preserve">
+    <value>アクション '{0}' を選択</value>
+    <comment>Selected action '{0}'</comment>
+  </data>
+  <data name="TraceCancelledMessage" xml:space="preserve">
+    <value>取り消し</value>
+    <comment>Cancelled</comment>
+  </data>
+  <data name="TraceRouteMessage" xml:space="preserve">
+    <value>Route='{0}'</value>
+    <comment>Route='{0}'</comment>
+  </data>
+  <data name="TraceModelStateInvalidMessage" xml:space="preserve">
+    <value>モデルの状態が無効です。{0}</value>
+    <comment>Model state is invalid. {0}</comment>
+  </data>
+  <data name="TraceNoneObjectMessage" xml:space="preserve">
+    <value>なし</value>
+    <comment>none</comment>
+  </data>
+  <data name="TraceReadFromStreamMessage" xml:space="preserve">
+    <value>Type='{0}', content-type='{1}'</value>
+    <comment>Type='{0}', content-type='{1}'</comment>
+  </data>
+  <data name="TraceReadFromStreamValueMessage" xml:space="preserve">
+    <value>読み取った値='{0}'</value>
+    <comment>Value read='{0}'</comment>
+  </data>
+  <data name="TraceRequestCompleteMessage" xml:space="preserve">
+    <value>Content-type='{0}', content-length={1}</value>
+    <comment>Content-type='{0}', content-length={1}</comment>
+  </data>
+  <data name="TraceSelectedFormatter" xml:space="preserve">
+    <value>選択フォーマッタ='{0}', content-type='{1}'</value>
+    <comment>Selected formatter='{0}', content-type='{1}'</comment>
+  </data>
+  <data name="TraceNegotiateFormatter" xml:space="preserve">
+    <value>Type='{0}', formatters=[{1}]</value>
+    <comment>Type='{0}', formatters=[{1}]</comment>
+  </data>
+  <data name="TraceUnknownMessage" xml:space="preserve">
+    <value>不明</value>
+    <comment>unknown</comment>
+  </data>
+  <data name="TraceWriteToStreamMessage" xml:space="preserve">
+    <value>Value='{0}', type='{1}', content-type='{2}'</value>
+    <comment>Value='{0}', type='{1}', content-type='{2}'</comment>
+  </data>
+  <data name="HttpRequestMessageExtensions_NoConfiguration" xml:space="preserve">
+    <value>要求に関連付けられた構成オブジェクトがないか、渡された構成が null でした。</value>
+    <comment>The request does not have an associated configuration object or the provided configuration was null.</comment>
+  </data>
+  <data name="TraceGetPerRequestFormatterEndMessage" xml:space="preserve">
+    <value>同じ '{0}' フォーマッタを使用</value>
+    <comment>Will use same '{0}' formatter</comment>
+  </data>
+  <data name="TraceGetPerRequestFormatterMessage" xml:space="preserve">
+    <value>型 '{0}' のフォーマッタを取得中 (type='{1}', mediaType='{2}')</value>
+    <comment>Obtaining formatter of type '{0}' for type='{1}', mediaType='{2}'</comment>
+  </data>
+  <data name="RouteCollection_NameNotFound" xml:space="preserve">
+    <value>'{0}' という名前のルートがルート コレクションにありません。</value>
+    <comment>A route named '{0}' could not be found in the route collection.</comment>
+  </data>
+  <data name="ParameterBindingCantHaveMultipleBodyParameters" xml:space="preserve">
+    <value>複数のパラメーター ('{0}' と '{1}') を要求のコンテンツにバインドすることはできません。</value>
+    <comment>Can't bind multiple parameters ('{0}' and '{1}') to the request's content.</comment>
+  </data>
+  <data name="ParameterBindingConflictingAttributes" xml:space="preserve">
+    <value>パラメーター '{0}' に競合する属性があるため、バインドできません。</value>
+    <comment>Can't bind parameter '{0}' because it has conflicting attributes on it.</comment>
+  </data>
+  <data name="ParameterBindingIllegalType" xml:space="preserve">
+    <value>パラメーター '{1}' をバインドできません。型 '{0}' のパラメーターをバインドするには、カスタムのモデル バインダーを指定してください。</value>
+    <comment>Can't bind parameter '{1}'. Must specify a custom model binder to bind parameters of type '{0}'.</comment>
+  </data>
+  <data name="TraceBeginParameterBind" xml:space="preserve">
+    <value>パラメーター '{0}' のバインド</value>
+    <comment>Binding parameter '{0}'</comment>
+  </data>
+  <data name="TraceEndParameterBind" xml:space="preserve">
+    <value>パラメーター '{0}' を値 '{1}' にバインド</value>
+    <comment>Parameter '{0}' bound to the value '{1}'</comment>
+  </data>
+  <data name="TraceEndParameterBindNoBind" xml:space="preserve">
+    <value>パラメーター '{0}' のバインドに失敗しました。</value>
+    <comment>Parameter '{0}' failed to bind.</comment>
+  </data>
+  <data name="TraceInvokingAction" xml:space="preserve">
+    <value>アクション '{0}' を呼び出し中</value>
+    <comment>Invoking action '{0}'</comment>
+  </data>
+  <data name="TraceActionReturnValue" xml:space="preserve">
+    <value>アクションの戻り値 '{0}'</value>
+    <comment>Action returned '{0}'</comment>
+  </data>
+  <data name="TraceModelStateErrorMessage" xml:space="preserve">
+    <value>{0}: {1}</value>
+    <comment>{0}: {1}</comment>
+  </data>
+  <data name="TraceGetPerRequestNullFormatterEndMessage" xml:space="preserve">
+    <value>null フォーマッタ</value>
+    <comment>Null formatter</comment>
+  </data>
+  <data name="TraceValidModelState" xml:space="preserve">
+    <value>モデルの状態は有効です。値: {0}</value>
+    <comment>Model state is valid. Values: {0}</comment>
+  </data>
+  <data name="TraceGetPerRequestFormatterEndMessageNew" xml:space="preserve">
+    <value>新しい '{0}' フォーマッタを使用</value>
+    <comment>Will use new '{0}' formatter</comment>
+  </data>
+  <data name="JQuerySyntaxMissingClosingBracket" xml:space="preserve">
+    <value>キーに閉じかっこが無く、JQuery 構文が無効です</value>
+    <comment>The key is invalid JQuery syntax because it is missing a closing bracket</comment>
+  </data>
+  <data name="HttpRequestMessageExtensions_NoContentNegotiator" xml:space="preserve">
+    <value>渡された構成に、'{0}' サービスのインスタンスが登録されていません。</value>
+    <comment>The provided configuration does not have an instance of the '{0}' service registered.</comment>
+  </data>
+  <data name="ReflectedHttpActionDescriptor_CannotCallOpenGenericMethods" xml:space="preserve">
+    <value>アクション メソッドがジェネリック メソッドのため、コントローラー '{1}' のアクション メソッド '{0}' を呼び出せません。</value>
+    <comment>Cannot call action method '{0}' on controller '{1}' because the action method is a generic method.</comment>
+  </data>
+  <data name="ResponseMessageResultConverter_NullHttpResponseMessage" xml:space="preserve">
+    <value>HttpResponseMessage のインスタンスが必要な所で null が返されました。</value>
+    <comment>A null value was returned where an instance of HttpResponseMessage was expected.</comment>
+  </data>
+  <data name="ActionExecutor_UnexpectedTaskInstance" xml:space="preserve">
+    <value>型 '{1}' のメソッド '{0}' は、非同期メソッドではないのに Task インスタンスを返しました。</value>
+    <comment>The method '{0}' on type '{1}' returned a Task instance even though it is not an asynchronous method.</comment>
+  </data>
+  <data name="ActionExecutor_WrappedTaskInstance" xml:space="preserve">
+    <value>型 '{1}' のメソッド '{0}' が '{2}' のインスタンスを返しました。失敗した Task が監視されないよう、戻り値の Unwrap を呼び出してください。</value>
+    <comment>The method '{0}' on type '{1}' returned an instance of '{2}'. Make sure to call Unwrap on the returned value to avoid unobserved faulted Task.</comment>
+  </data>
+  <data name="HttpActionDescriptor_NoConverterForGenericParamterTypeExists" xml:space="preserve">
+    <value>ジェネリック パラメーターの型 '{0}' のアクションの結果のコンバーターを作成できません。</value>
+    <comment>No action result converter could be constructed for a generic parameter type '{0}'.</comment>
+  </data>
+  <data name="MissingRequiredMember" xml:space="preserve">
+    <value>{0} プロパティは必須です。</value>
+    <comment>The {0} property is required.</comment>
+  </data>
+  <data name="HttpRequestMessageExtensions_NoMatchingFormatter" xml:space="preserve">
+    <value>メディアの種類 '{0}' に一致し、'{1}' のインスタンスを書き込めるフォーマッタが見つかりません。</value>
+    <comment>Could not find a formatter matching the media type '{0}' that can write an instance of '{1}'.</comment>
+  </data>
+  <data name="DefaultServices_InvalidServiceType" xml:space="preserve">
+    <value>サービスの型 {0} はサポートされていません。</value>
+    <comment>The service type {0} is not supported.</comment>
+  </data>
+  <data name="MaxHttpCollectionKeyLimitReached" xml:space="preserve">
+    <value>NameValueCollection のキーの数が上限 '{0}' を超えました。'{1}' クラスの MaxHttpCollectionKeys プロパティで調整できます。</value>
+    <comment>The number of keys in a NameValueCollection has exceeded the limit of '{0}'. You can adjust it by modifying the MaxHttpCollectionKeys property on the '{1}' class.</comment>
+  </data>
+  <data name="ControllerNameNotFound" xml:space="preserve">
+    <value>要求 URI '{0}' に一致し、コントローラー名を提供するルートが見つかりません</value>
+    <comment>No route providing a controller name was found to match request URI '{0}'</comment>
+  </data>
+  <data name="HttpServerDisposed" xml:space="preserve">
+    <value>サーバーは使用できません。</value>
+    <comment>The server is no longer available.</comment>
+  </data>
+  <data name="NoControllerCreated" xml:space="preserve">
+    <value>要求を処理するコントローラーが作成されませんでした。</value>
+    <comment>No controller was created to handle this request.</comment>
+  </data>
+  <data name="NoControllerSelected" xml:space="preserve">
+    <value>要求を処理するコントローラーが選択されませんでした。</value>
+    <comment>No controller was selected to handle this request.</comment>
+  </data>
+  <data name="NoRouteData" xml:space="preserve">
+    <value>この要求のルート データが見つかりません。</value>
+    <comment>No route data was found for this request.</comment>
+  </data>
+  <data name="RequestNotAuthorized" xml:space="preserve">
+    <value>この要求の承認は拒否されました。</value>
+    <comment>Authorization has been denied for this request.</comment>
+  </data>
+  <data name="ValidModelState" xml:space="preserve">
+    <value>モデルの状態は有効です。</value>
+    <comment>The model state is valid.</comment>
+  </data>
+  <data name="ErrorOccurred" xml:space="preserve">
+    <value>エラーが発生しました。</value>
+    <comment>An error has occurred.</comment>
+  </data>
+  <data name="BadRequest" xml:space="preserve">
+    <value>要求は無効です。</value>
+    <comment>The request is invalid.</comment>
+  </data>
+  <data name="ResourceNotFound" xml:space="preserve">
+    <value>要求 URI '{0}' に一致する HTTP リソースが見つかりません。</value>
+    <comment>No HTTP resource was found that matches the request URI '{0}'.</comment>
+  </data>
+  <data name="OptionalBodyParameterNotSupported" xml:space="preserve">
+    <value>省略可能なパラメーター '{0}' は '{1}' でサポートされていません。</value>
+    <comment>Optional parameter '{0}' is not supported by '{1}'.</comment>
+  </data>
+  <data name="MissingDataMemberIsRequired" xml:space="preserve">
+    <value>型 '{1}' のプロパティ '{0}' が無効です。[Required] を付けた値型のプロパティを必須と認識させるには、[DataMember(IsRequired=true)] も付ける必要があります。宣言している型に [DataContract]、プロパティに [DataMember(IsRequired=true)] を付けることを検討してください。</value>
+    <comment>Property '{0}' on type '{1}' is invalid. Value-typed properties marked as [Required] must also be marked with [DataMember(IsRequired=true)] to be recognized as required. Consider attributing the declaring type with [DataContract] and the property with [DataMember(IsRequired=true)].</comment>
+  </data>
+  <data name="ValidationAttributeOnField" xml:space="preserve">
+    <value>型 '{1}' のフィールド '{0}' に検証属性が付いています。フィールドの検証属性はサポートされていません。代わりに、検証にはパブリック プロパティを使うことを検討してください。</value>
+    <comment>Field '{0}' on type '{1}' is attributed with one or more validation attributes. Validation attributes on fields are not supported. Consider using a public property for validation instead.</comment>
+  </data>
+  <data name="ValidationAttributeOnNonPublicProperty" xml:space="preserve">
+    <value>型 '{1}' のパブリックでないプロパティ '{0}' に検証属性が付いています。パブリックでないプロパティの検証属性はサポートされていません。代わりに、検証にはパブリック プロパティを使うことを検討してください。</value>
+    <comment>Non-public property '{0}' on type '{1}' is attributed with one or more validation attributes. Validation attributes on non-public properties are not supported. Consider using a public property for validation instead.</comment>
+  </data>
+  <data name="DependencyResolver_BeginScopeReturnsNull" xml:space="preserve">
+    <value>型 '{0}' の依存関係リゾルバーの BeginScope メソッドが、無効な値 null を返しました。コンテナーにスコープの概念がない場合は、代わりにコンテナーのルートで解決するスコープを返すことを検討してください。</value>
+    <comment>A dependency resolver of type '{0}' returned an invalid value of null from its BeginScope method. If the container does not have a concept of scope, consider returning a scope that resolves in the root of the container instead.</comment>
+  </data>
+  <data name="UnsupportedMediaType" xml:space="preserve">
+    <value>要求エンティティのメディアの種類 '{0}' は、このリソースでサポートされていません。</value>
+    <comment>The request entity's media type '{0}' is not supported for this resource.</comment>
+  </data>
+  <data name="UnsupportedMediaTypeNoContentType" xml:space="preserve">
+    <value>要求にエンティティ本文がありますが、Content-Type ヘッダーがありません。推測したメディアの種類 '{0}' は、このリソースではサポートされていません。</value>
+    <comment>The request contains an entity body but no Content-Type header. The inferred media type '{0}' is not supported for this resource.</comment>
+  </data>
+  <data name="DefaultInlineConstraintResolver_CouldNotFindCtor" xml:space="preserve">
+    <value>制約の型 '{0}' に、パラメーターの数が {1} のコンストラクターが見つかりません。</value>
+    <comment>Could not find a constructor for constraint type '{0}' with the following number of parameters: {1}.</comment>
+  </data>
+  <data name="DefaultInlineConstraintResolver_TypeNotConstraint" xml:space="preserve">
+    <value>制約キー '{1}' に対応する制約の型 '{0}' は IHttpRouteConstraint インターフェイスを実装する必要があります。</value>
+    <comment>The constraint type '{0}' which is mapped to constraint key '{1}' must implement the IHttpRouteConstraint interface.</comment>
+  </data>
+  <data name="HttpRouteBuilder_CouldNotResolveConstraint" xml:space="preserve">
+    <value>型 '{0}' のインライン制約リゾルバーは、次のインライン制約を解決できませんでした: '{1}'。</value>
+    <comment>The inline constraint resolver of type '{0}' was unable to resolve the following inline constraint: '{1}'.</comment>
+  </data>
+  <data name="DefaultInlineConstraintResolver_AmbiguousCtors" xml:space="preserve">
+    <value>制約の型 '{0}' を作成するコンストラクターがあいまいです。パラメーターの数が {1} のコンストラクターが複数見つかりました。</value>
+    <comment>The constructor to use for activating the constraint type '{0}' is ambiguous. Multiple constructors were found with the following number of parameters: {1}.</comment>
+  </data>
+  <data name="AttributeRoutes_InvalidPrefix" xml:space="preserve">
+    <value>コントローラー '{1}' のルート プレフィックス '{0}' は、'/' 文字で終わることはできません。</value>
+    <comment>The route prefix '{0}' on the controller named '{1}' cannot end with a '/' character.</comment>
+  </data>
+  <data name="AttributeRoutes_InvalidTemplate" xml:space="preserve">
+    <value>アクション '{1}' のルート テンプレート '{0}' は、'/' 文字で始めることはできません。</value>
+    <comment>The route template '{0}' on the action named '{1}' cannot start with a '/' character.</comment>
+  </data>
+  <data name="BatchMediaTypeNotSupported" xml:space="preserve">
+    <value>メディアの種類 '{0}' のバッチ要求はサポートされていません。</value>
+    <comment>The batch request of media type '{0}' is not supported.</comment>
+  </data>
+  <data name="BatchContentTypeMissing" xml:space="preserve">
+    <value>バッチ要求には "Content-Type" ヘッダーが必要です。</value>
+    <comment>The batch request must have a "Content-Type" header.</comment>
+  </data>
+  <data name="BatchRequestMissingContent" xml:space="preserve">
+    <value>バッチ要求の 'Content' プロパティを null にすることはできません。</value>
+    <comment>The 'Content' property on the batch request cannot be null.</comment>
+  </data>
+  <data name="ApiControllerActionInvoker_InvalidHttpActionResult" xml:space="preserve">
+    <value>IHttpActionResult のインスタンスが必要な所で、型 '{0}' のオブジェクトが返されました。</value>
+    <comment>An object of type '{0}' was returned where an instance of IHttpActionResult was expected.</comment>
+  </data>
+  <data name="ApiControllerActionInvoker_NullHttpActionResult" xml:space="preserve">
+    <value>IHttpActionResult のインスタンスが必要な所で null が返されました。</value>
+    <comment>A null value was returned where an instance of IHttpActionResult was expected.</comment>
+  </data>
+  <data name="ApiController_RequestMustNotBeNull" xml:space="preserve">
+    <value>ApiController.Request を null にすることはできません。</value>
+    <comment>ApiController.Request must not be null.</comment>
+  </data>
+  <data name="HttpControllerContext_ConfigurationMustNotBeNull" xml:space="preserve">
+    <value>HttpControllerContext.Configuration を null にすることはできません。</value>
+    <comment>HttpControllerContext.Configuration must not be null.</comment>
+  </data>
+  <data name="UrlHelper_LinkMustNotReturnNull" xml:space="preserve">
+    <value>UrlHelper.Link は null を返してはいけません。</value>
+    <comment>UrlHelper.Link must not return null.</comment>
+  </data>
+  <data name="RequestIsNull" xml:space="preserve">
+    <value>'{0}' のプロパティ 'Request' が null です。このプロパティは null でない値で初期化してください。</value>
+    <comment>The property 'Request' on '{0}' is null. The property must be initialized with a non-null value.</comment>
+  </data>
+  <data name="Object_NotYetInitialized" xml:space="preserve">
+    <value>オブジェクトは初期化されていません。アプリケーションの起動コードで、ほかのすべての初期化コードの後に HttpConfiguration.EnsureInitialized() を呼び出していることを確認してください。</value>
+    <comment>The object has not yet been initialized. Ensure that HttpConfiguration.EnsureInitialized() is called in the application's startup code after all other initialization code.</comment>
+  </data>
+  <data name="RequestContextConflict" xml:space="preserve">
+    <value>要求の要求コンテキストのプロパティは、null か ApiController.RequestContext と一致する必要があります。</value>
+    <comment>The request context property on the request must be null or match ApiController.RequestContext.</comment>
+  </data>
+  <data name="Request_RequestContextMustNotBeNull" xml:space="preserve">
+    <value>要求には要求コンテキストが必要です。</value>
+    <comment>The request must have a request context.</comment>
+  </data>
+  <data name="TypeInstanceMustNotBeNull" xml:space="preserve">
+    <value>{0} インスタンスを null にすることはできません。</value>
+    <comment>The {0} instance must not be null.</comment>
+  </data>
+  <data name="TypePropertyMustNotBeNull" xml:space="preserve">
+    <value>{0}.{1} を null にすることはできません。</value>
+    <comment>{0}.{1} must not be null.</comment>
+  </data>
+  <data name="TypeMethodMustNotReturnNull" xml:space="preserve">
+    <value>{0}.{1} は null を返してはいけません。</value>
+    <comment>{0}.{1} must not return null.</comment>
+  </data>
+  <data name="SubRouteCollection_DuplicateRouteName" xml:space="preserve">
+    <value>'{0}' という名前のルートは、既にルート コレクションにあります。ルート名は一意にしてください。
+
+重複:
+{1}
+{2}</value>
+    <comment>A route named '{0}' is already in the route collection. Route names must be unique.
+
+Duplicates:
+{1}
+{2}</comment>
+  </data>
+  <data name="DirectRoute_MissingActionDescriptors" xml:space="preserve">
+    <value>ルートに関連付けられたアクション記述子がありません。ダイレクト ルートは、それぞれ空でないアクションの集まりに対応する必要があります。</value>
+    <comment>The route does not have any associated action descriptors. Routing requires that each direct route map to a non-empty set of actions.</comment>
+  </data>
+  <data name="RoutePrefix_CannotSupportMultiRoutePrefix" xml:space="preserve">
+    <value>ルート プレフィックス属性は 1 つだけサポートされます。型 '{0}' のコントローラーから余分な属性を削除してください。</value>
+    <comment>Only one route prefix attribute is supported. Remove extra attributes from the controller of type '{0}'.</comment>
+  </data>
+  <data name="RoutePrefix_PrefixCannotBeNull" xml:space="preserve">
+    <value>型 '{0}' のコントローラーのルート プレフィックス属性のプロパティ 'prefix' を null にはできません。</value>
+    <comment>The property 'prefix' from route prefix attribute on controller of type '{0}' cannot be null.</comment>
+  </data>
+  <data name="DirectRoute_AmbiguousController" xml:space="preserve">
+    <value>URL に一致するコントローラーの型が複数見つかりました。複数のコントローラーの属性ルートが要求された URL に一致する場合に起こります。{1}{1}要求で、次の一致するコントローラーの型が見つかりました: {0}</value>
+    <comment>Multiple controller types were found that match the URL. This can happen if attribute routes on multiple controllers match the requested URL.{1}{1}The request has found the following matching controller types: {0}</comment>
+  </data>
+  <data name="DirectRoute_HandlerNotSupported" xml:space="preserve">
+    <value>ダイレクト ルーティングはルートごとのメッセージ ハンドラーに未対応。</value>
+    <comment>Direct routing does not support per-route message handlers.</comment>
+  </data>
+  <data name="TraceHttpControllerTypeResolverError" xml:space="preserve">
+    <value>'{0}' から型を取得中に例外がスローされました。</value>
+    <comment>Exception thrown while getting types from '{0}'.</comment>
+  </data>
+  <data name="DirectRoute_InvalidParameter_Action" xml:space="preserve">
+    <value>アクション メソッドのダイレクト ルートでは、パラメーター 'action' は使えません。アクションへのルートを作るには、このパラメーターの代わりにリテラルのパスを指定してください。</value>
+    <comment>A direct route for an action method cannot use the parameter 'action'. Specify a literal path in place of this parameter to create a route to the action.</comment>
+  </data>
+  <data name="DirectRoute_InvalidParameter_Controller" xml:space="preserve">
+    <value>ダイレクト ルートでは、パラメーター 'controller' は使えません。コントローラーへのルートを作るには、このパラメーターの代わりにリテラルのパスを指定してください。</value>
+    <comment>A direct route cannot use the parameter 'controller'. Specify a literal path in place of this parameter to create a route to a controller.</comment>
+  </data>
+  <data name="CollectionParameterContainsNullElement" xml:space="preserve">
+    <value>パラメーター '{0}' に null の要素は含められません。</value>
+    <comment>The parameter '{0}' cannot contain a null element.</comment>
+  </data>
+  <data name="AuthenticationFilterErrorResult" xml:space="preserve">
+    <value>認証フィルターでエラーが発生しました。ErrorResult='{0}'。</value>
+    <comment>The authentication filter encountered an error. ErrorResult='{0}'.</comment>
+  </data>
+  <data name="AuthenticationFilterSetPrincipalToKnownIdentity" xml:space="preserve">
+    <value>認証フィルターがプリンシパルを既知の ID に設定しました。Identity.Name='{0}'。Identity.AuthenticationType='{1}'。</value>
+    <comment>The authentication filter successfully set a principal to a known identity. Identity.Name='{0}'. Identity.AuthenticationType='{1}'.</comment>
+  </data>
+  <data name="AuthenticationFilterDidNothing" xml:space="preserve">
+    <value>認証フィルターはエラーにならず、プリンシパルも設定しませんでした。</value>
+    <comment>The authentication filter did not encounter an error or set a principal.</comment>
+  </data>
+  <data name="AuthenticationFilterSetPrincipalToUnknownIdentity" xml:space="preserve">
+    <value>認証フィルターがプリンシパルを不明な ID に設定しました。</value>
+    <comment>The authentication filter set a principal to an unknown identity.</comment>
+  </data>
+</root>

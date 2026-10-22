@@ -1,6 +1,6 @@
 {
   "$comment": "Package and reference rules. \"$frameworkoncore\" stands for the version of FrameworkOnCore's packages (frameworkOnCoreVersion).",
-  "frameworkOnCoreVersion": "1.6.5-w2l.19",
+  "frameworkOnCoreVersion": "1.6.5-w2l.20",
 
   "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time). FrameworkOnCore.Data.SqlClient: whoever opens the connection (the sources, Entity Framework, a DLL), System.Data.SqlClient is the one expanding |DataDirectory| as .NET Framework's (its assembly version is above the package Entity Framework brings). The user's choice (portOptions): .NET's package, it is not added.",
   "webPackages": [ "FrameworkOnCore.Web", "FrameworkOnCore.Web.Extensions", "FrameworkOnCore.Configuration", "FrameworkOnCore.Web.DynamicData", "FrameworkOnCore.Data.SqlClient" ],
@@ -91,6 +91,20 @@
   "$comment_packageCompanions": "Added along with a replaced package: its other assemblies, a FrameworkOnCore package each.",
   "packageCompanions": {
     "Microsoft.AspNet.WebPages": [ [ "FrameworkOnCore.Web.WebPages.Razor", "$frameworkoncore" ], [ "FrameworkOnCore.Web.WebPages.Deployment", "$frameworkoncore" ], [ "FrameworkOnCore.Web.Helpers", "$frameworkoncore" ] ]
+  },
+  "$comment_languagePackages": "Microsoft's language packages (<id>.<culture>: Microsoft.AspNet.Mvc.ja) and the assemblies their satellites are of: removed, FrameworkOnCore's ports' own translations kept in those cultures (LanguagePacks).",
+  "languagePackages": {
+    "Microsoft.AspNet.Mvc": [ "System.Web.Mvc" ],
+    "Microsoft.AspNet.WebPages": [ "System.Web.WebPages", "System.Web.WebPages.Razor", "System.Web.WebPages.Deployment", "System.Web.Helpers" ],
+    "Microsoft.AspNet.Razor": [ "System.Web.Razor" ],
+    "Microsoft.AspNet.WebApi.Client": [ "System.Net.Http.Formatting" ],
+    "Microsoft.AspNet.WebApi.Core": [ "System.Web.Http" ],
+    "Microsoft.AspNet.WebApi.WebHost": [ "System.Web.Http.WebHost" ],
+    "Microsoft.AspNet.WebApi.Owin": [ "System.Web.Http.Owin" ],
+    "Microsoft.AspNet.Cors": [ "System.Web.Cors" ],
+    "Microsoft.AspNet.WebApi.Cors": [ "System.Web.Http.Cors" ],
+    // WebGrease has no language package (its texts were English on .NET Framework): its translations go with System.Web.Optimization's.
+    "Microsoft.AspNet.Web.Optimization": [ "System.Web.Optimization", "WebGrease" ]
   },
   "$comment_frameworkCompanions": "Added along with a framework reference: what the .NET Framework assembly also contained.",
   "frameworkCompanions": {

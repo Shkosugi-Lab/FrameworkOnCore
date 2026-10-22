@@ -38,15 +38,25 @@ function Width([string]$s) {
 # The widths of .NET Framework's own texts in a language (its language pack's satellite of the assembly in the GAC), by
 # name, where this machine has the pack (only their widths are used: a translation is not to be longer, so that pages
 # keep their layout; the texts themselves are not read into the translations, see README.md): by resources ('' : the
-# first of any). $null: no pack here.
-function Get-FrameworkWidths($framework, [string]$culture) {
-    # Not one of .NET Framework's (a package's: System.Web.Optimization, WebGrease): the English widths.
-    if (-not $framework) { return @{ '' = @{} } }
-    $folder = Join-Path $env:windir "Microsoft.NET\assembly\GAC_MSIL\$framework.resources"
-    $satellite = Get-ChildItem $folder -Directory -Filter "*_$($culture)_*" -ErrorAction SilentlyContinue | Select-Object -First 1
-    if (-not $satellite) { return $null }
+# first of any). $null: no pack here. MVC, Web Pages and Web API (sources.json's package): Microsoft's language package's
+# (Microsoft.AspNet.Mvc.ja: its satellite of the assembly) where the NuGet cache has it (README.md: how to get them).
+function Get-FrameworkWidths($source, [string]$assemblyName, [string]$culture) {
+    if ($source.package) {
+        $packages = Join-Path $env:USERPROFILE ".nuget\packages\$($source.package.ToLowerInvariant()).$($culture.ToLowerInvariant())"
+        $dll = Get-ChildItem $packages -Recurse -Filter "$assemblyName.resources.dll" -ErrorAction SilentlyContinue |
+            Where-Object { $_.FullName -match '\\lib\\net4' } | Sort-Object FullName | Select-Object -Last 1
+        if (-not $dll) { return $null }
+    }
+    else {
+        # Not one of .NET Framework's (a package's: System.Web.Optimization, WebGrease): the English widths.
+        if (-not $source.framework) { return @{ '' = @{} } }
+        $folder = Join-Path $env:windir "Microsoft.NET\assembly\GAC_MSIL\$($source.framework).resources"
+        $satellite = Get-ChildItem $folder -Directory -Filter "*_$($culture)_*" -ErrorAction SilentlyContinue | Select-Object -First 1
+        if (-not $satellite) { return $null }
+        $dll = Get-ChildItem $satellite.FullName -Filter *.dll | Select-Object -First 1
+    }
     $widths = @{ '' = @{} }
-    $assembly = [Reflection.Assembly]::ReflectionOnlyLoadFrom((Get-ChildItem $satellite.FullName -Filter *.dll | Select-Object -First 1).FullName)
+    $assembly = [Reflection.Assembly]::ReflectionOnlyLoadFrom($dll.FullName)
     foreach ($name in $assembly.GetManifestResourceNames()) {
         if ($name -notlike '*.resources') { continue }
         try {
@@ -77,8 +87,8 @@ foreach ($culture in Get-ChildItem (Join-Path $repo 'translations') -Directory |
         $assembly = $folder.Name
         $source = $sources.$assembly
         if (-not $source) { Write-Host "ERROR $($culture.Name)\$assembly`: not an assembly sources.json lists"; $errors++; continue }
-        $key = "$($source.framework)|$($culture.Name)"
-        if (-not $frameworkWidths.ContainsKey($key)) { $frameworkWidths[$key] = Get-FrameworkWidths $source.framework $culture.Name }
+        $key = "$($source.framework)|$($source.package)|$assembly|$($culture.Name)"
+        if (-not $frameworkWidths.ContainsKey($key)) { $frameworkWidths[$key] = Get-FrameworkWidths $source $assembly $culture.Name }
         $widths = $frameworkWidths[$key]
         foreach ($file in Get-ChildItem $folder.FullName -Filter *.resx) {
             $resources = $file.Name -replace "\.$([regex]::Escape($culture.Name))\.resx$", ''
@@ -99,7 +109,7 @@ foreach ($culture in Get-ChildItem (Join-Path $repo 'translations') -Directory |
                 if ([string]::IsNullOrWhiteSpace($entry.Value) -and -not [string]::IsNullOrWhiteSpace($text)) { Write-Host "ERROR $($culture.Name) $resources $name`: empty"; $errors++ }
                 if ($entry.Comment -ne $text) { Write-Host "WARN  $($culture.Name) $resources $name`: the English changed since the translation (comment: '$($entry.Comment)'; now: '$text')"; $warnings++ }
             }
-            if (-not $Quiet) { Write-Host "$($culture.Name) $resources`: $($translated.Count) of $($english.Count) translated$(if ($null -eq $widths) { ' (widths not checked: no .NET Framework language pack here)' })" }
+            if (-not $Quiet) { Write-Host "$($culture.Name) $resources`: $($translated.Count) of $($english.Count) translated$(if ($null -eq $widths) { ' (widths not checked: no .NET Framework language pack or language package here)' })" }
         }
     }
 }

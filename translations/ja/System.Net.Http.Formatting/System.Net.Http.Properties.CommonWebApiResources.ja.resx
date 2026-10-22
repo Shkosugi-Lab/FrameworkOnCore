@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ArgumentInvalidAbsoluteUri" xml:space="preserve">
+    <value>相対 URI の値はサポートされていません: '{0}'。URI は絶対 URI にしてください。</value>
+    <comment>Relative URI values are not supported: '{0}'. The URI must be absolute.</comment>
+  </data>
+  <data name="ArgumentInvalidHttpUriScheme" xml:space="preserve">
+    <value>サポートされていない URI スキーム: '{0}'。URI スキームは '{1}' か '{2}' にしてください。</value>
+    <comment>Unsupported URI scheme: '{0}'. The URI scheme must be either '{1}' or '{2}'.</comment>
+  </data>
+  <data name="ArgumentMustBeGreaterThanOrEqualTo" xml:space="preserve">
+    <value>値は {0} 以上にしてください。</value>
+    <comment>Value must be greater than or equal to {0}.</comment>
+  </data>
+  <data name="ArgumentMustBeLessThanOrEqualTo" xml:space="preserve">
+    <value>値は {0} 以下にしてください。</value>
+    <comment>Value must be less than or equal to {0}.</comment>
+  </data>
+  <data name="ArgumentNullOrEmpty" xml:space="preserve">
+    <value>引数 '{0}' が null または空です。</value>
+    <comment>The argument '{0}' is null or empty.</comment>
+  </data>
+  <data name="ArgumentUriHasQueryOrFragment" xml:space="preserve">
+    <value>URI にクエリ部分やフラグメント識別子を含めることはできません。</value>
+    <comment>URI must not contain a query component or a fragment identifier.</comment>
+  </data>
+  <data name="InvalidEnumArgument" xml:space="preserve">
+    <value>引数 '{0}' の値 ({1}) は列挙型 '{2}' に無効です。</value>
+    <comment>The value of argument '{0}' ({1}) is invalid for Enum type '{2}'.</comment>
+  </data>
+</root>

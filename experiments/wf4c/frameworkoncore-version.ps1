@@ -12,8 +12,9 @@
 
 $FrameworkOnCoreRepository = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 
-# What the packages are built from (pack-frameworkoncore.ps1 packs FrameworkOnCore.Runtime's projects).
-$FrameworkOnCorePackageSources = @('FrameworkOnCore.Runtime', 'experiments/wf4c/frameworkoncore.slnx')
+# What the packages are built from (pack-frameworkoncore.ps1 packs FrameworkOnCore.Runtime's projects; their satellites are
+# the translations' folder's).
+$FrameworkOnCorePackageSources = @('FrameworkOnCore.Runtime', 'experiments/wf4c/frameworkoncore.slnx', 'translations')
 
 function Get-FrameworkOnCoreVersion {
     # The rules have comments (ConvertFrom-Json of Windows PowerShell does not take them): the one property.

@@ -17,8 +17,13 @@ FrameworkOnCore のアセンブリが自分で出す文言(例外のメッセー
 | System.Drawing.Common | 117 | 画像のエラー |
 | WebFormsForCore.Serialization.Formatters | 67 | BinaryFormatter |
 | System.ComponentModel.Annotations(.NET のもの) | 62 | DataAnnotations の検証メッセージ(「{0} は必須です。」など。MVC・Web Pages・Web Forms のモデル バインド) |
+| System.Web.Mvc | 146 | MVC 5: モデル バインドと検証(「{0} は日付にしてください。」)、ビューが見つからないときなどの例外 |
+| System.Web.WebPages、.Razor、.Deployment、System.Web.Helpers | 61、10、14、39 | Web Pages: 偽造防止トークン、検証の既定の文言、WebGrid・WebImage・WebMail |
+| System.Web.Razor | 110 | Razor 3 の構文エラー |
+| System.Web.Http、.WebHost、.Owin、System.Net.Http.Formatting | 142、18、15、89 | Web API 2: 「要求 URI '{0}' に一致する HTTP リソースが見つかりません。」などの応答のメッセージ、フォーマッタ |
+| System.Web.Cors、System.Web.Http.Cors | 5、15 | CORS |
 
-全部で 7,492 件(System.Web 3,369 件、ほか 4,123 件)。一覧と英語の原文の場所は `sources.json` にあります。
+全部で 8,156 件(System.Web 3,369 件、ほか 4,787 件)。一覧と英語の原文の場所は `sources.json` にあります。
 
 ## なぜ独自に訳すのか
 
@@ -47,6 +52,10 @@ OPERATING SYSTEM)の 1.c で「Windows 以外のプラットフォームで動�
   (`capture-culture.ps1` が LanguagePacks に記録。無ければ変換したマシンの)。英語だけを選べば、UI カルチャにかかわらず英語です。
   選ばれていない言語の訳は bin から除きます。訳がまだ無い言語を選んだときは、変換レポートに出て、その言語では英語になります。
 - 訳の出どころは部品 `language-packs` で選びます: `translations`(既定。この翻訳)、`framework`(Microsoft の言語パック。Linux に配置しないときだけ)。
+- MVC・Web Pages・Razor・Web API・CORS・バンドル(System.Web.Optimization)の文言は、.NET Framework でも言語パックではなく、Microsoft の言語別パッケージ
+  (`Microsoft.AspNet.Mvc.ja` など)をアプリが入れたときだけその言語でした。そのため変換器は、そのパッケージを外し(Microsoft の DLL を連れてくるため)、
+  アプリが入れていた言語のパッケージの分だけ FrameworkOnCore の訳を残します(「言語パック」の選択とは別)。入れていなければ英語のままです。
+  WebGrease には言語別パッケージが無く(.NET Framework では英語)、訳は System.Web.Optimization のものと一緒に残します。
 - 訳の無い文言は英語になります。
 
 ## ファイルの形
@@ -88,6 +97,9 @@ OPERATING SYSTEM)の 1.c で「Windows 以外のプラットフォームで動�
 `check.ps1` は、このマシンに .NET Framework のその言語の言語パックがあるとき、その文言の表示幅だけを読んで比べます(文言そのものは使いません)。
 .NET Framework に無い文言(System.Web.Optimization や、FrameworkOnCore で増えた文言)や空の文言は、英語の表示幅(12 未満なら + 4)までです。
 言語パックが無いマシンでは幅は検査されないので、日本語の Windows などで確かめてください。
+MVC・Web Pages・Web API・System.Web.Optimization(`sources.json` の `package`)は、Microsoft の言語別パッケージ(`Microsoft.AspNet.Mvc.ja` など)の文言の
+表示幅と比べます。NuGet のキャッシュ(`%USERPROFILE%\.nuget\packages`)にあるときだけで、無ければ検査されません。取得するには、
+`<PackageDownload Include="Microsoft.AspNet.Mvc.ja" Version="[5.3.0]" />` などを書いたプロジェクトで `dotnet restore` します。
 
 ## 訳の方針(日本語)
 

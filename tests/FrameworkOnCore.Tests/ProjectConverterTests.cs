@@ -112,6 +112,33 @@ public sealed class ProjectConverterTests : IDisposable
         Assert.DoesNotContain(report.Entries, e => e.Kind == Report.Kind.Error);
     }
 
+    [Fact] // Microsoft.AspNet.Mvc.ja: it depends on Microsoft.AspNet.Mvc, whose DLLs the port replaces
+    public void A_language_package_is_removed_and_its_culture_noted_for_the_ports_translations()
+    {
+        if (!OperatingSystem.IsWindows()) return;
+        Write(@"Web\Class1.cs", "public class Class1 { }");
+        Write(@"Web\packages.config", """
+            <?xml version="1.0" encoding="utf-8"?>
+            <packages>
+              <package id="Microsoft.AspNet.Mvc" version="5.2.7" targetFramework="net472" />
+              <package id="Microsoft.AspNet.Mvc.ja" version="5.2.7" targetFramework="net472" />
+              <package id="Microsoft.AspNet.WebPages.ja" version="3.2.7" targetFramework="net472" />
+              <package id="Microsoft.AspNet.WebPages.Data" version="3.2.7" targetFramework="net472" />
+            </packages>
+            """);
+        Write(@"Web\Web.csproj", OldProject("Web", "", web: true));
+        var (converter, _) = Converter();
+        converter.Convert(Path.Combine(Source, Local(@"Web\Web.csproj")), isWeb: true);
+
+        var project = Target(Output, @"Web\Web.csproj");
+        Assert.DoesNotContain("Microsoft.AspNet.Mvc.ja", project);
+        Assert.DoesNotContain("Microsoft.AspNet.WebPages.ja", project);
+        Assert.Contains("FrameworkOnCore.Web.Mvc", project);
+        Assert.Contains("Microsoft.AspNet.WebPages.Data", project);   // not a culture: a package of its own
+        Assert.Equal(["System.Web.Helpers", "System.Web.Mvc", "System.Web.WebPages", "System.Web.WebPages.Deployment", "System.Web.WebPages.Razor"],
+            converter.LanguagePackageCultures["ja"].ToList());
+    }
+
     [Fact] // nopCommerce's Dependencies\AjaxControlToolkit.dll (4.1): FrameworkOnCore's package
     public void A_dll_in_the_repository_of_a_replaced_package_is_that_package()
     {

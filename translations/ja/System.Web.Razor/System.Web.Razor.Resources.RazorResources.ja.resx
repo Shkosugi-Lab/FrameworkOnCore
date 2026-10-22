@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveParser_Must_Be_Code_Or_Markup_Parser" xml:space="preserve">
+    <value>アクティブなパーサーは、マークアップかコードのパーサーと同じにしてください。</value>
+    <comment>The active parser must the same as either the markup or code parser.</comment>
+  </data>
+  <data name="BlockName_Code" xml:space="preserve">
+    <value>コード</value>
+    <comment>code</comment>
+  </data>
+  <data name="BlockName_ExplicitExpression" xml:space="preserve">
+    <value>明示的な式</value>
+    <comment>explicit expression</comment>
+  </data>
+  <data name="CancelBacktrack_Must_Be_Called_Within_Lookahead" xml:space="preserve">
+    <value>"CancelBacktrack" メソッドは、"BeginLookahead" メソッドで始めた先読みの処理中にのみ呼び出せます。</value>
+    <comment>The "CancelBacktrack" method can be called only while in a look-ahead process started with the "BeginLookahead" method.</comment>
+  </data>
+  <data name="EndBlock_Called_Without_Matching_StartBlock" xml:space="preserve">
+    <value>対応する "StartBlock" の呼び出しなしに "EndBlock" が呼び出されました。</value>
+    <comment>"EndBlock" was called without a matching call to "StartBlock".</comment>
+  </data>
+  <data name="ParseError_AtInCode_Must_Be_Followed_By_Colon_Paren_Or_Identifier_Start" xml:space="preserve">
+    <value>"@" 文字の後には ":"、"("、または C# の識別子が必要です。マークアップに切り替えるつもりなら、HTML の開始タグを使ってください。例:
+
+@if(isLoggedIn) {
+    &lt;p&gt;Hello, @user!&lt;/p&gt;
+}</value>
+    <comment>The "@" character must be followed by a ":", "(", or a C# identifier.  If you intended to switch to markup, use an HTML start tag, for example:
+
+@if(isLoggedIn) {
+    &lt;p&gt;Hello, @user!&lt;/p&gt;
+}</comment>
+  </data>
+  <data name="ParseError_BlockComment_Not_Terminated" xml:space="preserve">
+    <value>ブロック コメントの終わりの前にファイルの終わりに達しました。"/*" で始まるコメントは、対応する "*/" で終える必要があります。</value>
+    <comment>End of file was reached before the end of the block comment.  All comments started with "/*" sequence must be terminated with a matching "*/" sequence.</comment>
+  </data>
+  <data name="ParseError_Expected_CloseBracket_Before_EOF" xml:space="preserve">
+    <value>開始の "{0}" に対応する閉じの "{1}" がありません。</value>
+    <comment>An opening "{0}" is missing the corresponding closing "{1}".</comment>
+  </data>
+  <data name="ParseError_Expected_EndOfBlock_Before_EOF" xml:space="preserve">
+    <value>{0} ブロックに閉じの "{1}" 文字がありません。このブロック内のすべての "{2}" 文字に対応する "{1}" 文字があり、どの "{1}" 文字もマークアップとして解釈されていないことを確認してください。</value>
+    <comment>The {0} block is missing a closing "{1}" character.  Make sure you have a matching "{1}" character for all the "{2}" characters within this block, and that none of the "{1}" characters are being interpreted as markup.</comment>
+  </data>
+  <data name="ParseError_Expected_X" xml:space="preserve">
+    <value>"{0}" が必要です。</value>
+    <comment>Expected "{0}".</comment>
+  </data>
+  <data name="ParseError_InlineMarkup_Blocks_Cannot_Be_Nested" xml:space="preserve">
+    <value>インライン マークアップ ブロック (@&lt;p&gt;Content&lt;/p&gt;) は入れ子にできません。インライン マークアップは 1 レベルだけです。</value>
+    <comment>Inline markup blocks (@&lt;p&gt;Content&lt;/p&gt;) cannot be nested.  Only one level of inline markup is allowed.</comment>
+  </data>
+  <data name="ParseError_MarkupBlock_Must_Start_With_Tag" xml:space="preserve">
+    <value>コード ブロック内のマークアップはタグで始め、すべての開始タグに終了タグを対応させる必要があります。"&lt;br&gt;" のような閉じないタグは使わず、"&lt;br/&gt;" のような自己終了タグを使ってください。</value>
+    <comment>Markup in a code block must start with a tag and all start tags must be matched with end tags.  Do not use unclosed tags like "&lt;br&gt;".  Instead use self-closing tags like "&lt;br/&gt;".</comment>
+  </data>
+  <data name="ParseError_MissingEndTag" xml:space="preserve">
+    <value>"{0}" 要素が閉じられていません。すべての要素は、自己終了するか対応する終了タグを持つ必要があります。</value>
+    <comment>The "{0}" element was not closed.  All elements must be either self-closing or have a matching end tag.</comment>
+  </data>
+  <data name="ParseError_MissingOpenBraceAfterSection" xml:space="preserve">
+    <value>セクションを空にすることはできません。"@section" キーワードの後には、"{}" で囲んだマークアップのブロックが必要です。例:
+
+@section Sidebar {
+   &lt;!-- Markup and text goes here --&gt;
+}</value>
+    <comment>Sections cannot be empty.  The "@section" keyword must be followed by a block of markup surrounded by "{}".  For example:
+
+@section Sidebar {
+   &lt;!-- Markup and text goes here --&gt;
+}</comment>
+  </data>
+  <data name="ParseError_NamespaceImportAndTypeAlias_Cannot_Exist_Within_CodeBlock" xml:space="preserve">
+    <value>名前空間のインポートと型の別名は、コード ブロック内に置けません。マークアップ内で "@" 文字の直後に書く必要があります。次の例のように、ページの先頭に置くことをお勧めします:
+
+@using System.Drawing;
+@{
+    // OK here to use types from System.Drawing in the page.
+}</value>
+    <comment>Namespace imports and type aliases cannot be placed within code blocks.  They must immediately follow an "@" character in markup.  It is recommended that you put them at the top of the page, as in the following example:
+
+@using System.Drawing;
+@{
+    // OK here to use types from System.Drawing in the page.
+}</comment>
+  </data>
+  <data name="ParseError_Sections_Cannot_Be_Nested" xml:space="preserve">
+    <value>セクション ブロック ("{0}") は入れ子にできません。セクション ブロックは 1 レベルだけです。</value>
+    <comment>Section blocks ("{0}") cannot be nested.  Only one level of section blocks are allowed.</comment>
+  </data>
+  <data name="ParseError_SingleLine_ControlFlowStatements_Not_Allowed" xml:space="preserve">
+    <value>"{0}" が必要ですが、"{1}" がありました。ブロック ステートメントは "{{" と "}}" で囲む必要があります。CSHTML ページでは、単一ステートメントの制御フローは使えません。たとえば、次は使えません:
+
+@if(isLoggedIn)
+    &lt;p&gt;Hello, @user&lt;/p&gt;
+
+代わりに、ブロックの内容を "{{}}" で囲んでください:
+
+@if(isLoggedIn) {{
+    &lt;p&gt;Hello, @user&lt;/p&gt;
+}}</value>
+    <comment>Expected a "{0}" but found a "{1}".  Block statements must be enclosed in "{{" and "}}".  You cannot use single-statement control-flow statements in CSHTML pages. For example, the following is not allowed:
+
+@if(isLoggedIn)
+    &lt;p&gt;Hello, @user&lt;/p&gt;
+
+Instead, wrap the contents of the block in "{{}}":
+
+@if(isLoggedIn) {{
+    &lt;p&gt;Hello, @user&lt;/p&gt;
+}}</comment>
+  </data>
+  <data name="ParseError_UnexpectedEndTag" xml:space="preserve">
+    <value>開始タグのない終了タグ "{0}" がありました。開始タグと終了タグが対応しているか確認してください。</value>
+    <comment>Encountered end tag "{0}" with no matching start tag.  Are your start/end tags properly balanced?</comment>
+  </data>
+  <data name="ParseError_Unexpected_Character_At_Section_Name_Start" xml:space="preserve">
+    <value>section キーワードの後に予期しない {0} があります。セクション名は "_" または英字で始め、残りの文字は "_" または英数字にしてください。</value>
+    <comment>Unexpected {0} after section keyword.  Section names must start with an "_" or alphabetic character, and the remaining characters must be either "_" or alphanumeric.</comment>
+  </data>
+  <data name="ParseError_Unexpected_Character_At_Start_Of_CodeBlock_CS" xml:space="preserve">
+    <value>"{0}" はコード ブロックの先頭に使えません。使えるのは識別子、キーワード、コメント、"("、"{{" だけです。</value>
+    <comment>"{0}" is not valid at the start of a code block.  Only identifiers, keywords, comments, "(" and "{{" are valid.</comment>
+  </data>
+  <data name="ParseError_UnfinishedTag" xml:space="preserve">
+    <value>"{0}" タグを解析する前に、ファイルの終わりか予期しない文字に達しました。マークアップ ブロック内の要素は完全である必要があります。自己終了 ("&lt;br /&gt;") するか、対応する終了タグ ("&lt;p&gt;Hello&lt;/p&gt;") を持たせてください。"&lt;" 文字を表示するつもりなら、HTML エンティティ "&amp;lt;" を使ってください。</value>
+    <comment>End of file or an unexpected character was reached before the "{0}" tag could be parsed.  Elements inside markup blocks must be complete. They must either be self-closing ("&lt;br /&gt;") or have matching end tags ("&lt;p&gt;Hello&lt;/p&gt;").  If you intended to display a "&lt;" character, use the "&amp;lt;" HTML entity.</comment>
+  </data>
+  <data name="ParseError_Unterminated_String_Literal" xml:space="preserve">
+    <value>文字列リテラルが終わっていません。引用符 (") で始まる文字列は、行の終わりまでに終える必要があります。ただし、@ と引用符 (@") で始まる文字列は複数行にまたがれます。文字列リテラル内の HTML の閉じタグで、このエラーが出ることがあります。</value>
+    <comment>Unterminated string literal. Strings that start with a quotation mark (") must be terminated before the end of the line.  However, strings that start with @ and a quotation mark (@") can span multiple lines. Closing HTML tags within a string literal may trigger this error message.</comment>
+  </data>
+  <data name="ParseError_InvalidOptionValue" xml:space="preserve">
+    <value>"{1}" は "{0}" オプションの有効な値ではありません。"Option {0}" ステートメントの後には "On" または "Off" が必要です。</value>
+    <comment>"{1}" is not a valid value for the "{0}" option. The "Option {0}" statement must be followed by either "On" or "Off". </comment>
+  </data>
+  <data name="ParseError_UnknownOption" xml:space="preserve">
+    <value>不明なオプション: "{0}"。</value>
+    <comment>Unknown option: "{0}".</comment>
+  </data>
+  <data name="ParseError_BlockNotTerminated" xml:space="preserve">
+    <value>"{0}" ブロックが終わっていません。すべての "{0}" ステートメントは、対応する "{1}" で終える必要があります。</value>
+    <comment>The "{0}" block was not terminated.  All "{0}" statements must be terminated with a matching "{1}".</comment>
+  </data>
+  <data name="SectionExample_CS" xml:space="preserve">
+    <value>@section Header { ... }</value>
+    <comment>@section Header { ... }</comment>
+  </data>
+  <data name="ParseError_TextTagCannotContainAttributes" xml:space="preserve">
+    <value>"&lt;text&gt;" タグと "&lt;/text&gt;" タグには属性を含められません。</value>
+    <comment>"&lt;text&gt;" and "&lt;/text&gt;" tags cannot contain attributes.</comment>
+  </data>
+  <data name="ParseError_NamespaceOrTypeAliasExpected" xml:space="preserve">
+    <value>"Imports" キーワードの後には、同じ行に名前空間または型の別名が必要です。</value>
+    <comment>The "Imports" keyword must be followed by a namespace or a type alias on the same line.</comment>
+  </data>
+  <data name="ParseError_Unexpected_WhiteSpace_At_Start_Of_CodeBlock_CS" xml:space="preserve">
+    <value>"@" 文字の後に空白または改行がありました。コード ブロックの先頭に使えるのは有効な識別子、キーワード、コメント、"("、"{" だけで、"@" の直後に間を空けずに書く必要があります。</value>
+    <comment>A space or line break was encountered after the "@" character.  Only valid identifiers, keywords, comments, "(" and "{" are valid at the start of a code block and they must occur immediately following "@" with no space in between.</comment>
+  </data>
+  <data name="ParseError_InheritsKeyword_Must_Be_Followed_By_TypeName" xml:space="preserve">
+    <value>'inherits' キーワードの後には、同じ行に型名が必要です。</value>
+    <comment>The 'inherits' keyword must be followed by a type name on the same line.</comment>
+  </data>
+  <data name="ParseError_OuterTagMissingName" xml:space="preserve">
+    <value>外側のタグに名前がありません。マークアップ ブロックの最初の文字は、有効な名前の HTML タグにしてください。</value>
+    <comment>Outer tag is missing a name. The first character of a markup block must be an HTML tag with a valid name.</comment>
+  </data>
+  <data name="ParseError_RazorComment_Not_Terminated" xml:space="preserve">
+    <value>ブロック コメントの終わりの前にファイルの終わりに達しました。"@*" で始まるコメントは、対応する "*@" で終える必要があります。</value>
+    <comment>End of file was reached before the end of the block comment.  All comments that start with the "@*" sequence must be terminated with a matching "*@" sequence.</comment>
+  </data>
+  <data name="ErrorComponent_Character" xml:space="preserve">
+    <value>"{0}" 文字</value>
+    <comment>"{0}" character</comment>
+  </data>
+  <data name="ErrorComponent_EndOfFile" xml:space="preserve">
+    <value>EOF</value>
+    <comment>end of file</comment>
+  </data>
+  <data name="ErrorComponent_Whitespace" xml:space="preserve">
+    <value>空白または改行</value>
+    <comment>space or line break</comment>
+  </data>
+  <data name="ParseError_Unexpected_Character_At_Start_Of_CodeBlock_VB" xml:space="preserve">
+    <value>"{0}" はコード ブロックの先頭に使えません。使えるのは識別子、キーワード、コメント、"(" だけです。</value>
+    <comment>"{0}" is not valid at the start of a code block.  Only identifiers, keywords, comments, and "(" are valid.</comment>
+  </data>
+  <data name="ParseError_Unexpected_EndOfFile_At_Start_Of_CodeBlock" xml:space="preserve">
+    <value>"@" 文字の後にファイルの終わりがありました。"@" の後には有効なコード ブロックが必要です。"@" を出力したい場合は、"@@" とエスケープしてください。</value>
+    <comment>End-of-file was found after the "@" character.  "@" must be followed by a valid code block.  If you want to output an "@", escape it using the sequence: "@@"</comment>
+  </data>
+  <data name="ParseError_Unexpected_WhiteSpace_At_Start_Of_CodeBlock_VB" xml:space="preserve">
+    <value>"@" 文字の後に空白または改行がありました。コード ブロックの先頭に使えるのは有効な識別子、キーワード、コメント、"(" だけで、"@" の直後に間を空けずに書く必要があります。</value>
+    <comment>A space or line break was encountered after the "@" character.  Only valid identifiers, keywords, comments, and "(" are valid at the start of a code block and they must occur immediately following "@" with no space in between.</comment>
+  </data>
+  <data name="Structure_Member_CannotBeNull" xml:space="preserve">
+    <value>{1} 構造体の {0} プロパティを null にはできません。</value>
+    <comment>The {0} property of the {1} structure cannot be null.</comment>
+  </data>
+  <data name="ParseError_MissingCharAfterHelperParameters" xml:space="preserve">
+    <value>ヘルパーのパラメーターの後に "{0}" が必要です。</value>
+    <comment>Expected a "{0}" after the helper parameters.</comment>
+  </data>
+  <data name="ParseError_MissingCharAfterHelperName" xml:space="preserve">
+    <value>ヘルパー名の後に "{0}" が必要です。</value>
+    <comment>Expected a "{0}" after the helper name.</comment>
+  </data>
+  <data name="ParseError_UnterminatedHelperParameterList" xml:space="preserve">
+    <value>ヘルパーのパラメーター リストに閉じの ")" がありません。</value>
+    <comment>Helper parameter list is missing a closing ")".</comment>
+  </data>
+  <data name="ParseError_Helpers_Cannot_Be_Nested" xml:space="preserve">
+    <value>ヘルパー ブロックは入れ子にできません。</value>
+    <comment>Helper blocks cannot be nested within each other.</comment>
+  </data>
+  <data name="Parser_Context_Not_Set" xml:space="preserve">
+    <value>パーサーが null の Context プロパティで開始されました。パーサーのメソッドを呼び出す前に Context プロパティを設定してください。</value>
+    <comment>Parser was started with a null Context property.  The Context property must be set BEFORE calling any methods on the parser.</comment>
+  </data>
+  <data name="ParseError_Unexpected_Keyword_After_At" xml:space="preserve">
+    <value>"@" 文字の後に予期しない "{0}" キーワードがあります。コード内では、"{0}" などの構文の前に "@" を付ける必要はありません。</value>
+    <comment>Unexpected "{0}" keyword after "@" character.  Once inside code, you do not need to prefix constructs like "{0}" with "@".</comment>
+  </data>
+  <data name="ParseError_ReservedWord" xml:space="preserve">
+    <value>"{0}" は予約語のため、暗黙的な式には使えません。明示的な式 ("@()") を使ってください。</value>
+    <comment>"{0}" is a reserved word and cannot be used in implicit expressions.  An explicit expression ("@()") must be used.</comment>
+  </data>
+  <data name="ParseError_Unexpected_Character_At_Helper_Name_Start" xml:space="preserve">
+    <value>helper キーワードの後に予期しない {0} があります。ヘルパーの名前は "_" または英字で始め、残りの文字は "_" または英数字にしてください。</value>
+    <comment>Unexpected {0} after helper keyword.  All helpers must have a name which starts with an "_" or alphabetic character. The remaining characters must be either "_" or alphanumeric.</comment>
+  </data>
+  <data name="Tokenizer_CannotResumeSymbolUnlessIsPrevious" xml:space="preserve">
+    <value>このシンボルは再開できません。再開できるのは、現在のシンボルの直前のシンボルだけです</value>
+    <comment>Cannot resume this symbol. Only the symbol immediately preceding the current one can be resumed.</comment>
+  </data>
+  <data name="ParserContext_NoCurrentBlock" xml:space="preserve">
+    <value>現在のブロックがないため、スパンを終了できません。スパンを終了する前に StartBlock を 1 回以上呼び出してください</value>
+    <comment>Cannot finish span, there is no current block. Call StartBlock at least once before finishing a span</comment>
+  </data>
+  <data name="ParserContext_CannotCompleteTree_OutstandingBlocks" xml:space="preserve">
+    <value>開いたままのブロックがあるため、ツリーを完成できません。</value>
+    <comment>Cannot complete the tree, there are still open blocks.</comment>
+  </data>
+  <data name="ParserContext_CannotCompleteTree_NoRootBlock" xml:space="preserve">
+    <value>ツリーを完成できません。StartBlock を 1 回以上呼び出してください。</value>
+    <comment>Cannot complete the tree, StartBlock must be called at least once.</comment>
+  </data>
+  <data name="ParserContext_ParseComplete" xml:space="preserve">
+    <value>パーサーが終了したため、操作を完了できません。パーサーの終了後に最終結果を取り出すために呼び出せるのは CompleteParse だけです</value>
+    <comment>Cannot complete action, the parser has finished. Only CompleteParse can be called to extract the final parser results after the parser has finished</comment>
+  </data>
+  <data name="Block_Type_Not_Specified" xml:space="preserve">
+    <value>BlockBuilder に Type が指定されていないため、ブロックを作成できません</value>
+    <comment>Block cannot be built because a Type has not been specified in the BlockBuilder</comment>
+  </data>
+  <data name="CSharpSymbol_CharacterLiteral" xml:space="preserve">
+    <value>&lt;&lt;文字リテラル&gt;&gt;</value>
+    <comment>&lt;&lt;character literal&gt;&gt;</comment>
+  </data>
+  <data name="CSharpSymbol_Comment" xml:space="preserve">
+    <value>&lt;&lt;注釈&gt;&gt;</value>
+    <comment>&lt;&lt;comment&gt;&gt;</comment>
+  </data>
+  <data name="CSharpSymbol_Identifier" xml:space="preserve">
+    <value>&lt;&lt;識別子&gt;&gt;</value>
+    <comment>&lt;&lt;identifier&gt;&gt;</comment>
+  </data>
+  <data name="CSharpSymbol_IntegerLiteral" xml:space="preserve">
+    <value>&lt;&lt;整数リテラル&gt;&gt;</value>
+    <comment>&lt;&lt;integer literal&gt;&gt;</comment>
+  </data>
+  <data name="CSharpSymbol_Keyword" xml:space="preserve">
+    <value>&lt;&lt;予約語&gt;&gt;</value>
+    <comment>&lt;&lt;keyword&gt;&gt;</comment>
+  </data>
+  <data name="CSharpSymbol_Newline" xml:space="preserve">
+    <value>&lt;&lt;改行&gt;&gt;</value>
+    <comment>&lt;&lt;newline sequence&gt;&gt;</comment>
+  </data>
+  <data name="CSharpSymbol_RealLiteral" xml:space="preserve">
+    <value>&lt;&lt;実数リテラル&gt;&gt;</value>
+    <comment>&lt;&lt;real literal&gt;&gt;</comment>
+  </data>
+  <data name="CSharpSymbol_StringLiteral" xml:space="preserve">
+    <value>&lt;&lt;文字列リテラル&gt;&gt;</value>
+    <comment>&lt;&lt;string literal&gt;&gt;</comment>
+  </data>
+  <data name="CSharpSymbol_Whitespace" xml:space="preserve">
+    <value>&lt;&lt;空白&gt;&gt;</value>
+    <comment>&lt;&lt;white space&gt;&gt;</comment>
+  </data>
+  <data name="Symbol_Unknown" xml:space="preserve">
+    <value>&lt;&lt;不明&gt;&gt;</value>
+    <comment>&lt;&lt;unknown&gt;&gt;</comment>
+  </data>
+  <data name="TokenizerView_CannotPutBack" xml:space="preserve">
+    <value>シンボルを戻すには、そのシンボルが現在の位置で終わっている必要があります。指定のシンボルは {0} で終わっていますが、現在の位置は {1} です</value>
+    <comment>In order to put a symbol back, it must have been the symbol which ended at the current position. The specified symbol ends at {0}, but the current position is {1}</comment>
+  </data>
+  <data name="ParseError_Unexpected" xml:space="preserve">
+    <value>予期しない "{0}"</value>
+    <comment>Unexpected "{0}"</comment>
+  </data>
+  <data name="ParseError_Unexpected_Nested_CodeBlock" xml:space="preserve">
+    <value>"@" 文字の後に予期しない "{" があります。コード ブロック (@if {}、@{} など) の本体の中では、コードに切り替えるために "@{" を使う必要はありません。</value>
+    <comment>Unexpected "{" after "@" character. Once inside the body of a code block (@if {}, @{}, etc.) you do not need to use "@{" to switch to code.</comment>
+  </data>
+  <data name="ErrorComponent_Newline" xml:space="preserve">
+    <value>改行</value>
+    <comment>line break</comment>
+  </data>
+  <data name="SectionExample_VB" xml:space="preserve">
+    <value>@Section Header ... End Section</value>
+    <comment>@Section Header ... End Section</comment>
+  </data>
+  <data name="VBSymbol_CharacterLiteral" xml:space="preserve">
+    <value>&lt;&lt;文字リテラル&gt;&gt;</value>
+    <comment>&lt;&lt;character literal&gt;&gt;</comment>
+  </data>
+  <data name="VBSymbol_Comment" xml:space="preserve">
+    <value>&lt;&lt;注釈&gt;&gt;</value>
+    <comment>&lt;&lt;comment&gt;&gt;</comment>
+  </data>
+  <data name="VBSymbol_DateLiteral" xml:space="preserve">
+    <value>&lt;&lt;日付リテラル&gt;&gt;</value>
+    <comment>&lt;&lt;date literal&gt;&gt;</comment>
+  </data>
+  <data name="VBSymbol_FloatingPointLiteral" xml:space="preserve">
+    <value>&lt;&lt;浮動小数点リテラル&gt;&gt;</value>
+    <comment>&lt;&lt;floating point literal&gt;&gt;</comment>
+  </data>
+  <data name="VBSymbol_Identifier" xml:space="preserve">
+    <value>&lt;&lt;識別子&gt;&gt;</value>
+    <comment>&lt;&lt;identifier&gt;&gt;</comment>
+  </data>
+  <data name="VBSymbol_IntegerLiteral" xml:space="preserve">
+    <value>&lt;&lt;整数リテラル&gt;&gt;</value>
+    <comment>&lt;&lt;integer literal&gt;&gt;</comment>
+  </data>
+  <data name="VBSymbol_Keyword" xml:space="preserve">
+    <value>&lt;&lt;予約語&gt;&gt;</value>
+    <comment>&lt;&lt;keyword&gt;&gt;</comment>
+  </data>
+  <data name="VBSymbol_NewLine" xml:space="preserve">
+    <value>&lt;&lt;改行&gt;&gt;</value>
+    <comment>&lt;&lt;newline sequence&gt;&gt;</comment>
+  </data>
+  <data name="VBSymbol_RazorComment" xml:space="preserve">
+    <value>&lt;&lt;Razor 注釈&gt;&gt;</value>
+    <comment>&lt;&lt;razor comment&gt;&gt;</comment>
+  </data>
+  <data name="VBSymbol_StringLiteral" xml:space="preserve">
+    <value>&lt;&lt;文字列リテラル&gt;&gt;</value>
+    <comment>&lt;&lt;string literal&gt;&gt;</comment>
+  </data>
+  <data name="VBSymbol_WhiteSpace" xml:space="preserve">
+    <value>&lt;&lt;空白&gt;&gt;</value>
+    <comment>&lt;&lt;white space&gt;&gt;</comment>
+  </data>
+  <data name="HtmlSymbol_NewLine" xml:space="preserve">
+    <value>&lt;&lt;改行&gt;&gt;</value>
+    <comment>&lt;&lt;newline sequence&gt;&gt;</comment>
+  </data>
+  <data name="HtmlSymbol_RazorComment" xml:space="preserve">
+    <value>&lt;&lt;Razor 注釈&gt;&gt;</value>
+    <comment>&lt;&lt;razor comment&gt;&gt;</comment>
+  </data>
+  <data name="HtmlSymbol_Text" xml:space="preserve">
+    <value>&lt;&lt;文字&gt;&gt;</value>
+    <comment>&lt;&lt;text&gt;&gt;</comment>
+  </data>
+  <data name="HtmlSymbol_WhiteSpace" xml:space="preserve">
+    <value>&lt;&lt;空白&gt;&gt;</value>
+    <comment>&lt;&lt;white space&gt;&gt;</comment>
+  </data>
+  <data name="ParserIsNotAMarkupParser" xml:space="preserve">
+    <value>ParserContext に渡されたパーサーはマークアップ パーサーではありません。</value>
+    <comment>The parser provided to the ParserContext was not a Markup Parser.</comment>
+  </data>
+  <data name="Language_Does_Not_Support_RazorComment" xml:space="preserve">
+    <value>組み込みの RazorComment ハンドラーを使えません。言語の特性が既知のシンボル型 CommentStart、CommentStar、CommentBody を定義しないか、パーサーが TokenizerBackedParser.OutputSpanBeforeRazorComment をオーバーライドしていません</value>
+    <comment>Cannot use built-in RazorComment handler, language characteristics does not define the CommentStart, CommentStar and CommentBody known symbol types or parser does not override TokenizerBackedParser.OutputSpanBeforeRazorComment</comment>
+  </data>
+  <data name="ParserEror_SessionDirectiveMissingValue" xml:space="preserve">
+    <value>セッション状態ディレクティブの値がありません。</value>
+    <comment>Missing value for session state directive.</comment>
+  </data>
+  <data name="CreateCodeWriter_NoCodeWriter" xml:space="preserve">
+    <value>CreateCodeWriter を呼び出せません。Create メソッドに CodeWriter が渡されていません</value>
+    <comment>Cannot call CreateCodeWriter, a CodeWriter was not provided to the Create method</comment>
+  </data>
+  <data name="Trace_BackgroundThreadShutdown" xml:space="preserve">
+    <value>[BG][{0}] シャットダウン</value>
+    <comment>[BG][{0}] Shutdown</comment>
+  </data>
+  <data name="Trace_BackgroundThreadStart" xml:space="preserve">
+    <value>[BG][{0}] 起動</value>
+    <comment>[BG][{0}] Startup</comment>
+  </data>
+  <data name="Trace_ChangesArrived" xml:space="preserve">
+    <value>[BG][{0}] {1} 件の変更を受信</value>
+    <comment>[BG][{0}] {1} changes arrived</comment>
+  </data>
+  <data name="Trace_ChangesDiscarded" xml:space="preserve">
+    <value>[BG][{0}] {1} 件の変更を破棄</value>
+    <comment>[BG][{0}] Discarded {1} changes</comment>
+  </data>
+  <data name="Trace_CollectedDiscardedChanges" xml:space="preserve">
+    <value>[BG][{0}] 破棄された {1} 件の変更を収集中</value>
+    <comment>[BG][{0}] Collecting {1} discarded changes</comment>
+  </data>
+  <data name="Trace_Disabled" xml:space="preserve">
+    <value>無効</value>
+    <comment>Disabled</comment>
+  </data>
+  <data name="Trace_EditorProcessedChange" xml:space="preserve">
+    <value>[P][{0}] {3} 変更を {2} ミリ秒で処理: {1}</value>
+    <comment>[P][{0}] {3} Change in {2} milliseconds: {1}</comment>
+  </data>
+  <data name="Trace_EditorReceivedChange" xml:space="preserve">
+    <value>[P][{0}] 変更を受信: {1}</value>
+    <comment>[P][{0}] Received Change: {1}</comment>
+  </data>
+  <data name="Trace_Enabled" xml:space="preserve">
+    <value>有効</value>
+    <comment>Enabled</comment>
+  </data>
+  <data name="Trace_Format" xml:space="preserve">
+    <value>[Razor] {0}</value>
+    <comment>[Razor] {0}</comment>
+  </data>
+  <data name="Trace_NoChangesArrived" xml:space="preserve">
+    <value>[BG][{0}] 変更なし?</value>
+    <comment>[BG][{0}] no changes arrived?</comment>
+  </data>
+  <data name="Trace_ParseComplete" xml:space="preserve">
+    <value>[BG][{0}] 解析を {1} ミリ秒で完了</value>
+    <comment>[BG][{0}] Parse Complete in {1} milliseconds</comment>
+  </data>
+  <data name="Trace_QueuingParse" xml:space="preserve">
+    <value>[M][{0}] 解析をキューに追加: {1}</value>
+    <comment>[M][{0}] Queuing Parse for: {1}</comment>
+  </data>
+  <data name="Trace_Startup" xml:space="preserve">
+    <value>[Razor] エディターのトレース {0}</value>
+    <comment>[Razor] Editor Tracing {0}</comment>
+  </data>
+  <data name="Trace_TreesCompared" xml:space="preserve">
+    <value>[BG][{0}] ツリーを {1} ミリ秒で比較。相違 = {2}</value>
+    <comment>[BG][{0}] Trees Compared in {1} milliseconds. Different = {2}</comment>
+  </data>
+</root>

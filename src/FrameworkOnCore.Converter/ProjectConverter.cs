@@ -66,6 +66,23 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
 
     public IReadOnlyCollection<ConvertedProject> Converted => converted.Values;
 
+    /// <summary>The cultures of Microsoft's language packages the projects had (Microsoft.AspNet.Mvc.ja: ja), each with the
+    /// assemblies their satellites were of: FrameworkOnCore's ports' translations kept for them (LanguagePacks).</summary>
+    public Dictionary<string, SortedSet<string>> LanguagePackageCultures { get; } = new(StringComparer.OrdinalIgnoreCase);
+
+    // A language package (Microsoft.AspNet.Mvc.ja) the project had: not referenced (it depends on Microsoft's package, whose
+    // DLLs the port replaces); the port's own translation in its culture instead.
+    readonly HashSet<string> languagePackagesReported = new(StringComparer.OrdinalIgnoreCase);
+
+    bool LanguagePackage(string id, string name)
+    {
+        if (rules.LanguagePackageOf(id) is not { } language) return false;
+        if (!LanguagePackageCultures.TryGetValue(language.Culture, out var assemblies)) LanguagePackageCultures[language.Culture] = assemblies = new(StringComparer.OrdinalIgnoreCase);
+        assemblies.UnionWith(language.Assemblies);
+        if (languagePackagesReported.Add(name + "|" + id)) report.Add(Report.Kind.Project, name, $"{id}: Microsoft's language package removed; FrameworkOnCore's own translations of {string.Join(", ", language.Assemblies)} in {language.Culture} instead (the wording is FrameworkOnCore's)");
+        return true;
+    }
+
     public string TargetOf(string sourcePath) => Path.Combine(outRoot, Path.GetRelativePath(sourceRoot, sourcePath));
 
     public ConvertedProject Convert(string projectPath, bool isWeb)
@@ -246,6 +263,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         void AddPackage(Package p) => packages.TryAdd(p.Id, p.Version);
         void AddListed(string id, string version)
         {
+            if (LanguagePackage(id, name)) return;
             if (rules.ShimPackages.TryGetValue(id, out var shim))
             {
                 report.Add(Report.Kind.Project, name, $"{id} {version}: replaced by its shim ({shim})");
@@ -587,6 +605,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         {
             var id = (string?)reference.Attribute("Include") ?? "";
             if (rules.DroppedPackages.Contains(id)) { reference.Remove(); continue; }
+            if (LanguagePackage(id, name)) { reference.Remove(); continue; }
             if (rules.InertPackages.Contains(id)) { reference.SetAttributeValue("ExcludeAssets", "all"); reference.SetAttributeValue("PrivateAssets", "all"); continue; }
             if (rules.ShimPackages.TryGetValue(id, out var shim))
             {

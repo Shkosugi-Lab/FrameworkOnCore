@@ -63,6 +63,10 @@ public sealed record Rules
     /// <summary>Added along with a replaced package (replacedPackages): what the package also contained, its assemblies
     /// being FrameworkOnCore's packages each (Microsoft.AspNet.WebPages: System.Web.WebPages, .Razor, .Deployment, System.Web.Helpers).</summary>
     public IReadOnlyDictionary<string, IReadOnlyList<Package>> PackageCompanions { get; init; } = new Dictionary<string, IReadOnlyList<Package>>(StringComparer.OrdinalIgnoreCase);
+    /// <summary>Microsoft's language packages (Microsoft.AspNet.Mvc.ja: &lt;id&gt;.&lt;culture&gt;, their satellites of the package's
+    /// assemblies): package id -> the assemblies. Removed: FrameworkOnCore's ports have their own translations, kept for
+    /// the cultures the application had a language package of (LanguagePacks).</summary>
+    public IReadOnlyDictionary<string, IReadOnlyList<string>> LanguagePackages { get; init; } = new Dictionary<string, IReadOnlyList<string>>(StringComparer.OrdinalIgnoreCase);
     public required IReadOnlySet<string> NoAnswer { get; init; }
     /// <summary>Framework references that are the user's choice (System.Data.Linq: the LINQ to SQL port): assembly ->
     /// the option that turns its frameworkReferences entry on. Not chosen, the assembly has no answer (Choose).</summary>
@@ -153,6 +157,23 @@ public sealed record Rules
     /// packs). Not every System.* 4.x package is .NET's own: System.IdentityModel.Tokens.Jwt 4.0 is not, and
     /// dropping it stubbed DNN's JWT authentication.
     /// </summary>
+    /// <summary>A language package (Microsoft.AspNet.Mvc.ja): its culture and the assemblies its satellites are of; null otherwise.</summary>
+    public (string Culture, IReadOnlyList<string> Assemblies)? LanguagePackageOf(string id)
+    {
+        var dot = id.LastIndexOf('.');
+        while (dot > 0)
+        {
+            if (LanguagePackages.TryGetValue(id[..dot], out var assemblies))
+            {
+                var culture = id[(dot + 1)..];
+                try { return System.Globalization.CultureInfo.GetCultureInfo(culture, predefinedOnly: true).Name.Length > 0 ? (culture, assemblies) : null; }
+                catch (System.Globalization.CultureNotFoundException) { return null; }
+            }
+            dot = id.LastIndexOf('.', dot - 1);
+        }
+        return null;
+    }
+
     public bool IsDropped(string id, string version) =>
         DroppedPackages.Contains(id) ||
         (id.StartsWith("System.", StringComparison.Ordinal) && version.StartsWith("4.", StringComparison.Ordinal) && InBox.Value.Contains(id));
@@ -201,6 +222,9 @@ public sealed record Rules
             PackageCompanions = root.TryGetProperty("packageCompanions", out var packageCompanions)
                 ? packageCompanions.EnumerateObject().ToDictionary(p => p.Name, p => (IReadOnlyList<Package>)p.Value.EnumerateArray().Select(PackageOf).ToList(), StringComparer.OrdinalIgnoreCase)
                 : new Dictionary<string, IReadOnlyList<Package>>(StringComparer.OrdinalIgnoreCase),
+            LanguagePackages = root.TryGetProperty("languagePackages", out var languagePackages)
+                ? languagePackages.EnumerateObject().ToDictionary(p => p.Name, p => (IReadOnlyList<string>)p.Value.EnumerateArray().Select(a => a.GetString()!).ToList(), StringComparer.OrdinalIgnoreCase)
+                : new Dictionary<string, IReadOnlyList<string>>(StringComparer.OrdinalIgnoreCase),
             NoAnswer = Set("noAnswer"),
             FrameworkReferenceOptions = root.TryGetProperty("frameworkReferenceOptions", out var referenceOptions)
                 ? referenceOptions.EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.OrdinalIgnoreCase)

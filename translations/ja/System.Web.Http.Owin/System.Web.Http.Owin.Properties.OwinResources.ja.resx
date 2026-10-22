@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="HttpAuthenticationChallengeContext_RequestMustNotBeNull" xml:space="preserve">
+    <value>HttpAuthenticationChallengeContext.Request が null です。</value>
+    <comment>HttpAuthenticationChallengeContext.Request must not be null.</comment>
+  </data>
+  <data name="HttpAuthenticationContext_RequestMustNotBeNull" xml:space="preserve">
+    <value>HttpAuthenticationContext.Request を null にすることはできません。</value>
+    <comment>HttpAuthenticationContext.Request must not be null.</comment>
+  </data>
+  <data name="IAuthenticationManagerNotAvailable" xml:space="preserve">
+    <value>要求に OWIN 認証マネージャーが関連付けられていない。</value>
+    <comment>No OWIN authentication manager is associated with the request.</comment>
+  </data>
+  <data name="OwinContext_NullRequest" xml:space="preserve">
+    <value>OWIN コンテキストの Request プロパティが null です。</value>
+    <comment>The OWIN context's Request property must not be null.</comment>
+  </data>
+  <data name="OwinContext_NullResponse" xml:space="preserve">
+    <value>OWIN コンテキストの Response プロパティが null です。</value>
+    <comment>The OWIN context's Response property must not be null.</comment>
+  </data>
+  <data name="Request_RequestContextMustNotBeNull" xml:space="preserve">
+    <value>要求には要求コンテキストが必要です。</value>
+    <comment>The request must have a request context.</comment>
+  </data>
+  <data name="SendAsync_ReturnedNull" xml:space="preserve">
+    <value>メッセージ ハンドラーが応答メッセージを返しませんでした。</value>
+    <comment>The message handler did not return a response message.</comment>
+  </data>
+  <data name="TypePropertyMustNotBeNull" xml:space="preserve">
+    <value>{0}.{1} を null にすることはできません。</value>
+    <comment>{0}.{1} must not be null.</comment>
+  </data>
+</root>

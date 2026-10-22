@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CannotHaveNullInList" xml:space="preserve">
+    <value>null の '{0}' は無効です。</value>
+    <comment>A null '{0}' is not valid.</comment>
+  </data>
+  <data name="CannotUseMediaRangeForSupportedMediaType" xml:space="preserve">
+    <value>'{1}' の '{0}' はメディア範囲のため、サポートされるメディアの種類として使えません。</value>
+    <comment>The '{0}' of '{1}' cannot be used as a supported media type because it is a media range.</comment>
+  </data>
+  <data name="CannotUseNullValueType" xml:space="preserve">
+    <value>'{0}' 型は、値型 '{1}' の null 値を受け付けられません。</value>
+    <comment>The '{0}' type cannot accept a null value for the value type '{1}'.</comment>
+  </data>
+  <data name="ErrorReadingFormUrlEncodedStream" xml:space="preserve">
+    <value>HTML フォームの URL エンコードされたデータ ストリームの読み取り中にエラーが発生しました。</value>
+    <comment>Error reading HTML form URL-encoded data stream.</comment>
+  </data>
+  <data name="FormUrlEncodedParseError" xml:space="preserve">
+    <value>HTML フォームの URL エンコードされたデータの解析中にエラーが発生しました (バイト {0})。</value>
+    <comment>Error parsing HTML form URL-encoded data, byte {0}.</comment>
+  </data>
+  <data name="HttpInvalidStatusCode" xml:space="preserve">
+    <value>無効な HTTP 状態コード: '{0}'。状態コードは {1} から {2} の間にしてください。</value>
+    <comment>Invalid HTTP status code: '{0}'. The status code must be between {1} and {2}.</comment>
+  </data>
+  <data name="HttpInvalidVersion" xml:space="preserve">
+    <value>無効な HTTP バージョン: '{0}'。バージョンは文字 '{1}' で始める必要があります。</value>
+    <comment>Invalid HTTP version: '{0}'. The version must start with the characters '{1}'.</comment>
+  </data>
+  <data name="HttpMessageContentAlreadyRead" xml:space="preserve">
+    <value>'{1}' の '{0}' は既に読み取られています。</value>
+    <comment>The '{0}' of the '{1}' has already been read.</comment>
+  </data>
+  <data name="HttpMessageContentStreamMustBeSeekable" xml:space="preserve">
+    <value>エンティティ本文を含む '{1}' インスタンスを作成するには、'{0}' がシーク可能である必要があります。</value>
+    <comment>The '{0}' must be seekable in order to create an '{1}' instance containing an entity body.  </comment>
+  </data>
+  <data name="HttpMessageErrorReading" xml:space="preserve">
+    <value>HTTP メッセージの読み取り中にエラーが発生しました。</value>
+    <comment>Error reading HTTP message.</comment>
+  </data>
+  <data name="HttpMessageInvalidMediaType" xml:space="preserve">
+    <value>無効な '{0}' インスタンスが渡されました。値が '{1}' の Content-Type ヘッダーがありません。</value>
+    <comment>Invalid '{0}' instance provided. It does not have a content type header with a value of '{1}'.</comment>
+  </data>
+  <data name="HttpMessageParserEmptyUri" xml:space="preserve">
+    <value>HTTP 要求の URI を空の文字列にすることはできません。</value>
+    <comment>HTTP Request URI cannot be an empty string.</comment>
+  </data>
+  <data name="HttpMessageParserError" xml:space="preserve">
+    <value>メッセージ {1} の HTTP メッセージ ヘッダーのバイト {0} の解析中にエラーが発生しました。</value>
+    <comment>Error parsing HTTP message header byte {0} of message {1}.</comment>
+  </data>
+  <data name="HttpMessageParserInvalidHostCount" xml:space="preserve">
+    <value>HTTP 要求の '{0}' ヘッダー フィールドの数が無効です。'{0}' ヘッダー フィールドはちょうど 1 つ必要ですが、{1} 個ありました。</value>
+    <comment>An invalid number of '{0}' header fields were present in the HTTP Request. It must contain exactly one '{0}' header field but found {1}.</comment>
+  </data>
+  <data name="HttpMessageParserInvalidUriScheme" xml:space="preserve">
+    <value>無効な URI スキーム: '{0}'。URI スキームは有効な '{1}' スキームにしてください。</value>
+    <comment>Invalid URI scheme: '{0}'. The URI scheme must be a valid '{1}' scheme.</comment>
+  </data>
+  <data name="MimeMultipartParserBadBoundary" xml:space="preserve">
+    <value>MIME マルチパートの境界を空白で終えることはできません。</value>
+    <comment>MIME multipart boundary cannot end with an empty space.</comment>
+  </data>
+  <data name="MultipartFormDataStreamProviderNoContentDisposition" xml:space="preserve">
+    <value>MIME マルチパートの本文パートに、必要な '{0}' ヘッダー フィールドがありません。</value>
+    <comment>Did not find required '{0}' header field in MIME multipart body part.</comment>
+  </data>
+  <data name="MultipartStreamProviderInvalidLocalFileName" xml:space="preserve">
+    <value>マルチパートの本文パートの有効なローカル ファイル名を特定できません。</value>
+    <comment>Could not determine a valid local file name for the multipart body part.</comment>
+  </data>
+  <data name="NonNullUriRequiredForMediaTypeMapping" xml:space="preserve">
+    <value>'{0}' が要求または応答のメッセージに一致するかを判断するには、null でない要求 URI が必要です。</value>
+    <comment>A non-null request URI must be provided to determine if a '{0}' matches a given request or response message.</comment>
+  </data>
+  <data name="NoReadSerializerAvailable" xml:space="preserve">
+    <value>メディアの種類 '{1}' のコンテンツから型 '{0}' のオブジェクトを読み取れる MediaTypeFormatter がありません。</value>
+    <comment>No MediaTypeFormatter is available to read an object of type '{0}' from content with media type '{1}'.</comment>
+  </data>
+  <data name="ObjectAndTypeDisagree" xml:space="preserve">
+    <value>型 '{0}' のオブジェクトは、型パラメーター '{1}' では使えません。</value>
+    <comment>An object of type '{0}' cannot be used with a type parameter of '{1}'.</comment>
+  </data>
+  <data name="ReadAsMimeMultipartArgumentNoBoundary" xml:space="preserve">
+    <value>無効な '{0}' インスタンスです。'{2}' パラメーターを持つ '{1}' の Content-Type ヘッダーがありません。</value>
+    <comment>Invalid '{0}' instance provided. It does not have a '{1}' content-type header with a '{2}' parameter.</comment>
+  </data>
+  <data name="ReadAsMimeMultipartArgumentNoContentType" xml:space="preserve">
+    <value>無効な '{0}' インスタンスが渡されました。Content-Type ヘッダーの値がありません。'{0}' インスタンスには、'{1}' で始まる Content-Type ヘッダーが必要です。</value>
+    <comment>Invalid '{0}' instance provided. It does not have a content-type header value. '{0}' instances must have a content-type header starting with '{1}'.</comment>
+  </data>
+  <data name="ReadAsMimeMultipartArgumentNoMultipart" xml:space="preserve">
+    <value>無効な '{0}' インスタンスが渡されました。'{1}' で始まる Content-Type ヘッダーがありません。</value>
+    <comment>Invalid '{0}' instance provided. It does not have a content type header starting with '{1}'.</comment>
+  </data>
+  <data name="ReadAsMimeMultipartErrorReading" xml:space="preserve">
+    <value>MIME マルチパートの本文パートの読み取り中のエラーです。</value>
+    <comment>Error reading MIME multipart body part.</comment>
+  </data>
+  <data name="ReadAsMimeMultipartErrorWriting" xml:space="preserve">
+    <value>MIME マルチパートの本文パートを出力ストリームに書き込み中にエラーが発生しました。</value>
+    <comment>Error writing MIME multipart body part to output stream.</comment>
+  </data>
+  <data name="ReadAsMimeMultipartHeaderParseError" xml:space="preserve">
+    <value>データ セグメント {1} の MIME マルチパートの本文パートのヘッダーのバイト {0} の解析中のエラーです。</value>
+    <comment>Error parsing MIME multipart body part header byte {0} of data segment {1}.</comment>
+  </data>
+  <data name="ReadAsMimeMultipartParseError" xml:space="preserve">
+    <value>データ セグメント {1} の MIME マルチパート メッセージのバイト {0} の解析中のエラーです。</value>
+    <comment>Error parsing MIME multipart message byte {0} of data segment {1}.</comment>
+  </data>
+  <data name="ReadAsMimeMultipartStreamProviderException" xml:space="preserve">
+    <value>型 '{0}' のストリーム プロバイダーが例外をスローしました。</value>
+    <comment>The stream provider of type '{0}' threw an exception.</comment>
+  </data>
+  <data name="ReadAsMimeMultipartStreamProviderNull" xml:space="preserve">
+    <value>型 '{0}' のストリーム プロバイダーが null を返しました。書き込み可能な '{1}' インスタンスを返す必要があります。</value>
+    <comment>The stream provider of type '{0}' returned null. It must return a writable '{1}' instance.</comment>
+  </data>
+  <data name="ReadAsMimeMultipartStreamProviderReadOnly" xml:space="preserve">
+    <value>型 '{0}' のストリーム プロバイダーが読み取り専用のストリームを返しました。書き込み可能な '{1}' インスタンスを返す必要があります。</value>
+    <comment>The stream provider of type '{0}' returned a read-only stream. It must return a writable '{1}' instance.</comment>
+  </data>
+  <data name="ReadAsMimeMultipartUnexpectedTermination" xml:space="preserve">
+    <value>MIME マルチパート ストリームが予期せず終わりました。MIME マルチパート メッセージが不完全です。</value>
+    <comment>Unexpected end of MIME multipart stream. MIME multipart message is not complete.</comment>
+  </data>
+  <data name="SerializerCannotSerializeType" xml:space="preserve">
+    <value>'{0}' シリアライザーは型 '{1}' をシリアル化できません。</value>
+    <comment>The '{0}' serializer cannot serialize the type '{1}'.</comment>
+  </data>
+  <data name="UnsupportedIndent" xml:space="preserve">
+    <value>'{0}' はインデントをサポートしていません。</value>
+    <comment>Indentation is not supported by '{0}'.</comment>
+  </data>
+  <data name="MediaTypeFormatterCannotRead" xml:space="preserve">
+    <value>型 '{0}' のメディアの種類のフォーマッタは ReadFromStreamAsync メソッドを実装しておらず、読み取れません。</value>
+    <comment>The media type formatter of type '{0}' does not support reading because it does not implement the ReadFromStreamAsync method.</comment>
+  </data>
+  <data name="MediaTypeFormatterCannotWrite" xml:space="preserve">
+    <value>型 '{0}' のメディアの種類のフォーマッタは WriteToStreamAsync メソッドを実装しておらず、書き込めません。</value>
+    <comment>The media type formatter of type '{0}' does not support writing because it does not implement the WriteToStreamAsync method.</comment>
+  </data>
+  <data name="MediaTypeFormatterCannotReadSync" xml:space="preserve">
+    <value>型 '{0}' のメディアの種類のフォーマッタは ReadFromStream メソッドを実装しておらず、読み取れません。</value>
+    <comment>The media type formatter of type '{0}' does not support reading because it does not implement the ReadFromStream method.</comment>
+  </data>
+  <data name="MediaTypeFormatterCannotWriteSync" xml:space="preserve">
+    <value>型 '{0}' のメディアの種類のフォーマッタは WriteToStream メソッドを実装しておらず、書き込めません。</value>
+    <comment>The media type formatter of type '{0}' does not support writing because it does not implement the WriteToStream method.</comment>
+  </data>
+  <data name="ObjectContent_FormatterCannotWriteType" xml:space="preserve">
+    <value>構成されたフォーマッタ '{0}' は、型 '{1}' のオブジェクトを書き込めません。</value>
+    <comment>The configured formatter '{0}' cannot write an object of type '{1}'.</comment>
+  </data>
+  <data name="FormUrlEncodedMismatchingTypes" xml:space="preserve">
+    <value>ノード '{0}' で型が一致しません。</value>
+    <comment>Mismatched types at node '{0}'.</comment>
+  </data>
+  <data name="InvalidArrayInsert" xml:space="preserve">
+    <value>ノード '{0}' の配列が無効です。</value>
+    <comment>Invalid array at node '{0}'.</comment>
+  </data>
+  <data name="JQuery13CompatModeNotSupportNestedJson" xml:space="preserve">
+    <value>'[]' のない従来の形式の配列は、位置 {0} の入れ子のオブジェクトではサポートされていません。</value>
+    <comment>Traditional style array without '[]' is not supported with nested object at location {0}.</comment>
+  </data>
+  <data name="MaxDepthExceeded" xml:space="preserve">
+    <value>読み取っているフォームの URL エンコードされたデータの入れ子が許可されたレベルより深いため、最大の読み取りの深さ ({0}) を超えました。</value>
+    <comment>The maximum read depth ({0}) has been exceeded because the form url-encoded data being read has more levels of nesting than is allowed.</comment>
+  </data>
+  <data name="NestedBracketNotValid" xml:space="preserve">
+    <value>位置 {1} の入れ子のかっこは、'{0}' データに対して無効です。</value>
+    <comment>Nested bracket is not valid for '{0}' data at position {1}.</comment>
+  </data>
+  <data name="QueryStringNameShouldNotNull" xml:space="preserve">
+    <value>クエリ文字列の名前を null にはできません。</value>
+    <comment>Query string name cannot be null.</comment>
+  </data>
+  <data name="UnMatchedBracketNotValid" xml:space="preserve">
+    <value>位置 {1} に、'{0}' の対応しない開きかっこがあります。</value>
+    <comment>There is an unmatched opened bracket for the '{0}' at position {1}.</comment>
+  </data>
+  <data name="MediaTypeFormatterNoEncoding" xml:space="preserve">
+    <value>メディアの種類のフォーマッタ '{0}' のエンコードが見つかりません。メディアの種類のフォーマッタでコンテンツを読み書きするには、サポートされるエンコードが 1 つ以上登録されている必要があります。</value>
+    <comment>No encoding found for media type formatter '{0}'. There must be at least one supported encoding registered in order for the media type formatter to read or write content.</comment>
+  </data>
+  <data name="CookieInvalidName" xml:space="preserve">
+    <value>指定された値は有効な Cookie 名ではありません。</value>
+    <comment>The specified value is not a valid cookie name.</comment>
+  </data>
+  <data name="CookieNull" xml:space="preserve">
+    <value>Cookie を null にすることはできません。</value>
+    <comment>Cookie cannot be null.</comment>
+  </data>
+  <data name="MaxHttpCollectionKeyLimitReached" xml:space="preserve">
+    <value>NameValueCollection のキーの数が上限 '{0}' を超えました。'{1}' クラスの MaxHttpCollectionKeys プロパティで調整できます。</value>
+    <comment>The number of keys in a NameValueCollection has exceeded the limit of '{0}'. You can adjust it by modifying the MaxHttpCollectionKeys property on the '{1}' class.</comment>
+  </data>
+  <data name="AsyncResult_CallbackThrewException" xml:space="preserve">
+    <value>非同期コールバックで例外が発生。</value>
+    <comment>Async Callback threw an exception.</comment>
+  </data>
+  <data name="AsyncResult_MultipleCompletes" xml:space="preserve">
+    <value>IAsyncResult の実装 '{0}' が 1 つの操作を複数回完了しようとしました。アプリケーションの IAsyncResult の実装が正しくないか、正しくない CompletedSynchronously の値を返したり AsyncCallback を複数回呼び出したりする IAsyncResult など、ほかの拡張コードが原因の可能性があります。</value>
+    <comment>The IAsyncResult implementation '{0}' tried to complete a single operation multiple times. This could be caused by an incorrect application IAsyncResult implementation or other extensibility code, such as an IAsyncResult that returns incorrect CompletedSynchronously values or invokes the AsyncCallback multiple times.</comment>
+  </data>
+  <data name="AsyncResult_MultipleEnds" xml:space="preserve">
+    <value>AsyncResult の End は 2 回呼び出せません。</value>
+    <comment>End cannot be called twice on an AsyncResult.</comment>
+  </data>
+  <data name="AsyncResult_ResultMismatch" xml:space="preserve">
+    <value>'End' メソッドに正しくない IAsyncResult が渡されました。'End' に渡す IAsyncResult オブジェクトは、対応する 'Begin' が返したものか、'Begin' に渡したコールバックに渡されたものである必要があります。</value>
+    <comment>An incorrect IAsyncResult was provided to an 'End' method. The IAsyncResult object passed to 'End' must be the one returned from the matching 'Begin' or passed to the callback provided to 'Begin'.</comment>
+  </data>
+  <data name="DelegatingHandlerArrayContainsNullItem" xml:space="preserve">
+    <value>'{0}' リストに null の項目が 1 つ以上あるため、無効です。</value>
+    <comment>The '{0}' list is invalid because it contains one or more null items.</comment>
+  </data>
+  <data name="DelegatingHandlerArrayHasNonNullInnerHandler" xml:space="preserve">
+    <value>'{2}' のプロパティ '{1}' が null でないため、'{0}' リストは無効です。</value>
+    <comment>The '{0}' list is invalid because the property '{1}' of '{2}' is not null.</comment>
+  </data>
+  <data name="ReadAsHttpMessageUnexpectedTermination" xml:space="preserve">
+    <value>HTTP メッセージ ストリームが予期せず終わりました。HTTP メッセージが完全ではありません。</value>
+    <comment>Unexpected end of HTTP message stream. HTTP message is not complete.</comment>
+  </data>
+  <data name="ByteRangeStreamContentNotBytesRange" xml:space="preserve">
+    <value>範囲の単位 '{0}' は無効です。範囲の単位は '{1}' にしてください。</value>
+    <comment>The range unit '{0}' is not valid. The range must have a unit of '{1}'.</comment>
+  </data>
+  <data name="ByteRangeStreamInvalidFrom" xml:space="preserve">
+    <value>範囲の 'From' の値は {0} 以下にしてください。</value>
+    <comment>The 'From' value of the range must be less than or equal to {0}.</comment>
+  </data>
+  <data name="ByteRangeStreamNoneOverlap" xml:space="preserve">
+    <value>要求された範囲 ({0}) のどれも、選択したリソースの現在の範囲と重なりません。</value>
+    <comment>None of the requested ranges ({0}) overlap with the current extent of the selected resource.</comment>
+  </data>
+  <data name="ByteRangeStreamNoOverlap" xml:space="preserve">
+    <value>要求された範囲 ({0}) は、選択したリソースの現在の範囲と重なりません。</value>
+    <comment>The requested range ({0}) does not overlap with the current extent of the selected resource.</comment>
+  </data>
+  <data name="ByteRangeStreamNotSeekable" xml:space="preserve">
+    <value>'{0}' が範囲のビューを提供するストリームは、シーク可能である必要があります。</value>
+    <comment>The stream over which '{0}' provides a range view must be seekable.</comment>
+  </data>
+  <data name="ByteRangeStreamReadOnly" xml:space="preserve">
+    <value>これは読み取り専用のストリームです。</value>
+    <comment>This is a read-only stream.</comment>
+  </data>
+  <data name="ByteRangeStreamContentNoRanges" xml:space="preserve">
+    <value>バイト範囲が 1 つもありません。バイト範囲を 1 つ以上指定してください。</value>
+    <comment>Found zero byte ranges. There must be at least one byte range provided.</comment>
+  </data>
+  <data name="ByteRangeStreamEmpty" xml:space="preserve">
+    <value>'{0}' が範囲のビューを提供するストリームの長さは 1 以上である必要があります。</value>
+    <comment>The stream over which '{0}' provides a range view must have a length greater than or equal to 1.</comment>
+  </data>
+  <data name="XmlMediaTypeFormatter_InvalidSerializerType" xml:space="preserve">
+    <value>{1} が返した型 '{0}' のオブジェクトは、XmlObjectSerializer か XmlSerializer のインスタンスである必要があります。</value>
+    <comment>The object of type '{0}' returned by {1} must be an instance of either XmlObjectSerializer or XmlSerializer.</comment>
+  </data>
+  <data name="XmlMediaTypeFormatter_NullReturnedSerializer" xml:space="preserve">
+    <value>{0} が返すオブジェクトを null にすることはできません。</value>
+    <comment>The object returned by {0} must not be a null value.</comment>
+  </data>
+  <data name="JsonSerializerFactoryReturnedNull" xml:space="preserve">
+    <value>'{0}' メソッドが null を返しました。JSON シリアライザーのインスタンスを返してください。</value>
+    <comment>The '{0}' method returned null. It must return a JSON serializer instance.</comment>
+  </data>
+  <data name="JsonSerializerFactoryThrew" xml:space="preserve">
+    <value>'{0}' メソッドで、JSON シリアライザーの作成中に例外が発生しました。</value>
+    <comment>The '{0}' method threw an exception when attempting to create a JSON serializer.</comment>
+  </data>
+  <data name="MediaTypeFormatter_JsonReaderFactoryReturnedNull" xml:space="preserve">
+    <value>'{0}' メソッドが null を返しました。JSON リーダーのインスタンスを返してください。</value>
+    <comment>The '{0}' method returned null. It must return a JSON reader instance.</comment>
+  </data>
+  <data name="MediaTypeFormatter_JsonWriterFactoryReturnedNull" xml:space="preserve">
+    <value>'{0}' メソッドが null を返しました。JSON ライターのインスタンスを返してください。</value>
+    <comment>The '{0}' method returned null. It must return a JSON writer instance.</comment>
+  </data>
+  <data name="MediaTypeFormatter_BsonParseError_MissingData" xml:space="preserve">
+    <value>BSON データの解析中にエラーが発生しました。コンテンツを {0} として読み取れません。</value>
+    <comment>Error parsing BSON data; unable to read content as a {0}.</comment>
+  </data>
+  <data name="MediaTypeFormatter_BsonParseError_UnexpectedData" xml:space="preserve">
+    <value>BSON データの解析中にエラーが発生しました。予期しないディクショナリの内容: エントリ {0} 個、最初のキー '{1}'。</value>
+    <comment>Error parsing BSON data; unexpected dictionary content: {0} entries, first key '{1}'.</comment>
+  </data>
+  <data name="RemoteStreamInfoCannotBeNull" xml:space="preserve">
+    <value>'{1}' の '{0}' メソッドが null を返しました。書き込み可能なストリームと有効な URL を含む RemoteStreamResult インスタンスを返す必要があります。</value>
+    <comment>The '{0}' method in '{1}' returned null. It must return a RemoteStreamResult instance containing a writable stream and a valid URL.</comment>
+  </data>
+  <data name="ByteRangeStreamInvalidOffset" xml:space="preserve">
+    <value>ストリームの先頭より前に位置を移動しようとしました。</value>
+    <comment>An attempt was made to move the position before the beginning of the stream.</comment>
+  </data>
+  <data name="Argument_InvalidOffLen" xml:space="preserve">
+    <value>オフセットと長さが配列の範囲外か、カウントがインデックスからソース コレクションの末尾までの要素数を超えています。</value>
+    <comment>Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.</comment>
+  </data>
+  <data name="NotSupported_UnreadableStream" xml:space="preserve">
+    <value>ストリームは読み取り不可です。</value>
+    <comment>Stream does not support reading.</comment>
+  </data>
+  <data name="NotSupported_UnseekableStream" xml:space="preserve">
+    <value>ストリームはシーク不可です。</value>
+    <comment>Stream does not support seeking.</comment>
+  </data>
+  <data name="NotSupported_UnwritableStream" xml:space="preserve">
+    <value>ストリームは書き込み不可です。</value>
+    <comment>Stream does not support writing.</comment>
+  </data>
+  <data name="ObjectDisposed_StreamClosed" xml:space="preserve">
+    <value>閉じたストリームです。</value>
+    <comment>Cannot access a closed stream.</comment>
+  </data>
+  <data name="JsonMediaTypeFormatter_DCS_NotSupported" xml:space="preserve">
+    <value>{0} が 'true' のとき、このプラットフォームでは型を検証できません。{0} を戻すか、.NET Standard 2.0 のアセンブリが使えるプラットフォームに移ってください。</value>
+    <comment>Unable to validate types on this platform when {0} is 'true'. Please reset {0} or move to a supported platform, one where the .NET Standard 2.0 assembly is usable.</comment>
+  </data>
+  <data name="XmlMediaTypeFormatter_DCS_NotSupported" xml:space="preserve">
+    <value>{0} が 'false' のとき、このプラットフォームでは型を検証できません。{0} を設定するか、.NET Standard 2.0 のアセンブリが使えるプラットフォームに移ってください。</value>
+    <comment>Unable to validate types on this platform when {0} is 'false'. Please set {0} or move to a supported platform, one where the .NET Standard 2.0 assembly is usable.</comment>
+  </data>
+</root>

@@ -192,7 +192,7 @@ namespace System.Web.Hosting
 			response.ContentType = "text/html";
 			if (entry == null || entry.Builtin || string.IsNullOrEmpty(entry.Path))
 			{
-				await WriteAsync(response, IisStaticFile.ErrorPage(status) ?? ShortText(context, status));
+				await WriteAsync(response, IisStaticFile.ErrorPage(status, Japanese(context)) ?? ShortText(context, status));
 				return;
 			}
 			switch (entry.Mode)
@@ -231,7 +231,7 @@ namespace System.Web.Hosting
 					catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { }
 					if (content == null)
 					{
-						await WriteAsync(response, IisStaticFile.ErrorPage(status) ?? ShortText(context, status));
+						await WriteAsync(response, IisStaticFile.ErrorPage(status, Japanese(context)) ?? ShortText(context, status));
 						return;
 					}
 					response.ContentLength = content.Length;
@@ -262,8 +262,9 @@ namespace System.Web.Hosting
 		// The language IIS writes its own texts in (observed on IIS 10 with en-US and ja-JP installed, a Japanese Windows): the
 		// request's Accept-Language by its quality (q=0 left out; ties in the header's order), the first tag with a region
 		// whose language IIS has (en-US, en-GB, en-AU: English; ja-JP: Japanese where the server's language is); a tag
-		// without one ("en", "ja") matches nothing. None: the server's language (the system's). FrameworkOnCore has English
-		// and Japanese.
+		// without one ("en", "ja") matches nothing. None: the server's language (the system's). The same for its detailed page
+		// and its custerr pages (prefixLanguageFilePath's en-US, ja-JP: observed with errorMode Custom; IIS's documentation
+		// does not say how the language is chosen). FrameworkOnCore has English and Japanese.
 		static bool Japanese(Core.HttpContext context)
 		{
 			var server = global::System.Globalization.CultureInfo.InstalledUICulture.TwoLetterISOLanguageName == "ja";

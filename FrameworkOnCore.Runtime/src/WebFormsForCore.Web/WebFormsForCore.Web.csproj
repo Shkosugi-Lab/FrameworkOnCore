@@ -139,6 +139,22 @@
 	<ItemGroup>
 		<None Include="WebFormsForCore\NativeDlls\runtimes\**\*.dll" Pack="true" PackagePath="runtimes" />
 	</ItemGroup>
+
+    <!-- FrameworkOnCore's translations of .NET's DataAnnotations (System.ComponentModel.Annotations' satellites, built by
+         WebFormsForCore.Satellites.ComponentModel.Annotations) in the package (lib\net10.0\<culture>): the applications' bin\<culture>,
+         where FrameworkSatellites finds them. -->
+    <ItemGroup Condition="'$(TargetFramework)' != 'net48'">
+        <ProjectReference Include="..\WebFormsForCore.Satellites.ComponentModel.Annotations\WebFormsForCore.Satellites.ComponentModel.Annotations.csproj" ReferenceOutputAssembly="false" PrivateAssets="all" />
+    </ItemGroup>
+    <PropertyGroup>
+        <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);FocNetSatellitesInPackage</TargetsForTfmSpecificContentInPackage>
+    </PropertyGroup>
+    <Target Name="FocNetSatellitesInPackage" Condition="'$(TargetFramework)' != 'net48'">
+        <ItemGroup>
+            <_FocNetSatellite Include="..\WebFormsForCore.Satellites.ComponentModel.Annotations\bin\$(Configuration)\$(TargetFramework)\**\*.resources.dll" />
+            <TfmSpecificPackageFile Include="@(_FocNetSatellite)" PackagePath="lib\$(TargetFramework)\" />
+        </ItemGroup>
+    </Target>
     
 	<Target Name="Preprocess">
         <MSBuild Projects="WebFormsForCore.Web.Cpp.vcxproj" Targets="Build" />

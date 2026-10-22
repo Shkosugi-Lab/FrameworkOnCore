@@ -16,6 +16,7 @@
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Services/WebFormsForCore.Web.Services.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Extensions/WebFormsForCore.Web.Extensions.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Infrastructure/WebFormsForCore.Web.Infrastructure.csproj" />
+  <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Satellites.ComponentModel.Annotations/WebFormsForCore.Satellites.ComponentModel.Annotations.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Optimization/WebFormsForCore.Web.Optimization.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.Web.Optimization.WebForms/WebFormsForCore.Web.Optimization.WebForms.csproj" />
   <Project Path="../../FrameworkOnCore.Runtime/src/WebFormsForCore.WebGrease/WebFormsForCore.WebGrease.csproj" />

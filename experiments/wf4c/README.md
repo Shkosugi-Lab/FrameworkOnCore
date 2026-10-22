@@ -1236,6 +1236,34 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
     (ツールの deps.json が FrameworkOnCore のものを選ぶ)。成否を逆に返していたのも直した。
   - 確認: net10.0・net48 × dotnet build・MSBuild 18 × 別プロセス・プロセス内の 7 通りすべてで生成でき、内容は同じ。
 
+### DataAnnotations の文言の翻訳と、IIS の custerr ページの言語(2026-10-22、ユーザーの指示「残っていることを進めて」)
+
+- **DataAnnotations**: .NET の System.ComponentModel.Annotations の文言(62 件)を独自に訳した(`translations\ja\System.ComponentModel.Annotations`。
+  英語の原文は dotnet/runtime v10.0.0 の Strings.resx、MIT)。
+  - 調べたこと: .NET 10 は、自分のアセンブリのサテライトを、そのアセンブリの隣(共有フレームワークのフォルダー)でしか探さない
+    (`AssemblyLoadContext` の既定の探し方。アプリの bin\ja に置いても FileNotFoundException。アプリのサテライトがあっても
+    PLATFORM_RESOURCE_ROOTS は空)。見つからないときの `AssemblyLoadContext.Default.Resolving` で bin\ja のものを読めば使われる
+    (公開鍵トークンが無くても読まれる)。
+  - 作り: サテライトだけを作るプロジェクト `WebFormsForCore.Satellites.ComponentModel.Annotations` の `ja\System.ComponentModel.Annotations.resources.dll`
+    を FrameworkOnCore.Web のパッケージ(`lib\net10.0\ja`)に入れ、System.Web のモジュール初期化子(`FrameworkSatellites`)が Resolving で
+    `bin\<カルチャ>\<名前>.resources.dll` を探す。変換器の `LanguagePacks.Translated` にも足した(言語の選択で bin から除く)。
+  - 確認: 実験のアプリで、移植版の System.Web とパッケージのサテライトから「EnrollmentDate は必須です。」「LastName は 2 文字以上 50 文字以下に
+    してください。」(en-US では英語のまま)。変換した be・wt の bin\ja にも入った。
+  - 文言は FrameworkOnCore の訳で、元のサーバー(言語パック「EnrollmentDate フィールドが必要です。」)と同じではないので、contoso と mvcmovie の
+    その差は、英語と日本語の差から、訳の言い回しの差になる(コーパスの規則により contoso・mvcmovie は流していない)。
+- **IIS の custerr ページの言語**: IIS のドキュメント(httpErrors)は prefixLanguageFilePath を「言語ごとの部分の前のパス」と書くだけで、
+  言語の選び方は書いていない。このマシンの IIS 10 で、errorMode="Custom" の一時的なサイト(ポート 8096。確認後に消した)に
+  Accept-Language を変えて 404 を求めた(観察):
+
+  | Accept-Language | ページ |
+  |---|---|
+  | なし、ja-JP、ja、en、fr-FR、de-DE、`de-DE,ja-JP;q=0.8` | 日本語 |
+  | en-US、en-GB(custerr に en-GB のフォルダーは無い)、`ja,en-US;q=0.9`、`ja-JP;q=0.5,en-US;q=0.9` | 英語 |
+
+  詳細エラー ページと同じ規則だった。`IisStaticFile.ErrorPage` に日本語(英語からの独自の訳。IIS の ja-JP のファイルは写していない)を足し、
+  `IisHttpErrors.Japanese` で選ぶようにした。ページは UTF-8 と明示する(IIS の ja-JP のファイルは Shift_JIS、en-US は ISO-8859-1 と明示)。
+- 回帰: be Windows・Linux 5/5、wt Windows 8/8・Linux 7/8(error-page、以前から)。単体テスト 4,456 件成功。
+
 ### コーパスに Contoso University(MVC 5)を追加(2026-10-22、ユーザーの指示)
 
 `tigerbluejay/ContosoUniversity`(MVC 5 と EF6 Code First のチュートリアルのアプリ、.NET Framework 4.7.2。パッケージと Microsoft の DLL の bin も
@@ -1256,7 +1284,7 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
   同じ q はヘッダーの順〉に、地域のあるタグで IIS が持つ言語のもの〈en-US・en-GB・en-AU は英語、ja-JP は日本語〉。地域の無い
   「en」「ja」は一致しない。一致が無ければサーバーの言語)。正解の記録のブラウザーは en-US を送るので英語のページだった。
   `IisHttpErrors` がこの順で選ぶようにした(詳細ページと、ページの無い状態の短い文)。リモート向けのページ(custerr の
-  prefixLanguageFilePath)も言語ごとのフォルダーを Accept-Language で選ぶはずだが、ローカルからは試せず、まだ英語のまま(推測、未確認)。
+  prefixLanguageFilePath)も同じ規則だった(下の「DataAnnotations の文言の翻訳と、IIS の custerr ページの言語」)。
 - コントローラーの 400・404(HttpStatusCodeResult、HttpNotFound)は IIS の詳細エラー ページになり、FrameworkOnCore はそれを簡易ページで
   書く(2026-10-16 のユーザーの決定)ので、シナリオからは外した。
 - 回帰: be Windows・Linux 5/5、wt Windows 8/8・Linux 7/8(error-page、以前から)。

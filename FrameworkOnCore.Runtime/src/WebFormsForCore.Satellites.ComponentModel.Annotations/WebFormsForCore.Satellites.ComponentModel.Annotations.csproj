@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <!-- FrameworkOnCore's translations of .NET's System.ComponentModel.Annotations (DataAnnotations: RequiredAttribute's "The {0}
+         field is required." and the other validation messages MVC, Web Pages and Web Forms' model binding show), where .NET
+         Framework's language packs had them in the server's language: its satellites only (<culture>\System.ComponentModel.Annotations.resources.dll,
+         from translations\<culture>\System.ComponentModel.Annotations), packed in FrameworkOnCore.Web (lib\net10.0\<culture>);
+         the assembly itself is .NET's (this project's is not used). .NET looks for a satellite of its own assemblies next to
+         them only: FrameworkOnCore's System.Web looks in the application's folder then (FrameworkSatellites).
+         Resources\Strings.resx: the English of dotnet/runtime v10.0.0 (MIT), what the translations translate. -->
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <AssemblyName>System.ComponentModel.Annotations</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+        <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+        <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Include="Resources\Strings.resx" />
+    </ItemGroup>
+    <Import Project="..\FrameworkOnCore.Translations.targets" />
+</Project>

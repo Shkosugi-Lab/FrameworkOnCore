@@ -208,12 +208,28 @@ namespace System.Web
 
 		/// <summary>
 		/// IIS's page for an error status (its httpErrors' defaults for remote clients: %SystemDrive%\inetpub\custerr's
-		/// pages, English); null for a status IIS has none for (its response sent as it is).
+		/// pages); null for a status IIS has none for (its response sent as it is). In Japanese where IIS writes its texts in
+		/// Japanese (IisHttpErrors.Japanese: the request's Accept-Language as for the detailed page, observed on IIS 10 with
+		/// custerr's en-US and ja-JP; FrameworkOnCore's own translation of the English, not IIS's ja-JP files).
 		/// </summary>
-		internal static string ErrorPage(int status)
+		internal static string ErrorPage(int status, bool japanese = false)
 		{
 			string title, text;
-			switch (status)
+			if (japanese)
+				switch (status)
+				{
+					case 401: title = "401 - 認証されていません: 資格情報が無効なため、アクセスが拒否されました。"; text = "指定された資格情報では、このディレクトリまたはページを表示する権限がありません。"; break;
+					case 403: title = "403 - 禁止: アクセスが拒否されました。"; text = "指定された資格情報では、このディレクトリまたはページを表示する権限がありません。"; break;
+					case 404: title = "404 - ファイルまたはディレクトリが見つかりません。"; text = "探しているリソースは、削除されたか、名前が変わったか、一時的に利用できない可能性があります。"; break;
+					case 405: title = "405 - このページへのアクセスに使われた HTTP 動詞は許可されていません。"; text = "無効なメソッド (HTTP 動詞) でアクセスしようとしたため、探しているページを表示できません。"; break;
+					case 406: title = "406 - クライアントのブラウザーは、要求されたページの MIME の種類を受け付けません。"; text = "探しているページは、ブラウザーが受け付けないファイル名拡張子を持つため、ブラウザーで開けません。"; break;
+					case 412: title = "412 - クライアントが設定した前提条件が、Web サーバーでの評価で満たされませんでした。"; text = "要求に設定された前提条件のため、要求は完了しませんでした。"; break;
+					case 500: title = "500 - 内部サーバー エラー。"; text = "探しているリソースに問題があるため、表示できません。"; break;
+					case 501: title = "501 - ヘッダーの値が、実装されていないメソッドを指定しています。"; text = "要求のヘッダーの値が Web サーバーの構成設定と一致しないため、探しているページを表示できません。"; break;
+					case 502: title = "502 - Web サーバーがゲートウェイまたはプロキシ サーバーとして動作中に、無効な応答を受け取りました。"; text = "探しているページに問題があるため、表示できません。Web サーバーが (ゲートウェイまたはプロキシとして) 上流のコンテンツ サーバーに接続したとき、コンテンツ サーバーから無効な応答を受け取りました。"; break;
+					default: return null;
+				}
+			else switch (status)
 			{
 				case 401: title = "401 - Unauthorized: Access is denied due to invalid credentials."; text = "You do not have permission to view this directory or page using the credentials that you supplied."; break;
 				case 403: title = "403 - Forbidden: Access is denied."; text = "You do not have permission to view this directory or page using the credentials that you supplied."; break;
@@ -226,8 +242,9 @@ namespace System.Web
 				case 502: title = "502 - Web server received an invalid response while acting as a gateway or proxy server."; text = "There is a problem with the page you are looking for, and it cannot be displayed. When the Web server (while acting as a gateway or proxy) contacted the upstream content server, it received an invalid response from the content server."; break;
 				default: return null;
 			}
-			// IIS's page's parts, not its style: the same text.
-			return "<!DOCTYPE html><html><head><title>" + title + "</title></head><body><div id=\"header\"><h1>Server Error</h1></div>" +
+			// IIS's page's parts, not its style: the same text (UTF-8: IIS's ja-JP files are Shift_JIS, its en-US ones ISO-8859-1,
+			// each saying so).
+			return "<!DOCTYPE html><html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/><title>" + title + "</title></head><body><div id=\"header\"><h1>" + (japanese ? "サーバー エラー" : "Server Error") + "</h1></div>" +
 				"<div id=\"content\"><div class=\"content-container\"><fieldset><h2>" + title + "</h2><h3>" + text + "</h3></fieldset></div></div></body></html>";
 		}
 

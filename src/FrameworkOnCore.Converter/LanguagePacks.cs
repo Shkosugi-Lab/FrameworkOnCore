@@ -63,6 +63,8 @@ public static class LanguagePacks
         "System.Web", "System.Configuration.ConfigurationManager", "System.Data.SqlClient", "System.Drawing.Common",
         "WebFormsForCore.Serialization.Formatters", "System.Web.ApplicationServices", "System.Web.DataVisualization",
         "System.Web.DynamicData", "System.Web.Extensions", "System.Web.Mobile", "System.Web.Optimization", "System.Web.Services", "WebGrease",
+        // .NET's own (FrameworkOnCore.Web's package has their satellites: FrameworkSatellites finds them in bin).
+        "System.ComponentModel.Annotations",
     ];
 
     public static void Write(string bin, string? cultureProfile, string option, string languages, string deployKinds, Report report)

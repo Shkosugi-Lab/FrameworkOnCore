@@ -87,5 +87,11 @@
       "WebGrease.ImageAssemble.ImageAssembleStrings": "FrameworkOnCore.Runtime/src/WebFormsForCore.WebGrease/ImageAssemble/ImageAssembleStrings.resx",
       "WebGrease.ResourceStrings": "FrameworkOnCore.Runtime/src/WebFormsForCore.WebGrease/ResourceStrings.resx"
     }
+  },
+  "System.ComponentModel.Annotations": {
+    "framework": "System.ComponentModel.DataAnnotations",
+    "resources": {
+      "FxResources.System.ComponentModel.Annotations.SR": "FrameworkOnCore.Runtime/src/WebFormsForCore.Satellites.ComponentModel.Annotations/Resources/Strings.resx"
+    }
   }
 }

@@ -16,8 +16,9 @@ FrameworkOnCore のアセンブリが自分で出す文言(例外のメッセー
 | System.Data.SqlClient | 407 | SQL Server への接続のエラー |
 | System.Drawing.Common | 117 | 画像のエラー |
 | WebFormsForCore.Serialization.Formatters | 67 | BinaryFormatter |
+| System.ComponentModel.Annotations(.NET のもの) | 62 | DataAnnotations の検証メッセージ(「{0} は必須です。」など。MVC・Web Pages・Web Forms のモデル バインド) |
 
-全部で 7,430 件(System.Web 3,369 件、ほか 4,061 件)。一覧と英語の原文の場所は `sources.json` にあります。
+全部で 7,492 件(System.Web 3,369 件、ほか 4,123 件)。一覧と英語の原文の場所は `sources.json` にあります。
 
 ## なぜ独自に訳すのか
 
@@ -36,6 +37,11 @@ OPERATING SYSTEM)の 1.c で「Windows 以外のプラットフォームで動�
 - `<言語>\<アセンブリ>\<リソース>.<言語>.resx` は、そのアセンブリのパッケージのサテライト(`lib/net10.0/<言語>/<アセンブリ>.resources.dll`。
   例: FrameworkOnCore.Web の `lib/net10.0/ja/System.Web.resources.dll`)になります(FrameworkOnCore.Runtime の LICENSE と同じ MIT)。
   ビルドは `FrameworkOnCore.Runtime/src/FrameworkOnCore.Translations.targets`(各アセンブリのプロジェクトが読み込みます)。
+- .NET 自身のアセンブリ(System.ComponentModel.Annotations)の訳は、サテライトだけを作るプロジェクト
+  (`FrameworkOnCore.Runtime/src/WebFormsForCore.Satellites.ComponentModel.Annotations`。英語の原文は dotnet/runtime v10.0.0 の
+  `Resources/Strings.resx`、MIT)で作り、FrameworkOnCore.Web のパッケージに入れます。.NET は自分のアセンブリのサテライトを
+  共有フレームワークのフォルダーでしか探さないので、FrameworkOnCore の System.Web(`FrameworkSatellites`)がアプリの
+  `bin\<言語>` を探します。
 - 使う言語は Studio の「アプリの設定」の「言語パック」(`foc-choices.json` の `settings.languages`)で選びます。.NET Framework の言語パックの 23 言語と
   英語(原文)から複数選べます(`en,ja,de`)。既定は、英語と、元のサーバーに .NET Framework の言語パックが入っていた言語
   (`capture-culture.ps1` が LanguagePacks に記録。無ければ変換したマシンの)。英語だけを選べば、UI カルチャにかかわらず英語です。

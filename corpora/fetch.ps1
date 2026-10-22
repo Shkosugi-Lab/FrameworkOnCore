@@ -75,7 +75,17 @@ $corpora = @(
     # nopCommerce 3.90 (2017), the last MVC 5 version (.NET Framework 4.5.1, Entity Framework 6, Autofac); 4.x is ASP.NET Core.
     @{ Name = 'nop390'; Title = 'nopCommerce 3.90 (ASP.NET MVC 5)'
        Url = 'https://github.com/nopSolutions/nopCommerce/archive/refs/tags/release-3.90.zip'
-       ExtractedAs = 'nopCommerce-release-3.90' }
+       ExtractedAs = 'nopCommerce-release-3.90' },
+
+    # ASP.NET MVC 5. Contoso University: the EF6 tutorial's application (students' CRUD with sorting, search and paging,
+    # Code First with an initializer's seed, LocalDB; .NET Framework 4.7.2), as one learner wrote it. Its packages
+    # and a bin of Microsoft's DLLs are checked in. No license given (the corpora are fetched, not redistributed).
+    # At a commit (main has no tags); its solution folder only, as ContosoUniversity: the archive's folder name (with the
+    # commit) made its packages' paths longer than .NET Framework's MSBuild takes (260 characters: "missing" packages).
+    @{ Name = 'contoso'; Title = 'Contoso University (ASP.NET MVC 5, EF6 tutorial)'
+       Git = 'https://github.com/tigerbluejay/ContosoUniversity.git'; Commit = '2ee1ad2aa66fbef012fe280e4552176489dcf0f3'
+       Path = 'ContosoUniversitySolution'
+       ExtractedAs = 'ContosoUniversity' }
 )
 
 # nopCommerce 1.90 について:
@@ -84,7 +94,7 @@ $corpora = @(
 if ($Only) {
     $corpora = $corpora | Where-Object { $Only -contains $_.Name }
     if (-not $corpora) {
-        Write-Error "-Only に一致するコーパスがありません。指定可能: be, mojo, yaf, dnn, n2, wt, imis, imisdb, nop, mvcmovie, nop390"
+        Write-Error "-Only に一致するコーパスがありません。指定可能: be, mojo, yaf, dnn, n2, wt, imis, imisdb, nop, mvcmovie, nop390, contoso"
     }
 }
 

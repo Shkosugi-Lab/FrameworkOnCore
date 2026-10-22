@@ -1,7 +1,7 @@
 ﻿# Converts the corpora (corpora\work) with the FrameworkOnCore converter (src\FrameworkOnCore.Converter)
 # and prints each one's outcome; the report is <out>\CONVERSION-REPORT.md.
 #   .\experiments\wf4c\convert-corpora.ps1 [-Only be,wt]
-param([string[]]$Only = @('be', 'wt', 'mojo', 'yaf', 'dnn', 'n2', 'imis', 'nop', 'mvcmovie', 'nop390'), [switch]$Rebuild)
+param([string[]]$Only = @('be', 'wt', 'mojo', 'yaf', 'dnn', 'n2', 'imis', 'nop', 'mvcmovie', 'nop390', 'contoso'), [switch]$Rebuild)
 
 $repo = Resolve-Path (Join-Path $PSScriptRoot '..\..')
 Set-Location $repo
@@ -17,6 +17,7 @@ $corpora = [ordered]@{
     # ASP.NET MVC 5.
     mvcmovie = @('MvcMovie', 'MvcMovie\MvcMovie.csproj')
     nop390 = @('nopCommerce-release-3.90', 'src\Presentation\Nop.Web\Nop.Web.csproj')
+    contoso = @('ContosoUniversity', 'ContosoUniversity\ContosoUniversity.csproj')
 }
 # Their original build, by the converter (--build-original: a Cake build, or else the solution): the
 # folder it deploys the site to, relative to the repository, the configuration (--configuration: the solution is built

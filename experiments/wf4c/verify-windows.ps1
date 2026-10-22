@@ -4,7 +4,7 @@
 # wt, mvcmovie (SQL Server Express: .\SQLEXPRESS; mvcmovie's databases dropped first, as they were when the golden data
 # was recorded: EF 6 Code First creates them with its seed).
 #   .\experiments\wf4c\verify-windows.ps1 -Name be
-param([Parameter(Mandatory = $true)][ValidateSet('be', 'wt', 'mvcmovie')][string]$Name, [int]$Port = 5096)
+param([Parameter(Mandatory = $true)][ValidateSet('be', 'wt', 'mvcmovie', 'contoso')][string]$Name, [int]$Port = 5096)
 
 $ErrorActionPreference = 'Continue'
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
@@ -12,6 +12,7 @@ $webProjects = @{
     be       = 'be\BlogEngine\BlogEngine.NET\BlogEngine.NET.csproj'
     wt       = 'wt\WingtipToys\WingtipToys\WingtipToys.csproj'
     mvcmovie = 'mvcmovie\MvcMovie\MvcMovie.csproj'
+    contoso  = 'contoso\ContosoUniversity\ContosoUniversity.csproj'
 }
 $verifier = Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt\FrameworkOnCore.ParityTest.dll'
 & {  # built every time (incremental: quick): the verifier run is the one of this checkout
@@ -26,7 +27,7 @@ if (Test-Path (Join-Path $assembled 'bin')) { $directory = $assembled }
 $assembly = ($x.Project.PropertyGroup | ForEach-Object { $_.AssemblyName } | Where-Object { $_ } | Select-Object -First 1)
 $dll = Join-Path $directory "bin\$assembly.dll"
 if (-not (Test-Path $dll)) { throw "$dll not built (convert-corpora.ps1)" }
-$fresh = @{ mvcmovie = @('MvcMovie', 'MvcMovieIdentity') }
+$fresh = @{ mvcmovie = @('MvcMovie', 'MvcMovieIdentity'); contoso = @('ContosoUniversity1') }
 foreach ($database in $fresh[$Name]) {
     sqlcmd -S .\SQLEXPRESS -E -C -b -Q "IF DB_ID(N'$database') IS NOT NULL BEGIN ALTER DATABASE [$database] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [$database]; END" | Out-Null
     if ($LASTEXITCODE -ne 0) { throw "could not drop $database" }

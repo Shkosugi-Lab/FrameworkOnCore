@@ -75,12 +75,21 @@ $targets = @(
            MovieDBContext = 'Data Source=.\SQLEXPRESS;Initial Catalog=MvcMovie;Integrated Security=True'
            DefaultConnection = 'Data Source=.\SQLEXPRESS;Initial Catalog=MvcMovieIdentity;Integrated Security=True' }
        FreshDatabases = @('MvcMovie', 'MvcMovieIdentity')
+       SqlLogin = $true },
+
+    # ASP.NET MVC 5 (Contoso University). Its LocalDB database by name on SQL Server Express; EF 6 Code First creates it
+    # with its initializer's seed (dropped first: the recording starts from the seed, as the converted app's run does).
+    @{ Name = 'contoso'
+       Path = 'ContosoUniversity\ContosoUniversity'
+       Port = 8095
+       ConnectionStrings = @{ SchoolContext = 'Data Source=.\SQLEXPRESS;Initial Catalog=ContosoUniversity1;Integrated Security=True' }
+       FreshDatabases = @('ContosoUniversity1')
        SqlLogin = $true }
 )
 
 if ($Only) {
     $targets = $targets | Where-Object { $Only -contains $_.Name }
-    if (-not $targets) { Write-Error "-Only に一致する対象がありません。指定可能: be, wt, mvcmovie"; exit 1 }
+    if (-not $targets) { Write-Error "-Only に一致する対象がありません。指定可能: be, wt, mvcmovie, contoso"; exit 1 }
 }
 
 $appcmd = Join-Path $env:SystemRoot 'System32\inetsrv\appcmd.exe'

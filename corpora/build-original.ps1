@@ -55,7 +55,12 @@ $targets = @(
     @{ Name = 'mvcmovie'
        Solution = 'MvcMovie\MvcMovie.sln'
        Project = 'MvcMovie\MvcMovie\MvcMovie.csproj'
-       EmptyFiles = @('MvcMovie\MvcMovie\Properties\AssemblyInfo.cs') }
+       EmptyFiles = @('MvcMovie\MvcMovie\Properties\AssemblyInfo.cs') },
+
+    # ASP.NET MVC 5 (Contoso University, EF6 Code First). Its packages are checked in (ContosoUniversitySolution\packages).
+    @{ Name = 'contoso'
+       Solution = 'ContosoUniversity\ContosoUniversitySolution.sln'
+       Project = 'ContosoUniversity\ContosoUniversity\ContosoUniversity.csproj' }
 )
 
 if ($Only) {

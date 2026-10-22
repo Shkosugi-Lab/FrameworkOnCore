@@ -1,0 +1,60 @@
+{
+  "_comment": "Contoso University (ASP.NET MVC 5, EF 6 Code First) scenario: the pages experiments/wf4c/run-linux.ps1 and verify-windows.ps1 take snapshots of in the converted app, compared with corpora/parity/contoso.golden-webforms.json (recorded from the original app on IIS: corpora/record-webforms-golden.ps1). Both start from the initializer's seed (8 students; EF 6 creates the database): the student made here has ID 9. The HTML is compared too (compareSource; the antiforgery token masked: sourceMasks).",
+  "compareSource": true,
+  "ignorePatterns": [
+    "\\d{1,2}:\\d{2}(:\\d{2})?",
+    "©\\s*\\d{4}"
+  ],
+  "ignoreSelectors": [],
+  "_sourceMasksComment": "The antiforgery token (AntiForgeryToken in every form) differs every time. Not here: the controller's 400 and 404 (HttpStatusCodeResult, HttpNotFound) answered by IIS's detailed error page, which FrameworkOnCore writes simply (the user's decision, 2026-10-16).",
+  "sourceMasks": [ "name=\"__RequestVerificationToken\" type=\"hidden\" value=\"[^\"]*\"" ],
+  "steps": [
+    { "action": "goto", "path": "/" },
+    { "action": "snapshot", "name": "home" },
+
+    { "action": "goto", "path": "/Home/About" },
+    { "action": "snapshot", "name": "about" },
+
+    { "action": "goto", "path": "/Home/Contact" },
+    { "action": "snapshot", "name": "contact" },
+
+    { "_why": "The seed's students from EF 6: their enrollment dates as the server's culture writes a DateTime (DisplayFor).",
+      "action": "goto", "path": "/Student" },
+    { "action": "snapshot", "name": "students" },
+
+    { "action": "goto", "path": "/Student/Details/1" },
+    { "action": "snapshot", "name": "details" },
+
+    { "action": "goto", "path": "/Student/Create" },
+    { "action": "snapshot", "name": "create-form" },
+
+    { "_why": "A date that is not one: the browser's unobtrusive validation shows MVC's message for a DateTime (its client data type validation).",
+      "action": "fill", "target": "LastName", "value": "Tanaka" },
+    { "action": "fill", "target": "FirstMidName", "value": "Hanako" },
+    { "action": "fill", "target": "EnrollmentDate", "value": "abc" },
+    { "action": "clicksubmit", "value": "Create" },
+    { "action": "snapshot", "name": "create-invalid" },
+
+    { "_why": "Saved (EF 6), back to the list: the date read from the form (model binding of a DateTime) and written back.",
+      "action": "goto", "path": "/Student/Create" },
+    { "action": "fill", "target": "LastName", "value": "Tanaka" },
+    { "action": "fill", "target": "FirstMidName", "value": "Hanako" },
+    { "action": "fill", "target": "EnrollmentDate", "value": "2024-04-01" },
+    { "action": "clicksubmit", "value": "Create" },
+    { "action": "snapshot", "name": "students-added" },
+
+    { "_why": "The edit form: the date in its text box as EditorFor writes a DateTime.",
+      "action": "goto", "path": "/Student/Edit/9" },
+    { "action": "snapshot", "name": "edit-form" },
+
+    { "action": "fill", "target": "FirstMidName", "value": "Hana" },
+    { "action": "clicksubmit", "value": "Save" },
+    { "action": "snapshot", "name": "students-edited" },
+
+    { "action": "goto", "path": "/Student/Delete/9" },
+    { "action": "snapshot", "name": "delete-confirm" },
+
+    { "action": "clicksubmit", "value": "Delete" },
+    { "action": "snapshot", "name": "students-deleted" }
+  ]
+}

@@ -1236,6 +1236,31 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
     (ツールの deps.json が FrameworkOnCore のものを選ぶ)。成否を逆に返していたのも直した。
   - 確認: net10.0・net48 × dotnet build・MSBuild 18 × 別プロセス・プロセス内の 7 通りすべてで生成でき、内容は同じ。
 
+### コーパスに Contoso University(MVC 5)を追加(2026-10-22、ユーザーの指示)
+
+`tigerbluejay/ContosoUniversity`(MVC 5 と EF6 Code First のチュートリアルのアプリ、.NET Framework 4.7.2。パッケージと Microsoft の DLL の bin も
+リポジトリにある。ライセンスの表示は無い: ほかのコーパスと同じく取得するだけで、リポジトリには入れない)を `contoso` として足した。
+
+- 取得(`fetch.ps1`): コミット 2ee1ad2a のソリューションのフォルダーだけを `corpora\work\ContosoUniversity` に。アーカイブのフォルダー名
+  (コミット入り)のままだと、パッケージのパスが .NET Framework の MSBuild の上限(260 文字)を超え、「パッケージが無い」で止まった。
+- 元のビルド(`build-original.ps1`)、IIS での正解の記録(`record-webforms-golden.ps1`、ポート 8095。8094 は以前の実験の
+  `yaf-probe` のサイトが使っていて、それに答えられていた。そのサイトは消していない)、シナリオ(`corpora\regression\contoso.scenario.json`:
+  一覧・詳細・作成〈日付でない値、正しい値〉・編集・削除、HTML も比べる。偽造防止トークンは sourceMasks で伏せる)、変換・比較
+  (`convert-corpora.ps1`、`analyze-corpora.ps1`、`verify-windows.ps1`)に足した。
+- 変換後は MVC・Web Pages・Razor の移植版を使う(bin の DLL が移植のパッケージのものと同じ。Microsoft の DLL の書き換えは無い)。
+- 結果: Windows・Linux とも 12 中 9。差の 3 件はすべて .NET の DataAnnotations の文言(必須の入力の `data-val-required`。元のサーバーは
+  .NET Framework の言語パックで「EnrollmentDate フィールドが必要です。」、変換後は英語)で、mvcmovie の既知の差と同じもの。MVC 自身の
+  文言(「The field EnrollmentDate must be a date.」)と日付の表示(「2005/09/01 0:00:00」)は一致した。
+- **見つけて直した不具合**(FrameworkOnCore の IIS 互換のエラー ページ): IIS の詳細エラー ページの言語を、サーバーの言語だけで決めていた。
+  IIS は要求の Accept-Language で選ぶ(このマシンの IIS 10、en-US と ja-JP のリソースがあるときの観察: q の高い順〈q=0 は除く、
+  同じ q はヘッダーの順〉に、地域のあるタグで IIS が持つ言語のもの〈en-US・en-GB・en-AU は英語、ja-JP は日本語〉。地域の無い
+  「en」「ja」は一致しない。一致が無ければサーバーの言語)。正解の記録のブラウザーは en-US を送るので英語のページだった。
+  `IisHttpErrors` がこの順で選ぶようにした(詳細ページと、ページの無い状態の短い文)。リモート向けのページ(custerr の
+  prefixLanguageFilePath)も言語ごとのフォルダーを Accept-Language で選ぶはずだが、ローカルからは試せず、まだ英語のまま(推測、未確認)。
+- コントローラーの 400・404(HttpStatusCodeResult、HttpNotFound)は IIS の詳細エラー ページになり、FrameworkOnCore はそれを簡易ページで
+  書く(2026-10-16 のユーザーの決定)ので、シナリオからは外した。
+- 回帰: be Windows・Linux 5/5、wt Windows 8/8・Linux 7/8(error-page、以前から)。
+
 ### MVC 5・Web API 2・Web Pages・Razor 3 を AspNetWebStack から移植(1.6.5-w2l.19、2026-10-22、ユーザーの決定「b で行きます」)
 
 2026-10-14 の決定(Microsoft の DLL をそのまま使う、案 A)を改め、AspNetWebStack v3.3.0(Apache 2.0)から移植した(案 B)。理由は 2 つ。

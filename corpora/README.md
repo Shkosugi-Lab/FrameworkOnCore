@@ -19,6 +19,9 @@
 | `imis` | openIMIS Web Application(VB。24.10 で開発終了) | `openimis/web_app_vb` @ `main` |
 | `imisdb` | openIMIS の SQL Server の DB(`imis` のデモの DB を作るスクリプト) | `openimis/database_ms_sqlserver` @ `24.10` |
 | `nop` | nopCommerce 1.90(C#。最後の Web Forms 版、EF4) | `nopSolutions/nopCommerce` @ `release-1.90` |
+| `mvcmovie` | MvcMovie(ASP.NET MVC 5 の公式チュートリアル。EF6 Code First、ASP.NET Identity) | `dotnet/AspNetDocs` のフォルダー @ `552c58dd` |
+| `nop390` | nopCommerce 3.90(最後の MVC 5 版、EF6、Autofac) | `nopSolutions/nopCommerce` @ `release-3.90` |
+| `contoso` | Contoso University(ASP.NET MVC 5 と EF6 のチュートリアルのアプリ。学生の一覧・作成・編集・削除、日付の表示と入力。ライセンスの表示なし) | `tigerbluejay/ContosoUniversity` の `ContosoUniversitySolution` @ `2ee1ad2a` |
 
 日常の検証に使うのは `be` と `wt` です。ほかは必要なときに対象を指定して使います。
 

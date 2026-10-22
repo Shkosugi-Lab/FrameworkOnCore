@@ -192,7 +192,7 @@ namespace System.Web.Hosting
 			response.ContentType = "text/html";
 			if (entry == null || entry.Builtin || string.IsNullOrEmpty(entry.Path))
 			{
-				await WriteAsync(response, IisStaticFile.ErrorPage(status) ?? ShortText(status));
+				await WriteAsync(response, IisStaticFile.ErrorPage(status) ?? ShortText(context, status));
 				return;
 			}
 			switch (entry.Mode)
@@ -231,7 +231,7 @@ namespace System.Web.Hosting
 					catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { }
 					if (content == null)
 					{
-						await WriteAsync(response, IisStaticFile.ErrorPage(status) ?? ShortText(status));
+						await WriteAsync(response, IisStaticFile.ErrorPage(status) ?? ShortText(context, status));
 						return;
 					}
 					response.ContentLength = content.Length;
@@ -259,13 +259,47 @@ namespace System.Web.Hosting
 			return Core.HttpMethods.IsHead(response.HttpContext.Request.Method) ? Task.CompletedTask : response.Body.WriteAsync(bytes, 0, bytes.Length);
 		}
 
-		// The server's language (IIS's: the system's), as IIS writes its own texts.
-		static bool Japanese => global::System.Globalization.CultureInfo.InstalledUICulture.TwoLetterISOLanguageName == "ja";
+		// The language IIS writes its own texts in (observed on IIS 10 with en-US and ja-JP installed, a Japanese Windows): the
+		// request's Accept-Language by its quality (q=0 left out; ties in the header's order), the first tag with a region
+		// whose language IIS has (en-US, en-GB, en-AU: English; ja-JP: Japanese where the server's language is); a tag
+		// without one ("en", "ja") matches nothing. None: the server's language (the system's). FrameworkOnCore has English
+		// and Japanese.
+		static bool Japanese(Core.HttpContext context)
+		{
+			var server = global::System.Globalization.CultureInfo.InstalledUICulture.TwoLetterISOLanguageName == "ja";
+			var header = context?.Request.Headers.AcceptLanguage.ToString();
+			if (string.IsNullOrEmpty(header)) return server;
+			var tags = new List<(string Tag, double Quality, int Index)>();
+			var parts = header.Split(',');
+			for (int i = 0; i < parts.Length; i++)
+			{
+				var fields = parts[i].Split(';');
+				var tag = fields[0].Trim();
+				double quality = 1;
+				foreach (var field in fields.Skip(1))
+				{
+					var f = field.Trim();
+					if (f.StartsWith("q=", StringComparison.OrdinalIgnoreCase) &&
+						!double.TryParse(f.Substring(2), global::System.Globalization.NumberStyles.Float, global::System.Globalization.CultureInfo.InvariantCulture, out quality))
+						quality = 0;
+				}
+				if (quality > 0 && tag.Length > 0) tags.Add((tag, quality, i));
+			}
+			foreach (var (tag, _, _) in tags.OrderByDescending(t => t.Quality).ThenBy(t => t.Index))
+			{
+				var dash = tag.IndexOf('-');
+				if (dash <= 0) continue;
+				var language = tag.Substring(0, dash);
+				if (language.Equals("en", StringComparison.OrdinalIgnoreCase)) return false;
+				if (language.Equals("ja", StringComparison.OrdinalIgnoreCase) && server) return true;
+			}
+			return server;
+		}
 
 		// IIS's answer for a status it has no page for: its short description (in the server's language where it is known).
-		static string ShortText(int status)
+		static string ShortText(Core.HttpContext context, int status)
 		{
-			if (Japanese)
+			if (Japanese(context))
 				switch (status)
 				{
 					case 400: return "要求が正しくありません";
@@ -293,8 +327,8 @@ namespace System.Web.Hosting
 			string physical = null;
 			try { physical = HostingEnvironment.MapPath(request.PathBase.Value + request.Path.Value); }
 			catch (Exception e) when (e is HttpException || e is ArgumentException) { }
-			return "<!DOCTYPE html><html><head><title>IIS 10.0 " + (Japanese ? "エラーの詳細" : "Detailed Error") + " - " + code + " - " + reason + "</title></head><body>" +
-				"<h3>HTTP " + (Japanese ? "エラー " : "Error ") + code + " - " + reason + "</h3>" +
+			return "<!DOCTYPE html><html><head><title>IIS 10.0 " + (Japanese(context) ? "エラーの詳細" : "Detailed Error") + " - " + code + " - " + reason + "</title></head><body>" +
+				"<h3>HTTP " + (Japanese(context) ? "エラー " : "Error ") + code + " - " + reason + "</h3>" +
 				"<table><tr><th>Requested URL</th><td>" + HttpUtility.HtmlEncode(url) + "</td></tr>" +
 				(physical == null ? "" : "<tr><th>Physical Path</th><td>" + HttpUtility.HtmlEncode(physical) + "</td></tr>") +
 				"</table></body></html>";

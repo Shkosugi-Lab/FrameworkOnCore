@@ -1,6 +1,6 @@
 {
   "$comment": "Package and reference rules. \"$frameworkoncore\" stands for the version of FrameworkOnCore's packages (frameworkOnCoreVersion).",
-  "frameworkOnCoreVersion": "1.6.5-w2l.20",
+  "frameworkOnCoreVersion": "1.6.5-w2l.21",
 
   "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time). FrameworkOnCore.Data.SqlClient: whoever opens the connection (the sources, Entity Framework, a DLL), System.Data.SqlClient is the one expanding |DataDirectory| as .NET Framework's (its assembly version is above the package Entity Framework brings). The user's choice (portOptions): .NET's package, it is not added.",
   "webPackages": [ "FrameworkOnCore.Web", "FrameworkOnCore.Web.Extensions", "FrameworkOnCore.Configuration", "FrameworkOnCore.Web.DynamicData", "FrameworkOnCore.Data.SqlClient" ],
@@ -127,8 +127,8 @@
     { "pattern": "\\bSystem\\.Data\\.Odbc\\b", "id": "System.Data.Odbc", "version": "10.0.0" },
     { "pattern": "\\b(ServiceBehavior|OperationBehavior|InstanceContextMode|ConcurrencyMode|AspNetCompatibilityRequirements|WebGet|WebInvoke|WebOperationContext|WebFaultException|ServiceHostBase|IServiceBehavior|IErrorHandler|ServiceMetadataBehavior)\\b|\\bSystem\\.ServiceModel\\.(Web|Activation)\\b", "option": "wcf-server:corewcf", "id": "FrameworkOnCore.ServiceModel", "version": "$frameworkoncore" },
     { "pattern": "\\bSystem\\.Data\\.OleDb\\b", "id": "System.Data.OleDb", "version": "10.0.0", "note": "OLE DB is Windows only" },
-    { "pattern": "\\bSystem\\.Security\\.Cryptography\\.Xml\\b", "id": "System.Security.Cryptography.Xml", "version": "10.0.0" },
-    { "pattern": "\\bSystem\\.Security\\.Cryptography\\.Pkcs\\b", "id": "System.Security.Cryptography.Pkcs", "version": "10.0.0" },
+    { "pattern": "\\bSystem\\.Security\\.Cryptography\\.Xml\\b", "id": "System.Security.Cryptography.Xml", "version": "10.0.13", "note": "10.0.13: the denial of service vulnerabilities of 2026-10-13 fixed" },
+    { "pattern": "\\bSystem\\.Security\\.Cryptography\\.Pkcs\\b", "id": "System.Security.Cryptography.Pkcs", "version": "10.0.13", "note": "10.0.13: the denial of service vulnerabilities of 2026-10-13 fixed" },
     { "pattern": "\\bSystem\\.Security\\.Permissions\\b|\\bSecurityPermission(Attribute)?\\b|\\bReflectionPermission\\b|\\bFileIOPermission\\b", "id": "System.Security.Permissions", "version": "10.0.0" },
     { "pattern": "\\bEventLog(Entry|EntryType)?\\b", "id": "System.Diagnostics.EventLog", "version": "10.0.0", "note": "the event log is Windows only" },
     { "pattern": "\\bPerformanceCounter(Category|Type)?\\b", "id": "System.Diagnostics.PerformanceCounter", "version": "10.0.0", "note": "performance counters are Windows only" },

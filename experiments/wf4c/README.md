@@ -1236,6 +1236,26 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
     (ツールの deps.json が FrameworkOnCore のものを選ぶ)。成否を逆に返していたのも直した。
   - 確認: net10.0・net48 × dotnet build・MSBuild 18 × 別プロセス・プロセス内の 7 通りすべてで生成でき、内容は同じ。
 
+### 脆弱性の警告(NU1902・NU1903)の調査と対応(1.6.5-w2l.21、2026-10-22、ユーザーの指示)
+
+- **原因**: FrameworkOnCore.Configuration が System.Security.Cryptography.Xml 10.0.10 を参照し、それが System.Security.Cryptography.Pkcs 10.0.10 を
+  連れてくる。FrameworkOnCore のパッケージはすべて Configuration に依存するので、どれを参照しても出る。2026-10-13 に公表されたサービス拒否(DoS)の
+  脆弱性で、修正版は 10.0.13(GitHub Advisory の記載):
+  - Xml: CVE-2026-96958・-96959・-96960(高。GHSA-r955-8q5j-3h83、GHSA-c399-9853-6jmj、GHSA-7hqp-7c5m-4vq6)
+  - Pkcs: CVE-2026-84008(高。GHSA-846f-f764-76mx)、CVE-2026-70162(中。GHSA-2fmv-rv2c-59x7)
+- **ほかの所**(`dotnet list package --vulnerable --include-transitive` で全プロジェクト、変換器の規則の全パッケージを確認):
+  - FrameworkOnCore.Web・.Web.Extensions: Microsoft.Data.SqlClient 7.1.0 が Pkcs 9.0.18 を連れてくる(同じ CVE、9.0.21 で修正)。
+  - 変換器の規則(`rules/packages.json`): ソースが System.Security.Cryptography.Xml・Pkcs を使うアプリに 10.0.0 を加えていた(Xml は 11 件の公表済みの
+    脆弱性に該当)。規則のほかのパッケージ(20 件)には該当なし。
+  - src・tools・tests のプロジェクトは、Runtime をプロジェクト参照する 3 つ(パリティ テスト)だけが該当し、Configuration を直して解消。
+- **対応**: Configuration の Xml を 10.0.13 に、Web・Web.Extensions に Pkcs 10.0.13 を明示、変換器の規則の Xml・Pkcs を 10.0.13 に。w2l.20 は公開済み
+  なので w2l.21。どのプロジェクトでも警告 0 件、移植版のパッケージを参照したアプリで Xml・Pkcs が 10.0.13 になることを確認。
+- **残り(アプリ自身のもの)**: 変換した be・wt には、元のアプリが参照していたパッケージの脆弱性が残る(元のバージョンのまま変換するため):
+  be は bootstrap 3.3.5、jQuery 2.1.4、jQuery.Cookie 1.4.0、jQuery.Validation 1.14.0(高)、Moment.js 2.10.6(高)。wt は bootstrap 3.0.0、jQuery 1.10.2、
+  Microsoft.Owin 2.1.0・.Security.Cookies 2.1.0・Microsoft.AspNet.Identity.Owin 2.1.0(高)。
+- 実行環境: `mcr.microsoft.com/dotnet/aspnet:10.0`・`sdk:10.0` は版を固定しないタグで、取り直すと 10.0.13 だった(このマシンのキャッシュも更新した)。
+- 回帰: be Windows・Linux 5/5、wt Windows 8/8・Linux 7/8(error-page、以前から)。単体テスト 4,479 件成功。
+
 ### MVC・Web Pages・Razor・Web API・CORS の文言の翻訳と、Microsoft の言語別パッケージ(1.6.5-w2l.20、2026-10-22、ユーザーの指示「残っていることをこの順で進めて」)
 
 - **.NET Framework での動き**: これらの文言は .NET Framework の言語パックには無く、Microsoft の言語別パッケージ(`Microsoft.AspNet.Mvc.ja`、

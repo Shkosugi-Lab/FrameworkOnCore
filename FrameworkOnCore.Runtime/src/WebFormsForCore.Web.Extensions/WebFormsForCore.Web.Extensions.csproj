@@ -69,6 +69,9 @@
             <Aliases>NET</Aliases>
         </PackageReference>
         <PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.0" />
+        <!-- Microsoft.Data.SqlClient brings System.Security.Cryptography.Pkcs 9.0.18: 10.0.13 has the fixes of the denial of
+             service vulnerabilities of 2026-10-13 (CVE-2026-84008, -70162). -->
+        <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
         <!--<PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
         <PackageReference Include="System.Text.Json" Version="10.0.0" />
         <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />-->

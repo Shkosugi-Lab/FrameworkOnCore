@@ -51,7 +51,9 @@
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
         <!--<PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />-->
-        <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.10" />
+        <!-- 10.0.13: 10.0.0 to 10.0.12 (and the Pkcs they bring) have the denial of service vulnerabilities of 2026-10-13
+             (CVE-2026-96958, -96959, -96960; Pkcs CVE-2026-84008, -70162). -->
+        <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.13" />
         <PackageReference Include="System.CodeDom" Version="10.0.0" />
         <PackageReference Include="System.IO.FileSystem.AccessControl" Version="5.0.0" />
         <PackageReference Include="System.Security.Permissions" Version="10.0.0" />

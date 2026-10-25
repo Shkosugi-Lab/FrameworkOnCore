@@ -51,7 +51,7 @@ export default function Settings({ ctx }) {
             const choose = value => setChoices({ ...choices, settings: { ...choices.settings, [s.id]: value } });
             return (
               <FormField key={s.id} stretch
-                label={<>{s.title} <Box variant="code" display="inline" fontSize="body-s">{s.id}</Box> {chosen !== defaultOf(s.options) && <Badge color="severity-medium">{t('common.changed')}</Badge>}</>}>
+                label={<>{s.title} {chosen !== defaultOf(s.options) && <Badge color="severity-medium">{t('common.changed')}</Badge>}</>}>
                 {s.languages?.length
                   ? <LanguageSetting s={s} chosen={chosen} choose={choose} />
                   : <Tiles value={chosen} columns={Math.min(s.options.length, 3)}

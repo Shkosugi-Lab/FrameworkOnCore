@@ -77,7 +77,9 @@ public sealed record ComponentUsage(
     /// <summary>What the user can choose for it (the default marked).</summary>
     IReadOnlyList<ComponentOption> Options,
     /// <summary>Its APIs whose references from DLLs the converter retargets (ApiUsage.RetargetedTo).</summary>
-    int RetargetedApis = 0);
+    int RetargetedApis = 0,
+    /// <summary>The catalog's detail for developers (Note: in plain words, Studio's page).</summary>
+    string? Detail = null);
 
 /// <summary>An API of .NET Framework the application uses.</summary>
 public sealed record ApiUsage

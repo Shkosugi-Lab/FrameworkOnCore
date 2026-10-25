@@ -110,8 +110,8 @@ public sealed class Conversions(AnalysisStore store, string runtime)
                 if (exit != 0)
                 {
                     Save(id, entry with { State = "failed", Finished = DateTimeOffset.UtcNow, Sections = sections, Error = File.Exists(Report(id))
-                        ? Lang.T("変換はできましたが、ビルドが通りませんでした(レポートの「未解決」を見てください)", "Converted, but the build failed (see the report's Unresolved)")
-                        : Lang.T($"変換器が終了コード {exit} で止まりました", $"The converter stopped with exit code {exit}") });
+                        ? Lang.T("変換はできましたが、組み立て(ビルド)でエラーになりました。結果の「未解決」を開発者に確認してもらってください", "Converted, but the build failed. Ask a developer to look at \"Unresolved\" in the results")
+                        : Lang.T($"変換が途中で止まりました(終了コード {exit}。詳しくは記録にあります)", $"The conversion stopped (exit code {exit}; the log has the details)") });
                     return;
                 }
                 log.Enqueue("zipping the output (without obj)");

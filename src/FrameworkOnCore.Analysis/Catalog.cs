@@ -8,9 +8,13 @@ namespace FrameworkOnCore.Analysis;
 /// </summary>
 public sealed class Catalog
 {
+    /// <param name="Note">What it is and what the conversion does with it, in plain words (Studio's page: for whoever
+    /// decides the migration, not only developers).</param>
+    /// <param name="Detail">The same for developers: the APIs, the converter's replacements, .NET's behavior (the analysis'
+    /// report).</param>
     public sealed record Component(string Id, string Title, ApiStatus? Status, bool Force, string? Note,
         IReadOnlyList<string> Assemblies, IReadOnlyList<string> Namespaces, IReadOnlyList<string> Types, IReadOnlyList<string> Members,
-        bool DelegateAsync);
+        bool DelegateAsync, string? Detail = null);
 
     public int Version { get; }
     public IReadOnlyList<Component> Components { get; }
@@ -49,12 +53,14 @@ public sealed class Catalog
                 c.TryGetProperty("force", out var force) && force.GetBoolean(),
                 c.TryGetProperty("note", out var note) ? note.GetString() : null,
                 List(match, "assemblies"), List(match, "namespaces"), List(match, "types"), List(match, "members"),
-                match.TryGetProperty("delegateAsync", out var delegates) && delegates.GetBoolean());
+                match.TryGetProperty("delegateAsync", out var delegates) && delegates.GetBoolean(),
+                c.TryGetProperty("detail", out var detail) ? detail.GetString() : null);
         }).ToList();
         var throwing = root.GetProperty("throwingObsoletions").EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!);
         static ComponentOption Option(JsonElement o) => new(o.GetProperty("id").GetString()!, o.GetProperty("title").GetString()!,
             o.TryGetProperty("description", out var d) ? d.GetString() : null,
-            o.TryGetProperty("default", out var isDefault) && isDefault.GetBoolean(), o.TryGetProperty("planned", out var planned) && planned.GetBoolean());
+            o.TryGetProperty("default", out var isDefault) && isDefault.GetBoolean(), o.TryGetProperty("planned", out var planned) && planned.GetBoolean(),
+            o.TryGetProperty("detail", out var detail) ? detail.GetString() : null);
         var options = root.TryGetProperty("options", out var o) ? o.EnumerateObject().ToDictionary(p => p.Name, p => (IReadOnlyList<ComponentOption>)p.Value.EnumerateArray().Select(Option).ToList()) : [];
         var settings = root.TryGetProperty("settings", out var s)
             ? s.EnumerateArray().Select(e => new Setting(e.GetProperty("id").GetString()!, e.GetProperty("title").GetString()!, e.GetProperty("options").EnumerateArray().Select(Option).ToList())
@@ -91,12 +97,12 @@ public sealed class Catalog
             return e.ValueKind == JsonValueKind.String ? e.GetString() : null;
         }
         ComponentOption Option(ComponentOption o, JsonElement texts) =>
-            o with { Title = Text(texts, o.Id, "title") ?? o.Title, Description = Text(texts, o.Id, "description") ?? o.Description };
+            o with { Title = Text(texts, o.Id, "title") ?? o.Title, Description = Text(texts, o.Id, "description") ?? o.Description, Detail = Text(texts, o.Id, "detail") ?? o.Detail };
         var noneTexts = en.TryGetProperty("noneOption", out var n) ? n : default;
-        var englishNone = none with { Title = Text(noneTexts, "title") ?? none.Title, Description = Text(noneTexts, "description") ?? none.Description };
+        var englishNone = none with { Title = Text(noneTexts, "title") ?? none.Title, Description = Text(noneTexts, "description") ?? none.Description, Detail = Text(noneTexts, "detail") ?? none.Detail };
         var optionTexts = en.TryGetProperty("options", out var ot) ? ot : default;
         var englishOptions = options.ToDictionary(p => p.Key, p => (IReadOnlyList<ComponentOption>)p.Value
-            .Select(o => o.Id == "none" && Text(optionTexts, p.Key, o.Id, "title") == null ? o with { Title = englishNone.Title } : o)
+            .Select(o => o.Id == "none" && Text(optionTexts, p.Key, o.Id, "title") == null ? o with { Title = englishNone.Title, Description = englishNone.Description, Detail = englishNone.Detail } : o)
             .Select(o => optionTexts.ValueKind == JsonValueKind.Object && optionTexts.TryGetProperty(p.Key, out var texts) ? Option(o, texts) : o).ToList());
         var settingTexts = en.TryGetProperty("settings", out var st) ? st : default;
         var englishSettings = Settings.Select(s => s with
@@ -106,7 +112,7 @@ public sealed class Catalog
             Languages = s.Languages.Select(l => l with { Title = Text(settingTexts, s.Id, "languages", l.Id) ?? l.Title }).ToList(),
         }).ToList();
         var componentTexts = en.TryGetProperty("components", out var ct) ? ct : default;
-        var englishComponents = Components.Select(c => c with { Title = Text(componentTexts, c.Id, "title") ?? c.Title, Note = Text(componentTexts, c.Id, "note") ?? c.Note }).ToList();
+        var englishComponents = Components.Select(c => c with { Title = Text(componentTexts, c.Id, "title") ?? c.Title, Note = Text(componentTexts, c.Id, "note") ?? c.Note, Detail = Text(componentTexts, c.Id, "detail") ?? c.Detail }).ToList();
         return new Catalog(Version, englishComponents, ThrowingObsoletions, englishOptions, englishNone, englishSettings);
     }
 
@@ -131,8 +137,9 @@ public sealed class Catalog
     }
 }
 
-/// <summary>An option of a component (or a setting): what the conversion does with it. Planned: not there yet.</summary>
-public sealed record ComponentOption(string Id, string Title, string? Description, bool Default, bool Planned);
+/// <summary>An option of a component (or a setting): what the conversion does with it (Description: in plain words, for
+/// Studio's page; Detail: for developers, the analysis' report). Planned: not there yet.</summary>
+public sealed record ComponentOption(string Id, string Title, string? Description, bool Default, bool Planned, string? Detail = null);
 
 /// <summary>
 /// A choice of the application's that is no API's (file names' case on Linux), with its options. One with languages (the

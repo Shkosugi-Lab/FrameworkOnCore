@@ -100,7 +100,7 @@ public sealed class ApiAnalyzer(TargetApis target, Catalog catalog, IEnumerable<
                 g.Count(a => a.Status < ApiStatus.Available), g.Where(a => a.Status < ApiStatus.Available).Sum(a => a.Count),
                 g.Sum(a => a.Binaries?.Sum(b => b.Count) ?? 0),
                 g.SelectMany(a => sink.Apis[a.Id].Projects.Keys).Distinct().Order(StringComparer.Ordinal).ToList(),
-                component?.Note, catalog.OptionsOf(g.Key), g.Count(a => a.RetargetedTo != null));
+                component?.Note, catalog.OptionsOf(g.Key), g.Count(a => a.RetargetedTo != null), component?.Detail);
         }).OrderBy(c => c.Status).ThenByDescending(c => c.AttentionCount).ThenByDescending(c => c.BinaryReferences).ThenBy(c => c.Id, StringComparer.Ordinal).ToList();
 
         return new AnalysisResult

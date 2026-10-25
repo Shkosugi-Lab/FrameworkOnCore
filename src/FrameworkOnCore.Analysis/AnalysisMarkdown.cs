@@ -45,8 +45,10 @@ public static class AnalysisMarkdown
         text.AppendLine("|---|---|---:|---:|---:|---:|---:|---:|---|---|");
         foreach (var c in attention)
         {
-            var options = string.Join("<br>", c.Options.Select(o => $"{(o.Default ? "★" : o.Planned ? "☆" : "・")}{o.Id}: {o.Title}"));
-            text.AppendLine($"| {Cell(c.Title)}<br>`{c.Id}` | {Label(c.Status)} | {c.AttentionApis} | {c.AttentionCount} | {c.Apis} | {c.Count} | {c.Files} | {c.BinaryReferences} | {Cell(options)} | {Cell(c.Note ?? "")} |");
+            // The report is the developers': each option's and the component's detail with the plain words.
+            var options = string.Join("<br>", c.Options.Select(o => $"{(o.Default ? "★" : o.Planned ? "☆" : "・")}{o.Id}: {o.Title}{(o.Detail != null ? "(" + o.Detail + ")" : "")}"));
+            var note = string.Join("<br>", new[] { c.Note, c.Detail }.Where(n => !string.IsNullOrEmpty(n)));
+            text.AppendLine($"| {Cell(c.Title)}<br>`{c.Id}` | {Label(c.Status)} | {c.AttentionApis} | {c.AttentionCount} | {c.Apis} | {c.Count} | {c.Files} | {c.BinaryReferences} | {Cell(options)} | {Cell(note)} |");
         }
         text.AppendLine();
         text.AppendLine("設定(API ではなくアプリの選択): " + string.Join("、", result.Settings.Select(s => $"{s.Title} `{s.Id}`: " +

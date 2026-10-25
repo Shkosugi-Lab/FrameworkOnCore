@@ -1,5 +1,5 @@
 {
-  "$comment": "The components the user chooses for (ApiAnalyzer). An API belongs to the first component whose match holds: assemblies (.NET Framework's), namespaces (and those under them), types (full names, without generic arity), members (Type.Member, any signature, or a documentation id). An API no component matches is its assembly's (\"fw:System.Xml\"). status: what is known that .NET's attributes do not say (Behavior: it works differently; Throws); force: the component's status whatever .NET has (an API that is not an API of .NET: a delegate's BeginInvoke). note: what it is, and what the converter does today.",
+  "$comment": "The components the user chooses for (ApiAnalyzer). An API belongs to the first component whose match holds: assemblies (.NET Framework's), namespaces (and those under them), types (full names, without generic arity), members (Type.Member, any signature, or a documentation id). An API no component matches is its assembly's (\"fw:System.Xml\"). status: what is known that .NET's attributes do not say (Behavior: it works differently; Throws); force: the component's status whatever .NET has (an API that is not an API of .NET: a delegate's BeginInvoke). note: what it is and what the conversion does with it, in plain words, for whoever decides the migration (Studio's page; options' description likewise); detail: the same for developers (the APIs, the converter's replacements, .NET's behavior: the analysis' report).",
   "version": 1,
   "$comment_throwingObsoletions": ".NET's obsoletions whose members throw PlatformNotSupportedException (on every platform), not only warn.",
   "throwingObsoletions": {
@@ -11,124 +11,124 @@
     "SYSLIB0050": "書式設定子によるシリアル化の一部"
   },
   "$comment_options": "What the user can choose for a component (component id -> its options; the default first or marked). The converter's rules name the option they belong to (rules/packages.json \"option\": \"component:option\"): a rule works when its option is chosen. planned: not there yet (shown, not chosen). A component with none has noneOption.",
-  "noneOption": { "id": "none", "title": "対応しない", "description": ".NET に無いものはコンパイルのためにスタブ(実行すると例外)、あるものはそのまま(例外や動きの違いはそのまま)。変換レポートに残る" },
+  "noneOption": { "id": "none", "title": "何もしない", "description": ".NET 10 に無いものは、使われた所でエラーになります。変換レポートに一覧が残ります。", "detail": ".NET に無いものはコンパイルのためにスタブ(実行すると例外)、あるものはそのまま(例外や動きの違いはそのまま)。変換レポートに残る" },
   "options": {
     "thread-abort": [
-      { "id": "compat", "title": "互換(Response.End の中断を取り消す)", "description": "Thread.ResetAbort を Platform.ResetAbort に置き換える。catch の後も .NET Framework と同じく動く", "default": true },
-      { "id": "none", "title": "対応しない", "description": "ResetAbort は例外になる(リダイレクトの後の catch で 503 など)" }
+      { "id": "compat", "title": "元と同じに動かす", "description": "途中で終えた後の処理も、元のサーバーと同じに動きます。", "detail": "Thread.ResetAbort を Platform.ResetAbort に置き換える。catch の後も .NET Framework と同じく動く", "default": true },
+      { "id": "none", "title": "何もしない", "description": "この書き方の所でエラーになり、ページが表示されないことがあります。", "detail": "ResetAbort は例外になる(リダイレクトの後の catch で 503 など)" }
     ],
     "async-delegates": [
-      { "id": "compat", "title": "互換(スレッドプールで実行)", "description": "BeginInvoke / EndInvoke を FrameworkOnCore.AsyncDelegate に置き換える", "default": true },
-      { "id": "none", "title": "対応しない", "description": "呼び出しは例外になる" }
+      { "id": "compat", "title": "置き換えて動かす", "description": ".NET 10 で動く形に自動で置き換えます。", "detail": "BeginInvoke / EndInvoke を FrameworkOnCore.AsyncDelegate に置き換える", "default": true },
+      { "id": "none", "title": "何もしない", "description": "この書き方の所でエラーになります。", "detail": "呼び出しは例外になる" }
     ],
     "binary-formatter": [
-      { "id": "compat-package", "title": "互換パッケージ", "description": "System.Runtime.Serialization.Formatters と EnableUnsafeBinaryFormatterSerialization。既存のデータを読める。信頼できないデータの読み込みは危険(.NET Framework と同じ)", "default": true },
-      { "id": "none", "title": "対応しない", "description": "シリアル化は例外になる" }
+      { "id": "compat-package", "title": "使えるようにする", "description": "保存済みのデータも読めます。外から受け取ったデータを読む使い方は、元と同じく安全ではありません。", "detail": "System.Runtime.Serialization.Formatters と EnableUnsafeBinaryFormatterSerialization。既存のデータを読める。信頼できないデータの読み込みは危険(.NET Framework と同じ)", "default": true },
+      { "id": "none", "title": "何もしない", "description": "保存・復元の所でエラーになります。", "detail": "シリアル化は例外になる" }
     ],
     "encoding-default": [
-      { "id": "framework", "title": ".NET Framework と同じ(ANSI コードページ)", "description": "Encoding.Default を Platform.DefaultEncoding に置き換える(Windows は OS の設定、Linux は LANG のカルチャ)", "default": true },
-      { "id": "none", "title": ".NET のまま(UTF-8)", "description": "ファイルやハッシュのバイト列が .NET Framework と変わりうる" }
+      { "id": "framework", "title": "元と同じ(Shift_JIS など)", "description": "サーバーの言語の設定に合った文字コードを使います。", "detail": "Encoding.Default を Platform.DefaultEncoding に置き換える(Windows は OS の設定、Linux は LANG のカルチャ)", "default": true },
+      { "id": "none", "title": ".NET 10 のまま(UTF-8)", "description": "作るファイルなどの文字コードが元と変わり、文字化けの原因になることがあります。", "detail": "ファイルやハッシュのバイト列が .NET Framework と変わりうる" }
     ],
     "floating-point": [
-      { "id": "framework", "title": ".NET Framework と同じ", "description": "double・float の文字列化(ToString、連結、補間、string.Format、Convert.ToString、Append・Write)を FrameworkNumbers に、Parse・TryParse・TimeSpan.From* を FrameworkParsing に置き換える。FrameworkOnCore の System.Web もバインドした値を同じく書く", "default": true },
-      { "id": "none", "title": ".NET のまま", "description": "0.1 + 0.2 が 0.30000000000000004、-0 が \"-0\"、2.675 の N2 が 2.67 になる。大きすぎる数の Parse は無限大" }
+      { "id": "framework", "title": "元と同じ表示", "description": "画面や帳票の数字が、元のサーバーと同じになります。", "detail": "double・float の文字列化(ToString、連結、補間、string.Format、Convert.ToString、Append・Write)を FrameworkNumbers に、Parse・TryParse・TimeSpan.From* を FrameworkParsing に置き換える。FrameworkOnCore の System.Web もバインドした値を同じく書く", "default": true },
+      { "id": "none", "title": ".NET 10 のまま", "description": "桁数や四捨五入の結果が元と変わることがあります。", "detail": "0.1 + 0.2 が 0.30000000000000004、-0 が \"-0\"、2.675 の N2 が 2.67 になる。大きすぎる数の Parse は無限大" }
     ],
     "language-packs": [
-      { "id": "translations", "title": "FrameworkOnCore の翻訳", "description": "System.Web などの文言(Calendar の見出し、Login のラベル、Wizard・GridView のボタン、エラーページ、ASP.NET AJAX・Chart・ASMX・SqlClient などの例外とメッセージ)を FrameworkOnCore 独自の訳(リポジトリの translations/、MIT)で、アプリの設定「言語パック」で選んだ言語(既定は元のサーバーに言語パックがあった言語)で出す。訳文は Microsoft の言語パックと同じとは限らない", "default": true },
-      { "id": "framework", "title": "Microsoft の言語パック(Windows のみ)", "description": "変換したマシンの .NET Framework の言語パックからサテライトを作る(元のサーバーと同じ訳文)。Microsoft の使用許諾が Windows 以外で動かすための配布を禁じるので、Linux に配置しないとき(--deploy none)だけ。配置には Microsoft の使用許諾が適用される" }
+      { "id": "translations", "title": "FrameworkOnCore の訳を使う", "description": "標準の文言を、選んだ言語で表示します。言い回しは元のサーバーと少し違うことがあります。", "detail": "System.Web などの文言(Calendar の見出し、Login のラベル、Wizard・GridView のボタン、エラーページ、ASP.NET AJAX・Chart・ASMX・SqlClient などの例外とメッセージ)を FrameworkOnCore 独自の訳(リポジトリの translations/、MIT)で、アプリの設定「言語パック」で選んだ言語(既定は元のサーバーに言語パックがあった言語)で出す。訳文は Microsoft の言語パックと同じとは限らない", "default": true },
+      { "id": "framework", "title": "Microsoft の訳を使う(Windows のサーバーだけ)", "description": "元のサーバーと同じ言い回しになります。使用許諾の都合で、Linux のサーバーには使えません。", "detail": "変換したマシンの .NET Framework の言語パックからサテライトを作る(元のサーバーと同じ訳文)。Microsoft の使用許諾が Windows 以外で動かすための配布を禁じるので、Linux に配置しないとき(--deploy none)だけ。配置には Microsoft の使用許諾が適用される" }
     ],
     "code-pages": [
-      { "id": "register", "title": "登録する(常に)", "description": "FrameworkOnCore の System.Web(UseWebForms)が起動時に CodePagesEncodingProvider を登録する。Shift_JIS、EUC-JP などが使える", "default": true }
+      { "id": "register", "title": "使えるようにする(常に)", "description": "Shift_JIS・EUC-JP などの文字コードが使えます。", "detail": "FrameworkOnCore の System.Web(UseWebForms)が起動時に CodePagesEncodingProvider を登録する。Shift_JIS、EUC-JP などが使える", "default": true }
     ],
     "event-log": [
-      { "id": "stderr", "title": "Linux では標準エラーへ", "description": "Windows ではイベントログ、Linux ではサービスのジャーナル・コンテナのログに出る(FrameworkOnCore.EventLogs)", "default": true },
-      { "id": "none", "title": "対応しない", "description": "Linux では例外" }
+      { "id": "stderr", "title": "Linux ではサーバーのログに出す", "description": "Windows ではイベント ログに、Linux ではサーバーのログ(サービスやコンテナのログ)に記録します。", "detail": "Windows ではイベントログ、Linux ではサービスのジャーナル・コンテナのログに出る(FrameworkOnCore.EventLogs)", "default": true },
+      { "id": "none", "title": "何もしない", "description": "Linux では記録する所でエラーになります。", "detail": "Linux では例外" }
     ],
     "windows-identity": [
-      { "id": "compat", "title": "互換(Windows 以外はアカウントなし)", "description": "WindowsIdentity.GetCurrent などを Platform の置き換えに", "default": true },
-      { "id": "none", "title": "対応しない", "description": "Linux では例外" }
+      { "id": "compat", "title": "Linux ではアカウント無しとして動かす", "description": "Windows では元と同じに、Linux ではアカウントが無いものとして動きます。", "detail": "WindowsIdentity.GetCurrent などを Platform の置き換えに", "default": true },
+      { "id": "none", "title": "何もしない", "description": "Linux ではエラーになります。", "detail": "Linux では例外" }
     ],
     "entity-framework-4": [
-      { "id": "ef6", "title": "EF6 に移す", "description": "EntityFramework 6 のパッケージを加え、名前空間を書き換え、EDMX を埋め込む", "default": true },
-      { "id": "none", "title": "対応しない", "description": "EF4 の型はスタブになる" }
+      { "id": "ef6", "title": "新しい版(EF6)に移す", "description": "プログラムを自動で書き換えて、新しい版で動かします。", "detail": "EntityFramework 6 のパッケージを加え、名前空間を書き換え、EDMX を埋め込む", "default": true },
+      { "id": "none", "title": "何もしない", "description": "データベースを使う所がエラーになります。", "detail": "EF4 の型はスタブになる" }
     ],
     "file-access-control": [
-      { "id": "compat", "title": "互換(Windows のみ動く)", "description": "Directory/File.GetAccessControl などを FrameworkOnCore.DirectoryAcl・FileAcl に(Linux では例外)", "default": true },
-      { "id": "none", "title": "対応しない", "description": "スタブ" }
+      { "id": "compat", "title": "Windows だけで動かす", "description": "Windows では動き、Linux ではエラーになります。", "detail": "Directory/File.GetAccessControl などを FrameworkOnCore.DirectoryAcl・FileAcl に(Linux では例外)", "default": true },
+      { "id": "none", "title": "何もしない", "description": "使う所でエラーになります。", "detail": "スタブ" }
     ],
     "system-drawing": [
-      { "id": "port", "title": "移植版(Windows と Linux)", "description": "FrameworkOnCore の System.Drawing.Common(パッケージ FrameworkOnCore.Drawing.Common。dotnet/runtime 6.0 のソース。Windows は GDI+、Linux は libgdiplus。配置で libgdiplus とフォントを入れる)。FrameworkOnCore の System.Web が依存するので、どのアプリもこれになる", "default": true }
+      { "id": "port", "title": "Linux でも動くものを使う", "description": "Windows でも Linux でも動きます(選べるのはこれだけです)。", "detail": "FrameworkOnCore の System.Drawing.Common(パッケージ FrameworkOnCore.Drawing.Common。dotnet/runtime 6.0 のソース。Windows は GDI+、Linux は libgdiplus。配置で libgdiplus とフォントを入れる)。FrameworkOnCore の System.Web が依存するので、どのアプリもこれになる", "default": true }
     ],
     "linq-to-sql": [
-      { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Data.Linq(パッケージ FrameworkOnCore.Data.Linq)", "default": true },
-      { "id": "none", "title": "対応しない", "description": "スタブ。DLL が参照する場合(System.Web.Mvc のモデルバインドなど)も例外になる" }
+      { "id": "port", "title": "使えるようにする", "description": "そのまま動きます。", "detail": "referencesource(MIT)から移植した System.Data.Linq(パッケージ FrameworkOnCore.Data.Linq)", "default": true },
+      { "id": "none", "title": "何もしない", "description": "データベースを使う画面がエラーになります。", "detail": "スタブ。DLL が参照する場合(System.Web.Mvc のモデルバインドなど)も例外になる" }
     ],
     "dll-references": [
-      { "id": "retarget", "title": "付け替える", "description": "ソースの無い DLL が「アセンブリ + 型名」で参照する型のうち、.NET 10 では別のアセンブリにあるもの(FrameworkOnCore の System.Web にある CallContext など)へ、変換器が DLL の参照先を付け替える。型はあってメンバーが無いものは、互換アセンブリの拡張メンバーの呼び出しに置き換える。DLL はそのまま動く(書き換えた DLL は出力の foc-retargeted)", "default": true },
-      { "id": "none", "title": "対応しない", "description": "DLL は元のまま。その型やメンバーを使うところで、実行時に TypeLoadException・MissingMethodException になる" }
+      { "id": "retarget", "title": "DLL を直す", "description": "DLL を書き換えて、.NET 10 で動くようにします(元の DLL は残します)。", "detail": "ソースの無い DLL が「アセンブリ + 型名」で参照する型のうち、.NET 10 では別のアセンブリにあるもの(FrameworkOnCore の System.Web にある CallContext など)へ、変換器が DLL の参照先を付け替える。型はあってメンバーが無いものは、互換アセンブリの拡張メンバーの呼び出しに置き換える。DLL はそのまま動く(書き換えた DLL は出力の foc-retargeted)", "default": true },
+      { "id": "none", "title": "何もしない", "description": "DLL の中で、場所が変わった機能を使う所でエラーになります。", "detail": "DLL は元のまま。その型やメンバーを使うところで、実行時に TypeLoadException・MissingMethodException になる" }
     ],
     "sql-client": [
-      { "id": "port", "title": "移植版を使う", "description": "FrameworkOnCore の System.Data.SqlClient(パッケージ FrameworkOnCore.Data.SqlClient。dotnet/maintenance-packages 4.9.0 のソース)。接続文字列の |DataDirectory| を .NET Framework と同じく App_Data に展開し、.NET が拒否する Asynchronous Processing・Network Library・Connection Reset も受け付ける(SqlConnectionStringBuilder の同名のプロパティもある)。Web プロジェクトに常に付き、Entity Framework や DLL が開く接続もこれになる", "default": true },
-      { "id": "dotnet", "title": ".NET 版を使う", "description": "Microsoft の System.Data.SqlClient パッケージ(4.9.0)。コードで組み立てた接続文字列の |DataDirectory| は例外になる(構成の接続文字列はランタイムが展開する)。Asynchronous Processing・Network Library・Connection Reset のある接続文字列も例外になる" }
+      { "id": "port", "title": "FrameworkOnCore 版を使う", "description": "元の接続の設定(App_Data のデータベース ファイルの指定など)がそのまま使えます。", "detail": "FrameworkOnCore の System.Data.SqlClient(パッケージ FrameworkOnCore.Data.SqlClient。dotnet/maintenance-packages 4.9.0 のソース)。接続文字列の |DataDirectory| を .NET Framework と同じく App_Data に展開し、.NET が拒否する Asynchronous Processing・Network Library・Connection Reset も受け付ける(SqlConnectionStringBuilder の同名のプロパティもある)。Web プロジェクトに常に付き、Entity Framework や DLL が開く接続もこれになる", "default": true },
+      { "id": "dotnet", "title": "Microsoft 版を使う", "description": "接続の設定の一部(プログラムで組み立てた App_Data の指定など)がエラーになります。", "detail": "Microsoft の System.Data.SqlClient パッケージ(4.9.0)。コードで組み立てた接続文字列の |DataDirectory| は例外になる(構成の接続文字列はランタイムが展開する)。Asynchronous Processing・Network Library・Connection Reset のある接続文字列も例外になる" }
     ],
     "charts": [
-      { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Web.DataVisualization(パッケージ FrameworkOnCore.Web.DataVisualization。描画は移植版の System.Drawing で、Linux でも動く)", "default": true },
-      { "id": "none", "title": "対応しない", "description": "スタブ(グラフの画面は例外)" }
+      { "id": "port", "title": "使えるようにする", "description": "グラフのある画面がそのまま動きます。", "detail": "referencesource(MIT)から移植した System.Web.DataVisualization(パッケージ FrameworkOnCore.Web.DataVisualization。描画は移植版の System.Drawing で、Linux でも動く)", "default": true },
+      { "id": "none", "title": "何もしない", "description": "グラフのある画面はエラーになります。", "detail": "スタブ(グラフの画面は例外)" }
     ],
     "mobile-controls": [
-      { "id": "port", "title": "移植版を使う", "description": "referencesource(MIT)から移植した System.Web.Mobile(パッケージ FrameworkOnCore.Web.Mobile。MobilePage と mobile: のコントロール、端末ごとのアダプター)", "default": true },
-      { "id": "none", "title": "対応しない", "description": "スタブ(モバイルのページは例外)。using だけなら消える" }
+      { "id": "port", "title": "使えるようにする", "description": "携帯電話向けの画面がそのまま動きます。", "detail": "referencesource(MIT)から移植した System.Web.Mobile(パッケージ FrameworkOnCore.Web.Mobile。MobilePage と mobile: のコントロール、端末ごとのアダプター)", "default": true },
+      { "id": "none", "title": "何もしない", "description": "携帯電話向けの画面はエラーになります。", "detail": "スタブ(モバイルのページは例外)。using だけなら消える" }
     ],
     "wcf-server": [
-      { "id": "corewcf", "title": "CoreWCF で動かす", "description": "サイトの .svc と web.config の system.serviceModel のサービスを、アプリの中の CoreWCF で動かす(パッケージ FrameworkOnCore.ServiceModel)。basicHttpBinding・basicHttpsBinding・wsHttpBinding・webHttpBinding(REST)、WCF 4 の既定のエンドポイントと既定の動作、serviceActivations、WSDL。サービス側だけの型(ServiceBehavior、WebGet など)は CoreWCF の型に書き換える。ASP.NET AJAX の enableWebScript(ScriptManager の ServiceReference、Service.svc/js)も。netTcpBinding、独自の ServiceHostFactory、aspNetCompatibilityEnabled(操作の中の HttpContext.Current)は対応しない", "default": true },
-      { "id": "none", "title": "対応しない", "description": "サービスは動かない(.svc は 404)。サービス側だけの型はスタブ" }
+      { "id": "corewcf", "title": "動かす(CoreWCF)", "description": "Web サービスをそのまま提供します。一部の通信方式(net.tcp など)は対応していません。", "detail": "サイトの .svc と web.config の system.serviceModel のサービスを、アプリの中の CoreWCF で動かす(パッケージ FrameworkOnCore.ServiceModel)。basicHttpBinding・basicHttpsBinding・wsHttpBinding・webHttpBinding(REST)、WCF 4 の既定のエンドポイントと既定の動作、serviceActivations、WSDL。サービス側だけの型(ServiceBehavior、WebGet など)は CoreWCF の型に書き換える。ASP.NET AJAX の enableWebScript(ScriptManager の ServiceReference、Service.svc/js)も。netTcpBinding、独自の ServiceHostFactory、aspNetCompatibilityEnabled(操作の中の HttpContext.Current)は対応しない", "default": true },
+      { "id": "none", "title": "何もしない", "description": "Web サービスは動きません。", "detail": "サービスは動かない(.svc は 404)。サービス側だけの型はスタブ" }
     ]
   },
   "$comment_settings": "Choices that are the application's, not an API's: shown whatever the analysis finds.",
   "settings": [
     {
-      "id": "file-name-case", "title": "ファイル名の大文字小文字(Linux)",
+      "id": "file-name-case", "title": "ファイル名の大文字・小文字",
       "options": [
-        { "id": "insensitive", "title": "Windows と同じく区別しない", "description": "配置に casefs(libfoccase.so)を含め、start.sh が読み込む", "default": true },
-        { "id": "sensitive", "title": "区別する(Linux のまま)", "description": "アプリが違う大文字小文字でファイルを参照していると見つからない" }
+        { "id": "insensitive", "title": "区別しない(Windows と同じ)", "description": "Linux でも、Windows と同じくファイル名の大文字・小文字を区別しません。", "detail": "配置に casefs(libfoccase.so)を含め、start.sh が読み込む", "default": true },
+        { "id": "sensitive", "title": "区別する(Linux の標準)", "description": "プログラムがファイル名を大文字・小文字違いで書いていると、ファイルが見つかりません。", "detail": "アプリが違う大文字小文字でファイルを参照していると見つからない" }
       ]
     },
     {
-      "id": "w3c-log", "title": "要求のログ(IIS の W3C ログ)",
+      "id": "w3c-log", "title": "アクセス ログ",
       "options": [
-        { "id": "iis", "title": "IIS 互換", "description": "IIS と同じ形式・項目・ファイル名(u_exYYMMDD.log)で書く。書き込みが追いつかない時は要求が待つ(行は捨てない)。元のサーバーの logFile の設定に従う", "default": true },
-        { "id": "aspnetcore", "title": "ASP.NET Core の W3C ログ", "description": "ASP.NET Core 標準の W3CLogger。形式が IIS と少し違い(sc-substatus などが無い)、書き込みに上限がある。ASP.NET Core に書き直した後もそのまま使える" },
-        { "id": "off", "title": "書かない", "description": "要求のログを書かない(前段のロード バランサーなどのログを使う)" }
+        { "id": "iis", "title": "IIS と同じ形式", "description": "IIS と同じ形式・ファイル名で記録します。今のログの集計の仕組みをそのまま使えます。", "detail": "IIS と同じ形式・項目・ファイル名(u_exYYMMDD.log)で書く。書き込みが追いつかない時は要求が待つ(行は捨てない)。元のサーバーの logFile の設定に従う", "default": true },
+        { "id": "aspnetcore", "title": "ASP.NET Core の形式", "description": "形式が IIS と少し違います。アクセスが多いと記録しきれないことがあります。", "detail": "ASP.NET Core 標準の W3CLogger。形式が IIS と少し違い(sc-substatus などが無い)、書き込みに上限がある。ASP.NET Core に書き直した後もそのまま使える" },
+        { "id": "off", "title": "記録しない", "description": "ロード バランサーなど、前段の機器のログを使う場合。", "detail": "要求のログを書かない(前段のロード バランサーなどのログを使う)" }
       ]
     },
     {
-      "id": "url-rewrite", "title": "URL Rewrite(web.config の system.webServer/rewrite)",
+      "id": "url-rewrite", "title": "URL の書き換え(URL Rewrite)",
       "options": [
-        { "id": "iis", "title": "IIS 互換", "description": "IIS の URL Rewrite モジュールと同じに規則を動かす(継承、サーバー変数、Wildcard、クエリ文字列の順、リダイレクトの絶対 URL など)。元のサーバーの globalRules も", "default": true },
-        { "id": "aspnetcore", "title": "ASP.NET Core の Rewriter", "description": "ASP.NET Core 標準の書き換え(AddIISUrlRewrite)。ルートの web.config だけ、IIS と動きが違う所があり、読めない規則(subStatusCode、Wildcard、一部のサーバー変数)があるとアプリが起動しない" },
-        { "id": "off", "title": "動かさない", "description": "規則を動かさない" }
+        { "id": "iis", "title": "IIS と同じ", "description": "web.config の URL の書き換えの規則を、IIS と同じに動かします。", "detail": "IIS の URL Rewrite モジュールと同じに規則を動かす(継承、サーバー変数、Wildcard、クエリ文字列の順、リダイレクトの絶対 URL など)。元のサーバーの globalRules も", "default": true },
+        { "id": "aspnetcore", "title": "ASP.NET Core の機能", "description": "一部の規則が IIS と違う動きになり、読めない規則があるとアプリが起動しません。", "detail": "ASP.NET Core 標準の書き換え(AddIISUrlRewrite)。ルートの web.config だけ、IIS と動きが違う所があり、読めない規則(subStatusCode、Wildcard、一部のサーバー変数)があるとアプリが起動しない" },
+        { "id": "off", "title": "使わない", "description": "書き換えの規則を動かしません。", "detail": "規則を動かさない" }
       ]
     },
     {
-      "id": "http-errors", "title": "エラー ページ(web.config の system.webServer/httpErrors)",
+      "id": "http-errors", "title": "エラー画面",
       "options": [
-        { "id": "iis", "title": "IIS 互換", "description": "IIS と同じにエラーの応答を置き換える(errorMode、existingResponse、File・ExecuteURL・Redirect)。IIS 自身のページは簡易ページ", "default": true },
-        { "id": "aspnetcore", "title": "ASP.NET Core の状態コード ページ", "description": "本文の無いエラーに短い文字列を返す。アプリの応答は置き換えない" },
-        { "id": "off", "title": "何もしない", "description": "本文の無いエラーは空のまま" }
+        { "id": "iis", "title": "IIS と同じ", "description": "web.config の設定どおり、IIS と同じにエラー画面を出します。", "detail": "IIS と同じにエラーの応答を置き換える(errorMode、existingResponse、File・ExecuteURL・Redirect)。IIS 自身のページは簡易ページ", "default": true },
+        { "id": "aspnetcore", "title": "ASP.NET Core の機能", "description": "短いエラーの文字だけを返します。設定したエラー画面は出ません。", "detail": "本文の無いエラーに短い文字列を返す。アプリの応答は置き換えない" },
+        { "id": "off", "title": "何もしない", "description": "エラーのときに空の画面になります。", "detail": "本文の無いエラーは空のまま" }
       ]
     },
     {
-      "id": "compression", "title": "応答の圧縮",
+      "id": "compression", "title": "通信の圧縮",
       "options": [
-        { "id": "iis", "title": "IIS 互換", "description": "元のサーバーの静的・動的圧縮のとおりに圧縮する(取り込んだ設定が無ければ Windows の既定: 静的ファイルを 10 秒に 2 回目から gzip)", "default": true },
-        { "id": "aspnetcore", "title": "ASP.NET Core の ResponseCompression", "description": "対象の型の応答を毎回圧縮する(brotli 優先。HTTPS では既定で圧縮しない)" },
-        { "id": "off", "title": "圧縮しない", "description": "前段のロード バランサーや CDN に任せる" }
+        { "id": "iis", "title": "IIS と同じ", "description": "元のサーバーの設定どおりに、応答を圧縮して送ります。", "detail": "元のサーバーの静的・動的圧縮のとおりに圧縮する(取り込んだ設定が無ければ Windows の既定: 静的ファイルを 10 秒に 2 回目から gzip)", "default": true },
+        { "id": "aspnetcore", "title": "ASP.NET Core の機能", "description": "対象の応答を毎回圧縮します(HTTPS では標準で圧縮しません)。", "detail": "対象の型の応答を毎回圧縮する(brotli 優先。HTTPS では既定で圧縮しない)" },
+        { "id": "off", "title": "圧縮しない", "description": "ロード バランサーや CDN で圧縮する場合。", "detail": "前段のロード バランサーや CDN に任せる" }
       ]
     },
     {
-      "id": "languages", "title": "言語パック(ASP.NET の文言の言語)",
+      "id": "languages", "title": "画面の言語",
       "options": [
-        { "id": "server", "title": "元のサーバーと同じ", "description": "英語と、元のサーバーに .NET Framework の言語パックが入っていた言語(capture-culture.ps1 が記録。無ければ変換したマシンの)。UI カルチャが選んだ言語のとき、Calendar・Login・Wizard・GridView・エラーページなどの文言がその言語になる。英語だけを選べば、UI カルチャにかかわらず英語。", "default": true }
+        { "id": "server", "title": "元のサーバーと同じ", "description": "カレンダー・ログイン・エラー画面などの標準の文言を、元のサーバーと同じ言語(日本語など)で表示します。英語だけを選ぶと、常に英語になります。", "detail": "英語と、元のサーバーに .NET Framework の言語パックが入っていた言語(capture-culture.ps1 が記録。無ければ変換したマシンの)。UI カルチャが選んだ言語のとき、Calendar・Login・Wizard・GridView・エラーページなどの文言がその言語になる。英語だけを選べば、UI カルチャにかかわらず英語。", "default": true }
       ],
       "languages": [
         { "id": "en", "title": "英語(原文)", "translated": true },
@@ -160,174 +160,208 @@
   ],
   "components": [
     {
-      "id": "thread-abort", "title": "スレッドの中断(Thread.Abort / ResetAbort)",
+      "id": "thread-abort", "title": "処理の途中終了(Response.End など)",
       "match": { "members": [ "System.Threading.Thread.Abort", "System.Threading.Thread.ResetAbort" ] },
-      "note": "変換器: ResetAbort は Platform.ResetAbort に置き換える(FrameworkOnCore の System.Web の Response.End の中断を取り消す)。Abort は対応なし"
+      "note": "ページの処理を途中で打ち切る書き方です。おすすめのままで、元のサーバーと同じに動きます。",
+      "detail": "変換器: ResetAbort は Platform.ResetAbort に置き換える(FrameworkOnCore の System.Web の Response.End の中断を取り消す)。Abort は対応なし"
     },
     {
-      "id": "async-delegates", "title": "デリゲートの非同期呼び出し(BeginInvoke / EndInvoke)",
+      "id": "async-delegates", "title": "処理を別に走らせる古い書き方(BeginInvoke)",
       "match": { "delegateAsync": true }, "status": "Throws", "force": true,
-      "note": "変換器: FrameworkOnCore.AsyncDelegate に置き換える(スレッドプールで実行)"
+      "note": ".NET 10 では使えない書き方です。おすすめのままで、動く形に自動で置き換えます。",
+      "detail": "変換器: FrameworkOnCore.AsyncDelegate に置き換える(スレッドプールで実行)"
     },
     {
-      "id": "binary-formatter", "title": "BinaryFormatter / SoapFormatter",
+      "id": "binary-formatter", "title": "データの保存形式(BinaryFormatter)",
       "match": { "namespaces": [ "System.Runtime.Serialization.Formatters.Binary", "System.Runtime.Serialization.Formatters.Soap" ], "types": [ "System.Runtime.Serialization.NetDataContractSerializer" ] },
-      "note": "変換器: 互換パッケージ System.Runtime.Serialization.Formatters と EnableUnsafeBinaryFormatterSerialization(信頼できないデータの読み込みは危険)"
+      "note": "データをそのまま保存・復元する古い仕組みです。.NET 10 では標準で使えません。おすすめのままで、保存済みのデータも読めるようにします。",
+      "detail": "変換器: 互換パッケージ System.Runtime.Serialization.Formatters と EnableUnsafeBinaryFormatterSerialization(信頼できないデータの読み込みは危険)"
     },
     {
-      "id": "encoding-default", "title": "Encoding.Default(既定の文字コード)",
+      "id": "encoding-default", "title": "既定の文字コード(Shift_JIS など)",
       "match": { "members": [ "System.Text.Encoding.Default", "Microsoft.VisualBasic.Strings.Asc" ] }, "status": "Behavior",
-      "note": ".NET Framework は ANSI コードページ(日本語の Windows では Shift_JIS)、.NET は UTF-8。変換器: Platform.DefaultEncoding に置き換える"
+      "note": "ファイルの読み書きなどで使う既定の文字コードです。元のサーバー(日本語の Windows)は Shift_JIS、.NET 10 は UTF-8 です。おすすめのままで、元と同じ文字コードにします。",
+      "detail": ".NET Framework は ANSI コードページ(日本語の Windows では Shift_JIS)、.NET は UTF-8。変換器: Platform.DefaultEncoding に置き換える"
     },
     {
-      "id": "floating-point", "title": "double・float の文字列化と読み取り",
+      "id": "floating-point", "title": "小数の表示と読み取り",
       "match": { "members": [ "System.Double.ToString", "System.Single.ToString", "System.Double.Parse", "System.Double.TryParse", "System.Single.Parse", "System.Single.TryParse", "System.TimeSpan.FromMilliseconds", "System.TimeSpan.FromSeconds", "System.TimeSpan.FromMinutes", "System.TimeSpan.FromHours", "System.TimeSpan.FromDays", "Microsoft.VisualBasic.Strings.Format", "Microsoft.VisualBasic.Strings.FormatNumber", "Microsoft.VisualBasic.Strings.FormatCurrency", "Microsoft.VisualBasic.Strings.FormatPercent", "Microsoft.VisualBasic.Conversion.Str" ] }, "status": "Behavior",
-      "note": ".NET Core 3.0 から、書式なしの double は往復できる最短の桁(0.1 + 0.2 は 0.30000000000000004。.NET Framework は 15 桁で 0.3)、負のゼロは \"-0\"、桁を決めた書式は 2 進の値そのものを偶数に丸める(2.675 の N2 は 2.67。.NET Framework は 15 桁から四捨五入で 2.68)。大きすぎる数の Parse は無限大(.NET Framework は例外)。TimeSpan.FromSeconds(0.00015) などはミリ秒に丸めない。変換器: FrameworkNumbers・FrameworkParsing に置き換える(FOC1008、platformReplacements)"
+      "note": "小数を文字にしたり、文字から読んだりする所です。.NET 10 では表示が変わることがあります(例: 0.1 + 0.2 が 0.30000000000000004 になる)。おすすめのままで、元と同じ表示にします。",
+      "detail": ".NET Core 3.0 から、書式なしの double は往復できる最短の桁(0.1 + 0.2 は 0.30000000000000004。.NET Framework は 15 桁で 0.3)、負のゼロは \"-0\"、桁を決めた書式は 2 進の値そのものを偶数に丸める(2.675 の N2 は 2.67。.NET Framework は 15 桁から四捨五入で 2.68)。大きすぎる数の Parse は無限大(.NET Framework は例外)。TimeSpan.FromSeconds(0.00015) などはミリ秒に丸めない。変換器: FrameworkNumbers・FrameworkParsing に置き換える(FOC1008、platformReplacements)"
     },
     {
-      "id": "language-packs", "title": ".NET Framework の言語パック(System.Web などの日本語のメッセージ、カルチャの表示名)",
+      "id": "language-packs", "title": "画面の言語(ASP.NET の標準の文言)",
       "match": { "members": [ "System.Globalization.CultureInfo.DisplayName" ] }, "status": "Behavior",
-      "note": "言語パックのあるサーバー(日本語の Windows では普通 ja)では、UI カルチャがその言語のとき System.Web のテキストがその言語になる(Calendar の「カレンダー」「先月へ移動」、Login の「ユーザー名:」、Wizard の「次へ」、GridView の「編集」、エラーページ)。.NET には言語パックがない。変換器: FrameworkOnCore 独自の訳(translations/)を、アプリの設定「言語パック」で選んだ言語(既定は元のサーバーに言語パックがあった言語)で使う(Microsoft の言語パックは使用許諾が Windows 以外への配布を禁じるので、Windows だけに配置するときに選んだ場合だけ)。CultureInfo.DisplayName(.NET は Windows の表示言語の名前)は、訳のある言語ならその言語、ほかは元のサーバーの英語名に(FrameworkCultures)"
+      "note": "カレンダー・ログイン・エラー画面などの標準の文言の言語です。元のサーバーが日本語の Windows なら、これらは日本語でした。おすすめのままで、日本語などの訳を使います。",
+      "detail": "言語パックのあるサーバー(日本語の Windows では普通 ja)では、UI カルチャがその言語のとき System.Web のテキストがその言語になる(Calendar の「カレンダー」「先月へ移動」、Login の「ユーザー名:」、Wizard の「次へ」、GridView の「編集」、エラーページ)。.NET には言語パックがない。変換器: FrameworkOnCore 独自の訳(translations/)を、アプリの設定「言語パック」で選んだ言語(既定は元のサーバーに言語パックがあった言語)で使う(Microsoft の言語パックは使用許諾が Windows 以外への配布を禁じるので、Windows だけに配置するときに選んだ場合だけ)。CultureInfo.DisplayName(.NET は Windows の表示言語の名前)は、訳のある言語ならその言語、ほかは元のサーバーの英語名に(FrameworkCultures)"
     },
     {
-      "id": "code-pages", "title": "コードページ(Shift_JIS など)",
+      "id": "code-pages", "title": "日本語などの文字コード(Shift_JIS・EUC-JP)",
       "match": { "members": [ "System.Text.Encoding.GetEncoding", "System.Text.Encoding.GetEncodings" ] },
-      "note": ".NET はプロバイダーを登録しないと Unicode と ASCII・Latin-1 だけ。FrameworkOnCore の System.Web(UseWebForms)が起動時に登録する"
+      "note": ".NET 10 で Shift_JIS などを使えるようにします。自動で有効になるので、選ぶものはありません。",
+      "detail": ".NET はプロバイダーを登録しないと Unicode と ASCII・Latin-1 だけ。FrameworkOnCore の System.Web(UseWebForms)が起動時に登録する"
     },
     {
-      "id": "system-drawing", "title": "System.Drawing(画像・フォント、GDI+)",
+      "id": "system-drawing", "title": "画像の作成・加工(System.Drawing)",
       "match": { "namespaces": [ "System.Drawing" ] },
-      "note": ".NET の System.Drawing.Common は .NET 7 から Windows のみ。変換器: FrameworkOnCore の System.Drawing.Common(dotnet/runtime 6.0 の Linux 実装を持つ移植版、libgdiplus)。描画の結果(アンチエイリアス、文字)は Windows と Linux で少し違う。Windows のフォントは Linux に無い(Arial などは互換のフォントに置き換わる)"
+      "note": "画像やグラフを作る機能です。.NET 10 では Windows でしか動きませんが、Linux でも動くものに置き換えます。文字の形や線のなめらかさが元と少し違うことがあります。",
+      "detail": ".NET の System.Drawing.Common は .NET 7 から Windows のみ。変換器: FrameworkOnCore の System.Drawing.Common(dotnet/runtime 6.0 の Linux 実装を持つ移植版、libgdiplus)。描画の結果(アンチエイリアス、文字)は Windows と Linux で少し違う。Windows のフォントは Linux に無い(Arial などは互換のフォントに置き換わる)"
     },
     {
       "id": "charts", "title": "グラフ(Chart コントロール)",
       "match": { "assemblies": [ "System.Web.DataVisualization", "System.Windows.Forms.DataVisualization" ] },
-      "note": "referencesource(MIT)から移植済み: パッケージ FrameworkOnCore.Web.DataVisualization(Chart コントロール、ChartImg.axd)。描画は移植版の System.Drawing(Linux は libgdiplus)。ChartImg.axd の画像ファイルの置き場(appSettings ChartImageHandler の dir)が C: などのときは、Linux では配置の設定(APPSETTING_ChartImageHandler)で替える。Windows フォームの System.Windows.Forms.DataVisualization は移植していない"
+      "note": "画面にグラフを描く部品です。.NET 10 には無いため、Linux でも動くものを用意しています。",
+      "detail": "referencesource(MIT)から移植済み: パッケージ FrameworkOnCore.Web.DataVisualization(Chart コントロール、ChartImg.axd)。描画は移植版の System.Drawing(Linux は libgdiplus)。ChartImg.axd の画像ファイルの置き場(appSettings ChartImageHandler の dir)が C: などのときは、Linux では配置の設定(APPSETTING_ChartImageHandler)で替える。Windows フォームの System.Windows.Forms.DataVisualization は移植していない"
     },
     {
-      "id": "sql-client", "title": "SQL Server のクライアント(System.Data.SqlClient)",
+      "id": "sql-client", "title": "SQL Server への接続",
       "match": { "namespaces": [ "System.Data.SqlClient", "Microsoft.SqlServer.Server" ] }, "status": "Behavior", "force": true,
-      "note": ".NET の System.Data.SqlClient は接続文字列の |DataDirectory| を拒否する(.NET Framework は App_Data に展開した)。変換器: 移植版(FrameworkOnCore.Data.SqlClient)が .NET Framework と同じく展開する"
+      "note": "データベース(SQL Server)に接続する部品です。接続の設定の書き方の一部が .NET 10 では使えないため、おすすめのままで、元と同じ書き方を使えるものにします。",
+      "detail": ".NET の System.Data.SqlClient は接続文字列の |DataDirectory| を拒否する(.NET Framework は App_Data に展開した)。変換器: 移植版(FrameworkOnCore.Data.SqlClient)が .NET Framework と同じく展開する"
     },
     {
-      "id": "linq-to-sql", "title": "LINQ to SQL(System.Data.Linq)",
+      "id": "linq-to-sql", "title": "データベースの操作(LINQ to SQL)",
       "match": { "assemblies": [ "System.Data.Linq" ] },
-      "note": "referencesource(MIT)から移植済み: パッケージ FrameworkOnCore.Data.Linq(SQL Server 用)"
+      "note": "データベースを読み書きする古い仕組みです。.NET 10 には無いため、使えるものを用意しています。",
+      "detail": "referencesource(MIT)から移植済み: パッケージ FrameworkOnCore.Data.Linq(SQL Server 用)"
     },
     {
-      "id": "entity-framework-4", "title": "Entity Framework 4(System.Data.Entity)",
+      "id": "entity-framework-4", "title": "データベースの操作(Entity Framework 4)",
       "match": { "assemblies": [ "System.Data.Entity", "System.Data.Entity.Design" ] },
-      "note": "変換器: EF6(パッケージ)に移し、名前空間を書き換える"
+      "note": "データベースを読み書きする仕組みの古い版です。おすすめのままで、.NET 10 でも動く新しい版(EF6)に移します。",
+      "detail": "変換器: EF6(パッケージ)に移し、名前空間を書き換える"
     },
     {
-      "id": "wcf-data-services", "title": "WCF Data Services(OData のクライアント・サーバー)",
+      "id": "wcf-data-services", "title": "データ配信サービス(WCF Data Services)",
       "match": { "assemblies": [ "System.Data.Services.Client", "System.Data.Services" ] },
-      "note": ".NET に無い"
+      "note": "データを Web で公開・取得する仕組みです。.NET 10 には無く、変換では対応していません。使っている場合は作り直しが必要です。",
+      "detail": ".NET に無い"
     },
     {
-      "id": "mobile-controls", "title": "モバイル コントロール(System.Web.Mobile)",
+      "id": "mobile-controls", "title": "携帯電話向けの画面(モバイル コントロール)",
       "match": { "assemblies": [ "System.Web.Mobile" ], "namespaces": [ "System.Web.UI.MobileControls", "System.Web.Mobile" ] },
-      "note": "ASP.NET 4.0 で廃止(.NET Framework 4.8 にはある)。referencesource(MIT)から移植済み: パッケージ FrameworkOnCore.Web.Mobile"
+      "note": "古い携帯電話向けの画面部品です。.NET 10 には無いため、使えるものを用意しています。",
+      "detail": "ASP.NET 4.0 で廃止(.NET Framework 4.8 にはある)。referencesource(MIT)から移植済み: パッケージ FrameworkOnCore.Web.Mobile"
     },
     {
-      "id": "wcf-server", "title": "WCF のサービス(ServiceHost、.svc)",
+      "id": "wcf-server", "title": "Web サービスの提供(WCF、.svc)",
       "match": { "assemblies": [ "System.ServiceModel.Activation" ], "types": [ "System.ServiceModel.ServiceHost", "System.ServiceModel.ServiceHostBase" ], "namespaces": [ "System.ServiceModel.Activation", "System.ServiceModel.Description" ] },
-      "note": ".NET の WCF はクライアントのみ。変換器: CoreWCF で動かす(FrameworkOnCore.ServiceModel が .svc と web.config のサービスを CoreWCF に登録する)"
+      "note": "ほかのシステムから呼ばれる Web サービスです。.NET 10 では標準で動かないため、互換の仕組み(CoreWCF)で動かします。一部の設定は対応していません(変換レポートに出ます)。",
+      "detail": ".NET の WCF はクライアントのみ。変換器: CoreWCF で動かす(FrameworkOnCore.ServiceModel が .svc と web.config のサービスを CoreWCF に登録する)"
     },
     {
-      "id": "wcf-client", "title": "WCF のクライアント(System.ServiceModel)",
+      "id": "wcf-client", "title": "Web サービスの呼び出し(WCF)",
       "match": { "assemblies": [ "System.ServiceModel", "System.ServiceModel.Web" ] },
-      "note": "変換器: System.ServiceModel.* パッケージ(クライアントの一部のみ)"
+      "note": "ほかのシステムの Web サービスを呼ぶ機能です。主な使い方は .NET 10 でも動きます。",
+      "detail": "変換器: System.ServiceModel.* パッケージ(クライアントの一部のみ)"
     },
     {
-      "id": "event-log", "title": "イベントログ(EventLog)",
+      "id": "event-log", "title": "イベント ログへの記録",
       "match": { "types": [ "System.Diagnostics.EventLog", "System.Diagnostics.EventLogEntry", "System.Diagnostics.EventLogEntryType", "System.Diagnostics.EventLogEntryCollection", "System.Diagnostics.EventLogTraceListener", "System.Diagnostics.EventSourceCreationData" ] },
-      "note": "変換器: Windows 以外では標準エラーへ(FrameworkOnCore.EventLogs)"
+      "note": "Windows のイベント ログに記録する機能です。Linux にはイベント ログが無いため、おすすめのままで、サーバーのログに出します。",
+      "detail": "変換器: Windows 以外では標準エラーへ(FrameworkOnCore.EventLogs)"
     },
     {
-      "id": "windows-identity", "title": "Windows のアカウント・偽装(WindowsIdentity)",
+      "id": "windows-identity", "title": "Windows のアカウントの利用",
       "match": { "types": [ "System.Security.Principal.WindowsIdentity", "System.Security.Principal.WindowsPrincipal", "System.Security.Principal.WindowsImpersonationContext", "System.Security.Principal.PrincipalPolicy" ] },
-      "note": "変換器: Windows 以外では Platform の置き換え(アカウントなし)"
+      "note": "処理を行っている Windows のアカウントを調べたり切り替えたりする機能です。Linux には Windows のアカウントがありません。",
+      "detail": "変換器: Windows 以外では Platform の置き換え(アカウントなし)"
     },
     {
-      "id": "file-access-control", "title": "ファイル・フォルダーのアクセス制御(ACL)",
+      "id": "file-access-control", "title": "ファイルのアクセス権の設定",
       "match": { "members": [ "System.IO.Directory.GetAccessControl", "System.IO.Directory.SetAccessControl", "System.IO.File.GetAccessControl", "System.IO.File.SetAccessControl", "System.IO.FileSystemInfo.GetAccessControl" ], "namespaces": [ "System.Security.AccessControl" ] },
-      "note": "Windows のみ。変換器: Directory/File の GetAccessControl などは FrameworkOnCore.DirectoryAcl・FileAcl(Windows 以外では例外)"
+      "note": "ファイルやフォルダーのアクセス権(Windows の権限)を読み書きする機能です。Linux では使えません。",
+      "detail": "Windows のみ。変換器: Directory/File の GetAccessControl などは FrameworkOnCore.DirectoryAcl・FileAcl(Windows 以外では例外)"
     },
     {
-      "id": "registry", "title": "レジストリ(Microsoft.Win32.Registry)",
+      "id": "registry", "title": "レジストリ",
       "match": { "types": [ "Microsoft.Win32.Registry", "Microsoft.Win32.RegistryKey", "Microsoft.Win32.RegistryHive", "Microsoft.Win32.RegistryValueKind", "Microsoft.Win32.RegistryView" ] },
-      "note": "Windows 以外では Registry.LocalMachine などが null"
+      "note": "Windows の設定の保存場所(レジストリ)を使う機能です。Linux には無いため、値は読めません。",
+      "detail": "Windows 以外では Registry.LocalMachine などが null"
     },
     {
-      "id": "oledb", "title": "OLE DB(Excel・Access の読み込みなど)",
+      "id": "oledb", "title": "Excel・Access のファイルの読み込み(OLE DB)",
       "match": { "namespaces": [ "System.Data.OleDb" ] },
-      "note": "Windows のみ。Linux にプロバイダーが無い"
+      "note": "Excel や Access のファイルを読む仕組みです。Windows でしか動きません。Linux で使うには作り直しが必要です。",
+      "detail": "Windows のみ。Linux にプロバイダーが無い"
     },
     {
-      "id": "directory-services", "title": "Active Directory(System.DirectoryServices)",
+      "id": "directory-services", "title": "Active Directory の利用",
       "match": { "namespaces": [ "System.DirectoryServices" ] },
-      "note": "Windows のみ。LDAP(System.DirectoryServices.Protocols)への書き換えが要る"
+      "note": "社内の Active Directory でユーザーを調べる機能です。Windows でしか動きません。Linux で使うには作り直しが必要です。",
+      "detail": "Windows のみ。LDAP(System.DirectoryServices.Protocols)への書き換えが要る"
     },
     {
-      "id": "windows-management", "title": "WMI・パフォーマンスカウンター・Windows サービス",
+      "id": "windows-management", "title": "Windows の管理機能(WMI・パフォーマンス カウンター・サービス)",
       "match": { "namespaces": [ "System.Management", "System.ServiceProcess" ], "types": [ "System.Diagnostics.PerformanceCounter", "System.Diagnostics.PerformanceCounterCategory", "System.Diagnostics.PerformanceCounterType", "System.Diagnostics.CounterCreationData", "System.Diagnostics.CounterCreationDataCollection" ] },
-      "note": "Windows のみ"
+      "note": "Windows の状態を調べたり、Windows のサービスを操作したりする機能です。Windows でしか動きません。",
+      "detail": "Windows のみ"
     },
     {
-      "id": "code-access-security", "title": "コードアクセスセキュリティ(CAS)",
+      "id": "code-access-security", "title": "古いセキュリティ設定(コード アクセス セキュリティ)",
       "match": { "namespaces": [ "System.Security.Permissions" ], "types": [ "System.Security.SecurityManager", "System.Security.CodeAccessPermission", "System.Security.PermissionSet", "System.Security.NamedPermissionSet", "System.Security.IPermission", "System.Web.AspNetHostingPermission", "System.Web.AspNetHostingPermissionLevel", "System.Web.AspNetHostingPermissionAttribute" ] },
-      "note": ".NET では何もしない(部分信頼は無い)。Web アプリは完全信頼が普通"
+      "note": "プログラムの権限を細かく制限する古い仕組みです。.NET 10 では何もしませんが、Web アプリでは普通は影響ありません。",
+      "detail": ".NET では何もしない(部分信頼は無い)。Web アプリは完全信頼が普通"
     },
     {
-      "id": "app-domains", "title": "AppDomain の作成(AppDomain.CreateDomain)",
+      "id": "app-domains", "title": "アプリの中の区画(AppDomain)",
       "match": { "members": [ "System.AppDomain.CreateDomain", "System.AppDomain.Unload", "System.AppDomain.CreateInstanceAndUnwrap", "System.AppDomain.ExecuteAssembly" ], "types": [ "System.AppDomainSetup" ] },
-      "note": ".NET は AppDomain を 1 つしか持てない"
+      "note": "1 つのアプリの中に別の区画を作る仕組みです。.NET 10 では作れません。使っている場合は作り直しが必要です。",
+      "detail": ".NET は AppDomain を 1 つしか持てない"
     },
     {
-      "id": "remoting", "title": "リモート処理(System.Runtime.Remoting)",
+      "id": "remoting", "title": "プログラム間の通信(リモート処理)",
       "match": { "namespaces": [ "System.Runtime.Remoting" ] },
-      "note": ".NET に無い。一部(CallContext など)は FrameworkOnCore の System.Web・互換アセンブリにある"
+      "note": "別のプログラムと通信する古い仕組みです。.NET 10 には無く、よく使われる一部だけを用意しています。",
+      "detail": ".NET に無い。一部(CallContext など)は FrameworkOnCore の System.Web・互換アセンブリにある"
     },
     {
-      "id": "code-dom-compile", "title": "実行時のコンパイル(CodeDom)",
+      "id": "code-dom-compile", "title": "動作中のプログラム作成(CodeDom)",
       "match": { "namespaces": [ "System.CodeDom.Compiler" ], "types": [ "Microsoft.CSharp.CSharpCodeProvider", "Microsoft.VisualBasic.VBCodeProvider" ] },
-      "note": ".NET の CodeDom はコンパイルできない(例外)。コードの生成のみ"
+      "note": "アプリの動作中にプログラムをコンパイルする機能です。.NET 10 では使えません。",
+      "detail": ".NET の CodeDom はコンパイルできない(例外)。コードの生成のみ"
     },
     {
-      "id": "web-request", "title": "WebRequest / WebClient",
+      "id": "web-request", "title": "Web の呼び出し(WebRequest・WebClient)",
       "match": { "types": [ "System.Net.WebRequest", "System.Net.HttpWebRequest", "System.Net.WebClient", "System.Net.ServicePointManager", "System.Net.ServicePoint", "System.Net.FtpWebRequest", "System.Net.FileWebRequest" ] },
-      "note": ".NET では廃止予定だが動く(HttpClient が推奨)"
+      "note": "ほかの Web サイトを呼ぶ古い書き方です。.NET 10 でも動きます(将来は書き換えが勧められています)。",
+      "detail": ".NET では廃止予定だが動く(HttpClient が推奨)"
     },
     {
-      "id": "legacy-crypto", "title": "古い暗号クラス(*CryptoServiceProvider、*Managed)",
+      "id": "legacy-crypto", "title": "古い暗号の機能",
       "match": { "types": [ "System.Security.Cryptography.MD5CryptoServiceProvider", "System.Security.Cryptography.SHA1CryptoServiceProvider", "System.Security.Cryptography.SHA256CryptoServiceProvider", "System.Security.Cryptography.SHA384CryptoServiceProvider", "System.Security.Cryptography.SHA512CryptoServiceProvider", "System.Security.Cryptography.DESCryptoServiceProvider", "System.Security.Cryptography.TripleDESCryptoServiceProvider", "System.Security.Cryptography.RC2CryptoServiceProvider", "System.Security.Cryptography.AesCryptoServiceProvider", "System.Security.Cryptography.RNGCryptoServiceProvider", "System.Security.Cryptography.RijndaelManaged", "System.Security.Cryptography.Rijndael", "System.Security.Cryptography.AesManaged", "System.Security.Cryptography.SHA1Managed", "System.Security.Cryptography.SHA256Managed", "System.Security.Cryptography.SHA384Managed", "System.Security.Cryptography.SHA512Managed", "System.Security.Cryptography.RijndaelManagedTransform" ] },
-      "note": ".NET では廃止予定だが動く(Rijndael の BlockSize 256 は例外)"
+      "note": "暗号化の古い書き方です。.NET 10 でも動きます(一部の設定だけエラーになります)。",
+      "detail": ".NET では廃止予定だが動く(Rijndael の BlockSize 256 は例外)"
     },
     {
-      "id": "designers", "title": "デザイナー・Windows フォーム",
+      "id": "designers", "title": "開発ツール用の部品(デザイナー)",
       "match": { "assemblies": [ "System.Design", "System.Web.Extensions.Design", "System.Windows.Forms", "System.Drawing.Design" ] },
-      "note": "Visual Studio のデザイナー用。変換器: スタブ・web.config から除く"
+      "note": "Visual Studio の画面設計で使う部品です。動かすときには不要なので、変換で取り除きます。",
+      "detail": "Visual Studio のデザイナー用。変換器: スタブ・web.config から除く"
     },
     {
-      "id": "web-forms", "title": "ASP.NET(System.Web:Web Forms、ASMX など)",
+      "id": "web-forms", "title": "ASP.NET の画面とサービス(Web Forms・ASMX など)",
       "match": { "assemblies": [ "System.Web", "System.Web.Extensions", "System.Web.Services", "System.Web.ApplicationServices", "System.Web.DynamicData", "System.Web.Abstractions", "System.Web.Routing", "System.Web.Entity", "System.Web.RegularExpressions" ] },
-      "note": "FrameworkOnCore(WebFormsForCore を元にした System.Web など)が .NET 版を持つ"
+      "note": "アプリの画面やサービスの本体です。FrameworkOnCore が .NET 10 で動く版を持っています。",
+      "detail": "FrameworkOnCore(WebFormsForCore を元にした System.Web など)が .NET 版を持つ"
     },
     {
-      "id": "configuration", "title": "構成(System.Configuration)",
+      "id": "configuration", "title": "設定ファイル(web.config)",
       "match": { "assemblies": [ "System.Configuration" ] },
-      "note": "FrameworkOnCore(WebFormsForCore を元にしたもの)の構成"
+      "note": "web.config などの設定を読む機能です。FrameworkOnCore が .NET 10 で動く版を持っています。",
+      "detail": "FrameworkOnCore(WebFormsForCore を元にしたもの)の構成"
     },
     {
-      "id": "visual-basic-runtime", "title": "Visual Basic のランタイム(Microsoft.VisualBasic)",
+      "id": "visual-basic-runtime", "title": "Visual Basic の機能",
       "match": { "assemblies": [ "Microsoft.VisualBasic" ] },
-      "note": ".NET の Microsoft.VisualBasic.Core。My の型の一部は互換アセンブリ"
+      "note": "Visual Basic で書いたアプリが使う標準の機能です。.NET 10 にもあります(一部は互換の部品で補います)。",
+      "detail": ".NET の Microsoft.VisualBasic.Core。My の型の一部は互換アセンブリ"
     },
     {
-      "id": "dll-references", "title": "参照先のない DLL",
+      "id": "dll-references", "title": "ソースの無い DLL",
       "match": {},
-      "note": "ソースの無い DLL は型を「アセンブリ + 型名」で参照する。その型が .NET 10 では別のアセンブリにあるもの(どの型かは「API を見る」。API はそれぞれの部品にも数えている)"
+      "note": "ソースが無く、DLL だけがある部品です。.NET 10 では中で使っている機能の場所が変わっていることがあるため、おすすめのままで、変換時に DLL を直します。",
+      "detail": "ソースの無い DLL は型を「アセンブリ + 型名」で参照する。その型が .NET 10 では別のアセンブリにあるもの(どの型かは「API を見る」。API はそれぞれの部品にも数えている)"
     }
   ]
 }

@@ -113,7 +113,7 @@ public abstract class Runs
     // The work in the background: stopped when cancelled (what it started released), failed with its message.
     protected RunEntry Begin(string id, RunEntry entry, Func<StudioLog, CancellationToken, Task> work)
     {
-        if (working.ContainsKey(id)) throw new InvalidOperationException(Lang.T("起動の途中です", "It is starting"));
+        if (working.ContainsKey(id)) throw new InvalidOperationException(Lang.T("起動の途中です。少し待ってください", "It is starting; wait a moment"));
         if (Get(id) is { State: "running" } before) Release(id, before);
         var cancel = new CancellationTokenSource();
         working[id] = cancel;
@@ -154,7 +154,7 @@ public abstract class Runs
         while (true)
         {
             cancel.ThrowIfCancellationRequested();
-            if (!alive()) throw new InvalidOperationException(Lang.T("サイトが起動の途中で止まりました(ログを見てください)", "The site stopped while it started (see the log)"));
+            if (!alive()) throw new InvalidOperationException(Lang.T("アプリが起動の途中で止まりました(詳しくは記録にあります)", "The application stopped while it started (the log has the details)"));
             try
             {
                 // While it is asked, the process is watched: one that ends does not leave the request waiting.
@@ -177,7 +177,7 @@ public abstract class Runs
             }
             catch (HttpRequestException) { }
             catch (OperationCanceledException) when (!cancel.IsCancellationRequested) { }
-            if (deadline.IsCancellationRequested) throw new InvalidOperationException(Lang.T($"{minutes} 分待っても応答がありません(ログを見てください。データベースに接続できているか)", $"No answer after {minutes} minutes (see the log: can it reach its database?)"));
+            if (deadline.IsCancellationRequested) throw new InvalidOperationException(Lang.T($"{minutes} 分待っても画面が表示されません。データベースの接続先が正しいか確かめてください(詳しくは記録にあります)", $"No page after {minutes} minutes. Check the database's connection settings (the log has the details)"));
             await Task.Delay(2000, cancel);
         }
     }
@@ -510,7 +510,7 @@ public sealed class Originals(AnalysisStore store) : Runs
             }
             var site = log.Texts.Reverse().Select(l => Regex.Match(l, "^site: (.+)$")).FirstOrDefault(m => m.Success)?.Groups[1].Value;
             if (process.ExitCode != 0 || site == null)
-                throw new InvalidOperationException(Lang.T($"元のアプリをビルドできませんでした(ログと {buildLog} を見てください)", $"The original application could not be built (see the log and {buildLog})"));
+                throw new InvalidOperationException(Lang.T($"元のアプリを組み立てられませんでした(詳しくは記録と {buildLog} にあります)", $"The original application could not be built (the log and {buildLog} have the details)"));
             File.WriteAllText(SiteFile(id), site);
             return site;
         }

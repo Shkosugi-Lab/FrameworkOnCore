@@ -426,11 +426,16 @@ def slide3():
     s = Slide('③ Windows / Linux サーバー + FrameworkOnCore')
     r = rows(('APP', 64), ('KINDS', 104), ('CORE', 84), ('LIBS', 156), ('CLASSLIBS', 44), ('CORELIB', 46), ('OS', 50), ('HW', 22))
     app_kinds(s, r, APP_KINDS)
-    # WCF: FrameworkOnCore's part (the .svc files' activation, ASP.NET compatibility) uses System.Web's core and CoreWCF;
-    # CoreWCF, under it at the left, uses ASP.NET Core's pipeline (down beside System.Web's core).
+    # WCF: the services' code uses CoreWCF (the converter moves their types to it), which uses ASP.NET Core's pipeline: under
+    # the application, down beside System.Web's core. FrameworkOnCore's entry (FrameworkOnCore.ServiceModel: the .svc files
+    # and web.config registered with CoreWCF, ASP.NET AJAX's /js and enableWebScript, AspNetCompatibilityRequirements' type)
+    # small beside it: the application uses its type; what it uses (CoreWCF, the pipeline, System.Web.Extensions) in its
+    # text, not under it (a gap above System.Web's core, which it does not use).
     (wx, ww), core_x = COLS[0], LEFT + 54
-    s.rect(wx, r['KINDS'][0], ww, r['KINDS'][1], C['foc'], 'WCF の受け口(移植)', ['.svc の構成', 'ASP.NET 互換'], column=True)
-    s.rect(LEFT, r['CORE'][0], 50, r['CORE'][1], C['focLight'], 'CoreWCF', size=11, align='center', anchor='middle', vertical=True)
+    s.rect(LEFT, r['KINDS'][0], 50, r['LIBS'][0] - 4 - r['KINDS'][0], C['focLight'], 'CoreWCF(サービスの本体)', size=11,
+           align='center', anchor='middle', vertical=True)
+    s.rect(core_x, r['KINDS'][0], wx + ww - core_x, r['KINDS'][1] - 12, C['foc'], 'WCF の受け口',
+           ['.svc 登録', 'AJAX(/js)', '互換の型'], column=True, size=11)
     kinds(s, r, [
         (C['foc'], 'FrameworkOnCore(移植)', ['System.Web.UI(ページ)', 'ASP.NET AJAX(Extensions)', 'Chart・Dynamic Data・Mobile', 'バンドル(Optimization)']),
         (C['foc'], 'MVC 5(移植)', ['System.Web.Mvc', 'Razor・WebPages', 'AspNetWebStack', 'バンドル']),

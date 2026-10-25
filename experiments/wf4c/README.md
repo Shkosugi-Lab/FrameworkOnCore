@@ -980,6 +980,23 @@ DNN のインストール ウィザードがネイティブ起動で 500 にな�
   - 気付いたこと: ランタイムの `SERVER_PORT` は Host ヘッダーのポート(IIS は接続のポート)。ポートの対応やリバースプロキシの後ろで、古いアプリが SERVER_PORT からリンクを作っても壊れないように、意図して変えたもの(w2l.10)。そのままにした。
 - 確認: テスト Windows 4,348 件・Linux 4,329 件、be Windows 5/5、wt Windows 6/8(既知の差)。
 
+#### web.config の読み込みを CoreWCF.ConfigurationManager にできるか(2026-10-25、ユーザーの指示。結論: できない)
+
+CoreWCF の公式の拡張 CoreWCF.ConfigurationManager 1.9.1 で、FrameworkOnCore.ServiceModel の web.config の読み込み(ServiceModelSection・ServicePlan)を
+置き換えられるか試した(samples/WcfProbe の web.config。CoreWCF のソースも読んだ)。
+
+- 読むのは `<bindings>`(basicHttp・netTcp・netHttp・wsHttp・webHttp・custom)と `<services>` の `<endpoint>` だけ。`<behaviors>`・`<serviceHostingEnvironment>`
+  などがあっても、例外にはならず読み飛ばす。
+- 足りないもの(試した結果):
+  - `address=""`(IIS では .svc ファイルのアドレス): NullReferenceException。絶対パスを書けば動く。
+  - 名前付きの設定の無い `webHttpBinding`: BindingNotFoundException(既定のバインドの作成が webHttpBinding を知らない)。
+  - `behaviorConfiguration` を見ない: REST(webHttp)と ASP.NET AJAX(enableWebScript)のエンドポイントが、普通の SOAP のエンドポイントとして登録され、500 になった。
+  - サービスの動作(serviceMetadata・serviceDebug)、WCF 4 の既定のエンドポイント(`<endpoint>` の無いサービス)、protocolMapping、serviceActivations、.svc ファイル。
+- 置き換えると、IIS 上の WCF のサイトの web.config(.svc のアドレス、既定のエンドポイント、動作)の多くが動かなくなるので、今の読み込みを残す。
+  足りない点は CoreWCF に出せる候補(Issue #714 などで既に一部の制限が報告されている)だが、提案は今回はしない(ユーザーの決定)。
+- 図(docs/architecture ③)では、アプリの WCF のコードが直接使う CoreWCF をアプリの真下に置き、FrameworkOnCore.ServiceModel は「WCF の受け口」として小さく描いた
+  (アプリが使うのは AspNetCompatibilityRequirements の型だけ。それが使う CoreWCF・パイプライン・System.Web.Extensions は、接しない)。
+
 #### ASP.NET AJAX から呼ぶ WCF のサービス(enableWebScript、1.6.5-w2l.15)
 
 Visual Studio の「AJAX 対応 WCF サービス」(webHttpBinding と `<enableWebScript/>`)を、ScriptManager の ServiceReference から呼べるようにした。Web Forms のアプリでよく使われる形。CoreWCF にはこの動作が無い。

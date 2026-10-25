@@ -82,7 +82,7 @@ function ComponentCard({ c, ctx, components }) {
             {c.attentionCount === 0 && c.binaryReferences > 0 && <Badge>{t('components.dllOnly')}</Badge>}
             {changed && <Badge color="severity-medium">{t('common.changed')}</Badge>}
           </SpaceBetween>}>
-          {c.title}
+          {c.title} <Box variant="code" display="inline" fontSize="body-s">{c.id}</Box>
         </Header>}
         footer={
           <ExpandableSection headerText={t('components.apis', fmt(apis.length))} defaultExpanded={ctx.linked === c.id} variant="footer">

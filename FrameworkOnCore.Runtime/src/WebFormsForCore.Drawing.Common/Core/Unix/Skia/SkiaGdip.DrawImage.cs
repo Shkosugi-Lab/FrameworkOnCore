@@ -371,11 +371,16 @@ namespace System.Drawing
                 return true;
             }
 
+            /// <summary>An image's whole source: its pixels, a metafile's picture.</summary>
+            private static SKRect SourceOf(GpImage image) =>
+                image is GpMetafile m ? new SKRect(0, 0, m.PictureSize.Width, m.PictureSize.Height) : new SKRect(0, 0, image.Width, image.Height);
+
             /// <summary>An image's size where DrawImage at a point draws it: its physical size, in the Graphics' page units.</summary>
             private static SizeF PhysicalSize(GpGraphics g, GpImage image)
             {
-                float dpiX = image is GpMetafile ? 96 : image.DpiX, dpiY = image is GpMetafile ? 96 : image.DpiY;
-                return new SizeF(image.Width * g.DpiX / dpiX / g.PageScaleX, image.Height * g.DpiY / dpiY / g.PageScaleY);
+                if (image is GpMetafile m)
+                    return new SizeF(m.PictureSize.Width * g.DpiX / 96 / g.PageScaleX, m.PictureSize.Height * g.DpiY / 96 / g.PageScaleY);
+                return new SizeF(image.Width * g.DpiX / image.DpiX / g.PageScaleX, image.Height * g.DpiY / image.DpiY / g.PageScaleY);
             }
 
             internal static int GdipDrawImage(HandleRef graphics, HandleRef image, float x, float y)
@@ -383,7 +388,7 @@ namespace System.Drawing
                 if (!Drawable(graphics, image, out GpGraphics g, out GpImage i, out int status))
                     return status;
                 SizeF size = PhysicalSize(g, i);
-                var source = new SKRect(0, 0, i.Width, i.Height);
+                var source = SourceOf(i);
                 return DrawImageThrough(g, i, source, RectToRect(source, x, y, size.Width, size.Height), null);
             }
 
@@ -395,7 +400,7 @@ namespace System.Drawing
                     return status;
                 if (width == 0 || height == 0)
                     return Ok;
-                var source = new SKRect(0, 0, i.Width, i.Height);
+                var source = SourceOf(i);
                 return DrawImageThrough(g, i, source, RectToRect(source, x, y, width, height), null);
             }
 
@@ -408,7 +413,7 @@ namespace System.Drawing
                     return status;
                 if (points == null || count != 3)
                     return count == 4 ? NotImplemented : InvalidParameter;
-                var source = new SKRect(0, 0, i.Width, i.Height);
+                var source = SourceOf(i);
                 return DrawImageThrough(g, i, source, RectToPoints(source, points[0], points[1], points[2]), null);
             }
 
@@ -427,7 +432,7 @@ namespace System.Drawing
                 if (!SourceInPixels(i, (GraphicsUnit)srcunit, ref srcx, ref srcy, ref srcwidth, ref srcheight))
                     return InvalidParameter;
                 var source = new SKRect(srcx, srcy, srcx + srcwidth, srcy + srcheight);
-                float dpiX = i is GpMetafile ? 96 : i.DpiX, dpiY = i is GpMetafile ? 96 : i.DpiY;
+                float dpiX = i is GpMetafile ? 96 : i.DpiX, dpiY = i is GpMetafile ? 96 : i.DpiY;   // a metafile's picture: pixels at 96 dpi
                 float width = srcwidth * g.DpiX / dpiX / g.PageScaleX, height = srcheight * g.DpiY / dpiY / g.PageScaleY;
                 return DrawImageThrough(g, i, source, RectToRect(source, x, y, width, height), null);
             }

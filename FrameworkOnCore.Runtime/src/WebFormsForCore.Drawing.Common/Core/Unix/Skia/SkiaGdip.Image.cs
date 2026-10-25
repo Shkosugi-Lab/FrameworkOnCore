@@ -43,19 +43,24 @@ namespace System.Drawing
 
             internal sealed class GpMetafile : GpImage
             {
+                public MetaHeader Header = new MetaHeader();
+                public byte[]? Data;            // a metafile read: its bytes (not played)
+                public bool Recording;          // a Graphics may record into it (once)
                 public SKPictureRecorder? Recorder;
-                public SKPicture? Picture;
-                public RectangleF Frame;   // in pixels
-                public EmfType EmfType;
+                public SKPicture? Picture;      // what was recorded, in pixels
 
                 public override int ImageType => ImageTypeMetafile;
-                public override int Width => (int)Math.Round(Frame.Width);
-                public override int Height => (int)Math.Round(Frame.Height);
+                public override int Width => Header.Width;
+                public override int Height => Header.Height;
+
+                /// <summary>The recorded picture's size in pixels (the frame's, in its unit, at 96 dpi).</summary>
+                public SizeF PictureSize => new SizeF(Math.Max(Header.Width, 1), Math.Max(Header.Height, 1));
 
                 public SKCanvas BeginRecording()
                 {
+                    Recording = false;
                     Recorder = new SKPictureRecorder();
-                    return Recorder.BeginRecording(new SKRect(0, 0, Math.Max(Frame.Width, 1), Math.Max(Frame.Height, 1)));
+                    return Recorder.BeginRecording(new SKRect(0, 0, PictureSize.Width, PictureSize.Height));
                 }
 
                 public void EndRecording()
@@ -72,7 +77,7 @@ namespace System.Drawing
                 public override GpImage Clone()
                 {
                     EndRecording();
-                    return new GpMetafile { Picture = Picture, Frame = Frame, EmfType = EmfType, RawFormat = RawFormat, DpiX = DpiX, DpiY = DpiY, Flags = Flags, Properties = new List<Property>(Properties) };
+                    return new GpMetafile { Header = Header.Clone(), Data = Data, Picture = Picture, RawFormat = RawFormat, DpiX = DpiX, DpiY = DpiY, Flags = Flags, Properties = new List<Property>(Properties) };
                 }
 
                 public override void Dispose()
@@ -597,6 +602,13 @@ namespace System.Drawing
                 width = height = 0;
                 if (!Is(image, out GpImage? i))
                     return InvalidParameter;
+                if (i is GpMetafile m)
+                {
+                    // libgdiplus: a metafile's in hundredths of a millimetre.
+                    width = m.Header.Width / m.Header.DpiX * 2540;
+                    height = m.Header.Height / m.Header.DpiY * 2540;
+                    return Ok;
+                }
                 width = i.Width;
                 height = i.Height;
                 return Ok;
@@ -607,7 +619,7 @@ namespace System.Drawing
                 source = default;
                 if (!Is(image, out GpImage? i))
                     return InvalidParameter;
-                source = new RectangleF(0, 0, i.Width, i.Height);
+                source = i is GpMetafile m ? new RectangleF(m.Header.X, m.Header.Y, m.Header.Width, m.Header.Height) : new RectangleF(0, 0, i.Width, i.Height);
                 unit = GraphicsUnit.Pixel;
                 return Ok;
             }
@@ -1361,53 +1373,6 @@ namespace System.Drawing
                 return Ok;
             }
 
-            // Metafiles: recorded as Skia's picture.
-
-            private static float FramePixels(float value, MetafileFrameUnit unit, float dpi) => unit switch
-            {
-                MetafileFrameUnit.Pixel => value,
-                MetafileFrameUnit.Point => value * dpi / 72,
-                MetafileFrameUnit.Inch => value * dpi,
-                MetafileFrameUnit.Document => value * dpi / 300,
-                MetafileFrameUnit.Millimeter => value * dpi / 25.4f,
-                MetafileFrameUnit.GdiCompatible => value * dpi / 2540,
-                _ => value,
-            };
-
-            private static int RecordMetafile(RectangleF frame, MetafileFrameUnit frameUnit, EmfType type, out IntPtr metafile)
-            {
-                metafile = IntPtr.Zero;
-                if (type < EmfType.EmfOnly || type > EmfType.EmfPlusDual)
-                    return InvalidParameter;
-                var m = new GpMetafile
-                {
-                    Frame = new RectangleF(0, 0, FramePixels(frame.Width, frameUnit, 96), FramePixels(frame.Height, frameUnit, 96)),
-                    EmfType = type,
-                    RawFormat = EmfGuid,
-                };
-                if (m.Frame.Width <= 0 || m.Frame.Height <= 0)
-                    m.Frame = new RectangleF(0, 0, 1, 1);
-                metafile = NewHandle(m);
-                return Ok;
-            }
-
-            internal static int GdipRecordMetafileFromDelegateI_linux(StreamGetHeaderDelegate getHeader, StreamGetBytesDelegate getBytes, StreamPutBytesDelegate putBytes, StreamSeekDelegate doSeek, StreamCloseDelegate close, StreamSizeDelegate size, IntPtr hdc, EmfType type, ref Rectangle frameRect, MetafileFrameUnit frameUnit, string? description, out IntPtr metafile) =>
-                RecordMetafile(frameRect, frameUnit, type, out metafile);
-
-            internal static int GdipRecordMetafileFromDelegate_linux(StreamGetHeaderDelegate getHeader, StreamGetBytesDelegate getBytes, StreamPutBytesDelegate putBytes, StreamSeekDelegate doSeek, StreamCloseDelegate close, StreamSizeDelegate size, IntPtr hdc, EmfType type, ref RectangleF frameRect, MetafileFrameUnit frameUnit, string? description, out IntPtr metafile) =>
-                RecordMetafile(frameRect, frameUnit, type, out metafile);
-
-            internal static int GdipRecordMetafileI(IntPtr referenceHdc, EmfType emfType, ref Rectangle frameRect, MetafileFrameUnit frameUnit, string? description, out IntPtr metafile) =>
-                RecordMetafile(frameRect, frameUnit, emfType, out metafile);
-
-            internal static int GdipRecordMetafile(IntPtr referenceHdc, EmfType emfType, ref RectangleF frameRect, MetafileFrameUnit frameUnit, string? description, out IntPtr metafile) =>
-                RecordMetafile(frameRect, frameUnit, emfType, out metafile);
-
-            internal static int GdipRecordMetafileFileNameI(string fileName, IntPtr referenceHdc, EmfType emfType, ref Rectangle frameRect, MetafileFrameUnit frameUnit, string? description, out IntPtr metafile) =>
-                RecordMetafile(frameRect, frameUnit, emfType, out metafile);
-
-            internal static int GdipRecordMetafileFileName(string fileName, IntPtr referenceHdc, EmfType emfType, ref RectangleF frameRect, MetafileFrameUnit frameUnit, string? description, out IntPtr metafile) =>
-                RecordMetafile(frameRect, frameUnit, emfType, out metafile);
         }
     }
 }

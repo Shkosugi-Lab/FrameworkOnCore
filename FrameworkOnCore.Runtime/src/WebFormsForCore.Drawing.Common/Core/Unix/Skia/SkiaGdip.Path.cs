@@ -20,7 +20,7 @@ namespace System.Drawing
             private const byte PathPointTypePathMarker = 0x20;
             private const byte PathPointTypeCloseSubpath = 0x80;
             private const int FlattenRecursionLimit = 10;
-            private const double C1 = 0.552285;
+            private const double C1 = 0.5522847498307933;   // 4/3 (sqrt 2 - 1): GDI+'s quarter of an ellipse (libgdiplus: 0.552285)
 
             internal sealed class GpPath
             {
@@ -201,15 +201,16 @@ namespace System.Drawing
                     }
                 }
 
+                /// <summary>GDI+'s ellipse: from its right, clockwise (down first), four quarters (libgdiplus went the other way).</summary>
                 public void AddEllipse(float x, float y, float width, float height)
                 {
-                    double rx = width / 2, ry = height / 2;
+                    double rx = width / 2.0, ry = height / 2.0;
                     double cx = x + rx, cy = y + ry;
                     Append(cx + rx, cy, PathPointTypeStart, false);
-                    AppendBezier(cx + rx, cy - C1 * ry, cx + C1 * rx, cy - ry, cx, cy - ry);
-                    AppendBezier(cx - C1 * rx, cy - ry, cx - rx, cy - C1 * ry, cx - rx, cy);
-                    AppendBezier(cx - rx, cy + C1 * ry, cx - C1 * rx, cy + ry, cx, cy + ry);
-                    AppendBezier(cx + C1 * rx, cy + ry, cx + rx, cy + C1 * ry, cx + rx, cy);
+                    AppendBezier(cx + rx, cy + C1 * ry, cx + C1 * rx, cy + ry, cx, cy + ry);
+                    AppendBezier(cx - C1 * rx, cy + ry, cx - rx, cy + C1 * ry, cx - rx, cy);
+                    AppendBezier(cx - rx, cy - C1 * ry, cx - C1 * rx, cy - ry, cx, cy - ry);
+                    AppendBezier(cx + C1 * rx, cy - ry, cx + rx, cy - C1 * ry, cx + rx, cy);
                     CloseFigure();
                 }
 
@@ -223,19 +224,18 @@ namespace System.Drawing
                     Append(x, y + height, PathPointTypeLine | PathPointTypeCloseSubpath, false);
                 }
 
+                /// <summary>GDI+'s pie: the centre, the arc from its start, closed (back to the centre by the closing).</summary>
                 public void AddPie(float x, float y, float width, float height, float startAngle, float sweepAngle)
                 {
                     float rx = width / 2, ry = height / 2;
-                    int cx = (int)(x + rx), cy = (int)(y + ry);   // libgdiplus' int center
-                    float alpha = (float)(startAngle * PI / 180);
-                    alpha = (float)Math.Atan2(rx * Math.Sin(alpha), ry * Math.Cos(alpha));
-                    float sinAlpha = (float)Math.Sin(alpha), cosAlpha = (float)Math.Cos(alpha);
+                    float cx = x + rx, cy = y + ry;
+                    if (Math.Abs(sweepAngle) >= 360)
+                    {
+                        AddEllipse(x, y, width, height);
+                        return;
+                    }
                     Append(cx, cy, PathPointTypeStart, false);
-                    if (Math.Abs(sweepAngle) < 360)
-                        Append(cx + rx * cosAlpha, cy + ry * sinAlpha, PathPointTypeLine, false);
                     AppendArcs(x, y, width, height, startAngle, sweepAngle);
-                    if (Math.Abs(sweepAngle) < 360)
-                        Append(cx, cy, PathPointTypeLine, false);
                     CloseFigure();
                 }
 
@@ -270,6 +270,7 @@ namespace System.Drawing
                         byte type = Types[i];
                         if ((type & PathPointTypeBezier) == PathPointTypeBezier)
                         {
+                            int before = flat.Count;
                             if (!ConvertBezierToLines(i, Math.Abs(flatness), flat))
                             {
                                 flat.Reset();
@@ -280,6 +281,10 @@ namespace System.Drawing
                                 flat.Append(0, 0, PathPointTypeLine, false);
                                 break;
                             }
+                            // The Bézier's last point's flags (closing, marker) on its last line.
+                            byte flags = (byte)(Types[Math.Min(i + 2, Count - 1)] & (PathPointTypeCloseSubpath | PathPointTypePathMarker));
+                            if (flat.Count > before)
+                                flat.Types[flat.Count - 1] |= flags;
                             i += 2;
                         }
                         else
@@ -451,11 +456,29 @@ namespace System.Drawing
                     if (Count <= 1)
                         return RectangleF.Empty;
                     GpPath work = Clone();
-                    work.Flatten(matrix, 25.0f);
+                    work.Flatten(matrix, 0.25f);
                     PointF p = work.Points[0];
                     float minX = p.X, minY = p.Y, maxX = p.X, maxY = p.Y;
                     if (work.Count == 1)
                         return new RectangleF(minX, minY, 0, 0);
+                    if (matrix != null && !matrix.IsIdentity)
+                    {
+                        // GDI+: the untransformed bounds' corners, transformed.
+                        GpPath plain = Clone();
+                        plain.Flatten(null, 0.25f);
+                        float l = float.MaxValue, t = float.MaxValue, r = float.MinValue, b = float.MinValue;
+                        foreach (PointF q in plain.Points)
+                        {
+                            l = Math.Min(l, q.X); t = Math.Min(t, q.Y); r = Math.Max(r, q.X); b = Math.Max(b, q.Y);
+                        }
+                        minX = minY = float.MaxValue;
+                        maxX = maxY = float.MinValue;
+                        foreach (PointF corner in new[] { new PointF(l, t), new PointF(r, t), new PointF(r, b), new PointF(l, b) })
+                        {
+                            PointF q = matrix.Transform(corner);
+                            minX = Math.Min(minX, q.X); minY = Math.Min(minY, q.Y); maxX = Math.Max(maxX, q.X); maxY = Math.Max(maxY, q.Y);
+                        }
+                    }
                     for (int i = 1; i < work.Count; i++)
                     {
                         p = work.Points[i];
@@ -992,14 +1015,30 @@ namespace System.Drawing
                 return Ok;
             }
 
-            /// <summary>As libgdiplus: the path prepared (flattened, transformed), not widened (its MonoTODO).</summary>
+            /// <summary>The path's outline with the pen (Skia's stroke), flattened, the matrix applied (libgdiplus only flattened it).</summary>
             internal static int GdipWidenPath(IntPtr path, IntPtr pen, IntPtr matrix, float flatness)
             {
-                if (!Is(path, out GpPath? p) || !Is(pen, out GpPen? _))
+                if (!Is(path, out GpPath? p) || !Is(pen, out GpPen? gpPen))
                     return InvalidParameter;
                 if (p.Count <= 1)
                     return OutOfMemory;
-                p.Prepare(Get<GpMatrix>(matrix), flatness);
+                using SKPath sk = p.ToSK();
+                using var paint = new SKPaint
+                {
+                    Style = SKPaintStyle.Stroke,
+                    StrokeWidth = Math.Max(gpPen.Width, 1),
+                    StrokeJoin = gpPen.Join,
+                    StrokeCap = gpPen.Cap,
+                    StrokeMiter = gpPen.MiterLimit,
+                };
+                using var outline = new SKPath();
+                paint.GetFillPath(sk, outline);
+                GpPath widened = GpPath.FromSK(outline, FillMode.Winding);
+                widened.Flatten(Get<GpMatrix>(matrix), flatness <= 0 ? 0.25f : flatness);
+                p.Points = widened.Points;
+                p.Types = widened.Types;
+                p.FillMode = FillMode.Winding;
+                p.StartNewFig = true;
                 return Ok;
             }
 

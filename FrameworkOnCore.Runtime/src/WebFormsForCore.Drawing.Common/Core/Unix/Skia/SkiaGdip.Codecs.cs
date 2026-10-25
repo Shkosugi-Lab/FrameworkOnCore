@@ -265,10 +265,14 @@ namespace System.Drawing
                         image = ReadTiff(data);
                     else if (StartsWith(data, 0x89, 0x50, 0x4e, 0x47) && PngColorType(data) == 3)
                         image = ReadIndexedPng(data);
-                    else if (data.Length >= 88 && BitConverter.ToInt32(data, 0) == 1 && data[40] == 0x20 && data[41] == 0x45 && data[42] == 0x4d && data[43] == 0x46)
-                        image = ReadEmfHeader(data);
-                    else if (StartsWith(data, 0xd7, 0xcd, 0xc6, 0x9a))
-                        image = ReadWmfHeader(data);
+                    else if ((data.Length >= 88 && BitConverter.ToInt32(data, 0) == 1 && data[40] == 0x20 && data[41] == 0x45 && data[42] == 0x4d && data[43] == 0x46)
+                        || StartsWith(data, 0xd7, 0xcd, 0xc6, 0x9a))
+                    {
+                        int status = ReadMetafile(data, out GpMetafile? metafile);
+                        if (status != Ok)
+                            return status;
+                        image = metafile;
+                    }
                 }
                 catch (Exception e) when (e is IndexOutOfRangeException or ArgumentException or InvalidDataException or EndOfStreamException or OverflowException)
                 {
@@ -478,48 +482,6 @@ namespace System.Drawing
                     Array.Copy(_data, _start + offset, b, 0, count);
                     return b;
                 }
-            }
-
-            // Metafiles read: their size (EMF's header, a placeable WMF's), not their records (not played: drawn empty).
-
-            private static GpImage ReadEmfHeader(byte[] data)
-            {
-                int left = BitConverter.ToInt32(data, 24), top = BitConverter.ToInt32(data, 28), right = BitConverter.ToInt32(data, 32), bottom = BitConverter.ToInt32(data, 36);
-                int devX = BitConverter.ToInt32(data, 72), devY = BitConverter.ToInt32(data, 76), mmX = BitConverter.ToInt32(data, 80), mmY = BitConverter.ToInt32(data, 84);
-                float pxPerMmX = mmX > 0 ? (float)devX / mmX : 96 / 25.4f, pxPerMmY = mmY > 0 ? (float)devY / mmY : 96 / 25.4f;
-                var m = new GpMetafile
-                {
-                    Frame = new RectangleF(0, 0, Math.Max(1, (right - left) / 100f * pxPerMmX), Math.Max(1, (bottom - top) / 100f * pxPerMmY)),
-                    EmfType = EmfType.EmfOnly,
-                    RawFormat = EmfGuid,
-                    DpiX = pxPerMmX * 25.4f,
-                    DpiY = pxPerMmY * 25.4f,
-                };
-                using (var recorder = new SkiaSharp.SKPictureRecorder())
-                {
-                    recorder.BeginRecording(new SkiaSharp.SKRect(0, 0, m.Frame.Width, m.Frame.Height));
-                    m.Picture = recorder.EndRecording();
-                }
-                return m;
-            }
-
-            private static GpImage ReadWmfHeader(byte[] data)
-            {
-                short left = BitConverter.ToInt16(data, 6), top = BitConverter.ToInt16(data, 8), right = BitConverter.ToInt16(data, 10), bottom = BitConverter.ToInt16(data, 12);
-                int inch = BitConverter.ToUInt16(data, 14);
-                if (inch == 0) inch = 1440;
-                var m = new GpMetafile
-                {
-                    Frame = new RectangleF(0, 0, Math.Max(1, (right - left) * 96f / inch), Math.Max(1, (bottom - top) * 96f / inch)),
-                    EmfType = EmfType.EmfOnly,
-                    RawFormat = WmfGuid,
-                };
-                using (var recorder = new SkiaSharp.SKPictureRecorder())
-                {
-                    recorder.BeginRecording(new SkiaSharp.SKRect(0, 0, m.Frame.Width, m.Frame.Height));
-                    m.Picture = recorder.EndRecording();
-                }
-                return m;
             }
 
             // BMP

@@ -235,7 +235,7 @@ namespace System.Drawing
                     return InvalidParameter;
                 if (i is GpMetafile m)
                 {
-                    if (m.Picture != null || m.Recorder != null)
+                    if (!m.Recording)
                         return OutOfMemory;   // not recording (any more)
                     SKCanvas canvas = m.BeginRecording();
                     var g = new GpGraphics(canvas) { Metafile = m };
@@ -1386,24 +1386,11 @@ namespace System.Drawing
             internal static int GdipDrawPieI(HandleRef graphics, HandleRef pen, int x, int y, int width, int height, float startAngle, float sweepAngle) =>
                 GdipDrawPie(graphics, pen, x, y, width, height, startAngle, sweepAngle);
 
-            /// <summary>make_pie: the centre, the arc, the centre again (a float centre, unlike libgdiplus' path).</summary>
+            /// <summary>A pie as GraphicsPath.AddPie makes it: the centre, the arc, closed.</summary>
             private static SKPath Pie(float x, float y, float width, float height, float startAngle, float sweepAngle)
             {
-                float rx = width / 2, ry = height / 2, cx = x + rx, cy = y + ry;
-                double alpha = Math.Atan2(rx * Math.Sin(startAngle * PI / 180), ry * Math.Cos(startAngle * PI / 180));
                 var p = new GpPath(FillMode.Alternate);
-                if (Math.Abs(sweepAngle) >= 360)
-                {
-                    p.AddEllipse(x, y, width, height);
-                }
-                else
-                {
-                    p.Append(cx, cy, PathPointTypeStart, false);
-                    p.Append(cx + rx * Math.Cos(alpha), cy + ry * Math.Sin(alpha), PathPointTypeLine, false);
-                    p.AppendArcs(x, y, width, height, startAngle, sweepAngle);
-                    p.Append(cx, cy, PathPointTypeLine, false);
-                    p.CloseFigure();
-                }
+                p.AddPie(x, y, width, height, startAngle, sweepAngle);
                 return p.ToSK();
             }
 

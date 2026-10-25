@@ -297,7 +297,7 @@ namespace System.Drawing
                     return _path!.Contains(x, y);
                 }
 
-                /// <summary>The region as GDI+'s scans: rectangles of whole pixels, row by row.</summary>
+                /// <summary>The region as GDI+'s scans: rectangles of the whole pixels it covers, row by row.</summary>
                 public List<RectangleF> Scans()
                 {
                     var scans = new List<RectangleF>();
@@ -308,12 +308,9 @@ namespace System.Drawing
                         scans.Add(s_infinite);
                         return scans;
                     }
-                    if (_rects != null && _rects.Count == 1)
-                    {
-                        scans.Add(_rects[0]);
-                        return scans;
-                    }
+                    // GDI+'s pixels: those whose centre (whole coordinates) is inside, a left or top edge's included.
                     using SKPath sk = ToSK();
+                    sk.Offset(PixelCenterOffset, PixelCenterOffset);
                     using var region = new SKRegion();
                     SKRect b = sk.Bounds;
                     region.SetPath(sk, new SKRegion(new SKRectI((int)Math.Floor(b.Left) - 1, (int)Math.Floor(b.Top) - 1, (int)Math.Ceiling(b.Right) + 1, (int)Math.Ceiling(b.Bottom) + 1)));

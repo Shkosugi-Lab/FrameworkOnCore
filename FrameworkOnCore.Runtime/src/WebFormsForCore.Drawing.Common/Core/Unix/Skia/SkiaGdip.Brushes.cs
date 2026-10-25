@@ -81,27 +81,31 @@ namespace System.Drawing
                 {
                     // A metafile: drawn on a bitmap.
                     var m = (GpMetafile)image;
-                    int w = area?.Width ?? m.Width, h = area?.Height ?? m.Height;
+                    int w = area?.Width ?? (int)m.PictureSize.Width, h = area?.Height ?? (int)m.PictureSize.Height;
                     bitmap = GpBitmap.Create(Math.Max(w, 1), Math.Max(h, 1), PixelFormat.Format32bppArgb);
                     m.EndRecording();
                     if (m.Picture != null)
                     {
                         using var canvas = new SKCanvas(bitmap.EnsureSurface());
-                        canvas.Scale(bitmap.W / Math.Max(m.Frame.Width, 1), bitmap.H / Math.Max(m.Frame.Height, 1));
+                        canvas.Scale(bitmap.W / m.PictureSize.Width, bitmap.H / m.PictureSize.Height);
                         canvas.DrawPicture(m.Picture);
                         bitmap.Drawn();
                     }
                 }
+                // GDI+ keeps a texture's image premultiplied (32bppPArgb), the attributes applied.
                 GpImageAttributes.Adjust? adjust = attributes?.ForBitmap();
-                if (adjust != null && !adjust.IsIdentity)
-                {
-                    bitmap.EnsureScan0();
-                    for (int y = 0; y < bitmap.H; y++)
-                        for (int x = 0; x < bitmap.W; x++)
-                            bitmap.SetArgb(x, y, GpImageAttributes.Apply(adjust, bitmap.GetArgb(x, y)));
-                    bitmap.Scan0Changed();
-                }
-                texture = NewHandle(new GpTexture(bitmap, wrapMode));
+                bitmap.EnsureScan0();
+                GpBitmap premultiplied = GpBitmap.Create(bitmap.W, bitmap.H, PixelFormat.Format32bppPArgb);
+                for (int y = 0; y < bitmap.H; y++)
+                    for (int x = 0; x < bitmap.W; x++)
+                    {
+                        int argb = bitmap.GetArgb(x, y);
+                        premultiplied.SetArgb(x, y, adjust != null && !adjust.IsIdentity ? GpImageAttributes.Apply(adjust, argb) : argb);
+                    }
+                premultiplied.DpiX = bitmap.DpiX;
+                premultiplied.DpiY = bitmap.DpiY;
+                bitmap.Dispose();
+                texture = NewHandle(new GpTexture(premultiplied, wrapMode));
                 return Ok;
             }
 

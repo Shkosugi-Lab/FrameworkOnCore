@@ -23,35 +23,6 @@ namespace System.Drawing
                 bitmap = default;
                 return Gdip.NotImplemented;
             }
-            internal static int GdipCreateMetafileFromEmf(IntPtr hEnhMetafile, bool deleteEmf, out IntPtr metafile)
-            {
-                metafile = default;
-                return Gdip.NotImplemented;
-            }
-            internal static int GdipCreateMetafileFromWmf(IntPtr hMetafile, bool deleteWmf, WmfPlaceableFileHeader wmfplacealbeHeader, out IntPtr metafile)
-            {
-                metafile = default;
-                return Gdip.NotImplemented;
-            }
-            internal static int GdipCreateMetafileFromFile(string file, out IntPtr metafile)
-            {
-                metafile = default;
-                return Gdip.NotImplemented;
-            }
-            internal static int GdipRecordMetafile(IntPtr referenceHdc, EmfType emfType, IntPtr pframeRect, MetafileFrameUnit frameUnit, string? description, out IntPtr metafile)
-            {
-                metafile = default;
-                return Gdip.NotImplemented;
-            }
-            internal static int GdipRecordMetafileFileName(string fileName, IntPtr referenceHdc, EmfType emfType, IntPtr pframeRect, MetafileFrameUnit frameUnit, string? description, out IntPtr metafile)
-            {
-                metafile = default;
-                return Gdip.NotImplemented;
-            }
-            internal static int GdipPlayMetafileRecord(HandleRef metafile, EmfPlusRecordType recordType, int flags, int dataSize, byte[] data)
-            {
-                return Gdip.NotImplemented;
-            }
             internal static int GdipGetEncoderParameterList(HandleRef image, ref Guid encoder, int size, IntPtr buffer)
             {
                 return Gdip.NotImplemented;
@@ -59,35 +30,6 @@ namespace System.Drawing
             internal static int GdipGetImageThumbnail(IntPtr image, uint width, uint height, out IntPtr thumbImage, IntPtr callback, IntPtr callBackData)
             {
                 thumbImage = default;
-                return Gdip.NotImplemented;
-            }
-            internal static int GdipGetMetafileHeaderFromFile(string filename, IntPtr header)
-            {
-                return Gdip.NotImplemented;
-            }
-            internal static int GdipGetMetafileHeaderFromMetafile(IntPtr metafile, IntPtr header)
-            {
-                return Gdip.NotImplemented;
-            }
-            internal static int GdipGetMetafileHeaderFromEmf(IntPtr hEmf, IntPtr header)
-            {
-                return Gdip.NotImplemented;
-            }
-            internal static int GdipGetMetafileHeaderFromWmf(IntPtr hWmf, IntPtr wmfPlaceableFileHeader, IntPtr header)
-            {
-                return Gdip.NotImplemented;
-            }
-            internal static int GdipGetHemfFromMetafile(IntPtr metafile, out IntPtr hEmf)
-            {
-                hEmf = default;
-                return Gdip.NotImplemented;
-            }
-            internal static int GdipGetMetafileDownLevelRasterizationLimit(IntPtr metafile, ref uint metafileRasterizationLimitDpi)
-            {
-                return Gdip.NotImplemented;
-            }
-            internal static int GdipSetMetafileDownLevelRasterizationLimit(IntPtr metafile, uint metafileRasterizationLimitDpi)
-            {
                 return Gdip.NotImplemented;
             }
             internal static int GdipCreateFromContext_macosx(IntPtr cgref, int width, int height, out IntPtr graphics)
@@ -98,15 +40,6 @@ namespace System.Drawing
             internal static int GdipCreateFromXDrawable_linux(IntPtr drawable, IntPtr display, out IntPtr graphics)
             {
                 graphics = default;
-                return Gdip.NotImplemented;
-            }
-            internal static int GdipCreateMetafileFromDelegate_linux(StreamGetHeaderDelegate getHeader, StreamGetBytesDelegate getBytes, StreamPutBytesDelegate putBytes, StreamSeekDelegate doSeek, StreamCloseDelegate close, StreamSizeDelegate size, out IntPtr metafile)
-            {
-                metafile = default;
-                return Gdip.NotImplemented;
-            }
-            internal static int GdipGetMetafileHeaderFromDelegate_linux(StreamGetHeaderDelegate getHeader, StreamGetBytesDelegate getBytes, StreamPutBytesDelegate putBytes, StreamSeekDelegate doSeek, StreamCloseDelegate close, StreamSizeDelegate size, IntPtr header)
-            {
                 return Gdip.NotImplemented;
             }
             internal static int GdipGetPostScriptGraphicsContext(string filename, int width, int height, double dpix, double dpiy, ref IntPtr graphics)

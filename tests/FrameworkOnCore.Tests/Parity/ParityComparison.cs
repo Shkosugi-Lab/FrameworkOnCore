@@ -19,8 +19,14 @@ public sealed class ParityComparison
     /// </summary>
     public sealed record Known(Regex Case, Regex Line, string On, bool Varies, string Reason)
     {
-        public bool Applies => On == "all" || On == (OperatingSystem.IsWindows() ? "windows" : "linux");
+        public bool Applies => On == "all" || (On == (OperatingSystem.IsWindows() ? "windows" : "linux") && !Strict);
     }
+
+    /// <summary>
+    /// FOC_PARITY_STRICT=1: the platform's known differences not set aside (those of every platform only), to see how
+    /// far a platform's drawing is from .NET Framework's (libgdiplus' and SkiaSharp's, compared).
+    /// </summary>
+    static readonly bool Strict = Environment.GetEnvironmentVariable("FOC_PARITY_STRICT") == "1";
 
     public IReadOnlyList<Known> KnownDifferences { get; }
 

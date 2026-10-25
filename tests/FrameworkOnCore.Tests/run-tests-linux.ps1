@@ -7,9 +7,10 @@
 # -Filter: those tests only (dotnet test --filter), each failure's message written out.
 # -DrawingBackend skia: System.Drawing over SkiaSharp instead of libgdiplus (FOC_DRAWING_BACKEND); -GdipTrace <file>: the
 # GDI+ functions the tests called, with how many times, written to the file (FOC_GDIP_TRACE). With either, the Chart
-# control's parity program (built against the packages) runs on the port as built here.
+# control's parity program (built against the packages) runs on the port as built here. -ParityStrict: the parity
+# suites without Linux's known differences (FOC_PARITY_STRICT), to see how far its drawing is from .NET Framework's.
 param([string]$Image = 'mcr.microsoft.com/dotnet/sdk:10.0', [switch]$SqlServer, [string]$Filter,
-    [ValidateSet('', 'libgdiplus', 'skia')][string]$DrawingBackend, [string]$GdipTrace)
+    [ValidateSet('', 'libgdiplus', 'skia')][string]$DrawingBackend, [string]$GdipTrace, [switch]$ParityStrict)
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $arguments = @()
 if ($SqlServer) {
@@ -29,6 +30,7 @@ if ($SqlServer) {
 }
 $drawing = [bool]($DrawingBackend -or $GdipTrace)
 if ($DrawingBackend) { $arguments += @('-e', "FOC_DRAWING_BACKEND=$DrawingBackend") }
+if ($ParityStrict) { $arguments += @('-e', 'FOC_PARITY_STRICT=1') }
 if ($GdipTrace) {
     $traceDir = Split-Path ([IO.Path]::GetFullPath($GdipTrace))
     New-Item -ItemType Directory -Force $traceDir | Out-Null
@@ -50,8 +52,15 @@ mkdir -p /w/experiments/wf4c/_feed && cp /repo/experiments/wf4c/_feed/*.nupkg /w
 cp /repo/experiments/wf4c/FrameworkOnCoreVersion.props /w/experiments/wf4c/
 # What the LINQ to SQL port's csproj links from its parent (FrameworkOnCore's version attributes).
 cp /repo/FrameworkOnCore.Runtime/src/VersionInfo.cs /w/FrameworkOnCore.Runtime/src/
-# The ports' satellites: FrameworkOnCore's translations, which their csproj import (FrameworkOnCore.Translations.targets).
-cp /repo/FrameworkOnCore.Runtime/src/FrameworkOnCore.Translations.targets /w/FrameworkOnCore.Runtime/src/ && cp -r /repo/translations /w/
+# The ports' satellites: FrameworkOnCore's translations, which their csproj import (FrameworkOnCore.Translations.targets);
+# those of the ports copied only (the translation tests check each one against its sources: the others are not here).
+cp /repo/FrameworkOnCore.Runtime/src/FrameworkOnCore.Translations.targets /w/FrameworkOnCore.Runtime/src/
+mkdir -p /w/translations && cp /repo/translations/sources.json /w/translations/
+for l in $(ls /repo/translations); do
+  for a in System.Drawing.Common System.Data.SqlClient System.Data.Linq; do
+    if [ -d /repo/translations/$l/$a ]; then mkdir -p /w/translations/$l && cp -r /repo/translations/$l/$a /w/translations/$l/; fi
+  done
+done
 cd /w
 __DRAWING__
 dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q __NOBUILD__ __FILTER__

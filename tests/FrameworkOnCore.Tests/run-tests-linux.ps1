@@ -5,7 +5,11 @@
 # -SqlServer: SQL Server in a container too (w2l-sql, as run-linux.ps1 keeps it), for the LINQ to SQL
 # port's database tests (FOC_TEST_SQLSERVER); without it they are skipped.
 # -Filter: those tests only (dotnet test --filter), each failure's message written out.
-param([string]$Image = 'mcr.microsoft.com/dotnet/sdk:10.0', [switch]$SqlServer, [string]$Filter)
+# -DrawingBackend skia: System.Drawing over SkiaSharp instead of libgdiplus (FOC_DRAWING_BACKEND); -GdipTrace <file>: the
+# GDI+ functions the tests called, with how many times, written to the file (FOC_GDIP_TRACE). With either, the Chart
+# control's parity program (built against the packages) runs on the port as built here.
+param([string]$Image = 'mcr.microsoft.com/dotnet/sdk:10.0', [switch]$SqlServer, [string]$Filter,
+    [ValidateSet('', 'libgdiplus', 'skia')][string]$DrawingBackend, [string]$GdipTrace)
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $arguments = @()
 if ($SqlServer) {
@@ -23,6 +27,14 @@ if ($SqlServer) {
     }
     $arguments = @('--network', 'w2l', '-e', "FOC_TEST_SQLSERVER=Data Source=w2l-sql;Initial Catalog=master;User ID=sa;Password=$sqlPassword;TrustServerCertificate=True")
 }
+$drawing = [bool]($DrawingBackend -or $GdipTrace)
+if ($DrawingBackend) { $arguments += @('-e', "FOC_DRAWING_BACKEND=$DrawingBackend") }
+if ($GdipTrace) {
+    $traceDir = Split-Path ([IO.Path]::GetFullPath($GdipTrace))
+    New-Item -ItemType Directory -Force $traceDir | Out-Null
+    Remove-Item $GdipTrace -ErrorAction SilentlyContinue
+    $arguments += @('-v', "${traceDir}:/trace", '-e', "FOC_GDIP_TRACE=/trace/$(Split-Path $GdipTrace -Leaf)")
+}
 $script = @'
 set -e
 # System.Drawing's Linux implementation (the port) draws with libgdiplus.
@@ -38,10 +50,20 @@ mkdir -p /w/experiments/wf4c/_feed && cp /repo/experiments/wf4c/_feed/*.nupkg /w
 cp /repo/experiments/wf4c/FrameworkOnCoreVersion.props /w/experiments/wf4c/
 # What the LINQ to SQL port's csproj links from its parent (FrameworkOnCore's version attributes).
 cp /repo/FrameworkOnCore.Runtime/src/VersionInfo.cs /w/FrameworkOnCore.Runtime/src/
+# The ports' satellites: FrameworkOnCore's translations, which their csproj import (FrameworkOnCore.Translations.targets).
+cp /repo/FrameworkOnCore.Runtime/src/FrameworkOnCore.Translations.targets /w/FrameworkOnCore.Runtime/src/ && cp -r /repo/translations /w/
 cd /w
-dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q __FILTER__
+__DRAWING__
+dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q __NOBUILD__ __FILTER__
 __SQLCLIENT__
 '@ -replace "`r", ''
+$script = $script.Replace('__DRAWING__', $(if ($drawing) { @'
+dotnet build tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q
+for f in $(find tests/FrameworkOnCore.Tests/bin -path '*DataVisualizationParityData/program/runtimes/unix/*' -name System.Drawing.Common.dll); do
+  cp FrameworkOnCore.Runtime/src/WebFormsForCore.Drawing.Common/bin/unix/*/net10.0/System.Drawing.Common.dll "$f"
+done
+'@ -replace "`r", '' } else { '' }))
+$script = $script.Replace('__NOBUILD__', $(if ($drawing) { '--no-build' } else { '' }))
 $script = $script.Replace('__FILTER__', $(if ($Filter) { "--filter '$Filter' --logger 'console;verbosity=normal'" } else { '' }))
 # The System.Data.SqlClient port's tests (Microsoft's functional tests and |DataDirectory|'s, with their TDS server) on
 # the managed SNI, Linux's; with -Filter, FrameworkOnCore.Tests' only.

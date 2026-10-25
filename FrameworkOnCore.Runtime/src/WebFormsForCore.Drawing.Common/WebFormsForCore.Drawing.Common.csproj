@@ -70,6 +70,13 @@
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
+  <!-- The Unix build's GDI+ functions: libgdiplus' or SkiaSharp's (Core\Unix\GdipBackend.cs). The two files with the imports
+       as generated from them (experiments/wf4c/generate-gdip-dispatch.ps1), each import a call of the one chosen. -->
+  <ItemGroup Condition="'$(TargetsUnix)' == 'true'">
+    <Compile Remove="System\Drawing\GdiplusNative.cs;System\Drawing\GdiplusNative.Unix.cs" />
+    <Compile Include="Core\Unix\**\*.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.SystemEvents" Version="10.0.0" />
   </ItemGroup>

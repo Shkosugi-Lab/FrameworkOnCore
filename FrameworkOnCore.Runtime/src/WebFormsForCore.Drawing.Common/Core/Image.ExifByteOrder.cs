@@ -113,7 +113,8 @@ namespace System.Drawing
         // The item's value in the machine's order: its numbers (SHORT, LONG, RATIONAL, SLONG, SRATIONAL) turned.
         private PropertyItem InMachineOrder(PropertyItem item)
         {
-            if (!_exifSwapped || item.Value == null || (_propertiesSet != null && _propertiesSet.Contains(item.Id)))
+            // SkiaSharp's backend gives the values in the machine's order already, as GDI+.
+            if (GdipBackend.Skia || !_exifSwapped || item.Value == null || (_propertiesSet != null && _propertiesSet.Contains(item.Id)))
                 return item;
             int unit = item.Type switch
             {

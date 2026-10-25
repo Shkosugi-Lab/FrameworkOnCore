@@ -33,6 +33,8 @@ namespace System.Drawing
                 public Guid RawFormat = MemoryBmpGuid;
                 public float DpiX = 96, DpiY = 96;
                 public int Flags;
+                public List<Property> Properties = new List<Property>();
+                public MultiFrameSave? Saving;
                 public abstract int Width { get; }
                 public abstract int Height { get; }
                 public abstract GpImage Clone();
@@ -70,7 +72,7 @@ namespace System.Drawing
                 public override GpImage Clone()
                 {
                     EndRecording();
-                    return new GpMetafile { Picture = Picture, Frame = Frame, EmfType = EmfType, RawFormat = RawFormat, DpiX = DpiX, DpiY = DpiY, Flags = Flags };
+                    return new GpMetafile { Picture = Picture, Frame = Frame, EmfType = EmfType, RawFormat = RawFormat, DpiX = DpiX, DpiY = DpiY, Flags = Flags, Properties = new List<Property>(Properties) };
                 }
 
                 public override void Dispose()
@@ -90,6 +92,7 @@ namespace System.Drawing
                 public int[]? Palette;
                 public int PaletteFlags;
                 public bool Locked;
+                public Frames? FrameSet;
                 // The drawing surface: premultiplied BGRA, the pixels themselves when Aliased.
                 public SKBitmap? Surface;
                 public bool Aliased;
@@ -152,9 +155,13 @@ namespace System.Drawing
                     if (OwnsScan0 && Scan0 != IntPtr.Zero)
                         NativeMemory.Free((void*)Scan0);
                     Scan0 = IntPtr.Zero;
+                    if (FrameSet != null)
+                        foreach (GpBitmap frame in FrameSet.List)
+                            frame.Dispose();
+                    FrameSet = null;
                 }
 
-                public override GpImage Clone()
+                private GpBitmap CloneFrame()
                 {
                     EnsureScan0();
                     GpBitmap c = Create(W, H, Format);
@@ -162,6 +169,19 @@ namespace System.Drawing
                         Buffer.MemoryCopy((byte*)Scan0 + (long)y * Stride, (byte*)c.Scan0 + (long)y * c.Stride, c.Stride, Math.Min(Stride, c.Stride));
                     c.Palette = (int[]?)Palette?.Clone();
                     c.PaletteFlags = PaletteFlags;
+                    return c;
+                }
+
+                public override GpImage Clone()
+                {
+                    GpBitmap c = CloneFrame();
+                    if (FrameSet != null)
+                    {
+                        c.FrameSet = new Frames { Dimension = FrameSet.Dimension, Active = FrameSet.Active };
+                        for (int i = 0; i < FrameSet.List.Count; i++)
+                            c.FrameSet.List.Add(i == FrameSet.Active ? new GpBitmap() : FrameSet.List[i].CloneFrame());
+                    }
+                    c.Properties = new List<Property>(Properties);
                     c.RawFormat = RawFormat;
                     c.DpiX = DpiX;
                     c.DpiY = DpiY;
@@ -454,16 +474,16 @@ namespace System.Drawing
                 }
             }
 
-            /// <summary>GDI+'s 8 bpp halftone palette: the 16 VGA colours, 24 zero, the 6x6x6 cube, 24 zero... as GDI+ lays it out.</summary>
+            /// <summary>GDI+'s 8 bpp halftone palette: the 16 VGA colours, 24 transparent, the 6x6x6 cube (blue fastest).</summary>
             private static int[] HalftonePalette()
             {
                 var p = new int[256];
                 int[] vga = DefaultPalette(PixelFormat.Format4bppIndexed, out _);
                 Array.Copy(vga, p, 16);
                 int i = 40;
-                for (int b = 0; b < 6; b++)
+                for (int r = 0; r < 6; r++)
                     for (int g = 0; g < 6; g++)
-                        for (int r = 0; r < 6; r++)
+                        for (int b = 0; b < 6; b++)
                             p[i++] = unchecked((int)0xFF000000) | ((r * 0x33) << 16) | ((g * 0x33) << 8) | (b * 0x33);
                 return p;
             }
@@ -742,7 +762,7 @@ namespace System.Drawing
                 if (!Is(bitmap, out GpBitmap? b) || lockedBitmapData == null)
                     return InvalidParameter;
                 if (!b.Locked || !s_locked.TryGetValue(b, out LockedBits? locked))
-                    return WrongState;
+                    return GenericError;   // GDI+: not locked
                 if ((locked.Mode & ImageLockMode.WriteOnly) != 0)
                 {
                     if (locked.Temp != null)
@@ -809,47 +829,10 @@ namespace System.Drawing
                 int count = p[1];
                 if (count <= 0 || count > 256)
                     return InvalidParameter;
-                if (!GpBitmap.IsIndexed(b.Format))
-                    return Ok;
                 b.PaletteFlags = p[0];
                 b.Palette = new ReadOnlySpan<int>(p + 2, count).ToArray();
                 b.Scan0Changed();
                 return Ok;
-            }
-
-            // Frames: one page.
-
-            internal static int GdipImageGetFrameDimensionsCount(HandleRef image, out int count)
-            {
-                count = 0;
-                if (!Is(image, out GpImage? _))
-                    return InvalidParameter;
-                count = 1;
-                return Ok;
-            }
-
-            internal static int GdipImageGetFrameDimensionsList(HandleRef image, Guid* dimensionIDs, int count)
-            {
-                if (!Is(image, out GpImage? _) || dimensionIDs == null || count < 1)
-                    return InvalidParameter;
-                dimensionIDs[0] = FrameDimensionPage;
-                return Ok;
-            }
-
-            internal static int GdipImageGetFrameCount(HandleRef image, ref Guid dimensionID, out int count)
-            {
-                count = 0;
-                if (!Is(image, out GpImage? _))
-                    return InvalidParameter;
-                count = 1;
-                return Ok;
-            }
-
-            internal static int GdipImageSelectActiveFrame(HandleRef image, ref Guid dimensionID, int frameIndex)
-            {
-                if (!Is(image, out GpImage? _))
-                    return InvalidParameter;
-                return frameIndex == 0 ? Ok : InvalidParameter;
             }
 
             internal static int GdipImageRotateFlip(HandleRef image, int rotateFlipType)
@@ -894,6 +877,8 @@ namespace System.Drawing
                 if (rotate % 2 == 1)
                     (b.DpiX, b.DpiY) = (b.DpiY, b.DpiX);
                 b.SurfaceDirty = b.Scan0Dirty = false;
+                b.RawFormat = MemoryBmpGuid;   // GDI+: a turned image is a memory bitmap
+                b.Flags = GpBitmap.HasAlpha(b.Format) ? (int)ImageFlags.HasAlpha : 0;
                 return Ok;
             }
 
@@ -1113,7 +1098,9 @@ namespace System.Drawing
             /// <summary>An image read: its pixels in the pixel format GDI+ gives the file's (24 bpp without alpha, 32 bpp ARGB with).</summary>
             internal static int Decode(byte[] data, out GpImage? image)
             {
-                image = null;
+                int here = DecodeHere(data, out image);
+                if (here != Ok || image != null)
+                    return here;
                 using var stream = new SKMemoryStream(data);
                 using SKCodec? codec = SKCodec.Create(stream);
                 if (codec == null)
@@ -1136,23 +1123,37 @@ namespace System.Drawing
                 if (result != SKCodecResult.Success && result != SKCodecResult.IncompleteInput)
                     return OutOfMemory;
                 bool opaque = info.AlphaType == SKAlphaType.Opaque;
-                PixelFormat format = opaque ? PixelFormat.Format24bppRgb : PixelFormat.Format32bppArgb;
-                if (raw == GifGuid)
-                    format = PixelFormat.Format32bppArgb;
+                bool gray = info.ColorType == SKColorType.Gray8 && raw == JpegGuid;
+                PixelFormat format = gray ? PixelFormat.Format8bppIndexed : opaque ? PixelFormat.Format24bppRgb : PixelFormat.Format32bppArgb;
                 GpBitmap b = GpBitmap.Create(info.Width, info.Height, format);
                 uint* src = (uint*)decoded.GetPixels();
                 int srcStride = decoded.RowBytes / 4;
-                for (int y = 0; y < info.Height; y++)
-                    for (int x = 0; x < info.Width; x++)
-                        b.SetArgb(x, y, (int)src[(long)y * srcStride + x]);
+                if (gray)
+                {
+                    var palette = new int[256];
+                    for (int i = 0; i < 256; i++)
+                        palette[i] = unchecked((int)0xFF000000) | (i << 16) | (i << 8) | i;
+                    b.Palette = palette;
+                    b.PaletteFlags = (int)PaletteFlags.GrayScale;
+                    for (int y = 0; y < info.Height; y++)
+                        for (int x = 0; x < info.Width; x++)
+                            ((byte*)b.Scan0 + (long)y * b.Stride)[x] = (byte)src[(long)y * srcStride + x];
+                }
+                else
+                {
+                    for (int y = 0; y < info.Height; y++)
+                        for (int x = 0; x < info.Width; x++)
+                            b.SetArgb(x, y, (int)src[(long)y * srcStride + x]);
+                }
                 b.RawFormat = raw;
-                b.Flags = (int)(ImageFlags.ColorSpaceRgb | ImageFlags.HasRealPixelSize | ImageFlags.ReadOnly) | (opaque ? 0 : (int)ImageFlags.HasAlpha);
+                b.Flags = (int)(ImageFlags.ColorSpaceRgb | ImageFlags.HasRealPixelSize | ImageFlags.HasRealDpi | ImageFlags.ReadOnly) | (opaque || gray ? 0 : (int)ImageFlags.HasAlpha);
                 if (ReadDpi(data, raw, out float dpiX, out float dpiY))
                 {
                     b.DpiX = dpiX;
                     b.DpiY = dpiY;
-                    b.Flags |= (int)ImageFlags.HasRealDpi;
                 }
+                if (raw == JpegGuid)
+                    JpegProperties(data, b);
                 image = b;
                 return Ok;
             }
@@ -1214,6 +1215,13 @@ namespace System.Drawing
             {
                 if (!Is(image, out GpImage? i))
                     return InvalidParameter;
+                if (i is GpBitmap first && SaveFlag(encoderParameters) == EncoderValueMultiFrame && IsEncoder(encoderClsID, TiffGuid))
+                {
+                    // The first page of several: written now, again with each page SaveAdd adds.
+                    i.Saving = new MultiFrameSave { PutBytes = putBytes, Seek = doSeek, Start = doSeek(0, 1) };
+                    i.Saving.Pages.Add((GpBitmap)first.Clone());
+                    return WritePages(i.Saving);
+                }
                 int status = Encode(i, encoderClsID, encoderParameters, out byte[]? encoded);
                 if (status != Ok)
                     return status;
@@ -1227,6 +1235,12 @@ namespace System.Drawing
             {
                 if (!Is(image, out GpImage? i) || filename == null)
                     return InvalidParameter;
+                if (i is GpBitmap first && SaveFlag(encoderParameters) == EncoderValueMultiFrame && IsEncoder(encoderClsID, TiffGuid))
+                {
+                    i.Saving = new MultiFrameSave { FileName = filename };
+                    i.Saving.Pages.Add((GpBitmap)first.Clone());
+                    return WritePages(i.Saving);
+                }
                 int status = Encode(i, encoderClsID, encoderParameters, out byte[]? encoded);
                 if (status != Ok)
                     return status;
@@ -1273,18 +1287,16 @@ namespace System.Drawing
                         }
                 }
                 bool opaque = !GpBitmap.HasAlpha(bitmap.Format) && !GpBitmap.IsIndexed(bitmap.Format);
-                if (codec.FormatID == BmpGuid)
-                {
-                    encoded = EncodeBmp(bitmap);
+                encoded = EncodeHere(bitmap, codec.FormatID);
+                if (encoded != null)
                     return Ok;
-                }
                 SKEncodedImageFormat format;
                 if (codec.FormatID == PngGuid)
                     format = SKEncodedImageFormat.Png;
                 else if (codec.FormatID == JpegGuid)
                     format = SKEncodedImageFormat.Jpeg;
                 else
-                    return NotImplemented;   // GIF, TIFF: not written yet
+                    return NotImplemented;
                 using SKBitmap pixels = bitmap.ToUnpremultiplied(opaque || format == SKEncodedImageFormat.Jpeg);
                 using SKData? data = pixels.Encode(format, quality);
                 if (data == null)
@@ -1293,33 +1305,12 @@ namespace System.Drawing
                 return Ok;
             }
 
-            /// <summary>A BMP as GDI+ writes one: 24 bpp, or 32 bpp for a bitmap with alpha; bottom-up; its resolution.</summary>
-            private static byte[] EncodeBmp(GpBitmap bitmap)
+            private static bool IsEncoder(Guid clsid, Guid format)
             {
-                bitmap.EnsureScan0();
-                bool alpha = GpBitmap.HasAlpha(bitmap.Format);
-                int bpp = alpha ? 32 : 24;
-                int stride = (bpp * bitmap.W + 31) / 32 * 4;
-                int imageSize = stride * bitmap.H;
-                var bmp = new byte[54 + imageSize];
-                var w = new BinaryWriter(new MemoryStream(bmp));
-                w.Write((byte)'B'); w.Write((byte)'M');
-                w.Write(54 + imageSize); w.Write(0); w.Write(54);
-                w.Write(40); w.Write(bitmap.W); w.Write(bitmap.H); w.Write((short)1); w.Write((short)bpp); w.Write(0); w.Write(imageSize);
-                w.Write((int)Math.Round(bitmap.DpiX / 0.0254)); w.Write((int)Math.Round(bitmap.DpiY / 0.0254)); w.Write(0); w.Write(0);
-                for (int y = 0; y < bitmap.H; y++)
-                {
-                    int row = 54 + (bitmap.H - 1 - y) * stride;
-                    for (int x = 0; x < bitmap.W; x++)
-                    {
-                        int argb = bitmap.GetArgb(x, y);
-                        int at = row + x * (bpp / 8);
-                        bmp[at] = (byte)argb; bmp[at + 1] = (byte)(argb >> 8); bmp[at + 2] = (byte)(argb >> 16);
-                        if (alpha)
-                            bmp[at + 3] = (byte)(argb >> 24);
-                    }
-                }
-                return bmp;
+                foreach (Codec c in s_codecs)
+                    if (c.Clsid == clsid)
+                        return c.FormatID == format;
+                return false;
             }
 
             internal static int GdipGetEncoderParameterListSize(HandleRef image, ref Guid encoder, out int size)
@@ -1328,6 +1319,46 @@ namespace System.Drawing
                 if (!Is(image, out GpImage? _))
                     return InvalidParameter;
                 return Gdip.FileNotFound;
+            }
+
+            // HBITMAP and HICON: bitmaps of their own here (as libgdiplus' clones).
+
+            internal static int GdipCreateHBITMAPFromBitmap(HandleRef nativeBitmap, out IntPtr hbitmap, int argbBackground)
+            {
+                hbitmap = IntPtr.Zero;
+                if (!Is(nativeBitmap, out GpBitmap? b))
+                    return InvalidParameter;
+                hbitmap = NewHandle(b.Clone());
+                return Ok;
+            }
+
+            internal static int GdipCreateBitmapFromHBITMAP(IntPtr hbitmap, IntPtr hpalette, out IntPtr bitmap)
+            {
+                bitmap = IntPtr.Zero;
+                if (!Is(hbitmap, out GpBitmap? b))
+                    return InvalidParameter;
+                bitmap = NewHandle(b.Clone());
+                return Ok;
+            }
+
+            internal static int GdipCreateHICONFromBitmap(HandleRef nativeBitmap, out IntPtr hicon)
+            {
+                hicon = IntPtr.Zero;
+                if (!Is(nativeBitmap, out GpBitmap? b))
+                    return InvalidParameter;
+                hicon = NewHandle(b.Clone());
+                return Ok;
+            }
+
+            internal static int GdipCreateBitmapFromHICON(IntPtr hicon, out IntPtr bitmap)
+            {
+                bitmap = IntPtr.Zero;
+                if (!Is(hicon, out GpBitmap? b))
+                    return InvalidParameter;
+                GpBitmap copy = (GpBitmap)b.Clone();
+                copy.RawFormat = MemoryBmpGuid;
+                bitmap = NewHandle(copy);
+                return Ok;
             }
 
             // Metafiles: recorded as Skia's picture.

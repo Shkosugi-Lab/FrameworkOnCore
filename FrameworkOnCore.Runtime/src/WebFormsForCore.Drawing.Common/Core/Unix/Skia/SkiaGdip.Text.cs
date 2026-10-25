@@ -53,7 +53,7 @@ namespace System.Drawing
 
             internal static int GdipCreateStringFormat(StringFormatFlags options, int language, out IntPtr format)
             {
-                format = NewHandle(new GpStringFormat { Flags = options, Language = language });
+                format = NewHandle(new GpStringFormat { Flags = options });   // the language is not the digits' (GDI+: 0)
                 return Ok;
             }
 

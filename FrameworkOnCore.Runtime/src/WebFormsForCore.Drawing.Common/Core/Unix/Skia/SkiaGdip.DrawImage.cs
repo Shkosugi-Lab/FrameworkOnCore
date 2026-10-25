@@ -208,7 +208,7 @@ namespace System.Drawing
                 if (!Is(imageattr, out GpImageAttributes? _))
                     return InvalidParameter;
                 if (enableFlag && !System.IO.File.Exists(colorProfileFilename))
-                    return Gdip.FileNotFound;
+                    return OutOfMemory;   // GDI+'s, for a profile it cannot read
                 return Ok;
             }
 

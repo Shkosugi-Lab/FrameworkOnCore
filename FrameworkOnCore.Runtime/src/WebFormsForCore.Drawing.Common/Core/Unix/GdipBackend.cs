@@ -5,8 +5,8 @@
 //     not have yet returns NotImplemented (NotImplementedException).
 // One for the process, never both: their handles (Graphics, Bitmap, Pen...) are each its own, a handle of one passed to the
 // other would be a wrong pointer.
-// FOC_GDIP_TRACE=<file>: each process appends to the file the functions it called, with how many times (name, tab, count),
-// on exit; to see what an application uses.
+// FOC_GDIP_TRACE=<file>: each process appends to the file, on exit, its backend ("#backend", tab, the name) and the
+// functions it called, with how many times (name, tab, count); to see what an application uses.
 using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
@@ -44,7 +44,8 @@ namespace System.Drawing
             try
             {
                 string path = Environment.GetEnvironmentVariable("FOC_GDIP_TRACE")!;
-                File.AppendAllLines(path, s_calls!.OrderBy(c => c.Key, StringComparer.Ordinal).Select(c => c.Key + "\t" + c.Value));
+                File.AppendAllLines(path, new[] { "#backend\t" + (Skia ? "skia" : "libgdiplus") }
+                    .Concat(s_calls!.OrderBy(c => c.Key, StringComparer.Ordinal).Select(c => c.Key + "\t" + c.Value)));
             }
             catch (IOException)
             {

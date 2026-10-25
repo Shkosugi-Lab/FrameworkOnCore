@@ -1344,9 +1344,12 @@ namespace System.Drawing
                 if (points == null || count <= 0)
                     return InvalidParameter;
                 if (count < 2)
-                    return Is(graphics, out GpGraphics? g) && g.Busy ? ObjectBusy : InvalidParameter;
+                    return Is(graphics, out GpGraphics? busy) && busy.Busy ? ObjectBusy : InvalidParameter;
                 PointF[] pts = Points(points, count);
-                return StrokeWith(graphics, pen, () => Lines(pts, false));
+                int status = StrokeWith(graphics, pen, () => Lines(pts, false));
+                if (status == Ok && Is(graphics, out GpGraphics? g) && Is(pen, out GpPen? p) && (p.CustomStartCap != null || p.CustomEndCap != null))
+                    DrawCaps(g, p, pts);
+                return status;
             }
 
             internal static int GdipDrawLinesI(HandleRef graphics, HandleRef pen, Point* points, int count)
@@ -1363,7 +1366,10 @@ namespace System.Drawing
             {
                 if (!Is(path, out GpPath? p))
                     return Is(graphics, out GpGraphics? _) ? InvalidParameter : InvalidParameter;
-                return StrokeWith(graphics, pen, () => p.ToSK());
+                int status = StrokeWith(graphics, pen, () => p.ToSK());
+                if (status == Ok && Is(graphics, out GpGraphics? g) && Is(pen, out GpPen? gp) && (gp.CustomStartCap != null || gp.CustomEndCap != null))
+                    DrawCaps(g, gp, p.Points);
+                return status;
             }
 
             internal static int GdipDrawPie(HandleRef graphics, HandleRef pen, float x, float y, float width, float height, float startAngle, float sweepAngle)

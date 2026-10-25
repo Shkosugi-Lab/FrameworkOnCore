@@ -60,7 +60,15 @@ __SQLCLIENT__
 $script = $script.Replace('__DRAWING__', $(if ($drawing) { @'
 dotnet build tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q
 for f in $(find tests/FrameworkOnCore.Tests/bin -path '*DataVisualizationParityData/program/runtimes/unix/*' -name System.Drawing.Common.dll); do
-  cp FrameworkOnCore.Runtime/src/WebFormsForCore.Drawing.Common/bin/unix/*/net10.0/System.Drawing.Common.dll "$f"
+  cp FrameworkOnCore.Runtime/src/WebFormsForCore.Drawing.Common/bin/unix/*/net10.0/System.Drawing.Common.dll $f
+done
+# The port's SkiaSharp beside the program, listed in its deps.json (the packages it was built with have none; no
+# double quotes here: Windows PowerShell passes them to docker unescaped).
+for p in $(find tests/FrameworkOnCore.Tests/bin -type d -path '*DataVisualizationParityData/program'); do
+  t=$(dirname $(find tests/FrameworkOnCore.Tests/bin -name SkiaSharp.dll -not -path '*DataVisualizationParityData*' | head -1))
+  cp $t/SkiaSharp.dll $p/ && cp $t/runtimes/linux-x64/native/libSkiaSharp.so $p/
+  sed -i -e '0,/.\.NETCoreApp,Version=v10\.0.: {/s//\x22.NETCoreApp,Version=v10.0\x22: { \x22FocSkiaSharp\/1.0.0\x22: { \x22runtime\x22: { \x22SkiaSharp.dll\x22: {} }, \x22native\x22: { \x22libSkiaSharp.so\x22: {} } },/' \
+         -e '0,/.libraries.: {/s//\x22libraries\x22: { \x22FocSkiaSharp\/1.0.0\x22: { \x22type\x22: \x22project\x22, \x22serviceable\x22: false, \x22sha512\x22: \x22\x22 },/' $p/DataVisualizationParity.deps.json
 done
 '@ -replace "`r", '' } else { '' }))
 $script = $script.Replace('__NOBUILD__', $(if ($drawing) { '--no-build' } else { '' }))

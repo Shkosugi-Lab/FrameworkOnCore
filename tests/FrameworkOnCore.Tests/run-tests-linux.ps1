@@ -5,7 +5,7 @@
 # -SqlServer: SQL Server in a container too (w2l-sql, as run-linux.ps1 keeps it), for the LINQ to SQL
 # port's database tests (FOC_TEST_SQLSERVER); without it they are skipped.
 # -Filter: those tests only (dotnet test --filter), each failure's message written out.
-# -DrawingBackend skia: System.Drawing over SkiaSharp instead of libgdiplus (FOC_DRAWING_BACKEND); -GdipTrace <file>: the
+# -DrawingBackend libgdiplus: System.Drawing over libgdiplus instead of SkiaSharp, the default (FOC_DRAWING_BACKEND); -GdipTrace <file>: the
 # GDI+ functions the tests called, with how many times, written to the file (FOC_GDIP_TRACE). With either, the Chart
 # control's parity program (built against the packages) runs on the port as built here. -ParityStrict: the parity
 # suites without Linux's known differences (FOC_PARITY_STRICT), to see how far its drawing is from .NET Framework's.
@@ -39,7 +39,7 @@ if ($GdipTrace) {
 }
 $script = @'
 set -e
-# System.Drawing's Linux implementation (the port) draws with libgdiplus.
+# System.Drawing's Linux implementation (the port) draws with SkiaSharp (fontconfig, the fonts), libgdiplus on request.
 apt-get update -qq >/dev/null 2>&1 && apt-get install -y -qq --no-install-recommends libgdiplus fonts-liberation2 >/dev/null 2>&1
 for d in src/FrameworkOnCore.Analyzers src/FrameworkOnCore.Analysis src/FrameworkOnCore.Converter src/FrameworkOnCore.Studio experiments/wf4c/shims/FrameworkOnCore.Compat tests/FrameworkOnCore.Tests tests/Parity.Core tests/DataLinqParity tests/DrawingParity tests/DataVisualizationParity tests/MobileParity tests/SqlClientTests \
          FrameworkOnCore.Runtime/src/WebFormsForCore.Data.Linq FrameworkOnCore.Runtime/src/WebFormsForCore.Data.SqlClient FrameworkOnCore.Runtime/src/WebFormsForCore.Drawing.Common FrameworkOnCore.Runtime/src/SigningKey FrameworkOnCore.Runtime/lib/WebFormsForCore.Build; do

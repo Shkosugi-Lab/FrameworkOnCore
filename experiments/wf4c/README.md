@@ -257,7 +257,22 @@ System.Drawing.Common は .NET 7 から Windows 専用。Linux 実装を持つ�
 - **nop390 を Linux で(2026-09-30、ユーザーの指示で検証)**: 変換し直したサイト(フォークの System.Drawing.Common。Dockerfile が libgdiplus とフォントを入れる)を、変換器が書いた Dockerfile のイメージと SQL Server 2022 のコンテナで動かした。以前 GDI+ の例外で失敗していた**インストーラーがサンプルデータ付きで完了**(商品 45、画像 78。既定の画像の処理が System.Drawing)。店頭 18 画面・カートへの追加(AJAX)とカート・ログイン・管理画面(ダッシュボード、商品一覧の JSON、編集、注文、設定)がすべて 200。ページのサムネイル 31 枚はすべて画像で、Linux で生成された(68 枚、目視でも正しく縮小)。管理画面からの画像のアップロード(縮小して保存)も成功。nopCommerce のエラーログは空。
   - **見つけて直したこと(フォーク 0038)**: 新しい配置の**初回の起動**でコンパイルが失敗し(CS0006: プラグインの DLL が見つからない)、アプリが再起動していた(InitializationError。2 回目から動く)。ASP.NET は PreApplicationStart の後、アプリのハッシュが変われば生成物のフォルダーを掃除する(referencesource と同じ順序)。nopCommerce は PreApplicationStart でプラグインを動的ディレクトリへ写して読み込む。Windows では読み込み済みの DLL は使用中で消えない(ASP.NET はそれを前提に `.delete` を残す)が、Linux は消せてしまい、続くページのコンパイルが参照できなかった。読み込み済みのアセンブリのファイルを、Windows と同じく使用中として扱う(`Util.IsLoadedAssemblyFile`、削除の 2 経路)。直した後は初回から 200 で再起動なし。Windows は変わらない(判定はファイルシステムに任せる)。
   - **検証の手順の注意**: `run-linux.ps1` はビルドサーバー(MSBuild、コンパイラー。約 1 GB)を残したままアプリを起動していて、SQL Server のコンテナと同時だと Docker の VM(3.8 GB)のメモリが尽き、be が最初の要求で OOM で落ちた。アプリの起動前にビルドサーバーを止めるようにした。be Linux 5/5(SQL Server のコンテナありでも)、wt Linux 5/8(以前と同じ)。
-- **残り**: libgdiplus に無い機能(GraphicsPath.Widen/Warp、SaveAdd による複数ページ・アニメーションの書き込み、EMF+ の描画)は Linux では使えない。
+- **残り**: libgdiplus に無い機能(GraphicsPath.Widen/Warp、SaveAdd による複数ページ・アニメーションの書き込み、EMF+ の描画)は Linux では使えない。→ 下の SkiaSharp 版で Widen・Warp・SaveAdd は使えるようになった。
+
+### System.Drawing の Linux を SkiaSharp で(2026-10-26、`1.6.5-w2l.22`、ユーザーの決定「B」)
+
+libgdiplus(Mono の GDI+)は開発が終わっている(リポジトリはアーカイブ済み、Ubuntu の 6.1 が最後)。Linux 実装の GDI+ の関数(Unix 版が呼ぶ 557 本)を、SkiaSharp(MIT、Google の Skia。Chrome・.NET MAUI と同じ)の上に書き直し、既定にした。作業の前の状態はタグ `drawing-before-skia`(b7aa7139)、作業はブランチ `drawing-skia`。
+
+- **作り**: Unix 版の P/Invoke の 2 ファイル(`GdiplusNative.cs`・`GdiplusNative.Unix.cs`)を `generate-gdip-dispatch.ps1` で生成し直したものに置き換える。DllImport は `Gdip.Libgdiplus` へ移し、元の名前の関数は「`GdipBackend.Skia` なら `SkiaGdip.X`、でなければ libgdiplus の X」を呼ぶ(元のソースの呼び出し側は変えない)。SkiaGdip に無い関数はスタブ(NotImplemented を返す)を生成する。関数を足したら生成し直す。残るスタブは 6 本(EncoderParameterList、ImageThumbnail、PostScript 2 本、X11・macOS の描画先)。
+  - **関数ごとではなく、プロセスで 1 つ**: ハンドル(Bitmap・Graphics・Pen…)は実装ごとの物で混ぜられないので、足りない関数だけ libgdiplus に任せることはできない。選び方: 既定は SkiaSharp。環境変数 `FOC_DRAWING_BACKEND=libgdiplus` か、AppContext のスイッチ `FrameworkOnCore.Drawing.UseSkia=false`(runtimeconfig)で以前の libgdiplus(このときは libgdiplus を入れる)。`FOC_GDIP_TRACE=<ファイル>` で、使った実装(`#backend`)と関数ごとの呼び出し回数を書く。
+  - **計算は libgdiplus に合わせ、描画は Skia**: パス(円弧・曲線のベジエ、平坦化)、行列(double で計算)、状態の保存、StringFormat の扱いは libgdiplus のソース(MIT)を移した。点の内外・輪郭(Widen)・塗り・ストロークは Skia。GDI+ の画素の位置(中心を 0.5 − 1/64 ずらす。PixelOffsetMode Half/HighQuality は 0)、拡大しない DrawImage は最近傍で、を GDI+ に合わせた。
+  - **画像**: Bitmap は GDI+ のレイアウトのメモリ(LockBits の Scan0)と、描画用の Skia のビットマップ(premultiplied)を持ち、汚れた側から同期する(32bppPArgb・32bppRgb は同じメモリ)。BMP・GIF・TIFF(LZW と predictor、GDI+ と同じ)・インデックスカラーの PNG・EXIF と JPEG の量子化表(0x5090/0x5091)・複数フレーム・SaveAdd(複数ページの TIFF)・EMF/WMF のヘッダー(EMF+ のデュアルの判定を含む)は自前。PNG・JPEG・ICO の読み込みと PNG・JPEG の書き出しは Skia(PNG には GDI+ と同じく pHYs の解像度を書く)。Region は演算の木で持ち、GDI+ の領域データ(版 0xDBC01002、CRC32)で書き出す。
+  - **文字**: フォントは fontconfig で探し、メトリクスはフォントの OS/2・hhea 表から(GDI+ と同じ量)。レイアウト(前後の 1/6 em、折り返し、省略、ホットキー、タブ、縦書き)、MeasureString、MeasureCharacterRanges、AddString。
+  - 計 11,700 行(`Core/Unix/Skia`)。
+- **配置**: libSkiaSharp.so が Ubuntu 24.04(aspnet:10.0)で足りないのは libfontconfig.so.1 だけ。Dockerfile・install.sh は libgdiplus の代わりに `libfontconfig1 fonts-liberation2`(dnf では fontconfig と Liberation)を入れる(変換器 `DeployWriter`、`run-linux.ps1`)。パッケージ FrameworkOnCore.Drawing.Common は SkiaSharp と SkiaSharp.NativeAssets.Linux 4.153.1 に依存する。カタログと README の文言も SkiaSharp に変えた。
+- **新旧比較**: Linux の既知の差の項目を SkiaSharp 版の物に書き直した(「libgdiplus の値」「読んだ画像の情報」の項目は不要になった)。`run-tests-linux.ps1 -ParityStrict`(`FOC_PARITY_STRICT=1`)で Linux の既知の差を使わずに比べると、.NET Framework と違うケースは libgdiplus 222(400 行)→ SkiaSharp 163。libgdiplus で合っていて SkiaSharp で違うケースは無い。直したもの: SetResolution が HasRealDpi を立てない、BitmapData.Reserved、サムネイルとテクスチャーは 32bppPArgb、PNG の解像度(95.9866)、EMF+ のヘッダー、組み合わせた領域の境界は覆う画素、AddPolygon で始点を足さない、2 本のパスの CustomLineCap は NotImplemented(GDI+ と同じ)、SaveAdd の失敗、FromResource など。
+- **検証**: Linux(SkiaSharp 既定)FrameworkOnCore.Tests 4,433 件(23 件スキップ)と SqlClientTests 204 件がすべて緑、Windows 4,479 件(20 件スキップ)が緑。be Windows 5/5・Linux 5/5、wt Windows 8/8・Linux 7/8(以前と同じエラーページの差)。
+- **残り**(SkiaSharp でも .NET Framework と違うもの): ベジエの平坦化の点(GDI+ の分割は別。Flatten・Warp・曲線の領域の端の 1 画素)、Pen を渡した GetBounds が太さを含まない、シグマベルのブレンドの係数、メタファイルのレコードの列挙・再生と EMF としての書き出し(グラフの EMF 形式は空)、文字の幅(Liberation Sans は Arial と同じ幅だがヒンティングが違う。グラフの配置が数画素ずれる)。
 
 ### System.Web.DataVisualization(グラフ)の移植(2026-10-01、フォーク 0039・0040、`1.6.5-w2l.6`)
 

@@ -1,8 +1,8 @@
 // WebFormsForCore: which implementation of the GDI+ flat API the Unix build calls (GdiplusNative.generated.cs).
-//   libgdiplus (the default): Mono's, as .NET 6 had it; archived since 2024.
-//   SkiaSharp (Core\Unix\Skia, SkiaGdip): the one replacing it, function by function. Chosen with the environment variable
-//     FOC_DRAWING_BACKEND=skia or the AppContext switch FrameworkOnCore.Drawing.UseSkia (runtimeconfig.json). What it does
-//     not have yet returns NotImplemented (NotImplementedException).
+//   SkiaSharp (the default; Core\Unix\Skia, SkiaGdip): GDI+'s functions over Skia, libgdiplus' computations where it made
+//     them. It needs libfontconfig1 and fonts (the deployment installs them).
+//   libgdiplus: Mono's, as .NET 6 had it (archived since 2024), with the environment variable FOC_DRAWING_BACKEND=libgdiplus
+//     or the AppContext switch FrameworkOnCore.Drawing.UseSkia false (runtimeconfig.json), and libgdiplus installed.
 // One for the process, never both: their handles (Graphics, Bitmap, Pen...) are each its own, a handle of one passed to the
 // other would be a wrong pointer.
 // FOC_GDIP_TRACE=<file>: each process appends to the file, on exit, its backend ("#backend", tab, the name) and the
@@ -25,8 +25,8 @@ namespace System.Drawing
         {
             string? backend = Environment.GetEnvironmentVariable("FOC_DRAWING_BACKEND");
             if (!string.IsNullOrEmpty(backend))
-                return string.Equals(backend, "skia", StringComparison.OrdinalIgnoreCase);
-            return AppContext.TryGetSwitch("FrameworkOnCore.Drawing.UseSkia", out bool skia) && skia;
+                return !string.Equals(backend, "libgdiplus", StringComparison.OrdinalIgnoreCase);
+            return !AppContext.TryGetSwitch("FrameworkOnCore.Drawing.UseSkia", out bool skia) || skia;
         }
 
         internal static void Called(string function)

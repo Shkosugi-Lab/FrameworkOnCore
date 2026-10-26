@@ -1,5 +1,5 @@
 # Generates Core\Unix\*.generated.cs of the System.Drawing.Common port (FrameworkOnCore.Runtime\src\WebFormsForCore.Drawing.Common):
-# the Unix build's GDI+ flat API with a choice of implementation, libgdiplus (the default) or SkiaSharp (Core\Unix\Skia).
+# the Unix build's GDI+ flat API with a choice of implementation, SkiaSharp (Core\Unix\Skia, the default) or libgdiplus.
 #   GdiplusNative.generated.cs, GdiplusNative.Unix.generated.cs: System\Drawing\GdiplusNative.cs and GdiplusNative.Unix.cs as
 #     they are, each DllImport replaced by a method of the same signature that calls the chosen implementation (GdipBackend).
 #     The Unix build compiles these instead of the two files.

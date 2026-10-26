@@ -13,8 +13,8 @@ namespace FrameworkOnCore.DrawingParity
 {
     /// <summary>
     /// How the cases write a System.Drawing object: what it holds (a path's points, a matrix's elements, a pen's settings,
-    /// an image's size and format), not its ToString. Two kinds of line are marked, for Linux where libgdiplus draws
-    /// (the port's Unix implementation) and other fonts are installed:
+    /// an image's size and format), not its ToString. Two kinds of line are marked, for Linux where the port draws
+    /// (its Unix implementation, over SkiaSharp or libgdiplus) and other fonts are installed:
     ///   "~px "   pixels: exact on Windows (the same gdiplus.dll as .NET Framework), within a tolerance on Linux;
     ///   "~font " what depends on the fonts installed: exact on Windows, loosely on Linux.
     /// Everything else is compared exactly everywhere.
@@ -176,7 +176,7 @@ namespace FrameworkOnCore.DrawingParity
 
         /// <summary>
         /// An image's pixels: its size, a hash of every pixel (Windows compares it), and 8x8 cells of averaged colour (Linux
-        /// compares those, within a tolerance: its rendering is libgdiplus').
+        /// compares those, within a tolerance: its rendering is SkiaSharp's or libgdiplus').
         /// </summary>
         public static string PixelText(Bitmap bitmap)
         {

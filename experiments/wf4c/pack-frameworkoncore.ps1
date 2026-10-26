@@ -33,7 +33,8 @@ $projects = @(
     'WebFormsForCore.Compilers\WebFormsForCore.Compilers.csproj'
     'WebFormsForCore.Configuration\WebFormsForCore.Configuration.csproj'
     'WebFormsForCore.Drawing\WebFormsForCore.Drawing.csproj'
-    # System.Drawing.Common with its Linux implementation (dotnet/runtime release/6.0, libgdiplus): the Windows build and,
+    # System.Drawing.Common with its Linux implementation (dotnet/runtime release/6.0; GDI+'s functions over SkiaSharp,
+    # libgdiplus on request): the Windows build and,
     # built apart below, the Unix one, in one package (runtimes/win, runtimes/unix).
     'WebFormsForCore.Drawing.Common\WebFormsForCore.Drawing.Common.csproj'
     # System.Data.SqlClient expanding |DataDirectory| as .NET Framework's (dotnet/maintenance-packages' 4.9.0 source): the

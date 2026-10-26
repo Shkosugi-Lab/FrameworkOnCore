@@ -17,8 +17,8 @@ namespace FrameworkOnCore.DrawingParity
     ///
     /// Writes cases.json (case -> lines) and api.txt (System.Drawing's API as documentation ids: on .NET, the port's
     /// System.Drawing.Common with .NET's System.Drawing.Primitives, where .NET Framework's System.Drawing is split).
-    /// --only: the cases whose names match, each named before it runs (the one a crash ends in: libgdiplus' faults end
-    /// the process), their lines written to the console.
+    /// --only: the cases whose names match, each named before it runs (the one a crash ends in: a native fault, libgdiplus'
+    /// or Skia's, ends the process), their lines written to the console.
     /// </summary>
     public static class Program
     {

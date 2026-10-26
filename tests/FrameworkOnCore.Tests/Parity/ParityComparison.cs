@@ -8,7 +8,7 @@ namespace FrameworkOnCore.Tests.Parity;
 /// <summary>
 /// How a port's case is compared with its golden (the lines .NET Framework wrote), for the parity suites that draw
 /// (System.Drawing, the Chart control): the differences known and explained (known-differences.json) set aside first;
-/// then every line exactly, but on Linux, where libgdiplus draws with other fonts: pixels ("~px" lines) within a
+/// then every line exactly, but on Linux, where the port draws (SkiaSharp) with other fonts: pixels ("~px" lines) within a
 /// tolerance, what depends on the fonts ("~font") by its label only, numbers within a relative 1e-5.
 /// </summary>
 public sealed class ParityComparison
@@ -73,7 +73,7 @@ public sealed class ParityComparison
     public bool AppliesTo(string name) => KnownDifferences.Any(k => k.Applies && k.Case.IsMatch(name));
 
     /// <summary>
-    /// How much the 8x8 grid (averaged colour, per channel) may differ on Linux, on average: libgdiplus (Cairo)
+    /// How much the 8x8 grid (averaged colour, per channel) may differ on Linux, on average: Skia (libgdiplus: Cairo)
     /// antialiases edges its own way, a cell on an edge may differ much, the picture as a whole little (measured: the
     /// same drawings differ by 5 at most on average; a different picture, 29 and more).
     /// </summary>
@@ -102,7 +102,7 @@ public sealed class ParityComparison
     static readonly Regex Number = new(@"-?\d+(\.\d+)?(E[+-]\d+)?");
 
     /// <summary>
-    /// Linux: the same text but for numbers within a relative 1e-5 (libgdiplus computes in float, in its own order:
+    /// Linux: the same text but for numbers within a relative 1e-5 (the port computes as libgdiplus, in its own order:
     /// a rotation's -0.5 is GDI+'s -0.49999994). The text around them, and whole numbers' values, must be the same.
     /// </summary>
     static bool NearlyEqualNumbers(string expected, string actual)

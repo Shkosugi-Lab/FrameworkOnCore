@@ -57,7 +57,7 @@
       { "id": "none", "title": "対応しない", "description": "スタブになります(実行すると例外)。", "detail": "スタブ" }
     ],
     "system-drawing": [
-      { "id": "port", "title": "移植版(Windows と Linux)", "description": "Windows では GDI+、Linux では libgdiplus で描画します。配置で libgdiplus とフォントを入れます。", "detail": "FrameworkOnCore の System.Drawing.Common(パッケージ FrameworkOnCore.Drawing.Common。dotnet/runtime 6.0 のソース。Windows は GDI+、Linux は libgdiplus。配置で libgdiplus とフォントを入れる)。FrameworkOnCore の System.Web が依存するので、どのアプリもこれになる", "default": true }
+      { "id": "port", "title": "移植版(Windows と Linux)", "description": "Windows では GDI+、Linux では SkiaSharp で描画します。配置で fontconfig とフォントを入れます。", "detail": "FrameworkOnCore の System.Drawing.Common(パッケージ FrameworkOnCore.Drawing.Common。dotnet/runtime 6.0 のソース。Windows は GDI+、Linux は GDI+ の関数を SkiaSharp で実装したもの(FOC_DRAWING_BACKEND=libgdiplus で以前の libgdiplus)。配置で fontconfig とフォントを入れる)。FrameworkOnCore の System.Web が依存するので、どのアプリもこれになる", "default": true }
     ],
     "linq-to-sql": [
       { "id": "port", "title": "移植版を使う", "description": "referencesource から移植した System.Data.Linq を使います。", "detail": "referencesource(MIT)から移植した System.Data.Linq(パッケージ FrameworkOnCore.Data.Linq)", "default": true },
@@ -204,14 +204,14 @@
     {
       "id": "system-drawing", "title": "System.Drawing(画像・フォント、GDI+)",
       "match": { "namespaces": [ "System.Drawing" ] },
-      "note": ".NET 10 の System.Drawing.Common は Windows でしか動きません。Linux でも動く移植版(libgdiplus を使う)に置き換えます。アンチエイリアスやフォントの描画結果は少し違うことがあります。",
-      "detail": ".NET の System.Drawing.Common は .NET 7 から Windows のみ。変換器: FrameworkOnCore の System.Drawing.Common(dotnet/runtime 6.0 の Linux 実装を持つ移植版、libgdiplus)。描画の結果(アンチエイリアス、文字)は Windows と Linux で少し違う。Windows のフォントは Linux に無い(Arial などは互換のフォントに置き換わる)"
+      "note": ".NET 10 の System.Drawing.Common は Windows でしか動きません。Linux でも動く移植版(SkiaSharp で描く)に置き換えます。アンチエイリアスやフォントの描画結果は少し違うことがあります。",
+      "detail": ".NET の System.Drawing.Common は .NET 7 から Windows のみ。変換器: FrameworkOnCore の System.Drawing.Common(dotnet/runtime 6.0 の Linux 実装を持つ移植版。Linux は GDI+ の関数を SkiaSharp で実装、libgdiplus は開発終了のため既定にしない)。描画の結果(アンチエイリアス、文字)は Windows と Linux で少し違う。Windows のフォントは Linux に無い(Arial などは互換のフォントに置き換わる)"
     },
     {
       "id": "charts", "title": "グラフ(Chart コントロール)",
       "match": { "assemblies": [ "System.Web.DataVisualization", "System.Windows.Forms.DataVisualization" ] },
       "note": "Chart コントロール(System.Web.DataVisualization)は .NET 10 にありません。移植版を使います(Linux でも描画できます)。",
-      "detail": "referencesource(MIT)から移植済み: パッケージ FrameworkOnCore.Web.DataVisualization(Chart コントロール、ChartImg.axd)。描画は移植版の System.Drawing(Linux は libgdiplus)。ChartImg.axd の画像ファイルの置き場(appSettings ChartImageHandler の dir)が C: などのときは、Linux では配置の設定(APPSETTING_ChartImageHandler)で替える。Windows フォームの System.Windows.Forms.DataVisualization は移植していない"
+      "detail": "referencesource(MIT)から移植済み: パッケージ FrameworkOnCore.Web.DataVisualization(Chart コントロール、ChartImg.axd)。描画は移植版の System.Drawing(Linux は SkiaSharp)。ChartImg.axd の画像ファイルの置き場(appSettings ChartImageHandler の dir)が C: などのときは、Linux では配置の設定(APPSETTING_ChartImageHandler)で替える。Windows フォームの System.Windows.Forms.DataVisualization は移植していない"
     },
     {
       "id": "sql-client", "title": "SQL Server のクライアント(System.Data.SqlClient)",

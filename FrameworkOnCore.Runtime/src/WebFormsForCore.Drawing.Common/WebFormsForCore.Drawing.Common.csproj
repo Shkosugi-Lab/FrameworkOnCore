@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <!-- System.Drawing.Common with its Linux implementation: dotnet/runtime's release/6.0 source (MIT), the last with
-       it (Mono's, over libgdiplus); Windows' calls GDI+ as .NET Framework's System.Drawing did. Built twice, once per
+       it (Mono's, over libgdiplus); Windows' calls GDI+ as .NET Framework's System.Drawing did. On Linux GDI+'s functions
+       are SkiaSharp's by default (Core\Unix; libgdiplus is archived), libgdiplus' on request (Core\Unix\GdipBackend.cs). Built twice, once per
        platform, as dotnet/runtime built it: FocTargetOS=windows (the default, also the reference assembly) and
        FocTargetOS=unix; the package has both (runtimes/win, runtimes/unix), and the host takes the one of the OS.
        The sources are as they were; what the port changes is under Core\ and marked WebFormsForCore. -->
@@ -46,7 +47,7 @@
     <PackageId>FrameworkOnCore.Drawing.Common</PackageId>
     <Title>FrameworkOnCore.Drawing.Common</Title>
     <Authors>simonegli8</Authors>
-    <Description>System.Drawing.Common for .NET 10 on Windows (GDI+) and Linux (libgdiplus): dotnet/runtime's release/6.0 source with its Unix implementation enabled</Description>
+    <Description>System.Drawing.Common for .NET 10 on Windows (GDI+) and Linux (SkiaSharp; libgdiplus on request): dotnet/runtime's release/6.0 source with its Unix implementation enabled, GDI+'s functions over Skia</Description>
     <PackageProjectUrl>https://github.com/webformsforcore/WebFormsForCore</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

@@ -470,7 +470,7 @@ def slide3():
          ['System.Data', 'System.Xml', 'System.Text.Json', 'System.Net.Http', 'System.Diagnostics.EventLog'])
     corelib(s, r, 'System.Private.CoreLib + CoreCLR(一組)', ['.NET のまま(ASP.NET Core は .NET の動きが前提)', 'アプリの、結果が違う呼び出しだけ Compat に書き換える'])
     halves(s, r['OS'], (C['os'], 'Windows Server', ['IIS + ANCM(任意)', 'NTFS', 'NLS', 'タイムゾーン']),
-           (C['os'], 'Linux', ['Docker・systemd', 'ext4・xfs', 'ICU', 'TZ = 元のサーバーの', 'libgdiplus']))
+           (C['os'], 'Linux', ['Docker・systemd', 'ext4・xfs', 'ICU', 'TZ = 元のサーバーの', 'fontconfig・フォント']))
     full(s, r['HW'], C['hw'], 'サーバー・コンテナ・クラウド(x64・ARM64)', anchor='middle')
     band(s, r['KINDS'][0], bottom(r['LIBS']) - 8, '独自の翻訳(各アセンブリのサテライト)', C['compat'])
     band(s, r['CLASSLIBS'][0] + 8, bottom(r['OS']), 'カルチャ プロファイル', C['compat'])

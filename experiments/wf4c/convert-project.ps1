@@ -89,7 +89,7 @@ $sourcePackages = @(
     @{ Pattern = '\bSystem\.Runtime\.Caching\b'; Id = 'System.Runtime.Caching'; Version = '10.0.0' }
     @{ Pattern = '\bSystem\.DirectoryServices\b'; Id = 'System.DirectoryServices'; Version = '10.0.0'; Note = 'Active Directory (Windows; LDAP via System.DirectoryServices.Protocols)' }
     @{ Pattern = '\bSystem\.Management\b'; Id = 'System.Management'; Version = '10.0.0'; Note = 'WMI is Windows only' }
-    @{ Pattern = '\bSystem\.Drawing\b'; Id = 'FrameworkOnCore.Drawing.Common'; Version = $FrameworkOnCoreVersion; Note = 'System.Drawing: FrameworkOnCore''s System.Drawing.Common (with its Linux implementation over libgdiplus)' }
+    @{ Pattern = '\bSystem\.Drawing\b'; Id = 'FrameworkOnCore.Drawing.Common'; Version = $FrameworkOnCoreVersion; Note = 'System.Drawing: FrameworkOnCore''s System.Drawing.Common (with its Linux implementation: GDI+''s functions over SkiaSharp)' }
     @{ Pattern = '\bSystem\.ServiceModel\.Syndication\b'; Id = 'System.ServiceModel.Syndication'; Version = '10.0.0' }
     @{ Pattern = '\bSystem\.Configuration\.ConfigurationManager\b|\bConfigurationManager\b'; Id = 'FrameworkOnCore.Configuration'; Version = $FrameworkOnCoreVersion }
 )

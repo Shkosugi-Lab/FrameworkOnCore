@@ -11,8 +11,8 @@ namespace FrameworkOnCore.Tests.Drawing;
 /// The port against .NET Framework's System.Drawing, API by API: the cases of tests/DrawingParity, run here on the port
 /// (FrameworkOnCore's System.Drawing.Common), must observe what they observed on .NET Framework 4.8 (tests/DrawingParity/golden,
 /// record.ps1), but for the differences known and explained (known-differences.json). On Windows the port calls the
-/// same gdiplus.dll as .NET Framework: every line is compared exactly. On Linux it calls libgdiplus, which draws its own
-/// way, with other fonts: pixels ("~px" lines) are compared within a tolerance, what depends on the fonts ("~font") by
+/// same gdiplus.dll as .NET Framework: every line is compared exactly. On Linux GDI+'s functions are its own (over SkiaSharp;
+/// libgdiplus on request), which draw their own way, with other fonts: pixels ("~px" lines) are compared within a tolerance, what depends on the fonts ("~font") by
 /// its label only. Also: the port has .NET Framework's API, less what ApiCases.Excluded says .NET lacks, plus what .NET
 /// added (api-additions.txt).
 /// </summary>

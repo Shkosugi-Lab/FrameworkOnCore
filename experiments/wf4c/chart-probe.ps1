@@ -4,7 +4,7 @@
 # picture's size, digest and 8x8 grid, the image map's areas. -Record takes the lines from the original on IIS (.NET
 # Framework 4.8) into samples\ChartProbe\golden-chart-probe.txt; -Windows and -Linux convert the sample
 # (FrameworkOnCore.Converter, its default choices: the charts' port) and compare the lines with those: on Windows
-# exactly (the same gdiplus.dll draws; pictures by their grid, see Compare-Lines), on Linux as the System.Drawing suite does (libgdiplus and other fonts: the grid
+# exactly (the same gdiplus.dll draws; pictures by their grid, see Compare-Lines), on Linux as the System.Drawing suite does (SkiaSharp and other fonts: the grid
 # within 12 on average, the areas' coordinates within 6 pixels).
 #
 #   .\experiments\wf4c\chart-probe.ps1 -Record      # IIS (an administrator's shell)

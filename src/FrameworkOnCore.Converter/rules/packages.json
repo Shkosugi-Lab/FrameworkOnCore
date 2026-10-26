@@ -1,6 +1,6 @@
 {
   "$comment": "Package and reference rules. \"$frameworkoncore\" stands for the version of FrameworkOnCore's packages (frameworkOnCoreVersion).",
-  "frameworkOnCoreVersion": "1.6.5-w2l.21",
+  "frameworkOnCoreVersion": "1.6.5-w2l.22",
 
   "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time). FrameworkOnCore.Data.SqlClient: whoever opens the connection (the sources, Entity Framework, a DLL), System.Data.SqlClient is the one expanding |DataDirectory| as .NET Framework's (its assembly version is above the package Entity Framework brings). The user's choice (portOptions): .NET's package, it is not added.",
   "webPackages": [ "FrameworkOnCore.Web", "FrameworkOnCore.Web.Extensions", "FrameworkOnCore.Configuration", "FrameworkOnCore.Web.DynamicData", "FrameworkOnCore.Data.SqlClient" ],
@@ -138,7 +138,7 @@
     { "pattern": "\\bSystem\\.Runtime\\.Caching\\b", "id": "System.Runtime.Caching", "version": "10.0.0" },
     { "pattern": "\\bSystem\\.DirectoryServices\\b", "id": "System.DirectoryServices", "version": "10.0.0", "note": "Active Directory (Windows; LDAP via System.DirectoryServices.Protocols)" },
     { "pattern": "\\bSystem\\.Management\\b", "id": "System.Management", "version": "10.0.0", "note": "WMI is Windows only" },
-    { "pattern": "\\bSystem\\.Drawing\\b", "id": "FrameworkOnCore.Drawing.Common", "version": "$frameworkoncore", "note": "System.Drawing: FrameworkOnCore's System.Drawing.Common (dotnet/runtime 6.0's, with its Linux implementation over libgdiplus, which the deployment installs)" },
+    { "pattern": "\\bSystem\\.Drawing\\b", "id": "FrameworkOnCore.Drawing.Common", "version": "$frameworkoncore", "note": "System.Drawing: FrameworkOnCore's System.Drawing.Common (dotnet/runtime 6.0's, with its Linux implementation: GDI+'s functions over SkiaSharp, which needs fontconfig and fonts, which the deployment installs)" },
     { "pattern": "\\bSystem\\.ServiceModel\\.Syndication\\b", "id": "System.ServiceModel.Syndication", "version": "10.0.0" },
     { "pattern": "\\bConfigurationManager\\b", "id": "FrameworkOnCore.Configuration", "version": "$frameworkoncore" },
     // .NET 9 removed BinaryFormatter (it throws); its unsupported compatibility package has it back, with the switch

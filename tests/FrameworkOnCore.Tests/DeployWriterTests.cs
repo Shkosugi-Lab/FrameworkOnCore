@@ -51,8 +51,8 @@ public class DeployWriterTests : IDisposable
         Assert.True(made > 0 && made < dockerfile.IndexOf("USER app", StringComparison.Ordinal) && made < dockerfile.IndexOf("VOLUME /app/App_Data", StringComparison.Ordinal));
     }
 
-    [Fact] // libgdiplus for what draws: the mobile controls reference System.Drawing for its types (Color), they do not draw
-    public void The_mobile_controls_do_not_need_libgdiplus()
+    [Fact] // fontconfig and fonts for what draws: the mobile controls reference System.Drawing for its types (Color), they do not draw
+    public void The_mobile_controls_do_not_need_the_fonts()
     {
         var mobile = Path.Combine(AppContext.BaseDirectory, "MobileParityData", "program", "System.Web.Mobile.dll");
         var bin = Path.Combine(root, "bin");

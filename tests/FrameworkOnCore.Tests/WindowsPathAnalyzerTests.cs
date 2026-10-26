@@ -90,6 +90,10 @@ public class WindowsPathAnalyzerTests
     public void A_combined_path_is_wrapped_in_its_parts() =>
         Assert.Equal(new[] { ("FOC1004", "a"), ("FOC1004", "b") }, Find("bool F(string a, string b) => File.Exists(Path.Combine(a, b));"));
 
+    [Fact] // an array given to Path.Combine's params (mojoPortal's CombinePath): not a path; WindowsPath.Native(paths) did not compile
+    public void An_array_given_to_params_is_left() =>
+        Assert.Equal(new[] { ("FOC1004", "a") }, Find("string F(string[] paths) => Path.Combine(paths);\nstring G(string a, string b) => Path.Combine(a, b, \"x\");").Where(f => f.Item2 == "a" || f.Item2 == "paths").ToArray());
+
     [Fact] // the application's own methods (its other projects) call the file APIs, which are wrapped there
     public void The_application_s_own_methods_are_left()
     {

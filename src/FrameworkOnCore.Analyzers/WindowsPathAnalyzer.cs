@@ -119,6 +119,9 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
         foreach (var argument in arguments)
         {
             if (argument.ArgumentKind == ArgumentKind.DefaultValue || argument.Parameter is not { } parameter || !pathParameters.Contains(parameter.Name)) continue;
+            // A params parameter given an array (Path.Combine(paths), mojoPortal's CombinePath): not a path to wrap, its
+            // elements not written here.
+            if (parameter.IsParams && argument.ArgumentKind != ArgumentKind.ParamArray) continue;
             // A params array: its elements, as written.
             var values = argument.ArgumentKind == ArgumentKind.ParamArray ? Elements(argument.Value).ToImmutableArray() : ImmutableArray.Create(argument.Value);
             var type = parameter.IsParams ? parameter.Type switch

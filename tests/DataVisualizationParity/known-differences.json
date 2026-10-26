@@ -17,19 +17,19 @@
       "case": "^ScenarioCases\\.Report_pie$",
       "line": "^image map = ",
       "on": "linux",
-      "reason": "The layout follows the text's measure: Liberation Sans (Arial's widths, not its hinting) through libgdiplus moves the pie a few pixels, and libgdiplus flattens the slices' arcs into other points. samples/ChartProbe (experiments/wf4c/chart-probe.ps1 -Linux) compares a page's image map with IIS's: within 5 pixels."
+      "reason": "The layout follows the text's measure: Liberation Sans (Arial's widths, not its hinting) moves the pie a few pixels, and the slices' arcs are flattened into other points. samples/ChartProbe (experiments/wf4c/chart-probe.ps1 -Linux) compares a page's image map with IIS's: within 5 pixels."
     },
     {
       "case": "^Api\\.Annotation\\.ResizeToContent$",
       "line": "^Annotation\\.ResizeToContent after = ",
       "on": "linux",
-      "reason": "The annotation is sized to its text as measured: Liberation Sans through libgdiplus, not Arial through GDI+ (the height 9.81 for 9.32)."
+      "reason": "The annotation is sized to its text as measured: Liberation Sans, not Arial (the height 9.81 for 9.32)."
     },
     {
       "case": "^ScenarioCases\\.Image_formats$",
-      "line": "^(Jpeg|Png|Bmp|Tiff|Gif|Emf|EmfPlus|EmfDual) = ",
+      "line": "^(Emf|EmfPlus|EmfDual) = ",
       "on": "linux",
-      "reason": "What libgdiplus says of a picture it read (as in the System.Drawing suite): no HasRealDpi flag, a PNG's and a BMP's resolution as 96 (GDI+ from pixels per meter: 95.9866, 96.0120); and it records no metafile (the chart's EMF, EMF+ and dual formats write nothing)."
+      "reason": "The port records no metafile into a stream: the chart's EMF, EMF+ and dual formats write nothing."
     },
     {
       "case": "^Api\\.ChartHttpHandler\\.Settings$",
@@ -41,7 +41,7 @@
       "case": "^ScenarioCases\\.Serialization$",
       "line": "^\\s*\\|\\s+<NamedImage |^saved again equal = |^!! escaped: System\\.ArgumentNullException: Value cannot be null\\. \\[param encoder\\]$|^binary = ",
       "on": "linux",
-      "reason": "The chart's images as libgdiplus writes them: other PNG chunks (gAMA, cHRM) in the saved XML, the same bytes again once read back (GDI+ writes a read PNG otherwise), and a bitmap made in memory written as PNG where GDI+ has no encoder for it (the binary format's save: ArgumentNullException on .NET Framework and on the port on Windows)."
+      "reason": "The chart's images as the port writes them: a PNG with other chunks and compression (Skia's encoder) in the saved XML, the same bytes again once read back (GDI+ writes a read PNG otherwise), and a bitmap made in memory written as PNG where GDI+ has no encoder for it (the binary format's save: ArgumentNullException on .NET Framework and on the port on Windows)."
     }
   ]
 }

@@ -117,6 +117,15 @@ namespace System.Drawing
                             header.Height = IRound((inchBottom - inchTop) * header.DpiY) + 1;
                             header.Size = bytes;
                             header.Version = version;
+                            // An EMF+ header in the first record after it (an EMR_COMMENT "EMF+"): EMF+ only or dual, its version
+                            // (libgdiplus' update_emf_header; GDI+ reports neither its size nor its logical resolution).
+                            if (nSize + 28 <= data.Length && BitConverter.ToInt32(data, nSize) == 70 && BitConverter.ToUInt32(data, nSize + 12) == 0x2B464D45
+                                && BitConverter.ToUInt16(data, nSize + 16) == 0x4001)
+                            {
+                                int flags = BitConverter.ToUInt16(data, nSize + 18);
+                                header.Type = (flags & 1) != 0 ? MetafileType.EmfPlusDual : MetafileType.EmfPlusOnly;
+                                header.Version = BitConverter.ToInt32(data, nSize + 28);
+                            }
                             return Ok;
                         }
                     default:

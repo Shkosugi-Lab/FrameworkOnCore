@@ -241,11 +241,12 @@ namespace System.Drawing
 
                 public void AddPolygon(PointF[] points, int count)
                 {
+                    // GDI+: the points, closed; a last point that is the first not repeated (libgdiplus added the first again).
+                    if (count > 3 && points[0] == points[count - 1])
+                        count--;
                     Append(points[0], PathPointTypeStart, false);
                     for (int i = 1; i < count; i++)
                         Append(points[i], PathPointTypeLine, false);
-                    if (points[0].X != points[count - 1].X && points[0].Y != points[count - 1].Y)
-                        Append(points[0], PathPointTypeLine, false);
                     CloseFigure();
                 }
 

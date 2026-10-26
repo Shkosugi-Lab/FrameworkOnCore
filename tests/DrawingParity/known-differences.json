@@ -1,5 +1,5 @@
 {
-  "about": "Where the port may differ from .NET Framework's System.Drawing, and why. DrawingParityTests: in a case matching 'case', the lines matching 'line' (the golden's and the port's) are set aside; what remains must be equal. An entry that sets aside no difference (on its platform: 'all', 'windows' or 'linux') fails the test: it is stale; but for 'varies': what .NET Framework gives there changes from run to run, and may happen to equal the port's. None is the port's own doing: each is .NET's System.Drawing.Common (Microsoft's package on Windows does the same), .NET's runtime, or .NET Framework's undefined behaviour.",
+  "about": "Where the port may differ from .NET Framework's System.Drawing, and why. DrawingParityTests: in a case matching 'case', the lines matching 'line' (the golden's and the port's) are set aside; what remains must be equal. An entry that sets aside no difference (on its platform: 'all', 'windows' or 'linux') fails the test: it is stale; but for 'varies': what .NET Framework gives there changes from run to run, and may happen to equal the port's. On Windows none is the port's own doing: each is .NET's System.Drawing.Common (Microsoft's package on Windows does the same), .NET's runtime, or .NET Framework's undefined behaviour. On Linux GDI+'s functions are the port's (over SkiaSharp, Core/Unix/Skia): the 'linux' entries are what Linux has not (Windows' colors, icons, printers, device contexts, fonts) and where those functions do not answer as GDI+ yet. With libgdiplus (FOC_DRAWING_BACKEND=libgdiplus) more differs: these entries are SkiaSharp's.",
   "differences": [
     {
       "case": "^Api\\.(SystemColors|SystemBrushes|SystemPens)\\.",
@@ -23,19 +23,19 @@
       "case": "^Api\\.(Drawing2D\\.(GraphicsPath|PathData)\\.|Region\\.)",
       "line": "GraphicsPath n=|PathData \\[|PathPoints = |PathTypes = |Points = \"\\[PointF|GetBounds\\(|Region empty=|GetRegionScans|GetRegionData|RegionData",
       "on": "linux",
-      "reason": "Geometry is libgdiplus': it flattens curves into other points (an ellipse from the other side), bounds a region by its rectangles as given (GDI+ by the pixels it covers), and does not implement GraphicsPath.Widen and Warp (the path is only flattened)."
+      "reason": "Curves as points: GDI+ flattens a Bézier into other points than the port (libgdiplus' subdivision), so Flatten, Warp and Widen give other points (Widen: Skia's outline of the stroke), and a region of curves covers a pixel more or less at their edges (its scans); GetBounds with a pen bounds the path without the pen's width."
     },
     {
       "case": "^Api\\.(Imaging\\.(Metafile|MetafileHeader)\\.|Graphics\\.(EnumerateMetafile|AddMetafileComment)$)",
       "line": ".",
       "on": "linux",
-      "reason": "Metafiles: libgdiplus reads an EMF's records (not EMF+: GDI+'s dual metafile reads as Emf, its header so), draws them partly, and neither enumerates nor records them (NotImplementedException)."
+      "reason": "Metafiles: the port reads an EMF's and a WMF's header as GDI+ does and records what is drawn into one for drawing it again in the process, but neither enumerates nor plays its records (EnumerateMetafile, PlayRecord: NotImplementedException) nor writes them as EMF; a WMF header asked of an EMF fails with another message."
     },
     {
-      "case": "^Api\\.(Image\\.SaveAdd|Imaging\\.ImageAttributes\\.GetAdjustedPalette|Graphics\\.GetHalftonePalette|Bitmap\\.FromResource|BufferedGraphics\\.Render|Font\\.FromHdc|Graphics\\.GetContextInfo)$|^ScenarioCases\\.Tiff_pages$",
-      "line": "^(~px )?(Image\\.SaveAdd|Imaging\\.ImageAttributes\\.GetAdjustedPalette|Graphics\\.GetHalftonePalette|Bitmap\\.FromResource|BufferedGraphics\\.Render|Font\\.FromHdc|Graphics\\.GetContextInfo)\\b|^written pages|^!! escaped: System\\.NotImplementedException",
+      "case": "^Api\\.(Imaging\\.ImageAttributes\\.GetAdjustedPalette|Graphics\\.GetHalftonePalette|BufferedGraphics\\.Render|Font\\.FromHdc|Graphics\\.GetContextInfo)$",
+      "line": "^(~px )?(Imaging\\.ImageAttributes\\.GetAdjustedPalette|Graphics\\.GetHalftonePalette|BufferedGraphics\\.Render|Font\\.FromHdc|Graphics\\.GetContextInfo)\\b",
       "on": "linux",
-      "reason": "Not in libgdiplus or the Unix implementation (NotImplementedException): writing several frames (SaveAdd: a multipage TIFF, an animated GIF), an adjusted palette, the halftone palette, a Win32 resource, rendering to a device context, a font from a device context."
+      "reason": "Not on Linux (NotImplementedException, in the Unix implementation of System.Drawing.Common): an adjusted palette, the halftone palette, rendering to a device context, a font from a device context, the context's state."
     },
     {
       "case": "^Api\\.(Graphics\\.(FromHdc|FromHdcInternal|FromHwnd|FromHwndInternal)|Image\\.FromHbitmap|BufferedGraphicsContext\\.Allocate|BufferedGraphics\\.Graphics)$|^ScenarioCases\\.CopyFromScreen_arguments$",
@@ -50,17 +50,18 @@
       "reason": "The fonts installed: Liberation (fonts-liberation2: Arial's metrics as Liberation Sans) and DejaVu, not Windows' (Arial, Bahnschrift...). fontconfig gives Liberation Sans for new Font(\"Arial\"), but a font collection has only its own names."
     },
     {
-      "case": "^Api\\.(Bitmap\\.SetResolution|Imaging\\.BitmapData\\.Reserved|Image\\.GetThumbnailImage|TextureBrush\\.|Bitmap\\.Clone|Drawing2D\\.LinearGradientBrush\\.SetSigmaBellShape|Drawing2D\\.CustomLineCap\\.#ctor|Image\\.SetPropertyItem|ToolboxBitmapAttribute\\.GetImage)",
+      "case": "^Api\\.ToolboxBitmapAttribute\\.GetImage$",
       "line": ".",
       "on": "linux",
-      "reason": "libgdiplus' and the Unix implementation's own answers: SetResolution flags the image (HasRealDpi), BitmapData's reserved field, thumbnails and texture images in 32bppArgb (GDI+: premultiplied), Clone's error for a format it cannot convert to (ArgumentException, GDI+: OutOfMemoryException), the sigma bell blend's points, a line cap of both a fill and a stroke path (GDI+ refuses it), properties on a bitmap made in memory (libgdiplus keeps them for files' formats only), a toolbox bitmap found in the component's resources."
+      "reason": "A toolbox bitmap: .NET Framework finds the component's in its resources; the Unix implementation (Mono's lookup) finds none."
     },
     {
-      "case": "^ScenarioCases\\.(Chart_drawing|Exif_orientation|Gif_frames|Indexed_palette|Jpeg_quality|Png_transparency|Thumbnail)$",
-      "line": "raw=(Png|Jpeg|Bmp|MemoryBMP) flags=|^property ids|^delays|^GetThumbnailImage = ",
+      "case": "^Api\\.Drawing2D\\.LinearGradientBrush\\.SetSigmaBellShape$",
+      "line": "^Drawing2D\\.LinearGradientBrush\\.SetSigmaBellShape\\(Single(,Single)?\\) after = ",
       "on": "linux",
-      "reason": "What libgdiplus says of a picture it read: no HasRealDpi flag, a PNG's resolution as 96 (GDI+: 95.9866, from pixels per meter), a turned JPEG still Jpeg (GDI+: MemoryBMP), the EXIF tags libexif adds (resolution, versions) without the JPEG tables GDI+ lists, a GIF's first frame delay only (GDI+: every frame's), a thumbnail in 32bppArgb."
-    },    {
+      "reason": "The sigma bell blend: GDI+'s factors are of another curve, in steps of 1/65536 (the port's are libgdiplus'), and the brush's transform for its angle differs in its last digits (GDI+ in float, the port in double)."
+    },
+    {
       "case": "^Api\\.(Color|Brushes|Pens)\\.DarkSeaGreen$|^Api\\.ColorConverter\\.GetStandardValues$",
       "line": "DarkSeaGreen",
       "on": "all",

@@ -674,7 +674,6 @@ namespace System.Drawing
                     return InvalidParameter;
                 b.DpiX = dpix;
                 b.DpiY = dpiy;
-                b.Flags |= (int)ImageFlags.HasRealDpi;
                 return Ok;
             }
 
@@ -752,7 +751,7 @@ namespace System.Drawing
                 lockedBitmapData.Stride = stride;
                 lockedBitmapData.PixelFormat = format;
                 lockedBitmapData.Scan0 = locked.Scan0;
-                lockedBitmapData.Reserved = 0;
+                lockedBitmapData.Reserved = 1; // GDI+'s
                 b.Locked = true;
                 s_locked.AddOrUpdate(b, locked);
                 return Ok;
@@ -1314,7 +1313,33 @@ namespace System.Drawing
                 if (data == null)
                     return GenericError;
                 encoded = data.ToArray();
+                if (format == SKEncodedImageFormat.Png)
+                    encoded = WithPngResolution(encoded, bitmap.DpiX, bitmap.DpiY);
                 return Ok;
+            }
+
+            /// <summary>A PNG with its resolution (a pHYs chunk after IHDR, pixels per metre), as GDI+ writes one.</summary>
+            private static byte[] WithPngResolution(byte[] png, float dpiX, float dpiY)
+            {
+                if (png.Length < 33)
+                    return png;
+                int ihdrEnd = 8 + 8 + 13 + 4;
+                var body = new byte[9];
+                uint x = (uint)(dpiX / 0.0254), y = (uint)(dpiY / 0.0254); // GDI+ truncates (96 dpi: 3779)
+                body[0] = (byte)(x >> 24); body[1] = (byte)(x >> 16); body[2] = (byte)(x >> 8); body[3] = (byte)x;
+                body[4] = (byte)(y >> 24); body[5] = (byte)(y >> 16); body[6] = (byte)(y >> 8); body[7] = (byte)y;
+                body[8] = 1;
+                var chunk = new byte[12 + 9];
+                chunk[3] = 9;
+                chunk[4] = (byte)'p'; chunk[5] = (byte)'H'; chunk[6] = (byte)'Y'; chunk[7] = (byte)'s';
+                body.CopyTo(chunk, 8);
+                uint crc = PngCrc(chunk.AsSpan(4, 13).ToArray());
+                chunk[17] = (byte)(crc >> 24); chunk[18] = (byte)(crc >> 16); chunk[19] = (byte)(crc >> 8); chunk[20] = (byte)crc;
+                var result = new byte[png.Length + chunk.Length];
+                Array.Copy(png, result, ihdrEnd);
+                chunk.CopyTo(result, ihdrEnd);
+                Array.Copy(png, ihdrEnd, result, ihdrEnd + chunk.Length, png.Length - ihdrEnd);
+                return result;
             }
 
             private static bool IsEncoder(Guid clsid, Guid format)

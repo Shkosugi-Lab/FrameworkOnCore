@@ -1520,6 +1520,12 @@ namespace System.Drawing
                 ihdr[4] = (byte)(bitmap.H >> 24); ihdr[5] = (byte)(bitmap.H >> 16); ihdr[6] = (byte)(bitmap.H >> 8); ihdr[7] = (byte)bitmap.H;
                 ihdr[8] = (byte)depth; ihdr[9] = 3;
                 Chunk("IHDR", ihdr);
+                var phys = new byte[9];
+                uint ppmX = (uint)(bitmap.DpiX / 0.0254), ppmY = (uint)(bitmap.DpiY / 0.0254);
+                phys[0] = (byte)(ppmX >> 24); phys[1] = (byte)(ppmX >> 16); phys[2] = (byte)(ppmX >> 8); phys[3] = (byte)ppmX;
+                phys[4] = (byte)(ppmY >> 24); phys[5] = (byte)(ppmY >> 16); phys[6] = (byte)(ppmY >> 8); phys[7] = (byte)ppmY;
+                phys[8] = 1;
+                Chunk("pHYs", phys);
                 var plte = new byte[entries * 3];
                 for (int i = 0; i < entries; i++) { plte[i * 3] = (byte)(palette[i] >> 16); plte[i * 3 + 1] = (byte)(palette[i] >> 8); plte[i * 3 + 2] = (byte)palette[i]; }
                 Chunk("PLTE", plte);
@@ -1597,7 +1603,7 @@ namespace System.Drawing
                 if (!Is(image, out GpImage? i) || encoderParameters == IntPtr.Zero)
                     return InvalidParameter;
                 if (i.Saving == null)
-                    return WrongState;
+                    return GenericError;   // GDI+'s, without a multiframe save begun
                 long flag = SaveFlag(encoderParameters);
                 if (flag == EncoderValueFlush)
                 {
@@ -1613,9 +1619,16 @@ namespace System.Drawing
                 if (!Is(image, out GpImage? i) || !Is(imagenew, out GpBitmap? added) || encoderParameters == IntPtr.Zero)
                     return InvalidParameter;
                 if (i.Saving == null)
-                    return WrongState;
+                    return GenericError;   // GDI+'s, without a multiframe save begun
                 i.Saving.Pages.Add((GpBitmap)added.Clone());
                 return WritePages(i.Saving);
+            }
+
+            /// <summary>A bitmap from a Win32 resource: none on Linux (GDI+'s answer for a module without it).</summary>
+            internal static int GdipCreateBitmapFromResource(IntPtr hresource, IntPtr name, out IntPtr bitmap)
+            {
+                bitmap = IntPtr.Zero;
+                return InvalidParameter;
             }
 
             /// <summary>What an image's encoder writes, for the formats here; null for Skia's.</summary>

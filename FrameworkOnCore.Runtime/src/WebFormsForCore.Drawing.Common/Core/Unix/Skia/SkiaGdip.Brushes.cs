@@ -795,6 +795,8 @@ namespace System.Drawing
                 GpPath? fill = Get<GpPath>(fillpath.Handle), stroke = Get<GpPath>(strokepath.Handle);
                 if (fill == null && stroke == null)
                     return InvalidParameter;
+                if (fill != null && stroke != null)
+                    return NotImplemented;   // GDI+: a cap of one path, a fill's or a stroke's
                 customCap = NewHandle(new GpCustomLineCap
                 {
                     Type = CustomLineCapType.Default,

@@ -267,6 +267,17 @@ namespace System.Drawing
                 {
                     get
                     {
+                        if (Tree.Kind < RegionNodeRect || Tree.Kind == RegionNodePath)
+                        {
+                            // GDI+: the pixels a combination or a path covers.
+                            List<RectangleF> scans = Scans();
+                            if (scans.Count == 0)
+                                return RectangleF.Empty;
+                            RectangleF u = scans[0];
+                            for (int i = 1; i < scans.Count; i++)
+                                u = RectangleF.Union(u, scans[i]);
+                            return u;
+                        }
                         Evaluate();
                         if (_rects != null)
                         {

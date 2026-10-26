@@ -18,11 +18,6 @@ namespace System.Drawing
     {
         internal static unsafe partial class SkiaGdip
         {
-            internal static int GdipCreateBitmapFromResource(IntPtr hresource, IntPtr name, out IntPtr bitmap)
-            {
-                bitmap = default;
-                return Gdip.NotImplemented;
-            }
             internal static int GdipGetEncoderParameterList(HandleRef image, ref Guid encoder, int size, IntPtr buffer)
             {
                 return Gdip.NotImplemented;

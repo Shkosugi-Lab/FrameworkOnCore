@@ -119,7 +119,12 @@ namespace System.Drawing
             if ((thumbWidth <= 0) || (thumbHeight <= 0))
                 throw new OutOfMemoryException(SR.InvalidThumbnailSize);
 
+#if WebFormsForCore
+            // GDI+'s thumbnails are 32bppPArgb (SkiaSharp's backend as GDI+; libgdiplus' 32bppArgb).
+            Image ThumbNail = GdipBackend.Skia ? new Bitmap(thumbWidth, thumbHeight, PixelFormat.Format32bppPArgb) : new Bitmap(thumbWidth, thumbHeight);
+#else
             Image ThumbNail = new Bitmap(thumbWidth, thumbHeight);
+#endif
 
             using (Graphics g = Graphics.FromImage(ThumbNail))
             {

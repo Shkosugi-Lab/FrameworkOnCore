@@ -14,6 +14,9 @@ import { leftToDo } from './choices.js';
 import { Status } from './Parts.jsx';
 import { ApiTable } from './Components.jsx';
 
+const NAMED = 5;
+const refs = a => (a.binaries ?? []).reduce((s, b) => s + b.count, 0);
+
 const Number_ = ({ value, label }) => <div><Box variant="awsui-key-label">{label}</Box><Box fontSize="heading-m" fontWeight="bold">{fmt(value)}</Box></div>;
 
 export function UnhandledList({ ctx, groups }) {
@@ -32,8 +35,12 @@ export const useLeftToDo = ctx => useMemo(() => leftToDo(ctx.result, ctx.choices
 function UnhandledCard({ g, ctx, components }) {
   const c = g.component;
   const planned = (c?.options ?? []).filter(o => o.planned);
-  const apis = g.apis.slice().sort((x, y) => y.count - x.count);
+  const apis = g.apis.slice().sort((x, y) => y.count - x.count || refs(y) - refs(x));
   const dllOnly = g.count === 0 && g.references > 0;
+  // What to do: the catalog's for the component; else by what the APIs do (missing: the conversion stubs the methods
+  // that call them; throwing: they fail when run).
+  const todo = c?.todo ?? t(apis.some(a => a.status === 'Missing') ? 'unhandled.todoMissing' : 'unhandled.todoThrows');
+  const named = apis.slice(0, NAMED);
   return (
     <div id={c ? `c-${c.id}` : 'c-other'}>
       <Container
@@ -52,13 +59,19 @@ function UnhandledCard({ g, ctx, components }) {
           </ExpandableSection>
         }>
         <SpaceBetween size="m">
+          <div>
+            <Box variant="awsui-key-label">{t('unhandled.apis')}</Box>
+            {named.map(a => <div key={a.id}><Box variant="code" fontSize="body-s">{a.name}</Box>
+              <Box variant="small" display="inline" color="text-body-secondary"> {a.count ? t('unhandled.uses', fmt(a.count)) : t('unhandled.dllUses', fmt(refs(a)))}</Box></div>)}
+            {apis.length > named.length && <Box variant="small" color="text-body-secondary">{t('api.andMore', fmt(apis.length - named.length))}</Box>}
+          </div>
           <ColumnLayout columns={3} variant="text-grid">
             <Number_ value={g.count} label={t('components.uses')} />
             <Number_ value={g.files.size} label={t('components.files')} />
             <Number_ value={g.references} label={t('components.dllReferences')} />
           </ColumnLayout>
           <Alert type="warning" header={t('unhandled.todo')}>
-            {c?.todo ?? t('unhandled.todoGeneric')}
+            {todo}
             {dllOnly && <Box variant="small" color="text-body-secondary" padding={{ top: 'xs' }}>{t('unhandled.dllOnlyHint')}</Box>}
           </Alert>
           {planned.map(o => (

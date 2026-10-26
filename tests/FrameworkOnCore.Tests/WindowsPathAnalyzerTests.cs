@@ -106,6 +106,16 @@ public class WindowsPathAnalyzerTests
         Assert.Empty(Run(new WindowsPathAnalyzer(), source, new Dictionary<string, string> { ["FrameworkOnCoreApplicationAssemblies"] = "AppLib;App" }, "App", library));
     }
 
+    [Fact] // a variable the method writes (out, ref) is not a value to wrap: WindowsPath.Native(fileName) is not assignable
+    public void An_out_or_ref_path_argument_is_left()
+    {
+        using var image = new MemoryStream();
+        Assert.True(Compile("public static class Store { public static bool TryGet(string key, out string fileName) { fileName = key; return true; } public static void Fix(ref string path) { } }", "Lib").Emit(image).Success);
+        var library = Microsoft.CodeAnalysis.MetadataReference.CreateFromImage(image.ToArray());
+        const string source = "public class C { string F(string k) { Store.TryGet(k, out var fileName); var p = k; Store.Fix(ref p); return fileName + p; } }";
+        Assert.Empty(Run(new WindowsPathAnalyzer(), source, null, "App", library));
+    }
+
     // ---- Projects built for .NET too
 
     [Fact] // Lucene.Net-like code: what it does with backslashes is meant

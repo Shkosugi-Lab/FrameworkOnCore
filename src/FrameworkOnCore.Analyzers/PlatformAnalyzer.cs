@@ -87,6 +87,8 @@ public sealed class PlatformAnalyzer : DiagnosticAnalyzer
             _ => (null, ImmutableArray<IArgumentOperation>.Empty),
         };
         if (symbol?.ContainingType == null) return;
+        // In a query's expression tree (LINQ to SQL, Entity Framework) a replacement is a call the provider cannot translate.
+        if (SpanInExpressionAnalyzer.InExpressionTree(operation)) return;
         var type = Located.FullName(symbol.ContainingType);
         var name = symbol is IMethodSymbol { MethodKind: MethodKind.Constructor } ? ".ctor" : symbol.Name;
         foreach (var rule in rules)
@@ -97,9 +99,20 @@ public sealed class PlatformAnalyzer : DiagnosticAnalyzer
             var target = operation;
             if (rule.Then != null)
             {
-                // The property read on the value: that read is replaced.
-                if (operation.Parent is not IPropertyReferenceOperation read || read.Instance != operation || read.Property.Name != rule.Then) continue;
-                target = read;
+                // The property read on the value: that read is replaced; read with ?. (GetCurrent()?.Name), the whole
+                // conditional access.
+                if (operation.Parent is IPropertyReferenceOperation read && read.Instance == operation && read.Property.Name == rule.Then) target = read;
+                else if (operation.Parent is IConditionalAccessOperation access && access.Operation == operation &&
+                         access.WhenNotNull is IPropertyReferenceOperation { Instance: IConditionalAccessInstanceOperation } bound && bound.Property.Name == rule.Then)
+                    target = access;
+                else continue;
+            }
+            // A member read with ?. (AppDomain.CurrentDomain?.RelativeSearchPath): its syntax is the binding alone
+            // (.RelativeSearchPath); what is replaced is the conditional access.
+            else if (operation is IPropertyReferenceOperation { Instance: IConditionalAccessInstanceOperation } or IFieldReferenceOperation { Instance: IConditionalAccessInstanceOperation })
+            {
+                if (operation.Parent is not IConditionalAccessOperation access || access.WhenNotNull != operation) continue;
+                target = access;
             }
             var instance = rule.Then == null && operation is IInvocationOperation { TargetMethod.IsStatic: false } or IPropertyReferenceOperation { Property.IsStatic: false } ? "_instance" : "";
             context.ReportDiagnostic(Located.Create(Rule, target.Syntax, $"{type}.{name}{(rule.Then != null ? "." + rule.Then : "")}", "rule" + rule.Number + instance));

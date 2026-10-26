@@ -110,6 +110,7 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
             _ => (null, ImmutableArray<IArgumentOperation>.Empty),
         };
         if (method == null || arguments.IsEmpty || method.Locations.Any(l => l.IsInSource)) return;
+        if (SpanInExpressionAnalyzer.InExpressionTree(context.Operation)) return;
         // Not the application's own (its other projects), nor what takes a URL.
         if ((method.ContainingAssembly != null && application.Contains(method.ContainingAssembly.Name)) || method.ContainingNamespace?.ToDisplayString() == "FrameworkOnCore" ||
             urlMethods.Contains(method.Name) || method.ContainingType.Name == "VirtualPathUtility")
@@ -122,6 +123,8 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
             // A params parameter given an array (Path.Combine(paths), mojoPortal's CombinePath): not a path to wrap, its
             // elements not written here.
             if (parameter.IsParams && argument.ArgumentKind != ArgumentKind.ParamArray) continue;
+            // A variable the method writes (out, ref): not a value to wrap (WindowsPath.Native(fileName) is not assignable).
+            if (parameter.RefKind is RefKind.Out or RefKind.Ref) continue;
             // A params array: its elements, as written.
             var values = argument.ArgumentKind == ArgumentKind.ParamArray ? Elements(argument.Value).ToImmutableArray() : ImmutableArray.Create(argument.Value);
             var type = parameter.IsParams ? parameter.Type switch
@@ -223,11 +226,14 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
         // The text of an interpolated string is its own operation (a literal): the string is analyzed as a whole.
         if (node.Parent is IInterpolatedStringTextOperation) return;
         if (!IsWindowsPathLiteral(node, out var isChar)) return;
+        // In a query's expression tree (LINQ to SQL, Entity Framework): WindowsPath.Native is a call the provider cannot
+        // translate, and what the database holds keeps its backslashes.
+        if (SpanInExpressionAnalyzer.InExpressionTree(node)) return;
 
         if (InConstant(node, out var constantName))
         {
             if (constantName != null && IsPathName(constantName))
-                context.ReportDiagnostic(Located.Create(Constant, node.Syntax, $"constant {constantName}"));
+                context.ReportDiagnostic(Located.Create(Constant, node.Syntax, $"constant {constantName}", isChar ? "char" : null));
             return;
         }
         // $"{folder}\\{name}": a path made from one.

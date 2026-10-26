@@ -67,6 +67,31 @@ public class RewriteTests
         Assert.Contains("{ global::FrameworkOnCore.Platform.ResetAbort(); }", written);
     }
 
+    [Fact] // read with ?.: the whole access replaced (the binding alone, .Name, is not an expression of its own)
+    public void Platform_members_read_with_conditional_access_are_replaced_whole()
+    {
+        var written = CSharp(InClass(
+            "string I() => System.Security.Principal.WindowsIdentity.GetCurrent()?.Name;\n" +
+            "string K() => AppDomain.CurrentDomain?.RelativeSearchPath;"));
+        Assert.Contains("string I() => global::FrameworkOnCore.Platform.CurrentIdentityName;", written);
+        Assert.Contains("string K() => global::FrameworkOnCore.Platform.RelativeSearchPath;", written);
+    }
+
+    [Fact] // a query's expression tree: a replacement is a call LINQ to SQL and Entity Framework cannot translate
+    public void Nothing_is_replaced_in_an_expression_tree()
+    {
+        var written = CSharp(InClass(
+            "System.Linq.IQueryable<string> F(System.Linq.IQueryable<string> paths) => System.Linq.Queryable.Where(paths, filePath => filePath.StartsWith(\"Portals\\\\0\\\\\"));\n" +
+            "System.Linq.Expressions.Expression<Func<byte[]>> G() => () => System.Text.Encoding.Default.GetBytes(\"x\");"));
+        Assert.Contains("filePath.StartsWith(\"Portals\\\\0\\\\\")", written);
+        Assert.Contains("() => System.Text.Encoding.Default.GetBytes(\"x\")", written);
+    }
+
+    [Fact] // a separator constant (const char): the platform's separator, as a literal one (WindowsPath.Native takes a string)
+    public void A_separator_constant_becomes_the_platform_s() =>
+        Assert.Contains("static readonly char DirSeparator = global::System.IO.Path.DirectorySeparatorChar;",
+            CSharp(InClass("const char DirSeparator = '\\\\';\nstring F(string path) => path + DirSeparator;")));
+
     [Fact] // openIMIS's log (every login): the event log; a call on an EventLog passes it first
     public void Event_log_calls_are_replaced_with_their_receiver()
     {
@@ -95,6 +120,25 @@ public class RewriteTests
         Assert.Contains("AppDomain.CurrentDomain.BaseDirectory & Global.FrameworkOnCore.WindowsPath.Native(\"bin\\\")", written);
         Assert.Contains("File.Exists(Global.FrameworkOnCore.WindowsPath.Native(p))", written);
     }
+
+    [Fact] // a module's members are shared already (Shared there does not compile); a constant without As keeps its type
+    public void Visual_basic_constants_in_a_module()
+    {
+        var written = VisualBasic(
+            "Imports System\nPublic Module Globals\n" +
+            "  Public Const UploadFolder As String = \"Uploads\\\"\n" +
+            "  Private Const BinFolder = \"bin\\\"\n" +
+            "  Function Upload() As String\n    Return AppDomain.CurrentDomain.BaseDirectory & UploadFolder & BinFolder\n  End Function\n" +
+            "End Module");
+        Assert.Contains("Public ReadOnly UploadFolder As String = Global.FrameworkOnCore.WindowsPath.Native(\"Uploads\\\")", written);
+        Assert.Contains("Private ReadOnly BinFolder As String = Global.FrameworkOnCore.WindowsPath.Native(\"bin\\\")", written);
+        Assert.DoesNotContain("Shared", written);
+    }
+
+    [Fact] // Dim u As New Uri(s, kind): an As New clause holds a New expression only
+    public void Visual_basic_as_new_is_replaced_in_its_declaration() =>
+        Assert.Contains("Dim u As Uri = Global.FrameworkOnCore.WindowsUri.Create(s, UriKind.RelativeOrAbsolute)",
+            VisualBasic("Imports System\nPublic Class C\n  Function F(s As String) As Uri\n    Dim u As New Uri(s, UriKind.RelativeOrAbsolute)\n    Return u\n  End Function\nEnd Class"));
 
     [Fact]
     public void Visual_basic_delegates_and_platform_members_in_its_syntax()

@@ -105,10 +105,13 @@ public sealed class SourceEdits(SourceLanguage language, Rules rules)
                     case "FOC1002":
                         var declaration = language.ConstantDeclaration(node, out var names, out var isField);
                         if (declaration == null || !usableConstant(names, isField)) { left.Add(p); break; }
-                        Add(node, Native, Wrap);
+                        // A char ('\\', DirectorySeparator): the platform's separator, as FOC1001 (WindowsPath.Native takes a string).
+                        var constantChar = p.Tag == "char";
+                        Add(node, inner => constantChar ? language.Global("System.IO.Path.DirectorySeparatorChar") : Native(inner), Wrap);
                         if (edits.ContainsKey(declaration)) break;
-                        Put(declaration, inner => language.NotConstant(inner), Declaration);
-                        done.Add(new Done(LineOf(declaration), p.Code, $"const {string.Join(", ", names)} -> {(isField ? "static readonly" : "a variable")}, WindowsPath.Native(...) (FOC1002: a constant path, not used where a constant has to be)", Report.Kind.Platform));
+                        var inModule = language.InModule(declaration);
+                        Put(declaration, inner => language.NotConstant(inner, inModule), Declaration);
+                        done.Add(new Done(LineOf(declaration), p.Code, $"const {string.Join(", ", names)} -> {(isField ? "static readonly" : "a variable")}, {(constantChar ? "Path.DirectorySeparatorChar" : "WindowsPath.Native(...)")} (FOC1002: a constant path, not used where a constant has to be)", Report.Kind.Platform));
                         break;
                     case "FOC1003":
                         if (!language.TrySplitCall(node, out _, out var trim, out _)) { left.Add(p); break; }
@@ -205,6 +208,8 @@ public sealed class SourceEdits(SourceLanguage language, Rules rules)
                             if (!language.TrySplitCall(node, out var instanceReceiver, out _, out _) || instanceReceiver == null) { left.Add(p); break; }
                             Put(node, inner => language.TrySplitCall(inner, out var receiver, out _, out _) && receiver != null ? language.Retarget(inner, replacement, receiver) : null, Shape);
                         }
+                        // Visual Basic's Dim u As New Uri(s, kind): the declarator, Dim u As Uri = WindowsUri.Create(s, kind).
+                        else if (rule.Replace == "call" && language.AsNewDeclarator(node) is { } declarator) Put(declarator, inner => language.RetargetAsNew(inner, replacement), Shape);
                         else if (rule.Replace == "call") Put(node, inner => language.Retarget(inner, replacement), Shape);
                         else Add(node, _ => replacement);
                         done.Add(new Done(LineOf(node), p.Code, $"{rule.Member}{(rule.Then != null ? "." + rule.Then : "")} -> {rule.Replacement} ({rule.Note})", Report.Kind.Platform));

@@ -48,11 +48,23 @@ public abstract class SourceLanguage
     /// </summary>
     public abstract SyntaxNode? Retarget(SyntaxNode call, string target, string? first = null);
 
+    /// <summary>
+    /// Visual Basic's Dim x As New T(a) a creation is replaced in: the declarator (its one name), which becomes
+    /// Dim x As T = target(a) (an As New clause holds a New expression only); null where the creation stands alone.
+    /// </summary>
+    public virtual SyntaxNode? AsNewDeclarator(SyntaxNode creation) => null;
+
+    /// <summary>The declarator AsNewDeclarator found, its creation replaced by a call of the target.</summary>
+    public virtual SyntaxNode? RetargetAsNew(SyntaxNode declarator, string target) => null;
+
     /// <summary>The constant declaration (a field or a local) a literal is the value of, and its names.</summary>
     public abstract SyntaxNode? ConstantDeclaration(SyntaxNode literal, out IReadOnlyList<string> names, out bool isField);
 
     /// <summary>The declaration not constant: a static read-only field, a variable.</summary>
-    public abstract SyntaxNode NotConstant(SyntaxNode declaration);
+    public abstract SyntaxNode NotConstant(SyntaxNode declaration, bool inModule = false);
+
+    /// <summary>Whether the declaration is a Visual Basic module's (its members shared already).</summary>
+    public virtual bool InModule(SyntaxNode declaration) => false;
 
     /// <summary>Whether the tree uses the name where only a constant can be (by name).</summary>
     public abstract bool UsedAsConstant(SyntaxNode root, string name);
@@ -140,7 +152,7 @@ public abstract class SourceLanguage
             }
         }
 
-        public override SyntaxNode NotConstant(SyntaxNode declaration)
+        public override SyntaxNode NotConstant(SyntaxNode declaration, bool inModule = false)
         {
             switch (declaration)
             {
@@ -251,6 +263,25 @@ public abstract class SourceLanguage
             return VB.SyntaxFactory.InvocationExpression(VB.SyntaxFactory.ParseExpression(target), arguments).WithTriviaFrom(call);
         }
 
+        public override SyntaxNode? AsNewDeclarator(SyntaxNode creation) =>
+            creation.AncestorsAndSelf().TakeWhile(n => n is VBS.ObjectCreationExpressionSyntax or VBS.AsNewClauseSyntax or VBS.VariableDeclaratorSyntax)
+                .OfType<VBS.VariableDeclaratorSyntax>().FirstOrDefault() is { AsClause: VBS.AsNewClauseSyntax { NewExpression: VBS.ObjectCreationExpressionSyntax }, Names.Count: 1 } declarator
+                ? declarator : null;
+
+        public override SyntaxNode? RetargetAsNew(SyntaxNode declarator, string target)
+        {
+            if (declarator is not VBS.VariableDeclaratorSyntax { AsClause: VBS.AsNewClauseSyntax { NewExpression: VBS.ObjectCreationExpressionSyntax creation } asNew } d) return null;
+            var call = Retarget(creation, target);
+            if (call is not VBS.ExpressionSyntax value) return null;
+            var asClause = VB.SyntaxFactory.SimpleAsClause(asNew.AsKeyword, creation.AttributeLists, creation.Type.WithoutTrivia())
+                .WithTrailingTrivia(VB.SyntaxFactory.Space);
+            var initializer = VB.SyntaxFactory.EqualsValue(VB.SyntaxFactory.Token(VB.SyntaxKind.EqualsToken).WithTrailingTrivia(VB.SyntaxFactory.Space), value.WithoutLeadingTrivia())
+                .WithTrailingTrivia(creation.GetTrailingTrivia());
+            return d.WithAsClause(asClause).WithInitializer(initializer);
+        }
+
+        public override bool InModule(SyntaxNode declaration) => declaration.Parent is VBS.ModuleBlockSyntax;
+
         static bool IsConst(SyntaxTokenList modifiers) => modifiers.Any(m => m.IsKind(VB.SyntaxKind.ConstKeyword));
 
         public override SyntaxNode? ConstantDeclaration(SyntaxNode literal, out IReadOnlyList<string> names, out bool isField)
@@ -269,18 +300,24 @@ public abstract class SourceLanguage
             }
         }
 
-        public override SyntaxNode NotConstant(SyntaxNode declaration)
+        public override SyntaxNode NotConstant(SyntaxNode declaration, bool inModule = false)
         {
+            // A module's members are shared already (Shared there is BC30593): ReadOnly alone (inModule: the declaration
+            // as it was, this one being its rewrite).
             SyntaxTokenList Replace(SyntaxTokenList modifiers, bool field)
             {
                 var result = new List<SyntaxToken>();
                 foreach (var m in modifiers)
                 {
                     if (!m.IsKind(VB.SyntaxKind.ConstKeyword)) { result.Add(m); continue; }
-                    if (field)
+                    if (field && !inModule)
                     {
                         result.Add(VB.SyntaxFactory.Token(m.LeadingTrivia, VB.SyntaxKind.SharedKeyword, VB.SyntaxFactory.TriviaList(VB.SyntaxFactory.Space)));
                         result.Add(VB.SyntaxFactory.Token(VB.SyntaxFactory.TriviaList(), VB.SyntaxKind.ReadOnlyKeyword, m.TrailingTrivia));
+                    }
+                    else if (field)
+                    {
+                        result.Add(VB.SyntaxFactory.Token(m.LeadingTrivia, VB.SyntaxKind.ReadOnlyKeyword, m.TrailingTrivia));
                     }
                     else
                     {
@@ -289,10 +326,20 @@ public abstract class SourceLanguage
                 }
                 return VB.SyntaxFactory.TokenList(result);
             }
+            // A constant without As has its value's type; a variable without As would be an Object (an error with Option
+            // Strict On): the value's type written (a path's constants are strings, or a Char).
+            SeparatedSyntaxList<VBS.VariableDeclaratorSyntax> Typed(SeparatedSyntaxList<VBS.VariableDeclaratorSyntax> declarators) =>
+                VB.SyntaxFactory.SeparatedList(declarators.Select(d => d.AsClause != null || d.Initializer == null ? d
+                    : d.WithAsClause(VB.SyntaxFactory.SimpleAsClause(
+                        VB.SyntaxFactory.Token(VB.SyntaxKind.AsKeyword).WithTrailingTrivia(VB.SyntaxFactory.Space),
+                        default,
+                        VB.SyntaxFactory.PredefinedType(VB.SyntaxFactory.Token(
+                            d.Initializer.Value.IsKind(VB.SyntaxKind.CharacterLiteralExpression) ? VB.SyntaxKind.CharKeyword : VB.SyntaxKind.StringKeyword)
+                            .WithTrailingTrivia(VB.SyntaxFactory.Space))))));
             return declaration switch
             {
-                VBS.FieldDeclarationSyntax field => field.WithModifiers(Replace(field.Modifiers, true)),
-                VBS.LocalDeclarationStatementSyntax local => local.WithModifiers(Replace(local.Modifiers, false)),
+                VBS.FieldDeclarationSyntax field => field.WithModifiers(Replace(field.Modifiers, true)).WithDeclarators(Typed(field.Declarators)),
+                VBS.LocalDeclarationStatementSyntax local => local.WithModifiers(Replace(local.Modifiers, false)).WithDeclarators(Typed(local.Declarators)),
                 _ => declaration,
             };
         }

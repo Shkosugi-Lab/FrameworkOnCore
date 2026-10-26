@@ -82,7 +82,7 @@ api.MapGet("/catalog", (AnalysisStore store) =>
     return new
     {
         catalog.Version,
-        Components = catalog.Components.Select(c => new { c.Id, c.Title, c.Note, Options = catalog.OptionsOf(c.Id) }),
+        Components = catalog.Components.Select(c => new { c.Id, c.Title, c.Note, c.Todo, Options = catalog.OptionsOf(c.Id) }),
         // The language packs' default: English and this machine's language packs (the converter's without a culture profile).
         Settings = catalog.Settings.Select(s => s.Languages.Count == 0 ? s
             : s with { DefaultLanguages = ["en", .. FrameworkOnCore.Converter.LanguagePacks.OfThisMachine()] }),

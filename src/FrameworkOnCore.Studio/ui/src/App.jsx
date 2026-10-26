@@ -22,11 +22,11 @@ import Welcome from './Welcome.jsx';
 
 const active = a => a.state === 'queued' || a.state === 'running';
 
-// #/a/<analysis>, #/a/<analysis>/step/<n>, #/a/<analysis>/c/<component> (a component's link is of the third step).
+// #/a/<analysis>, #/a/<analysis>/step/<n>, #/a/<analysis>/c/<component> (a component's link is of the second step).
 function parseHash() {
-  const m = location.hash.match(/^#\/a\/([^/]+)(?:\/step\/([1-6])|\/c\/([^/]+))?/);
+  const m = location.hash.match(/^#\/a\/([^/]+)(?:\/step\/([1-9])|\/c\/([^/]+))?/);
   if (!m) return { id: null, step: 1, component: null };
-  return { id: decodeURIComponent(m[1]), step: m[3] ? 3 : +(m[2] ?? 1), component: m[3] ? decodeURIComponent(m[3]) : null };
+  return { id: decodeURIComponent(m[1]), step: m[3] ? 2 : Math.min(+(m[2] ?? 1), 5), component: m[3] ? decodeURIComponent(m[3]) : null };
 }
 
 // An analysis' state in the side navigation: its icon (the name keeps the width), its words for a screen reader.

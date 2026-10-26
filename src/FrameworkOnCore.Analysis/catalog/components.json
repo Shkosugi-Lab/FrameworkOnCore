@@ -53,7 +53,7 @@
       { "id": "none", "title": "対応しない", "description": "EF4 の型はスタブになります(実行すると例外)。", "detail": "EF4 の型はスタブになる" }
     ],
     "file-access-control": [
-      { "id": "compat", "title": "互換(Windows のみ動く)", "description": "Windows では動き、Linux では例外になります。", "detail": "Directory/File.GetAccessControl などを FrameworkOnCore.DirectoryAcl・FileAcl に(Linux では例外)", "default": true },
+      { "id": "compat", "windowsOnly": true, "title": "互換(Windows のみ動く)", "description": "Windows では動き、Linux では例外になります。", "detail": "Directory/File.GetAccessControl などを FrameworkOnCore.DirectoryAcl・FileAcl に(Linux では例外)", "default": true },
       { "id": "none", "title": "対応しない", "description": "スタブになります(実行すると例外)。", "detail": "スタブ" }
     ],
     "system-drawing": [
@@ -82,6 +82,18 @@
     "wcf-server": [
       { "id": "corewcf", "title": "CoreWCF で動かす", "description": "basicHttpBinding・wsHttpBinding・webHttpBinding(REST)・ASP.NET AJAX(enableWebScript)に対応します。netTcpBinding、独自の ServiceHostFactory は対応しません。", "detail": "サイトの .svc と web.config の system.serviceModel のサービスを、アプリの中の CoreWCF で動かす(パッケージ FrameworkOnCore.ServiceModel)。basicHttpBinding・basicHttpsBinding・wsHttpBinding・webHttpBinding(REST)、WCF 4 の既定のエンドポイントと既定の動作、serviceActivations、WSDL。サービス側だけの型(ServiceBehavior、WebGet など)は CoreWCF の型に書き換える。ASP.NET AJAX の enableWebScript(ScriptManager の ServiceReference、Service.svc/js)も。netTcpBinding、独自の ServiceHostFactory、aspNetCompatibilityEnabled(操作の中の HttpContext.Current)は対応しない", "default": true },
       { "id": "none", "title": "対応しない", "description": "サービスは動きません(.svc は 404)。", "detail": "サービスは動かない(.svc は 404)。サービス側だけの型はスタブ" }
+    ],
+    "oledb": [
+      {"id": "none", "title": "対応しない", "description": "Windows では動き、Linux では例外になります。", "detail": "Windows のみ。Linux にプロバイダーが無い", "default": true},
+      {"id": "port", "title": "移植版(Excel の読み込み)", "description": "Linux でも OLE DB の接続文字列のまま Excel のファイルを読めるようにする予定です。", "detail": "予定: Excel(ACE・Jet の Extended Properties=Excel)を .NET だけで読む OLE DB の移植版", "planned": true}
+    ],
+    "directory-services": [
+      {"id": "none", "title": "対応しない", "description": "Windows では動き、Linux では例外になります。", "detail": "Windows のみ", "default": true},
+      {"id": "port", "title": "移植版(LDAP で動く)", "description": "DirectoryEntry・DirectorySearcher を Linux でも LDAP で動くようにする予定です。", "detail": "予定: System.DirectoryServices を System.DirectoryServices.Protocols(LDAP)の上に", "planned": true}
+    ],
+    "registry": [
+      {"id": "none", "title": "対応しない", "description": "Windows では動き、Linux では値が読めません(null)。", "detail": "Windows 以外では Registry.LocalMachine などが null", "default": true},
+      {"id": "file", "title": "ファイルで代わりをする", "description": "元のサーバーのレジストリの値を取り込み、Linux ではファイルから読めるようにする予定です。", "detail": "予定: 元のサーバーから取り込んだ値をファイルで持つ Microsoft.Win32.Registry", "planned": true}
     ]
   },
   "$comment_settings": "Choices that are the application's, not an API's: shown whatever the analysis finds.",
@@ -235,7 +247,8 @@
       "id": "wcf-data-services", "title": "WCF Data Services(OData)",
       "match": { "assemblies": [ "System.Data.Services.Client", "System.Data.Services" ] },
       "note": "WCF Data Services は .NET 10 になく、変換は対応していません。使っている部分は作り直しが必要です。",
-      "detail": ".NET に無い"
+      "detail": ".NET に無い",
+      "todo": "OData のサービスとクライアントを作り直します(サービスは ASP.NET Core OData、クライアントは Microsoft.OData.Client など)。"
     },
     {
       "id": "mobile-controls", "title": "モバイル コントロール(System.Web.Mobile)",
@@ -253,7 +266,8 @@
       "id": "wcf-client", "title": "WCF のクライアント(System.ServiceModel)",
       "match": { "assemblies": [ "System.ServiceModel", "System.ServiceModel.Web" ] },
       "note": "WCF のクライアントは .NET 10 の System.ServiceModel.* パッケージで動きます(一部の機能はありません)。",
-      "detail": "変換器: System.ServiceModel.* パッケージ(クライアントの一部のみ)"
+      "detail": "変換器: System.ServiceModel.* パッケージ(クライアントの一部のみ)",
+      "todo": ".NET 10 の WCF クライアントに無い機能(一部のバインディングやセキュリティの設定)を使っている所は、作り直しが必要です。"
     },
     {
       "id": "event-log", "title": "イベント ログ(EventLog)",
@@ -271,31 +285,36 @@
       "id": "file-access-control", "title": "ファイル・フォルダーのアクセス制御(ACL)",
       "match": { "members": [ "System.IO.Directory.GetAccessControl", "System.IO.Directory.SetAccessControl", "System.IO.File.GetAccessControl", "System.IO.File.SetAccessControl", "System.IO.FileSystemInfo.GetAccessControl" ], "namespaces": [ "System.Security.AccessControl" ] },
       "note": "GetAccessControl などの ACL の操作は Windows でしか動きません。Linux では例外になります。",
-      "detail": "Windows のみ。変換器: Directory/File の GetAccessControl などは FrameworkOnCore.DirectoryAcl・FileAcl(Windows 以外では例外)"
+      "detail": "Windows のみ。変換器: Directory/File の GetAccessControl などは FrameworkOnCore.DirectoryAcl・FileAcl(Windows 以外では例外)",
+      "todo": "Linux では、ファイルやフォルダーのアクセス権(ACL)を読む所・変える所が例外になります。インストーラーの書き込み権限の確認などは、Linux では実際に書き込んで確かめる形に書き換えるか、飛ばします。権限は配置のときに chmod・chown で付けます。"
     },
     {
       "id": "registry", "title": "レジストリ(Microsoft.Win32.Registry)",
       "match": { "types": [ "Microsoft.Win32.Registry", "Microsoft.Win32.RegistryKey", "Microsoft.Win32.RegistryHive", "Microsoft.Win32.RegistryValueKind", "Microsoft.Win32.RegistryView" ] },
       "note": "Linux にはレジストリがありません。Registry.LocalMachine などは null になります。",
-      "detail": "Windows 以外では Registry.LocalMachine などが null"
+      "detail": "Windows 以外では Registry.LocalMachine などが null",
+      "todo": "レジストリから読んでいる値(接続文字列やフォルダーの場所など)を、web.config の appSettings や環境変数から読むように書き換えます。Windows のサーバーに置くなら、書き換えずに動きます(元のサーバーと同じ値をレジストリに入れます)。"
     },
     {
       "id": "oledb", "title": "OLE DB(Excel・Access の読み込みなど)",
       "match": { "namespaces": [ "System.Data.OleDb" ] },
       "note": "OLE DB は Windows でしか動きません。Linux にはプロバイダーがないため、別の方法への書き換えが必要です。",
-      "detail": "Windows のみ。Linux にプロバイダーが無い"
+      "detail": "Windows のみ。Linux にプロバイダーが無い",
+      "todo": "Excel や Access のファイルを OLE DB で読んでいる所を書き換えます。Excel のファイル(.xlsx・.xls)は ExcelDataReader などのライブラリで読めます。Access のファイルは、データを SQL Server などに移すのが確実です。Windows のサーバーに置くなら、書き換えずに動きます(サーバーに Microsoft Access Database Engine を入れます)。"
     },
     {
       "id": "directory-services", "title": "Active Directory(System.DirectoryServices)",
       "match": { "namespaces": [ "System.DirectoryServices" ] },
       "note": "System.DirectoryServices は Windows でしか動きません。Linux では LDAP(System.DirectoryServices.Protocols)への書き換えが必要です。",
-      "detail": "Windows のみ。LDAP(System.DirectoryServices.Protocols)への書き換えが要る"
+      "detail": "Windows のみ。LDAP(System.DirectoryServices.Protocols)への書き換えが要る",
+      "todo": "Active Directory に問い合わせている所(DirectoryEntry・DirectorySearcher)を、Linux でも動く LdapConnection(System.DirectoryServices.Protocols)で書き換えます。Windows のサーバーに置くなら、書き換えずに動きます。"
     },
     {
       "id": "windows-management", "title": "WMI・パフォーマンス カウンター・Windows サービス",
       "match": { "namespaces": [ "System.Management", "System.ServiceProcess" ], "types": [ "System.Diagnostics.PerformanceCounter", "System.Diagnostics.PerformanceCounterCategory", "System.Diagnostics.PerformanceCounterType", "System.Diagnostics.CounterCreationData", "System.Diagnostics.CounterCreationDataCollection" ] },
       "note": "Windows でしか動きません。",
-      "detail": "Windows のみ"
+      "detail": "Windows のみ",
+      "todo": "サーバーの情報(WMI)や性能の数値(パフォーマンス カウンター)を読む所、Windows のサービスを操作する所は、Linux では動きません。要らなければ外し、要るなら Linux の方法(/proc のファイル、.NET のメトリクス、systemctl)に書き換えます。"
     },
     {
       "id": "code-access-security", "title": "コード アクセス セキュリティ(CAS)",
@@ -307,19 +326,22 @@
       "id": "app-domains", "title": "AppDomain の作成(AppDomain.CreateDomain)",
       "match": { "members": [ "System.AppDomain.CreateDomain", "System.AppDomain.Unload", "System.AppDomain.CreateInstanceAndUnwrap", "System.AppDomain.ExecuteAssembly" ], "types": [ "System.AppDomainSetup" ] },
       "note": ".NET 10 では AppDomain を 1 つしか持てません。新しく作る部分は書き換えが必要です。",
-      "detail": ".NET は AppDomain を 1 つしか持てない"
+      "detail": ".NET は AppDomain を 1 つしか持てない",
+      "todo": "新しい AppDomain を作る所を書き換えます。プラグインの読み込みなら AssemblyLoadContext、分けて動かすならプロセスを分けます。"
     },
     {
       "id": "remoting", "title": "リモート処理(System.Runtime.Remoting)",
       "match": { "namespaces": [ "System.Runtime.Remoting" ] },
       "note": ".NET Remoting は .NET 10 にありません。CallContext など一部だけを FrameworkOnCore が用意しています。",
-      "detail": ".NET に無い。一部(CallContext など)は FrameworkOnCore の System.Web・互換アセンブリにある"
+      "detail": ".NET に無い。一部(CallContext など)は FrameworkOnCore の System.Web・互換アセンブリにある",
+      "todo": ".NET Remoting で通信している所を、HTTP(Web API など)や gRPC に書き換えます。"
     },
     {
       "id": "code-dom-compile", "title": "実行時のコンパイル(CodeDom)",
       "match": { "namespaces": [ "System.CodeDom.Compiler" ], "types": [ "Microsoft.CSharp.CSharpCodeProvider", "Microsoft.VisualBasic.VBCodeProvider" ] },
       "note": ".NET 10 の CodeDom はコードの生成だけで、コンパイルはできません(例外)。",
-      "detail": ".NET の CodeDom はコンパイルできない(例外)。コードの生成のみ"
+      "detail": ".NET の CodeDom はコンパイルできない(例外)。コードの生成のみ",
+      "todo": "実行時にソースをコンパイルしている所(CodeDomProvider.CompileAssemblyFromSource など)は例外になります。Roslyn(Microsoft.CodeAnalysis.CSharp)で書き換えます。"
     },
     {
       "id": "web-request", "title": "WebRequest / WebClient",
@@ -337,7 +359,8 @@
       "id": "designers", "title": "デザイナー・Windows フォーム",
       "match": { "assemblies": [ "System.Design", "System.Web.Extensions.Design", "System.Windows.Forms", "System.Drawing.Design" ] },
       "note": "Visual Studio のデザイナー用の型です。実行には要らないので、変換でスタブにするか web.config から外します。",
-      "detail": "Visual Studio のデザイナー用。変換器: スタブ・web.config から除く"
+      "detail": "Visual Studio のデザイナー用。変換器: スタブ・web.config から除く",
+      "todo": "多くは何もしなくて構いません(Visual Studio のデザイン時だけの型です)。実行時に使っているコードがあれば外します。"
     },
     {
       "id": "web-forms", "title": "ASP.NET(System.Web:Web Forms、ASMX など)",

@@ -1,4 +1,4 @@
-// The choices' state in ② and ③: unsaved changes, how many differ from the defaults, and the actions (back to the
+// The choices' state in ② (the analysis) and ③ (the settings): unsaved changes, how many differ from the defaults, and the actions (back to the
 // defaults, discard, save; once saved, the conversion's command to copy).
 import Alert from '@cloudscape-design/components/alert';
 import Button from '@cloudscape-design/components/button';

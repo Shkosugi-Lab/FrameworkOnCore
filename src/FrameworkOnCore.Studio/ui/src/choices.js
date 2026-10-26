@@ -5,10 +5,15 @@ export const ORDER = ['Missing', 'Throws', 'WindowsOnly', 'Behavior', 'Obsolete'
 
 export const defaultOf = options => (options.find(o => o.default) ?? options[0])?.id;
 
-/** A component with options to choose from (one only, or one with others planned, is not a decision). */
+/** A component with options to choose from (one only is not a decision; a planned one cannot be chosen yet). */
 export function choosable(c) {
-  const options = c.options ?? [];
-  return options.filter(o => !o.planned).length > 1 || options.some(o => o.planned);
+  return (c.options ?? []).filter(o => !o.planned).length > 1;
+}
+
+/** The option the conversion takes for a component (an API's own first), when it is one that is there. */
+export function optionOf(c, choices, api) {
+  const id = (api && choices.apis[api]) ?? choices.components[c.id] ?? defaultOf(c.options ?? []);
+  return (c.options ?? []).find(o => o.id === id && !o.planned);
 }
 
 export const normalize = c => ({ schema: c?.schema ?? 1, components: { ...(c?.components ?? {}) }, apis: { ...(c?.apis ?? {}) }, settings: { ...(c?.settings ?? {}) } });
@@ -50,7 +55,7 @@ export function prepare(result, catalog) {
   result.settings = catalog.settings ?? result.settings;
   for (const c of result.components) {
     const known = byId.get(c.id);
-    if (known) Object.assign(c, { title: known.title, note: known.note, options: known.options });
+    if (known) Object.assign(c, { title: known.title, note: known.note, todo: known.todo, options: known.options });
   }
   const byComponent = new Map();
   for (const a of result.apis) {
@@ -93,10 +98,11 @@ export function handlingOf(a, components, choices) {
     if (option !== 'none') return { kind: a.callReplaced ? 'callReplaced' : 'retarget', component: DLL_COMPONENT };
     return { kind: 'none', component: DLL_COMPONENT };
   }
+  // The component's option, chosen or its default, when it does something (the port of System.Drawing, the only one, too).
   const c = components.get(a.component);
-  if (c && choosable(c) && (a.status !== 'Available' || c.status !== 'Available')) {
-    const id = choices.apis[a.id] ?? choices.components[c.id] ?? defaultOf(c.options);
-    if (id !== 'none') return { kind: 'option', component: c.id, option: c.options.find(o => o.id === id) };
+  if (c && (a.status !== 'Available' || c.status !== 'Available')) {
+    const option = optionOf(c, choices, a.id);
+    if (option && option.id !== 'none') return { kind: 'option', component: c.id, option };
   }
   if (a.status === 'Available') return { kind: 'works' };
   if (a.status === 'Behavior' || a.status === 'Obsolete') return { kind: 'differs' };
@@ -111,6 +117,38 @@ export function withHandling(result, choices) {
     references: (a.binaries ?? []).reduce((s, b) => s + b.count, 0),
   })).sort((x, y) => HANDLINGS.indexOf(x.handling.kind) - HANDLINGS.indexOf(y.handling.kind)
     || ORDER.indexOf(x.status) - ORDER.indexOf(y.status) || y.count - x.count || y.references - x.references);
+}
+
+/**
+ * What the conversion leaves to the application's developers: the components it does nothing for (none to choose, or
+ * none chosen) with the APIs left as they were that do not work (handling none), the most used first; the APIs of no
+ * catalog component (an assembly's) together last (component null).
+ */
+export function leftToDo(result, choices) {
+  const components = new Map(result.components.map(c => [c.id, c]));
+  const groups = new Map();
+  for (const a of result.apis) {
+    const h = handlingOf(a, components, choices);
+    if (a.retargetedTo) continue;
+    const c = components.get(a.component);
+    const key = c && !a.component.startsWith('fw:') ? c.id : '';
+    // An option that works on Windows only (the ACLs' compat): on Linux it fails all the same.
+    const windowsOnly = h.kind === 'option' && h.option?.windowsOnly && a.status !== 'Available';
+    if (h.kind !== 'none' && !windowsOnly) continue;
+    if (c && choosable(c) && !windowsOnly) continue;   // chosen "none" there: its card says so
+    if (!groups.has(key)) groups.set(key, { component: key ? c : null, apis: [], count: 0, references: 0, files: new Set() });
+    const g = groups.get(key);
+    g.apis.push({ ...a, handling: h });
+    g.count += a.count;
+    g.references += (a.binaries ?? []).reduce((s, b) => s + b.count, 0);
+    for (const f of a.files ?? []) g.files.add(f.file);
+  }
+  const rank = g => [g.component ? 0 : 1, g.count > 0 ? 0 : 1, -g.count, -g.references];
+  return [...groups.values()].sort((x, y) => {
+    const a = rank(x), b = rank(y);
+    for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return a[i] - b[i];
+    return 0;
+  });
 }
 
 /** The repository's setup steps after its build (--original-step), one a line. */

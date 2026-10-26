@@ -1,5 +1,6 @@
-// ③ The components with options to choose: a search and the statuses to show, then a container for each component with
-// its numbers, what the converter does for its APIs, its options (tiles) and its APIs (a table, opened on demand).
+// The components with options to choose (in the analysis step): a search and the statuses to show, then a container for
+// each component with its numbers, what the converter does for its APIs, its options (tiles), what is left to do where
+// the option chosen does not make it work on Linux, and its APIs (a table, opened on demand).
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Container from '@cloudscape-design/components/container';
 import Header from '@cloudscape-design/components/header';
@@ -14,6 +15,7 @@ import ExpandableSection from '@cloudscape-design/components/expandable-section'
 import Table from '@cloudscape-design/components/table';
 import Select from '@cloudscape-design/components/select';
 import Button from '@cloudscape-design/components/button';
+import Alert from '@cloudscape-design/components/alert';
 import { t, fmt } from './i18n.js';
 import { DLL_COMPONENT, HANDLINGS, HANDLING_COLOR, ORDER, apisOf, choosable, defaultOf, handlingOf } from './choices.js';
 import { Muted, Status } from './Parts.jsx';
@@ -102,13 +104,15 @@ function ComponentCard({ c, ctx, components }) {
           </SpaceBetween>
           <Tiles value={chosen} onChange={ev => choose(ev.detail.value)} columns={Math.min(options.length, 3)}
             items={options.map(o => ({ value: o.id, label: <>{o.title} {o.default && <Badge>{t('common.default')}</Badge>}</>, description: o.description, disabled: o.planned }))} />
+          {c.todo && (chosen === 'none' || options.find(o => o.id === chosen)?.windowsOnly) &&
+            <Alert type="warning" header={t('unhandled.todo')}>{c.todo}</Alert>}
         </SpaceBetween>
       </Container>
     </div>
   );
 }
 
-function ApiTable({ apis, ctx, options, components }) {
+export function ApiTable({ apis, ctx, options, components }) {
   const { choices, setChoices } = ctx;
   const [limit, setLimit] = useState(ROWS);
   const overridable = options.filter(o => !o.planned).length > 1;

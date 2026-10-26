@@ -4,7 +4,7 @@ using FrameworkOnCore.Analysis;
 namespace FrameworkOnCore.Tests;
 
 /// <summary>
-/// The catalog in English (components.en.json beside components.json): Studio's page in English shows it. Every title, note,
+/// The catalog in English (components.en.json beside components.json): Studio's page in English shows it. Every title, note, todo,
 /// description and detail has its English, and the ids, options and matches are those of the catalog.
 /// </summary>
 public sealed class CatalogEnglishTests
@@ -14,7 +14,7 @@ public sealed class CatalogEnglishTests
     static readonly Regex japanese = new(@"[\p{IsHiragana}\p{IsKatakana}\p{IsCJKUnifiedIdeographs}]");
 
     static IEnumerable<string> Texts(Catalog c) =>
-        c.Components.SelectMany(x => new[] { x.Title, x.Note ?? "", x.Detail ?? "" })
+        c.Components.SelectMany(x => new[] { x.Title, x.Note ?? "", x.Detail ?? "", x.Todo ?? "" })
             .Concat(c.Components.SelectMany(x => c.OptionsOf(x.Id)).SelectMany(o => new[] { o.Title, o.Description ?? "", o.Detail ?? "" }))
             .Concat(c.Settings.SelectMany(s => s.Options.SelectMany(o => new[] { o.Title, o.Description ?? "", o.Detail ?? "" }).Append(s.Title)));
 
@@ -29,7 +29,7 @@ public sealed class CatalogEnglishTests
         foreach (var c in catalog.Components)
         {
             Assert.Equal(catalog.OptionsOf(c.Id).Select(o => (o.Id, o.Default, o.Planned)), english.OptionsOf(c.Id).Select(o => (o.Id, o.Default, o.Planned)));
-            Assert.Equal(c with { Title = "", Note = "", Detail = "" }, english.Components.Single(e => e.Id == c.Id) with { Title = "", Note = "", Detail = "" });
+            Assert.Equal(c with { Title = "", Note = "", Detail = "", Todo = "" }, english.Components.Single(e => e.Id == c.Id) with { Title = "", Note = "", Detail = "", Todo = "" });
         }
         Assert.Equal(catalog.Settings.Select(s => (s.Id, string.Join(",", s.Options.Select(o => o.Id)), s.DefaultOption.Id)),
             english.Settings.Select(s => (s.Id, string.Join(",", s.Options.Select(o => o.Id)), s.DefaultOption.Id)));

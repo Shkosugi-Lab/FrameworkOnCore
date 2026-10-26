@@ -12,9 +12,11 @@ public sealed class Catalog
     /// decides the migration, not only developers).</param>
     /// <param name="Detail">The same for developers: the APIs, the converter's replacements, .NET's behavior (the analysis'
     /// report).</param>
+    /// <param name="Todo">What the application's developers have to do themselves where the conversion does not make it
+    /// work (on Linux), in plain words (Studio's page).</param>
     public sealed record Component(string Id, string Title, ApiStatus? Status, bool Force, string? Note,
         IReadOnlyList<string> Assemblies, IReadOnlyList<string> Namespaces, IReadOnlyList<string> Types, IReadOnlyList<string> Members,
-        bool DelegateAsync, string? Detail = null);
+        bool DelegateAsync, string? Detail = null, string? Todo = null);
 
     public int Version { get; }
     public IReadOnlyList<Component> Components { get; }
@@ -54,13 +56,15 @@ public sealed class Catalog
                 c.TryGetProperty("note", out var note) ? note.GetString() : null,
                 List(match, "assemblies"), List(match, "namespaces"), List(match, "types"), List(match, "members"),
                 match.TryGetProperty("delegateAsync", out var delegates) && delegates.GetBoolean(),
-                c.TryGetProperty("detail", out var detail) ? detail.GetString() : null);
+                c.TryGetProperty("detail", out var detail) ? detail.GetString() : null,
+                c.TryGetProperty("todo", out var todo) ? todo.GetString() : null);
         }).ToList();
         var throwing = root.GetProperty("throwingObsoletions").EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!);
         static ComponentOption Option(JsonElement o) => new(o.GetProperty("id").GetString()!, o.GetProperty("title").GetString()!,
             o.TryGetProperty("description", out var d) ? d.GetString() : null,
             o.TryGetProperty("default", out var isDefault) && isDefault.GetBoolean(), o.TryGetProperty("planned", out var planned) && planned.GetBoolean(),
-            o.TryGetProperty("detail", out var detail) ? detail.GetString() : null);
+            o.TryGetProperty("detail", out var detail) ? detail.GetString() : null,
+            o.TryGetProperty("windowsOnly", out var windowsOnly) && windowsOnly.GetBoolean());
         var options = root.TryGetProperty("options", out var o) ? o.EnumerateObject().ToDictionary(p => p.Name, p => (IReadOnlyList<ComponentOption>)p.Value.EnumerateArray().Select(Option).ToList()) : [];
         var settings = root.TryGetProperty("settings", out var s)
             ? s.EnumerateArray().Select(e => new Setting(e.GetProperty("id").GetString()!, e.GetProperty("title").GetString()!, e.GetProperty("options").EnumerateArray().Select(Option).ToList())
@@ -112,7 +116,7 @@ public sealed class Catalog
             Languages = s.Languages.Select(l => l with { Title = Text(settingTexts, s.Id, "languages", l.Id) ?? l.Title }).ToList(),
         }).ToList();
         var componentTexts = en.TryGetProperty("components", out var ct) ? ct : default;
-        var englishComponents = Components.Select(c => c with { Title = Text(componentTexts, c.Id, "title") ?? c.Title, Note = Text(componentTexts, c.Id, "note") ?? c.Note, Detail = Text(componentTexts, c.Id, "detail") ?? c.Detail }).ToList();
+        var englishComponents = Components.Select(c => c with { Title = Text(componentTexts, c.Id, "title") ?? c.Title, Note = Text(componentTexts, c.Id, "note") ?? c.Note, Detail = Text(componentTexts, c.Id, "detail") ?? c.Detail, Todo = Text(componentTexts, c.Id, "todo") ?? c.Todo }).ToList();
         return new Catalog(Version, englishComponents, ThrowingObsoletions, englishOptions, englishNone, englishSettings);
     }
 
@@ -138,8 +142,9 @@ public sealed class Catalog
 }
 
 /// <summary>An option of a component (or a setting): what the conversion does with it (Description: in plain words, for
-/// Studio's page; Detail: for developers, the analysis' report). Planned: not there yet.</summary>
-public sealed record ComponentOption(string Id, string Title, string? Description, bool Default, bool Planned, string? Detail = null);
+/// Studio's page; Detail: for developers, the analysis' report). Planned: not there yet. WindowsOnly: what it does works on
+/// Windows only (on Linux the application still fails there).</summary>
+public sealed record ComponentOption(string Id, string Title, string? Description, bool Default, bool Planned, string? Detail = null, bool WindowsOnly = false);
 
 /// <summary>
 /// A choice of the application's that is no API's (file names' case on Linux), with its options. One with languages (the

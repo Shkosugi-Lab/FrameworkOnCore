@@ -32,7 +32,7 @@
 |---|---|
 | `src/FrameworkOnCore.Converter` | 変換器(CLI)。古い形式のプロジェクトを .NET 10 の SDK 形式にし、ビルドのエラーをもとにソースを直す。元のビルド(`--build-original`)、配置の出力も行う。`analyze` で解析だけも行える |
 | `src/FrameworkOnCore.Analysis` | 解析エンジン(ライブラリ)。ソースを .NET Framework 4.8 の参照アセンブリでコンパイルし、API ごとの回数と場所、.NET 10 での状態、部品を出す。カタログ(`catalog/components.json`)と選択(`Choices`)もここ |
-| `src/FrameworkOnCore.Studio` | GUI(ローカルの Web 画面)。読み込み → 分析 → 部品ごとの対応 → アプリの設定 → 変換・ビルド → デプロイのウィザード。元のアプリのテスト起動、変換後のアプリのネイティブ起動・コンテナ起動 |
+| `src/FrameworkOnCore.Studio` | GUI(ローカルの Web 画面)。読み込み → 解析と対応 → アプリの設定 → 変換・ビルド → デプロイのウィザード。元のアプリのテスト起動、変換後のアプリのネイティブ起動・コンテナ起動 |
 | `src/FrameworkOnCore.Analyzers` | 変換のビルドで使う Roslyn アナライザー(Windows のパス、非同期デリゲート、プラットフォームの置き換え) |
 | `experiments/wf4c/shims/FrameworkOnCore.Compat` | 互換アセンブリ。.NET にない、または Windows 専用のものを .NET Framework と同じ動きで補う(EventLog、Encoding.Default、Thread.ResetAbort、VB の My など) |
 | `FrameworkOnCore.Runtime` | 変換後のアプリが動く土台(System.Web など)。FrameworkOnCore で保守している WebFormsForCore で、上流を git subtree で取り込んだもの(中のプロジェクトは上流の名前 `src/WebFormsForCore.*` のまま、パッケージ名は `FrameworkOnCore.*`。Ajax Control Toolkit も `src/WebFormsForCore.AjaxControlToolkit` に同じく取り込み済み)。上流への変更は取り込みの後のコミット(以前のパッチ 0001〜0040 に当たる。0032・0033 は LINQ to SQL、0034〜0037 は System.Drawing の移植、0038 は Linux での生成物のフォルダーの掃除、0039・0040 は System.Web.DataVisualization(グラフ)の移植。その後の System.Web.Mobile、System.Data.SqlClient の移植はこのリポジトリのコミット)。上流の更新は `git subtree pull --prefix=FrameworkOnCore.Runtime https://github.com/webformsforcore/WebFormsForCore.git main` |
@@ -67,14 +67,16 @@ FrameworkOnCore のパッケージ(`FrameworkOnCore.*`)は、初めて解析や�
 
 画面は AWS マネジメントコンソールと同じデザインです(Amazon が公開している Cloudscape Design System〈Apache 2.0〉で作っています)。言語はブラウザーの言語に合わせます(日本語、それ以外は英語。部品の名前と説明、Studio が返すメッセージも)。表示はライト・ダークを右上の設定で切り替えられます。
 
-Studio は 6 つの手順のウィザードです(左の手順から、どこへでも戻れます)。
+Studio は 5 つの手順のウィザードです(左の手順から、どこへでも戻れます)。
 
 1. **読み込み**: 「新しい解析」で .NET Framework の Web プロジェクト(.csproj / .vbproj)を指定すると、解析しなくても分かる構成(言語、.NET Framework の版、参照しているプロジェクト、NuGet パッケージの数、ページとサービスの数、ソリューション、リポジトリのビルドがサイトを組み立てるか)が出ます。「元のアプリを起動(テスト起動)」で、変換の前のアプリをこの PC で動かして確かめられます(解析の途中でも。リポジトリのコピーをそのビルド手順でビルドし、IIS Express、無ければ IIS で起動。IIS は Studio を管理者として起動したときだけ)。
-2. **分析**: 解析の進み具合と、終わったらその結果(数値、扱い別・状態別の内訳、API の一覧)。API は部品ではなく 1 つずつ、変換器がどう扱うか(いまの選択で: 部品の対応、DLL の参照の付け替え・呼び出しの置き換え、そのまま動く、動きの違い・廃止予定、対応なし)で数えます。3 から 6 は解析が終わると開けます。
-3. **部品ごとの対応**: 選べる対応がある部品ごとに対応を選びます(API ごとにも変えられる)。ソースの無い DLL が、.NET 10 では別のアセンブリにある型を参照するときは、部品「参照先のない DLL」で、変換器が DLL の参照先を付け替えるか(既定)、対応しないかを選びます(付け替える型と DLL は「API を見る」で見られます)。
-4. **アプリの設定**: API ではなく、アプリ全体に対する選択です。3 と 4 の選択は、変換に進むときに保存します。ファイル名の大文字小文字のほか、IIS の機能の動かし方(要求のログ・URL Rewrite・エラー ページ・圧縮: IIS 互換〈既定〉/ ASP.NET Core 標準 / オフ)があり、変換後の `appsettings.json` に書かれます(変換後もそこで変えられます)。
-5. **変換・ビルド**: 保存した選択で変換とビルドを行います。`--build-original`(元のアプリをそのビルド手順でビルドし、配置されるサイトから組み立てる)の要否は、リポジトリから自動で判定して初期値にし、理由を表示します(Cake のビルド、Web プロジェクトのフォルダーへ出力・コピーするほかのプロジェクト、ビルドで作られる web.config、リポジトリ独自のビルドファイル)。元のビルドのあとに実行するリポジトリのセットアップ手順(`--original-step`。N2 の `build\n2.proj;Templates-PrepareDependencies` など)も、1 行に 1 つ「プロジェクト;ターゲット」で指定できます(元のアプリのテスト起動と共通。「変換のコマンドをコピー」のコマンドにも入ります)。変換レポートは節ごとに開いて見られます。
-6. **デプロイ**: Linux に配置できる形(Dockerfile と systemd 用のスクリプト付き、`obj` を除く)の ZIP のダウンロード、この PC の dotnet での起動(ネイティブ起動、Docker 不要)、Dockerfile からイメージを作って localhost のポートでのコンテナ起動(Docker Desktop が要ります。Studio のコンテナは一度に一つ)。どちらも接続文字列などを環境変数(`SQLCONNSTR_<名前>`、`APPSETTING_<キー>`)で渡せます(それぞれ別に保存。コンテナの中からは LocalDB やこの PC の localhost は見えないので、`host.docker.internal` を使う)。ECR への発行は予定です。コマンドラインで変換するためのコマンドもコピーできます。
+2. **解析と対応**: 解析の進み具合と、終わったらその結果(数値、扱い別・状態別の内訳)と、3 つのタブです。3 から 5 は解析が終わると開けます。
+   - **自分で対応する所**: 変換しても動くようにならない部品(OLE DB、Active Directory、レジストリ、Linux では例外になる ACL など)ごとに、Linux で何が起きるか、使っている回数・ファイル・DLL、「すること」(書き換え方。Windows のサーバーならそのまま動くか)、予定の移植版。どの部品にも入らない API はまとめて最後に出ます。
+   - **対応を選ぶ部品**: 選べる対応がある部品ごとに対応を選びます(API ごとにも変えられる)。ソースの無い DLL が、.NET 10 では別のアセンブリにある型を参照するときは、部品「参照先のない DLL」で、変換器が DLL の参照先を付け替えるか(既定)、対応しないかを選びます(付け替える型と DLL は「API を見る」で見られます)。
+   - **すべての API**: API は部品ではなく 1 つずつ、変換器がどう扱うか(いまの選択で: 部品の対応、DLL の参照の付け替え・呼び出しの置き換え、そのまま動く、動きの違い・廃止予定、対応なし)で数えます。
+3. **アプリの設定**: API ではなく、アプリ全体に対する選択です。2 と 3 の選択は、変換に進むときに保存します。ファイル名の大文字小文字のほか、IIS の機能の動かし方(要求のログ・URL Rewrite・エラー ページ・圧縮: IIS 互換〈既定〉/ ASP.NET Core 標準 / オフ)があり、変換後の `appsettings.json` に書かれます(変換後もそこで変えられます)。
+4. **変換・ビルド**: 保存した選択で変換とビルドを行います。`--build-original`(元のアプリをそのビルド手順でビルドし、配置されるサイトから組み立てる)の要否は、リポジトリから自動で判定して初期値にし、理由を表示します(Cake のビルド、Web プロジェクトのフォルダーへ出力・コピーするほかのプロジェクト、ビルドで作られる web.config、リポジトリ独自のビルドファイル)。元のビルドのあとに実行するリポジトリのセットアップ手順(`--original-step`。N2 の `build\n2.proj;Templates-PrepareDependencies` など)も、1 行に 1 つ「プロジェクト;ターゲット」で指定できます(元のアプリのテスト起動と共通。「変換のコマンドをコピー」のコマンドにも入ります)。変換レポートは節ごとに開いて見られます。
+5. **デプロイ**: Linux に配置できる形(Dockerfile と systemd 用のスクリプト付き、`obj` を除く)の ZIP のダウンロード、この PC の dotnet での起動(ネイティブ起動、Docker 不要)、Dockerfile からイメージを作って localhost のポートでのコンテナ起動(Docker Desktop が要ります。Studio のコンテナは一度に一つ)。どちらも接続文字列などを環境変数(`SQLCONNSTR_<名前>`、`APPSETTING_<キー>`)で渡せます(それぞれ別に保存。コンテナの中からは LocalDB やこの PC の localhost は見えないので、`host.docker.internal` を使う)。ECR への発行は予定です。コマンドラインで変換するためのコマンドもコピーできます。
 
 Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、Studio を止めると止まります(強制終了でも止まり、IIS に作ったサイトは次の起動で消えます)。
 

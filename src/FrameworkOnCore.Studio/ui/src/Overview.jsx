@@ -1,6 +1,8 @@
-// ② The analysis: the numbers, the APIs by what the converter does for them (or by status), and every API (one by one,
-// not by component: an assembly's APIs no component gathers are handled each its own way). Options are chosen in ③.
-import { useMemo, useState } from 'react';
+// ② The analysis and what to do with it: the numbers, the APIs by what the converter does for them (or by status), then
+// three tabs: what the conversion leaves to the developers (Unhandled.jsx), the components with options to choose
+// (Components.jsx; the choices' bar above), and every API (one by one, not by component: an assembly's APIs no component
+// gathers are handled each its own way).
+import { useEffect, useMemo, useState } from 'react';
 import Container from '@cloudscape-design/components/container';
 import Header from '@cloudscape-design/components/header';
 import SpaceBetween from '@cloudscape-design/components/space-between';
@@ -8,10 +10,14 @@ import ColumnLayout from '@cloudscape-design/components/column-layout';
 import Box from '@cloudscape-design/components/box';
 import BarChart from '@cloudscape-design/components/bar-chart';
 import SegmentedControl from '@cloudscape-design/components/segmented-control';
+import Tabs from '@cloudscape-design/components/tabs';
+import Link from '@cloudscape-design/components/link';
 import * as tokens from '@cloudscape-design/design-tokens';
 import { t, fmt } from './i18n.js';
 import { HANDLINGS, ORDER, choosable, withHandling } from './choices.js';
 import { ApiList } from './Apis.jsx';
+import { ComponentList } from './Components.jsx';
+import { UnhandledList, useLeftToDo } from './Unhandled.jsx';
 
 const HANDLING_CHART = {
   none: tokens.colorChartsStatusCritical, option: tokens.colorChartsPaletteCategorical1, callReplaced: tokens.colorChartsPaletteCategorical4,
@@ -30,12 +36,17 @@ const Metric = ({ label, value, unit, foot }) => (
   </div>
 );
 
-export default function Overview({ ctx, actions }) {
+export default function Overview({ ctx, actions, bar }) {
   const r = ctx.result;
   const components = useMemo(() => new Map(r.components.map(c => [c.id, c])), [r]);
   const apis = useMemo(() => withHandling(r, ctx.choices), [r, ctx.choices]);
+  const left = useLeftToDo(ctx);
   const [by, setBy] = useState('handling');
   const [measure, setMeasure] = useState('apis');
+  // The tab: a component's link opens the one it is in (to choose for, or left to do).
+  const linkedTab = id => !id ? null : left.some(g => g.component?.id === id) ? 'todo' : 'components';
+  const [tab, setTab] = useState(() => linkedTab(ctx.linked) ?? (left.length ? 'todo' : 'components'));
+  useEffect(() => { const t_ = linkedTab(ctx.linked); if (t_) setTab(t_); }, [ctx.linked]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   const uses = r.apis.reduce((s, a) => s + a.count, 0);
   const frameworkUses = r.projects.reduce((s, p) => s + p.frameworkCalls, 0);
@@ -44,6 +55,7 @@ export default function Overview({ ctx, actions }) {
   const deciding = r.components.filter(c => choosable(c) && c.status !== 'Available');
   const handled = kind => apis.filter(a => a.handling.kind === kind).length;
   const resolvedRate = frameworkUses + unresolved === 0 ? 100 : (100 * frameworkUses / (frameworkUses + unresolved));
+  const inSources = left.filter(g => g.count > 0).length;
 
   // Part-to-whole of the APIs (or their uses) that do not work as they were: by handling, or by status.
   const keys = by === 'handling' ? HANDLINGS : ORDER;
@@ -57,17 +69,21 @@ export default function Overview({ ctx, actions }) {
   const label = k => by === 'handling' ? t(`handling.${k}`) : t(`status.${k}`);
   const color = k => by === 'handling' ? HANDLING_CHART[k] : STATUS_COLOR[k];
   const axis = measure === 'apis' ? t('step1.apisAxis') : t('step1.usesAxis');
+  const goTab = id => ev => { ev.preventDefault(); setTab(id); document.getElementById('analysis-tabs')?.scrollIntoView({ block: 'start' }); };
 
   return (
     <SpaceBetween size="l">
       <Box variant="p">{t('step1.intro')}</Box>
       <Container header={<Header variant="h2" actions={actions}>{t('step1.numbers')}</Header>}>
         <ColumnLayout columns={4} variant="text-grid">
-          <Metric label={t('step1.apis')} value={fmt(r.apis.length)} unit={t('unit.kinds')} foot={t('step1.projects', fmt(r.projects.filter(p => !p.skipped).length))} />
+          <Metric label={t('step1.apis')} value={fmt(r.apis.length)} unit={t('unit.kinds')}
+            foot={<>{t('step1.projects', fmt(r.projects.filter(p => !p.skipped).length))} ・ {t('step1.usesShort', fmt(uses))} ・ {t('step1.files', fmt(files))}</>} />
           <Metric label={t('step1.handled')} value={fmt(handled('option') + handled('retarget') + handled('callReplaced'))} unit={t('unit.kinds')}
-            foot={t('step1.handledFoot', fmt(handled('none')), fmt(handled('differs')))} />
-          <Metric label={t('step1.toDecide')} value={fmt(deciding.length)} unit={t('unit.items')} foot={t('step1.toDecideFoot')} />
-          <Metric label={t('step1.uses')} value={fmt(uses)} unit={t('unit.times')} foot={<>{t('step1.files', fmt(files))} ・ {t('step1.resolvedShort', resolvedRate.toFixed(1))}{unresolved > 0 && <> ・ {t('step1.unresolved', fmt(unresolved))}</>}</>} />
+            foot={<>{t('step1.handledFoot', fmt(handled('none')), fmt(handled('differs')))} ・ {t('step1.resolvedShort', resolvedRate.toFixed(1))}{unresolved > 0 && <> ・ {t('step1.unresolved', fmt(unresolved))}</>}</>} />
+          <Metric label={t('step1.toDo')} value={fmt(left.length)} unit={t('unit.items')}
+            foot={<Link href="#" onFollow={goTab('todo')} fontSize="body-s">{t('step1.toDoFoot', fmt(inSources))}</Link>} />
+          <Metric label={t('step1.toDecide')} value={fmt(deciding.length)} unit={t('unit.items')}
+            foot={<Link href="#" onFollow={goTab('components')} fontSize="body-s">{t('step1.toDecideFoot')}</Link>} />
         </ColumnLayout>
       </Container>
       <Container header={<Header variant="h2"
@@ -85,7 +101,14 @@ export default function Overview({ ctx, actions }) {
               ariaLabel={t('step1.breakdown')} i18nStrings={{ legendAriaLabel: t('chart.legend'), chartAriaRoleDescription: t('chart.bar') }} />
           : <Box color="text-body-secondary">{t('step1.noAttention')}</Box>}
       </Container>
-      <ApiList ctx={ctx} apis={apis} components={components} />
+      {bar}
+      <div id="analysis-tabs">
+        <Tabs activeTabId={tab} onChange={ev => setTab(ev.detail.activeTabId)} ariaLabel={t('step1.tabs')} tabs={[
+          { id: 'todo', label: t('tab.todo', fmt(left.length)), content: <UnhandledList ctx={ctx} groups={left} /> },
+          { id: 'components', label: t('tab.components', fmt(deciding.length)), content: <ComponentList ctx={ctx} /> },
+          { id: 'apis', label: t('tab.apis', fmt(r.apis.length)), content: <ApiList ctx={ctx} apis={apis} components={components} /> },
+        ]} />
+      </div>
     </SpaceBetween>
   );
 }

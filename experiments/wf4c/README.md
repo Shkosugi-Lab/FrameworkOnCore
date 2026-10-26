@@ -945,8 +945,8 @@ Studio の「自分で対応する所」から、変換レポートの「コン�
 - **検証**: テスト Windows 4,494 件が緑。Windows: be 5/5、wt 8/8、mvcmovie 11/12・contoso 9/12(以前と同じ既知の差)、mojo・n2 のトップ 200、dnn はインストーラー 200。Linux: be 5/5、wt 7/8(error-page、以前から)。
 - **残り**:
   - yaf の `/` は「System.Data.SqlClient のプロバイダーが見つからない」で 500(以前はもっと手前の ServiceStack のスタブで止まっていた)。
-  - dnn の JWT のコード(名前空間の移動)は書き換えていない。レポートに出す。
-  - ランタイムの SqlClient の型(FrameworkOnCore の System.Web の 13 ファイルが Microsoft.Data.SqlClient を使う。SqlDataSource の既定、SqlCacheDependency)は未対応(w2l.23 が要る)。
+  - dnn の JWT: 下の SqlClient の変更で 8.x への引き上げが無くなり(引き上げていたのは Microsoft.Data.SqlClient の依存)、元の 4.0.2 のまま。その DLL は .NET Framework の System.IdentityModel の型を使うので、JwtController の 7 メソッドは引き続き動かない(5.0 以降の API への書き換えが要る)。
+- **ランタイムの SqlClient**(`1.6.5-w2l.23`): FrameworkOnCore の System.Web(13 ファイル)と Web.Extensions の SqlHelper が Microsoft.Data.SqlClient を使っていた。アプリが渡す System.Data.SqlClient の型と合わず、`new SqlCacheDependency(SqlCommand)`(n2)はビルドが通らずスタブに、SqlDataSource の既定のファクトリーは別のクライアントで `(SqlCommand)e.Command` や `e.Exception as SqlException` が実行時に失敗していた。.NET Framework の System.Web が標準の System.Data.SqlClient を使ったように、FrameworkOnCore の System.Data.SqlClient(移植版)を使うようにした(パッケージ FrameworkOnCore.Web が FrameworkOnCore.Data.SqlClient に依存。Microsoft.Data.SqlClient と、それが持ち込んでいた System.Security.Cryptography.Pkcs の固定はなくなった)。カタログの SQL Server クライアントの「.NET 版を使う」は外した(System.Web 自身が移植版を使うので、Microsoft の System.Data.SqlClient を足すと同じ名前のアセンブリが 2 つになる)。n2 のスタブ 7 → 6。テスト Windows 4,494 件・Linux 4,467 件(SQL Server のコンテナあり)と SqlClientTests 204 件が緑。Windows: be 5/5・wt 8/8・mvcmovie 11/12・contoso 9/12、mojo・n2 のトップと dnn のインストーラー 200。Linux: be 5/5・wt 7/8(以前と同じ)。
   - パッケージの参照の参照(SDK 形式で上の階層へ流れる)、C# の言語の版(7.3 → 14)、unsafe・オーバーフローの検査・署名の引き継ぎ、HintPath の無い GAC の参照を黙って外すこと、埋め込みリソースの名前は未対応。
 
 ### Studio: 解析と対応を 1 つの手順に、変換で対応できない所の案内(2026-10-26、ユーザーの指示)

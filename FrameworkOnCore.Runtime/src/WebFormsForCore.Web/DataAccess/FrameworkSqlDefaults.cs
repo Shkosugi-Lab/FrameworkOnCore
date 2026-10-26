@@ -2,11 +2,10 @@ namespace System.Web.DataAccess {
     using System.Data.Common;
 
     // The runtime's SQL Server components (membership, roles, profile, session state, SqlDataSource,
-    // cache dependencies) use Microsoft.Data.SqlClient where .NET Framework used System.Data.SqlClient.
-    // The applications' connection strings were written for the latter, whose Encrypt was false unless
-    // set; Microsoft.Data.SqlClient's is true (4.0 and later), and the connection fails against a
-    // server with its own certificate ("The certificate chain was issued by an authority that is not
-    // trusted": SQL Server Express's). A connection string that does not say is given .NET Framework's.
+    // cache dependencies) use FrameworkOnCore's System.Data.SqlClient, as .NET Framework's did (and the
+    // applications do): its Encrypt is false unless set. A connection string that does not say is given
+    // that explicitly (Microsoft.Data.SqlClient, which they used before, encrypts by default: the
+    // connection failed against a server with its own certificate, SQL Server Express's).
     internal static class FrameworkSqlDefaults {
         internal static string Apply(string connectionString) {
 #if NETFRAMEWORK

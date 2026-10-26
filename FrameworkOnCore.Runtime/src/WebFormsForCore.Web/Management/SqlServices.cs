@@ -12,7 +12,7 @@ namespace System.Web.Management {
 #if !WebFormsForCore
     using  System.Data.SqlClient;
 #else
-	using Microsoft.Data.SqlClient;
+	using System.Data.SqlClient; // WebFormsForCore: FrameworkOnCore's port, the applications' (not Microsoft.Data.SqlClient)
 #endif
 	using System.Threading;
     using System.Text.RegularExpressions;

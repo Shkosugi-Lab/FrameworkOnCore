@@ -68,8 +68,7 @@
       { "id": "none", "title": "対応しない", "description": "DLL は元のまま。その型を使う所で TypeLoadException・MissingMethodException になります。", "detail": "DLL は元のまま。その型やメンバーを使うところで、実行時に TypeLoadException・MissingMethodException になる" }
     ],
     "sql-client": [
-      { "id": "port", "title": "移植版を使う", "description": "|DataDirectory| を App_Data に展開し、Asynchronous Processing なども受け付けます。Entity Framework や DLL が開く接続もこれになります。", "detail": "FrameworkOnCore の System.Data.SqlClient(パッケージ FrameworkOnCore.Data.SqlClient。dotnet/maintenance-packages 4.9.0 のソース)。接続文字列の |DataDirectory| を .NET Framework と同じく App_Data に展開し、.NET が拒否する Asynchronous Processing・Network Library・Connection Reset も受け付ける(SqlConnectionStringBuilder の同名のプロパティもある)。Web プロジェクトに常に付き、Entity Framework や DLL が開く接続もこれになる", "default": true },
-      { "id": "dotnet", "title": ".NET 版を使う", "description": "Microsoft の System.Data.SqlClient パッケージを使います。コードで組み立てた接続文字列の |DataDirectory| などは例外になります。", "detail": "Microsoft の System.Data.SqlClient パッケージ(4.9.0)。コードで組み立てた接続文字列の |DataDirectory| は例外になる(構成の接続文字列はランタイムが展開する)。Asynchronous Processing・Network Library・Connection Reset のある接続文字列も例外になる" }
+      { "id": "port", "title": "移植版を使う", "description": "|DataDirectory| を App_Data に展開し、Asynchronous Processing なども受け付けます。Entity Framework や DLL が開く接続もこれになります。", "detail": "FrameworkOnCore の System.Data.SqlClient(パッケージ FrameworkOnCore.Data.SqlClient。dotnet/maintenance-packages 4.9.0 のソース)。接続文字列の |DataDirectory| を .NET Framework と同じく App_Data に展開し、.NET が拒否する Asynchronous Processing・Network Library・Connection Reset も受け付ける(SqlConnectionStringBuilder の同名のプロパティもある)。Web プロジェクトに常に付き、Entity Framework や DLL が開く接続もこれになる", "default": true }
     ],
     "charts": [
       { "id": "port", "title": "移植版を使う", "description": "Chart コントロールと ChartImg.axd がそのまま動きます。", "detail": "referencesource(MIT)から移植した System.Web.DataVisualization(パッケージ FrameworkOnCore.Web.DataVisualization。描画は移植版の System.Drawing で、Linux でも動く)", "default": true },
@@ -228,8 +227,8 @@
     {
       "id": "sql-client", "title": "SQL Server のクライアント(System.Data.SqlClient)",
       "match": { "namespaces": [ "System.Data.SqlClient", "Microsoft.SqlServer.Server" ] }, "status": "Behavior", "force": true,
-      "note": ".NET 10 の System.Data.SqlClient は、接続文字列の |DataDirectory| や Asynchronous Processing などを受け付けません。既定のまま変換すれば、.NET Framework と同じに受け付ける移植版を使います。",
-      "detail": ".NET の System.Data.SqlClient は接続文字列の |DataDirectory| を拒否する(.NET Framework は App_Data に展開した)。変換器: 移植版(FrameworkOnCore.Data.SqlClient)が .NET Framework と同じく展開する"
+      "note": ".NET 10 の System.Data.SqlClient は、接続文字列の |DataDirectory| や Asynchronous Processing などを受け付けません。.NET Framework と同じに受け付ける移植版を使います(ASP.NET 自身の SQL Server の機能、SqlDataSource・メンバーシップ・セッションなども移植版を使うので、Microsoft の版は選べません)。",
+      "detail": ".NET の System.Data.SqlClient は接続文字列の |DataDirectory| を拒否する(.NET Framework は App_Data に展開した)。変換器: 移植版(FrameworkOnCore.Data.SqlClient)が .NET Framework と同じく展開する。FrameworkOnCore の System.Web も同じ移植版を使う(.NET Framework の System.Web が標準のものを使ったように)"
     },
     {
       "id": "linq-to-sql", "title": "LINQ to SQL(System.Data.Linq)",

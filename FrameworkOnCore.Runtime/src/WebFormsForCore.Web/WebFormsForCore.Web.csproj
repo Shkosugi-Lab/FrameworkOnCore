@@ -89,10 +89,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.0" />
-        <!-- Microsoft.Data.SqlClient brings System.Security.Cryptography.Pkcs 9.0.18: 10.0.13 has the fixes of the denial of
-             service vulnerabilities of 2026-10-13 (CVE-2026-84008, -70162). -->
-        <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
+        <!-- SQL Server: FrameworkOnCore's System.Data.SqlClient, the applications' (their SqlCommand to SqlCacheDependency,
+             SqlDataSource's factory, the SqlException they catch), as .NET Framework's System.Web used the in-box one. -->
+        <ProjectReference Include="..\WebFormsForCore.Data.SqlClient\WebFormsForCore.Data.SqlClient.csproj" />
         <!--<PackageReference Include="System.Net.Http" Version="4.3.4" />-->
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401" PrivateAssets="All" />
     </ItemGroup>

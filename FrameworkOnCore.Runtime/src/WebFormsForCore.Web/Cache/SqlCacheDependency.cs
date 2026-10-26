@@ -26,7 +26,7 @@ namespace System.Web.Caching {
 #if !WebFormsForCore
     using  System.Data.SqlClient;
 #else
-	using Microsoft.Data.SqlClient;
+	using System.Data.SqlClient; // WebFormsForCore: FrameworkOnCore's port, the applications' (not Microsoft.Data.SqlClient)
 #endif
 	using System.Globalization;
     using System.Security.Permissions;

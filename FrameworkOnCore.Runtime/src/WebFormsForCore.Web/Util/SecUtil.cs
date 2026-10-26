@@ -20,8 +20,8 @@ namespace System.Web.Util {
     using System.Data.SqlClient;
     using System.Data.SqlTypes;
 #else
-	using Microsoft.Data.SqlClient;
-    using Microsoft.Data.SqlTypes;
+	using System.Data.SqlClient; // WebFormsForCore: FrameworkOnCore's port, the applications' (not Microsoft.Data.SqlClient)
+    using System.Data.SqlTypes;
 #endif
 	using System.Configuration.Provider;
     using System.Configuration;

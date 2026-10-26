@@ -21,7 +21,7 @@ import { api, post } from './api.js';
 import { t } from './i18n.js';
 
 export default function NewAnalysis({ visible, onDismiss, onStarted }) {
-  const [form, setForm] = useState({ project: '', root: '', configuration: 'Debug', name: '' });
+  const [form, setForm] = useState({ project: '', root: '', configuration: 'Release', name: '' });
   const [rootHint, setRootHint] = useState('C:\\src\\MyApp');
   const [error, setError] = useState(null);
   const [busy, setBusy] = useState(false);
@@ -39,7 +39,7 @@ export default function NewAnalysis({ visible, onDismiss, onStarted }) {
     setError(null);
     try {
       const entry = await post('/analyses', form);
-      setForm({ project: '', root: '', configuration: 'Debug', name: '' });
+      setForm({ project: '', root: '', configuration: 'Release', name: '' });
       await onStarted(entry);
     } catch (e) {
       setError(e.message);

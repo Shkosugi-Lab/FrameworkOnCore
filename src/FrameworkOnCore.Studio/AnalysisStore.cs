@@ -102,7 +102,7 @@ public sealed class AnalysisStore
         var entry = new AnalysisEntry
         {
             Id = id, Name = string.IsNullOrWhiteSpace(request.Name) ? Path.GetFileNameWithoutExtension(project) : request.Name.Trim(),
-            Project = project, Root = root, Configuration = string.IsNullOrWhiteSpace(request.Configuration) ? "Debug" : request.Configuration.Trim(),
+            Project = project, Root = root, Configuration = string.IsNullOrWhiteSpace(request.Configuration) ? "Release" : request.Configuration.Trim(),
             Created = DateTimeOffset.UtcNow, State = "queued",
         };
         Save(entry);

@@ -25,8 +25,8 @@ using FrameworkOnCore.Converter;
 //            with the web project, as Visual Studio builds it (Windows, Visual Studio's MSBuild).
 //            --build-original auto: only when the site is made by the build (OriginalBuildAdvice; build-original-advice
 //            prints why). Without --build-original such a site is reported unresolved.
-// --configuration <name>  the configuration the site is built in: the projects' conditions are read for it
-//            (Debug when not given) and a solution is built in it (Release when not given). openIMIS: DemoRelease,
+// --configuration <name>  the configuration the site is built in (Release when not given): the projects' conditions
+//            are read for it, a solution is built in it, and the converted projects build in it (BuildConfiguration). openIMIS: DemoRelease,
 //            the one whose web.config transform the repository has; its code under #If DEMO is that build's.
 // --original-step <project;target>  a setup step of the repository after its build (repeatable).
 // --deploy   how it is deployed on Linux: container (Dockerfile), linux (deploy/linux/install.sh, systemd),
@@ -155,12 +155,13 @@ if (buildOriginal)
 }
 Console.WriteLine($"copying {sourceRoot} -> {outRoot}");
 Paths.CopyTree(sourceRoot, outRoot);
+BuildConfiguration.Write(outRoot, configuration ?? BuildConfiguration.Default, report);
 
 // Deployed on Linux without the original server's culture profile: this machine's (CultureCapture).
 if (cultureProfile == null && deployKinds is "container" or "linux" or "both")
     cultureProfile = CultureCapture.FromThisMachine(project, runtimeDirectory, outRoot, report);
 
-var converter = new ProjectConverter(rules, report, new Conditions(configuration ?? "Debug", "AnyCPU", report), sourceRoot, outRoot, runtime);
+var converter = new ProjectConverter(rules, report, new Conditions(configuration ?? BuildConfiguration.Default, "AnyCPU", report), sourceRoot, outRoot, runtime);
 if (site != null) converter.DeployedBin = Path.Combine(site, "bin");
 var web = converter.Convert(project, isWeb: true);
 WriteHost(web);
@@ -185,10 +186,11 @@ if (site != null)
     }
 }
 
-// Built as one solution: the web project and every converted project.
+// Built as one solution: the web project and every converted project, in the configuration the site was built in (a
+// solution's own default is Debug, which it gives its projects whatever their Directory.Build.props says).
 var buildTarget = Path.Combine(outRoot, "FrameworkOnCore.slnx");
 File.WriteAllText(buildTarget,
-    "<Solution>\n" + string.Concat(converter.Converted.Select(c => $"  <Project Path=\"{System.Security.SecurityElement.Escape(Path.GetRelativePath(outRoot, c.TargetPath).Replace('\\', '/'))}\" />\n")) + "</Solution>\n",
+    "<Solution>\n" + $"  <Configurations>\n    <BuildType Name=\"{System.Security.SecurityElement.Escape(configuration ?? BuildConfiguration.Default)}\" />\n  </Configurations>\n" + string.Concat(converter.Converted.Select(c => $"  <Project Path=\"{System.Security.SecurityElement.Escape(Path.GetRelativePath(outRoot, c.TargetPath).Replace('\\', '/'))}\" />\n")) + "</Solution>\n",
     new UTF8Encoding(false));
 
 var succeeded = true;

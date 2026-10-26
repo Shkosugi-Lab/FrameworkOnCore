@@ -16,7 +16,7 @@ public static class AnalyzeCommand
     internal static int Run(string[] args, Func<string?> findRuntime)
     {
         string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null;
-        var configuration = "Debug";
+        var configuration = BuildConfiguration.Default;
         for (var i = 0; i < args.Length; i++)
         {
             switch (args[i])

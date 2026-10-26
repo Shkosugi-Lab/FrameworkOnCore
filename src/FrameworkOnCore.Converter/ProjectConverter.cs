@@ -6,7 +6,10 @@ using System.Xml.Linq;
 namespace FrameworkOnCore.Converter;
 
 /// <summary>A project as converted: its file in the output tree and its conditional compilation symbols.</summary>
-public sealed record ConvertedProject(string Name, string SourcePath, string TargetPath, bool IsWeb, IReadOnlyList<string> Defines, string? AssemblyName = null, bool CrossPlatform = false);
+/// <param name="Defines">The symbols its sources are compiled with (the configuration's, the project's, the .NET Framework
+/// target's), but the SDK's own of net10.0 (NET, NETCOREAPP...), which only a project with ImplicitFrameworkDefines has: one
+/// built for .NET only (netstandard, net6.0), whose code is meant for it.</param>
+public sealed record ConvertedProject(string Name, string SourcePath, string TargetPath, bool IsWeb, IReadOnlyList<string> Defines, string? AssemblyName = null, bool CrossPlatform = false, bool ImplicitFrameworkDefines = false, bool Kept = false);
 
 /// <summary>Where the runtime pieces the converted projects refer to are (FrameworkOnCore's feed, the shims).</summary>
 public sealed record RuntimeLayout(string Feed, IReadOnlyList<string> ShimProjects);
@@ -55,9 +58,11 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
           </Target>
     """;
 
-    // The symbols the .NET SDK defines for net10.0 (and the Debug configuration), for reading sources
-    // the way the compiler does.
-    public static readonly IReadOnlyList<string> SdkSymbols = new[] { "NET", "NETCOREAPP", "NET10_0", "DEBUG", "TRACE" }
+    // The symbols the .NET SDK defines for net10.0, for reading sources the way the compiler does: a project built for
+    // .NET only keeps them (ConvertedProject.ImplicitFrameworkDefines); one built for .NET Framework is compiled without
+    // them, as it was (DisableImplicitFrameworkDefines: its #if NETCOREAPP, NET6_0_OR_GREATER code is not the build that
+    // ran; YAF's ServiceStack took its .NET 6 branch, whose class its sources have not).
+    public static readonly IReadOnlyList<string> SdkSymbols = new[] { "NET", "NETCOREAPP", "NET10_0" }
         .Concat(new[] { "5_0", "6_0", "7_0", "8_0", "9_0", "10_0" }.Select(v => $"NET{v}_OR_GREATER"))
         .Concat(new[] { "1_0", "1_1", "2_0", "2_1", "2_2", "3_0", "3_1" }.Select(v => $"NETCOREAPP{v}_OR_GREATER")).ToList();
 
@@ -275,6 +280,8 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
                 return;
             }
             var package = rules.ReplacedPackages.TryGetValue(id, out var replaced) ? replaced : new Package(id, version);
+            if (replaced != null && replaced.Id.Equals(id, StringComparison.OrdinalIgnoreCase) && PackageRaises.Note(id, version, replaced.Version) is { } raisedNote)
+                report.Add(Report.Kind.Raised, name, raisedNote + $" (replaced by {replaced.Id} {replaced.Version}: replacedPackages)");
             packages[package.Id] = package.Version;
             if (rules.PackageCompanions.TryGetValue(id, out var companions)) foreach (var c in companions) AddPackage(c);
         }
@@ -389,6 +396,13 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         Prop("WarningsNotAsErrors", WarningsNotAsErrors);
         // Visual Basic's are separated by commas, and the SDK's own are not in DefineConstants (FinalDefineConstants).
         if (defines.Count > 0) Prop("DefineConstants", visualBasic ? string.Join(',', defines) : "$(DefineConstants);" + string.Join(';', defines));
+        // The .NET Framework build had no NET, NETCOREAPP, NET5_0_OR_GREATER... (nor NETFRAMEWORK: an old-style project
+        // defines none): code under them is not the code that ran.
+        Prop("DisableImplicitFrameworkDefines", "true");
+        // An old-style project compiled against its own references only, not theirs (mojoPortal's Features.UI did not see
+        // Features.Data.MSSQL's namespace mojoPortal.MediaPlayer, which hides its class MediaPlayer: CS0118). Their
+        // assemblies still go to the output, found next to the references (as they did).
+        Prop("DisableTransitiveProjectReferences", "true");
         if (visualBasic)
         {
             // The language options the sources were written for (Option Strict Off: late binding), and the project's
@@ -541,7 +555,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         File.WriteAllText(targetPath, text.ToString(), new UTF8Encoding(false));
 
         report.Add(Report.Kind.Project, name, $"{compile.Count} files, {packages.Count} packages, {binaryReferences.Count} DLLs -> {Path.GetRelativePath(outRoot, targetPath)}");
-        return new ConvertedProject(name, projectPath, targetPath, isWeb, defines, assemblyName);
+        return new ConvertedProject(name, projectPath, targetPath, isWeb, defines.Concat(ConfigurationSymbols(visualBasic)).Distinct().ToList(), assemblyName);
     }
 
     // ------------------------------------------------------------------------------------------
@@ -560,7 +574,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         if (Elements(project, "PackageReference").Any(p => ((string?)p.Attribute("Include") ?? "").StartsWith("Microsoft.CodeAnalysis", StringComparison.OrdinalIgnoreCase)))
         {
             report.Add(Report.Kind.Project, name, "analyzer / source generator: kept as it is");
-            return new ConvertedProject(name, projectPath, targetPath, false, Array.Empty<string>());
+            return new ConvertedProject(name, projectPath, targetPath, false, Array.Empty<string>(), Kept: true);
         }
 
         var frameworks = new List<string>();
@@ -585,7 +599,9 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         {
             var framework = netfx.OrderBy(f => f.Length).ThenBy(f => f, StringComparer.Ordinal).Last();
             frameworkSymbols = FrameworkSymbols(framework);
-            root.Add(new XElement(N("PropertyGroup"), new XElement(N("DefineConstants"), "$(DefineConstants);" + string.Join(';', frameworkSymbols))));
+            // Not the SDK's own of net10.0 too (NET, NET6_0_OR_GREATER: contradicting branches, YAF's ServiceStack).
+            root.Add(new XElement(N("PropertyGroup"), new XElement(N("DefineConstants"), "$(DefineConstants);" + string.Join(';', frameworkSymbols)),
+                new XElement(N("DisableImplicitFrameworkDefines"), "true")));
             report.Add(Report.Kind.Project, name, $"{framework}'s symbols defined ({string.Join(", ", frameworkSymbols.Take(2))} ...): the site ran that build");
         }
 
@@ -615,8 +631,15 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
             }
             if (rules.ReplacedPackages.TryGetValue(id, out var replaced))
             {
-                // Two packages replaced by the same one (Microsoft.AspNet.WebApi and .WebApi.WebHost): referenced once.
-                if (HasPackage(replaced.Id)) { reference.Remove(); continue; }
+                // Two packages replaced by the same one (Microsoft.AspNet.WebApi and .WebApi.WebHost): referenced once. Not
+                // this one itself, replaced by its own id at another version (Newtonsoft.Json 13.0.4: YAF.Types lost it).
+                if (Elements(project, "PackageReference").Any(p => p != reference && string.Equals((string?)p.Attribute("Include"), replaced.Id, StringComparison.OrdinalIgnoreCase)))
+                {
+                    reference.Remove();
+                    continue;
+                }
+                if ((string?)reference.Attribute("Version") is { } before && replaced.Id.Equals(id, StringComparison.OrdinalIgnoreCase) && PackageRaises.Note(id, before, replaced.Version) is { } raisedNote)
+                    report.Add(Report.Kind.Raised, name, raisedNote + $" (replaced by {replaced.Id} {replaced.Version}: replacedPackages)");
                 reference.SetAttributeValue("Include", replaced.Id);
                 if (reference.Attribute("Version") != null) reference.SetAttributeValue("Version", replaced.Version);
                 if (rules.PackageCompanions.TryGetValue(id, out var companions))
@@ -677,8 +700,14 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         // Built for .NET too (netstandard, netcoreapp, net5+): its code runs on Linux as it is, and what it does with
         // Windows' separators is meant (Lucene.Net: a backslash is refused in a name on every platform).
         var crossPlatform = frameworks.Any(f => Regex.IsMatch(f, @"^(netstandard|netcoreapp|net[5-9]\.|net\d\d\.)"));
-        return new ConvertedProject(name, projectPath, targetPath, false, defines, Elements(project, "AssemblyName").FirstOrDefault()?.Value ?? name, crossPlatform);
+        return new ConvertedProject(name, projectPath, targetPath, false, defines.Concat(frameworkSymbols).Concat(ConfigurationSymbols(false)).Distinct().ToList(),
+            Elements(project, "AssemblyName").FirstOrDefault()?.Value ?? name, crossPlatform, ImplicitFrameworkDefines: netfx.Count == 0);
     }
+
+    // What the SDK defines for the configuration (C#: TRACE, and DEBUG for Debug; Visual Basic's are its own: DEBUG=-1,
+    // TRACE=-1, read as defined).
+    IEnumerable<string> ConfigurationSymbols(bool visualBasic) =>
+        conditions.Configuration.Equals("Debug", StringComparison.OrdinalIgnoreCase) ? new[] { "DEBUG", "TRACE" } : new[] { "TRACE" };
 
     // The DLL of a package's .NET Framework asset, by the package's path property (GeneratePathProperty).
     static string FrameworkAssetPath(string id, string asset) => $"$(Pkg{id.Replace('.', '_').Replace('-', '_')})\\{asset.Replace('/', '\\')}";

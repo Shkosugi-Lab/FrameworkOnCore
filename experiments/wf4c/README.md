@@ -920,6 +920,35 @@ System.Drawing を Linux で動かす試み(`api-probe/drawing`、Ubuntu 24.04 �
   - 変換、ネイティブ起動も 200 を返した。
   - Studio を強制終了すると、ネイティブのアプリが止まり、IIS のサイトは次の起動で消えた。
 
+### 変換器の点検: ビルドを通すために機能を黙って止めていた所(2026-10-27、ユーザーの指示)
+
+Studio の「自分で対応する所」から、変換レポートの「コンパイルのために変えたソース(スタブ・削除)」を見直した。変換器の書き換えやプロジェクトの変換が原因でビルドが通らず、メソッドが「例外を投げる」形にされていた所があった(.NET に無い API のせいではない)。コーパスのレポートに加え、同じ種類の間違いが起きうる所を変換器全体で点検した(ソースの書き換え・プロジェクト形式の変換・パッケージの版と公開 API の型の 3 観点)。
+
+- **ソースの書き換え**(`5813464c`、`77ee9878`):
+  - FOC1004 が params に渡した配列(`Path.Combine(paths)`、mojo の CombinePath)と `out`/`ref` 引数を `WindowsPath.Native(...)` で包んでいた。
+  - FOC1001/1004/1006 が式ツリー(LINQ to SQL・EF のクエリ)の中も書き換えていた。プロバイダーが訳せない呼び出しになる。
+  - FOC1002 が char の定数(`const char DirSeparator = '\\'`)を `WindowsPath.Native` で包んでいた → `Path.DirectorySeparatorChar`。
+  - VB の Module の `Const` を `Shared ReadOnly` にしていた(Module では Shared は書けない)→ `ReadOnly`。`As` の無い定数には型を書く。
+  - `?.` の付いた呼び出し(`WindowsIdentity.GetCurrent()?.Name` が Linux で null になる置き換え、`AppDomain.CurrentDomain?.RelativeSearchPath` が壊れた構文)。
+  - VB の `Dim u As New Uri(s, kind)` → `Dim u As Uri = WindowsUri.Create(s, kind)`。
+  - 匿名型・タプルのメンバーが式で名前を決めているとき(`new { l.NativeName }`、dnn の言語の設定 3 メソッド)、置き換えると名前が無くなっていた → `NativeName = ...` と書く(VB の `New With` も)。
+- **ビルドの構成**(`70b2b938`): 変換後は Debug でビルドされ、Dockerfile がそれをコピーしていた(DEBUG が定義され、最適化なし。n2・yaf・dnn に `#if DEBUG` のコード)。プロジェクトの条件も Debug として読んでいた。`--configuration` の既定(Studio の新しい解析も)を Release にし、FrameworkOnCore.slnx はその構成だけを持ち(ソリューションは自分の構成を各プロジェクトに渡す)、出力の Directory.Build.props でも既定にした。
+- **コンパイルの記号と参照**:
+  - .NET Framework 向けのプロジェクトに SDK の暗黙の記号(NET、NETCOREAPP、NET6_0_OR_GREATER…)が付いていた。yaf の ServiceStack が .NET 6 の分岐(ソースに無い Net6PclExport)を選び 48 か所がスタブに。`DisableImplicitFrameworkDefines`。ソースを読むときの記号もプロジェクトごとに合わせた。
+  - 旧形式のプロジェクトは自分の参照だけでコンパイルしていたが、SDK 形式では参照の参照も見える。mojo の Features.UI に別プロジェクトの名前空間 `mojoPortal.MediaPlayer` が見え、クラス `MediaPlayer` を隠した(13 か所)。旧形式から変換したプロジェクトに `DisableTransitiveProjectReferences`(参照の参照の DLL は今までどおり出力に入る)。
+  - そのまま残すソースジェネレーター(dnn)には FrameworkOnCore の解析器を当てない(警告をエラーにするプロジェクトで、Release ではビルドが失敗した)。
+- **パッケージ**:
+  - 置き換え先が同じ ID のパッケージ(Newtonsoft.Json → 13.0.4)で、自分自身を「置き換え先がもうある」と見て参照を消していた(w2l.19 から。yaf の YAF.Types が Newtonsoft を失った)。
+  - 大きな版上げ(メジャー)をレポートの新しい節「パッケージの大きな版上げ」に出す(API だけが増えるパッケージを除く)。既知の違いは書く(System.IdentityModel.Tokens.Jwt 4 → 5 以降の名前空間、Newtonsoft の日付の書式と MaxDepth、EF 4.1 の DbDatabase)。
+  - いっしょに出るパッケージ(Microsoft.IdentityModel.*、System.IdentityModel.Tokens.Jwt)は、プロジェクトの中で一番高い版にそろえる(mojo は 8.19.1 と 8.16.0 が混在していた)。
+- **結果**(全 11 本を変換し直してビルドが通る): スタブ・削除 mojo 36 → 13、yaf 98 → 44、dnn 75(ビルドが途中で止まっていた分のパスの書き換え 1,096 件が入った)。残りは .NET に無いもの(WCF Data Services、Remoting、ServiceHost など)、yaf の DistinctBy の重なりと Lucene の属性の重複、dnn の JWT(版上げの節に出る)。
+- **検証**: テスト Windows 4,494 件が緑。Windows: be 5/5、wt 8/8、mvcmovie 11/12・contoso 9/12(以前と同じ既知の差)、mojo・n2 のトップ 200、dnn はインストーラー 200。Linux: be 5/5、wt 7/8(error-page、以前から)。
+- **残り**:
+  - yaf の `/` は「System.Data.SqlClient のプロバイダーが見つからない」で 500(以前はもっと手前の ServiceStack のスタブで止まっていた)。
+  - dnn の JWT のコード(名前空間の移動)は書き換えていない。レポートに出す。
+  - ランタイムの SqlClient の型(FrameworkOnCore の System.Web の 13 ファイルが Microsoft.Data.SqlClient を使う。SqlDataSource の既定、SqlCacheDependency)は未対応(w2l.23 が要る)。
+  - パッケージの参照の参照(SDK 形式で上の階層へ流れる)、C# の言語の版(7.3 → 14)、unsafe・オーバーフローの検査・署名の引き継ぎ、HintPath の無い GAC の参照を黙って外すこと、埋め込みリソースの名前は未対応。
+
 ### Studio: 解析と対応を 1 つの手順に、変換で対応できない所の案内(2026-10-26、ユーザーの指示)
 
 System.Drawing のように Linux で動かない部品のうち、変換で手当てしないもの(OLE DB、Active Directory、レジストリ、WMI など)は、Studio では API の一覧の赤いバッジと、変換レポートの英語の 1 行でしか分からなかった。部品の画面は「選べる対応がある部品」だけを並べるので、これらは出ず、カタログの説明(「LDAP への書き換えが必要」など)もどこにも出ていなかった。

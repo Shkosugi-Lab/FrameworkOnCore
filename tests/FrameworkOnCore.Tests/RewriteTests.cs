@@ -87,6 +87,16 @@ public class RewriteTests
         Assert.Contains("() => System.Text.Encoding.Default.GetBytes(\"x\")", written);
     }
 
+    [Fact] // DNN's language settings: new { l.NativeName } replaced names nothing (CS0746): the name is written
+    public void A_member_named_by_its_expression_keeps_its_name()
+    {
+        var written = CSharp(InClass(
+            "object F(System.Globalization.CultureInfo l) => new { l.NativeName, l.Name };\n" +
+            "object G(System.Globalization.CultureInfo l) => (l.NativeName, 1);"));
+        Assert.Contains("NativeName=global::FrameworkOnCore.FrameworkCultures.NativeName(l), l.Name }", written.Replace(" = ", "="));
+        Assert.Contains("(NativeName:global::FrameworkOnCore.FrameworkCultures.NativeName(l), 1)", written.Replace(": ", ":"));
+    }
+
     [Fact] // a separator constant (const char): the platform's separator, as a literal one (WindowsPath.Native takes a string)
     public void A_separator_constant_becomes_the_platform_s() =>
         Assert.Contains("static readonly char DirSeparator = global::System.IO.Path.DirectorySeparatorChar;",
@@ -134,6 +144,11 @@ public class RewriteTests
         Assert.Contains("Private ReadOnly BinFolder As String = Global.FrameworkOnCore.WindowsPath.Native(\"bin\\\")", written);
         Assert.DoesNotContain("Shared", written);
     }
+
+    [Fact] // New With { l.NativeName } replaced names nothing: the field named
+    public void Visual_basic_anonymous_fields_keep_their_names() =>
+        Assert.Contains(".NativeName=Global.FrameworkOnCore.FrameworkCultures.NativeName(l)",
+            VisualBasic("Imports System\nPublic Class C\n  Function F(l As Globalization.CultureInfo) As Object\n    Return New With {l.NativeName, l.Name}\n  End Function\nEnd Class").Replace(" = ", "=").Replace("= ", "="));
 
     [Fact] // Dim u As New Uri(s, kind): an As New clause holds a New expression only
     public void Visual_basic_as_new_is_replaced_in_its_declaration() =>

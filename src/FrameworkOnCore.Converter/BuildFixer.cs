@@ -72,7 +72,11 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
             // The obsoletions stay: the rounds that follow build only the projects changed.
             result = RunRounds(webProject, maxRounds);
         }
-        foreach (var ((project, id), (from, to)) in raised) report.Add(Report.Kind.Project, project, $"{id} raised {from} -> {to} (NU1605)");
+        foreach (var ((project, id), (from, to)) in raised)
+        {
+            report.Add(Report.Kind.Project, project, $"{id} raised {from} -> {to} (NU1605)");
+            if (PackageRaises.Note(id, from, to) is { } note) report.Add(Report.Kind.Raised, project, note + " (raised for another package that needs it: NU1605)");
+        }
         foreach (var (key, message) in obsoletions) report.Add(Report.Kind.Unsupported, key, message);
         return result;
     }
@@ -143,7 +147,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         var targets = Path.Combine(folder, "analyzers.targets");
         File.WriteAllText(targets, $"""
             <Project>
-              <ItemGroup Condition="'$(Language)' == 'C#' or '$(Language)' == 'VB'">
+              <ItemGroup Condition="('$(Language)' == 'C#' or '$(Language)' == 'VB') and !$([System.String]::Copy(';$(FrameworkOnCoreKeptProjects);').Contains(';$(MSBuildProjectName);'))">
                 <Analyzer Include="{System.Security.SecurityElement.Escape(dll)}" />
                 <AdditionalFiles Include="{System.Security.SecurityElement.Escape(platform)}" />
                 <CompilerVisibleProperty Include="FrameworkOnCoreApplicationAssemblies" />
@@ -154,11 +158,16 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         return targets;
     }
 
+    // As the compiler has them: the project's, and the SDK's own of net10.0 where it keeps them.
+    static IEnumerable<string> Symbols(ConvertedProject? project) =>
+        (project is null || project.ImplicitFrameworkDefines ? ProjectConverter.SdkSymbols : Array.Empty<string>())
+            .Concat(project?.Defines ?? Array.Empty<string>()).Distinct();
+
     IEnumerable<string> SymbolsFor(string file)
     {
         var project = projects.Where(p => IsUnder(file, Path.GetDirectoryName(p.TargetPath)!))
             .OrderByDescending(p => p.TargetPath.Length).FirstOrDefault();
-        return ProjectConverter.SdkSymbols.Concat(project?.Defines ?? Array.Empty<string>()).Distinct();
+        return Symbols(project);
     }
 
     CSharpParseOptions ParseOptionsFor(string file) => new(LanguageVersion.Preview, preprocessorSymbols: SymbolsFor(file));
@@ -245,8 +254,11 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         var application = string.Join("%3B", projects.Select(p => p.AssemblyName ?? p.Name).Distinct(StringComparer.OrdinalIgnoreCase));
         // And those built for .NET too: the analyzers leave their Windows paths (FOC1001-1004).
         var crossPlatform = string.Join("%3B", projects.Where(p => p.CrossPlatform).Select(p => p.AssemblyName ?? p.Name).Distinct(StringComparer.OrdinalIgnoreCase));
+        // And those kept as they are (analyzers, source generators: they run in the compiler, not the application; some
+        // treat warnings as errors): none of the analyzers.
+        var kept = string.Join("%3B", projects.Where(p => p.Kept).Select(p => Path.GetFileNameWithoutExtension(p.TargetPath)).Distinct(StringComparer.OrdinalIgnoreCase));
         var withAnalyzers = AnalyzersTargets() is { } targets
-            ? $" \"-p:CustomAfterMicrosoftCommonTargets={targets}\" \"-p:FrameworkOnCoreApplicationAssemblies={application}\" \"-p:FrameworkOnCoreCrossPlatformAssemblies={crossPlatform}\""
+            ? $" \"-p:CustomAfterMicrosoftCommonTargets={targets}\" \"-p:FrameworkOnCoreApplicationAssemblies={application}\" \"-p:FrameworkOnCoreCrossPlatformAssemblies={crossPlatform}\" \"-p:FrameworkOnCoreKeptProjects={kept}\""
             : "";
         var (exitCode, output) = Dotnet($"build \"{webProject}\" -nologo -v q -clp:NoSummary{withAnalyzers}", Log);
         var errors = new List<BuildError>();
@@ -282,7 +294,51 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
 
     static Version ParseVersion(string version) => Version.TryParse(Regex.Match(version, @"^\d+(\.\d+){0,3}").Value, out var v) ? v : new Version(0, 0);
 
+    // Packages released together, whose assemblies call each other's members of their own version: one version in a
+    // project (mojoPortal had Microsoft.IdentityModel.Tokens 8.19.1 with JsonWebTokens 8.16.0: MissingMethodException).
+    static readonly Func<string, bool>[] families =
+    [
+        id => id.StartsWith("Microsoft.IdentityModel.", StringComparison.OrdinalIgnoreCase) || id.Equals("System.IdentityModel.Tokens.Jwt", StringComparison.OrdinalIgnoreCase),
+    ];
+
     void RaiseDowngrades(string webProject)
+    {
+        for (var pass = 0; pass < 3; pass++)
+        {
+            RaiseDowngradesOnce(webProject);
+            if (!AlignFamilies()) return;
+        }
+    }
+
+    // A family's packages in a project at the highest version among them (restore raises the rest after).
+    bool AlignFamilies()
+    {
+        var reference = new Regex("<PackageReference Include=\"(?<id>[^\"]+)\" Version=\"(?<version>[^\"]+)\"");
+        var changed = false;
+        foreach (var project in projects)
+        {
+            var text = File.ReadAllText(project.TargetPath);
+            var original = text;
+            var found = reference.Matches(text).Select(m => (Id: m.Groups["id"].Value, Version: m.Groups["version"].Value)).ToList();
+            foreach (var inFamily in families)
+            {
+                var members = found.Where(p => inFamily(p.Id)).ToList();
+                if (members.Select(m => m.Version).Distinct().Count() < 2) continue;
+                var highest = members.Select(m => m.Version).OrderByDescending(ParseVersion).First();
+                foreach (var (id, version) in members.Where(m => m.Version != highest))
+                {
+                    text = text.Replace($"<PackageReference Include=\"{id}\" Version=\"{version}\"", $"<PackageReference Include=\"{id}\" Version=\"{highest}\"");
+                    var key = (project.Name, id);
+                    raised[key] = (raised.TryGetValue(key, out var before) ? before.From : version, highest);
+                    changed = true;
+                }
+            }
+            if (text != original) File.WriteAllText(project.TargetPath, text, new UTF8Encoding(false));
+        }
+        return changed;
+    }
+
+    void RaiseDowngradesOnce(string webProject)
     {
         var downgrade = new Regex(@"Detected package downgrade: (\S+) from (\S+?)\.? to (\S+?)\.?\s");
         for (var round = 0; round < 10; round++)
@@ -328,7 +384,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
     {
         var project = projects.Where(p => IsUnder(file, Path.GetDirectoryName(p.TargetPath)!))
             .OrderByDescending(p => p.TargetPath.Length).FirstOrDefault();
-        var symbols = ProjectConverter.SdkSymbols.Concat(project?.Defines ?? Array.Empty<string>()).Distinct();
+        var symbols = Symbols(project);
         var original = File.ReadAllText(file);
         var text = SourceText.From(original);
         var tree = CSharpSyntaxTree.ParseText(text, new CSharpParseOptions(LanguageVersion.Preview, preprocessorSymbols: symbols), file);

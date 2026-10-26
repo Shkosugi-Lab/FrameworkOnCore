@@ -368,5 +368,6 @@ export const KNOWN_EN = {
   'コンパイルのために変えたソース(スタブ・削除)': 'Sources changed to compile (stubs, removals)',
   'Linux で動かすために変えたソース(Windows のパス)': 'Sources changed to run on Linux (Windows paths)',
   'プロジェクトとパッケージ': 'Projects and packages',
+  'パッケージの大きな版上げ(コードは前の版に合わせて書かれている)': 'Packages moved to a higher major version (the code was written for the earlier one)',
   'ソースの無い DLL からの呼び出しは、変換器が互換アセンブリの拡張メンバーの呼び出しに置き換える': 'Calls from DLLs without source are replaced by the converter with calls of the compatibility assembly\'s extension members',
 };

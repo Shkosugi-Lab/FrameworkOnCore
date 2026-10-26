@@ -57,6 +57,13 @@ public abstract class SourceLanguage
     /// <summary>The declarator AsNewDeclarator found, its creation replaced by a call of the target.</summary>
     public virtual SyntaxNode? RetargetAsNew(SyntaxNode declarator, string target) => null;
 
+    /// <summary>
+    /// An expression that names the member it is the value of (C#'s new { l.NativeName }, (l.NativeName, x); Visual
+    /// Basic's New With { l.NativeName }): what holds it, and that holder with the name written, for when the expression
+    /// is replaced by one that names nothing (a call).
+    /// </summary>
+    public virtual (SyntaxNode Holder, Func<SyntaxNode, SyntaxNode?> Name)? InferredName(SyntaxNode expression) => null;
+
     /// <summary>The constant declaration (a field or a local) a literal is the value of, and its names.</summary>
     public abstract SyntaxNode? ConstantDeclaration(SyntaxNode literal, out IReadOnlyList<string> names, out bool isField);
 
@@ -79,6 +86,26 @@ public abstract class SourceLanguage
             original.Parent is CSS.InterpolationSyntax && rewritten is CSS.ExpressionSyntax expression && rewritten is not CSS.ParenthesizedExpressionSyntax && rewritten.ToString().Contains("::")
                 ? CS.SyntaxFactory.ParenthesizedExpression(expression.WithoutTrivia()).WithTriviaFrom(rewritten)
                 : rewritten;
+
+        public override (SyntaxNode Holder, Func<SyntaxNode, SyntaxNode?> Name)? InferredName(SyntaxNode expression)
+        {
+            var name = expression switch
+            {
+                CSS.MemberAccessExpressionSyntax access => access.Name.Identifier.ValueText,
+                CSS.IdentifierNameSyntax identifier => identifier.Identifier.ValueText,
+                CSS.ConditionalAccessExpressionSyntax { WhenNotNull: CSS.MemberBindingExpressionSyntax binding } => binding.Name.Identifier.ValueText,
+                _ => null,
+            };
+            if (name == null) return null;
+            return expression.Parent switch
+            {
+                CSS.AnonymousObjectMemberDeclaratorSyntax { NameEquals: null } member =>
+                    (member, h => h is CSS.AnonymousObjectMemberDeclaratorSyntax m ? m.WithNameEquals(CS.SyntaxFactory.NameEquals(name)) : null),
+                CSS.ArgumentSyntax { NameColon: null, Parent: CSS.TupleExpressionSyntax } argument =>
+                    (argument, h => h is CSS.ArgumentSyntax a ? a.WithNameColon(CS.SyntaxFactory.NameColon(name)) : null),
+                _ => null,
+            };
+        }
 
         public override SyntaxTree Parse(SourceText text, string path, IEnumerable<string> symbols) =>
             CS.CSharpSyntaxTree.ParseText(text, new CS.CSharpParseOptions(CS.LanguageVersion.Preview, preprocessorSymbols: symbols), path);
@@ -261,6 +288,21 @@ public abstract class SourceLanguage
                 arguments = arguments.WithArguments(VB.SyntaxFactory.SeparatedList(nodes, arguments.Arguments.Count == 0 ? Array.Empty<SyntaxToken>() : separators));
             }
             return VB.SyntaxFactory.InvocationExpression(VB.SyntaxFactory.ParseExpression(target), arguments).WithTriviaFrom(call);
+        }
+
+        public override (SyntaxNode Holder, Func<SyntaxNode, SyntaxNode?> Name)? InferredName(SyntaxNode expression)
+        {
+            var name = expression switch
+            {
+                VBS.MemberAccessExpressionSyntax access => access.Name.Identifier.ValueText,
+                VBS.IdentifierNameSyntax identifier => identifier.Identifier.ValueText,
+                _ => null,
+            };
+            if (name == null || expression.Parent is not VBS.InferredFieldInitializerSyntax field) return null;
+            return (field, h => h is VBS.InferredFieldInitializerSyntax f
+                ? VB.SyntaxFactory.NamedFieldInitializer(VB.SyntaxFactory.IdentifierName(name), f.Expression.WithLeadingTrivia(VB.SyntaxFactory.Space))
+                    .WithKeyKeyword(f.KeyKeyword).WithTriviaFrom(f)
+                : null);
         }
 
         public override SyntaxNode? AsNewDeclarator(SyntaxNode creation) =>

@@ -19,6 +19,8 @@ public sealed class Report
         Error,
         /// <summary>An IIS feature the site uses (the server's settings, web.config's) and what the host does of it.</summary>
         Iis,
+        /// <summary>A package moved to a higher major version than the code was written for (PackageRaises).</summary>
+        Raised,
     }
 
     public sealed record Entry(Kind Kind, string Subject, string Text);
@@ -39,6 +41,7 @@ public sealed class Report
         var headings = new Dictionary<Kind, string>
         {
             [Kind.Error] = "未解決(変換で解決できなかったもの)",
+            [Kind.Raised] = "パッケージの大きな版上げ(コードは前の版に合わせて書かれている)",
             [Kind.Iis] = "IIS の機能(元のサーバーと web.config の設定。未対応のものは変換後に効かない)",
             [Kind.Unsupported] = ".NET に無い、または Windows 専用の API",
             [Kind.Stub] = "コンパイルのために変えたソース(スタブ・削除)",

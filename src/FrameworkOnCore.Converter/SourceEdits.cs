@@ -256,6 +256,11 @@ public sealed class SourceEdits(SourceLanguage language, Rules rules)
                 Report.Kind.Platform));
 
         if (edits.Count == 0) return (text.ToString(), done, left);
+        // A member of an anonymous type or a tuple named by its expression (new { l.NativeName }, DNN's language settings):
+        // replaced, the expression names nothing (CS0746), so the name is written (new { NativeName = ...NativeName(l) }).
+        foreach (var node in edits.Keys.ToList())
+            if (language.InferredName(node) is { } named && !edits.ContainsKey(named.Holder))
+                Put(named.Holder, named.Name, Declaration + 1);
         var rewritten = root.ReplaceNodes(edits.Keys, (original, inner) =>
         {
             foreach (var edit in edits[original].Values) inner = edit(inner) ?? inner;

@@ -920,6 +920,20 @@ System.Drawing を Linux で動かす試み(`api-probe/drawing`、Ubuntu 24.04 �
   - 変換、ネイティブ起動も 200 を返した。
   - Studio を強制終了すると、ネイティブのアプリが止まり、IIS のサイトは次の起動で消えた。
 
+### 再発の防止: 変換が原因のスタブは未解決に、コーパスの基準、書き換えのコンパイル、ランタイムの境界(2026-10-27、ユーザーの指示)
+
+上の不具合が見つからなかった理由(変換器がビルドを通すためにメソッドを例外にして「BUILD OK」とし、スタブの原因を区別していなかった。確認が be/wt に限られ、ほかのコーパスのレポートを作り直していなかった。画面の比較では見えない違いだった。書き換えのテストが典型例だけだった。部品どうしの境界のテストが無かった)に対して:
+
+- **変換が原因のスタブは「未解決」**(`StubCauses`): スタブ・削除のたびに、コンパイラーのエラーから原因を判定する。型の不一致・匿名型の名前・ref/out・名前空間の衝突(CS1503、CS0029、CS0746、CS1510、CS0118 など)は変換が原因。見つからない型・名前空間・アセンブリ(CS0246、CS0234、CS0012)と、メンバーの無い型(CS1061、CS0117)は、.NET Framework 4.8 の参照アセンブリにあれば .NET に無いもの、無ければ(パッケージ・アプリの型)変換が原因。宣言の消えた名前(CS0103)も変換が原因。基底(WCF Data Services の DataServiceContext など)を外した型のメンバーは連鎖として .NET 側。変換が原因のものはスタブの節に加えて「未解決」に「stubbed because of the conversion, not of .NET」と出る。
+- **コーパスの基準**(`corpora/regression/conversion-baseline.json`、`convert-corpora.ps1`): コーパスごとにビルドの成否・未解決・スタブの数を記録し、変換のたびに比べる。増えたら REGRESSION と出してスクリプトを失敗させる(減ったら知らせる。`-UpdateBaseline` で記録)。
+- **書き換えがコンパイルできるか**(`RewriteCompilesTests`): 書き換えた結果を互換アセンブリとコンパイルする。C# 30・VB 9 の書き方(params の配列と要素、名前付き引数、out、匿名型・タプル、?.、式ツリー、nameof、補間、定数・char の定数・定数としての使用・属性の引数、メソッド グループ、double の文字列化の各形、VB の Module・As New・New With)。テストの書き換えも変換器と同じく「定数として使われる名前は定数のまま」にした(以前は常に書き換える前提だった)。
+- **ランタイムの境界**(`RuntimeBoundaryTests`): パックした FrameworkOnCore のパッケージを読み、.NET Framework の型の公開シグネチャが .NET Framework に無い名前空間の型(Microsoft.Data.SqlClient など)を使っていないこと、移植版と同じ役目のアセンブリ(Microsoft.Data.SqlClient)を参照していないことを確かめる。w2l.22 のパッケージに当てると、System.Web の Microsoft.Data.SqlClient への参照、SqlCacheDependency と SqlExecutionException のシグネチャを見つけた。
+- **これらで見つけて直したもの**: `nameof(CultureInfo.NativeName)` を書き換えていた(FOC1006 は nameof の中を置き換えない)。.NET Framework の参照アセンブリの取得が、同時に呼ばれると展開でぶつかっていた(1 つずつに)。
+- **これらで見つけて残したもの**(yaf、未解決 2 件、基準に記録):
+  - ServiceStack の `LicenseUtils.FromXml`: `#if NETFX` の外で、`#if !NET481` の中の `ExtractFromXml` を呼ぶ。元のビルドは NETFX と NET481 を両方定義し、変換は NET481 だけを定義する(NETFX はリポジトリの Directory.Build.props で net481 のときだけ定義)。Directory.Build.props の条件も net10.0 に書き換えて NETFX を付けると、.NET Framework 用の実装(PclExport.NetFx.cs)がコンパイルできずにファイルごと外れ、スタブが 44 → 115 件に増えた。.NET Standard 用の分岐の方が .NET 10 でよく動くので、書き換えはしない。
+  - OEmbed.Core: パッケージの .NET Framework 用は `Embed(url, hostUrl)`、.NET 10 用は `EmbedAsync` だけ。YAF の BBCode のメディアの埋め込みが止まる。.NET Framework 用の DLL を使う規則(frameworkAssets)は、参照がそれを間接的に使う YAF.Web に届かず、別のエラーになったので入れていない。
+- **検証**: 全 11 本を変換し直してビルドが通り、基準を記録(未解決は yaf の 2 件だけ)。基準を 1 つ厳しくすると be で REGRESSION になり、スクリプトが失敗することを確かめた。テスト Windows 4,550 件、Linux 4,523 件(SQL Server のコンテナあり)と SqlClientTests 204 件が緑。Windows: be 5/5、wt 8/8、mvcmovie 11/12・contoso 9/12(以前と同じ)、mojo・n2 のトップと dnn のインストーラー 200。Linux: be 5/5、wt 7/8(error-page、以前から)。
+
 ### 変換器の点検: ビルドを通すために機能を黙って止めていた所(2026-10-27、ユーザーの指示)
 
 Studio の「自分で対応する所」から、変換レポートの「コンパイルのために変えたソース(スタブ・削除)」を見直した。変換器の書き換えやプロジェクトの変換が原因でビルドが通らず、メソッドが「例外を投げる」形にされていた所があった(.NET に無い API のせいではない)。コーパスのレポートに加え、同じ種類の間違いが起きうる所を変換器全体で点検した(ソースの書き換え・プロジェクト形式の変換・パッケージの版と公開 API の型の 3 観点)。

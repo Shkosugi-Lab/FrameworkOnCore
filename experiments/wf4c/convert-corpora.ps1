@@ -1,7 +1,11 @@
 ﻿# Converts the corpora (corpora\work) with the FrameworkOnCore converter (src\FrameworkOnCore.Converter)
 # and prints each one's outcome; the report is <out>\CONVERSION-REPORT.md.
-#   .\experiments\wf4c\convert-corpora.ps1 [-Only be,wt]
-param([string[]]$Only = @('be', 'wt', 'mojo', 'yaf', 'dnn', 'n2', 'imis', 'nop', 'mvcmovie', 'nop390', 'contoso'), [switch]$Rebuild)
+#   .\experiments\wf4c\convert-corpora.ps1 [-Only be,wt] [-UpdateBaseline]
+# Each conversion is compared with corpora\regression\conversion-baseline.json (its build, its unresolved, its stubs):
+# more unresolved or stubs than there were is a regression (the code the conversion stops to compile is a feature that
+# silently does not work), reported, and the script fails at the end. -UpdateBaseline writes this run's counts there
+# (after the stubs added were looked at: each a .NET API's absence, StubCauses).
+param([string[]]$Only = @('be', 'wt', 'mojo', 'yaf', 'dnn', 'n2', 'imis', 'nop', 'mvcmovie', 'nop390', 'contoso'), [switch]$Rebuild, [switch]$UpdateBaseline)
 
 $repo = Resolve-Path (Join-Path $PSScriptRoot '..\..')
 Set-Location $repo
@@ -35,6 +39,15 @@ $originals = @{
 dotnet build src\FrameworkOnCore.Converter\FrameworkOnCore.Converter.csproj -v q -nologo | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'converter build failed' }
 $converter = 'src\FrameworkOnCore.Converter\bin\Debug\net10.0\FrameworkOnCore.Converter.dll'
+$baselinePath = Join-Path $repo 'corpora\regression\conversion-baseline.json'
+$baseline = [ordered]@{}
+if (Test-Path $baselinePath) { (Get-Content $baselinePath -Raw | ConvertFrom-Json).PSObject.Properties | ForEach-Object { $baseline[$_.Name] = $_.Value } }
+$regressions = @()
+# A section's count in the report ("## <title>(<n> 件)"), by the start of its title.
+function SectionCount([string]$report, [string]$title) {
+    $line = Select-String -Path $report -Pattern ('^## ' + [regex]::Escape($title)) | Select-Object -First 1
+    if ($line -and $line.Line -match '\((\d+) 件\)$') { [int]$Matches[1] } else { 0 }
+}
 $logs = Join-Path $PSScriptRoot '_linux'
 New-Item -ItemType Directory $logs -Force | Out-Null
 foreach ($name in $Only) {
@@ -95,4 +108,25 @@ foreach ($name in $Only) {
     $rounds = (Select-String -Path $log -Pattern '^build \d+:').Count
     "=== $name $(if ($code -eq 0) { 'BUILD OK' } else { "FAILED ($code)" }) (rounds: $rounds) $counts"
     if ($code -ne 0) { Select-String -Path $log -Pattern '\[Error\]' | Select-Object -First 8 | ForEach-Object { '  ' + $_.Line.Trim().Substring(0, [Math]::Min(220, $_.Line.Trim().Length)) } }
+    if (Test-Path $reportPath) {
+        $now = [ordered]@{ build = [int]($code -eq 0); unresolved = SectionCount $reportPath '未解決'; stubs = SectionCount $reportPath 'コンパイルのために変えたソース' }
+        $before = $baseline[$name]
+        if ($before) {
+            $worse = @()
+            if ($now.build -lt $before.build) { $worse += 'the build fails' }
+            if ($now.unresolved -gt $before.unresolved) { $worse += "unresolved $($before.unresolved) -> $($now.unresolved)" }
+            if ($now.stubs -gt $before.stubs) { $worse += "stubs $($before.stubs) -> $($now.stubs)" }
+            if ($worse) { "  REGRESSION: $($worse -join ', ') (corpora\regression\conversion-baseline.json)"; $regressions += $name }
+            elseif ($now.unresolved -lt $before.unresolved -or $now.stubs -lt $before.stubs) { "  better than the baseline: unresolved $($before.unresolved) -> $($now.unresolved), stubs $($before.stubs) -> $($now.stubs) (-UpdateBaseline records it)" }
+        }
+        else { "  no baseline yet (-UpdateBaseline records it)" }
+        if ($UpdateBaseline) { $baseline[$name] = $now }
+    }
 }
+if ($UpdateBaseline) {
+    $sorted = [ordered]@{}
+    foreach ($key in ($baseline.Keys | Sort-Object)) { $sorted[$key] = $baseline[$key] }
+    [IO.File]::WriteAllText($baselinePath, ($sorted | ConvertTo-Json -Depth 3) + "`n", (New-Object Text.UTF8Encoding $false))
+    "baseline written: $baselinePath"
+}
+if ($regressions) { throw "conversion regressions: $($regressions -join ', ') (more unresolved or stubbed code than corpora\regression\conversion-baseline.json)" }

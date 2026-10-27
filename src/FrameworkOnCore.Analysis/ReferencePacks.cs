@@ -18,6 +18,14 @@ public static class ReferencePacks
     /// <summary>.NET Framework 4.8's reference assemblies: name -> file (the facades too: netstandard, System.Runtime).</summary>
     public static IReadOnlyDictionary<string, string> Framework()
     {
+        // One at a time: two callers fetching and extracting at once collide on the files (a test run's first two).
+        lock (frameworkGate) return FrameworkOnce();
+    }
+
+    static readonly object frameworkGate = new();
+
+    static IReadOnlyDictionary<string, string> FrameworkOnce()
+    {
         var root = Path.Combine(toolsCache, "reference-assemblies");
         var folder = Path.Combine(root, ".NETFramework", "v4.8");
         if (!File.Exists(Path.Combine(root, ".net48")))

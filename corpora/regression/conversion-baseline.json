@@ -1,0 +1,57 @@
+{
+    "be":  {
+               "build":  1,
+               "unresolved":  0,
+               "stubs":  23
+           },
+    "contoso":  {
+                    "build":  1,
+                    "unresolved":  0,
+                    "stubs":  0
+                },
+    "dnn":  {
+                "build":  1,
+                "unresolved":  0,
+                "stubs":  70
+            },
+    "imis":  {
+                 "build":  1,
+                 "unresolved":  0,
+                 "stubs":  1
+             },
+    "mojo":  {
+                 "build":  1,
+                 "unresolved":  0,
+                 "stubs":  13
+             },
+    "mvcmovie":  {
+                     "build":  1,
+                     "unresolved":  0,
+                     "stubs":  0
+                 },
+    "n2":  {
+               "build":  1,
+               "unresolved":  0,
+               "stubs":  6
+           },
+    "nop":  {
+                "build":  1,
+                "unresolved":  0,
+                "stubs":  12
+            },
+    "nop390":  {
+                   "build":  1,
+                   "unresolved":  0,
+                   "stubs":  1
+               },
+    "wt":  {
+               "build":  1,
+               "unresolved":  0,
+               "stubs":  0
+           },
+    "yaf":  {
+                "build":  1,
+                "unresolved":  2,
+                "stubs":  44
+            }
+}

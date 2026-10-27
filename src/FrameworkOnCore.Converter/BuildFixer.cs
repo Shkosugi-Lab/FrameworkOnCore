@@ -81,6 +81,24 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         return result;
     }
 
+    // Why each stub was made: what .NET has not, or the conversion (StubCauses): the latter unresolved too, as the
+    // original compiled (an over-eager rewrite, a reference or package lost, a name made visible).
+    FrameworkIndex? frameworkIndex;
+    bool frameworkIndexLoaded;
+    StubCauses? stubCauses;
+    StubCauses Causes => stubCauses ??= new StubCauses(() =>
+    {
+        if (!frameworkIndexLoaded) (frameworkIndex, frameworkIndexLoaded) = (FrameworkIndex.Load(), true);
+        return frameworkIndex;
+    });
+
+    void Stubbed(string subject, string text, string reason)
+    {
+        report.Add(Report.Kind.Stub, subject, text);
+        if (Causes.FromConversion(reason) is { } cause)
+            report.Add(Report.Kind.Error, subject, $"stubbed because of the conversion, not of .NET: {cause} ({reason})");
+    }
+
     // What the build pointed at, file by file (SourceEdits: one pass, in the file's language).
     bool Rewrite()
     {
@@ -410,7 +428,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
             var reasons = string.Join("; ", fixes.Where(f => f.Action == Action.ExcludeFile).Select(f => f.Reason).Distinct());
             File.WriteAllText(file, $"// Excluded by FrameworkOnCore (the original is in the source tree): {reasons.Replace("\n", " ")}\n", new UTF8Encoding(false));
             pointed.Remove(file);
-            report.Add(Report.Kind.Stub, Relative(file), $"file excluded: {reasons}");
+            Stubbed(Relative(file), $"file excluded: {reasons}", reasons);
             return true;
         }
 
@@ -428,8 +446,11 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
             switch (fix.Action)
             {
                 case Action.RemoveNode:
+                    // A base .NET has not: the type's missing members follow from it (StubCauses).
+                    if (fix.Node is BaseTypeSyntax or BaseListSyntax && fix.Node.FirstAncestorOrSelf<BaseTypeDeclarationSyntax>() is { } declared && Causes.FromConversion(fix.Reason) == null)
+                        Causes.TypesWithoutBase.Add(declared.Identifier.ValueText);
                     newRoot = newRoot.RemoveNode(node, SyntaxRemoveOptions.KeepDirectives | SyntaxRemoveOptions.KeepEndOfLine)!;
-                    report.Add(Report.Kind.Stub, subject, $"removed ({fix.Reason})");
+                    Stubbed(subject, $"removed ({fix.Reason})", fix.Reason);
                     break;
                 case Action.RemoveOverride:
                     var member = (MemberDeclarationSyntax)node;
@@ -439,7 +460,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
                     break;
                 case Action.StubBody:
                     newRoot = newRoot.ReplaceNode(node, StubBody(node, fix.Reason));
-                    report.Add(Report.Kind.Stub, subject, $"body throws PlatformNotSupportedException ({fix.Reason})");
+                    Stubbed(subject, $"body throws PlatformNotSupportedException ({fix.Reason})", fix.Reason);
                     break;
                 case Action.RemoveInitializer:
                     newRoot = newRoot.ReplaceNode(node, node switch
@@ -448,7 +469,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
                         PropertyDeclarationSyntax p => p.WithInitializer(null).WithSemicolonToken(default),
                         _ => node,
                     });
-                    report.Add(Report.Kind.Stub, subject, $"initializer removed ({fix.Reason})");
+                    Stubbed(subject, $"initializer removed ({fix.Reason})", fix.Reason);
                     break;
                 case Action.ReplaceMember:
                     newRoot = newRoot.ReplaceNode(node, ParseExpression("global::" + fix.Alias).WithTriviaFrom(node));

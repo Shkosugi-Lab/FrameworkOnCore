@@ -89,6 +89,8 @@ public sealed class PlatformAnalyzer : DiagnosticAnalyzer
         if (symbol?.ContainingType == null) return;
         // In a query's expression tree (LINQ to SQL, Entity Framework) a replacement is a call the provider cannot translate.
         if (SpanInExpressionAnalyzer.InExpressionTree(operation)) return;
+        // In nameof: a name, not a use (nameof(CultureInfo.NativeName) is "NativeName"; a call there does not compile).
+        for (var o = operation.Parent; o != null; o = o.Parent) if (o is INameOfOperation) return;
         var type = Located.FullName(symbol.ContainingType);
         var name = symbol is IMethodSymbol { MethodKind: MethodKind.Constructor } ? ".ctor" : symbol.Name;
         foreach (var rule in rules)

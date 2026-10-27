@@ -40,7 +40,7 @@ public sealed partial class BuildFixer
             var reasons = string.Join("; ", fixes.Where(f => f.Action == Action.ExcludeFile).Select(f => f.Reason).Distinct());
             File.WriteAllText(file, $"' Excluded by FrameworkOnCore (the original is in the source tree): {reasons.Replace("\n", " ")}\n", new UTF8Encoding(false));
             pointed.Remove(file);
-            report.Add(Report.Kind.Stub, Relative(file), $"file excluded: {reasons}");
+            Stubbed(Relative(file), $"file excluded: {reasons}", reasons);
             return true;
         }
 
@@ -59,7 +59,7 @@ public sealed partial class BuildFixer
             {
                 case Action.RemoveNode:
                     newRoot = newRoot.RemoveNode(node, SyntaxRemoveOptions.KeepDirectives | SyntaxRemoveOptions.KeepEndOfLine)!;
-                    report.Add(Report.Kind.Stub, subject, $"removed ({fix.Reason})");
+                    Stubbed(subject, $"removed ({fix.Reason})", fix.Reason);
                     break;
                 case Action.RemoveOverride:
                     var method = (VBS.MethodBaseSyntax)node;
@@ -70,11 +70,11 @@ public sealed partial class BuildFixer
                     break;
                 case Action.StubBody:
                     newRoot = newRoot.ReplaceNode(node, StubBodyVisualBasic((VBS.MethodBlockBaseSyntax)node, fix.Reason));
-                    report.Add(Report.Kind.Stub, subject, $"body throws PlatformNotSupportedException ({fix.Reason})");
+                    Stubbed(subject, $"body throws PlatformNotSupportedException ({fix.Reason})", fix.Reason);
                     break;
                 case Action.RemoveInitializer:
                     newRoot = newRoot.ReplaceNode(node, ((VBS.VariableDeclaratorSyntax)node).WithInitializer(null));
-                    report.Add(Report.Kind.Stub, subject, $"initializer removed ({fix.Reason})");
+                    Stubbed(subject, $"initializer removed ({fix.Reason})", fix.Reason);
                     break;
                 case Action.LateBound:
                     newRoot = newRoot.ReplaceNode(node, VB.SyntaxFactory.ParseExpression($"CObj({node.WithoutTrivia()})").WithTriviaFrom(node));

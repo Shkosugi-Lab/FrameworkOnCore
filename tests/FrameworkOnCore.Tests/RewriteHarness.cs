@@ -46,8 +46,26 @@ static class RewriteHarness
         return language.Apply(source, pointed, rules);
     }
 
-    static string Apply(this SourceLanguage language, string source, List<Pointed> pointed, Rules rules) =>
-        new SourceEdits(language, rules).Apply(SourceText.From(source), "test", Array.Empty<string>(), pointed, (_, _) => true).Text;
+    /// <summary>The errors of the source as rewritten, compiled with the compatibility assembly (FrameworkOnCore.Compat).</summary>
+    public static IReadOnlyList<Diagnostic> CompileCSharp(string source) =>
+        CSharpCompilation.Create("App", new[] { CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(Microsoft.CodeAnalysis.CSharp.LanguageVersion.Latest)) },
+                framework, new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
+            .GetDiagnostics().Where(d => d.Severity == DiagnosticSeverity.Error).ToList();
+
+    public static IReadOnlyList<Diagnostic> CompileVisualBasic(string source) =>
+        VisualBasicCompilation.Create("App", new[] { VisualBasicSyntaxTree.ParseText(source) },
+                framework, new VisualBasicCompilationOptions(OutputKind.DynamicallyLinkedLibrary, optionStrict: OptionStrict.On))
+            .GetDiagnostics().Where(d => d.Severity == DiagnosticSeverity.Error).ToList();
+
+    // As the converter has it (BuildFixer): a constant's names stay constants where they are used as constants (a case
+    // label, an attribute's argument), its literal reported, not rewritten.
+    static string Apply(this SourceLanguage language, string source, List<Pointed> pointed, Rules rules)
+    {
+        var text = SourceText.From(source);
+        var root = language.Parse(text, "test", Array.Empty<string>()).GetRoot();
+        return new SourceEdits(language, rules).Apply(text, "test", Array.Empty<string>(), pointed,
+            (names, _) => names.All(name => !language.UsedAsConstant(root, name))).Text;
+    }
 
     sealed class Text(string path, string text) : AdditionalText
     {

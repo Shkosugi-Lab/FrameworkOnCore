@@ -213,6 +213,7 @@
 
   "$comment_frameworkAssets": "Packages whose .NET asset has another API than the .NET Framework one the site ran: that one is referenced (restored, not compiled against). The DLL in the package, and why.",
   "frameworkAssets": {
+    "OEmbed.Core": { "asset": "lib/net481/OEmbed.Core.dll", "note": "net481 has IOEmbed.Embed(url, hostUrl), which YAF's [MEDIA] BBCode calls; net10.0 has EmbedAsync only (the asset's references, mscorlib, System.Runtime.Caching, Newtonsoft.Json, are .NET 10's)" },
     "PetaPoco.Compiled": { "asset": "lib/net45/PetaPoco.dll", "note": "net45 has Database(string connectionStringName), which reads the configuration; netstandard2.0 does not" },
     "WindowsAzure.Storage": { "asset": "lib/net45/Microsoft.WindowsAzure.Storage.dll", "note": "net45 has the synchronous API (CloudBlockBlob.Exists, UploadFromByteArray, CloudBlobContainer.CreateIfNotExists, ListBlobs); netstandard1.x has only the asynchronous one (nopCommerce 3.90's AzurePictureService)" }
   },

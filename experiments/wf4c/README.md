@@ -931,8 +931,17 @@ System.Drawing を Linux で動かす試み(`api-probe/drawing`、Ubuntu 24.04 �
 - **これらで見つけて直したもの**: `nameof(CultureInfo.NativeName)` を書き換えていた(FOC1006 は nameof の中を置き換えない)。.NET Framework の参照アセンブリの取得が、同時に呼ばれると展開でぶつかっていた(1 つずつに)。
 - **これらで見つけて残したもの**(yaf、未解決 2 件、基準に記録):
   - ServiceStack の `LicenseUtils.FromXml`: `#if NETFX` の外で、`#if !NET481` の中の `ExtractFromXml` を呼ぶ。元のビルドは NETFX と NET481 を両方定義し、変換は NET481 だけを定義する(NETFX はリポジトリの Directory.Build.props で net481 のときだけ定義)。Directory.Build.props の条件も net10.0 に書き換えて NETFX を付けると、.NET Framework 用の実装(PclExport.NetFx.cs)がコンパイルできずにファイルごと外れ、スタブが 44 → 115 件に増えた。.NET Standard 用の分岐の方が .NET 10 でよく動くので、書き換えはしない。
-  - OEmbed.Core: パッケージの .NET Framework 用は `Embed(url, hostUrl)`、.NET 10 用は `EmbedAsync` だけ。YAF の BBCode のメディアの埋め込みが止まる。.NET Framework 用の DLL を使う規則(frameworkAssets)は、参照がそれを間接的に使う YAF.Web に届かず、別のエラーになったので入れていない。
+  - OEmbed.Core: パッケージの .NET Framework 用は `Embed(url, hostUrl)`、.NET 10 用は `EmbedAsync` だけで、YAF の BBCode の [MEDIA] の表示がスタブになっていた(例外を捕まえないので、[MEDIA] を含む投稿のあるトピックのページがエラーになる)。→ 下の「frameworkAssets を間接的に使うプロジェクトにも」で解決(2026-10-29)。
 - **検証**: 全 11 本を変換し直してビルドが通り、基準を記録(未解決は yaf の 2 件だけ)。基準を 1 つ厳しくすると be で REGRESSION になり、スクリプトが失敗することを確かめた。テスト Windows 4,550 件、Linux 4,523 件(SQL Server のコンテナあり)と SqlClientTests 204 件が緑。Windows: be 5/5、wt 8/8、mvcmovie 11/12・contoso 9/12(以前と同じ)、mojo・n2 のトップと dnn のインストーラー 200。Linux: be 5/5、wt 7/8(error-page、以前から)。
+
+### frameworkAssets を間接的に使うプロジェクトにも(2026-10-29、ユーザーの指示)
+
+パッケージの .NET Framework 用の DLL を使う規則(`rules/packages.json` の frameworkAssets: PackageReference に ExcludeAssets="compile;runtime"、その DLL への Reference)は、パッケージを直接参照するプロジェクトにしか効いていなかった。SDK 形式のプロジェクトは参照先のパッケージも見るが、除外された資産は引き継がれない。YAF.Web は YAF.Core 経由で OEmbed.Core を使っていて、型が見つからなかった。
+
+- **FrameworkAssetsFlow**(全プロジェクトの変換の後): frameworkAssets を当てたパッケージを持つプロジェクトを、参照の連鎖で(間接的にも)使う SDK 形式のプロジェクトに、同じ PackageReference(ExcludeAssets・GeneratePathProperty)と Reference を足す。旧形式から変換したプロジェクト(DisableTransitiveProjectReferences: 自分の参照だけでコンパイルしていた)は対象外。テスト `FrameworkAssetsFlowTests`。
+- **OEmbed.Core** を frameworkAssets に加えた(net481 の DLL の参照、mscorlib・System.Runtime.Caching・Newtonsoft.Json はどれも .NET 10 で解決できる)。
+- **結果**: yaf の YAF.Web・YAF.Data.SqlServer に OEmbed.Core の .NET Framework 版。[MEDIA] の表示はスタブでなくなり、未解決 2 → 1 件(残りは ServiceStack の `FromXml`。実害なし: 上の節)、スタブ 44 → 43 件(基準を更新)。サイトの bin の OEmbed.Core.dll は net481 版。dnn の DotNetNuke.Maintenance・ModulePipeline も PetaPoco の net45 版になった(以前は DotNetNuke.Library が net45 版、この 2 つが netstandard 版を見ていて、同じ名前の DLL が 2 種類あった。bin は net45 版)。
+- **検証**: テスト Windows 4,551 件が緑。yaf・dnn・nop390 を変換し直してビルドが通り、基準より悪化なし。yaf の `/`(以前からのプロバイダーの件で 500)と dnn のインストーラー(200)は以前と同じ。[MEDIA] を含む投稿の表示そのものは、yaf がまだ `/` で止まるので確かめていない。
 
 ### 変換器の点検: ビルドを通すために機能を黙って止めていた所(2026-10-27、ユーザーの指示)
 

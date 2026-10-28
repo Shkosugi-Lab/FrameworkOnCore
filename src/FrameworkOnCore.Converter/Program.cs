@@ -186,6 +186,9 @@ if (site != null)
     }
 }
 
+// A package taken as its .NET Framework asset is so for the projects that see it through another one too.
+FrameworkAssetsFlow.Apply(converter.Converted, rules, report);
+
 // Built as one solution: the web project and every converted project, in the configuration the site was built in (a
 // solution's own default is Debug, which it gives its projects whatever their Directory.Build.props says).
 var buildTarget = Path.Combine(outRoot, "FrameworkOnCore.slnx");

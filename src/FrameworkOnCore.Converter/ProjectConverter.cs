@@ -710,7 +710,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         conditions.Configuration.Equals("Debug", StringComparison.OrdinalIgnoreCase) ? new[] { "DEBUG", "TRACE" } : new[] { "TRACE" };
 
     // The DLL of a package's .NET Framework asset, by the package's path property (GeneratePathProperty).
-    static string FrameworkAssetPath(string id, string asset) => $"$(Pkg{id.Replace('.', '_').Replace('-', '_')})\\{asset.Replace('/', '\\')}";
+    internal static string FrameworkAssetPath(string id, string asset) => $"$(Pkg{id.Replace('.', '_').Replace('-', '_')})\\{asset.Replace('/', '\\')}";
 
     // What the .NET SDK defines for a .NET Framework target (net472: NETFRAMEWORK, NET472, NET20_OR_GREATER
     // ... NET472_OR_GREATER).

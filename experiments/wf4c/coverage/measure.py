@@ -4,14 +4,15 @@
 #   python experiments/wf4c/coverage/measure.py [Tests Runtime SqlClient Mobile DataVisualization Drawing WebControls[.TextBox]]
 #
 # Output: experiments/wf4c/coverage/results/<program>.cobertura.xml and merged.cobertura.xml.
-import filecmp, glob, os, shutil, subprocess, sys
+import filecmp, glob, os, re, shutil, subprocess, sys
 
 repo = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 results = os.path.join(repo, 'experiments', 'wf4c', 'coverage', 'results')
 settings = os.path.join(repo, 'experiments', 'wf4c', 'coverage', 'collect.config')
 packages = os.path.join(os.path.expanduser('~'), '.nuget', 'packages')
 tests_bin = os.path.join(repo, 'tests', 'FrameworkOnCore.Tests', 'bin', 'Debug', 'net10.0')
-version = '1.6.5-w2l.23'
+# The packages' version the parity programs reference (rules/packages.json's frameworkOnCoreVersion).
+version = re.search(r'"frameworkOnCoreVersion"\s*:\s*"([^"]+)"', open(os.path.join(repo, 'src', 'FrameworkOnCore.Converter', 'rules', 'packages.json'), encoding='utf-8-sig').read()).group(1)
 
 
 def programs():

@@ -1545,7 +1545,10 @@ namespace System.Web {
                     // If the header is Set-Cookie, update the corresponding
                     // cookie in the cookies collection
                     if (value != null) {
-                        HttpCookie cookie = HttpRequest.CreateCookieFromString(value);
+                        HttpCookie cookie = HttpRequest.CreateCookieFromString(value, false /*useConfiguredDefaults*/);
+                        // Its attributes too (.NET Framework 4.8's servicing update, aspnet:EnsureCookieDefaults).
+                        if (AppSettings.FixCookieDefaults)
+                            HttpCookie.TryParseFlags(value, value.IndexOf(';'), cookie);
                         // do not write this cookie back to IIS
                         cookie.IsInResponseHeader = true;
                         Cookies.Set(cookie);
@@ -3437,7 +3440,9 @@ namespace System.Web {
                 virtualPath = UrlPath.Reduce(virtualPath);
             }
 
-            if (_appPathModifier == null || virtualPath.IndexOf(_appPathModifier, StringComparison.Ordinal) >= 0) {
+            // aspnet:DisableAppPathModifier (.NET Framework 4.8's servicing update; the default unless a cookieless mode uses the URL):
+            // no cookieless value in the URLs made.
+            if (AppSettings.DisableAppPathModifier || _appPathModifier == null || virtualPath.IndexOf(_appPathModifier, StringComparison.Ordinal) >= 0) {
 #if DBG
                 Debug.Trace("ClientUrl", "*** ApplyAppPathModifier (" + originalUrl + ") --> " + virtualPath + " ***");
 #endif
@@ -3490,6 +3495,12 @@ namespace System.Web {
             int pos = virtualPath.IndexOf(_appPathModifier, StringComparison.Ordinal);
 
             if (pos <= 0 || virtualPath[pos-1] != '/')
+                return virtualPath;
+
+            // .NET Framework 4.8's servicing update (after the reference source): only a whole segment, unless
+            // aspnet:RestoreAggressiveCookielessPathRemoval.
+            if (!AppSettings.RestoreAggressiveCookielessPathRemoval
+                && (virtualPath.Length < pos + _appPathModifier.Length + 1 || virtualPath[pos + _appPathModifier.Length] != '/'))
                 return virtualPath;
 
             return virtualPath.Substring(0, pos-1) + virtualPath.Substring(pos + _appPathModifier.Length);

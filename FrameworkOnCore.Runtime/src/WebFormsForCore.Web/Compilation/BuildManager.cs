@@ -2698,9 +2698,19 @@ private static void GetGhostedVirtualPath(ref string virtualPath) {
         // Check that the virtual path in the result matches the passed in
         // virtualPath (VSWhidbey 516641).  But skip this check in case the key came from
         // calling VirtualPathProvider.GetCacheKey, as it may legitimately not match.
-        if (!keyFromVPP)
+        if (!keyFromVPP && virtualPath != null)
         {
-            if (virtualPath != null && virtualPath != result.VirtualPath)
+            // .NET Framework 4.8's servicing update (aspnet:VerifyVirtualPathFromDiskCache, the default): the result's path
+            // ends with the one asked for (from the application's root), case aside.
+            if (AppSettings.VerifyVirtualPathFromDiskCache)
+            {
+                string appRelative = virtualPath.AppRelativeVirtualPathString;
+                if (appRelative.StartsWith("~/", StringComparison.OrdinalIgnoreCase))
+                    appRelative = appRelative.Substring(1);
+                if (!result.VirtualPath.VirtualPathString.EndsWith(appRelative, StringComparison.OrdinalIgnoreCase))
+                    return null;
+            }
+            else if (virtualPath != result.VirtualPath)
             {
                 Debug.Assert(false);
                 return null;

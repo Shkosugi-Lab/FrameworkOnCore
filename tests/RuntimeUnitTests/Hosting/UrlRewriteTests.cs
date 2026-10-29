@@ -152,4 +152,47 @@ public class UrlRewriteTests
         var e = Assert.Throws<InvalidOperationException>(() => Pipeline(site.Root, "AspNetCore"));
         Assert.Contains("UrlRewrite:Mode Iis", e.Message);
     }
+
+    const string RedirectToQuery = "<rule name='r'><match url='^go$' /><conditions><add input='{QUERY_STRING}' pattern='^u=(.*)$' /></conditions>" +
+        "<action type='Redirect' url='/{C:1}' redirectType='Found' appendQueryString='false' /></rule>";
+
+    [Theory] // a redirect to "//host" (a rule's "/{C:1}" of a query string "/evil.example") is not one to another host: an absolute
+    // Location with the request's host, as Iis mode sends it (IIS's http://host//evil.example); "/\host" too (a browser's "//")
+    [InlineData("AspNetCore", "/go?u=/evil.example", "http://localhost:8080//evil.example")]
+    [InlineData("AspNetCore", @"/go?u=\evil.example", @"http://localhost:8080/\evil.example")]
+    [InlineData("Iis", @"/go?u=\evil.example", @"http://localhost:8080/\evil.example")]
+    [InlineData("Iis", "/go?u=/evil.example", "http://localhost:8080//evil.example")]
+    public async Task A_redirect_to_another_host_s_path_is_absolute(string mode, string target, string location)
+    {
+        using var site = new Site(Rules(RedirectToQuery));
+        var context = Site.Request(target);
+        await Pipeline(site.Root, mode)(context);
+        Assert.Equal(302, context.Response.StatusCode);
+        Assert.Equal(location, context.Response.Headers.Location.ToString());
+    }
+
+    [Theory] // a rule's Location of the request's own ("{C:1}"): one a browser takes for another host's ("\\host") absolute too; a URL as it is
+    [InlineData("Iis", @"/go?u=\\evil.example", @"http://localhost:8080/\\evil.example")]
+    [InlineData("AspNetCore", @"/go?u=\\evil.example", @"http://localhost:8080/\\evil.example")]
+    [InlineData("Iis", "/go?u=http://example.org/x", "http://example.org/x")]
+    [InlineData("AspNetCore", "/go?u=http://example.org/x", "http://example.org/x")]
+    public async Task A_redirect_to_the_query_string_s_URL(string mode, string target, string location)
+    {
+        using var site = new Site(Rules("<rule name='r'><match url='^go$' /><conditions><add input='{QUERY_STRING}' pattern='^u=(.*)$' /></conditions>" +
+            "<action type='Redirect' url='{C:1}' redirectType='Found' appendQueryString='false' /></rule>"));
+        var context = Site.Request(target);
+        await Pipeline(site.Root, mode)(context);
+        Assert.Equal(302, context.Response.StatusCode);
+        Assert.Equal(location, context.Response.Headers.Location.ToString());
+    }
+
+    [Fact] // the summary: AspNetCore mode keeps a relative Location (a path on the request's host) as ASP.NET Core's rewriter writes it
+    public async Task AspNetCore_mode_keeps_a_relative_Location()
+    {
+        using var site = new Site(Rules(RedirectToQuery));
+        var context = Site.Request("/go?u=new/x");
+        await Pipeline(site.Root, "AspNetCore")(context);
+        Assert.Equal(302, context.Response.StatusCode);
+        Assert.Equal("/new/x", context.Response.Headers.Location.ToString());
+    }
 }

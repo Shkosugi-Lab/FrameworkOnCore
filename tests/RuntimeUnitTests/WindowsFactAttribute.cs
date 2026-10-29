@@ -8,3 +8,12 @@ public sealed class WindowsFactAttribute : FactAttribute
         if (!OperatingSystem.IsWindows()) Skip = "Windows only: " + why;
     }
 }
+
+/// <summary>A theory of what only Windows has: skipped elsewhere, with the reason.</summary>
+public sealed class WindowsTheoryAttribute : TheoryAttribute
+{
+    public WindowsTheoryAttribute(string why)
+    {
+        if (!OperatingSystem.IsWindows()) Skip = "Windows only: " + why;
+    }
+}

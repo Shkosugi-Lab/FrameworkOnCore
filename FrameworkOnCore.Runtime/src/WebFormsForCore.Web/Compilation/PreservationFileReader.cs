@@ -81,7 +81,9 @@ internal class PreservationFileReader {
 
         // Get the config path that affects this BuildResult if one wasn't passed in.
         // Note that the passed in path may be different with Sharepoint-like ghosting (VSWhidbey 343230)
-        if (virtualPath == null)
+        // .NET Framework 4.8's servicing update (aspnet:VerifyVirtualPathFromDiskCache, the default): the path the result was
+        // compiled from, always (BuildManager.PostProcessFoundBuildResult checks it against the one asked for).
+        if (virtualPath == null || AppSettings.VerifyVirtualPathFromDiskCache)
             virtualPath = VirtualPath.Create(GetAttribute("virtualPath"));
 
         long savedHash = 0;

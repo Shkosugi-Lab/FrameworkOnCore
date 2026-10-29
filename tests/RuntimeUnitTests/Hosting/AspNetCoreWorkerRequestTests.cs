@@ -360,7 +360,7 @@ public class AspNetCoreWorkerRequestTests
 
     // --- Cookieless session (the URL's "(S(...))" segment, .NET Framework's CookielessHelperClass format)
 
-    [Theory] // .NET Framework (aspnet_filter, CookielessHelperClass): the URL's last "/(X(...)Y(...))/" segment is the AspFilterSessionId header
+    [Theory] // .NET Framework (aspnet_filter, CookielessHelperClass): the URL's first "/(X(...)Y(...))/" segment is the AspFilterSessionId header
     [InlineData("/(S(abc))/a.aspx", "S(abc)")]
     [InlineData("/x/(A(1)S(abc))/a.aspx", "A(1)S(abc)")]
     public void A_cookieless_segment_is_a_header(string target, string value)

@@ -404,6 +404,9 @@ internal class MemoryBytes {
     }
 
     internal MemoryBytes(byte[] data, int size, bool useTransmitFile, long fileSize) {
+        // .NET Framework 4.8's servicing update (aspnet:CheckMemoryBytes, the default).
+        if (AppSettings.CheckMemoryBytes && (size < 0 || size > data.Length))
+            throw new ArgumentOutOfRangeException("size");
         _size = size;
         _arrayData = data;
         _intptrData = IntPtr.Zero;

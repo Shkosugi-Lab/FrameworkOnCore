@@ -73,10 +73,9 @@ namespace System.Web.Security {
             if (path.IndexOf('(') == -1) {
                 return;
             }
-            int      endPos    = path.LastIndexOf(")/", StringComparison.Ordinal);
-            int      startPos  = (endPos > 2 ?  path.LastIndexOf("/(", endPos - 1, endPos, StringComparison.Ordinal) : -1);
-
-            if (startPos < 0) // pattern not found: common case, exit immediately
+            int      endPos;
+            int      startPos;
+            if (!FindCookielessValues(path, out startPos, out endPos)) // pattern not found: common case, exit immediately
                 return;
 
             if (_Headers == null) // Header should always be processed first
@@ -109,13 +108,17 @@ namespace System.Web.Security {
 
                     // For Cassini and scenarios where aspnet_filter.dll is not used,
                     // HttpRequest.FilePath also needs to have the cookie removed.
+                    // (.NET Framework 4.8's servicing update: only when aspnet_filter did not give it, unless
+                    // aspnet:RestoreAggressiveCookielessPathRemoval.)
                     string filePath = _Context.Request.FilePath;
-                    string newFilePath = _Context.Response.RemoveAppPathModifier(filePath);
-                    if (!Object.ReferenceEquals(filePath, newFilePath)) {
-                        _Context.RewritePath(VirtualPath.CreateAbsolute(newFilePath),
-                                             _Context.Request.PathInfoObject,
-                                             null /*newQueryString*/,
-                                             false /*setClientFilePath*/);
+                    if (String.IsNullOrEmpty(_Context.Request.Headers[COOKIELESS_SESSION_FILTER_HEADER]) || AppSettings.RestoreAggressiveCookielessPathRemoval) {
+                        string newFilePath = _Context.Response.RemoveAppPathModifier(filePath);
+                        if (!Object.ReferenceEquals(filePath, newFilePath)) {
+                            _Context.RewritePath(VirtualPath.CreateAbsolute(newFilePath),
+                                                 _Context.Request.PathInfoObject,
+                                                 null /*newQueryString*/,
+                                                 false /*setClientFilePath*/);
+                        }
                     }
                 }
             }
@@ -357,7 +360,40 @@ namespace System.Web.Security {
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////
         // Make sure sub-string if of the pattern: A(XXXX)N(XXXXX)P(XXXXX) and so on.
-        static private bool IsValidHeader(string path, int startPos, int endPos)
+        // .NET Framework 4.8's servicing update (after the reference source): the values only of letters, digits, '-' and '_'
+        // (any character but '/' with aspnet:RestoreAggressiveCookielessPathRemoval), and the whole only if it is aspnet_filter's
+        // (the AspFilterSessionId header) with aspnet:CookielessStrictMatchRemoval (the default).
+        private bool IsValidHeader(string path, int startPos, int endPos)
+        {
+            if (!IsValidCookielessValues(path, startPos, endPos))
+                return false;
+
+            if (AppSettings.CookielessStrictMatchRemoval)
+                return PathTokenMatchesFilterHeader(path, startPos, endPos);
+
+            return true;
+        }
+
+        // The "/(...)/" segment of a path that may have cookieless values (startPos at its '/', endPos at its ')'), as
+        // RemoveCookielessValuesFromPath looks for it; false if there is none. (AspNetCoreWorkerRequest gives it as aspnet_filter
+        // gives IIS the AspFilterSessionId header.)
+        internal static bool FindCookielessValues(string path, out int startPos, out int endPos)
+        {
+            // .NET Framework 4.8's servicing update (after the reference source): the first "/(" and the ")/" after it, unless
+            // aspnet:RestoreAggressiveCookielessPathRemoval asks for the reference source's last ")/" and the "/(" before it.
+            if (AppSettings.RestoreAggressiveCookielessPathRemoval) {
+                endPos   = path.LastIndexOf(")/", StringComparison.Ordinal);
+                startPos = (endPos > 2 ?  path.LastIndexOf("/(", endPos - 1, endPos, StringComparison.Ordinal) : -1);
+            }
+            else {
+                startPos = path.IndexOf("/(", StringComparison.Ordinal);
+                endPos   = (startPos >= 0 ? path.IndexOf(")/", startPos + 2, StringComparison.Ordinal) : -1);
+            }
+            return startPos >= 0;
+        }
+
+        // Whether path[startPos..endPos) is cookieless values: A(XXXX)N(XXXXX)...
+        internal static bool IsValidCookielessValues(string path, int startPos, int endPos)
         {
             if (endPos - startPos < 3) // Minimum len is "X()"
                 return false;
@@ -380,8 +416,16 @@ namespace System.Web.Security {
                         break; // Break out of this for-loop.
                     }
 
-                    if (path[startPos] == '/') { // Can't contain path separaters
-                        return false;
+                    if (AppSettings.RestoreAggressiveCookielessPathRemoval) {
+                        if (path[startPos] == '/') { // Can't contain path separaters
+                            return false;
+                        }
+                    }
+                    else {
+                        char c = path[startPos];
+                        if ((c < 'A' || c > 'Z') && (c < 'a' || c > 'z') && (c < '0' || c > '9') && c != '-' && c != '_') {
+                            return false;
+                        }
                     }
                 }
                 if (!found)  {
@@ -393,6 +437,16 @@ namespace System.Web.Security {
                 return false;
 
             return true;
+        }
+
+        // Whether the path's cookieless values are aspnet_filter's (the AspFilterSessionId header's, read first).
+        private bool PathTokenMatchesFilterHeader(string path, int tokenStart, int tokenEnd)
+        {
+            string headers = _Headers;
+            if (headers == null)
+                return false;
+            int length = tokenEnd - tokenStart;
+            return length == headers.Length && String.CompareOrdinal(path, tokenStart, headers, 0, length) == 0;
         }
 
         ////////////////////////////////////////////////////////////////////////

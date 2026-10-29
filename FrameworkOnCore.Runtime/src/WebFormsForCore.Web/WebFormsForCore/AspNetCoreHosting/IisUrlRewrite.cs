@@ -653,18 +653,55 @@ namespace System.Web.Hosting
 			if (replace || !state.Variables.ContainsKey(name)) state.Variables[name] = value;
 		}
 
+		/// <summary>A path on the request's host as an absolute URL (its scheme and host; the address it came to without a Host).</summary>
+		internal static string Absolute(Core.HttpContext context, string path)
+		{
+			var request = context.Request;
+			return request.Scheme + "://" + (request.Host.HasValue ? request.Host.Value : LocalHost(context)) + (path.StartsWith('/') ? path : "/" + path);
+		}
+
+		/// <summary>
+		/// Whether a Location is another host's for a browser though it looks like a path: "//host", "/\host", "\\host" (a
+		/// browser takes '\' for '/'), after the spaces and controls it drops before a URL and the tabs and line breaks it drops
+		/// in one.
+		/// </summary>
+		internal static bool IsSchemeRelative(string location)
+		{
+			int i = 0;
+			while (i < location.Length && location[i] <= ' ') i++;
+			int slashes = 0;
+			for (; i < location.Length; i++)
+			{
+				char c = location[i];
+				if (c == '\t' || c == '\r' || c == '\n') continue;
+				if (c != '/' && c != '\\') return false;
+				if (++slashes == 2) return true;
+			}
+			return false;
+		}
+
+		/// <summary>A URL without the spaces and controls before it (which a browser drops).</summary>
+		internal static string WithoutLeadingControls(string location)
+		{
+			int start = 0;
+			while (start < location.Length && location[start] <= ' ') start++;
+			return location.Substring(start);
+		}
+
 		/// <summary>
 		/// IIS's redirect: an absolute Location, its "Document Moved" body (its courtesy redirects', URL Rewrite's); the body
 		/// returned, for the caller to write.
 		/// </summary>
 		internal static byte[] Redirect(Core.HttpContext context, int status, string location)
 		{
-			var request = context.Request;
 			// A path made absolute with the request's host, as IIS makes it: "//evil.example" too (a rule's "/{C:1}" of a query
 			// string "/evil.example"; IIS sends http://host//evil.example), which was sent as it was: a scheme-relative URL, to
 			// another host for a browser (an open redirect).
+			// "\\evil.example" and " //evil.example" as well (a browser's "//evil.example"), without what a browser drops before it.
 			if (location.StartsWith("/", StringComparison.Ordinal))
-				location = request.Scheme + "://" + (request.Host.HasValue ? request.Host.Value : LocalHost(context)) + location;
+				location = Absolute(context, location);
+			else if (IsSchemeRelative(location))
+				location = Absolute(context, WithoutLeadingControls(location));
 			var response = context.Response;
 			response.StatusCode = status;
 			// The status line as IIS writes its redirects' (URL Rewrite's, HTTP redirection's).

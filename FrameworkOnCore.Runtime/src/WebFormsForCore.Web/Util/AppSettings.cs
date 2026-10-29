@@ -151,6 +151,38 @@ namespace System.Web.Util {
                             if (settings == null || !Boolean.TryParse(settings["aspnet:SuppressSameSiteNone"], out _suppressSameSiteNone))
                                 _suppressSameSiteNone = false; // Use the new stricter behavior by default, as the old behavior is likely to cause problems with newer browsers.
 
+                            // The settings .NET Framework 4.8's servicing updates added after the reference source, with their
+                            // defaults there.
+                            if (settings == null || !Boolean.TryParse(settings["aspnet:HandleNoMoreFiles"], out _handleNoMoreFiles))
+                                _handleNoMoreFiles = true;
+
+                            if (settings == null || !Boolean.TryParse(settings["aspnet:VerifyVirtualPathFromDiskCache"], out _verifyVirtualPathFromDiskCache))
+                                _verifyVirtualPathFromDiskCache = true;
+
+                            if (settings == null || !Boolean.TryParse(settings["aspnet:EnsureCookieDefaults"], out _fixCookieDefaults))
+                                _fixCookieDefaults = true;
+
+                            bool disableAppPathModifier;
+                            _disableAppPathModifierSetting = settings != null && Boolean.TryParse(settings["aspnet:DisableAppPathModifier"], out disableAppPathModifier) ? disableAppPathModifier : (bool?)null;
+
+                            if (settings == null || !Boolean.TryParse(settings["aspnet:CheckMemoryBytes"], out _checkMemoryBytes))
+                                _checkMemoryBytes = true;
+
+                            if (settings == null || !Boolean.TryParse(settings["aspnet:RestoreAggressiveCookielessPathRemoval"], out _restoreAggressiveCookielessPathRemoval))
+                                _restoreAggressiveCookielessPathRemoval = false;
+
+                            if (settings == null || !Boolean.TryParse(settings["aspnet:CookielessStrictMatchRemoval"], out _cookielessStrictMatchRemoval))
+                                _cookielessStrictMatchRemoval = true;
+
+                            if (settings == null || !Boolean.TryParse(settings["aspnet:JsonDeserializerLimitedDate"], out _jsonDeserializerLimitedDate))
+                                _jsonDeserializerLimitedDate = true;
+
+                            if (settings == null || !Boolean.TryParse(settings["aspnet:FileNameUtilUseLegacyInvalidChars"], out _fileNameUtilUseLegacyInvalidChars))
+                                _fileNameUtilUseLegacyInvalidChars = true;
+
+                            if (settings == null || !Boolean.TryParse(settings["aspnet:UseLegacyCacheKeyHash"], out _useLegacyCacheKeyHash))
+                                _useLegacyCacheKeyHash = true;
+
                             _settingsInitialized = true;
                         }
                     }
@@ -589,6 +621,136 @@ namespace System.Web.Util {
             {
                 EnsureSettingsLoaded();
                 return _suppressSameSiteNone;
+            }
+        }
+
+        // The settings of .NET Framework 4.8's servicing updates (after the reference source), as .NET Framework 4.8 has them.
+
+        // true [default] - FindFile's ERROR_NO_MORE_FILES is handled (not used by System.Web itself).
+        private static bool _handleNoMoreFiles;
+        internal static bool HandleNoMoreFiles {
+            get {
+                EnsureSettingsLoaded();
+                return _handleNoMoreFiles;
+            }
+        }
+
+        // true [default] - a build result read from the compilation's disk cache is used only for the virtual path it was
+        // compiled from (its preservation file's own virtualPath; BuildManager.PostProcessFoundBuildResult).
+        private static bool _verifyVirtualPathFromDiskCache;
+        internal static bool VerifyVirtualPathFromDiskCache {
+            get {
+                EnsureSettingsLoaded();
+                return _verifyVirtualPathFromDiskCache;
+            }
+        }
+
+        // true [default] (aspnet:EnsureCookieDefaults) - the request's cookies have <httpCookies>'s defaults (HttpOnly, Secure,
+        // SameSite, Domain), and a Set-Cookie header written with AppendHeader its attributes.
+        private static bool _fixCookieDefaults;
+        internal static bool FixCookieDefaults {
+            get {
+                EnsureSettingsLoaded();
+                return _fixCookieDefaults;
+            }
+        }
+
+        // true [default unless a cookieless mode (UseUri) is configured for session state, anonymous identification or forms
+        // authentication] - Response.ApplyAppPathModifier adds no cookieless value ("(S(...))") to the URLs it makes.
+        private static bool? _disableAppPathModifierSetting;
+        private static int _disableAppPathModifier = -1;
+        internal static bool DisableAppPathModifier {
+            get {
+                EnsureSettingsLoaded();
+                if (_disableAppPathModifierSetting.HasValue)
+                    return _disableAppPathModifierSetting.Value;
+                // As .NET Framework (the configuration's errors ignored); read when first asked (not while the settings load,
+                // which the configuration system may itself ask for), kept once the application's configuration was read.
+                int value = _disableAppPathModifier;
+                if (value < 0) {
+                    RuntimeConfig config;
+                    try {
+                        config = RuntimeConfig.GetAppConfig();
+                    }
+                    catch (ConfigurationException) {
+                        return true;
+                    }
+                    value = (config == null || !(UsesUri(() => config.SessionState.Cookieless) || UsesUri(() => config.AnonymousIdentification.Cookieless)
+                        || UsesUri(() => config.Authentication.Forms.Cookieless))) ? 1 : 0;
+                    _disableAppPathModifier = value;
+                }
+                return value == 1;
+            }
+        }
+
+        private static bool UsesUri(Func<HttpCookieMode> mode) {
+            try {
+                return mode() == HttpCookieMode.UseUri;
+            }
+            catch (ConfigurationException) {
+                return false;
+            }
+            catch (NullReferenceException) {
+                return false;
+            }
+        }
+
+        // true [default] - HttpResponse's buffers check a buffer's size against its data (MemoryBytes).
+        private static bool _checkMemoryBytes;
+        internal static bool CheckMemoryBytes {
+            get {
+                EnsureSettingsLoaded();
+                return _checkMemoryBytes;
+            }
+        }
+
+        // false [default] - a cookieless value is taken from the URL only as its first "/(...)/" segment of letters, digits, '-'
+        // and '_' (CookielessHelperClass), and removed from a path only as a whole segment (HttpResponse.RemoveAppPathModifier).
+        // true - the reference source's: the last "/(...)/", any character but '/'.
+        private static bool _restoreAggressiveCookielessPathRemoval;
+        internal static bool RestoreAggressiveCookielessPathRemoval {
+            get {
+                EnsureSettingsLoaded();
+                return _restoreAggressiveCookielessPathRemoval;
+            }
+        }
+
+        // true [default] - a cookieless value in the URL is removed from the path only if it is the one aspnet_filter gave
+        // (the AspFilterSessionId header).
+        private static bool _cookielessStrictMatchRemoval;
+        internal static bool CookielessStrictMatchRemoval {
+            get {
+                EnsureSettingsLoaded();
+                return _cookielessStrictMatchRemoval;
+            }
+        }
+
+        // true [default] - JavaScriptSerializer's dates limited (System.Web.Extensions; not used by System.Web itself).
+        private static bool _jsonDeserializerLimitedDate;
+        internal static bool JsonDeserializerLimitedDate {
+            get {
+                EnsureSettingsLoaded();
+                return _jsonDeserializerLimitedDate;
+            }
+        }
+
+        // true [default] - System.Web.UI.Util's file names refuse '/', '\\', '?', '*', ':' (the reference source's list, which
+        // the port has); false - Path.GetInvalidFileNameChars().
+        private static bool _fileNameUtilUseLegacyInvalidChars;
+        internal static bool FileNameUtilUseLegacyInvalidChars {
+            get {
+                EnsureSettingsLoaded();
+                return _fileNameUtilUseLegacyInvalidChars;
+            }
+        }
+
+        // true [default] - the cache's public keys hashed with string.GetHashCode (the reference source's); false - Marvin.
+        // .NET's string.GetHashCode is Marvin already (randomized).
+        private static bool _useLegacyCacheKeyHash;
+        internal static bool UseLegacyCacheKeyHash {
+            get {
+                EnsureSettingsLoaded();
+                return _useLegacyCacheKeyHash;
             }
         }
     }

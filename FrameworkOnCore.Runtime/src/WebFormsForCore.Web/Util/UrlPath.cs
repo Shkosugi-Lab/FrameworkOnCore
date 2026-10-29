@@ -129,33 +129,32 @@ namespace System.Web.Util
 		internal static bool IsAbsolutePhysicalPath(string path)
 		{
 			if (OSInfo.IsWindows) return IsAbsoluteWindowsPhysicalPath(path);
-			else return path.StartsWith("/");
+			else return path.StartsWith('/'); // a char: not the culture's linguistic StartsWith (ICU ignores a leading "\0")
 		}
 		internal static bool IsAbsolutePhysicalPathSmart(string path)
 		{
 			if (OSInfo.IsWindows) return IsAbsoluteWindowsPhysicalPath(path);
-			else return path != "/" && path.StartsWith("/") && Path.Exists(path);
+			else return path != "/" && path.StartsWith('/') && Path.Exists(path);
 		}
 		internal static bool IsVirtualPath(string path)
 		{
 			if (OSInfo.IsWindows) return !IsAbsoluteWindowsPhysicalPath(path);
 			else return true;
 		}
+		// A Windows physical path ("c:\foo", "\\server\share"), on any system: what .NET Framework refuses as a virtual path
+		// (CheckValidVirtualPath, <pages masterPageFile>, a site map's url). It was never one on Linux, where Combine and
+		// VirtualPathUtility took "//server/x" and "c:\x" (.NET Framework: HttpException, "Physical path not allowed").
 		internal static bool IsAbsoluteWindowsPhysicalPath(string path)
 		{
-			if (OSInfo.IsWindows)
-			{
-				if (path == null || path.Length < 3)
-					return false;
+			if (path == null || path.Length < 3)
+				return false;
 
-				// e.g c:\foo
-				if (path[1] == ':' && IsDirectorySeparatorChar(path[2]))
-					return true;
+			// e.g c:\foo
+			if (path[1] == ':' && IsDirectorySeparatorChar(path[2]))
+				return true;
 
-				// e.g \\server\share\foo or //server/share/foo
-				return IsUncSharePath(path);
-			}
-			else return false;
+			// e.g \\server\share\foo or //server/share/foo
+			return IsUncSharePath(path);
 		}
 
 		internal static bool IsUncSharePath(string path)
@@ -426,8 +425,10 @@ namespace System.Web.Util
 			}
 
 			// Uri's need full url's so, we use a dummy root
-			Uri fromUri = new Uri(dummyProtocolAndServer + from);
-			Uri toUri = new Uri(dummyProtocolAndServer + to);
+			// '\' as '/', and a '%' that is not an escape as "%25", as .NET Framework's Uri (and .NET's on Windows) takes them in a
+			// file URI; .NET's on Linux keeps '\' in a segment and reads "%u", "%G1" as U+FFFF ("../%G1" was "%EF%BF%BF").
+			Uri fromUri = new Uri(dummyProtocolAndServer + EscapeLonePercents(from.Replace('\\', '/')));
+			Uri toUri = new Uri(dummyProtocolAndServer + EscapeLonePercents(to.Replace('\\', '/')));
 
 			string relativePath;
 
@@ -468,6 +469,21 @@ namespace System.Web.Util
 
 			// Note that we need to re-append the query string and fragment (e.g. #anchor)
 			return relativePath + queryString + toUri.Fragment;
+		}
+
+		// A '%' not followed by two hexadecimal digits as "%25" (MakeRelative).
+		private static string EscapeLonePercents(string s)
+		{
+			if (s.IndexOf('%') < 0)
+				return s;
+			var sb = new StringBuilder(s.Length + 8);
+			for (int i = 0; i < s.Length; i++)
+			{
+				sb.Append(s[i]);
+				if (s[i] == '%' && !(i + 2 < s.Length && Uri.IsHexDigit(s[i + 1]) && Uri.IsHexDigit(s[i + 2])))
+					sb.Append("25");
+			}
+			return sb.ToString();
 		}
 
 		internal static string GetDirectoryOrRootName(string path)

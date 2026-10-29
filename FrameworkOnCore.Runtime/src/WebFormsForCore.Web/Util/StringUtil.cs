@@ -105,6 +105,28 @@ internal static class StringUtil {
         return String.Compare(s1, index1, s2, index2, length, StringComparison.OrdinalIgnoreCase) == 0;
     }
 
+    // The first index of an ASCII value in s from startIndex, ASCII letters' case aside; -1 if there is none. For the parsers
+    // that looked for a header's attribute with CultureInfo.InvariantCulture.CompareInfo.IndexOf(IgnoreCase) (.NET Framework's
+    // NLS): .NET's ICU, on Linux and on Windows, ignores characters there (DEL, the controls, soft hyphens...), which found
+    // "nam\x7Fe=" for "name=" and the match's length was then not the value's.
+    internal static int IndexOfAsciiIgnoreCase(string s, string value, int startIndex) {
+        int last = s.Length - value.Length;
+        for (int i = startIndex; i <= last; i++) {
+            int k = 0;
+            for (; k < value.Length; k++) {
+                char a = s[i + k], b = value[k];
+                if (a == b)
+                    continue;
+                if ((uint)((a | 0x20) - 'a') <= 'z' - 'a' && (a | 0x20) == (b | 0x20))
+                    continue;
+                break;
+            }
+            if (k == value.Length)
+                return i;
+        }
+        return -1;
+    }
+
 
     internal static string StringFromWCharPtr(IntPtr ip, int length) {
         unsafe {

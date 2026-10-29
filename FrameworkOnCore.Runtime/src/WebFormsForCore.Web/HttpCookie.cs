@@ -81,7 +81,7 @@ namespace System.Web {
             _changed = true;
         }
 
-        private void SetDefaultsFromConfig() {
+        internal void SetDefaultsFromConfig() {
             HttpCookiesSection config = RuntimeConfig.GetConfig().HttpCookies;
             _secure = config.RequireSSL;
             _httpOnly = config.HttpOnlyCookies;
@@ -371,13 +371,23 @@ namespace System.Web {
             int dividerIndex = input.IndexOf(';');
             string cookiePair = dividerIndex >= 0 ? input.Substring(0, dividerIndex) : input;
 
-            HttpCookie cookie = HttpRequest.CreateCookieFromString(cookiePair.Trim());
+            HttpCookie cookie = HttpRequest.CreateCookieFromString(cookiePair.Trim(), false /*useConfiguredDefaults*/);
 
             // If there was no cookie name being created, stop parsing and return
             if (string.IsNullOrEmpty(cookie.Name)) {
                 return false;
             }
 
+            TryParseFlags(input, dividerIndex, cookie);
+
+            result = cookie;
+
+            return true;
+        }
+
+        // The cookie-av attributes after the cookie's name and value (.NET Framework 4.8's servicing update: HttpResponse
+        // reads them too, from a Set-Cookie header written with AppendHeader).
+        internal static void TryParseFlags(string input, int dividerIndex, HttpCookie cookie) {
             //
             // Parse the collections of cookie-av 
             // cookie-av = expires-av/max-age-av/domain-av/path-av/secure-av/httponly-av/extension-av
@@ -432,10 +442,6 @@ namespace System.Web {
                     }
                 }
             }
-
-            result = cookie;
-
-            return true;
         }
 
         /*

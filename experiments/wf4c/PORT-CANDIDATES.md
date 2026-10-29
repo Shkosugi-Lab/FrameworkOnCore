@@ -115,6 +115,10 @@
 - `Math.Sin` などの結果の最後の桁(C ランタイムの違い。`Math.Sin(Math.PI)` が 1.22460635382238E-16 と 1.22464679914735E-16)。
 - `System.Web.HttpUtility`。.NET の共有フレームワークにもあり、FrameworkOnCore の System.Web は .NET のものへ型転送している(.NET 10 でアプリの `HttpUtility` は System.Web.HttpUtility.dll のもの)。
   `ParseQueryString(...).ToString()` が空のキーの `=` を落とす(`b&=c` が `b&c`)。web.config の `httpRuntime encoderType`(AntiXssEncoder など)をアプリの `HttpUtility.HtmlEncode` が使わない(候補: FrameworkOnCore の HttpUtility を使う。CS0433 を避ける参照の仕方が要る)。
+  .NET Framework 4.8 との差分ファジング(tests/RuntimeUnitTests/Fuzz の FuzzTests.The_application_s_HttpUtility_gives_NET_Framework_s_results。2026-10-30)で
+  ほかに: `ParseQueryString(...).ToString()` が ASCII 以外を UTF-8 の `%e3%81%82` で書く(.NET Framework は `%u3042`)、先頭の空の組の `&` を書く。
+  `UrlPathEncode` が DEL(U+007F)をそのまま残す(.NET Framework は `%7f`)、`//` か `\\` で始まるパスをホストとして扱い符号化しない。
+  不正な UTF-8 の U+FFFD の数(`UrlDecode`)。`UrlEncode`・`UrlEncodeUnicode`・`UrlDecode`・`HtmlEncode`・`HtmlAttributeEncode`・`HtmlDecode`・`JavaScriptStringEncode` はほかは同じ。
 - パスに使えない文字(`<`、`>`、`"`)。.NET Framework のファイルの API は先に検査して ArgumentException(Illegal characters in path)、.NET はシステムに任せる
   (Windows は IOException、Linux では使える文字なので見つからない)。Xml コントロールの DocumentSource などで見つけた。
 - OLE DB(System.Data.OleDb)は Windows のみ。Linux ではパッケージに実装が無い(`OleDbFactory.Instance` が null)。AccessDataSource(Access のファイル)は

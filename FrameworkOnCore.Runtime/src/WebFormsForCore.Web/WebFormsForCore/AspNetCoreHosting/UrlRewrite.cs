@@ -20,7 +20,8 @@ namespace Microsoft.AspNetCore.Builder
 	/// server variables, its patterns, its answers.</item>
 	/// <item>AspNetCore: ASP.NET Core's rewriter (Microsoft.AspNetCore.Rewrite, AddIISUrlRewrite), which an application
 	/// rewritten for ASP.NET Core keeps. The root's web.config only; what it does otherwise than IIS: the query string
-	/// appended before the rule's, a relative Location, IsDirectory never true, {REQUEST_URI} without the query string, no
+	/// appended before the rule's, a relative Location (absolute, as IIS's, if a browser would take it for another host's:
+	/// "//host", "/\host"), IsDirectory never true, {REQUEST_URI} without the query string, no
 	/// X-Original-URL; a rule it cannot read (subStatusCode, Wildcard, server variables it does not have:
 	/// HTTP_X_FORWARDED_PROTO, URL, SERVER_PORT...) stops the application's start.</item>
 	/// <item>Off: the rules are not run.</item>
@@ -62,7 +63,26 @@ namespace Microsoft.AspNetCore.Builder
 				throw new InvalidOperationException("web.config's URL Rewrite rules: ASP.NET Core's rewriter (UrlRewrite:Mode AspNetCore) does not read them: " +
 					e.Message + ". UrlRewrite:Mode Iis runs them as IIS does.", e);
 			}
-			return app.UseRewriter(options);
+			// A redirect of the rewriter's own (the request not passed on): its Location as the rule made it, "//evil.example" too
+			// (a rule's "/{C:1}" of a query string "/evil.example") or "/\evil.example", which a browser takes for another host's
+			// (an open redirect). Such a one made absolute with the request's host, as Iis mode (IIS) sends every redirect's
+			// (http://host//evil.example); a path that is one on this host stays relative (the summary).
+			var passedOn = new object();
+			app.Use(async (context, next) =>
+			{
+				await next(context);
+				var response = context.Response;
+				if (context.Items.ContainsKey(passedOn) || response.HasStarted) return;
+				var location = response.Headers.Location.ToString();
+				if (location.Length > 0 && System.Web.Hosting.IisUrlRewrite.IsSchemeRelative(location))
+					response.Headers.Location = System.Web.Hosting.IisUrlRewrite.Absolute(context, System.Web.Hosting.IisUrlRewrite.WithoutLeadingControls(location));
+			});
+			app.UseRewriter(options);
+			return app.Use((context, next) =>
+			{
+				context.Items[passedOn] = true;
+				return next(context);
+			});
 		}
 
 		/// <summary>web.config's rewrite section (its root's and its &lt;location&gt; for the root), as a document of its own; null without rules.</summary>

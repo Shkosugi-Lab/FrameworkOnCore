@@ -654,8 +654,12 @@ namespace System.Web {
         // Cookies collection support
         //
 
-        internal static HttpCookie CreateCookieFromString(String s) {
+        // useConfiguredDefaults: <httpCookies>'s HttpOnly, Secure, SameSite and Domain (.NET Framework 4.8's servicing update:
+        // the request's cookies have them with aspnet:EnsureCookieDefaults, the default).
+        internal static HttpCookie CreateCookieFromString(String s, bool useConfiguredDefaults) {
             HttpCookie c = new HttpCookie();
+            if (useConfiguredDefaults)
+                c.SetDefaultsFromConfig();
 
             int l = (s != null) ? s.Length : 0;
             int i = 0;
@@ -745,7 +749,7 @@ namespace System.Web {
                 if (cookieString.Length == 0)
                     continue;
 
-                HttpCookie cookie = CreateCookieFromString(cookieString);
+                HttpCookie cookie = CreateCookieFromString(cookieString, AppSettings.FixCookieDefaults);
 
                 // some cookies starting with '$' are really attributes of the last cookie
                 if (lastCookie != null) {
@@ -849,7 +853,7 @@ namespace System.Web {
             int i = 1; // start searching from 1
 
             while (i < l) {
-                i = CultureInfo.InvariantCulture.CompareInfo.IndexOf(headerValue, attrName, i, CompareOptions.IgnoreCase);
+                i = StringUtil.IndexOfAsciiIgnoreCase(headerValue, attrName, i); // not ICU's linguistic IndexOf (StringUtil)
                 if (i < 0)
                     break;
                 if (i+k >= l)

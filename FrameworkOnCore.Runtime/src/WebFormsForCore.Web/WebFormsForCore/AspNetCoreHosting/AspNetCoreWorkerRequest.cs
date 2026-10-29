@@ -824,20 +824,12 @@ namespace System.Web.Hosting
 				}
 			} 
             
-            // append AspFilterSessionId
-            var path = Context.Request.Path.Value ?? string.Empty;
-            // Optimize for the common case where there is no cookie
-            if (path.IndexOf('(') != -1)
+            // aspnet_filter's AspFilterSessionId: the URL's cookieless values (FilterCookielessValues)
+            FilterCookielessValues();
+            if (cookielessValues != null)
             {
-                int endPos = path.LastIndexOf(")/", StringComparison.Ordinal);
-                int startPos = (endPos > 2 ? path.LastIndexOf("/(", endPos - 1, endPos, StringComparison.Ordinal) : -1);
-                // pattern not found (the common case): no session header, the others still kept (it returned before them)
-                if (startPos >= 0 && IsValidHeader(path, startPos + 2, endPos))
-                {
-                    var sessionHeader = path.Substring(startPos + 2, endPos - startPos - 2);
-                    headers.Add("AspFilterSessionId");
-                    headers.Add(sessionHeader);
-                }
+                headers.Add(System.Web.Security.CookielessHelperClass.COOKIELESS_SESSION_FILTER_HEADER);
+                headers.Add(cookielessValues);
             }
 
             // copy to array unknown headers
@@ -852,45 +844,6 @@ namespace System.Web.Hosting
 				unknownRequestHeaders[i][1] = headers[j++];
 			}
 		}
-
-        // Make sure sub-string if of the pattern: A(XXXX)N(XXXXX)P(XXXXX) and so on.
-        static private bool IsValidHeader(string path, int startPos, int endPos)
-        {
-            if (endPos - startPos < 3) // Minimum len is "X()"
-                return false;
-
-            while (startPos <= endPos - 3) { // Each iteration deals with one "A(XXXX)" pattern
-
-                if (path[startPos] < 'A' || path[startPos] > 'Z') // Make sure pattern starts with a capital letter
-                    return false;
-
-                if (path[startPos + 1] != '(') // Make sure next char is '('
-                    return false;
-
-                startPos += 2;
-                bool found = false;
-                for (; startPos < endPos; startPos++) { // Find the ending ')'
-
-                    if (path[startPos] == ')') { // found it!
-                        startPos++; // Set position for the next pattern
-                        found = true;
-                        break; // Break out of this for-loop.
-                    }
-
-                    if (path[startPos] == '/') { // Can't contain path separaters
-                        return false;
-                    }
-                }
-                if (!found)  {
-                    return false; // Ending ')' not found!
-                }
-            }
-
-            if (startPos < endPos) // All chars consumed?
-                return false;
-
-            return true;
-        }
 
 		private void ParsePostedContent()
 		{
@@ -1129,10 +1082,44 @@ namespace System.Web.Hosting
 			}
 		}
 
+		// IIS's aspnet_filter (integrated mode too; observed on IIS 10: /(S(abc))/echo.aspx): a URL's cookieless values, the
+		// "/(...)/" segment CookielessHelperClass takes (FindCookielessValues: .NET Framework 4.8's servicing updates' first one),
+		// leave the URL before anything sees it (Path, FilePath, RawUrl, UNENCODED_URL, HTTP_URL are /echo.aspx) and are given
+		// as the AspFilterSessionId header, which System.Web reads them from. The segment was left in the path: with the
+		// servicing updates System.Web no longer takes it out of FilePath when aspnet_filter gave the header.
+		private string cookielessValues;
+		private bool cookielessFiltered;
+
+		private void FilterCookielessValues()
+		{
+			if (cookielessFiltered) return;
+			cookielessFiltered = true;
+			var requestPath = Context.Request.Path.Value ?? string.Empty;
+			// the common case: no cookieless values
+			if (requestPath.IndexOf('(') < 0) return;
+			if (!System.Web.Security.CookielessHelperClass.FindCookielessValues(requestPath, out var start, out var end)
+				|| !System.Web.Security.CookielessHelperClass.IsValidCookielessValues(requestPath, start + 2, end))
+				return;
+			cookielessValues = requestPath.Substring(start + 2, end - start - 2);
+			var segment = requestPath.Substring(start, end + 1 - start);
+			Context.Request.Path = new Core.PathString(requestPath.Remove(start, segment.Length));
+			// The URL as sent too (its path's; the values are letters, digits, '-' and '_': not escaped).
+			var feature = Context.Features.Get<Core.Features.IHttpRequestFeature>();
+			var target = feature?.RawTarget;
+			if (!string.IsNullOrEmpty(target))
+			{
+				int query = target.IndexOf('?');
+				int at = target.IndexOf(segment, StringComparison.Ordinal);
+				if (at >= 0 && (query < 0 || at < query)) feature.RawTarget = target.Remove(at, segment.Length);
+			}
+		}
+
 		private bool TryParseRequest()
 		{
 			refusal = 0;
 			Reset();
+
+			FilterCookielessValues();
 
 			ParseRequest();
 

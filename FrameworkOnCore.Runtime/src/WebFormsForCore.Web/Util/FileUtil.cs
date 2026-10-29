@@ -255,7 +255,44 @@ namespace System.Web.Util
 			return true;
 		}
 
-		private static readonly char[] s_invalidPathChars = Path.GetInvalidPathChars();
+		// .NET Framework's Path.GetInvalidPathChars(): '"', '<', '>', '|' and the control characters. .NET's has only '|' and the
+		// controls on Windows ('\0' on Linux), and its Path.GetFullPath takes the others: a path with one was not suspicious.
+		private static readonly char[] s_invalidPathChars = {
+			'"', '<', '>', '|', '\0', (char)1, (char)2, (char)3, (char)4, (char)5, (char)6, (char)7, (char)8, (char)9, (char)10,
+			(char)11, (char)12, (char)13, (char)14, (char)15, (char)16, (char)17, (char)18, (char)19, (char)20, (char)21, (char)22,
+			(char)23, (char)24, (char)25, (char)26, (char)27, (char)28, (char)29, (char)30, (char)31 };
+
+		// What .NET Framework's Path.GetFullPath refused (an exception: the path suspicious, as too long) and .NET's takes: a
+		// wildcard ('*', '?') outside a device path (\\?\, \\.\); on Windows, a ':' after a drive that is not a letter
+		// ("1:\x"), a UNC path without its share ("\\server", "\\server\").
+		private static bool FrameworkRefusesFullPath(string path)
+		{
+			bool device = path.Length >= 4 && IsSeparator(path[0]) && IsSeparator(path[1]) && (path[2] == '?' || path[2] == '.') && IsSeparator(path[3]);
+			if (!device && path.IndexOfAny(s_wildcards) >= 0)
+				return true;
+			if (!OSInfo.IsWindows || device)
+				return false;
+			if (path.Length >= 2 && path[1] == ':' && !((path[0] >= 'A' && path[0] <= 'Z') || (path[0] >= 'a' && path[0] <= 'z')))
+				return true;
+			if (path.Length >= 2 && IsSeparator(path[0]) && IsSeparator(path[1]))
+			{
+				int share = path.IndexOfAny(s_separators, 2);
+				if (share < 0)
+					return true;
+				for (int i = share + 1; i < path.Length; i++)
+				{
+					if (!IsSeparator(path[i]))
+						return false;
+				}
+				return true;
+			}
+			return false;
+		}
+
+		private static readonly char[] s_wildcards = { '*', '?' };
+		private static readonly char[] s_separators = { '\\', '/' };
+
+		private static bool IsSeparator(char c) => c == '\\' || c == '/';
 
 		// VSWhidbey 609102 - Medium trust apps may hit this method, and if the physical path exists,
 		// Path.GetFullPath will seek PathDiscovery permissions and throw an exception.
@@ -269,6 +306,7 @@ namespace System.Web.Util
 			if ((physicalPath != null) &&
 				 (physicalPath.Length > _maxPathLength ||
 				 physicalPath.IndexOfAny(s_invalidPathChars) != -1 ||
+				 FrameworkRefusesFullPath(physicalPath) ||
 				 // Contains ':' at any position other than 2nd char
 				 (physicalPath.Length > 0 && physicalPath[0] == ':') ||
 				 (physicalPath.Length > 2 && physicalPath.IndexOf(':', 2) > 0)))
@@ -369,7 +407,11 @@ namespace System.Web.Util
 			return accessible;
 		}
 
-		private static Char[] _invalidFileNameChars = Path.GetInvalidFileNameChars();
+		// .NET Framework's Path.GetInvalidFileNameChars() (Windows'; .NET's on Linux has only '\0' and '/').
+		private static Char[] _invalidFileNameChars = {
+			'"', '<', '>', '|', '\0', (char)1, (char)2, (char)3, (char)4, (char)5, (char)6, (char)7, (char)8, (char)9, (char)10,
+			(char)11, (char)12, (char)13, (char)14, (char)15, (char)16, (char)17, (char)18, (char)19, (char)20, (char)21, (char)22,
+			(char)23, (char)24, (char)25, (char)26, (char)27, (char)28, (char)29, (char)30, (char)31, ':', '*', '?', '\\', '/' };
 		internal static bool IsValidDirectoryName(String name)
 		{
 			if (String.IsNullOrEmpty(name))

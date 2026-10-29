@@ -14,7 +14,12 @@ using System.IO;
 internal class ResourcesBuildProvider : BaseResourcesBuildProvider {
 
     protected override IResourceReader GetResourceReader(Stream inputStream) {
+#if WebFormsForCore
+        // a .resources file .NET Framework wrote: its serialized objects read by the port's formatter (SerializedResources)
+        return new SerializedResourceReader(inputStream);
+#else
         return new ResourceReader(inputStream);
+#endif
     }
 }
 

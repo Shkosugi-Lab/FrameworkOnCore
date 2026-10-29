@@ -109,7 +109,8 @@ namespace System.Resources
 					this.typeNameConverter = typeNameConverter;
 					System.Type type = value == null ? typeof(object) : value.GetType();
 					// A CultureInfo is written by its name (FillDataNodeInfoFromObject); .NET's is not [Serializable], .NET Framework's was.
-					if (value != null && !type.IsSerializable && !(value is CultureInfo))
+					// (and what the port's BinaryFormatter serializes as .NET Framework's did: a Type, a NameValueCollection...)
+					if (value != null && !WebFormsForCore.Serialization.Formatters.Binary.FormatterServices.IsSerializable(type) && !(value is CultureInfo))
 						throw new InvalidOperationException(SR.GetString(SR.Not_Serializable_Type_Resources, name, type.FullName));
 					if (value != null)
 						this.typeName = MultitargetUtil.GetAssemblyQualifiedName(type, this.typeNameConverter);
@@ -296,10 +297,11 @@ namespace System.Resources
 					break;
 			}
 			System.Type type2 = type1;
-			if (value != null && !type2.IsSerializable)
+			if (value != null && !WebFormsForCore.Serialization.Formatters.Binary.FormatterServices.IsSerializable(type2))
 				throw new InvalidOperationException(SR.GetString(SR.Not_Serializable_Type_Resources, (object)this.name, (object)type2.FullName));
 			TypeConverter converter = TypeDescriptor.GetConverter(type2);
-			bool flag1 = converter.CanConvertTo(typeof(string));
+			// (not with a converter .NET Framework did not have: Version's, serialized as it wrote it)
+			bool flag1 = converter.CanConvertTo(typeof(string)) && System.Web.Util.FrameworkConverters.IsFrameworkConverter(converter);
 			bool flag2 = converter.CanConvertFrom(typeof(string));
 			try
 			{
@@ -419,7 +421,7 @@ namespace System.Resources
 							string valueData = dataNodeInfo.ValueData;
 							try
 							{
-								fromDataNodeInfo = converter.ConvertFromInvariantString(valueData);
+								fromDataNodeInfo = System.Web.Util.FrameworkConverters.ConvertFromInvariantString(converter, valueData);
 							}
 							catch (NotSupportedException ex)
 							{
@@ -608,6 +610,10 @@ namespace System.Resources
                     (asm, typeName, ignoreCase) => asm != null ? asm.GetType(typeName, false, ignoreCase) : Type.GetType(typeName, false, ignoreCase),
 					false);
 			}
+			// WebFormsForCore: .NET Framework's ResX types (System.Windows.Forms': ResXNullRef, a null resource, as Visual
+			// Studio and .NET Framework's writer wrote it), here System.Web's
+			if (type == (System.Type)null && typeName.StartsWith("System.Resources.ResX", StringComparison.Ordinal))
+				type = ResXDataNode.internalTypeResolver.GetType(typeName, false, true);
 			return type;
 		}
 

@@ -661,7 +661,11 @@ namespace System.Web.UI {
                             // TypeDescriptor.GetConverter() will never return null.  The ref docs
                             // for this method are incorrect.
                             try {
+#if WebFormsForCore
+                                result = System.Web.Util.FrameworkConverters.ConvertFromInvariantString(converter, formattedValue);
+#else
                                 result = converter.ConvertFromInvariantString(formattedValue);
+#endif
                             }
                             catch (Exception exception) {
                                 if (_throwOnErrorDeserializing) {
@@ -885,7 +889,13 @@ namespace System.Web.UI {
             }
             else {
                 writer.Write(Token_TypeRefAdd);
+#if WebFormsForCore
+                // .NET Framework's name of the type (mscorlib's, System's, System.Web 4.0.0.0...: what it wrote and reads),
+                // not .NET's (System.Private.CoreLib...)
+                writer.Write(WebFormsForCore.Serialization.Formatters.Binary.FormatterServices.GetFrameworkAssemblyQualifiedName(type));
+#else
                 writer.Write(type.AssemblyQualifiedName);
+#endif
             }
         }
 
@@ -1178,6 +1188,10 @@ namespace System.Web.UI {
 
                     TypeConverter converter = TypeDescriptor.GetConverter(valueType);
                     bool canConvert = System.Web.UI.Util.CanConvertToFrom(converter, typeof(string));
+#if WebFormsForCore
+                    // not with a converter .NET Framework did not have (Version's: BinaryFormatter's bytes, as it wrote them)
+                    canConvert = canConvert && System.Web.Util.FrameworkConverters.IsFrameworkConverter(converter);
+#endif
 
                     if (canConvert) {
                         writer.Write(Token_StringFormatted);
@@ -1292,7 +1306,13 @@ namespace System.Web.UI {
         /// </devdoc>
         private sealed class SerializerBinaryWriter : BinaryWriter {
 
+#if WebFormsForCore
+            // .NET Framework's BinaryWriter wrote UTF-8 that refuses a lone surrogate (EncoderFallbackException: the value is
+            // not serialized), .NET's replaces it with U+FFFD (Encoding.UTF8): the same as .NET Framework.
+            public SerializerBinaryWriter(Stream stream) : base(stream, new System.Text.UTF8Encoding(false, true)) {
+#else
             public SerializerBinaryWriter(Stream stream) : base(stream) {
+#endif
             }
 
             public void WriteEncoded(int value) {

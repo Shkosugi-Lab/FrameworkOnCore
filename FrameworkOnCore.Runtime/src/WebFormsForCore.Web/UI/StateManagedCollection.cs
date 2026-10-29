@@ -414,7 +414,12 @@ namespace System.Web.UI {
 
                     // If type is not in list, add it to the list
                     if (index == null) {
+#if WebFormsForCore
+                        // .NET Framework's name of the type (the view state's: what it wrote and reads)
+                        typedObjectTypeNames.Add(WebFormsForCore.Serialization.Formatters.Binary.FormatterServices.GetFrameworkAssemblyQualifiedName(objectType));
+#else
                         typedObjectTypeNames.Add(objectType.AssemblyQualifiedName);
+#endif
 
                         // Offset the index by the known type count
                         index = typedObjectTypeNames.Count + knownTypeCount - 1;
@@ -496,7 +501,12 @@ namespace System.Web.UI {
 
                         object index = typedObjectTracker[objectType];
                         if (index == null) {
+#if WebFormsForCore
+                            // .NET Framework's name of the type (the view state's: what it wrote and reads)
+                            typedObjectTypeNames.Add(WebFormsForCore.Serialization.Formatters.Binary.FormatterServices.GetFrameworkAssemblyQualifiedName(objectType));
+#else
                             typedObjectTypeNames.Add(objectType.AssemblyQualifiedName);
+#endif
 
                             // Offset the index by the known type count
                             index = typedObjectTypeNames.Count + knownTypeCount - 1;

@@ -211,6 +211,18 @@ namespace System.Configuration
 			return obj;
 		}
 
+		// WebFormsForCore: a CultureInfo as .NET Framework's converter made it, a new one of the name (.NET's gives the installed
+		// one, CultureInfo.GetCultures', which its converter keeps and gives every conversion).
+		private static object FromInvariantString(TypeConverter converter, string text)
+		{
+			if (converter is CultureInfoConverter && text != null && text.Trim().Length > 0 && text.Trim() != "(Default)")
+			{
+				try { return new System.Globalization.CultureInfo(text.Trim()); }
+				catch (System.Globalization.CultureNotFoundException) { }
+			}
+			return converter.ConvertFromInvariantString(text);
+		}
+
 		private static object GetObjectFromString(
 		  Type type,
 		  SettingsSerializeAs serializeAs,
@@ -224,7 +236,7 @@ namespace System.Configuration
 			{
 				case SettingsSerializeAs.String:
 					TypeConverter converter = TypeDescriptor.GetConverter(type);
-					return converter != null && converter.CanConvertTo(typeof(string)) && converter.CanConvertFrom(typeof(string)) ? converter.ConvertFromInvariantString(attValue) : throw new ArgumentException(SR.GetString("Unable_to_convert_type_from_string", (object)type.ToString()), nameof(type));
+					return converter != null && converter.CanConvertTo(typeof(string)) && converter.CanConvertFrom(typeof(string)) ? FromInvariantString(converter, attValue) : throw new ArgumentException(SR.GetString("Unable_to_convert_type_from_string", (object)type.ToString()), nameof(type));
 				case SettingsSerializeAs.Xml:
 					StringReader stringReader = new StringReader(attValue);
 					return new XmlSerializer(type).Deserialize((TextReader)stringReader);
@@ -277,7 +289,8 @@ namespace System.Configuration
 				{
 					case SettingsSerializeAs.String:
 						TypeConverter converter = TypeDescriptor.GetConverter(type);
-						return converter != null && converter.CanConvertTo(typeof(string)) && converter.CanConvertFrom(typeof(string)) ? converter.ConvertToInvariantString(propValue) : throw new ArgumentException(SR.GetString("Unable_to_convert_type_to_string", (object)type.ToString()), nameof(type));
+						// WebFormsForCore: not with a converter .NET Framework did not have (.NET 7's VersionConverter): as it, none
+						return converter != null && !(converter is VersionConverter) && converter.CanConvertTo(typeof(string)) && converter.CanConvertFrom(typeof(string)) ? converter.ConvertToInvariantString(propValue) : throw new ArgumentException(SR.GetString("Unable_to_convert_type_to_string", (object)type.ToString()), nameof(type));
 					case SettingsSerializeAs.Xml:
 						XmlSerializer xmlSerializer = new XmlSerializer(type);
 						StringWriter stringWriter = new StringWriter((IFormatProvider)CultureInfo.InvariantCulture);

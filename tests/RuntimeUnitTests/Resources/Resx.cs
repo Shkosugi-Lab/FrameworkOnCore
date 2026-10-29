@@ -84,7 +84,10 @@ static class Resx
         return Convert.ToBase64String(stream.ToArray());
     }
 
-    public static string Aqn<T>() => typeof(T).AssemblyQualifiedName;
+    /// <summary>A type's name as the writer writes it: .NET Framework's (mscorlib..., the ResX types of System.Windows.Forms).</summary>
+    public static string Aqn<T>() => MultitargetUtil.FrameworkName(typeof(T));
+
+    public const string WindowsForms = "System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
 
     public static string TempFile(string extension, byte[] content)
     {

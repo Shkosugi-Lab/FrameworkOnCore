@@ -182,15 +182,18 @@ public class ResXResourceWriterTests
         Assert.StartsWith("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<root>\n  <!-- \n    Microsoft ResX Schema \n", text);
     }
 
-    [Fact] // the port's choice: the reader and writer named are the port's (System.Web's), which the reader (and .NET Framework's: the names only) accepts
-    public void The_reader_and_writer_named_are_the_ports()
+    [Fact] // .NET Framework's names (System.Windows.Forms'), as its writer and Visual Studio write them; the reader accepts them, and the port's (the names only)
+    public void The_reader_and_writer_named_are_NET_Framework_s()
     {
         var text = Resx.Write(w => w.AddResource("a", "v"));
-        Assert.Contains("<value>" + typeof(ResXResourceReader).AssemblyQualifiedName + "</value>", text);
-        Assert.Contains("<value>" + typeof(ResXResourceWriter).AssemblyQualifiedName + "</value>", text);
-        Assert.StartsWith("System.Resources.ResXResourceReader, System.Web, ", typeof(ResXResourceReader).AssemblyQualifiedName);
+        Assert.Contains("<value>" + Resx.FrameworkReader + "</value>", text);
+        Assert.Contains("<value>" + Resx.FrameworkWriter + "</value>", text);
         using var reader = ResXResourceReader.FromFileContents(text);
         Assert.Equal("v", Resx.Entries(reader.GetEnumerator()).Single().Value);
+        var ports = Resx.Document("<data name=\"a\"><value>v</value></data>",
+            Resx.Header(typeof(ResXResourceReader).AssemblyQualifiedName, typeof(ResXResourceWriter).AssemblyQualifiedName));
+        using var portsReader = ResXResourceReader.FromFileContents(ports);
+        Assert.Equal("v", Resx.Entries(portsReader.GetEnumerator()).Single().Value);
     }
 
     [Fact] // docs (constructors): a file, a stream (UTF-8, its XML declaration), a TextWriter; each with a typeNameConverter
@@ -268,9 +271,8 @@ public class ResXResourceWriterTests
         Assert.Equal("  <data name=\"e\" xml:space=\"preserve\">\n    <value />\n  </data>\n", Body(w => w.AddResource("e", "")));
         Assert.Equal("  <data name=\"o\" xml:space=\"preserve\">\n    <value>v</value>\n  </data>\n  <metadata name=\"m\" xml:space=\"preserve\">\n    <value>w</value>\n  </metadata>\n",
             Body(w => { w.AddResource("o", (object)"v"); w.AddMetadata("m", (object)"w"); })); // a string given as an object
-        var nullRef = typeof(ResXNullRef).AssemblyQualifiedName;
-        var asm = typeof(ResXNullRef).Assembly.FullName;
-        Assert.Equal($"  <assembly alias=\"System.Web\" name=\"{asm}\" />\n  <data name=\"n\" type=\"System.Resources.ResXNullRef, System.Web\">\n    <value />\n  </data>\n",
+        // (System.Windows.Forms' ResXNullRef, as .NET Framework writes it)
+        Assert.Equal($"  <assembly alias=\"System.Windows.Forms\" name=\"{Resx.WindowsForms}\" />\n  <data name=\"n\" type=\"System.Resources.ResXNullRef, System.Windows.Forms\">\n    <value />\n  </data>\n",
             Body(w => w.AddResource("n", (string)null)));
         var entries = Resx.RoundTrip(w => { w.AddResource("n", (string)null); w.AddResource("o", (object)null); });
         Assert.Null(entries[0].Value);
@@ -333,8 +335,8 @@ public class ResXResourceWriterTests
     {
         Assert.Equal("  <data name=\"a\" xml:space=\"preserve\">\n    <value>5</value>\n  </data>\n",
             Body(w => w.AddResource("a", 5), t => t == typeof(int) ? "System.String" : null));
-        var core = typeof(short).Assembly.GetName();
-        Assert.Equal($"  <assembly alias=\"{core.Name}\" name=\"{core.FullName}\" />\n  <data name=\"a\" type=\"System.Int16, {core.Name}\">\n    <value>5</value>\n  </data>\n",
+        // (the alias of the assembly .NET Framework had it in: mscorlib)
+        Assert.Equal($"  <assembly alias=\"mscorlib\" name=\"{FrameworkMscorlib}\" />\n  <data name=\"a\" type=\"System.Int16, mscorlib\">\n    <value>5</value>\n  </data>\n",
             Body(w => w.AddResource("a", 5), t => t == typeof(int) ? "System.Int16" : null));
         Assert.Equal("  <data name=\"a\" type=\"No.Such.Type\">\n    <value>5</value>\n  </data>\n",
             Body(w => w.AddResource("a", 5), t => t == typeof(int) ? "No.Such.Type" : null));
@@ -374,10 +376,8 @@ public class ResXResourceWriterTests
         var sep = Path.DirectorySeparatorChar;
         var root = Path.Combine(Path.GetTempPath(), "resx-base");
         var file = Path.Combine(root, "sub", "a.txt");
-        var fileRef = typeof(ResXFileRef).AssemblyQualifiedName;
-        var asm = typeof(ResXFileRef).Assembly.FullName;
-        string Row(string path) => $"  <data name=\"f\" type=\"System.Resources.ResXFileRef, System.Web\">\n    <value>{path};T, A</value>\n  </data>\n";
-        string Rows(Action<ResXResourceWriter> add) => Body(add).Replace($"  <assembly alias=\"System.Web\" name=\"{asm}\" />\n", "");
+        string Row(string path) => $"  <data name=\"f\" type=\"System.Resources.ResXFileRef, System.Windows.Forms\">\n    <value>{path};T, A</value>\n  </data>\n";
+        string Rows(Action<ResXResourceWriter> add) => Body(add).Replace($"  <assembly alias=\"System.Windows.Forms\" name=\"{Resx.WindowsForms}\" />\n", "");
 
         Assert.Equal(Row("sub" + sep + "a.txt"), Rows(w => { w.BasePath = root; w.AddResource(new ResXDataNode("f", new ResXFileRef(file, "T, A"))); }));
         Assert.Equal(Row("sub" + sep + "a.txt"), Rows(w => { w.BasePath = root + sep; w.AddResource(new ResXDataNode("f", new ResXFileRef(file, "T, A"))); }));

@@ -41,7 +41,8 @@ namespace WebFormsForCore.Serialization.Formatters.Binary
                 _securityLevel = _securityLevel,
             };
 
-            var reader = new ObjectReader(serializationStream, _surrogates, _context, formatterEnums, _binder)
+            // WebFormsForCore: .NET Framework's serializable types .NET's are not (FrameworkSurrogates)
+            var reader = new ObjectReader(serializationStream, FrameworkSurrogates.With(_surrogates), _context, formatterEnums, _binder)
             {
                 _crossAppDomainArray = _crossAppDomainArray
             };
@@ -90,7 +91,7 @@ namespace WebFormsForCore.Serialization.Formatters.Binary
             try
             {
                 BinaryFormatterEventSource.Log.SerializationStart();
-                var sow = new ObjectWriter(_surrogates, _context, formatterEnums, _binder);
+                var sow = new ObjectWriter(FrameworkSurrogates.With(_surrogates), _context, formatterEnums, _binder);
                 BinaryFormatterWriter binaryWriter = new BinaryFormatterWriter(serializationStream, sow, _typeFormat);
                 sow.Serialize(graph, binaryWriter);
                 _crossAppDomainArray = sow._crossAppDomainArray;

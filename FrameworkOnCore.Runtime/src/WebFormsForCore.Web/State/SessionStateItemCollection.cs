@@ -609,7 +609,13 @@ namespace System.Web.SessionState {
                 // _iLastOffset is the first byte past the last item, which equals
                 // the total length of all serialized data
                 buffer = new byte[d._iLastOffset];
+#if WebFormsForCore
+                // all of it: a stream may give less than asked (.NET's DeflateStream does, since .NET 6: the SQL Server and
+                // StateServer stores' data with <sessionState compressionEnabled="true">), .NET Framework's gave it whole
+                int bytesRead = reader.BaseStream.ReadAtLeast(buffer, d._iLastOffset, throwOnEndOfStream: false);
+#else
                 int bytesRead = reader.BaseStream.Read(buffer, 0, d._iLastOffset);
+#endif
                 if (bytesRead != d._iLastOffset) {
                     throw new HttpException(SR.GetString(SR.Invalid_session_state));
                 }

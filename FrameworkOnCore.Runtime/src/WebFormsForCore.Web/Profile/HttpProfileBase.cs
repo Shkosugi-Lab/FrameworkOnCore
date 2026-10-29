@@ -522,7 +522,13 @@ namespace System.Web.Profile {
                 }
                 // Providers that use NetDataContractSerialzier do not require Serializable attributes any longer, only enforce this for the SqlProfileProvider
                 bool requireSerializationCheck = pps.ProviderInternal == null || pps.ProviderInternal.GetType() == typeof(SqlProfileProvider);
+#if WebFormsForCore
+                // what the port's BinaryFormatter serializes as .NET Framework's did (a CultureInfo, a NameValueCollection...: not
+                // [Serializable] on .NET)
+                if (requireSerializationCheck && pps.SerializeAs == SerializationMode.Binary && !WebFormsForCore.Serialization.Formatters.Binary.FormatterServices.IsSerializable(pps.TypeInternal)) {
+#else
                 if (requireSerializationCheck && pps.SerializeAs == SerializationMode.Binary && !pps.TypeInternal.IsSerializable) {
+#endif
                     throw new ConfigurationErrorsException(SR.GetString(SR.Property_not_serializable, pps.Name), pps.ElementInformation.Properties["serializeAs"].Source, pps.ElementInformation.Properties["serializeAs"].LineNumber);
                 }
 

@@ -181,6 +181,14 @@ namespace WebFormsForCore.Serialization.Formatters.Binary
                 Debug.Assert(surrogate != null, "surrogate!=null");
                 Debug.Assert(holder.SerializationInfo != null);
                 object? returnValue = surrogate.SetObjectData(holder.ObjectValue!, holder.SerializationInfo, _context, uselessSelector);
+                // WebFormsForCore: what a surrogate completes once the whole graph is (FrameworkSurrogates: a NameValueCollection's
+                // keys and values, arrays whose elements may not be fixed up yet; .NET Framework's did it in OnDeserialization)
+                if (surrogate is IDeferredSurrogate deferred)
+                {
+                    object completed = returnValue ?? holder.ObjectValue!;
+                    SerializationInfo completedInfo = holder.SerializationInfo;
+                    AddOnDeserialization(_ => deferred.Complete(completed, completedInfo));
+                }
                 if (returnValue != null)
                 {
                     if (!holder.CanSurrogatedObjectValueChange && returnValue != holder.ObjectValue)
@@ -188,6 +196,12 @@ namespace WebFormsForCore.Serialization.Formatters.Binary
                         throw new SerializationException(SR.Format(SR.Serialization_NotCyclicallyReferenceableSurrogate, surrogate.GetType().FullName));
                     }
                     holder.SetObjectValue(returnValue, this);
+                    // WebFormsForCore: a surrogate that made another object (FrameworkSurrogates: a Type for .NET Framework's
+                    // UnitySerializationHolder): no reference to resolve if that is not one
+                    if (!(returnValue is IObjectReference))
+                    {
+                        holder.IsIncompleteObjectReference = false;
+                    }
                 }
                 holder._surrogate = null;
                 holder.SetFlags();
@@ -688,7 +702,9 @@ namespace WebFormsForCore.Serialization.Formatters.Binary
             }
 
             //The object is interested in DeserializationEvents so lets register it.
-            if (obj is IDeserializationCallback)
+            // WebFormsForCore: not an object a surrogate replaces with one it makes whole (FrameworkSurrogates: .NET's
+            // NameValueCollection, whose OnDeserialization throws on .NET)
+            if (obj is IDeserializationCallback && !(surrogate is IReplacingSurrogate))
             {
                 DeserializationEventHandler d = new DeserializationEventHandler(((IDeserializationCallback)obj).OnDeserialization);
                 AddOnDeserialization(d);

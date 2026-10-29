@@ -32,11 +32,12 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.*" />
   </ItemGroup>
 
-  <!-- The .NET Framework 4.8 recorders of the Security tests' expectations and of the differential fuzzing's (their own net48
-       projects). -->
+  <!-- The .NET Framework 4.8 recorders of the Security tests' expectations, of the differential fuzzing's and of the round
+       trips' (their own net48 projects). -->
   <ItemGroup>
     <Compile Remove="Security\golden\**" />
     <Compile Remove="Fuzz\golden\**" />
+    <Compile Remove="RoundTrip\golden\**" />
   </ItemGroup>
 
   <ItemGroup>

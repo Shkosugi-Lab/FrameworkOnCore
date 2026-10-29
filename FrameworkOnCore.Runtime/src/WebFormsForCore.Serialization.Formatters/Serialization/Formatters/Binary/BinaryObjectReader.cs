@@ -1029,7 +1029,7 @@ namespace WebFormsForCore.Serialization.Formatters.Binary
             return entry.Type;
         }
 
-        private static Assembly? ResolveSimpleAssemblyName(AssemblyName assemblyName)
+        internal static Assembly? ResolveSimpleAssemblyName(AssemblyName assemblyName)
         {
             var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
             try

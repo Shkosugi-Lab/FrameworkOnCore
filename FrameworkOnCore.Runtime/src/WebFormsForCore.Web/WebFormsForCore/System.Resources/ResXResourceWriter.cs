@@ -129,7 +129,11 @@ namespace System.Resources
                     this.xmlTextWriter = new XmlTextWriter(this.textWriter);
                 }
                 else
-                    this.xmlTextWriter = this.stream == null ? new XmlTextWriter(this.fileName, Encoding.UTF8) : new XmlTextWriter(this.stream, Encoding.UTF8);
+                    // WebFormsForCore: its lines end with CR LF on every system (as .NET Framework's and Visual Studio's .resx
+                    // files; XmlTextWriter's own StreamWriter ends them with the system's newline: LF on Linux)
+                    this.xmlTextWriter = new XmlTextWriter(this.stream == null
+                        ? new StreamWriter(this.fileName, false, Encoding.UTF8) { NewLine = "\r\n" }
+                        : new StreamWriter(this.stream, Encoding.UTF8) { NewLine = "\r\n" });
                 this.xmlTextWriter.Formatting = Formatting.Indented;
                 this.xmlTextWriter.Indentation = 2;
                 if (!flag)

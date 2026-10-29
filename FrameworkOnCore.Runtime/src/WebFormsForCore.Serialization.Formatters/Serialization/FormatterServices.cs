@@ -328,7 +328,91 @@ namespace WebFormsForCore.Serialization.Formatters.Binary
             }
 
             hasTypeForwardedFrom = false;
-            return type.Assembly.FullName!;
+            // WebFormsForCore: a type of .NET without TypeForwardedFrom (DayOfWeek, TimeSpan... not [Serializable] or not marked)
+            // by the .NET Framework assembly whose facade forwards it (mscorlib, System...), as .NET Framework names it
+            if (s_facadeTypes.Value.TryGetValue(attributedType, out var facade))
+            {
+                return facade;
+            }
+            // System.Private.CoreLib's other types (internal ones: System.RuntimeType...) were mscorlib's
+            if (attributedType.Assembly == typeof(object).Assembly)
+            {
+                return Converter.s_urtAssemblyString;
+            }
+            return FrameworkAssemblyName(type.Assembly);
+        }
+
+        // WebFormsForCore: .NET's facades of .NET Framework's assemblies (version 4.0.0.0, its names and keys) and the types they
+        // forward (the first facade's: mscorlib's before System's...).
+        private static readonly string[] s_facadeNames =
+        {
+            "mscorlib", "System", "System.Core", "System.Data", "System.Drawing", "System.Xml", "System.Xml.Linq", "System.Numerics",
+            "System.Runtime.Serialization", "System.ComponentModel.DataAnnotations", "System.Transactions", "System.Net", "System.Configuration",
+            "System.Security", "System.ServiceModel.Web", "System.Web", "System.Windows", "WindowsBase",
+        };
+
+        private static readonly Lazy<Dictionary<Type, string>> s_facadeTypes = new Lazy<Dictionary<Type, string>>(() =>
+        {
+            var map = new Dictionary<Type, string>();
+            foreach (var name in s_facadeNames)
+            {
+                Assembly facade;
+                try { facade = Assembly.Load(new AssemblyName(name)); }
+                catch { continue; }
+                // .NET's facades only (the port's System.Web, System.Drawing... are assemblies of their own: other versions)
+                if (facade.GetName().Version is not { Major: 4, Minor: 0 }) continue;
+                Type?[] types;
+                try { types = facade.GetForwardedTypes(); }
+                catch (ReflectionTypeLoadException e) { types = e.Types; }
+                catch { continue; }
+                foreach (var forwarded in types)
+                {
+                    if (forwarded != null && !map.ContainsKey(forwarded)) map[forwarded] = facade.FullName!;
+                }
+            }
+            return map;
+        });
+
+        // WebFormsForCore: the port's assemblies of .NET Framework's names (System.Web...: Microsoft's keys, their own versions)
+        // as .NET Framework names them, version 4.0.0.0 (what it wrote and what it reads); .NET's own assemblies (the shared
+        // framework's folder) as they are.
+        private static readonly ConcurrentDictionary<Assembly, string> s_frameworkAssemblyNames = new ConcurrentDictionary<Assembly, string>();
+
+        internal static string FrameworkAssemblyName(Assembly assembly) =>
+            s_frameworkAssemblyNames.GetOrAdd(assembly, a =>
+            {
+                var name = a.GetName();
+                var token = name.GetPublicKeyToken();
+                string hex = token == null ? "" : Convert.ToHexString(token);
+                bool microsoft = hex.Equals("B03F5F7F11D50A3A", StringComparison.OrdinalIgnoreCase) || hex.Equals("B77A5C561934E089", StringComparison.OrdinalIgnoreCase);
+                if (!microsoft || name.Version == null || name.Version.Major < 5 || a.IsDynamic || string.IsNullOrEmpty(a.Location) ||
+                    string.Equals(System.IO.Path.GetDirectoryName(a.Location), System.IO.Path.GetDirectoryName(typeof(object).Assembly.Location), StringComparison.OrdinalIgnoreCase))
+                    return a.FullName!;
+                name.Version = new Version(4, 0, 0, 0);
+                return name.FullName;
+            });
+
+        /// <summary>
+        /// WebFormsForCore: whether the port's BinaryFormatter serializes the type as .NET Framework's did: [Serializable], or
+        /// one of the types .NET Framework serialized that .NET does not (a Type, CultureInfo, NameValueCollection...:
+        /// FrameworkSurrogates).
+        /// </summary>
+        public static bool IsSerializable(Type type)
+        {
+            ArgumentNullException.ThrowIfNull(type);
+            return type.IsSerializable || type == typeof(Type) || FrameworkSurrogates.For(type) != null;
+        }
+
+        /// <summary>
+        /// WebFormsForCore: a type's assembly-qualified name as .NET Framework has it (mscorlib's, System's... where .NET's
+        /// type came from there: TypeForwardedFrom; the port's System.Web as 4.0.0.0), as ObjectStateFormatter writes types.
+        /// </summary>
+        public static string GetFrameworkAssemblyQualifiedName(Type type)
+        {
+            ArgumentNullException.ThrowIfNull(type);
+            if (type.IsGenericTypeDefinition) return type.FullName + ", " + GetClrAssemblyName(type, out _);
+            if (type.ContainsGenericParameters) return type.AssemblyQualifiedName!;
+            return GetClrTypeFullName(type) + ", " + GetClrAssemblyName(type, out _);
         }
 
         internal static string GetClrTypeFullName(Type type)
@@ -343,8 +427,9 @@ namespace WebFormsForCore.Serialization.Formatters.Binary
             int rank = type.GetArrayRank();
             Debug.Assert(rank >= 1);
             string typeName = GetClrTypeFullName(type.GetElementType()!);
+            // WebFormsForCore: a one-dimensional array of a lower bound (int[*], not int[]) as .NET Framework names it
             return rank == 1 ?
-                typeName + "[]" :
+                typeName + (type.IsSZArray ? "[]" : "[*]") :
                 typeName + "[" + new string(',', rank - 1) + "]";
         }
 

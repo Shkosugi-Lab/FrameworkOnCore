@@ -281,9 +281,7 @@ namespace Mono.Security.Cryptography
 					{
 						lock (user_lock)
 						{
-							CspParameters csp = new CspParameters();
-							csp.KeyContainerName = "DAPI";
-							user = new RSACryptoServiceProvider(1536, csp);
+							user ??= OperatingSystem.IsWindows() ? CspKey(false) : KeyPairFile(false);
 						}
 					}
 					return user;
@@ -292,16 +290,70 @@ namespace Mono.Security.Cryptography
 					{
 						lock (machine_lock)
 						{
-							CspParameters csp = new CspParameters();
-							csp.KeyContainerName = "DAPI";
-							csp.Flags = CspProviderFlags.UseMachineKeyStore;
-							machine = new RSACryptoServiceProvider(1536, csp);
+							machine ??= OperatingSystem.IsWindows() ? CspKey(true) : KeyPairFile(true);
 						}
 					}
 					return machine;
 				default:
 					throw new CryptographicException(SR.GetString(SR.Cryptography_Invalid_scope));
 			}
+		}
+
+		[System.Runtime.Versioning.SupportedOSPlatform("windows")]
+		private static RSA CspKey(bool machineStore)
+		{
+			CspParameters csp = new CspParameters();
+			csp.KeyContainerName = "DAPI";
+			if (machineStore)
+				csp.Flags = CspProviderFlags.UseMachineKeyStore;
+			return new RSACryptoServiceProvider(1536, csp);
+		}
+
+		// WebFormsForCore: the "DAPI" key pair where Mono's KeyPairPersistence kept it (.NET's RSACryptoServiceProvider has no
+		// key containers but Windows': PlatformNotSupportedException, every DataProtector and ProtectedData call failed on
+		// Linux), [1][DAPI][1].xml in ~/.config/.mono/keypairs (the user's) or /usr/share/.mono/keypairs (the machine's), made
+		// on first use, readable by its owner only; a key Mono made is read (what Mono protected is unprotected).
+		// Found by the round-trip tests (tests/RuntimeUnitTests/RoundTrip).
+		private static RSA KeyPairFile(bool machineStore)
+		{
+			string folder = Path.Combine(Environment.GetFolderPath(machineStore ? Environment.SpecialFolder.CommonApplicationData : Environment.SpecialFolder.ApplicationData,
+				Environment.SpecialFolderOption.Create), ".mono", "keypairs");
+			string file = Path.Combine(folder, "[1][DAPI][1].xml");
+			RSA rsa = RSA.Create();
+			if (File.Exists(file))
+			{
+				string xml = File.ReadAllText(file);
+				int start = xml.IndexOf("<RSAKeyValue>", StringComparison.Ordinal);
+				int end = xml.IndexOf("</RSAKeyValue>", StringComparison.Ordinal);
+				if (start < 0 || end < start)
+					throw new CryptographicException(SR.GetString(SR.Cryptography_Data_protection_failed));
+				rsa.FromXmlString(xml.Substring(start, end + "</RSAKeyValue>".Length - start));
+				return rsa;
+			}
+			rsa.KeySize = 1536;
+			Directory.CreateDirectory(folder);
+			string content = "<KeyPair><Properties><Provider Type=\"1\" /><Container Name=\"DAPI\" /></Properties><KeyValue Id=\"1\">" +
+				rsa.ToXmlString(true) + "</KeyValue></KeyPair>";
+			string temporary = file + "." + Guid.NewGuid().ToString("N");
+			using (var stream = new FileStream(temporary, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+			{
+				if (!OperatingSystem.IsWindows())
+					File.SetUnixFileMode(temporary, UnixFileMode.UserRead | UnixFileMode.UserWrite);
+				using (var writer = new StreamWriter(stream))
+					writer.Write(content);
+			}
+			try
+			{
+				File.Move(temporary, file);
+			}
+			catch (IOException) when (File.Exists(file))
+			{
+				// made meanwhile by another process: its key
+				File.Delete(temporary);
+				rsa.Dispose();
+				return KeyPairFile(machineStore);
+			}
+			return rsa;
 		}
 	}
 }

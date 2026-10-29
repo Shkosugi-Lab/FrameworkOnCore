@@ -141,8 +141,14 @@ namespace System.Web.Compilation {
             if (BuildManager.AppResourcesAssembly == null)
                 return null;
 
+#if WebFormsForCore
+            // the resources' objects other than strings and primitives read by the port's formatter (SerializedResources)
+            ResourceManager resourceManager = new ResourceManager(fullClassName,
+                BuildManager.AppResourcesAssembly, SerializedResources.SetType);
+#else
             ResourceManager resourceManager = new ResourceManager(fullClassName,
                 BuildManager.AppResourcesAssembly);
+#endif
             resourceManager.IgnoreCase = true;
 
             return resourceManager;
@@ -177,7 +183,11 @@ namespace System.Web.Compilation {
             if (pageResAssembly != null) {
                 string fileName = _virtualPath.FileName;
 
+#if WebFormsForCore
+                resourceManager = new ResourceManager(fileName, pageResAssembly, SerializedResources.SetType);
+#else
                 resourceManager = new ResourceManager(fileName, pageResAssembly);
+#endif
                 resourceManager.IgnoreCase = true;
             }
             else {
@@ -208,7 +218,11 @@ namespace System.Web.Compilation {
                 if (resourceStream == null)
                     return null;
 
+#if WebFormsForCore
+                return new SerializedResourceReader(resourceStream);
+#else
                 return new ResourceReader(resourceStream);
+#endif
             }
         }
 

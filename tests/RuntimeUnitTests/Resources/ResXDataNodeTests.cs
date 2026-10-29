@@ -134,7 +134,7 @@ public class ResXDataNodeTests
     {
         var info = Info(new ResXDataNode("a", new CultureInfo("ja-JP")));
         Assert.Equal("ja-JP", info.ValueData);
-        Assert.Equal(typeof(CultureInfo).AssemblyQualifiedName, info.TypeName);
+        Assert.Equal(Resx.Aqn<CultureInfo>(), info.TypeName);
     }
 
     [Fact] // the port's choice: .NET's CultureInfo is not serializable; written by its name (as .NET Framework's), it is read back by its converter
@@ -150,7 +150,7 @@ public class ResXDataNodeTests
     {
         var info = Info(new ResXDataNode("a", new byte[] { 1, 2, 3 }));
         Assert.Equal("AQID", info.ValueData);
-        Assert.Equal(typeof(byte[]).AssemblyQualifiedName, info.TypeName);
+        Assert.Equal(Resx.Aqn<byte[]>(), info.TypeName);
 
         var bytes = Enumerable.Range(0, 120).Select(i => (byte)i).ToArray();
         var base64 = Convert.ToBase64String(bytes); // 160 characters
@@ -167,7 +167,7 @@ public class ResXDataNodeTests
     {
         var info = Info(new ResXDataNode("a", 1.5));
         Assert.Equal("1.5", info.ValueData);
-        Assert.Equal(typeof(double).AssemblyQualifiedName, info.TypeName);
+        Assert.Equal(Resx.Aqn<double>(), info.TypeName);
         Assert.Null(info.MimeType);
     }
 
@@ -205,7 +205,7 @@ public class ResXDataNodeTests
     {
         var info = Info(new ResXDataNode("a", (object)null));
         Assert.Equal("", info.ValueData);
-        Assert.Equal(typeof(ResXNullRef).AssemblyQualifiedName, info.TypeName);
+        Assert.Equal(Resx.Aqn<ResXNullRef>(), info.TypeName);
     }
 
     [Fact] // docs (ctor with typeNameConverter): the type names written are the converter's
@@ -222,7 +222,7 @@ public class ResXDataNodeTests
     {
         var info = Info(new ResXDataNode("a", new ResXFileRef("a.txt", "T, A")));
         Assert.Equal("a.txt;T, A", info.ValueData);
-        Assert.Equal(typeof(ResXFileRef).AssemblyQualifiedName, info.TypeName);
+        Assert.Equal(Resx.Aqn<ResXFileRef>(), info.TypeName);
         Assert.Null(info.MimeType);
     }
 
@@ -367,7 +367,7 @@ public class ResXDataNodeTests
         resolver.Types["System.Int32, mscorlib"] = typeof(int);
         var node = Resx.Node($"<data name=\"a\" type=\"{Resx.Aqn<double>()}\"><value>2</value></data>");
         Assert.Equal(2.0, node.GetValue(resolver));
-        Assert.Equal(new[] { Resx.Aqn<double>(), "System.Double, " + typeof(double).Assembly.GetName().Name }, resolver.Asked);
+        Assert.Equal(new[] { Resx.Aqn<double>(), "System.Double, mscorlib" }, resolver.Asked);
         // the full name not known, its first two parts are
         resolver.Asked.Clear();
         var info = new DataNodeInfo { Name = "a", TypeName = "System.Int32, mscorlib, Version=4.0.0.0", ValueData = "3" };

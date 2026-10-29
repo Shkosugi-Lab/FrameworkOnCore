@@ -13,6 +13,7 @@ namespace System.Web.Compilation
 	using System.Reflection;
 	using System.Globalization;
 	using System.Collections;
+	using System.Linq;
 	using System.IO;
 	using System.Xml;
 	using System.Xml.Schema;
@@ -160,7 +161,12 @@ namespace System.Web.Compilation
 						// Copy the resources
 						foreach (DictionaryEntry de in reader)
 						{
+#if WebFormsForCore
+							// objects other than strings and primitives as .NET Framework wrote them (.NET's writer refuses them)
+							SerializedResources.Add(writer, (string)de.Key, de.Value);
+#else
 							writer.AddResource((string)de.Key, de.Value);
+#endif
 						}
 					}
 				}
@@ -193,6 +199,12 @@ namespace System.Web.Compilation
 				resourceList, _typeName, _ns,
 				provider, false /*internalClass*/, out unmatchable);
 
+#if WebFormsForCore
+			// The class's ResourceManager reads the objects other than strings and primitives with the port's formatter.
+			if (resourceList.Values.Cast<object>().Any(v => !SerializedResources.IsNative(v)))
+				WithSerializedResourceSet(ccu);
+#endif
+
 			// Ignore the unmatchable items.  We just won't generate code for them,
 			// but they'll still be usable via the ResourceManager (VSWhidbey 248226)
 
@@ -217,6 +229,40 @@ namespace System.Web.Compilation
 			// Add the code compile unit to the compilation
 			assemblyBuilder.AddCodeCompileUnit(this, ccu);
 		}
+
+#if WebFormsForCore
+		// new ResourceManager(name, assembly) of the generated class: new ResourceManager(name, assembly,
+		// Type.GetType("System.Web.Compilation.SerializedResourceSet, System.Web")) (an internal type, by its name).
+		internal static void WithSerializedResourceSet(CodeCompileUnit ccu)
+		{
+			void Visit(CodeStatementCollection statements)
+			{
+				foreach (CodeStatement statement in statements)
+				{
+					if (statement is CodeConditionStatement condition)
+					{
+						Visit(condition.TrueStatements);
+						Visit(condition.FalseStatements);
+					}
+					else if (statement is CodeVariableDeclarationStatement declaration)
+						Fix(declaration.InitExpression);
+					else if (statement is CodeAssignStatement assign)
+						Fix(assign.Right);
+				}
+			}
+			void Fix(CodeExpression expression)
+			{
+				if (expression is CodeObjectCreateExpression create && create.CreateType.BaseType == typeof(ResourceManager).FullName && create.Parameters.Count == 2)
+					create.Parameters.Add(new CodeMethodInvokeExpression(new CodeTypeReferenceExpression(new CodeTypeReference(typeof(Type), CodeTypeReferenceOptions.GlobalReference)),
+						"GetType", new CodePrimitiveExpression(SerializedResources.SetType.FullName + ", " + SerializedResources.SetType.Assembly.GetName().Name)));
+			}
+			foreach (CodeNamespace ns in ccu.Namespaces)
+				foreach (CodeTypeDeclaration type in ns.Types)
+					foreach (CodeTypeMember member in type.Members)
+						if (member is CodeMemberProperty property)
+							Visit(property.GetStatements);
+		}
+#endif
 
 		private IDictionary GetResourceList(IResourceReader reader)
 		{

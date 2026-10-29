@@ -25,6 +25,12 @@ namespace System.Web.Security
             // an argument, whatever the strings.
             if (pData == null || szName == null || szData == null || szPath == null || iDataLen < 18)
                 return E_INVALIDARG;
+            // The native function was given C strings (P/Invoke's LPWSTR): each ends at its first NUL. Written whole, a name
+            // with a NUL (user input) was read back cut there and the rest of it as the ticket's dates, persistence, user data
+            // and path (found by the round-trip tests: tests/RuntimeUnitTests/RoundTrip).
+            szName = UntilNul(szName);
+            szData = UntilNul(szData);
+            szPath = UntilNul(szPath);
             int length = Prefix + 1 + StringSize(szName) + 8 + 1 + 8 + StringSize(szData) + StringSize(szPath);
             if (length > iDataLen || length > pData.Length)
                 return E_UNEXPECTED;
@@ -75,6 +81,12 @@ namespace System.Web.Security
         }
 
         static int StringSize(string s) => (s.Length + 1) * 2;
+
+        static string UntilNul(string s)
+        {
+            int nul = s.IndexOf((char)0);
+            return nul < 0 ? s : s.Substring(0, nul);
+        }
 
         static int PutString(byte[] buffer, int at, string s)
         {

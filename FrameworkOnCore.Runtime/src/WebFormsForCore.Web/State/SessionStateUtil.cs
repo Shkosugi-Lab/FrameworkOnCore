@@ -113,7 +113,12 @@ namespace System.Web.SessionState {
             bool    hasItems = true;
             bool    hasStaticObjects = true;
 
+#if WebFormsForCore
+            // UTF-8 that refuses a lone surrogate, as .NET Framework's BinaryWriter (.NET's writes U+FFFD for it)
+            BinaryWriter writer = new BinaryWriter(stream, new System.Text.UTF8Encoding(false, true));
+#else
             BinaryWriter writer = new BinaryWriter(stream);
+#endif
             writer.Write(item.Timeout);
 
             if (item.Items == null || item.Items.Count == 0) {

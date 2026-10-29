@@ -38,6 +38,11 @@
 | .NET の DataAnnotations の文言(System.ComponentModel.Annotations) | .NET Framework は言語パックで日本語(「EnrollmentDate フィールドが必要です。」)、.NET は英語(「The EnrollmentDate field is required.」)。MVC の検証の `data-val-required` に出る(mvcmovie、contoso)。.NET は自分のアセンブリのサテライトをそのアセンブリの隣(共有フレームワークのフォルダー)でしか探さない | 独自の翻訳(62 件。translations\ja\System.ComponentModel.Annotations)のサテライトを FrameworkOnCore.Web のパッケージに入れ(bin\ja)、System.Web の FrameworkSatellites が見つからなかったサテライトを bin\&lt;カルチャ&gt; で探す(2026-10-22)。文言は FrameworkOnCore の訳(「EnrollmentDate は必須です。」)で、元のサーバーと同じではない | 部品 language-packs の言語(他の翻訳と同じ) |
 | UTF-7(`Encoding.GetEncoding("utf-7")`) | .NET 5 から NotSupportedException(SYSLIB0001。XSS の危険のため) | 変換器: ソースが UTF-7 を名指しするときだけ `System.Text.Encoding.EnableUnsafeUTF7Encoding` を入れる(2026-10-19) | なし |
 | XmlConvert.ToString(double・float) | R が最短の桁(0.7000000000000001。.NET Framework は 15 桁で往復しなければ 17 桁の 0.70000000000000007) | 置き換え: FrameworkNumbers.XmlText(platformReplacements。アプリのコードの分。DataSet・XmlSerializer の中は下の「対応できないもの」)(2026-10-19) | `floating-point` |
+| BinaryFormatter(WebFormsForCore.Serialization.Formatters: セッション状態、ViewState の [Serializable] のオブジェクト、プロファイル、ResX) | .NET では CultureInfo・Type(RuntimeType)・NameValueCollection・TextInfo・CaseInsensitiveComparer などが [Serializable] でない(SerializationException、NameValueCollection は PlatformNotSupportedException)。.NET Framework が書いたセッションの CultureInfo・NameValueCollection・Type を読めず、書けなかった。型の名前を .NET のアセンブリ名(System.Private.CoreLib、System.Web 10.0.29.0)で書いた | FrameworkSurrogates: .NET Framework と同じ型名・メンバーで書き、.NET Framework が書いたものを読む(CultureInfo は名前と UseUserOverride から作り直す)。型の名前は .NET Framework の名前(mscorlib・System などの facade の転送元、ポートの System.Web は 4.0.0.0)。往復テスト(tests/RuntimeUnitTests/RoundTrip)で見つけた(2026-10-30) | なし(常に) |
+| System.Resources.ResourceWriter・ResourceReader(App_GlobalResources・App_LocalResources の .resources) | 文字列とプリミティブ以外(Color、Bitmap、アプリの [Serializable] の型)を書けない(PlatformNotSupportedException)・読めない(NotSupportedException)。そういう .resx のあるフォルダーのコンパイルが失敗した | System.Web の SerializedResources: .NET Framework と同じ形式(型の名前と BinaryFormatter のバイト)で書き(AddResourceData)、プロバイダーと型付きクラスの ResourceManager に SerializedResourceSet を渡してポートの BinaryFormatter で読む(2026-10-30) | なし(常に) |
+| BinaryWriter の既定のエンコーディング | .NET は Encoding.UTF8(孤立サロゲートを U+FFFD に置き換える)、.NET Framework は例外を投げる UTF-8(EncoderFallbackException)。ViewState・セッション状態に孤立サロゲートを含む文字列があると .NET Framework は書けず、ポートは黙って値を変えていた | System.Web の ObjectStateFormatter と SessionStateUtility の BinaryWriter に例外を投げる UTF-8 を渡す(2026-10-30) | なし(常に) |
+| DeflateStream(などの Stream)の Read | .NET 6 から要求より少なく返すことがある。SessionStateItemCollection.Deserialize が一度の Read で足りると仮定し、`<sessionState compressionEnabled="true">` の SQL Server・StateServer のセッションで大きい項目が「セッション状態の情報が無効」になった | ReadAtLeast で全部読む(2026-10-30) | なし(常に) |
+| CultureInfoConverter・VersionConverter(TypeConverter: ViewState、ResX、プロファイルの serializeAs="String") | CultureInfoConverter は GetCultures のインスタンス(変換器が持ち回る。ユーザーの上書き無し)を返す、.NET Framework は `new CultureInfo(name)`。VersionConverter は .NET 7 から(.NET Framework に無く、Version は BinaryFormatter で書かれた。ポートの文字列を .NET Framework が読めない) | System.Web の FrameworkConverters と SettingsPropertyValue: CultureInfo は新しいインスタンス、Version には変換器を使わない(2026-10-30) | なし(常に) |
 
 ## 候補
 
@@ -101,6 +106,12 @@
 - System.Web という名前のアセンブリが .NET の共有フレームワークにもある(4.0.0.0、`HttpUtility` などの型転送だけ)。それを先に読んだプロセス(.NET の MSBuild など)には
   FrameworkOnCore の System.Web(10.0.29.0)を同じコンテキストに読み込めない。アプリ・ツールは deps.json で FrameworkOnCore のものを選ぶ(ビルドタスクのデザイナー
   ファイルの生成で見つけた。2026-10-12)。
+- 往復テスト(tests/RuntimeUnitTests/RoundTrip、.NET Framework 4.8 の書いたものとの比較。2026-10-30)で見つけた、.NET のライブラリの違いで対応しないもの:
+  DataTable の `RemotingFormat = SerializationFormat.Binary` を .NET は拒否する(設定も読み取りも InvalidEnumArgumentException。.NET 5 から。XML 形式は読める)。
+  DataSet・DataTable の XML スキーマが列の型を .NET のアセンブリ名で書く(`msdata:DataType="System.Guid, System.Private.CoreLib"`)ので、ポートが書いた
+  Guid などの列のある DataTable を .NET Framework は読めない(逆は読める)。XmlSerializer は DateTimeOffset・TimeSpan を書く(.NET Framework は空の要素)。
+  .NET の System.Decimal は ISerializable で、object 型のフィールドの decimal を BinaryFormatter がオブジェクトとして書く(.NET Framework はプリミティブ。どちらも読める)。
+  List<T> の容量(BinaryFormatter が書く配列の長さ)、DeflateStream の圧縮結果(zlib-ng)も違う。
 - `DictionaryEntry.ToString`。.NET 5 から「[キー, 値]」を返す(.NET Framework は型の名前)。
 - 例外のメッセージ(CoreLib・ほかのアセンブリの文言)。.NET は値を入れる(`The input string 'abc' was not in a correct format.`、`The given key 'x' was not present in the dictionary.`)、
   引数名を `(Parameter 'x')` と書く(.NET Framework は「\r\nParameter name: x」)、Regex の構文エラーは RegexParseException、Base64・Substring・PadLeft なども文が違う。

@@ -35,4 +35,7 @@
     <EmbeddedResource Include="templates\ProgramTemplate.txt" LogicalName="ProgramTemplate.txt" />
     <EmbeddedResource Include="templates\ProgramTemplate.vb.txt" LogicalName="ProgramTemplate.vb.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="FrameworkOnCore.Tests" />
+  </ItemGroup>
 </Project>

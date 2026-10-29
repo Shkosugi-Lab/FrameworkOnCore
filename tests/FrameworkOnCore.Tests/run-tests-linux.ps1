@@ -9,8 +9,12 @@
 # GDI+ functions the tests called, with how many times, written to the file (FOC_GDIP_TRACE). With either, the Chart
 # control's parity program (built against the packages) runs on the port as built here. -ParityStrict: the parity
 # suites without Linux's known differences (FOC_PARITY_STRICT), to see how far its drawing is from .NET Framework's.
+# -Matrix 'culture@zone',...: the tests run under each culture and time zone in turn (tests/Shared/TestEnvironment.cs's
+# FOC_TEST_CULTURE, and TZ: 'tr-TR@America/Los_Angeles', 'invariant@UTC'), SqlClientTests' too unless -Filter; each
+# run's results written to -Results <folder> as linux-<project>-<culture>-<zone>.trx (tests/run-matrix.ps1).
 param([string]$Image = 'mcr.microsoft.com/dotnet/sdk:10.0', [switch]$SqlServer, [string]$Filter,
-    [ValidateSet('', 'libgdiplus', 'skia')][string]$DrawingBackend, [string]$GdipTrace, [switch]$ParityStrict)
+    [ValidateSet('', 'libgdiplus', 'skia')][string]$DrawingBackend, [string]$GdipTrace, [switch]$ParityStrict,
+    [string[]]$Matrix, [string]$Results)
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $arguments = @()
 if ($SqlServer) {
@@ -28,6 +32,11 @@ if ($SqlServer) {
     }
     $arguments = @('--network', 'w2l', '-e', "FOC_TEST_SQLSERVER=Data Source=w2l-sql;Initial Catalog=master;User ID=sa;Password=$sqlPassword;TrustServerCertificate=True")
 }
+if ($Matrix) {
+    if (-not $Results) { throw '-Matrix needs -Results' }
+    New-Item -ItemType Directory -Force $Results | Out-Null
+    $arguments += @('-e', "MATRIX=$($Matrix -join ' ')", '-v', "$((Resolve-Path $Results).Path):/results")
+}
 $drawing = [bool]($DrawingBackend -or $GdipTrace)
 if ($DrawingBackend) { $arguments += @('-e', "FOC_DRAWING_BACKEND=$DrawingBackend") }
 if ($ParityStrict) { $arguments += @('-e', 'FOC_PARITY_STRICT=1') }
@@ -40,8 +49,8 @@ if ($GdipTrace) {
 $script = @'
 set -e
 # System.Drawing's Linux implementation (the port) draws with SkiaSharp (fontconfig, the fonts), libgdiplus on request.
-apt-get update -qq >/dev/null 2>&1 && apt-get install -y -qq --no-install-recommends libgdiplus fonts-liberation2 >/dev/null 2>&1
-for d in src/FrameworkOnCore.Analyzers src/FrameworkOnCore.Analysis src/FrameworkOnCore.Converter src/FrameworkOnCore.Studio experiments/wf4c/shims/FrameworkOnCore.Compat tests/FrameworkOnCore.Tests tests/Parity.Core tests/DataLinqParity tests/DrawingParity tests/DataVisualizationParity tests/MobileParity tests/SqlClientTests \
+apt-get update -qq >/dev/null 2>&1 && apt-get install -y -qq --no-install-recommends libgdiplus fonts-liberation2 tzdata >/dev/null 2>&1
+for d in src/FrameworkOnCore.Analyzers src/FrameworkOnCore.Analysis src/FrameworkOnCore.Converter src/FrameworkOnCore.Studio experiments/wf4c/shims/FrameworkOnCore.Compat tests/FrameworkOnCore.Tests tests/Shared tests/Parity.Core tests/DataLinqParity tests/DrawingParity tests/DataVisualizationParity tests/MobileParity tests/SqlClientTests \
          FrameworkOnCore.Runtime/src/WebFormsForCore.Data.Linq FrameworkOnCore.Runtime/src/WebFormsForCore.Data.SqlClient FrameworkOnCore.Runtime/src/WebFormsForCore.Drawing.Common FrameworkOnCore.Runtime/src/SigningKey FrameworkOnCore.Runtime/lib/WebFormsForCore.Build; do
   mkdir -p /w/$d
   (cd /repo/$d && find . -type f -not -path './bin/*' -not -path './obj/*' -exec cp --parents {} /w/$d/ \;)
@@ -63,8 +72,23 @@ for l in $(ls /repo/translations); do
 done
 cd /w
 __DRAWING__
+if [ -z ${MATRIX:+x} ]; then
 dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q __NOBUILD__ __FILTER__
 __SQLCLIENT__
+exit 0
+fi
+# The matrix: built once, then run under each culture and zone (FOC_TEST_TZ too: an unknown zone fails the run).
+projects=tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj
+__MATRIXSQL__
+for p in $projects; do dotnet build $p -nologo -v q 2>&1 | grep -E ' error ' || true; done
+for entry in $MATRIX; do
+  culture=${entry%@*}; zone=${entry#*@}
+  for p in $projects; do
+    n=$(basename $p .csproj)
+    echo == $n culture=$culture TZ=$zone
+    FOC_TEST_CULTURE=$culture TZ=$zone FOC_TEST_TZ=$zone dotnet test $p --no-build -nologo __FILTER__ --logger trx\;LogFileName=/results/linux-$n-$culture-${zone//\//_}.trx 2>&1 | grep -E '^\s+Failed |Passed!|Failed!| error ' | head -300 || true
+  done
+done
 '@ -replace "`r", ''
 $script = $script.Replace('__DRAWING__', $(if ($drawing) { @'
 dotnet build tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q
@@ -84,5 +108,6 @@ $script = $script.Replace('__NOBUILD__', $(if ($drawing) { '--no-build' } else {
 $script = $script.Replace('__FILTER__', $(if ($Filter) { "--filter '$Filter' --logger 'console;verbosity=normal'" } else { '' }))
 # The System.Data.SqlClient port's tests (Microsoft's functional tests and |DataDirectory|'s, with their TDS server) on
 # the managed SNI, Linux's; with -Filter, FrameworkOnCore.Tests' only.
+$script = $script.Replace('__MATRIXSQL__', $(if ($Filter) { '' } else { 'projects=$projects\ tests/SqlClientTests/SqlClientTests.csproj' }))
 $script = $script.Replace('__SQLCLIENT__', $(if ($Filter) { '' } else { 'dotnet test tests/SqlClientTests/SqlClientTests.csproj -nologo -v q' }))
 docker run --rm @arguments -v "${repo}:/repo:ro" $Image bash -c $script

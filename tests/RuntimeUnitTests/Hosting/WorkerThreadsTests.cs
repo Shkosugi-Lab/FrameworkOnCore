@@ -60,12 +60,22 @@ public class WorkerThreadsTests
         // every idle thread taken (the one above among them): each request on its own
         var gate = new ManualResetEventSlim();
         var count = Idle;
-        var tasks = Enumerable.Range(0, count).Select(_ => WorkerThreads.Run(() =>
+        Action work = () =>
         {
             lock (threads) threads.Add(Thread.CurrentThread);
             if (Thread.CurrentThread == first) left = CallContext.GetData("left");
             gate.Wait();
-        })).ToList();
+        };
+        var tasks = Enumerable.Range(0, count).Select(_ => WorkerThreads.Run(work)).ToList();
+        // A thread gone idle meanwhile (another test's request ending) may have been woken in the first one's place (the
+        // idle threads wait on one semaphore): more requests, each holding its thread, until the first one is taken.
+        bool Taken() { lock (threads) return threads.Contains(first); }
+        var deadline = DateTime.UtcNow.AddSeconds(5);
+        while (!Taken() && DateTime.UtcNow < deadline)
+        {
+            if (Idle > 0) tasks.Add(WorkerThreads.Run(work));
+            else Thread.Sleep(1);
+        }
         gate.Set();
         await Task.WhenAll(tasks);
         Assert.Contains(first, threads);

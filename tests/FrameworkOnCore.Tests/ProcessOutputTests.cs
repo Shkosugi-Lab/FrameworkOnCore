@@ -37,12 +37,23 @@ public sealed class ProcessOutputTests
     public void Lines_ending_with_a_carriage_return_alone_are_lines() =>
         Assert.Equal(["10%", "50%", "100%"], Lines(Encoding.ASCII.GetBytes("10%\r50%\r100%\r\n")));
 
+    [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+    static extern uint GetOEMCP();
+
+    // The system's OEM code page, whatever the thread's culture (it was the culture's: under en-US, 437, the Shift_JIS
+    // line garbled; tests/run-matrix.ps1).
     [SkippableFact]
     public void The_consoles_code_page_is_read_as_it_where_it_is_not_utf8()
     {
-        Skip.IfNot(OperatingSystem.IsWindows() && System.Globalization.CultureInfo.CurrentCulture.TextInfo.OEMCodePage == 932, "Japanese Windows' OEM code page");
-        var bytes = ShiftJis.GetBytes("復元に成功しました\r\n").Concat(Encoding.UTF8.GetBytes("ビルドに成功しました\r\n")).ToArray();
-        Assert.Equal(["復元に成功しました", "ビルドに成功しました"], Lines(bytes));
+        Skip.IfNot(OperatingSystem.IsWindows() && GetOEMCP() == 932, "Japanese Windows' OEM code page");
+        var culture = System.Globalization.CultureInfo.CurrentCulture;
+        System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+        try
+        {
+            var bytes = ShiftJis.GetBytes("復元に成功しました\r\n").Concat(Encoding.UTF8.GetBytes("ビルドに成功しました\r\n")).ToArray();
+            Assert.Equal(["復元に成功しました", "ビルドに成功しました"], Lines(bytes));
+        }
+        finally { System.Globalization.CultureInfo.CurrentCulture = culture; }
     }
 
     [Fact]

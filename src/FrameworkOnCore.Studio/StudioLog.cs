@@ -5,7 +5,7 @@ namespace FrameworkOnCore.Studio;
 
 /// <summary>
 /// The log of an analysis, a conversion or a run, as its page shows it: each line with the time it came (HH:mm:ss, the
-/// machine's time), the last lines kept (a build of a large application writes many).
+/// machine's time; the invariant culture's, as Texts cuts it: another culture's time separator is not always ":"), the last lines kept (a build of a large application writes many).
 /// </summary>
 public sealed class StudioLog(int max = 5000) : IEnumerable<string>
 {
@@ -14,7 +14,7 @@ public sealed class StudioLog(int max = 5000) : IEnumerable<string>
 
     public void Enqueue(string line)
     {
-        lines.Enqueue($"{DateTime.Now:HH:mm:ss} {line}");
+        lines.Enqueue(DateTime.Now.ToString("HH:mm:ss ", System.Globalization.CultureInfo.InvariantCulture) + line);
         while (lines.Count > max) lines.TryDequeue(out _);
     }
 

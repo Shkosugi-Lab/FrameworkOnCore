@@ -21,4 +21,7 @@
     <!-- Not a culture's resource (MSBuild puts a file named ".en." in a satellite assembly). -->
     <EmbeddedResource Include="catalog\components.en.json" LogicalName="components.en.json" WithCulture="false" />
   </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="FrameworkOnCore.Tests" />
+  </ItemGroup>
 </Project>

@@ -59,7 +59,7 @@ public class VBCompilerTests : CompilationTest
         Assert.Equal(3, errors[0].Line);
         Assert.Equal("BC30451", errors[0].ErrorNumber);
         Assert.False(errors[0].IsWarning);
-        Assert.Contains("'y'", errors[0].ErrorText);
+        Assert.Matches(@"\Wy\W", errors[0].ErrorText);   // the compiler's message, in the UI culture's language and quotes
         Assert.Equal(4, errors[1].Line);
         Assert.Equal("BC42024", errors[1].ErrorNumber);
         Assert.True(errors[1].IsWarning);

@@ -381,10 +381,12 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
     // ------------------------------------------------------------------------------------------
 
     // A short name (the copy is built through a drive letter mapped to its parent: the repository's paths stay short).
-    static string NewWorkFolder(string workBase)
+    // The time in the Gregorian calendar whatever the culture (ar-SA's: Um Al-Qura's year).
+    internal static string NewWorkFolder(string workBase)
     {
-        var work = $"{workBase}-{DateTime.Now:yyyyMMdd-HHmmss}";
-        for (var n = 2; Directory.Exists(work) || File.Exists(work); n++) work = $"{workBase}-{DateTime.Now:yyyyMMdd-HHmmss}-{n}";
+        var stamp = DateTime.Now.ToString("yyyyMMdd-HHmmss", System.Globalization.CultureInfo.InvariantCulture);
+        var work = $"{workBase}-{stamp}";
+        for (var n = 2; Directory.Exists(work) || File.Exists(work); n++) work = $"{workBase}-{stamp}-{n}";
         return work;
     }
 

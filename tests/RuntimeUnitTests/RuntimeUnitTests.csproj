@@ -20,6 +20,11 @@
     <UseAppHost>true</UseAppHost>
   </PropertyGroup>
 
+  <!-- FOC_TEST_CULTURE, FOC_TEST_TZ: the culture and time zone the run is made under (tests/run-matrix.ps1). -->
+  <ItemGroup>
+    <Compile Include="..\Shared\TestEnvironment.cs" Link="Shared\TestEnvironment.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />

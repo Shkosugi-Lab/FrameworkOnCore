@@ -19,6 +19,11 @@
     <VSTestTestCaseFilter Condition="$([MSBuild]::IsOSPlatform('Linux'))">category!=nonlinuxtests&amp;category!=failing</VSTestTestCaseFilter>
     <VSTestTestCaseFilter Condition="$([MSBuild]::IsOSPlatform('OSX'))">category!=nonosxtests&amp;category!=failing</VSTestTestCaseFilter>
   </PropertyGroup>
+  <!-- FOC_TEST_CULTURE, FOC_TEST_TZ: the culture and time zone the run is made under (tests/run-matrix.ps1). -->
+  <ItemGroup>
+    <Compile Include="..\Shared\TestEnvironment.cs" Link="Shared\TestEnvironment.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <Compile Include="FunctionalTests\**\*.cs" />
     <!-- FrameworkOnCore's: what the port changes. -->

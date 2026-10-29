@@ -33,7 +33,7 @@ public class CSharpCompilerTests : CompilationTest
         Assert.Equal(14, error.Column);
         Assert.Equal("CS0103", error.ErrorNumber);
         Assert.False(error.IsWarning);
-        Assert.Contains("'y'", error.ErrorText);
+        Assert.Matches(@"\Wy\W", error.ErrorText);   // the compiler's message, in the UI culture's language and quotes
     }
 
     [Fact] // the reference source: "error CSxxxx: text" (no place) a CompilerError without file and line

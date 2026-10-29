@@ -60,8 +60,8 @@ public class LegacyFormsAuthenticationTicketTests
         Assert.Equal(record.String("path"), path.ToString());
         Assert.Equal(record.Int("version"), bytes[0]);
         Assert.Equal(record.Int("persistent"), bytes[1]);
-        Assert.Equal(long.Parse(record.String("issued")), dates[0]);
-        Assert.Equal(long.Parse(record.String("expires")), dates[1]);
+        Assert.Equal(long.Parse(record.String("issued"), System.Globalization.CultureInfo.InvariantCulture), dates[0]);
+        Assert.Equal(long.Parse(record.String("expires"), System.Globalization.CultureInfo.InvariantCulture), dates[1]);
     }
 
     [Fact]

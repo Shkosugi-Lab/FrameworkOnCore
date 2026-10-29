@@ -92,13 +92,20 @@ public sealed class AnalysisStore
     public IReadOnlyList<string> Log(string id) =>
         logs.TryGetValue(id, out var log) ? log.ToList() : File.Exists(Path.Combine(Folder(id), "log.txt")) ? File.ReadAllLines(Path.Combine(Folder(id), "log.txt")) : [];
 
+    /// <summary>
+    /// An analysis' id, its folder's name: the time it was started (UTC) and a random part. The time in the Gregorian
+    /// calendar, whatever the culture (ar-SA's is Um Al-Qura's: its ids would not sort with the others).
+    /// </summary>
+    internal static string NewId(DateTime utc) =>
+        (utc.ToString("yyyyMMdd-HHmmss", System.Globalization.CultureInfo.InvariantCulture) + "-" + Guid.NewGuid().ToString("N"))[..24];
+
     /// <summary>A new analysis, queued: it runs when the one before it is done.</summary>
     public AnalysisEntry Start(AnalysisRequest request)
     {
         var project = Path.GetFullPath(request.Project);
         if (!File.Exists(project)) throw new ArgumentException($"project not found: {project}");
         var root = Path.GetFullPath(string.IsNullOrWhiteSpace(request.Root) ? Paths.FindRoot(project) : request.Root);
-        var id = $"{DateTime.UtcNow:yyyyMMdd-HHmmss}-{Guid.NewGuid():N}"[..24];
+        var id = NewId(DateTime.UtcNow);
         var entry = new AnalysisEntry
         {
             Id = id, Name = string.IsNullOrWhiteSpace(request.Name) ? Path.GetFileNameWithoutExtension(project) : request.Name.Trim(),

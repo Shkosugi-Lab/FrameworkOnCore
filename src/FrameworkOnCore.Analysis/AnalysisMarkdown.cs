@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 
 namespace FrameworkOnCore.Analysis;
@@ -20,7 +21,7 @@ public static class AnalysisMarkdown
         var text = new StringBuilder();
         text.AppendLine($"# API の使用状況: {result.Entry}");
         text.AppendLine();
-        text.AppendLine($"{result.Repository}、構成 {result.Configuration}、{result.Analyzed:yyyy-MM-dd HH:mm} UTC、{result.Tool}、カタログ v{result.CatalogVersion}。");
+        text.AppendLine($"{result.Repository}、構成 {result.Configuration}、{result.Analyzed.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)} UTC、{result.Tool}、カタログ v{result.CatalogVersion}。");
         text.AppendLine("回数はソースで書かれた箇所の数(型の参照、メンバーの呼び出し、オーバーライド)。「DLL」はソースのない DLL の参照(メタデータ)。");
         text.AppendLine();
 

@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Globalization;
 using System.Text;
 
 namespace FrameworkOnCore.Analysis;
@@ -18,9 +17,14 @@ public static class ProcessOutput
     {
         if (!OperatingSystem.IsWindows()) return new UTF8Encoding(false);
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        try { return Encoding.GetEncoding(CultureInfo.CurrentCulture.TextInfo.OEMCodePage); }
+        // The system's OEM code page (the console's), not the thread culture's: under another culture (en-US: 437) the
+        // tools' Shift_JIS was read as that one.
+        try { return Encoding.GetEncoding((int)GetOEMCP()); }
         catch (Exception e) when (e is ArgumentException or NotSupportedException) { return new UTF8Encoding(false); }
     });
+
+    [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+    static extern uint GetOEMCP();
 
     /// <summary>A line's bytes (without its line break) as text.</summary>
     public static string Decode(ReadOnlySpan<byte> bytes)

@@ -113,9 +113,10 @@ public class FileCacheTests
         using var site = new Site().Write("a.txt", "hello").Run();
         var entry = FileCache.Get(In(site, "a.txt"));
         Assert.True(Changes(() => File.WriteAllText(In(site, "a.txt"), "hello, world")));
-        var again = FileCache.Get(In(site, "a.txt"));
-        Assert.NotSame(entry, again);
-        Assert.Equal(12, again.Length);
+        // The generation moves before what is kept is cleared (the watcher's thread), and Linux reports the write as two
+        // changes (the truncation, the bytes): asked until the change is seen, the file as written.
+        FileCache.Entry again = null;
+        Assert.True(SpinWait.SpinUntil(() => !ReferenceEquals(again = FileCache.Get(In(site, "a.txt")), entry) && again.Length == 12, 5000));
         Assert.True(Changes(() => File.WriteAllText(In(site, "b.txt"), "x")));
         Assert.True(Changes(() => File.Delete(In(site, "b.txt"))));
     }

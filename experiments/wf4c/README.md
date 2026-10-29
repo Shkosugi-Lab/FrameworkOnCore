@@ -934,6 +934,26 @@ System.Drawing を Linux で動かす試み(`api-probe/drawing`、Ubuntu 24.04 �
   - OEmbed.Core: パッケージの .NET Framework 用は `Embed(url, hostUrl)`、.NET 10 用は `EmbedAsync` だけで、YAF の BBCode の [MEDIA] の表示がスタブになっていた(例外を捕まえないので、[MEDIA] を含む投稿のあるトピックのページがエラーになる)。→ 下の「frameworkAssets を間接的に使うプロジェクトにも」で解決(2026-10-29)。
 - **検証**: 全 11 本を変換し直してビルドが通り、基準を記録(未解決は yaf の 2 件だけ)。基準を 1 つ厳しくすると be で REGRESSION になり、スクリプトが失敗することを確かめた。テスト Windows 4,550 件、Linux 4,523 件(SQL Server のコンテナあり)と SqlClientTests 204 件が緑。Windows: be 5/5、wt 8/8、mvcmovie 11/12・contoso 9/12(以前と同じ)、mojo・n2 のトップと dnn のインストーラー 200。Linux: be 5/5、wt 7/8(error-page、以前から)。
 
+### 移植で書いたコードの分岐網羅の単体テスト(2026-10-29、ユーザーの指示)
+
+ランタイムのテストは、.NET Framework との差分を比べるパリティ(Mobile・Chart・Drawing・WebControls・LINQ to SQL)とコーパスが中心で、移植で書いた部分(ASP.NET Core のホストと IIS の機能、ResX・CodeDom の置き換え、暗号・認証チケット、SqlClient の追加分)はほとんど単体テストで通っていなかった。参照ソースを静的に調べて「移植の分岐」を数え、カバレッジと突き合わせて、通っていない分岐ごとにテストを足した。
+
+- **移植の分岐**(`experiments/wf4c/coverage/port_branches.py`): 参照ソースのうち移植の条件(`#if WebFormsForCore`・`NETCOREAPP`・`!NETFRAMEWORK`・`NET8_0_OR_GREATER`・`TARGET_UNIX`…、`#if NETFRAMEWORK`/`!WebFormsForCore` の `#else`)の中の行と、移植が足したフォルダー(`WebFormsForCore`・`Core`)のファイル。カバレッジに出る行は net10.0 のビルドに入った行なので、条件を評価せずに「移植の条件の中か」だけで決まる。
+- **カバレッジ**(`measure.py`): dotnet-coverage で、単体テスト(FrameworkOnCore.Tests、RuntimeUnitTests、SqlClientTests)とパリティのプログラム(子プロセスも)を測り、合わせる(パッケージの DLL には snupkg の PDB を横に置く)。`file_coverage.py <ファイル名>` はファイルごとの通っていない分岐を行で出す(`--program SqlClient`)。結果(results/)はコミットしない。
+- **テスト**(新しいプロジェクト `tests/RuntimeUnitTests`): System.Web をソースからビルドして参照し、内部の型を見る(System.Web の InternalsVisibleTo、ビルドの鍵で署名)。プロジェクト参照の deps.json には版が書かれず .NET の同名の System.Web(4.0.0.0)が勝つので、ビルドの後に版を書き足す。期待値は IIS のドキュメント(URL Rewrite・httpErrors・staticContent・httpCompression・ログ・httpProtocol の構成リファレンス)、.NET Framework の参照ソースとドキュメント、.NET Framework 4.8 で記録した値(`Security/golden`: 15 通りの machineKey のフォーム認証チケット・MachineKey.Protect・EncryptString・webengine4.dll のハッシュ、`SqlClientTests/FrameworkOnCore/golden`: 接続文字列 81 件)。ドキュメントに無いものはコードの意図と明記した(`the host's choice`)。プロセス単位のもの(アプリの再起動、ShutdownAll、シャドウコピー)は、テストのアセンブリ自体を子プロセスとして動かす(`Hosting/Child.cs`)。
+- **結果**(Windows、移植の分岐の通った割合): System.Web 1.1% → 88.8%(4,501/5,071)、System.Data.SqlClient の追加分 97.1%。RuntimeUnitTests 1,325 件(合格 1,275、スキップ 50: 下のバグのテスト)。SqlClientTests 317 件(合格 307、バグのテストなど 10 件をスキップ)。通らない残りは、IIS 本体(webengine4.dll)が要るもの、AppDomain が 1 つのため、別 OS、防御の catch とコンパイラの null 検査で、各テストの報告に理由を書いた。Linux のビルドの分(Skia、リスナーの引き継ぎの Unix 側)は Windows の計測には入らない。
+- **Linux**(`tests/RuntimeUnitTests/run-tests-linux.sh`、SDK のコンテナ): 最初は 43 件が失敗した。テストが見つけた Linux だけのバグ 3 件を直した: ResX の型の解決が環境変数 SystemRoot の無い Linux で型の初期化に失敗し、.resx がすべて読めなかった(`AssemblyNamesTypeResolutionService`。App_GlobalResources のあるアプリはコンパイルできないはず)。`HttpWorkerRequest.MapPath` が Linux では末尾の `/` を残していた(Windows は付けない)。`ApplicationHost.CreateApplicationHost` が Windows NT でないと例外だった。テスト側の Windows の前提(隠しファイルの属性、apphost の .exe、COM)も OS ごとにした。Linux 1,273 件合格(スキップ 52: バグのテストと Windows 専用の 2 件)。
+- **見つかったバグ**(`Skip = "bug: ..."` のテスト。Skip を外すと失敗することを確かめた。直すかどうかは未決定):
+  - ホスト(AspNetCoreWorkerRequest など): `ReadEntityBody` が offset を無視して先頭に書く(HttpBufferlessInputStream のデータが壊れる)、`(` を含む URL で未知のヘッダーが失われる、`HeadersSent()` が常に false、`IsClientConnected()` が常に true、`SendStatus` が説明文を捨てる、同名ヘッダーを `;` で連結(RFC は `,`)、パス情報を 1 段しか見ない(`/a.aspx/x/y` が 404)。
+  - IIS の機能: URL Rewrite の Wildcard の `?`、グローバルルールにも allowedServerVariables、フォルダーの rewriteMaps の clear が全体に効く、IsFile 条件の input 省略、Range `bytes=10-20` が 416 でなく 200、directoryBrowse の空の showFlags が 403.14、W3C ログの制御文字、フォルダーの handlers を無視、httpErrors のエントリの remove が効かない。
+  - ResX・STRB: byte[] の読み戻しが null、CultureInfo を書けない、ResXFileRef をシリアル化できない、見つからない型が FileNotFoundException、STRB の文字列の欠落(画像のリソースで ArgumentNullException)・`Create(resxFile)` が読まない。
+  - CodeDom: `CompilerOptions` が null で NullReferenceException、利用者の `/nowarn` で ASP.NET の `/nowarn` が付かない、pdb なしの GenerateInMemory、providerOptions のコンストラクター、VB の `_MYTYPE`。
+  - 暗号・その他: `DataProtector`(DpapiDataProtector)が動かない(SHA256 の名前が .NET で null、形式が違う、Unprotect が Windows で例外)、`WebFormsTaskScheduler` の GetMethod、18 バイト未満のチケットのエラーコード、`Request.Headers` の Add/Set が統合モードなのに例外、セッションの InitializeItem。
+  - アプリの起動: `defaultRegexMatchTimeout` が Regex に効かない、`<cache defaultProvider>` を読まない、ShutdownAll でプロセスが終わる、`<trust level="Medium">` が起動できない、UseNetFXGAC の名前の扱い。
+  - SqlClient: `|DataDirectory|` をリモートの Data Source でも展開、相対パスの DataDirectory を受け付ける、例外の型 2 件、列挙の重複の扱い。
+- **同時に**: 変換器が ProjectReference・HintPath のパスの `\` を Linux で解決できず(`FrameworkAssetsFlow` のテストが Linux で失敗)、同じ書き方の ProjectConverter の 4 か所も直した(`ProjectConverter.Native`。Windows では変わらない。元のビルドを読む OriginalBuild は Windows の MSBuild が前提なのでそのまま)。SqlClientTests は日本語の Windows で訳のメッセージが返り 18 件失敗していたので、英語で動かすようにした(`EnglishMessages`)。名前付きパイプのテストは Windows 専用にした。
+- **検証**: ランタイムの変更で frameworkOnCoreVersion 1.6.5-w2l.24。テスト Windows 4,551・Linux 4,524(SQL Server のコンテナあり)・SqlClientTests Windows 307・Linux 295 が緑。be・wt を変換し直し、Windows be 5/5・wt 8/8、Linux be 5/5・wt 7/8(error-page、以前と同じ)。
+
 ### frameworkAssets を間接的に使うプロジェクトにも(2026-10-29、ユーザーの指示)
 
 パッケージの .NET Framework 用の DLL を使う規則(`rules/packages.json` の frameworkAssets: PackageReference に ExcludeAssets="compile;runtime"、その DLL への Reference)は、パッケージを直接参照するプロジェクトにしか効いていなかった。SDK 形式のプロジェクトは参照先のパッケージも見るが、除外された資産は引き継がれない。YAF.Web は YAF.Core 経由で OEmbed.Core を使っていて、型が見つからなかった。

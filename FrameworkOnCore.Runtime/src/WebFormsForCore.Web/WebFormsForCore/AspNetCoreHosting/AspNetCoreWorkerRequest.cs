@@ -529,7 +529,8 @@ namespace System.Web.Hosting
 			// URLs are case-insensitive on IIS (/Default.aspx for default.aspx).
 			mappedPath = WebFormsForCore.PhysicalPathCasing.Resolve(mappedPath);
 
-			if (mappedPath.EndsWith("\\", StringComparison.Ordinal) &&
+			// Without a trailing separator but a root's ("C:\", Linux's "/"), on Linux as on Windows.
+			if (mappedPath.Length > 1 && mappedPath[mappedPath.Length - 1] == Path.DirectorySeparatorChar &&
 				!mappedPath.EndsWith(":\\", StringComparison.Ordinal))
 			{
 				mappedPath = mappedPath.Substring(0, mappedPath.Length - 1);

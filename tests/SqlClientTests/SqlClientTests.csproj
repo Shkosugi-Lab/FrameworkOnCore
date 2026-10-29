@@ -22,7 +22,7 @@
   <ItemGroup>
     <Compile Include="FunctionalTests\**\*.cs" />
     <!-- FrameworkOnCore's: what the port changes. -->
-    <Compile Include="FrameworkOnCore\**\*.cs" />
+    <Compile Include="FrameworkOnCore\**\*.cs" Exclude="FrameworkOnCore\golden\**" />
     <Compile Include="ManualTests\DataCommon\DataTestUtility.cs" />
     <!-- What maintenance-packages' Directory.Build.targets gives every test project. -->
     <Compile Include="Common\**\*.cs" Exclude="Common\Windows\**" />
@@ -30,6 +30,9 @@
     <Compile Include="Tools\TDS\**\*.cs" Exclude="Tools\TDS\TDS.EndPoint\SSPI\SSPIContext.*.cs;Tools\TDS\TDS.EndPoint\SSPI\SecurityWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <!-- What .NET Framework 4.8's System.Data gave for FrameworkOnCore\FrameworkCases.cs (FrameworkOnCore\golden: its own
+         net48 project, record.csproj, not part of the tests). -->
+    <None Include="FrameworkOnCore\golden\framework.golden.json" Link="framework.golden.json" CopyToOutputDirectory="PreserveNewest" />
     <!-- The test server's certificate, beside the tests (TDS.Servers.csproj copied it so). -->
     <None Include="Tools\TDS\TDS.Servers\TdsServerCertificate.pfx" Link="TdsServerCertificate.pfx" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

@@ -27,6 +27,8 @@ on:
       - 'tests/SqlClientTests/**'
       # The tests it runs on Linux: a test added or changed is run there too (Studio's, the converter's).
       - 'tests/FrameworkOnCore.Tests/**'
+      # The unit tests of the port's own code (System.Web built from its source).
+      - 'tests/RuntimeUnitTests/**'
       - '.github/workflows/frameworkoncore-packages.yml'
   workflow_dispatch:
     inputs:
@@ -98,6 +100,10 @@ jobs:
       # The System.Data.SqlClient port on Linux's managed SNI: Microsoft's functional tests and |DataDirectory|'s.
       - name: System.Data.SqlClient tests (Linux)
         run: dotnet test tests/SqlClientTests/SqlClientTests.csproj -nologo -v q
+      # The port's own code (the host and its IIS features, ResX, CodeDom, the crypto) built from its source; the
+      # runtime's NuGet.config names its local feed (FrameworkOnCore.Runtime/nupkg).
+      - name: Runtime unit tests (Linux)
+        run: mkdir -p FrameworkOnCore.Runtime/nupkg && dotnet test tests/RuntimeUnitTests/RuntimeUnitTests.csproj -nologo -v q
 
   publish:
     needs: [build, test-linux]

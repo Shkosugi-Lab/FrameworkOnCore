@@ -1,0 +1,73 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Unit tests of the port's own code in FrameworkOnCore's System.Web (what .NET Framework had not: the ASP.NET Core
+       host and its IIS features, the ResX and CodeDom replacements...), built from its source. Which branches they reach:
+       experiments/wf4c/coverage (measure.py, port_branches.py). The internals are visible to this assembly (signed with
+       the runtime's build key: System.Web's InternalsVisibleTo). -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>FrameworkOnCore.Runtime.Tests</AssemblyName>
+    <RootNamespace>FrameworkOnCore.Runtime.Tests</RootNamespace>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\FrameworkOnCore.Runtime\src\SigningKey\WebFormsForCore.snk</AssemblyOriginatorKeyFile>
+    <NoWarn>$(NoWarn);CS0618;SYSLIB0011;SYSLIB0051;CA1416;MSB3243</NoWarn>
+    <!-- The assembly is also the program of the tests' child processes (Hosting\Child.cs: its Main runs a scenario; the
+         apphost for the worker started without dotnet, WebFormsProcessTests). -->
+    <GenerateProgramFile>false</GenerateProgramFile>
+    <StartupObject>FrameworkOnCore.Runtime.Tests.Hosting.Child</StartupObject>
+    <UseAppHost>true</UseAppHost>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
+    <PackageReference Include="xunit" Version="2.9.*" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.*" />
+  </ItemGroup>
+
+  <!-- The .NET Framework 4.8 recorder of the Security tests' expectations (its own net48 project). -->
+  <ItemGroup>
+    <Compile Remove="Security\golden\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\FrameworkOnCore.Runtime\src\WebFormsForCore.Web\WebFormsForCore.Web.csproj" />
+  </ItemGroup>
+
+  <!-- FrameworkOnCore's System.Web, not .NET's facade of the same name (as the converter writes it into converted projects). -->
+  <Target Name="WithoutNetSystemWeb" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
+    <ItemGroup>
+      <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'[/\x5C]dotnet[/\x5C]'))" />
+    </ItemGroup>
+  </Target>
+
+  <!-- The host takes .NET's System.Web (4.0.0.0) over an application's entry without an assembly version, which the
+       SDK writes for a project reference: the referenced projects' versions written into the deps.json (as a package's
+       are). -->
+  <UsingTask TaskName="FocDepsAssemblyVersions" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <DepsFile ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System.IO" />
+      <Using Namespace="System.Text.RegularExpressions" />
+      <Code Type="Fragment" Language="cs"><![CDATA[
+        var folder = Path.GetDirectoryName(DepsFile);
+        var text = File.ReadAllText(DepsFile);
+        text = Regex.Replace(text, @"""([^""/]+\.dll)"": \{\s*""fileVersion"": ""0\.0\.0\.0""\s*\}", m =>
+        {
+            var file = Path.Combine(folder, m.Groups[1].Value);
+            if (!File.Exists(file)) return m.Value;
+            var version = System.Reflection.AssemblyName.GetAssemblyName(file).Version;
+            return "\"" + m.Groups[1].Value + "\": { \"assemblyVersion\": \"" + version + "\", \"fileVersion\": \"" + version + "\" }";
+        });
+        File.WriteAllText(DepsFile, text);
+      ]]></Code>
+    </Task>
+  </UsingTask>
+  <Target Name="FocProjectAssemblyVersions" AfterTargets="GenerateBuildDependencyFile" Condition="Exists('$(ProjectDepsFilePath)')">
+    <FocDepsAssemblyVersions DepsFile="$(ProjectDepsFilePath)" />
+  </Target>
+</Project>

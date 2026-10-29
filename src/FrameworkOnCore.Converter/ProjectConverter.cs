@@ -106,7 +106,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         foreach (var reference in Elements(document, "ProjectReference").ToList())
         {
             if (!isSdk && !ItemHolds(reference, name)) continue;
-            var referenced = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(projectPath)!, (string)reference.Attribute("Include")!));
+            var referenced = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(projectPath)!, Native((string)reference.Attribute("Include")!)));
             // A path that is not there (a project moved in the repository: nopCommerce's promotion providers name
             // ..\Nop.BusinessLogic, which is in Libraries): the repository's project of its GUID, as Visual Studio finds it.
             if (!File.Exists(referenced) && reference.Elements().FirstOrDefault(e => e.Name.LocalName == "Project")?.Value is { } guid &&
@@ -317,7 +317,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
             {
                 // A package's DLL is covered by the PackageReference.
                 if (Regex.IsMatch(hint, @"(^|\\)packages\\", RegexOptions.IgnoreCase)) continue;
-                var dll = Path.GetFullPath(Path.Combine(source, hint));
+                var dll = Path.GetFullPath(Path.Combine(source, Native(hint)));
                 // Another project's build output: that project, by reference.
                 var producer = ProjectOfAssembly(assembly);
                 if (producer != null && (Regex.IsMatch(hint, @"(^|\\)bin\\", RegexOptions.IgnoreCase) || !File.Exists(dll)))
@@ -485,11 +485,11 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         // partial methods, CS0759 without it): with their metadata, as the original has them.
         var analyzers = old.Descendants(msbuild + "ProjectReference")
             .Where(r => string.Equals((string?)r.Attribute("OutputItemType"), "Analyzer", StringComparison.OrdinalIgnoreCase))
-            .Select(r => Path.GetFullPath(Path.Combine(source, (string)r.Attribute("Include")!)))
+            .Select(r => Path.GetFullPath(Path.Combine(source, Native((string)r.Attribute("Include")!))))
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
         // extern alias names on project references (Aliases), as the original has them.
         var aliases = old.Descendants(msbuild + "ProjectReference")
-            .Select(r => (Path: Path.GetFullPath(Path.Combine(source, (string)r.Attribute("Include")!)), Aliases: r.Element(msbuild + "Aliases")?.Value ?? (string?)r.Attribute("Aliases")))
+            .Select(r => (Path: Path.GetFullPath(Path.Combine(source, Native((string)r.Attribute("Include")!))), Aliases: r.Element(msbuild + "Aliases")?.Value ?? (string?)r.Attribute("Aliases")))
             .Where(r => !string.IsNullOrWhiteSpace(r.Aliases)).ToDictionary(r => r.Path, r => r.Aliases!, StringComparer.OrdinalIgnoreCase);
         foreach (var referenced in projectReferences.Concat(builtReferences).Distinct(StringComparer.OrdinalIgnoreCase))
         {
@@ -708,6 +708,9 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
     // TRACE=-1, read as defined).
     IEnumerable<string> ConfigurationSymbols(bool visualBasic) =>
         conditions.Configuration.Equals("Debug", StringComparison.OrdinalIgnoreCase) ? new[] { "DEBUG", "TRACE" } : new[] { "TRACE" };
+
+    // A path an MSBuild item names (Windows' separators) as this system's: the converter's tests run on Linux too.
+    internal static string Native(string path) => path.Replace('\\', Path.DirectorySeparatorChar);
 
     // The DLL of a package's .NET Framework asset, by the package's path property (GeneratePathProperty).
     internal static string FrameworkAssetPath(string id, string asset) => $"$(Pkg{id.Replace('.', '_').Replace('-', '_')})\\{asset.Replace('/', '\\')}";

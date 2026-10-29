@@ -17,7 +17,9 @@ namespace System.Resources
         private AssemblyName[] names;
         private Hashtable cachedAssemblies;
         private Hashtable cachedTypes;
-        private static string NetFrameworkPath = Path.Combine(Environment.GetEnvironmentVariable("SystemRoot"), "Microsoft.Net", "Framework");
+        // Windows' .NET Framework folder; none on Linux (no SystemRoot: the type's initializer threw, every .resx unreadable).
+        private static string NetFrameworkPath = Environment.GetEnvironmentVariable("SystemRoot") is string systemRoot && systemRoot.Length > 0
+            ? Path.Combine(systemRoot, "Microsoft.Net", "Framework") : null;
 
         internal AssemblyNamesTypeResolutionService(AssemblyName[] names) => this.names = names;
 
@@ -140,7 +142,7 @@ namespace System.Resources
 
         private bool IsNetFrameworkAssembly(string assemblyPath)
         {
-            return assemblyPath != null && assemblyPath.StartsWith(AssemblyNamesTypeResolutionService.NetFrameworkPath, StringComparison.OrdinalIgnoreCase);
+            return assemblyPath != null && NetFrameworkPath != null && assemblyPath.StartsWith(AssemblyNamesTypeResolutionService.NetFrameworkPath, StringComparison.OrdinalIgnoreCase);
         }
 
         public void ReferenceAssembly(AssemblyName name) => throw new NotSupportedException();

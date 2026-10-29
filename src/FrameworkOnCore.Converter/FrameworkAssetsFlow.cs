@@ -38,7 +38,7 @@ public static class FrameworkAssetsFlow
         var references = documents.ToDictionary(d => d.Key, d => Items(d.Value, "ProjectReference")
             .Select(r => (string?)r.Attribute("Include"))
             .Where(i => i != null)
-            .Select(i => Path.GetFullPath(Path.Combine(Path.GetDirectoryName(d.Key)!, i!.Replace("$(MSBuildThisFileDirectory)", ""))))
+            .Select(i => Path.GetFullPath(Path.Combine(Path.GetDirectoryName(d.Key)!, ProjectConverter.Native(i!.Replace("$(MSBuildThisFileDirectory)", "")))))
             .Where(documents.ContainsKey)
             .ToList(), StringComparer.OrdinalIgnoreCase);
 

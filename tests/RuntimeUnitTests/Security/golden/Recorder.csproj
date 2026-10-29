@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- .NET Framework 4.8's results the Security tests compare the port's with: see Program.cs. Not part of the test
+       project (RuntimeUnitTests.csproj removes this folder from its compilation). -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>$(NoWarn);CS0618</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+</Project>

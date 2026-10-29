@@ -27,3 +27,7 @@ perf-baseline/out/
 numbers-parity/bin/
 numbers-parity/obj/
 numbers-parity/framework-golden.txt
+# The branch coverage of FrameworkOnCore's runtime by the tests (measure.py, port_branches.py): the scripts; their results generated (hundreds of MB).
+!/coverage/
+coverage/results/
+coverage/*.log

@@ -55,24 +55,7 @@ namespace System.Web
 					foreach (var section in sections)
 					{
 						modules.AddRange(section.Elements("modules").Elements());
-						foreach (var entry in section.Elements("handlers").Elements())
-						{
-							var name = (string)entry.Attribute("name") ?? "";
-							switch (entry.Name.LocalName)
-							{
-								case "clear": handlers.Clear(); break;
-								case "remove": handlers.RemoveAll(h => h.Name.Equals(name, StringComparison.OrdinalIgnoreCase)); break;
-								case "add":
-									var type = (string)entry.Attribute("type");
-									var path = (string)entry.Attribute("path");
-									// IIS's TransferRequestHandler (extensionless URLs to the managed pipeline): here every
-									// request reaches it already.
-									if (string.IsNullOrEmpty(type) || string.IsNullOrEmpty(path) || type.StartsWith("System.Web.Handlers.TransferRequestHandler", StringComparison.Ordinal)) break;
-									handlers.RemoveAll(h => h.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-									handlers.Add(new Handler(name, path, (string)entry.Attribute("verb") ?? "*", type));
-									break;
-							}
-						}
+						ApplyHandlers(handlers, section);
 					}
 				}
 				catch (Exception e) when (e is System.Xml.XmlException || e is IOException)
@@ -81,6 +64,53 @@ namespace System.Web
 				cache = (written, modules, handlers);
 				return (modules, handlers);
 			}
+		}
+
+		// A system.webServer section's handlers over the ones before it.
+		static void ApplyHandlers(List<Handler> handlers, XElement section)
+		{
+			foreach (var entry in section.Elements().Where(e => e.Name.LocalName == "handlers").Elements())
+			{
+				var name = (string)entry.Attribute("name") ?? "";
+				switch (entry.Name.LocalName)
+				{
+					case "clear": handlers.Clear(); break;
+					case "remove": handlers.RemoveAll(h => h.Name.Equals(name, StringComparison.OrdinalIgnoreCase)); break;
+					case "add":
+						var type = (string)entry.Attribute("type");
+						var path = (string)entry.Attribute("path");
+						// IIS's TransferRequestHandler (extensionless URLs to the managed pipeline): here every
+						// request reaches it already.
+						if (string.IsNullOrEmpty(type) || string.IsNullOrEmpty(path) || type.StartsWith("System.Web.Handlers.TransferRequestHandler", StringComparison.Ordinal)) break;
+						handlers.RemoveAll(h => h.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+						handlers.Add(new Handler(name, path, (string)entry.Attribute("verb") ?? "*", type));
+						break;
+				}
+			}
+		}
+
+		// The handlers of a folder with handlers of its own (a <location path>'s, a folder's web.config's: IIS 10's handlers
+		// section is delegated, overrideMode Allow, no allowDefinition), made from the application's ones it was made from.
+		static readonly System.Collections.Concurrent.ConcurrentDictionary<string, (List<Handler> From, List<Handler> Handlers)> handlersByFolder =
+			new System.Collections.Concurrent.ConcurrentDictionary<string, (List<Handler>, List<Handler>)>(StringComparer.OrdinalIgnoreCase);
+
+		// The handlers in effect for the URL: the application's (web.config's own section, its location for itself), then
+		// the sections of the folders down to the URL's (IisConfiguration's order; not the original server's: its managed
+		// handlers are system.web's here).
+		static List<Handler> HandlersFor(string virtualPath)
+		{
+			var handlers = Read().Handlers;
+			var root = IisConfiguration.Root;
+			if (root == null) return handlers;
+			var folder = IisConfiguration.Deepest(root, virtualPath);
+			if (folder.Length == 0) return handlers;
+			var key = root + "|" + folder;
+			if (handlersByFolder.TryGetValue(key, out var made) && made.From == handlers) return made.Handlers;
+			var list = new List<Handler>(handlers);
+			foreach (var section in IisConfiguration.For(root, virtualPath))
+				if (!section.Server && section.Base.Length > 0) ApplyHandlers(list, section.WebServer);
+			handlersByFolder[key] = (handlers, list);
+			return list;
 		}
 
 		/// <summary>The application's modules after its system.webServer/modules, in IIS's order.</summary>
@@ -112,9 +142,9 @@ namespace System.Web
 		/// <summary>The application's handler for the request in system.webServer/handlers; null if none.</summary>
 		internal static string FindHandlerType(string verb, VirtualPath path)
 		{
-			var handlers = Read().Handlers;
-			if (handlers.Count == 0) return null;
 			var virtualPath = path.VirtualPathString;
+			var handlers = HandlersFor(virtualPath);
+			if (handlers.Count == 0) return null;
 			var fileName = virtualPath.Substring(virtualPath.LastIndexOf('/') + 1);
 			foreach (var handler in handlers)
 			{

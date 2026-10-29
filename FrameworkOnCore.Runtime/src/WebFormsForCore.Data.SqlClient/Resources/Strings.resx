@@ -233,6 +233,12 @@
   <data name="ADP_InvalidConnectionOptionValue" xml:space="preserve">
     <value>Invalid value for key '{0}'.</value>
   </data>
+  <data name="ADP_InvalidDataDirectory" xml:space="preserve">
+    <value>The DataDirectory substitute is not a string.</value>
+  </data>
+  <data name="SQL_ContextUnavailableOutOfProc" xml:space="preserve">
+    <value>The requested operation requires a SqlClr context, which is only available when running in the Sql Server process.</value>
+  </data>
   <data name="ADP_MissingConnectionOptionValue" xml:space="preserve">
     <value>Use of key '{0}' requires the key '{1}' to be present.</value>
   </data>

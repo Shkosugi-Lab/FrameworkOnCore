@@ -92,7 +92,7 @@ public class CodeProviderTests : CompilationTest
         Generates(new VBCodeProviderBase(), "Public Class A");
     }
 
-    [Fact(Skip = "bug: the providerOptions constructors throw MissingMethodException: Activator.CreateInstance(generator, NonPublic | Public) without BindingFlags.Instance (CSharpCodeProviderBase.cs:105, VBCodeProviderBase.cs:113)")]
+    [Fact]
     // the docs: Microsoft.CSharp.CSharpCodeProvider(IDictionary<string,string>) and VBCodeProvider(IDictionary<string,string>): a provider with the options (CompilerVersion)
     public void The_bases_with_provider_options()
     {

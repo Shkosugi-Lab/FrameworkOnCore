@@ -73,6 +73,13 @@ namespace System.Web.Util {
             if (timeoutInMillsec.HasValue) {
                 timeout = timeoutInMillsec.Value;
             } else {
+#if !NETFRAMEWORK
+                // The process's Regex reads its default once, when first used, maybe before the application set it
+                // (<httpRuntime defaultRegexMatchTimeout>): the application's given here.
+                if (AppDomain.CurrentDomain.GetData("REGEX_DEFAULT_MATCH_TIMEOUT") is TimeSpan set && set > TimeSpan.Zero && set.TotalMilliseconds < int.MaxValue) {
+                    timeout = (int)set.TotalMilliseconds;
+                } else
+#endif
                 if (!IsRegexTimeoutSetInAppDomain && BinaryCompatibility.Current.TargetsAtLeastFramework461) {
                     timeout = 2000;
                 }

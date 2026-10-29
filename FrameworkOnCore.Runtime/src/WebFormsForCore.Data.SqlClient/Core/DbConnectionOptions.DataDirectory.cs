@@ -23,7 +23,7 @@ namespace System.Data.Common
                 string rootFolderPath = (rootFolderObject as string);
                 if ((null != rootFolderObject) && (null == rootFolderPath))
                 {
-                    throw ADP.InvalidConnectionOptionValue(keyword);
+                    throw ADP.InvalidDataDirectory();
                 }
                 else if (string.IsNullOrEmpty(rootFolderPath))
                 {
@@ -57,7 +57,10 @@ namespace System.Data.Common
                 }
 
                 // verify root folder path is a real path without unexpected "..\"
-                if (!Path.GetFullPath(fullPath).StartsWith(Path.GetFullPath(rootFolderPath), StringComparison.Ordinal))
+                // .NET Framework compared with the DataDirectory as it is: a relative one is refused. The port compares a
+                // full one's full path (its choice: '/' and '\' alike).
+                if (!Path.IsPathFullyQualified(rootFolderPath) ||
+                    !Path.GetFullPath(fullPath).StartsWith(Path.GetFullPath(rootFolderPath), StringComparison.Ordinal))
                 {
                     throw ADP.InvalidConnectionOptionValue(keyword);
                 }
@@ -65,6 +68,75 @@ namespace System.Data.Common
             return fullPath;
 
             static bool IsSeparator(char c) => c == '\\' || c == '/';
+        }
+
+        /// <summary>
+        /// .NET Framework's DbConnectionOptions.Expand: the connection string with |DataDirectory| expanded, the pool
+        /// group's key (DbConnectionFactory.GetConnectionPoolGroup), so that the DataDirectory is read for each connection
+        /// string given. The string itself when nothing is expanded.
+        /// </summary>
+        internal virtual string Expand() => _usersConnectionString;
+
+        /// <summary>.NET Framework's DbConnectionOptions.ExpandKeyword: the keyword's value (the one in effect) replaced.</summary>
+        protected string ExpandKeyword(string keyword, string replacementValue)
+        {
+            bool expanded = false;
+            int copyPosition = 0;
+            var builder = new System.Text.StringBuilder(_usersConnectionString.Length);
+            _parsetable.TryGetValue(keyword, out string value);
+            for (NameValuePair current = _keyChain; null != current; current = current.Next)
+            {
+                if ((current.Name == keyword) && (current.Value == value))
+                {
+                    // only the value in effect replaced: the other values of a keyword given twice stay
+                    DbConnectionStringBuilder.AppendKeyValuePair(builder, current.Name, replacementValue);
+                    builder.Append(';');
+                    expanded = true;
+                }
+                else
+                {
+                    builder.Append(_usersConnectionString, copyPosition, current.Length);
+                }
+                copyPosition += current.Length;
+            }
+            if (!expanded)
+            {
+                DbConnectionStringBuilder.AppendKeyValuePair(builder, keyword, replacementValue);
+            }
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// .NET Framework's SqlConnectionString.VerifyLocalHostAndFixup (without its fix-up): a Data Source on this machine,
+        /// for a file |DataDirectory| expanded: none, '.', '(local)', the machine's fully qualified DNS name or its first
+        /// label, alone or with an instance ("\name"). A port (",1433"), a protocol ("tcp:") or "localhost" is not.
+        /// </summary>
+        internal static bool IsLocalHost(string host)
+        {
+            if (string.IsNullOrEmpty(host) || IsHost(host, ".") || IsHost(host, "(local)"))
+                return true;
+            string name = ComputerNameDnsFullyQualified();
+            int separator = name.IndexOf('.');
+            return IsHost(host, name) || (separator > 0 && IsHost(host, name.Substring(0, separator)))
+                // the port: the NetBIOS name too (what the DNS name is but for its length or case)
+                || IsHost(host, Environment.MachineName);
+
+            static bool IsHost(string host, string name) =>
+                host.Equals(name, StringComparison.OrdinalIgnoreCase) || host.StartsWith(name + "\\", StringComparison.OrdinalIgnoreCase);
+        }
+
+        // GetComputerNameEx(ComputerNameDnsFullyQualified): the host name and the primary DNS suffix
+        static string ComputerNameDnsFullyQualified()
+        {
+            try
+            {
+                var properties = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties();
+                return string.IsNullOrEmpty(properties.DomainName) ? properties.HostName : properties.HostName + "." + properties.DomainName;
+            }
+            catch (Exception)
+            {
+                return Environment.MachineName;
+            }
         }
     }
 }

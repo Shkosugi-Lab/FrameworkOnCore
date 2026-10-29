@@ -204,6 +204,17 @@ namespace System.Data.ProviderBase
                 if (null == userConnectionOptions)
                 { // we only allow one expansion on the connection string
                     userConnectionOptions = connectionOptions;
+#if WebFormsForCore
+                    // .NET Framework's: the pool group of the expanded string (|DataDirectory|), the given one not kept,
+                    // so the DataDirectory is read again for each connection string given.
+                    string expandedConnectionString = connectionOptions.Expand();
+                    if ((object)expandedConnectionString != (object)key.ConnectionString)
+                    {
+                        DbConnectionPoolKey newKey = (DbConnectionPoolKey)((ICloneable)key).Clone();
+                        newKey.ConnectionString = expandedConnectionString;
+                        return GetConnectionPoolGroup(newKey, null, ref userConnectionOptions);
+                    }
+#endif
                 }
 
                 // We don't support connection pooling on Win9x

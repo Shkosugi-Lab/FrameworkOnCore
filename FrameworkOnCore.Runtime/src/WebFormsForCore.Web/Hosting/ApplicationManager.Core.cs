@@ -1269,7 +1269,15 @@ namespace System.Web.Hosting {
                             }
                         else {
                             if (!switches.UseLegacyCas) {
+#if NETCOREAPP
+                                // the port's choice: .NET has no code access security (no policy levels, no partially
+                                // trusted AppDomains), so every trust level runs as full trust, as .NET ignores CAS,
+                                // rather than failing for want of the level's policy file.
+                                bool runsInFullTrust = true;
+                                if (runsInFullTrust) {
+#else
                                 if (trustSection.Level == "Full") {
+#endif
                                     permissionSet = new PermissionSet(PermissionState.Unrestricted);
 #if NETFRAMEWORK
                                     setup.PartialTrustVisibleAssemblies = defaultPartialTrustVisibleAssemblies;
@@ -1523,7 +1531,12 @@ setup,
 #if NETFRAMEWORK
                         appDomain.SetData(entry.Key, entry.Value);
 #else
+			{
 				SetLoadContextData(entry.Key, entry.Value, appContext);
+				// Regex reads its default timeout from the AppDomain's (AppContext's) data, once: set before its first use.
+				if (entry.Key == _regexMatchTimeoutKey)
+					AppDomain.CurrentDomain.SetData(entry.Key, entry.Value);
+			}
 #endif
 		}
 		private static string NormalizePublicKeyBlob(string publicKey) {

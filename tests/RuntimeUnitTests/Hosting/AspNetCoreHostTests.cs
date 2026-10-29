@@ -324,7 +324,7 @@ public class AspNetCoreHostTests
         Assert.Equal(legacy, Legacy(host, path));
     }
 
-    [Fact(Skip = "bug: only one segment of path info is seen (/a.aspx/x/y is not System.Web's: 404)")] // IIS: the *.aspx handler maps /a.aspx/x/y (path info /x/y), as the worker request splits it
+    [Fact] // IIS: the *.aspx handler maps /a.aspx/x/y (path info /x/y), as the worker request splits it
     public void A_page_s_deeper_path_info_goes_to_System_Web()
     {
         using var site = new Site();

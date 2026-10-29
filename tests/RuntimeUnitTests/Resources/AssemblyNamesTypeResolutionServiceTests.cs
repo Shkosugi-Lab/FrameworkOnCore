@@ -22,7 +22,7 @@ public class AssemblyNamesTypeResolutionServiceTests
         Assert.Same(typeof(int).Assembly, service.GetAssembly(Core, false));
     }
 
-    [Fact(Skip = "bug: GetAssembly(name, false) throws FileNotFoundException for an assembly not found (AssemblyLoadContext.LoadFromAssemblyName; .NET Framework's LoadWithPartialName returned null) (AssemblyNamesTypeResolutionService.cs:35)")] // docs (ITypeResolutionService.GetAssembly(name, throwOnError)): false, and null when the assembly cannot be located
+    [Fact] // docs (ITypeResolutionService.GetAssembly(name, throwOnError)): false, and null when the assembly cannot be located
     public void An_assembly_not_found_is_null_when_asked_not_to_throw()
     {
         Assert.Null(new AssemblyNamesTypeResolutionService(null).GetAssembly(new AssemblyName("No.Such.Assembly"), false));

@@ -231,19 +231,22 @@ namespace System.Web {
                     length = fileLength - offset;
                 }
                 else {
-                    // if...greater than or equal to the current length of the entity-body, last-byte-pos 
+                    if (endPos < offset) {
+                        // the byte range specifier is syntactially invalid
+                        // because the last-byte-pos < first-byte-pos
+                        return false;
+                    }
+
+                    // if...greater than or equal to the current length of the entity-body, last-byte-pos
                     // is taken to be equal to one less than the current length of the entity- body in bytes.
                     if (endPos > fileLength - 1) {
                         endPos = fileLength - 1;
                     }
 
-                    length = endPos - offset + 1;
-
-                    if (length < 1) {
-                        // the byte range specifier is syntactially invalid 
-                        // because the last-byte-pos < first-byte-pos
-                        return false;
-                    }
+                    // A first-byte-pos beyond the file (bytes=10-20 of 5 bytes) is valid but not satisfiable (RFC 9110
+                    // 14.1.1; IIS 10 answers 416): it was taken as invalid, the whole file sent. The check was after
+                    // the clamping.
+                    length = Math.Max(0, endPos - offset + 1);
                 }
                 isSatisfiable = IsRangeSatisfiable(offset, length, fileLength);
                 // we parsed the current range, but need to successfully move the startIndex to the next range      

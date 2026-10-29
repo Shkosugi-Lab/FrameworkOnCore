@@ -17,6 +17,10 @@ public class AspNetCoreSessionProvider : SessionStateStoreProviderBase
     // empty item instead of silently inheriting whatever was stored under the previous id.
     private static string GetSessionStateKey(string id) => SessionStateKeyPrefix + id;
 
+    // An item CreateUninitializedItem added: GetItem/GetItemExclusive return InitializeItem for it once, as the
+    // InProc and SQL Server stores do (they clear the flag when they return it).
+    private static string GetUninitializedKey(string id) => SessionStateKeyPrefix + "Uninitialized." + id;
+
     public override void Dispose()
     {
     }
@@ -57,6 +61,12 @@ public class AspNetCoreSessionProvider : SessionStateStoreProviderBase
             return null;
         }
 
+        if (context.CoreContext.Session.TryGetValue(GetUninitializedKey(id), out _))
+        {
+            context.CoreContext.Session.Remove(GetUninitializedKey(id));
+            actions = SessionStateActions.InitializeItem;
+        }
+
         using var stream = new MemoryStream(buffer);
         return SessionStateUtility.DeserializeStoreData(context, stream, false);
     }
@@ -82,6 +92,7 @@ public class AspNetCoreSessionProvider : SessionStateStoreProviderBase
     public override void RemoveItem(HttpContext context, string id, object lockId, SessionStateStoreData item)
     {
         context.CoreContext.Session.Remove(GetSessionStateKey(id));
+        context.CoreContext.Session.Remove(GetUninitializedKey(id));
     }
 
     public override void ResetItemTimeout(HttpContext context, string id)
@@ -99,5 +110,6 @@ public class AspNetCoreSessionProvider : SessionStateStoreProviderBase
     {
         SessionStateStoreData item = CreateNewStoreData(context, timeout);
         SetAndReleaseItemExclusive(context, id, item, null, true);
+        context.CoreContext.Session.Set(GetUninitializedKey(id), Array.Empty<byte>());
     }
 }

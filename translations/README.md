@@ -4,7 +4,7 @@ FrameworkOnCore のアセンブリが自分で出す文言(例外のメッセー
 
 | アセンブリ | 件数 | 主な文言 |
 |---|---:|---|
-| System.Web | 3,369 | Calendar の見出し、Login・CreateUserWizard などのラベルとメッセージ、Wizard・GridView のボタン、Menu・TreeView の補助テキスト、Web パーツの動作名、エラーページの見出しと説明 |
+| System.Web | 3,370 | Calendar の見出し、Login・CreateUserWizard などのラベルとメッセージ、Wizard・GridView のボタン、Menu・TreeView の補助テキスト、Web パーツの動作名、エラーページの見出しと説明 |
 | System.Web.Extensions | 578 | ASP.NET AJAX: UpdatePanel・ScriptManager の例外、MicrosoftAjax.js などのクライアント側のメッセージ、ListView・DataPager |
 | System.Web.DataVisualization | 1,290 | Chart コントロールの例外と説明 |
 | System.Web.DynamicData | 101 | Dynamic Data のフィールド テンプレートとフィルター |
@@ -23,7 +23,7 @@ FrameworkOnCore のアセンブリが自分で出す文言(例外のメッセー
 | System.Web.Http、.WebHost、.Owin、System.Net.Http.Formatting | 142、18、15、89 | Web API 2: 「要求 URI '{0}' に一致する HTTP リソースが見つかりません。」などの応答のメッセージ、フォーマッタ |
 | System.Web.Cors、System.Web.Http.Cors | 5、15 | CORS |
 
-全部で 8,156 件(System.Web 3,369 件、ほか 4,787 件)。一覧と英語の原文の場所は `sources.json` にあります。
+全部で 8,157 件(System.Web 3,370 件、ほか 4,787 件)。一覧と英語の原文の場所は `sources.json` にあります。
 
 ## なぜ独自に訳すのか
 

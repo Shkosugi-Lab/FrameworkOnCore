@@ -55,14 +55,23 @@ namespace System.Data.Sql
             return table;
         }
 
-        // The answers' instances: one row per server and instance, as .NET Framework's table has them.
+        // The answers' instances: one row per server and instance, as .NET Framework's table has them. Its
+        // ParseServerEnumString looked a row up with DataTable.Select (case-insensitive) by "ServerName='s'", adding
+        // " AND InstanceName='i'" for a named instance only: a default instance after any row of its server is left out.
         private static IEnumerable<(string, string, string, string)> Distinct(IEnumerable<(string, string, string, string)> instances)
         {
-            var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var servers = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var named = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (var instance in instances)
             {
-                if (seen.Add(instance.Item1 + "\\" + instance.Item2))
+                bool seen = string.IsNullOrEmpty(instance.Item2)
+                    ? servers.Contains(instance.Item1)
+                    : named.Contains(instance.Item1 + "\\" + instance.Item2);
+                if (!seen)
                 {
+                    servers.Add(instance.Item1);
+                    if (!string.IsNullOrEmpty(instance.Item2))
+                        named.Add(instance.Item1 + "\\" + instance.Item2);
                     yield return instance;
                 }
             }

@@ -392,8 +392,10 @@ namespace System.Web.Hosting
 
 			if (HandleExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase) )) 
                 return true;
-            if (HandleExtensions.Any(ext => path.LastIndexOf('/') is var index and > 0 && path[..index].EndsWith(ext, StringComparison.OrdinalIgnoreCase))) 
-                return true;
+            // A handled file with path info of any depth (/a.aspx/x/y: the worker request's /a.aspx and /x/y, as IIS maps it).
+            for (var index = path.IndexOf('/', 1); index > 0; index = path.IndexOf('/', index + 1))
+                if (HandleExtensions.Any(ext => path[..index].EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
+                    return true;
             if (ProhibitedExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return false;
 
             var mappedPath = MapPath(fullpath);

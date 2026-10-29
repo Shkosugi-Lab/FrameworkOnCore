@@ -24,6 +24,11 @@ namespace System.Web {
         private HttpRequest _request;
         private HttpResponse _response;
         private IIS7WorkerRequest _iis7WorkerRequest;
+#if WebFormsForCore
+        // The request's headers written on the ASP.NET Core request, as IIS7WorkerRequest writes IIS' (the port's
+        // pipeline is integrated).
+        private AspNetCoreWorkerRequest _coreWorkerRequest;
+#endif
         
 
         // This constructor creates the header collection for request headers.
@@ -34,6 +39,9 @@ namespace System.Web {
             // if this is an IIS7WorkerRequest, then the collection will be writeable and we will
             // call into IIS7 to update the header blocks when changes are made.
             _iis7WorkerRequest = wr as IIS7WorkerRequest;
+#if WebFormsForCore
+            _coreWorkerRequest = wr as AspNetCoreWorkerRequest;
+#endif
 
             _request = request;
         }
@@ -58,6 +66,9 @@ namespace System.Web {
             _request = col._request;
             _response = col._response;
             _iis7WorkerRequest = col._iis7WorkerRequest;
+#if WebFormsForCore
+            _coreWorkerRequest = col._coreWorkerRequest;
+#endif
         }
 
         [SecurityPermissionAttribute(SecurityAction.LinkDemand, Flags=SecurityPermissionFlag.SerializationFormatter)]
@@ -72,6 +83,8 @@ namespace System.Web {
         // Response headers without IIS7: written through to HttpResponse's header lists (see
         // HttpResponse.Headers).
         private bool IsClassicResponse => _iis7WorkerRequest == null && _response != null;
+
+        private bool IsCoreRequest => _coreWorkerRequest != null && _request != null;
 
         // Appends to the managed copy only: the header is already in HttpResponse's lists.
         internal void SynchronizeAppend(String name, String value) {
@@ -89,7 +102,7 @@ namespace System.Web {
                 return;
             }
 #endif
-            if (_iis7WorkerRequest == null) {
+            if (_iis7WorkerRequest == null && !IsCoreRequest) {
                 throw new PlatformNotSupportedException();
             }
             // append to existing value
@@ -118,7 +131,7 @@ namespace System.Web {
                 return;
             }
 #endif
-            if (_iis7WorkerRequest == null) {
+            if (_iis7WorkerRequest == null && !IsCoreRequest) {
                 throw new PlatformNotSupportedException();
             }
             // set new value
@@ -126,7 +139,7 @@ namespace System.Web {
         }
 
         internal void SetHeader(String name, String value, bool replace) {
-            Debug.Assert(_iis7WorkerRequest != null, "_iis7WorkerRequest != null");
+            Debug.Assert(_iis7WorkerRequest != null || IsCoreRequest, "_iis7WorkerRequest != null");
 
             if (name == null) {
                 throw new ArgumentNullException("name"); 
@@ -137,6 +150,11 @@ namespace System.Web {
             }
 
             if (_request != null) {
+#if WebFormsForCore
+                if (_iis7WorkerRequest == null)
+                    _coreWorkerRequest.SetRequestHeader(name, value, replace);
+                else
+#endif
                 _iis7WorkerRequest.SetRequestHeader(name, value, replace);
             }
             else {
@@ -210,7 +228,7 @@ namespace System.Web {
                 return;
             }
 #endif
-            if (_iis7WorkerRequest == null) {
+            if (_iis7WorkerRequest == null && !IsCoreRequest) {
                 throw new PlatformNotSupportedException();
             }
 
@@ -220,6 +238,11 @@ namespace System.Web {
 
             if (_request != null) {
                 // delete by sending null value
+#if WebFormsForCore
+                if (_iis7WorkerRequest == null)
+                    _coreWorkerRequest.SetRequestHeader(name, null /*value*/, false /*replace*/);
+                else
+#endif
                 _iis7WorkerRequest.SetRequestHeader(name, null /*value*/, false /*replace*/);
             }
             else {

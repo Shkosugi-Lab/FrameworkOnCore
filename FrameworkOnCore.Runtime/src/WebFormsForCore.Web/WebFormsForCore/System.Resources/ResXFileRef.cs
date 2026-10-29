@@ -26,8 +26,11 @@ namespace System.Resources
 	{
 		private string fileName;
 		private string typeName;
-		[OptionalField(VersionAdded = 2)]
+		// .NET's Encoding is not serializable (.NET Framework's was ISerializable): its code page serialized instead.
+		[NonSerialized]
 		private Encoding textFileEncoding;
+		[OptionalField(VersionAdded = 2)]
+		private int textFileEncodingCodePage;
 
 		/// <summary>Creates a new instance of the <see cref="T:System.Resources.ResXFileRef" /> class that references the specified file.</summary>
 		/// <param name="fileName">The file to reference.</param>
@@ -44,12 +47,17 @@ namespace System.Resources
 			this.typeName = typeName;
 		}
 
+		[System.Runtime.Serialization.OnSerializing]
+		private void OnSerializing(StreamingContext ctx) => this.textFileEncodingCodePage = this.textFileEncoding != null ? this.textFileEncoding.CodePage : 0;
+
 		[System.Runtime.Serialization.OnDeserializing]
 		private void OnDeserializing(StreamingContext ctx) => this.textFileEncoding = (Encoding)null;
 
 		[System.Runtime.Serialization.OnDeserialized]
 		private void OnDeserialized(StreamingContext ctx)
 		{
+			if (this.textFileEncodingCodePage != 0)
+				this.textFileEncoding = Encoding.GetEncoding(this.textFileEncodingCodePage);
 		}
 
 		/// <summary>Initializes a new instance of the <see cref="T:System.Resources.ResXFileRef" /> class that references the specified file.</summary>

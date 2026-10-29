@@ -195,6 +195,9 @@ namespace System.Data.SqlClient
         private readonly string _currentLanguage;
         private readonly string _dataSource;
         private readonly string _localDBInstance; // created based on datasource, set to NULL if datasource is not LocalDB 
+#if WebFormsForCore
+        private readonly bool _dataDirectoryExpanded; // AttachDBFilename's |DataDirectory| expanded (Expand)
+#endif
         private readonly string _failoverPartner;
         private readonly string _initialCatalog;
         private readonly string _password;
@@ -216,7 +219,7 @@ namespace System.Data.SqlClient
             // and Connection Reset checked to be true or false and not used (since 4.5 every connection is asynchronous
             // capable and reset when drawn from the pool); Network Library (DBMSSOCN...) the protocol of the server name
             // (tcp:, np:, lpc:), as the Data Source's prefix gives it. Context Connection=true is SQL CLR's in-process
-            // connection: refused, as there is none.
+            // connection: refused, as .NET Framework refused it outside SQL Server.
             ConvertValueToBoolean(KEY.AsynchronousProcessing, false);
             ConvertValueToBoolean(KEY.Connection_Reset, true);
             // TransparentNetworkIPResolution (.NET Framework 4.6.1): checked to be true or false; a host's addresses are tried as
@@ -224,7 +227,7 @@ namespace System.Data.SqlClient
             ConvertValueToBoolean(KEY.TransparentNetworkIPResolution, true);
             if (ConvertValueToBoolean(KEY.Context_Connection, false))
             {
-                throw SQL.UnsupportedKeyword(KEY.Context_Connection);
+                throw SQL.ContextUnavailableOutOfProc();
             }
             _networkLibrary = NetworkLibraryProtocol(ConvertValueToString(KEY.Network_Library, null));
 #else
@@ -345,6 +348,7 @@ namespace System.Data.SqlClient
             if (expanded != null)
             {
                 _attachDBFileName = expanded;
+                _dataDirectoryExpanded = true;
             }
 #endif
             // string.Contains(char) is .NetCore2.1+ specific
@@ -356,6 +360,14 @@ namespace System.Data.SqlClient
             {
                 ValidateValueLength(_attachDBFileName, TdsEnums.MAXLEN_ATTACHDBFILE, KEY.AttachDBFilename);
             }
+#if WebFormsForCore
+            // .NET Framework's: the expanded file is this machine's, for a server on it only (VerifyLocalHostAndFixup:
+            // '.', '(local)', the machine's name, with an instance; LocalDB), "Invalid value" otherwise.
+            if (expanded != null && _localDBInstance == null && !IsLocalHost(_dataSource))
+            {
+                throw ADP.InvalidConnectionOptionValue(KEY.AttachDBFilename);
+            }
+#endif
 
             _typeSystemAssemblyVersion = constTypeSystemAsmVersion10;
 
@@ -507,6 +519,10 @@ namespace System.Data.SqlClient
         internal ApplicationIntent ApplicationIntent { get { return _applicationIntent; } }
         internal string ApplicationName { get { return _applicationName; } }
         internal string AttachDBFilename { get { return _attachDBFileName; } }
+#if WebFormsForCore
+        // .NET Framework's: the connection string with the file |DataDirectory| expanded to (the pool group's key)
+        internal override string Expand() => _dataDirectoryExpanded ? ExpandKeyword(KEY.AttachDBFilename, _attachDBFileName) : base.Expand();
+#endif
         internal string CurrentLanguage { get { return _currentLanguage; } }
         internal string DataSource { get { return _dataSource; } }
         internal string LocalDBInstance { get { return _localDBInstance; } }

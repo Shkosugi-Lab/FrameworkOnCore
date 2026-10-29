@@ -292,7 +292,7 @@ public class IisHttpErrorsTests
         using var site = new Site(Errors("", "<error statusCode='404' path='missing.htm' /><error statusCode='403' path='locked.htm' /><error statusCode='410' path='missing.htm' />"));
         site.Write("locked.htm", "x");
         Assert.Contains(NotFoundTitle, Site.Body(await Run(site, Answer(404))));
-        Assert.Equal("The requested page has been removed.", Site.Body(await Run(site, Answer(410))));
+        Assert.Equal("The page you requested was removed.", Site.Body(await Run(site, Answer(410))));
         using (new FileStream(Path.Combine(site.Root, "locked.htm"), FileMode.Open, FileAccess.Read, FileShare.None))
             Assert.Contains("<title>403 - Forbidden: Access is denied.</title>", Site.Body(await Run(site, Answer(403))));
     }
@@ -315,30 +315,30 @@ public class IisHttpErrorsTests
         Assert.Equal("default page", Site.Body(await Run(site, Answer(418))));
     }
 
-    [Fact(Skip = "bug (the summary: without an entry, the status's short text): a status IIS has a custerr page for (404) gives that page after its entry is removed")]
-    // the host's choice (summary): a status without an entry gets its short description
+    [Fact] // observed on IIS 10 (errorMode Custom, <remove statusCode="404" />): not IIS's 404 page, the custom error module's text for 404
     public async Task A_removed_entry_gives_the_short_text()
     {
         using var site = new Site(Errors("", "<remove statusCode='404' />"));
-        Assert.Equal("Not Found", Site.Body(await Run(site, Answer(404))));
+        Assert.Equal("The resource you are looking for has been removed, had its name changed, or is temporarily unavailable.", Site.Body(await Run(site, Answer(404))));
     }
 
-    [Theory] // the host's choice (summary: IIS's text for a status it has no page for, observed on IIS): the short description
-    [InlineData(410, "The requested page has been removed.")]
-    [InlineData(413, "Request Entity Too Large")]
-    [InlineData(418, "I'm a teapot")]
-    [InlineData(599, "Error")]
+    [Theory] // observed on IIS 10 (en-US): a status without an entry gets the custom error module's text for it (one text for those it does not know)
+    [InlineData(410, "The page you requested was removed.")]
+    [InlineData(413, "The page was not displayed because the request entity is too large.")]
+    [InlineData(418, "The custom error module does not recognize this error.")]
+    [InlineData(599, "The custom error module does not recognize this error.")]
     public async Task A_status_without_a_page_gets_its_short_text(int status, string text)
     {
         using var site = new Site();
         Assert.Equal(text, Site.Body(await Run(site, Answer(status))));
     }
 
-    [Theory] // the host's choice (summary: observed on IIS with ja-JP): the short descriptions IIS has in Japanese
+    [Theory] // observed on IIS 10 with ja-JP: the custom error module's texts in Japanese
     [InlineData(400, "要求が正しくありません")]
     [InlineData(410, "要求されたページは削除されました。")]
     [InlineData(503, "サービスを利用できません。")]
-    [InlineData(413, "Request Entity Too Large")]
+    [InlineData(413, "要求のエンティティが大きすぎるため、ページを表示できませんでした。")]
+    [InlineData(418, "カスタム エラー モジュールはこのエラーを認識できません。")]
     public async Task Short_texts_in_japanese(int status, string text)
     {
         if (!ServerJapanese) return;   // IIS writes Japanese where the server's language is

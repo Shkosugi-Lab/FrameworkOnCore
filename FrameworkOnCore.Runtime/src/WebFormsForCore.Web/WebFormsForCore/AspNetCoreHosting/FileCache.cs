@@ -82,7 +82,8 @@ namespace System.Web.Hosting
 						InternalBufferSize = 64 * 1024,
 					};
 					FileSystemEventHandler changed = (sender, e) => { if (!Ignored(e.FullPath)) Forget(); };
-					w.Changed += changed;
+					// An ignored folder's own change (its time: a file in it created, renamed, removed) is its files' too.
+					w.Changed += (sender, e) => { if (!Ignored(e.FullPath) && !Ignored(e.FullPath + Path.DirectorySeparatorChar)) Forget(); };
 					w.Created += changed;
 					w.Deleted += changed;
 					w.Renamed += (sender, e) => { if (!Ignored(e.FullPath) || !Ignored(e.OldFullPath)) Forget(); };

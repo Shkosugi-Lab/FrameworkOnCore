@@ -158,9 +158,10 @@ namespace System.Web
 					if (bool.TryParse((string)browse?.Attribute("enabled"), out value)) enabled = value;
 					if (browse?.Attribute("showFlags") != null) showFlags = (string)browse.Attribute("showFlags");
 				}
-				return enabled ? showFlags : "";
+				// enabled says whether the folder is listed, showFlags only what of its entries ("": the names; observed on IIS 10).
+				return enabled ? showFlags ?? "" : null;
 			});
-			return flags.Length == 0 ? null : flags;
+			return flags;
 		}
 
 		/// <summary>

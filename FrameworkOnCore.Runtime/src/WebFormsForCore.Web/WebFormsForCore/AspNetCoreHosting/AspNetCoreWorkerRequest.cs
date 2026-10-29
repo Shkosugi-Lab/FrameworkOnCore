@@ -469,12 +469,14 @@ namespace System.Web.Hosting
 			return Host.PhysicalPath.GetHashCode().ToString("X");
 		}
 
+		// As IIS's: true once the response has started (its headers gone to the client).
 		public override bool HeadersSent()
 		{
-			return headersSent;
+			return headersSent || Context.Response.HasStarted;
 		}
 
-		public override bool IsClientConnected() => true;
+		// As IIS's: false once the client has gone (the request aborted).
+		public override bool IsClientConnected() => !Context.RequestAborted.IsCancellationRequested;
 		public override bool IsEntireEntityBodyIsPreloaded() => false;
 
 		// A virtual path that is a file of the application.
@@ -598,7 +600,8 @@ namespace System.Web.Hosting
 			{
 				var reader = Context.Request.Body;
 
-				bytesRead = reader.Read(buffer, 0, size);
+				// At the offset (HttpBufferlessInputStream.Read passes its own).
+				bytesRead = reader.Read(buffer, offset, size);
 			}
 			return bytesRead;
 		}
@@ -703,8 +706,14 @@ namespace System.Web.Hosting
 
 		public override void SendStatus(int statusCode, string statusDescription)
 		{
-			// TODO description
 			Context.Response.StatusCode = statusCode;
+			// The description in the status line, as IIS sends it (HttpResponse.StatusDescription); only one that is not
+			// the status's usual text (Kestrel's): a later change of the status (IIS's error pages) is not left with it.
+			var feature = Context.Features.Get<Core.Features.IHttpResponseFeature>();
+			if (feature != null && !Context.Response.HasStarted)
+				feature.ReasonPhrase = string.IsNullOrEmpty(statusDescription) ||
+					string.Equals(statusDescription, Microsoft.AspNetCore.WebUtilities.ReasonPhrases.GetReasonPhrase(statusCode), StringComparison.Ordinal)
+					? null : statusDescription;
 		}
 
 		public override void SendUnknownResponseHeader(string name, string value)
@@ -750,6 +759,21 @@ namespace System.Web.Hosting
 			path.Split('/', StringSplitOptions.RemoveEmptyEntries)
 				.Any(segment => HiddenSegments.Contains(segment, StringComparer.OrdinalIgnoreCase));
 
+		// IIS7WorkerRequest.SetRequestHeader's: a request's header set, appended to (a header sent more than once) or removed (null)
+		// on the ASP.NET Core request, and read again as the worker request's headers.
+		internal void SetRequestHeader(string name, string value, bool replace)
+		{
+			var headers = Context.Request.Headers;
+			if (value == null)
+				headers.Remove(name);
+			else if (replace)
+				headers[name] = value;
+			else
+				headers[name] = StringValues.Concat(headers[name], value);
+			allRawHeaders = null;
+			ParseHeaders();
+		}
+
 		private void ParseHeaders()
 		{
 			knownRequestHeaders = new string[RequestHeaderMaximum];
@@ -772,7 +796,9 @@ namespace System.Web.Hosting
 						str = strValues[0];
 						break;
 					default:
-						str = string.Join(';', (IEnumerable<string?>)strValues);
+						// A header sent more than once, as http.sys gives it (RFC 9110 5.3: ", "; observed on IIS 10); the
+						// cookies with "; " (RFC 9113 8.2.3: HTTP/2's cookie crumbs; System.Web splits cookies at ';' only).
+						str = string.Join(name.Equals("Cookie", StringComparison.OrdinalIgnoreCase) ? "; " : ", ", (IEnumerable<string?>)strValues);
 						break;
 				}
 
@@ -796,10 +822,8 @@ namespace System.Web.Hosting
             {
                 int endPos = path.LastIndexOf(")/", StringComparison.Ordinal);
                 int startPos = (endPos > 2 ? path.LastIndexOf("/(", endPos - 1, endPos, StringComparison.Ordinal) : -1);
-                if (startPos < 0) // pattern not found: common case, exit immediately
-                    return;
-
-                if (IsValidHeader(path, startPos + 2, endPos))
+                // pattern not found (the common case): no session header, the others still kept (it returned before them)
+                if (startPos >= 0 && IsValidHeader(path, startPos + 2, endPos))
                 {
                     var sessionHeader = path.Substring(startPos + 2, endPos - startPos - 2);
                     headers.Add("AspFilterSessionId");

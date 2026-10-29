@@ -94,7 +94,7 @@ public class CSharpCompilerTests : CompilationTest
         Assert.Contains(" /nowarn:1659;1699;1701;612;618 /define:X ", CommandLine(results));
     }
 
-    [Fact(Skip = "bug: in ASP.NET mode, CompilerOptions null (CompilerParameters' default) throws NullReferenceException: options.CompilerOptions.Contains (CSharpCompiler.cs:100)")]
+    [Fact]
     // DotNetCompilerPlatform (CSharpCompiler.FixUpCompilerParameters): the /nowarn prepended to a null CompilerOptions (PrependCompilerOption)
     public void Asp_net_settings_with_no_compiler_options()
     {
@@ -102,7 +102,7 @@ public class CSharpCompilerTests : CompilationTest
         Assert.Empty(results.Errors);
     }
 
-    [Fact(Skip = "bug: in ASP.NET mode, CompilerOptions with a /nowarn: of their own get no ASP.NET /nowarn (CSharpCompiler.cs:100): the obsolete warnings reported")]
+    [Fact]
     // DotNetCompilerPlatform (CSharpCompiler.FixUpCompilerParameters) and .NET Framework's AssemblyBuilder: ASP.NET's /nowarn always prepended (csc adds up its /nowarn options)
     public void Asp_net_settings_with_a_nowarn_of_the_options()
     {

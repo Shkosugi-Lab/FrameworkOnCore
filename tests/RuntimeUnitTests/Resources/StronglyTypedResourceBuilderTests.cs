@@ -276,7 +276,7 @@ public class StronglyTypedResourceBuilderTests : IDisposable
 
     // --- Differences from .NET Framework
 
-    [Fact(Skip = "bug: the resource string NonStringPropertyComment is missing from System.Web.resx: a resource whose text is its type's name (a Bitmap, null) throws ArgumentNullException (StronglyTypedResourceBuilder.cs:584)")] // Resources.Designer.cs (.NET Framework): "Looks up a localized resource of type System.Drawing.Bitmap."
+    [Fact] // Resources.Designer.cs (.NET Framework): "Looks up a localized resource of type System.Drawing.Bitmap."
     public void A_resource_whose_text_is_its_type_name_is_generated()
     {
         var unit = StronglyTypedResourceBuilder.Create(Resources(("P", new Plain()), ("N", null)), "R", "NS", CSharp, true, out var unmatchable);
@@ -285,14 +285,14 @@ public class StronglyTypedResourceBuilderTests : IDisposable
         Assert.Equal("  Looks up a localized resource of type System.Object.", Property(unit, "N").Comments[1].Comment.Text);
     }
 
-    [Fact(Skip = "bug: System.Web.resx's NonStringPropertyDetailedComment lacks \" similar to {1}\" (.NET Framework: \"Looks up a localized resource of type System.Drawing.Icon similar to (Icon).\") (StronglyTypedResourceBuilder.cs:584)")] // Resources.Designer.cs (.NET Framework)
+    [Fact] // Resources.Designer.cs (.NET Framework)
     public void A_non_string_property_comment_has_the_value()
     {
         var unit = StronglyTypedResourceBuilder.Create(Resources(("Count", 5)), "R", "NS", CSharp, true, out _);
         Assert.Equal("  Looks up a localized resource of type System.Int32 similar to 5.", Property(unit, "Count").Comments[1].Comment.Text);
     }
 
-    [Fact(Skip = "bug: System.Web.resx's doc comment strings lost .NET Framework's two leading spaces (\"///   Looks up a localized string similar to ...\" in Resources.Designer.cs) (StronglyTypedResourceBuilder.cs:242, 506, 513, 584)")] // Resources.Designer.cs (.NET Framework)
+    [Fact] // Resources.Designer.cs (.NET Framework)
     public void The_doc_comments_are_Frameworks()
     {
         var code = Code(StronglyTypedResourceBuilder.Create(Resources(("Greeting", "Hello")), "Resources", "NS", CSharp, true, out _));
@@ -302,7 +302,7 @@ public class StronglyTypedResourceBuilderTests : IDisposable
         Assert.Contains("        /// <summary>\n        ///   Looks up a localized string similar to Hello.\n        /// </summary>\n", code);
     }
 
-    [Fact(Skip = "bug: Create(resxFile, ...) does not read the file (the reading is compiled out: #if !WebFormsForCore, \"TODO\"): no property is generated (StronglyTypedResourceBuilder.cs:361)")] // docs (Create(string resxFile, ...)): a class for the resources of the .resx file
+    [Fact] // docs (Create(string resxFile, ...)): a class for the resources of the .resx file
     public void A_resx_file_gets_its_properties()
     {
         var path = Resx.TempFile(".resx", Encoding.UTF8.GetBytes(Resx.Document("<data name=\"Greeting\"><value>Hello</value></data>")));

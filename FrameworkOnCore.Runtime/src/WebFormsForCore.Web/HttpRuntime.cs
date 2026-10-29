@@ -3358,7 +3358,11 @@ namespace System.Web
             // been set, which is not the case until later in this method.
             string trustLevel = trustSection.Level;
 
-            if (trustSection.Level == "Full") {
+#if NETCOREAPP
+            // the port's choice: no CAS on .NET, every trust level is full trust (ApplicationManager)
+            trustLevel = "Full";
+#endif
+            if (trustLevel == "Full") {
                 _trustLevel = trustLevel;
                 return;
             }
@@ -3514,6 +3518,10 @@ namespace System.Web
 
         private void SetTrustParameters(TrustSection trustSection, SecurityPolicySection securityPolicySection, PolicyLevel policyLevel) {
             _trustLevel = trustSection.Level;
+#if NETCOREAPP
+            // the port's choice: no CAS on .NET, every trust level is full trust (ApplicationManager)
+            _trustLevel = "Full";
+#endif
             if (_trustLevel != "Full") {
                 // if we are in partial trust, HostingEnvironment should init HttpRuntime with a non-null PolicyLevel object
                 Debug.Assert(policyLevel != null);

@@ -140,7 +140,7 @@ public class FileCacheTests
         Assert.True(Changes(() => File.Move(In(site, "logs/b.log"), In(site, "c.log"))));
     }
 
-    [Fact(Skip = "bug (the host's summary, not IIS's docs): a file renamed in an ignored folder raises Changed for the folder itself (its path, not under it), which forgets all")]
+    [Fact]
     // the host's choice (IgnoreChangesUnder: writes under the W3C log's folder are not changes): a log renamed in its folder (rotated) is not one
     public void A_file_renamed_in_an_ignored_folder_is_not_a_change()
     {

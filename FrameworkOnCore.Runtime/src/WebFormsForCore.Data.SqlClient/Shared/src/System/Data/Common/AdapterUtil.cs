@@ -305,6 +305,13 @@ namespace System.Data.Common
         {
             return Argument(SR.Format(SR.ADP_InvalidConnectionOptionValue, key), inner);
         }
+#if WebFormsForCore
+        // .NET Framework's: the AppDomain's DataDirectory is not a string (DbConnectionOptions.ExpandDataDirectory)
+        internal static Exception InvalidDataDirectory()
+        {
+            return InvalidOperation(SR.ADP_InvalidDataDirectory);
+        }
+#endif
 
         //
         // Generic Data Provider Collection

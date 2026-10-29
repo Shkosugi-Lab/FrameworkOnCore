@@ -943,7 +943,7 @@ System.Drawing を Linux で動かす試み(`api-probe/drawing`、Ubuntu 24.04 �
 - **テスト**(新しいプロジェクト `tests/RuntimeUnitTests`): System.Web をソースからビルドして参照し、内部の型を見る(System.Web の InternalsVisibleTo、ビルドの鍵で署名)。プロジェクト参照の deps.json には版が書かれず .NET の同名の System.Web(4.0.0.0)が勝つので、ビルドの後に版を書き足す。期待値は IIS のドキュメント(URL Rewrite・httpErrors・staticContent・httpCompression・ログ・httpProtocol の構成リファレンス)、.NET Framework の参照ソースとドキュメント、.NET Framework 4.8 で記録した値(`Security/golden`: 15 通りの machineKey のフォーム認証チケット・MachineKey.Protect・EncryptString・webengine4.dll のハッシュ、`SqlClientTests/FrameworkOnCore/golden`: 接続文字列 81 件)。ドキュメントに無いものはコードの意図と明記した(`the host's choice`)。プロセス単位のもの(アプリの再起動、ShutdownAll、シャドウコピー)は、テストのアセンブリ自体を子プロセスとして動かす(`Hosting/Child.cs`)。
 - **結果**(Windows、移植の分岐の通った割合): System.Web 1.1% → 88.8%(4,501/5,071)、System.Data.SqlClient の追加分 97.1%。RuntimeUnitTests 1,325 件(合格 1,275、スキップ 50: 下のバグのテスト)。SqlClientTests 317 件(合格 307、バグのテストなど 10 件をスキップ)。通らない残りは、IIS 本体(webengine4.dll)が要るもの、AppDomain が 1 つのため、別 OS、防御の catch とコンパイラの null 検査で、各テストの報告に理由を書いた。Linux のビルドの分(Skia、リスナーの引き継ぎの Unix 側)は Windows の計測には入らない。
 - **Linux**(`tests/RuntimeUnitTests/run-tests-linux.sh`、SDK のコンテナ): 最初は 43 件が失敗した。テストが見つけた Linux だけのバグ 3 件を直した: ResX の型の解決が環境変数 SystemRoot の無い Linux で型の初期化に失敗し、.resx がすべて読めなかった(`AssemblyNamesTypeResolutionService`。App_GlobalResources のあるアプリはコンパイルできないはず)。`HttpWorkerRequest.MapPath` が Linux では末尾の `/` を残していた(Windows は付けない)。`ApplicationHost.CreateApplicationHost` が Windows NT でないと例外だった。テスト側の Windows の前提(隠しファイルの属性、apphost の .exe、COM)も OS ごとにした。Linux 1,273 件合格(スキップ 52: バグのテストと Windows 専用の 2 件)。
-- **見つかったバグ**(`Skip = "bug: ..."` のテスト。Skip を外すと失敗することを確かめた。直すかどうかは未決定):
+- **見つかったバグ**(`Skip = "bug: ..."` のテストにしていたもの。下の「直した」で、すべて直すか根拠を付けてテストを直した):
   - ホスト(AspNetCoreWorkerRequest など): `ReadEntityBody` が offset を無視して先頭に書く(HttpBufferlessInputStream のデータが壊れる)、`(` を含む URL で未知のヘッダーが失われる、`HeadersSent()` が常に false、`IsClientConnected()` が常に true、`SendStatus` が説明文を捨てる、同名ヘッダーを `;` で連結(RFC は `,`)、パス情報を 1 段しか見ない(`/a.aspx/x/y` が 404)。
   - IIS の機能: URL Rewrite の Wildcard の `?`、グローバルルールにも allowedServerVariables、フォルダーの rewriteMaps の clear が全体に効く、IsFile 条件の input 省略、Range `bytes=10-20` が 416 でなく 200、directoryBrowse の空の showFlags が 403.14、W3C ログの制御文字、フォルダーの handlers を無視、httpErrors のエントリの remove が効かない。
   - ResX・STRB: byte[] の読み戻しが null、CultureInfo を書けない、ResXFileRef をシリアル化できない、見つからない型が FileNotFoundException、STRB の文字列の欠落(画像のリソースで ArgumentNullException)・`Create(resxFile)` が読まない。
@@ -953,6 +953,22 @@ System.Drawing を Linux で動かす試み(`api-probe/drawing`、Ubuntu 24.04 �
   - SqlClient: `|DataDirectory|` をリモートの Data Source でも展開、相対パスの DataDirectory を受け付ける、例外の型 2 件、列挙の重複の扱い。
 - **同時に**: 変換器が ProjectReference・HintPath のパスの `\` を Linux で解決できず(`FrameworkAssetsFlow` のテストが Linux で失敗)、同じ書き方の ProjectConverter の 4 か所も直した(`ProjectConverter.Native`。Windows では変わらない。元のビルドを読む OriginalBuild は Windows の MSBuild が前提なのでそのまま)。SqlClientTests は日本語の Windows で訳のメッセージが返り 18 件失敗していたので、英語で動かすようにした(`EnglishMessages`)。名前付きパイプのテストは Windows 専用にした。
 - **検証**: ランタイムの変更で frameworkOnCoreVersion 1.6.5-w2l.24。テスト Windows 4,551・Linux 4,524(SQL Server のコンテナあり)・SqlClientTests Windows 307・Linux 295 が緑。be・wt を変換し直し、Windows be 5/5・wt 8/8、Linux be 5/5・wt 7/8(error-page、以前と同じ)。
+
+### 単体テストで見つかったバグを直した(2026-10-29、ユーザーの指示)
+
+上の節の `Skip = "bug"` のテスト(RuntimeUnitTests 49 件、SqlClientTests 5 件)をすべて有効にした。ドキュメントと実際の IIS が食い違う点は、このマシンの IIS 10(URL Rewrite 2.1)に使い捨てのサイトを作って確かめた(確かめた後は削除)。
+
+- **直したもの**:
+  - ホスト: ReadEntityBody の offset、`(` を含む URL のヘッダー、HeadersSent・IsClientConnected、SendStatus の説明文(標準の文言と違うときだけ送る)、同名ヘッダーの連結 `, `(Cookie は `; `。実 IIS で確認)、パス情報の 2 段以上。
+  - IIS の機能: グローバルルールには allowedServerVariables を当てない、rewriteMaps をフォルダーごとに持つ(グローバルルールはサーバーのマップだけ)、input の無い IsFile/IsDirectory(実 IIS で確認)、範囲外の Range は 416(実 IIS で確認)、空の showFlags の一覧、エントリを remove したステータスの本文(実 IIS で確認)、W3C ログの制御文字は `+`、フォルダー・`<location>` の handlers、ログのフォルダー内の名前の変更でキャッシュを消さない。同時に、エントリの無いステータスの英語・日本語の本文の表を実 IIS で採った値(400–431、451、500–511)に置き換えた(推測で書かれていて食い違っていた)。
+  - ResX・STRB: 見つからないアセンブリは null、型の解決は System.Windows.Forms でなく移植のアセンブリ(Visual Studio が書く `ResXFileRef, System.Windows.Forms` も読める)、CultureInfo は名前で書く、.NET 10 で書いた byte[] の読み戻し、ResXFileRef のシリアル化(エンコーディングはコードページで)、STRB の文字列(System.Web.resx と ja の訳)、`Create(resxFile)` が読む。
+  - CodeDom: ASP.NET の `/nowarn` を常に先頭に(DotNetCompilerPlatform と同じ)、pdb の無い GenerateInMemory、providerOptions のコンストラクター、VB の `_MYTYPE`(.NET の Microsoft.VisualBasic に "Web" の My が無いので "Empty")と `/nowarn`。
+  - 暗号: DataProtector(SHA256、引数の検査、DpapiDataProtector を .NET Framework と同じ形式に: Windows では .NET Framework が保護したものを読める。Linux は DPAPI が無いので従来の形式)、ProtectedDataPortable.Unprotect の Windows、短いチケットのエラーコード。
+  - その他: セッションの InitializeItem、Request.Headers と ServerVariables の書き込み(統合モード)、WebFormsTaskScheduler、defaultRegexMatchTimeout(System.Web の正規表現には明示的に渡す。.NET の既定はプロセスで最初に Regex を使う前に決まる)、`<cache defaultProvider>`、UseNetFXGAC の名前。
+  - SqlClient: Context Connection の例外の型、DataDirectory の例外の型・相対パスの拒否、`|DataDirectory|` はこのマシンの Data Source(`.`・`(local)`・マシン名・LocalDB)にだけ(.NET Framework の VerifyLocalHostAndFixup。web.config の接続文字列は移植の ConnectionStringSettings が先に展開するので変わらない)、接続プールのキーを展開後の文字列に、列挙の既定インスタンスの重複。
+- **テストを直したもの**(主張が誤り): URL Rewrite の Wildcard の `?` は、ドキュメントは「1 文字」だが実 IIS は `?` という文字にしか一致しない。X-Original-URL は、ドキュメントは「デコードした形」だが実 IIS は送られたまま。どちらも今のコードが IIS と同じ。
+- **移植の選択としたもの**: `<trust level>` の部分信頼は .NET に CAS が無いので、どのレベルも完全信頼で起動する(以前は起動しなかった)。ShutdownAll はプロセスを終了コード 75 で終える(1 プロセスに HostingEnvironment は 1 つで、アプリを作り直すのはプロセスの再起動だけ)。
+- **検証**: RuntimeUnitTests Windows 1,342・Linux 1,340(Windows 専用 2 件はスキップ)、FrameworkOnCore.Tests Windows 4,551・Linux 4,524、SqlClientTests Windows 321・Linux 309。be・wt を変換し直し、Windows be 5/5・wt 8/8、Linux be 5/5・wt 7/8(error-page、以前と同じ)。1.6.5-w2l.24(未公開だったので同じ版で作り直した)。
 
 ### frameworkAssets を間接的に使うプロジェクトにも(2026-10-29、ユーザーの指示)
 

@@ -46,9 +46,11 @@ namespace System.Resources
 		private object value;
 		private ResXFileRef fileRef;
 		private IFormatter binaryFormatter;
+		// ResXFileRef's assembly (.NET Framework's System.Windows.Forms, which .NET cannot load; here this one):
+		// a "System.Resources.ResXFileRef, System.Windows.Forms" found in it.
 		private static ITypeResolutionService internalTypeResolver = (ITypeResolutionService)new AssemblyNamesTypeResolutionService(new AssemblyName[1]
 		{
-	  new AssemblyName("System.Windows.Forms")
+	  typeof(ResXFileRef).Assembly.GetName()
 		});
 		private Func<System.Type, string> typeNameConverter;
 
@@ -106,7 +108,8 @@ namespace System.Resources
 				default:
 					this.typeNameConverter = typeNameConverter;
 					System.Type type = value == null ? typeof(object) : value.GetType();
-					if (value != null && !type.IsSerializable)
+					// A CultureInfo is written by its name (FillDataNodeInfoFromObject); .NET's is not [Serializable], .NET Framework's was.
+					if (value != null && !type.IsSerializable && !(value is CultureInfo))
 						throw new InvalidOperationException(SR.GetString(SR.Not_Serializable_Type_Resources, name, type.FullName));
 					if (value != null)
 						this.typeName = MultitargetUtil.GetAssemblyQualifiedName(type, this.typeNameConverter);
@@ -402,8 +405,9 @@ namespace System.Resources
 				{
 					if (type == typeof(ResXNullRef))
 						fromDataNodeInfo = (object)null;
-					else if (typeName.IndexOf("System.Byte[]") != -1 &&
-						(typeName.IndexOf("mscorlib") != -1 || typeName.IndexOf("System.Runtime") != -1))
+					// byte[] whatever its assembly's name (.NET Framework's mscorlib; written here: System.Private.CoreLib)
+					else if (type == typeof(byte[]) || (typeName.IndexOf("System.Byte[]") != -1 &&
+						(typeName.IndexOf("mscorlib") != -1 || typeName.IndexOf("System.Runtime") != -1)))
 					{
 						fromDataNodeInfo = (object)ResXDataNode.FromBase64WrappedString(dataNodeInfo.ValueData);
 					}

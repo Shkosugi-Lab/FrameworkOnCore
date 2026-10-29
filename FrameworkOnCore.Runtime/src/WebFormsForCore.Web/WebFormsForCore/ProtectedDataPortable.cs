@@ -88,6 +88,8 @@ namespace System.Security.Cryptography
 
 			switch (impl)
 			{
+				case DataProtectionImplementation.Win32CryptoProtect:
+					return ProtectedData.Unprotect(encryptedData, optionalEntropy, scope);
 #if !MOBILE
 				case DataProtectionImplementation.ManagedProtection:
 					try
@@ -102,6 +104,16 @@ namespace System.Security.Cryptography
 #endif
 				default:
 					throw new PlatformNotSupportedException();
+			}
+		}
+
+		// DPAPI protects here (Windows), not ManagedProtection
+		internal static bool IsDpapi
+		{
+			get
+			{
+				Check(default);
+				return impl == DataProtectionImplementation.Win32CryptoProtect;
 			}
 		}
 

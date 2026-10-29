@@ -110,7 +110,7 @@ public class VBCodeProviderBase : W.CodeDomProvider
 			throw new ArgumentNullException("providerOptions");
 		}
 
-		_generator = (ICodeGenerator)Activator.CreateInstance(Type, BindingFlags.NonPublic | BindingFlags.Public,
+		_generator = (ICodeGenerator)Activator.CreateInstance(Type, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public,
 			null, new object[] { providerOptions }, null);
 	}
 

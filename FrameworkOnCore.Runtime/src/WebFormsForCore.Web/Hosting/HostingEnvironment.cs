@@ -1790,7 +1790,13 @@ namespace System.Web.Hosting
             {
                 if (_cacheProviderSettings == null)
                 {
+#if NETFRAMEWORK
                     if (AppDomain.CurrentDomain.IsDefaultAppDomain())
+#else
+                    // The application runs in the default AppDomain (IsDefaultAppDomain is always true on .NET): the
+                    // application's settings when ApplicationManager made the application (its ".appDomain" data).
+                    if (AppDomain.CurrentDomain.GetData(".appDomain") == null)
+#endif
                     {
                         Configuration webConfig = WebConfigurationManager.OpenWebConfiguration(null /* root web.config */);
                         CacheSection cacheConfig = (CacheSection)webConfig.GetSection("system.web/caching/cache");

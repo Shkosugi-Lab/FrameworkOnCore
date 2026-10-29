@@ -151,9 +151,12 @@ public class IisLogTests
     [InlineData("plain", "plain")]
     public void Values_are_escaped(string value, string escaped) => Assert.Equal(escaped, IisLogWriter.Escape(value));
 
-    [Fact(Skip = "bug: Escape replaces spaces only; W3C Logging: a nonprintable character (a tab) is replaced with a plus sign")]
-    // W3C Logging: "If a field contains a nonprintable character, the HTTP Server API replaces it with a plus sign (+)"
+    [Fact]
+    // W3C Logging: "If a field contains a nonprintable character, the HTTP Server API replaces it with a plus sign (+)" (a tab in User-Agent: observed on IIS 10)
     public void A_nonprintable_character_is_a_plus() => Assert.Equal("a+b", IisLogWriter.Escape("a\tb"));
+
+    [Fact] // W3C Logging: the other control characters too; logFile's logInUTF8 (default true): a character beyond ASCII as it is
+    public void Control_characters_are_plus_and_others_kept() => Assert.Equal("a+b+c+d+é", IisLogWriter.Escape("a\u0001b\u007fc\rd é"));
 
     // --- The middleware
 

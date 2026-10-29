@@ -71,7 +71,7 @@ public class CompilerTests : CompilationTest
         Assert.Null(results.PathToAssembly);
     }
 
-    [Fact(Skip = "bug: GenerateInMemory without IncludeDebugInformation (no .pdb) throws ArgumentNullException: new MemoryStream(null) for the symbols (Compiler.cs:445)")]
+    [Fact]
     // the reference source: the symbols read when there are, Assembly.Load(assembly, null symbols) otherwise
     public void Sources_compile_in_memory_without_symbols()
     {

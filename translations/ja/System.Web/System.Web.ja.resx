@@ -13625,12 +13625,16 @@ Detailed error message: {1}</comment>
     <comment>Microsoft .NET Version:</comment>
   </data>
   <data name="NonStringPropertyDetailedComment" xml:space="preserve">
-    <value>型 {0} のローカライズ済みリソースを検索。</value>
-    <comment>Looks up a localized resource of type {0}.</comment>
+    <value>  {1} に似た、型 {0} のローカライズ済みリソースを検索。</value>
+    <comment>  Looks up a localized resource of type {0} similar to {1}.</comment>
+  </data>
+  <data name="NonStringPropertyComment" xml:space="preserve">
+    <value>  型 {0} のローカライズ済みリソースを検索。</value>
+    <comment>  Looks up a localized resource of type {0}.</comment>
   </data>
   <data name="StringPropertyComment" xml:space="preserve">
-    <value>{0} に似たローカライズ文字列を検索します。</value>
-    <comment>Looks up a localized string similar to {0}.</comment>
+    <value>  {0} に似たローカライズ文字列を検索します。</value>
+    <comment>  Looks up a localized string similar to {0}.</comment>
   </data>
   <data name="ClassComments1" xml:space="preserve">
     <value>このクラスは ResGen や Visual Studio などのツール経由で自動的に</value>
@@ -13649,16 +13653,16 @@ Detailed error message: {1}</comment>
     <comment>with the /str option, or rebuild your VS project.</comment>
   </data>
   <data name="ClassDocComment" xml:space="preserve">
-    <value>ローカライズ文字列などの検索用の厳密に型指定されたリソース クラス</value>
-    <comment>A strongly-typed resource class, for looking up localized strings, etc.</comment>
+    <value>  ローカライズ文字列などの検索用の厳密に型指定されたリソース クラス</value>
+    <comment>  A strongly-typed resource class, for looking up localized strings, etc.</comment>
   </data>
   <data name="CulturePropertyComment1" xml:space="preserve">
-    <value>この厳密に型指定されたリソース クラスを使う全リソース検索で、</value>
-    <comment>Overrides the current thread&apos;s CurrentUICulture property for all</comment>
+    <value>  この厳密に型指定されたリソース クラスを使う全リソース検索で、</value>
+    <comment>  Overrides the current thread&apos;s CurrentUICulture property for all</comment>
   </data>
   <data name="CulturePropertyComment2" xml:space="preserve">
-    <value>現在のスレッドの CurrentUICulture を上書きします。</value>
-    <comment>resource lookups using this strongly typed resource class.</comment>
+    <value>  現在のスレッドの CurrentUICulture を上書きします。</value>
+    <comment>  resource lookups using this strongly typed resource class.</comment>
   </data>
   <data name="InvalidIdentifier" xml:space="preserve">
     <value>識別子 &apos;{0}&apos; は無効です。</value>
@@ -13689,8 +13693,8 @@ Detailed error message: {1}</comment>
     <comment>The type {0} on line {1}, position {2} threw the following exception while being converted: {3}</comment>
   </data>
   <data name="ResMgrPropertyComment" xml:space="preserve">
-    <value>このクラスのキャッシュ済み ResourceManager を返します。</value>
-    <comment>Returns the cached ResourceManager instance used by this class.</comment>
+    <value>  このクラスのキャッシュ済み ResourceManager を返します。</value>
+    <comment>  Returns the cached ResourceManager instance used by this class.</comment>
   </data>
   <data name="StringPropertyTruncatedComment" xml:space="preserve">
     <value>{0} [残りは切り捨てられました]&quot;;</value>

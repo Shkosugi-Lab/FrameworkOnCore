@@ -5,7 +5,7 @@
 // results (measured against .NET Framework 4.8's on 20,000 tickets of every field, cut ones, small buffers):
 //   [8 bytes the caller gives][version][name, UTF-16 with NUL][issue date, 8 bytes][persistent][expiration, 8 bytes]
 //   [user data, UTF-16 with NUL][cookie path, UTF-16 with NUL]
-// the dates as FILETIMEs, little-endian. A null argument, a buffer length of 0 to read into or below 18 to write into:
+// the dates as FILETIMEs, little-endian. A null argument, a buffer length of 0 to read into, below 18 to write or read:
 // E_INVALIDARG; too little room, a field cut short, a string longer than its buffer: E_UNEXPECTED.
 
 using System.Text;
@@ -44,7 +44,8 @@ namespace System.Web.Security
         internal static int Parse(byte[] pData, int iDataLen, StringBuilder szName, int iNameLen, StringBuilder szData, int iUserDataLen,
                                   StringBuilder szPath, int iPathLen, byte[] pBytes, long[] pDates)
         {
-            if (pData == null || iNameLen <= 0 || iUserDataLen <= 0 || iPathLen <= 0)
+            // Below 18 bytes, as Construct, the native function rejects the ticket as an argument.
+            if (pData == null || iNameLen <= 0 || iUserDataLen <= 0 || iPathLen <= 0 || iDataLen < 18)
                 return E_INVALIDARG;
             if (iDataLen > pData.Length)
                 return E_UNEXPECTED;

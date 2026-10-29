@@ -157,7 +157,7 @@ namespace System.Data.SqlClient.Tests
                 Packet("ServerName;DB2;InstanceName;MSSQLSERVER;IsClustered;No;Version;14.0.1000.169;;")));
         }
 
-        [Fact(Skip = "bug: SqlDataSourceEnumerator.cs:64 (Distinct) keys a row by server and instance; .NET Framework's ParseServerEnumString looked a default instance up by its server alone (\"ServerName='DB1'\", no InstanceName: SQL BU DT 20006584), so a default instance after a named one of the same server was left out")]
+        [Fact] // .NET Framework's ParseServerEnumString (reference source: a default instance looked up by its server alone, SQL BU DT 20006584)
         public void A_default_instance_after_a_named_one_of_its_server_is_left_out_as_on_dotnet_framework()
         {
             Assert.Equal(new[] { "DB1|SQLEXPRESS|No|16.0.1000.6" }, Rows(

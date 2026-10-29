@@ -41,6 +41,7 @@ namespace System
         internal static string @ADP_InvalidCommandTimeout => GetResourceString("ADP_InvalidCommandTimeout");
         internal static string @ADP_InvalidConnectionOptionValue => GetResourceString("ADP_InvalidConnectionOptionValue");
         internal static string @ADP_InvalidConnectionOptionValueLength => GetResourceString("ADP_InvalidConnectionOptionValueLength");
+        internal static string @ADP_InvalidDataDirectory => GetResourceString("ADP_InvalidDataDirectory");
         internal static string @ADP_InvalidDataLength2 => GetResourceString("ADP_InvalidDataLength2");
         internal static string @ADP_InvalidDataType => GetResourceString("ADP_InvalidDataType");
         internal static string @ADP_InvalidDestinationBufferIndex => GetResourceString("ADP_InvalidDestinationBufferIndex");
@@ -250,6 +251,7 @@ namespace System
         internal static string @SQL_ChangePasswordUseOfUnallowedKey => GetResourceString("SQL_ChangePasswordUseOfUnallowedKey");
         internal static string @SQL_ConnectionDoomed => GetResourceString("SQL_ConnectionDoomed");
         internal static string @SQL_ConnectionLockedForBcpEvent => GetResourceString("SQL_ConnectionLockedForBcpEvent");
+        internal static string @SQL_ContextUnavailableOutOfProc => GetResourceString("SQL_ContextUnavailableOutOfProc");
         internal static string @SQL_CultureIdError => GetResourceString("SQL_CultureIdError");
         internal static string @SQL_DbTypeNotSupportedOnThisPlatform => GetResourceString("SQL_DbTypeNotSupportedOnThisPlatform");
         internal static string @SQL_Duration_Login_Begin => GetResourceString("SQL_Duration_Login_Begin");

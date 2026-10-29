@@ -250,9 +250,20 @@ namespace System.Web.Hosting
 			await loop.ConfigureAwait(false);
 		}
 
-		/// <summary>A field's value as IIS writes it: '-' for none, '+' for a space.</summary>
-		internal static string Escape(string value) =>
-			string.IsNullOrEmpty(value) ? "-" : value.IndexOf(' ') < 0 ? value : value.Replace(' ', '+');
+		/// <summary>
+		/// A field's value as IIS writes it: '-' for none, '+' for a space or a nonprintable character (W3C Logging: "the
+		/// HTTP Server API replaces it with a plus sign"; a tab observed on IIS 10). Other characters as they are (UTF-8).
+		/// </summary>
+		internal static string Escape(string value)
+		{
+			if (string.IsNullOrEmpty(value)) return "-";
+			foreach (var c in value)
+				if (c <= ' ' || c == '\x7f') return string.Create(value.Length, value, (span, v) =>
+				{
+					for (int i = 0; i < span.Length; i++) span[i] = v[i] <= ' ' || v[i] == '\x7f' ? '+' : v[i];
+				});
+			return value;
+		}
 	}
 
 	/// <summary>

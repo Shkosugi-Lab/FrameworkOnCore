@@ -122,7 +122,8 @@ public class DataProtector
 	{
 		if (m_hashedPurpose == null)
 		{
-			using HashAlgorithm hashAlgorithm = HashAlgorithm.Create("System.Security.Cryptography.Sha256Cng");
+			// .NET Framework: HashAlgorithm.Create("System.Security.Cryptography.Sha256Cng"), a name .NET does not know (null)
+			using HashAlgorithm hashAlgorithm = SHA256.Create();
 			using (BinaryWriter binaryWriter = new BinaryWriter(new CryptoStream(new MemoryStream(), hashAlgorithm, CryptoStreamMode.Write), new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true)))
 			{
 				binaryWriter.Write(ApplicationName);
@@ -149,7 +150,7 @@ public class DataProtector
 	//
 	// Returns:
 	//     true if the data must be re-encrypted; otherwise, false.
-	public bool IsReprotectRequired(byte[] encryptedData) => false;
+	public virtual bool IsReprotectRequired(byte[] encryptedData) => false;
 
 	//
 	// Summary:
@@ -177,7 +178,22 @@ public class DataProtector
 	//   T:System.ArgumentNullException:
 	//     providerClass is null.
 	public static DataProtector Create(string providerClass, string applicationName, string primaryPurpose, params string[] specificPurposes)
-		=> new(applicationName, primaryPurpose, specificPurposes);
+	{
+		if (providerClass == null)
+		{
+			throw new ArgumentNullException("providerClass");
+		}
+
+		// .NET Framework's CryptoConfig.CreateFromName binds a null specificPurposes as one null purpose (ArgumentException)
+		specificPurposes ??= new string[] { null };
+		// CryptoConfig on .NET does not know DpapiDataProtector (.NET Framework's machine-wide name)
+		if (providerClass is "DpapiDataProtector" or "System.Security.Cryptography.DpapiDataProtector" || providerClass.StartsWith("System.Security.Cryptography.DpapiDataProtector,", StringComparison.Ordinal))
+		{
+			return new DpapiDataProtector(applicationName, primaryPurpose, specificPurposes);
+		}
+
+		return (DataProtector)CryptoConfig.CreateFromName(providerClass, applicationName, primaryPurpose, specificPurposes);
+	}
 
 	//
 	// Summary:
@@ -223,7 +239,7 @@ public class DataProtector
 	//
 	// Returns:
 	//     A byte array that contains the encrypted data.
-	protected byte[] ProviderProtect(byte[] userData)
+	protected virtual byte[] ProviderProtect(byte[] userData)
 	{
 		return ProtectedDataPortable.Protect(userData, null, DataProtectionScope.CurrentUser);
 	}
@@ -239,7 +255,7 @@ public class DataProtector
 	//
 	// Returns:
 	//     The unencrypted data.
-	protected byte[] ProviderUnprotect(byte[] encryptedData)
+	protected virtual byte[] ProviderUnprotect(byte[] encryptedData)
 	{
 		return ProtectedDataPortable.Unprotect(encryptedData, null, DataProtectionScope.CurrentUser);
 	}
@@ -299,4 +315,29 @@ public class DataProtector
 
 		return ProviderUnprotect(encryptedData);
 	}
+}
+
+//
+// Summary:
+//     .NET Framework's DpapiDataProtector (System.Security): DPAPI with the hashed purpose as its entropy, nothing
+//     prepended, so what .NET Framework protected is read on Windows. Where there is no DPAPI (ManagedProtection), the
+//     port's format: the hashed purpose prepended, no entropy.
+public sealed class DpapiDataProtector : DataProtector
+{
+	public DpapiDataProtector(string appName, string primaryPurpose, params string[] specificPurpose)
+		: base(appName, primaryPurpose, specificPurpose)
+	{
+	}
+
+	public DataProtectionScope Scope { get; set; }
+
+	public override bool IsReprotectRequired(byte[] encryptedData) => true;
+
+	protected override bool PrependHashedPurposeToPlaintext => !ProtectedDataPortable.IsDpapi;
+
+	protected override byte[] ProviderProtect(byte[] userData)
+		=> ProtectedDataPortable.Protect(userData, ProtectedDataPortable.IsDpapi ? GetHashedPurpose() : null, Scope);
+
+	protected override byte[] ProviderUnprotect(byte[] encryptedData)
+		=> ProtectedDataPortable.Unprotect(encryptedData, ProtectedDataPortable.IsDpapi ? GetHashedPurpose() : null, Scope);
 }

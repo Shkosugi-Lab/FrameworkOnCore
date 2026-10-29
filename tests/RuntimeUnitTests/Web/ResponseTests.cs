@@ -20,6 +20,17 @@ public class ResponseTests
         return (web, core);
     }
 
+    /// <summary>A request through the site's host (its server variables need it: Site.WebRequest's has none).</summary>
+    static (HttpContext Web, Microsoft.AspNetCore.Http.DefaultHttpContext Core) Hosted(Site site)
+    {
+        var core = Site.Request("/page.aspx");
+        var worker = new System.Web.Hosting.AspNetCoreWorkerRequest(site.Host(), core);
+        typeof(System.Web.Hosting.AspNetCoreWorkerRequest).GetMethod("ParseHeaders", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).Invoke(worker, null);
+        var web = new HttpContext(worker);
+        web.Request.ContentEncoding = System.Text.Encoding.UTF8;
+        return (web, core);
+    }
+
     static string[] Written(HttpResponse response) =>
         response.GenerateResponseHeaders(false).Cast<HttpResponseHeader>().Select(h => h.Name + ": " + h.Value).ToArray();
 
@@ -175,19 +186,53 @@ public class ResponseTests
         Assert.Equal(5, response.SubStatusCode);
     }
 
-    [Fact(Skip = "bug: Request.Headers.Add/Set/Remove throw PlatformNotSupportedException though the pipeline is integrated; .NET Framework's integrated mode writes the request's headers")]
+    [Fact]
     // .NET Framework's integrated mode (reference source: HttpHeaderCollection.Add/Set/Remove of a request's headers ->
     // IIS7WorkerRequest.SetRequestHeader, Params invalidated); the port's pipeline is integrated (HttpRuntime.UsingIntegratedPipeline)
     public void The_request_s_headers_are_written_in_integrated_mode()
     {
         using var site = new Site().Run(watch: false);
         Assert.True(HttpRuntime.UsingIntegratedPipeline);
-        var request = Request().Web.Request;
+        var request = Hosted(site).Web.Request;
         request.Headers.Add("X-Added", "1");
         request.Headers.Set("X-Set", "2");
         Assert.Equal("1", request.Headers["X-Added"]);
         Assert.Equal("2", request.Params["X-Set"] ?? request.Headers["X-Set"]);
         request.Headers.Remove("X-Added");
         Assert.Null(request.Headers["X-Added"]);
+    }
+
+    [Fact] // the same, on the ASP.NET Core request (IIS' header block there) and in the server variables (HTTP_*)
+    public void The_request_s_headers_written_are_the_core_request_s()
+    {
+        using var site = new Site().Run(watch: false);
+        var (web, core) = Hosted(site);
+        var request = web.Request;
+        Assert.Null(request.ServerVariables["HTTP_X_SET"]);
+        request.Headers.Set("X-Set", "2");
+        request.Headers.Add("X-Set", "3");
+        Assert.Equal(new[] { "2", "3" }, core.Request.Headers["X-Set"].ToArray());
+        Assert.Equal("2,3", request.ServerVariables["HTTP_X_SET"]);
+        request.Headers.Remove("X-Set");
+        Assert.False(core.Request.Headers.ContainsKey("X-Set"));
+        Assert.Null(request.ServerVariables["HTTP_X_SET"]);
+    }
+
+    [Fact] // .NET Framework's integrated mode (reference source: HttpServerVarsCollection.Set/Remove -> IIS7WorkerRequest.SetServerVariable, an HTTP_ variable the request's header)
+    public void The_server_variables_are_written_in_integrated_mode()
+    {
+        using var site = new Site().Run(watch: false);
+        var (web, core) = Hosted(site);
+        var request = web.Request;
+        request.ServerVariables.Set("HTTP_X_VAR", "1");
+        Assert.Equal("1", request.ServerVariables["HTTP_X_VAR"]);
+        Assert.Equal("1", request.Headers["X-VAR"]);
+        Assert.Equal("1", core.Request.Headers["X-VAR"].ToString());
+        request.ServerVariables.Set("MY_VAR", "2");
+        Assert.Equal("2", request.ServerVariables["MY_VAR"]);
+        request.ServerVariables.Remove("HTTP_X_VAR");
+        Assert.Null(request.ServerVariables["HTTP_X_VAR"]);
+        Assert.Null(request.Headers["X-VAR"]);
+        Assert.False(core.Request.Headers.ContainsKey("X-VAR"));
     }
 }

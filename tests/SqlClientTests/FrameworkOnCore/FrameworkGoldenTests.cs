@@ -21,15 +21,9 @@ namespace System.Data.SqlClient.Tests
         static readonly Dictionary<string, string> s_golden = JsonSerializer.Deserialize<Dictionary<string, string>>(
             File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "framework.golden.json")));
 
-        // The cases whose outcome differs from .NET Framework's: bugs (Bug_* below, skipped) and the port's choices
-        // (Port_choice_* below).
+        // The cases whose outcome differs from .NET Framework's: the port's choices (Port_choice_* below).
         static readonly HashSet<string> s_apart = new HashSet<string>
         {
-            "connection Context Connection=true",
-            "datadirectory Data Source=localhost",
-            "datadirectory Data Source=srv",
-            "datadirectory not a string",
-            "datadirectory relative",
             "datadirectory token twice",
             "datadirectory too long",
         };
@@ -64,34 +58,6 @@ namespace System.Data.SqlClient.Tests
         public void As_on_dotnet_framework(string name)
         {
             Assert.Equal(s_golden[name], Outcome(name));
-        }
-
-        // --- bugs: the port differs from .NET Framework (each fails without its Skip)
-
-        [Fact(Skip = "bug: SqlConnectionString.cs:227 throws SQL.UnsupportedKeyword (NotSupportedException); .NET Framework's SqlConnectionString threw SQL.ContextUnavailableOutOfProc (InvalidOperationException: 'The requested operation requires a SqlClr context...') outside SQL Server")]
-        public void Bug_context_connection_true_is_an_invalid_operation()
-        {
-            Assert.Equal(s_golden["connection Context Connection=true"], Outcome("connection Context Connection=true"));
-        }
-
-        [Theory(Skip = "bug: SqlConnectionString.cs:344 expands |DataDirectory| whatever the Data Source; .NET Framework's SqlConnectionString refused it (VerifyLocalHostAndFixup: 'Invalid value for key 'attachdbfilename'') unless the Data Source is this machine ('.', '(local)', its name, with an instance) or LocalDB")]
-        [InlineData("datadirectory Data Source=localhost")]
-        [InlineData("datadirectory Data Source=srv")]
-        public void Bug_datadirectory_is_for_a_local_server_only(string name)
-        {
-            Assert.Equal(s_golden[name], Outcome(name));
-        }
-
-        [Fact(Skip = "bug: DbConnectionOptions.DataDirectory.cs:26 throws ADP.InvalidConnectionOptionValue (ArgumentException); .NET Framework's ExpandDataDirectory threw ADP.InvalidDataDirectory (InvalidOperationException: 'The DataDirectory substitute is not a string.')")]
-        public void Bug_a_datadirectory_not_a_string_is_an_invalid_operation()
-        {
-            Assert.Equal(s_golden["datadirectory not a string"], Outcome("datadirectory not a string"));
-        }
-
-        [Fact(Skip = "bug: DbConnectionOptions.DataDirectory.cs:60 compares with Path.GetFullPath(rootFolderPath); .NET Framework's ExpandDataDirectory compared the full path with the DataDirectory as it is, so a relative DataDirectory ('App_Data') was refused ('Invalid value for key 'attachdbfilename'')")]
-        public void Bug_a_relative_datadirectory_is_refused()
-        {
-            Assert.Equal(s_golden["datadirectory relative"], Outcome("datadirectory relative"));
         }
 
         // --- the port's choices: what cannot be as on .NET Framework

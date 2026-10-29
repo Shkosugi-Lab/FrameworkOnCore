@@ -19,7 +19,10 @@ namespace System.Web.Hosting
 		static TaskScheduler threadPoolTaskScheduler = null;
 		static Type threadPoolTaskSchedulerType = null;
 		static Type ThreadPoolTaskSchedulerType => threadPoolTaskSchedulerType ??= Type.GetType(ThreadPoolTaskSchedulerTypeName);
-		static TaskScheduler ThreadPoolTaskScheduler => threadPoolTaskScheduler ??= (TaskScheduler)Activator.CreateInstance(ThreadPoolTaskSchedulerType);
+		// its constructor is internal: TaskScheduler.Default is the ThreadPoolTaskScheduler (.NET's)
+		static TaskScheduler ThreadPoolTaskScheduler => threadPoolTaskScheduler ??= ThreadPoolTaskSchedulerType.IsInstanceOfType(Default) ? Default : (TaskScheduler)Activator.CreateInstance(ThreadPoolTaskSchedulerType, nonPublic: true);
+		// the instance methods: NonPublic alone finds none
+		const Reflection.BindingFlags Internal = Reflection.BindingFlags.NonPublic | Reflection.BindingFlags.Instance;
 		/// <summary>
 		/// Constructs a new ThreadPool task scheduler object or runs in a separate thread for
 		/// long running task
@@ -34,7 +37,7 @@ namespace System.Web.Hosting
 		private static readonly ParameterizedThreadStart s_longRunningThreadWork = static s =>
 		{
 			//((Task)s).ExecuteEntryUnsafe(threadPoolThread: null);
-			var executeEntryUnsafe = s.GetType().GetMethod("ExecuteEntryUnsafe", Reflection.BindingFlags.NonPublic);
+			var executeEntryUnsafe = s.GetType().GetMethod("ExecuteEntryUnsafe", Internal);
 			executeEntryUnsafe.Invoke(s, new object[] { null });
 		};
 
@@ -58,7 +61,7 @@ namespace System.Web.Hosting
 			{
 				// Normal handling for non-LongRunning tasks.
 				//ThreadPool.UnsafeQueueUserWorkItemInternal(task, (options & TaskCreationOptions.PreferFairness) == 0);
-				var queueTask = ThreadPoolTaskSchedulerType.GetMethod("QueueTask", Reflection.BindingFlags.NonPublic);
+				var queueTask = ThreadPoolTaskSchedulerType.GetMethod("QueueTask", Internal);
 				queueTask.Invoke(ThreadPoolTaskScheduler, new object[] { task });
 			}
 		}
@@ -73,13 +76,13 @@ namespace System.Web.Hosting
 		/// </summary>
 		protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
 		{
-			var tryExecuteTaskInline = ThreadPoolTaskSchedulerType.GetMethod("TryExecuteTaskInline", Reflection.BindingFlags.NonPublic);
+			var tryExecuteTaskInline = ThreadPoolTaskSchedulerType.GetMethod("TryExecuteTaskInline", Internal);
 			return (bool)tryExecuteTaskInline.Invoke(ThreadPoolTaskScheduler, new object[] { task, taskWasPreviouslyQueued });
 		}
 
 		protected override IEnumerable<Task> GetScheduledTasks()
 		{
-			var getScheduledTasks = ThreadPoolTaskSchedulerType.GetMethod("GetScheduledTasks", Reflection.BindingFlags.NonPublic);
+			var getScheduledTasks = ThreadPoolTaskSchedulerType.GetMethod("GetScheduledTasks", Internal);
 			return (IEnumerable<Task>)getScheduledTasks.Invoke(ThreadPoolTaskScheduler, new object[0]);
 		}
 	}

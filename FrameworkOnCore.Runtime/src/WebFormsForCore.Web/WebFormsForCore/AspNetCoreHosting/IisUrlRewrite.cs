@@ -114,9 +114,13 @@ namespace System.Web.Hosting
 		readonly string contentRoot;
 		readonly string siteId;
 		readonly List<Rule> globalRules = new List<Rule>();
-		// Each folder that has rules of its own (the longest first) and the rules in effect there.
-		readonly List<(string Base, List<Rule> Rules)> folders = new List<(string, List<Rule>)>();
-		readonly Dictionary<string, Map> maps = new Dictionary<string, Map>(StringComparer.OrdinalIgnoreCase);
+		// The maps the global rules see: the server's.
+		readonly Dictionary<string, Map> globalMaps = NewMaps();
+		// Each folder that has rules or maps of its own (the longest first), the rules and the maps in effect there (a
+		// folder's <clear/> or <remove> of maps is that folder's, as IIS's configuration inheritance has it).
+		readonly List<(string Base, List<Rule> Rules, Dictionary<string, Map> Maps)> folders = new List<(string, List<Rule>, Dictionary<string, Map>)>();
+
+		static Dictionary<string, Map> NewMaps() => new Dictionary<string, Map>(StringComparer.OrdinalIgnoreCase);
 		HashSet<string> allowedServerVariables;   // null: any (no profile to say)
 		readonly List<string> unsupported = new List<string>();
 
@@ -162,18 +166,23 @@ namespace System.Web.Hosting
 					// applicationHost.config's only: the global rules, the variables rules may set.
 					foreach (var global in Children(section.Rewrite, "globalRules")) ReadRules(global, "", globalRules, null);
 					ReadAllowed(section.Rewrite);
+					if (section.Base.Length == 0)
+						foreach (var mapsElement in Children(section.Rewrite, "rewriteMaps")) ReadMaps(External(mapsElement, section.FileFolder), globalMaps);
 				}
-				foreach (var mapsElement in Children(section.Rewrite, "rewriteMaps")) ReadMaps(External(mapsElement, section.FileFolder));
 				if (Children(section.Rewrite, "outboundRules").Any(o => Children(o, "rule").Any())) unsupported.Add("outboundRules (the responses' rewriting)");
 				if (Children(section.Rewrite, "providers").Any(p => Children(p, "provider").Any())) unsupported.Add("providers");
 			}
 			foreach (var folder in ordered.Select(s => s.Base).Distinct(StringComparer.OrdinalIgnoreCase).OrderByDescending(b => b.Length))
 			{
 				var rules = new List<Rule>();
+				var maps = NewMaps();
 				foreach (var section in ordered.Where(s => Covers(s.Base, folder)))
+				{
+					foreach (var mapsElement in Children(section.Rewrite, "rewriteMaps")) ReadMaps(External(mapsElement, section.FileFolder), maps);
 					foreach (var rulesElement in Children(section.Rewrite, "rules"))
 						ReadRules(External(rulesElement, section.FileFolder), section.Base, rules, section.FileFolder);
-				folders.Add((folder, rules));
+				}
+				folders.Add((folder, rules, maps));
 			}
 		}
 
@@ -206,7 +215,7 @@ namespace System.Web.Hosting
 				}
 		}
 
-		void ReadMaps(XElement element)
+		static void ReadMaps(XElement element, Dictionary<string, Map> maps)
 		{
 			foreach (var item in element.Elements())
 			{
@@ -270,7 +279,8 @@ namespace System.Web.Hosting
 					if (!Enum.TryParse(Attribute(add, "matchType"), true, out type)) type = MatchType.Pattern;
 					rule.Conditions.Add(new Condition
 					{
-						Input = Attribute(add, "input") ?? "",
+						// IsFile, IsDirectory without input: the requested file's physical path (the reference); null here.
+						Input = Attribute(add, "input") ?? (type == MatchType.Pattern ? "" : null),
 						Type = type,
 						Pattern = type == MatchType.Pattern ? new Pattern(syntax, Attribute(add, "pattern") ?? "", Flag(add, "ignoreCase", true)) : null,
 						Negate = Flag(add, "negate", false),
@@ -314,6 +324,7 @@ namespace System.Web.Hosting
 			public bool Rewritten;
 			public bool LogRewritten;
 			public Dictionary<string, string> Variables;
+			public Dictionary<string, Map> Maps;   // the maps of the rules running
 			public byte[] Body;   // the answer's body, when the rules answered
 		}
 
@@ -340,14 +351,16 @@ namespace System.Web.Hosting
 			if (state.Path.Length == 0) state.Path = "/";
 			if (globalRules.Count > 0)
 			{
-				if (Run(globalRules, state)) return state.Body ?? NoBody;
+				state.Maps = globalMaps;
+				if (Run(globalRules, state, false)) return state.Body ?? NoBody;
 				// IIS runs the global rules before it takes the URL its log has: a global rewrite's URL logged.
 				if (state.Rewritten) state.LogRewritten = true;
 			}
 			foreach (var folder in folders)
 				if (Covers(folder.Base, state.Path))
 				{
-					if (Run(folder.Rules, state)) return state.Body ?? NoBody;
+					state.Maps = folder.Maps;
+					if (Run(folder.Rules, state, true)) return state.Body ?? NoBody;
 					break;
 				}
 			if (state.Rewritten)
@@ -365,7 +378,8 @@ namespace System.Web.Hosting
 			return null;
 		}
 
-		bool Run(List<Rule> rules, State state)
+		// distributed: the rules of the web.config files (<rules>), not the server's global ones.
+		bool Run(List<Rule> rules, State state, bool distributed)
 		{
 			foreach (var rule in rules)
 			{
@@ -379,9 +393,10 @@ namespace System.Web.Hosting
 				if (c == null) continue;
 				foreach (var (name, value, replace) in rule.ServerVariables)
 				{
-					if (allowedServerVariables != null && !allowedServerVariables.Contains(name))
+					if (distributed && allowedServerVariables != null && !allowedServerVariables.Contains(name))
 					{
-						// IIS: 500.50, a server variable the server does not let rules set.
+						// IIS: 500.50, a server variable the server does not let rules set (the 2.0 reference: the
+						// distributed rules only; the global rules set any).
 						state.Body = Respond(state.Context, 500, 50, null);
 						return true;
 					}
@@ -459,7 +474,7 @@ namespace System.Web.Hosting
 			List<string> all = rule.TrackAllCaptures ? new List<string>() : null;
 			foreach (var condition in rule.Conditions)
 			{
-				var value = Expand(condition.Input, r, all != null ? all.ToArray() : last, state);
+				var value = condition.Input == null ? Physical(state.Path) : Expand(condition.Input, r, all != null ? all.ToArray() : last, state);
 				string[] captures = null;
 				bool matched;
 				switch (condition.Type)
@@ -525,7 +540,7 @@ namespace System.Web.Hosting
 				case "urldecode": return Uri.UnescapeDataString(value);
 			}
 			Map map;
-			if (maps.TryGetValue(name, out map)) return map.Values.TryGetValue(value, out var mapped) ? mapped : map.DefaultValue;
+			if (state.Maps != null && state.Maps.TryGetValue(name, out map)) return map.Values.TryGetValue(value, out var mapped) ? mapped : map.DefaultValue;
 			return "";   // a provider's (not here)
 		}
 

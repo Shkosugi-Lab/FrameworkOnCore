@@ -92,7 +92,7 @@ public class AspNetCoreSessionTests
         Assert.Single(session.Values);
     }
 
-    [Fact(Skip = "bug: GetItem of an item CreateUninitializedItem added returns actions None; the documented flag is InitializeItem")]
+    [Fact]
     // SessionStateStoreProviderBase.CreateUninitializedItem's documentation: the item is added "with an actionFlags value of
     // InitializeItem", which GetItem/GetItemExclusive return for it (SessionStateModule initializes it then)
     public void An_uninitialized_item_is_flagged_so()

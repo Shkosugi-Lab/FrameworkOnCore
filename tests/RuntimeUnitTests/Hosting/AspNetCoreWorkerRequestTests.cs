@@ -283,7 +283,7 @@ public class AspNetCoreWorkerRequestTests
         Assert.False(worker.HeadersSent());
     }
 
-    [Fact(Skip = "bug: IsClientConnected is always true (IIS's is false once the client has gone)")] // HttpWorkerRequest.IsClientConnected: whether the client connection is still active
+    [Fact] // HttpWorkerRequest.IsClientConnected: whether the client connection is still active
     public void A_gone_client_is_not_connected()
     {
         using var site = new Site();
@@ -341,13 +341,21 @@ public class AspNetCoreWorkerRequestTests
         Assert.Contains("two", worker.GetUnknownRequestHeader("X-A"));
     }
 
-    [Fact(Skip = "bug: a header sent twice is joined with ';' (RFC 9110 5.3, http.sys: ',')")] // RFC 9110 5.3: field lines of the same name combined with commas
+    [Fact] // RFC 9110 5.3: field lines of the same name combined with commas
     public void A_header_sent_twice_is_joined_with_commas()
     {
         using var site = new Site();
         var (worker, _) = Request(site, "/a.aspx", setup: c => Headers(c, ("Accept", new StringValues(new[] { "text/html", "text/plain" })), ("X-A", new StringValues(new[] { "1", "2" }))));
         Assert.Equal(new[] { "text/html", "text/plain" }, worker.GetKnownRequestHeader(HttpWorkerRequest.HeaderAccept).Split(',').Select(v => v.Trim()));
         Assert.Equal(new[] { "1", "2" }, worker.GetUnknownRequestHeader("X-A").Split(',').Select(v => v.Trim()));
+    }
+
+    [Fact] // RFC 9113 8.2.3: HTTP/2's cookie field lines are joined with "; " (System.Web splits the cookies at ';' only)
+    public void Cookies_sent_apart_are_joined_with_semicolons()
+    {
+        using var site = new Site();
+        var (worker, _) = Request(site, "/a.aspx", setup: c => Headers(c, ("Cookie", new StringValues(new[] { "a=1", "b=2" }))));
+        Assert.Equal("a=1; b=2", worker.GetKnownRequestHeader(HttpWorkerRequest.HeaderCookie));
     }
 
     // --- Cookieless session (the URL's "(S(...))" segment, .NET Framework's CookielessHelperClass format)
@@ -380,7 +388,7 @@ public class AspNetCoreWorkerRequestTests
         Assert.Equal("x", worker.GetUnknownRequestHeader("X-Custom"));
     }
 
-    [Theory(Skip = "bug: a URL with '(' and no cookieless segment loses the unknown headers (ParseHeaders returns before them)")] // HttpWorkerRequest.GetUnknownRequestHeaders: the request's other headers, whatever its URL
+    [Theory] // HttpWorkerRequest.GetUnknownRequestHeaders: the request's other headers, whatever its URL
     [InlineData("/a(1).aspx")]
     [InlineData("/a(1)/b.aspx")]
     public void A_url_with_parentheses_keeps_its_headers(string target)
@@ -413,7 +421,7 @@ public class AspNetCoreWorkerRequestTests
         Assert.Throws<ArgumentOutOfRangeException>(() => worker.ReadEntityBody(buffer, -1, 1));
     }
 
-    [Fact(Skip = "bug: ReadEntityBody(buffer, offset, size) writes at 0, not at offset (HttpBufferlessInputStream.Read passes its offset)")] // HttpWorkerRequest.ReadEntityBody(Byte[], Int32, Int32): the bytes read into the buffer at offset
+    [Fact] // HttpWorkerRequest.ReadEntityBody(Byte[], Int32, Int32): the bytes read into the buffer at offset
     public void Read_entity_body_reads_at_the_offset()
     {
         using var site = new Site();
@@ -463,7 +471,7 @@ public class AspNetCoreWorkerRequestTests
         Assert.Equal(new[] { "a=1", "b=2" }, core.Response.Headers.SetCookie.ToArray());
     }
 
-    [Fact(Skip = "bug: SendStatus drops the description (IIS sends it in the status line: HttpResponse.StatusDescription)")] // HttpResponse.StatusDescription: the HTTP status string of the output returned to the client
+    [Fact] // HttpResponse.StatusDescription: the HTTP status string of the output returned to the client
     public void The_status_description_is_sent()
     {
         using var site = new Site();
@@ -472,7 +480,19 @@ public class AspNetCoreWorkerRequestTests
         Assert.Equal("Fine", core.Features.Get<IHttpResponseFeature>().ReasonPhrase);
     }
 
-    [Fact(Skip = "bug: HeadersSent() is always false (IIS's is true once the response has started)")] // HttpWorkerRequest.HeadersSent: whether the headers have been sent to the client
+    [Fact] // the host's choice: the status's usual text is the server's (none set), and a later status is not left with an earlier one's description
+    public void The_usual_status_description_is_the_server_s()
+    {
+        using var site = new Site();
+        var (worker, core) = Request(site, "/a.aspx");
+        worker.SendStatus(404, "Not Found");
+        Assert.Null(core.Features.Get<IHttpResponseFeature>().ReasonPhrase);
+        worker.SendStatus(500, "Mine");
+        worker.SendStatus(200, "OK");
+        Assert.Null(core.Features.Get<IHttpResponseFeature>().ReasonPhrase);
+    }
+
+    [Fact] // HttpWorkerRequest.HeadersSent: whether the headers have been sent to the client
     public void Headers_sent_once_the_response_has_started()
     {
         using var site = new Site();

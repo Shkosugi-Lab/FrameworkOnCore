@@ -47,7 +47,7 @@ public class DataProtectionTests
         Assert.True(purposes.Prepends);
     }
 
-    [Fact(Skip = "bug: GetHashedPurpose's HashAlgorithm.Create(\"System.Security.Cryptography.Sha256Cng\") is null on .NET: ArgumentNullException, every Protect/Unprotect fails")]
+    [Fact]
     // .NET Framework 4.8 (golden): the purposes' hash (SHA256 of the application name, the primary and specific purposes, as BinaryWriter writes them), kept
     public void The_purposes_are_hashed_as_net_framework_hashes_them()
     {
@@ -66,21 +66,21 @@ public class DataProtectionTests
         Assert.Equal(Golden48.String("unprotectNullError"), Error(() => Protector().Unprotect(null)));
     }
 
-    [Fact(Skip = "bug: DataProtector.Create ignores providerClass; .NET Framework throws ArgumentNullException for null (its own doc comment says so)")]
+    [Fact]
     // .NET Framework 4.8 (golden; DataProtector.Create's documentation): providerClass null is ArgumentNullException
     public void A_null_provider_class_is_refused()
     {
         Assert.Equal(Golden48.String("createNullClassError"), Error(() => DataProtector.Create(null, "a", "p")));
     }
 
-    [Fact(Skip = "bug: specificPurposes null is accepted; .NET Framework's DataProtector.Create(\"DpapiDataProtector\", a, p, null) throws ArgumentException")]
+    [Fact]
     // .NET Framework 4.8 (golden)
     public void Null_specific_purposes_are_refused()
     {
         Assert.Equal(Golden48.String("createNoSpecificPurposesError"), Error(() => DataProtector.Create("DpapiDataProtector", "a", "p", null)));
     }
 
-    [Fact(Skip = "bug: IsReprotectRequired is false; .NET Framework's DpapiDataProtector (the class Create makes) returns true")]
+    [Fact]
     // .NET Framework 4.8 (golden): DpapiDataProtector.IsReprotectRequired is true
     public void Reprotecting_is_required_as_for_dpapi()
     {
@@ -88,7 +88,7 @@ public class DataProtectionTests
         Assert.True(Protector().IsReprotectRequired(Golden.Data));
     }
 
-    [Fact(Skip = "bug: Protect fails (The_purposes_are_hashed_as_net_framework_hashes_them); Unprotect on Windows also PlatformNotSupportedException (ProtectedDataPortable.Unprotect has no DPAPI case)")]
+    [Fact]
     // .NET Framework 4.8 (golden): what DataProtector protected it unprotects; another purpose's or garbage: CryptographicException
     public void What_is_protected_is_unprotected()
     {
@@ -98,7 +98,7 @@ public class DataProtectionTests
         Assert.Equal(Golden48.String("unprotectGarbageError"), Error(() => Protector().Unprotect(new byte[] { 1, 2, 3 })));
     }
 
-    [Fact(Skip = "bug: DpapiDataProtector's output is DPAPI's with the hashed purpose as its entropy; the port prepends the hash and gives no entropy (and cannot unprotect on Windows)")]
+    [Fact]
     // .NET Framework 4.8 (golden, the same Windows user): DpapiDataProtector's output (DPAPI's of the data, the hashed purpose its entropy) unprotected
     public void What_net_framework_protected_is_unprotected()
     {
@@ -107,7 +107,7 @@ public class DataProtectionTests
         Assert.Equal(Golden.Data, Protector().Unprotect(Golden.Bytes(Golden48.String("protected"))));
     }
 
-    [Fact(Skip = "bug: <machineKey dataProtectorType> output of .NET Framework (DpapiDataProtector) is not read: see What_net_framework_protected_is_unprotected")]
+    [Fact]
     // .NET Framework 4.8 (golden): MachineKey.Protect and a forms authentication ticket with dataProtectorType="DpapiDataProtector"
     public void MachineKey_with_a_data_protector_reads_net_framework_s()
     {
@@ -142,7 +142,7 @@ public class DataProtectionTests
         Assert.Equal(Golden.Data, ProtectedData.Unprotect(ProtectedDataPortable.Protect(Golden.Data, null, (DataProtectionScope)5), null, DataProtectionScope.CurrentUser));
     }
 
-    [Fact(Skip = "bug: Unprotect on Windows throws PlatformNotSupportedException: its switch has no Win32CryptoProtect case (Protect's has)")]
+    [Fact]
     // .NET Framework 4.8 (golden: ProtectedData's round trip)
     public void On_windows_what_is_protected_is_unprotected()
     {
@@ -256,8 +256,25 @@ public class DataProtectionTests
         Assert.Throws<CryptographicException>(() => ManagedProtection.Unprotect(new byte[300], null, (DataProtectionScope)5));
     }
 
-    // DataProtector's own logic, with the purposes' hash .NET Framework computes (golden; GetHashedPurpose fails on .NET: a
-    // bug, above) and ManagedProtection under it (as ProtectedDataPortable has it elsewhere than Windows).
+    [Fact] // .NET Framework 4.8 (observed: DataProtector.Create, CryptoConfig's names): DpapiDataProtector's full name; an unknown name is null
+    public void The_provider_class_is_named_as_crypto_config_names_it()
+    {
+        Assert.Equal("System.Security.Cryptography.DpapiDataProtector", DataProtector.Create("System.Security.Cryptography.DpapiDataProtector", "a", "p", "s").GetType().FullName);
+        Assert.Null(DataProtector.Create("Nope", "a", "p", "s"));
+    }
+
+    [Fact] // the port's choice: without DPAPI (ManagedProtection), DpapiDataProtector prepends the hashed purpose and gives no entropy
+    public void Without_dpapi_the_hashed_purpose_is_prepended()
+    {
+        using var keys = new Managed();
+        var hash = Golden48.String("hashedPurpose");
+        Assert.Equal(Golden.Data, Protector().Unprotect(Protector().Protect(Golden.Data)));
+        Assert.Equal(hash + Golden.Hex(Golden.Data), Golden.Hex(ProtectedDataPortable.Unprotect(Protector().Protect(Golden.Data), null, DataProtectionScope.CurrentUser)));
+        Assert.Throws<CryptographicException>(() => DataProtector.Create("DpapiDataProtector", "GoldenApp", "Golden.Other").Unprotect(Protector().Protect(Golden.Data)));
+    }
+
+    // DataProtector's own logic, with the purposes' hash .NET Framework computes (golden) and ManagedProtection under it
+    // (as ProtectedDataPortable has it elsewhere than Windows).
     sealed class HashedProtector : DataProtector
     {
         readonly byte[] hash;

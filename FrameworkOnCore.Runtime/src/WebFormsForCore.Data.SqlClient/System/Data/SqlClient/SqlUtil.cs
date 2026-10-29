@@ -995,6 +995,14 @@ namespace System.Data.SqlClient
             return ADP.InvalidOperation(SR.GetString(SR.SqlMisc_SubclassMustOverride));
         }
 
+#if WebFormsForCore
+        // .NET Framework's: Context Connection=true outside SQL Server (SqlConnectionString)
+        internal static Exception ContextUnavailableOutOfProc()
+        {
+            return ADP.InvalidOperation(SR.GetString(SR.SQL_ContextUnavailableOutOfProc));
+        }
+#endif
+
         // ProjectK\CoreCLR specific errors
         internal static Exception UnsupportedKeyword(string keyword)
         {

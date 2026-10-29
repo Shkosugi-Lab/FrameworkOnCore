@@ -35,7 +35,9 @@ namespace System.Resources
             if (assembly == (Assembly)null)
             {
                 var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
-                assembly = alc.LoadFromAssemblyName(new AssemblyName(name.FullName));
+                // Not found: null, as .NET Framework's LoadWithPartialName (the names given then tried by their path).
+                try { assembly = alc.LoadFromAssemblyName(new AssemblyName(name.FullName)); }
+                catch (FileNotFoundException) { }
                 if (assembly != (Assembly)null)
                     this.cachedAssemblies[(object)name] = (object)assembly;
                 else if (this.names != null)

@@ -20,7 +20,7 @@ using W = System.CodeDom.Compiler;
 
 namespace WebFormsForCore.CodeDom.Compiler {
     internal class VBCompiler : Compiler {
-        // Command line string for My.* support
+        // Command line string for My.* support (DotNetCompilerPlatform: "Web"; .NET has no My.* web types: "Empty", as AssemblyBuilder)
         internal static string MySupport = @"/define:_MYTYPE=\""Empty\""";
         internal static string VBImportsString;
 
@@ -70,7 +70,6 @@ namespace WebFormsForCore.CodeDom.Compiler {
                 // TODO This code should be removed once CodeDom directly supports provider options such as WarnAsError, OptionInfer
                 CompilationUtil.PrependCompilerOption(options, " /optionInfer+");
 
-                /*
                 List<string> noWarnStrings = new List<string>(3);
 
                 // If VB, add all the imported namespaces on the command line (DevDiv 21499).
@@ -79,7 +78,9 @@ namespace WebFormsForCore.CodeDom.Compiler {
                 AddVBGlobalNamespaceImports(options);
 
                 // Add any command line flags needed to support the My.* feature
-                AddVBMyFlags(options);
+                // (once: ASP.NET's AssemblyBuilder already defines _MYTYPE for this provider)
+                if (options.CompilerOptions == null || options.CompilerOptions.IndexOf("_MYTYPE", StringComparison.OrdinalIgnoreCase) < 0)
+                    AddVBMyFlags(options);
 
                 // Ignore vb warning that complains about assemblyKeyName (Dev10 662544)
                 // but only for target 3.5 and above (715329)
@@ -91,7 +92,7 @@ namespace WebFormsForCore.CodeDom.Compiler {
 
                 if (noWarnStrings.Count > 0) {
                     CompilationUtil.PrependCompilerOption(options, "/nowarn:" + String.Join(",", noWarnStrings));
-                }*/
+                }
             }
         }
 

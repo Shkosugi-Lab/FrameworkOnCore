@@ -358,7 +358,6 @@ public static class StronglyTypedResourceBuilder
 		}
 
 		Dictionary<string, ResourceData> dictionary = new Dictionary<string, ResourceData>(StringComparer.InvariantCultureIgnoreCase);
-#if !WebFormsForCore // TODO RexXResourceReader
 		using (ResXResourceReader resXResourceReader = new ResXResourceReader(resxFile))
 		{
 			resXResourceReader.UseResXDataNodes = true;
@@ -372,7 +371,6 @@ public static class StronglyTypedResourceBuilder
 				dictionary.Add((string)item.Key, value);
 			}
 		}
-#endif
 
 		return InternalCreate(dictionary, baseName, generatedCodeNamespace, resourcesNamespace, codeProvider, internalClass, out unmatchable);
 	}

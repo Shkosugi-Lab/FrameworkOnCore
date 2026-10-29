@@ -52,7 +52,7 @@ public class ResXFileRefTests
         Assert.Equal(root + "a.txt", Relative("", root + "a.txt"));
     }
 
-    [Fact(Skip = "bug: a ResXFileRef cannot be serialized (BinaryFormatter, the port's): SerializationException 'System.Text.Encoding is not marked as serializable' for its null textFileEncoding field (ResXFileRef.cs:30)")] // docs: ResXFileRef is [Serializable]; reference source (OnDeserializing): the encoding is an optional field (version 2), null when not serialized; the port's BinaryFormatter
+    [Fact] // docs: ResXFileRef is [Serializable]; reference source (OnDeserializing): the encoding is an optional field (version 2), null when not serialized; the port's BinaryFormatter
     public void A_reference_is_serializable()
     {
         var formatter = new WebFormsForCore.Serialization.Formatters.Binary.BinaryFormatter();
@@ -63,6 +63,18 @@ public class ResXFileRefTests
         Assert.Equal("a.txt", back.FileName);
         Assert.Equal("T", back.TypeName);
         Assert.Null(back.TextFileEncoding);
+    }
+
+    [Fact] // the port's choice: .NET's Encoding is not serializable (.NET Framework's was): the encoding serialized by its code page
+    public void A_reference_with_an_encoding_is_serializable()
+    {
+        var formatter = new WebFormsForCore.Serialization.Formatters.Binary.BinaryFormatter();
+        var stream = new MemoryStream();
+        formatter.Serialize(stream, new ResXFileRef("a.txt", "T", Encoding.Unicode));
+        stream.Position = 0;
+        var back = (ResXFileRef)formatter.Deserialize(stream);
+        Assert.Equal("a.txt;T;utf-16", back.ToString());
+        Assert.Equal(Encoding.Unicode.CodePage, back.TextFileEncoding.CodePage);
     }
 
     // --- The converter

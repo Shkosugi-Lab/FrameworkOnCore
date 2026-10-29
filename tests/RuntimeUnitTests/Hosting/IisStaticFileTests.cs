@@ -507,14 +507,26 @@ public class IisStaticFileTests
         Assert.Equal("bytes */5", served.Headers["Content-Range"]);
     }
 
-    [Fact(Skip = "bug: bytes=10-20 of a 5-byte file is taken as invalid syntax (StaticFileHandler.GetNextRange: last < first after clamping), the whole file 200, not 416")]
-    // RFC 9110 14.1.1/15.5.17: a first-pos beyond the file with a last-pos is a valid range that is not satisfiable: 416
+    [Fact]
+    // RFC 9110 14.1.1/15.5.17: a first-pos beyond the file with a last-pos is a valid range that is not satisfiable: 416 (observed on IIS 10)
     public void A_range_with_both_ends_beyond_the_file_is_a_416()
     {
         using var site = Text();
         var served = Serve(site, "/a.txt", core => core.Request.Headers["Range"] = "bytes=10-20");
         Assert.Equal(416, served.Status);
         Assert.Equal("bytes */5", served.Headers["Content-Range"]);
+    }
+
+    [Fact] // RFC 9110 14.1.1: a last-pos before its first-pos is invalid (the header ignored: the whole file); one beyond the file with another in it: the other
+    public void An_invalid_range_sends_the_file_and_one_beyond_the_file_is_left_out()
+    {
+        using var site = Text();
+        var invalid = Serve(site, "/a.txt", core => core.Request.Headers["Range"] = "bytes=3-1");
+        Assert.Equal(200, invalid.Status);
+        Assert.Equal("hello", invalid.Body);
+        var mixed = Serve(site, "/a.txt", core => core.Request.Headers["Range"] = "bytes=10-20,1-2");
+        Assert.Equal(206, mixed.Status);
+        Assert.Equal("el", mixed.Body);
     }
 
     [Fact] // RFC 9110 14.2: a range of a unit the server does not know is ignored: the whole file
@@ -604,8 +616,8 @@ public class IisStaticFileTests
         Assert.Contains("</A><br><br><A HREF=\"/sub/b.txt\">b</A><br></pre>", Serve(site, "/sub/").Body);
     }
 
-    [Fact(Skip = "bug: enabled='true' with an empty showFlags is a 403.14, not a listing of the names (directoryBrowse: showFlags is the information listed, enabled whether the listing is)")]
-    // directoryBrowse: enabled turns the listing on; showFlags (flags: empty is none of them) only chooses the columns
+    [Fact]
+    // directoryBrowse: enabled turns the listing on; showFlags (flags: empty is none of them) only chooses the columns (observed on IIS 10: the names)
     public void Directory_browsing_with_empty_show_flags_still_lists()
     {
         using var site = new Site(Site.WebServer("<directoryBrowse enabled='true' showFlags='' />"));

@@ -122,13 +122,24 @@ public class IntegratedModeConfigurationTests
         Assert.Equal("C", Handler("GET", "/x.c"));
     }
 
-    [Fact(Skip = "bug: a <location path='sub'>'s (and a folder's web.config's) handlers are ignored; IIS applies them to the folder's URLs")]
+    [Fact]
     // IIS 10's applicationHost.config: the handlers section has no allowDefinition (modules': MachineToApplication) and is unlocked
     // (<location path="" overrideMode="Allow">): a <location path> or a folder's web.config maps that folder's handlers (an uploads folder's)
     public void Handlers_of_a_folder_location_count_in_the_folder()
     {
         using var site = Running("<configuration><location path='sub'><system.webServer><handlers><add name='b' path='*.b' type='B' /></handlers></system.webServer></location></configuration>");
         Assert.Equal("B", Handler("GET", "/sub/x.b"));
+        Assert.Null(Handler("GET", "/x.b"));
+    }
+
+    [Fact] // IIS's configuration inheritance: a folder's web.config's handlers over the application's, in that folder only (its clear too)
+    public void Handlers_of_a_folder_web_config_count_in_the_folder()
+    {
+        using var site = Running(Handlers("<add name='a' path='*.a' type='A' />"));
+        site.Write("up/web.config", Handlers("<clear /><add name='b' path='*.b' type='B' />"));
+        Assert.Equal("B", Handler("GET", "/up/x.b"));
+        Assert.Null(Handler("GET", "/up/x.a"));
+        Assert.Equal("A", Handler("GET", "/x.a"));
         Assert.Null(Handler("GET", "/x.b"));
     }
 

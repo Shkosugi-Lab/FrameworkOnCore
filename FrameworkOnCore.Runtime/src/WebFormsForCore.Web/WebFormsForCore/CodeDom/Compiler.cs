@@ -442,7 +442,8 @@ namespace WebFormsForCore.CodeDom.Compiler
 #else
 				//results.CompiledAssembly = Assembly.Load(assemblyBuff, symbolsBuff);
 				var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
-				results.CompiledAssembly = alc.LoadFromStream(new MemoryStream(assemblyBuff), new MemoryStream(symbolsBuff));
+				// No .pdb (IncludeDebugInformation false): no symbols, as Assembly.Load(raw, null).
+				results.CompiledAssembly = alc.LoadFromStream(new MemoryStream(assemblyBuff), symbolsBuff != null ? new MemoryStream(symbolsBuff) : null);
 #endif
 #pragma warning restore 618
 

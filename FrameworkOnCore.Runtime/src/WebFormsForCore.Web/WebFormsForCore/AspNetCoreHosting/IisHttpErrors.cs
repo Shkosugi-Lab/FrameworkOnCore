@@ -190,7 +190,14 @@ namespace System.Web.Hosting
 			if (entry == null && !string.IsNullOrEmpty(settings.DefaultPath))
 				entry = new Entry { Status = status, Path = settings.DefaultPath, Mode = settings.DefaultMode };
 			response.ContentType = "text/html";
-			if (entry == null || entry.Builtin || string.IsNullOrEmpty(entry.Path))
+			if (entry == null)
+			{
+				// No entry (one removed, a status IIS has none for): the custom error module's text for the status, not its
+				// page (observed on IIS 10: <remove statusCode="404" /> gives the 404's text).
+				await WriteAsync(response, ShortText(context, status));
+				return;
+			}
+			if (entry.Builtin || string.IsNullOrEmpty(entry.Path))
 			{
 				await WriteAsync(response, IisStaticFile.ErrorPage(status, Japanese(context)) ?? ShortText(context, status));
 				return;
@@ -297,23 +304,68 @@ namespace System.Web.Hosting
 			return server;
 		}
 
-		// IIS's answer for a status it has no page for: its short description (in the server's language where it is known).
+		// IIS's answer for a status without an entry: its custom error module's text for the status (observed on IIS 10,
+		// en-US and ja-JP: each status from 400 to 431 and 500 to 511, 451, 599; the ones it does not know have one text).
+		// In the server's language where it is known.
 		static string ShortText(Core.HttpContext context, int status)
 		{
 			if (Japanese(context))
 				switch (status)
 				{
 					case 400: return "要求が正しくありません";
+					case 401: return "このディレクトリまたはページを表示するアクセス許可がありません。";
+					case 403: return "このディレクトリまたはページを表示するアクセス許可がありません。";
+					case 404: return "探しているリソースは削除されたか、名前が変更されたか、または一時的に使用不可能になっています。";
+					case 405: return "無効なメソッド (HTTP 動詞) が使用されているため、検索しているページを表示できません。";
+					case 406: return "ブラウザーが受け付けないファイル名拡張子であるため、リソースを表示できません。";
+					case 407: return "Web サーバーで要求を処理する前にプロキシによって認証される必要があります。";
+					case 408: return "クライアントで要求の完了に時間がかかりすぎて、サーバーが接続を閉じたため、ページを表示できません。";
+					case 409: return "競合があったため、ページを表示できませんでした。";
 					case 410: return "要求されたページは削除されました。";
+					case 411: return "サーバーが必要とする Content-Length ヘッダーが要求に含まれないため、ページを表示できません。";
+					case 412: return "要求ヘッダーに設定されている必須条件のため、要求は完了しませんでした。";
+					case 413: return "要求のエンティティが大きすぎるため、ページを表示できませんでした。";
+					case 414: return "要求の URI が大きすぎるため、ページを表示できませんでした。";
+					case 415: return "メディアの種類がサポートされていないため、サーバーが要求を処理できません。";
+					case 416: return "要求範囲が満たされなかったため、ページを表示できません。";
+					case 417: return "期待値が満たされないために、ページを表示できません。";
+					case 431: return "要求フィルター モジュールが、大きすぎる要求ヘッダーを拒否するように構成されています。";
+					case 500: return "内部サーバー エラーが発生したため、ページを表示できません。";
+					case 501: return "要求に含まれるヘッダーの値が構成設定と一致しないため、検索しているページを表示できません。";
+					case 502: return "指定された CGI アプリケーションにエラーが発生し、サーバーがプロセスを停止しました。";
 					case 503: return "サービスを利用できません。";
+					case 504: return "ゲートウェイ タイムアウトによりページを表示できません。";
+					case 505: return "HTTP バージョンがサポートされていないために、ページを表示できません。";
+					default: return "カスタム エラー モジュールはこのエラーを認識できません。";
 				}
 			switch (status)
 			{
-				case 410: return "The requested page has been removed.";
-				case 413: return "Request Entity Too Large";
+				case 400: return "Bad Request";
+				case 401: return "You do not have permission to view this directory or page.";
+				case 403: return "You do not have permission to view this directory or page.";
+				case 404: return "The resource you are looking for has been removed, had its name changed, or is temporarily unavailable.";
+				case 405: return "The page you are looking for cannot be displayed because an invalid method (HTTP verb) is being used.";
+				case 406: return "The resource cannot be displayed because the file extension is not being accepted by your browser.";
+				case 407: return "You must be authenticated by a proxy before the Web server can process your request.";
+				case 408: return "The page cannot be displayed because the client took too long to complete its request and the server closed the connection.";
+				case 409: return "The page was not displayed because there was a conflict.";
+				case 410: return "The page you requested was removed.";
+				case 411: return "The page cannot be displayed because the server requires a Content-Length header in the request.";
+				case 412: return "The request was not completed due to preconditions that are set in the request header.";
+				case 413: return "The page was not displayed because the request entity is too large.";
+				case 414: return "The page was not displayed because the Request URI is too long.";
+				case 415: return "The server cannot service the request because the media type is unsupported.";
+				case 416: return "The page cannot be displayed because the request range was not satisfiable.";
+				case 417: return "The page cannot be displayed because the expectation failed.";
+				case 431: return "The request filtering module is configured to deny a request header that is too large.";
+				case 500: return "The page cannot be displayed because an internal server error has occurred.";
+				case 501: return "The page you are looking for cannot be displayed because a header value in the request does not match configuration settings.";
+				case 502: return "The specified CGI application encountered an error and the server terminated the process.";
+				case 503: return "The service is unavailable.";
+				case 504: return "The page cannot be displayed due to a gateway timeout.";
+				case 505: return "The page cannot be displayed because the HTTP version is not supported.";
+				default: return "The custom error module does not recognize this error.";
 			}
-			var reason = Microsoft.AspNetCore.WebUtilities.ReasonPhrases.GetReasonPhrase(status);
-			return string.IsNullOrEmpty(reason) ? "Error" : reason;
 		}
 
 		// IIS's detailed error page, simply: its title, the status, the URL and the file.

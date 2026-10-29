@@ -25,6 +25,11 @@ namespace System.Web {
         private bool _populated;
         private HttpRequest _request;
         private IIS7WorkerRequest _iis7workerRequest;
+#if WebFormsForCore
+        // Writable as in integrated mode (the port's pipeline is): HTTP_ variables written as the ASP.NET Core
+        // request's headers, the others kept in the managed copy.
+        private AspNetCoreWorkerRequest _coreWorkerRequest;
+#endif
         private List<HttpServerVarsCollectionEntry> _unsyncedEntries;
 
         // We preallocate the base collection with a size that should be sufficient
@@ -33,6 +38,9 @@ namespace System.Web {
             // if this is an IIS7WorkerRequest, then the collection will be writeable and we will
             // call into IIS7 to update the server var block when changes are made.
             _iis7workerRequest = wr as IIS7WorkerRequest;
+#if WebFormsForCore
+            _coreWorkerRequest = wr as AspNetCoreWorkerRequest;
+#endif
             _request = request;
             _populated = false;
 
@@ -93,7 +101,11 @@ namespace System.Web {
                         _unsyncedEntries.Clear();
                     }
 
-                    if (_iis7workerRequest == null) {
+                    if (_iis7workerRequest == null
+#if WebFormsForCore
+                        && _coreWorkerRequest == null
+#endif
+                        ) {
                         MakeReadOnly();
                     }
                 }
@@ -214,7 +226,11 @@ namespace System.Web {
 
         [AspNetHostingPermission(SecurityAction.Demand, Level=AspNetHostingPermissionLevel.High)]
         public override void Set(String name, String value) {
-            if (_iis7workerRequest == null) {
+            if (_iis7workerRequest == null
+#if WebFormsForCore
+                && _coreWorkerRequest == null
+#endif
+                ) {
                 throw new PlatformNotSupportedException();
             }
             
@@ -230,11 +246,30 @@ namespace System.Web {
                 value = String.Empty;
             }
           
+#if WebFormsForCore
+            if (_iis7workerRequest == null)
+                SetCoreRequestHeader(name, value);
+            else
+#endif
             _iis7workerRequest.SetServerVariable(name, value);
             SetServerVariableManagedOnly(name, value);
             SynchronizeHeader(name, value);
             _request.InvalidateParams();
         }
+
+#if WebFormsForCore
+        private void SetCoreRequestHeader(String name, String value) {
+            if (StringUtil.StringStartsWith(name, "HTTP_")) {
+                _coreWorkerRequest.SetRequestHeader(HeaderName(name), value, true /*replace*/);
+            }
+        }
+
+        private static String HeaderName(String name) {
+            string headerName = name.Substring("HTTP_".Length).Replace('_', '-');
+            int knownIndex = HttpWorkerRequest.GetKnownRequestHeaderIndex(headerName);
+            return knownIndex > -1 ? HttpWorkerRequest.GetKnownRequestHeaderName(knownIndex) : headerName;
+        }
+#endif
 
         private void SynchronizeHeader(String name, String value) {
             if (StringUtil.StringStartsWith(name, "HTTP_"))
@@ -301,7 +336,11 @@ namespace System.Web {
 
         [AspNetHostingPermission(SecurityAction.Demand, Level=AspNetHostingPermissionLevel.High)]
         public override void Remove(String name) {
-            if (_iis7workerRequest == null) {
+            if (_iis7workerRequest == null
+#if WebFormsForCore
+                && _coreWorkerRequest == null
+#endif
+                ) {
                 throw new PlatformNotSupportedException();
             }
 
@@ -314,6 +353,11 @@ namespace System.Web {
 
         internal void RemoveNoDemand(String name) {
             // delete by sending null value
+#if WebFormsForCore
+            if (_iis7workerRequest == null)
+                SetCoreRequestHeader(name, null);
+            else
+#endif
             _iis7workerRequest.SetServerVariable(name, null /*value*/);
 
             base.Remove(name);

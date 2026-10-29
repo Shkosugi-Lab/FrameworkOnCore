@@ -72,11 +72,12 @@ namespace System.Web.Hosting
 				.Concat(AdditionalPaths)
 				.Where(p => !string.IsNullOrEmpty(p));
 
-            if (UseNetFXGAC)
+            // The GAC holds strong names only (name, v4.0_version__token): a simple name or one without a version is not there.
+            byte[] tokenBytes = name.GetPublicKeyToken();
+            if (UseNetFXGAC && tokenBytes != null && tokenBytes.Length > 0 && name.Version != null)
 			{
 				var winAssemblyDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows),
 					"Microsoft.NET", "assembly");
-                byte[] tokenBytes = name.GetPublicKeyToken();
                 string token = BitConverter
                     .ToString(tokenBytes)
                     .Replace("-", "")

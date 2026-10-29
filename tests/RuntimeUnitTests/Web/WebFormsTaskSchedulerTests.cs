@@ -8,7 +8,7 @@ namespace FrameworkOnCore.Runtime.Tests.Web;
 /// </summary>
 public class WebFormsTaskSchedulerTests
 {
-    [Fact(Skip = "bug: QueueTask's GetMethod(\"QueueTask\", BindingFlags.NonPublic) lacks BindingFlags.Instance: null, every task fails (TaskSchedulerException)")]
+    [Fact]
     // the class's summary and TaskScheduler's contract: a task started on the scheduler runs
     public void A_task_runs()
     {
@@ -18,6 +18,21 @@ public class WebFormsTaskSchedulerTests
         Assert.Equal(42, task.Result);
     }
 
-    // A LongRunning task: s_longRunningThreadWork's GetMethod("ExecuteEntryUnsafe", BindingFlags.NonPublic) is null too, a
-    // NullReferenceException on a foreground thread, which ends the process: not run here.
+    [Fact] // the class's summary: a LongRunning task runs on a thread of its own (a foreground one), not the pool's
+    public void A_long_running_task_runs_on_its_own_thread()
+    {
+        var scheduler = new WebFormsTaskScheduler();
+        var task = Task.Factory.StartNew(() => (Thread.CurrentThread.Name, Thread.CurrentThread.IsThreadPoolThread, Thread.CurrentThread.IsBackground),
+            CancellationToken.None, TaskCreationOptions.LongRunning, scheduler);
+        Assert.Equal(("ASP.NET WebForms Worker Thread", false, false), task.Result);
+    }
+
+    [Fact] // TaskScheduler's contract: a task waited for on the scheduler's thread may run inline; nested ones run
+    public void Nested_tasks_run()
+    {
+        var scheduler = new WebFormsTaskScheduler();
+        var task = Task.Factory.StartNew(() => Task.Factory.StartNew(() => 1, CancellationToken.None, TaskCreationOptions.None, scheduler).Result + 1,
+            CancellationToken.None, TaskCreationOptions.None, scheduler);
+        Assert.Equal(2, task.Result);
+    }
 }

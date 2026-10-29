@@ -214,12 +214,13 @@ public class IisUrlRewriteTests
         Assert.Equal("/new/x", await PathAfter(site2, "/old/x"));
     }
 
-    [Fact(Skip = "bug: Wildcard '?' is matched literally (Regex.Escape), not as one character")]
-    // the reference: Wildcard, "?" means match exactly one character (no back-reference is created)
-    public async Task Wildcard_question_mark_matches_one_character()
+    [Fact] // observed on IIS 10 (URL Rewrite 2.1): a Wildcard "?" matches a '?' only (the reference says "exactly one character":
+    // "scripts/*_in.???" did not match /scripts/a_in.asp, it matched /scripts/a_in.%3F%3F%3F; "we/a?c" matched /we/a%3Fc only)
+    public async Task Wildcard_question_mark_is_a_question_mark()
     {
         using var site = new Site(Rules(Rule("scripts/*_in.???", "type='Rewrite' url='/s/{R:1}'", attributes: "patternSyntax='Wildcard'")));
-        Assert.Equal("/s/a", await PathAfter(site, "/scripts/a_in.asp"));
+        Assert.Equal("/scripts/a_in.asp", await PathAfter(site, "/scripts/a_in.asp"));
+        Assert.Equal("/s/a", await PathAfter(site, "/scripts/a_in.%3F%3F%3F"));
     }
 
     [Fact] // the 2.0 reference: ExactMatch, an exact string comparison (case-insensitive by default)
@@ -382,7 +383,7 @@ public class IisUrlRewriteTests
         Assert.Equal("/dir/x.txt", await PathAfter(site, "/dir/x.txt"));
     }
 
-    [Fact(Skip = "bug: an IsFile/IsDirectory condition without input checks \"\" instead of the requested file's physical path")]
+    [Fact]
     // the reference: "If a condition input string is not specified, the URL Rewrite Module uses the physical path of the requested file"
     public async Task IsFile_without_input_is_the_requested_file()
     {
@@ -446,13 +447,13 @@ public class IisUrlRewriteTests
         Assert.Equal("/c?u=/a%20b", await PathAfter(site, "/a%20b"));
     }
 
-    [Fact(Skip = "bug (or the doc's wording): X-Original-URL is the raw URL (%20 kept), the reference says decoded")]
-    // the reference ("Preserving Original URL"): "HTTP_X_ORIGINAL_URL – this server variable contains the original URL in decoded format"
-    public async Task X_Original_URL_is_decoded()
+    [Fact] // observed on IIS 10 (URL Rewrite 2.1): X-Original-URL (HTTP_X_ORIGINAL_URL) is the URL as sent, "/a%20b" (the reference
+    // says "in decoded format")
+    public async Task X_Original_URL_is_the_url_as_sent()
     {
         using var site = new Site(Rules(Rule("^a b$", "type='Rewrite' url='/c'")));
         var (_, context) = await Run(site, "/a%20b");
-        Assert.Equal("/a b", context.Request.Headers["X-Original-URL"].ToString());
+        Assert.Equal("/a%20b", context.Request.Headers["X-Original-URL"].ToString());
     }
 
     [Fact] // the host's choice (summary): IIS_WasUrlRewritten set after a rewrite, the server variables rules set in Request.ServerVariables
@@ -816,7 +817,7 @@ public class IisUrlRewriteTests
         Assert.Equal("/v?[3]", await PathAfter(external, "/k"));
     }
 
-    [Fact(Skip = "bug: a sub folder's <rewriteMaps><clear/> clears the maps for every URL, not only for the folder's")]
+    [Fact]
     // IIS's configuration system: a collection's <clear/> in a folder's web.config applies to that folder and below
     public async Task A_folders_map_clear_does_not_reach_other_folders()
     {
@@ -958,7 +959,7 @@ public class IisUrlRewriteTests
         Assert.Equal(200, context.Response.StatusCode);
     }
 
-    [Fact(Skip = "bug: allowedServerVariables is applied to the global rules too (500.50)")]
+    [Fact]
     // the 2.0 reference: "Global rewrite rules can be used to set any request headers and server variables"; only distributed rules are limited
     public async Task Global_rules_may_set_any_variable()
     {

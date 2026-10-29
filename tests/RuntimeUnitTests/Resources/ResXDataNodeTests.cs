@@ -129,12 +129,20 @@ public class ResXDataNodeTests
         Assert.Null(info.MimeType);
     }
 
-    [Fact(Skip = "bug: CultureInfo is not [Serializable] on .NET 10: the constructor refuses it (InvalidOperationException) before its special case (ResXDataNode.cs:109, 274)")] // reference source (FillDataNodeInfoFromObject): a CultureInfo is written as its name (.NET Framework's CultureInfo is serializable)
+    [Fact] // reference source (FillDataNodeInfoFromObject): a CultureInfo is written as its name (.NET Framework's CultureInfo is serializable)
     public void A_culture_is_written_as_its_name()
     {
         var info = Info(new ResXDataNode("a", new CultureInfo("ja-JP")));
         Assert.Equal("ja-JP", info.ValueData);
         Assert.Equal(typeof(CultureInfo).AssemblyQualifiedName, info.TypeName);
+    }
+
+    [Fact] // the port's choice: .NET's CultureInfo is not serializable; written by its name (as .NET Framework's), it is read back by its converter
+    public void A_culture_written_here_is_read_back()
+    {
+        var info = Info(new ResXDataNode("a", new CultureInfo("ja-JP")));
+        var node = Resx.Node($"<data name=\"a\" type=\"{info.TypeName}\"><value>{info.ValueData}</value></data>");
+        Assert.Equal(new CultureInfo("ja-JP"), node.GetValue((ITypeResolutionService)null));
     }
 
     [Fact] // .resx format: a byte[] in base64, lines of 80 characters each on its own line (indented 8 spaces) when longer
@@ -272,7 +280,7 @@ public class ResXDataNodeTests
         Assert.Equal(new byte[] { 1, 2, 3 }, node.GetValue((ITypeResolutionService)null));
     }
 
-    [Fact(Skip = "bug: a byte[] written on .NET 10 (type System.Byte[], System.Private.CoreLib) is read back as null: only mscorlib/System.Runtime are recognised (ResXDataNode.cs:405)")] // docs (ResXResourceWriter.AddResource(string, byte[])): the bytes are read back
+    [Fact] // docs (ResXResourceWriter.AddResource(string, byte[])): the bytes are read back
     public void A_byte_array_written_here_is_read_back()
     {
         var info = Info(new ResXDataNode("a", new byte[] { 1, 2, 3 }));
@@ -392,6 +400,19 @@ public class ResXDataNodeTests
         finally { File.Delete(path); }
     }
 
+    [Fact] // .resx format (Visual Studio's): a file reference typed "System.Resources.ResXFileRef, System.Windows.Forms" (.NET Framework's assembly; the port's ResXFileRef is System.Web's)
+    public void A_framework_file_reference_reads_the_file()
+    {
+        var path = Resx.TempFile(".txt", Encoding.UTF8.GetBytes("hello"));
+        try
+        {
+            var node = Resx.Node($"<data name=\"a\" type=\"System.Resources.ResXFileRef, System.Windows.Forms\"><value>{path};{Resx.Aqn<string>()};utf-8</value></data>");
+            Assert.Equal(path, node.FileRef.FileName);
+            Assert.Equal("hello", node.GetValue((ITypeResolutionService)null));
+        }
+        finally { File.Delete(path); }
+    }
+
     // --- GetValueTypeName
 
     [Fact] // docs (GetValueTypeName): a value node: its type; a ResXNullRef: object; a null value: none
@@ -430,7 +451,7 @@ public class ResXDataNodeTests
         Assert.Equal(Resx.Aqn<string>(), Resx.Node("<data name=\"a\"><value>v</value></data>").GetValueTypeName(new[] { typeof(object).Assembly.GetName() }));
     }
 
-    [Fact(Skip = "bug: the internal type resolver searches System.Windows.Forms, which .NET 10 cannot load: a node of a type not found throws FileNotFoundException when read (AssemblyNamesTypeResolutionService.cs:35, ResXDataNode.cs:49)")] // docs (UseResXDataNodes): the nodes are read without resolving their values; .NET Framework: the resolver's GetType(name, false) is null for a type not found
+    [Fact] // docs (UseResXDataNodes): the nodes are read without resolving their values; .NET Framework: the resolver's GetType(name, false) is null for a type not found
     public void A_node_of_a_type_not_found_is_read()
     {
         var node = Resx.Node("<data name=\"a\" type=\"No.Such.Type, No.Such.Assembly\"><value>x</value></data>");

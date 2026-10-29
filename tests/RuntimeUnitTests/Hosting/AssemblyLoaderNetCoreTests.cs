@@ -115,7 +115,7 @@ public class AssemblyLoaderNetCoreTests
         Assert.Equal("none", said["gac.strong"]);
     }
 
-    [Fact(Skip = "bug: with UseNetFXGAC a simple name (no public key token) throws ArgumentNullException (BitConverter.ToString(null)) instead of null")]
+    [Fact]
     // AssemblyLoadContext.Resolving's docs: the handler returns null for an assembly it does not find (the load's FileNotFoundException)
     public void A_simple_name_with_the_GAC_is_null()
     {

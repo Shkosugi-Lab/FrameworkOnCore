@@ -64,7 +64,7 @@ public class LegacyFormsAuthenticationTicketTests
         Assert.Equal(long.Parse(record.String("expires")), dates[1]);
     }
 
-    [Fact(Skip = "bug: a ticket of less than 18 bytes is E_UNEXPECTED, webengine4.dll's CookieAuthParseTicket returns E_INVALIDARG")]
+    [Fact]
     // .NET Framework 4.8 (golden): below 18 bytes (the prefix, the version, the persistence and a date) the native function
     // rejects the ticket as an argument, as CookieAuthConstructTicket rejects such a buffer (FormsAuthentication.Decrypt:
     // null either way)

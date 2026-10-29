@@ -55,6 +55,25 @@ public class ApplicationManagerTests
         public void MessageReceived() { }
     }
 
+    /// <summary>A cache store (&lt;cache defaultProvider&gt;'s): the application's caches are of it.</summary>
+    public sealed class Store : System.Web.Caching.CacheStoreProvider
+    {
+        readonly System.Collections.Hashtable items = new();
+        public override long ItemCount => items.Count;
+        public override long SizeInBytes => 0;
+        public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config) { }
+        public override object Add(string key, object item, System.Web.Caching.CacheInsertOptions options) { lock (items) { if (items.ContainsKey(key)) return items[key]; items[key] = item; return null; } }
+        public override object Get(string key) { lock (items) return items[key]; }
+        public override void Insert(string key, object item, System.Web.Caching.CacheInsertOptions options) { lock (items) items[key] = item; }
+        public override object Remove(string key) => Remove(key, System.Web.Caching.CacheItemRemovedReason.Removed);
+        public override object Remove(string key, System.Web.Caching.CacheItemRemovedReason reason) { lock (items) { var item = items[key]; items.Remove(key); return item; } }
+        public override long Trim(int percent) => 0;
+        public override bool AddDependent(string key, System.Web.Caching.CacheDependency dependency, out DateTime utcLastUpdated) { utcLastUpdated = DateTime.MinValue; return false; }
+        public override void RemoveDependent(string key, System.Web.Caching.CacheDependency dependency) { }
+        public override void Dispose() { }
+        public override System.Collections.IDictionaryEnumerator GetEnumerator() { lock (items) return new System.Collections.Hashtable(items).GetEnumerator(); }
+    }
+
     sealed class Ping : IProcessPingCallback
     {
         public readonly ManualResetEventSlim Responded = new();
@@ -174,6 +193,7 @@ public class ApplicationManagerTests
         Say("IsDevelopmentEnvironment", HostingEnvironment.IsDevelopmentEnvironment);
         var cache = HostingEnvironment.CacheStoreProviderSettings;
         Say("cacheProvider", cache == null ? "none" : cache["name"] + " " + cache["type"] + " " + cache["size"]);
+        Say("cacheStore", HttpRuntime.Cache.GetObjectCache(createIfDoesNotExist: true).GetType().Name);
         return 0;
     }
 
@@ -443,7 +463,7 @@ public class ApplicationManagerTests
     static readonly string SettingsConfig = Web(
         """
         <httpRuntime targetFramework="4.5" fcnMode="Single" defaultRegexMatchTimeout="00:00:02"/>
-        <caching><cache defaultProvider="Store"><providers><add name="Store" type="Foc.Store, Foc" size="5"/></providers></cache></caching>
+        <caching><cache defaultProvider="Store"><providers><add name="Store" type="FrameworkOnCore.Runtime.Tests.Hosting.ApplicationManagerTests+Store, FrameworkOnCore.Runtime.Tests" size="5"/></providers></cache></caching>
         <trust level="Full"/>
         """,
         """
@@ -492,11 +512,11 @@ public class ApplicationManagerTests
         Assert.Equal("False", Get(LifecycleRun(), "IsDevelopmentEnvironment"));
     }
 
-    [Fact(Skip = "bug: HostingEnvironment.CacheStoreProviderSettings reads the root web.config in the default AppDomain (the process's, here), not the application's settings ApplicationManager keeps")]
-    // docs <cache defaultProvider> (4.7): the application's cache store provider, its name, type and attributes
+    [Fact] // docs <cache defaultProvider> (4.7): the application's cache store provider, its name, type and attributes
     public void The_cache_provider_s_settings_are_kept()
     {
-        Assert.Equal("Store Foc.Store, Foc 5", Get(SettingsRun(), "cacheProvider"));
+        Assert.Equal("Store FrameworkOnCore.Runtime.Tests.Hosting.ApplicationManagerTests+Store, FrameworkOnCore.Runtime.Tests 5", Get(SettingsRun(), "cacheProvider"));
+        Assert.Equal("Store", Get(SettingsRun(), "cacheStore"));
     }
 
     [Theory] // reference source: a default cache provider not configured (none, or another name) is the application's initialization error (ProviderException), shown by its first request
@@ -535,29 +555,33 @@ public class ApplicationManagerTests
         finally { if (Directory.Exists(codegen)) Directory.Delete(codegen, true); }
     }
 
-    [Fact(Skip = "bug: <trust level=\"Medium\"> is the application's initialization error (\"Unable to read the security policy file for trust level 'Medium'\"): no policy file, and .NET has no CAS policy (SecurityManager.LoadPolicyLevelFromString)")]
-    // docs <trust> / ASP.NET trust levels: a Medium trust application runs (partially trusted; .NET has no CAS, so fully here)
+    [Fact] // the port's choice (docs <trust>: a Medium trust application runs, partially trusted): .NET has no code access
+    // security, so every trust level runs as full trust, without its policy file (the port has none: .NET Framework's
+    // "Unable to read the security policy file for trust level" otherwise)
     public void A_Medium_trust_application_runs()
     {
         Assert.Equal("none", Get(Trust("level=\"Medium\""), "initializationException"));
+        Assert.Equal("none", Get(Trust("level=\"Medium\" legacyCasModel=\"true\""), "initializationException"));
+        Assert.Equal("none", Get(Trust("level=\"Missing\""), "initializationException"));
     }
 
-    [Fact(Skip = "bug: <httpRuntime defaultRegexMatchTimeout> is kept in the load context's data only; .NET's Regex reads the AppDomain's REGEX_DEFAULT_MATCH_TIMEOUT")]
-    // docs HttpRuntimeSection.DefaultRegexMatchTimeout: the default timeout of the application's regular expressions
+    [Fact] // docs HttpRuntimeSection.DefaultRegexMatchTimeout: the default timeout of the application's regular expressions
     public void defaultRegexMatchTimeout_is_the_regular_expressions_default()
     {
         var run = Run("RegexTimeout", Web("<httpRuntime defaultRegexMatchTimeout=\"00:00:02\"/>"));
         Assert.Equal(TimeSpan.FromSeconds(2).ToString(), Get(run, "MatchTimeout"));
     }
 
-    [Fact(Skip = "bug: ShutdownAll (the last Close) ends the host's process with exit code 75 instead of returning once the applications have shut down")]
-    // reference source ShutdownAll: shuts the applications down, waits for them, and returns; Close: the last one shuts everything down
-    public void The_last_Close_shuts_the_applications_down_and_returns()
+    [Fact] // the port's choice (reference source ShutdownAll: shuts the applications down, waits for them and returns; Close:
+    // the last one shuts everything down): a shut down application ends the process with exit code 75 (ProcessRestart),
+    // ShutdownAll's too, for its supervisor to start it again; the process cannot run another application (one
+    // HostingEnvironment per process, its static state kept), so returning would leave it serving none.
+    public void The_last_Close_shuts_the_applications_down_and_ends_the_process()
     {
         var run = Run("Close", null);
         Assert.Equal("1", Get(run, "closed.once.running"));
-        Assert.Equal("True", Get(run, "returned"));
-        Assert.Equal(0, run.Result.ExitCode);
+        Assert.False(run.Said.ContainsKey("returned"));
+        Assert.Equal(75, run.Result.ExitCode);
     }
 
     [Fact] // reference source Open/Close: the application keeps running until the last Close

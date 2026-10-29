@@ -2258,7 +2258,11 @@ namespace System.Web {
                 if (_wr != null)
                     FillInHeadersCollection();
 
-                if (!(_wr is IIS7WorkerRequest)) {
+                if (!(_wr is IIS7WorkerRequest)
+#if WebFormsForCore
+                    && !(_wr is AspNetCoreWorkerRequest) // written as in integrated mode (HttpHeaderCollection)
+#endif
+                    ) {
                     _headers.MakeReadOnly();
                 }
             }
@@ -2302,7 +2306,11 @@ namespace System.Web {
             if (_serverVariables == null) {
                 _serverVariables = new HttpServerVarsCollection(_wr, this);
 
-                if ( !(_wr is IIS7WorkerRequest) ) {
+                if ( !(_wr is IIS7WorkerRequest)
+#if WebFormsForCore
+                    && !(_wr is AspNetCoreWorkerRequest) // written as in integrated mode (HttpServerVarsCollection)
+#endif
+                    ) {
                     _serverVariables.MakeReadOnly();
                 }
             }

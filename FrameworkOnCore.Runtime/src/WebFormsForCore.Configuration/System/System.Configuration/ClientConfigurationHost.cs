@@ -7,6 +7,7 @@
 namespace System.Configuration {
     using System.Configuration.Internal;
     using System.IO;
+    using System.Text;
     using System.Text.RegularExpressions;
     using System.Linq;
     using System.Security.Policy;
@@ -124,12 +125,12 @@ namespace System.Configuration {
                         if (File.Exists(Path.Combine(path, "System.Web.Mobile.dll")))
                         {
                             // Uncomment Mobile sections
-                            txt = Regex.Replace(txt, @"<!--@Mobile\s*(.*?)\s*-->", "$1", RegexOptions.Singleline);
+                            txt = Uncomment(txt, "<!--@Mobile");
                         }
                         else
                         {
                             // Uncomment Mobile sections
-                            txt = Regex.Replace(txt, @"<!--@!Mobile\s*(.*?)\s*-->", "$1", RegexOptions.Singleline);
+                            txt = Uncomment(txt, "<!--@!Mobile");
                         }
 
                         if (!File.Exists(s_machineConfigFilePath) || File.ReadAllText(s_machineConfigFilePath) != txt)
@@ -140,6 +141,24 @@ namespace System.Configuration {
                 }
 			}
 		}
+
+        // The comments starting with the marker replaced by their content, its white space trimmed (as
+        // Regex.Replace(txt, marker + @"\s*(.*?)\s*-->", "$1", RegexOptions.Singleline) did). Without Regex: the first
+        // Regex used in the process fixes its default match timeout (AppContext's REGEX_DEFAULT_MATCH_TIMEOUT), which
+        // the application's <httpRuntime defaultRegexMatchTimeout> sets after this.
+        static string Uncomment(string txt, string marker)
+        {
+            var text = new StringBuilder(txt.Length);
+            int start = 0;
+            for (int at; (at = txt.IndexOf(marker, start, StringComparison.Ordinal)) >= 0; )
+            {
+                int end = txt.IndexOf("-->", at + marker.Length, StringComparison.Ordinal);
+                if (end < 0) break;
+                text.Append(txt, start, at - start).Append(txt.Substring(at + marker.Length, end - at - marker.Length).Trim());
+                start = end + "-->".Length;
+            }
+            return text.Append(txt, start, txt.Length - start).ToString();
+        }
 
         internal bool HasRoamingConfig {
             get {

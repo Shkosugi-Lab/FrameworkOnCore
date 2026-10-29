@@ -29,12 +29,21 @@ public class VBCompilerTests : CompilationTest
         Assert.Equal(42, results.CompiledAssembly.GetType("N.A").GetMethod("Answer").Invoke(null, null));
     }
 
-    [Fact(Skip = "bug: without /define:_MYTYPE the My.* types (Microsoft.VisualBasic.ApplicationServices, Devices...) are missing: BC30002; DotNetCompilerPlatform's ASP.NET mode adds _MYTYPE (AddVBMyFlags), commented out (VBCompiler.cs:73-94)")]
+    [Fact]
     // .NET Framework's VBCodeProvider (and DotNetCompilerPlatform's): a class compiles with CompilerParameters' defaults
     public void A_class_compiles_with_the_default_parameters()
     {
         var results = new VBCodeProvider().CompileAssemblyFromSource(Parameters(), Class);
         Assert.Empty(results.Errors);
+    }
+
+    [Fact] // the port: in ASP.NET mode _MYTYPE "Empty" (.NET has no My.* web types; DotNetCompilerPlatform's "Web"), not again when the options define it (ASP.NET's AssemblyBuilder does, for this provider)
+    public void Asp_net_settings_define_my_type_once()
+    {
+        var results = new VBCodeProvider().CompileAssemblyFromSource(Parameters(warningLevel: 4, references: "missing-library.dll"), Class);
+        Assert.Contains(" /define:_MYTYPE=\\\"Empty\\\" ", CommandLine(results));
+        results = new VBCodeProvider().CompileAssemblyFromSource(Parameters(warningLevel: 4, compilerOptions: "/define:_MYTYPE=\\\"Custom\\\"", references: "missing-library.dll"), Class);
+        Assert.DoesNotContain("Empty", CommandLine(results));
     }
 
     // --- Errors
@@ -81,7 +90,7 @@ public class VBCompilerTests : CompilationTest
         Assert.Contains(" /optionInfer+ ", CommandLine(noOptions));
     }
 
-    [Fact(Skip = "bug: in ASP.NET mode no /nowarn:41008,40000,40008: the obsolete warnings reported; DotNetCompilerPlatform's are commented out (VBCompiler.cs:73-94)")]
+    [Fact]
     // DotNetCompilerPlatform (VBCompiler.FixUpCompilerParameters) and .NET Framework's AssemblyBuilder: ASP.NET's VB /nowarn of the obsolete warnings
     public void Asp_net_settings_hide_obsolete_warnings()
     {

@@ -42,19 +42,11 @@ namespace System.Web.Hosting
 				'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
 			};
 
-		// IIS's hidden segments (request filtering, applicationHost.config): a URL with one of them as any of its segments is
-		// answered 404 (404.8). They were written without their underscores ("/appdata"), so only bin was refused: App_Data
-		// was served (BlogEngine's users.xml, its users and their password hashes).
-		private static readonly string[] HiddenSegments = new[]
-			{
-				"bin",
-				"App_code",
-				"App_GlobalResources",
-				"App_LocalResources",
-				"App_WebReferences",
-				"App_Data",
-				"App_Browsers"
-			};
+		// IIS's hidden segments (request filtering: applicationHost.config's, web.config's hiddenSegments over them,
+		// IntegratedModeConfiguration.RequestFiltering): a URL with one of them as any of its segments is answered 404 (404.8).
+		// They were written without their underscores ("/appdata"), so only bin was refused: App_Data was served
+		// (BlogEngine's users.xml, its users and their password hashes); web.config was not one (/web.config/x 404.0), and an
+		// application's own (web.config's <add segment>) were not refused.
 
 		public AspNetCoreHost Host { get; private set; }
 
@@ -272,7 +264,9 @@ namespace System.Web.Hosting
 		// As SERVER_NAME (GetServerName), the port the client asked for: Request.Url and absolute
 		// redirects are built from them. The socket's port is not it behind port mapping (a container's
 		// 8080 published as another) or a reverse proxy: the Host header's port, or the scheme's.
-		public override int GetLocalPort() => Context.Request.Host.Port ?? (Context.Request.IsHttps ? 443 : 80);
+		// Without a Host header (HTTP/1.0), the port the request came to, as IIS's SERVER_PORT (it was the scheme's).
+		public override int GetLocalPort() => Context.Request.Host.Port ??
+			(!Context.Request.Host.HasValue && Context.Connection.LocalPort > 0 ? Context.Connection.LocalPort : Context.Request.IsHttps ? 443 : 80);
 		// HTTPS as the client used it (a proxy that ends TLS says so in X-Forwarded-Proto, which ASP.NET
 		// Core applies with ASPNETCORE_FORWARDEDHEADERS_ENABLED=true). It was always http.
 		public override bool IsSecure() => Context.Request.IsHttps;
@@ -286,13 +280,16 @@ namespace System.Web.Hosting
 		public override byte[] GetQueryStringRawBytes() => Encoding.ASCII.GetBytes(GetQueryString());
 		public override string GetRawUrl()
 		{
+			// The path as http.sys gives it to IIS (HttpSysUrl: "/sub/../a.aspx" is /a.aspx, "/a%2fb" /a/b).
 			// As IIS's: the URL the client asked for, unaffected by what served it (the default document "/" is served by:
 			// UseDefaultFiles or the host set Request.Path to /Default.aspx), its path decoded and its query string as it was
 			// sent ("/Urls.aspx/a b?q=x%20y"). FriendlyUrls redirects a RawUrl ending in .aspx to the URL without it:
 			// WingtipToys' "/" was a 301 to /Default where IIS answers 200.
 			var target = RawTarget(Context);
 			var mark = target.IndexOf('?');
-			return mark < 0 ? DecodeRawPath(target) : DecodeRawPath(target[..mark]) + target[mark..];
+			var rawPath = mark < 0 ? target : target[..mark];
+			var path = HttpSysUrl.Canonical(rawPath, out var canonical) == 0 && canonical != null ? canonical : DecodeRawPath(rawPath);
+			return mark < 0 ? path : path + target[mark..];
 		}
 
 		/// <summary>The URL as the request line has it (escaped as sent; IIS's UNENCODED_URL): its path and query string.</summary>
@@ -341,8 +338,10 @@ namespace System.Web.Hosting
 			var host = Context.Request.Host;
 			if (host.HasValue && !string.IsNullOrEmpty(host.Host)) return host.Host;
 
+			// Without one (HTTP/1.0), the address the request came to, as IIS gives it ("127.0.0.1", observed on IIS 10: it was
+			// "localhost"); an IPv6 loopback "localhost" (a name a URL can have).
 			string localAddress = GetLocalAddress();
-			if (localAddress.Equals("127.0.0.1") || localAddress.Equals("::1"))
+			if (localAddress == null || localAddress.Equals("::1"))
 			{
 				return "localhost";
 			}
@@ -447,8 +446,9 @@ namespace System.Web.Hosting
 		}
 
 		// IIS's request filtering refuses (404.11) a URL whose path is escaped twice (allowDoubleEscaping false): one that
-		// decoded once more is not the same ("%2520", or a '+', a space then). /Urls.aspx/a+b was served.
-		bool IsDoubleEscaped()
+		// decoded once more is not the same ("%2520", or a '+', a space then). /Urls.aspx/a+b was served. web.config's
+		// allowDoubleEscaping="true" lets them through (it was refused all the same).
+		internal static bool IsDoubleEscaped(string path)
 		{
 			try { return Uri.UnescapeDataString(path.Replace('+', ' ')) != path; }
 			catch (UriFormatException) { return true; }
@@ -600,8 +600,11 @@ namespace System.Web.Hosting
 			{
 				var reader = Context.Request.Body;
 
-				// At the offset (HttpBufferlessInputStream.Read passes its own).
-				bytesRead = reader.Read(buffer, offset, size);
+				// At the offset (HttpBufferlessInputStream.Read passes its own). A body Kestrel refuses while it is read (a chunk
+				// that is not one, beyond the content length IIS allows: http.sys's 400, IIS's 413) is an HttpException of its
+				// status (it was the application's error, 500, with Kestrel's exception).
+				try { bytesRead = reader.Read(buffer, offset, size); }
+				catch (Microsoft.AspNetCore.Http.BadHttpRequestException e) { throw new HttpException(e.StatusCode, e.Message, e); }
 			}
 			return bytesRead;
 		}
@@ -706,6 +709,9 @@ namespace System.Web.Hosting
 
 		public override void SendStatus(int statusCode, string statusDescription)
 		{
+			// A description with a line's end or another control character (Response.StatusDescription from the request: a header
+			// injected into the response, which Kestrel wrote as it was given) is not sent: IIS closes the connection.
+			if (statusDescription != null && statusDescription.Any(c => c < 0x20 && c != '\t' || c == 0x7F)) statusDescription = null;
 			Context.Response.StatusCode = statusCode;
 			// The description in the status line, as IIS sends it (HttpResponse.StatusDescription); only one that is not
 			// the status's usual text (Kestrel's): a later change of the status (IIS's error pages) is not left with it.
@@ -754,10 +760,13 @@ namespace System.Web.Hosting
 
 		private bool IsRequestForRestrictedDirectory() => IsHidden(path);
 
-		// Any segment of the URL, as IIS matches them (/App_Data/x, /a/bin/x), without regard to case.
-		internal static bool IsHidden(string path) =>
-			path.Split('/', StringSplitOptions.RemoveEmptyEntries)
-				.Any(segment => HiddenSegments.Contains(segment, StringComparer.OrdinalIgnoreCase));
+		// Any segment of the URL, as IIS matches them (/App_Data/x, /a/bin/x), without regard to case; the hidden segments of
+		// the URL's folder (configurationPath: the path with the application's base).
+		internal static bool IsHidden(string path, string configurationPath = null)
+		{
+			var hidden = IntegratedModeConfiguration.RequestFiltering(configurationPath ?? path).HiddenSegments;
+			return path.Split('/', StringSplitOptions.RemoveEmptyEntries).Any(hidden.Contains);
+		}
 
 		// IIS7WorkerRequest.SetRequestHeader's: a request's header set, appended to (a header sent more than once) or removed (null)
 		// on the ASP.NET Core request, and read again as the worker request's headers.
@@ -1104,8 +1113,9 @@ namespace System.Web.Hosting
 			if (page != null) await Core.HttpResponseWritingExtensions.WriteAsync(Context.Response, page);
 			await Context.Response.CompleteAsync();
 			// A body too large: read to its end (beyond Kestrel's limit), as IIS takes it, so that the client, still sending,
-			// gets the answer and not a connection closed under it.
-			if (status == 413)
+			// gets the answer and not a connection closed under it. Not a body the client waits to be asked for (Expect:
+			// 100-continue): IIS answers 413 without asking for it (reading it made Kestrel send 100 Continue first).
+			if (status == 413 && !string.Equals(Context.Request.Headers.Expect.ToString(), "100-continue", StringComparison.OrdinalIgnoreCase))
 			{
 				var bodySize = Context.Features.Get<Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>();
 				if (bodySize != null && !bodySize.IsReadOnly) bodySize.MaxRequestBodySize = null;
@@ -1126,7 +1136,7 @@ namespace System.Web.Hosting
 
 			ParseRequest();
 
-			if (IsDoubleEscaped())
+			if (!IntegratedModeConfiguration.RequestFiltering(path).AllowDoubleEscaping && IsDoubleEscaped(path))
 			{
 				IisLogStatus.Set(Context, 11);
 				refusal = 404;  // as IIS (404.11)

@@ -191,6 +191,111 @@ namespace System.Web
 			return limits;
 		}
 
+		/// <summary>
+		/// IIS's request filtering for a URL (system.webServer/security/requestFiltering): its hidden segments (404.8), its file
+		/// extensions (allowed or not, 404.7; allowUnlisted false: only the allowed ones), its denied URL sequences (404.5) and
+		/// allowDoubleEscaping (404.11).
+		/// </summary>
+		internal sealed class Filtering
+		{
+			public HashSet<string> HiddenSegments;
+			public Dictionary<string, bool> Extensions;   // extension ("." and its name): allowed
+			public bool AllowUnlisted = true;
+			public bool AllowDoubleEscaping;
+			public string[] DenyUrlSequences = Array.Empty<string>();
+		}
+
+		// applicationHost.config's (IIS 10 with ASP.NET 4.8): its hiddenSegments and the extensions it denies.
+		internal static readonly string[] IisHiddenSegments =
+			{ "web.config", "bin", "App_code", "App_GlobalResources", "App_LocalResources", "App_WebReferences", "App_Data", "App_Browsers" };
+
+		internal static readonly string[] IisDeniedExtensions =
+		{
+			".asax", ".ascx", ".master", ".skin", ".browser", ".sitemap", ".config", ".cs", ".csproj", ".vb", ".vbproj", ".webinfo",
+			".licx", ".resx", ".resources", ".mdb", ".vjsproj", ".java", ".jsl", ".ldb", ".dsdgm", ".ssdgm", ".lsad", ".ssmap", ".cd",
+			".dsprototype", ".lsaprototype", ".sdm", ".sdmDocument", ".mdf", ".ldf", ".ad", ".dd", ".ldd", ".sd", ".adprototype",
+			".lddprototype", ".exclude", ".refresh", ".compiled", ".msgx", ".vsdisco", ".rules",
+		};
+
+		static readonly Filtering iisFiltering = Fold(new Filtering
+		{
+			HiddenSegments = new HashSet<string>(IisHiddenSegments, StringComparer.OrdinalIgnoreCase),
+			Extensions = IisDeniedExtensions.ToDictionary(e => e, e => false, StringComparer.OrdinalIgnoreCase),
+		}, Enumerable.Empty<XElement>());
+
+		static readonly System.Collections.Concurrent.ConcurrentDictionary<string, Filtering> filteringByFolder =
+			new System.Collections.Concurrent.ConcurrentDictionary<string, Filtering>(StringComparer.OrdinalIgnoreCase);
+
+		/// <summary>
+		/// The request filtering IIS applies to the URL's path (decoded, from '/'): applicationHost.config's, the original
+		/// server's over it (IisProfile), then web.config's, its locations' and its folders' web.config files' down to the URL's
+		/// folder (their add, remove and clear). Without a running application, applicationHost.config's.
+		/// </summary>
+		internal static Filtering RequestFiltering(string path)
+		{
+			string root;
+			try { root = IisConfiguration.Root; }
+			catch (Exception e) when (e is HttpException || e is ArgumentException || e is InvalidOperationException) { root = null; }
+			if (root == null) return iisFiltering;
+			return filteringByFolder.GetOrAdd(root + "|" + IisConfiguration.Deepest(root, path ?? "/"), _ =>
+				Fold(new Filtering
+				{
+					HiddenSegments = new HashSet<string>(iisFiltering.HiddenSegments, StringComparer.OrdinalIgnoreCase),
+					Extensions = new Dictionary<string, bool>(iisFiltering.Extensions, StringComparer.OrdinalIgnoreCase),
+				}, IisConfiguration.For(root, path ?? "/").Select(s => s.WebServer)));
+		}
+
+		static Filtering Fold(Filtering filtering, IEnumerable<XElement> webServers)
+		{
+			var sequences = new List<string>(filtering.DenyUrlSequences);
+			foreach (var element in webServers.SelectMany(w => IisConfiguration.Children(w, "security")).SelectMany(s => IisConfiguration.Children(s, "requestFiltering")))
+			{
+				var doubleEscaping = (string)element.Attribute("allowDoubleEscaping");
+				if (doubleEscaping != null) filtering.AllowDoubleEscaping = string.Equals(doubleEscaping, "true", StringComparison.OrdinalIgnoreCase);
+				foreach (var segments in IisConfiguration.Children(element, "hiddenSegments"))
+					foreach (var item in segments.Elements())
+					{
+						var segment = ((string)item.Attribute("segment"))?.Trim();
+						switch (item.Name.LocalName)
+						{
+							case "clear": filtering.HiddenSegments.Clear(); break;
+							case "add" when !string.IsNullOrEmpty(segment): filtering.HiddenSegments.Add(segment); break;
+							case "remove" when !string.IsNullOrEmpty(segment): filtering.HiddenSegments.Remove(segment); break;
+						}
+					}
+				foreach (var extensions in IisConfiguration.Children(element, "fileExtensions"))
+				{
+					var unlisted = (string)extensions.Attribute("allowUnlisted");
+					if (unlisted != null) filtering.AllowUnlisted = !string.Equals(unlisted, "false", StringComparison.OrdinalIgnoreCase);
+					foreach (var item in extensions.Elements())
+					{
+						var extension = ((string)item.Attribute("fileExtension"))?.Trim();
+						switch (item.Name.LocalName)
+						{
+							case "clear": filtering.Extensions.Clear(); break;
+							case "add" when !string.IsNullOrEmpty(extension):
+								filtering.Extensions[extension] = string.Equals((string)item.Attribute("allowed"), "true", StringComparison.OrdinalIgnoreCase);
+								break;
+							case "remove" when !string.IsNullOrEmpty(extension): filtering.Extensions.Remove(extension); break;
+						}
+					}
+				}
+				foreach (var deny in IisConfiguration.Children(element, "denyUrlSequences"))
+					foreach (var item in deny.Elements())
+					{
+						var sequence = (string)item.Attribute("sequence");
+						switch (item.Name.LocalName)
+						{
+							case "clear": sequences.Clear(); break;
+							case "add" when !string.IsNullOrEmpty(sequence): sequences.Add(sequence); break;
+							case "remove" when !string.IsNullOrEmpty(sequence): sequences.RemoveAll(s => string.Equals(s, sequence, StringComparison.OrdinalIgnoreCase)); break;
+						}
+					}
+			}
+			filtering.DenyUrlSequences = sequences.ToArray();
+			return filtering;
+		}
+
 		// A handler's path as a regular expression, made once for each path (it was made in each request).
 		static readonly System.Collections.Concurrent.ConcurrentDictionary<string, Regex> wildcards = new System.Collections.Concurrent.ConcurrentDictionary<string, Regex>(StringComparer.Ordinal);
 

@@ -32,6 +32,12 @@ namespace Microsoft.AspNetCore.Builder
 			var environment = app.ApplicationServices.GetService<IHostEnvironment>();
 			if (environment == null) return app;
 			var contentRoot = environment.ContentRootPath;
+			// The URL as http.sys gives it to IIS (HttpSysUrl: decoded, its separators folded, its dot segments resolved), for
+			// every feature after it; what http.sys refuses is answered here.
+			app.Use(async (context, next) =>
+			{
+				if (await System.Web.Hosting.HttpSysUrl.Canonicalize(context)) await next(context);
+			});
 			app.UseMiddleware<System.Web.Hosting.IisHttpProtocol.Middleware>(new System.Web.Hosting.IisHttpProtocol(contentRoot));
 			var configuration = app.ApplicationServices.GetService<IConfiguration>();
 			var compression = configuration?["Compression:Mode"];

@@ -82,7 +82,7 @@ public class WebFormsMiddlewareTests
         given.SetValue(null, true);
         try
         {
-            var context = await Invoke(middleware, "/a b.aspx?x=1", "POST");
+            var context = await Invoke(middleware, "/a b.aspx?x=1", "POST", c => c.Request.ContentLength = 0);
             Assert.Equal(307, context.Response.StatusCode);
             Assert.Equal("/a%20b.aspx?x=1", context.Response.Headers.Location.ToString());
             Assert.Equal("close", context.Response.Headers.Connection.ToString());
@@ -165,16 +165,16 @@ public class WebFormsMiddlewareTests
         using var site = new Site();
         var middleware = Middleware(site.Host());
         var body = new BodyControl();
-        // refused by request filtering in the worker request (404.15: the query string too long), before HttpRuntime
-        var context = await Invoke(middleware, "/a.aspx?" + new string('q', 2049), setup: c => c.Features.Set<IHttpBodyControlFeature>(body));
+        // refused in the worker request (http.sys's 400: a segment longer than 260 characters), before HttpRuntime
+        var context = await Invoke(middleware, "/" + new string('a', 261) + ".aspx", setup: c => c.Features.Set<IHttpBodyControlFeature>(body));
         Assert.False(Next(context));
         Assert.True(context.Features.Get<IisErrorFlags>().SystemWeb);
         Assert.True(body.AllowSynchronousIO);
-        Assert.Equal(404, context.Response.StatusCode);
-        Assert.Equal(15, context.Features.Get<IisLogStatus>().SubStatus);
+        Assert.Equal(400, context.Response.StatusCode);
+        Assert.True(context.Features.Get<IisLogStatus>().NotLogged);
         // the flags already there kept
         var flags = new IisErrorFlags { TrySkipIisCustomErrors = true };
-        var again = await Invoke(middleware, "/a.aspx?" + new string('q', 2049), setup: c => c.Features.Set(flags));
+        var again = await Invoke(middleware, "/" + new string('a', 261) + ".aspx", setup: c => c.Features.Set(flags));
         Assert.Same(flags, again.Features.Get<IisErrorFlags>());
         Assert.True(flags.SystemWeb);
     }
@@ -194,8 +194,8 @@ public class WebFormsMiddlewareTests
         var before = integrated.GetValue(null);
         try
         {
-            var context = await Invoke(Middleware(host), "/a.aspx?" + new string('q', 2049));
-            Assert.Equal(404, context.Response.StatusCode);
+            var context = await Invoke(Middleware(host), "/" + new string('a', 261) + ".aspx");
+            Assert.Equal(400, context.Response.StatusCode);
             Assert.False(HttpRuntime.UsingIntegratedPipeline);
         }
         finally { integrated.SetValue(null, before); }

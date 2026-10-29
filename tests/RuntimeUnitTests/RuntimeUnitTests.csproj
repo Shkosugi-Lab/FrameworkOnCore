@@ -39,6 +39,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\FrameworkOnCore.Runtime\src\WebFormsForCore.Web\WebFormsForCore.Web.csproj" />
+    <!-- The assemblies the root web.config's compilation names (System.Web.Services...), which an application's first
+         request loads: the attack tests' server (Security/Attack/PortServer) runs a whole application. -->
+    <ProjectReference Include="..\..\FrameworkOnCore.Runtime\src\WebFormsForCore.Web.Services\WebFormsForCore.Web.Services.csproj" />
+    <ProjectReference Include="..\..\FrameworkOnCore.Runtime\src\WebFormsForCore.Web.Extensions\WebFormsForCore.Web.Extensions.csproj" />
   </ItemGroup>
 
   <!-- FrameworkOnCore's System.Web, not .NET's facade of the same name (as the converter writes it into converted projects). -->

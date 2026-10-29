@@ -609,6 +609,16 @@ namespace System.Web.Hosting
 
 		static int Port(Core.HttpRequest request) => request.Host.Port ?? (request.IsHttps ? 443 : 80);
 
+		// Without a Host header (HTTP/1.0), the address and port the request came to, as IIS writes them (the port was left out).
+		static string LocalHost(Core.HttpContext context)
+		{
+			var address = context.Connection.LocalIpAddress;
+			var text = Address(address);
+			if (address != null && address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6 && !address.IsIPv4MappedToIPv6) text = "[" + text + "]";
+			var port = context.Connection.LocalPort;
+			return port <= 0 || port == (context.Request.IsHttps ? 443 : 80) ? text : text + ":" + port.ToString(CultureInfo.InvariantCulture);
+		}
+
 		static string Address(System.Net.IPAddress address) =>
 			address == null ? "" : (address.IsIPv4MappedToIPv6 ? address.MapToIPv4() : address).ToString();
 
@@ -650,8 +660,11 @@ namespace System.Web.Hosting
 		internal static byte[] Redirect(Core.HttpContext context, int status, string location)
 		{
 			var request = context.Request;
-			if (location.StartsWith("/", StringComparison.Ordinal) && !location.StartsWith("//", StringComparison.Ordinal))
-				location = request.Scheme + "://" + (request.Host.HasValue ? request.Host.Value : Address(context.Connection.LocalIpAddress)) + location;
+			// A path made absolute with the request's host, as IIS makes it: "//evil.example" too (a rule's "/{C:1}" of a query
+			// string "/evil.example"; IIS sends http://host//evil.example), which was sent as it was: a scheme-relative URL, to
+			// another host for a browser (an open redirect).
+			if (location.StartsWith("/", StringComparison.Ordinal))
+				location = request.Scheme + "://" + (request.Host.HasValue ? request.Host.Value : LocalHost(context)) + location;
 			var response = context.Response;
 			response.StatusCode = status;
 			// The status line as IIS writes its redirects' (URL Rewrite's, HTTP redirection's).

@@ -244,8 +244,8 @@ public class AspNetCoreWorkerRequestTests
         Assert.Equal(https, worker.IsSecure());
     }
 
-    [Theory] // the host's choice (not in .NET Framework's/IIS's docs): without a Host header, the local address ("localhost" for a loopback one)
-    [InlineData("127.0.0.1", "localhost")]
+    [Theory] // IIS 10 (observed: Security/iis-golden, "HTTP/1.0 without Host"): without a Host header, the local address; the host's choice: "localhost" for IPv6's loopback
+    [InlineData("127.0.0.1", "127.0.0.1")]
     [InlineData("::1", "localhost")]
     [InlineData("10.0.0.5", "10.0.0.5")]
     public void Server_name_without_a_host(string local, string name)

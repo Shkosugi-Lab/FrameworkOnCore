@@ -589,7 +589,7 @@ public class IisUrlRewriteTests
         Assert.Equal("", Site.Body(context));
     }
 
-    [Fact] // the host's choice: without a Host header, the Location's authority is the server's address; "//" is left as is
+    [Fact] // the host's choice: without a Host header, the Location's authority is the server's address (with its port: IIS 10, observed, Security/iis-golden "GET /sub HTTP/1.0 without Host"); IIS 10 (observed, "GET /q?to=/evil.example"): "//" a path of the host's too, not another host's
     public void Redirect_without_a_host()
     {
         var context = Site.Request("/a");
@@ -599,7 +599,12 @@ public class IisUrlRewriteTests
         Assert.Equal("Redirected Permanently", context.Features.Get<IHttpResponseFeature>().ReasonPhrase);
         var other = Site.Request("/a");
         IisUrlRewrite.Redirect(other, 302, "//cdn.example.com/b");
-        Assert.Equal("//cdn.example.com/b", other.Response.Headers.Location.ToString());
+        Assert.Equal("http://localhost:8080//cdn.example.com/b", other.Response.Headers.Location.ToString());
+        var port = Site.Request("/a");
+        port.Request.Host = new HostString();
+        port.Connection.LocalPort = 8081;
+        IisUrlRewrite.Redirect(port, 301, "/sub/");
+        Assert.Equal("http://127.0.0.1:8081/sub/", port.Response.Headers.Location.ToString());
     }
 
     // --- CustomResponse, AbortRequest

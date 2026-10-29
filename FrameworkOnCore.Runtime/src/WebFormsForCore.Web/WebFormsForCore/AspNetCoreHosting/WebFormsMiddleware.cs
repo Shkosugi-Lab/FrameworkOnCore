@@ -115,6 +115,9 @@ namespace Microsoft.AspNetCore.Builder
 
 		public async Task Invoke(Core.HttpContext context)
 		{
+			// The URL as http.sys gives it (HttpSysUrl), when IIS's features in front have not made it so already: the
+			// restart's 307 below has a Location of the path ("//evil.example/x" was sent as it was: another host's).
+			if (!await HttpSysUrl.Canonicalize(context)) return;
 			// The application is restarting (web.config changed ...): on .NET Framework the requests from
 			// now on go to its new AppDomain; this one is ending (ProcessRestart), so they are to come
 			// again once it is started.
@@ -150,11 +153,42 @@ namespace Microsoft.AspNetCore.Builder
 			// not the empty answer of the end of ASP.NET Core's pipeline.
 			// IIS: web.config and the hidden segments (bin, App_Data, App_Code...: also where nothing is) 404.8, the other types
 			// its denied file extensions 404.7. The status only: its page is httpErrors' (IisHttpErrors).
-			var hidden = AspNetCoreWorkerRequest.IsHidden(context.Request.Path.Value ?? "");
+			// IIS's request filtering's order: double escaping (404.11), the denied URL sequences (404.5), then the hidden
+			// segments and the denied file extensions.
+			var requestPath = (context.Request.PathBase.Value ?? "") + (context.Request.Path.Value ?? "");
+			var filtering = IntegratedModeConfiguration.RequestFiltering(requestPath);
+			var doubleEscaped = !filtering.AllowDoubleEscaping && AspNetCoreWorkerRequest.IsDoubleEscaped(requestPath);
+			if (doubleEscaped || filtering.DenyUrlSequences.Any(sequence => requestPath.IndexOf(sequence, StringComparison.OrdinalIgnoreCase) >= 0))
+			{
+				System.Web.Hosting.IisLogStatus.Set(context, doubleEscaped ? 11 : 5);
+				context.Response.StatusCode = 404;
+				return;
+			}
+			// requestLimits' maxUrl (404.14) and maxQueryString (404.15), for every URL (the worker request checked them for
+			// System.Web's requests only: a long URL of a file not there was 404.0).
+			var limits = IntegratedModeConfiguration.RequestLimits(requestPath);
+			var queryLength = Math.Max(0, (context.Request.QueryString.Value ?? "").Length - 1);
+			if (requestPath.Length > limits.MaxUrl || queryLength > limits.MaxQueryString)
+			{
+				System.Web.Hosting.IisLogStatus.Set(context, requestPath.Length > limits.MaxUrl ? 14 : 15);
+				context.Response.StatusCode = 404;
+				return;
+			}
+			var hidden = AspNetCoreWorkerRequest.IsHidden(context.Request.Path.Value ?? "", requestPath);
 			if (hidden || host.IsProhibited(context))
 			{
 				var name = System.IO.Path.GetFileName(context.Request.Path.Value ?? "");
 				System.Web.Hosting.IisLogStatus.Set(context, hidden || string.Equals(name, "web.config", StringComparison.OrdinalIgnoreCase) ? 8 : 7);
+				context.Response.StatusCode = 404;
+				return;
+			}
+			// A path ending in whitespace (" ", U+00A0, U+3000...): System.Web's VirtualPath trims it, so "/y.secret%20" was the
+			// file y.secret to it (served on Linux, where the name with its space is no file: request filtering saw "y.secret "),
+			// "/default.aspx%E3%80%80" the page, "/secure/x.aspx%E3%80%80" the page under another URL. IIS answers 404 (404.0).
+			var last = (context.Request.Path.Value ?? "").Length > 0 ? context.Request.Path.Value[^1] : 'x';
+			if (char.IsWhiteSpace(last))
+			{
+				System.Web.Hosting.IisLogStatus.Set(context, 0, 2);
 				context.Response.StatusCode = 404;
 				return;
 			}
@@ -223,6 +257,17 @@ namespace Microsoft.AspNetCore.Builder
 			// fileEncoding>, requestEncoding, responseEncoding) and pages use them (Encoding.GetEncoding).
 			System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 			if (optionsBuilder == null) optionsBuilder = options => { };
+			// A response header's value beyond ASCII (Response.AppendHeader("Content-Disposition", "attachment; filename=" +
+			// a Japanese name), a cookie's) is sent, as IIS sends it, where Kestrel threw (InvalidOperationException: the
+			// application's 500): UTF-8 where the host chose no encoding of its own for the header (IIS writes the system's code
+			// page).
+			var kestrel = builder.ApplicationServices?.GetService(typeof(Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions>))
+				as Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions>;
+			if (kestrel != null)
+			{
+				var chosen = kestrel.Value.ResponseHeaderEncodingSelector;
+				kestrel.Value.ResponseHeaderEncodingSelector = name => chosen?.Invoke(name) ?? System.Text.Encoding.UTF8;
+			}
 			// An application restart ends the process (ProcessRestart): through the host, which lets the
 			// pending requests complete.
 			var lifetime = builder.ApplicationServices?.GetService(typeof(Microsoft.Extensions.Hosting.IHostApplicationLifetime)) as Microsoft.Extensions.Hosting.IHostApplicationLifetime;

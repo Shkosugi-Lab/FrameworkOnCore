@@ -362,7 +362,8 @@ namespace System.Web.Hosting
         internal string FolderLocation(Core.HttpContext context)
         {
             var path = context.Request.Path.Value;
-            if (string.IsNullOrEmpty(path) || path.EndsWith('/') || AspNetCoreWorkerRequest.IsHidden(path)) return null;
+            // (a name ending in whitespace: System.Web's VirtualPath trims it, the folder's name without it is not the URL's)
+            if (string.IsNullOrEmpty(path) || path.EndsWith('/') || char.IsWhiteSpace(path[^1]) || AspNetCoreWorkerRequest.IsHidden(path)) return null;
             if (HandleExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return null;
             string mapped;
             try { mapped = MapPath(context.Request.PathBase.Value + path); }
@@ -372,12 +373,23 @@ namespace System.Web.Hosting
             return (context.Request.PathBase + context.Request.Path).ToUriComponent() + "/" + context.Request.QueryString.Value;
         }
 
-        /// <summary>A file of a type IIS's request filtering denies (ProhibitedExtensions), not one of the handled types'.</summary>
+        /// <summary>
+        /// A file of a type IIS's request filtering denies: its fileExtensions as applicationHost.config and web.config have them
+        /// for the URL (IntegratedModeConfiguration.RequestFiltering: an application's own denied types, allowUnlisted false),
+        /// and the port's own (ProhibitedExtensions beyond IIS's: .NET's appsettings.json, Razor's) unless the handled types'.
+        /// web.config's fileExtensions were not read: a type an application denied there (.log, .bak) was served.
+        /// </summary>
         public bool IsProhibited(Core.HttpContext context)
         {
             var path = context.Request.Path.Value ?? "";
+            var filtering = IntegratedModeConfiguration.RequestFiltering((context.Request.PathBase.Value ?? "") + path);
+            var name = path.Substring(path.LastIndexOf('/') + 1);
+            var dot = name.LastIndexOf('.');
+            if (dot >= 0 && filtering.Extensions.TryGetValue(name.Substring(dot), out var allowed)) return !allowed;
+            if (!filtering.AllowUnlisted) return true;
             if (HandleExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return false;
-            return ProhibitedExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase));
+            return ProhibitedExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase) &&
+                !IntegratedModeConfiguration.IisDeniedExtensions.Contains(ext, StringComparer.OrdinalIgnoreCase));
         }
 
         public bool IsLegacyRequest(Core.HttpContext context)
@@ -398,7 +410,12 @@ namespace System.Web.Hosting
                     return true;
             if (ProhibitedExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return false;
 
-            var mappedPath = MapPath(fullpath);
+            // A path ASP.NET does not map (a name with a trailing dot or space, an 8.3 short name, a ".." above the root: its
+            // UserMapPath's HttpException): none of the application's files, 404 as IIS (it was Kestrel's 500).
+            string mappedPath;
+            try { mappedPath = MapPath(fullpath); }
+            catch (HttpException) { return false; }
+            catch (ArgumentException) { return false; }
             if (FileCache.DirectoryExists(mappedPath))
             {
 				// The first of the names a file of the folder has, without regard to case (as on Windows), served by the name

@@ -154,6 +154,31 @@ namespace System.Web.Hosting
 			endOfSend = callback;
 		}
 
+		// What is disposed once the response is sent (EndOfRequest): a static file's open file its response is sent from
+		// (IisStaticFile, HttpResponse.WriteFileStream).
+		private List<IDisposable> disposeAtEnd;
+
+		internal void DisposeAtEndOfRequest(IDisposable disposable)
+		{
+			lock (this) (disposeAtEnd ??= new List<IDisposable>()).Add(disposable);
+		}
+
+		private void DisposeAtEnd()
+		{
+			List<IDisposable> list;
+			lock (this)
+			{
+				list = disposeAtEnd;
+				disposeAtEnd = null;
+			}
+			if (list == null) return;
+			foreach (var disposable in list)
+			{
+				try { disposable.Dispose(); }
+				catch (Exception) { }
+			}
+		}
+
 		private void NotifyEndOfSend()
 		{
 			var callback = Interlocked.Exchange(ref endOfSend, null);
@@ -189,6 +214,7 @@ namespace System.Web.Hosting
 			Debug.WriteLine($"EndOfRequestStart {path}");
 #endif
 			NotifyEndOfSend();
+			DisposeAtEnd();
 			try
 			{
 				if (Context != null && Context.Response != null)
@@ -543,6 +569,19 @@ namespace System.Web.Hosting
 
 		[AspNetHostingPermission(SecurityAction.Assert, Level = AspNetHostingPermissionLevel.Medium)]
 		public async Task Process()
+		{
+			try
+			{
+				await ProcessCore();
+			}
+			finally
+			{
+				// (a request that failed before its end, EndOfRequest: what it holds open)
+				DisposeAtEnd();
+			}
+		}
+
+		async Task ProcessCore()
 		{
 			// read the request
 			if (!TryParseRequest())

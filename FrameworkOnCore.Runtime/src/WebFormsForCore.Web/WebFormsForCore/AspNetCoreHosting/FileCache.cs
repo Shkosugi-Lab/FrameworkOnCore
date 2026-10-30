@@ -23,6 +23,7 @@ namespace System.Web.Hosting
 	{
 		internal sealed class Entry
 		{
+			public long Generation;       // the changes' count when it was found: an entry of an earlier count is not used
 			public bool IsFile;
 			public bool IsDirectory;
 			public FileAttributes Attributes;
@@ -39,7 +40,7 @@ namespace System.Web.Hosting
 
 		static readonly StringComparison PathComparison = OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
 		static readonly ConcurrentDictionary<string, Entry> entries = new ConcurrentDictionary<string, Entry>(StringComparer.Ordinal);
-		static readonly ConcurrentDictionary<string, object> memos = new ConcurrentDictionary<string, object>(StringComparer.Ordinal);
+		static readonly ConcurrentDictionary<string, (long Generation, object Value)> memos = new ConcurrentDictionary<string, (long, object)>(StringComparer.Ordinal);
 		static FileSystemWatcher watcher;
 		static string root;
 		static long generation;      // counts the changes: what was found before one is not kept after it
@@ -117,22 +118,27 @@ namespace System.Web.Hosting
 			root != null && path != null && path.StartsWith(root, PathComparison) && path.IndexOf("..", StringComparison.Ordinal) < 0;
 
 		/// <summary>The path's state, kept for a path under the watched folder (asked anew otherwise).</summary>
+		/// <remarks>
+		/// What is kept carries the count of the changes it was found at, and is used at that count only. It was checked,
+		/// then stored: a change between the two (Forget clearing what was kept) left what was found before the change kept
+		/// after it, until the next change (a file's old state, its old bytes, served after its new one).
+		/// </remarks>
 		internal static Entry Get(string path)
 		{
-			if (!Kept(path)) return Probe(path);
+			if (!Kept(path)) return Probe(path, 0);
 			Entry entry;
-			if (entries.TryGetValue(path, out entry)) return entry;
 			var before = Interlocked.Read(ref generation);
-			entry = Probe(path);
+			if (entries.TryGetValue(path, out entry) && entry.Generation == before) return entry;
+			entry = Probe(path, before);
 			if (entries.Count >= MaxEntries) Forget();
 			// Kept only if nothing changed while it was asked (what was found may be from before the change).
 			if (Interlocked.Read(ref generation) == before) entries[path] = entry;
 			return entry;
 		}
 
-		static Entry Probe(string path)
+		static Entry Probe(string path, long found)
 		{
-			var entry = new Entry();
+			var entry = new Entry { Generation = found };
 			try
 			{
 				var info = new FileInfo(path);
@@ -165,24 +171,70 @@ namespace System.Web.Hosting
 		{
 			if (!entry.IsFile || entry.Length > MaxContentLength || !Kept(path)) return null;
 			if (Volatile.Read(ref entry.ContentRead)) return entry.Content;
-			var before = Interlocked.Read(ref generation);
-			byte[] content;
 			try
 			{
-				content = File.ReadAllBytes(path);
+				// The file as it was found (its length and time): one written meanwhile is read again next time.
+				using (var snapshot = Open(path, entry))
+					return snapshot.Content != null && snapshot.Length == entry.Length && snapshot.LastWriteTimeUtc == entry.LastWriteTimeUtc ? snapshot.Content : null;
 			}
 			catch (Exception e) when (e is IOException || e is UnauthorizedAccessException)
 			{
 				return null;
 			}
-			// The file as it was found (its length): one written meanwhile is read again next time.
-			if (content.LongLength != entry.Length) return null;
-			if (Interlocked.Read(ref generation) == before && Interlocked.Add(ref cachedBytes, content.Length) <= MaxCachedBytes)
+		}
+
+		/// <summary>
+		/// The file as it is now: its length, time and bytes from one opening of it (as IIS's static file module has a file:
+		/// its handle's size and time, the handle's bytes); a small one's bytes (kept with the entry while nothing changes,
+		/// if the entry is the file as it was opened), a large one open (the caller's to dispose). Opened to be deleted and
+		/// renamed over meanwhile (a deployment replacing it), as IIS opens it. The entry's length and time, the bytes read
+		/// by path and the file opened by name when the response was sent were three files when it was replaced meanwhile:
+		/// the new bytes with the old Content-Length, ETag and Last-Modified (or a 500: the file shorter than its length).
+		/// </summary>
+		internal static FileSnapshot Open(string path, Entry entry)
+		{
+			var before = Interlocked.Read(ref generation);
+			if (entry != null && Volatile.Read(ref entry.ContentRead) && entry.Content != null && entry.Generation == before)
+				return new FileSnapshot { Length = entry.Length, LastWriteTimeUtc = entry.LastWriteTimeUtc, Content = entry.Content };
+			var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete, 1, FileOptions.SequentialScan);
+			try
 			{
-				entry.Content = content;
-				Volatile.Write(ref entry.ContentRead, true);
+				var snapshot = new FileSnapshot { Length = stream.Length, LastWriteTimeUtc = File.GetLastWriteTimeUtc(stream.SafeFileHandle) };
+				if (snapshot.Length > MaxContentLength)
+				{
+					snapshot.Stream = stream;
+					stream = null;
+					return snapshot;
+				}
+				var content = new byte[snapshot.Length];
+				var read = 0;
+				while (read < content.Length)
+				{
+					var n = RandomAccess.Read(stream.SafeFileHandle, content.AsSpan(read), read);
+					if (n <= 0) break;
+					read += n;
+				}
+				// Shorter than its length (being written): its bytes as read, not kept.
+				if (read < content.Length)
+				{
+					Array.Resize(ref content, read);
+					snapshot.Length = read;
+					snapshot.Content = content;
+					return snapshot;
+				}
+				snapshot.Content = content;
+				if (entry != null && Kept(path) && entry.Generation == before && entry.Length == snapshot.Length && entry.LastWriteTimeUtc == snapshot.LastWriteTimeUtc &&
+					Interlocked.Read(ref generation) == before && Interlocked.Add(ref cachedBytes, content.Length) <= MaxCachedBytes)
+				{
+					entry.Content = content;
+					Volatile.Write(ref entry.ContentRead, true);
+				}
+				return snapshot;
 			}
-			return content;
+			finally
+			{
+				stream?.Dispose();
+			}
 		}
 
 		/// <summary>A folder's files' names (read once while nothing changes).</summary>
@@ -193,7 +245,7 @@ namespace System.Web.Hosting
 			if (names != null) return names;
 			var before = Interlocked.Read(ref generation);
 			names = Directory.EnumerateFiles(path).Select(Path.GetFileName).ToArray();
-			if (Kept(path) && Interlocked.Read(ref generation) == before) entry.FileNames = names;
+			if (Kept(path) && entry.Generation == before && Interlocked.Read(ref generation) == before) entry.FileNames = names;
 			return names;
 		}
 
@@ -204,14 +256,26 @@ namespace System.Web.Hosting
 		internal static T Memo<T>(string key, Func<T> make) where T : class
 		{
 			if (root == null) return make();
-			object value;
-			if (memos.TryGetValue(key, out value)) return (T)value;
-			if (memos.Count >= MaxEntries) Forget();
 			var before = Interlocked.Read(ref generation);
+			(long Generation, object Value) kept;
+			// (one made at an earlier count of the changes is not used: as Get's entries)
+			if (memos.TryGetValue(key, out kept) && kept.Generation == before) return (T)kept.Value;
+			if (memos.Count >= MaxEntries) Forget();
 			var made = make();
-			if (Interlocked.Read(ref generation) == before) memos[key] = made;
+			if (Interlocked.Read(ref generation) == before) memos[key] = (before, made);
 			return made;
 		}
+	}
+
+	/// <summary>A file as one opening of it has it (FileCache.Open): its length and time, its bytes or the file open.</summary>
+	internal sealed class FileSnapshot : IDisposable
+	{
+		public long Length;
+		public DateTime LastWriteTimeUtc;
+		public byte[] Content;        // a small file's bytes
+		public FileStream Stream;     // a large file, open (sent from: HttpResponse.WriteFileStream)
+
+		public void Dispose() => Stream?.Dispose();
 	}
 }
 

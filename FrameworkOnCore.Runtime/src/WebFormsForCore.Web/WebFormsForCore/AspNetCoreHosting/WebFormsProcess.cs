@@ -2,6 +2,7 @@
 
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -54,8 +55,8 @@ namespace System.Web.Hosting
 			var entry = Path.GetFileName(Assembly.GetEntryAssembly().Location);
 			var host = Environment.ProcessPath;
 			var viaDotnet = Path.GetFileNameWithoutExtension(host).Equals("dotnet", StringComparison.OrdinalIgnoreCase);
-			var shadowBase = Path.Combine(Path.GetTempPath(), "WebFormsForCore", "shadow",
-				((uint)StringComparer.OrdinalIgnoreCase.GetHashCode(appPath)).ToString("x8"));
+			var shadowBase = ShadowBase(appPath);
+			DeleteStaleCopies(shadowBase);
 
 			// The listening sockets, kept while the workers come and go (ListenerHandoff): a request during a restart waits.
 			var sockets = ListenerHandoff.Bind(args, appPath);
@@ -98,6 +99,8 @@ namespace System.Web.Hosting
 				if (exitCode != ProcessRestart.ExitCode || stop.IsSet)
 				{
 					foreach (var (_, socket) in sockets) socket.Dispose();
+					try { if (!Directory.EnumerateFileSystemEntries(shadowBase).Any()) Directory.Delete(shadowBase); }
+					catch (IOException) { } catch (UnauthorizedAccessException) { }
 					return true;
 				}
 				Console.Error.WriteLine($"WebFormsForCore: the application restarts (worker {generation + 1}).");
@@ -135,6 +138,53 @@ namespace System.Web.Hosting
 			})
 			{ IsBackground = true, Name = "WebFormsForCore supervisor watch" };
 			watch.Start();
+		}
+
+		/// <summary>
+		/// The folder of the application's copies of bin (the temporary folder's WebFormsForCore/shadow/&lt;hash of its root&gt;),
+		/// the same for every start of the application. It was named by the path's string hash, which .NET makes anew in
+		/// each process: every start a folder of its own, left behind (empty), and a copy left by a supervisor that was killed
+		/// (its worker's whole bin) never found again (gigabytes in the temporary folder after a few).
+		/// </summary>
+		internal static string ShadowBase(string appPath)
+		{
+			// FNV-1a over the path (without regard to case on Windows, whose paths are so).
+			var path = OperatingSystem.IsWindows() ? appPath.ToUpperInvariant() : appPath;
+			var hash = 2166136261u;
+			foreach (var c in path)
+			{
+				hash = (hash ^ c) * 16777619u;
+			}
+			return Path.Combine(Path.GetTempPath(), "WebFormsForCore", "shadow", hash.ToString("x8"));
+		}
+
+		/// <summary>
+		/// The copies of bin a supervisor no longer running left (it was killed: Stop-Process, SIGKILL, a container stopped):
+		/// deleted when the application starts again (a copy is "&lt;supervisor's pid&gt;-&lt;worker&gt;"; another supervisor's of the
+		/// application still running, kept).
+		/// </summary>
+		internal static void DeleteStaleCopies(string shadowBase)
+		{
+			if (!Directory.Exists(shadowBase)) return;
+			foreach (var copy in Directory.EnumerateDirectories(shadowBase))
+			{
+				var name = Path.GetFileName(copy);
+				var dash = name.IndexOf('-');
+				if (dash <= 0 || !int.TryParse(name.AsSpan(0, dash), out var pid) || pid == Environment.ProcessId || Running(pid)) continue;
+				try { Directory.Delete(copy, recursive: true); }
+				catch (IOException) { } catch (UnauthorizedAccessException) { }
+			}
+		}
+
+		static bool Running(int pid)
+		{
+			try
+			{
+				using var process = Process.GetProcessById(pid);
+				return !process.HasExited;
+			}
+			catch (ArgumentException) { return false; }
+			catch (InvalidOperationException) { return false; }
 		}
 
 		static void CopyDirectory(string from, string to)

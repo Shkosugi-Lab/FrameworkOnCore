@@ -135,6 +135,10 @@ sealed class Site : IDisposable
         try { _ = System.Web.Util.AppSettings.UseHostHeaderForRequestUrl; } catch (Exception e) when (e.GetType().Name == "ConfigurationErrorsException") { }
         // System.Web's health monitoring (without its configuration system: off, after an exception the first time).
         try { _ = System.Web.Management.HealthMonitoringManager.Enabled; } catch (Exception e) when (e.GetType().Name == "ConfigurationErrorsException") { }
+        // That exception is HttpRuntime's initialization error, which restarts the application 10 seconds later (its
+        // AppDomain shutdown timer: HostingEnvironment's shutdown, every request from then on 503, the process's): stopped.
+        // It ran out during another test of the collection, which got 503s (which tests, as they took their time).
+        typeof(System.Web.HttpRuntime).GetMethod("DisposeAppDomainShutdownTimer", Instance).Invoke(runtime, null);
         if (watch) FileCache.Watch(Root);
         else Unwatch();
         return this;

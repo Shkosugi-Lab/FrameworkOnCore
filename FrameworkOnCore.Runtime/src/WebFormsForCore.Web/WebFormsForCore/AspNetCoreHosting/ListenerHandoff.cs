@@ -195,6 +195,30 @@ namespace System.Web.Hosting
 			return sockets;
 		}
 
+		// The sockets given to Kestrel (StopAccepting closes them).
+		static readonly List<Socket> listening = new List<Socket>();
+		static int stopped;
+
+		/// <summary>
+		/// The worker takes no more connections (the application is restarting: HostingEnvironment's shutdown): its copies of
+		/// the listening sockets closed (Kestrel's accept ends; the supervisor's copies keep the sockets listening), the next
+		/// connections wait in the sockets' queue for the next worker; the requests in progress complete. The worker accepted
+		/// connections until it stopped (after its requests in progress: AspNetCoreHost's shutdown), each answered 307 to
+		/// come again (WebFormsMiddleware), which came again to it: a client followed the redirect until it gave up (HttpClient
+		/// after 50, a browser after 20: "too many redirects").
+		/// </summary>
+		internal static void StopAccepting()
+		{
+			if (!Active || System.Threading.Interlocked.Exchange(ref stopped, 1) != 0) return;
+			List<Socket> sockets;
+			lock (listening) sockets = listening.ToList();
+			foreach (var socket in sockets)
+			{
+				try { socket.Close(); }
+				catch (Exception e) when (e is SocketException or ObjectDisposedException) { }
+			}
+		}
+
 		/// <summary>The worker's Kestrel listens on the sockets given, the others it binds as it does.</summary>
 		public sealed class Startup : IHostingStartup
 		{
@@ -204,7 +228,14 @@ namespace System.Web.Hosting
 					if (!Active) return;
 					var bind = options.CreateBoundListenSocket;
 					options.CreateBoundListenSocket = endpoint =>
-						endpoint is IPEndPoint ip && inherited.Value.Remove(Key(ip), out var socket) ? socket : bind(endpoint);
+					{
+						if (endpoint is IPEndPoint ip && inherited.Value.Remove(Key(ip), out var socket))
+						{
+							lock (listening) listening.Add(socket);
+							return socket;
+						}
+						return bind(endpoint);
+					};
 				}));
 		}
 

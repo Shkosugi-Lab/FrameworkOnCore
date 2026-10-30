@@ -334,7 +334,8 @@ namespace System.Web {
                                                  long fileLength,
                                                  string rangeHeader,
                                                  string etag,
-                                                 DateTime lastModified) {
+                                                 DateTime lastModified,
+                                                 Action<long, long> sendFile = null) {   // FrameworkOnCore: the ranges sent from the file as it was opened (IisStaticFile)
             HttpRequest request = context.Request;
             HttpResponse response = context.Response;
             bool handled = false;
@@ -446,7 +447,8 @@ namespace System.Web {
                 string contentRange = String.Format(CultureInfo.InvariantCulture, CONTENT_RANGE_FORMAT, offset, offset + length - 1, fileLength);
                 response.AppendHeader("Content-Range", contentRange);
 
-                SendFile(physicalPath, offset, length, fileLength, context);
+                if (sendFile != null) sendFile(offset, length);
+                else SendFile(physicalPath, offset, length, fileLength, context);
             }
             else {
                 response.ContentType = MULTIPART_CONTENT_TYPE;
@@ -461,7 +463,8 @@ namespace System.Web {
                     contentRange = String.Format(CultureInfo.InvariantCulture, CONTENT_RANGE_FORMAT, offset, offset + length - 1, fileLength);
                     response.Write(contentRange);
                     response.Write("\r\n\r\n");
-                    SendFile(physicalPath, offset, length, fileLength, context);
+                    if (sendFile != null) sendFile(offset, length);
+                    else SendFile(physicalPath, offset, length, fileLength, context);
                     response.Write("\r\n");
                 }
                 response.Write(MULTIPART_RANGE_END);

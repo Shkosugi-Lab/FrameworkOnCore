@@ -51,7 +51,7 @@
   <!-- FrameworkOnCore's System.Web, not .NET's facade of the same name (as the converter writes it into converted projects). -->
   <Target Name="WithoutNetSystemWeb" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
     <ItemGroup>
-      <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'[/\x5C]dotnet[/\x5C]'))" />
+      <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND '%(ReferencePath.FrameworkReferenceName)' != ''" />
     </ItemGroup>
   </Target>
 

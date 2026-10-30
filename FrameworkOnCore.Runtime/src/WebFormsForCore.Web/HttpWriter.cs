@@ -545,6 +545,75 @@ namespace System.Web {
 
     }
 
+#if !NETFRAMEWORK
+    /*
+     * FrameworkOnCore: response element whose data comes from a file already open (IisStaticFile: the file as its length
+     * and time were read, FileCache.Open), read at its offset (the stream's position untouched: ranges share it). The
+     * file opened by name when the response is sent (HttpFileResponseElement) is another file when it was replaced
+     * meanwhile. Shorter than its size (truncated while it is sent): the rest zeros, as HttpFileResponseElement.GetBytes
+     * has it (the response's length is the one sent).
+     */
+    internal sealed class HttpFileStreamResponseElement : IHttpResponseElement {
+        private readonly FileStream _stream;
+        private readonly long _offset;
+        private readonly long _size;
+
+        internal HttpFileStreamResponseElement(FileStream stream, long offset, long size) {
+            if (size < 0 || size > Int32.MaxValue) throw new ArgumentOutOfRangeException("size", size, SR.GetString(SR.Invalid_size));
+            if (offset < 0) throw new ArgumentOutOfRangeException("offset", offset, SR.GetString(SR.Invalid_size));
+            _stream = stream;
+            _offset = offset;
+            _size = size;
+        }
+
+        long IHttpResponseElement.GetSize() {
+            return _size;
+        }
+
+        byte[] IHttpResponseElement.GetBytes() {
+            if (_size == 0)
+                return null;
+            byte[] data = new byte[_size];
+            Read(data, 0, data.Length, _offset);
+            return data;
+        }
+
+        private void Read(byte[] buffer, int index, int count, long position) {
+            while (count > 0) {
+                int n = RandomAccess.Read(_stream.SafeFileHandle, new Span<byte>(buffer, index, count), position);
+                if (n <= 0) {
+                    Array.Clear(buffer, index, count);
+                    return;
+                }
+                index += n;
+                count -= n;
+                position += n;
+            }
+        }
+
+        void IHttpResponseElement.Send(HttpWorkerRequest wr) {
+            if (_size <= 0)
+                return;
+            int chunk = (int)Math.Min(_size, 64 * 1024);
+            byte[] buffer = System.Buffers.ArrayPool<byte>.Shared.Rent(chunk);
+            try {
+                long position = _offset;
+                long left = _size;
+                while (left > 0) {
+                    int count = (int)Math.Min(left, chunk);
+                    Read(buffer, 0, count, position);
+                    wr.SendResponseFromMemory(buffer, count);
+                    position += count;
+                    left -= count;
+                }
+            }
+            finally {
+                System.Buffers.ArrayPool<byte>.Shared.Return(buffer);
+            }
+        }
+    }
+#endif
+
     /*
      * Response element for substituiton
      */
@@ -1194,6 +1263,21 @@ namespace System.Web {
             if (!_responseBufferingOn)
                 _response.Flush();
         }
+
+#if !NETFRAMEWORK
+        // FrameworkOnCore: a range of a file already open (HttpFileStreamResponseElement; the stream is the caller's to dispose
+        // once the response is sent).
+        internal void WriteFileStream(FileStream stream, long offset, long size) {
+            if (_charBufferLength != _charBufferFree)
+                FlushCharBuffer(true);
+
+            _lastBuffer = null;
+            _buffers.Add(new HttpFileStreamResponseElement(stream, offset, size));
+
+            if (!_responseBufferingOn)
+                _response.Flush();
+        }
+#endif
 
         //
         // Support for substitution blocks

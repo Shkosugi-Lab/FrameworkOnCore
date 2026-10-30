@@ -2931,6 +2931,28 @@ namespace System.Web {
         public void TransmitFile(string filename) {
             TransmitFile(filename, 0, -1);
         }
+
+#if !NETFRAMEWORK
+        // FrameworkOnCore: a range of a file already open, sent as it is in that file (IisStaticFile: the file whose length and
+        // time its headers have, though it is replaced meanwhile); the stream is the caller's to dispose once the response
+        // is sent (AspNetCoreWorkerRequest.DisposeAtEndOfRequest).
+        internal void WriteFileStream(FileStream stream, long offset, long length) {
+            if (length <= 0)
+                return;
+            if (UsingHttpWriter) {
+                _httpWriter.WriteFileStream(stream, offset, length);
+                return;
+            }
+            byte[] bytes = new byte[length];
+            int read = 0;
+            while (read < bytes.Length) {
+                int n = RandomAccess.Read(stream.SafeFileHandle, new Span<byte>(bytes, read, bytes.Length - read), offset + read);
+                if (n <= 0) break;
+                read += n;
+            }
+            OutputStream.Write(bytes, 0, bytes.Length);
+        }
+#endif
         public void TransmitFile(string filename, long offset, long length) {
             if (filename == null) {
                 throw new ArgumentNullException("filename");

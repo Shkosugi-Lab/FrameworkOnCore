@@ -34,7 +34,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
     const string AliasTarget = """
           <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
             <ItemGroup>
-              <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'[/\x5C]dotnet[/\x5C]'))" />
+              <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND '%(ReferencePath.FrameworkReferenceName)' != ''" />
               <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web.Services.Description'" />
             </ItemGroup>
           </Target>

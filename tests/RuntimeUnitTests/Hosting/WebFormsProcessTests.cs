@@ -55,6 +55,12 @@ public class WebFormsProcessTests
         return 0;
     }
 
+    static int ShadowBase(string[] args)
+    {
+        Say("shadowBase", WebFormsProcess.ShadowBase(args[0]));
+        return 0;
+    }
+
     // ---- the test's side
 
     /// <summary>The application's folder with bin: the program and System.Web.</summary>
@@ -141,6 +147,40 @@ public class WebFormsProcessTests
         Assert.Equal("True", said["worker1.satellite"]); // bin's folders copied too
         Assert.Equal(said["supervisor.pid"], said["worker0.supervisor"]);
         Assert.Equal(said["worker0.args"], said["worker1.args"]);
+    }
+
+    [Fact] // ShadowBase's summary: the copies' folder is the same in every process (it was the path's string hash, which .NET makes anew in each)
+    public void The_copies_folder_is_the_same_for_every_start()
+    {
+        var appPath = Path.Combine(Path.GetTempPath(), "foc-app-stable");
+        var result = Child.Run("WebFormsProcessTests.ShadowBase", new[] { appPath });
+        Assert.Equal(WebFormsProcess.ShadowBase(appPath), Said(result)["shadowBase"]);
+        Assert.StartsWith(Path.Combine(Path.GetTempPath(), "WebFormsForCore", "shadow"), WebFormsProcess.ShadowBase(appPath));
+    }
+
+    [Fact] // DeleteStaleCopies' summary: a copy a supervisor no longer running left is deleted when the application starts again; a running one's kept
+    public void A_killed_supervisor_s_copy_is_deleted_at_the_next_start()
+    {
+        var shadowBase = WebFormsProcess.ShadowBase(Path.Combine(Path.GetTempPath(), "foc-app-stale-" + Guid.NewGuid().ToString("N")));
+        using var ended = Process.Start(new ProcessStartInfo(Dotnet, "--version") { UseShellExecute = false, RedirectStandardOutput = true });
+        ended.WaitForExit();
+        var stale = Path.Combine(shadowBase, ended.Id + "-0", "bin");
+        var running = Path.Combine(shadowBase, Environment.ProcessId + "-3", "bin");
+        try
+        {
+            foreach (var copy in new[] { stale, running })
+            {
+                Directory.CreateDirectory(copy);
+                File.WriteAllText(Path.Combine(copy, "a.dll"), "x");
+            }
+            WebFormsProcess.DeleteStaleCopies(shadowBase);
+            Assert.False(Directory.Exists(Path.GetDirectoryName(stale)));
+            Assert.True(File.Exists(Path.Combine(running, "a.dll")));
+        }
+        finally
+        {
+            try { Directory.Delete(shadowBase, true); } catch (IOException) { }
+        }
     }
 
     [Fact] // the summary: the worker's application root is the application's (its bin a copy), its working directory too

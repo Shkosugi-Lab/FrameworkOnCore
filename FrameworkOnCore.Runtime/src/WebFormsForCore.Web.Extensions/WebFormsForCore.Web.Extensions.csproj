@@ -256,8 +256,12 @@
             <ReferencePath Condition="'%(FileName)' == 'System.Drawing.Common'">
                 <Aliases>Core</Aliases>
             </ReferencePath>
-            <!-- Do not import System.Web -->
-            <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'\\dotnet\\'))" />
+            <!-- Do not import System.Web: .NET's (its reference pack's facade, told by the reference's FrameworkReferenceName,
+                 wherever .NET is installed). Its path was matched with \dotnet\, which a Linux path is not: the compiler had
+                 both System.Web, and bound System.Web.Services' System.Web to .NET's in some builds (CS7069 IHttpHandlerFactory,
+                 CS0266), as the projects were compiled side by side. The other projects' facades and their packages' paths (/ or \)
+                 likewise. -->
+            <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND '%(ReferencePath.FrameworkReferenceName)' != ''" />
         </ItemGroup>
     </Target>
 

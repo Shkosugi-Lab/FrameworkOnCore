@@ -201,6 +201,11 @@ namespace System.Web.Hosting
 		{
 			var name = FileName(when);
 			if (writer != null && name == currentFile) return;
+			// A line of an earlier period, come after the next period's first (its request ended before the boundary, its
+			// line queued after another's that ended after it): written to the file being written, as http.sys writes its
+			// lines in the order they come. The last file was opened again for it (a header block in its middle), and again
+			// and again while the lines of the two periods came mixed. (The names of a period sort as their times.)
+			if (writer != null && string.CompareOrdinal(name, currentFile) < 0) return;
 			Close();
 			System.IO.Directory.CreateDirectory(options.Directory);
 			var stream = new FileStream(Path.Combine(options.Directory, name), FileMode.Append, FileAccess.Write,

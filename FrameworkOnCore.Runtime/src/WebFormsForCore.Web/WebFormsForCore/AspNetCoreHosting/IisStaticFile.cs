@@ -62,54 +62,98 @@ namespace System.Web
 				return true;
 			}
 
-			var utc = file.LastWriteTimeUtc;
-			var lastModified = new DateTime(utc.Year, utc.Month, utc.Day, utc.Hour, utc.Minute, utc.Second, DateTimeKind.Utc);
-			if (lastModified > DateTime.UtcNow) lastModified = DateTime.UtcNow.AddTicks(-(DateTime.UtcNow.Ticks % TimeSpan.TicksPerSecond));
-			// IIS's form: the file time in hexadecimal and the configuration's change number.
-			var etag = "\"" + file.LastWriteTimeUtc.ToFileTimeUtc().ToString("x", CultureInfo.InvariantCulture) + ":0\"";
-
-			response.ContentType = contentType;
-			response.SuppressDefaultCacheControlHeader = true;
-
-			// A range (StaticFileHandler's: it writes ETag, Last-Modified and Accept-Ranges itself); the whole file if the
-			// range is not one to answer.
-			var range = request.Headers["Range"];
-			if (range != null && range.StartsWith("bytes", StringComparison.OrdinalIgnoreCase) &&
-				StaticFileHandler.ProcessRangeRequest(context, physicalPath, file.Length, range, etag, lastModified))
+			// The file as one opening of it has it (FileCache.Open): its length, time and bytes (a small one's from memory, read
+			// once; a large one's from the file as it was opened), the headers and the bytes one file's though it is replaced
+			// meanwhile, as IIS's static file module sends them from its handle.
+			FileSnapshot snapshot;
+			try
 			{
-				clientCache.Apply(response);
+				snapshot = FileCache.Open(physicalPath, file);
+			}
+			catch (Exception e) when (e is FileNotFoundException || e is DirectoryNotFoundException)
+			{
+				NotFound(context, 0, 2);   // gone since it was found
 				return true;
 			}
-
-			response.AppendHeader("Accept-Ranges", "bytes");
-			response.AppendHeader("Last-Modified", HttpUtilityInternal.FormatHttpDateTime(lastModified));
-			if (clientCache.SetEtag) response.AppendHeader("ETag", etag);
-			clientCache.Apply(response);
-
-			if (NotModified(request, etag, lastModified))
+			var worker = context.WorkerRequest as AspNetCoreWorkerRequest;
+			var handedOver = false;        // the open file disposed at the end of the request (its response sent from it then)
+			try
 			{
-				response.StatusCode = 304;
-				response.SuppressContent = true;
-				return true;
-			}
-			// The whole file: what IIS's static compression looks at (IisCompression).
-			var core = (context.WorkerRequest as AspNetCoreWorkerRequest)?.Context;
-			core?.Features.Set(new IisStaticResponse { PhysicalPath = physicalPath, Length = file.Length, LastWriteTicks = file.LastWriteTimeUtc.Ticks });
-			if (file.Length > 0)
-			{
-				// A small file's bytes from memory (FileCache: read once), a large one from the file.
-				var content = FileCache.Content(physicalPath, file);
-				if (content != null)
+				var utc = snapshot.LastWriteTimeUtc;
+				var lastModified = new DateTime(utc.Year, utc.Month, utc.Day, utc.Hour, utc.Minute, utc.Second, DateTimeKind.Utc);
+				if (lastModified > DateTime.UtcNow) lastModified = DateTime.UtcNow.AddTicks(-(DateTime.UtcNow.Ticks % TimeSpan.TicksPerSecond));
+				// IIS's form: the file time in hexadecimal and the configuration's change number.
+				var etag = "\"" + snapshot.LastWriteTimeUtc.ToFileTimeUtc().ToString("x", CultureInfo.InvariantCulture) + ":0\"";
+
+				response.ContentType = contentType;
+				response.SuppressDefaultCacheControlHeader = true;
+
+				void Send(long offset, long length)
 				{
-					response.OutputStream.Write(content, 0, content.Length);
-					// The whole file to an anonymous user: a response IIS's kernel cache would keep (StaticResponseCache).
-					var worker = context.WorkerRequest as AspNetCoreWorkerRequest;
-					if (worker != null && !worker.KernelCacheDisabled && context.User?.Identity?.IsAuthenticated != true)
+					if (length <= 0) return;
+					if (snapshot.Content != null)
+					{
+						response.OutputStream.Write(snapshot.Content, (int)offset, (int)length);
+						return;
+					}
+					if (worker == null)
+					{
+						// (another host: its bytes now, the file disposed below)
+						var bytes = new byte[length];
+						var read = 0;
+						while (read < bytes.Length)
+						{
+							var n = RandomAccess.Read(snapshot.Stream.SafeFileHandle, bytes.AsSpan(read), offset + read);
+							if (n <= 0) break;
+							read += n;
+						}
+						response.OutputStream.Write(bytes, 0, bytes.Length);
+						return;
+					}
+					if (!handedOver)
+					{
+						worker.DisposeAtEndOfRequest(snapshot);
+						handedOver = true;
+					}
+					response.WriteFileStream(snapshot.Stream, offset, length);
+				}
+
+				// A range (StaticFileHandler's: it writes ETag, Last-Modified and Accept-Ranges itself); the whole file if the
+				// range is not one to answer.
+				var range = request.Headers["Range"];
+				if (range != null && range.StartsWith("bytes", StringComparison.OrdinalIgnoreCase) &&
+					StaticFileHandler.ProcessRangeRequest(context, physicalPath, snapshot.Length, range, etag, lastModified, Send))
+				{
+					clientCache.Apply(response);
+					return true;
+				}
+
+				response.AppendHeader("Accept-Ranges", "bytes");
+				response.AppendHeader("Last-Modified", HttpUtilityInternal.FormatHttpDateTime(lastModified));
+				if (clientCache.SetEtag) response.AppendHeader("ETag", etag);
+				clientCache.Apply(response);
+
+				if (NotModified(request, etag, lastModified))
+				{
+					response.StatusCode = 304;
+					response.SuppressContent = true;
+					return true;
+				}
+				// The whole file: what IIS's static compression looks at (IisCompression).
+				worker?.Context.Features.Set(new IisStaticResponse { PhysicalPath = physicalPath, Length = snapshot.Length, LastWriteTicks = snapshot.LastWriteTimeUtc.Ticks });
+				if (snapshot.Length > 0)
+				{
+					Send(0, snapshot.Length);
+					// A small file's whole bytes to an anonymous user: a response IIS's kernel cache would keep (StaticResponseCache).
+					if (snapshot.Content != null && worker != null && !worker.KernelCacheDisabled && context.User?.Identity?.IsAuthenticated != true)
 						worker.ResponseCapture = StaticResponseCache.Start(worker.Context, worker.FilesGeneration);
 				}
-				else response.TransmitFile(physicalPath, 0, file.Length);
+				return true;
 			}
-			return true;
+			finally
+			{
+				if (!handedOver) snapshot.Dispose();
+			}
 		}
 
 		static bool NotModified(HttpRequest request, string etag, DateTime lastModified)

@@ -129,8 +129,16 @@ namespace System.Web.Hosting
 
         void IRegisteredObject.Stop(bool immediate)
         {
-            // Make sure all the pending calls complete before this Object is unregistered.
-            WaitForPendingCallsToFinish();
+            // The application is shutting down: the next connections are the next worker's (Linux, the listening sockets
+            // kept by the supervisor), not this one's while its requests complete.
+            ListenerHandoff.StopAccepting();
+
+            // Make sure all the pending calls complete before this Object is unregistered: at most hostingEnvironment's
+            // shutdownTimeout (30 seconds by default), as .NET Framework waits for its registered objects before it unloads
+            // the AppDomain (the requests still running then end with it; IIS's shutdownTimeLimit ends the worker). A
+            // request that never ended (a call without a timeout, a deadlock in the application) held the shutdown for
+            // ever: the application never restarted, every request answered 503 from then on.
+            WaitForPendingCallsToFinish(immediate ? TimeSpan.Zero : ShutdownTimeout());
 
             HostingEnvironment.UnregisterObject(this);
 
@@ -448,12 +456,19 @@ namespace System.Web.Hosting
         public async Task ProcessRequest(Core.HttpContext context)
         {
             AddPendingCall();
+            // Counted out whatever ends the request: a request that failed (its client gone while its response was
+            // written: Process's exception) stayed counted, and the application's shutdown (Stop: WaitForPendingCallsToFinish)
+            // waited for it for ever: no restart, every request answered 503 from then on.
+            try
+            {
+                if (UseClassicMode) HttpRuntime.SetClassicPipeline();
 
-            if (UseClassicMode) HttpRuntime.SetClassicPipeline();
-
-            await new AspNetCoreWorkerRequest(this, context).Process();
-
-            RemovePendingCall();
+                await new AspNetCoreWorkerRequest(this, context).Process();
+            }
+            finally
+            {
+                RemovePendingCall();
+            }
         }
 
         [SecurityPermission(SecurityAction.Assert, Unrestricted = true)]
@@ -478,17 +493,32 @@ namespace System.Web.Hosting
 #pragma warning restore 0420
         }
 
-        private void WaitForPendingCallsToFinish()
+        private void WaitForPendingCallsToFinish(TimeSpan timeout)
         {
+            var deadline = DateTime.UtcNow + timeout;
             for (; ; )
             {
-                if (pendingCallsCount <= 0)
+                if (pendingCallsCount <= 0 || DateTime.UtcNow >= deadline)
                 {
                     break;
                 }
 
                 Thread.Sleep(250);
             }
+        }
+
+        // hostingEnvironment's shutdownTimeout (its default when the configuration cannot be read).
+        static TimeSpan ShutdownTimeout()
+        {
+            try
+            {
+                var section = System.Web.Configuration.RuntimeConfig.GetAppLKGConfig().HostingEnvironment;
+                if (section != null) return section.ShutdownTimeout;
+            }
+            catch (Exception)
+            {
+            }
+            return TimeSpan.FromSeconds(System.Web.Configuration.HostingEnvironmentSection.DefaultShutdownTimeout);
         }
     }
 }

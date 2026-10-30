@@ -41,10 +41,10 @@
     <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
         <ItemGroup>
             <!-- .NET's System.Web (HttpUtility's type forwards): FrameworkOnCore's is the one -->
-            <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'\\dotnet\\'))" />
-            <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Drawing' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'\\dotnet\\'))" />
+            <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND '%(ReferencePath.FrameworkReferenceName)' != ''" />
+            <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Drawing' AND '%(ReferencePath.FrameworkReferenceName)' != ''" />
             <!-- .NET's System.Configuration.ConfigurationManager (a package other references bring): FrameworkOnCore's port is the one -->
-            <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Configuration.ConfigurationManager' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'(?i)\\system\.configuration\.configurationmanager\\'))" />
+            <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Configuration.ConfigurationManager' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'(?i)[/\x5C]system\.configuration\.configurationmanager[/\x5C]'))" />
         </ItemGroup>
     </Target>
     <Import Project="..\FrameworkOnCore.Translations.targets" />

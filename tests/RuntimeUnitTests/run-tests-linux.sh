@@ -14,11 +14,10 @@ done
 # The runtime's NuGet.config names its local feed.
 mkdir -p /w/FrameworkOnCore.Runtime/nupkg
 cd /w
-# One project at a time, and again if it failed: Web.Extensions sometimes compiles against .NET's System.Web facade rather
-# than the port's (CS7069 IHttpHandlerFactory), the second build does not.
-if dotnet build tests/RuntimeUnitTests/RuntimeUnitTests.csproj -nologo -v q -m:1 2>&1 | grep -E " error "; then
-  dotnet build tests/RuntimeUnitTests/RuntimeUnitTests.csproj -nologo -v q -m:1 2>&1 | grep -E " error " || true
-fi
+# Built as the CI builds it (its projects side by side). Web.Extensions compiled against .NET's System.Web facade at times
+# (CS7069 IHttpHandlerFactory): the projects' removal of the facade matched Windows paths only (fixed: by its reference's
+# metadata).
+dotnet build tests/RuntimeUnitTests/RuntimeUnitTests.csproj -nologo -v q 2>&1 | grep -E " error " || true
 if [ -z "$MATRIX" ]; then
   dotnet test tests/RuntimeUnitTests/RuntimeUnitTests.csproj --no-build -nologo ${FILTER:+--filter "$FILTER"} \
     --logger "console;verbosity=normal" 2>&1 | grep -vE "^\s+at |^\s*$|Passed |Skipped " | head -2000

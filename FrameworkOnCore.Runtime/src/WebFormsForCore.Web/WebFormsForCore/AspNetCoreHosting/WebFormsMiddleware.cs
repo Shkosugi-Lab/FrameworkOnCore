@@ -128,6 +128,8 @@ namespace Microsoft.AspNetCore.Builder
 				// and body). This connection, kept alive by the client, is this worker's, which is ending.
 				if (ListenerHandoff.Active)
 				{
+					// (no more connections taken: they wait for the next worker)
+					ListenerHandoff.StopAccepting();
 					context.Response.StatusCode = 307;
 					context.Response.Headers["Location"] = context.Request.PathBase.Add(context.Request.Path).ToUriComponent() + context.Request.QueryString.ToUriComponent();
 					context.Response.Headers["Connection"] = "close";

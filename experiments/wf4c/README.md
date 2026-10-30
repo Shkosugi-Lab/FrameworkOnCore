@@ -954,6 +954,17 @@ System.Drawing を Linux で動かす試み(`api-probe/drawing`、Ubuntu 24.04 �
 - **同時に**: 変換器が ProjectReference・HintPath のパスの `\` を Linux で解決できず(`FrameworkAssetsFlow` のテストが Linux で失敗)、同じ書き方の ProjectConverter の 4 か所も直した(`ProjectConverter.Native`。Windows では変わらない。元のビルドを読む OriginalBuild は Windows の MSBuild が前提なのでそのまま)。SqlClientTests は日本語の Windows で訳のメッセージが返り 18 件失敗していたので、英語で動かすようにした(`EnglishMessages`)。名前付きパイプのテストは Windows 専用にした。
 - **検証**: ランタイムの変更で frameworkOnCoreVersion 1.6.5-w2l.24。テスト Windows 4,551・Linux 4,524(SQL Server のコンテナあり)・SqlClientTests Windows 307・Linux 295 が緑。be・wt を変換し直し、Windows be 5/5・wt 8/8、Linux be 5/5・wt 7/8(error-page、以前と同じ)。
 
+### 変換器の見直し: 細かい基準、日本語のソース、重複の整理(2026-10-31、ユーザーの指示)
+
+バグ修正を重ねて変換器が必要以上に複雑になっていないかを調べた。コーパスごとの特例のコードは無く(名前はコメントだけ)、複雑さの多くは問題そのものから来るものだったが、同じ判断の重複が食い違いを生んでいた所と、テストの無い経路があった。
+
+- **細かい基準**(`corpora/regression/conversion-baseline/<コーパス>.json`、変換器の `snapshot`): 書いたプロジェクトのプロパティ・パッケージ・参照・項目、レポートの全項目、変えたファイル(ハッシュ)、組み立てたサイトをコーパスごとに記録し、`convert-corpora.ps1` が比べて違いを表示する。件数だけの基準では、パッケージの選び方やスタブの中身が変わっても気づけなかった。
+- **n2 の変換が毎回違っていた**: 同じフォルダーの 5 プロジェクトが SDK の `obj\project.assets.json` を共有し、最後の restore のものが残っていた(log4net の有無など)。同じフォルダーのプロジェクトには `obj\<名前>\`・`bin\<名前>\` を使わせる(Directory.Build.props)。
+- **日本語(BOM の無い Shift_JIS)のソース**: 変換器が UTF-8 として読み書きして壊していた(2 バイト目が 0x5C の「ソ・表・能」で構文が崩れ、ページのクラスが消えた)。Linux のコンパイラも UTF-8 で読み、ランタイムは fileEncoding の無いページと App_Code を UTF-8 で読んでいた(.NET Framework は ANSI のコードページ)。元のビルドと同じ判定(BOM、正しい UTF-8、`<CodePage>`、マシンの ANSI)で読み、書き換えたファイルは元の文字コードで書き戻し、`<CodePage>` を書く。ランタイムは .NET Framework と同じ順で読む(`FrameworkOnCore.AnsiCodePage`)。`samples/ShiftJisProbe`・`ShiftJisVbProbe` は IIS の結果と Windows・Linux とも一致。1.6.5-w2l.25。
+- **整理**: パッケージの判断を 1 か所に(`PackageDecisions`。SDK 形式のプロジェクトだけ .NET にある System.* 4.x を残し、companion も Web のパッケージも付けていなかった: yaf の 3 パッケージが外れた)、csproj の編集を XML に(`ProjectFile`: 書式を保ち、属性の順に依存しない)、C#・VB の修正ループを 1 つに(VB でも基底型の欠落を記録)、bin・obj と web.config の判定を `Paths` に(大文字小文字を区別していた所があった)、パッケージの知識を `rules/packages.json` に、フェーズの順序への依存をなくした。変換器のテストは 4,625 件、変換器の行の網羅 55.6% → 61.7%。
+- **検証**: 11 コーパスすべてが基準と一致(意図した違いは記録し直した)。テスト Windows・Linux とも合格。be・wt は Windows 5/5・8/8、Linux 5/5・7/8(error-page、以前と同じ)。
+- **残り**: SDK 形式の Web プロジェクトには、パッケージ以外の Web 用の設定(出力先 bin など)をまだ付けていない(コーパスに例が無い)。英語のコーパスの Latin-1 のファイルは、このマシンのコードページ 932 で読む(元のビルドと同じ。1252 で読ませるなら `--code-page 1252`)。
+
 ### 分岐網羅の次のテスト: 環境・攻撃・差分ファジング・往復・並行性(2026-10-30、ユーザーの指示)
 
 分岐網羅で見つかったバグの多くは「.NET Framework・IIS との動作の違い」「Linux・日本語環境でだけ壊れる」ものだった。入力と環境を広げるテストを、効果の大きい順(ユーザーの指定: 3・4・1・2・5)に足し、見つかったものを直した。どれも RuntimeUnitTests(と FrameworkOnCore.Tests・SqlClientTests)の通常の実行に入る。

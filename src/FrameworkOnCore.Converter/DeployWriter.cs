@@ -23,7 +23,7 @@ namespace FrameworkOnCore.Converter;
 /// - file names without regard to case, as on Windows (--case-insensitive, on unless off: casefs/libfoccase.so, preloaded
 ///   by start.sh on the machines it loads on; FOC_CASE_INSENSITIVE=0 turns it off there).
 /// </summary>
-public sealed class DeployWriter(Report report, string outRoot, string runtimeDirectory)
+public sealed class DeployWriter(Report report, string outRoot, string runtimeDirectory, Rules rules)
 {
     public void Write(string kinds, string site, ConvertedProject web, string? cultureProfile, bool caseInsensitive = true)
     {
@@ -51,7 +51,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         var (tz, tzSource) = TimeZoneOf(zone);
 
         if (caseInsensitive) caseInsensitive = WriteCaseLibraries(Path.Combine(deploy, "casefs"));
-        var drawing = DrawingUsers(site);
+        var drawing = DrawingUsers(site, rules.NotDrawing);
         if (drawing.Count > 0)
             report.Add(Report.Kind.Project, "deploy", $"System.Drawing on Linux (SkiaSharp): fontconfig and fonts (fonts-liberation2: Arial, Times New Roman, Courier New's metrics) installed by the deployment, for {string.Join(", ", drawing.Take(6))}{(drawing.Count > 6 ? ", ..." : "")}");
         WriteText(Path.Combine(deploy, "start.sh"), StartScript.Replace("__DLL__", assembly));
@@ -88,21 +88,19 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
 
     /// <summary>
     /// What in the site draws with System.Drawing (GDI+, SkiaSharp on Linux): its assemblies that reference System.Drawing
-    /// or System.Drawing.Common, not FrameworkOnCore's own (System.Web's and the mobile controls' references are its types',
-    /// Color and the like, not drawing: the mobile controls draw only the font names a designer's property grid lists) nor .NET's System.Windows.Extensions (in every site, a dependency of the configuration's packages: its
-    /// System.Drawing members are Windows' certificate dialogs and sounds), and pages whose markup or App_Code names
+    /// or System.Drawing.Common but those that do not draw (<paramref name="notDrawing"/>: rules/packages.json's notDrawing,
+    /// FrameworkOnCore's ports and .NET's System.Windows.Extensions), and pages whose markup or App_Code names
     /// System.Drawing (compiled on the server).
     /// </summary>
-    public static List<string> DrawingUsers(string site)
+    public static List<string> DrawingUsers(string site, IReadOnlySet<string> notDrawing)
     {
         var users = new List<string>();
-        var own = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "System.Drawing", "System.Drawing.Common", "System.Web", "System.Web.Extensions", "System.Web.DynamicData", "System.Web.Mobile", "System.Web.Services", "System.Windows.Forms", "System.Windows.Extensions" };
         var bin = Path.Combine(site, "bin");
         if (Directory.Exists(bin))
         {
             foreach (var dll in Directory.EnumerateFiles(bin, "*.dll"))
             {
-                if (own.Contains(Path.GetFileNameWithoutExtension(dll))) continue;
+                if (notDrawing.Contains(Path.GetFileNameWithoutExtension(dll))) continue;
                 try
                 {
                     using var stream = File.OpenRead(dll);
@@ -119,7 +117,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
             foreach (var file in Directory.EnumerateFiles(site, pattern, SearchOption.AllDirectories))
             {
                 var relative = Path.GetRelativePath(site, file);
-                if (relative.StartsWith("bin" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) || relative.StartsWith("obj" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)) continue;
+                if (Paths.InBuildOutput(site, file)) continue;
                 // Code files count only where the server compiles them.
                 if ((pattern is "*.cs" or "*.vb") && !relative.StartsWith("App_Code" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)) continue;
                 if (File.ReadAllText(file).Contains("System.Drawing", StringComparison.Ordinal)) users.Add(relative.Replace('\\', '/'));

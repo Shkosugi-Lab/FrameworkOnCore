@@ -62,6 +62,46 @@ public static class Paths
         }
     }
 
+    /// <summary>Whether a file under a folder is in a bin or obj folder there (build output, not source), at any level,
+    /// whatever their case (Bin\, as Visual Studio's web projects have it).</summary>
+    public static bool InBuildOutput(string root, string path) => InFolder(root, path, "bin", "obj");
+
+    /// <summary>Whether a file under a folder is in a folder of one of the names there (at any level, whatever the case);
+    /// the folders above the root do not count.</summary>
+    public static bool InFolder(string root, string path, params string[] names)
+    {
+        var folders = Path.GetRelativePath(root, path).Split('\\', '/');
+        return folders.Take(folders.Length - 1).Any(f => names.Contains(f, StringComparer.OrdinalIgnoreCase));
+    }
+
+    /// <summary>The files of a pattern under a folder, but build output's (bin, obj).</summary>
+    public static IEnumerable<string> SourceFiles(string root, string pattern) =>
+        Directory.EnumerateFiles(root, pattern, SearchOption.AllDirectories).Where(f => !InBuildOutput(root, f));
+
+    static readonly EnumerationOptions anyCase = new() { MatchCasing = MatchCasing.CaseInsensitive };
+
+    /// <summary>A folder's web.config (Web.config, web.config: whatever its case), not its subfolders'; null: none.</summary>
+    public static string? WebConfig(string directory) => Directory.EnumerateFiles(directory, "web.config", anyCase).FirstOrDefault();
+
+    /// <summary>The web.configs of a folder and its subfolders (whatever their names' case), not those in build output (bin,
+    /// obj) nor in the other folders named: those are not looked into.</summary>
+    public static IEnumerable<string> WebConfigs(string directory, params string[] skipped)
+    {
+        var pending = new Stack<string>();
+        pending.Push(directory);
+        while (pending.Count > 0)
+        {
+            var folder = pending.Pop();
+            if (WebConfig(folder) is { } config) yield return config;
+            foreach (var sub in Directory.EnumerateDirectories(folder).OrderByDescending(d => d, StringComparer.Ordinal))
+            {
+                var name = Path.GetFileName(sub);
+                if (!name.Equals("bin", StringComparison.OrdinalIgnoreCase) && !name.Equals("obj", StringComparison.OrdinalIgnoreCase) &&
+                    !skipped.Contains(name, StringComparer.OrdinalIgnoreCase)) pending.Push(sub);
+            }
+        }
+    }
+
     /// <summary>A relative path as MSBuild reads it, from the project's folder.</summary>
     public static string FromProject(string projectDirectory, string path) =>
         "$(MSBuildThisFileDirectory)" + Path.GetRelativePath(projectDirectory, path).Replace('/', '\\');

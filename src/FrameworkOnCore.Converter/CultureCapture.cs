@@ -25,14 +25,14 @@ static class CultureCapture
         foreach (var pattern in new[] { "*.aspx", "*.ascx", "*.master" })
             foreach (var file in Directory.EnumerateFiles(directory, pattern, SearchOption.AllDirectories))
             {
-                if (Regex.IsMatch(file, @"[\\/](bin|obj)[\\/]", RegexOptions.IgnoreCase)) continue;
+                if (Paths.InBuildOutput(directory, file)) continue;
                 foreach (Match m in directiveCulture.Matches(File.ReadAllText(file)))
                 {
                     var name = m.Groups["name"].Value.Trim();
                     if (name.Length > 0 && !name.StartsWith("auto", StringComparison.OrdinalIgnoreCase) && !name.Contains("<%")) cultures.Add(name);
                 }
             }
-        var webConfig = new[] { "Web.config", "web.config" }.Select(n => Path.Combine(directory, n)).FirstOrDefault(File.Exists);
+        var webConfig = Paths.WebConfig(directory);
         var output = outRoot.TrimEnd('\\', '/') + ".culture-profile.json";
         var arguments = $"-Out '{output.Replace("'", "''")}'" + (webConfig != null ? $" -WebConfig '{webConfig.Replace("'", "''")}'" : "")
             + (cultures.Count > 0 ? " -Cultures @(" + string.Join(",", cultures.Select(c => "'" + c.Replace("'", "''") + "'")) + ")" : "");

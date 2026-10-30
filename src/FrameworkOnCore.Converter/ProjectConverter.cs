@@ -11,7 +11,12 @@ namespace FrameworkOnCore.Converter;
 /// built for .NET only (netstandard, net6.0), whose code is meant for it.</param>
 /// <param name="CodePage">The code page its sources without a byte order mark that are not UTF-8 are in (its CodePage, else
 /// the machine's: SourceEncoding.MachineCodePage); null: none known.</param>
-public sealed record ConvertedProject(string Name, string SourcePath, string TargetPath, bool IsWeb, IReadOnlyList<string> Defines, string? AssemblyName = null, bool CrossPlatform = false, bool ImplicitFrameworkDefines = false, bool Kept = false, int? CodePage = null);
+/// <param name="Packages">The packages it references as converted (their ids).</param>
+public sealed record ConvertedProject(string Name, string SourcePath, string TargetPath, bool IsWeb, IReadOnlyList<string> Defines, string? AssemblyName = null, bool CrossPlatform = false, bool ImplicitFrameworkDefines = false, bool Kept = false, int? CodePage = null, IReadOnlyCollection<string>? Packages = null)
+{
+    /// <summary>Whether it serves WCF's services over CoreWCF (FrameworkOnCore.ServiceModel): the host maps them before Web Forms.</summary>
+    public bool ServesWcf => Packages?.Contains(ProjectConverter.ServiceModelPackage, StringComparer.OrdinalIgnoreCase) == true;
+}
 
 /// <summary>Where the runtime pieces the converted projects refer to are (FrameworkOnCore's feed, the shims).</summary>
 public sealed record RuntimeLayout(string Feed, IReadOnlyList<string> ShimProjects);
@@ -21,7 +26,9 @@ public sealed record RuntimeLayout(string Feed, IReadOnlyList<string> ShimProjec
 /// WebFormsForCore, keeping every source file as it is. The repository is copied as a whole and the
 /// project files are rewritten where they are.
 /// </summary>
-public sealed partial class ProjectConverter(Rules rules, Report report, Conditions conditions, string sourceRoot, string outRoot, RuntimeLayout runtime)
+/// <param name="deployedBin">The deployed site's bin (--site): a project this converter does not convert is referenced by the
+/// assembly its build put there, as it is (a .NET Framework assembly, which .NET loads: its System.Web is the runtime's).</param>
+public sealed partial class ProjectConverter(Rules rules, Report report, Conditions conditions, string sourceRoot, string outRoot, RuntimeLayout runtime, string? deployedBin = null)
 {
     static readonly XNamespace msbuild = "http://schemas.microsoft.com/developer/msbuild/2003";
 
@@ -81,18 +88,45 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
     // DLLs the port replaces); the port's own translation in its culture instead.
     readonly HashSet<string> languagePackagesReported = new(StringComparer.OrdinalIgnoreCase);
 
-    bool LanguagePackage(string id, string name)
+    /// <summary>A package the project lists (packages.config, PackageReference; version null: none given): what becomes of
+    /// it (PackageDecisions), reported, a language package's culture noted.</summary>
+    PackageDecision Listed(string name, string id, string? version)
     {
-        if (rules.LanguagePackageOf(id) is not { } language) return false;
-        if (!LanguagePackageCultures.TryGetValue(language.Culture, out var assemblies)) LanguagePackageCultures[language.Culture] = assemblies = new(StringComparer.OrdinalIgnoreCase);
-        assemblies.UnionWith(language.Assemblies);
-        if (languagePackagesReported.Add(name + "|" + id)) report.Add(Report.Kind.Project, name, $"{id}: Microsoft's language package removed; FrameworkOnCore's own translations of {string.Join(", ", language.Assemblies)} in {language.Culture} instead (the wording is FrameworkOnCore's)");
-        return true;
+        var decision = rules.Listed(id, version ?? "*");
+        var named = version == null ? id : $"{id} {version}";
+        switch (decision.Fate)
+        {
+            case PackageFate.LanguagePackage:
+                var language = rules.LanguagePackageOf(id)!.Value;
+                if (!LanguagePackageCultures.TryGetValue(language.Culture, out var assemblies)) LanguagePackageCultures[language.Culture] = assemblies = new(StringComparer.OrdinalIgnoreCase);
+                assemblies.UnionWith(language.Assemblies);
+                if (languagePackagesReported.Add(name + "|" + id)) report.Add(Report.Kind.Project, name, $"{id}: Microsoft's language package removed; FrameworkOnCore's own translations of {string.Join(", ", language.Assemblies)} in {language.Culture} instead (the wording is FrameworkOnCore's)");
+                break;
+            case PackageFate.Shim:
+                report.Add(Report.Kind.Project, name, $"{named}: replaced by its shim ({decision.Shim})");
+                break;
+            case PackageFate.Dropped:
+                report.Add(Report.Kind.Project, name, $"{named}: dropped (in .NET, or listed in droppedPackages)");
+                break;
+            case PackageFate.Replaced when decision.RaisedNote != null:
+                report.Add(Report.Kind.Raised, name, decision.RaisedNote + $" (replaced by {decision.Package!.Id} {decision.Package.Version}: replacedPackages)");
+                break;
+        }
+        return decision;
+    }
+
+    // A package referenced by its .NET Framework asset (frameworkAssets): reported where it is.
+    void ReportFrameworkAsset(string name, string id)
+    {
+        var asset = rules.FrameworkAssets[id];
+        report.Add(Report.Kind.Project, name, $"{id}: its .NET Framework asset ({asset.Asset}), as the site ran it: {asset.Note}");
     }
 
     public string TargetOf(string sourcePath) => Path.Combine(outRoot, Path.GetRelativePath(sourceRoot, sourcePath));
 
-    public ConvertedProject Convert(string projectPath, bool isWeb)
+    /// <param name="copyLocal">A project built on its own (not referenced by the web project): its packages' assemblies are
+    /// copied to its output, as .NET Framework did (an old-style project's CopyLocalLockFileAssemblies).</param>
+    public ConvertedProject Convert(string projectPath, bool isWeb, bool copyLocal = false)
     {
         projectPath = Path.GetFullPath(projectPath);
         if (converted.TryGetValue(projectPath, out var done)) return done;
@@ -134,7 +168,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
             references.Add(referenced);
         }
 
-        var result = isSdk ? ConvertSdk(projectPath, name, document) : ConvertOld(projectPath, name, document, isWeb, references, deployed);
+        var result = isSdk ? ConvertSdk(projectPath, name, document, isWeb) : ConvertOld(projectPath, name, document, isWeb, copyLocal, references, deployed);
         converted[projectPath] = result;
         return result;
     }
@@ -157,8 +191,9 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
                          e.Parent?.Name.LocalName == "assemblies" && e.Parent.Parent?.Name.LocalName == "compilation").ToList())
             {
                 var assembly = ((string?)add.Attribute("assembly") ?? "").Split(',')[0].Trim();
-                if (addPackage != null && rules.FrameworkReferences.TryGetValue(assembly, out var package)) addPackage(package);
-                if (rules.NoAnswer.Contains(assembly))
+                var decision = rules.Reference(assembly);
+                if (addPackage != null && decision.Package != null) foreach (var p in decision.Companions.Prepend(decision.Package)) addPackage(p);
+                if (decision.NoAnswer)
                 {
                     add.Remove();
                     removed = true;
@@ -191,8 +226,65 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         catch (System.Xml.XmlException e) { report.Add(Report.Kind.Error, subject, $"web.config not read: {e.Message}"); }
     }
 
-    /// <summary>Projects built on their own (not referenced by the web project): their packages' assemblies are copied to their output, as .NET Framework did.</summary>
-    public HashSet<string> CopyLocalProjects { get; } = new(StringComparer.OrdinalIgnoreCase);
+    // The web project's, old-style or SDK-style: FrameworkOnCore's web packages, and for WCF's services the site has (.svc
+    // files, web.config's serviceActivations) CoreWCF's, which serves them in the application's host (FrameworkOnCore.ServiceModel;
+    // Program.cs calls it) as IIS's WCF activation served them, when that is the choice.
+    void AddWebPackages(string name, string source, Action<Package> add)
+    {
+        foreach (var id in rules.WebPackages) add(new Package(id, rules.FrameworkOnCoreVersion));
+        if (WcfServices(source) is not { Count: > 0 } services) return;
+        if (rules.IsChosen("wcf-server:corewcf"))
+        {
+            add(new Package(ServiceModelPackage, rules.FrameworkOnCoreVersion));
+            report.Add(Report.Kind.Project, name, $"WCF services ({string.Join(", ", services.Take(6))}{(services.Count > 6 ? ", ..." : "")}): served by CoreWCF (FrameworkOnCore.ServiceModel), as web.config configures them");
+        }
+        else report.Add(Report.Kind.Unsupported, name, $"WCF services ({string.Join(", ", services.Take(6))}{(services.Count > 6 ? ", ..." : "")}): not served (wcf-server: none)");
+    }
+
+    /// <summary>FrameworkOnCore's WCF services over CoreWCF: the host serves them (HostProgram) where the web project has it.</summary>
+    public const string ServiceModelPackage = "FrameworkOnCore.ServiceModel";
+
+    // The web project's web.config and its folders' (nopCommerce's Administration registers controls of an assembly .NET
+    // does not have): the assemblies web.config names for page compilation are loaded by name at run time; the ones .NET
+    // does not ship need their package, or the configuration itself fails.
+    void TransformWebConfigs(string name, string source, Action<Package> add)
+    {
+        if (Paths.WebConfig(source) is not { } webConfig) return;
+        TransformWebConfig(webConfig, TargetOf(webConfig), name, add);
+        foreach (var folderConfig in Paths.WebConfigs(source).Where(c => !string.Equals(c, webConfig, StringComparison.OrdinalIgnoreCase)))
+            TransformWebConfig(folderConfig, TargetOf(folderConfig), $"{name} {Path.GetRelativePath(source, folderConfig)}", null);
+    }
+
+    // A .NET Framework assembly referenced by name (no HintPath): its package and what .NET Framework's assembly also had,
+    // or reported where .NET has no answer.
+    void AddFrameworkReference(string name, string assembly, Action<Package> add)
+    {
+        var decision = rules.Reference(assembly);
+        if (decision.Package != null) foreach (var p in decision.Companions.Prepend(decision.Package)) add(p);
+        else if (decision.NoAnswer) report.Add(Report.Kind.Unsupported, name, $"{assembly} has no .NET counterpart");
+    }
+
+    // A PackageReference's attributes for how the package is referenced (PackageDecisions.AssetsOf): its .NET Framework
+    // asset's (its Reference next to it), or, for .NET Framework build tooling another package depends on (Microsoft.Bcl.Build:
+    // Microsoft.Bcl's), nothing of it used, so that neither this reference nor the dependency imports its targets.
+    IEnumerable<(string Attribute, string Value)> AssetAttributes(string id) => rules.AssetsOf(id) switch
+    {
+        PackageAssets.FrameworkAsset => [("ExcludeAssets", "compile;runtime"), ("GeneratePathProperty", "true")],
+        PackageAssets.Inert => [("ExcludeAssets", "all"), ("PrivateAssets", "all")],
+        _ => [],
+    };
+
+    // In an SDK-style project: a PackageReference referenced as AssetAttributes says, the Reference to its .NET Framework
+    // asset after it.
+    void ApplyAssets(XElement reference, string id, string name)
+    {
+        foreach (var (attribute, value) in AssetAttributes(id)) reference.SetAttributeValue(attribute, value);
+        if (rules.AssetsOf(id) != PackageAssets.FrameworkAsset) return;
+        var asset = rules.FrameworkAssets[id].Asset;
+        reference.AddAfterSelf(new XElement(reference.Name.Namespace + "Reference", new XAttribute("Include", Path.GetFileNameWithoutExtension(asset)),
+            new XElement(reference.Name.Namespace + "HintPath", FrameworkAssetPath(id, asset))));
+        ReportFrameworkAsset(name, id);
+    }
 
     /// <summary>The projects converted: C# and Visual Basic (an SDK-style project of the same language).</summary>
     public static bool IsConvertible(string project) =>
@@ -202,9 +294,9 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
     public static List<string> WcfServices(string directory)
     {
         var services = Directory.EnumerateFiles(directory, "*.svc", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive, RecurseSubdirectories = true })
-            .Select(f => Path.GetRelativePath(directory, f).Replace('\\', '/'))
-            .Where(f => !Regex.IsMatch(f, @"^(bin|obj)/", RegexOptions.IgnoreCase)).ToList();
-        var config = Directory.EnumerateFiles(directory, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault();
+            .Where(f => !Paths.InBuildOutput(directory, f))
+            .Select(f => Path.GetRelativePath(directory, f).Replace('\\', '/')).ToList();
+        var config = Paths.WebConfig(directory);
         if (config != null)
         {
             try
@@ -232,7 +324,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
     // ------------------------------------------------------------------------------------------
     // Old-style (.NET Framework) projects: a new SDK-style project file with the original's items.
 
-    ConvertedProject ConvertOld(string projectPath, string name, XDocument old, bool isWeb, List<string> projectReferences, List<(string Assembly, string Dll)> deployed)
+    ConvertedProject ConvertOld(string projectPath, string name, XDocument old, bool isWeb, bool copyLocal, List<string> projectReferences, List<(string Assembly, string Dll)> deployed)
     {
         var source = Path.GetDirectoryName(projectPath)!;
         var targetPath = TargetOf(projectPath);
@@ -276,22 +368,9 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         void AddPackage(Package p) => packages.TryAdd(p.Id, p.Version);
         void AddListed(string id, string version)
         {
-            if (LanguagePackage(id, name)) return;
-            if (rules.ShimPackages.TryGetValue(id, out var shim))
-            {
-                report.Add(Report.Kind.Project, name, $"{id} {version}: replaced by its shim ({shim})");
-                return;
-            }
-            if (rules.IsDropped(id, version))
-            {
-                report.Add(Report.Kind.Project, name, $"{id} {version}: dropped (in .NET, or listed in droppedPackages)");
-                return;
-            }
-            var package = rules.ReplacedPackages.TryGetValue(id, out var replaced) ? replaced : new Package(id, version);
-            if (replaced != null && replaced.Id.Equals(id, StringComparison.OrdinalIgnoreCase) && PackageRaises.Note(id, version, replaced.Version) is { } raisedNote)
-                report.Add(Report.Kind.Raised, name, raisedNote + $" (replaced by {replaced.Id} {replaced.Version}: replacedPackages)");
+            if (Listed(name, id, version) is not { Package: { } package } decision) return;
             packages[package.Id] = package.Version;
-            if (rules.PackageCompanions.TryGetValue(id, out var companions)) foreach (var c in companions) AddPackage(c);
+            foreach (var c in decision.Companions) AddPackage(c);
         }
         var config = Path.Combine(source, "packages.config");
         if (File.Exists(config))
@@ -302,18 +381,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         {
             AddListed((string)p.Attribute("Include")!, (string?)p.Attribute("Version") ?? p.Element(msbuild + "Version")?.Value ?? "*");
         }
-        if (isWeb) foreach (var id in rules.WebPackages) AddPackage(new Package(id, rules.FrameworkOnCoreVersion));
-        // WCF's services the site has (.svc files, web.config's serviceActivations): served by CoreWCF in the application's host
-        // (FrameworkOnCore.ServiceModel; Program.cs calls it), as IIS's WCF activation served them, when that is the choice.
-        if (isWeb && WcfServices(source) is { Count: > 0 } services)
-        {
-            if (rules.IsChosen("wcf-server:corewcf"))
-            {
-                AddPackage(new Package("FrameworkOnCore.ServiceModel", rules.FrameworkOnCoreVersion));
-                report.Add(Report.Kind.Project, name, $"WCF services ({string.Join(", ", services.Take(6))}{(services.Count > 6 ? ", ..." : "")}): served by CoreWCF (FrameworkOnCore.ServiceModel), as web.config configures them");
-            }
-            else report.Add(Report.Kind.Unsupported, name, $"WCF services ({string.Join(", ", services.Take(6))}{(services.Count > 6 ? ", ..." : "")}): not served (wcf-server: none)");
-        }
+        if (isWeb) AddWebPackages(name, source, AddPackage);
 
         var binaryReferences = deployed.Select(d => (d.Assembly, HintPath: Paths.FromProject(target, d.Dll), Aliases: (string?)null)).ToList();
         var builtReferences = new List<string>();
@@ -348,42 +416,24 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
                 if (!File.Exists(dll)) { report.Add(Report.Kind.Project, name, $"{assembly}: HintPath to a file that is not there ({hint}), left out as MSBuild does"); continue; }
                 // A DLL checked into the repository of a package that has a .NET answer (nopCommerce's AjaxControlToolkit 4.1,
                 // which .NET's ASP.NET AJAX refuses): that package, as for a package reference.
-                if (rules.ReplacedPackages.TryGetValue(assembly, out var replacement))
+                if (rules.InRepository(assembly) is { Package: { } replacement } inRepository)
                 {
                     packages[replacement.Id] = replacement.Version;
-                    if (rules.PackageCompanions.TryGetValue(assembly, out var companions)) foreach (var c in companions) AddPackage(c);
+                    foreach (var c in inRepository.Companions) AddPackage(c);
                     report.Add(Report.Kind.Project, name, $"{assembly}: a DLL in the repository ({hint}), replaced by the package {replacement.Id} {replacement.Version} (replacedPackages)");
                     continue;
                 }
                 // A DLL checked into the repository: referenced where it is.
                 binaryReferences.Add((assembly, hint, reference.Element(msbuild + "Aliases")?.Value));
             }
-            else if (rules.FrameworkReferences.TryGetValue(assembly, out var package))
-            {
-                AddPackage(package);
-                if (rules.FrameworkCompanions.TryGetValue(assembly, out var companions)) foreach (var c in companions) AddPackage(c);
-            }
-            else if (rules.NoAnswer.Contains(assembly))
-            {
-                report.Add(Report.Kind.Unsupported, name, $"{assembly} has no .NET counterpart");
-            }
+            else AddFrameworkReference(name, assembly, AddPackage);
         }
 
-        // The assemblies web.config names for page compilation are loaded by name at run time; the ones
-        // .NET does not ship need their package, or the configuration itself fails.
-        var webConfig = isWeb ? Directory.EnumerateFiles(source, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault() : null;
-        if (webConfig != null)
-        {
-            TransformWebConfig(webConfig, TargetOf(webConfig), name, AddPackage);
-            // The folders' (nopCommerce's Administration registers controls of an assembly .NET does not have).
-            foreach (var folderConfig in Directory.EnumerateFiles(source, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive, RecurseSubdirectories = true })
-                         .Where(c => !string.Equals(c, webConfig, StringComparison.OrdinalIgnoreCase) && !Regex.IsMatch(Path.GetRelativePath(source, c), @"^(bin|obj)[\\/]", RegexOptions.IgnoreCase)))
-                TransformWebConfig(folderConfig, TargetOf(folderConfig), $"{name} {Path.GetRelativePath(source, folderConfig)}", null);
-        }
+        if (isWeb) TransformWebConfigs(name, source, AddPackage);
 
         AddSourcePackages(name, compile.Select(c => Path.Combine(source, c)), AddPackage);
         var preserialized = HasNonStringResources(embedded.Select(e => Path.Combine(source, e)));
-        if (preserialized) AddPackage(ResourcesExtensions);
+        if (preserialized) AddPackage(rules.ResourcesPackage);
         var usesWebFormsForCore = isWeb || packages.Keys.Any(k => k.StartsWith("FrameworkOnCore.", StringComparison.OrdinalIgnoreCase));
 
         // The project file.
@@ -437,13 +487,8 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
             Prop("IntermediateOutputPath", "$(BaseIntermediateOutputPath)$(Configuration)\\$(TargetFramework.ToLowerInvariant())\\");
             Prop("StartupObject", "Program");
             Prop("EnableDefaultContentItems", "false");
-            foreach (var (property, value) in appProperties)
-            {
-                Prop(property, value);
-                report.Add(Report.Kind.Project, name, $"{property}={value} (a package the application uses needs it: sourcePackages)");
-            }
         }
-        else if (CopyLocalProjects.Contains(projectPath))
+        else if (copyLocal)
         {
             Prop("CopyLocalLockFileAssemblies", "true");
         }
@@ -475,16 +520,15 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         text.Append("  </ItemGroup>\n\n  <ItemGroup>\n");
         foreach (var (id, version) in packages)
         {
-            if (rules.FrameworkAssets.TryGetValue(id, out var asset))
+            text.Append($"    <PackageReference Include=\"{id}\" Version=\"{version}\"");
+            foreach (var (attribute, value) in AssetAttributes(id)) text.Append($" {attribute}=\"{value}\"");
+            text.Append(" />\n");
+            if (rules.AssetsOf(id) == PackageAssets.FrameworkAsset)
             {
-                text.Append($"    <PackageReference Include=\"{id}\" Version=\"{version}\" ExcludeAssets=\"compile;runtime\" GeneratePathProperty=\"true\" />\n");
-                text.Append($"    <Reference Include=\"{Path.GetFileNameWithoutExtension(asset.Asset)}\" HintPath=\"{FrameworkAssetPath(id, asset.Asset)}\" />\n");
-                report.Add(Report.Kind.Project, name, $"{id}: its .NET Framework asset ({asset.Asset}), as the site ran it: {asset.Note}");
+                var asset = rules.FrameworkAssets[id].Asset;
+                text.Append($"    <Reference Include=\"{Path.GetFileNameWithoutExtension(asset)}\" HintPath=\"{FrameworkAssetPath(id, asset)}\" />\n");
+                ReportFrameworkAsset(name, id);
             }
-            // .NET Framework build tooling another package depends on (Microsoft.Bcl.Build: Microsoft.Bcl's): referenced
-            // with nothing of it used, so that neither this reference nor the dependency imports its targets.
-            else if (rules.InertPackages.Contains(id)) text.Append($"    <PackageReference Include=\"{id}\" Version=\"{version}\" ExcludeAssets=\"all\" PrivateAssets=\"all\" />\n");
-            else text.Append($"    <PackageReference Include=\"{id}\" Version=\"{version}\" />\n");
         }
         foreach (var (assembly, hint, referenceAliases) in binaryReferences)
         {
@@ -578,7 +622,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
 
         report.Add(Report.Kind.Project, name, $"{compile.Count} files, {packages.Count} packages, {binaryReferences.Count} DLLs -> {Path.GetRelativePath(outRoot, targetPath)}");
         return new ConvertedProject(name, projectPath, targetPath, isWeb, defines.Concat(ConfigurationSymbols(visualBasic)).Distinct().ToList(), assemblyName,
-            CodePage: codePage ?? SourceEncodingFallback);
+            CodePage: codePage ?? SourceEncodingFallback, Packages: packages.Keys.ToList());
     }
 
     // ------------------------------------------------------------------------------------------
@@ -586,7 +630,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
     // netstandard target next to it could not reference the projects that became net10.0 (NU1201).
     // Conditions on the .NET Framework target are rewritten to it. Framework references become packages.
 
-    ConvertedProject ConvertSdk(string projectPath, string name, XDocument project)
+    ConvertedProject ConvertSdk(string projectPath, string name, XDocument project, bool isWeb)
     {
         var targetPath = TargetOf(projectPath);
         var target = Path.GetDirectoryName(targetPath)!;
@@ -636,47 +680,33 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
             if (reference.Elements().Any(e => e.Name.LocalName == "HintPath")) continue;
             var assembly = ((string?)reference.Attribute("Include") ?? "").Split(',')[0].Trim();
             // In the reference's place: its ItemGroup's condition stays with it.
-            if (rules.FrameworkReferences.TryGetValue(assembly, out var package) && !HasPackage(package.Id)) reference.AddBeforeSelf(PackageElement(package));
-            else if (rules.NoAnswer.Contains(assembly)) report.Add(Report.Kind.Unsupported, name, $"{assembly} has no .NET counterpart");
+            AddFrameworkReference(name, assembly, p => { if (!HasPackage(p.Id)) reference.AddBeforeSelf(PackageElement(p)); });
             reference.Remove();
         }
         foreach (var reference in Elements(project, "PackageReference"))
         {
             var id = (string?)reference.Attribute("Include") ?? "";
-            if (rules.DroppedPackages.Contains(id)) { reference.Remove(); continue; }
-            if (LanguagePackage(id, name)) { reference.Remove(); continue; }
-            if (rules.InertPackages.Contains(id)) { reference.SetAttributeValue("ExcludeAssets", "all"); reference.SetAttributeValue("PrivateAssets", "all"); continue; }
-            if (rules.ShimPackages.TryGetValue(id, out var shim))
+            var version = ProjectFile.VersionOf(reference);
+            var decision = Listed(name, id, version);
+            if (decision.Package is not { } package)
             {
-                report.Add(Report.Kind.Project, name, $"{id}: replaced by its shim ({shim})");
                 reference.Remove();
                 continue;
             }
-            if (rules.ReplacedPackages.TryGetValue(id, out var replaced))
+            if (decision.Fate == PackageFate.Replaced)
             {
                 // Two packages replaced by the same one (Microsoft.AspNet.WebApi and .WebApi.WebHost): referenced once. Not
                 // this one itself, replaced by its own id at another version (Newtonsoft.Json 13.0.4: YAF.Types lost it).
-                if (Elements(project, "PackageReference").Any(p => p != reference && string.Equals((string?)p.Attribute("Include"), replaced.Id, StringComparison.OrdinalIgnoreCase)))
+                if (Elements(project, "PackageReference").Any(p => p != reference && string.Equals((string?)p.Attribute("Include"), package.Id, StringComparison.OrdinalIgnoreCase)))
                 {
                     reference.Remove();
                     continue;
                 }
-                if ((string?)reference.Attribute("Version") is { } before && replaced.Id.Equals(id, StringComparison.OrdinalIgnoreCase) && PackageRaises.Note(id, before, replaced.Version) is { } raisedNote)
-                    report.Add(Report.Kind.Raised, name, raisedNote + $" (replaced by {replaced.Id} {replaced.Version}: replacedPackages)");
-                reference.SetAttributeValue("Include", replaced.Id);
-                if (reference.Attribute("Version") != null) reference.SetAttributeValue("Version", replaced.Version);
-                if (rules.PackageCompanions.TryGetValue(id, out var companions))
-                    foreach (var c in companions.Where(c => !HasPackage(c.Id)))
-                        reference.AddAfterSelf(new XElement(N("PackageReference"), new XAttribute("Include", c.Id), new XAttribute("Version", c.Version)));
+                reference.SetAttributeValue("Include", package.Id);
+                if (version != null) ProjectFile.SetVersion(reference, package.Version);
             }
-            if (rules.FrameworkAssets.TryGetValue(id, out var asset))
-            {
-                reference.SetAttributeValue("ExcludeAssets", "compile;runtime");
-                reference.SetAttributeValue("GeneratePathProperty", "true");
-                reference.AddAfterSelf(new XElement(N("Reference"), new XAttribute("Include", Path.GetFileNameWithoutExtension(asset.Asset)),
-                    new XElement(N("HintPath"), FrameworkAssetPath(id, asset.Asset))));
-                report.Add(Report.Kind.Project, name, $"{id}: its .NET Framework asset ({asset.Asset}), as the site ran it: {asset.Note}");
-            }
+            foreach (var c in decision.Companions.Reverse().Where(c => !HasPackage(c.Id))) reference.AddAfterSelf(PackageElement(c));
+            ApplyAssets(reference, package.Id, name);
         }
         // Deployment steps copying build output into the site (XCOPY ...): Windows commands, and the
         // converted projects reach each other by ProjectReference.
@@ -688,18 +718,24 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
 
         var added = new ItemsToAdd();
         var directory = Path.GetDirectoryName(projectPath)!;
-        var sources = Directory.EnumerateFiles(directory, IsVisualBasic(projectPath) ? "*.vb" : "*.cs", SearchOption.AllDirectories)
-            .Where(f => !Regex.IsMatch(Path.GetRelativePath(directory, f), @"(^|[\\/])(bin|obj)[\\/]", RegexOptions.IgnoreCase));
-        AddSourcePackages(name, sources, p => { if (!HasPackage(p.Id)) added.Add(p); });
-        var preserialized = HasNonStringResources(Directory.EnumerateFiles(directory, "*.resx", SearchOption.AllDirectories)
-            .Where(f => !Regex.IsMatch(Path.GetRelativePath(directory, f), @"(^|[\\/])(bin|obj)[\\/]", RegexOptions.IgnoreCase)));
-        if (preserialized && !HasPackage(ResourcesExtensions.Id)) added.Add(ResourcesExtensions);
+        var sources = Paths.SourceFiles(directory, IsVisualBasic(projectPath) ? "*.vb" : "*.cs");
+        void Add(Package p) { if (!HasPackage(p.Id)) added.Add(p); }
+        // A web project, as an old-style one: FrameworkOnCore's web packages, CoreWCF's for its services, web.config's assemblies.
+        if (isWeb)
+        {
+            AddWebPackages(name, directory, Add);
+            TransformWebConfigs(name, directory, Add);
+        }
+        AddSourcePackages(name, sources, Add);
+        var preserialized = HasNonStringResources(Paths.SourceFiles(directory, "*.resx"));
+        if (preserialized) Add(rules.ResourcesPackage);
         // Its sources' code page: the project's, or the machine's the original build read them in (on Linux there is none).
         var projectCodePage = ParseCodePage(Elements(project, "CodePage").LastOrDefault()?.Value);
         var codePage = SourcesCodePage(name, sources, projectCodePage);
         if (codePage != null) root.Add(new XElement(N("PropertyGroup"), new XElement(N("CodePage"), codePage.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))));
         var itemGroup = new XElement(N("ItemGroup"), added.Items.Select(PackageElement));
         if (itemGroup.HasElements) root.Add(itemGroup);
+        foreach (var reference in itemGroup.Elements().ToList()) ApplyAssets(reference, (string)reference.Attribute("Include")!, name);
         // As the old-style projects: the shims (types and members .NET Framework had).
         root.Add(new XElement(N("ItemGroup"), runtime.ShimProjects.Select(s => new XElement(N("ProjectReference"), new XAttribute("Include", Paths.FromProject(target, s)),
             RuntimeSetup.ForDllsOnly(s)
@@ -727,9 +763,10 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         // Built for .NET too (netstandard, netcoreapp, net5+): its code runs on Linux as it is, and what it does with
         // Windows' separators is meant (Lucene.Net: a backslash is refused in a name on every platform).
         var crossPlatform = frameworks.Any(f => Regex.IsMatch(f, @"^(netstandard|netcoreapp|net[5-9]\.|net\d\d\.)"));
-        return new ConvertedProject(name, projectPath, targetPath, false, defines.Concat(frameworkSymbols).Concat(ConfigurationSymbols(false)).Distinct().ToList(),
+        return new ConvertedProject(name, projectPath, targetPath, isWeb, defines.Concat(frameworkSymbols).Concat(ConfigurationSymbols(false)).Distinct().ToList(),
             Elements(project, "AssemblyName").FirstOrDefault()?.Value ?? name, crossPlatform, ImplicitFrameworkDefines: netfx.Count == 0,
-            CodePage: projectCodePage ?? codePage ?? SourceEncodingFallback);
+            CodePage: projectCodePage ?? codePage ?? SourceEncodingFallback,
+            Packages: Elements(project, "PackageReference").Select(p => (string?)p.Attribute("Include")).OfType<string>().ToList());
     }
 
     // What the SDK defines for the configuration (C#: TRACE, and DEBUG for Debug; Visual Basic's are its own: DEBUG=-1,
@@ -793,9 +830,8 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
 
     // The pages, user controls, handlers and App_Code of a web project: the code the server compiles.
     static IEnumerable<string> PageFiles(string directory) =>
-        Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories)
-            .Where(f => Path.GetExtension(f).ToLowerInvariant() is ".aspx" or ".ascx" or ".master" or ".ashx" or ".asmx" or ".asax" or ".cs" or ".vb")
-            .Where(f => !f.Contains(Path.DirectorySeparatorChar + "bin" + Path.DirectorySeparatorChar) && !f.Contains(Path.DirectorySeparatorChar + "obj" + Path.DirectorySeparatorChar));
+        Paths.SourceFiles(directory, "*.*")
+            .Where(f => Path.GetExtension(f).ToLowerInvariant() is ".aspx" or ".ascx" or ".master" or ".ashx" or ".asmx" or ".asax" or ".cs" or ".vb");
 
     // Visual Basic's My: a desktop application's (MyType Windows, WindowsForms, Console: My.Application, My.Computer, My.User)
     // is in .NET's Windows desktop only (Microsoft.VisualBasic.Forms); the compiler's My template would name its types, in no
@@ -812,10 +848,8 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
     }
 
     // Resources that are not strings (images, icons: <data type="..."> or mimetype) are embedded
-    // serialized; .NET's build does that with System.Resources.Extensions, which reads them at run
-    // time (MSB3822 without it).
-    static readonly Package ResourcesExtensions = new("System.Resources.Extensions", "10.0.0");
-
+    // serialized; .NET's build does that with System.Resources.Extensions (preserializedResourcesPackage), which reads
+    // them at run time (MSB3822 without it).
     static bool HasNonStringResources(IEnumerable<string> files) =>
         files.Where(f => f.EndsWith(".resx", StringComparison.OrdinalIgnoreCase) && File.Exists(f)).Any(f =>
         {
@@ -828,12 +862,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
             catch (System.Xml.XmlException) { return false; }
         });
 
-    /// <summary>
-    /// The deployed site's bin (--site). A project this converter does not convert (VB) is referenced by
-    /// the assembly its build put there, as it is: a .NET Framework assembly, which .NET loads (its
-    /// System.Web is the runtime's).
-    /// </summary>
-    public string? DeployedBin { get; set; }
+    string? DeployedBin => deployedBin;
 
     // Copied into the output (.deployed), referenced from there: null without a deployed site, or
     // without that assembly in it.
@@ -861,9 +890,22 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         public void Add(Package p) { if (!Items.Any(i => i.Id.Equals(p.Id, StringComparison.OrdinalIgnoreCase))) Items.Add(p); }
     }
 
-    // The web project's properties a used package needs (sourcePackages' appProperties): the projects it references are
-    // converted before it, so it has those of every project.
+    // The web project's properties a used package needs (sourcePackages' appProperties), whichever project uses it: written
+    // once every project is converted (WriteApplicationProperties).
     readonly SortedDictionary<string, string> appProperties = new(StringComparer.Ordinal);
+
+    /// <summary>The properties packages the application uses need (sourcePackages' appProperties: a runtime setting, set on
+    /// the application the runtime runs), into the web project: those of every converted project, the ones built on their
+    /// own too. Once every project is converted.</summary>
+    public void WriteApplicationProperties(ConvertedProject web)
+    {
+        if (appProperties.Count == 0 || web.Kept) return;
+        var file = ProjectFile.Load(web.TargetPath);
+        file.AddProperties(appProperties.Select(p => (p.Key, p.Value)));
+        file.Save();
+        foreach (var (property, value) in appProperties)
+            report.Add(Report.Kind.Project, web.Name, $"{property}={value} (a package the application uses needs it: sourcePackages)");
+    }
 
     // What .NET Framework had in its own assemblies and .NET ships as packages: added when used.
     void AddSourcePackages(string name, IEnumerable<string> files, Action<Package> add)

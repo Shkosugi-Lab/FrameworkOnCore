@@ -67,7 +67,7 @@ public sealed partial class BuildFixer
             .OrderByDescending(m => m.Key.Length).Select(m => ((string, string, string)?)(m.Key, m.Value, m.Note)).FirstOrDefault();
 
     // The moves in a C# file: the names rewritten, the aliases added. True when the file changed.
-    bool FixMoves(string file, List<BuildError> errors)
+    internal bool FixMoves(string file, List<BuildError> errors)
     {
         var source = FrameworkOnCore.Analysis.SourceFile.Read(file, CodePageFor(file));
         var original = source.Text;

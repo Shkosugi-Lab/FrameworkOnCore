@@ -164,7 +164,7 @@ public static class RuntimeSetup
     {
         var shims = Path.Combine(runtimeDirectory, "shims");
         return Directory.Exists(shims)
-            ? Directory.GetFiles(shims, "*.csproj", SearchOption.AllDirectories).Where(f => !Regex.IsMatch(f, @"[\\/](bin|obj)[\\/]")).ToList()
+            ? Directory.GetFiles(shims, "*.csproj", SearchOption.AllDirectories).Where(f => !Paths.InBuildOutput(shims, f)).ToList()
             : [];
     }
 

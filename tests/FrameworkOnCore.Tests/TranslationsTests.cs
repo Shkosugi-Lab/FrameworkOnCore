@@ -80,7 +80,7 @@ public class TranslationsTests
                 File.WriteAllText(Path.Combine(bin, "ja", assembly + ".resources.dll"), "");
             var packages = new Dictionary<string, SortedSet<string>>();
             if (hadPackage) packages["ja"] = new SortedSet<string> { "System.Web.Mvc" };
-            FrameworkOnCore.Converter.LanguagePacks.Write(bin, null, "translations", "en,ja", "none", new FrameworkOnCore.Converter.Report(), packages);
+            FrameworkOnCore.Converter.LanguagePacks.Write(bin, null, "translations", "en,ja", "none", new FrameworkOnCore.Converter.Report(), RewriteHarness.Rules.PackageTranslated, packages);
             Assert.True(File.Exists(Path.Combine(bin, "ja", "System.Web.resources.dll")));
             Assert.Equal(hadPackage, File.Exists(Path.Combine(bin, "ja", "System.Web.Mvc.resources.dll")));
             Assert.False(File.Exists(Path.Combine(bin, "ja", "System.Web.Http.resources.dll")));

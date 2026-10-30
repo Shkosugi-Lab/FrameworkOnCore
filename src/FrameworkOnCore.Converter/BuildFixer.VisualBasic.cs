@@ -14,81 +14,34 @@ namespace FrameworkOnCore.Converter;
 /// </summary>
 public sealed partial class BuildFixer
 {
-    bool FixVisualBasic(string file, List<BuildError> errors)
+    // The type whose Inherits or Implements statement a node is (or is in): its name.
+    static string? TypeOfBaseVisualBasic(SyntaxNode node) =>
+        node.AncestorsAndSelf().Any(a => a is VBS.InheritsOrImplementsStatementSyntax) && node.FirstAncestorOrSelf<VBS.TypeBlockSyntax>() is { } declared
+            ? declared.BlockStatement.Identifier.ValueText : null;
+
+    // A Visual Basic fix but a removal (FixFile's), made and reported.
+    SyntaxNode EditVisualBasic(SyntaxNode newRoot, SyntaxNode node, Fix_ fix, string subject)
     {
-        var source = FrameworkOnCore.Analysis.SourceFile.Read(file, CodePageFor(file));
-        var original = source.Text;
-        var text = SourceText.From(original);
-        var root = SourceLanguage.VisualBasic.Parse(text, file, SymbolsFor(file)).GetRoot();
-
-        var fixes = new List<Fix_>();
-        foreach (var error in errors.DistinctBy(e => (e.Line, e.Column, e.Code)))
+        switch (fix.Action)
         {
-            var reason = $"{error.Code}: {error.Message}";
-            var key = $"{file}|{error.Line}|{error.Code}";
-            attempts[key] = attempts.GetValueOrDefault(key) + 1;
-            if (error.Line < 1 || error.Line > text.Lines.Count || attempts[key] > 2)
-            {
-                fixes.Add(new Fix_(Action.ExcludeFile, root, reason));
-                continue;
-            }
-            var position = Math.Min(text.Lines[error.Line - 1].Start + error.Column - 1, Math.Max(0, text.Length - 1));
-            fixes.Add(DecideVisualBasic(root, root.FindToken(position).Parent ?? root, error, reason));
+            case Action.RemoveOverride:
+                var method = (VBS.MethodBaseSyntax)node;
+                var kept = method.Modifiers.Where(m => !m.IsKind(VB.SyntaxKind.OverridesKeyword) && !m.IsKind(VB.SyntaxKind.NotOverridableKeyword)).ToList();
+                if (kept.Count > 0 && method.Modifiers.Count > 0) kept[0] = kept[0].WithLeadingTrivia(method.Modifiers[0].LeadingTrivia);
+                report.Add(Report.Kind.Stub, subject, $"'Overrides' removed: the member it overrode is not in .NET ({fix.Reason})");
+                return newRoot.ReplaceNode(node, method.WithModifiers(VB.SyntaxFactory.TokenList(kept)));
+            case Action.StubBody:
+                Stubbed(subject, $"body throws PlatformNotSupportedException ({fix.Reason})", fix.Reason);
+                return newRoot.ReplaceNode(node, StubBodyVisualBasic((VBS.MethodBlockBaseSyntax)node, fix.Reason));
+            case Action.RemoveInitializer:
+                Stubbed(subject, $"initializer removed ({fix.Reason})", fix.Reason);
+                return newRoot.ReplaceNode(node, ((VBS.VariableDeclaratorSyntax)node).WithInitializer(null));
+            case Action.LateBound:
+                report.Add(Report.Kind.Stub, subject, $"called late-bound, as .NET Framework did: an extension method .NET added has the member's name, and late binding does not see extension methods ({fix.Reason})");
+                return newRoot.ReplaceNode(node, VB.SyntaxFactory.ParseExpression($"CObj({node.WithoutTrivia()})").WithTriviaFrom(node));
+            default:
+                return newRoot;
         }
-
-        if (fixes.Any(f => f.Action == Action.ExcludeFile))
-        {
-            var reasons = string.Join("; ", fixes.Where(f => f.Action == Action.ExcludeFile).Select(f => f.Reason).Distinct());
-            source.Write(file, $"' Excluded by FrameworkOnCore (the original is in the source tree): {reasons.Replace("\n", " ")}\n");
-            pointed.Remove(file);
-            Stubbed(Relative(file), $"file excluded: {reasons}", reasons);
-            return true;
-        }
-
-        // Nested fixes: the outermost one does.
-        var targets = fixes.GroupBy(f => f.Node).Select(g => g.First()).ToList();
-        targets = targets.Where(f => !targets.Any(o => o != f && o.Node != f.Node && o.Node.Span.Contains(f.Node.Span) &&
-                                                         (o.Action == Action.RemoveNode || o.Action == Action.StubBody))).ToList();
-        var annotations = targets.ToDictionary(f => f.Node, f => new SyntaxAnnotation("fix"));
-        var newRoot = root.ReplaceNodes(annotations.Keys, (o, r) => r.WithAdditionalAnnotations(annotations[o]));
-
-        foreach (var fix in targets)
-        {
-            var node = newRoot.GetAnnotatedNodes(annotations[fix.Node]).First();
-            var subject = $"{Relative(file)}:{text.Lines.GetLineFromPosition(fix.Node.SpanStart).LineNumber + 1} {DescribeVisualBasic(fix.Node)}";
-            switch (fix.Action)
-            {
-                case Action.RemoveNode:
-                    newRoot = newRoot.RemoveNode(node, SyntaxRemoveOptions.KeepDirectives | SyntaxRemoveOptions.KeepEndOfLine)!;
-                    Stubbed(subject, $"removed ({fix.Reason})", fix.Reason);
-                    break;
-                case Action.RemoveOverride:
-                    var method = (VBS.MethodBaseSyntax)node;
-                    var kept = method.Modifiers.Where(m => !m.IsKind(VB.SyntaxKind.OverridesKeyword) && !m.IsKind(VB.SyntaxKind.NotOverridableKeyword)).ToList();
-                    if (kept.Count > 0 && method.Modifiers.Count > 0) kept[0] = kept[0].WithLeadingTrivia(method.Modifiers[0].LeadingTrivia);
-                    newRoot = newRoot.ReplaceNode(node, method.WithModifiers(VB.SyntaxFactory.TokenList(kept)));
-                    report.Add(Report.Kind.Stub, subject, $"'Overrides' removed: the member it overrode is not in .NET ({fix.Reason})");
-                    break;
-                case Action.StubBody:
-                    newRoot = newRoot.ReplaceNode(node, StubBodyVisualBasic((VBS.MethodBlockBaseSyntax)node, fix.Reason));
-                    Stubbed(subject, $"body throws PlatformNotSupportedException ({fix.Reason})", fix.Reason);
-                    break;
-                case Action.RemoveInitializer:
-                    newRoot = newRoot.ReplaceNode(node, ((VBS.VariableDeclaratorSyntax)node).WithInitializer(null));
-                    Stubbed(subject, $"initializer removed ({fix.Reason})", fix.Reason);
-                    break;
-                case Action.LateBound:
-                    newRoot = newRoot.ReplaceNode(node, VB.SyntaxFactory.ParseExpression($"CObj({node.WithoutTrivia()})").WithTriviaFrom(node));
-                    report.Add(Report.Kind.Stub, subject, $"called late-bound, as .NET Framework did: an extension method .NET added has the member's name, and late binding does not see extension methods ({fix.Reason})");
-                    break;
-            }
-        }
-
-        var result = newRoot.ToFullString();
-        if (result == original) return false;
-        source.Write(file, result);
-        pointed.Remove(file);
-        return true;
     }
 
     Fix_ DecideVisualBasic(SyntaxNode root, SyntaxNode node, BuildError error, string reason)

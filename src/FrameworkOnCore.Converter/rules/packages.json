@@ -218,6 +218,39 @@
     "WindowsAzure.Storage": { "asset": "lib/net45/Microsoft.WindowsAzure.Storage.dll", "note": "net45 has the synchronous API (CloudBlockBlob.Exists, UploadFromByteArray, CloudBlobContainer.CreateIfNotExists, ListBlobs); netstandard1.x has only the asynchronous one (nopCommerce 3.90's AzurePictureService)" }
   },
 
+  "$comment_packageFamilies": "Packages released together, whose assemblies call each other's members of their own version: one version in a project, the highest of them (mojoPortal had Microsoft.IdentityModel.Tokens 8.19.1 with JsonWebTokens 8.16.0: MissingMethodException). An id, or a prefix ending in *.",
+  "packageFamilies": [
+    [ "Microsoft.IdentityModel.*", "System.IdentityModel.Tokens.Jwt" ]
+  ],
+  "$comment_packageRaises": "A package the conversion moves to a higher major version (a restore's downgrade raised, NU1605; a replacement): reported (PackageRaises) but for growing (an id, or a prefix ending in *: their majors keep what the earlier had); notes: what changes across the package's majors; changes: what changed at a version, said when the raise crosses it (from below it to it or above).",
+  "packageRaises": {
+    "growing": [
+      "Microsoft.Extensions.*", "System.*", "Microsoft.Bcl.*", "Microsoft.CSharp*", "Microsoft.Win32.*", "Microsoft.NETCore.*",
+      "Microsoft.CodeAnalysis.*", "Microsoft.Owin*", "Owin*", "FrameworkOnCore.*", "Microsoft.AspNet.*", "Microsoft.Web.Infrastructure*",
+      "Microsoft.CodeDom.Providers.*", "Microsoft.Build.*"
+    ],
+    "notes": {
+      "System.IdentityModel.Tokens.Jwt": "from 5.0 its types are in System.IdentityModel.Tokens.Jwt and Microsoft.IdentityModel.Tokens (4.x: System.IdentityModel.Tokens); the other Microsoft.IdentityModel.* packages must be of the same version",
+      "Microsoft.IdentityModel.Tokens": "the Microsoft.IdentityModel.* packages must be of the same version (MissingMethodException otherwise)",
+      "Microsoft.IdentityModel.JsonWebTokens": "the Microsoft.IdentityModel.* packages must be of the same version (MissingMethodException otherwise)",
+      "Microsoft.IdentityModel.Logging": "the Microsoft.IdentityModel.* packages must be of the same version (MissingMethodException otherwise)",
+      "Microsoft.IdentityModel.Abstractions": "the Microsoft.IdentityModel.* packages must be of the same version (MissingMethodException otherwise)",
+      "EntityFramework": "EF 4.1-4.3's DbDatabase is EF 6's Database; the converter moves EF 4's namespaces (System.Data.Objects -> System.Data.Entity.Core.Objects), not that"
+    },
+    "changes": {
+      "Newtonsoft.Json": [
+        { "version": "4.5", "change": "dates are written in ISO 8601 (before 4.5: \\/Date(...)\\/)" },
+        { "version": "13", "change": "a JSON deeper than 64 levels is refused (MaxDepth, from 13)" }
+      ]
+    }
+  },
+  "$comment_routingPackages": "Packages that route URLs (an id, or a prefix ending in *): the web project with one serves extensionless URLs, every request handed to Web Forms (HostProgram).",
+  "routingPackages": [ "Microsoft.AspNet.FriendlyUrls*" ],
+  "$comment_preserializedResourcesPackage": "Resources that are not strings (images, icons) are embedded serialized; .NET's build does that with this package, which reads them at run time (MSB3822 without it).",
+  "preserializedResourcesPackage": [ "System.Resources.Extensions", "10.0.0" ],
+  "$comment_notDrawing": "Assemblies in a site that reference System.Drawing without drawing (DeployWriter: the deployment installs fonts for the ones that draw): System.Drawing's own; FrameworkOnCore's ports (System.Web's and the mobile controls' references are its types', Color and the like; the mobile controls draw only the font names a designer's property grid lists); .NET's System.Windows.Extensions (in every site, a dependency of the configuration's packages: its System.Drawing members are Windows' certificate dialogs and sounds).",
+  "notDrawing": [ "System.Drawing", "System.Drawing.Common", "System.Web", "System.Web.Extensions", "System.Web.DynamicData", "System.Web.Mobile", "System.Web.Services", "System.Windows.Forms", "System.Windows.Extensions" ],
+
   "$comment_memberReplacements": "Members .NET removed that an extension member cannot give back (enum members, static members found before extensions, static members of static classes): the use is rewritten where the compiler says (CS0117, CS1929), to the given expression.",
   "memberReplacements": [
     { "type": "AssemblyBuilderAccess", "member": "RunAndSave", "replacement": "System.Reflection.Emit.AssemblyBuilderAccess.Run", "note": ".NET's dynamic assemblies are not saved (RunAndSave saved them to look at them): Run" },

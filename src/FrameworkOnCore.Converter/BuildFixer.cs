@@ -21,7 +21,7 @@ namespace FrameworkOnCore.Converter;
 /// </summary>
 public sealed partial class BuildFixer(Report report, IReadOnlyCollection<ConvertedProject> projects, string outRoot, Rules rules)
 {
-    sealed record BuildError(string? File, int Line, int Column, string Code, string Message, string? Project);
+    internal sealed record BuildError(string? File, int Line, int Column, string Code, string Message, string? Project);
 
     static readonly Regex sourceError = new(@"^(?<file>.+?)\((?<line>\d+),(?<col>\d+)\): error (?<code>\w+): (?<msg>.*?)(?: \[(?<proj>[^\]]+)\])?$", RegexOptions.Compiled);
     static readonly Regex otherError = new(@"error (?<code>\w+): (?<msg>.*?)(?: \[(?<proj>[^\]]+)\])?$", RegexOptions.Compiled);
@@ -75,7 +75,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         foreach (var ((project, id), (from, to)) in raised)
         {
             report.Add(Report.Kind.Project, project, $"{id} raised {from} -> {to} (NU1605)");
-            if (PackageRaises.Note(id, from, to) is { } note) report.Add(Report.Kind.Raised, project, note + " (raised for another package that needs it: NU1605)");
+            if (rules.Raises.Note(id, from, to) is { } note) report.Add(Report.Kind.Raised, project, note + " (raised for another package that needs it: NU1605)");
         }
         foreach (var (key, message) in obsoletions) report.Add(Report.Kind.Unsupported, key, message);
         return result;
@@ -86,7 +86,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
     FrameworkIndex? frameworkIndex;
     bool frameworkIndexLoaded;
     StubCauses? stubCauses;
-    StubCauses Causes => stubCauses ??= new StubCauses(() =>
+    internal StubCauses Causes => stubCauses ??= new StubCauses(() =>
     {
         if (!frameworkIndexLoaded) (frameworkIndex, frameworkIndexLoaded) = (FrameworkIndex.Load(), true);
         return frameworkIndex;
@@ -100,7 +100,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
     }
 
     // What the build pointed at, file by file (SourceEdits: one pass, in the file's language).
-    bool Rewrite()
+    internal bool Rewrite()
     {
         var changed = false;
         var constants = new Dictionary<(string Name, SourceLanguage Language), bool>();
@@ -138,13 +138,20 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         return changed;
     }
 
+    /// <summary>A place the build pointed at for a rewrite (Rewrite).</summary>
+    internal void Point(string file, Pointed place)
+    {
+        if (!pointed.TryGetValue(file, out var places)) pointed[file] = places = new();
+        places[(place.Code, place.Line, place.Column)] = place;
+    }
+
     // Whether the name is used where only a constant can be, in any of the converted sources of the language (by
     // name: a same-named member elsewhere counts too).
     bool UsedAsConstant(string name, SourceLanguage language)
     {
         foreach (var file in Directory.EnumerateFiles(outRoot, "*.*", SearchOption.AllDirectories))
         {
-            if (SourceLanguage.For(file) != language || Regex.IsMatch(file, @"[\\/](obj|bin)[\\/]")) continue;
+            if (SourceLanguage.For(file) != language || Paths.InBuildOutput(outRoot, file)) continue;
             var source = SourceEncoding.ReadText(file, CodePageFor(file));
             if (!source.Contains(name, StringComparison.OrdinalIgnoreCase)) continue;
             if (language.UsedAsConstant(language.Parse(SourceText.From(source), file, SymbolsFor(file)).GetRoot(), name)) return true;
@@ -194,7 +201,6 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         projects.Where(p => IsUnder(file, Path.GetDirectoryName(p.TargetPath)!)).OrderByDescending(p => p.TargetPath.Length).FirstOrDefault()?.CodePage
         ?? SourceEncoding.MachineCodePage;
 
-    CSharpParseOptions ParseOptionsFor(string file) => new(LanguageVersion.Preview, preprocessorSymbols: SymbolsFor(file));
     bool RunRounds(string webProject, int maxRounds)
     {
         RaiseDowngrades(webProject);
@@ -207,7 +213,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
             // The compiler's errors in the sources: C#'s (CS) in .cs files, Visual Basic's (BC) in .vb files.
             var fixable = errors.Where(e => e.File != null && SourceLanguage.For(e.File) is { } language &&
                                             e.Code.StartsWith(language == SourceLanguage.CSharp ? "CS" : "BC", StringComparison.Ordinal) && IsUnder(e.File, outRoot) &&
-                                            !Regex.IsMatch(e.File, @"[\\/]obj[\\/]")).ToList();
+                                            !Paths.InBuildOutput(outRoot, e.File)).ToList();
             var host = fixable.Where(e => HostFiles.Any(h => Path.GetFullPath(h).Equals(Path.GetFullPath(e.File!), StringComparison.OrdinalIgnoreCase))).ToList();
             if (host.Count > 0)
             {
@@ -235,7 +241,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
             var changed = false;
             var before = report.Entries.Count(e => e.Kind == Report.Kind.Stub);
             foreach (var file in fixable.GroupBy(e => e.File!, StringComparer.OrdinalIgnoreCase))
-                changed |= SourceLanguage.For(file.Key) == SourceLanguage.VisualBasic ? FixVisualBasic(file.Key, file.ToList()) : Fix(file.Key, file.ToList());
+                changed |= FixFile(file.Key, file.ToList());
             Console.WriteLine($"  {report.Entries.Count(e => e.Kind == Report.Kind.Stub) - before} change(s) in {fixable.Select(e => e.File).Distinct(StringComparer.OrdinalIgnoreCase).Count()} file(s)");
             if (!changed)
             {
@@ -291,10 +297,8 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
             var w = pointedAt.Match(line);
             if (w.Success)
             {
-                var file = w.Groups["file"].Value.Trim();
                 var place = Pointed.From(w.Groups["code"].Value, int.Parse(w.Groups["line"].Value), int.Parse(w.Groups["col"].Value), w.Groups["msg"].Value);
-                if (!pointed.TryGetValue(file, out var places)) pointed[file] = places = new();
-                places[(place.Code, place.Line, place.Column)] = place;
+                Point(w.Groups["file"].Value.Trim(), place);
                 if (place.Code.StartsWith("FOC", StringComparison.Ordinal)) continue;
             }
             var o = obsoletion.Match(line);
@@ -318,13 +322,6 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
 
     static Version ParseVersion(string version) => Version.TryParse(Regex.Match(version, @"^\d+(\.\d+){0,3}").Value, out var v) ? v : new Version(0, 0);
 
-    // Packages released together, whose assemblies call each other's members of their own version: one version in a
-    // project (mojoPortal had Microsoft.IdentityModel.Tokens 8.19.1 with JsonWebTokens 8.16.0: MissingMethodException).
-    static readonly Func<string, bool>[] families =
-    [
-        id => id.StartsWith("Microsoft.IdentityModel.", StringComparison.OrdinalIgnoreCase) || id.Equals("System.IdentityModel.Tokens.Jwt", StringComparison.OrdinalIgnoreCase),
-    ];
-
     void RaiseDowngrades(string webProject)
     {
         for (var pass = 0; pass < 3; pass++)
@@ -335,29 +332,30 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
     }
 
     // A family's packages in a project at the highest version among them (restore raises the rest after).
-    bool AlignFamilies()
+    internal bool AlignFamilies()
     {
-        var reference = new Regex("<PackageReference Include=\"(?<id>[^\"]+)\" Version=\"(?<version>[^\"]+)\"");
         var changed = false;
         foreach (var project in projects)
         {
-            var text = File.ReadAllText(project.TargetPath);
-            var original = text;
-            var found = reference.Matches(text).Select(m => (Id: m.Groups["id"].Value, Version: m.Groups["version"].Value)).ToList();
-            foreach (var inFamily in families)
+            var file = ProjectFile.Load(project.TargetPath);
+            var found = file.PackageReferences().Where(p => p.Version != null).ToList();
+            var edited = false;
+            // Packages released together, whose assemblies call each other's members of their own version (packageFamilies).
+            foreach (var family in rules.PackageFamilies)
             {
-                var members = found.Where(p => inFamily(p.Id)).ToList();
+                var members = found.Where(p => family.Any(f => Rules.IdMatches(f, p.Id))).ToList();
                 if (members.Select(m => m.Version).Distinct().Count() < 2) continue;
-                var highest = members.Select(m => m.Version).OrderByDescending(ParseVersion).First();
-                foreach (var (id, version) in members.Where(m => m.Version != highest))
+                var highest = members.Select(m => m.Version!).OrderByDescending(ParseVersion).First();
+                foreach (var (element, id, version) in members.Where(m => m.Version != highest))
                 {
-                    text = text.Replace($"<PackageReference Include=\"{id}\" Version=\"{version}\"", $"<PackageReference Include=\"{id}\" Version=\"{highest}\"");
-                    var key = (project.Name, id);
-                    raised[key] = (raised.TryGetValue(key, out var before) ? before.From : version, highest);
-                    changed = true;
+                    ProjectFile.SetVersion(element, highest);
+                    Raised(project.Name, id, version!, highest);
+                    edited = true;
                 }
             }
-            if (text != original) File.WriteAllText(project.TargetPath, text, new UTF8Encoding(false));
+            if (!edited) continue;
+            file.Save();
+            changed = true;
         }
         return changed;
     }
@@ -375,21 +373,30 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
             if (found.Count == 0) return;
             var changed = false;
             foreach (var (id, from, to) in found)
-            {
                 foreach (var project in projects)
-                {
-                    var text = File.ReadAllText(project.TargetPath);
-                    var pattern = $"(<PackageReference Include=\"{Regex.Escape(id)}\" Version=\"){Regex.Escape(to)}\"";
-                    if (!Regex.IsMatch(text, pattern)) continue;
-                    File.WriteAllText(project.TargetPath, Regex.Replace(text, pattern, "${1}" + from + "\""), new UTF8Encoding(false));
-                    // Reported once, from the project's version to the last one (Run).
-                    var key = (project.Name, id);
-                    raised[key] = (raised.TryGetValue(key, out var before) ? before.From : to, from);
-                    changed = true;
-                }
-            }
+                    changed |= RaiseVersion(project, id, to, from);
             if (!changed) return;
         }
+    }
+
+    /// <summary>A package's PackageReferences in a project at a version raised to another (NuGet's ids without regard to
+    /// case; the version where the reference has it, attribute or element). True when the project had it.</summary>
+    internal bool RaiseVersion(ConvertedProject project, string id, string version, string to)
+    {
+        var file = ProjectFile.Load(project.TargetPath);
+        var references = file.PackageReferences().Where(p => p.Id.Equals(id, StringComparison.OrdinalIgnoreCase) && p.Version == version).ToList();
+        if (references.Count == 0) return false;
+        foreach (var reference in references) ProjectFile.SetVersion(reference.Element, to);
+        file.Save();
+        Raised(project.Name, id, version, to);
+        return true;
+    }
+
+    // Reported once, from the project's version to the last one (Run).
+    void Raised(string project, string id, string from, string to)
+    {
+        var key = (project, id);
+        raised[key] = (raised.TryGetValue(key, out var before) ? before.From : from, to);
     }
 
     // ------------------------------------------------------------------------------------------
@@ -404,16 +411,26 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
 
     sealed record Fix_(Action Action, SyntaxNode Node, string Reason, string? Alias = null);
 
-    bool Fix(string file, List<BuildError> errors)
+    // A language's part of a file's fixes: how an error is decided on, a node described, an edit but a removal made in its
+    // syntax, the type whose base a node names (C#: here; Visual Basic: BuildFixer.VisualBasic.cs). The rest is FixFile's.
+    sealed record FixSyntax(string Comment, Func<SyntaxNode, SyntaxNode, BuildError, string, Fix_> Decide, Func<SyntaxNode, string> Describe,
+        Func<SyntaxNode, string?> TypeOfBase, Func<SyntaxNode, SyntaxNode, Fix_, string, SyntaxNode> Edit);
+
+    FixSyntax SyntaxOf(SourceLanguage language) => language == SourceLanguage.VisualBasic
+        ? new("'", DecideVisualBasic, DescribeVisualBasic, TypeOfBaseVisualBasic, EditVisualBasic)
+        : new("//", Decide, Describe, TypeOfBase, Edit);
+
+    // The build's errors in a source file (C# or Visual Basic), fixed: each decided on where it is (the language's Decide),
+    // the outermost of nested fixes made, the file excluded when an error cannot be fixed or stays after two attempts.
+    // True when the file changed.
+    internal bool FixFile(string file, List<BuildError> errors)
     {
-        var project = projects.Where(p => IsUnder(file, Path.GetDirectoryName(p.TargetPath)!))
-            .OrderByDescending(p => p.TargetPath.Length).FirstOrDefault();
-        var symbols = Symbols(project);
+        var language = SourceLanguage.For(file)!;
+        var syntax = SyntaxOf(language);
         var source = SourceFile.Read(file, CodePageFor(file));
         var original = source.Text;
         var text = SourceText.From(original);
-        var tree = CSharpSyntaxTree.ParseText(text, new CSharpParseOptions(LanguageVersion.Preview, preprocessorSymbols: symbols), file);
-        var root = tree.GetCompilationUnitRoot();
+        var root = language.Parse(text, file, SymbolsFor(file)).GetRoot();
 
         var fixes = new List<Fix_>();
         foreach (var error in errors.DistinctBy(e => (e.Line, e.Column, e.Code)))
@@ -427,13 +444,13 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
                 continue;
             }
             var position = Math.Min(text.Lines[error.Line - 1].Start + error.Column - 1, Math.Max(0, text.Length - 1));
-            fixes.Add(Decide(root, root.FindToken(position).Parent ?? root, error, reason));
+            fixes.Add(syntax.Decide(root, root.FindToken(position).Parent ?? root, error, reason));
         }
 
         if (fixes.Any(f => f.Action == Action.ExcludeFile))
         {
             var reasons = string.Join("; ", fixes.Where(f => f.Action == Action.ExcludeFile).Select(f => f.Reason).Distinct());
-            source.Write(file, $"// Excluded by FrameworkOnCore (the original is in the source tree): {reasons.Replace("\n", " ")}\n");
+            source.Write(file, $"{syntax.Comment} Excluded by FrameworkOnCore (the original is in the source tree): {reasons.Replace("\n", " ")}\n");
             pointed.Remove(file);
             Stubbed(Relative(file), $"file excluded: {reasons}", reasons);
             return true;
@@ -444,56 +461,24 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         targets = targets.Where(f => !targets.Any(o => o != f && o.Node != f.Node && o.Node.Span.Contains(f.Node.Span) &&
                                                          (o.Action == Action.RemoveNode || o.Action == Action.StubBody))).ToList();
         var annotations = targets.ToDictionary(f => f.Node, f => new SyntaxAnnotation("fix"));
-        SyntaxNode newRoot = root.ReplaceNodes(annotations.Keys, (o, r) => r.WithAdditionalAnnotations(annotations[o]));
+        var newRoot = root.ReplaceNodes(annotations.Keys, (o, r) => r.WithAdditionalAnnotations(annotations[o]));
 
         foreach (var fix in targets)
         {
             var node = newRoot.GetAnnotatedNodes(annotations[fix.Node]).First();
-            var subject = $"{Relative(file)}:{text.Lines.GetLineFromPosition(fix.Node.SpanStart).LineNumber + 1} {Describe(fix.Node)}";
-            switch (fix.Action)
+            var subject = $"{Relative(file)}:{text.Lines.GetLineFromPosition(fix.Node.SpanStart).LineNumber + 1} {syntax.Describe(fix.Node)}";
+            if (fix.Action != Action.RemoveNode)
             {
-                case Action.RemoveNode:
-                    // A base .NET has not: the type's missing members follow from it (StubCauses).
-                    if (fix.Node is BaseTypeSyntax or BaseListSyntax && fix.Node.FirstAncestorOrSelf<BaseTypeDeclarationSyntax>() is { } declared && Causes.FromConversion(fix.Reason) == null)
-                        Causes.TypesWithoutBase.Add(declared.Identifier.ValueText);
-                    newRoot = newRoot.RemoveNode(node, SyntaxRemoveOptions.KeepDirectives | SyntaxRemoveOptions.KeepEndOfLine)!;
-                    Stubbed(subject, $"removed ({fix.Reason})", fix.Reason);
-                    break;
-                case Action.RemoveOverride:
-                    var member = (MemberDeclarationSyntax)node;
-                    var modifiers = TokenList(member.Modifiers.Where(m => !m.IsKind(SyntaxKind.OverrideKeyword) && !m.IsKind(SyntaxKind.SealedKeyword)));
-                    newRoot = newRoot.ReplaceNode(node, member.WithModifiers(modifiers.Count == 0 ? modifiers : modifiers.Replace(modifiers[0], modifiers[0].WithLeadingTrivia(member.Modifiers[0].LeadingTrivia))));
-                    report.Add(Report.Kind.Stub, subject, $"'override' removed: the member it overrode is not in .NET ({fix.Reason})");
-                    break;
-                case Action.StubBody:
-                    newRoot = newRoot.ReplaceNode(node, StubBody(node, fix.Reason));
-                    Stubbed(subject, $"body throws PlatformNotSupportedException ({fix.Reason})", fix.Reason);
-                    break;
-                case Action.RemoveInitializer:
-                    newRoot = newRoot.ReplaceNode(node, node switch
-                    {
-                        VariableDeclaratorSyntax v => v.WithInitializer(null),
-                        PropertyDeclarationSyntax p => p.WithInitializer(null).WithSemicolonToken(default),
-                        _ => node,
-                    });
-                    Stubbed(subject, $"initializer removed ({fix.Reason})", fix.Reason);
-                    break;
-                case Action.ReplaceMember:
-                    newRoot = newRoot.ReplaceNode(node, ParseExpression("global::" + fix.Alias).WithTriviaFrom(node));
-                    report.Add(Report.Kind.Stub, subject, $"{node} -> {fix.Alias} ({fix.Reason})");
-                    break;
-                case Action.ExplicitExtension:
-                    var call = (InvocationExpressionSyntax)node;
-                    var access = (MemberAccessExpressionSyntax)call.Expression;
-                    newRoot = newRoot.ReplaceNode(node, InvocationExpression(
-                            MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, ParseExpression("global::" + fix.Alias), access.Name.WithoutTrivia()),
-                            ArgumentList(call.ArgumentList.Arguments.Insert(0, Argument(access.Expression.WithoutTrivia()))))
-                        .WithTriviaFrom(call));
-                    report.Add(Report.Kind.Stub, subject, $"the application's {fix.Alias}.{access.Name} called explicitly ({fix.Reason})");
-                    break;
+                newRoot = syntax.Edit(newRoot, node, fix, subject);
+                continue;
             }
+            // A base .NET has not: the type's missing members follow from it (StubCauses).
+            if (syntax.TypeOfBase(fix.Node) is { } declared && Causes.FromConversion(fix.Reason) == null) Causes.TypesWithoutBase.Add(declared);
+            newRoot = newRoot.RemoveNode(node, SyntaxRemoveOptions.KeepDirectives | SyntaxRemoveOptions.KeepEndOfLine)!;
+            Stubbed(subject, $"removed ({fix.Reason})", fix.Reason);
         }
 
+        // Using aliases (C#'s, CS0104), once the nodes are edited.
         foreach (var alias in fixes.Where(f => f.Action == Action.Alias).DistinctBy(f => f.Alias))
         {
             newRoot = AddAlias((CompilationUnitSyntax)newRoot, alias.Node, alias.Alias!);
@@ -506,6 +491,47 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         // The places the build pointed at in it have moved: its project builds again, and points at them again.
         pointed.Remove(file);
         return true;
+    }
+
+    // The type whose base list a node is (or is in): its name.
+    static string? TypeOfBase(SyntaxNode node) =>
+        node is BaseTypeSyntax or BaseListSyntax && node.FirstAncestorOrSelf<BaseTypeDeclarationSyntax>() is { } declared ? declared.Identifier.ValueText : null;
+
+    // A C# fix but a removal (FixFile's), made and reported.
+    SyntaxNode Edit(SyntaxNode newRoot, SyntaxNode node, Fix_ fix, string subject)
+    {
+        switch (fix.Action)
+        {
+            case Action.RemoveOverride:
+                var member = (MemberDeclarationSyntax)node;
+                var modifiers = TokenList(member.Modifiers.Where(m => !m.IsKind(SyntaxKind.OverrideKeyword) && !m.IsKind(SyntaxKind.SealedKeyword)));
+                report.Add(Report.Kind.Stub, subject, $"'override' removed: the member it overrode is not in .NET ({fix.Reason})");
+                return newRoot.ReplaceNode(node, member.WithModifiers(modifiers.Count == 0 ? modifiers : modifiers.Replace(modifiers[0], modifiers[0].WithLeadingTrivia(member.Modifiers[0].LeadingTrivia))));
+            case Action.StubBody:
+                Stubbed(subject, $"body throws PlatformNotSupportedException ({fix.Reason})", fix.Reason);
+                return newRoot.ReplaceNode(node, StubBody(node, fix.Reason));
+            case Action.RemoveInitializer:
+                Stubbed(subject, $"initializer removed ({fix.Reason})", fix.Reason);
+                return newRoot.ReplaceNode(node, node switch
+                {
+                    VariableDeclaratorSyntax v => v.WithInitializer(null),
+                    PropertyDeclarationSyntax p => p.WithInitializer(null).WithSemicolonToken(default),
+                    _ => node,
+                });
+            case Action.ReplaceMember:
+                report.Add(Report.Kind.Stub, subject, $"{node} -> {fix.Alias} ({fix.Reason})");
+                return newRoot.ReplaceNode(node, ParseExpression("global::" + fix.Alias).WithTriviaFrom(node));
+            case Action.ExplicitExtension:
+                var call = (InvocationExpressionSyntax)node;
+                var access = (MemberAccessExpressionSyntax)call.Expression;
+                report.Add(Report.Kind.Stub, subject, $"the application's {fix.Alias}.{access.Name} called explicitly ({fix.Reason})");
+                return newRoot.ReplaceNode(node, InvocationExpression(
+                        MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, ParseExpression("global::" + fix.Alias), access.Name.WithoutTrivia()),
+                        ArgumentList(call.ArgumentList.Arguments.Insert(0, Argument(access.Expression.WithoutTrivia()))))
+                    .WithTriviaFrom(call));
+            default:
+                return newRoot;
+        }
     }
 
     Fix_ Decide(SyntaxNode root, SyntaxNode node, BuildError error, string reason)

@@ -63,18 +63,7 @@ public static class IisFeatures
 
     static IEnumerable<string> WebConfigs(string siteDirectory)
     {
-        if (!Directory.Exists(siteDirectory)) yield break;
-        var skip = new[] { "bin", "obj", "node_modules", "packages", ".git", ".vs" };
-        var pending = new Stack<string>();
-        pending.Push(siteDirectory);
-        while (pending.Count > 0)
-        {
-            var folder = pending.Pop();
-            foreach (var file in Directory.EnumerateFiles(folder))
-                if (Path.GetFileName(file).Equals("web.config", StringComparison.OrdinalIgnoreCase)) yield return file;
-            foreach (var sub in Directory.EnumerateDirectories(folder))
-                if (!skip.Contains(Path.GetFileName(sub), StringComparer.OrdinalIgnoreCase)) pending.Push(sub);
-        }
+        return Directory.Exists(siteDirectory) ? Paths.WebConfigs(siteDirectory, "node_modules", "packages", ".git", ".vs") : [];
     }
 
     static IEnumerable<XElement> Children(XElement element, string name) => element.Elements().Where(e => e.Name.LocalName == name);
@@ -234,7 +223,7 @@ public static class IisFeatures
         foreach (var (pattern, label) in new[] { ("*.asp", "classic ASP"), ("*.shtml", "server-side includes"), ("*.php", "PHP (FastCGI)") })
         {
             var files = Directory.EnumerateFiles(siteDirectory, pattern, SearchOption.AllDirectories)
-                .Where(f => !f.Contains(Path.DirectorySeparatorChar + "bin" + Path.DirectorySeparatorChar) && !f.Contains(Path.DirectorySeparatorChar + "obj" + Path.DirectorySeparatorChar)).Take(1000).ToList();
+                .Where(f => !Paths.InBuildOutput(siteDirectory, f)).Take(1000).ToList();
             if (files.Count > 0)
                 findings.Add(new Finding($"{label} ({pattern})", Status.Unsupported, $"{files.Count} file(s), e.g. {Path.GetRelativePath(siteDirectory, files[0]).Replace('\\', '/')}", "not run (IIS ran them with its own handlers)"));
         }

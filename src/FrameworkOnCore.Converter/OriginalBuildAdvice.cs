@@ -57,7 +57,7 @@ public static partial class OriginalBuildAdvice
             reasons.Add(english ? "the web project's build makes web.config by a transform (TransformXml)" : "Web プロジェクトのビルドが web.config を変換して作る(TransformXml)");
         if (CopiesInto(own, web, root, web) is { } ownCopy)
             reasons.Add(english ? $"the web project's post-build copies files ({ownCopy})" : $"Web プロジェクトのビルド後の処理がファイルをコピーする({ownCopy})");
-        if (!Directory.EnumerateFiles(web, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).Any())
+        if (Paths.WebConfig(web) == null)
             reasons.Add(english ? "the web project's folder has no web.config (the build makes it)" : "Web プロジェクトのフォルダーに web.config が無い(ビルドで作られる)");
 
         // A build file of the repository's own, at its root or in its build folder (when no Cake build was found).
@@ -129,7 +129,7 @@ public static partial class OriginalBuildAdvice
 
     static IEnumerable<string> Files(string root, string pattern) =>
         Directory.EnumerateFiles(root, pattern, new EnumerationOptions { RecurseSubdirectories = true, IgnoreInaccessible = true })
-            .Where(f => !Regex.IsMatch(f, @"[\\/](node_modules|packages|bin|obj|\.git)[\\/]", RegexOptions.IgnoreCase));
+            .Where(f => !Paths.InFolder(root, f, "node_modules", "packages", "bin", "obj", ".git"));
 
     static string Text(string file)
     {

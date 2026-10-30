@@ -13,21 +13,19 @@ public static class FrameworkAssetsFlow
 {
     public static void Apply(IReadOnlyCollection<ConvertedProject> projects, Rules rules, Report report)
     {
-        var documents = new Dictionary<string, XDocument>(StringComparer.OrdinalIgnoreCase);
+        var documents = new Dictionary<string, ProjectFile>(StringComparer.OrdinalIgnoreCase);
         foreach (var p in projects.Where(p => !p.Kept && File.Exists(p.TargetPath)))
         {
-            try { documents[Path.GetFullPath(p.TargetPath)] = XDocument.Load(p.TargetPath, LoadOptions.PreserveWhitespace); }
+            try { documents[Path.GetFullPath(p.TargetPath)] = ProjectFile.Load(p.TargetPath); }
             catch (System.Xml.XmlException) { }
         }
-        static IEnumerable<XElement> Items(XDocument d, string name) => d.Descendants().Where(e => e.Name.LocalName == name);
 
         // The packages each project takes the .NET Framework asset of: id -> version.
         var assets = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase);
         foreach (var (path, document) in documents)
-            foreach (var reference in Items(document, "PackageReference"))
-                if ((string?)reference.Attribute("Include") is { } id && rules.FrameworkAssets.ContainsKey(id) &&
-                    ((string?)reference.Attribute("ExcludeAssets") ?? "").Contains("compile", StringComparison.OrdinalIgnoreCase) &&
-                    (string?)reference.Attribute("Version") is { } version)
+            foreach (var (reference, id, version) in document.PackageReferences())
+                if (rules.AssetsOf(id) == PackageAssets.FrameworkAsset && version != null &&
+                    ((string?)reference.Attribute("ExcludeAssets") ?? "").Contains("compile", StringComparison.OrdinalIgnoreCase))
                 {
                     if (!assets.TryGetValue(path, out var own)) assets[path] = own = new(StringComparer.OrdinalIgnoreCase);
                     own[id] = version;
@@ -35,7 +33,7 @@ public static class FrameworkAssetsFlow
         if (assets.Count == 0) return;
 
         // The converted projects each one references ($(MSBuildThisFileDirectory) as written by the converter).
-        var references = documents.ToDictionary(d => d.Key, d => Items(d.Value, "ProjectReference")
+        var references = documents.ToDictionary(d => d.Key, d => d.Value.Items("ProjectReference")
             .Select(r => (string?)r.Attribute("Include"))
             .Where(i => i != null)
             .Select(i => Path.GetFullPath(Path.Combine(Path.GetDirectoryName(d.Key)!, ProjectConverter.Native(i!.Replace("$(MSBuildThisFileDirectory)", "")))))
@@ -44,7 +42,7 @@ public static class FrameworkAssetsFlow
 
         foreach (var (path, document) in documents)
         {
-            if (Items(document, "DisableTransitiveProjectReferences").Any(e => e.Value.Trim().Equals("true", StringComparison.OrdinalIgnoreCase))) continue;
+            if (document.Items("DisableTransitiveProjectReferences").Any(e => e.Value.Trim().Equals("true", StringComparison.OrdinalIgnoreCase))) continue;
             // Everything it references, through the others too.
             var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             var pending = new Stack<string>(references[path]);
@@ -57,11 +55,10 @@ public static class FrameworkAssetsFlow
             foreach (var other in seen)
                 if (assets.TryGetValue(other, out var own))
                     foreach (var (id, version) in own) needed.TryAdd(id, version);
-            var have = Items(document, "PackageReference").Select(r => (string?)r.Attribute("Include")).Where(i => i != null).ToHashSet(StringComparer.OrdinalIgnoreCase);
+            var have = document.PackageReferences().Select(r => r.Id).ToHashSet(StringComparer.OrdinalIgnoreCase);
             var added = needed.Where(n => !have.Contains(n.Key)).ToList();
             if (added.Count == 0) continue;
-            var root = document.Root!;
-            XName N(string local) => root.Name.Namespace + local;
+            XName N(string local) => document.Name(local);
             var group = new XElement(N("ItemGroup"));
             foreach (var (id, version) in added)
             {
@@ -73,8 +70,8 @@ public static class FrameworkAssetsFlow
                 report.Add(Report.Kind.Project, Path.GetFileNameWithoutExtension(path),
                     $"{id}: its .NET Framework asset ({asset.Asset}) here too, as a project it references takes it (an SDK-style project sees its references' packages)");
             }
-            root.Add(group);
-            document.Save(path);
+            document.Document.Root!.Add(group);
+            document.Save();
         }
     }
 }

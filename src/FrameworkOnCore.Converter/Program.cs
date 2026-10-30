@@ -178,10 +178,9 @@ BuildConfiguration.Write(outRoot, configuration ?? BuildConfiguration.Default, r
 if (cultureProfile == null && deployKinds is "container" or "linux" or "both")
     cultureProfile = CultureCapture.FromThisMachine(project, runtimeDirectory, outRoot, report);
 
-var converter = new ProjectConverter(rules, report, new Conditions(configuration ?? BuildConfiguration.Default, "AnyCPU", report), sourceRoot, outRoot, runtime);
-if (site != null) converter.DeployedBin = Path.Combine(site, "bin");
+var converter = new ProjectConverter(rules, report, new Conditions(configuration ?? BuildConfiguration.Default, "AnyCPU", report), sourceRoot, outRoot, runtime,
+    deployedBin: site != null ? Path.Combine(site, "bin") : null);
 var web = converter.Convert(project, isWeb: true);
-WriteHost(web);
 
 // With the deployed site: the assemblies in its bin built from the repository's projects are part of
 // the application, referenced by the web project or not (mojoPortal's features reference the web
@@ -197,11 +196,15 @@ if (site != null)
             continue;
         }
         if (converter.Converted.Any(c => c.SourcePath.Equals(member, StringComparison.OrdinalIgnoreCase))) continue;
-        converter.CopyLocalProjects.Add(member);
-        others.Add(converter.Convert(member, isWeb: false));
+        others.Add(converter.Convert(member, isWeb: false, copyLocal: true));
         report.Add(Report.Kind.Project, assembly, $"in the deployed site, built by {Path.GetFileName(member)} which the web project does not reference: converted and built on its own");
     }
 }
+
+// Once every project is converted: the properties the packages any of them uses need, on the web project; its host
+// (Program.cs), which looks for routes in all of them.
+converter.WriteApplicationProperties(web);
+WriteHost(web);
 
 // A package taken as its .NET Framework asset is so for the projects that see it through another one too.
 FrameworkAssetsFlow.Apply(converter.Converted, rules, report);
@@ -243,16 +246,13 @@ if (build && succeeded)
         var packages = new List<Package>();
         foreach (var (assembly, by) in missing)
         {
-            var package = rules.FrameworkReferences[assembly];
-            packages.Add(package);
-            if (rules.FrameworkCompanions.TryGetValue(assembly, out var companions)) packages.AddRange(companions);
-            report.Add(Report.Kind.Project, "bin", $"{assembly} referenced by {string.Join(", ", by.Distinct())} (no project references it): its package {package.Id} added");
+            var decision = rules.Reference(assembly);
+            packages.AddRange(decision.Companions.Prepend(decision.Package!));
+            report.Add(Report.Kind.Project, "bin", $"{assembly} referenced by {string.Join(", ", by.Distinct())} (no project references it): its package {decision.Package!.Id} added");
         }
-        var webProject = System.Xml.Linq.XDocument.Load(web.TargetPath, System.Xml.Linq.LoadOptions.PreserveWhitespace);
-        webProject.Root!.Add(new System.Xml.Linq.XElement(webProject.Root.Name.Namespace + "ItemGroup",
-            packages.DistinctBy(p => p.Id).Select(p => new System.Xml.Linq.XElement(webProject.Root.Name.Namespace + "PackageReference",
-                new System.Xml.Linq.XAttribute("Include", p.Id), new System.Xml.Linq.XAttribute("Version", p.Version)))));
-        webProject.Save(web.TargetPath);
+        var webProject = ProjectFile.Load(web.TargetPath);
+        webProject.AddPackageReferences(packages.DistinctBy(p => p.Id));
+        webProject.Save();
         Console.WriteLine("packages for the DLLs' framework references added: building again");
         var (missingExit, missingOutput) = BuildFixer.Dotnet($"build \"{buildTarget}\" -nologo -v q", buildLog);
         if (missingExit != 0)
@@ -291,8 +291,8 @@ if (build && succeeded)
         File.WriteAllLines(Path.Combine(siteBin, "frameworkoncore.platform.txt"), rules.PlatformReplacements.Select(r => $"{r.Line}|{r.Replace}|{r.Replacement}"), new UTF8Encoding(false));
     // System.Web's texts in the language packs' languages, as on the original server (component language-packs).
     if (Directory.Exists(siteBin))
-        LanguagePacks.Write(siteBin, cultureProfile, choices.OptionOf(catalog, "language-packs") ?? "translations", choices.SettingOf(catalog, "languages"), deployKinds, report, converter.LanguagePackageCultures);
-    new DeployWriter(report, outRoot, runtimeDirectory).Write(deployKinds, deployedSite, web, cultureProfile, caseInsensitive.Value);
+        LanguagePacks.Write(siteBin, cultureProfile, choices.OptionOf(catalog, "language-packs") ?? "translations", choices.SettingOf(catalog, "languages"), deployKinds, report, rules.PackageTranslated, converter.LanguagePackageCultures);
+    new DeployWriter(report, outRoot, runtimeDirectory, rules).Write(deployKinds, deployedSite, web, cultureProfile, caseInsensitive.Value);
 }
 
 var reportPath = Path.Combine(outRoot, "CONVERSION-REPORT.md");
@@ -309,7 +309,7 @@ return succeeded ? 0 : 1;
 // managedHandler precondition (IIS runs those for static files and URLs that are no file too).
 static string? ModulesForAllRequests(string webDirectory)
 {
-    var config = Directory.EnumerateFiles(webDirectory, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault();
+    var config = Paths.WebConfig(webDirectory);
     if (config == null) return null;
     System.Xml.Linq.XElement? modules;
     // By local name: old web.configs have the .NET 2.0 configuration namespace.
@@ -328,13 +328,12 @@ void WriteHost(ConvertedProject web)
 {
     var directory = Path.GetDirectoryName(web.TargetPath)!;
     var visualBasic = ProjectConverter.IsVisualBasic(web.TargetPath);
-    var projectText = File.ReadAllText(web.TargetPath);
-    // Routes registered by the application, in any of its projects (DNN: DotNetNuke.Web's ServicesRoutingManager;
-    // its friendly URLs, /Login, /Terms, are rewritten by a module, for requests that reach it).
-    var routes = projectText.Contains("Microsoft.AspNet.FriendlyUrls", StringComparison.OrdinalIgnoreCase) ||
+    // Routes registered by the application, by a package that routes (routingPackages: FriendlyUrls) or in any of its
+    // projects (DNN: DotNetNuke.Web's ServicesRoutingManager; its friendly URLs, /Login, /Terms, are rewritten by a module,
+    // for requests that reach it).
+    var routes = (web.Packages ?? []).Any(p => rules.RoutingPackages.Any(r => Rules.IdMatches(r, p))) ||
                  converter.Converted.Select(c => Path.GetDirectoryName(c.TargetPath)!).Append(directory).Distinct(StringComparer.OrdinalIgnoreCase)
-                     .SelectMany(d => Directory.EnumerateFiles(d, "*.*", SearchOption.AllDirectories)).Where(f => SourceLanguage.For(f) != null)
-                     .Where(f => !Regex.IsMatch(f, @"[\\/](obj|bin)[\\/]"))
+                     .SelectMany(d => Paths.SourceFiles(d, "*.*")).Where(f => SourceLanguage.For(f) != null)
                      .Any(f => Regex.IsMatch(File.ReadAllText(f), @"RouteTable\.Routes|RouteCollection"));
     var allRequests = false;
     if (routes)
@@ -359,8 +358,7 @@ void WriteHost(ConvertedProject web)
         : $"session state: {sessionMode}, System.Web's own, in the process as on IIS");
     // WCF's services (FrameworkOnCore.ServiceModel: the site has .svc files): CoreWCF before Web Forms, which would take
     // their requests (a site whose every request goes to Web Forms).
-    var serviceModel = projectText.Contains("\"FrameworkOnCore.ServiceModel\"", StringComparison.OrdinalIgnoreCase);
-    var program = HostProgram.Write(visualBasic, allRequests, sessionMode, serviceModel, HostProgram.SessionTimeout(directory));
+    var program = HostProgram.Write(visualBasic, allRequests, sessionMode, web.ServesWcf, HostProgram.SessionTimeout(directory));
     File.WriteAllText(Path.Combine(directory, ProjectConverter.ProgramFile(web.TargetPath)), program, new UTF8Encoding(false));
     // The host's modes for IIS's features (the choices' settings): appsettings.json, where the host reads them and where
     // they can be changed after the conversion (or with environment variables: W3CLogging__Mode ...).

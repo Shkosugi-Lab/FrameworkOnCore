@@ -363,7 +363,7 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
         var candidates = Directory.EnumerateFiles(work, assembly + ".dll", SearchOption.AllDirectories)
             .Where(dll => Path.GetFileName(Path.GetDirectoryName(dll)!).Equals("bin", StringComparison.OrdinalIgnoreCase))
             .Select(dll => (Site: Path.GetDirectoryName(Path.GetDirectoryName(dll))!, Written: File.GetLastWriteTimeUtc(dll)))
-            .Where(c => Directory.EnumerateFiles(c.Site, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).Any())
+            .Where(c => Paths.WebConfig(c.Site) != null)
             // A folder the build deployed to before the web project's own (the copies keep the
             // files' times: which was written last does not tell them apart).
             .OrderBy(c => Path.GetFullPath(c.Site).TrimEnd('\\', '/').Equals(Path.GetDirectoryName(Path.GetFullPath(webProject)), StringComparison.OrdinalIgnoreCase) == preferProjectFolder ? 0 : 1)
@@ -459,7 +459,7 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
 
     static IEnumerable<string> SourceFiles(string root, string pattern) =>
         Directory.EnumerateFiles(root, pattern, SearchOption.AllDirectories)
-            .Where(f => !Regex.IsMatch(f, @"[\\/](node_modules|packages|bin|obj|\.git)[\\/]", RegexOptions.IgnoreCase));
+            .Where(f => !Paths.InFolder(root, f, "node_modules", "packages", "bin", "obj", ".git"));
 
     static bool ReferencesPackage(string project, string package)
     {

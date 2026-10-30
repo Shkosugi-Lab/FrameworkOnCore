@@ -21,7 +21,7 @@ public static class HostProgram
     // mojoPortal has it). By local name: old web.configs have the .NET 2.0 configuration namespace.
     static XElement? SessionState(string webDirectory)
     {
-        var config = Directory.EnumerateFiles(webDirectory, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault();
+        var config = Paths.WebConfig(webDirectory);
         if (config == null) return null;
         try
         {

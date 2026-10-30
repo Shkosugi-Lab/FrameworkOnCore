@@ -66,7 +66,7 @@ public sealed partial class OriginalBuild
         var nuget = EnsureNuGet();
         var solutionDirectory = Path.GetDirectoryName(solution)!;
 
-        foreach (var config in Directory.EnumerateFiles(root, "packages.config", SearchOption.AllDirectories).Where(f => !Regex.IsMatch(f, @"[\\/](node_modules|bin|obj)[\\/]", RegexOptions.IgnoreCase)))
+        foreach (var config in Directory.EnumerateFiles(root, "packages.config", SearchOption.AllDirectories).Where(f => !Paths.InFolder(root, f, "node_modules", "bin", "obj")))
             RunProcess(nuget, $"restore \"{config}\" -PackagesDirectory \"{Path.Combine(solutionDirectory, "packages")}\" -NonInteractive", root, quiet: true);
 
         var sdk = CaptureProcess("dotnet", "--list-sdks", root).Split('\n').Select(l => l.Trim()).Where(l => l.Length > 0).Last();
@@ -99,7 +99,7 @@ public sealed partial class OriginalBuild
     // The solution that builds the web project; of several, the one with the most projects (the whole build).
     static string? FindSolution(string root, string webProject) =>
         Directory.EnumerateFiles(root, "*.sln", SearchOption.AllDirectories)
-            .Where(f => !Regex.IsMatch(f, @"[\\/](node_modules|packages|bin|obj)[\\/]", RegexOptions.IgnoreCase))
+            .Where(f => !Paths.InFolder(root, f, "node_modules", "packages", "bin", "obj"))
             .Select(f => (File: f, Projects: SolutionProjects(f)))
             .Where(s => s.Projects.Any(p => p.Path.Equals(webProject, StringComparison.OrdinalIgnoreCase)))
             .OrderByDescending(s => s.Projects.Count).Select(s => s.File).FirstOrDefault();

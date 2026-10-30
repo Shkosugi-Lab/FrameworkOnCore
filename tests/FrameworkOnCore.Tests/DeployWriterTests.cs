@@ -12,7 +12,7 @@ public class DeployWriterTests : IDisposable
         Directory.CreateDirectory(Path.Combine(root, site));
         var project = Path.Combine(root, "App.csproj");
         File.WriteAllText(project, "<Project><PropertyGroup><AssemblyName>App</AssemblyName></PropertyGroup></Project>");
-        new DeployWriter(new Report(), root, root).Write("container", Path.Combine(root, site), new ConvertedProject("App", project, project, true, []), null, caseInsensitive: false);
+        new DeployWriter(new Report(), root, root, RewriteHarness.Rules).Write("container", Path.Combine(root, site), new ConvertedProject("App", project, project, true, []), null, caseInsensitive: false);
         return File.ReadAllText(Path.Combine(root, ".dockerignore"));
     }
 
@@ -59,7 +59,7 @@ public class DeployWriterTests : IDisposable
         Directory.CreateDirectory(bin);
         File.Copy(mobile, Path.Combine(bin, "System.Web.Mobile.dll"));
         File.Copy(mobile, Path.Combine(bin, "Charts.dll"));   // the same references under another name: an assembly that draws
-        Assert.Equal(["Charts.dll"], DeployWriter.DrawingUsers(root));
+        Assert.Equal(["Charts.dll"], DeployWriter.DrawingUsers(root, RewriteHarness.Rules.NotDrawing));
     }
 
     public void Dispose()

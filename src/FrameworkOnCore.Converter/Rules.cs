@@ -85,6 +85,25 @@ public sealed record Rules
     /// where the build does not find them, the sources name them where they are now (BuildFixer.Moves).
     /// </summary>
     public required IReadOnlyList<MoveGroup> MoveGroups { get; init; }
+    /// <summary>Packages released together, whose assemblies call each other's members of their own version: one version in
+    /// a project (BuildFixer.AlignFamilies). Each an id, or a prefix ending in *.</summary>
+    public IReadOnlyList<IReadOnlyList<string>> PackageFamilies { get; init; } = [];
+    /// <summary>What a package's raise to a higher major version changes (packageRaises).</summary>
+    public PackageRaises Raises { get; init; } = PackageRaises.None;
+    /// <summary>Packages that route URLs (FriendlyUrls): the web project with one hands every request to Web Forms.</summary>
+    public IReadOnlyList<string> RoutingPackages { get; init; } = [];
+    /// <summary>The package that reads resources embedded serialized (images, icons in .resx): System.Resources.Extensions.</summary>
+    public required Package ResourcesPackage { get; init; }
+    /// <summary>Assemblies that reference System.Drawing without drawing (DeployWriter.DrawingUsers).</summary>
+    public IReadOnlySet<string> NotDrawing { get; init; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+    /// <summary>The assemblies Microsoft's language packages translated (languagePackages' assemblies): FrameworkOnCore's
+    /// ports' translations of them are kept only where the application had such a package (LanguagePacks).</summary>
+    public IReadOnlySet<string> PackageTranslated => LanguagePackages.Values.SelectMany(a => a).ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>Whether a package id is the one a rule names: the id (any case), or one starting with a prefix ending in *.</summary>
+    public static bool IdMatches(string pattern, string id) =>
+        pattern.EndsWith('*') ? id.StartsWith(pattern[..^1], StringComparison.OrdinalIgnoreCase) : id.Equals(pattern, StringComparison.OrdinalIgnoreCase);
+
     /// <summary>The options chosen ("component:option", "setting:option"); null: the catalog's defaults.</summary>
     public IReadOnlySet<string>? Chosen { get; init; }
 
@@ -152,11 +171,6 @@ public sealed record Rules
         };
     }
 
-    /// <summary>
-    /// Dropped: listed, or a System.* 4.x package whose assembly .NET 10 has in the box (its reference
-    /// packs). Not every System.* 4.x package is .NET's own: System.IdentityModel.Tokens.Jwt 4.0 is not, and
-    /// dropping it stubbed DNN's JWT authentication.
-    /// </summary>
     /// <summary>A language package (Microsoft.AspNet.Mvc.ja): its culture and the assemblies its satellites are of; null otherwise.</summary>
     public (string Culture, IReadOnlyList<string> Assemblies)? LanguagePackageOf(string id)
     {
@@ -174,6 +188,11 @@ public sealed record Rules
         return null;
     }
 
+    /// <summary>
+    /// Dropped: listed, or a System.* 4.x package whose assembly .NET 10 has in the box (its reference
+    /// packs). Not every System.* 4.x package is .NET's own: System.IdentityModel.Tokens.Jwt 4.0 is not, and
+    /// dropping it stubbed DNN's JWT authentication.
+    /// </summary>
     public bool IsDropped(string id, string version) =>
         DroppedPackages.Contains(id) ||
         (id.StartsWith("System.", StringComparison.Ordinal) && version.StartsWith("4.", StringComparison.Ordinal) && InBox.Value.Contains(id));
@@ -207,6 +226,14 @@ public sealed record Rules
         static string? Optional(JsonElement e, string name) => e.TryGetProperty(name, out var value) ? value.GetString() : null;
         HashSet<string> Set(string name) =>
             root.GetProperty(name).EnumerateArray().Select(e => e.GetString()!).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        static List<string> Strings(JsonElement array) => array.EnumerateArray().Select(e => e.GetString()!).ToList();
+        PackageRaises Raises(JsonElement raises) => new(
+            raises.TryGetProperty("growing", out var growing) ? Strings(growing) : [],
+            raises.TryGetProperty("notes", out var notes) ? notes.EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.OrdinalIgnoreCase) : new Dictionary<string, string>(),
+            raises.TryGetProperty("changes", out var changes)
+                ? changes.EnumerateObject().ToDictionary(p => p.Name, p => (IReadOnlyList<(string, string)>)p.Value.EnumerateArray()
+                    .Select(c => (c.GetProperty("version").GetString()!, c.GetProperty("change").GetString()!)).ToList(), StringComparer.OrdinalIgnoreCase)
+                : new Dictionary<string, IReadOnlyList<(string, string)>>());
 
         return new Rules
         {
@@ -257,6 +284,11 @@ public sealed record Rules
                 g.TryGetProperty("namespaceMoves", out var namespaces) ? namespaces.EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.Ordinal) : new Dictionary<string, string>(),
                 g.TryGetProperty("typeMoves", out var types) ? types.EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.Ordinal) : new Dictionary<string, string>(),
                 g.TryGetProperty("typeMoveOrigins", out var origins) ? origins.EnumerateArray().Select(e => e.GetString()!).ToList() : [])).ToList(),
+            PackageFamilies = root.TryGetProperty("packageFamilies", out var families) ? families.EnumerateArray().Select(f => (IReadOnlyList<string>)Strings(f)).ToList() : [],
+            Raises = root.TryGetProperty("packageRaises", out var raises) ? Raises(raises) : PackageRaises.None,
+            RoutingPackages = root.TryGetProperty("routingPackages", out var routing) ? Strings(routing) : [],
+            ResourcesPackage = PackageOf(root.GetProperty("preserializedResourcesPackage")),
+            NotDrawing = root.TryGetProperty("notDrawing", out _) ? Set("notDrawing") : new HashSet<string>(StringComparer.OrdinalIgnoreCase),
             SourceNotes = root.GetProperty("sourceNotes").EnumerateArray().Select(e => new SourceNote(
                 new Regex(e.GetProperty("pattern").GetString()!, RegexOptions.Compiled), e.GetProperty("note").GetString()!, Optional(e, "option"))).ToList(),
         };

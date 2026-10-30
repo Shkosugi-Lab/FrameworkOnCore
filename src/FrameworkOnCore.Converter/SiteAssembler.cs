@@ -75,8 +75,7 @@ public static class SiteAssembler
         ReplaceInPackages(output, bin, rebuilt, report);
 
         // The web.config rules, on the deployed web.config and the folders' (not bin's).
-        foreach (var webConfig in Directory.EnumerateFiles(output, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive, RecurseSubdirectories = true })
-                     .Where(c => !System.Text.RegularExpressions.Regex.IsMatch(Path.GetRelativePath(output, c), @"^bin[\\/]", System.Text.RegularExpressions.RegexOptions.IgnoreCase)))
+        foreach (var webConfig in Paths.WebConfigs(output))
             converter.TransformWebConfig(webConfig, webConfig, Path.GetDirectoryName(Path.GetRelativePath(output, webConfig)) is { Length: > 0 } folder ? $"site {folder}" : "site", null);
 
         if (cultureProfile != null)

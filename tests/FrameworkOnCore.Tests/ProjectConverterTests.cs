@@ -214,6 +214,163 @@ public sealed class ProjectConverterTests : IDisposable
         Assert.Contains("System.Web.UI.WebControls", folder);
     }
 
+    // ------------------------------------------------------------------------------------------
+    // SDK-style projects (ConvertSdk): the same decisions as old-style ones (PackageDecisions), written as XML edits.
+
+    static string SdkProject(string items, string sdk = "Microsoft.NET.Sdk") => $"""
+        <Project Sdk="{sdk}">
+          <PropertyGroup>
+            <TargetFramework>net472</TargetFramework>
+          </PropertyGroup>
+          <ItemGroup>
+        {items}
+          </ItemGroup>
+        </Project>
+        """;
+
+    // Every kind of decision: replaced (another package, the same one at a higher major), its companions, a language package,
+    // dropped, a shim's, inert, a .NET Framework asset, kept; framework references with a package, with companions, without an answer.
+    static readonly (string Id, string Version)[] decided =
+    [
+        ("Microsoft.AspNet.Mvc", "5.2.7"), ("Microsoft.AspNet.Mvc.ja", "5.2.7"), ("Microsoft.AspNet.WebPages", "3.2.7"), ("Antlr", "3.5.0.2"),
+        ("QuickIO.NET", "2.6.2.0"), ("Microsoft.Bcl.Build", "1.0.21"), ("OEmbed.Core", "2.0.7"), ("Newtonsoft.Json", "9.0.1"), ("Autofac", "4.9.4"),
+    ];
+    static readonly string[] referenced = ["System.ServiceModel", "System.Web", "System.Windows.Forms"];
+
+    // The packages a written project references, as MSBuild reads them (Version attribute or element, HintPath attribute or
+    // element), and its References with a HintPath (a .NET Framework asset's).
+    static List<string> PackageItems(string project)
+    {
+        var document = XDocument.Parse(project);
+        string? Metadata(XElement e, string name) => (string?)e.Attribute(name) ?? e.Elements().FirstOrDefault(m => m.Name.LocalName == name)?.Value;
+        return document.Descendants().Where(e => e.Name.LocalName == "PackageReference")
+            .Select(e => $"{e.Attribute("Include")!.Value} {Metadata(e, "Version")} {Metadata(e, "ExcludeAssets")} {Metadata(e, "PrivateAssets")} {Metadata(e, "GeneratePathProperty")}")
+            .Concat(document.Descendants().Where(e => e.Name.LocalName == "Reference" && Metadata(e, "HintPath") != null)
+                .Select(e => $"Reference {e.Attribute("Include")!.Value} {Metadata(e, "HintPath")}"))
+            .Order(StringComparer.Ordinal).ToList();
+    }
+
+    [Fact]
+    public void An_sdk_style_project_gets_the_package_decisions_of_an_old_style_one()
+    {
+        if (!OperatingSystem.IsWindows()) return;
+        Write(@"Old\Class1.cs", "public class Class1 { }");
+        Write(@"Old\packages.config", "<packages>\n" + string.Concat(decided.Select(p => $"  <package id=\"{p.Id}\" version=\"{p.Version}\" />\n")) + "</packages>");
+        Write(@"Old\Old.csproj", OldProject("Old", string.Concat(referenced.Select(r => $"    <Reference Include=\"{r}\" />\n"))));
+        Write(@"Sdk\Class1.cs", "public class Class1 { }");
+        Write(@"Sdk\Sdk.csproj", SdkProject(string.Concat(decided.Select(p => $"    <PackageReference Include=\"{p.Id}\" Version=\"{p.Version}\" />\n"))
+                                            + string.Concat(referenced.Select(r => $"    <Reference Include=\"{r}\" />\n"))));
+        var (converter, report) = Converter();
+        converter.Convert(Path.Combine(Source, Local(@"Old\Old.csproj")), isWeb: false);
+        converter.Convert(Path.Combine(Source, Local(@"Sdk\Sdk.csproj")), isWeb: false);
+
+        var old = PackageItems(Target(Output, @"Old\Old.csproj"));
+        var sdk = PackageItems(Target(Output, @"Sdk\Sdk.csproj"));
+        Assert.Equal(old, sdk);
+        var version = RewriteHarness.Rules.FrameworkOnCoreVersion;
+        Assert.Contains($"FrameworkOnCore.Web.Mvc {version}   ", sdk);
+        Assert.Contains($"FrameworkOnCore.Web.Helpers {version}   ", sdk);               // Microsoft.AspNet.WebPages' companion
+        Assert.Contains("System.ServiceModel.Syndication 10.0.0   ", sdk);              // System.ServiceModel's companion
+        Assert.Contains("Microsoft.Bcl.Build 1.0.21 all all ", sdk);                  // inert
+        Assert.Contains("OEmbed.Core 2.0.7 compile;runtime  true", sdk);               // its .NET Framework asset
+        Assert.Contains(@"Reference OEmbed.Core $(PkgOEmbed_Core)\lib\net481\OEmbed.Core.dll", sdk);
+        Assert.Contains("Newtonsoft.Json 13.0.4   ", sdk);
+        Assert.DoesNotContain(sdk, p => p.StartsWith("Antlr ", StringComparison.Ordinal) || p.StartsWith("QuickIO", StringComparison.Ordinal) || p.Contains(".ja "));
+        // Reported alike: the shim, the dropped package, the raise, the language package, the assembly without an answer.
+        foreach (var (kind, text) in new[]
+                 {
+                     (Report.Kind.Project, "QuickIO.NET 2.6.2.0: replaced by its shim"), (Report.Kind.Project, "Antlr 3.5.0.2: dropped"),
+                     (Report.Kind.Raised, "Newtonsoft.Json 9.0.1 -> 13.0.4"), (Report.Kind.Project, "Microsoft.AspNet.Mvc.ja: Microsoft's language package removed"),
+                     (Report.Kind.Unsupported, "System.Windows.Forms has no .NET counterpart"), (Report.Kind.Project, "OEmbed.Core: its .NET Framework asset"),
+                 })
+            foreach (var project in new[] { "Old", "Sdk" })
+                Assert.Contains(report.Entries, e => e.Kind == kind && e.Subject == project && e.Text.StartsWith(text, StringComparison.Ordinal));
+    }
+
+    [Fact] // a PackageReference's version as a child element, as MSBuild takes it too
+    public void An_sdk_style_package_replaced_gets_its_version_where_the_reference_has_it()
+    {
+        if (!OperatingSystem.IsWindows()) return;
+        Write(@"Sdk\Class1.cs", "public class Class1 { }");
+        Write(@"Sdk\Sdk.csproj", SdkProject("""    <PackageReference Include="Microsoft.AspNet.Mvc"><Version>5.2.7</Version></PackageReference>"""));
+        var (converter, _) = Converter();
+        converter.Convert(Path.Combine(Source, Local(@"Sdk\Sdk.csproj")), isWeb: false);
+
+        var reference = XDocument.Parse(Target(Output, @"Sdk\Sdk.csproj")).Descendants("PackageReference").Single(p => (string?)p.Attribute("Include") == "FrameworkOnCore.Web.Mvc");
+        Assert.Equal(RewriteHarness.Rules.FrameworkOnCoreVersion, reference.Element("Version")!.Value);
+        Assert.Null(reference.Attribute("Version"));
+    }
+
+    [Fact] // the web project SDK-style: FrameworkOnCore's web packages, CoreWCF's for its services, web.config's assemblies' packages
+    public void An_sdk_style_web_project_gets_the_web_packages()
+    {
+        if (!OperatingSystem.IsWindows()) return;
+        Write(@"Web\Class1.cs", "public class Class1 { }");
+        Write(@"Web\Service.svc", """<%@ ServiceHost Service="Web.Service" %>""");
+        Write(@"Web\web.config", """
+            <configuration><system.web><compilation><assemblies>
+              <add assembly="System.Data.Linq, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+            </assemblies></compilation></system.web></configuration>
+            """);
+        Write(@"Web\Web.csproj", SdkProject("", "Microsoft.NET.Sdk.Web"));
+        Write(@"Library\Class1.cs", "public class Class1 { }");
+        Write(@"Library\Library.csproj", SdkProject(""));
+        var (converter, _) = Converter();
+        var web = converter.Convert(Path.Combine(Source, Local(@"Web\Web.csproj")), isWeb: true);
+
+        Assert.True(web.IsWeb);
+        var packages = PackageItems(Target(Output, @"Web\Web.csproj")).Select(p => p.Split(' ')[0]).ToList();
+        Assert.All(RewriteHarness.Rules.WebPackages, id => Assert.Contains(id, packages));
+        Assert.Contains(ProjectConverter.ServiceModelPackage, packages);
+        Assert.Contains("FrameworkOnCore.Data.Linq", packages);
+        Assert.Equal(packages.Count, packages.Distinct().Count());
+
+        // A library is not given them.
+        Assert.False(converter.Convert(Path.Combine(Source, Local(@"Library\Library.csproj")), isWeb: false).IsWeb);
+        Assert.DoesNotContain("FrameworkOnCore.Web\"", Target(Output, @"Library\Library.csproj"));
+    }
+
+    [Fact] // n2's BinaryFormatter: the web project gets its switch whichever project uses it, converted before it or after
+    public void Application_properties_come_from_every_project_whatever_the_order()
+    {
+        if (!OperatingSystem.IsWindows()) return;
+        Write(@"Web\Class1.cs", "public class Class1 { }");
+        Write(@"Web\Web.csproj", OldProject("Web", "", web: true));
+        Write(@"Feature\Class1.cs", "public class Store { object F() => new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter(); }");
+        Write(@"Feature\Feature.csproj", OldProject("Feature", ""));
+        var (converter, report) = Converter();
+        var web = converter.Convert(Path.Combine(Source, Local(@"Web\Web.csproj")), isWeb: true);
+        // A project of the site the web project does not reference: built on its own, converted after it.
+        converter.Convert(Path.Combine(Source, Local(@"Feature\Feature.csproj")), isWeb: false, copyLocal: true);
+        Assert.DoesNotContain("EnableUnsafeBinaryFormatterSerialization", Target(Output, @"Web\Web.csproj"));
+        converter.WriteApplicationProperties(web);
+
+        var project = Target(Output, @"Web\Web.csproj");
+        Assert.Contains("    <EnableDefaultContentItems>false</EnableDefaultContentItems>\n    <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>\n  </PropertyGroup>", project);
+        Assert.Contains(report.Entries, e => e.Subject == "Web" && e.Text.StartsWith("EnableUnsafeBinaryFormatterSerialization=true", StringComparison.Ordinal));
+        Assert.Contains("<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>", Target(Output, @"Feature\Feature.csproj"));
+        Assert.DoesNotContain("CopyLocalLockFileAssemblies", project);
+    }
+
+    [Fact] // the host maps CoreWCF's services where the web project has FrameworkOnCore.ServiceModel; routes by its packages
+    public void A_converted_project_knows_its_packages()
+    {
+        if (!OperatingSystem.IsWindows()) return;
+        Write(@"Web\Class1.cs", "public class Class1 { }");
+        Write(@"Web\Service.svc", """<%@ ServiceHost Service="Web.Service" %>""");
+        Write(@"Web\packages.config", """<packages><package id="Microsoft.AspNet.FriendlyUrls.Core" version="1.0.2" /></packages>""");
+        Write(@"Web\Web.csproj", OldProject("Web", "", web: true));
+        Write(@"Library\Class1.cs", "public class Class1 { }");
+        Write(@"Library\Library.csproj", OldProject("Library", ""));
+        var (converter, _) = Converter();
+        var web = converter.Convert(Path.Combine(Source, Local(@"Web\Web.csproj")), isWeb: true);
+        var library = converter.Convert(Path.Combine(Source, Local(@"Library\Library.csproj")), isWeb: false);
+
+        Assert.True(web.ServesWcf);
+        Assert.False(library.ServesWcf);
+        Assert.Contains(web.Packages!, p => RewriteHarness.Rules.RoutingPackages.Any(r => Rules.IdMatches(r, p)));
+    }
+
     public void Dispose()
     {
         try { Directory.Delete(root, recursive: true); } catch (IOException) { }

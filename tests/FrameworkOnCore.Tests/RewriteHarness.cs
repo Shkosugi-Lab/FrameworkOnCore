@@ -29,7 +29,18 @@ static class RewriteHarness
         VisualBasicCompilation.Create("App", new[] { VisualBasicSyntaxTree.ParseText(source) },
             framework, new VisualBasicCompilationOptions(OutputKind.DynamicallyLinkedLibrary)));
 
-    static string Rewrite(string source, SourceLanguage language, Rules rules, Compilation compilation)
+    static string Rewrite(string source, SourceLanguage language, Rules rules, Compilation compilation) =>
+        language.Apply(source, PointedAt(compilation, rules), rules);
+
+    /// <summary>The framework's assemblies, to compile a source against.</summary>
+    public static IReadOnlyList<MetadataReference> Framework => framework;
+
+    /// <summary>The places the analyzers point at in a C# source, as the converter reads them from the build (Pointed).</summary>
+    public static List<Pointed> PointedAtCSharp(string source, Rules? rules = null) => PointedAt(
+        CSharpCompilation.Create("App", new[] { CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(Microsoft.CodeAnalysis.CSharp.LanguageVersion.Latest)) },
+            framework, new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)), rules ?? Rules);
+
+    static List<Pointed> PointedAt(Compilation compilation, Rules rules)
     {
         var errors = compilation.GetDiagnostics().Where(d => d.Severity == DiagnosticSeverity.Error).ToList();
         Assert.True(errors.Count == 0, string.Join("\n", errors));
@@ -43,7 +54,7 @@ static class RewriteHarness
                 return Pointed.From(d.Id, start.Line + 1, start.Character + 1, d.GetMessage());
             })
             .ToList();
-        return language.Apply(source, pointed, rules);
+        return pointed;
     }
 
     /// <summary>The errors of the source as rewritten, compiled with the compatibility assembly (FrameworkOnCore.Compat).</summary>

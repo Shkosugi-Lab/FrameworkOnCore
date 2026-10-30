@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Shift_JIS (code page 932) without a byte order mark, as Visual Studio on a Japanese Windows saved them: the C# sources
+       (Japanese comments, string literals, an identifier, characters whose second byte is 0x5C: ソ, 表, 能), the pages and
+       web.config (encoding="shift_jis"), a .resx; built by csc in the ANSI code page. Pages read without fileEncoding (the
+       ANSI code page) and with it (Declared), a UTF-8 page with a byte order mark, App_Code and a page's own script compiled
+       by the server, App_GlobalResources in Shift_JIS, requestEncoding and responseEncoding shift_jis (a form posted),
+       Encoding.Default, a Shift_JIS file written and read. The converter rewrites files of it (a Windows path, Encoding.Default,
+       a member stubbed: System.EnterpriseServices) and must keep them Shift_JIS. -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8C1D2E4F-5A6B-4C7D-9E0F-1A2B3C4D5E61}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ShiftJisProbe</RootNamespace>
+    <AssemblyName>ShiftJisProbe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Form.aspx" />
+    <Content Include="Bom.aspx" />
+    <Content Include="Declared\Inline.aspx" />
+    <Content Include="Declared\Web.config" />
+    <Content Include="App_Code\Greeting.cs" />
+    <Content Include="App_GlobalResources\Messages.resx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Default.aspx.cs"><DependentUpon>Default.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Default.aspx.designer.cs"><DependentUpon>Default.aspx</DependentUpon></Compile>
+    <Compile Include="Form.aspx.cs"><DependentUpon>Form.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Form.aspx.designer.cs"><DependentUpon>Form.aspx</DependentUpon></Compile>
+    <Compile Include="Legacy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Strings.resx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

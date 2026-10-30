@@ -1,0 +1,12 @@
+{
+  "_comment": "Visual Basic in Shift_JIS without a byte order mark: Japanese identifiers (a module named in Japanese, its members, a Handles method, locals), literals and comments, web.config in Shift_JIS, Encoding.Default, StrConv, a form posted in shift_jis and a Shift_JIS file written and read. compareSource: the HTML too.",
+  "ignorePatterns": [],
+  "compareSource": true,
+  "steps": [
+    { "action": "goto", "path": "/Default.aspx" },
+    { "action": "snapshot", "name": "default" },
+    { "action": "fill", "target": "txtMemo", "value": "予定表ソ①" },
+    { "action": "click", "target": "btnSave" },
+    { "action": "snapshot", "name": "saved" }
+  ]
+}

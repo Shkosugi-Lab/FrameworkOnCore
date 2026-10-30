@@ -1,0 +1,158 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "default",
+      "Path": "/",
+      "Title": "VB のページ",
+      "Text": [
+        "Visual Basic(Shift_JIS)",
+        "マークアップ:ソフト表示能力 花子 様(申込表)",
+        "件数: 3 件(表示能力)",
+        "見出し: VB の表示能力テスト",
+        "モジュール: ソフト表示能力のモジュール",
+        "Encoding.Default: shift_jis 2",
+        "StrConv: ソフト"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtMemo": ""
+      },
+      "Elements": {
+        "markup": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtMemo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "out": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      },
+      "Source": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<title>",
+        "VB のページ",
+        "</title>",
+        "</head>",
+        "<body>",
+        "<form method=\"post\" action=\"./Default.aspx\" id=\"form1\">",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"{masked}\">",
+        "</div>",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" id=\"__VIEWSTATEGENERATOR\" value=\"{masked}\">",
+        "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"{masked}\">",
+        "</div>",
+        "<h1>Visual Basic(Shift_JIS)</h1>",
+        "<p id=\"markup\">マークアップ:ソフト表示能力 花子 様(申込表)</p>",
+        "<input name=\"txtMemo\" type=\"text\" id=\"txtMemo\">",
+        "<input type=\"submit\" name=\"btnSave\" value=\"保存\" id=\"btnSave\">",
+        "<pre id=\"out\">件数: 3 件(表示能力)",
+        "見出し: VB の表示能力テスト",
+        "モジュール: ソフト表示能力のモジュール",
+        "Encoding.Default: shift_jis 2",
+        "StrConv: ソフト",
+        "</pre>",
+        "</form>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "Name": "saved",
+      "Path": "/",
+      "Title": "VB のページ",
+      "Text": [
+        "Visual Basic(Shift_JIS)",
+        "マークアップ:ソフト表示能力 花子 様(申込表)",
+        "件数: 3 件(表示能力)",
+        "見出し: VB の表示能力テスト",
+        "モジュール: ソフト表示能力のモジュール",
+        "Encoding.Default: shift_jis 2",
+        "StrConv: ソフト",
+        "保存: 予定表ソ①(保存済み) 20 bytes"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtMemo": "予定表ソ①"
+      },
+      "Elements": {
+        "markup": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "txtMemo": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "btnSave": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "out": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      },
+      "Source": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<title>",
+        "VB のページ",
+        "</title>",
+        "</head>",
+        "<body>",
+        "<form method=\"post\" action=\"./Default.aspx\" id=\"form1\">",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"{masked}\">",
+        "</div>",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" id=\"__VIEWSTATEGENERATOR\" value=\"{masked}\">",
+        "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"{masked}\">",
+        "</div>",
+        "<h1>Visual Basic(Shift_JIS)</h1>",
+        "<p id=\"markup\">マークアップ:ソフト表示能力 花子 様(申込表)</p>",
+        "<input name=\"txtMemo\" type=\"text\" value=\"予定表ソ①\" id=\"txtMemo\">",
+        "<input type=\"submit\" name=\"btnSave\" value=\"保存\" id=\"btnSave\">",
+        "<pre id=\"out\">件数: 3 件(表示能力)",
+        "見出し: VB の表示能力テスト",
+        "モジュール: ソフト表示能力のモジュール",
+        "Encoding.Default: shift_jis 2",
+        "StrConv: ソフト",
+        "保存: 予定表ソ①(保存済み) 20 bytes",
+        "</pre>",
+        "</form>",
+        "</body>",
+        "</html>"
+      ]
+    }
+  ],
+  "Links": null
+}

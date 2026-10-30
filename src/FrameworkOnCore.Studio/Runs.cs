@@ -426,7 +426,8 @@ public sealed class Originals(AnalysisStore store) : Runs
         if (File.Exists(original)) File.Copy(original, config, overwrite: true);
         else File.Copy(config, original);
 
-        var document = XDocument.Load(config, LoadOptions.PreserveWhitespace);
+        // In the encoding its declaration names (shift_jis), written back in it, its byte order mark as it was.
+        var document = FrameworkOnCore.Converter.XmlFiles.Load(config, LoadOptions.PreserveWhitespace, out var bytes);
         var root = document.Root!;
         // A section the web.config has not: after configSections, which IIS and ASP.NET take only as the first child
         // (500.19, "<configSections> 要素は 1 つだけ使用できます": mojoPortal's, whose connectionStrings is commented out).
@@ -470,7 +471,7 @@ public sealed class Originals(AnalysisStore store) : Runs
             }
             else others.Add((name, value));
         }
-        if (changed) document.Save(config);
+        if (changed) FrameworkOnCore.Converter.XmlFiles.Save(document, config, SaveOptions.None, bytes);
         return others;
     }
 

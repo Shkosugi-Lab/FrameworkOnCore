@@ -199,9 +199,19 @@ namespace System.Web.UI
 
 			// If not, use the default encoding
 			if (fileEncoding == null)
-				fileEncoding = Encoding.Default;
+				fileEncoding = System.Web.Util.AnsiCodePage.Encoding;
 
 			return fileEncoding;
+		}
+
+		/*
+		 * FrameworkOnCore: the fileEncoding web.config gives, or null (none: the file's byte order mark, else UTF-8 when it
+		 * is, else the ANSI code page, .NET Framework's Encoding.Default: AnsiCodePage.Reader).
+		 */
+		internal static Encoding ConfiguredFileEncoding(VirtualPath configPath)
+		{
+			GlobalizationSection globConfig = RuntimeConfig.GetConfig(configPath).Globalization;
+			return globConfig.IsFileEncodingSet ? globConfig.FileEncoding : null;
 		}
 
 		/*
@@ -214,15 +224,20 @@ namespace System.Web.UI
 			StreamReader reader;
 
 			// Check if a file encoding is specified in the config
-			Encoding fileEncoding = Encoding.Default;
-			if (configPath != null) fileEncoding = GetEncodingFromConfigPath(configPath);
+			Encoding fileEncoding = null;
+			if (configPath != null) fileEncoding = ConfiguredFileEncoding(configPath);
 
 			try
 			{
 				// Create a reader on the file, using the encoding
 				// Throws an exception if the file can't be opened.
-				reader = new StreamReader(filename, fileEncoding,
-					true /*detectEncodingFromByteOrderMarks*/, 4096);
+				// FrameworkOnCore: without a configured one, as .NET Framework's Encoding.Default read it (AnsiCodePage).
+				if (fileEncoding != null)
+					reader = new StreamReader(filename, fileEncoding,
+						true /*detectEncodingFromByteOrderMarks*/, 4096);
+				else
+					using (var file = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 4096))
+						reader = System.Web.Util.AnsiCodePage.Reader(file, null);
 			}
 			catch (UnauthorizedAccessException)
 			{
@@ -395,11 +410,11 @@ namespace System.Web.UI
 		{
 
 			// Check if a file encoding is specified in the config
-			Encoding fileEncoding = GetEncodingFromConfigPath(configPath);
+			// FrameworkOnCore: without one, as .NET Framework's Encoding.Default read it (AnsiCodePage).
+			Encoding fileEncoding = ConfiguredFileEncoding(configPath);
 
 			// Create a reader on the file, using the encoding
-			return new StreamReader(stream, fileEncoding,
-				true /*detectEncodingFromByteOrderMarks*/, 4096);
+			return System.Web.Util.AnsiCodePage.Reader(stream, fileEncoding);
 		}
 
 		/*
@@ -421,8 +436,8 @@ namespace System.Web.UI
 		 */
 		internal /*public*/ static String StringFromFile(string path)
 		{
-			Encoding encoding = Encoding.Default;
-			return StringFromFile(path, ref encoding);
+			// FrameworkOnCore: as .NET Framework's Encoding.Default read it (AnsiCodePage).
+			return System.Web.Util.AnsiCodePage.Decode(File.ReadAllBytes(path), null);
 		}
 
 		/*

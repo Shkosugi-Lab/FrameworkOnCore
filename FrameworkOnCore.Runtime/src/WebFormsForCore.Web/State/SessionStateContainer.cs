@@ -188,7 +188,7 @@ namespace System.Web.SessionState {
                 if (HttpContext.Current != null)
                     return HttpContext.Current.Response.ContentEncoding.CodePage;
                 else
-                    return Encoding.Default.CodePage;
+                    return System.Web.Util.AnsiCodePage.Encoding.CodePage;  // FrameworkOnCore: .NET Framework's Encoding.Default
             }
             set { 
                 if (HttpContext.Current != null)

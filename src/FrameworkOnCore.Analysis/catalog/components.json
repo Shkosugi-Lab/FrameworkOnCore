@@ -26,7 +26,7 @@
       { "id": "none", "title": "対応しない", "description": "シリアル化は例外になります。", "detail": "シリアル化は例外になる" }
     ],
     "encoding-default": [
-      { "id": "framework", "title": ".NET Framework と同じ(ANSI コードページ)", "description": "Windows では OS の設定、Linux では LANG のカルチャの文字コードを返します。", "detail": "Encoding.Default を Platform.DefaultEncoding に置き換える(Windows は OS の設定、Linux は LANG のカルチャ)", "default": true },
+      { "id": "framework", "title": ".NET Framework と同じ(ANSI コードページ)", "description": "元のサーバーの文字コードを返します。ソースやページが Shift_JIS などのときは、変換器がその文字コードを設定します。それ以外は、Windows では OS の設定、Linux では LANG のカルチャの文字コードです。", "detail": "Encoding.Default を Platform.DefaultEncoding に置き換える(実行時オプション FrameworkOnCore.AnsiCodePage: ソースやページのコードページを変換器が書く。無ければ Windows は OS の設定、Linux は LANG のカルチャ)", "default": true },
       { "id": "none", "title": ".NET のまま(UTF-8)", "description": "ファイルやハッシュのバイト列が .NET Framework と変わることがあります。", "detail": "ファイルやハッシュのバイト列が .NET Framework と変わりうる" }
     ],
     "floating-point": [

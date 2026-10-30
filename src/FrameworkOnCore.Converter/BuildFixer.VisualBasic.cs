@@ -16,7 +16,8 @@ public sealed partial class BuildFixer
 {
     bool FixVisualBasic(string file, List<BuildError> errors)
     {
-        var original = File.ReadAllText(file);
+        var source = FrameworkOnCore.Analysis.SourceFile.Read(file, CodePageFor(file));
+        var original = source.Text;
         var text = SourceText.From(original);
         var root = SourceLanguage.VisualBasic.Parse(text, file, SymbolsFor(file)).GetRoot();
 
@@ -38,7 +39,7 @@ public sealed partial class BuildFixer
         if (fixes.Any(f => f.Action == Action.ExcludeFile))
         {
             var reasons = string.Join("; ", fixes.Where(f => f.Action == Action.ExcludeFile).Select(f => f.Reason).Distinct());
-            File.WriteAllText(file, $"' Excluded by FrameworkOnCore (the original is in the source tree): {reasons.Replace("\n", " ")}\n", new UTF8Encoding(false));
+            source.Write(file, $"' Excluded by FrameworkOnCore (the original is in the source tree): {reasons.Replace("\n", " ")}\n");
             pointed.Remove(file);
             Stubbed(Relative(file), $"file excluded: {reasons}", reasons);
             return true;
@@ -85,7 +86,7 @@ public sealed partial class BuildFixer
 
         var result = newRoot.ToFullString();
         if (result == original) return false;
-        File.WriteAllText(file, result, new UTF8Encoding(false));
+        source.Write(file, result);
         pointed.Remove(file);
         return true;
     }

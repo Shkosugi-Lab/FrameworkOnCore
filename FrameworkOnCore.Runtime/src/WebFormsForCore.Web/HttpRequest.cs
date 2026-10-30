@@ -186,7 +186,7 @@ namespace System.Web {
             _path = VirtualPath.CreateAbsolute(_url.AbsolutePath);
             _queryStringText = queryString;
             _queryStringOverriden = true;
-            _queryString = new HttpValueCollection(_queryStringText, true, true, Encoding.Default);
+            _queryString = new HttpValueCollection(_queryStringText, true, true, System.Web.Util.AnsiCodePage.Encoding);  // FrameworkOnCore: .NET Framework's Encoding.Default
 
             PerfCounters.IncrementCounter(AppPerfCounter.REQUESTS_EXECUTING);
         }
@@ -199,7 +199,7 @@ namespace System.Web {
             _path = virtualPath;
             _queryStringText = queryString;
             _queryStringOverriden = true;
-            _queryString = new HttpValueCollection(_queryStringText, true, true, Encoding.Default);
+            _queryString = new HttpValueCollection(_queryStringText, true, true, System.Web.Util.AnsiCodePage.Encoding);  // FrameworkOnCore: .NET Framework's Encoding.Default
 
             PerfCounters.IncrementCounter(AppPerfCounter.REQUESTS_EXECUTING);
         }

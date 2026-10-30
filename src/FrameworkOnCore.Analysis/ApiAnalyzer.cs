@@ -219,7 +219,9 @@ public sealed class ApiAnalyzer(TargetApis target, Catalog catalog, IEnumerable<
                 references.Add(MetadataReference.CreateFromImage(image.ToArray()));
         }
 
-        var texts = project.Sources.Where(File.Exists).Select(f => (Path: f, Text: SourceText.From(File.ReadAllText(f), System.Text.Encoding.UTF8))).ToList();
+        // As the compiler read them: a byte order mark's encoding, UTF-8, else the project's code page or the machine's
+        // (Shift_JIS read as UTF-8 does not parse: a second byte 0x5C is a backslash that escapes a string's quote).
+        var texts = project.Sources.Where(File.Exists).Select(f => (Path: f, Text: SourceText.From(SourceEncoding.ReadText(f, project.CodePage), System.Text.Encoding.UTF8))).ToList();
         if (project.VisualBasic)
         {
             var symbols = new List<KeyValuePair<string, object>> { new("CONFIG", "Debug"), new("TRACE", true), new("DEBUG", true) };

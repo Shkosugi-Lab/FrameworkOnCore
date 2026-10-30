@@ -1,0 +1,19 @@
+{
+  "_comment": "Shift_JIS without a byte order mark (a Japanese Windows' Visual Studio): the code-behind's Japanese (comments, literals, an identifier, characters whose second byte is 0x5C), web.config's (encoding=shift_jis), pages read without fileEncoding (the ANSI code page) and with it (Declared), a UTF-8 page with a byte order mark, App_Code and a page's script compiled by the server, App_GlobalResources in Shift_JIS, an embedded .resx, Encoding.Default, a Shift_JIS file written and read, a form posted in shift_jis (requestEncoding, responseEncoding). compareSource: the HTML too.",
+  "ignorePatterns": [],
+  "compareSource": true,
+  "steps": [
+    { "action": "goto", "path": "/Default.aspx" },
+    { "action": "snapshot", "name": "default" },
+    { "action": "goto", "path": "/Form.aspx" },
+    { "action": "snapshot", "name": "form-get" },
+    { "action": "fill", "target": "txtName", "value": "山田 ソフト表①～" },
+    { "action": "select", "target": "ddlKind", "value": "表彰" },
+    { "action": "click", "target": "btnSend" },
+    { "action": "snapshot", "name": "form-sent" },
+    { "action": "goto", "path": "/Declared/Inline.aspx" },
+    { "action": "snapshot", "name": "declared" },
+    { "action": "goto", "path": "/Bom.aspx" },
+    { "action": "snapshot", "name": "bom" }
+  ]
+}

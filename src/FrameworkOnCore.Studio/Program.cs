@@ -38,6 +38,8 @@ if (PortTaken(port))
     return 1;
 }
 
+// The code pages .NET Framework had: an application's web.config may be in one (encoding="shift_jis").
+FrameworkOnCore.Analysis.SourceEncoding.Register();
 var builder = WebApplication.CreateSlimBuilder(new WebApplicationOptions { Args = [], ContentRootPath = AppContext.BaseDirectory });
 builder.WebHost.UseUrls($"http://127.0.0.1:{port}");
 builder.Logging.SetMinimumLevel(LogLevel.Warning);

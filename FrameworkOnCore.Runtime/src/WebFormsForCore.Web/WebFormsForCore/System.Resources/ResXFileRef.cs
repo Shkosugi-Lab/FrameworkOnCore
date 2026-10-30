@@ -258,11 +258,12 @@ namespace System.Resources
 						true);
 					if (type.Equals(typeof(string)))
 					{
-						Encoding encoding = Encoding.Default;
+						// FrameworkOnCore: without an encoding named, .NET Framework's Encoding.Default (the ANSI code page: a Shift_JIS
+						// file on a Japanese Windows); UTF-8 where the file is, a byte order mark's encoding (AnsiCodePage).
+						Encoding encoding = null;
 						if (resxFileRefString.Length > 2)
 							encoding = Encoding.GetEncoding(resxFileRefString[2]);
-						using (StreamReader streamReader = new StreamReader(path, encoding))
-							obj = (object)streamReader.ReadToEnd();
+						obj = (object)System.Web.Util.AnsiCodePage.Decode(File.ReadAllBytes(path), encoding);
 					}
 					else
 					{

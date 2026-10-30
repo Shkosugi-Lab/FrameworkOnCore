@@ -1013,7 +1013,7 @@ namespace System.Web {
                     return msg;
                 }
 
-                return FormatterWithFileInfo.GetSourceFileLines(_physicalPath, Encoding.Default, null, _line);
+                return FormatterWithFileInfo.GetSourceFileLines(_physicalPath, null, null, _line);
             }
         }
 
@@ -1498,8 +1498,13 @@ namespace System.Web {
 
             try {
                 // Otherwise, open the physical file
-                if (reader == null && fileName != null)
-                    reader = new StreamReader(fileName, encoding, true, 4096);
+                if (reader == null && fileName != null) {
+                    if (encoding != null)
+                        reader = new StreamReader(fileName, encoding, true, 4096);
+                    else  // FrameworkOnCore: as .NET Framework's Encoding.Default read it (AnsiCodePage)
+                        using (var file = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                            reader = System.Web.Util.AnsiCodePage.Reader(file, null);
+                }
             }
             catch { }
 
@@ -1589,8 +1594,9 @@ namespace System.Web {
             _line = line;
         }
 
+        // FrameworkOnCore: null, .NET Framework's Encoding.Default (the ANSI code page), UTF-8 where the file is (AnsiCodePage).
         protected virtual Encoding SourceFileEncoding {
-            get { return Encoding.Default; }
+            get { return null; }
         }
 
         protected override string ColoredSquareContent {
@@ -1703,7 +1709,7 @@ namespace System.Web {
                         sb.Append("               <tr>\r\n");
                         sb.Append("                  <td>\r\n");
                         sb.Append("                      <code><pre>\r\n\r\n");
-                        sb.Append(FormatterWithFileInfo.GetSourceFileLines(e.FileName, Encoding.Default, _excep.SourceCodeWithoutDemand, e.Line));
+                        sb.Append(FormatterWithFileInfo.GetSourceFileLines(e.FileName, null, _excep.SourceCodeWithoutDemand, e.Line));
                         sb.Append("</pre></code>\r\n\r\n");
                         sb.Append("                  </td>\r\n");
                         sb.Append("               </tr>\r\n");
@@ -1760,7 +1766,7 @@ namespace System.Web {
                             sb.Append("               <tr>\r\n");
                             sb.Append("                  <td>\r\n");
                             sb.Append("                      <code><pre>\r\n\r\n");
-                            sb.Append(FormatterWithFileInfo.GetSourceFileLines(e.FileName, Encoding.Default, _excep.SourceCodeWithoutDemand, e.Line));
+                            sb.Append(FormatterWithFileInfo.GetSourceFileLines(e.FileName, null, _excep.SourceCodeWithoutDemand, e.Line));
                             sb.Append("</pre></code>\r\n\r\n");
                             sb.Append("                  </td>\r\n");
                             sb.Append("               </tr>\r\n");

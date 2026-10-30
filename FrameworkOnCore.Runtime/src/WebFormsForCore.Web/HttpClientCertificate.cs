@@ -218,13 +218,13 @@ namespace System.Web {
                     return SerialNumber;
 
                 case "certificate":
-                    return System.Text.Encoding.Default.GetString(Certificate);
+                    return System.Web.Util.AnsiCodePage.Encoding.GetString(Certificate);
 
                 case "binaryissuer":
-                    return System.Text.Encoding.Default.GetString(BinaryIssuer);
+                    return System.Web.Util.AnsiCodePage.Encoding.GetString(BinaryIssuer);
 
                 case "publickey":
-                    return System.Text.Encoding.Default.GetString(PublicKey);
+                    return System.Web.Util.AnsiCodePage.Encoding.GetString(PublicKey);
 
                 case "encoding":
                     return CertEncoding.ToString("G", CultureInfo.InvariantCulture);

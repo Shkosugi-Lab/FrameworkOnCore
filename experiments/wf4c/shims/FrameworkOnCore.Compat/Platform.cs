@@ -68,14 +68,22 @@ namespace FrameworkOnCore
         /// <summary>
         /// Encoding.Default: .NET Framework's is the system's ANSI code page (Shift_JIS, 932, on Japanese Windows), .NET's
         /// UTF-8 on every platform (the files the application wrote, the hashes of the bytes it took, would differ). As
-        /// .NET Framework had it: Windows' ANSI code page; elsewhere the one of the culture the application runs in (LANG,
-        /// which deploy/start.sh sets to the original server's culture).
+        /// .NET Framework had it: the original server's ANSI code page where the converter found it (the runtime option
+        /// FrameworkOnCore.AnsiCodePage: the sources or the pages are in it; FrameworkOnCore's System.Web reads the pages in
+        /// it), else Windows' ANSI code page; elsewhere the one of the culture the application runs in (LANG, which
+        /// deploy/start.sh sets to the original server's culture).
         /// </summary>
         public static System.Text.Encoding DefaultEncoding => defaultEncoding.Value;
 
         static readonly System.Lazy<System.Text.Encoding> defaultEncoding = new(() =>
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            if (int.TryParse(System.Convert.ToString(System.AppContext.GetData("FrameworkOnCore.AnsiCodePage"), System.Globalization.CultureInfo.InvariantCulture), out var configured) && configured > 0)
+            {
+                try { return System.Text.Encoding.GetEncoding(configured); }
+                catch (System.ArgumentException) { }
+                catch (System.NotSupportedException) { }
+            }
             var codePage = System.OperatingSystem.IsWindows() ? (int)GetACP() : System.Globalization.CultureInfo.InstalledUICulture.TextInfo.ANSICodePage;
             return System.Text.Encoding.GetEncoding(codePage);
         });

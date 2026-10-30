@@ -15,7 +15,7 @@
       "none": {"title": "No support", "description": "Serialization throws.", "detail": "Serialization throws"}
     },
     "encoding-default": {
-      "framework": {"title": "As .NET Framework (ANSI code page)", "description": "Returns the OS setting's encoding on Windows, the LANG culture's on Linux.", "detail": "Encoding.Default is replaced with Platform.DefaultEncoding (Windows: the OS's setting; Linux: LANG's culture)"},
+      "framework": {"title": "As .NET Framework (ANSI code page)", "description": "Returns the original server's encoding: the converter sets it when the sources or pages are in Shift_JIS or another code page; otherwise the OS setting's on Windows, the LANG culture's on Linux.", "detail": "Encoding.Default is replaced with Platform.DefaultEncoding (the runtime option FrameworkOnCore.AnsiCodePage, which the converter writes with the sources' or pages' code page; else Windows: the OS's setting; Linux: LANG's culture)"},
       "none": {"title": "As .NET (UTF-8)", "description": "Files' and hashes' bytes can differ from .NET Framework's.", "detail": "The bytes of files and hashes may differ from .NET Framework's"}
     },
     "floating-point": {

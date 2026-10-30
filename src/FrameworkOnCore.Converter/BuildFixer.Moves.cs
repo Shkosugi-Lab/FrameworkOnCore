@@ -56,7 +56,7 @@ public sealed partial class BuildFixer
     // Whether the file imports a namespace the group's moved types were in before (System.Data for System.Data.Entity.EntityState).
     bool ImportsOldNamespace(string file, MoveGroup group)
     {
-        if (!sources.TryGetValue(file, out var text)) sources[file] = text = File.Exists(file) ? File.ReadAllText(file) : "";
+        if (!sources.TryGetValue(file, out var text)) sources[file] = text = File.Exists(file) ? FrameworkOnCore.Analysis.SourceEncoding.ReadText(file, CodePageFor(file)) : "";
         return group.TypeMoveOrigins.Any(origin => Regex.IsMatch(text, $@"^\s*using\s+{Regex.Escape(origin)}\s*;", RegexOptions.Multiline));
     }
 
@@ -69,7 +69,8 @@ public sealed partial class BuildFixer
     // The moves in a C# file: the names rewritten, the aliases added. True when the file changed.
     bool FixMoves(string file, List<BuildError> errors)
     {
-        var original = File.ReadAllText(file);
+        var source = FrameworkOnCore.Analysis.SourceFile.Read(file, CodePageFor(file));
+        var original = source.Text;
         var text = SourceText.From(original);
         var root = (CompilationUnitSyntax)SourceLanguage.CSharp.Parse(text, file, SymbolsFor(file)).GetRoot();
         var renames = new Dictionary<SyntaxNode, (string Name, string Note)>();
@@ -113,7 +114,7 @@ public sealed partial class BuildFixer
         }
         var result = newRoot.ToFullString();
         if (result == original) return false;
-        File.WriteAllText(file, result, new UTF8Encoding(false));
+        source.Write(file, result);
         sources.Remove(file);
         pointed.Remove(file);
         return true;

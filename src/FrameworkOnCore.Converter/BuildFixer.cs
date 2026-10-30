@@ -107,8 +107,9 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         foreach (var (file, places) in pointed.OrderBy(p => p.Key, StringComparer.Ordinal))
         {
             if (places.Count == 0 || !File.Exists(file) || !IsUnder(file, outRoot) || SourceLanguage.For(file) is not { } language) continue;
-            var bytes = File.ReadAllBytes(file);
-            var text = SourceText.From(File.ReadAllText(file));
+            // As the compiler read it (its byte order mark, UTF-8, else its project's code page), written back so.
+            var source = SourceFile.Read(file, CodePageFor(file));
+            var text = SourceText.From(source.Text);
             // A constant's names: not used where only a constant can be (a local's in its file; a field's anywhere).
             bool Usable(IReadOnlyList<string> names, bool isField) => names.All(name =>
             {
@@ -130,8 +131,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
             foreach (var p in left.Where(p => p.Code == "FOC1002"))
                 report.Add(Report.Kind.Unsupported, $"{Relative(file)}:{p.Line}", $"FOC1002: {p.Message} (on Linux it needs the platform's separator)");
             if (rewritten == text.ToString()) continue;
-            var bom = bytes.Length >= 3 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF;
-            File.WriteAllText(file, rewritten, new UTF8Encoding(bom));
+            source.Write(file, rewritten);
             changed = true;
         }
         pointed.Clear();
@@ -145,7 +145,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         foreach (var file in Directory.EnumerateFiles(outRoot, "*.*", SearchOption.AllDirectories))
         {
             if (SourceLanguage.For(file) != language || Regex.IsMatch(file, @"[\\/](obj|bin)[\\/]")) continue;
-            var source = File.ReadAllText(file);
+            var source = SourceEncoding.ReadText(file, CodePageFor(file));
             if (!source.Contains(name, StringComparison.OrdinalIgnoreCase)) continue;
             if (language.UsedAsConstant(language.Parse(SourceText.From(source), file, SymbolsFor(file)).GetRoot(), name)) return true;
         }
@@ -187,6 +187,12 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
             .OrderByDescending(p => p.TargetPath.Length).FirstOrDefault();
         return Symbols(project);
     }
+
+    // The code page the file's project reads its sources without a byte order mark that are not UTF-8 in (its CodePage, else
+    // the machine's): a file is read and written back in its encoding (SourceFile), not made UTF-8.
+    int? CodePageFor(string file) =>
+        projects.Where(p => IsUnder(file, Path.GetDirectoryName(p.TargetPath)!)).OrderByDescending(p => p.TargetPath.Length).FirstOrDefault()?.CodePage
+        ?? SourceEncoding.MachineCodePage;
 
     CSharpParseOptions ParseOptionsFor(string file) => new(LanguageVersion.Preview, preprocessorSymbols: SymbolsFor(file));
     bool RunRounds(string webProject, int maxRounds)
@@ -403,7 +409,8 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         var project = projects.Where(p => IsUnder(file, Path.GetDirectoryName(p.TargetPath)!))
             .OrderByDescending(p => p.TargetPath.Length).FirstOrDefault();
         var symbols = Symbols(project);
-        var original = File.ReadAllText(file);
+        var source = SourceFile.Read(file, CodePageFor(file));
+        var original = source.Text;
         var text = SourceText.From(original);
         var tree = CSharpSyntaxTree.ParseText(text, new CSharpParseOptions(LanguageVersion.Preview, preprocessorSymbols: symbols), file);
         var root = tree.GetCompilationUnitRoot();
@@ -426,7 +433,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         if (fixes.Any(f => f.Action == Action.ExcludeFile))
         {
             var reasons = string.Join("; ", fixes.Where(f => f.Action == Action.ExcludeFile).Select(f => f.Reason).Distinct());
-            File.WriteAllText(file, $"// Excluded by FrameworkOnCore (the original is in the source tree): {reasons.Replace("\n", " ")}\n", new UTF8Encoding(false));
+            source.Write(file, $"// Excluded by FrameworkOnCore (the original is in the source tree): {reasons.Replace("\n", " ")}\n");
             pointed.Remove(file);
             Stubbed(Relative(file), $"file excluded: {reasons}", reasons);
             return true;
@@ -495,7 +502,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
 
         var result = newRoot.ToFullString();
         if (result == original) return false;
-        File.WriteAllText(file, result, new UTF8Encoding(false));
+        source.Write(file, result);
         // The places the build pointed at in it have moved: its project builds again, and points at them again.
         pointed.Remove(file);
         return true;

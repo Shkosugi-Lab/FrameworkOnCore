@@ -9,7 +9,9 @@ namespace FrameworkOnCore.Converter;
 /// <param name="Defines">The symbols its sources are compiled with (the configuration's, the project's, the .NET Framework
 /// target's), but the SDK's own of net10.0 (NET, NETCOREAPP...), which only a project with ImplicitFrameworkDefines has: one
 /// built for .NET only (netstandard, net6.0), whose code is meant for it.</param>
-public sealed record ConvertedProject(string Name, string SourcePath, string TargetPath, bool IsWeb, IReadOnlyList<string> Defines, string? AssemblyName = null, bool CrossPlatform = false, bool ImplicitFrameworkDefines = false, bool Kept = false);
+/// <param name="CodePage">The code page its sources without a byte order mark that are not UTF-8 are in (its CodePage, else
+/// the machine's: SourceEncoding.MachineCodePage); null: none known.</param>
+public sealed record ConvertedProject(string Name, string SourcePath, string TargetPath, bool IsWeb, IReadOnlyList<string> Defines, string? AssemblyName = null, bool CrossPlatform = false, bool ImplicitFrameworkDefines = false, bool Kept = false, int? CodePage = null);
 
 /// <summary>Where the runtime pieces the converted projects refer to are (FrameworkOnCore's feed, the shims).</summary>
 public sealed record RuntimeLayout(string Feed, IReadOnlyList<string> ShimProjects);
@@ -19,7 +21,7 @@ public sealed record RuntimeLayout(string Feed, IReadOnlyList<string> ShimProjec
 /// WebFormsForCore, keeping every source file as it is. The repository is copied as a whole and the
 /// project files are rewritten where they are.
 /// </summary>
-public sealed class ProjectConverter(Rules rules, Report report, Conditions conditions, string sourceRoot, string outRoot, RuntimeLayout runtime)
+public sealed partial class ProjectConverter(Rules rules, Report report, Conditions conditions, string sourceRoot, string outRoot, RuntimeLayout runtime)
 {
     static readonly XNamespace msbuild = "http://schemas.microsoft.com/developer/msbuild/2003";
 
@@ -148,7 +150,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
     {
         try
         {
-            var configDocument = XDocument.Load(source, LoadOptions.PreserveWhitespace);
+            var configDocument = XmlFiles.Load(source, LoadOptions.PreserveWhitespace, out var original);
             var removed = false;
             // Wherever system.web is (<location path="."> too, as mojoPortal has it).
             foreach (var add in configDocument.Descendants().Where(e => e.Name.LocalName == "add" &&
@@ -183,7 +185,8 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
                          (string?)e.Attribute("key") == "ChartImageHandler"))
                 if (System.Text.RegularExpressions.Regex.Match((string?)add.Attribute("value") ?? "", @"(?i)(^|;)\s*dir\s*=\s*(?<dir>[a-z]:[^;]*)") is { Success: true } dir)
                     report.Add(Report.Kind.Platform, subject, $"web.config <appSettings> ChartImageHandler: the chart images' folder {dir.Groups["dir"].Value.Trim()} is a Windows path; on Linux set APPSETTING_ChartImageHandler (dir=a Linux folder the application may write, or storage=memory)");
-            if (removed) configDocument.Save(target, SaveOptions.DisableFormatting);
+            // In its encoding (shift_jis: its declaration's), its byte order mark as it was.
+            if (removed) XmlFiles.Save(configDocument, target, SaveOptions.DisableFormatting, original);
         }
         catch (System.Xml.XmlException e) { report.Add(Report.Kind.Error, subject, $"web.config not read: {e.Message}"); }
     }
@@ -263,6 +266,11 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
             .Where(d => conditions.Holds((string?)d.Parent?.Attribute("Condition"), name))
             .SelectMany(d => d.Value.Split(';', ','))
             .Select(s => s.Trim()).Where(s => s.Length > 0 && !s.Contains('$')).Distinct().ToList();
+        // The code page its sources without a byte order mark that are not UTF-8 are in: the project's (csc /codepage), else
+        // the machine's (ProjectConverter.Encodings.cs).
+        var projectCodePage = old.Descendants(msbuild + "CodePage").Where(d => conditions.Holds((string?)d.Parent?.Attribute("Condition"), name))
+            .Select(d => ParseCodePage(d.Value)).LastOrDefault(p => p != null);
+        var codePage = SourcesCodePage(name, compile.Select(c => Path.Combine(source, c)), projectCodePage) ?? projectCodePage;
 
         var packages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         void AddPackage(Package p) => packages.TryAdd(p.Id, p.Version);
@@ -403,6 +411,8 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         // Features.Data.MSSQL's namespace mojoPortal.MediaPlayer, which hides its class MediaPlayer: CS0118). Their
         // assemblies still go to the output, found next to the references (as they did).
         Prop("DisableTransitiveProjectReferences", "true");
+        // Its sources' code page: the project's, or the machine's the original build read them in (on Linux there is none).
+        if (codePage != null) Prop("CodePage", codePage.Value.ToString(System.Globalization.CultureInfo.InvariantCulture));
         if (visualBasic)
         {
             // The language options the sources were written for (Option Strict Off: late binding), and the project's
@@ -523,6 +533,18 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
                   </ItemGroup>
 
                 """);
+            // The original server's ANSI code page, where the pages (what the server compiles) are in it: ASP.NET read them in it
+            // (web.config without fileEncoding), and it was Encoding.Default; Linux has none.
+            if (ServerCodePage(name, source, compile.Select(c => Path.Combine(source, c))) is { } serverCodePage)
+                text.Append($"""
+
+                      <!-- The ANSI code page of the original server (its pages are in it): the pages read in it where
+                           web.config has no fileEncoding, as ASP.NET read them; Encoding.Default's. -->
+                      <ItemGroup>
+                        <RuntimeHostConfigurationOption Include="{AnsiCodePageOption}" Value="{serverCodePage}" />
+                      </ItemGroup>
+
+                    """);
             // The choice of .NET's text of doubles and floats: FrameworkOnCore's System.Web writes bound values and rewrites
             // what the server compiles as .NET Framework did unless switched off.
             if (!rules.IsChosen("floating-point:framework"))
@@ -555,7 +577,8 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         File.WriteAllText(targetPath, text.ToString(), new UTF8Encoding(false));
 
         report.Add(Report.Kind.Project, name, $"{compile.Count} files, {packages.Count} packages, {binaryReferences.Count} DLLs -> {Path.GetRelativePath(outRoot, targetPath)}");
-        return new ConvertedProject(name, projectPath, targetPath, isWeb, defines.Concat(ConfigurationSymbols(visualBasic)).Distinct().ToList(), assemblyName);
+        return new ConvertedProject(name, projectPath, targetPath, isWeb, defines.Concat(ConfigurationSymbols(visualBasic)).Distinct().ToList(), assemblyName,
+            CodePage: codePage ?? SourceEncodingFallback);
     }
 
     // ------------------------------------------------------------------------------------------
@@ -671,6 +694,10 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         var preserialized = HasNonStringResources(Directory.EnumerateFiles(directory, "*.resx", SearchOption.AllDirectories)
             .Where(f => !Regex.IsMatch(Path.GetRelativePath(directory, f), @"(^|[\\/])(bin|obj)[\\/]", RegexOptions.IgnoreCase)));
         if (preserialized && !HasPackage(ResourcesExtensions.Id)) added.Add(ResourcesExtensions);
+        // Its sources' code page: the project's, or the machine's the original build read them in (on Linux there is none).
+        var projectCodePage = ParseCodePage(Elements(project, "CodePage").LastOrDefault()?.Value);
+        var codePage = SourcesCodePage(name, sources, projectCodePage);
+        if (codePage != null) root.Add(new XElement(N("PropertyGroup"), new XElement(N("CodePage"), codePage.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))));
         var itemGroup = new XElement(N("ItemGroup"), added.Items.Select(PackageElement));
         if (itemGroup.HasElements) root.Add(itemGroup);
         // As the old-style projects: the shims (types and members .NET Framework had).
@@ -701,7 +728,8 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
         // Windows' separators is meant (Lucene.Net: a backslash is refused in a name on every platform).
         var crossPlatform = frameworks.Any(f => Regex.IsMatch(f, @"^(netstandard|netcoreapp|net[5-9]\.|net\d\d\.)"));
         return new ConvertedProject(name, projectPath, targetPath, false, defines.Concat(frameworkSymbols).Concat(ConfigurationSymbols(false)).Distinct().ToList(),
-            Elements(project, "AssemblyName").FirstOrDefault()?.Value ?? name, crossPlatform, ImplicitFrameworkDefines: netfx.Count == 0);
+            Elements(project, "AssemblyName").FirstOrDefault()?.Value ?? name, crossPlatform, ImplicitFrameworkDefines: netfx.Count == 0,
+            CodePage: projectCodePage ?? codePage ?? SourceEncodingFallback);
     }
 
     // What the SDK defines for the configuration (C#: TRACE, and DEBUG for Debug; Visual Basic's are its own: DEBUG=-1,
@@ -761,7 +789,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
 
     // A UTF-7 encoding named: its names ("utf-7", "unicode-1-1-utf-7"), its code page, Encoding.UTF7, UTF7Encoding.
     static bool NamesUtf7(IEnumerable<string> files) =>
-        files.Where(File.Exists).Any(f => Regex.IsMatch(File.ReadAllText(f), @"[""']utf-7[""']|unicode-1-1-utf-7|GetEncoding\(\s*65000\s*\)|\bUTF7(Encoding)?\b", RegexOptions.IgnoreCase));
+        files.Where(File.Exists).Any(f => Regex.IsMatch(FrameworkOnCore.Analysis.SourceEncoding.ReadText(f), @"[""']utf-7[""']|unicode-1-1-utf-7|GetEncoding\(\s*65000\s*\)|\bUTF7(Encoding)?\b", RegexOptions.IgnoreCase));
 
     // The pages, user controls, handlers and App_Code of a web project: the code the server compiles.
     static IEnumerable<string> PageFiles(string directory) =>
@@ -776,7 +804,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
     string ServerMyType(string name, string myType, IEnumerable<string> sources)
     {
         if (myType is not ("Windows" or "WindowsForms" or "WindowsFormsWithCustomSubMain" or "Console")) return myType;
-        var usesMy = sources.Where(File.Exists).Any(f => Regex.IsMatch(File.ReadAllText(f), @"\bMy\.(Application|Computer|User|Log)\b"));
+        var usesMy = sources.Where(File.Exists).Any(f => Regex.IsMatch(FrameworkOnCore.Analysis.SourceEncoding.ReadText(f), @"\bMy\.(Application|Computer|User|Log)\b"));
         var server = usesMy ? "Web" : "Empty";
         report.Add(Report.Kind.Project, name, $"MyType {myType} -> {server}: a desktop application's My is not in .NET outside the Windows desktop" +
             (usesMy ? "; the sources use My: a server's (My.Computer, My.User, My.Log; not My.Application)" : "; the sources do not use it"));
@@ -840,7 +868,7 @@ public sealed class ProjectConverter(Rules rules, Report report, Conditions cond
     // What .NET Framework had in its own assemblies and .NET ships as packages: added when used.
     void AddSourcePackages(string name, IEnumerable<string> files, Action<Package> add)
     {
-        var text = string.Join('\n', files.Where(File.Exists).Select(File.ReadAllText));
+        var text = string.Join('\n', files.Where(File.Exists).Select(f => FrameworkOnCore.Analysis.SourceEncoding.ReadText(f)));
         foreach (var rule in rules.SourcePackages)
         {
             if (!rule.Pattern.IsMatch(text)) continue;

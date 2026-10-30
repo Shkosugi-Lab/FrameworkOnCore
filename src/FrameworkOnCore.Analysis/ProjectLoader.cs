@@ -28,6 +28,9 @@ public sealed record ProjectInput
     public IReadOnlyList<string> GlobalUsings { get; init; } = [];
     /// <summary>Compiled for its types only (the projects referencing it are analyzed): built for .NET too, it runs there as it is.</summary>
     public bool CompileOnly { get; init; }
+    /// <summary>The code page its sources without a byte order mark that are not UTF-8 are in (csc /codepage), when it says
+    /// (CodePage); else the machine's (SourceEncoding).</summary>
+    public int? CodePage { get; init; }
 }
 
 public sealed record VisualBasicOptions(string RootNamespace, IReadOnlyList<string> Imports, string? OptionStrict, string? OptionExplicit,
@@ -134,7 +137,7 @@ public sealed class ProjectLoader(string root, string configuration, string plat
         return new ProjectInput
         {
             Path = projectPath, Name = name, AssemblyName = assemblyName, VisualBasic = visualBasic,
-            Sources = sources, Defines = defines, FrameworkAssemblies = framework, Binaries = binaries.Distinct(StringComparer.OrdinalIgnoreCase).ToList(), KeyFile = keyFile,
+            Sources = sources, Defines = defines, FrameworkAssemblies = framework, CodePage = CodePage(properties), Binaries = binaries.Distinct(StringComparer.OrdinalIgnoreCase).ToList(), KeyFile = keyFile,
             References = references.DistinctBy(r => r.Path, StringComparer.OrdinalIgnoreCase).ToList(),
             Options = visualBasic
                 ? new VisualBasicOptions(Property("RootNamespace") ?? "", Items("Import").Select(i => (string)i.Attribute("Include")!).ToList(),
@@ -181,7 +184,7 @@ public sealed class ProjectLoader(string root, string configuration, string plat
         return new ProjectInput
         {
             Path = projectPath, Name = name, AssemblyName = assemblyName, VisualBasic = visualBasic,
-            Sources = sources, FrameworkAssemblies = framework, References = references, Binaries = binaries,
+            Sources = sources, FrameworkAssemblies = framework, References = references, Binaries = binaries, CodePage = CodePage(properties),
             Defines = (evaluated?.DefineConstants ?? properties.GetValueOrDefault("DefineConstants") ?? "").Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
                 .Where(s => !s.Contains('$')).Concat(implied).Distinct().ToList(),
             GlobalUsings = evaluated?.Usings ?? [],
@@ -191,6 +194,9 @@ public sealed class ProjectLoader(string root, string configuration, string plat
             Skipped = netFramework == null || frameworks.Length > 1 ? $"SDK-style, built for {string.Join(", ", frameworks)} (compiled as {consumed} for its types)" : null,
         };
     }
+
+    static int? CodePage(IReadOnlyDictionary<string, string> properties) =>
+        properties.TryGetValue("CodePage", out var value) && int.TryParse(value.Trim(), out var page) && page > 0 ? page : null;
 
     // A PackageReference's assemblies for .NET Framework (its own, not its dependencies').
     IEnumerable<string> PackageAssemblies(string project, XElement reference, XNamespace ns) =>

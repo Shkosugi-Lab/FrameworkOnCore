@@ -36,6 +36,9 @@ using FrameworkOnCore.Converter;
 // --choices <file>  what the user chose per component (foc-choices.json; analyze writes one with the defaults): the
 //            rules of options not chosen are left out. Without it, the catalog's defaults (as always). --case-insensitive
 //            given is over the file's file-name-case.
+// --code-page <n>  the ANSI code page of the machine the application was built on (932: Shift_JIS, 1252: Western European):
+//            its sources without a byte order mark that are not UTF-8 were read in it (csc, vbc; ASP.NET its pages), unless
+//            a project says (CodePage). Without it, this machine's (Windows); none on Linux (SourceEncoding).
 
 //
 //   FrameworkOnCore.Converter analyze <project> --out <dir> [--root <dir>] [--configuration <name>] [--runtime <dir>]
@@ -52,6 +55,8 @@ using FrameworkOnCore.Converter;
 //   FrameworkOnCore.Converter snapshot <out> --source <root> --baseline <file> [--site <dir>] [--exit <code>] [--update] [--diff <file>]
 //            what a conversion decided, read back from its output (SnapshotCommand), compared with a baseline or recorded.
 
+// The code pages .NET Framework had (an XML declaration's shift_jis: web.config; the sources' code page).
+FrameworkOnCore.Analysis.SourceEncoding.Register();
 if (args.Length > 0 && args[0] == "analyze") return AnalyzeCommand.Run(args[1..], RuntimeSetup.Find);
 if (args.Length > 0 && args[0] == "build-original") return BuildOriginalCommand.Run(args[1..]);
 if (args.Length > 0 && args[0] == "snapshot") return SnapshotCommand.Run(args[1..]);
@@ -64,6 +69,7 @@ var buildOriginalAuto = false;
 var deployKinds = "both";
 bool? caseInsensitive = null;
 string? choicesFile = null;
+int? codePage = null;
 var originalSteps = new List<(string Project, string Target)>();
 for (var i = 0; i < args.Length; i++)
 {
@@ -84,6 +90,11 @@ for (var i = 0; i < args.Length; i++)
             break;
         case "--configuration": configuration = args[++i]; break;
         case "--choices": choicesFile = args[++i]; break;
+        case "--code-page":
+            var page = args[++i];
+            if (!int.TryParse(page, out var number) || FrameworkOnCore.Analysis.SourceEncoding.CodePage(number) == null) { Console.Error.WriteLine($"--code-page: a code page .NET has (932, 1252 ...), not {page}"); return 2; }
+            codePage = number;
+            break;
         case "--original-step":
             var step = args[++i].Split(';', 2);
             originalSteps.Add((step[0], step.Length > 1 ? step[1] : "Build"));
@@ -98,9 +109,11 @@ for (var i = 0; i < args.Length; i++)
 }
 if (project == null || outDirectory == null)
 {
-    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--iis-profile <file>] [--configuration <name>] [--site <dir> | --build-original [target]] [--deploy container|linux|both|none] [--case-insensitive on|off] [--choices <file>] [--no-build]");
+    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--iis-profile <file>] [--configuration <name>] [--site <dir> | --build-original [target]] [--deploy container|linux|both|none] [--case-insensitive on|off] [--choices <file>] [--code-page <n>] [--no-build]");
     return 2;
 }
+// The code page the sources without a byte order mark that are not UTF-8 were written in.
+if (codePage != null) FrameworkOnCore.Analysis.SourceEncoding.MachineCodePage = codePage;
 
 project = Path.GetFullPath(project);
 var sourceRoot = Path.GetFullPath(rootDirectory ?? Paths.FindRoot(project));

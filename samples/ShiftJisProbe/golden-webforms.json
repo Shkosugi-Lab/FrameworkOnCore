@@ -1,0 +1,315 @@
+{
+  "SourceUrl": "http://localhost:5096",
+  "Snapshots": [
+    {
+      "Name": "default",
+      "Path": "/",
+      "Title": "既定のページ",
+      "Text": [
+        "Shift_JIS のページ(表示・能力・ソフト)",
+        "ページに直接書いた日本語:漢字、ひらがな、カタカナ、全角記号「～」「―」「∥」、半角カナ:ｱｲｳ",
+        "App_Code: ようこそ、太郎 様。予定表を表示します。 / App_Code の表題(ソ十能)",
+        "グローバル リソース(Shift_JIS の resx):ようこそ、表示能力",
+        "式の中の文字列:申し込み表",
+        "定数: ソフト表示能力",
+        "文字数: 7",
+        "エスケープ: \"表\" \\ 十 予",
+        "appSettings: ソフト開発の表示能力テスト",
+        "リソース: 埋め込みリソースの見出し(ソフト表)",
+        "Encoding.Default: shift_jis 4",
+        "Response: shift_jis, Request: shift_jis",
+        "ファイル: メモ:表示能力 / 二行目 (21 bytes)",
+        "古い処理: ソフト表示能力の確認(十分)"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "markup": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "appcode": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "globalres": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "expr": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "out": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      },
+      "Source": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<title>",
+        "既定のページ",
+        "</title>",
+        "</head>",
+        "<body>",
+        "<form method=\"post\" action=\"./Default.aspx\" id=\"form1\">",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"{masked}\">",
+        "</div>",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" id=\"__VIEWSTATEGENERATOR\" value=\"{masked}\">",
+        "</div>",
+        "<h1>Shift_JIS のページ(表示・能力・ソフト)</h1>",
+        "<p id=\"markup\">ページに直接書いた日本語:漢字、ひらがな、カタカナ、全角記号「～」「―」「∥」、半角カナ:ｱｲｳ</p>",
+        "<p id=\"appcode\">App_Code: ようこそ、太郎 様。予定表を表示します。 / App_Code の表題(ソ十能)</p>",
+        "<p id=\"globalres\">グローバル リソース(Shift_JIS の resx):ようこそ、表示能力</p>",
+        "<p id=\"expr\">式の中の文字列:申し込み表</p>",
+        "<pre id=\"out\">定数: ソフト表示能力",
+        "文字数: 7",
+        "エスケープ: \"表\" \\ 十\t予",
+        "appSettings: ソフト開発の表示能力テスト",
+        "リソース: 埋め込みリソースの見出し(ソフト表)",
+        "Encoding.Default: shift_jis 4",
+        "Response: shift_jis, Request: shift_jis",
+        "ファイル: メモ:表示能力 / 二行目 (21 bytes)",
+        "古い処理: ソフト表示能力の確認(十分)",
+        "</pre>",
+        "</form>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "Name": "form-get",
+      "Path": "/form",
+      "Title": "送信フォーム",
+      "Text": [
+        "お名前:",
+        "一般の方",
+        "表彰対象"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "",
+        "ddlKind": "一般"
+      },
+      "Elements": {
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ddlKind": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSend": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "out": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      },
+      "Source": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<title>",
+        "送信フォーム",
+        "</title>",
+        "</head>",
+        "<body>",
+        "<form method=\"post\" action=\"./Form.aspx\" id=\"form1\">",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"{masked}\">",
+        "</div>",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" id=\"__VIEWSTATEGENERATOR\" value=\"{masked}\">",
+        "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"{masked}\">",
+        "</div>",
+        "<label>お名前:</label>",
+        "<input name=\"txtName\" type=\"text\" id=\"txtName\">",
+        "<select name=\"ddlKind\" id=\"ddlKind\">",
+        "<option value=\"一般\">一般の方</option>",
+        "<option value=\"表彰\">表彰対象</option>",
+        "</select>",
+        "<input type=\"submit\" name=\"btnSend\" value=\"送信する\" id=\"btnSend\">",
+        "<pre id=\"out\">",
+        "</pre>",
+        "</form>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "Name": "form-sent",
+      "Path": "/form",
+      "Title": "送信フォーム",
+      "Text": [
+        "お名前:",
+        "一般の方",
+        "表彰対象",
+        "こんにちは、山田 ソフト表①～ さん(表彰)",
+        "文字数: 9、Shift_JIS のバイト数: 17",
+        "生の値: 山田 ソフト表①～"
+      ],
+      "Tables": [],
+      "Inputs": {
+        "txtName": "山田 ソフト表①～",
+        "ddlKind": "表彰"
+      },
+      "Elements": {
+        "txtName": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "text"
+          },
+          "Style": {}
+        },
+        "ddlKind": {
+          "Tag": "select",
+          "Attributes": {},
+          "Style": {}
+        },
+        "btnSend": {
+          "Tag": "input",
+          "Attributes": {
+            "type": "button"
+          },
+          "Style": {}
+        },
+        "out": {
+          "Tag": "pre",
+          "Attributes": {},
+          "Style": {}
+        }
+      },
+      "Source": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<title>",
+        "送信フォーム",
+        "</title>",
+        "</head>",
+        "<body>",
+        "<form method=\"post\" action=\"./Form.aspx\" id=\"form1\">",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"{masked}\">",
+        "</div>",
+        "<div class=\"aspNetHidden\">",
+        "<input type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" id=\"__VIEWSTATEGENERATOR\" value=\"{masked}\">",
+        "<input type=\"hidden\" name=\"__EVENTVALIDATION\" id=\"__EVENTVALIDATION\" value=\"{masked}\">",
+        "</div>",
+        "<label>お名前:</label>",
+        "<input name=\"txtName\" type=\"text\" value=\"山田 ソフト表①～\" id=\"txtName\">",
+        "<select name=\"ddlKind\" id=\"ddlKind\">",
+        "<option value=\"一般\">一般の方</option>",
+        "<option selected=\"selected\" value=\"表彰\">表彰対象</option>",
+        "</select>",
+        "<input type=\"submit\" name=\"btnSend\" value=\"送信する\" id=\"btnSend\">",
+        "<pre id=\"out\">こんにちは、山田 ソフト表①～ さん(表彰)",
+        "文字数: 9、Shift_JIS のバイト数: 17",
+        "生の値: 山田 ソフト表①～",
+        "</pre>",
+        "</form>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "Name": "declared",
+      "Path": "/declared/inline",
+      "Title": "宣言あり",
+      "Text": [
+        "宣言された fileEncoding で読んだページ:申込表・ソフト",
+        "マークアップ:能力十分、表示予定",
+        "shift_jis"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "script": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "markup": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "encoding": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      },
+      "Source": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<title>宣言あり</title>",
+        "</head>",
+        "<body>",
+        "<p id=\"script\">宣言された fileEncoding で読んだページ:申込表・ソフト</p>",
+        "<p id=\"markup\">マークアップ:能力十分、表示予定</p>",
+        "<p id=\"encoding\">shift_jis</p>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "Name": "bom",
+      "Path": "/bom",
+      "Title": "BOM 付き",
+      "Text": [
+        "UTF-8(BOM 付き)のページ:表示・能力・吉野家",
+        "応答は shift_jis: ①②③ と ～ は表せる"
+      ],
+      "Tables": [],
+      "Inputs": {},
+      "Elements": {
+        "script": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        },
+        "markup": {
+          "Tag": "p",
+          "Attributes": {},
+          "Style": {}
+        }
+      },
+      "Source": [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<title>BOM 付き</title>",
+        "</head>",
+        "<body>",
+        "<p id=\"script\">UTF-8(BOM 付き)のページ:表示・能力・吉野家</p>",
+        "<p id=\"markup\">応答は shift_jis: ①②③ と ～ は表せる</p>",
+        "</body>",
+        "</html>"
+      ]
+    }
+  ],
+  "Links": null
+}

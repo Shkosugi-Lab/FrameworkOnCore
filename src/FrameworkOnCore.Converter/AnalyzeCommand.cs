@@ -6,7 +6,7 @@ using FrameworkOnCore.Analysis;
 namespace FrameworkOnCore.Converter;
 
 /// <summary>
-/// FrameworkOnCore.Converter analyze &lt;project&gt; --out &lt;dir&gt; [--root &lt;dir&gt;] [--configuration &lt;name&gt;] [--runtime &lt;dir&gt;]:
+/// FrameworkOnCore.Converter analyze &lt;project&gt; --out &lt;dir&gt; [--root &lt;dir&gt;] [--configuration &lt;name&gt;] [--runtime &lt;dir&gt;] [--code-page &lt;n&gt;]:
 /// the APIs of .NET Framework the application uses, with their counts, and what a converted application has of each
 /// on .NET 10: .NET's, the packages these rules add, FrameworkOnCore's (the feed), the compatibility assembly (the shims).
 /// Writes api-analysis.json (the data a UI reads), API-ANALYSIS.md, and foc-choices.json (the choices at their defaults).
@@ -25,12 +25,17 @@ public static class AnalyzeCommand
                 case "--root": rootDirectory = args[++i]; break;
                 case "--configuration": configuration = args[++i]; break;
                 case "--runtime": runtimeDirectory = args[++i]; break;
+                // The ANSI code page of the machine it was built on (the sources without a byte order mark that are not UTF-8).
+                case "--code-page":
+                    if (!int.TryParse(args[++i], out var codePage) || SourceEncoding.CodePage(codePage) == null) { Console.Error.WriteLine($"--code-page: a code page .NET has (932, 1252 ...), not {args[i]}"); return 2; }
+                    SourceEncoding.MachineCodePage = codePage;
+                    break;
                 default: project = args[i]; break;
             }
         }
         if (project == null || outDirectory == null)
         {
-            Console.Error.WriteLine("usage: FrameworkOnCore.Converter analyze <project .csproj|.vbproj> --out <dir> [--root <dir>] [--configuration <name>] [--runtime <dir>]");
+            Console.Error.WriteLine("usage: FrameworkOnCore.Converter analyze <project .csproj|.vbproj> --out <dir> [--root <dir>] [--configuration <name>] [--runtime <dir>] [--code-page <n>]");
             return 2;
         }
         project = Path.GetFullPath(project);

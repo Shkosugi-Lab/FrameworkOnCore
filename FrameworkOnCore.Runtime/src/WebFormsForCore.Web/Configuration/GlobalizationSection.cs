@@ -152,7 +152,8 @@ namespace System.Web.Configuration {
         public Encoding FileEncoding {
             get {
                 if (fileEncodingCache == null) {
-                    fileEncodingCache = Encoding.Default;
+                    // FrameworkOnCore: .NET Framework's Encoding.Default, the ANSI code page (AnsiCodePage).
+                    fileEncodingCache = System.Web.Util.AnsiCodePage.Encoding;
                 }
                 return fileEncodingCache;
             }
@@ -163,7 +164,7 @@ namespace System.Web.Configuration {
                 }
                 else {
                     base[_propFileEncoding] = value;
-                    fileEncodingCache = Encoding.Default;
+                    fileEncodingCache = System.Web.Util.AnsiCodePage.Encoding;
                 }
             }
         }
@@ -259,8 +260,13 @@ namespace System.Web.Configuration {
             PostDeserialize();
         }
 
+        // FrameworkOnCore: whether web.config gives a fileEncoding (without one, a file is read as AnsiCodePage.Reader reads it).
+        internal bool IsFileEncodingSet => !String.IsNullOrEmpty(base[_propFileEncoding] as string);
+
         protected override void PostDeserialize() {
             ConfigurationPropertyCollection props = Properties;
+            // FrameworkOnCore: the code pages .NET Framework had (shift_jis, windows-1252), which .NET has once registered.
+            System.Web.Util.AnsiCodePage.Register();
 
             // Need to check that the encodings provided are valid here
             ConfigurationProperty errorProperty = null;

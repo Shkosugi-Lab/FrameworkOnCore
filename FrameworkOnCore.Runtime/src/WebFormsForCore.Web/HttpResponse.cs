@@ -2827,7 +2827,8 @@ namespace System.Web {
 
                 byte[] fileBytes = new byte[(int)size];
                 int bytesRead = f.Read(fileBytes, 0, (int)size);
-                _writer.Write(Encoding.Default.GetChars(fileBytes, 0, bytesRead));
+                // FrameworkOnCore: .NET Framework's Encoding.Default (the ANSI code page); UTF-8 where the file is (AnsiCodePage).
+                _writer.Write(System.Web.Util.AnsiCodePage.Decode(bytesRead == fileBytes.Length ? fileBytes : fileBytes.AsSpan(0, bytesRead).ToArray(), null));
             }
         }
 

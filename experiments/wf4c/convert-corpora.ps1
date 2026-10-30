@@ -5,6 +5,11 @@
 # more unresolved or stubs than there were is a regression (the code the conversion stops to compile is a feature that
 # silently does not work), reported, and the script fails at the end. -UpdateBaseline writes this run's counts there
 # (after the stubs added were looked at: each a .NET API's absence, StubCauses).
+# Each conversion's decisions are compared with corpora\regression\conversion-baseline\<name>.json too (the converter's
+# snapshot command, SnapshotCommand): the converted projects' properties, packages, references and items, the report's
+# entries by kind, the files the conversion added, changed or removed, the retargeted DLLs, the assembled site. Any
+# difference is printed (- baseline, + now; all of it in _linux\snapshot-diff-<name>.txt) and fails the script at the
+# end: a refactoring of the converter changes none. -UpdateBaseline records them too.
 param([string[]]$Only = @('be', 'wt', 'mojo', 'yaf', 'dnn', 'n2', 'imis', 'nop', 'mvcmovie', 'nop390', 'contoso'), [switch]$Rebuild, [switch]$UpdateBaseline)
 
 $repo = Resolve-Path (Join-Path $PSScriptRoot '..\..')
@@ -43,6 +48,8 @@ $baselinePath = Join-Path $repo 'corpora\regression\conversion-baseline.json'
 $baseline = [ordered]@{}
 if (Test-Path $baselinePath) { (Get-Content $baselinePath -Raw | ConvertFrom-Json).PSObject.Properties | ForEach-Object { $baseline[$_.Name] = $_.Value } }
 $regressions = @()
+$differences = @()
+$snapshots = Join-Path $repo 'corpora\regression\conversion-baseline'
 # A section's count in the report ("## <title>(<n> 件)"), by the start of its title.
 function SectionCount([string]$report, [string]$title) {
     $line = Select-String -Path $report -Pattern ('^## ' + [regex]::Escape($title)) | Select-Object -First 1
@@ -122,6 +129,18 @@ foreach ($name in $Only) {
         else { "  no baseline yet (-UpdateBaseline records it)" }
         if ($UpdateBaseline) { $baseline[$name] = $now }
     }
+    # The conversion's decisions against the baseline's (SnapshotCommand). The assembled site is compared with the
+    # deployed one it was made from: the newest original build's, now (the conversion may have built one).
+    $snapshotArguments = @("experiments\wf4c\$name", '--source', "corpora\work\$root", '--baseline', (Join-Path $snapshots "$name.json"),
+        '--exit', $code, '--diff', (Join-Path $logs "snapshot-diff-$name.txt"))
+    if ($originals.ContainsKey($name)) {
+        $built = @(Get-ChildItem $PSScriptRoot -Directory | Where-Object { $_.Name -match "^$([regex]::Escape($name))\.original(-\d{8}-\d{6}(-\d+)?)?$" } |
+            Sort-Object { if ($_.Name -eq "$name.original") { '' } else { $_.Name } } -Descending)
+        if ($built) { $snapshotArguments += '--site', (Join-Path $built[0].FullName $originals[$name].Site) }
+    }
+    if ($UpdateBaseline) { $snapshotArguments += '--update' }
+    dotnet $converter snapshot @snapshotArguments
+    if ($LASTEXITCODE -ne 0 -and -not $UpdateBaseline) { $differences += $name }
 }
 if ($UpdateBaseline) {
     $sorted = [ordered]@{}
@@ -129,4 +148,6 @@ if ($UpdateBaseline) {
     [IO.File]::WriteAllText($baselinePath, ($sorted | ConvertTo-Json -Depth 3) + "`n", (New-Object Text.UTF8Encoding $false))
     "baseline written: $baselinePath"
 }
+if ($differences) { "conversions that differ from their snapshot: $($differences -join ', ') (_linux\snapshot-diff-<name>.txt)" }
 if ($regressions) { throw "conversion regressions: $($regressions -join ', ') (more unresolved or stubbed code than corpora\regression\conversion-baseline.json)" }
+if ($differences) { throw "conversions differ from corpora\regression\conversion-baseline\<name>.json: $($differences -join ', ') (_linux\snapshot-diff-<name>.txt; -UpdateBaseline records them)" }

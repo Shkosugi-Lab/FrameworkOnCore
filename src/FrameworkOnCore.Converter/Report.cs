@@ -35,20 +35,22 @@ public sealed class Report
         if (kind is not (Kind.Stub or Kind.Platform) && !(kind == Kind.Iis && !text.StartsWith("未対応", StringComparison.Ordinal))) Console.WriteLine($"  [{kind}] {subject}: {text}");
     }
 
+    /// <summary>The report's sections, in their order: each kind's heading (SnapshotCommand reads them back).</summary>
+    public static readonly IReadOnlyList<(Kind Kind, string Heading)> Headings =
+    [
+        (Kind.Error, "未解決(変換で解決できなかったもの)"),
+        (Kind.Raised, "パッケージの大きな版上げ(コードは前の版に合わせて書かれている)"),
+        (Kind.Iis, "IIS の機能(元のサーバーと web.config の設定。未対応のものは変換後に効かない)"),
+        (Kind.Unsupported, ".NET に無い、または Windows 専用の API"),
+        (Kind.Stub, "コンパイルのために変えたソース(スタブ・削除)"),
+        (Kind.Platform, "Linux で動かすために変えたソース(Windows のパス)"),
+        (Kind.Project, "プロジェクトとパッケージ"),
+    ];
+
     public string ToMarkdown(string title)
     {
         var text = new StringBuilder($"# {title}\n\n");
-        var headings = new Dictionary<Kind, string>
-        {
-            [Kind.Error] = "未解決(変換で解決できなかったもの)",
-            [Kind.Raised] = "パッケージの大きな版上げ(コードは前の版に合わせて書かれている)",
-            [Kind.Iis] = "IIS の機能(元のサーバーと web.config の設定。未対応のものは変換後に効かない)",
-            [Kind.Unsupported] = ".NET に無い、または Windows 専用の API",
-            [Kind.Stub] = "コンパイルのために変えたソース(スタブ・削除)",
-            [Kind.Platform] = "Linux で動かすために変えたソース(Windows のパス)",
-            [Kind.Project] = "プロジェクトとパッケージ",
-        };
-        foreach (var (kind, heading) in headings)
+        foreach (var (kind, heading) in Headings)
         {
             // In a fixed order: the builds report in the order their parallel work gives (the same conversion, the same report).
             var group = entries.Where(e => e.Kind == kind).OrderBy(e => e.Subject, StringComparer.Ordinal).ThenBy(e => e.Text, StringComparer.Ordinal).ToList();

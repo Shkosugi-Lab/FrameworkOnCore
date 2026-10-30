@@ -34,7 +34,13 @@ public static class SiteAssembler
 
         // The web project's build: its assembly, the packages' .NET assemblies, the runtime files.
         var webBin = Path.Combine(Path.GetDirectoryName(web.TargetPath)!, "bin");
-        var fromWeb = CopyAll(webBin, bin, overwrite: true);
+        // Not the output of the projects in the web project's folder, in its bin\<project> (BuildConfiguration.SeparateSharedFolders).
+        var sharing = converter.Converted
+            .Where(c => !c.TargetPath.Equals(web.TargetPath, StringComparison.OrdinalIgnoreCase) &&
+                        string.Equals(Path.GetDirectoryName(c.TargetPath), Path.GetDirectoryName(web.TargetPath), StringComparison.OrdinalIgnoreCase))
+            .Select(c => Path.Combine(webBin, Path.GetFileNameWithoutExtension(c.TargetPath)))
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var fromWeb = CopyAll(webBin, bin, overwrite: true, sharing);
         var rebuilt = new HashSet<string>(Directory.EnumerateFiles(webBin).Select(f => Path.GetFileName(f)!), StringComparer.OrdinalIgnoreCase);
 
         // The projects built on their own (not referenced by the web project): their assembly and,
@@ -43,7 +49,10 @@ public static class SiteAssembler
         foreach (var project in others)
         {
             var assembly = (project.AssemblyName ?? project.Name) + ".dll";
-            var built = Directory.EnumerateFiles(Path.Combine(Path.GetDirectoryName(project.TargetPath)!, "bin"), assembly, SearchOption.AllDirectories)
+            // Its own output folder when it shares its folder with other projects (bin\<project>: SeparateSharedFolders).
+            var projectBin = Path.Combine(Path.GetDirectoryName(project.TargetPath)!, "bin");
+            var ownBin = Path.Combine(projectBin, Path.GetFileNameWithoutExtension(project.TargetPath));
+            var built = Directory.EnumerateFiles(Directory.Exists(ownBin) ? ownBin : projectBin, assembly, SearchOption.AllDirectories)
                 .OrderByDescending(File.GetLastWriteTimeUtc).FirstOrDefault();
             if (built == null) { report.Add(Report.Kind.Error, project.Name, $"{assembly} not built: the deployed site's .NET Framework one is left"); continue; }
             var directory = Path.GetDirectoryName(built)!;
@@ -147,7 +156,7 @@ public static class SiteAssembler
         return stream.Read(head) == 4 && head[0] == (byte)'P' && head[1] == (byte)'K' && head[2] == 3 && head[3] == 4;
     }
 
-    static int CopyAll(string from, string to, bool overwrite)
+    static int CopyAll(string from, string to, bool overwrite, IReadOnlySet<string>? excluded = null)
     {
         var count = 0;
         Directory.CreateDirectory(to);
@@ -158,7 +167,8 @@ public static class SiteAssembler
         }
         foreach (var directory in Directory.EnumerateDirectories(from))
         {
-            count += CopyAll(directory, Path.Combine(to, Path.GetFileName(directory)), overwrite);
+            if (excluded != null && excluded.Contains(directory)) continue;
+            count += CopyAll(directory, Path.Combine(to, Path.GetFileName(directory)), overwrite, excluded);
         }
         return count;
     }

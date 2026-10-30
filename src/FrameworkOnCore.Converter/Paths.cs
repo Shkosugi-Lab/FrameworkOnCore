@@ -34,6 +34,10 @@ public static class Paths
         return top;
     }
 
+    /// <summary>A folder CopyTree leaves out: build output, tooling, NuGet's packages (SnapshotCommand compares the trees so).</summary>
+    public static bool NotCopied(DirectoryInfo directory) =>
+        (skipped.Contains(directory.Name) && !IsCheckedInBin(directory)) || IsNuGetPackages(directory);
+
     /// <summary>Copies the repository as it is, without build output (the target is replaced).</summary>
     public static void CopyTree(string source, string target)
     {
@@ -52,7 +56,7 @@ public static class Paths
             foreach (var file in from.EnumerateFiles()) file.CopyTo(Path.Combine(to, file.Name), overwrite: true);
             foreach (var directory in from.EnumerateDirectories())
             {
-                if ((skipped.Contains(directory.Name) && !IsCheckedInBin(directory)) || IsNuGetPackages(directory)) continue;
+                if (NotCopied(directory)) continue;
                 Copy(directory, Path.Combine(to, directory.Name));
             }
         }

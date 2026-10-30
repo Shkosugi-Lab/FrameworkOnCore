@@ -48,9 +48,13 @@ using FrameworkOnCore.Converter;
 //
 //   FrameworkOnCore.Converter build-original-advice <project> [--root <dir>]
 //            whether the site is made by building the application (--build-original), and why.
+//
+//   FrameworkOnCore.Converter snapshot <out> --source <root> --baseline <file> [--site <dir>] [--exit <code>] [--update] [--diff <file>]
+//            what a conversion decided, read back from its output (SnapshotCommand), compared with a baseline or recorded.
 
 if (args.Length > 0 && args[0] == "analyze") return AnalyzeCommand.Run(args[1..], RuntimeSetup.Find);
 if (args.Length > 0 && args[0] == "build-original") return BuildOriginalCommand.Run(args[1..]);
+if (args.Length > 0 && args[0] == "snapshot") return SnapshotCommand.Run(args[1..]);
 if (args.Length > 0 && args[0] == "build-original-advice") return BuildOriginalCommand.Advise(args[1..]);
 
 string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, iisProfile = null, site = null, originalTarget = null, configuration = null;
@@ -188,6 +192,8 @@ if (site != null)
 
 // A package taken as its .NET Framework asset is so for the projects that see it through another one too.
 FrameworkAssetsFlow.Apply(converter.Converted, rules, report);
+// Converted projects in one folder: each in its own obj and bin, or their restores and builds overwrite each other's.
+BuildConfiguration.SeparateSharedFolders(outRoot, converter.Converted.Select(c => c.TargetPath), report);
 
 // Built as one solution: the web project and every converted project, in the configuration the site was built in (a
 // solution's own default is Debug, which it gives its projects whatever their Directory.Build.props says).

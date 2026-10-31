@@ -12,6 +12,7 @@
 # -Matrix 'culture@zone',...: the tests run under each culture and time zone in turn (tests/Shared/TestEnvironment.cs's
 # FOC_TEST_CULTURE, and TZ: 'tr-TR@America/Los_Angeles', 'invariant@UTC'), SqlClientTests' too unless -Filter; each
 # run's results written to -Results <folder> as linux-<project>-<culture>-<zone>.trx (tests/run-matrix.ps1).
+# Exit code: 0 when the builds and every test run passed (each project runs even when one before failed); otherwise 1.
 param([string]$Image = 'mcr.microsoft.com/dotnet/sdk:10.0', [switch]$SqlServer, [string]$Filter,
     [ValidateSet('', 'libgdiplus', 'skia')][string]$DrawingBackend, [string]$GdipTrace, [switch]$ParityStrict,
     [string[]]$Matrix, [string]$Results)
@@ -72,23 +73,31 @@ for l in $(ls /repo/translations); do
 done
 cd /w
 __DRAWING__
+# From here each command's own status is taken: both projects run, the exit code is 1 when either failed.
+set +e
+failed=0
 if [ -z ${MATRIX:+x} ]; then
-dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q __NOBUILD__ __FILTER__
+dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q __NOBUILD__ __FILTER__ || failed=1
 __SQLCLIENT__
-exit 0
+exit $failed
 fi
 # The matrix: built once, then run under each culture and zone (FOC_TEST_TZ too: an unknown zone fails the run).
 projects=tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj
 __MATRIXSQL__
-for p in $projects; do dotnet build $p -nologo -v q 2>&1 | grep -E ' error ' || true; done
+for p in $projects; do
+  dotnet build $p -nologo -v q 2>&1 | grep -E ' error '
+  if [ ${PIPESTATUS[0]} -ne 0 ]; then echo $p: the build failed; exit 1; fi
+done
 for entry in $MATRIX; do
   culture=${entry%@*}; zone=${entry#*@}
   for p in $projects; do
     n=$(basename $p .csproj)
     echo == $n culture=$culture TZ=$zone
-    FOC_TEST_CULTURE=$culture TZ=$zone FOC_TEST_TZ=$zone dotnet test $p --no-build -nologo __FILTER__ --logger trx\;LogFileName=/results/linux-$n-$culture-${zone//\//_}.trx 2>&1 | grep -E '^\s+Failed |Passed!|Failed!| error ' | head -300 || true
+    FOC_TEST_CULTURE=$culture TZ=$zone FOC_TEST_TZ=$zone dotnet test $p --no-build -nologo __FILTER__ --logger trx\;LogFileName=/results/linux-$n-$culture-${zone//\//_}.trx 2>&1 | grep -E '^\s+Failed |Passed!|Failed!| error ' | awk 'NR <= 300'
+    if [ ${PIPESTATUS[0]} -ne 0 ]; then failed=1; fi
   done
 done
+exit $failed
 '@ -replace "`r", ''
 $script = $script.Replace('__DRAWING__', $(if ($drawing) { @'
 dotnet build tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q
@@ -109,5 +118,7 @@ $script = $script.Replace('__FILTER__', $(if ($Filter) { "--filter '$Filter' --l
 # The System.Data.SqlClient port's tests (Microsoft's functional tests and |DataDirectory|'s, with their TDS server) on
 # the managed SNI, Linux's; with -Filter, FrameworkOnCore.Tests' only.
 $script = $script.Replace('__MATRIXSQL__', $(if ($Filter) { '' } else { 'projects=$projects\ tests/SqlClientTests/SqlClientTests.csproj' }))
-$script = $script.Replace('__SQLCLIENT__', $(if ($Filter) { '' } else { 'dotnet test tests/SqlClientTests/SqlClientTests.csproj -nologo -v q' }))
+$script = $script.Replace('__SQLCLIENT__', $(if ($Filter) { '' } else { 'dotnet test tests/SqlClientTests/SqlClientTests.csproj -nologo -v q || failed=1' }))
 docker run --rm @arguments -v "${repo}:/repo:ro" $Image bash -c $script
+# The container's exit code: 0 when everything built and passed, 1 when a build or a test run failed.
+exit $LASTEXITCODE

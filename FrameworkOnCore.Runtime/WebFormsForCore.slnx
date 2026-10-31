@@ -41,9 +41,6 @@
   <Project Path="src/WebFormsForCore.Serialization.Formatters/WebFormsForCore.Serialization.Formatters.csproj">
     <BuildDependency Project="src/WebFormsForCore.Build/WebFormsForCore.Build.csproj" />
   </Project>
-  <Project Path="src/WebFormsForCore.TestApp/WebFormsForCore.TestApp.csproj">
-    <BuildDependency Project="src/WebFormsForCore.Build/WebFormsForCore.Build.csproj" />
-  </Project>
   <Project Path="src/WebFormsForCore.Web.ApplicationServices/WebFormsForCore.Web.ApplicationServices.csproj">
     <BuildDependency Project="src/WebFormsForCore.Build/WebFormsForCore.Build.csproj" />
   </Project>

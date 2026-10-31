@@ -14,7 +14,13 @@ $FrameworkOnCoreRepository = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Pa
 
 # What the packages are built from (pack-frameworkoncore.ps1 packs FrameworkOnCore.Runtime's projects; their satellites are
 # the translations' folder's).
-$FrameworkOnCorePackageSources = @('FrameworkOnCore.Runtime', 'experiments/wf4c/frameworkoncore.slnx', 'translations')
+# Not what is packed: upstream's solutions and CI file (pack builds frameworkoncore.slnx) and the two upstream test
+# projects removed on 2026-10-31 (no package built from them; tests/README.md).
+$FrameworkOnCorePackageSources = @('FrameworkOnCore.Runtime', 'experiments/wf4c/frameworkoncore.slnx', 'translations',
+    ':(exclude,glob)FrameworkOnCore.Runtime/**/*.sln', ':(exclude,glob)FrameworkOnCore.Runtime/**/*.slnx',
+    ':(exclude,glob)FrameworkOnCore.Runtime/**/appveyor.yml',
+    ':(exclude)FrameworkOnCore.Runtime/src/WebFormsForCore.TestApp',
+    ':(exclude)FrameworkOnCore.Runtime/src/WebFormsForCore.AjaxControlToolkit/AjaxControlToolkit.Tests')
 
 function Get-FrameworkOnCoreVersion {
     # The rules have comments (ConvertFrom-Json of Windows PowerShell does not take them): the one property.

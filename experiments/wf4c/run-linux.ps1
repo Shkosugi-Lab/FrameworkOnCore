@@ -13,6 +13,9 @@
 # The app's tree (the first folder of -App, as convert-project.ps1 wrote it), _feed, shims and icu
 # are copied into the container as they are (without build output), so the projects' relative
 # paths to them hold there too.
+#
+# Exit code: ParityTest's (0: RESULT: OK, every snapshot the same or a documented difference for linux - the scenario's
+# "allowed" file -, and every link; 1: RESULT: FAIL). A failed build or start-up throws (exit 1 under powershell -File).
 param(
     # The web project's directory, relative to experiments\wf4c.
     [Parameter(Mandatory = $true)][string]$App,
@@ -45,15 +48,16 @@ param(
 $ErrorActionPreference = 'Continue'
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $name = Split-Path $App -Leaf
-$verifierArguments = @()
+# --platform linux: the documented differences of the scenario's "allowed" file that are Linux's apply.
+$verifierArguments = @('--platform', 'linux')
 if ($Suite -eq 'operations') {
     if (-not $SqlServer) { throw '-Suite operations needs -SqlServer' }
     $Scenario = 'corpora\regression\wt.operations.scenario.json'
     $Golden = 'corpora\parity\wt.operations.golden.json'
     $results = Join-Path $PSScriptRoot '_results'
     New-Item -ItemType Directory $results -Force | Out-Null
-    $verifierArguments = @('--sql', 'Server=127.0.0.1,14333;Database=WingtipToys;User ID=sa;Password=W2l_local_Passw0rd;TrustServerCertificate=true',
-        '--platform', 'linux', '--report', (Join-Path $results 'wt.operations.linux.md'), '--results', (Join-Path $results 'wt.operations.linux.json'))
+    $verifierArguments += @('--sql', 'Server=127.0.0.1,14333;Database=WingtipToys;User ID=sa;Password=W2l_local_Passw0rd;TrustServerCertificate=true',
+        '--report', (Join-Path $results 'wt.operations.linux.md'), '--results', (Join-Path $results 'wt.operations.linux.json'))
 }
 if (-not $Scenario) { $Scenario = "samples\$name\parity-scenario.json" }
 if (-not $Golden) { $Golden = "samples\$name\golden-webforms.json" }
@@ -171,3 +175,4 @@ finally {
     docker logs $container *> (Join-Path $logDir 'container.log')
     if (-not $Keep) { docker rm -f $container 2>$null | Out-Null }
 }
+exit $verifyExit

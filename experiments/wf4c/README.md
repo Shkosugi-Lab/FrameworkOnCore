@@ -546,7 +546,7 @@ Linux で ICU のデータに表せないもの:
 | wt | 成功 | Windows 6/8(既知の丸めの差) |
 | mojo | 成功。元のビルドはソリューションのビルド(`--build-original`) | **トップページが表示される**(`Home - mojoPortal`。DB は `.\SQLEXPRESS` の `mojo_w2l`)。**Linux でも**、空の DB からセットアップ画面がスキーマ(105 テーブル)を作り、トップページ・ログイン・サイトマップが 200(`run-linux-site.ps1`、SQL Server のコンテナ) |
 | yaf | 成功 | `FieldAccessException`。アプリが Web API 2 の `HttpControllerRouteHandler._instance`(static readonly)をリフレクションで書き換えていて、.NET は型の初期化後の書き換えを禁止している。Web API 2 を DLL のまま使う限り直せないので、AspNetWebStack の移植が要る |
-| dnn | 成功。元のビルドは DNN 自身の Cake ビルド(`--build-original`)。VB の DotNetNuke.WebUtility は配置済みサイトの .NET Framework の DLL をそのまま参照する(2026-09-28 から VB のプロジェクトも変換する。その後 Windows・Linux とも再検証した) | Windows: **インストール(`Install.aspx?mode=install`)が完了し、トップページが表示される**(`Home`。DB は `.\SQLEXPRESS` の `dnn_w2l`。`dnn-cycle.ps1` で DB の作成から通す)。**Linux でも**、空の DB からインストールが完了し(サイトの作成、スキンなどのモジュールの導入)、トップページ・`/Login`・`/Terms` が 200、ページの CSS・JS・画像 21 件がすべて 200、host でのログインが通る(`run-linux-site.ps1`、SQL Server のコンテナ。下の「Linux で動かすための書き換え」) |
+| dnn | 成功。元のビルドは DNN 自身の Cake ビルド(`--build-original`)。VB の DotNetNuke.WebUtility は配置済みサイトの .NET Framework の DLL をそのまま参照する(2026-09-28 から VB のプロジェクトも変換する。その後 Windows・Linux とも再検証した) | Windows: **インストール(`Install.aspx?mode=install`)が完了し、トップページが表示される**(`Home`。DB は `.\SQLEXPRESS` の `dnn_w2l`。`dnn-cycle.ps1` で DB の作成から通した。このスクリプトは 2026-10-31 に削除した: dnn はふだん動かさず、動かなくなっていた。git の履歴にある)。**Linux でも**、空の DB からインストールが完了し(サイトの作成、スキンなどのモジュールの導入)、トップページ・`/Login`・`/Terms` が 200、ページの CSS・JS・画像 21 件がすべて 200、host でのログインが通る(`run-linux-site.ps1`、SQL Server のコンテナ。下の「Linux で動かすための書き換え」) |
 | imis | 成功(VB のプロジェクト 5 本)。元のビルドはソリューションのビルド(構成 `DemoRelease`) | Windows・Linux とも、**デモの DB でログインでき、主な画面(ホーム、世帯・被保険者・保険・請求・ユーザーの検索、レポート)が 200**(`imis-login.ps1`。下の「VB のプロジェクト」) |
 | n2 | 成功。元のビルドはソリューションのビルドと、リポジトリのセットアップ手順(`--original-step build\n2.proj;Templates-PrepareDependencies`) | インストーラーが表示される(`Install N2`)。Linux でも同じ(フォーク 0021 の後)。Windows: **SQLite(`App_Data\n2.sqlite.db`)で、空の DB からインストールが完了し(管理者のパスワード → テーブルの作成 → サンプルのコンテンツの取り込み。`n2-install.ps1`)、トップページがコンテンツ付きで表示される**(VB のページ。フォーク 0025)。**Linux でも同じ**(`run-linux-site.ps1 -Keep` の後 `n2-install.ps1 -Port 5098 -Running`)。SQLite は 1.0.119 に上げる(下) |
 
@@ -748,7 +748,7 @@ Windows 専用の API の置き換え(`platformReplacements`、FOC1006)に加え
 VB のプロジェクトの変換と `EventLog` の書き換えの後、dnn・n2 を Windows・Linux で動かし直した。
 
 - 変換結果の差(`snapshot-conversion.ps1`): dnn は 17 ファイル。DotNetNuke.WebUtility(VB)をソースから変換するようになり(`MyType Windows` → `Empty`、空の `RootNamespace` のまま)、参照する 13 プロジェクトがそのプロジェクトを参照する。WebUtility のパスの書き換え(ClientAPI・BrowserCaps)と、log4net の EventLogAppender の `EventLog` の書き換え。n2 は差なし。
-- dnn: Windows(`dnn-cycle.ps1`)・Linux とも、空の DB からインストールが完了し、トップページ・`/Login`・`/Terms` が 200、ページの資源 21 件がすべて 200。host のログインは資格情報が通り、DNN のパスワードの強制変更の画面に進む(誤ったパスワードでは「Login Failed」)。
+- dnn: Windows(`dnn-cycle.ps1`。2026-10-31 に削除)・Linux とも、空の DB からインストールが完了し、トップページ・`/Login`・`/Terms` が 200、ページの資源 21 件がすべて 200。host のログインは資格情報が通り、DNN のパスワードの強制変更の画面に進む(誤ったパスワードでは「Login Failed」)。
 - n2: Windows・Linux とも、インストーラー(管理者のパスワード → テーブルの作成 → サンプルのコンテンツの取り込み)が完了し、トップページがコンテンツ付きで表示される。
 
 見つかったこと:
@@ -2147,7 +2147,7 @@ Windows の http.sys のもので、Kestrel・Linux には無い。同じこと�
 
 前節の値で、変換後の Linux は Windows の約 7 割(Events.aspx 32 接続: 19,598 対 27,552 req/s)。CPU は同じ(このマシンは論理 8 個、
 Docker Desktop の Linux の仮想マシンも 8 個)。System.Web を使わない最小の ASP.NET Core アプリ(`perf-baseline/`、`perf-baseline/load.ps1`。
-負荷は `perf-check.ps1` と同じ: bombardier、32 接続 15 秒、準備運転 5 秒、Linux はコンテナのネットワークの中から)で、System.Web の
+負荷は `perf-check.ps1` と同じ: bombardier、32 接続 15 秒、準備運転 5 秒、Linux はコンテナのネットワークの中から。(`perf-check.ps1`・`perf-baseline/`・`perf-counters.py`・`perf-frames.py` は 2026-10-31 に削除した。bombardier が要り、その後は使っていなかった。git の履歴にある))で、System.Web の
 処理を 1 つずつ真似て比べた。
 
 | パス | 処理 | Windows | Linux(コンテナ) | 1 要求あたりの追加(Windows / Linux) |
@@ -2175,7 +2175,7 @@ Docker Desktop の Linux の仮想マシンも 8 個)。System.Web を使わな�
 ### 性能: ViewState の暗号化と GC の負担を減らした(2026-10-13、ユーザーの指示)
 
 前節の続き。`perf-check.ps1 -Diagnose`(Linux の実行中の GC の値を dotnet-counters で、終わった後のヒープとファイナライズ待ちを dotnet-dump で取る。
-`perf-counters.py` で集計)を足して調べた。dotnet-trace の「CPU 時間」は待っているスレッド(ファイナライザー、GC で止まったスレッド、セマフォ)も数える
+`perf-counters.py` で集計。どれも 2026-10-31 に削除)を足して調べた。dotnet-trace の「CPU 時間」は待っているスレッド(ファイナライザー、GC で止まったスレッド、セマフォ)も数える
 ので、決め手は req/s と GC の値にした。
 
 - **直す前**(PipelineProbe Events.aspx、Linux): 1 要求あたり約 141 KB を割り当て、gen0 35 回/秒・**gen1 25 回/秒**、GC の停止が時間の約 1 割。
@@ -2212,7 +2212,7 @@ Docker Desktop の Linux の仮想マシンも 8 個)。System.Web を使わな�
 ### 性能: 要求の処理の負担を減らした(2026-10-13、ユーザーの指示)
 
 `perf-check.ps1`(bombardier で同じ負荷: 32 接続 20 秒、準備運転 5 秒。Linux はアプリのコンテナのネットワークの中から負荷をかけ、Docker
-Desktop のポート転送を通さない。`-Trace` で dotnet-trace の CPU のトレース、`perf-frames.py` で集計)で測り、トレースで分かった負担を除いた。
+Desktop のポート転送を通さない。`-Trace` で dotnet-trace の CPU のトレース、`perf-frames.py` で集計。どれも 2026-10-31 に削除)で測り、トレースで分かった負担を除いた。
 
 - **直す前**(PipelineProbe の Events.aspx): IIS 6,508 req/s、変換後 Windows 2,404、Linux(コンテナの中から)2,826。ポート転送は主因ではなかった。
   Linux の CPU の内訳: 要求ごとのスレッドの起動(`Task.Factory.StartNew` の LongRunning)31〜34%、ファイナライザー 17%(要求ごとに作って

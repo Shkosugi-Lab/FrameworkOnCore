@@ -1,0 +1,352 @@
+{
+    "Source":  {
+                   "Machine":  "DESKTOP-983D5LO",
+                   "User":  "DESKTOP-983D5LO\\admin",
+                   "Framework":  "4.0.30319.42000",
+                   "Captured":  "2026-09-26T23:13:09"
+               },
+    "DefaultCulture":  "ja-JP",
+    "DefaultUICulture":  "en-US",
+    "Cultures":  {
+                     "ja-JP":  {
+                                   "NumberFormat":  {
+                                                        "CurrencyDecimalDigits":  0,
+                                                        "CurrencyDecimalSeparator":  ".",
+                                                        "CurrencyGroupSizes":  [
+                                                                                   3
+                                                                               ],
+                                                        "NumberGroupSizes":  [
+                                                                                 3
+                                                                             ],
+                                                        "PercentGroupSizes":  [
+                                                                                  3
+                                                                              ],
+                                                        "CurrencyGroupSeparator":  ",",
+                                                        "CurrencySymbol":  "¥",
+                                                        "NaNSymbol":  "NaN",
+                                                        "CurrencyNegativePattern":  1,
+                                                        "NumberNegativePattern":  1,
+                                                        "PercentPositivePattern":  1,
+                                                        "PercentNegativePattern":  1,
+                                                        "NegativeInfinitySymbol":  "-∞",
+                                                        "NegativeSign":  "-",
+                                                        "NumberDecimalDigits":  2,
+                                                        "NumberDecimalSeparator":  ".",
+                                                        "NumberGroupSeparator":  ",",
+                                                        "CurrencyPositivePattern":  0,
+                                                        "PositiveInfinitySymbol":  "∞",
+                                                        "PositiveSign":  "+",
+                                                        "PercentDecimalDigits":  2,
+                                                        "PercentDecimalSeparator":  ".",
+                                                        "PercentGroupSeparator":  ",",
+                                                        "PercentSymbol":  "%",
+                                                        "PerMilleSymbol":  "‰",
+                                                        "NativeDigits":  [
+                                                                             "0",
+                                                                             "1",
+                                                                             "2",
+                                                                             "3",
+                                                                             "4",
+                                                                             "5",
+                                                                             "6",
+                                                                             "7",
+                                                                             "8",
+                                                                             "9"
+                                                                         ],
+                                                        "DigitSubstitution":  1
+                                                    },
+                                   "DateTimeFormat":  {
+                                                          "AMDesignator":  "午前",
+                                                          "DateSeparator":  "/",
+                                                          "FirstDayOfWeek":  0,
+                                                          "CalendarWeekRule":  0,
+                                                          "FullDateTimePattern":  "yyyy\u0027年\u0027M\u0027月\u0027d\u0027日\u0027 H:mm:ss",
+                                                          "LongDatePattern":  "yyyy\u0027年\u0027M\u0027月\u0027d\u0027日\u0027",
+                                                          "LongTimePattern":  "H:mm:ss",
+                                                          "MonthDayPattern":  "M月d日",
+                                                          "PMDesignator":  "午後",
+                                                          "ShortDatePattern":  "yyyy/MM/dd",
+                                                          "ShortTimePattern":  "H:mm",
+                                                          "TimeSeparator":  ":",
+                                                          "YearMonthPattern":  "yyyy\u0027年\u0027M\u0027月\u0027",
+                                                          "AbbreviatedDayNames":  [
+                                                                                      "日",
+                                                                                      "月",
+                                                                                      "火",
+                                                                                      "水",
+                                                                                      "木",
+                                                                                      "金",
+                                                                                      "土"
+                                                                                  ],
+                                                          "ShortestDayNames":  [
+                                                                                   "日",
+                                                                                   "月",
+                                                                                   "火",
+                                                                                   "水",
+                                                                                   "木",
+                                                                                   "金",
+                                                                                   "土"
+                                                                               ],
+                                                          "DayNames":  [
+                                                                           "日曜日",
+                                                                           "月曜日",
+                                                                           "火曜日",
+                                                                           "水曜日",
+                                                                           "木曜日",
+                                                                           "金曜日",
+                                                                           "土曜日"
+                                                                       ],
+                                                          "AbbreviatedMonthNames":  [
+                                                                                        "1",
+                                                                                        "2",
+                                                                                        "3",
+                                                                                        "4",
+                                                                                        "5",
+                                                                                        "6",
+                                                                                        "7",
+                                                                                        "8",
+                                                                                        "9",
+                                                                                        "10",
+                                                                                        "11",
+                                                                                        "12",
+                                                                                        ""
+                                                                                    ],
+                                                          "MonthNames":  [
+                                                                             "1月",
+                                                                             "2月",
+                                                                             "3月",
+                                                                             "4月",
+                                                                             "5月",
+                                                                             "6月",
+                                                                             "7月",
+                                                                             "8月",
+                                                                             "9月",
+                                                                             "10月",
+                                                                             "11月",
+                                                                             "12月",
+                                                                             ""
+                                                                         ],
+                                                          "AbbreviatedMonthGenitiveNames":  [
+                                                                                                "1",
+                                                                                                "2",
+                                                                                                "3",
+                                                                                                "4",
+                                                                                                "5",
+                                                                                                "6",
+                                                                                                "7",
+                                                                                                "8",
+                                                                                                "9",
+                                                                                                "10",
+                                                                                                "11",
+                                                                                                "12",
+                                                                                                ""
+                                                                                            ],
+                                                          "MonthGenitiveNames":  [
+                                                                                     "1月",
+                                                                                     "2月",
+                                                                                     "3月",
+                                                                                     "4月",
+                                                                                     "5月",
+                                                                                     "6月",
+                                                                                     "7月",
+                                                                                     "8月",
+                                                                                     "9月",
+                                                                                     "10月",
+                                                                                     "11月",
+                                                                                     "12月",
+                                                                                     ""
+                                                                                 ],
+                                                          "AllDateTimePatterns":  {
+                                                                                      "D":  [
+                                                                                                "yyyy\u0027年\u0027M\u0027月\u0027d\u0027日\u0027",
+                                                                                                "yyyy\u0027年\u0027MM\u0027月\u0027dd\u0027日\u0027",
+                                                                                                "yyyy\u0027年\u0027M\u0027月\u0027d\u0027日 \u0027dddd",
+                                                                                                "yyyy\u0027年\u0027MM\u0027月\u0027dd\u0027日 \u0027dddd",
+                                                                                                "yyyy\u0027年\u0027MMM\u0027月\u0027d\u0027日\u0027",
+                                                                                                "yyyy\u0027年\u0027MMM\u0027月\u0027d\u0027日 \u0027dddd",
+                                                                                                "yyyy\u0027年\u0027MMMMd\u0027日\u0027",
+                                                                                                "yyyy\u0027年\u0027MMMMd\u0027日 \u0027dddd"
+                                                                                            ],
+                                                                                      "T":  [
+                                                                                                "H:mm:ss",
+                                                                                                "HH:mm:ss",
+                                                                                                "tt h:mm:ss",
+                                                                                                "tt hh:mm:ss"
+                                                                                            ],
+                                                                                      "Y":  [
+                                                                                                "yyyy\u0027年\u0027M\u0027月\u0027",
+                                                                                                "yyyy\u0027年\u0027MMM\u0027月\u0027",
+                                                                                                "yyyy\u0027年\u0027MMMM"
+                                                                                            ]
+                                                                                  }
+                                                      }
+                               },
+                     "en-US":  {
+                                   "NumberFormat":  {
+                                                        "CurrencyDecimalDigits":  2,
+                                                        "CurrencyDecimalSeparator":  ".",
+                                                        "CurrencyGroupSizes":  [
+                                                                                   3
+                                                                               ],
+                                                        "NumberGroupSizes":  [
+                                                                                 3
+                                                                             ],
+                                                        "PercentGroupSizes":  [
+                                                                                  3
+                                                                              ],
+                                                        "CurrencyGroupSeparator":  ",",
+                                                        "CurrencySymbol":  "$",
+                                                        "NaNSymbol":  "NaN",
+                                                        "CurrencyNegativePattern":  0,
+                                                        "NumberNegativePattern":  1,
+                                                        "PercentPositivePattern":  1,
+                                                        "PercentNegativePattern":  1,
+                                                        "NegativeInfinitySymbol":  "-∞",
+                                                        "NegativeSign":  "-",
+                                                        "NumberDecimalDigits":  2,
+                                                        "NumberDecimalSeparator":  ".",
+                                                        "NumberGroupSeparator":  ",",
+                                                        "CurrencyPositivePattern":  0,
+                                                        "PositiveInfinitySymbol":  "∞",
+                                                        "PositiveSign":  "+",
+                                                        "PercentDecimalDigits":  2,
+                                                        "PercentDecimalSeparator":  ".",
+                                                        "PercentGroupSeparator":  ",",
+                                                        "PercentSymbol":  "%",
+                                                        "PerMilleSymbol":  "‰",
+                                                        "NativeDigits":  [
+                                                                             "0",
+                                                                             "1",
+                                                                             "2",
+                                                                             "3",
+                                                                             "4",
+                                                                             "5",
+                                                                             "6",
+                                                                             "7",
+                                                                             "8",
+                                                                             "9"
+                                                                         ],
+                                                        "DigitSubstitution":  1
+                                                    },
+                                   "DateTimeFormat":  {
+                                                          "AMDesignator":  "AM",
+                                                          "DateSeparator":  "/",
+                                                          "FirstDayOfWeek":  0,
+                                                          "CalendarWeekRule":  0,
+                                                          "FullDateTimePattern":  "dddd, MMMM d, yyyy h:mm:ss tt",
+                                                          "LongDatePattern":  "dddd, MMMM d, yyyy",
+                                                          "LongTimePattern":  "h:mm:ss tt",
+                                                          "MonthDayPattern":  "MMMM d",
+                                                          "PMDesignator":  "PM",
+                                                          "ShortDatePattern":  "M/d/yyyy",
+                                                          "ShortTimePattern":  "h:mm tt",
+                                                          "TimeSeparator":  ":",
+                                                          "YearMonthPattern":  "MMMM yyyy",
+                                                          "AbbreviatedDayNames":  [
+                                                                                      "Sun",
+                                                                                      "Mon",
+                                                                                      "Tue",
+                                                                                      "Wed",
+                                                                                      "Thu",
+                                                                                      "Fri",
+                                                                                      "Sat"
+                                                                                  ],
+                                                          "ShortestDayNames":  [
+                                                                                   "Su",
+                                                                                   "Mo",
+                                                                                   "Tu",
+                                                                                   "We",
+                                                                                   "Th",
+                                                                                   "Fr",
+                                                                                   "Sa"
+                                                                               ],
+                                                          "DayNames":  [
+                                                                           "Sunday",
+                                                                           "Monday",
+                                                                           "Tuesday",
+                                                                           "Wednesday",
+                                                                           "Thursday",
+                                                                           "Friday",
+                                                                           "Saturday"
+                                                                       ],
+                                                          "AbbreviatedMonthNames":  [
+                                                                                        "Jan",
+                                                                                        "Feb",
+                                                                                        "Mar",
+                                                                                        "Apr",
+                                                                                        "May",
+                                                                                        "Jun",
+                                                                                        "Jul",
+                                                                                        "Aug",
+                                                                                        "Sep",
+                                                                                        "Oct",
+                                                                                        "Nov",
+                                                                                        "Dec",
+                                                                                        ""
+                                                                                    ],
+                                                          "MonthNames":  [
+                                                                             "January",
+                                                                             "February",
+                                                                             "March",
+                                                                             "April",
+                                                                             "May",
+                                                                             "June",
+                                                                             "July",
+                                                                             "August",
+                                                                             "September",
+                                                                             "October",
+                                                                             "November",
+                                                                             "December",
+                                                                             ""
+                                                                         ],
+                                                          "AbbreviatedMonthGenitiveNames":  [
+                                                                                                "Jan",
+                                                                                                "Feb",
+                                                                                                "Mar",
+                                                                                                "Apr",
+                                                                                                "May",
+                                                                                                "Jun",
+                                                                                                "Jul",
+                                                                                                "Aug",
+                                                                                                "Sep",
+                                                                                                "Oct",
+                                                                                                "Nov",
+                                                                                                "Dec",
+                                                                                                ""
+                                                                                            ],
+                                                          "MonthGenitiveNames":  [
+                                                                                     "January",
+                                                                                     "February",
+                                                                                     "March",
+                                                                                     "April",
+                                                                                     "May",
+                                                                                     "June",
+                                                                                     "July",
+                                                                                     "August",
+                                                                                     "September",
+                                                                                     "October",
+                                                                                     "November",
+                                                                                     "December",
+                                                                                     ""
+                                                                                 ],
+                                                          "AllDateTimePatterns":  {
+                                                                                      "D":  [
+                                                                                                "dddd, MMMM d, yyyy",
+                                                                                                "MMMM d, yyyy",
+                                                                                                "dddd, d MMMM, yyyy",
+                                                                                                "d MMMM, yyyy"
+                                                                                            ],
+                                                                                      "T":  [
+                                                                                                "h:mm:ss tt",
+                                                                                                "hh:mm:ss tt",
+                                                                                                "H:mm:ss",
+                                                                                                "HH:mm:ss"
+                                                                                            ],
+                                                                                      "Y":  [
+                                                                                                "MMMM yyyy"
+                                                                                            ]
+                                                                                  }
+                                                      }
+                               }
+                 }
+}

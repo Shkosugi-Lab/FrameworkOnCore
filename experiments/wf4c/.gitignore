@@ -18,10 +18,19 @@ casefs/test/*/obj/
 !/api-probe/
 api-probe/bin/
 api-probe/obj/
-!/perf-baseline/
-perf-baseline/bin/
-perf-baseline/obj/
-perf-baseline/out/
+# Three inputs of the generated folders (tests/README.md, "files a new machine needs"); the rest of each folder is generated.
+# The local test SQL login of SQL Server Express (studio-verify.ps1, sample-parity.ps1): "User ID=...;Password=...".
+!/_verify/
+/_verify/*
+!/_verify/sql-login.txt
+# This machine's .NET Framework culture data (capture-culture.ps1), converted into the corpora (convert-corpora.ps1).
+!/_culture/
+/_culture/*
+!/_culture/culture-profile.json
+# Requests a page and posts its form back (n2-install.ps1).
+!/_linux/
+/_linux/*
+!/_linux/page.ps1
 # The text of doubles and floats against .NET Framework's (framework-golden.ps1 writes the golden data: generated, 110 MB).
 !/numbers-parity/
 numbers-parity/bin/

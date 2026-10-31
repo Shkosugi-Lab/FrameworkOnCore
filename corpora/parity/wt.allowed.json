@@ -1,0 +1,13 @@
+{
+  "_comment": "Documented differences of WingtipToys' 8-step scenario (corpora/regression/wt.scenario.json), as wt.operations.allowed.json for the operations suite: differences that are not defects of the conversion, each with its reason. snapshot: a regular expression on the snapshot's name; match: one on each problem line ParityTest reports; platforms: where it applies (run-linux.ps1 passes --platform linux, verify-windows.ps1 --platform windows). A snapshot all of whose problems match is 'allowed', not 'different'; the run exits 0.",
+  "allowed": [
+    {
+      "snapshot": "error-page",
+      "platforms": [
+        "linux"
+      ],
+      "match": ".*",
+      "reason": "Request.IsLocal (the test's environment): the golden was recorded from IIS's own machine; the Linux container is reached through Docker's port forwarding, so the application sees the client as Docker's gateway and Request.IsLocal is false: ErrorPage.aspx leaves out its local-only details. Requested from inside the container (127.0.0.1) the page shows them. The same cause as the operations suite's error pages on Linux (wt.operations.allowed.json)."
+    }
+  ]
+}

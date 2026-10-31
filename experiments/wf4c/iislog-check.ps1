@@ -1,5 +1,5 @@
 # IIS's W3C log and the converted application's (IisLogMiddleware, W3CLogging:Mode Iis), line by line: the same requests
-# to the sample on IIS (the recorded site, as perf-check.ps1 runs it) and to the converted application on Windows, each
+# to the sample on IIS (the recorded site, as sample-parity.ps1 -Record sets it up) and to the converted application on Windows, each
 # log's lines of this run (the User-Agent marks them), compared field by field (date, time and time-taken are the
 # moments', not compared; sc-bytes and cs-bytes shown side by side: the headers differ, Server: Microsoft-IIS/10.0 and
 # Kestrel's...).

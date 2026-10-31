@@ -1,8 +1,9 @@
 # Starts a converted corpus (after convert-corpora.ps1) on Windows, as probe-corpora.ps1 does (under supervise.ps1, from
 # the assembled site if there is one), and compares it with the golden data recorded on IIS (corpora\parity, the
 # scenario corpora\regression) with ParityTest; run-linux.ps1 does the same on Linux. The corpora with golden data: be,
-# wt, mvcmovie (SQL Server Express: .\SQLEXPRESS; mvcmovie's databases dropped first, as they were when the golden data
-# was recorded: EF 6 Code First creates them with its seed).
+# wt, mvcmovie, contoso (SQL Server Express .\SQLEXPRESS, which must be running except for -Suite operations;
+# mvcmovie's and contoso's databases dropped first, as they were when the golden data was recorded: EF 6 Code First
+# creates them with its seed).
 #   .\experiments\wf4c\verify-windows.ps1 -Name be
 # -Suite operations (wt): every operation of corpora\regression\wt.operations.json (the scenario
 # wt.operations.scenario.json, the golden data wt.operations.golden.json recorded by corpora\record-wt-operations.ps1),

@@ -17,6 +17,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'frameworkoncore-version.ps1')
 $repo = Resolve-Path (Join-Path $PSScriptRoot '..\..')
 $sample = Join-Path $repo "samples\$Name"
 $work = Join-Path $PSScriptRoot $Name
@@ -31,7 +32,7 @@ if (Test-Path $work) { Remove-Item $work -Recurse -Force }
 Copy-Item $sample $work -Recurse
 Remove-Item (Join-Path $work 'golden*.json'), (Join-Path $work 'parity-scenario.json') -ErrorAction SilentlyContinue
 Move-Item (Join-Path $work "$Name.csproj") (Join-Path $work "$Name.csproj.netfx")
-(Get-Content (Join-Path $PSScriptRoot 'template.csproj.txt') -Raw -Encoding UTF8).Replace('__NAME__', $Name) |
+(Get-Content (Join-Path $PSScriptRoot 'template.csproj.txt') -Raw -Encoding UTF8).Replace('__NAME__', $Name).Replace('__FOC_VERSION__', (Get-FrameworkOnCoreVersion)) |
     Set-Content (Join-Path $work "$Name.csproj") -Encoding UTF8
 Copy-Item (Join-Path $PSScriptRoot 'Program.cs.txt') (Join-Path $work 'Program.cs')
 foreach ($file in $Exclude) { Remove-Item (Join-Path $work $file) }

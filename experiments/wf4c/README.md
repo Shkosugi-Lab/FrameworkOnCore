@@ -1,5 +1,8 @@
 # 実験: WebFormsForCore で元の Web Forms をそのまま動かす(2026-09-26)
 
+> この文書は経緯と結果の記録です。今あるテストの一覧と動かし方(いつ何を動かすか)は [tests/README.md](../../tests/README.md) にまとめてあります。
+> 下の記録に出てくる `verify-corpora.ps1` と `snapshot-conversion.ps1` は、`convert-corpora.ps1` とその基準(`corpora/regression/conversion-baseline/`)に置き換わったので削除しました(2026-10-31)。
+
 方針転換(Blazor 化ではなく「.NET Framework アプリを Linux で動かす」)の最初の試作。
 サンプルのソースは変更せず、SDK 形式のプロジェクト(`template.csproj.txt`)と `Program.cs`
 (`Program.cs.txt`)だけを足して、WebFormsForCore 1.6.4(NuGet)で .NET 10 上に載せる。

@@ -7,7 +7,7 @@ namespace FrameworkOnCore.Tests.DataLinq;
 
 /// <summary>
 /// The SQL Server the LINQ to SQL tests run against: FOC_TEST_SQLSERVER (a connection string) or the
-/// local SQL Server Express. Tests needing it return early when it is not reachable (Linux test runs
+/// local SQL Server Express. Tests needing it are reported skipped when it is not reachable (Linux test runs
 /// have none by default; the goldens and CRUD then stay Windows-verified).
 /// </summary>
 public static class SqlServer

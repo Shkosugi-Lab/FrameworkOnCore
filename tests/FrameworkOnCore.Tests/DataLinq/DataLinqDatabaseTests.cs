@@ -4,7 +4,7 @@ using System.Transactions;
 namespace FrameworkOnCore.Tests.DataLinq;
 
 /// <summary>
-/// The port against a real SQL Server (skipped when none is reachable: SqlServer): CreateDatabase from
+/// The port against a real SQL Server (reported skipped when none is reachable: SqlServer): CreateDatabase from
 /// the mapping, the CRUD BlogEngine.NET's DbFileSystemProvider does (insert a graph, query by predicate
 /// and association, update, DeleteAllOnSubmit), what the database generates coming back (identity,
 /// rowversion), deferred loading, optimistic concurrency, a transaction rolling back.
@@ -40,10 +40,10 @@ public class DataLinqDatabaseTests : IClassFixture<DataLinqDatabaseTests.Databas
 
     StoreDb Db() => new(connection!);
 
-    [Fact]
+    [SkippableFact]
     public void A_graph_is_inserted_queried_updated_and_deleted()
     {
-        if (connection == null) return;
+        Skip.If(connection == null, "no SQL Server (FOC_TEST_SQLSERVER, or the local SQL Server Express)");
         var directoryId = Guid.NewGuid();
         using (var db = Db())
         {
@@ -75,10 +75,10 @@ public class DataLinqDatabaseTests : IClassFixture<DataLinqDatabaseTests.Databas
         }
     }
 
-    [Fact]
+    [SkippableFact]
     public void What_the_database_generates_comes_back_on_submit()
     {
-        if (connection == null) return;
+        Skip.If(connection == null, "no SQL Server (FOC_TEST_SQLSERVER, or the local SQL Server Express)");
         using var db = Db();
         var note = new Note { Text = "first" };
         db.Notes.InsertOnSubmit(note);
@@ -93,10 +93,10 @@ public class DataLinqDatabaseTests : IClassFixture<DataLinqDatabaseTests.Databas
         Assert.NotEqual(inserted, note.Version);
     }
 
-    [Fact]
+    [SkippableFact]
     public void Deferred_loading_follows_the_association()
     {
-        if (connection == null) return;
+        Skip.If(connection == null, "no SQL Server (FOC_TEST_SQLSERVER, or the local SQL Server Express)");
         var id = Guid.NewGuid();
         using (var db = Db())
         {
@@ -112,10 +112,10 @@ public class DataLinqDatabaseTests : IClassFixture<DataLinqDatabaseTests.Databas
         }
     }
 
-    [Fact]
+    [SkippableFact]
     public void A_conflicting_update_raises_a_change_conflict()
     {
-        if (connection == null) return;
+        Skip.If(connection == null, "no SQL Server (FOC_TEST_SQLSERVER, or the local SQL Server Express)");
         int id;
         using (var db = Db())
         {
@@ -140,10 +140,10 @@ public class DataLinqDatabaseTests : IClassFixture<DataLinqDatabaseTests.Databas
         Assert.Equal("second writer", check.Notes.Single(n => n.Id == id).Text);
     }
 
-    [Fact]
+    [SkippableFact]
     public void An_uncompleted_transaction_scope_rolls_back()
     {
-        if (connection == null) return;
+        Skip.If(connection == null, "no SQL Server (FOC_TEST_SQLSERVER, or the local SQL Server Express)");
         var id = Guid.NewGuid();
         using (var scope = new TransactionScope())
         using (var db = Db())

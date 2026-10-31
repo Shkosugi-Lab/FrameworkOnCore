@@ -11,10 +11,10 @@ namespace FrameworkOnCore.Tests.DataLinq;
 /// </summary>
 public class DataLinqSqlGoldenTests
 {
-    [Fact]
+    [SkippableFact]
     public void Every_query_translates_as_NET_Framework_did()
     {
-        if (!SqlServer.Available) return;
+        Skip.IfNot(SqlServer.Available, "no SQL Server (FOC_TEST_SQLSERVER, or the local SQL Server Express)");
 
         var golden = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "DataLinq", "dlinq-sql.golden.json")));
         using var db = new StoreDb(SqlServer.ConnectionString);

@@ -29,6 +29,14 @@ on:
       - 'tests/FrameworkOnCore.Tests/**'
       # The unit tests of the port's own code (System.Web built from its source).
       - 'tests/RuntimeUnitTests/**'
+      # What those tests compile and read: the parity suites' cases, goldens and known differences
+      # (FrameworkOnCore.Tests runs them), their shared code, the culture/time-zone switch of all three.
+      - 'tests/Parity.Core/**'
+      - 'tests/DataLinqParity/**'
+      - 'tests/DrawingParity/**'
+      - 'tests/DataVisualizationParity/**'
+      - 'tests/MobileParity/**'
+      - 'tests/Shared/**'
       - '.github/workflows/frameworkoncore-packages.yml'
   workflow_dispatch:
     inputs:

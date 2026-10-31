@@ -1,5 +1,6 @@
 # .NET Framework's text of doubles and floats (Windows PowerShell 5.1 runs on .NET Framework 4.8): every value of the
-# list in every format and culture, as "kind|bits|format|culture|text" lines, the golden data of numbers-parity.ps1.
+# list in every format and culture, as "kind|bits|format|culture|text" lines, the golden data of numbers-parity
+# (dotnet run --project experiments/wf4c/numbers-parity -- <file>).
 param([Parameter(Mandatory = $true)][string]$Out)
 
 $values = New-Object System.Collections.Generic.List[double]

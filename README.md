@@ -37,12 +37,15 @@
 | `experiments/wf4c/shims/FrameworkOnCore.Compat` | 互換アセンブリ。.NET にない、または Windows 専用のものを .NET Framework と同じ動きで補う(EventLog、Encoding.Default、Thread.ResetAbort、VB の My など) |
 | `FrameworkOnCore.Runtime` | 変換後のアプリが動く土台(System.Web など)。FrameworkOnCore で保守している WebFormsForCore で、上流を git subtree で取り込んだもの(中のプロジェクトは上流の名前 `src/WebFormsForCore.*` のまま、パッケージ名は `FrameworkOnCore.*`。Ajax Control Toolkit も `src/WebFormsForCore.AjaxControlToolkit` に同じく取り込み済み)。上流への変更は取り込みの後のコミット(以前のパッチ 0001〜0040 に当たる。0032・0033 は LINQ to SQL、0034〜0037 は System.Drawing の移植、0038 は Linux での生成物のフォルダーの掃除、0039・0040 は System.Web.DataVisualization(グラフ)の移植。その後の System.Web.Mobile、System.Data.SqlClient の移植はこのリポジトリのコミット)。上流の更新は `git subtree pull --prefix=FrameworkOnCore.Runtime https://github.com/webformsforcore/WebFormsForCore.git main` |
 | `experiments/wf4c/casefs` | Linux でファイル名の大文字小文字を区別しない LD_PRELOAD ライブラリ(libfoccase.so) |
-| `tests/FrameworkOnCore.Tests` | テスト(Windows と Linux) |
+| `tests/` | テスト。一覧と動かし方は `tests/README.md` |
+| `tests/FrameworkOnCore.Tests` | 変換器・アナライザー・Studio・互換アセンブリのテストと、下の新旧比較のケースの実行(Windows と Linux) |
+| `tests/RuntimeUnitTests` | FrameworkOnCore.Runtime の移植で書いたコード(ホストと IIS の機能、ResX、CodeDom、暗号)の単体テスト、攻撃・差分ファジング・往復・並行性のテスト |
+| `tests/SqlClientTests` | 移植した System.Data.SqlClient の Microsoft の機能テストと、移植の追加分(DataDirectory の展開など) |
 | `tests/DataLinqParity` | 移植した System.Data.Linq の全 API の新旧比較のケース(net48 で .NET Framework のゴールデンを採り、テストが移植版と比べる) |
 | `tests/DrawingParity` | 移植した System.Drawing の全 API の新旧比較のケース(同じ方法。Windows は完全一致、Linux は既知の差分を理由つきで `known-differences.json` に持つ) |
 | `tests/DataVisualizationParity` | 移植した System.Web.DataVisualization(グラフ)の全 API の新旧比較のケース(同じ方法。グラフを描くシナリオも含む) |
 | `tests/MobileParity` | 移植した System.Web.Mobile(モバイル コントロール)の全 API の新旧比較のケース(同じ方法) |
-| `tests/WebControlsParity` | System.Web のコントロール（TextBox など）ごとの新旧比較。① 全メンバー（API）、② 全プロパティの描画（HTML、実リクエスト）、③ WebForms の機構（ブラウザでのシナリオ）の 3 層で、結果は `reports/<コントロール>/` に Markdown で出す（仕組みは同フォルダーの README）。System.Web・System.Web.Extensions のコントロール 124 すべてが Windows・Linux とも一致（既知の差分 8 件を除く） |
+| `tests/WebControlsParity` | System.Web のコントロール（TextBox など）ごとの新旧比較。① 全メンバー（API）、② 全プロパティの描画（HTML、実リクエスト）、③ WebForms の機構（ブラウザでのシナリオ）の 3 層で、結果は `reports/<コントロール>/` に Markdown で出す（仕組みは同フォルダーの README）。System.Web・System.Web.Extensions のコントロール 124 すべてが Windows・Linux とも一致（既知の差分 8 件を除く。2026-10-16 の実行） |
 | `tests/Parity.Core` | 新旧比較の共通部分(観測値の書き方、ケースの実行、ゴールデンの書き出し、API の一覧から型とメンバーごとにケースを作る仕組み) |
 | `samples/` | 検証用の小さな Web Forms アプリ(RuntimeProbe、グラフの ChartProbe、モバイル コントロールの MobileProbe、コントロールごとの新旧比較の WebControlsProbe、Ajax Control Toolkit の ToolkitScriptManager の ToolkitProbe、WCF のサービスの WcfProbe、セッションの状態の SessionProbe、差が出るように作ったコーパスの NestingProbe〈コントロールの入れ子・HTML・ブラウザーの操作〉、BclProbe〈数値・文字列・例外・カルチャ・シリアル化〉、PageProbe〈ページの仕組み。HTML そのものも比べる〉、VbProbe〈Visual Basic のランタイムとイベント〉など) |
 | `corpora/` | 実在の OSS アプリ(コーパス)の取得スクリプトと記録。本体は取得して使う(リポジトリには含めない) |
@@ -104,8 +107,12 @@ Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、St
 
 ### テスト
 
+テストの一覧(単体テスト、.NET Framework との新旧比較、IIS とのサイトの比較、コーパス、Linux、CI)と、いつ何を動かすかは [tests/README.md](tests/README.md) にあります。
+
 ```powershell
-dotnet test tests\FrameworkOnCore.Tests
+.\tests\run-tests.ps1 -Set quick     # 3 つのテスト プロジェクト(約 4 分、準備なし)
+.\tests\run-tests.ps1 -Set commit    # 変換器を変えたとき(be・wt の変換と IIS との比較を含む)
+.\tests\run-tests.ps1 -Set runtime   # FrameworkOnCore.Runtime を変えたとき
 .\tests\FrameworkOnCore.Tests\run-tests-linux.ps1    # Linux(Docker)
 ```
 

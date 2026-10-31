@@ -209,14 +209,15 @@ namespace FrameworkOnCore.Runtime.Tests.Web
         /// <summary>The host as the converter's Program writes it (Security/Attack/PortServer's), over a site written for
         /// the test, the runtime option FrameworkOnCore.AnsiCodePage given, in a process of its own (System.Web's
         /// application is one per process).</summary>
-        sealed class EncodingServer : IDisposable
+        internal sealed class EncodingServer : IDisposable
         {
             readonly Process process;
             readonly StringBuilder output = new();
             readonly string root = Directory.CreateTempSubdirectory("foc-encoding").FullName;
             public readonly int Port;
 
-            public EncodingServer(Action<string> write, string ansiCodePage)
+            // allRequests: every request to Web Forms (HandleAllRequestsWithWebForms, as the converter's Program has it for routes).
+            public EncodingServer(Action<string> write, string ansiCodePage, bool allRequests = false)
             {
                 write(root);
                 var listener = new TcpListener(IPAddress.Loopback, 0);
@@ -233,6 +234,7 @@ namespace FrameworkOnCore.Runtime.Tests.Web
                 start.ArgumentList.Add(root);
                 start.ArgumentList.Add(Port.ToString(CultureInfo.InvariantCulture));
                 start.ArgumentList.Add(ansiCodePage);
+                if (allRequests) start.ArgumentList.Add("all");
                 foreach (var name in new[] { "WEBFORMSFORCORE_WORKER", "WEBFORMSFORCORE_SHADOWCOPY", "WEBFORMSFORCORE_SUPERVISOR", "WEBFORMSFORCORE_APP_PATH" })
                     start.Environment.Remove(name);
                 start.Environment["ASPNETCORE_ENVIRONMENT"] = "Production";
@@ -292,7 +294,7 @@ namespace FrameworkOnCore.Runtime.Tests.Hosting
             builder.WebHost.UseKestrel(options => options.Listen(IPAddress.Loopback, port));
             var app = builder.Build();
             app.UseWebFormsIis();
-            app.UseWebForms(options => options.PhysicalPath(root));
+            app.UseWebForms(options => { options.PhysicalPath(root); if (args.Length > 3 && args[3] == "all") options.HandleAllRequestsWithWebForms(); });
             app.StartAsync().GetAwaiter().GetResult();
             Child.Say("listening", port);
             Console.In.ReadToEnd();

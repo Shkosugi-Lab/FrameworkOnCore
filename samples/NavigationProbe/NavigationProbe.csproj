@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Page navigation that is likely to break on a port, against the original on IIS (experiments/wf4c/sample-parity.ps1,
+       compareSource, the operations of operations.json; README.md lists the cases): Server.Transfer / Execute, cross-page
+       postbacks, Response.Redirect in every event and every kind of URL, Global.asax's and a module's redirects,
+       customErrors and httpErrors, forms authentication, postback edge cases, Wizard / MultiView, ASP.NET AJAX, routes and
+       URL rewriting, navigation controls, async pages, handlers, downloads, windows and frames, Visual Basic pages. -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6F1C3A82-4D5E-4B97-9A0C-2E8D7B6F5A31}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NavigationProbe</RootNamespace>
+    <AssemblyName>NavigationProbe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Web.config" />
+    <Content Include="Web.sitemap" />
+    <Content Include="dot.gif" />
+    <Content Include="E\BadDirective.aspx" />
+    <Content Include="E\Compile.aspx" />
+    <Content Include="E\Http404.aspx" />
+    <Content Include="E\NotFound.aspx" />
+    <Content Include="E\Oops.aspx" />
+    <Content Include="E\Parser.aspx" />
+    <Content Include="E\Throw.aspx" />
+    <Content Include="E\Broken\ErrorThrows.aspx" />
+    <Content Include="E\Broken\Throw.aspx" />
+    <Content Include="E\Broken\Web.config" />
+    <Content Include="E\Http\Skip404.aspx" />
+    <Content Include="E\Http\Status404.aspx" />
+    <Content Include="E\Http\Web.config" />
+    <Content Include="E\Plain\Throw.aspx" />
+    <Content Include="E\Plain\Web.config" />
+    <Content Include="E\Redirect\Async.aspx" />
+    <Content Include="E\Redirect\AsyncNoRedirect.aspx" />
+    <Content Include="E\Redirect\Http403.aspx" />
+    <Content Include="E\Redirect\Http404.aspx" />
+    <Content Include="E\Redirect\Throw.aspx" />
+    <Content Include="E\Redirect\Web.config" />
+    <Content Include="E\Rewrite\Http404.aspx" />
+    <Content Include="E\Rewrite\Throw.aspx" />
+    <Content Include="E\Rewrite\Web.config" />
+    <Content Include="F\Abandon.aspx" />
+    <Content Include="F\Login.aspx" />
+    <Content Include="F\Welcome.aspx" />
+    <Content Include="F\Admin\Page.aspx" />
+    <Content Include="F\Secure\Page.aspx" />
+    <Content Include="F\Secure\Public.aspx" />
+    <Content Include="G\Acquire.aspx" />
+    <Content Include="G\Auth.aspx" />
+    <Content Include="G\Begin.aspx" />
+    <Content Include="G\Chain.aspx" />
+    <Content Include="G\End.aspx" />
+    <Content Include="G\ErrClear.aspx" />
+    <Content Include="G\ErrExecute.aspx" />
+    <Content Include="G\ErrRedirect.aspx" />
+    <Content Include="G\ErrRedirectKeep.aspx" />
+    <Content Include="G\ErrTransfer.aspx" />
+    <Content Include="G\Handled.aspx" />
+    <Content Include="G\Landing.aspx" />
+    <Content Include="G\LoopA.aspx" />
+    <Content Include="G\LoopB.aspx" />
+    <Content Include="G\Module.aspx" />
+    <Content Include="G\ModuleEnd.aspx" />
+    <Content Include="J\History.aspx" />
+    <Content Include="J\Landing.aspx" />
+    <Content Include="J\Methods.aspx" />
+    <Content Include="J\Nested.aspx" />
+    <Content Include="J\Panel.aspx" />
+    <Content Include="J\Service.asmx" />
+    <Content Include="J\ServicePage.aspx" />
+    <Content Include="J\Timer.aspx" />
+    <Content Include="Masters\A.master" />
+    <Content Include="Masters\B.master" />
+    <Content Include="Masters\Nav.master" />
+    <Content Include="Masters\logo.gif" />
+    <Content Include="Masters\nav.css" />
+    <Content Include="N\Buttons.aspx" />
+    <Content Include="N\Default.aspx" />
+    <Content Include="N\ImageMap.aspx" />
+    <Content Include="N\Menu.aspx" />
+    <Content Include="N\RolesOnly.aspx" />
+    <Content Include="N\map.gif" />
+    <Content Include="N\Controls\Links.ascx" />
+    <Content Include="N\Controls\icon.gif" />
+    <Content Include="N\Deep\Page.aspx" />
+    <Content Include="P\Changed.aspx" />
+    <Content Include="P\Counter.aspx" />
+    <Content Include="P\Dynamic.aspx" />
+    <Content Include="P\Encrypted.aspx" />
+    <Content Include="P\GetState.aspx" />
+    <Content Include="P\NoValidate.aspx" />
+    <Content Include="P\Order.aspx" />
+    <Content Include="P\Validate.aspx" />
+    <Content Include="P\Chunk\Big.aspx" />
+    <Content Include="R\Cases.aspx" />
+    <Content Include="R\Landing.aspx" />
+    <Content Include="R\Life.aspx" />
+    <Content Include="R\With Space.aspx" />
+    <Content Include="R\着地.aspx" />
+    <Content Include="R\Sub\Landing.aspx" />
+    <Content Include="R\Sub\Rel.aspx" />
+    <Content Include="Scripts\ajaxlog.js" />
+    <Content Include="T\Chain1.aspx" />
+    <Content Include="T\Chain2.aspx" />
+    <Content Include="T\Echo.ashx" />
+    <Content Include="T\Exec.aspx" />
+    <Content Include="T\Part.aspx" />
+    <Content Include="T\PartRedirect.aspx" />
+    <Content Include="T\PartThrow.aspx" />
+    <Content Include="T\PartTransfer.aspx" />
+    <Content Include="T\Source.aspx" />
+    <Content Include="T\Sub\Other.aspx" />
+    <Content Include="T\Sub\Target.aspx" />
+    <Content Include="T\Sub\dot.gif" />
+    <Content Include="T\Sub\target.css" />
+    <Content Include="U\Default.aspx" />
+    <Content Include="U\Info.aspx" />
+    <Content Include="U\Plain.aspx" />
+    <Content Include="U\Query.aspx" />
+    <Content Include="U\Rewritten.aspx" />
+    <Content Include="U\RoutePage.aspx" />
+    <Content Include="U\RouteTransfer.aspx" />
+    <Content Include="V\Handles.aspx" />
+    <Content Include="V\Landing.aspx" />
+    <Content Include="V\My.aspx" />
+    <Content Include="V\Source.aspx" />
+    <Content Include="V\Target.aspx" />
+    <Content Include="W\AjaxWizard.aspx" />
+    <Content Include="W\Cancelled.aspx" />
+    <Content Include="W\Finished.aspx" />
+    <Content Include="W\MultiView.aspx" />
+    <Content Include="W\Wizard.aspx" />
+    <Content Include="W\WizardDest.aspx" />
+    <Content Include="X\MasterSource.aspx" />
+    <Content Include="X\MasterTarget.aspx" />
+    <Content Include="X\Source.aspx" />
+    <Content Include="X\Target.aspx" />
+    <Content Include="X\Other\Target.aspx" />
+    <Content Include="Y\Async.aspx" />
+    <Content Include="Y\AsyncVoid.aspx" />
+    <Content Include="Y\Download.aspx" />
+    <Content Include="Y\Frames.aspx" />
+    <Content Include="Y\Inner.aspx" />
+    <Content Include="Y\Inner2.aspx" />
+    <Content Include="Y\Landing.aspx" />
+    <Content Include="Y\Opener.aspx" />
+    <Content Include="Y\Popup.aspx" />
+    <Content Include="Y\Transfer.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Global.asax.cs"><DependentUpon>Global.asax</DependentUpon></Compile>
+    <Compile Include="Code\Handlers.cs" />
+    <Compile Include="Code\Probe.cs" />
+    <Compile Include="F\Abandon.aspx.cs"><DependentUpon>Abandon.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="F\Login.aspx.cs"><DependentUpon>Login.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="F\Secure\Page.aspx.cs"><DependentUpon>Page.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="J\History.aspx.cs"><DependentUpon>History.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="J\Methods.aspx.cs"><DependentUpon>Methods.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="J\Nested.aspx.cs"><DependentUpon>Nested.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="J\Panel.aspx.cs"><DependentUpon>Panel.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="J\Service.asmx.cs"><DependentUpon>Service.asmx</DependentUpon></Compile>
+    <Compile Include="J\Timer.aspx.cs"><DependentUpon>Timer.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="N\Buttons.aspx.cs"><DependentUpon>Buttons.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="N\Menu.aspx.cs"><DependentUpon>Menu.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="P\Changed.aspx.cs"><DependentUpon>Changed.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="P\Counter.aspx.cs"><DependentUpon>Counter.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="P\Dynamic.aspx.cs"><DependentUpon>Dynamic.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="P\Order.aspx.cs"><DependentUpon>Order.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="P\Validate.aspx.cs"><DependentUpon>Validate.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="R\Cases.aspx.cs"><DependentUpon>Cases.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="R\Life.aspx.cs"><DependentUpon>Life.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="R\Sub\Rel.aspx.cs"><DependentUpon>Rel.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="T\Exec.aspx.cs"><DependentUpon>Exec.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="T\Source.aspx.cs"><DependentUpon>Source.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="T\Sub\Target.aspx.cs"><DependentUpon>Target.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="U\RoutePage.aspx.cs"><DependentUpon>RoutePage.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="W\AjaxWizard.aspx.cs"><DependentUpon>AjaxWizard.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="W\MultiView.aspx.cs"><DependentUpon>MultiView.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="W\Wizard.aspx.cs"><DependentUpon>Wizard.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="X\Source.aspx.cs"><DependentUpon>Source.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="X\Target.aspx.cs"><DependentUpon>Target.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Y\Async.aspx.cs"><DependentUpon>Async.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Y\AsyncVoid.aspx.cs"><DependentUpon>AsyncVoid.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Y\Download.aspx.cs"><DependentUpon>Download.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Y\Inner.aspx.cs"><DependentUpon>Inner.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Y\Opener.aspx.cs"><DependentUpon>Opener.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+    <Compile Include="Y\Popup.aspx.cs"><DependentUpon>Popup.aspx</DependentUpon><SubType>ASPXCodeBehind</SubType></Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

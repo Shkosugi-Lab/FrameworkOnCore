@@ -23,7 +23,7 @@ public sealed record DiscoveredPage(string Persona, string Url, int Status, stri
 ///   VALIDATOR /page id fn    a validator (its evaluation function: the kind of check)
 /// Uncovered lists the keys no operation of an inventory names (its Keys, '*' matching anything).
 /// </summary>
-public sealed partial class Discovery(IBrowser browser, string baseUrl, int maxPages = 250)
+public sealed partial class Discovery(IBrowser browser, string baseUrl, int maxPages = 250, string loginUrl = "/Account/Login")
 {
     private readonly string _root = baseUrl.TrimEnd('/');
     private static readonly Regex Exclude = new(@"log ?(off|out)|sign ?out", RegexOptions.IgnoreCase);
@@ -51,7 +51,16 @@ public sealed partial class Discovery(IBrowser browser, string baseUrl, int maxP
                 visited++;
                 IResponse? response;
                 try { response = await page.GotoAsync(_root + url, new() { WaitUntil = WaitUntilState.Load, Timeout = 60_000 }); }
-                catch (PlaywrightException) { continue; }
+                catch (PlaywrightException ex)
+                {
+                    // A navigation that failed (a redirect to a name that does not resolve) leaves the page's next
+                    // navigations "interrupted" by it, one after the other: the crawl goes on in a new page.
+                    Console.WriteLine($"  skipped: {url} ({ex.Message.Split('\n')[0]})");
+                    await page.CloseAsync();
+                    page = await context.NewPageAsync();
+                    page.Dialog += (_, dialog) => dialog.AcceptAsync();
+                    continue;
+                }
                 var current = new Uri(page.Url);
                 var where = Canonical(current.AbsolutePath, "");
                 var found = await page.EvaluateAsync<string[][]>(CollectScript);
@@ -111,7 +120,7 @@ public sealed partial class Discovery(IBrowser browser, string baseUrl, int maxP
         var parts = persona.Split(':', 3);
         if (parts[0] == "login")
         {
-            await page.GotoAsync(_root + "/Account/Login");
+            await page.GotoAsync(_root + loginUrl);
             await page.Locator("[id$='Email'], [id$='UserName']").First.FillAsync(parts[1]);
             await page.Locator("[id$='Password']").First.FillAsync(parts[2]);
             await page.Locator("input[type=submit][value='Log in']").First.ClickAsync();

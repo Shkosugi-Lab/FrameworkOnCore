@@ -196,6 +196,13 @@ namespace System.Web.Script.Services {
                 InvokeMethod(context, methodData, rawParams);
             }
             catch (Exception ex) {
+#if NETCOREAPP
+                // Response.End (Redirect) in the method: .NET Framework wrote the error here, then raised the abort
+                // again; the end stays pending (the request ends after this), what is written here is kept.
+                if ((ex is TargetInvocationException ? ex.InnerException : ex) is System.Threading.ThreadAbortException && context.Response.IsThreadAbort) {
+                    context.Response.ResumeWritesUntilEndObserved();
+                }
+#endif
                 WriteExceptionJsonString(context, ex);
             }
         }

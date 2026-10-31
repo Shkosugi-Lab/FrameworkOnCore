@@ -5418,6 +5418,14 @@ window.onload = WebForm_RestoreScrollPosition;
 		}
 
 
+		// .NET Framework raised a thread abort again at the end of each catch: code that swallowed a Response.End (Redirect,
+		// Transfer) left the stage it was in, and the page did not go on (NavigationProbe: a catch (ThreadAbortException) in
+		// Load, the page's Render after it). Here no thread is aborted: the end is observed between the stages.
+		private void ObserveEnd()
+		{
+			_response?.RethrowIfResponseEnd();
+		}
+
 		private void ProcessRequestMain()
 		{
 			ProcessRequestMain(true /*includeStagesBeforeAsyncPoint*/, true /*includeStagesAfterAsyncPoint*/);
@@ -5565,18 +5573,21 @@ window.onload = WebForm_RestoreScrollPosition;
 					if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_PRE_INIT_LEAVE, _context.WorkerRequest);
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "End PreInit");
 
+					ObserveEnd();
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin Init");
 					if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_INIT_ENTER, _context.WorkerRequest);
 					InitRecursive(null);
 					if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_INIT_LEAVE, _context.WorkerRequest);
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "End Init");
 
+					ObserveEnd();
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin InitComplete");
 					OnInitComplete(EventArgs.Empty);
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "End InitComplete");
 
 					if (IsPostBack)
 					{
+						ObserveEnd();
 						if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin LoadState");
 						if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_LOAD_VIEWSTATE_ENTER, _context.WorkerRequest);
 						LoadAllState();
@@ -5593,10 +5604,12 @@ window.onload = WebForm_RestoreScrollPosition;
 						if (con.TraceIsEnabled) Trace.Write("aspx.page", "End ProcessPostData");
 					}
 
+					ObserveEnd();
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin PreLoad");
 					OnPreLoad(EventArgs.Empty);
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "End PreLoad");
 
+					ObserveEnd();
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin Load");
 					if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_LOAD_ENTER, _context.WorkerRequest);
 					LoadRecursive();
@@ -5606,6 +5619,7 @@ window.onload = WebForm_RestoreScrollPosition;
 					if (IsPostBack)
 					{
 						// Try process the post data again (ASURT 29045)
+						ObserveEnd();
 						if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin ProcessPostData Second Try");
 						ProcessPostData(_leftoverPostData, false /* !fBeforeLoad */);
 						if (con.TraceIsEnabled)
@@ -5628,6 +5642,7 @@ window.onload = WebForm_RestoreScrollPosition;
 						if (con.TraceIsEnabled) Trace.Write("aspx.page", "End Raise PostBackEvent");
 					}
 
+					ObserveEnd();
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin LoadComplete");
 					OnLoadComplete(EventArgs.Empty);
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "End LoadComplete");
@@ -5638,6 +5653,7 @@ window.onload = WebForm_RestoreScrollPosition;
 					}
 					else if (!IsCrossPagePostBack)
 					{
+						ObserveEnd();
 						if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin PreRender");
 						if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_PRE_RENDER_ENTER, _context.WorkerRequest);
 						PreRenderRecursiveInternal();
@@ -5671,6 +5687,7 @@ window.onload = WebForm_RestoreScrollPosition;
 						return;
 					}
 
+					ObserveEnd();
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin PreRenderComplete");
 					PerformPreRenderComplete();
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "End PreRenderComplete");
@@ -5683,6 +5700,7 @@ window.onload = WebForm_RestoreScrollPosition;
 
 					if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_SAVE_VIEWSTATE_ENTER, _context.WorkerRequest);
 
+					ObserveEnd();
 					SaveAllState();
 
 					if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_SAVE_VIEWSTATE_LEAVE, _context.WorkerRequest);
@@ -5698,6 +5716,7 @@ window.onload = WebForm_RestoreScrollPosition;
 						Trace.Write("aspx.page", "Begin Render");
 					}
 
+					ObserveEnd();
 					if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_RENDER_ENTER, _context.WorkerRequest);
 					// Special-case Web Part Export so it executes in the same security context as the page itself (VSWhidbey 426574)
 					if (exportedWebPartID != null)
@@ -5909,6 +5928,7 @@ window.onload = WebForm_RestoreScrollPosition;
 					if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_PRE_INIT_LEAVE, _context.WorkerRequest);
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "End PreInit");
 
+					ObserveEnd();
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin Init");
 					if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_INIT_ENTER, _context.WorkerRequest);
 					Task initRecursiveTask = InitRecursiveAsync(null, this);
@@ -5916,6 +5936,7 @@ window.onload = WebForm_RestoreScrollPosition;
 					if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_INIT_LEAVE, _context.WorkerRequest);
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "End Init");
 
+					ObserveEnd();
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin InitComplete");
 					using (con.SyncContext.AllowVoidAsyncOperationsBlock())
 					{
@@ -5926,6 +5947,7 @@ window.onload = WebForm_RestoreScrollPosition;
 
 					if (IsPostBack)
 					{
+						ObserveEnd();
 						if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin LoadState");
 						if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_LOAD_VIEWSTATE_ENTER, _context.WorkerRequest);
 						LoadAllState();
@@ -5950,6 +5972,7 @@ window.onload = WebForm_RestoreScrollPosition;
 						if (con.TraceIsEnabled) Trace.Write("aspx.page", "End ProcessPostData");
 					}
 
+					ObserveEnd();
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin PreLoad");
 					using (con.SyncContext.AllowVoidAsyncOperationsBlock())
 					{
@@ -5958,6 +5981,7 @@ window.onload = WebForm_RestoreScrollPosition;
 					}
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "End PreLoad");
 
+					ObserveEnd();
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin Load");
 					if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_LOAD_ENTER, _context.WorkerRequest);
 					await LoadRecursiveAsync(this).WithinCancellableCallback(con);
@@ -5967,6 +5991,7 @@ window.onload = WebForm_RestoreScrollPosition;
 					if (IsPostBack)
 					{
 						// Try process the post data again (ASURT 29045)
+						ObserveEnd();
 						if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin ProcessPostData Second Try");
 						if (AppSettings.EnableAsyncModelBinding)
 						{
@@ -6001,6 +6026,7 @@ window.onload = WebForm_RestoreScrollPosition;
 						if (con.TraceIsEnabled) Trace.Write("aspx.page", "End Raise PostBackEvent");
 					}
 
+					ObserveEnd();
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin LoadComplete");
 					using (con.SyncContext.AllowVoidAsyncOperationsBlock())
 					{
@@ -6015,6 +6041,7 @@ window.onload = WebForm_RestoreScrollPosition;
 					}
 					else if (!IsCrossPagePostBack)
 					{
+						ObserveEnd();
 						if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin PreRender");
 						if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_PRE_RENDER_ENTER, _context.WorkerRequest);
 						await PreRenderRecursiveInternalAsync(this).WithinCancellableCallback(con);
@@ -6048,6 +6075,7 @@ window.onload = WebForm_RestoreScrollPosition;
 						return;
 					}
 
+					ObserveEnd();
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "Begin PreRenderComplete");
 					PerformPreRenderComplete();
 					if (con.TraceIsEnabled) Trace.Write("aspx.page", "End PreRenderComplete");
@@ -6060,6 +6088,7 @@ window.onload = WebForm_RestoreScrollPosition;
 
 					if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_SAVE_VIEWSTATE_ENTER, _context.WorkerRequest);
 
+					ObserveEnd();
 					SaveAllState();
 
 					if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_SAVE_VIEWSTATE_LEAVE, _context.WorkerRequest);
@@ -6075,6 +6104,7 @@ window.onload = WebForm_RestoreScrollPosition;
 						Trace.Write("aspx.page", "Begin Render");
 					}
 
+					ObserveEnd();
 					if (EtwTrace.IsTraceEnabled(EtwTraceLevel.Verbose, EtwTraceFlags.Page)) EtwTrace.Trace(EtwTraceType.ETW_TYPE_PAGE_RENDER_ENTER, _context.WorkerRequest);
 					// Special-case Web Part Export so it executes in the same security context as the page itself (VSWhidbey 426574)
 					if (exportedWebPartID != null)

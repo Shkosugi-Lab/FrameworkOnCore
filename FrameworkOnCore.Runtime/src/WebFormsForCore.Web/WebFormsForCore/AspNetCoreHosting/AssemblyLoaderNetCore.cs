@@ -62,6 +62,18 @@ namespace System.Web.Hosting
 				.ToArray();
 		public static bool UseNetFXGAC = false;
 
+		// An assembly the server compiled (in TempPath, the codegen folder) is loaded as System.Web loads it in the default
+		// context (CompilerResults.CompiledAssembly: Assembly.LoadFile, one instance a path): the default context's own copy
+		// was a second one, and an assembly compiled against another batch's (a page's PreviousPageType: NavigationProbe's
+		// cross-page postbacks) had "[A]ASP.x_source_aspx cannot be cast to [B]ASP.x_source_aspx".
+		static Assembly Load(AssemblyLoadContext context, string path)
+		{
+			if (context == AssemblyLoadContext.Default && !string.IsNullOrEmpty(tempPath) &&
+				path.StartsWith(Path.GetFullPath(tempPath).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+				return Assembly.LoadFile(path);
+			return context.LoadFromAssemblyPath(path);
+		}
+
 		public static Assembly Resolve(AssemblyLoadContext context, AssemblyName name)
 		{
             //Debugger.Break();
@@ -102,7 +114,7 @@ namespace System.Web.Hosting
 				})
 				.Where(p => File.Exists(p.FullName));
 			var assembly = files
-				.Select(p => context.LoadFromAssemblyPath(p.FullName))
+				.Select(p => Load(context, p.FullName))
 				.Where(assembly => assembly != null &&
 					(name.Version == null || assembly.GetName().Version >= name.Version))
 				.FirstOrDefault();

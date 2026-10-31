@@ -46,6 +46,16 @@ $verifier = Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt\FrameworkO
     if ($LASTEXITCODE -ne 0) { throw 'FrameworkOnCore.ParityTest build failed' }
 }
 
+# A sample with an inventory of operations (the scenario's "operations"): each one's result on the platform, beside the
+# golden (samples\<Name>\results.<platform>.md and .json); the platform names the allowed differences that apply.
+function Result-Arguments([string]$platform) {
+    $arguments = @('--platform', $platform)
+    if ((Get-Content $scenario -Raw | ConvertFrom-Json).operations) {
+        $arguments += @('--report', (Join-Path $sample "results.$platform.md"), '--results', (Join-Path $sample "results.$platform.json"))
+    }
+    return $arguments
+}
+
 function Wait-Site([string]$base) {
     foreach ($attempt in 1..90) {
         try { Invoke-WebRequest "$base/" -UseBasicParsing -TimeoutSec 60 | Out-Null; return }
@@ -158,7 +168,7 @@ if ($Windows) {
         -RedirectStandardOutput (Join-Path $work 'windows-out.log') -RedirectStandardError (Join-Path $work 'windows-err.log')
     try {
         Wait-Site "http://localhost:$Port"
-        & dotnet $verifier verify --url "http://localhost:$Port" --scenario $scenario --golden $golden
+        & dotnet $verifier verify --url "http://localhost:$Port" --scenario $scenario --golden $golden @(Result-Arguments 'windows')
         $exit = $LASTEXITCODE
         # -Diff: what it showed, recorded (a second run of the scenario) for sample-diff.ps1 -Recorded: every line that differs.
         if ($Diff) { & dotnet $verifier record --url "http://localhost:$Port" --scenario $scenario --out (Join-Path $work 'recorded-windows.json') | Out-Null }
@@ -190,7 +200,7 @@ if ($Linux) {
     docker run -d --name $image -p "${Port}:8080" -e 'HttpErrors__LocalAddresses=*' @envArguments $image | Out-Null
     try {
         Wait-Site "http://localhost:$Port"
-        & dotnet $verifier verify --url "http://localhost:$Port" --scenario $scenario --golden $golden
+        & dotnet $verifier verify --url "http://localhost:$Port" --scenario $scenario --golden $golden @(Result-Arguments 'linux')
         $exit = $LASTEXITCODE
         # -Diff: what it showed, recorded (a second run of the scenario) for sample-diff.ps1 -Recorded: every line that differs.
         if ($Diff) { & dotnet $verifier record --url "http://localhost:$Port" --scenario $scenario --out (Join-Path $work 'recorded-linux.json') | Out-Null }

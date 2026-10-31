@@ -1,0 +1,28 @@
+{
+  "_comment": "Documented differences of NavigationProbe (parity-scenario.json's allowed): differences that are not defects of the conversion, each with its reason. snapshot: a regular expression on the snapshot's name; match: one on each problem line ParityTest reports; platforms: where it applies (none: everywhere). A snapshot all of whose problems match is 'allowed', not 'different'. README.md of the sample and experiments/wf4c/README.md (NavigationProbe) tell how each was found.",
+  "allowed": [
+    {
+      "snapshot": "^(redirect-relative-query|redirect-relative-frag|route-constraint-fail)$",
+      "match": "^(本文テキスト|  (正解|実測)側にのみある行|テーブル)",
+      "reason": "IIS's own detailed error page (403.14 of a folder without a default document, 404.0 of a URL no handler answers; a local request) is a simple page in FrameworkOnCore (the user's decision when httpErrors was made IIS-compatible, README 'httpErrors を IIS 互換で実装した'; wt's not-found-extensionless the same): the same status, substatus and title, the requested URL and physical path; not IIS's 'Most likely causes', 'Things you can try', module, handler, logon lines. The physical path is the site's folder (the original's iis, the conversion's converted, /app in the container)."
+    },
+    {
+      "snapshot": "^error-compile$",
+      "match": "^(本文テキスト|  (正解|実測)側にのみある行)",
+      "reason": "the compiler's language: .NET Framework's ASP.NET ran csc.exe, whose messages are in Windows' display language (Japanese here: 'CS0029: 型 'string' を型 'int' に暗黙的に変換できません。') while the page's own text is the application's uiCulture (en-US); FrameworkOnCore compiles with Roslyn in the process, in the application's culture (English, as the rest of the page). The same error number, the same page, status and title."
+    },
+    {
+      "snapshot": "^ajax-timer$",
+      "match": "^(HTML|  (正解|実測)側にのみある行)",
+      "reason": "compilation debug=\"true\": .NET Framework serves the debug ASP.NET AJAX scripts (MicrosoftAjax.debug.js: Sys.Debug.isDebug true), whose script loader leaves the startup scripts of each async postback in the head (Sys._ScriptLoaderTask._clearScript removes them only when not debugging); FrameworkOnCore's System.Web.Extensions has the release scripts only (its .debug.js are copies of the release ones), which remove them once run. The same deltas from the server (compared with a client of their own: every async postback's panel, hidden fields and the Timer's $create with enabled false after the third tick), the same ticks and page; only the executed script elements left in the document differ."
+    },
+    {
+      "snapshot": "^error-no-default$",
+      "platforms": [
+        "linux"
+      ],
+      "match": "^(本文テキスト|  (正解|実測)側にのみある行)",
+      "reason": "Request.IsLocal (the test's environment): the golden was recorded from IIS's own machine, so customErrors On without a defaultRedirect wrote its local wording ('prevent the details ... from being viewed', set mode to RemoteOnly); the Linux container is reached through Docker's port forwarding, the application sees the client as Docker's gateway and Request.IsLocal is false: the remote wording ('viewed remotely (for security reasons)', set mode to Off). On Windows (a local client) the same page as IIS's. The same cause as wt's error-page on Linux."
+    }
+  ]
+}

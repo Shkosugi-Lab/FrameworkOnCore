@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFrameworks>net10.0</TargetFrameworks>
@@ -58,6 +58,9 @@
         <Compile Include="..\..\..\src\FrameworkOnCore.Analyzers\SpanInExpressionAnalyzer.cs" Link="Analyzers\SpanInExpressionAnalyzer.cs" />
         <Compile Include="..\..\..\src\FrameworkOnCore.Analyzers\Located.cs" Link="Analyzers\Located.cs" />
         <Compile Include="..\..\..\src\FrameworkOnCore.Analyzers\PlatformAnalyzer.cs" Link="Analyzers\PlatformAnalyzer.cs" />
+        <!-- FrameworkOnCore: a catch of Response.End's ThreadAbortException raised again at its end (FOC1009), as the converter rewrites it. -->
+        <Compile Include="..\..\..\src\FrameworkOnCore.Analyzers\EndInCatchAnalyzer.cs" Link="Analyzers\EndInCatchAnalyzer.cs" />
+        <Compile Include="..\..\..\src\FrameworkOnCore.Analyzers\Rewrites\EndInCatchRewrite.cs" Link="Analyzers\EndInCatchRewrite.cs" />
     </ItemGroup>
 
     <ItemGroup>

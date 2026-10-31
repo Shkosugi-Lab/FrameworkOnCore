@@ -3797,6 +3797,11 @@ private static void GetGhostedVirtualPath(ref string virtualPath) {
             var assemblyFile = Path.Combine(reqPath, name + ".dll");
             if (File.Exists(assemblyFile)) {
                 var alc = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly());
+                // In the default context, as the compiled assemblies are loaded (CompilerResults.CompiledAssembly:
+                // Assembly.LoadFile, one instance a path): the default context's own copy was a second one, and an
+                // assembly compiled against another batch's (a page's PreviousPageType: NavigationProbe's cross-page
+                // postbacks) had "[A]ASP.x_source_aspx cannot be cast to [B]ASP.x_source_aspx".
+                if (alc == AssemblyLoadContext.Default) return Assembly.LoadFile(assemblyFile);
                 return alc.LoadFromAssemblyPath(assemblyFile);
             }
         }

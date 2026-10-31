@@ -223,7 +223,10 @@ namespace System.Web.Hosting
 					var mark = url.IndexOf('?');
 					request.PathBase = default;
 					request.Path = new Core.PathString(mark < 0 ? url : url.Substring(0, mark));
-					request.QueryString = new Core.QueryString("?" + status.ToString(global::System.Globalization.CultureInfo.InvariantCulture) + ";" + failed);
+					// A query of the error's path first ("/E/NotFound.aspx?from=httpErrors": "?from=httpErrors&404;http://...",
+					// seen on IIS 10).
+					var own = mark < 0 || mark == url.Length - 1 ? "" : url.Substring(mark + 1) + "&";
+					request.QueryString = new Core.QueryString("?" + own + status.ToString(global::System.Globalization.CultureInfo.InvariantCulture) + ";" + failed);
 					response.StatusCode = 200;
 					response.Headers.Remove("Content-Type");
 					context.Features.Set(new IisErrorFlags { Executing = true });

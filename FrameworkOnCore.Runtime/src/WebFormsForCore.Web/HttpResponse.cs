@@ -430,7 +430,13 @@ namespace System.Web {
             }
 
             // location of redirect
+#if NETCOREAPP
+            // An empty one is not sent, as IIS sends none (Response.Redirect(""): seen on IIS 10; an empty custom header
+            // is sent there, as here).
+            if (!string.IsNullOrEmpty(_redirectLocation)) {
+#else
             if (_redirectLocation != null) {
+#endif
                 headers.Add(new HttpResponseHeader(HttpWorkerRequest.HeaderLocation, _redirectLocation));
             }
 
@@ -613,7 +619,14 @@ namespace System.Web {
                             bufferedLength = _httpWriter.GetBufferedLength();
 
                             // suppress content-type for empty responses
+#if NETCOREAPP
+                            // ... unless the application set it, as IIS's integrated pipeline sends it
+                            // (UpdateNativeResponse: Dev10 750934): a page ended before it wrote anything
+                            // (Response.End in Load, a Transfer inside Execute) answers "text/html" on IIS.
+                            if (!_contentLengthSet && bufferedLength == 0 && _httpWriter != null && !_contentTypeSetByManagedCaller)
+#else
                             if (!_contentLengthSet && bufferedLength == 0 && _httpWriter != null)
+#endif
                                 _contentType = null;
 
                             SuppressCachingCookiesIfNecessary();
@@ -3299,6 +3312,9 @@ namespace System.Web {
             try
             {
                 var tae = Activator.CreateInstance(typeof(ThreadAbortException), true) as ThreadAbortException;
+                // .NET Framework's message ("System error." here: SystemException's): what a catch logs, what a page
+                // method's JSON error says (NavigationProbe's PageMethods: Response.Redirect in a [WebMethod]).
+                threadAbortMessage?.SetValue(tae, "Thread was being aborted.");
                 throw tae;
                 //throw new ResponseEndException(new HttpApplication.CancelModuleException(false));
             } catch (Exception ex)
@@ -3308,6 +3324,18 @@ namespace System.Web {
             }
 #endif
 		}
+
+#if NETCOREAPP
+        static readonly System.Reflection.FieldInfo threadAbortMessage =
+            typeof(Exception).GetField("_message", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+        // What the ended code writes is kept again (a handler of the framework that reports the end in its catch: a page
+        // method's JSON error, as .NET Framework's RestHandler wrote it before the abort was raised again).
+        internal void ResumeWritesUntilEndObserved()
+        {
+            if (_httpWriter != null) _httpWriter.ResumeWritesAfterEnd();
+        }
+#endif
 
         internal void RethrowIfResponseEnd()
         {

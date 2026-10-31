@@ -1,0 +1,3046 @@
+{
+  "_comment": "Written by inventory.py (edit the table there). The operations of NavigationProbe; parity-scenario.json exercises them (its steps' op).",
+  "operations": [
+    {
+      "id": "index.home",
+      "category": "index",
+      "page": "/ (Default.aspx)",
+      "element": "the index of every case",
+      "role": "any",
+      "expected": "the links",
+      "why": "nothing: the starting point (and what discover crawls)",
+      "keys": [
+        "GET /",
+        "GET /default.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "transfer.preserve-form",
+      "category": "transfer",
+      "page": "/T/Source.aspx -> ~/T/Sub/Target.aspx",
+      "element": "Server.Transfer(path, true) from a click",
+      "role": "any",
+      "expected": "the target in another folder runs; the address stays /T/Source.aspx; Request.Form and PreviousPage (FindControl, the typed property) are the source's",
+      "why": "the target renders under the source's URL: ~ / relative URLs, the form's action, ResolveClientUrl and PreviousPage all depend on the executing vs the requested path (Context.Handler / PreviousHandler)",
+      "keys": [
+        "GET /t/source.aspx",
+        "SUBMIT /t/source.aspx btnTrue",
+        "INPUT /t/source.aspx txt text"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "transfer.no-form",
+      "category": "transfer",
+      "page": "/T/Source.aspx",
+      "element": "Server.Transfer(path, false)",
+      "role": "any",
+      "expected": "the target sees no form; PreviousPage still set",
+      "why": "preserveForm false clears Request.Form for the target only",
+      "keys": [
+        "GET /t/source.aspx",
+        "SUBMIT /t/source.aspx btnFalse"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "transfer.query",
+      "category": "transfer",
+      "page": "/T/Source.aspx",
+      "element": "Server.Transfer(\"...?q=from-transfer&q=again\", true)",
+      "role": "any",
+      "expected": "the target's query is the transfer's (repeated key)",
+      "why": "the query string replaced by the transfer's while RawUrl stays the browser's",
+      "keys": [
+        "GET /t/source.aspx",
+        "SUBMIT /t/source.aspx btnQuery"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "transfer.relative-links",
+      "category": "transfer",
+      "page": "/T/Sub/Target.aspx after a transfer",
+      "element": "HyperLink NavigateUrl=\"Other.aspx\", a href=\"Other.aspx\" (plain and runat=server)",
+      "role": "any",
+      "expected": "HyperLink / runat=server resolve against the target's folder (T/Sub); the plain link against the browser's (T/) - a 404",
+      "why": "the classic Transfer breakage: server-resolved URLs and browser-resolved URLs disagree",
+      "keys": [
+        "GET /t/sub/other.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "transfer.target-postback",
+      "category": "transfer",
+      "page": "/T/Sub/Target.aspx after a transfer",
+      "element": "a postback from the transferred-to page",
+      "role": "any",
+      "expected": "the form posts to the action the target rendered (relative to the source's URL)",
+      "why": "the form action after Transfer: a relative \"Target.aspx\"-style action resolved by the browser against the old URL",
+      "runnable": true,
+      "keys": [
+        "GET /t/sub/target.aspx",
+        "SUBMIT /t/sub/target.aspx btnPost"
+      ]
+    },
+    {
+      "id": "transfer.handler",
+      "category": "transfer",
+      "page": "/T/Source.aspx",
+      "element": "Server.Transfer(IHttpHandler, true)",
+      "role": "any",
+      "expected": "the handler writes into the page's response; Context.Handler is the page",
+      "why": "a handler object instead of a path: no page, no PreviousPage",
+      "keys": [
+        "GET /t/source.aspx",
+        "SUBMIT /t/source.aspx btnHandler"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "transfer.ashx",
+      "category": "transfer",
+      "page": "/T/Source.aspx",
+      "element": "Server.Transfer(\"~/T/Echo.ashx?via=transfer\")",
+      "role": "any",
+      "expected": "as .NET Framework: the .ashx through Transfer",
+      "why": "Transfer to a non-page handler path (the handler factory of .ashx)",
+      "keys": [
+        "GET /t/source.aspx",
+        "SUBMIT /t/source.aspx btnAshx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "transfer.chain",
+      "category": "transfer",
+      "page": "/T/Chain1.aspx -> Chain2 -> Sub/Target",
+      "element": "nested Server.Transfer from Page_Load",
+      "role": "any",
+      "expected": "three pages in one request; PreviousPage the last one",
+      "why": "each transfer nests a child request; the log and PreviousPage show the order",
+      "keys": [
+        "GET /t/source.aspx",
+        "SUBMIT /t/source.aspx btnChain",
+        "GET /t/chain1.aspx",
+        "SUBMIT /t/chain1.aspx btnPost",
+        "GET /t/other.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "transfer.after-write",
+      "category": "transfer",
+      "page": "/T/Source.aspx",
+      "element": "Response.Write then Server.Transfer",
+      "role": "any",
+      "expected": "what was written stays before the target's output",
+      "why": "Transfer does not clear the response",
+      "keys": [
+        "GET /t/source.aspx",
+        "SUBMIT /t/source.aspx btnWritten"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "transfer.catch-threadabort",
+      "category": "transfer",
+      "page": "/T/Source.aspx",
+      "element": "Server.Transfer inside try / catch (ThreadAbortException)",
+      "role": "any",
+      "expected": "on .NET Framework the abort is re-raised at the end of the catch: the code after the try never runs (the session shows what ran)",
+      "why": ".NET has no thread abort: code after a swallowed Response.End / Transfer runs unless the port re-raises it",
+      "keys": [
+        "GET /t/source.aspx",
+        "SUBMIT /t/source.aspx btnCatch"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "transfer.catch-exception",
+      "category": "transfer",
+      "page": "/T/Source.aspx",
+      "element": "Server.Transfer inside try / catch (Exception)",
+      "role": "any",
+      "expected": "as above with catch (Exception): the type caught",
+      "why": "the exception type a broad catch sees (ThreadAbortException)",
+      "keys": [
+        "GET /t/source.aspx",
+        "SUBMIT /t/source.aspx btnCatchAll"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "transfer.transfer-request",
+      "category": "transfer",
+      "page": "/T/Source.aspx",
+      "element": "Server.TransferRequest(\"~/T/Sub/Target.aspx?tr=1\", true)",
+      "role": "any",
+      "expected": "a new pipeline for the target: no PreviousPage; the form kept",
+      "why": "IIS integrated mode's child request (the whole pipeline again, Global.asax events too)",
+      "keys": [
+        "GET /t/source.aspx",
+        "SUBMIT /t/source.aspx btnRequest"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "transfer.missing",
+      "category": "transfer",
+      "page": "/T/Source.aspx",
+      "element": "Server.Transfer to a page that does not exist",
+      "role": "any",
+      "expected": "the HttpException (404 inside a transfer: 500? as the original)",
+      "why": "the error of a child request",
+      "keys": [
+        "GET /t/source.aspx",
+        "SUBMIT /t/source.aspx btnMissing"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "execute.load",
+      "category": "transfer",
+      "page": "/T/Exec.aspx?mode=load",
+      "element": "Server.Execute (load)",
+      "role": "any",
+      "expected": "the executed page's output first, before the page's own <html>",
+      "why": "Execute writes straight into the response, at the time it is called",
+      "keys": [
+        "GET /t/exec.aspx?mode",
+        "GET /t/part.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "execute.render",
+      "category": "transfer",
+      "page": "/T/Exec.aspx?mode=render",
+      "element": "Server.Execute (render)",
+      "role": "any",
+      "expected": "the executed page's output inside the div, during Render",
+      "why": "Execute from inline code, in the middle of the page's output",
+      "keys": [
+        "GET /t/exec.aspx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "execute.writer",
+      "category": "transfer",
+      "page": "/T/Exec.aspx?mode=writer",
+      "element": "Server.Execute (writer)",
+      "role": "any",
+      "expected": "the output captured by a StringWriter, shown encoded",
+      "why": "Execute(path, TextWriter): another writer for the child page",
+      "keys": [
+        "GET /t/exec.aspx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "execute.ashx",
+      "category": "transfer",
+      "page": "/T/Exec.aspx?mode=ashx",
+      "element": "Server.Execute (ashx)",
+      "role": "any",
+      "expected": "an .ashx executed into a writer",
+      "why": "Execute of a handler path",
+      "keys": [
+        "GET /t/exec.aspx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "execute.redirect",
+      "category": "transfer",
+      "page": "/T/Exec.aspx?mode=redirect",
+      "element": "Server.Execute (redirect)",
+      "role": "any",
+      "expected": "the executed page's Response.Redirect redirects the whole request",
+      "why": "Response.Redirect inside a child request (who ends?)",
+      "keys": [
+        "GET /t/exec.aspx?mode",
+        "GET /t/sub/other.aspx?from"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "execute.transfer",
+      "category": "transfer",
+      "page": "/T/Exec.aspx?mode=transfer",
+      "element": "Server.Execute (transfer)",
+      "role": "any",
+      "expected": "the executed page's Server.Transfer",
+      "why": "Transfer inside Execute",
+      "keys": [
+        "GET /t/exec.aspx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "execute.throw",
+      "category": "transfer",
+      "page": "/T/Exec.aspx?mode=throw",
+      "element": "Server.Execute (throw)",
+      "role": "any",
+      "expected": "HttpException \"Error executing child request\" with the inner exception",
+      "why": "the wrapping of a child request's exception",
+      "keys": [
+        "GET /t/exec.aspx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "execute.missing",
+      "category": "transfer",
+      "page": "/T/Exec.aspx?mode=missing",
+      "element": "Server.Execute (missing)",
+      "role": "any",
+      "expected": "the HttpException of a missing page",
+      "why": "Execute of a page that does not exist",
+      "keys": [
+        "GET /t/exec.aspx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "execute.preserve-form",
+      "category": "transfer",
+      "page": "/T/Exec.aspx",
+      "element": "Server.Execute(path, writer, preserveForm true / false) on a postback",
+      "role": "any",
+      "expected": "the child sees the form or not",
+      "why": "preserveForm on Execute",
+      "keys": [
+        "GET /t/exec.aspx",
+        "SUBMIT /t/exec.aspx btnPreserve",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "INPUT /t/exec.aspx txt text"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "cross.same-folder",
+      "category": "cross-page",
+      "page": "/X/Source.aspx -> /X/Target.aspx",
+      "element": "Button PostBackUrl; the target's PreviousPageType",
+      "role": "any",
+      "expected": "the target: IsCrossPagePostBack of the source, the typed PreviousPage.NameTyped, IsValid",
+      "why": "the source page is re-created (its LoadComplete) inside the target's request; PreviousPageType makes a typed property in generated code",
+      "keys": [
+        "GET /x/source.aspx",
+        "SUBMIT /x/source.aspx btnSame",
+        "INPUT /x/source.aspx txtName text"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "cross.validation",
+      "category": "cross-page",
+      "page": "/X/Source.aspx -> /X/Target.aspx",
+      "element": "cross-page postback with an empty required field (server validation only)",
+      "role": "any",
+      "expected": "PreviousPage.IsValid false: the target decides",
+      "why": "validation runs on the source page when the target asks PreviousPage.IsValid",
+      "runnable": true
+    },
+    {
+      "id": "cross.no-validation",
+      "category": "cross-page",
+      "page": "/X/Source.aspx",
+      "element": "CausesValidation=false with PostBackUrl",
+      "role": "any",
+      "expected": "IsValid without validation: the exception or true",
+      "why": "Page.IsValid before Validate()",
+      "keys": [
+        "GET /x/source.aspx",
+        "SUBMIT /x/source.aspx btnNoValidation"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "cross.other-folder",
+      "category": "cross-page",
+      "page": "/X/Source.aspx -> /X/Other/Target.aspx",
+      "element": "PostBackUrl to a page in another folder (no PreviousPageType)",
+      "role": "any",
+      "expected": "FindControl on PreviousPage; relative URLs of the target",
+      "why": "the browser's URL is the target's, unlike Transfer",
+      "keys": [
+        "GET /x/source.aspx",
+        "SUBMIT /x/source.aspx btnOther",
+        "GET /x/other/target.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "cross.query",
+      "category": "cross-page",
+      "page": "/X/Source.aspx",
+      "element": "PostBackUrl with a query",
+      "role": "any",
+      "expected": "the target sees via=query",
+      "why": "WebForm_DoPostBackWithOptions sets the form's action with the query",
+      "keys": [
+        "GET /x/source.aspx",
+        "SUBMIT /x/source.aspx btnQuery"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "cross.linkbutton",
+      "category": "cross-page",
+      "page": "/X/Source.aspx",
+      "element": "LinkButton PostBackUrl",
+      "role": "any",
+      "expected": "the same as the button, through the script",
+      "why": "__doPostBack with options and __PREVIOUSPAGE",
+      "keys": [
+        "GET /x/source.aspx",
+        "POSTBACK /x/source.aspx lnkCross"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "cross.target-postback",
+      "category": "cross-page",
+      "page": "/X/Target.aspx",
+      "element": "a normal postback on the target after a cross-page postback",
+      "role": "any",
+      "expected": "PreviousPage gone, IsPostBack true",
+      "why": "the target's own view state after a cross-page arrival",
+      "keys": [
+        "GET /x/target.aspx",
+        "SUBMIT /x/target.aspx btnBack"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "cross.target-direct",
+      "category": "cross-page",
+      "page": "/X/Target.aspx",
+      "element": "GET of the target",
+      "role": "any",
+      "expected": "no previous page",
+      "why": "the typed PreviousPage null",
+      "keys": [
+        "GET /x/target.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "cross.master",
+      "category": "cross-page",
+      "page": "/X/MasterSource.aspx (master A) -> /X/MasterTarget.aspx (master B)",
+      "element": "PostBackUrl between pages of different masters",
+      "role": "any",
+      "expected": "PreviousPage.FindControl misses the content control; Master.FindControl(main).FindControl finds it; each master's relative URLs",
+      "why": "naming containers of the content placeholder; masters in another folder",
+      "keys": [
+        "GET /x/mastersource.aspx",
+        "SUBMIT /x/mastersource.aspx ctl00$main$btnCross",
+        "INPUT /x/mastersource.aspx ctl00$main$txtName text",
+        "GET /masters/other.aspx",
+        "GET /default.aspx",
+        "GET /x/other.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "cross.plain-postback",
+      "category": "cross-page",
+      "page": "/X/Source.aspx",
+      "element": "a button without PostBackUrl on the source",
+      "role": "any",
+      "expected": "an ordinary postback (the validator runs)",
+      "why": "the same page without cross-page",
+      "keys": [
+        "GET /x/source.aspx",
+        "SUBMIT /x/source.aspx btnHere"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.at-preinit",
+      "category": "redirect",
+      "page": "/R/Life.aspx?at=PreInit",
+      "element": "Response.Redirect in PreInit (endResponse true, then false)",
+      "role": "any",
+      "expected": "true: 302, the rest of the page not run; false: 302 with the page's output after the \"Object moved\" body, the events after it run",
+      "why": "each event of the page's lifecycle: before / after the form is read, during Render (headers not sent: buffered), in Unload (the response is gone)",
+      "keys": [
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end",
+        "GET /r/life.aspx",
+        "GET /r/landing.aspx?from"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.at-init",
+      "category": "redirect",
+      "page": "/R/Life.aspx?at=Init",
+      "element": "Response.Redirect in Init (endResponse true, then false)",
+      "role": "any",
+      "expected": "true: 302, the rest of the page not run; false: 302 with the page's output after the \"Object moved\" body, the events after it run",
+      "why": "each event of the page's lifecycle: before / after the form is read, during Render (headers not sent: buffered), in Unload (the response is gone)",
+      "keys": [
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.at-initcomplete",
+      "category": "redirect",
+      "page": "/R/Life.aspx?at=InitComplete",
+      "element": "Response.Redirect in InitComplete (endResponse true, then false)",
+      "role": "any",
+      "expected": "true: 302, the rest of the page not run; false: 302 with the page's output after the \"Object moved\" body, the events after it run",
+      "why": "each event of the page's lifecycle: before / after the form is read, during Render (headers not sent: buffered), in Unload (the response is gone)",
+      "keys": [
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.at-preload",
+      "category": "redirect",
+      "page": "/R/Life.aspx?at=PreLoad",
+      "element": "Response.Redirect in PreLoad (endResponse true, then false)",
+      "role": "any",
+      "expected": "true: 302, the rest of the page not run; false: 302 with the page's output after the \"Object moved\" body, the events after it run",
+      "why": "each event of the page's lifecycle: before / after the form is read, during Render (headers not sent: buffered), in Unload (the response is gone)",
+      "keys": [
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.at-load",
+      "category": "redirect",
+      "page": "/R/Life.aspx?at=Load",
+      "element": "Response.Redirect in Load (endResponse true, then false)",
+      "role": "any",
+      "expected": "true: 302, the rest of the page not run; false: 302 with the page's output after the \"Object moved\" body, the events after it run",
+      "why": "each event of the page's lifecycle: before / after the form is read, during Render (headers not sent: buffered), in Unload (the response is gone)",
+      "keys": [
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.at-click",
+      "category": "redirect",
+      "page": "/R/Life.aspx?at=Click",
+      "element": "Response.Redirect in Click (endResponse true, then false)",
+      "role": "any",
+      "expected": "true: 302, the rest of the page not run; false: 302 with the page's output after the \"Object moved\" body, the events after it run",
+      "why": "each event of the page's lifecycle: before / after the form is read, during Render (headers not sent: buffered), in Unload (the response is gone)",
+      "keys": [
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end",
+        "SUBMIT /r/life.aspx btnGo"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.at-loadcomplete",
+      "category": "redirect",
+      "page": "/R/Life.aspx?at=LoadComplete",
+      "element": "Response.Redirect in LoadComplete (endResponse true, then false)",
+      "role": "any",
+      "expected": "true: 302, the rest of the page not run; false: 302 with the page's output after the \"Object moved\" body, the events after it run",
+      "why": "each event of the page's lifecycle: before / after the form is read, during Render (headers not sent: buffered), in Unload (the response is gone)",
+      "keys": [
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.at-prerender",
+      "category": "redirect",
+      "page": "/R/Life.aspx?at=PreRender",
+      "element": "Response.Redirect in PreRender (endResponse true, then false)",
+      "role": "any",
+      "expected": "true: 302, the rest of the page not run; false: 302 with the page's output after the \"Object moved\" body, the events after it run",
+      "why": "each event of the page's lifecycle: before / after the form is read, during Render (headers not sent: buffered), in Unload (the response is gone)",
+      "keys": [
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.at-prerendercomplete",
+      "category": "redirect",
+      "page": "/R/Life.aspx?at=PreRenderComplete",
+      "element": "Response.Redirect in PreRenderComplete (endResponse true, then false)",
+      "role": "any",
+      "expected": "true: 302, the rest of the page not run; false: 302 with the page's output after the \"Object moved\" body, the events after it run",
+      "why": "each event of the page's lifecycle: before / after the form is read, during Render (headers not sent: buffered), in Unload (the response is gone)",
+      "keys": [
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.at-savestatecomplete",
+      "category": "redirect",
+      "page": "/R/Life.aspx?at=SaveStateComplete",
+      "element": "Response.Redirect in SaveStateComplete (endResponse true, then false)",
+      "role": "any",
+      "expected": "true: 302, the rest of the page not run; false: 302 with the page's output after the \"Object moved\" body, the events after it run",
+      "why": "each event of the page's lifecycle: before / after the form is read, during Render (headers not sent: buffered), in Unload (the response is gone)",
+      "keys": [
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.at-render",
+      "category": "redirect",
+      "page": "/R/Life.aspx?at=Render",
+      "element": "Response.Redirect in Render (endResponse true, then false)",
+      "role": "any",
+      "expected": "true: 302, the rest of the page not run; false: 302 with the page's output after the \"Object moved\" body, the events after it run",
+      "why": "each event of the page's lifecycle: before / after the form is read, during Render (headers not sent: buffered), in Unload (the response is gone)",
+      "keys": [
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.at-unload",
+      "category": "redirect",
+      "page": "/R/Life.aspx?at=Unload",
+      "element": "Response.Redirect in Unload (endResponse true, then false)",
+      "role": "any",
+      "expected": "true: 302, the rest of the page not run; false: 302 with the page's output after the \"Object moved\" body, the events after it run",
+      "why": "each event of the page's lifecycle: before / after the form is read, during Render (headers not sent: buffered), in Unload (the response is gone)",
+      "keys": [
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.tae",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=tae",
+      "element": "Redirect in try / catch (ThreadAbortException): the code after the try",
+      "role": "any",
+      "expected": "the redirect; on .NET Framework neither the code after the try nor the rest runs (the session shows what did)",
+      "why": "thread abort emulation",
+      "keys": [
+        "GET /r/cases.aspx?c",
+        "GET /r/cases.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.ex",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=ex",
+      "element": "Redirect in try / catch (Exception)",
+      "role": "any",
+      "expected": "the type caught; the code after the try (the session)",
+      "why": "a broad catch swallowing the end of the response",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.finally",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=finally",
+      "element": "Redirect in try / finally",
+      "role": "any",
+      "expected": "the finally runs; the redirect",
+      "why": "finally blocks during the abort",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.written",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=written",
+      "element": "Response.Write then Redirect",
+      "role": "any",
+      "expected": "the redirect: what was written is cleared",
+      "why": "a buffered response is cleared",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.flushed",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=flushed",
+      "element": "Response.Write, Flush, then Redirect",
+      "role": "any",
+      "expected": "HttpException \"Cannot redirect after HTTP headers have been sent\" after the flushed text (200)",
+      "why": "headers sent: the redirect fails mid-page",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.permanent",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=permanent",
+      "element": "RedirectPermanent",
+      "role": "any",
+      "expected": "301",
+      "why": "the permanent redirect's status",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.permanent-false",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=permanent-false",
+      "element": "RedirectPermanent(url, false)",
+      "role": "any",
+      "expected": "301 with the page after it",
+      "why": "endResponse false on the permanent redirect",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.route",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=route",
+      "element": "RedirectToRoute(\"NavRoute\", id=3)",
+      "role": "any",
+      "expected": "302 to /nav/3",
+      "why": "the route's URL from values",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.route-permanent",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=route-permanent",
+      "element": "RedirectToRoutePermanent with an extra value (space)",
+      "role": "any",
+      "expected": "301 to /nav/4?extra=x%20y",
+      "why": "the extra value as a query, its encoding",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.route-name",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=route-name",
+      "element": "RedirectToRoute(\"FilesRoute\", rest=\"a/b c\")",
+      "role": "any",
+      "expected": "the catch-all route's URL (the slash kept, the space escaped)",
+      "why": "catch-all parameters' encoding",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.external",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=external",
+      "element": "Redirect to an absolute external URL (a space in the query)",
+      "role": "any",
+      "expected": "302 to http://external.example/... (the browser goes there: its own error page, .example names do not resolve)",
+      "why": "absolute URLs left as they are",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.protocol-relative",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=protocol-relative",
+      "element": "Redirect to //external.example/relative",
+      "role": "any",
+      "expected": "the scheme-relative Location",
+      "why": "a URL that looks relative but leaves the site",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.absolute-path",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=absolute-path",
+      "element": "Redirect to /R/Landing.aspx",
+      "role": "any",
+      "expected": "the path as given",
+      "why": "an absolute path",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.unicode",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=unicode",
+      "element": "Redirect with Unicode, a space, % and & in the query",
+      "role": "any",
+      "expected": "the encoding of the Location header (non-ASCII, space, a lone %)",
+      "why": "UrlEncodeRedirect / UrlPathEncode of the query",
+      "keys": [
+        "GET /r/cases.aspx?c",
+        "GET /r/landing.aspx?amp&name&pct&plus&y"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.encoded",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=encoded",
+      "element": "Redirect with an already escaped query (%26 %E6 %2B)",
+      "role": "any",
+      "expected": "escapes kept, not escaped twice",
+      "why": "double encoding",
+      "keys": [
+        "GET /r/cases.aspx?c",
+        "GET /r/landing.aspx?a&b&c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.unicode-path",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=unicode-path",
+      "element": "Redirect to ~/R/着地.aspx",
+      "role": "any",
+      "expected": "the path escaped (UTF-8)",
+      "why": "non-ASCII file names (Linux file system, the escaping)",
+      "keys": [
+        "GET /r/cases.aspx?c",
+        "GET /r/着地.aspx?from"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.space-path",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=space-path",
+      "element": "Redirect to ~/R/With Space.aspx?from=space path",
+      "role": "any",
+      "expected": "the space in the path and the query",
+      "why": "spaces in paths",
+      "keys": [
+        "GET /r/cases.aspx?c",
+        "GET /r/with space.aspx?from"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.newline",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=newline",
+      "element": "Redirect to a URL with CR LF (header injection)",
+      "role": "any",
+      "expected": "refused: ArgumentException / the URL sanitised, as the original",
+      "why": "response splitting protection",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.empty",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=empty",
+      "element": "Redirect(\"\")",
+      "role": "any",
+      "expected": "as the original (to the folder? an exception?)",
+      "why": "the edge of URL resolution",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.end",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=end",
+      "element": "Response.Write, Response.End, Write",
+      "role": "any",
+      "expected": "only the text before End",
+      "why": "Response.End without a redirect",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.complete",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=complete",
+      "element": "Write, CompleteRequest, the page goes on",
+      "role": "any",
+      "expected": "the page still renders (CompleteRequest only skips the pipeline)",
+      "why": "CompleteRequest is not End",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.false-complete",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=false-complete",
+      "element": "Redirect(url, false) + CompleteRequest (the recommended pattern)",
+      "role": "any",
+      "expected": "302 with the page rendered after the redirect's body",
+      "why": "the documented alternative to Redirect(url) still renders the page",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.status200",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=status200",
+      "element": "Redirect(url, false), then StatusCode = 200 in PreRender",
+      "role": "any",
+      "expected": "200 with a Location header and the page",
+      "why": "a status overridden after the redirect",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.status301",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=status301",
+      "element": "Redirect(url, false), then StatusCode = 301",
+      "role": "any",
+      "expected": "301 with the Location",
+      "why": "the status changed, the Location kept",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.status404",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=status404",
+      "element": "Redirect(url, false), then StatusCode = 404 (TrySkipIisCustomErrors)",
+      "role": "any",
+      "expected": "404 with a Location header",
+      "why": "a redirect turned into an error",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.twice",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=twice",
+      "element": "Redirect(a, false) then Redirect(b)",
+      "role": "any",
+      "expected": "the second wins",
+      "why": "the Location replaced",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.clear-headers",
+      "category": "redirect",
+      "page": "/R/Cases.aspx?c=clear-headers",
+      "element": "Redirect(url, false) then ClearHeaders",
+      "role": "any",
+      "expected": "no Location: 200? as the original",
+      "why": "the redirect's headers removed",
+      "keys": [
+        "GET /r/cases.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.relative-parent",
+      "category": "redirect",
+      "page": "/R/Sub/Rel.aspx?c=parent",
+      "element": "Response.Redirect(\"../Landing.aspx\") from R/Sub",
+      "role": "any",
+      "expected": "the Location as the original made it absolute; the browser's address (the fragment kept)",
+      "why": "relative URL resolution of Redirect (against the request's folder), fragments",
+      "keys": [
+        "GET /r/sub/rel.aspx?c",
+        "GET /r/sub/rel.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.relative-file",
+      "category": "redirect",
+      "page": "/R/Sub/Rel.aspx?c=file",
+      "element": "Response.Redirect(\"Landing.aspx\") from R/Sub",
+      "role": "any",
+      "expected": "the Location as the original made it absolute; the browser's address (the fragment kept)",
+      "why": "relative URL resolution of Redirect (against the request's folder), fragments",
+      "keys": [
+        "GET /r/sub/rel.aspx?c",
+        "GET /r/sub/landing.aspx?from"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.relative-dot",
+      "category": "redirect",
+      "page": "/R/Sub/Rel.aspx?c=dot",
+      "element": "Response.Redirect(\"./Landing.aspx\") from R/Sub",
+      "role": "any",
+      "expected": "the Location as the original made it absolute; the browser's address (the fragment kept)",
+      "why": "relative URL resolution of Redirect (against the request's folder), fragments",
+      "keys": [
+        "GET /r/sub/rel.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.relative-tilde",
+      "category": "redirect",
+      "page": "/R/Sub/Rel.aspx?c=tilde",
+      "element": "Response.Redirect(\"~/R/Landing.aspx\") from R/Sub",
+      "role": "any",
+      "expected": "the Location as the original made it absolute; the browser's address (the fragment kept)",
+      "why": "relative URL resolution of Redirect (against the request's folder), fragments",
+      "keys": [
+        "GET /r/sub/rel.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.relative-query",
+      "category": "redirect",
+      "page": "/R/Sub/Rel.aspx?c=query",
+      "element": "Response.Redirect(\"?from=query-only\") from R/Sub",
+      "role": "any",
+      "expected": "the Location as the original made it absolute; the browser's address (the fragment kept)",
+      "why": "relative URL resolution of Redirect (against the request's folder), fragments",
+      "keys": [
+        "GET /r/sub/rel.aspx?c",
+        "GET /r/sub?from"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.relative-frag",
+      "category": "redirect",
+      "page": "/R/Sub/Rel.aspx?c=frag",
+      "element": "Response.Redirect(\"#frag\") from R/Sub",
+      "role": "any",
+      "expected": "the Location as the original made it absolute; the browser's address (the fragment kept)",
+      "why": "relative URL resolution of Redirect (against the request's folder), fragments",
+      "keys": [
+        "GET /r/sub/rel.aspx?c",
+        "GET /r/sub"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.relative-query-frag",
+      "category": "redirect",
+      "page": "/R/Sub/Rel.aspx?c=query-frag",
+      "element": "Response.Redirect(\"Landing.aspx?from=query-frag#section\") from R/Sub",
+      "role": "any",
+      "expected": "the Location as the original made it absolute; the browser's address (the fragment kept)",
+      "why": "relative URL resolution of Redirect (against the request's folder), fragments",
+      "keys": [
+        "GET /r/sub/rel.aspx?c"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.relative-tilde-frag",
+      "category": "redirect",
+      "page": "/R/Sub/Rel.aspx?c=tilde-frag",
+      "element": "Response.Redirect(\"~/R/Landing.aspx#top\") from R/Sub",
+      "role": "any",
+      "expected": "the Location as the original made it absolute; the browser's address (the fragment kept)",
+      "why": "relative URL resolution of Redirect (against the request's folder), fragments",
+      "keys": [
+        "GET /r/sub/rel.aspx?c",
+        "GET /r/landing.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "redirect.relative-parent-parent",
+      "category": "redirect",
+      "page": "/R/Sub/Rel.aspx?c=parent-parent",
+      "element": "Response.Redirect(\"../../Default.aspx\") from R/Sub",
+      "role": "any",
+      "expected": "the Location as the original made it absolute; the browser's address (the fragment kept)",
+      "why": "relative URL resolution of Redirect (against the request's folder), fragments",
+      "keys": [
+        "GET /r/sub/rel.aspx?c",
+        "GET /default.aspx?from"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "global.begin-request",
+      "category": "global",
+      "page": "/G/Begin.aspx",
+      "element": "Response.Redirect in Application_BeginRequest",
+      "role": "any",
+      "expected": "302 before anything else ran",
+      "why": "the earliest event: no handler, no session",
+      "keys": [
+        "GET /g/begin.aspx",
+        "GET /g/landing.aspx",
+        "GET /g/landing.aspx?from"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "global.authenticate-request",
+      "category": "global",
+      "page": "/G/Auth.aspx",
+      "element": "Response.Redirect in Application_AuthenticateRequest",
+      "role": "any",
+      "expected": "302",
+      "why": "during authentication",
+      "keys": [
+        "GET /g/auth.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "global.post-acquire-state",
+      "category": "global",
+      "page": "/G/Acquire.aspx",
+      "element": "Response.Redirect in Application_PostAcquireRequestState (with the session)",
+      "role": "any",
+      "expected": "302; the session available",
+      "why": "the session's event",
+      "keys": [
+        "GET /g/acquire.aspx",
+        "GET /g/landing.aspx?from&session"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "global.end-request",
+      "category": "global",
+      "page": "/G/End.aspx",
+      "element": "Response.Redirect in Application_EndRequest after the page ran",
+      "role": "any",
+      "expected": "302 replacing the page's output",
+      "why": "a redirect at the very end (headers not sent yet)",
+      "keys": [
+        "GET /g/end.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "global.module-redirect",
+      "category": "global",
+      "page": "/G/Module.aspx",
+      "element": "an IHttpModule's Response.Redirect in PostAuthorizeRequest",
+      "role": "any",
+      "expected": "302",
+      "why": "a module of web.config's system.webServer/modules",
+      "keys": [
+        "GET /g/module.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "global.module-complete",
+      "category": "global",
+      "page": "/G/ModuleEnd.aspx",
+      "element": "a module answers and calls CompleteRequest",
+      "role": "any",
+      "expected": "the module's answer; the page never runs",
+      "why": "CompleteRequest from a module",
+      "keys": [
+        "GET /g/moduleend.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "global.error-redirect",
+      "category": "global",
+      "page": "/G/ErrRedirect.aspx",
+      "element": "Application_Error: ClearError + Redirect",
+      "role": "any",
+      "expected": "302 to the landing with the exception type",
+      "why": "error handling by redirect",
+      "keys": [
+        "GET /g/errredirect.aspx",
+        "GET /g/landing.aspx?from&type"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "global.error-redirect-kept",
+      "category": "global",
+      "page": "/G/ErrRedirectKeep.aspx",
+      "element": "Application_Error: Redirect without ClearError",
+      "role": "any",
+      "expected": "the redirect (or the error page?) as the original",
+      "why": "the error still pending when redirecting",
+      "keys": [
+        "GET /g/errredirectkeep.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "global.error-transfer",
+      "category": "global",
+      "page": "/G/ErrTransfer.aspx",
+      "element": "Application_Error: ClearError + Server.Transfer",
+      "role": "any",
+      "expected": "the handled page under the failing URL",
+      "why": "Transfer outside the page's execution",
+      "keys": [
+        "GET /g/errtransfer.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "global.error-execute",
+      "category": "global",
+      "page": "/G/ErrExecute.aspx",
+      "element": "Application_Error: ClearError + Clear + Server.Execute",
+      "role": "any",
+      "expected": "the handled page's output",
+      "why": "Execute from an application event",
+      "keys": [
+        "GET /g/errexecute.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "global.error-clear",
+      "category": "global",
+      "page": "/G/ErrClear.aspx",
+      "element": "Application_Error: ClearError + Write",
+      "role": "any",
+      "expected": "200 with only the written text",
+      "why": "swallowing an error",
+      "keys": [
+        "GET /g/errclear.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "global.redirect-loop",
+      "category": "global",
+      "page": "/G/LoopA.aspx <-> /G/LoopB.aspx",
+      "element": "a redirect loop",
+      "role": "any",
+      "expected": "each hop the same; the browser gives up (ERR_TOO_MANY_REDIRECTS)",
+      "why": "relative Location values (\"LoopB.aspx\") resolved hop after hop",
+      "keys": [
+        "GET /g/loopa.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "global.redirect-chain",
+      "category": "global",
+      "page": "/G/Chain.aspx?n=19 / ?n=25",
+      "element": "a chain of 19 redirects (the browser follows) and of 25 (it does not)",
+      "role": "any",
+      "expected": "the end of the chain / the browser's error",
+      "why": "the browser's redirect limit (20)",
+      "keys": [
+        "GET /g/chain.aspx?n"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.redirect-mode",
+      "category": "error",
+      "page": "/E/Redirect/Throw.aspx",
+      "element": "customErrors On, ResponseRedirect: an exception",
+      "role": "any",
+      "expected": "302 to ~/E/Oops.aspx?aspxerrorpath=/E/Redirect/Throw.aspx",
+      "why": "the error page by redirect",
+      "keys": [
+        "GET /e/redirect/throw.aspx",
+        "GET /e/oops.aspx",
+        "GET /e/oops.aspx?aspxerrorpath"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.redirect-404",
+      "category": "error",
+      "page": "/E/Redirect/Http404.aspx",
+      "element": "HttpException(404) under ResponseRedirect with an <error statusCode=\"404\">",
+      "role": "any",
+      "expected": "302 to ~/E/NotFound.aspx?aspxerrorpath=...",
+      "why": "per-status pages",
+      "keys": [
+        "GET /e/redirect/http404.aspx",
+        "GET /e/notfound.aspx",
+        "GET /e/notfound.aspx?aspxerrorpath"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.redirect-403",
+      "category": "error",
+      "page": "/E/Redirect/Http403.aspx",
+      "element": "HttpException(403) without its own page",
+      "role": "any",
+      "expected": "302 to the default page",
+      "why": "the status without an entry",
+      "keys": [
+        "GET /e/redirect/http403.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.redirect-missing",
+      "category": "error",
+      "page": "/E/Redirect/Missing.aspx",
+      "element": "a missing .aspx under customErrors On",
+      "role": "any",
+      "expected": "302 to the 404 page",
+      "why": "the page handler factory's 404",
+      "keys": [
+        "GET /e/redirect/missing.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.rewrite-mode",
+      "category": "error",
+      "page": "/E/Rewrite/Throw.aspx",
+      "element": "customErrors ResponseRewrite: an exception",
+      "role": "any",
+      "expected": "500 with Oops.aspx's content under the failing URL (GetLastError available)",
+      "why": "Server.Execute of the error page",
+      "keys": [
+        "GET /e/rewrite/throw.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.rewrite-404",
+      "category": "error",
+      "page": "/E/Rewrite/Http404.aspx",
+      "element": "HttpException(404) under ResponseRewrite",
+      "role": "any",
+      "expected": "404 with NotFound.aspx's content",
+      "why": "the per-status page rewritten",
+      "keys": [
+        "GET /e/rewrite/http404.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.rewrite-missing",
+      "category": "error",
+      "page": "/E/Rewrite/Missing.aspx",
+      "element": "a missing page under ResponseRewrite",
+      "role": "any",
+      "expected": "404 with NotFound.aspx's content",
+      "why": "rewrite for the 404 of the factory",
+      "keys": [
+        "GET /e/rewrite/missing.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.error-page-throws",
+      "category": "error",
+      "page": "/E/Broken/Throw.aspx",
+      "element": "the error page itself throws (ResponseRewrite)",
+      "role": "any",
+      "expected": "the generic runtime error page",
+      "why": "an error inside the error page",
+      "keys": [
+        "GET /e/broken/throw.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.no-default",
+      "category": "error",
+      "page": "/E/Plain/Throw.aspx",
+      "element": "customErrors On without defaultRedirect",
+      "role": "any",
+      "expected": "the generic \"Runtime Error\" page (no details)",
+      "why": "what a remote user sees",
+      "keys": [
+        "GET /e/plain/throw.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.detailed",
+      "category": "error",
+      "page": "/E/Throw.aspx",
+      "element": "customErrors Off: an exception",
+      "role": "any",
+      "expected": "the detailed error page (500)",
+      "why": "the yellow screen",
+      "keys": [
+        "GET /e/throw.aspx",
+        "EXTERNAL http://go.microsoft.com/*",
+        "EXTERNAL https://go.microsoft.com/*"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.httpexception-404",
+      "category": "error",
+      "page": "/E/Http404.aspx",
+      "element": "HttpException(404) with customErrors Off",
+      "role": "any",
+      "expected": "the detailed 404 page",
+      "why": "HttpException's status",
+      "keys": [
+        "GET /e/http404.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.missing-page",
+      "category": "error",
+      "page": "/E/NoSuchPage.aspx",
+      "element": "a missing .aspx",
+      "role": "any",
+      "expected": "ASP.NET's 404",
+      "why": "the resource cannot be found",
+      "keys": [
+        "GET /e/nosuchpage.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.compile",
+      "category": "error",
+      "page": "/E/Compile.aspx",
+      "element": "a page whose inline code does not compile",
+      "role": "any",
+      "expected": "Compilation Error (CS0029)",
+      "why": "the server's compiler and its error page",
+      "keys": [
+        "GET /e/compile.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.parser",
+      "category": "error",
+      "page": "/E/Parser.aspx",
+      "element": "a page with an unknown control",
+      "role": "any",
+      "expected": "Parser Error",
+      "why": "the parser's error page",
+      "keys": [
+        "GET /e/parser.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.bad-directive",
+      "category": "error",
+      "page": "/E/BadDirective.aspx",
+      "element": "a page inheriting a class that does not exist",
+      "role": "any",
+      "expected": "Parser Error (could not load type)",
+      "why": "a broken Inherits",
+      "keys": [
+        "GET /e/baddirective.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.httperrors-replaced",
+      "category": "error",
+      "page": "/E/Http/Status404.aspx",
+      "element": "httpErrors Custom / existingResponse Auto: the page sets 404 without TrySkipIisCustomErrors",
+      "role": "any",
+      "expected": "IIS runs /E/NotFound.aspx (ExecuteURL) instead of the page's body",
+      "why": "IIS's error pages over the application's answer",
+      "keys": [
+        "GET /e/http/status404.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.httperrors-skip",
+      "category": "error",
+      "page": "/E/Http/Skip404.aspx",
+      "element": "the same with TrySkipIisCustomErrors",
+      "role": "any",
+      "expected": "the page's own 404 body",
+      "why": "TrySkipIisCustomErrors under Auto",
+      "keys": [
+        "GET /e/http/skip404.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.httperrors-missing",
+      "category": "error",
+      "page": "/E/Http/NoSuch.aspx",
+      "element": "a missing page under httpErrors Custom",
+      "role": "any",
+      "expected": "as the original: ASP.NET's 404 or IIS's ExecuteURL",
+      "why": "which layer answers the 404",
+      "keys": [
+        "GET /e/http/nosuch.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.async",
+      "category": "error",
+      "page": "/E/Redirect/Async.aspx",
+      "element": "an async postback that throws under customErrors On",
+      "role": "any",
+      "expected": "the async error redirects the browser to the defaultRedirect (pageRedirect)",
+      "why": "customErrors and the page request manager",
+      "keys": [
+        "GET /e/redirect/async.aspx",
+        "SUBMIT /e/redirect/async.aspx btnThrow"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "error.asyncnoredirect",
+      "category": "error",
+      "page": "/E/Redirect/AsyncNoRedirect.aspx",
+      "element": "an async postback that throws under customErrors On",
+      "role": "any",
+      "expected": "the generic async error message (AllowCustomErrorsRedirect false)",
+      "why": "customErrors and the page request manager",
+      "keys": [
+        "GET /e/redirect/asyncnoredirect.aspx",
+        "SUBMIT /e/redirect/asyncnoredirect.aspx btnThrow"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "forms.protected-redirect",
+      "category": "forms",
+      "page": "/F/Secure/Page.aspx (anonymous)",
+      "element": "a page of a folder denied to anonymous users",
+      "role": "any",
+      "expected": "302 to ~/F/Login.aspx?ReturnUrl=%2fF%2fSecure%2fPage.aspx",
+      "why": "the authorization module's 401 turned into the login redirect (ReturnUrl's encoding)",
+      "keys": [
+        "GET /f/secure/page.aspx",
+        "GET /f/login.aspx?returnurl"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "forms.return-url-query-unicode",
+      "category": "forms",
+      "page": "/F/Secure/Page.aspx?a=1&b=日本&c=x%26y",
+      "element": "the ReturnUrl of a URL with a query, Unicode and an escaped &",
+      "role": "any",
+      "expected": "the ReturnUrl escaped once, as the original",
+      "why": "nested encoding of the ReturnUrl",
+      "runnable": true,
+      "keys": [
+        "GET /f/secure/page.aspx?a&b",
+        "GET /f/secure/page.aspx?a&b&c",
+        "GET /f/login.aspx?a&b&returnurl",
+        "GET /f/login.aspx?a&b&c&returnurl"
+      ]
+    },
+    {
+      "id": "forms.secure-route",
+      "category": "forms",
+      "page": "/secure/5 (anonymous)",
+      "element": "a route to a page of the protected folder",
+      "role": "any",
+      "expected": "as the original: URL authorization checks the route's URL, not the page's file",
+      "why": "the gap between URL authorization and routes",
+      "keys": [
+        "GET /secure/*",
+        "SUBMIT /secure/* btnLogout",
+        "SUBMIT /secure/* btnToLogin"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "forms.public-page",
+      "category": "forms",
+      "page": "/F/Secure/Public.aspx",
+      "element": "a page allowed by its own <location> inside the denied folder",
+      "role": "any",
+      "expected": "200 for anonymous",
+      "why": "location rules: the most specific wins",
+      "keys": [
+        "GET /f/secure/public.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "forms.login-wrong",
+      "category": "forms",
+      "page": "/F/Login.aspx",
+      "element": "a wrong password",
+      "role": "any",
+      "expected": "the message; no cookie",
+      "why": "FormsAuthentication.Authenticate against web.config's credentials",
+      "keys": [
+        "GET /f/login.aspx",
+        "SUBMIT /f/login.aspx btnLogin",
+        "INPUT /f/login.aspx UserName text",
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "forms.login-return",
+      "category": "forms",
+      "page": "/F/Login.aspx?ReturnUrl=...",
+      "element": "RedirectFromLoginPage",
+      "role": "any",
+      "expected": "back to the ReturnUrl (its query and Unicode intact); the session cookie of the ticket",
+      "why": "the ReturnUrl decoded and followed",
+      "runnable": true
+    },
+    {
+      "id": "forms.admin-denied",
+      "category": "forms",
+      "page": "/F/Admin/Page.aspx (user)",
+      "element": "a signed-in user without the role",
+      "role": "any",
+      "expected": "302 to the login page (authenticated but not authorized)",
+      "why": "a 401 for a signed-in user still goes to the login page",
+      "keys": [
+        "GET /f/admin/page.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "forms.redirect-to-login",
+      "category": "forms",
+      "page": "/F/Secure/Page.aspx",
+      "element": "FormsAuthentication.RedirectToLoginPage(\"extra=1\")",
+      "role": "any",
+      "expected": "the login page with ReturnUrl and extra",
+      "why": "the extra query with the ReturnUrl",
+      "keys": [
+        "GET /f/secure/page.aspx",
+        "SUBMIT /f/secure/page.aspx btnToLogin",
+        "SUBMIT /f/secure/page.aspx btnLogout"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "forms.logout",
+      "category": "forms",
+      "page": "/F/Secure/Page.aspx",
+      "element": "SignOut + Redirect to the secure page",
+      "role": "any",
+      "expected": "the login page again; the ticket cookie removed",
+      "why": "the expired cookie",
+      "runnable": true
+    },
+    {
+      "id": "forms.back-after-logout",
+      "category": "forms",
+      "page": "/F/Secure/Page.aspx (history)",
+      "element": "the browser's Back after logging out",
+      "role": "any",
+      "expected": "as the original (the page from the cache or the login again)",
+      "why": "cache headers of a protected page (private)",
+      "runnable": true
+    },
+    {
+      "id": "forms.return-url-external",
+      "category": "forms",
+      "page": "/F/Login.aspx?ReturnUrl=http://evil.example/steal",
+      "element": "a ReturnUrl to another host",
+      "role": "any",
+      "expected": "refused: the default URL (or the original's answer)",
+      "why": "the open redirect check of GetRedirectUrl",
+      "runnable": true
+    },
+    {
+      "id": "forms.return-url-scheme-relative",
+      "category": "forms",
+      "page": "/F/Login.aspx?ReturnUrl=//evil.example/x",
+      "element": "a scheme-relative ReturnUrl",
+      "role": "any",
+      "expected": "refused as the original",
+      "why": "\"//host\" passes a naive \"starts with /\" check",
+      "runnable": true
+    },
+    {
+      "id": "forms.default-url",
+      "category": "forms",
+      "page": "/F/Login.aspx",
+      "element": "a login without ReturnUrl, persistent",
+      "role": "any",
+      "expected": "the defaultUrl (F/Welcome); a persistent cookie",
+      "why": "createPersistentCookie",
+      "runnable": true,
+      "keys": [
+        "GET /f/welcome.aspx"
+      ]
+    },
+    {
+      "id": "forms.admin-allowed",
+      "category": "forms",
+      "page": "/F/Admin/Page.aspx (admin)",
+      "element": "the Admin role (Application_PostAuthenticateRequest's GenericPrincipal)",
+      "role": "admin",
+      "expected": "200; the site map shows the admin nodes",
+      "why": "roles set in an application event; security trimming for a role",
+      "runnable": true
+    },
+    {
+      "id": "session.abandon",
+      "category": "forms",
+      "page": "/F/Abandon.aspx",
+      "element": "Session.Abandon, then a postback",
+      "role": "any",
+      "expected": "the value gone; a new session (IsNewSession) with the view state still there",
+      "why": "session expiry in the middle of a flow; the session id cookie reused",
+      "keys": [
+        "GET /f/abandon.aspx",
+        "SUBMIT /f/abandon.aspx btnSet",
+        "SUBMIT /f/abandon.aspx btnAbandon",
+        "SUBMIT /f/abandon.aspx btnRead",
+        "INPUT /f/abandon.aspx txt text"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "session.cookieless",
+      "category": "forms",
+      "page": "(an application with sessionState cookieless=\"UseUri\")",
+      "element": "cookieless session URLs /(S(id))/ with Redirect, Transfer and relative links",
+      "role": "any",
+      "expected": "not run",
+      "why": "the session id in the path: every relative URL and Redirect must keep it",
+      "runnable": false,
+      "reason": "sessionState cookieless is per application (MachineToApplication): it needs a second application in a subfolder; sample-parity.ps1 hosts one application at the site root (and the converter converts one application). A sample of its own would be needed."
+    },
+    {
+      "id": "postback.back-stale",
+      "category": "postback",
+      "page": "/P/Counter.aspx",
+      "element": "a postback, the browser's Back, a postback with the old view state",
+      "role": "any",
+      "expected": "view=1 (the stale view state) session=2",
+      "why": "the history's page posts its own view state: view state and session disagree",
+      "keys": [
+        "GET /p/counter.aspx",
+        "SUBMIT /p/counter.aspx btnInc"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "postback.double-submit",
+      "category": "postback",
+      "page": "/P/Counter.aspx",
+      "element": "the same form posted twice (a double click)",
+      "role": "any",
+      "expected": "both answers view=1; the session counted twice",
+      "why": "a replayed postback: event validation and view state accept it",
+      "runnable": true
+    },
+    {
+      "id": "postback.no-viewstate",
+      "category": "postback",
+      "page": "/P/Counter.aspx",
+      "element": "a POST with the button but no __VIEWSTATE",
+      "role": "any",
+      "expected": "IsPostBack true, the click raised, the state lost",
+      "why": "what makes a request a postback",
+      "runnable": true
+    },
+    {
+      "id": "postback.event-validation",
+      "category": "postback",
+      "page": "/P/Validate.aspx",
+      "element": "an option added by script to a DropDownList, posted",
+      "role": "any",
+      "expected": "Invalid postback or callback argument (500)",
+      "why": "EnableEventValidation's check of posted values",
+      "keys": [
+        "GET /p/validate.aspx",
+        "SUBMIT /p/validate.aspx btnPost",
+        "INPUT /p/validate.aspx ddl select",
+        "POSTBACK /p/validate.aspx lnk"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "postback.no-event-validation",
+      "category": "postback",
+      "page": "/P/NoValidate.aspx",
+      "element": "the same with EnableEventValidation=\"false\"",
+      "role": "any",
+      "expected": "accepted; the list keeps its own selection",
+      "why": "a posted value the list does not have",
+      "keys": [
+        "GET /p/novalidate.aspx",
+        "SUBMIT /p/novalidate.aspx btnPost",
+        "INPUT /p/novalidate.aspx ddl select",
+        "POSTBACK /p/novalidate.aspx lnk"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "postback.unknown-target",
+      "category": "postback",
+      "page": "/P/Validate.aspx",
+      "element": "__doPostBack of a control that does not exist",
+      "role": "any",
+      "expected": "a postback without an event",
+      "why": "__EVENTTARGET not found",
+      "runnable": true
+    },
+    {
+      "id": "postback.bad-argument",
+      "category": "postback",
+      "page": "/P/Validate.aspx",
+      "element": "__doPostBack(lnk, an argument it never registered)",
+      "role": "any",
+      "expected": "Invalid postback or callback argument",
+      "why": "event validation of the argument",
+      "runnable": true
+    },
+    {
+      "id": "postback.hidden-target",
+      "category": "postback",
+      "page": "/P/Validate.aspx",
+      "element": "__doPostBack of a control that is Visible=false",
+      "role": "any",
+      "expected": "Invalid postback (it was never rendered)",
+      "why": "a hidden button's event",
+      "runnable": true
+    },
+    {
+      "id": "postback.tampered-viewstate",
+      "category": "postback",
+      "page": "/P/Counter.aspx",
+      "element": "a __VIEWSTATE changed by the client",
+      "role": "any",
+      "expected": "the view state MAC / state invalid error (500)",
+      "why": "EnableViewStateMac",
+      "runnable": true
+    },
+    {
+      "id": "postback.dynamic-recreated",
+      "category": "postback",
+      "page": "/P/Dynamic.aspx",
+      "element": "controls added in OnInit on every request",
+      "role": "any",
+      "expected": "the dynamic button's click with the typed text",
+      "why": "dynamic controls re-created",
+      "keys": [
+        "GET /p/dynamic.aspx",
+        "SUBMIT /p/dynamic.aspx dynBtn",
+        "SUBMIT /p/dynamic.aspx btnStatic",
+        "INPUT /p/dynamic.aspx dynTxt text",
+        "GET /p/dynamic.aspx?recreate"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "postback.dynamic-lost",
+      "category": "postback",
+      "page": "/P/Dynamic.aspx?recreate=0",
+      "element": "controls added on the first request only",
+      "role": "any",
+      "expected": "the click lost; the text only in Request.Form",
+      "why": "the classic dynamic-control mistake",
+      "runnable": true
+    },
+    {
+      "id": "postback.viewstate-order",
+      "category": "postback",
+      "page": "/P/Order.aspx",
+      "element": "the dynamic labels added the other way round on the postback",
+      "role": "any",
+      "expected": "the labels' texts swapped (positional view state)",
+      "why": "view state is matched by position",
+      "keys": [
+        "GET /p/order.aspx",
+        "SUBMIT /p/order.aspx btnPost",
+        "INPUT /p/order.aspx chkFlip checkbox"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "postback.tree-changed",
+      "category": "postback",
+      "page": "/P/Changed.aspx",
+      "element": "a Label where the DropDownList was",
+      "role": "any",
+      "expected": "as the original: \"Failed to load viewstate\" or the state ignored",
+      "why": "a control tree changed between requests",
+      "keys": [
+        "GET /p/changed.aspx",
+        "SUBMIT /p/changed.aspx btnPost",
+        "INPUT /p/changed.aspx chkSwap checkbox",
+        "INPUT /p/changed.aspx slot select"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "postback.chunked-viewstate",
+      "category": "postback",
+      "page": "/P/Chunk/Big.aspx",
+      "element": "maxPageStateFieldLength=\"64\" (a <location>)",
+      "role": "any",
+      "expected": "__VIEWSTATEFIELDCOUNT and __VIEWSTATE1..n; the value restored",
+      "why": "the view state cut into fields",
+      "keys": [
+        "GET /p/chunk/big.aspx",
+        "SUBMIT /p/chunk/big.aspx btnPost"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "postback.encrypted-viewstate",
+      "category": "postback",
+      "page": "/P/Encrypted.aspx",
+      "element": "ViewStateEncryptionMode=\"Always\"",
+      "role": "any",
+      "expected": "__VIEWSTATEENCRYPTED; the label restored",
+      "why": "the machine key's encryption",
+      "keys": [
+        "GET /p/encrypted.aspx",
+        "SUBMIT /p/encrypted.aspx btnPost"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "postback.get-viewstate",
+      "category": "postback",
+      "page": "/P/GetState.aspx?__VIEWSTATE=...",
+      "element": "a GET with __VIEWSTATE, __EVENTTARGET and __EVENTVALIDATION in the query",
+      "role": "any",
+      "expected": "IsPostBack true on a GET; the click raised",
+      "why": "the query string as the postback's values",
+      "keys": [
+        "GET /p/getstate.aspx",
+        "POSTBACK /p/getstate.aspx lnk"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "wizard.validation",
+      "category": "wizard",
+      "page": "/W/Wizard.aspx",
+      "element": "Next with an empty required field (server validation)",
+      "role": "any",
+      "expected": "the step stays; the validator's text",
+      "why": "validation per step",
+      "keys": [
+        "GET /w/wizard.aspx",
+        "SUBMIT /w/wizard.aspx wiz$*",
+        "INPUT /w/wizard.aspx wiz$txtName text",
+        "POSTBACK /w/wizard.aspx wiz$SideBarContainer$SideBarList$*",
+        "SUBMIT /w/wizard.aspx btnJump"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "wizard.next",
+      "category": "wizard",
+      "page": "/W/Wizard.aspx",
+      "element": "Next, Next",
+      "role": "any",
+      "expected": "steps 2 and 3; NextButtonClick and ActiveStepChanged",
+      "why": "the Wizard's templates' buttons",
+      "runnable": true
+    },
+    {
+      "id": "wizard.previous",
+      "category": "wizard",
+      "page": "/W/Wizard.aspx",
+      "element": "step 3 has no Previous (step 2 has AllowReturn=false); the side bar back to Step 1, then Next into the visited step 2",
+      "role": "any",
+      "expected": "step 1 again; Next does not enter step 2 again (it stays on step 1)",
+      "why": "AllowReturn hides the way back to a step; the history of steps",
+      "runnable": true
+    },
+    {
+      "id": "wizard.sidebar",
+      "category": "wizard",
+      "page": "/W/Wizard.aspx",
+      "element": "the side bar's link to Step 3",
+      "role": "any",
+      "expected": "SideBarButtonClick; step 3",
+      "why": "the side bar's DataList of LinkButtons",
+      "runnable": true
+    },
+    {
+      "id": "wizard.finish",
+      "category": "wizard",
+      "page": "/W/Wizard.aspx",
+      "element": "the side bar to Confirm, Finish",
+      "role": "any",
+      "expected": "the Complete step",
+      "why": "FinishButtonClick and the Complete step",
+      "runnable": true
+    },
+    {
+      "id": "wizard.jump",
+      "category": "wizard",
+      "page": "/W/Wizard.aspx",
+      "element": "ActiveStepIndex = 2 in code",
+      "role": "any",
+      "expected": "step 3",
+      "why": "the active step set by code",
+      "runnable": true
+    },
+    {
+      "id": "wizard.cancel",
+      "category": "wizard",
+      "page": "/W/Wizard.aspx",
+      "element": "Cancel (CancelDestinationPageUrl)",
+      "role": "any",
+      "expected": "redirect to W/Cancelled.aspx",
+      "why": "the Wizard's own redirect",
+      "runnable": true,
+      "keys": [
+        "GET /w/cancelled.aspx"
+      ]
+    },
+    {
+      "id": "wizard.finish-destination",
+      "category": "wizard",
+      "page": "/W/WizardDest.aspx",
+      "element": "Finish with FinishDestinationPageUrl",
+      "role": "any",
+      "expected": "redirect to W/Finished.aspx?from=wizard",
+      "why": "the Wizard's redirect after Finish",
+      "keys": [
+        "GET /w/wizarddest.aspx",
+        "SUBMIT /w/wizarddest.aspx wiz$*",
+        "GET /w/finished.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "multiview.commands",
+      "category": "wizard",
+      "page": "/W/MultiView.aspx",
+      "element": "NextView, nested SwitchViewByID, the inner PrevView, PrevView, NextView, SwitchViewByIndex",
+      "role": "any",
+      "expected": "each view; the inner MultiView handles its own commands (bubbling to the nearest)",
+      "why": "command bubbling through nested MultiViews",
+      "keys": [
+        "GET /w/multiview.aspx",
+        "SUBMIT /w/multiview.aspx next1",
+        "SUBMIT /w/multiview.aspx next2",
+        "SUBMIT /w/multiview.aspx prev2",
+        "SUBMIT /w/multiview.aspx toI2",
+        "SUBMIT /w/multiview.aspx innerPrev",
+        "SUBMIT /w/multiview.aspx toFirst",
+        "SUBMIT /w/multiview.aspx btnToThree"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "multiview.set-active",
+      "category": "wizard",
+      "page": "/W/MultiView.aspx",
+      "element": "SetActiveView(v3) in code",
+      "role": "any",
+      "expected": "view three",
+      "why": "the active view set by code",
+      "runnable": true
+    },
+    {
+      "id": "wizard.ajax",
+      "category": "wizard",
+      "page": "/W/AjaxWizard.aspx",
+      "element": "a Wizard inside an UpdatePanel: Next, Next, Finish",
+      "role": "any",
+      "expected": "each step by an async postback",
+      "why": "the Wizard's postbacks through the page request manager",
+      "keys": [
+        "GET /w/ajaxwizard.aspx",
+        "SUBMIT /w/ajaxwizard.aspx wiz$*",
+        "POSTBACK /w/ajaxwizard.aspx wiz$SideBarContainer$SideBarList$*"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "ajax.update",
+      "category": "ajax",
+      "page": "/J/Panel.aspx",
+      "element": "an async postback inside the panel",
+      "role": "any",
+      "expected": "the panel updated (requests: 2); one more page load",
+      "why": "the delta format and the panel's refresh",
+      "keys": [
+        "GET /j/panel.aspx",
+        "SUBMIT /j/panel.aspx btnUpdate",
+        "SUBMIT /j/panel.aspx btnRedirect",
+        "SUBMIT /j/panel.aspx btnTransfer",
+        "SUBMIT /j/panel.aspx btnThrow",
+        "SUBMIT /j/panel.aspx btnSlow",
+        "SUBMIT /j/panel.aspx btnWrite",
+        "SUBMIT /j/panel.aspx btnEnd",
+        "SUBMIT /j/panel.aspx btnFull",
+        "SUBMIT /j/panel.aspx btnOutside",
+        "SUBMIT /j/panel.aspx btnPlain"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "ajax.trigger-outside",
+      "category": "ajax",
+      "page": "/J/Panel.aspx",
+      "element": "a button outside the panel registered as AsyncPostBackTrigger",
+      "role": "any",
+      "expected": "an async postback",
+      "why": "triggers",
+      "runnable": true
+    },
+    {
+      "id": "ajax.postback-trigger",
+      "category": "ajax",
+      "page": "/J/Panel.aspx",
+      "element": "a button inside the panel registered as PostBackTrigger",
+      "role": "any",
+      "expected": "a full postback",
+      "why": "a full postback from inside a panel",
+      "runnable": true
+    },
+    {
+      "id": "ajax.outside-full",
+      "category": "ajax",
+      "page": "/J/Panel.aspx",
+      "element": "a button outside the panel, not a trigger",
+      "role": "any",
+      "expected": "a full postback",
+      "why": "the default",
+      "runnable": true
+    },
+    {
+      "id": "ajax.redirect",
+      "category": "ajax",
+      "page": "/J/Panel.aspx",
+      "element": "Response.Redirect in an async postback",
+      "role": "any",
+      "expected": "the delta \"pageRedirect\"; the browser goes to J/Landing",
+      "why": "the redirect turned into a delta by the ScriptModule",
+      "runnable": true,
+      "keys": [
+        "GET /j/landing.aspx"
+      ]
+    },
+    {
+      "id": "ajax.transfer",
+      "category": "ajax",
+      "page": "/J/Panel.aspx",
+      "element": "Server.Transfer in an async postback",
+      "role": "any",
+      "expected": "as the original (an error delta / the page)",
+      "why": "Transfer during an async postback",
+      "runnable": true
+    },
+    {
+      "id": "ajax.error",
+      "category": "ajax",
+      "page": "/J/Panel.aspx",
+      "element": "an exception in an async postback (AsyncPostBackError sets the message)",
+      "role": "any",
+      "expected": "the error delta with the handled message, shown by the page's script",
+      "why": "AsyncPostBackErrorMessage",
+      "runnable": true
+    },
+    {
+      "id": "ajax.timeout",
+      "category": "ajax",
+      "page": "/J/Panel.aspx",
+      "element": "an async postback slower than AsyncPostBackTimeout (2 s)",
+      "role": "any",
+      "expected": "the client's timeout error",
+      "why": "the timeout written into the page's initialisation",
+      "runnable": true
+    },
+    {
+      "id": "ajax.response-write",
+      "category": "ajax",
+      "page": "/J/Panel.aspx",
+      "element": "Response.Write in an async postback",
+      "role": "any",
+      "expected": "the parser error (\"The message received from the server could not be parsed\")",
+      "why": "raw output breaks the delta",
+      "runnable": true
+    },
+    {
+      "id": "ajax.response-end",
+      "category": "ajax",
+      "page": "/J/Panel.aspx",
+      "element": "Response.End in an async postback",
+      "role": "any",
+      "expected": "as the original",
+      "why": "the end of an async response",
+      "runnable": true
+    },
+    {
+      "id": "ajax.nested",
+      "category": "ajax",
+      "page": "/J/Nested.aspx",
+      "element": "nested conditional panels: the inner button, the outer, Update() of a third, a button of a panel whose children are not triggers",
+      "role": "any",
+      "expected": "only the panels updated show the new request number",
+      "why": "UpdateMode Conditional, ChildrenAsTriggers false, nesting",
+      "keys": [
+        "GET /j/nested.aspx",
+        "SUBMIT /j/nested.aspx btnInner",
+        "SUBMIT /j/nested.aspx btnOuter",
+        "SUBMIT /j/nested.aspx btnUpdate3",
+        "SUBMIT /j/nested.aspx btnThree"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "ajax.history",
+      "category": "ajax",
+      "page": "/J/History.aspx",
+      "element": "AddHistoryPoint on two async postbacks, the browser's Back twice and Forward",
+      "role": "any",
+      "expected": "the address's fragment; Navigate restores each step",
+      "why": "history points (EnableSecureHistoryState false: the state in the fragment)",
+      "keys": [
+        "GET /j/history.aspx",
+        "SUBMIT /j/history.aspx btnStep2",
+        "SUBMIT /j/history.aspx btnStep3"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "ajax.timer",
+      "category": "ajax",
+      "page": "/J/Timer.aspx",
+      "element": "a Timer in a panel (600 ms), disabled after 3 ticks",
+      "role": "any",
+      "expected": "ticks: 3",
+      "why": "postbacks the browser makes by itself",
+      "keys": [
+        "GET /j/timer.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "ajax.page-methods",
+      "category": "ajax",
+      "page": "/J/Methods.aspx",
+      "element": "PageMethods: a result, an exception, a Response.Redirect inside",
+      "role": "any",
+      "expected": "the result; the error (500, its type and message); the redirect's answer",
+      "why": "static [WebMethod]s of a page (PathInfo /Echo on the .aspx)",
+      "keys": [
+        "GET /j/methods.aspx",
+        "SUBMIT /j/methods.aspx #btnEcho",
+        "SUBMIT /j/methods.aspx #btnFails",
+        "SUBMIT /j/methods.aspx #btnRedirects"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "ajax.script-service",
+      "category": "ajax",
+      "page": "/J/ServicePage.aspx",
+      "element": "a [ScriptService] .asmx through its generated proxy",
+      "role": "any",
+      "expected": "the result",
+      "why": "the proxy (/js) and the JSON call",
+      "keys": [
+        "GET /j/servicepage.aspx",
+        "SUBMIT /j/servicepage.aspx #btnHello",
+        "GET /j/service.asmx/js"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "route.constraint",
+      "category": "routing",
+      "page": "/nav/5",
+      "element": "MapPageRoute nav/{id} (constraint \\d+, default 1)",
+      "role": "any",
+      "expected": "the page with id=5; GetRouteUrl, RouteUrl expression, relative links under /nav/",
+      "why": "routes and the URLs a routed page resolves",
+      "keys": [
+        "GET /nav/*"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "route.default",
+      "category": "routing",
+      "page": "/nav",
+      "element": "the default value",
+      "role": "any",
+      "expected": "id=1",
+      "why": "defaults",
+      "keys": [
+        "GET /nav"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "route.constraint-fail",
+      "category": "routing",
+      "page": "/nav/abc",
+      "element": "a value the constraint refuses",
+      "role": "any",
+      "expected": "404",
+      "why": "constraints",
+      "runnable": true
+    },
+    {
+      "id": "route.catch-all",
+      "category": "routing",
+      "page": "/files/a/b c, /files/x.txt",
+      "element": "a catch-all {*rest}; one with a file extension",
+      "role": "any",
+      "expected": "rest=a/b c; the .txt as the original (IIS's static file handler: 404)",
+      "why": "which requests reach the routing module",
+      "keys": [
+        "GET /files/*",
+        "SUBMIT /files/* btnPost"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "route.relative-link",
+      "category": "routing",
+      "page": "/nav/5",
+      "element": "the relative HyperLink on a routed page",
+      "role": "any",
+      "expected": "resolved against /nav/ (a 404 as the original)",
+      "why": "relative URLs on routed pages",
+      "runnable": true,
+      "keys": [
+        "GET /plain.aspx",
+        "GET /nav/plain.aspx",
+        "GET /go/plain.aspx",
+        "GET /files/*"
+      ]
+    },
+    {
+      "id": "route.postback",
+      "category": "routing",
+      "page": "/nav/5",
+      "element": "a postback on a routed page",
+      "role": "any",
+      "expected": "the form posts to the route's URL",
+      "why": "the form action of a routed page",
+      "keys": [
+        "SUBMIT /nav/5 btnPost",
+        "SUBMIT /nav btnPost",
+        "SUBMIT /nav/* btnPost"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "route.transfer",
+      "category": "routing",
+      "page": "/go/somewhere",
+      "element": "a routed page that transfers",
+      "role": "any",
+      "expected": "U/Plain under /go/somewhere with the route's values",
+      "why": "RouteData after Transfer",
+      "keys": [
+        "GET /go/*"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "url.pathinfo",
+      "category": "routing",
+      "page": "/U/Info.aspx/extra/more",
+      "element": "PathInfo",
+      "role": "any",
+      "expected": "PathInfo /extra/more; the form action and relative links under the path info",
+      "why": "the path info that the browser takes as folders",
+      "keys": [
+        "GET /u/info.aspx/*",
+        "SUBMIT /u/info.aspx/* btnPost",
+        "GET /u/info.aspx/extra/plain.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "url.pathinfo-encoded",
+      "category": "routing",
+      "page": "/U/Info.aspx/a%20b/%E6%97%A5",
+      "element": "escaped path info",
+      "role": "any",
+      "expected": "decoded as the original",
+      "why": "decoding of the path info",
+      "runnable": true
+    },
+    {
+      "id": "url.default-document",
+      "category": "routing",
+      "page": "/U/",
+      "element": "the folder's default document",
+      "role": "any",
+      "expected": "U/Default.aspx",
+      "why": "IIS's DefaultDocument module",
+      "keys": [
+        "GET /u"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "url.courtesy-redirect",
+      "category": "routing",
+      "page": "/U",
+      "element": "a folder without its trailing slash",
+      "role": "any",
+      "expected": "301 to /U/ (IIS's courtesy redirect)",
+      "why": "IIS answers before ASP.NET",
+      "runnable": true
+    },
+    {
+      "id": "url.rewrite-rebase",
+      "category": "routing",
+      "page": "/U/Pretty/abc",
+      "element": "RewritePath(path) (rebaseClientPath true) in BeginRequest, then a postback",
+      "role": "any",
+      "expected": "Path / RawUrl / the form action; where the postback goes",
+      "why": "the client path the form action is made from",
+      "keys": [
+        "GET /u/pretty/abc",
+        "SUBMIT /u/pretty/abc btnPost",
+        "GET /u/pretty/plain.aspx",
+        "GET /u/prettynorebase/plain.aspx",
+        "GET /u/prettyparts/plain.aspx",
+        "GET /u/plain.aspx",
+        "GET /u/rewritten.aspx",
+        "SUBMIT /u/rewritten.aspx btnPost",
+        "GET /u/pretty/*",
+        "SUBMIT /u/pretty/* btnPost"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "url.rewrite-no-rebase",
+      "category": "routing",
+      "page": "/U/PrettyNoRebase/abc",
+      "element": "RewritePath(path, false) in BeginRequest, then a postback",
+      "role": "any",
+      "expected": "Path / RawUrl / the form action; where the postback goes",
+      "why": "the client path the form action is made from",
+      "keys": [
+        "GET /u/prettynorebase/abc",
+        "SUBMIT /u/prettynorebase/abc btnPost",
+        "GET /u/pretty/plain.aspx",
+        "GET /u/prettynorebase/plain.aspx",
+        "GET /u/prettyparts/plain.aspx",
+        "GET /u/plain.aspx",
+        "GET /u/prettynorebase/*",
+        "SUBMIT /u/prettynorebase/* btnPost"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "url.rewrite-parts",
+      "category": "routing",
+      "page": "/U/PrettyParts/abc",
+      "element": "RewritePath(file, pathInfo, query, false) in BeginRequest, then a postback",
+      "role": "any",
+      "expected": "Path / RawUrl / the form action; where the postback goes",
+      "why": "the client path the form action is made from",
+      "keys": [
+        "GET /u/prettyparts/abc",
+        "SUBMIT /u/prettyparts/abc btnPost",
+        "GET /u/pretty/plain.aspx",
+        "GET /u/prettynorebase/plain.aspx",
+        "GET /u/prettyparts/plain.aspx",
+        "GET /u/plain.aspx",
+        "GET /u/prettyparts/*",
+        "SUBMIT /u/prettyparts/* btnPost"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "url.query-repeated",
+      "category": "routing",
+      "page": "/U/Query.aspx?a=1&a=2&a=",
+      "element": "a repeated key",
+      "role": "any",
+      "expected": "the collection as the original parses it",
+      "why": "HttpValueCollection's parsing",
+      "keys": [
+        "GET /u/query.aspx*"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "url.query-empty",
+      "category": "routing",
+      "page": "/U/Query.aspx?a=&b&=c&&d=",
+      "element": "empty values, a key without =, an empty key",
+      "role": "any",
+      "expected": "the collection as the original parses it",
+      "why": "HttpValueCollection's parsing",
+      "keys": [
+        "GET /u/query.aspx*"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "url.query-encoded",
+      "category": "routing",
+      "page": "/U/Query.aspx?a=x%26y&b=%E6%97%A5&c=a+b&d=%2B&e=%3D",
+      "element": "escaped & = + and UTF-8",
+      "role": "any",
+      "expected": "the collection as the original parses it",
+      "why": "HttpValueCollection's parsing",
+      "keys": [
+        "GET /u/query.aspx*"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "url.query-invalid",
+      "category": "routing",
+      "page": "/U/Query.aspx?a=%ZZ&b=%u65E5&c=%E6%97",
+      "element": "an invalid escape, IIS's %u, a truncated UTF-8",
+      "role": "any",
+      "expected": "the collection as the original parses it",
+      "why": "HttpValueCollection's parsing",
+      "keys": [
+        "GET /u/query.aspx*"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "url.case",
+      "category": "routing",
+      "page": "/u/QUERY.aspx?a=1",
+      "element": "a URL in another case",
+      "role": "any",
+      "expected": "the same page (Windows' file names)",
+      "why": "case-sensitive file systems (Linux)",
+      "runnable": true
+    },
+    {
+      "id": "url.double-slash",
+      "category": "routing",
+      "page": "//U//Query.aspx?a=1",
+      "element": "doubled slashes",
+      "role": "any",
+      "expected": "as the original",
+      "why": "path normalisation",
+      "runnable": true
+    },
+    {
+      "id": "nav.sitemap",
+      "category": "navigation",
+      "page": "/N/Deep/Page.aspx (anonymous)",
+      "element": "SiteMapPath, Menu and TreeView of Web.sitemap with security trimming; a user control's URLs; the master's",
+      "role": "any",
+      "expected": "the trimmed nodes (Secure, Admin gone; the roles node kept); URLs relative to the control's and the master's folders",
+      "why": "security trimming by URL authorization and roles; TemplateSourceDirectory of controls and masters",
+      "keys": [
+        "GET /n/deep/page.aspx",
+        "GET /n/controls/sibling.aspx",
+        "GET /n/deep/sibling.aspx",
+        "GET /masters/other.aspx",
+        "GET /n/*",
+        "GET /t/source.aspx",
+        "GET /default.aspx",
+        "EXTERNAL http://external.example/sitemap",
+        "POSTBACK /n/* ctl00$tvMap",
+        "POSTBACK /n/* ctl00$menuMap"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "nav.usercontrol-link",
+      "category": "navigation",
+      "page": "/N/Deep/Page.aspx",
+      "element": "the user control's relative HyperLink and the plain link",
+      "role": "any",
+      "expected": "resolved against N/Controls and N/Deep (404s as the original)",
+      "why": "relative URLs in controls of other folders",
+      "runnable": true
+    },
+    {
+      "id": "nav.sitemap-admin",
+      "category": "navigation",
+      "page": "/N/Deep/Page.aspx (admin)",
+      "element": "the same as the Admin role (done in forms.admin-allowed)",
+      "role": "admin",
+      "expected": "the Admin nodes shown",
+      "why": "trimming by role",
+      "runnable": true
+    },
+    {
+      "id": "nav.menu",
+      "category": "navigation",
+      "page": "/N/Menu.aspx",
+      "element": "Menu items: NavigateUrl, a postback item, a child postback item",
+      "role": "any",
+      "expected": "the navigation; MenuItemClick with the value path",
+      "why": "Menu's postback vs NavigateUrl, value paths with \\",
+      "keys": [
+        "GET /n/menu.aspx",
+        "POSTBACK /n/menu.aspx menuItems",
+        "POSTBACK /n/menu.aspx tvItems",
+        "GET /n/deep/page.aspx",
+        "GET /n/default.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "nav.treeview",
+      "category": "navigation",
+      "page": "/N/Menu.aspx",
+      "element": "TreeView without client script: expand by postback, select, a NavigateUrl node",
+      "role": "any",
+      "expected": "TreeNodeExpanded, SelectedNodeChanged, the navigation",
+      "why": "TreeView's postback events",
+      "runnable": true
+    },
+    {
+      "id": "nav.imagemap",
+      "category": "navigation",
+      "page": "/N/ImageMap.aspx",
+      "element": "ImageMap hot spots: PostBack and Navigate",
+      "role": "any",
+      "expected": "the click with its value; the navigation",
+      "why": "<area> postbacks",
+      "keys": [
+        "GET /n/imagemap.aspx",
+        "POSTBACK /n/imagemap.aspx im",
+        "GET /n/default.aspx"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "nav.client-click",
+      "category": "navigation",
+      "page": "/N/Buttons.aspx",
+      "element": "OnClientClick \"return false\" on a LinkButton and a Button; a confirm (accepted)",
+      "role": "any",
+      "expected": "no postback; no postback; the postback",
+      "why": "the client script before __doPostBack",
+      "keys": [
+        "GET /n/buttons.aspx",
+        "POSTBACK /n/buttons.aspx lnkFalse",
+        "POSTBACK /n/buttons.aspx lnkConfirm",
+        "SUBMIT /n/buttons.aspx btnFalse",
+        "SUBMIT /n/buttons.aspx btnPanel",
+        "SUBMIT /n/buttons.aspx btnForm",
+        "SUBMIT /n/buttons.aspx btnFocus",
+        "SUBMIT /n/buttons.aspx btnBottom",
+        "INPUT /n/buttons.aspx txtPanel text",
+        "INPUT /n/buttons.aspx txtFocus text",
+        "INPUT /n/buttons.aspx txtAfter text"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "nav.default-button",
+      "category": "navigation",
+      "page": "/N/Buttons.aspx",
+      "element": "Enter in a Panel with DefaultButton; Enter in the form (form DefaultButton); DefaultFocus",
+      "role": "any",
+      "expected": "the panel's button; the form's; the focus",
+      "why": "WebForm_FireDefaultButton",
+      "runnable": true
+    },
+    {
+      "id": "nav.set-focus",
+      "category": "navigation",
+      "page": "/N/Buttons.aspx",
+      "element": "SetFocus(txtAfter) in a click",
+      "role": "any",
+      "expected": "the focus on txtAfter",
+      "why": "WebForm_AutoFocus",
+      "runnable": true
+    },
+    {
+      "id": "nav.scroll",
+      "category": "navigation",
+      "page": "/N/Buttons.aspx",
+      "element": "MaintainScrollPositionOnPostBack: the button at the bottom",
+      "role": "any",
+      "expected": "the scroll position restored",
+      "why": "__SCROLLPOSITIONY",
+      "runnable": true
+    },
+    {
+      "id": "async.redirect",
+      "category": "async",
+      "page": "/Y/Async.aspx?mode=redirect",
+      "element": "Async=\"true\", RegisterAsyncTask: redirect after an await",
+      "role": "any",
+      "expected": "302; the code after the redirect in the task does not run",
+      "why": "navigation from a continuation (another thread; the synchronization context)",
+      "keys": [
+        "GET /y/async.aspx",
+        "GET /y/async.aspx?mode",
+        "GET /y/landing.aspx",
+        "GET /y/landing.aspx?from"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "async.redirect-false",
+      "category": "async",
+      "page": "/Y/Async.aspx?mode=redirect-false",
+      "element": "Async=\"true\", RegisterAsyncTask: redirect-false after an await",
+      "role": "any",
+      "expected": "302 with the page",
+      "why": "navigation from a continuation (another thread; the synchronization context)",
+      "keys": [
+        "GET /y/async.aspx",
+        "GET /y/async.aspx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "async.transfer",
+      "category": "async",
+      "page": "/Y/Async.aspx?mode=transfer",
+      "element": "Async=\"true\", RegisterAsyncTask: transfer after an await",
+      "role": "any",
+      "expected": "the landing under Y/Async.aspx",
+      "why": "navigation from a continuation (another thread; the synchronization context)",
+      "keys": [
+        "GET /y/async.aspx",
+        "GET /y/async.aspx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "async.throw",
+      "category": "async",
+      "page": "/Y/Async.aspx?mode=throw",
+      "element": "Async=\"true\", RegisterAsyncTask: throw after an await",
+      "role": "any",
+      "expected": "the error page of the task's exception",
+      "why": "navigation from a continuation (another thread; the synchronization context)",
+      "keys": [
+        "GET /y/async.aspx",
+        "GET /y/async.aspx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "async.done",
+      "category": "async",
+      "page": "/Y/Async.aspx",
+      "element": "Async=\"true\", RegisterAsyncTask: no navigation after an await",
+      "role": "any",
+      "expected": "the task finished",
+      "why": "navigation from a continuation (another thread; the synchronization context)",
+      "keys": [
+        "GET /y/async.aspx",
+        "GET /y/async.aspx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "async.void",
+      "category": "async",
+      "page": "/Y/AsyncVoid.aspx?mode=redirect",
+      "element": "async void Page_Load: Redirect after an await",
+      "role": "any",
+      "expected": "302 as the original",
+      "why": "an async void event handler (the page waits for it)",
+      "keys": [
+        "GET /y/asyncvoid.aspx",
+        "GET /y/asyncvoid.aspx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "handler.redirect",
+      "category": "async",
+      "page": "/Y/Redirect.ashx",
+      "element": "a handler's Response.Redirect",
+      "role": "any",
+      "expected": "the redirect; a relative URL resolved against Y/",
+      "why": "a handler mapped in web.config (no file); Redirect outside a page",
+      "keys": [
+        "GET /y/redirect.ashx",
+        "GET /y/redirect.ashx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "handler.redirect-permanent",
+      "category": "async",
+      "page": "/Y/Redirect.ashx?mode=permanent",
+      "element": "a handler's Response.RedirectPermanent",
+      "role": "any",
+      "expected": "the redirect; a relative URL resolved against Y/",
+      "why": "a handler mapped in web.config (no file); Redirect outside a page",
+      "keys": [
+        "GET /y/redirect.ashx",
+        "GET /y/redirect.ashx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "handler.redirect-false",
+      "category": "async",
+      "page": "/Y/Redirect.ashx?mode=false",
+      "element": "a handler's Response.Redirect(url, false) + Write",
+      "role": "any",
+      "expected": "the redirect; a relative URL resolved against Y/",
+      "why": "a handler mapped in web.config (no file); Redirect outside a page",
+      "keys": [
+        "GET /y/redirect.ashx",
+        "GET /y/redirect.ashx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "handler.transfer",
+      "category": "async",
+      "page": "/Y/Transfer.ashx",
+      "element": "a handler's Server.Transfer to a page and Server.Execute of a page",
+      "role": "any",
+      "expected": "the landing; the part between the handler's own lines",
+      "why": "child requests from a handler",
+      "keys": [
+        "GET /y/transfer.ashx",
+        "GET /y/transfer.ashx?mode"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "download.button",
+      "category": "async",
+      "page": "/Y/Download.aspx",
+      "element": "a Button that sends a file (Content-Disposition attachment, Response.End), then a postback",
+      "role": "any",
+      "expected": "the file; the next postback works",
+      "why": "the page stays after a download",
+      "keys": [
+        "GET /y/download.aspx",
+        "SUBMIT /y/download.aspx btnDownload",
+        "SUBMIT /y/download.aspx btnUnicode",
+        "SUBMIT /y/download.aspx btnAfter",
+        "POSTBACK /y/download.aspx lnkDownload",
+        "POSTBACK /y/download.aspx lnkAfter"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "download.linkbutton",
+      "category": "async",
+      "page": "/Y/Download.aspx",
+      "element": "a LinkButton download (__EVENTTARGET left set), then a Button and a LinkButton",
+      "role": "any",
+      "expected": "the file; which event the next postbacks raise",
+      "why": "__EVENTTARGET still holding the download's target",
+      "runnable": true
+    },
+    {
+      "id": "download.unicode",
+      "category": "async",
+      "page": "/Y/Download.aspx",
+      "element": "filename* (RFC 5987, UTF-8)",
+      "role": "any",
+      "expected": "the Unicode name",
+      "why": "the header as written",
+      "runnable": true
+    },
+    {
+      "id": "window.blank-link",
+      "category": "windows",
+      "page": "/Y/Opener.aspx",
+      "element": "a HyperLink with Target=\"_blank\"",
+      "role": "any",
+      "expected": "the popup page in a new window",
+      "why": "new windows",
+      "keys": [
+        "GET /y/opener.aspx",
+        "GET /y/popup.aspx?via",
+        "SUBMIT /y/opener.aspx btnBlank",
+        "SUBMIT /y/opener.aspx btnNormal",
+        "SUBMIT /y/opener.aspx #btnOpen"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "window.form-target",
+      "category": "windows",
+      "page": "/Y/Opener.aspx",
+      "element": "OnClientClick sets the form's target to _blank; then an ordinary button",
+      "role": "any",
+      "expected": "the postback in a new window; the next ordinary postback too (the target stays)",
+      "why": "a form target left set by script",
+      "runnable": true
+    },
+    {
+      "id": "window.open-opener",
+      "category": "windows",
+      "page": "/Y/Opener.aspx",
+      "element": "window.open, a postback in the popup that writes into its opener",
+      "role": "any",
+      "expected": "the opener's text changed",
+      "why": "window.opener after a postback",
+      "keys": [
+        "GET /y/popup.aspx",
+        "SUBMIT /y/popup.aspx btnTell"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "frame.postback",
+      "category": "windows",
+      "page": "/Y/Frames.aspx",
+      "element": "postbacks and a Response.Redirect inside an iframe",
+      "role": "any",
+      "expected": "only the frame changes",
+      "why": "navigation inside frames",
+      "keys": [
+        "GET /y/frames.aspx",
+        "GET /y/inner2.aspx?via",
+        "GET /y/inner.aspx",
+        "SUBMIT /y/inner.aspx btnInc",
+        "SUBMIT /y/inner.aspx btnRedirect"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "frame.target",
+      "category": "windows",
+      "page": "/Y/Frames.aspx",
+      "element": "a link of the page with target=\"f1\"; a postback in the new frame page",
+      "role": "any",
+      "expected": "Inner2 in the frame; its postback",
+      "why": "named targets",
+      "runnable": true,
+      "keys": [
+        "GET /y/inner2.aspx",
+        "SUBMIT /y/inner2.aspx btnPost"
+      ]
+    },
+    {
+      "id": "frame.top",
+      "category": "windows",
+      "page": "/Y/Frames.aspx",
+      "element": "a target=\"_top\" link and a postback whose script sets top.location",
+      "role": "any",
+      "expected": "the whole window navigates",
+      "why": "leaving the frame",
+      "runnable": true,
+      "keys": [
+        "SUBMIT /y/inner.aspx btnTop"
+      ]
+    },
+    {
+      "id": "vb.handles-redirect",
+      "category": "vb",
+      "page": "/V/Handles.aspx",
+      "element": "Handles Me.Load and Handles btnGo.Click (AutoEventWireup false): Response.Redirect",
+      "role": "any",
+      "expected": "the landing; the Handles events logged",
+      "why": "VB's event wiring (WithEvents fields of the generated class)",
+      "keys": [
+        "GET /v/handles.aspx",
+        "SUBMIT /v/handles.aspx btnGo",
+        "SUBMIT /v/handles.aspx btnCatch",
+        "SUBMIT /v/handles.aspx btnTransfer",
+        "GET /v/landing.aspx",
+        "GET /v/landing.aspx?from"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "vb.catch-when",
+      "category": "vb",
+      "page": "/V/Handles.aspx",
+      "element": "Redirect in Try ... Catch ex As ThreadAbortException When filter()",
+      "role": "any",
+      "expected": "the filter and the Catch run, the code after the Try does not (the session)",
+      "why": "exception filters run before the stack unwinds; the abort re-raised after the Catch",
+      "runnable": true
+    },
+    {
+      "id": "vb.transfer",
+      "category": "vb",
+      "page": "/V/Handles.aspx",
+      "element": "Server.Transfer from a VB handler",
+      "role": "any",
+      "expected": "the landing under V/Handles.aspx",
+      "why": "Transfer in VB",
+      "runnable": true
+    },
+    {
+      "id": "vb.my",
+      "category": "vb",
+      "page": "/V/My.aspx",
+      "element": "My.Request / My.Response.Redirect",
+      "role": "any",
+      "expected": "the path; the redirect",
+      "why": "VB's My namespace for the web (_MYTYPE=\"Web\")",
+      "keys": [
+        "GET /v/my.aspx",
+        "GET /v/my.aspx?go"
+      ],
+      "runnable": true
+    },
+    {
+      "id": "vb.cross-page",
+      "category": "vb",
+      "page": "/V/Source.aspx -> /V/Target.aspx",
+      "element": "a cross-page postback between VB pages (PreviousPageType, a VB property)",
+      "role": "any",
+      "expected": "the typed value",
+      "why": "PreviousPageType in VB",
+      "keys": [
+        "GET /v/source.aspx",
+        "SUBMIT /v/source.aspx btnCross",
+        "INPUT /v/source.aspx txt text",
+        "GET /v/target.aspx"
+      ],
+      "runnable": true
+    }
+  ]
+}

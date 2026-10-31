@@ -12,6 +12,12 @@
     <NoWarn>$(NoWarn);RS2008</NoWarn>
   </PropertyGroup>
 
+  <!-- Rewrites the converter and FrameworkOnCore's System.Web (WebFormsForCore.Compilers) link, in C# and Visual Basic: not
+       the analyzers' (they reference C# only). -->
+  <ItemGroup>
+    <Compile Remove="Rewrites\**" />
+  </ItemGroup>
+
   <ItemGroup>
     <!-- The oldest compiler it runs in: .NET SDK 9's (params spans, ICollectionExpressionOperation; the converted
          applications build with .NET 10's). -->

@@ -1,0 +1,7210 @@
+{
+  "Url": "http://localhost:5097",
+  "Pages": [
+    {
+      "Persona": "anonymous",
+      "Url": "/",
+      "Status": 200,
+      "Title": "NavigationProbe",
+      "Keys": [
+        "GET /e/baddirective.aspx",
+        "GET /e/broken/throw.aspx",
+        "GET /e/compile.aspx",
+        "GET /e/http/nosuch.aspx",
+        "GET /e/http/skip404.aspx",
+        "GET /e/http/status404.aspx",
+        "GET /e/http404.aspx",
+        "GET /e/nosuchpage.aspx",
+        "GET /e/notfound.aspx",
+        "GET /e/oops.aspx",
+        "GET /e/parser.aspx",
+        "GET /e/plain/throw.aspx",
+        "GET /e/redirect/async.aspx",
+        "GET /e/redirect/asyncnoredirect.aspx",
+        "GET /e/redirect/http403.aspx",
+        "GET /e/redirect/http404.aspx",
+        "GET /e/redirect/missing.aspx",
+        "GET /e/redirect/throw.aspx",
+        "GET /e/rewrite/http404.aspx",
+        "GET /e/rewrite/missing.aspx",
+        "GET /e/rewrite/throw.aspx",
+        "GET /e/throw.aspx",
+        "GET /f/abandon.aspx",
+        "GET /f/admin/page.aspx",
+        "GET /f/login.aspx",
+        "GET /f/login.aspx?returnurl",
+        "GET /f/secure/page.aspx",
+        "GET /f/secure/page.aspx?a&b",
+        "GET /f/secure/page.aspx?a&b&c",
+        "GET /f/secure/public.aspx",
+        "GET /f/welcome.aspx",
+        "GET /files/a/b c",
+        "GET /files/x.txt",
+        "GET /g/acquire.aspx",
+        "GET /g/auth.aspx",
+        "GET /g/begin.aspx",
+        "GET /g/chain.aspx?n",
+        "GET /g/end.aspx",
+        "GET /g/errclear.aspx",
+        "GET /g/errexecute.aspx",
+        "GET /g/errredirect.aspx",
+        "GET /g/errredirectkeep.aspx",
+        "GET /g/errtransfer.aspx",
+        "GET /g/landing.aspx",
+        "GET /g/loopa.aspx",
+        "GET /g/module.aspx",
+        "GET /g/moduleend.aspx",
+        "GET /go/somewhere",
+        "GET /j/history.aspx",
+        "GET /j/landing.aspx",
+        "GET /j/methods.aspx",
+        "GET /j/nested.aspx",
+        "GET /j/panel.aspx",
+        "GET /j/service.asmx/js",
+        "GET /j/servicepage.aspx",
+        "GET /j/timer.aspx",
+        "GET /n/buttons.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/default.aspx",
+        "GET /n/imagemap.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /nav",
+        "GET /nav/5",
+        "GET /nav/abc",
+        "GET /p/changed.aspx",
+        "GET /p/chunk/big.aspx",
+        "GET /p/counter.aspx",
+        "GET /p/dynamic.aspx",
+        "GET /p/dynamic.aspx?recreate",
+        "GET /p/encrypted.aspx",
+        "GET /p/getstate.aspx",
+        "GET /p/novalidate.aspx",
+        "GET /p/order.aspx",
+        "GET /p/validate.aspx",
+        "GET /r/cases.aspx",
+        "GET /r/cases.aspx?c",
+        "GET /r/landing.aspx?from",
+        "GET /r/life.aspx",
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end",
+        "GET /r/sub/rel.aspx",
+        "GET /r/sub/rel.aspx?c",
+        "GET /secure/5",
+        "GET /t/chain1.aspx",
+        "GET /t/exec.aspx",
+        "GET /t/exec.aspx?mode",
+        "GET /t/part.aspx",
+        "GET /t/source.aspx",
+        "GET /t/sub/other.aspx",
+        "GET /t/sub/target.aspx",
+        "GET /u",
+        "GET /u/info.aspx/a b/日",
+        "GET /u/info.aspx/extra/more",
+        "GET /u/plain.aspx",
+        "GET /u/pretty/abc",
+        "GET /u/prettynorebase/abc",
+        "GET /u/prettyparts/abc",
+        "GET /u/query.aspx?&a&b&d",
+        "GET /u/query.aspx?a",
+        "GET /u/query.aspx?a&b&c",
+        "GET /u/query.aspx?a&b&c&d&e",
+        "GET /u/rewritten.aspx",
+        "GET /v/handles.aspx",
+        "GET /v/landing.aspx",
+        "GET /v/my.aspx",
+        "GET /v/my.aspx?go",
+        "GET /v/source.aspx",
+        "GET /v/target.aspx",
+        "GET /w/ajaxwizard.aspx",
+        "GET /w/cancelled.aspx",
+        "GET /w/finished.aspx",
+        "GET /w/multiview.aspx",
+        "GET /w/wizard.aspx",
+        "GET /w/wizarddest.aspx",
+        "GET /x/mastersource.aspx",
+        "GET /x/other/target.aspx",
+        "GET /x/source.aspx",
+        "GET /x/target.aspx",
+        "GET /y/async.aspx",
+        "GET /y/async.aspx?mode",
+        "GET /y/asyncvoid.aspx",
+        "GET /y/asyncvoid.aspx?mode",
+        "GET /y/download.aspx",
+        "GET /y/frames.aspx",
+        "GET /y/inner.aspx",
+        "GET /y/inner2.aspx",
+        "GET /y/landing.aspx",
+        "GET /y/opener.aspx",
+        "GET /y/popup.aspx",
+        "GET /y/redirect.ashx",
+        "GET /y/redirect.ashx?mode",
+        "GET /y/transfer.ashx",
+        "GET /y/transfer.ashx?mode"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Source.aspx",
+      "Status": 200,
+      "Title": "T/Source",
+      "Keys": [
+        "INPUT /t/source.aspx txt text",
+        "SUBMIT /t/source.aspx btnAshx",
+        "SUBMIT /t/source.aspx btnCatch",
+        "SUBMIT /t/source.aspx btnCatchAll",
+        "SUBMIT /t/source.aspx btnChain",
+        "SUBMIT /t/source.aspx btnFalse",
+        "SUBMIT /t/source.aspx btnHandler",
+        "SUBMIT /t/source.aspx btnMissing",
+        "SUBMIT /t/source.aspx btnQuery",
+        "SUBMIT /t/source.aspx btnRequest",
+        "SUBMIT /t/source.aspx btnTrue",
+        "SUBMIT /t/source.aspx btnWritten"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Chain1.aspx",
+      "Status": 200,
+      "Title": "T/Sub/Target",
+      "Keys": [
+        "GET /t/other.aspx",
+        "GET /t/sub/other.aspx",
+        "SUBMIT /t/chain1.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Sub/Other.aspx",
+      "Status": 200,
+      "Title": "T/Sub/Other",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Exec.aspx?mode=load",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Exec.aspx?mode=render",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Exec.aspx?mode=writer",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Exec.aspx?mode=ashx",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Sub/Other.aspx?from=execute",
+      "Status": 200,
+      "Title": "T/Sub/Other",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Exec.aspx?mode=transfer",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Exec.aspx?mode=throw",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Exec.aspx?mode=missing",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Exec.aspx",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/X/Source.aspx",
+      "Status": 200,
+      "Title": "X/Source",
+      "Keys": [
+        "INPUT /x/source.aspx txtName text",
+        "SUBMIT /x/source.aspx btnHere",
+        "SUBMIT /x/source.aspx btnNoValidation",
+        "SUBMIT /x/source.aspx btnOther",
+        "SUBMIT /x/source.aspx btnQuery",
+        "SUBMIT /x/source.aspx btnSame"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/X/Target.aspx",
+      "Status": 200,
+      "Title": "X/Target",
+      "Keys": [
+        "SUBMIT /x/target.aspx btnBack"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/X/MasterSource.aspx",
+      "Status": 200,
+      "Title": "X/MasterSource",
+      "Keys": [
+        "GET /default.aspx",
+        "GET /masters/other.aspx",
+        "GET /x/other.aspx",
+        "GET /x/target.aspx",
+        "INPUT /x/mastersource.aspx ctl00$main$txtName text",
+        "SUBMIT /x/mastersource.aspx ctl00$main$btnCross"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=PreInit",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=PreInit",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=Init",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=Init",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=InitComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=InitComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=PreLoad",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=PreLoad",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=Load",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=Load",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Life.aspx?at=Click",
+      "Status": 200,
+      "Title": "R/Life",
+      "Keys": [
+        "SUBMIT /r/life.aspx btnGo"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Life.aspx?at=Click&end=false",
+      "Status": 200,
+      "Title": "R/Life",
+      "Keys": [
+        "SUBMIT /r/life.aspx btnGo"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=LoadComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=LoadComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=PreRender",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=PreRender",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=PreRenderComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=PreRenderComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=SaveStateComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=SaveStateComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=Render",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=Render",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Life.aspx?at=Unload",
+      "Status": 500,
+      "Title": "Response is not available in this context.",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Life.aspx?at=Unload&end=false",
+      "Status": 500,
+      "Title": "Response is not available in this context.",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=tae",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=side",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=ex",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=finally",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=written",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Cases.aspx?c=flushed",
+      "Status": 200,
+      "Title": "Cannot redirect after HTTP headers have been sent.",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=permanent",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=permanent-false",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/nav/3",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /nav/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav/3 btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/nav/4?extra=x%20y",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /nav/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav/4 btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/files/a/b%20c",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /files/a/plain.aspx",
+        "GET /nav/7",
+        "GET /u/plain.aspx",
+        "SUBMIT /files/a/b c btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=absolute-path",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?name=%E6%97%A5%E6%9C%AC%20%E8%AA%9E&pct=100%25&plus=a+b&amp=x&y",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?a=x%26y&b=%E6%97%A5&c=%2B",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/%E7%9D%80%E5%9C%B0.aspx?from=unicode-path",
+      "Status": 200,
+      "Title": "R/着地",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/With%20Space.aspx?from=space%20path",
+      "Status": 200,
+      "Title": "R/With Space",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Cases.aspx?c=newline",
+      "Status": 500,
+      "Title": "Redirect URI cannot contain newline characters.",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Cases.aspx?c=empty",
+      "Status": 302,
+      "Title": "Object moved",
+      "Keys": [
+        "GET /r/cases.aspx?c"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Cases.aspx?c=end",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Cases.aspx?c=complete",
+      "Status": 200,
+      "Title": "R/Cases",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=false-complete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Cases.aspx?c=status200",
+      "Status": 200,
+      "Title": "Object moved",
+      "Keys": [
+        "GET /r/landing.aspx?from"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=status301",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Cases.aspx?c=status404",
+      "Status": 404,
+      "Title": "Object moved",
+      "Keys": [
+        "GET /r/landing.aspx?from"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=second",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Cases.aspx?c=clear-headers",
+      "Status": 200,
+      "Title": "Object moved",
+      "Keys": [
+        "GET /r/landing.aspx?from"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=parent",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Sub/Landing.aspx?from=file",
+      "Status": 200,
+      "Title": "R/Sub/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Sub/Landing.aspx?from=dot",
+      "Status": 200,
+      "Title": "R/Sub/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=tilde",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Sub/?from=query-only",
+      "Status": 403,
+      "Title": "IIS 10.0 Detailed Error - 403.14 - Forbidden",
+      "Keys": [
+        "EXTERNAL https://go.microsoft.com/fwlink/"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Sub/",
+      "Status": 403,
+      "Title": "IIS 10.0 Detailed Error - 403.14 - Forbidden",
+      "Keys": [
+        "EXTERNAL https://go.microsoft.com/fwlink/"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Sub/Landing.aspx?from=query-frag",
+      "Status": 200,
+      "Title": "R/Sub/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Default.aspx?from=parent-parent",
+      "Status": 200,
+      "Title": "NavigationProbe",
+      "Keys": [
+        "GET /e/baddirective.aspx",
+        "GET /e/broken/throw.aspx",
+        "GET /e/compile.aspx",
+        "GET /e/http/nosuch.aspx",
+        "GET /e/http/skip404.aspx",
+        "GET /e/http/status404.aspx",
+        "GET /e/http404.aspx",
+        "GET /e/nosuchpage.aspx",
+        "GET /e/notfound.aspx",
+        "GET /e/oops.aspx",
+        "GET /e/parser.aspx",
+        "GET /e/plain/throw.aspx",
+        "GET /e/redirect/async.aspx",
+        "GET /e/redirect/asyncnoredirect.aspx",
+        "GET /e/redirect/http403.aspx",
+        "GET /e/redirect/http404.aspx",
+        "GET /e/redirect/missing.aspx",
+        "GET /e/redirect/throw.aspx",
+        "GET /e/rewrite/http404.aspx",
+        "GET /e/rewrite/missing.aspx",
+        "GET /e/rewrite/throw.aspx",
+        "GET /e/throw.aspx",
+        "GET /f/abandon.aspx",
+        "GET /f/admin/page.aspx",
+        "GET /f/login.aspx",
+        "GET /f/login.aspx?returnurl",
+        "GET /f/secure/page.aspx",
+        "GET /f/secure/page.aspx?a&b",
+        "GET /f/secure/page.aspx?a&b&c",
+        "GET /f/secure/public.aspx",
+        "GET /f/welcome.aspx",
+        "GET /files/a/b c",
+        "GET /files/x.txt",
+        "GET /g/acquire.aspx",
+        "GET /g/auth.aspx",
+        "GET /g/begin.aspx",
+        "GET /g/chain.aspx?n",
+        "GET /g/end.aspx",
+        "GET /g/errclear.aspx",
+        "GET /g/errexecute.aspx",
+        "GET /g/errredirect.aspx",
+        "GET /g/errredirectkeep.aspx",
+        "GET /g/errtransfer.aspx",
+        "GET /g/landing.aspx",
+        "GET /g/loopa.aspx",
+        "GET /g/module.aspx",
+        "GET /g/moduleend.aspx",
+        "GET /go/somewhere",
+        "GET /j/history.aspx",
+        "GET /j/landing.aspx",
+        "GET /j/methods.aspx",
+        "GET /j/nested.aspx",
+        "GET /j/panel.aspx",
+        "GET /j/service.asmx/js",
+        "GET /j/servicepage.aspx",
+        "GET /j/timer.aspx",
+        "GET /n/buttons.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/default.aspx",
+        "GET /n/imagemap.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /nav",
+        "GET /nav/5",
+        "GET /nav/abc",
+        "GET /p/changed.aspx",
+        "GET /p/chunk/big.aspx",
+        "GET /p/counter.aspx",
+        "GET /p/dynamic.aspx",
+        "GET /p/dynamic.aspx?recreate",
+        "GET /p/encrypted.aspx",
+        "GET /p/getstate.aspx",
+        "GET /p/novalidate.aspx",
+        "GET /p/order.aspx",
+        "GET /p/validate.aspx",
+        "GET /r/cases.aspx",
+        "GET /r/cases.aspx?c",
+        "GET /r/landing.aspx?from",
+        "GET /r/life.aspx",
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end",
+        "GET /r/sub/rel.aspx",
+        "GET /r/sub/rel.aspx?c",
+        "GET /secure/5",
+        "GET /t/chain1.aspx",
+        "GET /t/exec.aspx",
+        "GET /t/exec.aspx?mode",
+        "GET /t/part.aspx",
+        "GET /t/source.aspx",
+        "GET /t/sub/other.aspx",
+        "GET /t/sub/target.aspx",
+        "GET /u",
+        "GET /u/info.aspx/a b/日",
+        "GET /u/info.aspx/extra/more",
+        "GET /u/plain.aspx",
+        "GET /u/pretty/abc",
+        "GET /u/prettynorebase/abc",
+        "GET /u/prettyparts/abc",
+        "GET /u/query.aspx?&a&b&d",
+        "GET /u/query.aspx?a",
+        "GET /u/query.aspx?a&b&c",
+        "GET /u/query.aspx?a&b&c&d&e",
+        "GET /u/rewritten.aspx",
+        "GET /v/handles.aspx",
+        "GET /v/landing.aspx",
+        "GET /v/my.aspx",
+        "GET /v/my.aspx?go",
+        "GET /v/source.aspx",
+        "GET /v/target.aspx",
+        "GET /w/ajaxwizard.aspx",
+        "GET /w/cancelled.aspx",
+        "GET /w/finished.aspx",
+        "GET /w/multiview.aspx",
+        "GET /w/wizard.aspx",
+        "GET /w/wizarddest.aspx",
+        "GET /x/mastersource.aspx",
+        "GET /x/other/target.aspx",
+        "GET /x/source.aspx",
+        "GET /x/target.aspx",
+        "GET /y/async.aspx",
+        "GET /y/async.aspx?mode",
+        "GET /y/asyncvoid.aspx",
+        "GET /y/asyncvoid.aspx?mode",
+        "GET /y/download.aspx",
+        "GET /y/frames.aspx",
+        "GET /y/inner.aspx",
+        "GET /y/inner2.aspx",
+        "GET /y/landing.aspx",
+        "GET /y/opener.aspx",
+        "GET /y/popup.aspx",
+        "GET /y/redirect.ashx",
+        "GET /y/redirect.ashx?mode",
+        "GET /y/transfer.ashx",
+        "GET /y/transfer.ashx?mode"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/G/Landing.aspx?from=begin",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/G/Landing.aspx?from=authenticate",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/G/Landing.aspx?from=acquire&session=True",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/G/Landing.aspx?from=end",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/G/Landing.aspx?from=module",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/G/ModuleEnd.aspx",
+      "Status": 200,
+      "Title": "module answered",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/G/Landing.aspx?from=error&type=InvalidOperationException",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/G/Landing.aspx?from=error-kept",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/G/ErrTransfer.aspx",
+      "Status": 200,
+      "Title": "G/Handled",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/G/ErrExecute.aspx",
+      "Status": 200,
+      "Title": "G/Handled",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/G/ErrClear.aspx",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/G/Chain.aspx?n=0",
+      "Status": 200,
+      "Title": "G/Chain",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Oops.aspx?aspxerrorpath=/E/Redirect/Throw.aspx",
+      "Status": 200,
+      "Title": "E/Oops",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/NotFound.aspx?aspxerrorpath=/E/Redirect/Http404.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Oops.aspx?aspxerrorpath=/E/Redirect/Http403.aspx",
+      "Status": 200,
+      "Title": "E/Oops",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/NotFound.aspx?aspxerrorpath=/E/Redirect/Missing.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Rewrite/Throw.aspx",
+      "Status": 200,
+      "Title": "E/Oops",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Rewrite/Http404.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Rewrite/Missing.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Broken/Throw.aspx",
+      "Status": 500,
+      "Title": "Runtime Error",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Plain/Throw.aspx",
+      "Status": 500,
+      "Title": "Runtime Error",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Throw.aspx",
+      "Status": 500,
+      "Title": "the page failed on purpose",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Http404.aspx",
+      "Status": 404,
+      "Title": "nothing here (HttpException 404)",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/NoSuchPage.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Compile.aspx",
+      "Status": 500,
+      "Title": "Compilation Error",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Parser.aspx",
+      "Status": 500,
+      "Title": "Parser Error",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/BadDirective.aspx",
+      "Status": 500,
+      "Title": "Parser Error",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Http/Status404.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Http/Skip404.aspx",
+      "Status": 404,
+      "Title": "E/Http/Skip404",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Http/NoSuch.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Redirect/Async.aspx",
+      "Status": 200,
+      "Title": "E/Redirect/Async",
+      "Keys": [
+        "SUBMIT /e/redirect/async.aspx btnThrow"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Redirect/AsyncNoRedirect.aspx",
+      "Status": 200,
+      "Title": "E/Redirect/AsyncNoRedirect",
+      "Keys": [
+        "SUBMIT /e/redirect/asyncnoredirect.aspx btnThrow"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/F/Login.aspx?ReturnUrl=%2fF%2fSecure%2fPage.aspx",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/F/Login.aspx?ReturnUrl=%2fF%2fSecure%2fPage.aspx%3fa%3d1%26b%3d%25E6%2597%25A5%25E6%259C%25AC%26c%3dx%2526y&a=1&b=%E6%97%A5%E6%9C%AC&c=x%26y",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/F/Login.aspx?ReturnUrl=%2fsecure%2f5",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/F/Secure/Public.aspx",
+      "Status": 200,
+      "Title": "F/Secure/Public",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/F/Login.aspx?ReturnUrl=%2fF%2fSecure%2fPage.aspx%3fa%3d1%26b%3d%25E6%2597%25A5%25E6%259C%25AC&a=1&b=%E6%97%A5%E6%9C%AC",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/F/Login.aspx?ReturnUrl=%2fF%2fAdmin%2fPage.aspx",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/F/Login.aspx?ReturnUrl=http%3A%2F%2Fevil.example%2Fsteal",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/F/Login.aspx?ReturnUrl=%2F%2Fevil.example%2Fx",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/F/Login.aspx",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/N/Deep/Page.aspx",
+      "Status": 200,
+      "Title": "N/Deep/Page",
+      "Keys": [
+        "GET /default.aspx",
+        "GET /masters/other.aspx",
+        "GET /n/controls/sibling.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/deep/sibling.aspx",
+        "GET /n/default.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /t/source.aspx"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/F/Abandon.aspx",
+      "Status": 200,
+      "Title": "F/Abandon",
+      "Keys": [
+        "INPUT /f/abandon.aspx txt text",
+        "SUBMIT /f/abandon.aspx btnAbandon",
+        "SUBMIT /f/abandon.aspx btnRead",
+        "SUBMIT /f/abandon.aspx btnSet"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/P/Counter.aspx",
+      "Status": 200,
+      "Title": "P/Counter",
+      "Keys": [
+        "SUBMIT /p/counter.aspx btnInc"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/P/Validate.aspx",
+      "Status": 200,
+      "Title": "P/Validate",
+      "Keys": [
+        "INPUT /p/validate.aspx ddl select",
+        "POSTBACK /p/validate.aspx lnk",
+        "SUBMIT /p/validate.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/P/NoValidate.aspx",
+      "Status": 200,
+      "Title": "P/NoValidate",
+      "Keys": [
+        "INPUT /p/novalidate.aspx ddl select",
+        "POSTBACK /p/novalidate.aspx lnk",
+        "SUBMIT /p/novalidate.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/P/Dynamic.aspx",
+      "Status": 200,
+      "Title": "P/Dynamic",
+      "Keys": [
+        "INPUT /p/dynamic.aspx dynTxt text",
+        "SUBMIT /p/dynamic.aspx btnStatic",
+        "SUBMIT /p/dynamic.aspx dynBtn"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/P/Dynamic.aspx?recreate=0",
+      "Status": 200,
+      "Title": "P/Dynamic",
+      "Keys": [
+        "INPUT /p/dynamic.aspx dynTxt text",
+        "SUBMIT /p/dynamic.aspx btnStatic",
+        "SUBMIT /p/dynamic.aspx dynBtn"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/P/Order.aspx",
+      "Status": 200,
+      "Title": "P/Order",
+      "Keys": [
+        "INPUT /p/order.aspx chkFlip checkbox",
+        "SUBMIT /p/order.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/P/Changed.aspx",
+      "Status": 200,
+      "Title": "P/Changed",
+      "Keys": [
+        "INPUT /p/changed.aspx chkSwap checkbox",
+        "INPUT /p/changed.aspx slot select",
+        "SUBMIT /p/changed.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/P/Chunk/Big.aspx",
+      "Status": 200,
+      "Title": "P/Chunk/Big",
+      "Keys": [
+        "SUBMIT /p/chunk/big.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/P/Encrypted.aspx",
+      "Status": 200,
+      "Title": "P/Encrypted",
+      "Keys": [
+        "SUBMIT /p/encrypted.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/P/GetState.aspx",
+      "Status": 200,
+      "Title": "P/GetState",
+      "Keys": [
+        "POSTBACK /p/getstate.aspx lnk"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/W/Wizard.aspx",
+      "Status": 200,
+      "Title": "W/Wizard",
+      "Keys": [
+        "GET /w/wizard.aspx",
+        "INPUT /w/wizard.aspx wiz$txtName text",
+        "SUBMIT /w/wizard.aspx btnJump",
+        "SUBMIT /w/wizard.aspx wiz$StartNavigationTemplateContainerID$CancelButton",
+        "SUBMIT /w/wizard.aspx wiz$StartNavigationTemplateContainerID$StartNextButton"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/W/WizardDest.aspx",
+      "Status": 200,
+      "Title": "W/WizardDest",
+      "Keys": [
+        "SUBMIT /w/wizarddest.aspx wiz$StartNavigationTemplateContainerID$StartNextButton"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/W/MultiView.aspx",
+      "Status": 200,
+      "Title": "W/MultiView",
+      "Keys": [
+        "SUBMIT /w/multiview.aspx btnToThree",
+        "SUBMIT /w/multiview.aspx next1"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/W/AjaxWizard.aspx",
+      "Status": 200,
+      "Title": "W/AjaxWizard",
+      "Keys": [
+        "GET /w/ajaxwizard.aspx",
+        "POSTBACK /w/ajaxwizard.aspx wiz$SideBarContainer$SideBarList$ctl00$SideBarButton",
+        "POSTBACK /w/ajaxwizard.aspx wiz$SideBarContainer$SideBarList$ctl01$SideBarButton",
+        "POSTBACK /w/ajaxwizard.aspx wiz$SideBarContainer$SideBarList$ctl02$SideBarButton",
+        "SUBMIT /w/ajaxwizard.aspx wiz$StartNavigationTemplateContainerID$StartNextButton"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/J/Panel.aspx",
+      "Status": 200,
+      "Title": "J/Panel",
+      "Keys": [
+        "SUBMIT /j/panel.aspx btnEnd",
+        "SUBMIT /j/panel.aspx btnFull",
+        "SUBMIT /j/panel.aspx btnOutside",
+        "SUBMIT /j/panel.aspx btnPlain",
+        "SUBMIT /j/panel.aspx btnRedirect",
+        "SUBMIT /j/panel.aspx btnSlow",
+        "SUBMIT /j/panel.aspx btnThrow",
+        "SUBMIT /j/panel.aspx btnTransfer",
+        "SUBMIT /j/panel.aspx btnUpdate",
+        "SUBMIT /j/panel.aspx btnWrite"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/J/Nested.aspx",
+      "Status": 200,
+      "Title": "J/Nested",
+      "Keys": [
+        "SUBMIT /j/nested.aspx btnInner",
+        "SUBMIT /j/nested.aspx btnOuter",
+        "SUBMIT /j/nested.aspx btnThree",
+        "SUBMIT /j/nested.aspx btnUpdate3"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/J/History.aspx",
+      "Status": 200,
+      "Title": "J/History",
+      "Keys": [
+        "SUBMIT /j/history.aspx btnStep2",
+        "SUBMIT /j/history.aspx btnStep3"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/J/Timer.aspx",
+      "Status": 200,
+      "Title": "J/Timer",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/J/Methods.aspx",
+      "Status": 200,
+      "Title": "J/Methods",
+      "Keys": [
+        "SUBMIT /j/methods.aspx #btnEcho",
+        "SUBMIT /j/methods.aspx #btnFails",
+        "SUBMIT /j/methods.aspx #btnRedirects"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/J/ServicePage.aspx",
+      "Status": 200,
+      "Title": "J/ServicePage",
+      "Keys": [
+        "SUBMIT /j/servicepage.aspx #btnHello"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/J/Service.asmx/js",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/nav/5",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /nav/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav/5 btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/nav",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/nav/abc",
+      "Status": 404,
+      "Title": "IIS 10.0 Detailed Error - 404.0 - Not Found",
+      "Keys": [
+        "EXTERNAL http://go.microsoft.com/fwlink/",
+        "EXTERNAL https://go.microsoft.com/fwlink/"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/files/a/b%20c",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /files/a/plain.aspx",
+        "GET /nav/7",
+        "GET /u/plain.aspx",
+        "SUBMIT /files/a/b c btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/files/x.txt",
+      "Status": 404,
+      "Title": "IIS 10.0 Detailed Error - 404.0 - Not Found",
+      "Keys": [
+        "EXTERNAL http://go.microsoft.com/fwlink/",
+        "EXTERNAL https://go.microsoft.com/fwlink/"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/go/somewhere",
+      "Status": 200,
+      "Title": "U/Plain",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/Info.aspx/extra/more",
+      "Status": 200,
+      "Title": "U/Info",
+      "Keys": [
+        "GET /u/info.aspx/extra/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /u/info.aspx/extra/more btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/Info.aspx/a%20b/%E6%97%A5",
+      "Status": 200,
+      "Title": "U/Info",
+      "Keys": [
+        "GET /u/info.aspx/a b/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /u/info.aspx/a b/日 btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/",
+      "Status": 200,
+      "Title": "U/Default (default document)",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/",
+      "Status": 200,
+      "Title": "U/Default (default document)",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/Pretty/abc",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/pretty/plain.aspx",
+        "SUBMIT /u/pretty/abc btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/PrettyNoRebase/abc",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/plain.aspx",
+        "SUBMIT /u/prettynorebase/abc btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/PrettyParts/abc",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/plain.aspx",
+        "SUBMIT /u/prettyparts/abc btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/Query.aspx?a=1&a=2&a=",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/Query.aspx?a=&b&=c&&d=",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/Query.aspx?a=x%26y&b=%E6%97%A5&c=a+b&d=%2B&e=%3D",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/Query.aspx?a=%25ZZ&b=%25u65E5&c=%E6%97",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/u/QUERY.aspx?a=1",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/N/Menu.aspx",
+      "Status": 200,
+      "Title": "N/Menu",
+      "Keys": [
+        "GET /n/deep/page.aspx",
+        "GET /n/menu.aspx",
+        "POSTBACK /n/menu.aspx menuItems",
+        "POSTBACK /n/menu.aspx tvItems"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/N/ImageMap.aspx",
+      "Status": 200,
+      "Title": "N/ImageMap",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/N/Buttons.aspx",
+      "Status": 200,
+      "Title": "N/Buttons",
+      "Keys": [
+        "INPUT /n/buttons.aspx txtAfter text",
+        "INPUT /n/buttons.aspx txtFocus text",
+        "INPUT /n/buttons.aspx txtPanel text",
+        "POSTBACK /n/buttons.aspx lnkConfirm",
+        "POSTBACK /n/buttons.aspx lnkFalse",
+        "SUBMIT /n/buttons.aspx btnBottom",
+        "SUBMIT /n/buttons.aspx btnFalse",
+        "SUBMIT /n/buttons.aspx btnFocus",
+        "SUBMIT /n/buttons.aspx btnForm",
+        "SUBMIT /n/buttons.aspx btnPanel"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Landing.aspx?from=async-task",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Landing.aspx",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Landing.aspx?from=async-task-false",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Async.aspx?mode=transfer",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Async.aspx?mode=throw",
+      "Status": 500,
+      "Title": "the async task failed",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Async.aspx",
+      "Status": 200,
+      "Title": "Y/Async",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Landing.aspx?from=async-void",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/AsyncVoid.aspx",
+      "Status": 200,
+      "Title": "Y/AsyncVoid",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Landing.aspx?from=ashx",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Landing.aspx?from=ashx-permanent",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Landing.aspx?from=ashx-false",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Transfer.ashx",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Transfer.ashx?mode=execute",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Download.aspx",
+      "Status": 200,
+      "Title": "Y/Download",
+      "Keys": [
+        "POSTBACK /y/download.aspx lnkAfter",
+        "POSTBACK /y/download.aspx lnkDownload",
+        "SUBMIT /y/download.aspx btnAfter",
+        "SUBMIT /y/download.aspx btnDownload",
+        "SUBMIT /y/download.aspx btnUnicode"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Opener.aspx",
+      "Status": 200,
+      "Title": "Y/Opener",
+      "Keys": [
+        "GET /y/popup.aspx?via",
+        "SUBMIT /y/opener.aspx #btnOpen",
+        "SUBMIT /y/opener.aspx btnBlank",
+        "SUBMIT /y/opener.aspx btnNormal"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Frames.aspx",
+      "Status": 200,
+      "Title": "Y/Frames",
+      "Keys": [
+        "GET /y/inner2.aspx?via"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/V/Handles.aspx",
+      "Status": 200,
+      "Title": "V/Handles",
+      "Keys": [
+        "SUBMIT /v/handles.aspx btnCatch",
+        "SUBMIT /v/handles.aspx btnGo",
+        "SUBMIT /v/handles.aspx btnTransfer"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/V/Landing.aspx",
+      "Status": 200,
+      "Title": "V/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/V/My.aspx",
+      "Status": 200,
+      "Title": "V/My",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/V/Landing.aspx?from=vb-my",
+      "Status": 200,
+      "Title": "V/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/V/Source.aspx",
+      "Status": 200,
+      "Title": "V/Source",
+      "Keys": [
+        "INPUT /v/source.aspx txt text",
+        "SUBMIT /v/source.aspx btnCross"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Sub/Target.aspx",
+      "Status": 200,
+      "Title": "T/Sub/Target",
+      "Keys": [
+        "GET /t/sub/other.aspx",
+        "SUBMIT /t/sub/target.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/X/Other/Target.aspx",
+      "Status": 200,
+      "Title": "X/Other/Target",
+      "Keys": [
+        "GET /x/other/target.aspx",
+        "GET /x/source.aspx"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Life.aspx",
+      "Status": 200,
+      "Title": "R/Life",
+      "Keys": [
+        "SUBMIT /r/life.aspx btnGo"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Cases.aspx",
+      "Status": 200,
+      "Title": "R/Cases",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Sub/Rel.aspx",
+      "Status": 200,
+      "Title": "R/Sub/Rel",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/G/Landing.aspx",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/Oops.aspx",
+      "Status": 200,
+      "Title": "E/Oops",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/E/NotFound.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/F/Welcome.aspx",
+      "Status": 200,
+      "Title": "F/Welcome",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/W/Cancelled.aspx",
+      "Status": 200,
+      "Title": "W/Cancelled",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/W/Finished.aspx",
+      "Status": 200,
+      "Title": "W/Finished",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/J/Landing.aspx",
+      "Status": 200,
+      "Title": "J/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/Plain.aspx",
+      "Status": 200,
+      "Title": "U/Plain",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/Rewritten.aspx",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/plain.aspx",
+        "SUBMIT /u/rewritten.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/N/Default.aspx",
+      "Status": 200,
+      "Title": "N/Default",
+      "Keys": [
+        "GET /default.aspx",
+        "GET /masters/other.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/default.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /t/source.aspx"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/N/RolesOnly.aspx",
+      "Status": 200,
+      "Title": "N/RolesOnly",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Inner.aspx",
+      "Status": 200,
+      "Title": "Y/Inner",
+      "Keys": [
+        "GET /y/landing.aspx?from",
+        "SUBMIT /y/inner.aspx btnInc",
+        "SUBMIT /y/inner.aspx btnRedirect",
+        "SUBMIT /y/inner.aspx btnTop"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Inner2.aspx",
+      "Status": 200,
+      "Title": "Y/Inner2",
+      "Keys": [
+        "SUBMIT /y/inner2.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Popup.aspx",
+      "Status": 200,
+      "Title": "Y/Popup",
+      "Keys": [
+        "SUBMIT /y/popup.aspx btnTell"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/V/Target.aspx",
+      "Status": 200,
+      "Title": "V/Target",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Part.aspx",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/T/Other.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Masters/Other.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/X/Other.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Default.aspx",
+      "Status": 200,
+      "Title": "NavigationProbe",
+      "Keys": [
+        "GET /e/baddirective.aspx",
+        "GET /e/broken/throw.aspx",
+        "GET /e/compile.aspx",
+        "GET /e/http/nosuch.aspx",
+        "GET /e/http/skip404.aspx",
+        "GET /e/http/status404.aspx",
+        "GET /e/http404.aspx",
+        "GET /e/nosuchpage.aspx",
+        "GET /e/notfound.aspx",
+        "GET /e/oops.aspx",
+        "GET /e/parser.aspx",
+        "GET /e/plain/throw.aspx",
+        "GET /e/redirect/async.aspx",
+        "GET /e/redirect/asyncnoredirect.aspx",
+        "GET /e/redirect/http403.aspx",
+        "GET /e/redirect/http404.aspx",
+        "GET /e/redirect/missing.aspx",
+        "GET /e/redirect/throw.aspx",
+        "GET /e/rewrite/http404.aspx",
+        "GET /e/rewrite/missing.aspx",
+        "GET /e/rewrite/throw.aspx",
+        "GET /e/throw.aspx",
+        "GET /f/abandon.aspx",
+        "GET /f/admin/page.aspx",
+        "GET /f/login.aspx",
+        "GET /f/login.aspx?returnurl",
+        "GET /f/secure/page.aspx",
+        "GET /f/secure/page.aspx?a&b",
+        "GET /f/secure/page.aspx?a&b&c",
+        "GET /f/secure/public.aspx",
+        "GET /f/welcome.aspx",
+        "GET /files/a/b c",
+        "GET /files/x.txt",
+        "GET /g/acquire.aspx",
+        "GET /g/auth.aspx",
+        "GET /g/begin.aspx",
+        "GET /g/chain.aspx?n",
+        "GET /g/end.aspx",
+        "GET /g/errclear.aspx",
+        "GET /g/errexecute.aspx",
+        "GET /g/errredirect.aspx",
+        "GET /g/errredirectkeep.aspx",
+        "GET /g/errtransfer.aspx",
+        "GET /g/landing.aspx",
+        "GET /g/loopa.aspx",
+        "GET /g/module.aspx",
+        "GET /g/moduleend.aspx",
+        "GET /go/somewhere",
+        "GET /j/history.aspx",
+        "GET /j/landing.aspx",
+        "GET /j/methods.aspx",
+        "GET /j/nested.aspx",
+        "GET /j/panel.aspx",
+        "GET /j/service.asmx/js",
+        "GET /j/servicepage.aspx",
+        "GET /j/timer.aspx",
+        "GET /n/buttons.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/default.aspx",
+        "GET /n/imagemap.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /nav",
+        "GET /nav/5",
+        "GET /nav/abc",
+        "GET /p/changed.aspx",
+        "GET /p/chunk/big.aspx",
+        "GET /p/counter.aspx",
+        "GET /p/dynamic.aspx",
+        "GET /p/dynamic.aspx?recreate",
+        "GET /p/encrypted.aspx",
+        "GET /p/getstate.aspx",
+        "GET /p/novalidate.aspx",
+        "GET /p/order.aspx",
+        "GET /p/validate.aspx",
+        "GET /r/cases.aspx",
+        "GET /r/cases.aspx?c",
+        "GET /r/landing.aspx?from",
+        "GET /r/life.aspx",
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end",
+        "GET /r/sub/rel.aspx",
+        "GET /r/sub/rel.aspx?c",
+        "GET /secure/5",
+        "GET /t/chain1.aspx",
+        "GET /t/exec.aspx",
+        "GET /t/exec.aspx?mode",
+        "GET /t/part.aspx",
+        "GET /t/source.aspx",
+        "GET /t/sub/other.aspx",
+        "GET /t/sub/target.aspx",
+        "GET /u",
+        "GET /u/info.aspx/a b/日",
+        "GET /u/info.aspx/extra/more",
+        "GET /u/plain.aspx",
+        "GET /u/pretty/abc",
+        "GET /u/prettynorebase/abc",
+        "GET /u/prettyparts/abc",
+        "GET /u/query.aspx?&a&b&d",
+        "GET /u/query.aspx?a",
+        "GET /u/query.aspx?a&b&c",
+        "GET /u/query.aspx?a&b&c&d&e",
+        "GET /u/rewritten.aspx",
+        "GET /v/handles.aspx",
+        "GET /v/landing.aspx",
+        "GET /v/my.aspx",
+        "GET /v/my.aspx?go",
+        "GET /v/source.aspx",
+        "GET /v/target.aspx",
+        "GET /w/ajaxwizard.aspx",
+        "GET /w/cancelled.aspx",
+        "GET /w/finished.aspx",
+        "GET /w/multiview.aspx",
+        "GET /w/wizard.aspx",
+        "GET /w/wizarddest.aspx",
+        "GET /x/mastersource.aspx",
+        "GET /x/other/target.aspx",
+        "GET /x/source.aspx",
+        "GET /x/target.aspx",
+        "GET /y/async.aspx",
+        "GET /y/async.aspx?mode",
+        "GET /y/asyncvoid.aspx",
+        "GET /y/asyncvoid.aspx?mode",
+        "GET /y/download.aspx",
+        "GET /y/frames.aspx",
+        "GET /y/inner.aspx",
+        "GET /y/inner2.aspx",
+        "GET /y/landing.aspx",
+        "GET /y/opener.aspx",
+        "GET /y/popup.aspx",
+        "GET /y/redirect.ashx",
+        "GET /y/redirect.ashx?mode",
+        "GET /y/transfer.ashx",
+        "GET /y/transfer.ashx?mode"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/nav/7",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /nav/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav/7 btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/nav/Plain.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/files/a/Plain.aspx",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /files/a/plain.aspx",
+        "GET /nav/7",
+        "GET /u/plain.aspx",
+        "SUBMIT /files/a/plain.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=status200",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=status404",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/R/Landing.aspx?from=clear-headers",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/N/Controls/Sibling.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/N/Deep/Sibling.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Plain.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/Info.aspx/extra/Plain.aspx",
+      "Status": 200,
+      "Title": "U/Info",
+      "Keys": [
+        "GET /u/info.aspx/extra/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /u/info.aspx/extra/plain.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/Info.aspx/a%20b/Plain.aspx",
+      "Status": 200,
+      "Title": "U/Info",
+      "Keys": [
+        "GET /u/info.aspx/a b/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /u/info.aspx/a b/plain.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/U/Pretty/Plain.aspx",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/pretty/plain.aspx",
+        "SUBMIT /u/pretty/plain.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Popup.aspx?via=link",
+      "Status": 200,
+      "Title": "Y/Popup",
+      "Keys": [
+        "SUBMIT /y/popup.aspx btnTell"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Inner2.aspx?via=target",
+      "Status": 200,
+      "Title": "Y/Inner2",
+      "Keys": [
+        "SUBMIT /y/inner2.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "anonymous",
+      "Url": "/Y/Landing.aspx?from=frame-top",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/",
+      "Status": 200,
+      "Title": "NavigationProbe",
+      "Keys": [
+        "GET /e/baddirective.aspx",
+        "GET /e/broken/throw.aspx",
+        "GET /e/compile.aspx",
+        "GET /e/http/nosuch.aspx",
+        "GET /e/http/skip404.aspx",
+        "GET /e/http/status404.aspx",
+        "GET /e/http404.aspx",
+        "GET /e/nosuchpage.aspx",
+        "GET /e/notfound.aspx",
+        "GET /e/oops.aspx",
+        "GET /e/parser.aspx",
+        "GET /e/plain/throw.aspx",
+        "GET /e/redirect/async.aspx",
+        "GET /e/redirect/asyncnoredirect.aspx",
+        "GET /e/redirect/http403.aspx",
+        "GET /e/redirect/http404.aspx",
+        "GET /e/redirect/missing.aspx",
+        "GET /e/redirect/throw.aspx",
+        "GET /e/rewrite/http404.aspx",
+        "GET /e/rewrite/missing.aspx",
+        "GET /e/rewrite/throw.aspx",
+        "GET /e/throw.aspx",
+        "GET /f/abandon.aspx",
+        "GET /f/admin/page.aspx",
+        "GET /f/login.aspx",
+        "GET /f/login.aspx?returnurl",
+        "GET /f/secure/page.aspx",
+        "GET /f/secure/page.aspx?a&b",
+        "GET /f/secure/page.aspx?a&b&c",
+        "GET /f/secure/public.aspx",
+        "GET /f/welcome.aspx",
+        "GET /files/a/b c",
+        "GET /files/x.txt",
+        "GET /g/acquire.aspx",
+        "GET /g/auth.aspx",
+        "GET /g/begin.aspx",
+        "GET /g/chain.aspx?n",
+        "GET /g/end.aspx",
+        "GET /g/errclear.aspx",
+        "GET /g/errexecute.aspx",
+        "GET /g/errredirect.aspx",
+        "GET /g/errredirectkeep.aspx",
+        "GET /g/errtransfer.aspx",
+        "GET /g/landing.aspx",
+        "GET /g/loopa.aspx",
+        "GET /g/module.aspx",
+        "GET /g/moduleend.aspx",
+        "GET /go/somewhere",
+        "GET /j/history.aspx",
+        "GET /j/landing.aspx",
+        "GET /j/methods.aspx",
+        "GET /j/nested.aspx",
+        "GET /j/panel.aspx",
+        "GET /j/service.asmx/js",
+        "GET /j/servicepage.aspx",
+        "GET /j/timer.aspx",
+        "GET /n/buttons.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/default.aspx",
+        "GET /n/imagemap.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /nav",
+        "GET /nav/5",
+        "GET /nav/abc",
+        "GET /p/changed.aspx",
+        "GET /p/chunk/big.aspx",
+        "GET /p/counter.aspx",
+        "GET /p/dynamic.aspx",
+        "GET /p/dynamic.aspx?recreate",
+        "GET /p/encrypted.aspx",
+        "GET /p/getstate.aspx",
+        "GET /p/novalidate.aspx",
+        "GET /p/order.aspx",
+        "GET /p/validate.aspx",
+        "GET /r/cases.aspx",
+        "GET /r/cases.aspx?c",
+        "GET /r/landing.aspx?from",
+        "GET /r/life.aspx",
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end",
+        "GET /r/sub/rel.aspx",
+        "GET /r/sub/rel.aspx?c",
+        "GET /secure/5",
+        "GET /t/chain1.aspx",
+        "GET /t/exec.aspx",
+        "GET /t/exec.aspx?mode",
+        "GET /t/part.aspx",
+        "GET /t/source.aspx",
+        "GET /t/sub/other.aspx",
+        "GET /t/sub/target.aspx",
+        "GET /u",
+        "GET /u/info.aspx/a b/日",
+        "GET /u/info.aspx/extra/more",
+        "GET /u/plain.aspx",
+        "GET /u/pretty/abc",
+        "GET /u/prettynorebase/abc",
+        "GET /u/prettyparts/abc",
+        "GET /u/query.aspx?&a&b&d",
+        "GET /u/query.aspx?a",
+        "GET /u/query.aspx?a&b&c",
+        "GET /u/query.aspx?a&b&c&d&e",
+        "GET /u/rewritten.aspx",
+        "GET /v/handles.aspx",
+        "GET /v/landing.aspx",
+        "GET /v/my.aspx",
+        "GET /v/my.aspx?go",
+        "GET /v/source.aspx",
+        "GET /v/target.aspx",
+        "GET /w/ajaxwizard.aspx",
+        "GET /w/cancelled.aspx",
+        "GET /w/finished.aspx",
+        "GET /w/multiview.aspx",
+        "GET /w/wizard.aspx",
+        "GET /w/wizarddest.aspx",
+        "GET /x/mastersource.aspx",
+        "GET /x/other/target.aspx",
+        "GET /x/source.aspx",
+        "GET /x/target.aspx",
+        "GET /y/async.aspx",
+        "GET /y/async.aspx?mode",
+        "GET /y/asyncvoid.aspx",
+        "GET /y/asyncvoid.aspx?mode",
+        "GET /y/download.aspx",
+        "GET /y/frames.aspx",
+        "GET /y/inner.aspx",
+        "GET /y/inner2.aspx",
+        "GET /y/landing.aspx",
+        "GET /y/opener.aspx",
+        "GET /y/popup.aspx",
+        "GET /y/redirect.ashx",
+        "GET /y/redirect.ashx?mode",
+        "GET /y/transfer.ashx",
+        "GET /y/transfer.ashx?mode"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Source.aspx",
+      "Status": 200,
+      "Title": "T/Source",
+      "Keys": [
+        "INPUT /t/source.aspx txt text",
+        "SUBMIT /t/source.aspx btnAshx",
+        "SUBMIT /t/source.aspx btnCatch",
+        "SUBMIT /t/source.aspx btnCatchAll",
+        "SUBMIT /t/source.aspx btnChain",
+        "SUBMIT /t/source.aspx btnFalse",
+        "SUBMIT /t/source.aspx btnHandler",
+        "SUBMIT /t/source.aspx btnMissing",
+        "SUBMIT /t/source.aspx btnQuery",
+        "SUBMIT /t/source.aspx btnRequest",
+        "SUBMIT /t/source.aspx btnTrue",
+        "SUBMIT /t/source.aspx btnWritten"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Chain1.aspx",
+      "Status": 200,
+      "Title": "T/Sub/Target",
+      "Keys": [
+        "GET /t/other.aspx",
+        "GET /t/sub/other.aspx",
+        "SUBMIT /t/chain1.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Sub/Other.aspx",
+      "Status": 200,
+      "Title": "T/Sub/Other",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx?mode=load",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx?mode=render",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx?mode=writer",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx?mode=ashx",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Sub/Other.aspx?from=execute",
+      "Status": 200,
+      "Title": "T/Sub/Other",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx?mode=transfer",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx?mode=throw",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx?mode=missing",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/X/Source.aspx",
+      "Status": 200,
+      "Title": "X/Source",
+      "Keys": [
+        "INPUT /x/source.aspx txtName text",
+        "SUBMIT /x/source.aspx btnHere",
+        "SUBMIT /x/source.aspx btnNoValidation",
+        "SUBMIT /x/source.aspx btnOther",
+        "SUBMIT /x/source.aspx btnQuery",
+        "SUBMIT /x/source.aspx btnSame"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/X/Target.aspx",
+      "Status": 200,
+      "Title": "X/Target",
+      "Keys": [
+        "SUBMIT /x/target.aspx btnBack"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/X/MasterSource.aspx",
+      "Status": 200,
+      "Title": "X/MasterSource",
+      "Keys": [
+        "GET /default.aspx",
+        "GET /masters/other.aspx",
+        "GET /x/other.aspx",
+        "GET /x/target.aspx",
+        "INPUT /x/mastersource.aspx ctl00$main$txtName text",
+        "SUBMIT /x/mastersource.aspx ctl00$main$btnCross"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreInit",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreInit",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=Init",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=Init",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=InitComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=InitComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreLoad",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreLoad",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=Load",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=Load",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Life.aspx?at=Click",
+      "Status": 200,
+      "Title": "R/Life",
+      "Keys": [
+        "SUBMIT /r/life.aspx btnGo"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Life.aspx?at=Click&end=false",
+      "Status": 200,
+      "Title": "R/Life",
+      "Keys": [
+        "SUBMIT /r/life.aspx btnGo"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=LoadComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=LoadComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreRender",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreRender",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreRenderComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreRenderComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=SaveStateComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=SaveStateComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=Render",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=Render",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Life.aspx?at=Unload",
+      "Status": 500,
+      "Title": "Response is not available in this context.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Life.aspx?at=Unload&end=false",
+      "Status": 500,
+      "Title": "Response is not available in this context.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=tae",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=side",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=ex",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=finally",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=written",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=flushed",
+      "Status": 200,
+      "Title": "Cannot redirect after HTTP headers have been sent.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=permanent",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=permanent-false",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/nav/3",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /nav/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav/3 btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/nav/4?extra=x%20y",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /nav/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav/4 btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/files/a/b%20c",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /files/a/plain.aspx",
+        "GET /nav/7",
+        "GET /u/plain.aspx",
+        "SUBMIT /files/a/b c btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=absolute-path",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?name=%E6%97%A5%E6%9C%AC%20%E8%AA%9E&pct=100%25&plus=a+b&amp=x&y",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?a=x%26y&b=%E6%97%A5&c=%2B",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/%E7%9D%80%E5%9C%B0.aspx?from=unicode-path",
+      "Status": 200,
+      "Title": "R/着地",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/With%20Space.aspx?from=space%20path",
+      "Status": 200,
+      "Title": "R/With Space",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=newline",
+      "Status": 500,
+      "Title": "Redirect URI cannot contain newline characters.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=empty",
+      "Status": 302,
+      "Title": "Object moved",
+      "Keys": [
+        "GET /r/cases.aspx?c"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=end",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=complete",
+      "Status": 200,
+      "Title": "R/Cases",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=false-complete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=status200",
+      "Status": 200,
+      "Title": "Object moved",
+      "Keys": [
+        "GET /r/landing.aspx?from"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=status301",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=status404",
+      "Status": 404,
+      "Title": "Object moved",
+      "Keys": [
+        "GET /r/landing.aspx?from"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=second",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=clear-headers",
+      "Status": 200,
+      "Title": "Object moved",
+      "Keys": [
+        "GET /r/landing.aspx?from"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=parent",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Sub/Landing.aspx?from=file",
+      "Status": 200,
+      "Title": "R/Sub/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Sub/Landing.aspx?from=dot",
+      "Status": 200,
+      "Title": "R/Sub/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=tilde",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Sub/?from=query-only",
+      "Status": 403,
+      "Title": "IIS 10.0 Detailed Error - 403.14 - Forbidden",
+      "Keys": [
+        "EXTERNAL https://go.microsoft.com/fwlink/"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Sub/",
+      "Status": 403,
+      "Title": "IIS 10.0 Detailed Error - 403.14 - Forbidden",
+      "Keys": [
+        "EXTERNAL https://go.microsoft.com/fwlink/"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Sub/Landing.aspx?from=query-frag",
+      "Status": 200,
+      "Title": "R/Sub/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Default.aspx?from=parent-parent",
+      "Status": 200,
+      "Title": "NavigationProbe",
+      "Keys": [
+        "GET /e/baddirective.aspx",
+        "GET /e/broken/throw.aspx",
+        "GET /e/compile.aspx",
+        "GET /e/http/nosuch.aspx",
+        "GET /e/http/skip404.aspx",
+        "GET /e/http/status404.aspx",
+        "GET /e/http404.aspx",
+        "GET /e/nosuchpage.aspx",
+        "GET /e/notfound.aspx",
+        "GET /e/oops.aspx",
+        "GET /e/parser.aspx",
+        "GET /e/plain/throw.aspx",
+        "GET /e/redirect/async.aspx",
+        "GET /e/redirect/asyncnoredirect.aspx",
+        "GET /e/redirect/http403.aspx",
+        "GET /e/redirect/http404.aspx",
+        "GET /e/redirect/missing.aspx",
+        "GET /e/redirect/throw.aspx",
+        "GET /e/rewrite/http404.aspx",
+        "GET /e/rewrite/missing.aspx",
+        "GET /e/rewrite/throw.aspx",
+        "GET /e/throw.aspx",
+        "GET /f/abandon.aspx",
+        "GET /f/admin/page.aspx",
+        "GET /f/login.aspx",
+        "GET /f/login.aspx?returnurl",
+        "GET /f/secure/page.aspx",
+        "GET /f/secure/page.aspx?a&b",
+        "GET /f/secure/page.aspx?a&b&c",
+        "GET /f/secure/public.aspx",
+        "GET /f/welcome.aspx",
+        "GET /files/a/b c",
+        "GET /files/x.txt",
+        "GET /g/acquire.aspx",
+        "GET /g/auth.aspx",
+        "GET /g/begin.aspx",
+        "GET /g/chain.aspx?n",
+        "GET /g/end.aspx",
+        "GET /g/errclear.aspx",
+        "GET /g/errexecute.aspx",
+        "GET /g/errredirect.aspx",
+        "GET /g/errredirectkeep.aspx",
+        "GET /g/errtransfer.aspx",
+        "GET /g/landing.aspx",
+        "GET /g/loopa.aspx",
+        "GET /g/module.aspx",
+        "GET /g/moduleend.aspx",
+        "GET /go/somewhere",
+        "GET /j/history.aspx",
+        "GET /j/landing.aspx",
+        "GET /j/methods.aspx",
+        "GET /j/nested.aspx",
+        "GET /j/panel.aspx",
+        "GET /j/service.asmx/js",
+        "GET /j/servicepage.aspx",
+        "GET /j/timer.aspx",
+        "GET /n/buttons.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/default.aspx",
+        "GET /n/imagemap.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /nav",
+        "GET /nav/5",
+        "GET /nav/abc",
+        "GET /p/changed.aspx",
+        "GET /p/chunk/big.aspx",
+        "GET /p/counter.aspx",
+        "GET /p/dynamic.aspx",
+        "GET /p/dynamic.aspx?recreate",
+        "GET /p/encrypted.aspx",
+        "GET /p/getstate.aspx",
+        "GET /p/novalidate.aspx",
+        "GET /p/order.aspx",
+        "GET /p/validate.aspx",
+        "GET /r/cases.aspx",
+        "GET /r/cases.aspx?c",
+        "GET /r/landing.aspx?from",
+        "GET /r/life.aspx",
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end",
+        "GET /r/sub/rel.aspx",
+        "GET /r/sub/rel.aspx?c",
+        "GET /secure/5",
+        "GET /t/chain1.aspx",
+        "GET /t/exec.aspx",
+        "GET /t/exec.aspx?mode",
+        "GET /t/part.aspx",
+        "GET /t/source.aspx",
+        "GET /t/sub/other.aspx",
+        "GET /t/sub/target.aspx",
+        "GET /u",
+        "GET /u/info.aspx/a b/日",
+        "GET /u/info.aspx/extra/more",
+        "GET /u/plain.aspx",
+        "GET /u/pretty/abc",
+        "GET /u/prettynorebase/abc",
+        "GET /u/prettyparts/abc",
+        "GET /u/query.aspx?&a&b&d",
+        "GET /u/query.aspx?a",
+        "GET /u/query.aspx?a&b&c",
+        "GET /u/query.aspx?a&b&c&d&e",
+        "GET /u/rewritten.aspx",
+        "GET /v/handles.aspx",
+        "GET /v/landing.aspx",
+        "GET /v/my.aspx",
+        "GET /v/my.aspx?go",
+        "GET /v/source.aspx",
+        "GET /v/target.aspx",
+        "GET /w/ajaxwizard.aspx",
+        "GET /w/cancelled.aspx",
+        "GET /w/finished.aspx",
+        "GET /w/multiview.aspx",
+        "GET /w/wizard.aspx",
+        "GET /w/wizarddest.aspx",
+        "GET /x/mastersource.aspx",
+        "GET /x/other/target.aspx",
+        "GET /x/source.aspx",
+        "GET /x/target.aspx",
+        "GET /y/async.aspx",
+        "GET /y/async.aspx?mode",
+        "GET /y/asyncvoid.aspx",
+        "GET /y/asyncvoid.aspx?mode",
+        "GET /y/download.aspx",
+        "GET /y/frames.aspx",
+        "GET /y/inner.aspx",
+        "GET /y/inner2.aspx",
+        "GET /y/landing.aspx",
+        "GET /y/opener.aspx",
+        "GET /y/popup.aspx",
+        "GET /y/redirect.ashx",
+        "GET /y/redirect.ashx?mode",
+        "GET /y/transfer.ashx",
+        "GET /y/transfer.ashx?mode"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx?from=begin",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx?from=authenticate",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx?from=acquire&session=True",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx?from=end",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx?from=module",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/ModuleEnd.aspx",
+      "Status": 200,
+      "Title": "module answered",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx?from=error&type=InvalidOperationException",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx?from=error-kept",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/ErrTransfer.aspx",
+      "Status": 200,
+      "Title": "G/Handled",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/ErrExecute.aspx",
+      "Status": 200,
+      "Title": "G/Handled",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/ErrClear.aspx",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Chain.aspx?n=0",
+      "Status": 200,
+      "Title": "G/Chain",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Oops.aspx?aspxerrorpath=/E/Redirect/Throw.aspx",
+      "Status": 200,
+      "Title": "E/Oops",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/NotFound.aspx?aspxerrorpath=/E/Redirect/Http404.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Oops.aspx?aspxerrorpath=/E/Redirect/Http403.aspx",
+      "Status": 200,
+      "Title": "E/Oops",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/NotFound.aspx?aspxerrorpath=/E/Redirect/Missing.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Rewrite/Throw.aspx",
+      "Status": 200,
+      "Title": "E/Oops",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Rewrite/Http404.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Rewrite/Missing.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Broken/Throw.aspx",
+      "Status": 500,
+      "Title": "Runtime Error",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Plain/Throw.aspx",
+      "Status": 500,
+      "Title": "Runtime Error",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Throw.aspx",
+      "Status": 500,
+      "Title": "the page failed on purpose",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Http404.aspx",
+      "Status": 404,
+      "Title": "nothing here (HttpException 404)",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/NoSuchPage.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Compile.aspx",
+      "Status": 500,
+      "Title": "Compilation Error",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Parser.aspx",
+      "Status": 500,
+      "Title": "Parser Error",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/BadDirective.aspx",
+      "Status": 500,
+      "Title": "Parser Error",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Http/Status404.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Http/Skip404.aspx",
+      "Status": 404,
+      "Title": "E/Http/Skip404",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Http/NoSuch.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Redirect/Async.aspx",
+      "Status": 200,
+      "Title": "E/Redirect/Async",
+      "Keys": [
+        "SUBMIT /e/redirect/async.aspx btnThrow"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Redirect/AsyncNoRedirect.aspx",
+      "Status": 200,
+      "Title": "E/Redirect/AsyncNoRedirect",
+      "Keys": [
+        "SUBMIT /e/redirect/asyncnoredirect.aspx btnThrow"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Secure/Page.aspx",
+      "Status": 200,
+      "Title": "F/Secure/Page",
+      "Keys": [
+        "SUBMIT /f/secure/page.aspx btnLogout",
+        "SUBMIT /f/secure/page.aspx btnToLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Secure/Page.aspx?a=1&b=%E6%97%A5%E6%9C%AC&c=x%26y",
+      "Status": 200,
+      "Title": "F/Secure/Page",
+      "Keys": [
+        "SUBMIT /f/secure/page.aspx btnLogout",
+        "SUBMIT /f/secure/page.aspx btnToLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/secure/5",
+      "Status": 200,
+      "Title": "F/Secure/Page",
+      "Keys": [
+        "SUBMIT /secure/5 btnLogout",
+        "SUBMIT /secure/5 btnToLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Secure/Public.aspx",
+      "Status": 200,
+      "Title": "F/Secure/Public",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Secure/Page.aspx?a=1&b=%E6%97%A5%E6%9C%AC",
+      "Status": 200,
+      "Title": "F/Secure/Page",
+      "Keys": [
+        "SUBMIT /f/secure/page.aspx btnLogout",
+        "SUBMIT /f/secure/page.aspx btnToLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Login.aspx?ReturnUrl=%2fF%2fAdmin%2fPage.aspx",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Login.aspx?ReturnUrl=http%3A%2F%2Fevil.example%2Fsteal",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Login.aspx?ReturnUrl=%2F%2Fevil.example%2Fx",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Login.aspx",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/Deep/Page.aspx",
+      "Status": 200,
+      "Title": "N/Deep/Page",
+      "Keys": [
+        "GET /default.aspx",
+        "GET /f/secure/page.aspx",
+        "GET /masters/other.aspx",
+        "GET /n/controls/sibling.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/deep/sibling.aspx",
+        "GET /n/default.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /t/source.aspx"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Abandon.aspx",
+      "Status": 200,
+      "Title": "F/Abandon",
+      "Keys": [
+        "INPUT /f/abandon.aspx txt text",
+        "SUBMIT /f/abandon.aspx btnAbandon",
+        "SUBMIT /f/abandon.aspx btnRead",
+        "SUBMIT /f/abandon.aspx btnSet"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Counter.aspx",
+      "Status": 200,
+      "Title": "P/Counter",
+      "Keys": [
+        "SUBMIT /p/counter.aspx btnInc"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Validate.aspx",
+      "Status": 200,
+      "Title": "P/Validate",
+      "Keys": [
+        "INPUT /p/validate.aspx ddl select",
+        "POSTBACK /p/validate.aspx lnk",
+        "SUBMIT /p/validate.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/NoValidate.aspx",
+      "Status": 200,
+      "Title": "P/NoValidate",
+      "Keys": [
+        "INPUT /p/novalidate.aspx ddl select",
+        "POSTBACK /p/novalidate.aspx lnk",
+        "SUBMIT /p/novalidate.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Dynamic.aspx",
+      "Status": 200,
+      "Title": "P/Dynamic",
+      "Keys": [
+        "INPUT /p/dynamic.aspx dynTxt text",
+        "SUBMIT /p/dynamic.aspx btnStatic",
+        "SUBMIT /p/dynamic.aspx dynBtn"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Dynamic.aspx?recreate=0",
+      "Status": 200,
+      "Title": "P/Dynamic",
+      "Keys": [
+        "INPUT /p/dynamic.aspx dynTxt text",
+        "SUBMIT /p/dynamic.aspx btnStatic",
+        "SUBMIT /p/dynamic.aspx dynBtn"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Order.aspx",
+      "Status": 200,
+      "Title": "P/Order",
+      "Keys": [
+        "INPUT /p/order.aspx chkFlip checkbox",
+        "SUBMIT /p/order.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Changed.aspx",
+      "Status": 200,
+      "Title": "P/Changed",
+      "Keys": [
+        "INPUT /p/changed.aspx chkSwap checkbox",
+        "INPUT /p/changed.aspx slot select",
+        "SUBMIT /p/changed.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Chunk/Big.aspx",
+      "Status": 200,
+      "Title": "P/Chunk/Big",
+      "Keys": [
+        "SUBMIT /p/chunk/big.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Encrypted.aspx",
+      "Status": 200,
+      "Title": "P/Encrypted",
+      "Keys": [
+        "SUBMIT /p/encrypted.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/GetState.aspx",
+      "Status": 200,
+      "Title": "P/GetState",
+      "Keys": [
+        "POSTBACK /p/getstate.aspx lnk"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/W/Wizard.aspx",
+      "Status": 200,
+      "Title": "W/Wizard",
+      "Keys": [
+        "GET /w/wizard.aspx",
+        "INPUT /w/wizard.aspx wiz$txtName text",
+        "SUBMIT /w/wizard.aspx btnJump",
+        "SUBMIT /w/wizard.aspx wiz$StartNavigationTemplateContainerID$CancelButton",
+        "SUBMIT /w/wizard.aspx wiz$StartNavigationTemplateContainerID$StartNextButton"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/W/WizardDest.aspx",
+      "Status": 200,
+      "Title": "W/WizardDest",
+      "Keys": [
+        "SUBMIT /w/wizarddest.aspx wiz$StartNavigationTemplateContainerID$StartNextButton"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/W/MultiView.aspx",
+      "Status": 200,
+      "Title": "W/MultiView",
+      "Keys": [
+        "SUBMIT /w/multiview.aspx btnToThree",
+        "SUBMIT /w/multiview.aspx next1"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/W/AjaxWizard.aspx",
+      "Status": 200,
+      "Title": "W/AjaxWizard",
+      "Keys": [
+        "GET /w/ajaxwizard.aspx",
+        "POSTBACK /w/ajaxwizard.aspx wiz$SideBarContainer$SideBarList$ctl00$SideBarButton",
+        "POSTBACK /w/ajaxwizard.aspx wiz$SideBarContainer$SideBarList$ctl01$SideBarButton",
+        "POSTBACK /w/ajaxwizard.aspx wiz$SideBarContainer$SideBarList$ctl02$SideBarButton",
+        "SUBMIT /w/ajaxwizard.aspx wiz$StartNavigationTemplateContainerID$StartNextButton"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/Panel.aspx",
+      "Status": 200,
+      "Title": "J/Panel",
+      "Keys": [
+        "SUBMIT /j/panel.aspx btnEnd",
+        "SUBMIT /j/panel.aspx btnFull",
+        "SUBMIT /j/panel.aspx btnOutside",
+        "SUBMIT /j/panel.aspx btnPlain",
+        "SUBMIT /j/panel.aspx btnRedirect",
+        "SUBMIT /j/panel.aspx btnSlow",
+        "SUBMIT /j/panel.aspx btnThrow",
+        "SUBMIT /j/panel.aspx btnTransfer",
+        "SUBMIT /j/panel.aspx btnUpdate",
+        "SUBMIT /j/panel.aspx btnWrite"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/Nested.aspx",
+      "Status": 200,
+      "Title": "J/Nested",
+      "Keys": [
+        "SUBMIT /j/nested.aspx btnInner",
+        "SUBMIT /j/nested.aspx btnOuter",
+        "SUBMIT /j/nested.aspx btnThree",
+        "SUBMIT /j/nested.aspx btnUpdate3"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/History.aspx",
+      "Status": 200,
+      "Title": "J/History",
+      "Keys": [
+        "SUBMIT /j/history.aspx btnStep2",
+        "SUBMIT /j/history.aspx btnStep3"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/Timer.aspx",
+      "Status": 200,
+      "Title": "J/Timer",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/Methods.aspx",
+      "Status": 200,
+      "Title": "J/Methods",
+      "Keys": [
+        "SUBMIT /j/methods.aspx #btnEcho",
+        "SUBMIT /j/methods.aspx #btnFails",
+        "SUBMIT /j/methods.aspx #btnRedirects"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/ServicePage.aspx",
+      "Status": 200,
+      "Title": "J/ServicePage",
+      "Keys": [
+        "SUBMIT /j/servicepage.aspx #btnHello"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/Service.asmx/js",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/nav/5",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /nav/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav/5 btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/nav",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/nav/abc",
+      "Status": 404,
+      "Title": "IIS 10.0 Detailed Error - 404.0 - Not Found",
+      "Keys": [
+        "EXTERNAL http://go.microsoft.com/fwlink/",
+        "EXTERNAL https://go.microsoft.com/fwlink/"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/files/a/b%20c",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /files/a/plain.aspx",
+        "GET /nav/7",
+        "GET /u/plain.aspx",
+        "SUBMIT /files/a/b c btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/files/x.txt",
+      "Status": 404,
+      "Title": "IIS 10.0 Detailed Error - 404.0 - Not Found",
+      "Keys": [
+        "EXTERNAL http://go.microsoft.com/fwlink/",
+        "EXTERNAL https://go.microsoft.com/fwlink/"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/go/somewhere",
+      "Status": 200,
+      "Title": "U/Plain",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Info.aspx/extra/more",
+      "Status": 200,
+      "Title": "U/Info",
+      "Keys": [
+        "GET /u/info.aspx/extra/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /u/info.aspx/extra/more btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Info.aspx/a%20b/%E6%97%A5",
+      "Status": 200,
+      "Title": "U/Info",
+      "Keys": [
+        "GET /u/info.aspx/a b/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /u/info.aspx/a b/日 btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/",
+      "Status": 200,
+      "Title": "U/Default (default document)",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/",
+      "Status": 200,
+      "Title": "U/Default (default document)",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Pretty/abc",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/pretty/plain.aspx",
+        "SUBMIT /u/pretty/abc btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/PrettyNoRebase/abc",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/plain.aspx",
+        "SUBMIT /u/prettynorebase/abc btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/PrettyParts/abc",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/plain.aspx",
+        "SUBMIT /u/prettyparts/abc btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Query.aspx?a=1&a=2&a=",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Query.aspx?a=&b&=c&&d=",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Query.aspx?a=x%26y&b=%E6%97%A5&c=a+b&d=%2B&e=%3D",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Query.aspx?a=%25ZZ&b=%25u65E5&c=%E6%97",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/u/QUERY.aspx?a=1",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/Menu.aspx",
+      "Status": 200,
+      "Title": "N/Menu",
+      "Keys": [
+        "GET /n/deep/page.aspx",
+        "GET /n/menu.aspx",
+        "POSTBACK /n/menu.aspx menuItems",
+        "POSTBACK /n/menu.aspx tvItems"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/ImageMap.aspx",
+      "Status": 200,
+      "Title": "N/ImageMap",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/Buttons.aspx",
+      "Status": 200,
+      "Title": "N/Buttons",
+      "Keys": [
+        "INPUT /n/buttons.aspx txtAfter text",
+        "INPUT /n/buttons.aspx txtFocus text",
+        "INPUT /n/buttons.aspx txtPanel text",
+        "POSTBACK /n/buttons.aspx lnkConfirm",
+        "POSTBACK /n/buttons.aspx lnkFalse",
+        "SUBMIT /n/buttons.aspx btnBottom",
+        "SUBMIT /n/buttons.aspx btnFalse",
+        "SUBMIT /n/buttons.aspx btnFocus",
+        "SUBMIT /n/buttons.aspx btnForm",
+        "SUBMIT /n/buttons.aspx btnPanel"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx?from=async-task",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx?from=async-task-false",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Async.aspx?mode=transfer",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Async.aspx?mode=throw",
+      "Status": 500,
+      "Title": "the async task failed",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Async.aspx",
+      "Status": 200,
+      "Title": "Y/Async",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx?from=async-void",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/AsyncVoid.aspx",
+      "Status": 200,
+      "Title": "Y/AsyncVoid",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx?from=ashx",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx?from=ashx-permanent",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx?from=ashx-false",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Transfer.ashx",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Transfer.ashx?mode=execute",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Download.aspx",
+      "Status": 200,
+      "Title": "Y/Download",
+      "Keys": [
+        "POSTBACK /y/download.aspx lnkAfter",
+        "POSTBACK /y/download.aspx lnkDownload",
+        "SUBMIT /y/download.aspx btnAfter",
+        "SUBMIT /y/download.aspx btnDownload",
+        "SUBMIT /y/download.aspx btnUnicode"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Opener.aspx",
+      "Status": 200,
+      "Title": "Y/Opener",
+      "Keys": [
+        "GET /y/popup.aspx?via",
+        "SUBMIT /y/opener.aspx #btnOpen",
+        "SUBMIT /y/opener.aspx btnBlank",
+        "SUBMIT /y/opener.aspx btnNormal"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Frames.aspx",
+      "Status": 200,
+      "Title": "Y/Frames",
+      "Keys": [
+        "GET /y/inner2.aspx?via"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/V/Handles.aspx",
+      "Status": 200,
+      "Title": "V/Handles",
+      "Keys": [
+        "SUBMIT /v/handles.aspx btnCatch",
+        "SUBMIT /v/handles.aspx btnGo",
+        "SUBMIT /v/handles.aspx btnTransfer"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/V/Landing.aspx",
+      "Status": 200,
+      "Title": "V/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/V/My.aspx",
+      "Status": 200,
+      "Title": "V/My",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/V/Landing.aspx?from=vb-my",
+      "Status": 200,
+      "Title": "V/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/V/Source.aspx",
+      "Status": 200,
+      "Title": "V/Source",
+      "Keys": [
+        "INPUT /v/source.aspx txt text",
+        "SUBMIT /v/source.aspx btnCross"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Sub/Target.aspx",
+      "Status": 200,
+      "Title": "T/Sub/Target",
+      "Keys": [
+        "GET /t/sub/other.aspx",
+        "SUBMIT /t/sub/target.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/X/Other/Target.aspx",
+      "Status": 200,
+      "Title": "X/Other/Target",
+      "Keys": [
+        "GET /x/other/target.aspx",
+        "GET /x/source.aspx"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Life.aspx",
+      "Status": 200,
+      "Title": "R/Life",
+      "Keys": [
+        "SUBMIT /r/life.aspx btnGo"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx",
+      "Status": 200,
+      "Title": "R/Cases",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Sub/Rel.aspx",
+      "Status": 200,
+      "Title": "R/Sub/Rel",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Oops.aspx",
+      "Status": 200,
+      "Title": "E/Oops",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/NotFound.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Welcome.aspx",
+      "Status": 200,
+      "Title": "F/Welcome",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/W/Cancelled.aspx",
+      "Status": 200,
+      "Title": "W/Cancelled",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/W/Finished.aspx",
+      "Status": 200,
+      "Title": "W/Finished",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/Landing.aspx",
+      "Status": 200,
+      "Title": "J/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Plain.aspx",
+      "Status": 200,
+      "Title": "U/Plain",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Rewritten.aspx",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/plain.aspx",
+        "SUBMIT /u/rewritten.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/Default.aspx",
+      "Status": 200,
+      "Title": "N/Default",
+      "Keys": [
+        "GET /default.aspx",
+        "GET /f/secure/page.aspx",
+        "GET /masters/other.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/default.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /t/source.aspx"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/RolesOnly.aspx",
+      "Status": 200,
+      "Title": "N/RolesOnly",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Inner.aspx",
+      "Status": 200,
+      "Title": "Y/Inner",
+      "Keys": [
+        "GET /y/landing.aspx?from",
+        "SUBMIT /y/inner.aspx btnInc",
+        "SUBMIT /y/inner.aspx btnRedirect",
+        "SUBMIT /y/inner.aspx btnTop"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Inner2.aspx",
+      "Status": 200,
+      "Title": "Y/Inner2",
+      "Keys": [
+        "SUBMIT /y/inner2.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Popup.aspx",
+      "Status": 200,
+      "Title": "Y/Popup",
+      "Keys": [
+        "SUBMIT /y/popup.aspx btnTell"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/V/Target.aspx",
+      "Status": 200,
+      "Title": "V/Target",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Part.aspx",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Other.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Masters/Other.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/X/Other.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Default.aspx",
+      "Status": 200,
+      "Title": "NavigationProbe",
+      "Keys": [
+        "GET /e/baddirective.aspx",
+        "GET /e/broken/throw.aspx",
+        "GET /e/compile.aspx",
+        "GET /e/http/nosuch.aspx",
+        "GET /e/http/skip404.aspx",
+        "GET /e/http/status404.aspx",
+        "GET /e/http404.aspx",
+        "GET /e/nosuchpage.aspx",
+        "GET /e/notfound.aspx",
+        "GET /e/oops.aspx",
+        "GET /e/parser.aspx",
+        "GET /e/plain/throw.aspx",
+        "GET /e/redirect/async.aspx",
+        "GET /e/redirect/asyncnoredirect.aspx",
+        "GET /e/redirect/http403.aspx",
+        "GET /e/redirect/http404.aspx",
+        "GET /e/redirect/missing.aspx",
+        "GET /e/redirect/throw.aspx",
+        "GET /e/rewrite/http404.aspx",
+        "GET /e/rewrite/missing.aspx",
+        "GET /e/rewrite/throw.aspx",
+        "GET /e/throw.aspx",
+        "GET /f/abandon.aspx",
+        "GET /f/admin/page.aspx",
+        "GET /f/login.aspx",
+        "GET /f/login.aspx?returnurl",
+        "GET /f/secure/page.aspx",
+        "GET /f/secure/page.aspx?a&b",
+        "GET /f/secure/page.aspx?a&b&c",
+        "GET /f/secure/public.aspx",
+        "GET /f/welcome.aspx",
+        "GET /files/a/b c",
+        "GET /files/x.txt",
+        "GET /g/acquire.aspx",
+        "GET /g/auth.aspx",
+        "GET /g/begin.aspx",
+        "GET /g/chain.aspx?n",
+        "GET /g/end.aspx",
+        "GET /g/errclear.aspx",
+        "GET /g/errexecute.aspx",
+        "GET /g/errredirect.aspx",
+        "GET /g/errredirectkeep.aspx",
+        "GET /g/errtransfer.aspx",
+        "GET /g/landing.aspx",
+        "GET /g/loopa.aspx",
+        "GET /g/module.aspx",
+        "GET /g/moduleend.aspx",
+        "GET /go/somewhere",
+        "GET /j/history.aspx",
+        "GET /j/landing.aspx",
+        "GET /j/methods.aspx",
+        "GET /j/nested.aspx",
+        "GET /j/panel.aspx",
+        "GET /j/service.asmx/js",
+        "GET /j/servicepage.aspx",
+        "GET /j/timer.aspx",
+        "GET /n/buttons.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/default.aspx",
+        "GET /n/imagemap.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /nav",
+        "GET /nav/5",
+        "GET /nav/abc",
+        "GET /p/changed.aspx",
+        "GET /p/chunk/big.aspx",
+        "GET /p/counter.aspx",
+        "GET /p/dynamic.aspx",
+        "GET /p/dynamic.aspx?recreate",
+        "GET /p/encrypted.aspx",
+        "GET /p/getstate.aspx",
+        "GET /p/novalidate.aspx",
+        "GET /p/order.aspx",
+        "GET /p/validate.aspx",
+        "GET /r/cases.aspx",
+        "GET /r/cases.aspx?c",
+        "GET /r/landing.aspx?from",
+        "GET /r/life.aspx",
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end",
+        "GET /r/sub/rel.aspx",
+        "GET /r/sub/rel.aspx?c",
+        "GET /secure/5",
+        "GET /t/chain1.aspx",
+        "GET /t/exec.aspx",
+        "GET /t/exec.aspx?mode",
+        "GET /t/part.aspx",
+        "GET /t/source.aspx",
+        "GET /t/sub/other.aspx",
+        "GET /t/sub/target.aspx",
+        "GET /u",
+        "GET /u/info.aspx/a b/日",
+        "GET /u/info.aspx/extra/more",
+        "GET /u/plain.aspx",
+        "GET /u/pretty/abc",
+        "GET /u/prettynorebase/abc",
+        "GET /u/prettyparts/abc",
+        "GET /u/query.aspx?&a&b&d",
+        "GET /u/query.aspx?a",
+        "GET /u/query.aspx?a&b&c",
+        "GET /u/query.aspx?a&b&c&d&e",
+        "GET /u/rewritten.aspx",
+        "GET /v/handles.aspx",
+        "GET /v/landing.aspx",
+        "GET /v/my.aspx",
+        "GET /v/my.aspx?go",
+        "GET /v/source.aspx",
+        "GET /v/target.aspx",
+        "GET /w/ajaxwizard.aspx",
+        "GET /w/cancelled.aspx",
+        "GET /w/finished.aspx",
+        "GET /w/multiview.aspx",
+        "GET /w/wizard.aspx",
+        "GET /w/wizarddest.aspx",
+        "GET /x/mastersource.aspx",
+        "GET /x/other/target.aspx",
+        "GET /x/source.aspx",
+        "GET /x/target.aspx",
+        "GET /y/async.aspx",
+        "GET /y/async.aspx?mode",
+        "GET /y/asyncvoid.aspx",
+        "GET /y/asyncvoid.aspx?mode",
+        "GET /y/download.aspx",
+        "GET /y/frames.aspx",
+        "GET /y/inner.aspx",
+        "GET /y/inner2.aspx",
+        "GET /y/landing.aspx",
+        "GET /y/opener.aspx",
+        "GET /y/popup.aspx",
+        "GET /y/redirect.ashx",
+        "GET /y/redirect.ashx?mode",
+        "GET /y/transfer.ashx",
+        "GET /y/transfer.ashx?mode"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/nav/7",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /nav/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav/7 btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/nav/Plain.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/files/a/Plain.aspx",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /files/a/plain.aspx",
+        "GET /nav/7",
+        "GET /u/plain.aspx",
+        "SUBMIT /files/a/plain.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=status200",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=status404",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=clear-headers",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/Controls/Sibling.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/Deep/Sibling.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Plain.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Info.aspx/extra/Plain.aspx",
+      "Status": 200,
+      "Title": "U/Info",
+      "Keys": [
+        "GET /u/info.aspx/extra/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /u/info.aspx/extra/plain.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Info.aspx/a%20b/Plain.aspx",
+      "Status": 200,
+      "Title": "U/Info",
+      "Keys": [
+        "GET /u/info.aspx/a b/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /u/info.aspx/a b/plain.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Pretty/Plain.aspx",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/pretty/plain.aspx",
+        "SUBMIT /u/pretty/plain.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Popup.aspx?via=link",
+      "Status": 200,
+      "Title": "Y/Popup",
+      "Keys": [
+        "SUBMIT /y/popup.aspx btnTell"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Inner2.aspx?via=target",
+      "Status": 200,
+      "Title": "Y/Inner2",
+      "Keys": [
+        "SUBMIT /y/inner2.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx?from=frame-top",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/",
+      "Status": 200,
+      "Title": "NavigationProbe",
+      "Keys": [
+        "GET /e/baddirective.aspx",
+        "GET /e/broken/throw.aspx",
+        "GET /e/compile.aspx",
+        "GET /e/http/nosuch.aspx",
+        "GET /e/http/skip404.aspx",
+        "GET /e/http/status404.aspx",
+        "GET /e/http404.aspx",
+        "GET /e/nosuchpage.aspx",
+        "GET /e/notfound.aspx",
+        "GET /e/oops.aspx",
+        "GET /e/parser.aspx",
+        "GET /e/plain/throw.aspx",
+        "GET /e/redirect/async.aspx",
+        "GET /e/redirect/asyncnoredirect.aspx",
+        "GET /e/redirect/http403.aspx",
+        "GET /e/redirect/http404.aspx",
+        "GET /e/redirect/missing.aspx",
+        "GET /e/redirect/throw.aspx",
+        "GET /e/rewrite/http404.aspx",
+        "GET /e/rewrite/missing.aspx",
+        "GET /e/rewrite/throw.aspx",
+        "GET /e/throw.aspx",
+        "GET /f/abandon.aspx",
+        "GET /f/admin/page.aspx",
+        "GET /f/login.aspx",
+        "GET /f/login.aspx?returnurl",
+        "GET /f/secure/page.aspx",
+        "GET /f/secure/page.aspx?a&b",
+        "GET /f/secure/page.aspx?a&b&c",
+        "GET /f/secure/public.aspx",
+        "GET /f/welcome.aspx",
+        "GET /files/a/b c",
+        "GET /files/x.txt",
+        "GET /g/acquire.aspx",
+        "GET /g/auth.aspx",
+        "GET /g/begin.aspx",
+        "GET /g/chain.aspx?n",
+        "GET /g/end.aspx",
+        "GET /g/errclear.aspx",
+        "GET /g/errexecute.aspx",
+        "GET /g/errredirect.aspx",
+        "GET /g/errredirectkeep.aspx",
+        "GET /g/errtransfer.aspx",
+        "GET /g/landing.aspx",
+        "GET /g/loopa.aspx",
+        "GET /g/module.aspx",
+        "GET /g/moduleend.aspx",
+        "GET /go/somewhere",
+        "GET /j/history.aspx",
+        "GET /j/landing.aspx",
+        "GET /j/methods.aspx",
+        "GET /j/nested.aspx",
+        "GET /j/panel.aspx",
+        "GET /j/service.asmx/js",
+        "GET /j/servicepage.aspx",
+        "GET /j/timer.aspx",
+        "GET /n/buttons.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/default.aspx",
+        "GET /n/imagemap.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /nav",
+        "GET /nav/5",
+        "GET /nav/abc",
+        "GET /p/changed.aspx",
+        "GET /p/chunk/big.aspx",
+        "GET /p/counter.aspx",
+        "GET /p/dynamic.aspx",
+        "GET /p/dynamic.aspx?recreate",
+        "GET /p/encrypted.aspx",
+        "GET /p/getstate.aspx",
+        "GET /p/novalidate.aspx",
+        "GET /p/order.aspx",
+        "GET /p/validate.aspx",
+        "GET /r/cases.aspx",
+        "GET /r/cases.aspx?c",
+        "GET /r/landing.aspx?from",
+        "GET /r/life.aspx",
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end",
+        "GET /r/sub/rel.aspx",
+        "GET /r/sub/rel.aspx?c",
+        "GET /secure/5",
+        "GET /t/chain1.aspx",
+        "GET /t/exec.aspx",
+        "GET /t/exec.aspx?mode",
+        "GET /t/part.aspx",
+        "GET /t/source.aspx",
+        "GET /t/sub/other.aspx",
+        "GET /t/sub/target.aspx",
+        "GET /u",
+        "GET /u/info.aspx/a b/日",
+        "GET /u/info.aspx/extra/more",
+        "GET /u/plain.aspx",
+        "GET /u/pretty/abc",
+        "GET /u/prettynorebase/abc",
+        "GET /u/prettyparts/abc",
+        "GET /u/query.aspx?&a&b&d",
+        "GET /u/query.aspx?a",
+        "GET /u/query.aspx?a&b&c",
+        "GET /u/query.aspx?a&b&c&d&e",
+        "GET /u/rewritten.aspx",
+        "GET /v/handles.aspx",
+        "GET /v/landing.aspx",
+        "GET /v/my.aspx",
+        "GET /v/my.aspx?go",
+        "GET /v/source.aspx",
+        "GET /v/target.aspx",
+        "GET /w/ajaxwizard.aspx",
+        "GET /w/cancelled.aspx",
+        "GET /w/finished.aspx",
+        "GET /w/multiview.aspx",
+        "GET /w/wizard.aspx",
+        "GET /w/wizarddest.aspx",
+        "GET /x/mastersource.aspx",
+        "GET /x/other/target.aspx",
+        "GET /x/source.aspx",
+        "GET /x/target.aspx",
+        "GET /y/async.aspx",
+        "GET /y/async.aspx?mode",
+        "GET /y/asyncvoid.aspx",
+        "GET /y/asyncvoid.aspx?mode",
+        "GET /y/download.aspx",
+        "GET /y/frames.aspx",
+        "GET /y/inner.aspx",
+        "GET /y/inner2.aspx",
+        "GET /y/landing.aspx",
+        "GET /y/opener.aspx",
+        "GET /y/popup.aspx",
+        "GET /y/redirect.ashx",
+        "GET /y/redirect.ashx?mode",
+        "GET /y/transfer.ashx",
+        "GET /y/transfer.ashx?mode"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Source.aspx",
+      "Status": 200,
+      "Title": "T/Source",
+      "Keys": [
+        "INPUT /t/source.aspx txt text",
+        "SUBMIT /t/source.aspx btnAshx",
+        "SUBMIT /t/source.aspx btnCatch",
+        "SUBMIT /t/source.aspx btnCatchAll",
+        "SUBMIT /t/source.aspx btnChain",
+        "SUBMIT /t/source.aspx btnFalse",
+        "SUBMIT /t/source.aspx btnHandler",
+        "SUBMIT /t/source.aspx btnMissing",
+        "SUBMIT /t/source.aspx btnQuery",
+        "SUBMIT /t/source.aspx btnRequest",
+        "SUBMIT /t/source.aspx btnTrue",
+        "SUBMIT /t/source.aspx btnWritten"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Chain1.aspx",
+      "Status": 200,
+      "Title": "T/Sub/Target",
+      "Keys": [
+        "GET /t/other.aspx",
+        "GET /t/sub/other.aspx",
+        "SUBMIT /t/chain1.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Sub/Other.aspx",
+      "Status": 200,
+      "Title": "T/Sub/Other",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx?mode=load",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx?mode=render",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx?mode=writer",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx?mode=ashx",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Sub/Other.aspx?from=execute",
+      "Status": 200,
+      "Title": "T/Sub/Other",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx?mode=transfer",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx?mode=throw",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx?mode=missing",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Exec.aspx",
+      "Status": 200,
+      "Title": "T/Exec",
+      "Keys": [
+        "INPUT /t/exec.aspx txt text",
+        "SUBMIT /t/exec.aspx btnNoPreserve",
+        "SUBMIT /t/exec.aspx btnPreserve"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/X/Source.aspx",
+      "Status": 200,
+      "Title": "X/Source",
+      "Keys": [
+        "INPUT /x/source.aspx txtName text",
+        "SUBMIT /x/source.aspx btnHere",
+        "SUBMIT /x/source.aspx btnNoValidation",
+        "SUBMIT /x/source.aspx btnOther",
+        "SUBMIT /x/source.aspx btnQuery",
+        "SUBMIT /x/source.aspx btnSame"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/X/Target.aspx",
+      "Status": 200,
+      "Title": "X/Target",
+      "Keys": [
+        "SUBMIT /x/target.aspx btnBack"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/X/MasterSource.aspx",
+      "Status": 200,
+      "Title": "X/MasterSource",
+      "Keys": [
+        "GET /default.aspx",
+        "GET /masters/other.aspx",
+        "GET /x/other.aspx",
+        "GET /x/target.aspx",
+        "INPUT /x/mastersource.aspx ctl00$main$txtName text",
+        "SUBMIT /x/mastersource.aspx ctl00$main$btnCross"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreInit",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreInit",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=Init",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=Init",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=InitComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=InitComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreLoad",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreLoad",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=Load",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=Load",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Life.aspx?at=Click",
+      "Status": 200,
+      "Title": "R/Life",
+      "Keys": [
+        "SUBMIT /r/life.aspx btnGo"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Life.aspx?at=Click&end=false",
+      "Status": 200,
+      "Title": "R/Life",
+      "Keys": [
+        "SUBMIT /r/life.aspx btnGo"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=LoadComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=LoadComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreRender",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreRender",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreRenderComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=PreRenderComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=SaveStateComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=SaveStateComplete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=Render",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=Render",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Life.aspx?at=Unload",
+      "Status": 500,
+      "Title": "Response is not available in this context.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Life.aspx?at=Unload&end=false",
+      "Status": 500,
+      "Title": "Response is not available in this context.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=tae",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=side",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=ex",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=finally",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=written",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=flushed",
+      "Status": 200,
+      "Title": "Cannot redirect after HTTP headers have been sent.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=permanent",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=permanent-false",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/nav/3",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /nav/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav/3 btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/nav/4?extra=x%20y",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /nav/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav/4 btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/files/a/b%20c",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /files/a/plain.aspx",
+        "GET /nav/7",
+        "GET /u/plain.aspx",
+        "SUBMIT /files/a/b c btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=absolute-path",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?name=%E6%97%A5%E6%9C%AC%20%E8%AA%9E&pct=100%25&plus=a+b&amp=x&y",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?a=x%26y&b=%E6%97%A5&c=%2B",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/%E7%9D%80%E5%9C%B0.aspx?from=unicode-path",
+      "Status": 200,
+      "Title": "R/着地",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/With%20Space.aspx?from=space%20path",
+      "Status": 200,
+      "Title": "R/With Space",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=newline",
+      "Status": 500,
+      "Title": "Redirect URI cannot contain newline characters.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=empty",
+      "Status": 302,
+      "Title": "Object moved",
+      "Keys": [
+        "GET /r/cases.aspx?c"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=end",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=complete",
+      "Status": 200,
+      "Title": "R/Cases",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=false-complete",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=status200",
+      "Status": 200,
+      "Title": "Object moved",
+      "Keys": [
+        "GET /r/landing.aspx?from"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=status301",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=status404",
+      "Status": 404,
+      "Title": "Object moved",
+      "Keys": [
+        "GET /r/landing.aspx?from"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=second",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx?c=clear-headers",
+      "Status": 200,
+      "Title": "Object moved",
+      "Keys": [
+        "GET /r/landing.aspx?from"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=parent",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Sub/Landing.aspx?from=file",
+      "Status": 200,
+      "Title": "R/Sub/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Sub/Landing.aspx?from=dot",
+      "Status": 200,
+      "Title": "R/Sub/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=tilde",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Sub/?from=query-only",
+      "Status": 403,
+      "Title": "IIS 10.0 Detailed Error - 403.14 - Forbidden",
+      "Keys": [
+        "EXTERNAL https://go.microsoft.com/fwlink/"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Sub/",
+      "Status": 403,
+      "Title": "IIS 10.0 Detailed Error - 403.14 - Forbidden",
+      "Keys": [
+        "EXTERNAL https://go.microsoft.com/fwlink/"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Sub/Landing.aspx?from=query-frag",
+      "Status": 200,
+      "Title": "R/Sub/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Default.aspx?from=parent-parent",
+      "Status": 200,
+      "Title": "NavigationProbe",
+      "Keys": [
+        "GET /e/baddirective.aspx",
+        "GET /e/broken/throw.aspx",
+        "GET /e/compile.aspx",
+        "GET /e/http/nosuch.aspx",
+        "GET /e/http/skip404.aspx",
+        "GET /e/http/status404.aspx",
+        "GET /e/http404.aspx",
+        "GET /e/nosuchpage.aspx",
+        "GET /e/notfound.aspx",
+        "GET /e/oops.aspx",
+        "GET /e/parser.aspx",
+        "GET /e/plain/throw.aspx",
+        "GET /e/redirect/async.aspx",
+        "GET /e/redirect/asyncnoredirect.aspx",
+        "GET /e/redirect/http403.aspx",
+        "GET /e/redirect/http404.aspx",
+        "GET /e/redirect/missing.aspx",
+        "GET /e/redirect/throw.aspx",
+        "GET /e/rewrite/http404.aspx",
+        "GET /e/rewrite/missing.aspx",
+        "GET /e/rewrite/throw.aspx",
+        "GET /e/throw.aspx",
+        "GET /f/abandon.aspx",
+        "GET /f/admin/page.aspx",
+        "GET /f/login.aspx",
+        "GET /f/login.aspx?returnurl",
+        "GET /f/secure/page.aspx",
+        "GET /f/secure/page.aspx?a&b",
+        "GET /f/secure/page.aspx?a&b&c",
+        "GET /f/secure/public.aspx",
+        "GET /f/welcome.aspx",
+        "GET /files/a/b c",
+        "GET /files/x.txt",
+        "GET /g/acquire.aspx",
+        "GET /g/auth.aspx",
+        "GET /g/begin.aspx",
+        "GET /g/chain.aspx?n",
+        "GET /g/end.aspx",
+        "GET /g/errclear.aspx",
+        "GET /g/errexecute.aspx",
+        "GET /g/errredirect.aspx",
+        "GET /g/errredirectkeep.aspx",
+        "GET /g/errtransfer.aspx",
+        "GET /g/landing.aspx",
+        "GET /g/loopa.aspx",
+        "GET /g/module.aspx",
+        "GET /g/moduleend.aspx",
+        "GET /go/somewhere",
+        "GET /j/history.aspx",
+        "GET /j/landing.aspx",
+        "GET /j/methods.aspx",
+        "GET /j/nested.aspx",
+        "GET /j/panel.aspx",
+        "GET /j/service.asmx/js",
+        "GET /j/servicepage.aspx",
+        "GET /j/timer.aspx",
+        "GET /n/buttons.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/default.aspx",
+        "GET /n/imagemap.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /nav",
+        "GET /nav/5",
+        "GET /nav/abc",
+        "GET /p/changed.aspx",
+        "GET /p/chunk/big.aspx",
+        "GET /p/counter.aspx",
+        "GET /p/dynamic.aspx",
+        "GET /p/dynamic.aspx?recreate",
+        "GET /p/encrypted.aspx",
+        "GET /p/getstate.aspx",
+        "GET /p/novalidate.aspx",
+        "GET /p/order.aspx",
+        "GET /p/validate.aspx",
+        "GET /r/cases.aspx",
+        "GET /r/cases.aspx?c",
+        "GET /r/landing.aspx?from",
+        "GET /r/life.aspx",
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end",
+        "GET /r/sub/rel.aspx",
+        "GET /r/sub/rel.aspx?c",
+        "GET /secure/5",
+        "GET /t/chain1.aspx",
+        "GET /t/exec.aspx",
+        "GET /t/exec.aspx?mode",
+        "GET /t/part.aspx",
+        "GET /t/source.aspx",
+        "GET /t/sub/other.aspx",
+        "GET /t/sub/target.aspx",
+        "GET /u",
+        "GET /u/info.aspx/a b/日",
+        "GET /u/info.aspx/extra/more",
+        "GET /u/plain.aspx",
+        "GET /u/pretty/abc",
+        "GET /u/prettynorebase/abc",
+        "GET /u/prettyparts/abc",
+        "GET /u/query.aspx?&a&b&d",
+        "GET /u/query.aspx?a",
+        "GET /u/query.aspx?a&b&c",
+        "GET /u/query.aspx?a&b&c&d&e",
+        "GET /u/rewritten.aspx",
+        "GET /v/handles.aspx",
+        "GET /v/landing.aspx",
+        "GET /v/my.aspx",
+        "GET /v/my.aspx?go",
+        "GET /v/source.aspx",
+        "GET /v/target.aspx",
+        "GET /w/ajaxwizard.aspx",
+        "GET /w/cancelled.aspx",
+        "GET /w/finished.aspx",
+        "GET /w/multiview.aspx",
+        "GET /w/wizard.aspx",
+        "GET /w/wizarddest.aspx",
+        "GET /x/mastersource.aspx",
+        "GET /x/other/target.aspx",
+        "GET /x/source.aspx",
+        "GET /x/target.aspx",
+        "GET /y/async.aspx",
+        "GET /y/async.aspx?mode",
+        "GET /y/asyncvoid.aspx",
+        "GET /y/asyncvoid.aspx?mode",
+        "GET /y/download.aspx",
+        "GET /y/frames.aspx",
+        "GET /y/inner.aspx",
+        "GET /y/inner2.aspx",
+        "GET /y/landing.aspx",
+        "GET /y/opener.aspx",
+        "GET /y/popup.aspx",
+        "GET /y/redirect.ashx",
+        "GET /y/redirect.ashx?mode",
+        "GET /y/transfer.ashx",
+        "GET /y/transfer.ashx?mode"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx?from=begin",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx?from=authenticate",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx?from=acquire&session=True",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx?from=end",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx?from=module",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/ModuleEnd.aspx",
+      "Status": 200,
+      "Title": "module answered",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx?from=error&type=InvalidOperationException",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx?from=error-kept",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/ErrTransfer.aspx",
+      "Status": 200,
+      "Title": "G/Handled",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/ErrExecute.aspx",
+      "Status": 200,
+      "Title": "G/Handled",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/ErrClear.aspx",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Chain.aspx?n=0",
+      "Status": 200,
+      "Title": "G/Chain",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Oops.aspx?aspxerrorpath=/E/Redirect/Throw.aspx",
+      "Status": 200,
+      "Title": "E/Oops",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/NotFound.aspx?aspxerrorpath=/E/Redirect/Http404.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Oops.aspx?aspxerrorpath=/E/Redirect/Http403.aspx",
+      "Status": 200,
+      "Title": "E/Oops",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/NotFound.aspx?aspxerrorpath=/E/Redirect/Missing.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Rewrite/Throw.aspx",
+      "Status": 200,
+      "Title": "E/Oops",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Rewrite/Http404.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Rewrite/Missing.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Broken/Throw.aspx",
+      "Status": 500,
+      "Title": "Runtime Error",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Plain/Throw.aspx",
+      "Status": 500,
+      "Title": "Runtime Error",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Throw.aspx",
+      "Status": 500,
+      "Title": "the page failed on purpose",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Http404.aspx",
+      "Status": 404,
+      "Title": "nothing here (HttpException 404)",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/NoSuchPage.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Compile.aspx",
+      "Status": 500,
+      "Title": "Compilation Error",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Parser.aspx",
+      "Status": 500,
+      "Title": "Parser Error",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/BadDirective.aspx",
+      "Status": 500,
+      "Title": "Parser Error",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Http/Status404.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Http/Skip404.aspx",
+      "Status": 404,
+      "Title": "E/Http/Skip404",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Http/NoSuch.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Redirect/Async.aspx",
+      "Status": 200,
+      "Title": "E/Redirect/Async",
+      "Keys": [
+        "SUBMIT /e/redirect/async.aspx btnThrow"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Redirect/AsyncNoRedirect.aspx",
+      "Status": 200,
+      "Title": "E/Redirect/AsyncNoRedirect",
+      "Keys": [
+        "SUBMIT /e/redirect/asyncnoredirect.aspx btnThrow"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Secure/Page.aspx",
+      "Status": 200,
+      "Title": "F/Secure/Page",
+      "Keys": [
+        "SUBMIT /f/secure/page.aspx btnLogout",
+        "SUBMIT /f/secure/page.aspx btnToLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Secure/Page.aspx?a=1&b=%E6%97%A5%E6%9C%AC&c=x%26y",
+      "Status": 200,
+      "Title": "F/Secure/Page",
+      "Keys": [
+        "SUBMIT /f/secure/page.aspx btnLogout",
+        "SUBMIT /f/secure/page.aspx btnToLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/secure/5",
+      "Status": 200,
+      "Title": "F/Secure/Page",
+      "Keys": [
+        "SUBMIT /secure/5 btnLogout",
+        "SUBMIT /secure/5 btnToLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Secure/Public.aspx",
+      "Status": 200,
+      "Title": "F/Secure/Public",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Secure/Page.aspx?a=1&b=%E6%97%A5%E6%9C%AC",
+      "Status": 200,
+      "Title": "F/Secure/Page",
+      "Keys": [
+        "SUBMIT /f/secure/page.aspx btnLogout",
+        "SUBMIT /f/secure/page.aspx btnToLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Admin/Page.aspx",
+      "Status": 200,
+      "Title": "F/Admin/Page",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Login.aspx?ReturnUrl=http%3A%2F%2Fevil.example%2Fsteal",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Login.aspx?ReturnUrl=%2F%2Fevil.example%2Fx",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Login.aspx",
+      "Status": 200,
+      "Title": "F/Login",
+      "Keys": [
+        "INPUT /f/login.aspx Password password",
+        "INPUT /f/login.aspx Persist checkbox",
+        "INPUT /f/login.aspx UserName text",
+        "SUBMIT /f/login.aspx btnLogin"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/Deep/Page.aspx",
+      "Status": 200,
+      "Title": "N/Deep/Page",
+      "Keys": [
+        "GET /default.aspx",
+        "GET /f/admin/page.aspx",
+        "GET /f/secure/page.aspx",
+        "GET /masters/other.aspx",
+        "GET /n/controls/sibling.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/deep/sibling.aspx",
+        "GET /n/default.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /t/source.aspx"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Abandon.aspx",
+      "Status": 200,
+      "Title": "F/Abandon",
+      "Keys": [
+        "INPUT /f/abandon.aspx txt text",
+        "SUBMIT /f/abandon.aspx btnAbandon",
+        "SUBMIT /f/abandon.aspx btnRead",
+        "SUBMIT /f/abandon.aspx btnSet"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Counter.aspx",
+      "Status": 200,
+      "Title": "P/Counter",
+      "Keys": [
+        "SUBMIT /p/counter.aspx btnInc"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Validate.aspx",
+      "Status": 200,
+      "Title": "P/Validate",
+      "Keys": [
+        "INPUT /p/validate.aspx ddl select",
+        "POSTBACK /p/validate.aspx lnk",
+        "SUBMIT /p/validate.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/NoValidate.aspx",
+      "Status": 200,
+      "Title": "P/NoValidate",
+      "Keys": [
+        "INPUT /p/novalidate.aspx ddl select",
+        "POSTBACK /p/novalidate.aspx lnk",
+        "SUBMIT /p/novalidate.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Dynamic.aspx",
+      "Status": 200,
+      "Title": "P/Dynamic",
+      "Keys": [
+        "INPUT /p/dynamic.aspx dynTxt text",
+        "SUBMIT /p/dynamic.aspx btnStatic",
+        "SUBMIT /p/dynamic.aspx dynBtn"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Dynamic.aspx?recreate=0",
+      "Status": 200,
+      "Title": "P/Dynamic",
+      "Keys": [
+        "INPUT /p/dynamic.aspx dynTxt text",
+        "SUBMIT /p/dynamic.aspx btnStatic",
+        "SUBMIT /p/dynamic.aspx dynBtn"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Order.aspx",
+      "Status": 200,
+      "Title": "P/Order",
+      "Keys": [
+        "INPUT /p/order.aspx chkFlip checkbox",
+        "SUBMIT /p/order.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Changed.aspx",
+      "Status": 200,
+      "Title": "P/Changed",
+      "Keys": [
+        "INPUT /p/changed.aspx chkSwap checkbox",
+        "INPUT /p/changed.aspx slot select",
+        "SUBMIT /p/changed.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Chunk/Big.aspx",
+      "Status": 200,
+      "Title": "P/Chunk/Big",
+      "Keys": [
+        "SUBMIT /p/chunk/big.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/Encrypted.aspx",
+      "Status": 200,
+      "Title": "P/Encrypted",
+      "Keys": [
+        "SUBMIT /p/encrypted.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/P/GetState.aspx",
+      "Status": 200,
+      "Title": "P/GetState",
+      "Keys": [
+        "POSTBACK /p/getstate.aspx lnk"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/W/Wizard.aspx",
+      "Status": 200,
+      "Title": "W/Wizard",
+      "Keys": [
+        "GET /w/wizard.aspx",
+        "INPUT /w/wizard.aspx wiz$txtName text",
+        "SUBMIT /w/wizard.aspx btnJump",
+        "SUBMIT /w/wizard.aspx wiz$StartNavigationTemplateContainerID$CancelButton",
+        "SUBMIT /w/wizard.aspx wiz$StartNavigationTemplateContainerID$StartNextButton"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/W/WizardDest.aspx",
+      "Status": 200,
+      "Title": "W/WizardDest",
+      "Keys": [
+        "SUBMIT /w/wizarddest.aspx wiz$StartNavigationTemplateContainerID$StartNextButton"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/W/MultiView.aspx",
+      "Status": 200,
+      "Title": "W/MultiView",
+      "Keys": [
+        "SUBMIT /w/multiview.aspx btnToThree",
+        "SUBMIT /w/multiview.aspx next1"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/W/AjaxWizard.aspx",
+      "Status": 200,
+      "Title": "W/AjaxWizard",
+      "Keys": [
+        "GET /w/ajaxwizard.aspx",
+        "POSTBACK /w/ajaxwizard.aspx wiz$SideBarContainer$SideBarList$ctl00$SideBarButton",
+        "POSTBACK /w/ajaxwizard.aspx wiz$SideBarContainer$SideBarList$ctl01$SideBarButton",
+        "POSTBACK /w/ajaxwizard.aspx wiz$SideBarContainer$SideBarList$ctl02$SideBarButton",
+        "SUBMIT /w/ajaxwizard.aspx wiz$StartNavigationTemplateContainerID$StartNextButton"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/Panel.aspx",
+      "Status": 200,
+      "Title": "J/Panel",
+      "Keys": [
+        "SUBMIT /j/panel.aspx btnEnd",
+        "SUBMIT /j/panel.aspx btnFull",
+        "SUBMIT /j/panel.aspx btnOutside",
+        "SUBMIT /j/panel.aspx btnPlain",
+        "SUBMIT /j/panel.aspx btnRedirect",
+        "SUBMIT /j/panel.aspx btnSlow",
+        "SUBMIT /j/panel.aspx btnThrow",
+        "SUBMIT /j/panel.aspx btnTransfer",
+        "SUBMIT /j/panel.aspx btnUpdate",
+        "SUBMIT /j/panel.aspx btnWrite"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/Nested.aspx",
+      "Status": 200,
+      "Title": "J/Nested",
+      "Keys": [
+        "SUBMIT /j/nested.aspx btnInner",
+        "SUBMIT /j/nested.aspx btnOuter",
+        "SUBMIT /j/nested.aspx btnThree",
+        "SUBMIT /j/nested.aspx btnUpdate3"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/History.aspx",
+      "Status": 200,
+      "Title": "J/History",
+      "Keys": [
+        "SUBMIT /j/history.aspx btnStep2",
+        "SUBMIT /j/history.aspx btnStep3"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/Timer.aspx",
+      "Status": 200,
+      "Title": "J/Timer",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/Methods.aspx",
+      "Status": 200,
+      "Title": "J/Methods",
+      "Keys": [
+        "SUBMIT /j/methods.aspx #btnEcho",
+        "SUBMIT /j/methods.aspx #btnFails",
+        "SUBMIT /j/methods.aspx #btnRedirects"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/ServicePage.aspx",
+      "Status": 200,
+      "Title": "J/ServicePage",
+      "Keys": [
+        "SUBMIT /j/servicepage.aspx #btnHello"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/Service.asmx/js",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/nav/5",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /nav/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav/5 btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/nav",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/nav/abc",
+      "Status": 404,
+      "Title": "IIS 10.0 Detailed Error - 404.0 - Not Found",
+      "Keys": [
+        "EXTERNAL http://go.microsoft.com/fwlink/",
+        "EXTERNAL https://go.microsoft.com/fwlink/"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/files/a/b%20c",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /files/a/plain.aspx",
+        "GET /nav/7",
+        "GET /u/plain.aspx",
+        "SUBMIT /files/a/b c btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/files/x.txt",
+      "Status": 404,
+      "Title": "IIS 10.0 Detailed Error - 404.0 - Not Found",
+      "Keys": [
+        "EXTERNAL http://go.microsoft.com/fwlink/",
+        "EXTERNAL https://go.microsoft.com/fwlink/"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/go/somewhere",
+      "Status": 200,
+      "Title": "U/Plain",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Info.aspx/extra/more",
+      "Status": 200,
+      "Title": "U/Info",
+      "Keys": [
+        "GET /u/info.aspx/extra/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /u/info.aspx/extra/more btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Info.aspx/a%20b/%E6%97%A5",
+      "Status": 200,
+      "Title": "U/Info",
+      "Keys": [
+        "GET /u/info.aspx/a b/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /u/info.aspx/a b/日 btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/",
+      "Status": 200,
+      "Title": "U/Default (default document)",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/",
+      "Status": 200,
+      "Title": "U/Default (default document)",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Pretty/abc",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/pretty/plain.aspx",
+        "SUBMIT /u/pretty/abc btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/PrettyNoRebase/abc",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/plain.aspx",
+        "SUBMIT /u/prettynorebase/abc btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/PrettyParts/abc",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/plain.aspx",
+        "SUBMIT /u/prettyparts/abc btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Query.aspx?a=1&a=2&a=",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Query.aspx?a=&b&=c&&d=",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Query.aspx?a=x%26y&b=%E6%97%A5&c=a+b&d=%2B&e=%3D",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Query.aspx?a=%25ZZ&b=%25u65E5&c=%E6%97",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/u/QUERY.aspx?a=1",
+      "Status": 200,
+      "Title": "U/Query",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/Menu.aspx",
+      "Status": 200,
+      "Title": "N/Menu",
+      "Keys": [
+        "GET /n/deep/page.aspx",
+        "GET /n/menu.aspx",
+        "POSTBACK /n/menu.aspx menuItems",
+        "POSTBACK /n/menu.aspx tvItems"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/ImageMap.aspx",
+      "Status": 200,
+      "Title": "N/ImageMap",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/Buttons.aspx",
+      "Status": 200,
+      "Title": "N/Buttons",
+      "Keys": [
+        "INPUT /n/buttons.aspx txtAfter text",
+        "INPUT /n/buttons.aspx txtFocus text",
+        "INPUT /n/buttons.aspx txtPanel text",
+        "POSTBACK /n/buttons.aspx lnkConfirm",
+        "POSTBACK /n/buttons.aspx lnkFalse",
+        "SUBMIT /n/buttons.aspx btnBottom",
+        "SUBMIT /n/buttons.aspx btnFalse",
+        "SUBMIT /n/buttons.aspx btnFocus",
+        "SUBMIT /n/buttons.aspx btnForm",
+        "SUBMIT /n/buttons.aspx btnPanel"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx?from=async-task",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx?from=async-task-false",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Async.aspx?mode=transfer",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Async.aspx?mode=throw",
+      "Status": 500,
+      "Title": "the async task failed",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Async.aspx",
+      "Status": 200,
+      "Title": "Y/Async",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx?from=async-void",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/AsyncVoid.aspx",
+      "Status": 200,
+      "Title": "Y/AsyncVoid",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx?from=ashx",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx?from=ashx-permanent",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx?from=ashx-false",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Transfer.ashx",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Transfer.ashx?mode=execute",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Download.aspx",
+      "Status": 200,
+      "Title": "Y/Download",
+      "Keys": [
+        "POSTBACK /y/download.aspx lnkAfter",
+        "POSTBACK /y/download.aspx lnkDownload",
+        "SUBMIT /y/download.aspx btnAfter",
+        "SUBMIT /y/download.aspx btnDownload",
+        "SUBMIT /y/download.aspx btnUnicode"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Opener.aspx",
+      "Status": 200,
+      "Title": "Y/Opener",
+      "Keys": [
+        "GET /y/popup.aspx?via",
+        "SUBMIT /y/opener.aspx #btnOpen",
+        "SUBMIT /y/opener.aspx btnBlank",
+        "SUBMIT /y/opener.aspx btnNormal"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Frames.aspx",
+      "Status": 200,
+      "Title": "Y/Frames",
+      "Keys": [
+        "GET /y/inner2.aspx?via"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/V/Handles.aspx",
+      "Status": 200,
+      "Title": "V/Handles",
+      "Keys": [
+        "SUBMIT /v/handles.aspx btnCatch",
+        "SUBMIT /v/handles.aspx btnGo",
+        "SUBMIT /v/handles.aspx btnTransfer"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/V/Landing.aspx",
+      "Status": 200,
+      "Title": "V/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/V/My.aspx",
+      "Status": 200,
+      "Title": "V/My",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/V/Landing.aspx?from=vb-my",
+      "Status": 200,
+      "Title": "V/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/V/Source.aspx",
+      "Status": 200,
+      "Title": "V/Source",
+      "Keys": [
+        "INPUT /v/source.aspx txt text",
+        "SUBMIT /v/source.aspx btnCross"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Sub/Target.aspx",
+      "Status": 200,
+      "Title": "T/Sub/Target",
+      "Keys": [
+        "GET /t/sub/other.aspx",
+        "SUBMIT /t/sub/target.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/X/Other/Target.aspx",
+      "Status": 200,
+      "Title": "X/Other/Target",
+      "Keys": [
+        "GET /x/other/target.aspx",
+        "GET /x/source.aspx"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Life.aspx",
+      "Status": 200,
+      "Title": "R/Life",
+      "Keys": [
+        "SUBMIT /r/life.aspx btnGo"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Cases.aspx",
+      "Status": 200,
+      "Title": "R/Cases",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Sub/Rel.aspx",
+      "Status": 200,
+      "Title": "R/Sub/Rel",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/G/Landing.aspx",
+      "Status": 200,
+      "Title": "G/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/Oops.aspx",
+      "Status": 200,
+      "Title": "E/Oops",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/E/NotFound.aspx",
+      "Status": 200,
+      "Title": "E/NotFound",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/F/Welcome.aspx",
+      "Status": 200,
+      "Title": "F/Welcome",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/W/Cancelled.aspx",
+      "Status": 200,
+      "Title": "W/Cancelled",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/W/Finished.aspx",
+      "Status": 200,
+      "Title": "W/Finished",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/J/Landing.aspx",
+      "Status": 200,
+      "Title": "J/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Plain.aspx",
+      "Status": 200,
+      "Title": "U/Plain",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Rewritten.aspx",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/plain.aspx",
+        "SUBMIT /u/rewritten.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/Default.aspx",
+      "Status": 200,
+      "Title": "N/Default",
+      "Keys": [
+        "GET /default.aspx",
+        "GET /f/admin/page.aspx",
+        "GET /f/secure/page.aspx",
+        "GET /masters/other.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/default.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /t/source.aspx"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/RolesOnly.aspx",
+      "Status": 200,
+      "Title": "N/RolesOnly",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Inner.aspx",
+      "Status": 200,
+      "Title": "Y/Inner",
+      "Keys": [
+        "GET /y/landing.aspx?from",
+        "SUBMIT /y/inner.aspx btnInc",
+        "SUBMIT /y/inner.aspx btnRedirect",
+        "SUBMIT /y/inner.aspx btnTop"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Inner2.aspx",
+      "Status": 200,
+      "Title": "Y/Inner2",
+      "Keys": [
+        "SUBMIT /y/inner2.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Popup.aspx",
+      "Status": 200,
+      "Title": "Y/Popup",
+      "Keys": [
+        "SUBMIT /y/popup.aspx btnTell"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/V/Target.aspx",
+      "Status": 200,
+      "Title": "V/Target",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Part.aspx",
+      "Status": 200,
+      "Title": "",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/T/Other.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Masters/Other.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/X/Other.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Default.aspx",
+      "Status": 200,
+      "Title": "NavigationProbe",
+      "Keys": [
+        "GET /e/baddirective.aspx",
+        "GET /e/broken/throw.aspx",
+        "GET /e/compile.aspx",
+        "GET /e/http/nosuch.aspx",
+        "GET /e/http/skip404.aspx",
+        "GET /e/http/status404.aspx",
+        "GET /e/http404.aspx",
+        "GET /e/nosuchpage.aspx",
+        "GET /e/notfound.aspx",
+        "GET /e/oops.aspx",
+        "GET /e/parser.aspx",
+        "GET /e/plain/throw.aspx",
+        "GET /e/redirect/async.aspx",
+        "GET /e/redirect/asyncnoredirect.aspx",
+        "GET /e/redirect/http403.aspx",
+        "GET /e/redirect/http404.aspx",
+        "GET /e/redirect/missing.aspx",
+        "GET /e/redirect/throw.aspx",
+        "GET /e/rewrite/http404.aspx",
+        "GET /e/rewrite/missing.aspx",
+        "GET /e/rewrite/throw.aspx",
+        "GET /e/throw.aspx",
+        "GET /f/abandon.aspx",
+        "GET /f/admin/page.aspx",
+        "GET /f/login.aspx",
+        "GET /f/login.aspx?returnurl",
+        "GET /f/secure/page.aspx",
+        "GET /f/secure/page.aspx?a&b",
+        "GET /f/secure/page.aspx?a&b&c",
+        "GET /f/secure/public.aspx",
+        "GET /f/welcome.aspx",
+        "GET /files/a/b c",
+        "GET /files/x.txt",
+        "GET /g/acquire.aspx",
+        "GET /g/auth.aspx",
+        "GET /g/begin.aspx",
+        "GET /g/chain.aspx?n",
+        "GET /g/end.aspx",
+        "GET /g/errclear.aspx",
+        "GET /g/errexecute.aspx",
+        "GET /g/errredirect.aspx",
+        "GET /g/errredirectkeep.aspx",
+        "GET /g/errtransfer.aspx",
+        "GET /g/landing.aspx",
+        "GET /g/loopa.aspx",
+        "GET /g/module.aspx",
+        "GET /g/moduleend.aspx",
+        "GET /go/somewhere",
+        "GET /j/history.aspx",
+        "GET /j/landing.aspx",
+        "GET /j/methods.aspx",
+        "GET /j/nested.aspx",
+        "GET /j/panel.aspx",
+        "GET /j/service.asmx/js",
+        "GET /j/servicepage.aspx",
+        "GET /j/timer.aspx",
+        "GET /n/buttons.aspx",
+        "GET /n/deep/page.aspx",
+        "GET /n/default.aspx",
+        "GET /n/imagemap.aspx",
+        "GET /n/menu.aspx",
+        "GET /n/rolesonly.aspx",
+        "GET /nav",
+        "GET /nav/5",
+        "GET /nav/abc",
+        "GET /p/changed.aspx",
+        "GET /p/chunk/big.aspx",
+        "GET /p/counter.aspx",
+        "GET /p/dynamic.aspx",
+        "GET /p/dynamic.aspx?recreate",
+        "GET /p/encrypted.aspx",
+        "GET /p/getstate.aspx",
+        "GET /p/novalidate.aspx",
+        "GET /p/order.aspx",
+        "GET /p/validate.aspx",
+        "GET /r/cases.aspx",
+        "GET /r/cases.aspx?c",
+        "GET /r/landing.aspx?from",
+        "GET /r/life.aspx",
+        "GET /r/life.aspx?at",
+        "GET /r/life.aspx?at&end",
+        "GET /r/sub/rel.aspx",
+        "GET /r/sub/rel.aspx?c",
+        "GET /secure/5",
+        "GET /t/chain1.aspx",
+        "GET /t/exec.aspx",
+        "GET /t/exec.aspx?mode",
+        "GET /t/part.aspx",
+        "GET /t/source.aspx",
+        "GET /t/sub/other.aspx",
+        "GET /t/sub/target.aspx",
+        "GET /u",
+        "GET /u/info.aspx/a b/日",
+        "GET /u/info.aspx/extra/more",
+        "GET /u/plain.aspx",
+        "GET /u/pretty/abc",
+        "GET /u/prettynorebase/abc",
+        "GET /u/prettyparts/abc",
+        "GET /u/query.aspx?&a&b&d",
+        "GET /u/query.aspx?a",
+        "GET /u/query.aspx?a&b&c",
+        "GET /u/query.aspx?a&b&c&d&e",
+        "GET /u/rewritten.aspx",
+        "GET /v/handles.aspx",
+        "GET /v/landing.aspx",
+        "GET /v/my.aspx",
+        "GET /v/my.aspx?go",
+        "GET /v/source.aspx",
+        "GET /v/target.aspx",
+        "GET /w/ajaxwizard.aspx",
+        "GET /w/cancelled.aspx",
+        "GET /w/finished.aspx",
+        "GET /w/multiview.aspx",
+        "GET /w/wizard.aspx",
+        "GET /w/wizarddest.aspx",
+        "GET /x/mastersource.aspx",
+        "GET /x/other/target.aspx",
+        "GET /x/source.aspx",
+        "GET /x/target.aspx",
+        "GET /y/async.aspx",
+        "GET /y/async.aspx?mode",
+        "GET /y/asyncvoid.aspx",
+        "GET /y/asyncvoid.aspx?mode",
+        "GET /y/download.aspx",
+        "GET /y/frames.aspx",
+        "GET /y/inner.aspx",
+        "GET /y/inner2.aspx",
+        "GET /y/landing.aspx",
+        "GET /y/opener.aspx",
+        "GET /y/popup.aspx",
+        "GET /y/redirect.ashx",
+        "GET /y/redirect.ashx?mode",
+        "GET /y/transfer.ashx",
+        "GET /y/transfer.ashx?mode"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/nav/7",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /nav/7",
+        "GET /nav/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /nav/7 btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/nav/Plain.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/files/a/Plain.aspx",
+      "Status": 200,
+      "Title": "U/RoutePage",
+      "Keys": [
+        "GET /files/a/plain.aspx",
+        "GET /nav/7",
+        "GET /u/plain.aspx",
+        "SUBMIT /files/a/plain.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=status200",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=status404",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/R/Landing.aspx?from=clear-headers",
+      "Status": 200,
+      "Title": "R/Landing",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/Controls/Sibling.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/N/Deep/Sibling.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/Plain.aspx",
+      "Status": 404,
+      "Title": "The resource cannot be found.",
+      "Keys": []
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Info.aspx/extra/Plain.aspx",
+      "Status": 200,
+      "Title": "U/Info",
+      "Keys": [
+        "GET /u/info.aspx/extra/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /u/info.aspx/extra/plain.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Info.aspx/a%20b/Plain.aspx",
+      "Status": 200,
+      "Title": "U/Info",
+      "Keys": [
+        "GET /u/info.aspx/a b/plain.aspx",
+        "GET /u/plain.aspx",
+        "SUBMIT /u/info.aspx/a b/plain.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/U/Pretty/Plain.aspx",
+      "Status": 200,
+      "Title": "U/Rewritten",
+      "Keys": [
+        "GET /u/pretty/plain.aspx",
+        "SUBMIT /u/pretty/plain.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Popup.aspx?via=link",
+      "Status": 200,
+      "Title": "Y/Popup",
+      "Keys": [
+        "SUBMIT /y/popup.aspx btnTell"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Inner2.aspx?via=target",
+      "Status": 200,
+      "Title": "Y/Inner2",
+      "Keys": [
+        "SUBMIT /y/inner2.aspx btnPost"
+      ]
+    },
+    {
+      "Persona": "login",
+      "Url": "/Y/Landing.aspx?from=frame-top",
+      "Status": 200,
+      "Title": "Y/Landing",
+      "Keys": []
+    }
+  ],
+  "Keys": [
+    "EXTERNAL http://go.microsoft.com/fwlink/",
+    "EXTERNAL https://go.microsoft.com/fwlink/",
+    "GET /",
+    "GET /default.aspx",
+    "GET /default.aspx?from",
+    "GET /e/baddirective.aspx",
+    "GET /e/broken/throw.aspx",
+    "GET /e/compile.aspx",
+    "GET /e/http/nosuch.aspx",
+    "GET /e/http/skip404.aspx",
+    "GET /e/http/status404.aspx",
+    "GET /e/http404.aspx",
+    "GET /e/nosuchpage.aspx",
+    "GET /e/notfound.aspx",
+    "GET /e/notfound.aspx?aspxerrorpath",
+    "GET /e/oops.aspx",
+    "GET /e/oops.aspx?aspxerrorpath",
+    "GET /e/parser.aspx",
+    "GET /e/plain/throw.aspx",
+    "GET /e/redirect/async.aspx",
+    "GET /e/redirect/asyncnoredirect.aspx",
+    "GET /e/redirect/http403.aspx",
+    "GET /e/redirect/http404.aspx",
+    "GET /e/redirect/missing.aspx",
+    "GET /e/redirect/throw.aspx",
+    "GET /e/rewrite/http404.aspx",
+    "GET /e/rewrite/missing.aspx",
+    "GET /e/rewrite/throw.aspx",
+    "GET /e/throw.aspx",
+    "GET /f/abandon.aspx",
+    "GET /f/admin/page.aspx",
+    "GET /f/login.aspx",
+    "GET /f/login.aspx?a&b&c&returnurl",
+    "GET /f/login.aspx?a&b&returnurl",
+    "GET /f/login.aspx?returnurl",
+    "GET /f/secure/page.aspx",
+    "GET /f/secure/page.aspx?a&b",
+    "GET /f/secure/page.aspx?a&b&c",
+    "GET /f/secure/public.aspx",
+    "GET /f/welcome.aspx",
+    "GET /files/a/b c",
+    "GET /files/a/plain.aspx",
+    "GET /files/x.txt",
+    "GET /g/acquire.aspx",
+    "GET /g/auth.aspx",
+    "GET /g/begin.aspx",
+    "GET /g/chain.aspx?n",
+    "GET /g/end.aspx",
+    "GET /g/errclear.aspx",
+    "GET /g/errexecute.aspx",
+    "GET /g/errredirect.aspx",
+    "GET /g/errredirectkeep.aspx",
+    "GET /g/errtransfer.aspx",
+    "GET /g/landing.aspx",
+    "GET /g/landing.aspx?from",
+    "GET /g/landing.aspx?from&session",
+    "GET /g/landing.aspx?from&type",
+    "GET /g/loopa.aspx",
+    "GET /g/module.aspx",
+    "GET /g/moduleend.aspx",
+    "GET /go/somewhere",
+    "GET /j/history.aspx",
+    "GET /j/landing.aspx",
+    "GET /j/methods.aspx",
+    "GET /j/nested.aspx",
+    "GET /j/panel.aspx",
+    "GET /j/service.asmx/js",
+    "GET /j/servicepage.aspx",
+    "GET /j/timer.aspx",
+    "GET /masters/other.aspx",
+    "GET /n/buttons.aspx",
+    "GET /n/controls/sibling.aspx",
+    "GET /n/deep/page.aspx",
+    "GET /n/deep/sibling.aspx",
+    "GET /n/default.aspx",
+    "GET /n/imagemap.aspx",
+    "GET /n/menu.aspx",
+    "GET /n/rolesonly.aspx",
+    "GET /nav",
+    "GET /nav/3",
+    "GET /nav/4?extra",
+    "GET /nav/5",
+    "GET /nav/7",
+    "GET /nav/abc",
+    "GET /nav/plain.aspx",
+    "GET /p/changed.aspx",
+    "GET /p/chunk/big.aspx",
+    "GET /p/counter.aspx",
+    "GET /p/dynamic.aspx",
+    "GET /p/dynamic.aspx?recreate",
+    "GET /p/encrypted.aspx",
+    "GET /p/getstate.aspx",
+    "GET /p/novalidate.aspx",
+    "GET /p/order.aspx",
+    "GET /p/validate.aspx",
+    "GET /plain.aspx",
+    "GET /r/cases.aspx",
+    "GET /r/cases.aspx?c",
+    "GET /r/landing.aspx",
+    "GET /r/landing.aspx?a&b&c",
+    "GET /r/landing.aspx?amp&name&pct&plus&y",
+    "GET /r/landing.aspx?from",
+    "GET /r/life.aspx",
+    "GET /r/life.aspx?at",
+    "GET /r/life.aspx?at&end",
+    "GET /r/sub",
+    "GET /r/sub/landing.aspx?from",
+    "GET /r/sub/rel.aspx",
+    "GET /r/sub/rel.aspx?c",
+    "GET /r/sub?from",
+    "GET /r/with space.aspx?from",
+    "GET /r/着地.aspx?from",
+    "GET /secure/5",
+    "GET /t/chain1.aspx",
+    "GET /t/exec.aspx",
+    "GET /t/exec.aspx?mode",
+    "GET /t/other.aspx",
+    "GET /t/part.aspx",
+    "GET /t/source.aspx",
+    "GET /t/sub/other.aspx",
+    "GET /t/sub/other.aspx?from",
+    "GET /t/sub/target.aspx",
+    "GET /u",
+    "GET /u/info.aspx/a b/plain.aspx",
+    "GET /u/info.aspx/a b/日",
+    "GET /u/info.aspx/extra/more",
+    "GET /u/info.aspx/extra/plain.aspx",
+    "GET /u/plain.aspx",
+    "GET /u/pretty/abc",
+    "GET /u/pretty/plain.aspx",
+    "GET /u/prettynorebase/abc",
+    "GET /u/prettyparts/abc",
+    "GET /u/query.aspx?&a&b&d",
+    "GET /u/query.aspx?a",
+    "GET /u/query.aspx?a&b&c",
+    "GET /u/query.aspx?a&b&c&d&e",
+    "GET /u/rewritten.aspx",
+    "GET /v/handles.aspx",
+    "GET /v/landing.aspx",
+    "GET /v/landing.aspx?from",
+    "GET /v/my.aspx",
+    "GET /v/my.aspx?go",
+    "GET /v/source.aspx",
+    "GET /v/target.aspx",
+    "GET /w/ajaxwizard.aspx",
+    "GET /w/cancelled.aspx",
+    "GET /w/finished.aspx",
+    "GET /w/multiview.aspx",
+    "GET /w/wizard.aspx",
+    "GET /w/wizarddest.aspx",
+    "GET /x/mastersource.aspx",
+    "GET /x/other.aspx",
+    "GET /x/other/target.aspx",
+    "GET /x/source.aspx",
+    "GET /x/target.aspx",
+    "GET /y/async.aspx",
+    "GET /y/async.aspx?mode",
+    "GET /y/asyncvoid.aspx",
+    "GET /y/asyncvoid.aspx?mode",
+    "GET /y/download.aspx",
+    "GET /y/frames.aspx",
+    "GET /y/inner.aspx",
+    "GET /y/inner2.aspx",
+    "GET /y/inner2.aspx?via",
+    "GET /y/landing.aspx",
+    "GET /y/landing.aspx?from",
+    "GET /y/opener.aspx",
+    "GET /y/popup.aspx",
+    "GET /y/popup.aspx?via",
+    "GET /y/redirect.ashx",
+    "GET /y/redirect.ashx?mode",
+    "GET /y/transfer.ashx",
+    "GET /y/transfer.ashx?mode",
+    "INPUT /f/abandon.aspx txt text",
+    "INPUT /f/login.aspx Password password",
+    "INPUT /f/login.aspx Persist checkbox",
+    "INPUT /f/login.aspx UserName text",
+    "INPUT /n/buttons.aspx txtAfter text",
+    "INPUT /n/buttons.aspx txtFocus text",
+    "INPUT /n/buttons.aspx txtPanel text",
+    "INPUT /p/changed.aspx chkSwap checkbox",
+    "INPUT /p/changed.aspx slot select",
+    "INPUT /p/dynamic.aspx dynTxt text",
+    "INPUT /p/novalidate.aspx ddl select",
+    "INPUT /p/order.aspx chkFlip checkbox",
+    "INPUT /p/validate.aspx ddl select",
+    "INPUT /t/exec.aspx txt text",
+    "INPUT /t/source.aspx txt text",
+    "INPUT /v/source.aspx txt text",
+    "INPUT /w/wizard.aspx wiz$txtName text",
+    "INPUT /x/mastersource.aspx ctl00$main$txtName text",
+    "INPUT /x/source.aspx txtName text",
+    "POSTBACK /n/buttons.aspx lnkConfirm",
+    "POSTBACK /n/buttons.aspx lnkFalse",
+    "POSTBACK /n/menu.aspx menuItems",
+    "POSTBACK /n/menu.aspx tvItems",
+    "POSTBACK /p/getstate.aspx lnk",
+    "POSTBACK /p/novalidate.aspx lnk",
+    "POSTBACK /p/validate.aspx lnk",
+    "POSTBACK /w/ajaxwizard.aspx wiz$SideBarContainer$SideBarList$ctl00$SideBarButton",
+    "POSTBACK /w/ajaxwizard.aspx wiz$SideBarContainer$SideBarList$ctl01$SideBarButton",
+    "POSTBACK /w/ajaxwizard.aspx wiz$SideBarContainer$SideBarList$ctl02$SideBarButton",
+    "POSTBACK /y/download.aspx lnkAfter",
+    "POSTBACK /y/download.aspx lnkDownload",
+    "SUBMIT /e/redirect/async.aspx btnThrow",
+    "SUBMIT /e/redirect/asyncnoredirect.aspx btnThrow",
+    "SUBMIT /f/abandon.aspx btnAbandon",
+    "SUBMIT /f/abandon.aspx btnRead",
+    "SUBMIT /f/abandon.aspx btnSet",
+    "SUBMIT /f/login.aspx btnLogin",
+    "SUBMIT /f/secure/page.aspx btnLogout",
+    "SUBMIT /f/secure/page.aspx btnToLogin",
+    "SUBMIT /files/a/b c btnPost",
+    "SUBMIT /files/a/plain.aspx btnPost",
+    "SUBMIT /j/history.aspx btnStep2",
+    "SUBMIT /j/history.aspx btnStep3",
+    "SUBMIT /j/methods.aspx #btnEcho",
+    "SUBMIT /j/methods.aspx #btnFails",
+    "SUBMIT /j/methods.aspx #btnRedirects",
+    "SUBMIT /j/nested.aspx btnInner",
+    "SUBMIT /j/nested.aspx btnOuter",
+    "SUBMIT /j/nested.aspx btnThree",
+    "SUBMIT /j/nested.aspx btnUpdate3",
+    "SUBMIT /j/panel.aspx btnEnd",
+    "SUBMIT /j/panel.aspx btnFull",
+    "SUBMIT /j/panel.aspx btnOutside",
+    "SUBMIT /j/panel.aspx btnPlain",
+    "SUBMIT /j/panel.aspx btnRedirect",
+    "SUBMIT /j/panel.aspx btnSlow",
+    "SUBMIT /j/panel.aspx btnThrow",
+    "SUBMIT /j/panel.aspx btnTransfer",
+    "SUBMIT /j/panel.aspx btnUpdate",
+    "SUBMIT /j/panel.aspx btnWrite",
+    "SUBMIT /j/servicepage.aspx #btnHello",
+    "SUBMIT /n/buttons.aspx btnBottom",
+    "SUBMIT /n/buttons.aspx btnFalse",
+    "SUBMIT /n/buttons.aspx btnFocus",
+    "SUBMIT /n/buttons.aspx btnForm",
+    "SUBMIT /n/buttons.aspx btnPanel",
+    "SUBMIT /nav btnPost",
+    "SUBMIT /nav/3 btnPost",
+    "SUBMIT /nav/4 btnPost",
+    "SUBMIT /nav/5 btnPost",
+    "SUBMIT /nav/7 btnPost",
+    "SUBMIT /p/changed.aspx btnPost",
+    "SUBMIT /p/chunk/big.aspx btnPost",
+    "SUBMIT /p/counter.aspx btnInc",
+    "SUBMIT /p/dynamic.aspx btnStatic",
+    "SUBMIT /p/dynamic.aspx dynBtn",
+    "SUBMIT /p/encrypted.aspx btnPost",
+    "SUBMIT /p/novalidate.aspx btnPost",
+    "SUBMIT /p/order.aspx btnPost",
+    "SUBMIT /p/validate.aspx btnPost",
+    "SUBMIT /r/life.aspx btnGo",
+    "SUBMIT /secure/5 btnLogout",
+    "SUBMIT /secure/5 btnToLogin",
+    "SUBMIT /t/chain1.aspx btnPost",
+    "SUBMIT /t/exec.aspx btnNoPreserve",
+    "SUBMIT /t/exec.aspx btnPreserve",
+    "SUBMIT /t/source.aspx btnAshx",
+    "SUBMIT /t/source.aspx btnCatch",
+    "SUBMIT /t/source.aspx btnCatchAll",
+    "SUBMIT /t/source.aspx btnChain",
+    "SUBMIT /t/source.aspx btnFalse",
+    "SUBMIT /t/source.aspx btnHandler",
+    "SUBMIT /t/source.aspx btnMissing",
+    "SUBMIT /t/source.aspx btnQuery",
+    "SUBMIT /t/source.aspx btnRequest",
+    "SUBMIT /t/source.aspx btnTrue",
+    "SUBMIT /t/source.aspx btnWritten",
+    "SUBMIT /t/sub/target.aspx btnPost",
+    "SUBMIT /u/info.aspx/a b/plain.aspx btnPost",
+    "SUBMIT /u/info.aspx/a b/日 btnPost",
+    "SUBMIT /u/info.aspx/extra/more btnPost",
+    "SUBMIT /u/info.aspx/extra/plain.aspx btnPost",
+    "SUBMIT /u/pretty/abc btnPost",
+    "SUBMIT /u/pretty/plain.aspx btnPost",
+    "SUBMIT /u/prettynorebase/abc btnPost",
+    "SUBMIT /u/prettyparts/abc btnPost",
+    "SUBMIT /u/rewritten.aspx btnPost",
+    "SUBMIT /v/handles.aspx btnCatch",
+    "SUBMIT /v/handles.aspx btnGo",
+    "SUBMIT /v/handles.aspx btnTransfer",
+    "SUBMIT /v/source.aspx btnCross",
+    "SUBMIT /w/ajaxwizard.aspx wiz$StartNavigationTemplateContainerID$StartNextButton",
+    "SUBMIT /w/multiview.aspx btnToThree",
+    "SUBMIT /w/multiview.aspx next1",
+    "SUBMIT /w/wizard.aspx btnJump",
+    "SUBMIT /w/wizard.aspx wiz$StartNavigationTemplateContainerID$CancelButton",
+    "SUBMIT /w/wizard.aspx wiz$StartNavigationTemplateContainerID$StartNextButton",
+    "SUBMIT /w/wizarddest.aspx wiz$StartNavigationTemplateContainerID$StartNextButton",
+    "SUBMIT /x/mastersource.aspx ctl00$main$btnCross",
+    "SUBMIT /x/source.aspx btnHere",
+    "SUBMIT /x/source.aspx btnNoValidation",
+    "SUBMIT /x/source.aspx btnOther",
+    "SUBMIT /x/source.aspx btnQuery",
+    "SUBMIT /x/source.aspx btnSame",
+    "SUBMIT /x/target.aspx btnBack",
+    "SUBMIT /y/download.aspx btnAfter",
+    "SUBMIT /y/download.aspx btnDownload",
+    "SUBMIT /y/download.aspx btnUnicode",
+    "SUBMIT /y/inner.aspx btnInc",
+    "SUBMIT /y/inner.aspx btnRedirect",
+    "SUBMIT /y/inner.aspx btnTop",
+    "SUBMIT /y/inner2.aspx btnPost",
+    "SUBMIT /y/opener.aspx #btnOpen",
+    "SUBMIT /y/opener.aspx btnBlank",
+    "SUBMIT /y/opener.aspx btnNormal",
+    "SUBMIT /y/popup.aspx btnTell"
+  ]
+}

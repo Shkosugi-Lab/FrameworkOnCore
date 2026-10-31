@@ -36,6 +36,8 @@ public sealed record Pointed(string Code, int Line, int Column, int? Length, str
 /// - FOC1008: a double or float made text, through FrameworkOnCore.FrameworkNumbers (as .NET Framework wrote it), by the
 ///   tag: x.ToString(...) -> ToString(x, ...), Convert.ToString(x) -> ConvertToString(x), Text(x), Formattable(x), Texts(x);
 ///   Visual Basic's String converted to a Double: VisualBasicText.ToDouble(s).
+/// - FOC1009: a catch of Response.End's ThreadAbortException, its code in try / finally with ResponseEnd.RaiseAgain()
+///   (EndInCatchRewrite).
 /// - CS9258 (C#): field -> @field. SYSLIB0007 (C#): the .NET Framework default algorithm.
 /// </summary>
 public sealed class SourceEdits(SourceLanguage language, Rules rules)
@@ -190,6 +192,11 @@ public sealed class SourceEdits(SourceLanguage language, Rules rules)
                                 continue;
                         }
                         floating.Add(p.Message.Replace("A double or float made text, which .NET writes otherwise than .NET Framework: ", ""));
+                        break;
+                    case "FOC1009":
+                        // A catch of Response.End's ThreadAbortException: raised again at its end, as .NET Framework raised it.
+                        Put(node, inner => FrameworkOnCore.Analyzers.EndInCatchRewrite.Rewrite(inner), Shape);
+                        done.Add(new Done(LineOf(node), p.Code, $"catch -> its code in try / finally {{ ResponseEnd.RaiseAgain(); }} (FOC1009: {p.Message}; .NET has no thread abort: the code after the catch ran)", Report.Kind.Platform));
                         break;
                     case "FOC1006":
                         var instanceCall = p.Tag?.EndsWith("_instance", StringComparison.Ordinal) == true;

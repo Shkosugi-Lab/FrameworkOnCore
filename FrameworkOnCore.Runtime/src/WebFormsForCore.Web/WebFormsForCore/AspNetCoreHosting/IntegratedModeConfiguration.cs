@@ -23,7 +23,7 @@ namespace System.Web
 		internal sealed record Handler(string Name, string Path, string Verb, string Type);
 
 		static readonly object gate = new object();
-		static (DateTime Written, List<XElement> Modules, List<Handler> Handlers) cache;
+		static (DateTime Written, List<XElement> Modules, List<Handler> Handlers, bool RunAllManagedModules) cache;
 		static long cacheCheckedUntil;
 
 		// web.config's time looked at once a second at most, not on every request (a file system call each: on Linux, through
@@ -31,19 +31,20 @@ namespace System.Web
 		const int CheckEveryMilliseconds = 1000;
 
 		// The application's web.config (read again when it changes: DNN writes it at run time).
-		static (List<XElement> Modules, List<Handler> Handlers) Read()
+		static (List<XElement> Modules, List<Handler> Handlers, bool RunAllManagedModules) Read()
 		{
 			var cached = cache;
-			if (cached.Modules != null && Environment.TickCount64 < Volatile.Read(ref cacheCheckedUntil)) return (cached.Modules, cached.Handlers);
+			if (cached.Modules != null && Environment.TickCount64 < Volatile.Read(ref cacheCheckedUntil)) return (cached.Modules, cached.Handlers, cached.RunAllManagedModules);
 			Volatile.Write(ref cacheCheckedUntil, Environment.TickCount64 + CheckEveryMilliseconds);
 			var file = HostingEnvironment.MapPath("~/web.config");
-			if (file == null || !File.Exists(file)) return (new List<XElement>(), new List<Handler>());
+			if (file == null || !File.Exists(file)) return (new List<XElement>(), new List<Handler>(), false);
 			var written = File.GetLastWriteTimeUtc(file);
 			lock (gate)
 			{
-				if (cache.Modules != null && cache.Written == written) return (cache.Modules, cache.Handlers);
+				if (cache.Modules != null && cache.Written == written) return (cache.Modules, cache.Handlers, cache.RunAllManagedModules);
 				var modules = new List<XElement>();
 				var handlers = new List<Handler>();
+				var runAll = false;
 				try
 				{
 					var root = XDocument.Load(file).Root;
@@ -55,14 +56,16 @@ namespace System.Web
 					foreach (var section in sections)
 					{
 						modules.AddRange(section.Elements("modules").Elements());
+						foreach (var element in section.Elements("modules"))
+							if ((string)element.Attribute("runAllManagedModulesForAllRequests") is { } all) runAll = string.Equals(all.Trim(), "true", StringComparison.OrdinalIgnoreCase);
 						ApplyHandlers(handlers, section);
 					}
 				}
 				catch (Exception e) when (e is System.Xml.XmlException || e is IOException)
 				{
 				}
-				cache = (written, modules, handlers);
-				return (modules, handlers);
+				cache = (written, modules, handlers, runAll);
+				return (modules, handlers, runAll);
 			}
 		}
 
@@ -113,6 +116,33 @@ namespace System.Web
 			return list;
 		}
 
+		/// <summary>
+		/// Whether IIS runs the managed modules of preCondition "managedHandler" for the request (UrlRoutingModule-4.0's in
+		/// applicationHost.config): only when its handler is a managed one, unless system.webServer/modules has
+		/// runAllManagedModulesForAllRequests="true" (learn.microsoft.com/iis/configuration/system.webserver/modules).
+		/// IIS's handlers: a file name without a '.' goes to ExtensionlessUrlHandler-Integrated-4.0 (path "*.",
+		/// TransferRequestHandler: managed); one with a '.' to a managed handler of system.webServer/handlers, else
+		/// system.web's mapping here (.aspx, .ashx, .asmx, .axd, the forbidden .cs, .config...: IIS's -Integrated-4.0
+		/// entries), else IIS's StaticFile (here the catch-all "*": DefaultHttpHandler, HttpMethodNotAllowedHandler).
+		/// Seen on IIS 10 (NavigationProbe): the catch-all route's /files/x.txt is IIS's 404, /files/a/b c the route's page.
+		/// </summary>
+		internal static bool RunsManagedHandlerModules(HttpContext context)
+		{
+			if (Read().RunAllManagedModules) return true;
+			var path = context.Request.FilePathObject;
+			var name = path.VirtualPathString;
+			name = name.Substring(name.LastIndexOf('/') + 1);
+			if (name.IndexOf('.') < 0) return true;
+			var verb = context.Request.HttpMethod;
+			if (FindHandlerType(verb, path) != null) return true;
+			var mapping = RuntimeConfig.GetConfig(context).HttpHandlers.FindMapping(verb, path);
+			if (mapping == null) return false;
+			var type = mapping.Type ?? "";
+			return !(type.StartsWith("System.Web.DefaultHttpHandler", StringComparison.Ordinal) ||
+				type.StartsWith("System.Web.HttpMethodNotAllowedHandler", StringComparison.Ordinal) ||
+				type.StartsWith("System.Web.StaticFileHandler", StringComparison.Ordinal));
+		}
+
 		/// <summary>The application's modules after its system.webServer/modules, in IIS's order.</summary>
 		internal static HttpModuleCollection ApplyModules(HttpModuleCollection modules)
 		{
@@ -148,9 +178,16 @@ namespace System.Web
 			var fileName = virtualPath.Substring(virtualPath.LastIndexOf('/') + 1);
 			foreach (var handler in handlers)
 			{
-				// Without a '/', IIS matches the path against the request's file name; with one, the whole path.
-				var subject = handler.Path.Contains('/') ? virtualPath : fileName;
-				if (!Wildcard(handler.Path.TrimStart('~')).IsMatch(subject)) continue;
+				// Without a '/', IIS matches the path against the request's file name. With one (seen on IIS 10, a folder's
+				// web.config): from a '/' the whole URL path ("/T/H/Root.ashx"; "/H/Abs.ashx" does not answer /T/H/Abs.ashx);
+				// else the end of the URL's path, whole segments ("Z/R.ashx" answers .../Z/R.ashx and .../X/Z/R.ashx, not
+				// .../XZ/R.ashx; "Y/Redirect.ashx" of the application's answers /Y/Redirect.ashx); '*' within a segment
+				// ("H/*.foo" answers /T/H/a.foo, not /T/H/Sub/a.foo). The host's choice: "~/" is the whole path too (IIS takes
+				// '~' as a character: it never matches).
+				var matches = handler.Path.Contains('/')
+					? Wildcard(handler.Path, segments: true).IsMatch(virtualPath)
+					: Wildcard(handler.Path.TrimStart('~'), segments: false).IsMatch(fileName);
+				if (!matches) continue;
 				if (handler.Verb != "*" && !handler.Verb.Split(',').Any(v => v.Trim().Equals(verb, StringComparison.OrdinalIgnoreCase))) continue;
 				return handler.Type;
 			}
@@ -299,8 +336,17 @@ namespace System.Web
 		// A handler's path as a regular expression, made once for each path (it was made in each request).
 		static readonly System.Collections.Concurrent.ConcurrentDictionary<string, Regex> wildcards = new System.Collections.Concurrent.ConcurrentDictionary<string, Regex>(StringComparer.Ordinal);
 
-		static Regex Wildcard(string pattern) => wildcards.GetOrAdd(pattern, pattern =>
-			new Regex("^" + Regex.Escape(pattern).Replace(@"\*", ".*").Replace(@"\?", ".") + "$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant));
+		// segments: a handler's path with a folder in it, matched against the URL's path: from its start ('/', "~/"), else
+		// from any '/' to its end; '*' and '?' within a segment.
+		static Regex Wildcard(string pattern, bool segments) => wildcards.GetOrAdd((segments ? "|" : "") + pattern, key =>
+		{
+			if (!segments)
+				return new Regex("^" + Regex.Escape(pattern).Replace(@"\*", ".*").Replace(@"\?", ".") + "$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+			var anchored = pattern.StartsWith("/", StringComparison.Ordinal) || pattern.StartsWith("~/", StringComparison.Ordinal);
+			var rest = pattern.TrimStart('~').TrimStart('/');
+			return new Regex((anchored ? "^/" : "(^|/)") + Regex.Escape(rest).Replace(@"\*", "[^/]*").Replace(@"\?", "[^/]") + "$",
+				RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+		});
 	}
 }
 

@@ -42,6 +42,8 @@ namespace FrameworkOnCore.ParityTest;
 /// <param name="StubExternal">Requests of the browser to another origin (an OAuth provider, PayPal's button) are not sent:
 /// a page navigated to is answered with a stub that shows the URL (method, origin, path, each query value), anything else
 /// with an empty 404 - the runs do not depend on the network, and where the application sends the browser is compared.</param>
+/// <param name="CaptureUrl">Each page snapshot's text starts with a line "url: " and the address the browser shows (path,
+/// query and fragment, as sent: escaped): where a redirect, a Transfer (the address stays) or a history point left it.</param>
 public sealed record ParityScenario(
     List<string>? IgnorePatterns,
     List<ParityStep> Steps,
@@ -58,7 +60,8 @@ public sealed record ParityScenario(
     string? Operations = null,
     string? Allowed = null,
     bool StubExternal = false,
-    List<string>? UnorderedRows = null);
+    List<string>? UnorderedRows = null,
+    bool CaptureUrl = false);
 
 /// <summary>
 /// The links of the application, after the steps: from the pages the scenario opens (and <paramref name="Urls"/>), the
@@ -104,6 +107,16 @@ public sealed record LinkResult(
 ///         / totp(target: the input, value: a query giving the user's security stamp, modifier: ASP.NET Identity 2's
 ///           modifier of the token): the code a TOTP token provider of Identity 2 makes now, filled in
 ///         / snapshot(name; value "error": only the title, the status and the text before the source and stack trace)
+///         / back, forward, reload (the browser's history buttons)
+///         / frame(value: the name of an iframe: the steps after it act on that frame and snapshot it; no value: the page again)
+///         / popup(value: a name: the window the page opened last - window.open, target=_blank, a form posted into a new
+///           window - becomes the current page, as tab does with its name)
+///         / download(target: clicked; the file the browser receives is the snapshot: its suggested name, size and hash)
+///         / postraw(target: the submit button, optional; body: fields added or replaced, "a=1&amp;b=2"; headers; show, hash,
+///           bodyMatch, raw, follow as fetch: the page's form, as it is now, posted with the browser's cookies, its redirect not
+///           followed, its answer a snapshot; the page stays: posting it twice is a double submit)
+/// fetch and postraw: raw (the Location header as sent, too), bodyMatch (a regular expression: each match in the body a
+/// line), follow (each redirect followed up to 25, a line a hop: loops and chains).
 /// op: the inventory's operations the step exercises (comma-separated), counted for the next snapshot.
 /// </summary>
 public sealed record ParityStep(
@@ -119,7 +132,10 @@ public sealed record ParityStep(
     Dictionary<string, string>? Headers = null,
     List<string>? Show = null,
     bool Hash = false,
-    string? Modifier = null);
+    string? Modifier = null,
+    bool Raw = false,
+    string? BodyMatch = null,
+    bool Follow = false);
 
 /// <summary>Presentation info for one element with an ID (tag, presentation attributes, style).</summary>
 public sealed record ElementInfo(

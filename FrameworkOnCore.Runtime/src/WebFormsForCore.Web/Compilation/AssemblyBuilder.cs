@@ -880,14 +880,36 @@ public class AssemblyBuilder
     // Command line string for My.* support
     private const string MySupport = @"/define:_MYTYPE=\""Empty\""";
 
+#if NETCOREAPP
+    // .NET Framework's ASP.NET compiled a page's Visual Basic with My of a web project (_MYTYPE "Web": My.Request,
+    // My.Response, My.User, My.Computer, My.Log). .NET's Microsoft.VisualBasic has not the types the compiler's My
+    // template names for it (WebUser, AspLog, ServerComputer); FrameworkOnCore.Compat has (a converted application's
+    // bin): with it referenced "Web" (NavigationProbe's V/My.aspx: My.Request.QueryString, My.Response.Redirect), else
+    // "Empty" (no My).
+    private const string MyWebSupport = @"/define:_MYTYPE=\""Web\""";
+
+    static bool ReferencesCompat(CompilerParameters compilParams)
+    {
+        foreach (string reference in compilParams.ReferencedAssemblies)
+            if (reference != null && string.Equals(Path.GetFileName(reference), "FrameworkOnCore.Compat.dll", StringComparison.OrdinalIgnoreCase))
+                return true;
+        return false;
+    }
+#endif
+
     private static void AddVBMyFlags(CompilerParameters compilParams)
     {
+#if NETCOREAPP
+        var mySupport = ReferencesCompat(compilParams) ? MyWebSupport : MySupport;
+#else
+        var mySupport = MySupport;
+#endif
 
         // Prepend it to the compilerOptions
         if (compilParams.CompilerOptions == null)
-            compilParams.CompilerOptions = MySupport;
+            compilParams.CompilerOptions = mySupport;
         else
-            compilParams.CompilerOptions = MySupport + " " + compilParams.CompilerOptions;
+            compilParams.CompilerOptions = mySupport + " " + compilParams.CompilerOptions;
     }
 
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+  <siteMapNode url="~/Default.aspx" title="Home" description="the index">
+    <siteMapNode url="~/N/Default.aspx" title="Navigation" description="navigation controls">
+      <siteMapNode url="~/N/Deep/Page.aspx" title="Deep page" />
+      <siteMapNode url="~/N/Menu.aspx" title="Menu and TreeView" />
+    </siteMapNode>
+    <siteMapNode url="~/F/Secure/Page.aspx" title="Secure page" />
+    <siteMapNode url="~/F/Admin/Page.aspx" title="Admin page" />
+    <siteMapNode url="~/N/RolesOnly.aspx" title="Admins (roles attribute)" roles="Admin" />
+    <siteMapNode title="Group without a URL" roles="*">
+      <siteMapNode url="~/T/Source.aspx" title="Transfer source" />
+    </siteMapNode>
+    <siteMapNode url="http://external.example/sitemap" title="External" />
+  </siteMapNode>
+</siteMap>

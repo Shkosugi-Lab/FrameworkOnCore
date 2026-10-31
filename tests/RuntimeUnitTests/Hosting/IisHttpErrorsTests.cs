@@ -400,10 +400,11 @@ public class IisHttpErrorsTests
         Assert.Equal(19, context.Features.Get<IisLogStatus>().SubStatus);
     }
 
-    [Fact] // error: responseMode ExecuteURL runs the page in the request's place; the host's choice (summary, observed on IIS): 200, its query "404;http://host/url"
+    [Fact] // error: responseMode ExecuteURL runs the page in the request's place; the host's choice (summary, observed on IIS): 200, its query "404;http://host/url",
+           // after the path's own query (seen on IIS 10, NavigationProbe's E/Http: "?from=httpErrors&404;http://...")
     public async Task An_execute_url_entry_runs_the_page()
     {
-        using var site = new Site(Errors("", "<error statusCode='404' path='/errors/404.aspx?ignored=1' responseMode='ExecuteURL' />"));
+        using var site = new Site(Errors("", "<error statusCode='404' path='/errors/404.aspx?kept=1' responseMode='ExecuteURL' />"));
         string ran = null;
         RequestDelegate app = async context =>
         {
@@ -417,7 +418,7 @@ public class IisHttpErrorsTests
             await Answer(404)(context);
         };
         var result = await Run(site, app);
-        Assert.Equal("/errors/404.aspx?404;http://localhost:8080/missing.aspx?x=1", ran);
+        Assert.Equal("/errors/404.aspx?kept=1&404;http://localhost:8080/missing.aspx?x=1", ran);
         Assert.Equal(200, result.Response.StatusCode);
         Assert.Equal("the error page", Site.Body(result));
     }

@@ -463,12 +463,39 @@ namespace System.Web.Hosting
             {
                 if (UseClassicMode) HttpRuntime.SetClassicPipeline();
 
-                await new AspNetCoreWorkerRequest(this, context).Process();
+                var worker = new AspNetCoreWorkerRequest(this, context);
+                await worker.Process();
+                // Server.TransferRequest: the request again, its URL, query, method, form and headers the transfer's, its
+                // RawUrl the one the client asked for (seen on IIS 10, NavigationProbe's transfer.transfer-request), the
+                // whole pipeline again (BeginRequest...). As IIS's child requests, nested ten deep at most.
+                for (var depth = 0; worker.ScheduledTransfer is { } transfer && depth < 10; depth++)
+                {
+                    ApplyTransfer(context, transfer);
+                    worker = new AspNetCoreWorkerRequest(this, context);
+                    await worker.Process();
+                }
             }
             finally
             {
                 RemovePendingCall();
             }
+        }
+
+        // The ASP.NET Core request made the transfer's (its RawTarget kept: Request.RawUrl stays the client's).
+        static void ApplyTransfer(Core.HttpContext context, AspNetCoreWorkerRequest.TransferRequest transfer)
+        {
+            var request = context.Request;
+            request.PathBase = default;
+            request.Path = new Core.PathString(transfer.Path);
+            request.QueryString = string.IsNullOrEmpty(transfer.Query) ? Core.QueryString.Empty : new Core.QueryString("?" + transfer.Query);
+            if (!string.IsNullOrEmpty(transfer.Method)) request.Method = transfer.Method;
+            var body = transfer.PreserveForm && transfer.Body != null ? transfer.Body : Array.Empty<byte>();
+            request.Body = new MemoryStream(body, writable: false);
+            request.ContentLength = body.Length;
+            if (!transfer.PreserveForm) request.Headers.Remove("Content-Type");
+            if (transfer.Headers != null)
+                foreach (string name in transfer.Headers)
+                    if (name != null) request.Headers[name] = transfer.Headers[name];
         }
 
         [SecurityPermission(SecurityAction.Assert, Unrestricted = true)]

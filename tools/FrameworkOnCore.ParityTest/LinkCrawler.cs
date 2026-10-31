@@ -16,7 +16,7 @@ public sealed partial class LinkCrawler(IAPIRequestContext http, string baseUrl)
 
     /// <summary>The URLs to ask first: the options' own, then each one the scenario opens.</summary>
     public static List<string> Seeds(ParityScenario scenario) =>
-        [.. (scenario.Crawl?.Urls ?? []).Concat(scenario.Steps.Where(s => s.Action.Equals("goto", StringComparison.OrdinalIgnoreCase)).Select(s => s.Path ?? "/")).Distinct()];
+        [.. (scenario.Crawl?.Urls ?? []).Concat(scenario.Steps.Where(s => string.Equals(s.Action, "goto", StringComparison.OrdinalIgnoreCase)).Select(s => s.Path ?? "/")).Distinct()];
 
     public async Task<List<LinkResult>> CrawlAsync(ParityScenario scenario)
     {

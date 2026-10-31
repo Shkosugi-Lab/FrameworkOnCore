@@ -1,0 +1,2 @@
+<%@ Page Language="C#" Inherits="NavigationProbe.ProbePage" %>
+<div id="part">part: path=<%: Request.Path %> exec=<%: Request.CurrentExecutionFilePath %> app=<%: Request.AppRelativeCurrentExecutionFilePath %> query=<%: NavigationProbe.Info.Pairs(Request.QueryString) %> form=<%: NavigationProbe.Info.Pairs(Request.Form) %> postback=<%: IsPostBack %> prev=<%: PreviousPage == null ? "(none)" : PreviousPage.AppRelativeVirtualPath %> handler=<%: Context.Handler.GetType().Name %> log=<%: string.Join(" ", NavigationProbe.Log.Of(Context)) %></div>

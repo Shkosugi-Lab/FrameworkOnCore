@@ -40,7 +40,9 @@ namespace WebFormsForCore.Compilers
 		{
 			var floating = !(AppContext.TryGetSwitch("FrameworkOnCore.FloatingPointText", out var on) && !on);
 			var rules = platformRules.Value;
-			if (!floating && rules.Length == 0) return;
+			// A catch of Response.End's ThreadAbortException (FOC1009): only where the code calls Response.End, Redirect or
+			// Server.Transfer (looked for in the text first: most compilations have none).
+			var endInCatch = false;
 			try
 			{
 				CommandLineArguments parsed = visualBasic
@@ -54,6 +56,8 @@ namespace WebFormsForCore.Compilers
 						: CS.CSharpSyntaxTree.ParseText(File.ReadAllText(f.Path), (CS.CSharpParseOptions)parsed.ParseOptions, f.Path))
 					.ToList();
 				if (trees.Count == 0) return;
+				endInCatch = trees.Any(t => t.ToString() is var code && (code.Contains("Redirect") || code.Contains(".End") || code.Contains("Transfer")) && code.Contains("atch"));
+				if (!floating && rules.Length == 0 && !endInCatch) return;
 				var references = parsed.MetadataReferences
 					.Select(r => ResolvedPath(r.Reference, parsed.ReferencePaths, workingDirectory))
 					.Where(p => p != null)
@@ -66,6 +70,7 @@ namespace WebFormsForCore.Compilers
 				var analyzers = new List<DiagnosticAnalyzer>();
 				if (floating) analyzers.Add(new FloatingTextAnalyzer(generatedCode: true));
 				if (rules.Length > 0) analyzers.Add(new PlatformAnalyzer(generatedCode: true));
+				if (endInCatch) analyzers.Add(new EndInCatchAnalyzer(generatedCode: true));
 				var options = new AnalyzerOptions(ImmutableArray.Create<AdditionalText>(new Text(RulesFile, string.Join("\n", rules))));
 				var diagnostics = compilation.WithAnalyzers(analyzers.ToImmutableArray(), options)
 					.GetAnalyzerDiagnosticsAsync().GetAwaiter().GetResult();
@@ -89,7 +94,9 @@ namespace WebFormsForCore.Compilers
 					var rewritten = root.ReplaceNodes(edits.Keys, (original, inner) =>
 					{
 						foreach (var (id, tag) in edits[original].OrderBy(e => e.Id == PlatformAnalyzer.Id ? 0 : 1))
-							inner = (id == PlatformAnalyzer.Id ? Platform(original, inner, tag, rules, visualBasic) : Edit(original, inner, tag, visualBasic)) ?? inner;
+							inner = (id == PlatformAnalyzer.Id ? Platform(original, inner, tag, rules, visualBasic)
+								: id == EndInCatchAnalyzer.Id ? EndInCatchRewrite.Rewrite(inner)
+								: Edit(original, inner, tag, visualBasic)) ?? inner;
 						return inner;
 					});
 					File.WriteAllText(file.Key.FilePath, rewritten.ToFullString(), new UTF8Encoding(true));

@@ -33,6 +33,15 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
     // The pages of the current browser context by name (tab): "main" is the first.
     private readonly Dictionary<string, IPage> _tabs = new(StringComparer.Ordinal);
 
+    // The windows the pages opened (popup), in order; the frame the steps act on (frame), its last answer's status.
+    private readonly Queue<IPage> _popups = new();
+    private IFrame? _frame;
+    private int? _frameStatus;
+    private bool _captureUrl;
+
+    /// <summary>The document the steps act on: the frame chosen (frame), else the page's.</summary>
+    private IFrame Doc => _frame is { IsDetached: false } ? _frame : page.MainFrame;
+
     /// <summary>Set from the scenario: compare DOM ids verbatim (see ParityScenario).</summary>
     private bool _compareRawIds;
 
@@ -58,6 +67,7 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
         if (scenario.QuietMs is { } quiet) _quietMs = quiet;
         _stubExternal = scenario.StubExternal;
         _unorderedRows = scenario.UnorderedRows ?? [];
+        _captureUrl = scenario.CaptureUrl;
 
         await PreparePageAsync(page);
         await PrepareContextAsync(page.Context);
@@ -79,7 +89,7 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
             catch (Exception ex) when (ex is PlaywrightException or TimeoutException or InvalidOperationException or Microsoft.Data.SqlClient.SqlException or FormatException)
             {
                 string text;
-                try { text = await page.InnerTextAsync("body", new() { Timeout = 2000 }); }
+                try { text = await Doc.InnerTextAsync("body", new() { Timeout = 2000 }); }
                 catch (PlaywrightException) { text = "(no body)"; }
                 text = Regex.Replace(text, @"\s+", " ");
                 var message = $"step {index + 1} ({step.Action} {step.Target ?? step.Path ?? step.Name} {step.Value}) failed at {page.Url}" +
@@ -92,7 +102,7 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                 Failures.Add(new StepFailure(index + 1, step.Action, step.Op, message));
                 // A snapshot that could not be taken is still one: the same count on both sides.
                 var action = step.Action.ToLowerInvariant();
-                if (action is "snapshot" or "fetch" or "assets" or "cookies" || (action == "sql" && step.Name != null))
+                if (action is "snapshot" or "fetch" or "assets" or "cookies" or "download" or "postraw" || (action == "sql" && step.Name != null))
                 {
                     snapshots.Add(new Snapshot(step.Name ?? $"snapshot-{snapshots.Count + 1}", "", "(step failed)", ["(step failed)"], [], [], [], Ops: TakePendingOps(), Kind: "failed"));
                 }
@@ -117,7 +127,9 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
         target.Response += (_, response) =>
         {
             if (response.Request.IsNavigationRequest && response.Frame == target.MainFrame && target == page) _lastStatus = response.Status;
+            if (response.Request.IsNavigationRequest && _frame != null && response.Frame == _frame) _frameStatus = response.Status;
         };
+        target.Popup += (_, popup) => { lock (_popups) _popups.Enqueue(popup); };
         return Task.CompletedTask;
     }
 
@@ -208,7 +220,7 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                             }
                         }
                         await page.WaitForTimeoutAsync(_waitNavigation); // scripts that run after the load
-                        await WaitUntilSettledAsync(page, _quietMs);
+                        await WaitUntilSettledAsync(Doc, _quietMs);
                         break;
                     }
 
@@ -220,16 +232,16 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                     await (await ResolveAsync(step.Target!)).ClickAsync();
                     await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                     await page.WaitForTimeoutAsync(_waitClick); // wait for the WebForms postback / Blazor re-render
-                    await WaitUntilSettledAsync(page, _quietMs);
+                    await WaitUntilSettledAsync(Doc, _quietMs);
                     break;
 
                 case "clicktext":
                     // Click links without IDs (GridView sort headers, pager links etc.)
                     // by their link text
-                    await page.Locator("a", new() { HasTextString = step.Value }).First.ClickAsync();
+                    await Doc.Locator("a", new() { HasTextString = step.Value }).First.ClickAsync();
                     await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                     await page.WaitForTimeoutAsync(_waitClick);
-                    await WaitUntilSettledAsync(page, _quietMs);
+                    await WaitUntilSettledAsync(Doc, _quietMs);
                     break;
 
                 case "clicktextin":
@@ -238,36 +250,36 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                         .Or((await ResolveAsync(step.Target!)).Locator($"input[value='{step.Value}']")).First.ClickAsync();
                     await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                     await page.WaitForTimeoutAsync(_waitClick);
-                    await WaitUntilSettledAsync(page, _quietMs);
+                    await WaitUntilSettledAsync(Doc, _quietMs);
                     break;
 
                 case "clicksubmit":
                     // A form's button without an ID (MVC views: <input type="submit" value="Create" />) by its text.
-                    await page.Locator($"input[type=submit][value='{step.Value}'], button:text-is('{step.Value}')").First.ClickAsync();
+                    await Doc.Locator($"input[type=submit][value='{step.Value}'], button:text-is('{step.Value}')").First.ClickAsync();
                     await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                     await page.WaitForTimeoutAsync(_waitClick);
-                    await WaitUntilSettledAsync(page, _quietMs);
+                    await WaitUntilSettledAsync(Doc, _quietMs);
                     break;
 
                 case "select":
                     await (await ResolveAsync(step.Target!)).SelectOptionAsync(step.Value ?? "");
                     await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                     await page.WaitForTimeoutAsync(_waitClick); // wait equivalent to AutoPostBack
-                    await WaitUntilSettledAsync(page, _quietMs);
+                    await WaitUntilSettledAsync(Doc, _quietMs);
                     break;
 
                 case "check":
                     await (await ResolveAsync(step.Target!)).CheckAsync();
                     await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                     await page.WaitForTimeoutAsync(_waitClick);
-                    await WaitUntilSettledAsync(page, _quietMs);
+                    await WaitUntilSettledAsync(Doc, _quietMs);
                     break;
 
                 case "uncheck":
                     await (await ResolveAsync(step.Target!)).UncheckAsync();
                     await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                     await page.WaitForTimeoutAsync(_waitClick);
-                    await WaitUntilSettledAsync(page, _quietMs);
+                    await WaitUntilSettledAsync(Doc, _quietMs);
                     break;
 
                 case "press":
@@ -275,7 +287,7 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                     await (await ResolveAsync(step.Target!)).PressAsync(step.Value ?? "Tab");
                     await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                     await page.WaitForTimeoutAsync(_waitClick);
-                    await WaitUntilSettledAsync(page, _quietMs);
+                    await WaitUntilSettledAsync(Doc, _quietMs);
                     break;
 
                 case "selectmany":
@@ -345,6 +357,8 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                         _tabs.Clear();
                         _tabs["main"] = page;
                         _lastStatus = null;
+                        _frame = null;
+                        lock (_popups) _popups.Clear();
                         break;
                     }
 
@@ -360,20 +374,99 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                         }
                         page = tab;
                         _lastStatus = null;
+                        _frame = null;
                         break;
                     }
 
                 case "script":
                     // A script on the page (a function body); the navigation it starts (a form submitted) is waited for.
-                    await page.EvaluateAsync("() => { " + (step.Value ?? "") + " }");
+                    await Doc.EvaluateAsync("() => { " + (step.Value ?? "") + " }");
                     try { await page.WaitForLoadStateAsync(LoadState.NetworkIdle); } catch (PlaywrightException) { }
                     await page.WaitForTimeoutAsync(_waitClick);
-                    await WaitUntilSettledAsync(page, _quietMs);
+                    await WaitUntilSettledAsync(Doc, _quietMs);
                     break;
 
                 case "fetch":
                     snapshots.Add((await FetchAsync(step)) with { Ops = TakePendingOps() });
                     break;
+
+                case "postraw":
+                    snapshots.Add((await PostRawAsync(step)) with { Ops = TakePendingOps() });
+                    break;
+
+                case "back":
+                case "forward":
+                case "reload":
+                    {
+                        // The browser's buttons. A move inside the document (a history point's hash) has no answer.
+                        var kind = step.Action.ToLowerInvariant();
+                        try
+                        {
+                            if (kind == "back") await page.GoBackAsync(new() { WaitUntil = WaitUntilState.Load, Timeout = 60_000 });
+                            else if (kind == "forward") await page.GoForwardAsync(new() { WaitUntil = WaitUntilState.Load, Timeout = 60_000 });
+                            else await page.ReloadAsync(new() { WaitUntil = WaitUntilState.Load, Timeout = 60_000 });
+                        }
+                        catch (PlaywrightException)
+                        {
+                            // The browser's own error page (a POST's answer not kept): what is compared.
+                        }
+                        try { await page.WaitForLoadStateAsync(LoadState.NetworkIdle, new() { Timeout = 30_000 }); } catch (Exception ex) when (ex is PlaywrightException or TimeoutException) { }
+                        await page.WaitForTimeoutAsync(_waitNavigation);
+                        await WaitUntilSettledAsync(Doc, _quietMs);
+                        break;
+                    }
+
+                case "frame":
+                    if (string.IsNullOrEmpty(step.Value))
+                    {
+                        _frame = null;
+                    }
+                    else
+                    {
+                        _frame = page.Frame(step.Value) ?? throw new InvalidOperationException($"frame '{step.Value}' が見つかりません (URL: {page.Url})");
+                        _frameStatus = null;
+                    }
+                    break;
+
+                case "popup":
+                    {
+                        // The window the page opened last (waited for: up to 15 s).
+                        IPage? popup = null;
+                        for (var wait = 0; wait < 150 && popup == null; wait++)
+                        {
+                            lock (_popups) { while (_popups.Count > 0) popup = _popups.Dequeue(); }
+                            if (popup == null) await Task.Delay(100);
+                        }
+                        if (popup == null) throw new InvalidOperationException("popup: no window was opened");
+                        await PreparePageAsync(popup);
+                        _tabs[step.Value ?? "popup"] = popup;
+                        page = popup;
+                        _frame = null;
+                        _lastStatus = null;
+                        try { await page.WaitForLoadStateAsync(LoadState.NetworkIdle, new() { Timeout = 60_000 }); } catch (Exception ex) when (ex is PlaywrightException or TimeoutException) { }
+                        await page.WaitForTimeoutAsync(_waitNavigation);
+                        await WaitUntilSettledAsync(Doc, _quietMs);
+                        break;
+                    }
+
+                case "download":
+                    {
+                        var target = await ResolveAsync(step.Target!);
+                        var download = await page.RunAndWaitForDownloadAsync(() => target.ClickAsync(), new() { Timeout = 60_000 });
+                        var file = await download.PathAsync();
+                        var bytes = await File.ReadAllBytesAsync(file);
+                        var lines = new List<string>
+                        {
+                            "download: " + download.SuggestedFilename,
+                            $"body: {bytes.Length} bytes, sha256 {Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(bytes))[..16]}",
+                            "from: " + LocalTarget("/", download.Url),
+                        };
+                        await download.DeleteAsync();
+                        try { await page.WaitForLoadStateAsync(LoadState.NetworkIdle, new() { Timeout = 30_000 }); } catch (Exception ex) when (ex is PlaywrightException or TimeoutException) { }
+                        await WaitUntilSettledAsync(Doc, _quietMs);
+                        snapshots.Add(new Snapshot(step.Name ?? $"snapshot-{snapshots.Count + 1}", NormalizePath(new Uri(Doc.Url).AbsolutePath), "", [.. lines.Select(Mask)], [], [], [], Ops: TakePendingOps(), Kind: "download"));
+                        break;
+                    }
 
                 case "assets":
                     snapshots.Add((await AssetsAsync(step.Name ?? $"snapshot-{snapshots.Count + 1}")) with { Ops = TakePendingOps() });
@@ -430,14 +523,14 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
     {
         foreach (var selector in new[] { $"[id='{target}']", $"[id$='_{target}']", $"[id*='_{target}_']", $"[id*='{target}']", $"[name='{target}']" })
         {
-            var locator = page.Locator(selector);
+            var locator = Doc.Locator(selector);
             if (await locator.CountAsync() > 0)
             {
                 return locator.First;
             }
         }
 
-        throw new InvalidOperationException($"コントロール '{target}' が見つかりません (URL: {page.Url})");
+        throw new InvalidOperationException($"コントロール '{target}' が見つかりません (URL: {Doc.Url})");
     }
 
     /// <summary>
@@ -456,7 +549,7 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
     /// circuit sends nothing, so the page is quiet exactly when it is NOT finished. 800 ms
     /// was tried and settled in the middle of it (measured here: ~2.7 s per fetch).
     /// </summary>
-    private static async Task WaitUntilSettledAsync(IPage page, int quiet = 3000)
+    private static async Task WaitUntilSettledAsync(IFrame page, int quiet = 3000)
     {
         await page.EvaluateAsync(@"quietMs => new Promise(resolve => {
             const maxMs = 20000;
@@ -472,6 +565,11 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
 
     private async Task<Snapshot> CaptureAsync(string name, bool errorOnly = false)
     {
+        var page = Doc;
+        // The browser's own error page (a name that does not resolve, too many redirects): its text only - its HTML holds
+        // markers made up at random each time.
+        var browserError = page.Url.StartsWith("chrome-error:", StringComparison.OrdinalIgnoreCase);
+        errorOnly |= browserError;
         if (_unorderedRows.Count > 0 && !errorOnly)
         {
             // Rows in an order the application does not define: sorted by their text, their positional ids numbered again.
@@ -488,12 +586,20 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
         }
         var title = Mask(await page.TitleAsync());
         var path = NormalizePath(new Uri(page.Url).AbsolutePath);
+        var status = _frame != null ? _frameStatus : _lastStatus;
+        // The address the browser shows (CaptureUrl): path, query and fragment, as sent.
+        List<string> urlLine = [];
+        if (_captureUrl)
+        {
+            var shown = new Uri(page.Url);
+            urlLine.Add(Mask("url: " + (IsApplicationUrl(page.Url) && !browserError ? shown.PathAndQuery + shown.Fragment : page.Url)));
+        }
         if (errorOnly)
         {
             // An error page: what the error is, not where (the source file's path, the stack trace, the versions).
             var lines = NormalizeText(await page.InnerTextAsync("body"));
             var cut = lines.FindIndex(line => Regex.IsMatch(line, @"^(Source Error|Stack Trace|Source File|Version Information|Line \d+|ソース エラー|スタック トレース|ソース ファイル|バージョン情報|行 \d+)\s?:"));
-            return new Snapshot(name, path, title.Trim(), [.. (cut < 0 ? lines : lines.Take(cut)).Select(Mask)], [], [], [], Status: _lastStatus, Kind: "error");
+            return new Snapshot(name, path, title.Trim(), [.. urlLine, .. (cut < 0 ? lines : lines.Take(cut)).Select(Mask)], [], [], [], Status: status, Kind: "error");
         }
 
         // Hidden for the read and shown again: innerText leaves out what is not displayed.
@@ -538,12 +644,12 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
             name,
             path,
             title.Trim(),
-            [.. text.Select(Mask)],
+            [.. urlLine, .. text.Select(Mask)],
             [.. (tables ?? []).Select(table => table.Select(row => row.Select(Mask).ToList()).ToList())],
             BuildInputMap(inputs ?? []),
             BuildElementMap(elements ?? []),
             _compareSource ? NormalizeSource(await page.ContentAsync()) : null,
-            Status: _textMasks.Count > 0 ? _lastStatus : null);
+            Status: _textMasks.Count > 0 ? status : null);
     }
 
     /// <summary>The text masks (TextMasks) and the application's address, when the scenario has masks.</summary>
@@ -571,23 +677,95 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
             Headers = headers,
         };
         if (step.Body != null) options.Data = step.Body;
+        var lines = new List<string>();
         var response = await page.Context.APIRequest.FetchAsync(_root + path, options);
-        var lines = new List<string> { $"status: {response.Status}" };
+        if (step.Follow) response = await FollowAsync(path, response, lines);
+        await AnswerLinesAsync(path, response, step, lines);
+        return new Snapshot(step.Name ?? path, NormalizePath(path.Split('?')[0]), "", [.. lines.Select(Mask)], [], [], [], Status: response.Status, Kind: "fetch");
+    }
+
+    /// <summary>The page's form as it is now (its fields, the button), posted with the browser's cookies: the answer as lines.</summary>
+    private async Task<Snapshot> PostRawAsync(ParityStep step)
+    {
+        var fields = (await Doc.EvaluateAsync<string[][]>(
+            "() => { const f = document.forms[0]; return [...new FormData(f).entries()].filter(e => typeof e[1] === 'string').map(e => [e[0], e[1]]); }"))
+            .Select(pair => (Name: pair[0], Value: pair[1])).ToList();
+        var action = await Doc.EvaluateAsync<string>("() => document.forms[0].action");
+        if (step.Target != null)
+        {
+            var button = await (await ResolveAsync(step.Target)).EvaluateAsync<string[]>("e => [e.name || '', e.value || '']");
+            if (button[0].Length > 0) fields.Add((button[0], button[1]));
+        }
+        foreach (var pair in (step.Body ?? "").Split('&', StringSplitOptions.RemoveEmptyEntries))
+        {
+            var equals = pair.IndexOf('=');
+            var name = Uri.UnescapeDataString(equals < 0 ? pair : pair[..equals]);
+            var value = equals < 0 ? "" : Uri.UnescapeDataString(pair[(equals + 1)..]);
+            var at = fields.FindIndex(f => f.Name == name);
+            fields.RemoveAll(f => f.Name == name);
+            fields.Insert(at < 0 ? fields.Count : at, (name, value));
+        }
+        var headers = new Dictionary<string, string>(step.Headers ?? []) { ["Content-Type"] = "application/x-www-form-urlencoded" };
+        var target = new Uri(action);
+        var path = IsApplicationUrl(action) ? target.PathAndQuery : action;
+        var response = await page.Context.APIRequest.FetchAsync(action, new APIRequestContextOptions
+        {
+            Method = "POST",
+            MaxRedirects = 0,
+            FailOnStatusCode = false,
+            Timeout = 120_000,
+            Headers = headers,
+            Data = string.Join("&", fields.Select(f => Uri.EscapeDataString(f.Name) + "=" + Uri.EscapeDataString(f.Value))),
+        });
+        var lines = new List<string> { "post: " + Mask(path) };
+        if (step.Follow) response = await FollowAsync(path, response, lines);
+        await AnswerLinesAsync(path, response, step, lines);
+        return new Snapshot(step.Name ?? path, NormalizePath(target.AbsolutePath), "", [.. lines.Select(Mask)], [], [], [], Status: response.Status, Kind: "fetch");
+    }
+
+    /// <summary>Each redirect followed (up to 25; GET, the browser's cookies): a line a hop; the last answer.</summary>
+    private async Task<IAPIResponse> FollowAsync(string path, IAPIResponse response, List<string> lines)
+    {
+        for (var hop = 1; hop <= 25; hop++)
+        {
+            if (response.Status is < 300 or >= 400 || !response.Headers.TryGetValue("location", out var location)) break;
+            var next = new Uri(new Uri(_root + (path.StartsWith("/", StringComparison.Ordinal) ? path : "/")), location);
+            lines.Add($"hop {hop}: {response.Status} -> {LocalTarget(path, location)}");
+            if (!IsApplicationUrl(next.AbsoluteUri)) break;
+            path = next.PathAndQuery;
+            response = await page.Context.APIRequest.GetAsync(_root + path, new() { MaxRedirects = 0, FailOnStatusCode = false, Timeout = 120_000 });
+        }
+        return response;
+    }
+
+    /// <summary>An answer as lines: status, Location (as the application's path, and as sent: raw), type, the headers asked
+    /// for, the body's matches of BodyMatch, its hash.</summary>
+    private async Task AnswerLinesAsync(string path, IAPIResponse response, ParityStep step, List<string> lines)
+    {
+        lines.Add($"status: {response.Status}");
         if (response.Headers.TryGetValue("location", out var location))
         {
             lines.Add("location: " + LocalTarget(path, location));
+            if (step.Raw) lines.Add("location-raw: " + location);
         }
         if (response.Headers.TryGetValue("content-type", out var type)) lines.Add("content-type: " + type);
         foreach (var header in step.Show ?? [])
         {
             lines.Add($"{header.ToLowerInvariant()}: " + (response.Headers.TryGetValue(header.ToLowerInvariant(), out var value) ? value : "(none)"));
         }
-        if (step.Hash)
+        if (step.BodyMatch != null || step.Hash)
         {
             var body = await response.BodyAsync();
-            lines.Add($"body: {body.Length} bytes, sha256 {Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(body))[..16]}");
+            if (step.BodyMatch != null)
+            {
+                var text = System.Text.Encoding.UTF8.GetString(body);
+                foreach (Match match in Regex.Matches(text, step.BodyMatch))
+                {
+                    lines.Add("match: " + Regex.Replace(System.Net.WebUtility.HtmlDecode(match.Value), @"\s+", " ").Trim());
+                }
+            }
+            if (step.Hash) lines.Add($"body: {body.Length} bytes, sha256 {Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(body))[..16]}");
         }
-        return new Snapshot(step.Name ?? path, NormalizePath(path.Split('?')[0]), "", [.. lines.Select(Mask)], [], [], [], Status: response.Status, Kind: "fetch");
     }
 
     // A redirect's target as path and query when it is the application's, as it is otherwise.

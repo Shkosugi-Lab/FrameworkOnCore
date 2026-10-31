@@ -1,0 +1,22 @@
+<%@ Master Language="C#" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+  <title>navigation master</title>
+  <link href="nav.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <form id="form1" runat="server">
+    <asp:SiteMapDataSource ID="smds" runat="server" />
+    <div id="path"><asp:SiteMapPath ID="smp" runat="server" PathSeparator=" > " /></div>
+    <asp:Menu ID="menuMap" runat="server" DataSourceID="smds" Orientation="Horizontal" StaticDisplayLevels="2" />
+    <asp:TreeView ID="tvMap" runat="server" DataSourceID="smds" ExpandDepth="FullyExpand" />
+    <p>
+      <a id="aMasterRel" runat="server" href="Other.aspx">a runat=server Other.aspx (master's folder)</a>
+      <img id="imgMaster" runat="server" src="logo.gif" alt="logo" />
+    </p>
+    <asp:ContentPlaceHolder ID="main" runat="server" />
+    <nav:Info runat="server" />
+  </form>
+</body>
+</html>

@@ -9,7 +9,7 @@
     "Iis entries": 2,
     "Unsupported entries": 4,
     "Stub entries": 0,
-    "Platform entries": 7,
+    "Platform entries": 8,
     "Project entries": 51
   },
   "files": {
@@ -39,7 +39,7 @@
       "WingtipToys/WingtipToys/Admin/AdminPage.aspx.cs c59d7bb0a1d142bc (+3 -3 lines)",
       "WingtipToys/WingtipToys/App_Start/ServerConfig.cs c329795d33bdcd5d (+2 -2 lines)",
       "WingtipToys/WingtipToys/Checkout/CheckoutComplete.aspx.cs a9d572727530b47c (+3 -3 lines)",
-      "WingtipToys/WingtipToys/Checkout/CheckoutReview.aspx.cs c9012d8af96967bb (+2 -2 lines)",
+      "WingtipToys/WingtipToys/Checkout/CheckoutReview.aspx.cs 61dab6b33cf95f5c (+4 -4 lines)",
       "WingtipToys/WingtipToys/Checkout/CheckoutStart.aspx.cs 15fb3c0bda3d0585 (+1 -1 lines)",
       "WingtipToys/WingtipToys/Logic/AddProducts.cs 33f202885e9a8cc7 (+1 -1 lines)",
       "WingtipToys/WingtipToys/Logic/ShoppingCartActions.cs a45f6ab6ec1a6942 (+1 -1 lines)",
@@ -266,6 +266,7 @@
       "WingtipToys\\WingtipToys\\App_Start\\ServerConfig.cs: 2 path argument(s) from data -> WindowsPath.Native(...) (FOC1004: (FileConfigurationExtensions.SetBasePath(basePath)), (JsonConfigurationExtensions.AddJsonFile(path)))",
       "WingtipToys\\WingtipToys\\Checkout\\CheckoutComplete.aspx.cs: 3 double/float made text -> FrameworkNumbers (FOC1008: .NET writes 0.1 + 0.2 as 0.30000000000000004, -0, 2.675 as N2 2.67; as .NET Framework: object.ToString x3)",
       "WingtipToys\\WingtipToys\\Checkout\\CheckoutReview.aspx.cs: 2 double/float made text -> FrameworkNumbers (FOC1008: .NET writes 0.1 + 0.2 as 0.30000000000000004, -0, 2.675 as N2 2.67; as .NET Framework: object.ToString x2)",
+      "WingtipToys\\WingtipToys\\Checkout\\CheckoutReview.aspx.cs:53: catch -> its code in try / finally { ResponseEnd.RaiseAgain(); } (FOC1009: A catch of Response.End's ThreadAbortException, which .NET Framework raised again at its end: HttpResponse.Redirect; .NET has no thread abort: the code after the catch ran)",
       "WingtipToys\\WingtipToys\\Checkout\\CheckoutStart.aspx.cs: 1 double/float made text -> FrameworkNumbers (FOC1008: .NET writes 0.1 + 0.2 as 0.30000000000000004, -0, 2.675 as N2 2.67; as .NET Framework: object.ToString x1)",
       "WingtipToys\\WingtipToys\\Logic\\AddProducts.cs:16: System.Convert.ToDouble -> FrameworkOnCore.FrameworkParsing.ConvertToDouble (a number too large for a double is infinity on .NET (.NET Framework: OverflowException): as .NET Framework)",
       "WingtipToys\\WingtipToys\\Logic\\ShoppingCartActions.cs: 1 double/float made text -> FrameworkNumbers (FOC1008: .NET writes 0.1 + 0.2 as 0.30000000000000004, -0, 2.675 as N2 2.67; as .NET Framework: object.ToString x1)"

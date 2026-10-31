@@ -46,7 +46,7 @@ static class RewriteHarness
         Assert.True(errors.Count == 0, string.Join("\n", errors));
         var platform = new Text(PlatformAnalyzer.RulesFile, string.Join("\n", rules.PlatformReplacements.Select(r => r.Line)));
         var options = new AnalyzerOptions(ImmutableArray.Create<AdditionalText>(platform));
-        var analyzers = ImmutableArray.Create<DiagnosticAnalyzer>(new WindowsPathAnalyzer(), new AsyncDelegateAnalyzer(), new PlatformAnalyzer(), new FloatingTextAnalyzer());
+        var analyzers = ImmutableArray.Create<DiagnosticAnalyzer>(new WindowsPathAnalyzer(), new AsyncDelegateAnalyzer(), new PlatformAnalyzer(), new FloatingTextAnalyzer(), new EndInCatchAnalyzer());
         var pointed = compilation.WithAnalyzers(analyzers, options).GetAnalyzerDiagnosticsAsync().GetAwaiter().GetResult()
             .Select(d =>
             {

@@ -1,0 +1,5911 @@
+{
+  "Url": "http://localhost:5096",
+  "Platform": "windows",
+  "GoldenSource": "http://localhost:5096",
+  "Seconds": 544.0034888,
+  "Snapshots": [
+    {
+      "Name": "index",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "index.home"
+      ]
+    },
+    {
+      "Name": "transfer-source",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.preserve-form"
+      ]
+    },
+    {
+      "Name": "transfer-preserve-form",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.preserve-form"
+      ]
+    },
+    {
+      "Name": "transfer-no-form",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.no-form"
+      ]
+    },
+    {
+      "Name": "transfer-query",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.query"
+      ]
+    },
+    {
+      "Name": "transfer-hyperlink-relative",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.relative-links"
+      ]
+    },
+    {
+      "Name": "transfer-plain-relative",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.relative-links"
+      ]
+    },
+    {
+      "Name": "transfer-server-anchor",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.relative-links"
+      ]
+    },
+    {
+      "Name": "transfer-target-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.target-postback"
+      ]
+    },
+    {
+      "Name": "transfer-handler",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.handler"
+      ]
+    },
+    {
+      "Name": "transfer-ashx",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.ashx"
+      ]
+    },
+    {
+      "Name": "transfer-chain",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.chain"
+      ]
+    },
+    {
+      "Name": "transfer-chain-get",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.chain"
+      ]
+    },
+    {
+      "Name": "transfer-chain-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.chain"
+      ]
+    },
+    {
+      "Name": "transfer-after-write",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.after-write"
+      ]
+    },
+    {
+      "Name": "transfer-catch-threadabort",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.catch-threadabort"
+      ]
+    },
+    {
+      "Name": "transfer-catch-threadabort-side",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.catch-threadabort"
+      ]
+    },
+    {
+      "Name": "transfer-catch-exception",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.catch-exception"
+      ]
+    },
+    {
+      "Name": "transfer-catch-exception-side",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.catch-exception"
+      ]
+    },
+    {
+      "Name": "transfer-request",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.transfer-request"
+      ]
+    },
+    {
+      "Name": "transfer-missing",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "transfer.missing"
+      ]
+    },
+    {
+      "Name": "execute-load-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.load"
+      ]
+    },
+    {
+      "Name": "execute-load",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.load"
+      ]
+    },
+    {
+      "Name": "execute-render-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.render"
+      ]
+    },
+    {
+      "Name": "execute-render",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.render"
+      ]
+    },
+    {
+      "Name": "execute-writer-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.writer"
+      ]
+    },
+    {
+      "Name": "execute-writer",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.writer"
+      ]
+    },
+    {
+      "Name": "execute-ashx-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.ashx"
+      ]
+    },
+    {
+      "Name": "execute-ashx",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.ashx"
+      ]
+    },
+    {
+      "Name": "execute-redirect-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.redirect"
+      ]
+    },
+    {
+      "Name": "execute-redirect",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.redirect"
+      ]
+    },
+    {
+      "Name": "execute-redirect-side",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.redirect"
+      ]
+    },
+    {
+      "Name": "execute-transfer-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.transfer"
+      ]
+    },
+    {
+      "Name": "execute-transfer",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.transfer"
+      ]
+    },
+    {
+      "Name": "execute-throw-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.throw"
+      ]
+    },
+    {
+      "Name": "execute-throw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.throw"
+      ]
+    },
+    {
+      "Name": "execute-missing-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.missing"
+      ]
+    },
+    {
+      "Name": "execute-missing",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.missing"
+      ]
+    },
+    {
+      "Name": "execute-preserve-true",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.preserve-form"
+      ]
+    },
+    {
+      "Name": "execute-preserve-false",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "execute.preserve-form"
+      ]
+    },
+    {
+      "Name": "cross-source",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "cross.same-folder"
+      ]
+    },
+    {
+      "Name": "cross-same-folder",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "cross.same-folder"
+      ]
+    },
+    {
+      "Name": "cross-validation-failed",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "cross.validation"
+      ]
+    },
+    {
+      "Name": "cross-no-validation",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "cross.no-validation"
+      ]
+    },
+    {
+      "Name": "cross-other-folder",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "cross.other-folder"
+      ]
+    },
+    {
+      "Name": "cross-other-folder-link",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "cross.other-folder"
+      ]
+    },
+    {
+      "Name": "cross-query",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "cross.query"
+      ]
+    },
+    {
+      "Name": "cross-linkbutton",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "cross.linkbutton"
+      ]
+    },
+    {
+      "Name": "cross-target-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "cross.target-postback"
+      ]
+    },
+    {
+      "Name": "cross-target-direct",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "cross.target-direct"
+      ]
+    },
+    {
+      "Name": "cross-master-source",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "cross.master"
+      ]
+    },
+    {
+      "Name": "cross-master",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "cross.master"
+      ]
+    },
+    {
+      "Name": "cross-plain-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "cross.plain-postback"
+      ]
+    },
+    {
+      "Name": "redirect-at-preinit-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-preinit"
+      ]
+    },
+    {
+      "Name": "redirect-at-preinit-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-preinit"
+      ]
+    },
+    {
+      "Name": "redirect-at-preinit",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-preinit"
+      ]
+    },
+    {
+      "Name": "redirect-at-init-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-init"
+      ]
+    },
+    {
+      "Name": "redirect-at-init-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-init"
+      ]
+    },
+    {
+      "Name": "redirect-at-init",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-init"
+      ]
+    },
+    {
+      "Name": "redirect-at-initcomplete-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-initcomplete"
+      ]
+    },
+    {
+      "Name": "redirect-at-initcomplete-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-initcomplete"
+      ]
+    },
+    {
+      "Name": "redirect-at-initcomplete",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-initcomplete"
+      ]
+    },
+    {
+      "Name": "redirect-at-preload-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-preload"
+      ]
+    },
+    {
+      "Name": "redirect-at-preload-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-preload"
+      ]
+    },
+    {
+      "Name": "redirect-at-preload",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-preload"
+      ]
+    },
+    {
+      "Name": "redirect-at-load-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-load"
+      ]
+    },
+    {
+      "Name": "redirect-at-load-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-load"
+      ]
+    },
+    {
+      "Name": "redirect-at-load",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-load"
+      ]
+    },
+    {
+      "Name": "redirect-at-click-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-click"
+      ]
+    },
+    {
+      "Name": "redirect-at-click",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-click"
+      ]
+    },
+    {
+      "Name": "redirect-at-click-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-click"
+      ]
+    },
+    {
+      "Name": "redirect-at-click-false",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-click"
+      ]
+    },
+    {
+      "Name": "redirect-at-loadcomplete-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-loadcomplete"
+      ]
+    },
+    {
+      "Name": "redirect-at-loadcomplete-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-loadcomplete"
+      ]
+    },
+    {
+      "Name": "redirect-at-loadcomplete",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-loadcomplete"
+      ]
+    },
+    {
+      "Name": "redirect-at-prerender-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-prerender"
+      ]
+    },
+    {
+      "Name": "redirect-at-prerender-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-prerender"
+      ]
+    },
+    {
+      "Name": "redirect-at-prerender",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-prerender"
+      ]
+    },
+    {
+      "Name": "redirect-at-prerendercomplete-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-prerendercomplete"
+      ]
+    },
+    {
+      "Name": "redirect-at-prerendercomplete-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-prerendercomplete"
+      ]
+    },
+    {
+      "Name": "redirect-at-prerendercomplete",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-prerendercomplete"
+      ]
+    },
+    {
+      "Name": "redirect-at-savestatecomplete-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-savestatecomplete"
+      ]
+    },
+    {
+      "Name": "redirect-at-savestatecomplete-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-savestatecomplete"
+      ]
+    },
+    {
+      "Name": "redirect-at-savestatecomplete",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-savestatecomplete"
+      ]
+    },
+    {
+      "Name": "redirect-at-render-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-render"
+      ]
+    },
+    {
+      "Name": "redirect-at-render-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-render"
+      ]
+    },
+    {
+      "Name": "redirect-at-render",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-render"
+      ]
+    },
+    {
+      "Name": "redirect-at-unload-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-unload"
+      ]
+    },
+    {
+      "Name": "redirect-at-unload-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-unload"
+      ]
+    },
+    {
+      "Name": "redirect-at-unload",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.at-unload"
+      ]
+    },
+    {
+      "Name": "redirect-tae-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.tae"
+      ]
+    },
+    {
+      "Name": "redirect-tae",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.tae"
+      ]
+    },
+    {
+      "Name": "redirect-tae-side",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.tae"
+      ]
+    },
+    {
+      "Name": "redirect-ex-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.ex"
+      ]
+    },
+    {
+      "Name": "redirect-ex",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.ex"
+      ]
+    },
+    {
+      "Name": "redirect-ex-side",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.ex"
+      ]
+    },
+    {
+      "Name": "redirect-finally-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.finally"
+      ]
+    },
+    {
+      "Name": "redirect-finally",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.finally"
+      ]
+    },
+    {
+      "Name": "redirect-finally-side",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.finally"
+      ]
+    },
+    {
+      "Name": "redirect-written-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.written"
+      ]
+    },
+    {
+      "Name": "redirect-written",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.written"
+      ]
+    },
+    {
+      "Name": "redirect-flushed-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.flushed"
+      ]
+    },
+    {
+      "Name": "redirect-flushed",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.flushed"
+      ]
+    },
+    {
+      "Name": "redirect-flushed-side",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.flushed"
+      ]
+    },
+    {
+      "Name": "redirect-permanent-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.permanent"
+      ]
+    },
+    {
+      "Name": "redirect-permanent",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.permanent"
+      ]
+    },
+    {
+      "Name": "redirect-permanent-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.permanent-false"
+      ]
+    },
+    {
+      "Name": "redirect-permanent-false",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.permanent-false"
+      ]
+    },
+    {
+      "Name": "redirect-route-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.route"
+      ]
+    },
+    {
+      "Name": "redirect-route",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.route"
+      ]
+    },
+    {
+      "Name": "redirect-route-permanent-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.route-permanent"
+      ]
+    },
+    {
+      "Name": "redirect-route-permanent",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.route-permanent"
+      ]
+    },
+    {
+      "Name": "redirect-route-name-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.route-name"
+      ]
+    },
+    {
+      "Name": "redirect-route-name",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.route-name"
+      ]
+    },
+    {
+      "Name": "redirect-external-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.external"
+      ]
+    },
+    {
+      "Name": "redirect-external",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.external"
+      ]
+    },
+    {
+      "Name": "redirect-protocol-relative-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.protocol-relative"
+      ]
+    },
+    {
+      "Name": "redirect-protocol-relative",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.protocol-relative"
+      ]
+    },
+    {
+      "Name": "redirect-absolute-path-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.absolute-path"
+      ]
+    },
+    {
+      "Name": "redirect-absolute-path",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.absolute-path"
+      ]
+    },
+    {
+      "Name": "redirect-unicode-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.unicode"
+      ]
+    },
+    {
+      "Name": "redirect-unicode",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.unicode"
+      ]
+    },
+    {
+      "Name": "redirect-encoded-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.encoded"
+      ]
+    },
+    {
+      "Name": "redirect-encoded",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.encoded"
+      ]
+    },
+    {
+      "Name": "redirect-unicode-path-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.unicode-path"
+      ]
+    },
+    {
+      "Name": "redirect-unicode-path",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.unicode-path"
+      ]
+    },
+    {
+      "Name": "redirect-space-path-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.space-path"
+      ]
+    },
+    {
+      "Name": "redirect-space-path",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.space-path"
+      ]
+    },
+    {
+      "Name": "redirect-newline-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.newline"
+      ]
+    },
+    {
+      "Name": "redirect-newline",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.newline"
+      ]
+    },
+    {
+      "Name": "redirect-empty-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.empty"
+      ]
+    },
+    {
+      "Name": "redirect-empty",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.empty"
+      ]
+    },
+    {
+      "Name": "redirect-end-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.end"
+      ]
+    },
+    {
+      "Name": "redirect-end",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.end"
+      ]
+    },
+    {
+      "Name": "redirect-end-side",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.end"
+      ]
+    },
+    {
+      "Name": "redirect-complete-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.complete"
+      ]
+    },
+    {
+      "Name": "redirect-complete",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.complete"
+      ]
+    },
+    {
+      "Name": "redirect-complete-side",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.complete"
+      ]
+    },
+    {
+      "Name": "redirect-false-complete-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.false-complete"
+      ]
+    },
+    {
+      "Name": "redirect-false-complete",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.false-complete"
+      ]
+    },
+    {
+      "Name": "redirect-status200-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.status200"
+      ]
+    },
+    {
+      "Name": "redirect-status200",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.status200"
+      ]
+    },
+    {
+      "Name": "redirect-status301-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.status301"
+      ]
+    },
+    {
+      "Name": "redirect-status301",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.status301"
+      ]
+    },
+    {
+      "Name": "redirect-status404-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.status404"
+      ]
+    },
+    {
+      "Name": "redirect-status404",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.status404"
+      ]
+    },
+    {
+      "Name": "redirect-twice-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.twice"
+      ]
+    },
+    {
+      "Name": "redirect-twice",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.twice"
+      ]
+    },
+    {
+      "Name": "redirect-clear-headers-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.clear-headers"
+      ]
+    },
+    {
+      "Name": "redirect-clear-headers",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.clear-headers"
+      ]
+    },
+    {
+      "Name": "redirect-relative-parent-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-parent"
+      ]
+    },
+    {
+      "Name": "redirect-relative-parent",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-parent"
+      ]
+    },
+    {
+      "Name": "redirect-relative-file-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-file"
+      ]
+    },
+    {
+      "Name": "redirect-relative-file",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-file"
+      ]
+    },
+    {
+      "Name": "redirect-relative-dot-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-dot"
+      ]
+    },
+    {
+      "Name": "redirect-relative-dot",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-dot"
+      ]
+    },
+    {
+      "Name": "redirect-relative-tilde-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-tilde"
+      ]
+    },
+    {
+      "Name": "redirect-relative-tilde",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-tilde"
+      ]
+    },
+    {
+      "Name": "redirect-relative-query-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-query"
+      ]
+    },
+    {
+      "Name": "redirect-relative-query",
+      "Result": "allowed",
+      "Problems": [
+        "本文テキスト 3 行目から相違: 期待 'The Web server is configured to not list the contents of this directory.' / 実際 'Requested URL {root}/R/Sub/?from=query-only'(期待 24 行 / 実際 4 行)",
+        "  正解側にのみある行: 'The Web server is configured to not list the contents of this directory.' / 'Most likely causes:' / 'A default document is not configured for the requested URL, and directory browsing is not enabled on the server.' / 'Things you can try:' / 'If you do not want to enable directory browsing, ensure that a default document is configured and that the file exists.'",
+        "  実測側にのみある行: 'Physical Path C:\\wcc\\data\\sessions\\-rETZO4pVnOb\\experiments\\wf4c\\_samples\\NavigationProbe\\converted\\R\\Sub\\'"
+      ],
+      "Reason": "IIS's own detailed error page (403.14 of a folder without a default document, 404.0 of a URL no handler answers; a local request) is a simple page in FrameworkOnCore (the user's decision when httpErrors was made IIS-compatible, README 'httpErrors を IIS 互換で実装した'; wt's not-found-extensionless the same): the same status, substatus and title, the requested URL and physical path; not IIS's 'Most likely causes', 'Things you can try', module, handler, logon lines. The physical path is the site's folder (the original's iis, the conversion's converted, /app in the container).",
+      "Ops": [
+        "redirect.relative-query"
+      ]
+    },
+    {
+      "Name": "redirect-relative-frag-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-frag"
+      ]
+    },
+    {
+      "Name": "redirect-relative-frag",
+      "Result": "allowed",
+      "Problems": [
+        "本文テキスト 3 行目から相違: 期待 'The Web server is configured to not list the contents of this directory.' / 実際 'Requested URL {root}/R/Sub/'(期待 24 行 / 実際 4 行)",
+        "  正解側にのみある行: 'The Web server is configured to not list the contents of this directory.' / 'Most likely causes:' / 'A default document is not configured for the requested URL, and directory browsing is not enabled on the server.' / 'Things you can try:' / 'If you do not want to enable directory browsing, ensure that a default document is configured and that the file exists.'",
+        "  実測側にのみある行: 'Physical Path C:\\wcc\\data\\sessions\\-rETZO4pVnOb\\experiments\\wf4c\\_samples\\NavigationProbe\\converted\\R\\Sub\\'"
+      ],
+      "Reason": "IIS's own detailed error page (403.14 of a folder without a default document, 404.0 of a URL no handler answers; a local request) is a simple page in FrameworkOnCore (the user's decision when httpErrors was made IIS-compatible, README 'httpErrors を IIS 互換で実装した'; wt's not-found-extensionless the same): the same status, substatus and title, the requested URL and physical path; not IIS's 'Most likely causes', 'Things you can try', module, handler, logon lines. The physical path is the site's folder (the original's iis, the conversion's converted, /app in the container).",
+      "Ops": [
+        "redirect.relative-frag"
+      ]
+    },
+    {
+      "Name": "redirect-relative-query-frag-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-query-frag"
+      ]
+    },
+    {
+      "Name": "redirect-relative-query-frag",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-query-frag"
+      ]
+    },
+    {
+      "Name": "redirect-relative-tilde-frag-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-tilde-frag"
+      ]
+    },
+    {
+      "Name": "redirect-relative-tilde-frag",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-tilde-frag"
+      ]
+    },
+    {
+      "Name": "redirect-relative-parent-parent-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-parent-parent"
+      ]
+    },
+    {
+      "Name": "redirect-relative-parent-parent",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "redirect.relative-parent-parent"
+      ]
+    },
+    {
+      "Name": "global-begin-request-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.begin-request"
+      ]
+    },
+    {
+      "Name": "global-begin-request",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.begin-request"
+      ]
+    },
+    {
+      "Name": "global-authenticate-request-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.authenticate-request"
+      ]
+    },
+    {
+      "Name": "global-authenticate-request",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.authenticate-request"
+      ]
+    },
+    {
+      "Name": "global-post-acquire-state-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.post-acquire-state"
+      ]
+    },
+    {
+      "Name": "global-post-acquire-state",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.post-acquire-state"
+      ]
+    },
+    {
+      "Name": "global-end-request-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.end-request"
+      ]
+    },
+    {
+      "Name": "global-end-request",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.end-request"
+      ]
+    },
+    {
+      "Name": "global-module-redirect-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.module-redirect"
+      ]
+    },
+    {
+      "Name": "global-module-redirect",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.module-redirect"
+      ]
+    },
+    {
+      "Name": "global-module-complete-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.module-complete"
+      ]
+    },
+    {
+      "Name": "global-module-complete",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.module-complete"
+      ]
+    },
+    {
+      "Name": "global-error-redirect-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.error-redirect"
+      ]
+    },
+    {
+      "Name": "global-error-redirect",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.error-redirect"
+      ]
+    },
+    {
+      "Name": "global-error-redirect-kept-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.error-redirect-kept"
+      ]
+    },
+    {
+      "Name": "global-error-redirect-kept",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.error-redirect-kept"
+      ]
+    },
+    {
+      "Name": "global-error-transfer-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.error-transfer"
+      ]
+    },
+    {
+      "Name": "global-error-transfer",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.error-transfer"
+      ]
+    },
+    {
+      "Name": "global-error-execute-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.error-execute"
+      ]
+    },
+    {
+      "Name": "global-error-execute",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.error-execute"
+      ]
+    },
+    {
+      "Name": "global-error-clear-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.error-clear"
+      ]
+    },
+    {
+      "Name": "global-error-clear",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.error-clear"
+      ]
+    },
+    {
+      "Name": "global-redirect-loop-hops",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.redirect-loop"
+      ]
+    },
+    {
+      "Name": "global-redirect-loop",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.redirect-loop"
+      ]
+    },
+    {
+      "Name": "global-redirect-chain-hops",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.redirect-chain"
+      ]
+    },
+    {
+      "Name": "global-redirect-chain-19",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.redirect-chain"
+      ]
+    },
+    {
+      "Name": "global-redirect-chain-25",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "global.redirect-chain"
+      ]
+    },
+    {
+      "Name": "error-redirect-mode-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.redirect-mode"
+      ]
+    },
+    {
+      "Name": "error-redirect-mode",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.redirect-mode"
+      ]
+    },
+    {
+      "Name": "error-redirect-404-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.redirect-404"
+      ]
+    },
+    {
+      "Name": "error-redirect-404",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.redirect-404"
+      ]
+    },
+    {
+      "Name": "error-redirect-403-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.redirect-403"
+      ]
+    },
+    {
+      "Name": "error-redirect-403",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.redirect-403"
+      ]
+    },
+    {
+      "Name": "error-redirect-missing-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.redirect-missing"
+      ]
+    },
+    {
+      "Name": "error-redirect-missing",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.redirect-missing"
+      ]
+    },
+    {
+      "Name": "error-rewrite-mode-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.rewrite-mode"
+      ]
+    },
+    {
+      "Name": "error-rewrite-mode",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.rewrite-mode"
+      ]
+    },
+    {
+      "Name": "error-rewrite-404-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.rewrite-404"
+      ]
+    },
+    {
+      "Name": "error-rewrite-404",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.rewrite-404"
+      ]
+    },
+    {
+      "Name": "error-rewrite-missing-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.rewrite-missing"
+      ]
+    },
+    {
+      "Name": "error-rewrite-missing",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.rewrite-missing"
+      ]
+    },
+    {
+      "Name": "error-error-page-throws-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.error-page-throws"
+      ]
+    },
+    {
+      "Name": "error-error-page-throws",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.error-page-throws"
+      ]
+    },
+    {
+      "Name": "error-no-default-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.no-default"
+      ]
+    },
+    {
+      "Name": "error-no-default",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.no-default"
+      ]
+    },
+    {
+      "Name": "error-detailed-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.detailed"
+      ]
+    },
+    {
+      "Name": "error-detailed",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.detailed"
+      ]
+    },
+    {
+      "Name": "error-httpexception-404-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.httpexception-404"
+      ]
+    },
+    {
+      "Name": "error-httpexception-404",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.httpexception-404"
+      ]
+    },
+    {
+      "Name": "error-missing-page-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.missing-page"
+      ]
+    },
+    {
+      "Name": "error-missing-page",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.missing-page"
+      ]
+    },
+    {
+      "Name": "error-compile-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.compile"
+      ]
+    },
+    {
+      "Name": "error-compile",
+      "Result": "allowed",
+      "Problems": [
+        "本文テキスト 5 行目から相違: 期待 'Compiler Error Message: CS0029: 型 'string' を型 'int' に暗黙的に変換できません。' / 実際 'Compiler Error Message: CS0029: Cannot implicitly convert type 'string' to 'int''(期待 5 行 / 実際 5 行)",
+        "  正解側にのみある行: 'Compiler Error Message: CS0029: 型 'string' を型 'int' に暗黙的に変換できません。'",
+        "  実測側にのみある行: 'Compiler Error Message: CS0029: Cannot implicitly convert type 'string' to 'int''"
+      ],
+      "Reason": "the compiler's language: .NET Framework's ASP.NET ran csc.exe, whose messages are in Windows' display language (Japanese here: 'CS0029: 型 'string' を型 'int' に暗黙的に変換できません。') while the page's own text is the application's uiCulture (en-US); FrameworkOnCore compiles with Roslyn in the process, in the application's culture (English, as the rest of the page). The same error number, the same page, status and title.",
+      "Ops": [
+        "error.compile"
+      ]
+    },
+    {
+      "Name": "error-parser-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.parser"
+      ]
+    },
+    {
+      "Name": "error-parser",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.parser"
+      ]
+    },
+    {
+      "Name": "error-bad-directive-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.bad-directive"
+      ]
+    },
+    {
+      "Name": "error-bad-directive",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.bad-directive"
+      ]
+    },
+    {
+      "Name": "error-httperrors-replaced-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.httperrors-replaced"
+      ]
+    },
+    {
+      "Name": "error-httperrors-replaced",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.httperrors-replaced"
+      ]
+    },
+    {
+      "Name": "error-httperrors-skip-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.httperrors-skip"
+      ]
+    },
+    {
+      "Name": "error-httperrors-skip",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.httperrors-skip"
+      ]
+    },
+    {
+      "Name": "error-httperrors-missing-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.httperrors-missing"
+      ]
+    },
+    {
+      "Name": "error-httperrors-missing",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.httperrors-missing"
+      ]
+    },
+    {
+      "Name": "error-async-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.async"
+      ]
+    },
+    {
+      "Name": "error-async",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.async"
+      ]
+    },
+    {
+      "Name": "error-asyncnoredirect-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.asyncnoredirect"
+      ]
+    },
+    {
+      "Name": "error-asyncnoredirect",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "error.asyncnoredirect"
+      ]
+    },
+    {
+      "Name": "forms-protected-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.protected-redirect"
+      ]
+    },
+    {
+      "Name": "forms-protected-login",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.protected-redirect"
+      ]
+    },
+    {
+      "Name": "forms-return-url-unicode-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.return-url-query-unicode"
+      ]
+    },
+    {
+      "Name": "forms-return-url-unicode",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.return-url-query-unicode"
+      ]
+    },
+    {
+      "Name": "forms-secure-route-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.secure-route"
+      ]
+    },
+    {
+      "Name": "forms-secure-route",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.secure-route"
+      ]
+    },
+    {
+      "Name": "forms-public",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.public-page"
+      ]
+    },
+    {
+      "Name": "forms-login-wrong",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.login-wrong"
+      ]
+    },
+    {
+      "Name": "forms-login-return",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.login-return"
+      ]
+    },
+    {
+      "Name": "forms-login-cookies",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.login-return"
+      ]
+    },
+    {
+      "Name": "forms-admin-denied-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.admin-denied"
+      ]
+    },
+    {
+      "Name": "forms-admin-denied",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.admin-denied"
+      ]
+    },
+    {
+      "Name": "forms-redirect-to-login",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.redirect-to-login"
+      ]
+    },
+    {
+      "Name": "forms-logout",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.logout"
+      ]
+    },
+    {
+      "Name": "forms-logout-cookies",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.logout"
+      ]
+    },
+    {
+      "Name": "forms-back-after-logout",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.back-after-logout"
+      ]
+    },
+    {
+      "Name": "forms-after-logout-reload",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.back-after-logout"
+      ]
+    },
+    {
+      "Name": "forms-return-url-external-login",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.return-url-external"
+      ]
+    },
+    {
+      "Name": "forms-return-url-external",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.return-url-external"
+      ]
+    },
+    {
+      "Name": "forms-return-url-scheme-relative",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.return-url-scheme-relative"
+      ]
+    },
+    {
+      "Name": "forms-default-url",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.default-url"
+      ]
+    },
+    {
+      "Name": "forms-persistent-cookies",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.default-url"
+      ]
+    },
+    {
+      "Name": "forms-admin-allowed",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "forms.admin-allowed"
+      ]
+    },
+    {
+      "Name": "nav-sitemap-admin",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.sitemap-admin",
+        "forms.admin-allowed"
+      ]
+    },
+    {
+      "Name": "session-set",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "session.abandon"
+      ]
+    },
+    {
+      "Name": "session-abandoned",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "session.abandon"
+      ]
+    },
+    {
+      "Name": "session-after-abandon",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "session.abandon"
+      ]
+    },
+    {
+      "Name": "postback-counter-1",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.back-stale"
+      ]
+    },
+    {
+      "Name": "postback-back",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.back-stale"
+      ]
+    },
+    {
+      "Name": "postback-back-stale",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.back-stale"
+      ]
+    },
+    {
+      "Name": "postback-double-1",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.double-submit"
+      ]
+    },
+    {
+      "Name": "postback-double-2",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.double-submit"
+      ]
+    },
+    {
+      "Name": "postback-double-after",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.double-submit"
+      ]
+    },
+    {
+      "Name": "postback-no-viewstate",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.no-viewstate"
+      ]
+    },
+    {
+      "Name": "postback-validate",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.event-validation"
+      ]
+    },
+    {
+      "Name": "postback-event-validation",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.event-validation"
+      ]
+    },
+    {
+      "Name": "postback-no-event-validation",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.no-event-validation"
+      ]
+    },
+    {
+      "Name": "postback-unknown-target",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.unknown-target"
+      ]
+    },
+    {
+      "Name": "postback-bad-argument",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.bad-argument"
+      ]
+    },
+    {
+      "Name": "postback-hidden-target",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.hidden-target"
+      ]
+    },
+    {
+      "Name": "postback-tampered",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.tampered-viewstate"
+      ]
+    },
+    {
+      "Name": "postback-dynamic-recreated",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.dynamic-recreated"
+      ]
+    },
+    {
+      "Name": "postback-dynamic-lost",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.dynamic-lost"
+      ]
+    },
+    {
+      "Name": "postback-dynamic-static",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.dynamic-lost"
+      ]
+    },
+    {
+      "Name": "postback-viewstate-order",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.viewstate-order"
+      ]
+    },
+    {
+      "Name": "postback-tree-changed",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.tree-changed"
+      ]
+    },
+    {
+      "Name": "postback-chunked",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.chunked-viewstate"
+      ]
+    },
+    {
+      "Name": "postback-chunked-post",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.chunked-viewstate"
+      ]
+    },
+    {
+      "Name": "postback-encrypted",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.encrypted-viewstate"
+      ]
+    },
+    {
+      "Name": "postback-encrypted-post",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.encrypted-viewstate"
+      ]
+    },
+    {
+      "Name": "postback-get-viewstate",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "postback.get-viewstate"
+      ]
+    },
+    {
+      "Name": "wizard-start",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.validation"
+      ]
+    },
+    {
+      "Name": "wizard-validation",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.validation"
+      ]
+    },
+    {
+      "Name": "wizard-step-2",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.next"
+      ]
+    },
+    {
+      "Name": "wizard-step-3",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.next"
+      ]
+    },
+    {
+      "Name": "wizard-sidebar-back",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.previous"
+      ]
+    },
+    {
+      "Name": "wizard-step-2-again",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.previous"
+      ]
+    },
+    {
+      "Name": "wizard-sidebar",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.sidebar"
+      ]
+    },
+    {
+      "Name": "wizard-confirm",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.finish"
+      ]
+    },
+    {
+      "Name": "wizard-finish",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.finish"
+      ]
+    },
+    {
+      "Name": "wizard-jump",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.jump"
+      ]
+    },
+    {
+      "Name": "wizard-cancel",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.cancel"
+      ]
+    },
+    {
+      "Name": "wizard-dest-finish-step",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.finish-destination"
+      ]
+    },
+    {
+      "Name": "wizard-finish-destination",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.finish-destination"
+      ]
+    },
+    {
+      "Name": "multiview-1",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "multiview.commands"
+      ]
+    },
+    {
+      "Name": "multiview-2",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "multiview.commands"
+      ]
+    },
+    {
+      "Name": "multiview-inner-2",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "multiview.commands"
+      ]
+    },
+    {
+      "Name": "multiview-inner-1",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "multiview.commands"
+      ]
+    },
+    {
+      "Name": "multiview-prev",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "multiview.commands"
+      ]
+    },
+    {
+      "Name": "multiview-3",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "multiview.commands"
+      ]
+    },
+    {
+      "Name": "multiview-by-index",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "multiview.commands"
+      ]
+    },
+    {
+      "Name": "multiview-set-active",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "multiview.set-active"
+      ]
+    },
+    {
+      "Name": "wizard-ajax-b",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.ajax"
+      ]
+    },
+    {
+      "Name": "wizard-ajax-c",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.ajax"
+      ]
+    },
+    {
+      "Name": "wizard-ajax-finish",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "wizard.ajax"
+      ]
+    },
+    {
+      "Name": "ajax-panel",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.update"
+      ]
+    },
+    {
+      "Name": "ajax-update-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.update"
+      ]
+    },
+    {
+      "Name": "ajax-update",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.update"
+      ]
+    },
+    {
+      "Name": "ajax-trigger-outside",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.trigger-outside"
+      ]
+    },
+    {
+      "Name": "ajax-postback-trigger",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.postback-trigger"
+      ]
+    },
+    {
+      "Name": "ajax-outside-full",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.outside-full"
+      ]
+    },
+    {
+      "Name": "ajax-redirect-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.redirect"
+      ]
+    },
+    {
+      "Name": "ajax-redirect",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.redirect"
+      ]
+    },
+    {
+      "Name": "ajax-transfer-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.transfer"
+      ]
+    },
+    {
+      "Name": "ajax-transfer",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.transfer"
+      ]
+    },
+    {
+      "Name": "ajax-error-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.error"
+      ]
+    },
+    {
+      "Name": "ajax-error",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.error"
+      ]
+    },
+    {
+      "Name": "ajax-timeout",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.timeout"
+      ]
+    },
+    {
+      "Name": "ajax-write-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.response-write"
+      ]
+    },
+    {
+      "Name": "ajax-write",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.response-write"
+      ]
+    },
+    {
+      "Name": "ajax-end-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.response-end"
+      ]
+    },
+    {
+      "Name": "ajax-end",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.response-end"
+      ]
+    },
+    {
+      "Name": "ajax-nested",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.nested"
+      ]
+    },
+    {
+      "Name": "ajax-nested-inner",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.nested"
+      ]
+    },
+    {
+      "Name": "ajax-nested-outer",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.nested"
+      ]
+    },
+    {
+      "Name": "ajax-nested-update3",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.nested"
+      ]
+    },
+    {
+      "Name": "ajax-nested-three",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.nested"
+      ]
+    },
+    {
+      "Name": "ajax-history-2",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.history"
+      ]
+    },
+    {
+      "Name": "ajax-history-3",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.history"
+      ]
+    },
+    {
+      "Name": "ajax-history-back",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.history"
+      ]
+    },
+    {
+      "Name": "ajax-history-back-2",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.history"
+      ]
+    },
+    {
+      "Name": "ajax-history-forward",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.history"
+      ]
+    },
+    {
+      "Name": "ajax-timer",
+      "Result": "allowed",
+      "Problems": [
+        "HTML 5 行目から相違: 期待 '<script type=\"text/javascript\">Sys.Application.add_init(function() {' / 実際 '</head>'(期待 96 行 / 実際 84 行)",
+        "  正解側にのみある行: '<script type=\"text/javascript\">Sys.Application.add_init(function() {' / '$create(Sys.UI._Timer, {\"enabled\":false,\"interval\":600,\"uniqueID\":\"tm\"}, null, null, $get(\"tm\"));'"
+      ],
+      "Reason": "compilation debug=\"true\": .NET Framework serves the debug ASP.NET AJAX scripts (MicrosoftAjax.debug.js: Sys.Debug.isDebug true), whose script loader leaves the startup scripts of each async postback in the head (Sys._ScriptLoaderTask._clearScript removes them only when not debugging); FrameworkOnCore's System.Web.Extensions has the release scripts only (its .debug.js are copies of the release ones), which remove them once run. The same deltas from the server (compared with a client of their own: every async postback's panel, hidden fields and the Timer's $create with enabled false after the third tick), the same ticks and page; only the executed script elements left in the document differ.",
+      "Ops": [
+        "ajax.timer"
+      ]
+    },
+    {
+      "Name": "ajax-page-method",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.page-methods"
+      ]
+    },
+    {
+      "Name": "ajax-page-method-fails",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.page-methods"
+      ]
+    },
+    {
+      "Name": "ajax-page-method-redirects",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.page-methods"
+      ]
+    },
+    {
+      "Name": "ajax-page-method-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.page-methods"
+      ]
+    },
+    {
+      "Name": "ajax-script-service",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.script-service"
+      ]
+    },
+    {
+      "Name": "ajax-script-service-proxy",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "ajax.script-service"
+      ]
+    },
+    {
+      "Name": "route-constraint",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "route.constraint"
+      ]
+    },
+    {
+      "Name": "route-default",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "route.default"
+      ]
+    },
+    {
+      "Name": "route-constraint-fail-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "route.constraint-fail"
+      ]
+    },
+    {
+      "Name": "route-constraint-fail",
+      "Result": "allowed",
+      "Problems": [
+        "本文テキスト 3 行目から相違: 期待 'The resource you are looking for has been removed, had its name changed, or is temporarily unavailable.' / 実際 'Requested URL {root}/nav/abc'(期待 23 行 / 実際 4 行)",
+        "  正解側にのみある行: 'The resource you are looking for has been removed, had its name changed, or is temporarily unavailable.' / 'Most likely causes:' / 'The directory or file specified does not exist on the Web server.' / 'The URL contains a typographical error.' / 'A custom filter or module, such as URLScan, restricts access to the file.'",
+        "  実測側にのみある行: 'Physical Path C:\\wcc\\data\\sessions\\-rETZO4pVnOb\\experiments\\wf4c\\_samples\\NavigationProbe\\converted\\nav\\abc'"
+      ],
+      "Reason": "IIS's own detailed error page (403.14 of a folder without a default document, 404.0 of a URL no handler answers; a local request) is a simple page in FrameworkOnCore (the user's decision when httpErrors was made IIS-compatible, README 'httpErrors を IIS 互換で実装した'; wt's not-found-extensionless the same): the same status, substatus and title, the requested URL and physical path; not IIS's 'Most likely causes', 'Things you can try', module, handler, logon lines. The physical path is the site's folder (the original's iis, the conversion's converted, /app in the container).",
+      "Ops": [
+        "route.constraint-fail"
+      ]
+    },
+    {
+      "Name": "route-catch-all",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "route.catch-all"
+      ]
+    },
+    {
+      "Name": "route-catch-all-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "route.catch-all"
+      ]
+    },
+    {
+      "Name": "route-catch-all-extension",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "route.catch-all"
+      ]
+    },
+    {
+      "Name": "route-relative-link",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "route.relative-link"
+      ]
+    },
+    {
+      "Name": "route-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "route.postback"
+      ]
+    },
+    {
+      "Name": "route-transfer",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "route.transfer"
+      ]
+    },
+    {
+      "Name": "url-pathinfo",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.pathinfo"
+      ]
+    },
+    {
+      "Name": "url-pathinfo-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.pathinfo"
+      ]
+    },
+    {
+      "Name": "url-pathinfo-link",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.pathinfo"
+      ]
+    },
+    {
+      "Name": "url-pathinfo-encoded",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.pathinfo-encoded"
+      ]
+    },
+    {
+      "Name": "url-default-document",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.default-document"
+      ]
+    },
+    {
+      "Name": "url-courtesy-redirect-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.courtesy-redirect"
+      ]
+    },
+    {
+      "Name": "url-courtesy-redirect",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.courtesy-redirect"
+      ]
+    },
+    {
+      "Name": "url-rewrite-rebase",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.rewrite-rebase"
+      ]
+    },
+    {
+      "Name": "url-rewrite-rebase-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.rewrite-rebase"
+      ]
+    },
+    {
+      "Name": "url-rewrite-no-rebase",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.rewrite-no-rebase"
+      ]
+    },
+    {
+      "Name": "url-rewrite-no-rebase-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.rewrite-no-rebase"
+      ]
+    },
+    {
+      "Name": "url-rewrite-parts",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.rewrite-parts"
+      ]
+    },
+    {
+      "Name": "url-rewrite-parts-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.rewrite-parts"
+      ]
+    },
+    {
+      "Name": "url-query-repeated",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.query-repeated"
+      ]
+    },
+    {
+      "Name": "url-query-empty",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.query-empty"
+      ]
+    },
+    {
+      "Name": "url-query-encoded",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.query-encoded"
+      ]
+    },
+    {
+      "Name": "url-query-invalid",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.query-invalid"
+      ]
+    },
+    {
+      "Name": "url-case",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.case"
+      ]
+    },
+    {
+      "Name": "url-double-slash",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "url.double-slash"
+      ]
+    },
+    {
+      "Name": "nav-sitemap",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.sitemap"
+      ]
+    },
+    {
+      "Name": "nav-usercontrol-link",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.usercontrol-link"
+      ]
+    },
+    {
+      "Name": "nav-usercontrol-plain",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.usercontrol-link"
+      ]
+    },
+    {
+      "Name": "nav-menu",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.menu"
+      ]
+    },
+    {
+      "Name": "nav-menu-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.menu"
+      ]
+    },
+    {
+      "Name": "nav-menu-child",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.menu"
+      ]
+    },
+    {
+      "Name": "nav-menu-navigate",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.menu"
+      ]
+    },
+    {
+      "Name": "nav-treeview-expand",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.treeview"
+      ]
+    },
+    {
+      "Name": "nav-treeview-select",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.treeview"
+      ]
+    },
+    {
+      "Name": "nav-treeview-navigate",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.treeview"
+      ]
+    },
+    {
+      "Name": "nav-treeview-root-text",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.treeview"
+      ]
+    },
+    {
+      "Name": "nav-imagemap",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.imagemap"
+      ]
+    },
+    {
+      "Name": "nav-imagemap-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.imagemap"
+      ]
+    },
+    {
+      "Name": "nav-imagemap-navigate",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.imagemap"
+      ]
+    },
+    {
+      "Name": "nav-buttons",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.client-click"
+      ]
+    },
+    {
+      "Name": "nav-linkbutton-false",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.client-click"
+      ]
+    },
+    {
+      "Name": "nav-button-false",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.client-click"
+      ]
+    },
+    {
+      "Name": "nav-linkbutton-confirm",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.client-click"
+      ]
+    },
+    {
+      "Name": "nav-panel-default-button",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.default-button"
+      ]
+    },
+    {
+      "Name": "nav-form-default-button",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.default-button"
+      ]
+    },
+    {
+      "Name": "nav-set-focus",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.set-focus"
+      ]
+    },
+    {
+      "Name": "nav-scroll",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "nav.scroll"
+      ]
+    },
+    {
+      "Name": "async-redirect-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "async.redirect"
+      ]
+    },
+    {
+      "Name": "async-redirect",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "async.redirect"
+      ]
+    },
+    {
+      "Name": "async-redirect-side",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "async.redirect"
+      ]
+    },
+    {
+      "Name": "async-redirect-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "async.redirect-false"
+      ]
+    },
+    {
+      "Name": "async-redirect-false",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "async.redirect-false"
+      ]
+    },
+    {
+      "Name": "async-transfer-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "async.transfer"
+      ]
+    },
+    {
+      "Name": "async-transfer",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "async.transfer"
+      ]
+    },
+    {
+      "Name": "async-throw-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "async.throw"
+      ]
+    },
+    {
+      "Name": "async-throw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "async.throw"
+      ]
+    },
+    {
+      "Name": "async-done-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "async.done"
+      ]
+    },
+    {
+      "Name": "async-done",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "async.done"
+      ]
+    },
+    {
+      "Name": "async-void-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "async.void"
+      ]
+    },
+    {
+      "Name": "async-void",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "async.void"
+      ]
+    },
+    {
+      "Name": "async-void-plain",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "async.void"
+      ]
+    },
+    {
+      "Name": "handler-redirect-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "handler.redirect"
+      ]
+    },
+    {
+      "Name": "handler-redirect",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "handler.redirect"
+      ]
+    },
+    {
+      "Name": "handler-redirect-permanent-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "handler.redirect-permanent"
+      ]
+    },
+    {
+      "Name": "handler-redirect-permanent",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "handler.redirect-permanent"
+      ]
+    },
+    {
+      "Name": "handler-redirect-false-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "handler.redirect-false"
+      ]
+    },
+    {
+      "Name": "handler-redirect-false",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "handler.redirect-false"
+      ]
+    },
+    {
+      "Name": "handler-transfer",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "handler.transfer"
+      ]
+    },
+    {
+      "Name": "handler-execute",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "handler.transfer"
+      ]
+    },
+    {
+      "Name": "download-button",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "download.button"
+      ]
+    },
+    {
+      "Name": "download-button-after",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "download.button"
+      ]
+    },
+    {
+      "Name": "download-linkbutton",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "download.linkbutton"
+      ]
+    },
+    {
+      "Name": "download-linkbutton-button",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "download.linkbutton"
+      ]
+    },
+    {
+      "Name": "download-linkbutton-2",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "download.linkbutton"
+      ]
+    },
+    {
+      "Name": "download-linkbutton-link",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "download.linkbutton"
+      ]
+    },
+    {
+      "Name": "download-unicode",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "download.unicode"
+      ]
+    },
+    {
+      "Name": "window-blank-link",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "window.blank-link"
+      ]
+    },
+    {
+      "Name": "window-form-target-popup",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "window.blank-link",
+        "window.form-target"
+      ]
+    },
+    {
+      "Name": "window-form-target-main",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "window.form-target"
+      ]
+    },
+    {
+      "Name": "window-form-target-sticky",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "window.form-target"
+      ]
+    },
+    {
+      "Name": "window-open",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "window.form-target",
+        "window.open-opener"
+      ]
+    },
+    {
+      "Name": "window-open-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "window.open-opener"
+      ]
+    },
+    {
+      "Name": "window-opener-told",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "window.open-opener"
+      ]
+    },
+    {
+      "Name": "frame-page",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "frame.postback"
+      ]
+    },
+    {
+      "Name": "frame-inner",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "frame.postback"
+      ]
+    },
+    {
+      "Name": "frame-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "frame.postback"
+      ]
+    },
+    {
+      "Name": "frame-redirect",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "frame.postback"
+      ]
+    },
+    {
+      "Name": "frame-page-after",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "frame.postback"
+      ]
+    },
+    {
+      "Name": "frame-target",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "frame.target"
+      ]
+    },
+    {
+      "Name": "frame-target-postback",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "frame.target"
+      ]
+    },
+    {
+      "Name": "frame-top-link",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "frame.target",
+        "frame.top"
+      ]
+    },
+    {
+      "Name": "frame-top-script",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "frame.top"
+      ]
+    },
+    {
+      "Name": "vb-handles",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "vb.handles-redirect"
+      ]
+    },
+    {
+      "Name": "vb-handles-redirect",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "vb.handles-redirect"
+      ]
+    },
+    {
+      "Name": "vb-catch-when",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "vb.catch-when"
+      ]
+    },
+    {
+      "Name": "vb-catch-when-side",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "vb.catch-when"
+      ]
+    },
+    {
+      "Name": "vb-transfer",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "vb.transfer"
+      ]
+    },
+    {
+      "Name": "vb-my",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "vb.my"
+      ]
+    },
+    {
+      "Name": "vb-my-redirect-raw",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "vb.my"
+      ]
+    },
+    {
+      "Name": "vb-my-redirect",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "vb.my"
+      ]
+    },
+    {
+      "Name": "vb-cross-page",
+      "Result": "same",
+      "Problems": [],
+      "Ops": [
+        "vb.cross-page"
+      ]
+    }
+  ],
+  "Operations": [
+    {
+      "Id": "index.home",
+      "Category": "index",
+      "Result": "same",
+      "Snapshots": [
+        "index"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "transfer.preserve-form",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "transfer-source",
+        "transfer-preserve-form"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "transfer.no-form",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "transfer-no-form"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "transfer.query",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "transfer-query"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "transfer.relative-links",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "transfer-hyperlink-relative",
+        "transfer-plain-relative",
+        "transfer-server-anchor"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "transfer.target-postback",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "transfer-target-postback"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "transfer.handler",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "transfer-handler"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "transfer.ashx",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "transfer-ashx"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "transfer.chain",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "transfer-chain",
+        "transfer-chain-get",
+        "transfer-chain-postback"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "transfer.after-write",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "transfer-after-write"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "transfer.catch-threadabort",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "transfer-catch-threadabort",
+        "transfer-catch-threadabort-side"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "transfer.catch-exception",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "transfer-catch-exception",
+        "transfer-catch-exception-side"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "transfer.transfer-request",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "transfer-request"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "transfer.missing",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "transfer-missing"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "execute.load",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "execute-load-raw",
+        "execute-load"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "execute.render",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "execute-render-raw",
+        "execute-render"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "execute.writer",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "execute-writer-raw",
+        "execute-writer"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "execute.ashx",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "execute-ashx-raw",
+        "execute-ashx"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "execute.redirect",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "execute-redirect-raw",
+        "execute-redirect",
+        "execute-redirect-side"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "execute.transfer",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "execute-transfer-raw",
+        "execute-transfer"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "execute.throw",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "execute-throw-raw",
+        "execute-throw"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "execute.missing",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "execute-missing-raw",
+        "execute-missing"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "execute.preserve-form",
+      "Category": "transfer",
+      "Result": "same",
+      "Snapshots": [
+        "execute-preserve-true",
+        "execute-preserve-false"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "cross.same-folder",
+      "Category": "cross-page",
+      "Result": "same",
+      "Snapshots": [
+        "cross-source",
+        "cross-same-folder"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "cross.validation",
+      "Category": "cross-page",
+      "Result": "same",
+      "Snapshots": [
+        "cross-validation-failed"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "cross.no-validation",
+      "Category": "cross-page",
+      "Result": "same",
+      "Snapshots": [
+        "cross-no-validation"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "cross.other-folder",
+      "Category": "cross-page",
+      "Result": "same",
+      "Snapshots": [
+        "cross-other-folder",
+        "cross-other-folder-link"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "cross.query",
+      "Category": "cross-page",
+      "Result": "same",
+      "Snapshots": [
+        "cross-query"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "cross.linkbutton",
+      "Category": "cross-page",
+      "Result": "same",
+      "Snapshots": [
+        "cross-linkbutton"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "cross.target-postback",
+      "Category": "cross-page",
+      "Result": "same",
+      "Snapshots": [
+        "cross-target-postback"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "cross.target-direct",
+      "Category": "cross-page",
+      "Result": "same",
+      "Snapshots": [
+        "cross-target-direct"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "cross.master",
+      "Category": "cross-page",
+      "Result": "same",
+      "Snapshots": [
+        "cross-master-source",
+        "cross-master"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "cross.plain-postback",
+      "Category": "cross-page",
+      "Result": "same",
+      "Snapshots": [
+        "cross-plain-postback"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.at-preinit",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-at-preinit-raw",
+        "redirect-at-preinit-false-raw",
+        "redirect-at-preinit"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.at-init",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-at-init-raw",
+        "redirect-at-init-false-raw",
+        "redirect-at-init"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.at-initcomplete",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-at-initcomplete-raw",
+        "redirect-at-initcomplete-false-raw",
+        "redirect-at-initcomplete"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.at-preload",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-at-preload-raw",
+        "redirect-at-preload-false-raw",
+        "redirect-at-preload"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.at-load",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-at-load-raw",
+        "redirect-at-load-false-raw",
+        "redirect-at-load"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.at-click",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-at-click-raw",
+        "redirect-at-click",
+        "redirect-at-click-false-raw",
+        "redirect-at-click-false"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.at-loadcomplete",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-at-loadcomplete-raw",
+        "redirect-at-loadcomplete-false-raw",
+        "redirect-at-loadcomplete"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.at-prerender",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-at-prerender-raw",
+        "redirect-at-prerender-false-raw",
+        "redirect-at-prerender"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.at-prerendercomplete",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-at-prerendercomplete-raw",
+        "redirect-at-prerendercomplete-false-raw",
+        "redirect-at-prerendercomplete"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.at-savestatecomplete",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-at-savestatecomplete-raw",
+        "redirect-at-savestatecomplete-false-raw",
+        "redirect-at-savestatecomplete"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.at-render",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-at-render-raw",
+        "redirect-at-render-false-raw",
+        "redirect-at-render"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.at-unload",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-at-unload-raw",
+        "redirect-at-unload-false-raw",
+        "redirect-at-unload"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.tae",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-tae-raw",
+        "redirect-tae",
+        "redirect-tae-side"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.ex",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-ex-raw",
+        "redirect-ex",
+        "redirect-ex-side"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.finally",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-finally-raw",
+        "redirect-finally",
+        "redirect-finally-side"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.written",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-written-raw",
+        "redirect-written"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.flushed",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-flushed-raw",
+        "redirect-flushed",
+        "redirect-flushed-side"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.permanent",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-permanent-raw",
+        "redirect-permanent"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.permanent-false",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-permanent-false-raw",
+        "redirect-permanent-false"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.route",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-route-raw",
+        "redirect-route"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.route-permanent",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-route-permanent-raw",
+        "redirect-route-permanent"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.route-name",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-route-name-raw",
+        "redirect-route-name"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.external",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-external-raw",
+        "redirect-external"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.protocol-relative",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-protocol-relative-raw",
+        "redirect-protocol-relative"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.absolute-path",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-absolute-path-raw",
+        "redirect-absolute-path"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.unicode",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-unicode-raw",
+        "redirect-unicode"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.encoded",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-encoded-raw",
+        "redirect-encoded"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.unicode-path",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-unicode-path-raw",
+        "redirect-unicode-path"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.space-path",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-space-path-raw",
+        "redirect-space-path"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.newline",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-newline-raw",
+        "redirect-newline"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.empty",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-empty-raw",
+        "redirect-empty"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.end",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-end-raw",
+        "redirect-end",
+        "redirect-end-side"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.complete",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-complete-raw",
+        "redirect-complete",
+        "redirect-complete-side"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.false-complete",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-false-complete-raw",
+        "redirect-false-complete"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.status200",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-status200-raw",
+        "redirect-status200"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.status301",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-status301-raw",
+        "redirect-status301"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.status404",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-status404-raw",
+        "redirect-status404"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.twice",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-twice-raw",
+        "redirect-twice"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.clear-headers",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-clear-headers-raw",
+        "redirect-clear-headers"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.relative-parent",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-relative-parent-raw",
+        "redirect-relative-parent"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.relative-file",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-relative-file-raw",
+        "redirect-relative-file"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.relative-dot",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-relative-dot-raw",
+        "redirect-relative-dot"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.relative-tilde",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-relative-tilde-raw",
+        "redirect-relative-tilde"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.relative-query",
+      "Category": "redirect",
+      "Result": "allowed",
+      "Snapshots": [
+        "redirect-relative-query-raw",
+        "redirect-relative-query"
+      ],
+      "Problems": [
+        "本文テキスト 3 行目から相違: 期待 'The Web server is configured to not list the contents of this directory.' / 実際 'Requested URL {root}/R/Sub/?from=query-only'(期待 24 行 / 実際 4 行)",
+        "  正解側にのみある行: 'The Web server is configured to not list the contents of this directory.' / 'Most likely causes:' / 'A default document is not configured for the requested URL, and directory browsing is not enabled on the server.' / 'Things you can try:' / 'If you do not want to enable directory browsing, ensure that a default document is configured and that the file exists.'",
+        "  実測側にのみある行: 'Physical Path C:\\wcc\\data\\sessions\\-rETZO4pVnOb\\experiments\\wf4c\\_samples\\NavigationProbe\\converted\\R\\Sub\\'"
+      ]
+    },
+    {
+      "Id": "redirect.relative-frag",
+      "Category": "redirect",
+      "Result": "allowed",
+      "Snapshots": [
+        "redirect-relative-frag-raw",
+        "redirect-relative-frag"
+      ],
+      "Problems": [
+        "本文テキスト 3 行目から相違: 期待 'The Web server is configured to not list the contents of this directory.' / 実際 'Requested URL {root}/R/Sub/'(期待 24 行 / 実際 4 行)",
+        "  正解側にのみある行: 'The Web server is configured to not list the contents of this directory.' / 'Most likely causes:' / 'A default document is not configured for the requested URL, and directory browsing is not enabled on the server.' / 'Things you can try:' / 'If you do not want to enable directory browsing, ensure that a default document is configured and that the file exists.'",
+        "  実測側にのみある行: 'Physical Path C:\\wcc\\data\\sessions\\-rETZO4pVnOb\\experiments\\wf4c\\_samples\\NavigationProbe\\converted\\R\\Sub\\'"
+      ]
+    },
+    {
+      "Id": "redirect.relative-query-frag",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-relative-query-frag-raw",
+        "redirect-relative-query-frag"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.relative-tilde-frag",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-relative-tilde-frag-raw",
+        "redirect-relative-tilde-frag"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "redirect.relative-parent-parent",
+      "Category": "redirect",
+      "Result": "same",
+      "Snapshots": [
+        "redirect-relative-parent-parent-raw",
+        "redirect-relative-parent-parent"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "global.begin-request",
+      "Category": "global",
+      "Result": "same",
+      "Snapshots": [
+        "global-begin-request-raw",
+        "global-begin-request"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "global.authenticate-request",
+      "Category": "global",
+      "Result": "same",
+      "Snapshots": [
+        "global-authenticate-request-raw",
+        "global-authenticate-request"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "global.post-acquire-state",
+      "Category": "global",
+      "Result": "same",
+      "Snapshots": [
+        "global-post-acquire-state-raw",
+        "global-post-acquire-state"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "global.end-request",
+      "Category": "global",
+      "Result": "same",
+      "Snapshots": [
+        "global-end-request-raw",
+        "global-end-request"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "global.module-redirect",
+      "Category": "global",
+      "Result": "same",
+      "Snapshots": [
+        "global-module-redirect-raw",
+        "global-module-redirect"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "global.module-complete",
+      "Category": "global",
+      "Result": "same",
+      "Snapshots": [
+        "global-module-complete-raw",
+        "global-module-complete"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "global.error-redirect",
+      "Category": "global",
+      "Result": "same",
+      "Snapshots": [
+        "global-error-redirect-raw",
+        "global-error-redirect"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "global.error-redirect-kept",
+      "Category": "global",
+      "Result": "same",
+      "Snapshots": [
+        "global-error-redirect-kept-raw",
+        "global-error-redirect-kept"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "global.error-transfer",
+      "Category": "global",
+      "Result": "same",
+      "Snapshots": [
+        "global-error-transfer-raw",
+        "global-error-transfer"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "global.error-execute",
+      "Category": "global",
+      "Result": "same",
+      "Snapshots": [
+        "global-error-execute-raw",
+        "global-error-execute"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "global.error-clear",
+      "Category": "global",
+      "Result": "same",
+      "Snapshots": [
+        "global-error-clear-raw",
+        "global-error-clear"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "global.redirect-loop",
+      "Category": "global",
+      "Result": "same",
+      "Snapshots": [
+        "global-redirect-loop-hops",
+        "global-redirect-loop"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "global.redirect-chain",
+      "Category": "global",
+      "Result": "same",
+      "Snapshots": [
+        "global-redirect-chain-hops",
+        "global-redirect-chain-19",
+        "global-redirect-chain-25"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.redirect-mode",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-redirect-mode-raw",
+        "error-redirect-mode"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.redirect-404",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-redirect-404-raw",
+        "error-redirect-404"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.redirect-403",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-redirect-403-raw",
+        "error-redirect-403"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.redirect-missing",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-redirect-missing-raw",
+        "error-redirect-missing"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.rewrite-mode",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-rewrite-mode-raw",
+        "error-rewrite-mode"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.rewrite-404",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-rewrite-404-raw",
+        "error-rewrite-404"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.rewrite-missing",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-rewrite-missing-raw",
+        "error-rewrite-missing"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.error-page-throws",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-error-page-throws-raw",
+        "error-error-page-throws"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.no-default",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-no-default-raw",
+        "error-no-default"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.detailed",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-detailed-raw",
+        "error-detailed"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.httpexception-404",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-httpexception-404-raw",
+        "error-httpexception-404"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.missing-page",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-missing-page-raw",
+        "error-missing-page"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.compile",
+      "Category": "error",
+      "Result": "allowed",
+      "Snapshots": [
+        "error-compile-raw",
+        "error-compile"
+      ],
+      "Problems": [
+        "本文テキスト 5 行目から相違: 期待 'Compiler Error Message: CS0029: 型 'string' を型 'int' に暗黙的に変換できません。' / 実際 'Compiler Error Message: CS0029: Cannot implicitly convert type 'string' to 'int''(期待 5 行 / 実際 5 行)",
+        "  正解側にのみある行: 'Compiler Error Message: CS0029: 型 'string' を型 'int' に暗黙的に変換できません。'",
+        "  実測側にのみある行: 'Compiler Error Message: CS0029: Cannot implicitly convert type 'string' to 'int''"
+      ]
+    },
+    {
+      "Id": "error.parser",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-parser-raw",
+        "error-parser"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.bad-directive",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-bad-directive-raw",
+        "error-bad-directive"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.httperrors-replaced",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-httperrors-replaced-raw",
+        "error-httperrors-replaced"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.httperrors-skip",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-httperrors-skip-raw",
+        "error-httperrors-skip"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.httperrors-missing",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-httperrors-missing-raw",
+        "error-httperrors-missing"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.async",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-async-raw",
+        "error-async"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "error.asyncnoredirect",
+      "Category": "error",
+      "Result": "same",
+      "Snapshots": [
+        "error-asyncnoredirect-raw",
+        "error-asyncnoredirect"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "forms.protected-redirect",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "forms-protected-raw",
+        "forms-protected-login"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "forms.return-url-query-unicode",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "forms-return-url-unicode-raw",
+        "forms-return-url-unicode"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "forms.secure-route",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "forms-secure-route-raw",
+        "forms-secure-route"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "forms.public-page",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "forms-public"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "forms.login-wrong",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "forms-login-wrong"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "forms.login-return",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "forms-login-return",
+        "forms-login-cookies"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "forms.admin-denied",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "forms-admin-denied-raw",
+        "forms-admin-denied"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "forms.redirect-to-login",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "forms-redirect-to-login"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "forms.logout",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "forms-logout",
+        "forms-logout-cookies"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "forms.back-after-logout",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "forms-back-after-logout",
+        "forms-after-logout-reload"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "forms.return-url-external",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "forms-return-url-external-login",
+        "forms-return-url-external"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "forms.return-url-scheme-relative",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "forms-return-url-scheme-relative"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "forms.default-url",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "forms-default-url",
+        "forms-persistent-cookies"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "forms.admin-allowed",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "forms-admin-allowed",
+        "nav-sitemap-admin"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "session.abandon",
+      "Category": "forms",
+      "Result": "same",
+      "Snapshots": [
+        "session-set",
+        "session-abandoned",
+        "session-after-abandon"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "session.cookieless",
+      "Category": "forms",
+      "Result": "not runnable",
+      "Snapshots": [],
+      "Note": "sessionState cookieless is per application (MachineToApplication): it needs a second application in a subfolder; sample-parity.ps1 hosts one application at the site root (and the converter converts one application). A sample of its own would be needed.",
+      "Problems": []
+    },
+    {
+      "Id": "postback.back-stale",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-counter-1",
+        "postback-back",
+        "postback-back-stale"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.double-submit",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-double-1",
+        "postback-double-2",
+        "postback-double-after"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.no-viewstate",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-no-viewstate"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.event-validation",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-validate",
+        "postback-event-validation"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.no-event-validation",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-no-event-validation"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.unknown-target",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-unknown-target"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.bad-argument",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-bad-argument"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.hidden-target",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-hidden-target"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.tampered-viewstate",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-tampered"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.dynamic-recreated",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-dynamic-recreated"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.dynamic-lost",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-dynamic-lost",
+        "postback-dynamic-static"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.viewstate-order",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-viewstate-order"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.tree-changed",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-tree-changed"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.chunked-viewstate",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-chunked",
+        "postback-chunked-post"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.encrypted-viewstate",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-encrypted",
+        "postback-encrypted-post"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "postback.get-viewstate",
+      "Category": "postback",
+      "Result": "same",
+      "Snapshots": [
+        "postback-get-viewstate"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "wizard.validation",
+      "Category": "wizard",
+      "Result": "same",
+      "Snapshots": [
+        "wizard-start",
+        "wizard-validation"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "wizard.next",
+      "Category": "wizard",
+      "Result": "same",
+      "Snapshots": [
+        "wizard-step-2",
+        "wizard-step-3"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "wizard.previous",
+      "Category": "wizard",
+      "Result": "same",
+      "Snapshots": [
+        "wizard-sidebar-back",
+        "wizard-step-2-again"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "wizard.sidebar",
+      "Category": "wizard",
+      "Result": "same",
+      "Snapshots": [
+        "wizard-sidebar"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "wizard.finish",
+      "Category": "wizard",
+      "Result": "same",
+      "Snapshots": [
+        "wizard-confirm",
+        "wizard-finish"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "wizard.jump",
+      "Category": "wizard",
+      "Result": "same",
+      "Snapshots": [
+        "wizard-jump"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "wizard.cancel",
+      "Category": "wizard",
+      "Result": "same",
+      "Snapshots": [
+        "wizard-cancel"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "wizard.finish-destination",
+      "Category": "wizard",
+      "Result": "same",
+      "Snapshots": [
+        "wizard-dest-finish-step",
+        "wizard-finish-destination"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "multiview.commands",
+      "Category": "wizard",
+      "Result": "same",
+      "Snapshots": [
+        "multiview-1",
+        "multiview-2",
+        "multiview-inner-2",
+        "multiview-inner-1",
+        "multiview-prev",
+        "multiview-3",
+        "multiview-by-index"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "multiview.set-active",
+      "Category": "wizard",
+      "Result": "same",
+      "Snapshots": [
+        "multiview-set-active"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "wizard.ajax",
+      "Category": "wizard",
+      "Result": "same",
+      "Snapshots": [
+        "wizard-ajax-b",
+        "wizard-ajax-c",
+        "wizard-ajax-finish"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "ajax.update",
+      "Category": "ajax",
+      "Result": "same",
+      "Snapshots": [
+        "ajax-panel",
+        "ajax-update-raw",
+        "ajax-update"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "ajax.trigger-outside",
+      "Category": "ajax",
+      "Result": "same",
+      "Snapshots": [
+        "ajax-trigger-outside"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "ajax.postback-trigger",
+      "Category": "ajax",
+      "Result": "same",
+      "Snapshots": [
+        "ajax-postback-trigger"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "ajax.outside-full",
+      "Category": "ajax",
+      "Result": "same",
+      "Snapshots": [
+        "ajax-outside-full"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "ajax.redirect",
+      "Category": "ajax",
+      "Result": "same",
+      "Snapshots": [
+        "ajax-redirect-raw",
+        "ajax-redirect"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "ajax.transfer",
+      "Category": "ajax",
+      "Result": "same",
+      "Snapshots": [
+        "ajax-transfer-raw",
+        "ajax-transfer"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "ajax.error",
+      "Category": "ajax",
+      "Result": "same",
+      "Snapshots": [
+        "ajax-error-raw",
+        "ajax-error"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "ajax.timeout",
+      "Category": "ajax",
+      "Result": "same",
+      "Snapshots": [
+        "ajax-timeout"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "ajax.response-write",
+      "Category": "ajax",
+      "Result": "same",
+      "Snapshots": [
+        "ajax-write-raw",
+        "ajax-write"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "ajax.response-end",
+      "Category": "ajax",
+      "Result": "same",
+      "Snapshots": [
+        "ajax-end-raw",
+        "ajax-end"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "ajax.nested",
+      "Category": "ajax",
+      "Result": "same",
+      "Snapshots": [
+        "ajax-nested",
+        "ajax-nested-inner",
+        "ajax-nested-outer",
+        "ajax-nested-update3",
+        "ajax-nested-three"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "ajax.history",
+      "Category": "ajax",
+      "Result": "same",
+      "Snapshots": [
+        "ajax-history-2",
+        "ajax-history-3",
+        "ajax-history-back",
+        "ajax-history-back-2",
+        "ajax-history-forward"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "ajax.timer",
+      "Category": "ajax",
+      "Result": "allowed",
+      "Snapshots": [
+        "ajax-timer"
+      ],
+      "Problems": [
+        "HTML 5 行目から相違: 期待 '<script type=\"text/javascript\">Sys.Application.add_init(function() {' / 実際 '</head>'(期待 96 行 / 実際 84 行)",
+        "  正解側にのみある行: '<script type=\"text/javascript\">Sys.Application.add_init(function() {' / '$create(Sys.UI._Timer, {\"enabled\":false,\"interval\":600,\"uniqueID\":\"tm\"}, null, null, $get(\"tm\"));'"
+      ]
+    },
+    {
+      "Id": "ajax.page-methods",
+      "Category": "ajax",
+      "Result": "same",
+      "Snapshots": [
+        "ajax-page-method",
+        "ajax-page-method-fails",
+        "ajax-page-method-redirects",
+        "ajax-page-method-raw"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "ajax.script-service",
+      "Category": "ajax",
+      "Result": "same",
+      "Snapshots": [
+        "ajax-script-service",
+        "ajax-script-service-proxy"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "route.constraint",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "route-constraint"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "route.default",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "route-default"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "route.constraint-fail",
+      "Category": "routing",
+      "Result": "allowed",
+      "Snapshots": [
+        "route-constraint-fail-raw",
+        "route-constraint-fail"
+      ],
+      "Problems": [
+        "本文テキスト 3 行目から相違: 期待 'The resource you are looking for has been removed, had its name changed, or is temporarily unavailable.' / 実際 'Requested URL {root}/nav/abc'(期待 23 行 / 実際 4 行)",
+        "  正解側にのみある行: 'The resource you are looking for has been removed, had its name changed, or is temporarily unavailable.' / 'Most likely causes:' / 'The directory or file specified does not exist on the Web server.' / 'The URL contains a typographical error.' / 'A custom filter or module, such as URLScan, restricts access to the file.'",
+        "  実測側にのみある行: 'Physical Path C:\\wcc\\data\\sessions\\-rETZO4pVnOb\\experiments\\wf4c\\_samples\\NavigationProbe\\converted\\nav\\abc'"
+      ]
+    },
+    {
+      "Id": "route.catch-all",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "route-catch-all",
+        "route-catch-all-postback",
+        "route-catch-all-extension"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "route.relative-link",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "route-relative-link"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "route.postback",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "route-postback"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "route.transfer",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "route-transfer"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "url.pathinfo",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "url-pathinfo",
+        "url-pathinfo-postback",
+        "url-pathinfo-link"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "url.pathinfo-encoded",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "url-pathinfo-encoded"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "url.default-document",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "url-default-document"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "url.courtesy-redirect",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "url-courtesy-redirect-raw",
+        "url-courtesy-redirect"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "url.rewrite-rebase",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "url-rewrite-rebase",
+        "url-rewrite-rebase-postback"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "url.rewrite-no-rebase",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "url-rewrite-no-rebase",
+        "url-rewrite-no-rebase-postback"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "url.rewrite-parts",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "url-rewrite-parts",
+        "url-rewrite-parts-postback"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "url.query-repeated",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "url-query-repeated"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "url.query-empty",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "url-query-empty"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "url.query-encoded",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "url-query-encoded"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "url.query-invalid",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "url-query-invalid"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "url.case",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "url-case"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "url.double-slash",
+      "Category": "routing",
+      "Result": "same",
+      "Snapshots": [
+        "url-double-slash"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "nav.sitemap",
+      "Category": "navigation",
+      "Result": "same",
+      "Snapshots": [
+        "nav-sitemap"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "nav.usercontrol-link",
+      "Category": "navigation",
+      "Result": "same",
+      "Snapshots": [
+        "nav-usercontrol-link",
+        "nav-usercontrol-plain"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "nav.sitemap-admin",
+      "Category": "navigation",
+      "Result": "same",
+      "Snapshots": [
+        "nav-sitemap-admin"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "nav.menu",
+      "Category": "navigation",
+      "Result": "same",
+      "Snapshots": [
+        "nav-menu",
+        "nav-menu-postback",
+        "nav-menu-child",
+        "nav-menu-navigate"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "nav.treeview",
+      "Category": "navigation",
+      "Result": "same",
+      "Snapshots": [
+        "nav-treeview-expand",
+        "nav-treeview-select",
+        "nav-treeview-navigate",
+        "nav-treeview-root-text"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "nav.imagemap",
+      "Category": "navigation",
+      "Result": "same",
+      "Snapshots": [
+        "nav-imagemap",
+        "nav-imagemap-postback",
+        "nav-imagemap-navigate"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "nav.client-click",
+      "Category": "navigation",
+      "Result": "same",
+      "Snapshots": [
+        "nav-buttons",
+        "nav-linkbutton-false",
+        "nav-button-false",
+        "nav-linkbutton-confirm"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "nav.default-button",
+      "Category": "navigation",
+      "Result": "same",
+      "Snapshots": [
+        "nav-panel-default-button",
+        "nav-form-default-button"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "nav.set-focus",
+      "Category": "navigation",
+      "Result": "same",
+      "Snapshots": [
+        "nav-set-focus"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "nav.scroll",
+      "Category": "navigation",
+      "Result": "same",
+      "Snapshots": [
+        "nav-scroll"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "async.redirect",
+      "Category": "async",
+      "Result": "same",
+      "Snapshots": [
+        "async-redirect-raw",
+        "async-redirect",
+        "async-redirect-side"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "async.redirect-false",
+      "Category": "async",
+      "Result": "same",
+      "Snapshots": [
+        "async-redirect-false-raw",
+        "async-redirect-false"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "async.transfer",
+      "Category": "async",
+      "Result": "same",
+      "Snapshots": [
+        "async-transfer-raw",
+        "async-transfer"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "async.throw",
+      "Category": "async",
+      "Result": "same",
+      "Snapshots": [
+        "async-throw-raw",
+        "async-throw"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "async.done",
+      "Category": "async",
+      "Result": "same",
+      "Snapshots": [
+        "async-done-raw",
+        "async-done"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "async.void",
+      "Category": "async",
+      "Result": "same",
+      "Snapshots": [
+        "async-void-raw",
+        "async-void",
+        "async-void-plain"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "handler.redirect",
+      "Category": "async",
+      "Result": "same",
+      "Snapshots": [
+        "handler-redirect-raw",
+        "handler-redirect"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "handler.redirect-permanent",
+      "Category": "async",
+      "Result": "same",
+      "Snapshots": [
+        "handler-redirect-permanent-raw",
+        "handler-redirect-permanent"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "handler.redirect-false",
+      "Category": "async",
+      "Result": "same",
+      "Snapshots": [
+        "handler-redirect-false-raw",
+        "handler-redirect-false"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "handler.transfer",
+      "Category": "async",
+      "Result": "same",
+      "Snapshots": [
+        "handler-transfer",
+        "handler-execute"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "download.button",
+      "Category": "async",
+      "Result": "same",
+      "Snapshots": [
+        "download-button",
+        "download-button-after"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "download.linkbutton",
+      "Category": "async",
+      "Result": "same",
+      "Snapshots": [
+        "download-linkbutton",
+        "download-linkbutton-button",
+        "download-linkbutton-2",
+        "download-linkbutton-link"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "download.unicode",
+      "Category": "async",
+      "Result": "same",
+      "Snapshots": [
+        "download-unicode"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "window.blank-link",
+      "Category": "windows",
+      "Result": "same",
+      "Snapshots": [
+        "window-blank-link",
+        "window-form-target-popup"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "window.form-target",
+      "Category": "windows",
+      "Result": "same",
+      "Snapshots": [
+        "window-form-target-popup",
+        "window-form-target-main",
+        "window-form-target-sticky",
+        "window-open"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "window.open-opener",
+      "Category": "windows",
+      "Result": "same",
+      "Snapshots": [
+        "window-open",
+        "window-open-postback",
+        "window-opener-told"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "frame.postback",
+      "Category": "windows",
+      "Result": "same",
+      "Snapshots": [
+        "frame-page",
+        "frame-inner",
+        "frame-postback",
+        "frame-redirect",
+        "frame-page-after"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "frame.target",
+      "Category": "windows",
+      "Result": "same",
+      "Snapshots": [
+        "frame-target",
+        "frame-target-postback",
+        "frame-top-link"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "frame.top",
+      "Category": "windows",
+      "Result": "same",
+      "Snapshots": [
+        "frame-top-link",
+        "frame-top-script"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "vb.handles-redirect",
+      "Category": "vb",
+      "Result": "same",
+      "Snapshots": [
+        "vb-handles",
+        "vb-handles-redirect"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "vb.catch-when",
+      "Category": "vb",
+      "Result": "same",
+      "Snapshots": [
+        "vb-catch-when",
+        "vb-catch-when-side"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "vb.transfer",
+      "Category": "vb",
+      "Result": "same",
+      "Snapshots": [
+        "vb-transfer"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "vb.my",
+      "Category": "vb",
+      "Result": "same",
+      "Snapshots": [
+        "vb-my",
+        "vb-my-redirect-raw",
+        "vb-my-redirect"
+      ],
+      "Problems": []
+    },
+    {
+      "Id": "vb.cross-page",
+      "Category": "vb",
+      "Result": "same",
+      "Snapshots": [
+        "vb-cross-page"
+      ],
+      "Problems": []
+    }
+  ],
+  "Failures": []
+}

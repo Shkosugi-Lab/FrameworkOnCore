@@ -44,6 +44,13 @@
 
         private void OnApplicationPostResolveRequestCache(object sender, EventArgs e) {
             HttpApplication app = (HttpApplication)sender;
+#if NETCOREAPP
+            // IIS runs UrlRoutingModule-4.0 (preCondition managedHandler) only for a request of a managed handler: a
+            // route's URL with a static file's extension is IIS's StaticFile's (its 404), not the route's.
+            if (!IntegratedModeConfiguration.RunsManagedHandlerModules(app.Context)) {
+                return;
+            }
+#endif
             HttpContextBase context = new HttpContextWrapper(app.Context);
             PostResolveRequestCache(context);
         }

@@ -1578,6 +1578,38 @@ System.Web.Cors、System.Web.Http.Cors(5.3.0.0)。パッケージ FrameworkOnCor
 残り: 移植した MVC・Web Pages・Web API の文言の独自の翻訳。Microsoft の言語別パッケージ(Microsoft.AspNet.Mvc.ja など)の扱い
 (移植版とは版が合わないので使われない)。Web API の IIS との比較(正解データのあるコーパスが無い: サンプルを作るか nop390 など)。
 
+### 意地悪な画面遷移のコーパス: NavigationProbe(1.6.5-w2l.25、2026-10-31、ユーザーの指示)
+
+`samples/NavigationProbe`(C#、一部 VB、データベースなし): 移植で壊れそうな画面遷移を 226 の操作にした。Server.Transfer・Execute・TransferRequest、
+クロスページ ポストバック、ページの各イベントとあらゆる種類の URL での Response.Redirect、Global.asax とモジュールのリダイレクト、customErrors と httpErrors、
+フォーム認証と ReturnUrl、ポストバックの端(戻る、二重送信、動的なコントロール)、Wizard・MultiView、ASP.NET AJAX(UpdatePanel・履歴・Timer・PageMethods)、
+ルートと URL の書き換え、ナビゲーションのコントロール、非同期ページ、ハンドラー、ダウンロード、別ウィンドウ・iframe。各ページは自分がどこにいると思って
+いるか(Path・RawUrl・実行中のパス・PreviousPage・フォーム・イベントの記録)を表示する。
+
+- **棚卸しとシナリオ**: `inventory.py` が操作の一覧(`operations.md`)、手順(`parity-scenario.json`、918 手順・449 スナップショット)、入口のページを書き、
+  ソースの対話的なコントロールとページがすべてどれかの操作に属することを確かめる。元のサイトを ParityTest の discover で巡回し(匿名・ユーザー・管理者)、
+  一覧に無い到達先は無い(663 ページ)。ParityTest に戻る・進む、リダイレクトを追わない要求、iframe、別ウィンドウなどを足した。
+- **正解と比較**: `sample-parity.ps1 -Name NavigationProbe -Record`(IIS の .NET Framework 4.8、使い捨てのサイト)、`-Windows`・`-Linux`。操作ごとの結果は
+  `results.<platform>.md`。**Windows・Linux とも 449 スナップショットすべて一致か理由つきの差**(Windows 差 5、Linux 差 6: `allowed.json`)。
+- **直したもの**(ランタイム、回帰テストは `tests/RuntimeUnitTests/Web/NavigationTests.cs` など):
+  - catch で ThreadAbortException(Response.End・Redirect・Transfer)を握りつぶすコード: .NET Framework は catch の終わりで中断をもう一度起こし、ページは
+    先に進まなかった。移植はスレッドを中断しないので、段階の間で終わりを見る(`ResponseEnd`)。変換器とサーバーのコンパイルも、そのような catch の後に
+    終わりを確かめる書き換えをする(アナライザー FOC1009 `EndInCatch`)。
+  - `Server.TransferRequest`: IIS の子要求と同じく、要求を新しい URL・クエリ・メソッド・フォーム・ヘッダーでパイプラインの最初からやり直す(RawUrl は元の
+    まま、入れ子は 10 まで)。
+  - サーバーがコンパイルしたアセンブリが 2 回読み込まれていた(既定のコンテキストと LoadFile): PreviousPageType のクロスページ ポストバックで
+    「[A]ASP.x cannot be cast to [B]ASP.x」。System.Web と同じく 1 つのパスに 1 つ。
+  - VB のページの `My`(.NET Framework の Web プロジェクトの `_MYTYPE "Web"`: My.Request・My.Response): 互換アセンブリの型があるときは "Web" に。
+  - `Response.Redirect("")` の空の Location を送っていた(IIS は送らない)。何も書かずに終わったページの Content-Type が IIS の text/html でなかった。
+  - PageMethods の中の Redirect: .NET Framework の RestHandler が中断の前に書いた JSON のエラー("System error.")。
+  - UrlRoutingModule は IIS では管理されたハンドラーの要求でだけ動く(preCondition managedHandler): 静的ファイルの拡張子のルートの URL は IIS の 404。
+  - httpErrors の ExecuteURL のクエリの形(`?from=...&404;http://...`)、フォルダーの web.config の handlers の path の照合(`/` を含むとき、IIS 10 で確認)。
+- **理由つきの差**: IIS の詳細なエラーページ(403.14・404.0)は以前の決定どおり簡単なページ。コンパイラのメッセージの言語(元は csc.exe で Windows の表示言語、
+  移植はアプリのカルチャ)。`compilation debug="true"` の ASP.NET AJAX のデバッグ用スクリプト(移植の System.Web.Extensions は製品版のスクリプトだけ:
+  サーバーからの差分は同じ)。Linux では Docker のポート転送で Request.IsLocal が偽(wt の error-page と同じ)。
+- **確認**: RuntimeUnitTests Windows 1,976・Linux 1,969、FrameworkOnCore.Tests Windows 4,610・Linux 4,583、be・wt の変換は基準と一致、be 5/5・wt 8/8、
+  wt のすべての操作(223 スナップショット)一致か理由つきの差。
+
 ### 違う観点の意地悪なコーパス: LegacyRenderProbe・ConfigProbe・LocaleProbe・DataFileProbe(1.6.5-w2l.18、2026-10-19、ユーザーの指示)
 
 前のコーパス(コントロールの入れ子、BCL)と違う観点で、差が出そうなものを 4 つ作り、IIS の .NET Framework 4.8 で記録して変換後を Windows・Linux で

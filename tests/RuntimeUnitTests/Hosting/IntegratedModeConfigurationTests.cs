@@ -89,12 +89,33 @@ public class IntegratedModeConfigurationTests
         Assert.Null(Handler("GET", "/y.aspx"));
     }
 
-    [Fact] // the host's choice (summary of the code): a path with a '/' matched against the whole virtual path ('~' ignored)
+    [Fact] // the host's choice (summary of the code): a path from "~/" matched against the whole virtual path (IIS takes '~' as a character)
     public void A_handler_path_with_a_slash_is_the_whole_path()
     {
         using var site = Running(Handlers("<add name='api' path='~/api/*' verb='*' type='Api' />"));
         Assert.Equal("Api", Handler("GET", "/api/items"));
         Assert.Null(Handler("GET", "/other/api/items"));
+    }
+
+    [Fact] // seen on IIS 10 (NavigationProbe's Y/Redirect.ashx; a folder's web.config tried on IIS): a path with a '/' and without a
+           // leading one matches the end of the URL's path, whole segments; from a '/' the whole path; '*' within a segment
+    public void A_handler_path_with_a_folder_matches_the_end_of_the_path()
+    {
+        using var site = Running(Handlers(
+            "<add name='r' path='Y/Redirect.ashx' verb='*' type='Redirect' />" +
+            "<add name='z' path='Z/R.ashx' verb='*' type='Z' />" +
+            "<add name='root' path='/T/H/Root.ashx' verb='*' type='Root' />" +
+            "<add name='abs' path='/H/Abs.ashx' verb='*' type='Abs' />" +
+            "<add name='foo' path='H/*.foo' verb='*' type='Foo' />"));
+        Assert.Equal("Redirect", Handler("GET", "/Y/Redirect.ashx"));
+        Assert.Equal("Z", Handler("GET", "/T/H/Z/R.ashx"));
+        Assert.Equal("Z", Handler("GET", "/T/H/X/Z/R.ashx"));
+        Assert.Null(Handler("GET", "/T/H/XZ/R.ashx"));
+        Assert.Equal("Root", Handler("GET", "/T/H/Root.ashx"));
+        Assert.Null(Handler("GET", "/T/H/Abs.ashx"));
+        Assert.Equal("Abs", Handler("GET", "/H/Abs.ashx"));
+        Assert.Equal("Foo", Handler("GET", "/T/H/a.foo"));
+        Assert.Null(Handler("GET", "/T/H/Sub/a.foo"));
     }
 
     [Fact] // handlers: remove and clear; the host's choice: entries without a type or a path (IIS's native handlers), TransferRequestHandler (every request reaches the managed pipeline here) left out

@@ -1,0 +1,5105 @@
+{
+  "_comment": "NavigationProbe: every operation of operations.json (operations.md, README.md: why each case is nasty), each step's op naming the operation it exercises. Written by inventory.py - edit the table there. Golden: golden-webforms.json, recorded on IIS by experiments/wf4c/sample-parity.ps1 -Name NavigationProbe -Record; compared by sample-parity.ps1 -Windows / -Linux. Snapshots: the page (compareSource: its HTML too, the view state masked; captureUrl: the address the browser shows), fetch / postraw: one answer, its redirect not followed (status, Location as sent, the body's title, event log and side effects; follow: every hop), downloads, cookies. External requests of the browser are stubbed (not the target of a redirect: a route does not see it; .example names do not resolve: the browser's own error page, its text only). The view state and event validation in a URL (a GET postback) are masked.",
+  "operations": "operations.json",
+  "allowed": "allowed.json",
+  "compareSource": true,
+  "captureUrl": true,
+  "stubExternal": true,
+  "continueOnError": true,
+  "waitMs": 300,
+  "quietMs": 400,
+  "textMasks": [
+    "(?<=sha256 )[0-9A-F]{16}(?= \\(masked\\))",
+    "(?<=(__VIEWSTATE\\w*|__EVENTVALIDATION)=)[^&\\s\"<]+"
+  ],
+  "sourceMasks": [
+    "(?<=(__VIEWSTATE\\w*|__EVENTVALIDATION)=)[^&\\s\"<]+"
+  ],
+  "ignorePatterns": [],
+  "steps": [
+    {
+      "_phase": "0. The index (a new browser)"
+    },
+    {
+      "action": "goto",
+      "path": "/",
+      "op": "index.home"
+    },
+    {
+      "action": "snapshot",
+      "name": "index",
+      "op": "index.home"
+    },
+    {
+      "_phase": "1. Server.Transfer, Server.Execute"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.preserve-form"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-source",
+      "op": "transfer.preserve-form"
+    },
+    {
+      "action": "fill",
+      "target": "txt",
+      "value": "hello",
+      "op": "transfer.preserve-form"
+    },
+    {
+      "action": "click",
+      "target": "btnTrue",
+      "op": "transfer.preserve-form"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-preserve-form",
+      "op": "transfer.preserve-form"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.no-form"
+    },
+    {
+      "action": "fill",
+      "target": "txt",
+      "value": "not kept",
+      "op": "transfer.no-form"
+    },
+    {
+      "action": "click",
+      "target": "btnFalse",
+      "op": "transfer.no-form"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-no-form",
+      "op": "transfer.no-form"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.query"
+    },
+    {
+      "action": "click",
+      "target": "btnQuery",
+      "op": "transfer.query"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-query",
+      "op": "transfer.query"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.relative-links"
+    },
+    {
+      "action": "click",
+      "target": "btnTrue",
+      "op": "transfer.relative-links"
+    },
+    {
+      "action": "click",
+      "target": "lnkRelative",
+      "op": "transfer.relative-links"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-hyperlink-relative",
+      "op": "transfer.relative-links"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.relative-links"
+    },
+    {
+      "action": "click",
+      "target": "btnTrue",
+      "op": "transfer.relative-links"
+    },
+    {
+      "action": "click",
+      "target": "aRelative",
+      "op": "transfer.relative-links"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-plain-relative",
+      "value": "error",
+      "op": "transfer.relative-links"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.relative-links"
+    },
+    {
+      "action": "click",
+      "target": "btnTrue",
+      "op": "transfer.relative-links"
+    },
+    {
+      "action": "click",
+      "target": "aServer",
+      "op": "transfer.relative-links"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-server-anchor",
+      "op": "transfer.relative-links"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.target-postback"
+    },
+    {
+      "action": "click",
+      "target": "btnTrue",
+      "op": "transfer.target-postback"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "transfer.target-postback"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-target-postback",
+      "op": "transfer.target-postback"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.handler"
+    },
+    {
+      "action": "click",
+      "target": "btnHandler",
+      "op": "transfer.handler"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-handler",
+      "value": "error",
+      "op": "transfer.handler"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.ashx"
+    },
+    {
+      "action": "click",
+      "target": "btnAshx",
+      "op": "transfer.ashx"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-ashx",
+      "value": "error",
+      "op": "transfer.ashx"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.chain"
+    },
+    {
+      "action": "click",
+      "target": "btnChain",
+      "op": "transfer.chain"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-chain",
+      "op": "transfer.chain"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Chain1.aspx",
+      "op": "transfer.chain"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-chain-get",
+      "op": "transfer.chain"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "transfer.chain"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-chain-postback",
+      "op": "transfer.chain"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.after-write"
+    },
+    {
+      "action": "click",
+      "target": "btnWritten",
+      "op": "transfer.after-write"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-after-write",
+      "op": "transfer.after-write"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.catch-threadabort"
+    },
+    {
+      "action": "click",
+      "target": "btnCatch",
+      "op": "transfer.catch-threadabort"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-catch-threadabort",
+      "op": "transfer.catch-threadabort"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Sub/Other.aspx",
+      "op": "transfer.catch-threadabort"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-catch-threadabort-side",
+      "op": "transfer.catch-threadabort"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.catch-exception"
+    },
+    {
+      "action": "click",
+      "target": "btnCatchAll",
+      "op": "transfer.catch-exception"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-catch-exception",
+      "op": "transfer.catch-exception"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Sub/Other.aspx",
+      "op": "transfer.catch-exception"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-catch-exception-side",
+      "op": "transfer.catch-exception"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.transfer-request"
+    },
+    {
+      "action": "fill",
+      "target": "txt",
+      "value": "request",
+      "op": "transfer.transfer-request"
+    },
+    {
+      "action": "click",
+      "target": "btnRequest",
+      "op": "transfer.transfer-request"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-request",
+      "op": "transfer.transfer-request"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Source.aspx",
+      "op": "transfer.missing"
+    },
+    {
+      "action": "click",
+      "target": "btnMissing",
+      "op": "transfer.missing"
+    },
+    {
+      "action": "snapshot",
+      "name": "transfer-missing",
+      "value": "error",
+      "op": "transfer.missing"
+    },
+    {
+      "action": "fetch",
+      "path": "/T/Exec.aspx?mode=load",
+      "name": "execute-load-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "execute.load"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Exec.aspx?mode=load",
+      "op": "execute.load"
+    },
+    {
+      "action": "snapshot",
+      "name": "execute-load",
+      "op": "execute.load"
+    },
+    {
+      "action": "fetch",
+      "path": "/T/Exec.aspx?mode=render",
+      "name": "execute-render-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "execute.render"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Exec.aspx?mode=render",
+      "op": "execute.render"
+    },
+    {
+      "action": "snapshot",
+      "name": "execute-render",
+      "op": "execute.render"
+    },
+    {
+      "action": "fetch",
+      "path": "/T/Exec.aspx?mode=writer",
+      "name": "execute-writer-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "execute.writer"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Exec.aspx?mode=writer",
+      "op": "execute.writer"
+    },
+    {
+      "action": "snapshot",
+      "name": "execute-writer",
+      "op": "execute.writer"
+    },
+    {
+      "action": "fetch",
+      "path": "/T/Exec.aspx?mode=ashx",
+      "name": "execute-ashx-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "execute.ashx"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Exec.aspx?mode=ashx",
+      "op": "execute.ashx"
+    },
+    {
+      "action": "snapshot",
+      "name": "execute-ashx",
+      "op": "execute.ashx"
+    },
+    {
+      "action": "fetch",
+      "path": "/T/Exec.aspx?mode=redirect",
+      "name": "execute-redirect-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "execute.redirect"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Exec.aspx?mode=redirect",
+      "op": "execute.redirect"
+    },
+    {
+      "action": "snapshot",
+      "name": "execute-redirect",
+      "op": "execute.redirect"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Sub/Other.aspx",
+      "op": "execute.redirect"
+    },
+    {
+      "action": "snapshot",
+      "name": "execute-redirect-side",
+      "op": "execute.redirect"
+    },
+    {
+      "action": "fetch",
+      "path": "/T/Exec.aspx?mode=transfer",
+      "name": "execute-transfer-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "execute.transfer"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Exec.aspx?mode=transfer",
+      "op": "execute.transfer"
+    },
+    {
+      "action": "snapshot",
+      "name": "execute-transfer",
+      "op": "execute.transfer"
+    },
+    {
+      "action": "fetch",
+      "path": "/T/Exec.aspx?mode=throw",
+      "name": "execute-throw-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "execute.throw"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Exec.aspx?mode=throw",
+      "op": "execute.throw"
+    },
+    {
+      "action": "snapshot",
+      "name": "execute-throw",
+      "op": "execute.throw"
+    },
+    {
+      "action": "fetch",
+      "path": "/T/Exec.aspx?mode=missing",
+      "name": "execute-missing-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "execute.missing"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Exec.aspx?mode=missing",
+      "op": "execute.missing"
+    },
+    {
+      "action": "snapshot",
+      "name": "execute-missing",
+      "op": "execute.missing"
+    },
+    {
+      "action": "goto",
+      "path": "/T/Exec.aspx",
+      "op": "execute.preserve-form"
+    },
+    {
+      "action": "fill",
+      "target": "txt",
+      "value": "posted",
+      "op": "execute.preserve-form"
+    },
+    {
+      "action": "click",
+      "target": "btnPreserve",
+      "op": "execute.preserve-form"
+    },
+    {
+      "action": "snapshot",
+      "name": "execute-preserve-true",
+      "op": "execute.preserve-form"
+    },
+    {
+      "action": "click",
+      "target": "btnNoPreserve",
+      "op": "execute.preserve-form"
+    },
+    {
+      "action": "snapshot",
+      "name": "execute-preserve-false",
+      "op": "execute.preserve-form"
+    },
+    {
+      "_phase": "2. Cross-page postbacks"
+    },
+    {
+      "action": "goto",
+      "path": "/X/Source.aspx",
+      "op": "cross.same-folder"
+    },
+    {
+      "action": "snapshot",
+      "name": "cross-source",
+      "op": "cross.same-folder"
+    },
+    {
+      "action": "fill",
+      "target": "txtName",
+      "value": "Ann",
+      "op": "cross.same-folder"
+    },
+    {
+      "action": "click",
+      "target": "btnSame",
+      "op": "cross.same-folder"
+    },
+    {
+      "action": "snapshot",
+      "name": "cross-same-folder",
+      "op": "cross.same-folder"
+    },
+    {
+      "action": "goto",
+      "path": "/X/Source.aspx",
+      "op": "cross.validation"
+    },
+    {
+      "action": "click",
+      "target": "btnSame",
+      "op": "cross.validation"
+    },
+    {
+      "action": "snapshot",
+      "name": "cross-validation-failed",
+      "op": "cross.validation"
+    },
+    {
+      "action": "goto",
+      "path": "/X/Source.aspx",
+      "op": "cross.no-validation"
+    },
+    {
+      "action": "click",
+      "target": "btnNoValidation",
+      "op": "cross.no-validation"
+    },
+    {
+      "action": "snapshot",
+      "name": "cross-no-validation",
+      "op": "cross.no-validation"
+    },
+    {
+      "action": "goto",
+      "path": "/X/Source.aspx",
+      "op": "cross.other-folder"
+    },
+    {
+      "action": "fill",
+      "target": "txtName",
+      "value": "Bob",
+      "op": "cross.other-folder"
+    },
+    {
+      "action": "click",
+      "target": "btnOther",
+      "op": "cross.other-folder"
+    },
+    {
+      "action": "snapshot",
+      "name": "cross-other-folder",
+      "op": "cross.other-folder"
+    },
+    {
+      "action": "click",
+      "target": "lnkRel",
+      "op": "cross.other-folder"
+    },
+    {
+      "action": "snapshot",
+      "name": "cross-other-folder-link",
+      "op": "cross.other-folder"
+    },
+    {
+      "action": "goto",
+      "path": "/X/Source.aspx",
+      "op": "cross.query"
+    },
+    {
+      "action": "fill",
+      "target": "txtName",
+      "value": "Cy",
+      "op": "cross.query"
+    },
+    {
+      "action": "click",
+      "target": "btnQuery",
+      "op": "cross.query"
+    },
+    {
+      "action": "snapshot",
+      "name": "cross-query",
+      "op": "cross.query"
+    },
+    {
+      "action": "goto",
+      "path": "/X/Source.aspx",
+      "op": "cross.linkbutton"
+    },
+    {
+      "action": "fill",
+      "target": "txtName",
+      "value": "Di",
+      "op": "cross.linkbutton"
+    },
+    {
+      "action": "click",
+      "target": "lnkCross",
+      "op": "cross.linkbutton"
+    },
+    {
+      "action": "snapshot",
+      "name": "cross-linkbutton",
+      "op": "cross.linkbutton"
+    },
+    {
+      "action": "goto",
+      "path": "/X/Source.aspx",
+      "op": "cross.target-postback"
+    },
+    {
+      "action": "fill",
+      "target": "txtName",
+      "value": "Ed",
+      "op": "cross.target-postback"
+    },
+    {
+      "action": "click",
+      "target": "btnSame",
+      "op": "cross.target-postback"
+    },
+    {
+      "action": "click",
+      "target": "btnBack",
+      "op": "cross.target-postback"
+    },
+    {
+      "action": "snapshot",
+      "name": "cross-target-postback",
+      "op": "cross.target-postback"
+    },
+    {
+      "action": "goto",
+      "path": "/X/Target.aspx",
+      "op": "cross.target-direct"
+    },
+    {
+      "action": "snapshot",
+      "name": "cross-target-direct",
+      "op": "cross.target-direct"
+    },
+    {
+      "action": "goto",
+      "path": "/X/MasterSource.aspx",
+      "op": "cross.master"
+    },
+    {
+      "action": "snapshot",
+      "name": "cross-master-source",
+      "op": "cross.master"
+    },
+    {
+      "action": "click",
+      "target": "btnCross",
+      "op": "cross.master"
+    },
+    {
+      "action": "snapshot",
+      "name": "cross-master",
+      "op": "cross.master"
+    },
+    {
+      "action": "goto",
+      "path": "/X/Source.aspx",
+      "op": "cross.plain-postback"
+    },
+    {
+      "action": "fill",
+      "target": "txtName",
+      "value": "Fay",
+      "op": "cross.plain-postback"
+    },
+    {
+      "action": "click",
+      "target": "btnHere",
+      "op": "cross.plain-postback"
+    },
+    {
+      "action": "snapshot",
+      "name": "cross-plain-postback",
+      "op": "cross.plain-postback"
+    },
+    {
+      "_phase": "3. Response.Redirect in each event, then every kind of redirect"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=PreInit",
+      "name": "redirect-at-preinit-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-preinit"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=PreInit&end=false",
+      "name": "redirect-at-preinit-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-preinit"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Life.aspx?at=PreInit",
+      "op": "redirect.at-preinit"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-at-preinit",
+      "op": "redirect.at-preinit"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=Init",
+      "name": "redirect-at-init-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-init"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=Init&end=false",
+      "name": "redirect-at-init-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-init"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Life.aspx?at=Init",
+      "op": "redirect.at-init"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-at-init",
+      "op": "redirect.at-init"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=InitComplete",
+      "name": "redirect-at-initcomplete-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-initcomplete"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=InitComplete&end=false",
+      "name": "redirect-at-initcomplete-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-initcomplete"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Life.aspx?at=InitComplete",
+      "op": "redirect.at-initcomplete"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-at-initcomplete",
+      "op": "redirect.at-initcomplete"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=PreLoad",
+      "name": "redirect-at-preload-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-preload"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=PreLoad&end=false",
+      "name": "redirect-at-preload-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-preload"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Life.aspx?at=PreLoad",
+      "op": "redirect.at-preload"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-at-preload",
+      "op": "redirect.at-preload"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=Load",
+      "name": "redirect-at-load-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-load"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=Load&end=false",
+      "name": "redirect-at-load-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-load"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Life.aspx?at=Load",
+      "op": "redirect.at-load"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-at-load",
+      "op": "redirect.at-load"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Life.aspx?at=Click",
+      "op": "redirect.at-click"
+    },
+    {
+      "action": "postraw",
+      "target": "btnGo",
+      "name": "redirect-at-click-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-click"
+    },
+    {
+      "action": "click",
+      "target": "btnGo",
+      "op": "redirect.at-click"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-at-click",
+      "op": "redirect.at-click"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Life.aspx?at=Click&end=false",
+      "op": "redirect.at-click"
+    },
+    {
+      "action": "postraw",
+      "target": "btnGo",
+      "name": "redirect-at-click-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-click"
+    },
+    {
+      "action": "click",
+      "target": "btnGo",
+      "op": "redirect.at-click"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-at-click-false",
+      "op": "redirect.at-click"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=LoadComplete",
+      "name": "redirect-at-loadcomplete-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-loadcomplete"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=LoadComplete&end=false",
+      "name": "redirect-at-loadcomplete-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-loadcomplete"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Life.aspx?at=LoadComplete",
+      "op": "redirect.at-loadcomplete"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-at-loadcomplete",
+      "op": "redirect.at-loadcomplete"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=PreRender",
+      "name": "redirect-at-prerender-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-prerender"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=PreRender&end=false",
+      "name": "redirect-at-prerender-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-prerender"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Life.aspx?at=PreRender",
+      "op": "redirect.at-prerender"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-at-prerender",
+      "op": "redirect.at-prerender"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=PreRenderComplete",
+      "name": "redirect-at-prerendercomplete-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-prerendercomplete"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=PreRenderComplete&end=false",
+      "name": "redirect-at-prerendercomplete-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-prerendercomplete"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Life.aspx?at=PreRenderComplete",
+      "op": "redirect.at-prerendercomplete"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-at-prerendercomplete",
+      "op": "redirect.at-prerendercomplete"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=SaveStateComplete",
+      "name": "redirect-at-savestatecomplete-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-savestatecomplete"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=SaveStateComplete&end=false",
+      "name": "redirect-at-savestatecomplete-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-savestatecomplete"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Life.aspx?at=SaveStateComplete",
+      "op": "redirect.at-savestatecomplete"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-at-savestatecomplete",
+      "op": "redirect.at-savestatecomplete"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=Render",
+      "name": "redirect-at-render-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-render"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=Render&end=false",
+      "name": "redirect-at-render-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-render"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Life.aspx?at=Render",
+      "op": "redirect.at-render"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-at-render",
+      "op": "redirect.at-render"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=Unload",
+      "name": "redirect-at-unload-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-unload"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Life.aspx?at=Unload&end=false",
+      "name": "redirect-at-unload-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.at-unload"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Life.aspx?at=Unload",
+      "op": "redirect.at-unload"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-at-unload",
+      "value": "error",
+      "op": "redirect.at-unload"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=tae",
+      "name": "redirect-tae-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.tae"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=tae",
+      "op": "redirect.tae"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-tae",
+      "op": "redirect.tae"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Landing.aspx?from=side",
+      "op": "redirect.tae"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-tae-side",
+      "op": "redirect.tae"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=ex",
+      "name": "redirect-ex-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.ex"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=ex",
+      "op": "redirect.ex"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-ex",
+      "op": "redirect.ex"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Landing.aspx?from=side",
+      "op": "redirect.ex"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-ex-side",
+      "op": "redirect.ex"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=finally",
+      "name": "redirect-finally-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.finally"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=finally",
+      "op": "redirect.finally"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-finally",
+      "op": "redirect.finally"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Landing.aspx?from=side",
+      "op": "redirect.finally"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-finally-side",
+      "op": "redirect.finally"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=written",
+      "name": "redirect-written-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.written"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=written",
+      "op": "redirect.written"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-written",
+      "op": "redirect.written"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=flushed",
+      "name": "redirect-flushed-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.flushed"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=flushed",
+      "op": "redirect.flushed"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-flushed",
+      "value": "error",
+      "op": "redirect.flushed"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Landing.aspx?from=side",
+      "op": "redirect.flushed"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-flushed-side",
+      "op": "redirect.flushed"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=permanent",
+      "name": "redirect-permanent-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.permanent"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=permanent",
+      "op": "redirect.permanent"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-permanent",
+      "op": "redirect.permanent"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=permanent-false",
+      "name": "redirect-permanent-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.permanent-false"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=permanent-false",
+      "op": "redirect.permanent-false"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-permanent-false",
+      "op": "redirect.permanent-false"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=route",
+      "name": "redirect-route-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.route"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=route",
+      "op": "redirect.route"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-route",
+      "op": "redirect.route"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=route-permanent",
+      "name": "redirect-route-permanent-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.route-permanent"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=route-permanent",
+      "op": "redirect.route-permanent"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-route-permanent",
+      "op": "redirect.route-permanent"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=route-name",
+      "name": "redirect-route-name-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.route-name"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=route-name",
+      "op": "redirect.route-name"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-route-name",
+      "op": "redirect.route-name"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=external",
+      "name": "redirect-external-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.external"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=external",
+      "op": "redirect.external"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-external",
+      "op": "redirect.external"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=protocol-relative",
+      "name": "redirect-protocol-relative-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.protocol-relative"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=protocol-relative",
+      "op": "redirect.protocol-relative"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-protocol-relative",
+      "op": "redirect.protocol-relative"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=absolute-path",
+      "name": "redirect-absolute-path-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.absolute-path"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=absolute-path",
+      "op": "redirect.absolute-path"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-absolute-path",
+      "op": "redirect.absolute-path"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=unicode",
+      "name": "redirect-unicode-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.unicode"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=unicode",
+      "op": "redirect.unicode"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-unicode",
+      "op": "redirect.unicode"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=encoded",
+      "name": "redirect-encoded-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.encoded"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=encoded",
+      "op": "redirect.encoded"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-encoded",
+      "op": "redirect.encoded"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=unicode-path",
+      "name": "redirect-unicode-path-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.unicode-path"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=unicode-path",
+      "op": "redirect.unicode-path"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-unicode-path",
+      "op": "redirect.unicode-path"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=space-path",
+      "name": "redirect-space-path-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.space-path"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=space-path",
+      "op": "redirect.space-path"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-space-path",
+      "op": "redirect.space-path"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=newline",
+      "name": "redirect-newline-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.newline"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=newline",
+      "op": "redirect.newline"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-newline",
+      "value": "error",
+      "op": "redirect.newline"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=empty",
+      "name": "redirect-empty-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.empty"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=empty",
+      "op": "redirect.empty"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-empty",
+      "op": "redirect.empty"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=end",
+      "name": "redirect-end-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.end"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=end",
+      "op": "redirect.end"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-end",
+      "op": "redirect.end"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Landing.aspx?from=side",
+      "op": "redirect.end"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-end-side",
+      "op": "redirect.end"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=complete",
+      "name": "redirect-complete-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.complete"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=complete",
+      "op": "redirect.complete"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-complete",
+      "op": "redirect.complete"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Landing.aspx?from=side",
+      "op": "redirect.complete"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-complete-side",
+      "op": "redirect.complete"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=false-complete",
+      "name": "redirect-false-complete-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.false-complete"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=false-complete",
+      "op": "redirect.false-complete"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-false-complete",
+      "op": "redirect.false-complete"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=status200",
+      "name": "redirect-status200-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.status200"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=status200",
+      "op": "redirect.status200"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-status200",
+      "op": "redirect.status200"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=status301",
+      "name": "redirect-status301-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.status301"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=status301",
+      "op": "redirect.status301"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-status301",
+      "op": "redirect.status301"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=status404",
+      "name": "redirect-status404-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.status404"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=status404",
+      "op": "redirect.status404"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-status404",
+      "op": "redirect.status404"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=twice",
+      "name": "redirect-twice-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.twice"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=twice",
+      "op": "redirect.twice"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-twice",
+      "op": "redirect.twice"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Cases.aspx?c=clear-headers",
+      "name": "redirect-clear-headers-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.clear-headers"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Cases.aspx?c=clear-headers",
+      "op": "redirect.clear-headers"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-clear-headers",
+      "op": "redirect.clear-headers"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Sub/Rel.aspx?c=parent",
+      "name": "redirect-relative-parent-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.relative-parent"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Sub/Rel.aspx?c=parent",
+      "op": "redirect.relative-parent"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-relative-parent",
+      "op": "redirect.relative-parent"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Sub/Rel.aspx?c=file",
+      "name": "redirect-relative-file-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.relative-file"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Sub/Rel.aspx?c=file",
+      "op": "redirect.relative-file"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-relative-file",
+      "op": "redirect.relative-file"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Sub/Rel.aspx?c=dot",
+      "name": "redirect-relative-dot-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.relative-dot"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Sub/Rel.aspx?c=dot",
+      "op": "redirect.relative-dot"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-relative-dot",
+      "op": "redirect.relative-dot"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Sub/Rel.aspx?c=tilde",
+      "name": "redirect-relative-tilde-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.relative-tilde"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Sub/Rel.aspx?c=tilde",
+      "op": "redirect.relative-tilde"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-relative-tilde",
+      "op": "redirect.relative-tilde"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Sub/Rel.aspx?c=query",
+      "name": "redirect-relative-query-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.relative-query"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Sub/Rel.aspx?c=query",
+      "op": "redirect.relative-query"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-relative-query",
+      "value": "error",
+      "op": "redirect.relative-query"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Sub/Rel.aspx?c=frag",
+      "name": "redirect-relative-frag-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.relative-frag"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Sub/Rel.aspx?c=frag",
+      "op": "redirect.relative-frag"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-relative-frag",
+      "value": "error",
+      "op": "redirect.relative-frag"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Sub/Rel.aspx?c=query-frag",
+      "name": "redirect-relative-query-frag-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.relative-query-frag"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Sub/Rel.aspx?c=query-frag",
+      "op": "redirect.relative-query-frag"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-relative-query-frag",
+      "op": "redirect.relative-query-frag"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Sub/Rel.aspx?c=tilde-frag",
+      "name": "redirect-relative-tilde-frag-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.relative-tilde-frag"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Sub/Rel.aspx?c=tilde-frag",
+      "op": "redirect.relative-tilde-frag"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-relative-tilde-frag",
+      "op": "redirect.relative-tilde-frag"
+    },
+    {
+      "action": "fetch",
+      "path": "/R/Sub/Rel.aspx?c=parent-parent",
+      "name": "redirect-relative-parent-parent-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "redirect.relative-parent-parent"
+    },
+    {
+      "action": "goto",
+      "path": "/R/Sub/Rel.aspx?c=parent-parent",
+      "op": "redirect.relative-parent-parent"
+    },
+    {
+      "action": "snapshot",
+      "name": "redirect-relative-parent-parent",
+      "op": "redirect.relative-parent-parent"
+    },
+    {
+      "_phase": "4. Global.asax, a module, Application_Error, loops"
+    },
+    {
+      "action": "fetch",
+      "path": "/G/Begin.aspx",
+      "name": "global-begin-request-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "global.begin-request"
+    },
+    {
+      "action": "goto",
+      "path": "/G/Begin.aspx",
+      "op": "global.begin-request"
+    },
+    {
+      "action": "snapshot",
+      "name": "global-begin-request",
+      "op": "global.begin-request"
+    },
+    {
+      "action": "fetch",
+      "path": "/G/Auth.aspx",
+      "name": "global-authenticate-request-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "global.authenticate-request"
+    },
+    {
+      "action": "goto",
+      "path": "/G/Auth.aspx",
+      "op": "global.authenticate-request"
+    },
+    {
+      "action": "snapshot",
+      "name": "global-authenticate-request",
+      "op": "global.authenticate-request"
+    },
+    {
+      "action": "fetch",
+      "path": "/G/Acquire.aspx",
+      "name": "global-post-acquire-state-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "global.post-acquire-state"
+    },
+    {
+      "action": "goto",
+      "path": "/G/Acquire.aspx",
+      "op": "global.post-acquire-state"
+    },
+    {
+      "action": "snapshot",
+      "name": "global-post-acquire-state",
+      "op": "global.post-acquire-state"
+    },
+    {
+      "action": "fetch",
+      "path": "/G/End.aspx",
+      "name": "global-end-request-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "global.end-request"
+    },
+    {
+      "action": "goto",
+      "path": "/G/End.aspx",
+      "op": "global.end-request"
+    },
+    {
+      "action": "snapshot",
+      "name": "global-end-request",
+      "op": "global.end-request"
+    },
+    {
+      "action": "fetch",
+      "path": "/G/Module.aspx",
+      "name": "global-module-redirect-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "global.module-redirect"
+    },
+    {
+      "action": "goto",
+      "path": "/G/Module.aspx",
+      "op": "global.module-redirect"
+    },
+    {
+      "action": "snapshot",
+      "name": "global-module-redirect",
+      "op": "global.module-redirect"
+    },
+    {
+      "action": "fetch",
+      "path": "/G/ModuleEnd.aspx",
+      "name": "global-module-complete-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "global.module-complete"
+    },
+    {
+      "action": "goto",
+      "path": "/G/ModuleEnd.aspx",
+      "op": "global.module-complete"
+    },
+    {
+      "action": "snapshot",
+      "name": "global-module-complete",
+      "op": "global.module-complete"
+    },
+    {
+      "action": "fetch",
+      "path": "/G/ErrRedirect.aspx",
+      "name": "global-error-redirect-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "global.error-redirect"
+    },
+    {
+      "action": "goto",
+      "path": "/G/ErrRedirect.aspx",
+      "op": "global.error-redirect"
+    },
+    {
+      "action": "snapshot",
+      "name": "global-error-redirect",
+      "op": "global.error-redirect"
+    },
+    {
+      "action": "fetch",
+      "path": "/G/ErrRedirectKeep.aspx",
+      "name": "global-error-redirect-kept-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "global.error-redirect-kept"
+    },
+    {
+      "action": "goto",
+      "path": "/G/ErrRedirectKeep.aspx",
+      "op": "global.error-redirect-kept"
+    },
+    {
+      "action": "snapshot",
+      "name": "global-error-redirect-kept",
+      "op": "global.error-redirect-kept"
+    },
+    {
+      "action": "fetch",
+      "path": "/G/ErrTransfer.aspx",
+      "name": "global-error-transfer-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "global.error-transfer"
+    },
+    {
+      "action": "goto",
+      "path": "/G/ErrTransfer.aspx",
+      "op": "global.error-transfer"
+    },
+    {
+      "action": "snapshot",
+      "name": "global-error-transfer",
+      "op": "global.error-transfer"
+    },
+    {
+      "action": "fetch",
+      "path": "/G/ErrExecute.aspx",
+      "name": "global-error-execute-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "global.error-execute"
+    },
+    {
+      "action": "goto",
+      "path": "/G/ErrExecute.aspx",
+      "op": "global.error-execute"
+    },
+    {
+      "action": "snapshot",
+      "name": "global-error-execute",
+      "op": "global.error-execute"
+    },
+    {
+      "action": "fetch",
+      "path": "/G/ErrClear.aspx",
+      "name": "global-error-clear-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "global.error-clear"
+    },
+    {
+      "action": "goto",
+      "path": "/G/ErrClear.aspx",
+      "op": "global.error-clear"
+    },
+    {
+      "action": "snapshot",
+      "name": "global-error-clear",
+      "op": "global.error-clear"
+    },
+    {
+      "action": "fetch",
+      "path": "/G/LoopA.aspx",
+      "name": "global-redirect-loop-hops",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "follow": true,
+      "op": "global.redirect-loop"
+    },
+    {
+      "action": "goto",
+      "path": "/G/LoopA.aspx",
+      "op": "global.redirect-loop"
+    },
+    {
+      "action": "snapshot",
+      "name": "global-redirect-loop",
+      "op": "global.redirect-loop"
+    },
+    {
+      "action": "fetch",
+      "path": "/G/Chain.aspx?n=25",
+      "name": "global-redirect-chain-hops",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "follow": true,
+      "op": "global.redirect-chain"
+    },
+    {
+      "action": "goto",
+      "path": "/G/Chain.aspx?n=19",
+      "op": "global.redirect-chain"
+    },
+    {
+      "action": "snapshot",
+      "name": "global-redirect-chain-19",
+      "op": "global.redirect-chain"
+    },
+    {
+      "action": "goto",
+      "path": "/G/Chain.aspx?n=25",
+      "op": "global.redirect-chain"
+    },
+    {
+      "action": "snapshot",
+      "name": "global-redirect-chain-25",
+      "op": "global.redirect-chain"
+    },
+    {
+      "_phase": "5. Errors: customErrors, httpErrors, error pages"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Redirect/Throw.aspx",
+      "name": "error-redirect-mode-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.redirect-mode"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Redirect/Throw.aspx",
+      "op": "error.redirect-mode"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-redirect-mode",
+      "op": "error.redirect-mode"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Redirect/Http404.aspx",
+      "name": "error-redirect-404-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.redirect-404"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Redirect/Http404.aspx",
+      "op": "error.redirect-404"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-redirect-404",
+      "op": "error.redirect-404"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Redirect/Http403.aspx",
+      "name": "error-redirect-403-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.redirect-403"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Redirect/Http403.aspx",
+      "op": "error.redirect-403"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-redirect-403",
+      "op": "error.redirect-403"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Redirect/Missing.aspx",
+      "name": "error-redirect-missing-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.redirect-missing"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Redirect/Missing.aspx",
+      "op": "error.redirect-missing"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-redirect-missing",
+      "op": "error.redirect-missing"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Rewrite/Throw.aspx",
+      "name": "error-rewrite-mode-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.rewrite-mode"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Rewrite/Throw.aspx",
+      "op": "error.rewrite-mode"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-rewrite-mode",
+      "op": "error.rewrite-mode"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Rewrite/Http404.aspx",
+      "name": "error-rewrite-404-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.rewrite-404"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Rewrite/Http404.aspx",
+      "op": "error.rewrite-404"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-rewrite-404",
+      "op": "error.rewrite-404"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Rewrite/Missing.aspx",
+      "name": "error-rewrite-missing-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.rewrite-missing"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Rewrite/Missing.aspx",
+      "op": "error.rewrite-missing"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-rewrite-missing",
+      "op": "error.rewrite-missing"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Broken/Throw.aspx",
+      "name": "error-error-page-throws-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.error-page-throws"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Broken/Throw.aspx",
+      "op": "error.error-page-throws"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-error-page-throws",
+      "value": "error",
+      "op": "error.error-page-throws"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Plain/Throw.aspx",
+      "name": "error-no-default-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.no-default"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Plain/Throw.aspx",
+      "op": "error.no-default"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-no-default",
+      "value": "error",
+      "op": "error.no-default"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Throw.aspx",
+      "name": "error-detailed-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.detailed"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Throw.aspx",
+      "op": "error.detailed"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-detailed",
+      "value": "error",
+      "op": "error.detailed"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Http404.aspx",
+      "name": "error-httpexception-404-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.httpexception-404"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Http404.aspx",
+      "op": "error.httpexception-404"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-httpexception-404",
+      "value": "error",
+      "op": "error.httpexception-404"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/NoSuchPage.aspx",
+      "name": "error-missing-page-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.missing-page"
+    },
+    {
+      "action": "goto",
+      "path": "/E/NoSuchPage.aspx",
+      "op": "error.missing-page"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-missing-page",
+      "value": "error",
+      "op": "error.missing-page"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Compile.aspx",
+      "name": "error-compile-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.compile"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Compile.aspx",
+      "op": "error.compile"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-compile",
+      "value": "error",
+      "op": "error.compile"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Parser.aspx",
+      "name": "error-parser-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.parser"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Parser.aspx",
+      "op": "error.parser"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-parser",
+      "value": "error",
+      "op": "error.parser"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/BadDirective.aspx",
+      "name": "error-bad-directive-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.bad-directive"
+    },
+    {
+      "action": "goto",
+      "path": "/E/BadDirective.aspx",
+      "op": "error.bad-directive"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-bad-directive",
+      "value": "error",
+      "op": "error.bad-directive"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Http/Status404.aspx",
+      "name": "error-httperrors-replaced-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.httperrors-replaced"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Http/Status404.aspx",
+      "op": "error.httperrors-replaced"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-httperrors-replaced",
+      "op": "error.httperrors-replaced"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Http/Skip404.aspx",
+      "name": "error-httperrors-skip-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.httperrors-skip"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Http/Skip404.aspx",
+      "op": "error.httperrors-skip"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-httperrors-skip",
+      "op": "error.httperrors-skip"
+    },
+    {
+      "action": "fetch",
+      "path": "/E/Http/NoSuch.aspx",
+      "name": "error-httperrors-missing-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "error.httperrors-missing"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Http/NoSuch.aspx",
+      "op": "error.httperrors-missing"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-httperrors-missing",
+      "value": "error",
+      "op": "error.httperrors-missing"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Redirect/Async.aspx",
+      "op": "error.async"
+    },
+    {
+      "action": "postraw",
+      "target": "btnThrow",
+      "name": "error-async-raw",
+      "raw": true,
+      "bodyMatch": "\\|(?:updatePanel\\|[^|]*|(?:pageRedirect|formAction|pageTitle)\\|\\|[^|]*|error\\|\\d+\\|[^|]*)\\|",
+      "body": "sm=up|btnThrow&__ASYNCPOST=true",
+      "headers": {
+        "X-MicrosoftAjax": "Delta=true",
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      "op": "error.async"
+    },
+    {
+      "action": "click",
+      "target": "btnThrow",
+      "op": "error.async"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-async",
+      "op": "error.async"
+    },
+    {
+      "action": "goto",
+      "path": "/E/Redirect/AsyncNoRedirect.aspx",
+      "op": "error.asyncnoredirect"
+    },
+    {
+      "action": "postraw",
+      "target": "btnThrow",
+      "name": "error-asyncnoredirect-raw",
+      "raw": true,
+      "bodyMatch": "\\|(?:updatePanel\\|[^|]*|(?:pageRedirect|formAction|pageTitle)\\|\\|[^|]*|error\\|\\d+\\|[^|]*)\\|",
+      "body": "sm=up|btnThrow&__ASYNCPOST=true",
+      "headers": {
+        "X-MicrosoftAjax": "Delta=true",
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      "op": "error.asyncnoredirect"
+    },
+    {
+      "action": "click",
+      "target": "btnThrow",
+      "op": "error.asyncnoredirect"
+    },
+    {
+      "action": "snapshot",
+      "name": "error-asyncnoredirect",
+      "op": "error.asyncnoredirect"
+    },
+    {
+      "_phase": "6. Forms authentication, the session (a new browser)"
+    },
+    {
+      "action": "newcontext",
+      "op": "forms.protected-redirect"
+    },
+    {
+      "action": "fetch",
+      "path": "/F/Secure/Page.aspx",
+      "name": "forms-protected-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "forms.protected-redirect"
+    },
+    {
+      "action": "goto",
+      "path": "/F/Secure/Page.aspx",
+      "op": "forms.protected-redirect"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-protected-login",
+      "op": "forms.protected-redirect"
+    },
+    {
+      "action": "fetch",
+      "path": "/F/Secure/Page.aspx?a=1&b=%E6%97%A5%E6%9C%AC&c=x%26y",
+      "name": "forms-return-url-unicode-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "forms.return-url-query-unicode"
+    },
+    {
+      "action": "goto",
+      "path": "/F/Secure/Page.aspx?a=1&b=%E6%97%A5%E6%9C%AC&c=x%26y",
+      "op": "forms.return-url-query-unicode"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-return-url-unicode",
+      "op": "forms.return-url-query-unicode"
+    },
+    {
+      "action": "fetch",
+      "path": "/secure/5",
+      "name": "forms-secure-route-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "forms.secure-route"
+    },
+    {
+      "action": "goto",
+      "path": "/secure/5",
+      "op": "forms.secure-route"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-secure-route",
+      "op": "forms.secure-route"
+    },
+    {
+      "action": "goto",
+      "path": "/F/Secure/Public.aspx",
+      "op": "forms.public-page"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-public",
+      "op": "forms.public-page"
+    },
+    {
+      "action": "goto",
+      "path": "/F/Secure/Page.aspx?a=1&b=%E6%97%A5%E6%9C%AC",
+      "op": "forms.login-wrong"
+    },
+    {
+      "action": "fill",
+      "target": "UserName",
+      "value": "user",
+      "op": "forms.login-wrong"
+    },
+    {
+      "action": "fill",
+      "target": "Password",
+      "value": "wrong",
+      "op": "forms.login-wrong"
+    },
+    {
+      "action": "click",
+      "target": "btnLogin",
+      "op": "forms.login-wrong"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-login-wrong",
+      "op": "forms.login-wrong"
+    },
+    {
+      "action": "fill",
+      "target": "UserName",
+      "value": "user",
+      "op": "forms.login-return"
+    },
+    {
+      "action": "fill",
+      "target": "Password",
+      "value": "pass1",
+      "op": "forms.login-return"
+    },
+    {
+      "action": "click",
+      "target": "btnLogin",
+      "op": "forms.login-return"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-login-return",
+      "op": "forms.login-return"
+    },
+    {
+      "action": "cookies",
+      "name": "forms-login-cookies",
+      "op": "forms.login-return"
+    },
+    {
+      "action": "fetch",
+      "path": "/F/Admin/Page.aspx",
+      "name": "forms-admin-denied-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "forms.admin-denied"
+    },
+    {
+      "action": "goto",
+      "path": "/F/Admin/Page.aspx",
+      "op": "forms.admin-denied"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-admin-denied",
+      "op": "forms.admin-denied"
+    },
+    {
+      "action": "goto",
+      "path": "/F/Secure/Page.aspx",
+      "op": "forms.redirect-to-login"
+    },
+    {
+      "action": "click",
+      "target": "btnToLogin",
+      "op": "forms.redirect-to-login"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-redirect-to-login",
+      "op": "forms.redirect-to-login"
+    },
+    {
+      "action": "goto",
+      "path": "/F/Secure/Page.aspx",
+      "op": "forms.logout"
+    },
+    {
+      "action": "click",
+      "target": "btnLogout",
+      "op": "forms.logout"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-logout",
+      "op": "forms.logout"
+    },
+    {
+      "action": "cookies",
+      "name": "forms-logout-cookies",
+      "op": "forms.logout"
+    },
+    {
+      "action": "back",
+      "op": "forms.back-after-logout"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-back-after-logout",
+      "op": "forms.back-after-logout"
+    },
+    {
+      "action": "goto",
+      "path": "/F/Secure/Page.aspx",
+      "op": "forms.back-after-logout"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-after-logout-reload",
+      "op": "forms.back-after-logout"
+    },
+    {
+      "action": "newcontext",
+      "op": "forms.return-url-external"
+    },
+    {
+      "action": "goto",
+      "path": "/F/Login.aspx?ReturnUrl=http%3A%2F%2Fevil.example%2Fsteal",
+      "op": "forms.return-url-external"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-return-url-external-login",
+      "op": "forms.return-url-external"
+    },
+    {
+      "action": "fill",
+      "target": "UserName",
+      "value": "user",
+      "op": "forms.return-url-external"
+    },
+    {
+      "action": "fill",
+      "target": "Password",
+      "value": "pass1",
+      "op": "forms.return-url-external"
+    },
+    {
+      "action": "click",
+      "target": "btnLogin",
+      "op": "forms.return-url-external"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-return-url-external",
+      "op": "forms.return-url-external"
+    },
+    {
+      "action": "newcontext",
+      "op": "forms.return-url-scheme-relative"
+    },
+    {
+      "action": "goto",
+      "path": "/F/Login.aspx?ReturnUrl=%2F%2Fevil.example%2Fx",
+      "op": "forms.return-url-scheme-relative"
+    },
+    {
+      "action": "fill",
+      "target": "UserName",
+      "value": "user",
+      "op": "forms.return-url-scheme-relative"
+    },
+    {
+      "action": "fill",
+      "target": "Password",
+      "value": "pass1",
+      "op": "forms.return-url-scheme-relative"
+    },
+    {
+      "action": "click",
+      "target": "btnLogin",
+      "op": "forms.return-url-scheme-relative"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-return-url-scheme-relative",
+      "op": "forms.return-url-scheme-relative"
+    },
+    {
+      "action": "newcontext",
+      "op": "forms.default-url"
+    },
+    {
+      "action": "goto",
+      "path": "/F/Login.aspx",
+      "op": "forms.default-url"
+    },
+    {
+      "action": "fill",
+      "target": "UserName",
+      "value": "user",
+      "op": "forms.default-url"
+    },
+    {
+      "action": "fill",
+      "target": "Password",
+      "value": "pass1",
+      "op": "forms.default-url"
+    },
+    {
+      "action": "check",
+      "target": "Persist",
+      "op": "forms.default-url"
+    },
+    {
+      "action": "click",
+      "target": "btnLogin",
+      "op": "forms.default-url"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-default-url",
+      "op": "forms.default-url"
+    },
+    {
+      "action": "cookies",
+      "name": "forms-persistent-cookies",
+      "op": "forms.default-url"
+    },
+    {
+      "action": "newcontext",
+      "op": "forms.admin-allowed"
+    },
+    {
+      "action": "goto",
+      "path": "/F/Admin/Page.aspx",
+      "op": "forms.admin-allowed"
+    },
+    {
+      "action": "fill",
+      "target": "UserName",
+      "value": "admin",
+      "op": "forms.admin-allowed"
+    },
+    {
+      "action": "fill",
+      "target": "Password",
+      "value": "pass2",
+      "op": "forms.admin-allowed"
+    },
+    {
+      "action": "click",
+      "target": "btnLogin",
+      "op": "forms.admin-allowed"
+    },
+    {
+      "action": "snapshot",
+      "name": "forms-admin-allowed",
+      "op": "forms.admin-allowed"
+    },
+    {
+      "action": "goto",
+      "path": "/N/Deep/Page.aspx",
+      "op": "nav.sitemap-admin,forms.admin-allowed"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-sitemap-admin",
+      "op": "nav.sitemap-admin,forms.admin-allowed"
+    },
+    {
+      "action": "newcontext",
+      "op": "session.abandon"
+    },
+    {
+      "action": "goto",
+      "path": "/F/Abandon.aspx",
+      "op": "session.abandon"
+    },
+    {
+      "action": "click",
+      "target": "btnSet",
+      "op": "session.abandon"
+    },
+    {
+      "action": "snapshot",
+      "name": "session-set",
+      "op": "session.abandon"
+    },
+    {
+      "action": "click",
+      "target": "btnAbandon",
+      "op": "session.abandon"
+    },
+    {
+      "action": "snapshot",
+      "name": "session-abandoned",
+      "op": "session.abandon"
+    },
+    {
+      "action": "click",
+      "target": "btnRead",
+      "op": "session.abandon"
+    },
+    {
+      "action": "snapshot",
+      "name": "session-after-abandon",
+      "op": "session.abandon"
+    },
+    {
+      "_phase": "7. Postback edge cases (a new browser)"
+    },
+    {
+      "action": "newcontext",
+      "op": "postback.back-stale"
+    },
+    {
+      "action": "goto",
+      "path": "/P/Counter.aspx",
+      "op": "postback.back-stale"
+    },
+    {
+      "action": "click",
+      "target": "btnInc",
+      "op": "postback.back-stale"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-counter-1",
+      "op": "postback.back-stale"
+    },
+    {
+      "action": "back",
+      "op": "postback.back-stale"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-back",
+      "op": "postback.back-stale"
+    },
+    {
+      "action": "click",
+      "target": "btnInc",
+      "op": "postback.back-stale"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-back-stale",
+      "op": "postback.back-stale"
+    },
+    {
+      "action": "goto",
+      "path": "/P/Counter.aspx",
+      "op": "postback.double-submit"
+    },
+    {
+      "action": "postraw",
+      "target": "btnInc",
+      "name": "postback-double-1",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "postback.double-submit"
+    },
+    {
+      "action": "postraw",
+      "target": "btnInc",
+      "name": "postback-double-2",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "postback.double-submit"
+    },
+    {
+      "action": "click",
+      "target": "btnInc",
+      "op": "postback.double-submit"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-double-after",
+      "op": "postback.double-submit"
+    },
+    {
+      "action": "fetch",
+      "path": "/P/Counter.aspx",
+      "name": "postback-no-viewstate",
+      "raw": true,
+      "bodyMatch": "view=\\d+ session=\\d+|log: [^\\n<]*|post: [^\\n<]*",
+      "body": "btnInc=%2B1",
+      "op": "postback.no-viewstate"
+    },
+    {
+      "action": "goto",
+      "path": "/P/Validate.aspx",
+      "op": "postback.event-validation"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-validate",
+      "op": "postback.event-validation"
+    },
+    {
+      "action": "evaluate",
+      "target": "ddl",
+      "value": "e.add(new Option('X', 'x')); e.value = 'x';",
+      "op": "postback.event-validation"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "postback.event-validation"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-event-validation",
+      "value": "error",
+      "op": "postback.event-validation"
+    },
+    {
+      "action": "goto",
+      "path": "/P/NoValidate.aspx",
+      "op": "postback.no-event-validation"
+    },
+    {
+      "action": "evaluate",
+      "target": "ddl",
+      "value": "e.add(new Option('X', 'x')); e.value = 'x';",
+      "op": "postback.no-event-validation"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "postback.no-event-validation"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-no-event-validation",
+      "op": "postback.no-event-validation"
+    },
+    {
+      "action": "goto",
+      "path": "/P/Validate.aspx",
+      "op": "postback.unknown-target"
+    },
+    {
+      "action": "script",
+      "value": "__doPostBack('nope', '')",
+      "op": "postback.unknown-target"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-unknown-target",
+      "op": "postback.unknown-target"
+    },
+    {
+      "action": "goto",
+      "path": "/P/Validate.aspx",
+      "op": "postback.bad-argument"
+    },
+    {
+      "action": "script",
+      "value": "__doPostBack('lnk', 'bogus')",
+      "op": "postback.bad-argument"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-bad-argument",
+      "value": "error",
+      "op": "postback.bad-argument"
+    },
+    {
+      "action": "goto",
+      "path": "/P/Validate.aspx",
+      "op": "postback.hidden-target"
+    },
+    {
+      "action": "script",
+      "value": "__doPostBack('btnHidden', '')",
+      "op": "postback.hidden-target"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-hidden-target",
+      "value": "error",
+      "op": "postback.hidden-target"
+    },
+    {
+      "action": "goto",
+      "path": "/P/Counter.aspx",
+      "op": "postback.tampered-viewstate"
+    },
+    {
+      "action": "setvalue",
+      "target": "__VIEWSTATE",
+      "value": "dGFtcGVyZWQgdmlldyBzdGF0ZQ==",
+      "op": "postback.tampered-viewstate"
+    },
+    {
+      "action": "click",
+      "target": "btnInc",
+      "op": "postback.tampered-viewstate"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-tampered",
+      "value": "error",
+      "op": "postback.tampered-viewstate"
+    },
+    {
+      "action": "goto",
+      "path": "/P/Dynamic.aspx",
+      "op": "postback.dynamic-recreated"
+    },
+    {
+      "action": "fill",
+      "target": "dynTxt",
+      "value": "dyn",
+      "op": "postback.dynamic-recreated"
+    },
+    {
+      "action": "click",
+      "target": "dynBtn",
+      "op": "postback.dynamic-recreated"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-dynamic-recreated",
+      "op": "postback.dynamic-recreated"
+    },
+    {
+      "action": "goto",
+      "path": "/P/Dynamic.aspx?recreate=0",
+      "op": "postback.dynamic-lost"
+    },
+    {
+      "action": "fill",
+      "target": "dynTxt",
+      "value": "lost",
+      "op": "postback.dynamic-lost"
+    },
+    {
+      "action": "click",
+      "target": "dynBtn",
+      "op": "postback.dynamic-lost"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-dynamic-lost",
+      "op": "postback.dynamic-lost"
+    },
+    {
+      "action": "click",
+      "target": "btnStatic",
+      "op": "postback.dynamic-lost"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-dynamic-static",
+      "op": "postback.dynamic-lost"
+    },
+    {
+      "action": "goto",
+      "path": "/P/Order.aspx",
+      "op": "postback.viewstate-order"
+    },
+    {
+      "action": "check",
+      "target": "chkFlip",
+      "op": "postback.viewstate-order"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "postback.viewstate-order"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-viewstate-order",
+      "op": "postback.viewstate-order"
+    },
+    {
+      "action": "goto",
+      "path": "/P/Changed.aspx",
+      "op": "postback.tree-changed"
+    },
+    {
+      "action": "check",
+      "target": "chkSwap",
+      "op": "postback.tree-changed"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "postback.tree-changed"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-tree-changed",
+      "value": "error",
+      "op": "postback.tree-changed"
+    },
+    {
+      "action": "goto",
+      "path": "/P/Chunk/Big.aspx",
+      "op": "postback.chunked-viewstate"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-chunked",
+      "op": "postback.chunked-viewstate"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "postback.chunked-viewstate"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-chunked-post",
+      "op": "postback.chunked-viewstate"
+    },
+    {
+      "action": "goto",
+      "path": "/P/Encrypted.aspx",
+      "op": "postback.encrypted-viewstate"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-encrypted",
+      "op": "postback.encrypted-viewstate"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "postback.encrypted-viewstate"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-encrypted-post",
+      "op": "postback.encrypted-viewstate"
+    },
+    {
+      "action": "goto",
+      "path": "/P/GetState.aspx",
+      "op": "postback.get-viewstate"
+    },
+    {
+      "action": "script",
+      "value": "var q = ['__VIEWSTATE', '__VIEWSTATEGENERATOR', '__EVENTVALIDATION'].map(function (n) { var e = document.getElementById(n); return e ? n + '=' + encodeURIComponent(e.value) : ''; }).filter(function (s) { return s; }); location.href = 'GetState.aspx?__EVENTTARGET=lnk&__EVENTARGUMENT=&' + q.join('&');",
+      "op": "postback.get-viewstate"
+    },
+    {
+      "action": "snapshot",
+      "name": "postback-get-viewstate",
+      "op": "postback.get-viewstate"
+    },
+    {
+      "_phase": "8. Wizard, MultiView"
+    },
+    {
+      "action": "goto",
+      "path": "/W/Wizard.aspx",
+      "op": "wizard.validation"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-start",
+      "op": "wizard.validation"
+    },
+    {
+      "action": "click",
+      "target": "StartNextButton",
+      "op": "wizard.validation"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-validation",
+      "op": "wizard.validation"
+    },
+    {
+      "action": "fill",
+      "target": "txtName",
+      "value": "Bob",
+      "op": "wizard.next"
+    },
+    {
+      "action": "click",
+      "target": "StartNextButton",
+      "op": "wizard.next"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-step-2",
+      "op": "wizard.next"
+    },
+    {
+      "action": "click",
+      "target": "StepNextButton",
+      "op": "wizard.next"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-step-3",
+      "op": "wizard.next"
+    },
+    {
+      "action": "clicktext",
+      "value": "Step 1",
+      "op": "wizard.previous"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-sidebar-back",
+      "op": "wizard.previous"
+    },
+    {
+      "action": "click",
+      "target": "StartNextButton",
+      "op": "wizard.previous"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-step-2-again",
+      "op": "wizard.previous"
+    },
+    {
+      "action": "clicktext",
+      "value": "Step 3",
+      "op": "wizard.sidebar"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-sidebar",
+      "op": "wizard.sidebar"
+    },
+    {
+      "action": "clicktext",
+      "value": "Confirm",
+      "op": "wizard.finish"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-confirm",
+      "op": "wizard.finish"
+    },
+    {
+      "action": "click",
+      "target": "FinishButton",
+      "op": "wizard.finish"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-finish",
+      "op": "wizard.finish"
+    },
+    {
+      "action": "goto",
+      "path": "/W/Wizard.aspx",
+      "op": "wizard.jump"
+    },
+    {
+      "action": "click",
+      "target": "btnJump",
+      "op": "wizard.jump"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-jump",
+      "op": "wizard.jump"
+    },
+    {
+      "action": "click",
+      "target": "CancelButton",
+      "op": "wizard.cancel"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-cancel",
+      "op": "wizard.cancel"
+    },
+    {
+      "action": "goto",
+      "path": "/W/WizardDest.aspx",
+      "op": "wizard.finish-destination"
+    },
+    {
+      "action": "click",
+      "target": "StartNextButton",
+      "op": "wizard.finish-destination"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-dest-finish-step",
+      "op": "wizard.finish-destination"
+    },
+    {
+      "action": "click",
+      "target": "FinishButton",
+      "op": "wizard.finish-destination"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-finish-destination",
+      "op": "wizard.finish-destination"
+    },
+    {
+      "action": "goto",
+      "path": "/W/MultiView.aspx",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "snapshot",
+      "name": "multiview-1",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "click",
+      "target": "next1",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "snapshot",
+      "name": "multiview-2",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "click",
+      "target": "toI2",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "snapshot",
+      "name": "multiview-inner-2",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "click",
+      "target": "innerPrev",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "snapshot",
+      "name": "multiview-inner-1",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "click",
+      "target": "prev2",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "snapshot",
+      "name": "multiview-prev",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "click",
+      "target": "next1",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "click",
+      "target": "next2",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "snapshot",
+      "name": "multiview-3",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "click",
+      "target": "toFirst",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "snapshot",
+      "name": "multiview-by-index",
+      "op": "multiview.commands"
+    },
+    {
+      "action": "click",
+      "target": "btnToThree",
+      "op": "multiview.set-active"
+    },
+    {
+      "action": "snapshot",
+      "name": "multiview-set-active",
+      "op": "multiview.set-active"
+    },
+    {
+      "action": "goto",
+      "path": "/W/AjaxWizard.aspx",
+      "op": "wizard.ajax"
+    },
+    {
+      "action": "click",
+      "target": "StartNextButton",
+      "op": "wizard.ajax"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-ajax-b",
+      "op": "wizard.ajax"
+    },
+    {
+      "action": "click",
+      "target": "StepNextButton",
+      "op": "wizard.ajax"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-ajax-c",
+      "op": "wizard.ajax"
+    },
+    {
+      "action": "click",
+      "target": "FinishButton",
+      "op": "wizard.ajax"
+    },
+    {
+      "action": "snapshot",
+      "name": "wizard-ajax-finish",
+      "op": "wizard.ajax"
+    },
+    {
+      "_phase": "9. ASP.NET AJAX"
+    },
+    {
+      "action": "goto",
+      "path": "/J/Panel.aspx",
+      "op": "ajax.update"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-panel",
+      "op": "ajax.update"
+    },
+    {
+      "action": "postraw",
+      "target": "btnUpdate",
+      "name": "ajax-update-raw",
+      "raw": true,
+      "bodyMatch": "\\|(?:updatePanel\\|[^|]*|(?:pageRedirect|formAction|pageTitle)\\|\\|[^|]*|error\\|\\d+\\|[^|]*)\\|",
+      "body": "sm=up1|btnUpdate&__ASYNCPOST=true",
+      "headers": {
+        "X-MicrosoftAjax": "Delta=true",
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      "op": "ajax.update"
+    },
+    {
+      "action": "click",
+      "target": "btnUpdate",
+      "op": "ajax.update"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-update",
+      "op": "ajax.update"
+    },
+    {
+      "action": "click",
+      "target": "btnOutside",
+      "op": "ajax.trigger-outside"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-trigger-outside",
+      "op": "ajax.trigger-outside"
+    },
+    {
+      "action": "click",
+      "target": "btnFull",
+      "op": "ajax.postback-trigger"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-postback-trigger",
+      "op": "ajax.postback-trigger"
+    },
+    {
+      "action": "click",
+      "target": "btnPlain",
+      "op": "ajax.outside-full"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-outside-full",
+      "op": "ajax.outside-full"
+    },
+    {
+      "action": "goto",
+      "path": "/J/Panel.aspx",
+      "op": "ajax.redirect"
+    },
+    {
+      "action": "postraw",
+      "target": "btnRedirect",
+      "name": "ajax-redirect-raw",
+      "raw": true,
+      "bodyMatch": "\\|(?:updatePanel\\|[^|]*|(?:pageRedirect|formAction|pageTitle)\\|\\|[^|]*|error\\|\\d+\\|[^|]*)\\|",
+      "body": "sm=up1|btnRedirect&__ASYNCPOST=true",
+      "headers": {
+        "X-MicrosoftAjax": "Delta=true",
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      "op": "ajax.redirect"
+    },
+    {
+      "action": "click",
+      "target": "btnRedirect",
+      "op": "ajax.redirect"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-redirect",
+      "op": "ajax.redirect"
+    },
+    {
+      "action": "goto",
+      "path": "/J/Panel.aspx",
+      "op": "ajax.transfer"
+    },
+    {
+      "action": "postraw",
+      "target": "btnTransfer",
+      "name": "ajax-transfer-raw",
+      "raw": true,
+      "bodyMatch": "\\|(?:updatePanel\\|[^|]*|(?:pageRedirect|formAction|pageTitle)\\|\\|[^|]*|error\\|\\d+\\|[^|]*)\\|",
+      "body": "sm=up1|btnTransfer&__ASYNCPOST=true",
+      "headers": {
+        "X-MicrosoftAjax": "Delta=true",
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      "op": "ajax.transfer"
+    },
+    {
+      "action": "click",
+      "target": "btnTransfer",
+      "op": "ajax.transfer"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-transfer",
+      "op": "ajax.transfer"
+    },
+    {
+      "action": "goto",
+      "path": "/J/Panel.aspx",
+      "op": "ajax.error"
+    },
+    {
+      "action": "postraw",
+      "target": "btnThrow",
+      "name": "ajax-error-raw",
+      "raw": true,
+      "bodyMatch": "\\|(?:updatePanel\\|[^|]*|(?:pageRedirect|formAction|pageTitle)\\|\\|[^|]*|error\\|\\d+\\|[^|]*)\\|",
+      "body": "sm=up1|btnThrow&__ASYNCPOST=true",
+      "headers": {
+        "X-MicrosoftAjax": "Delta=true",
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      "op": "ajax.error"
+    },
+    {
+      "action": "click",
+      "target": "btnThrow",
+      "op": "ajax.error"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-error",
+      "op": "ajax.error"
+    },
+    {
+      "action": "goto",
+      "path": "/J/Panel.aspx",
+      "op": "ajax.timeout"
+    },
+    {
+      "action": "click",
+      "target": "btnSlow",
+      "op": "ajax.timeout"
+    },
+    {
+      "action": "waitMs",
+      "ms": 4500,
+      "op": "ajax.timeout"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-timeout",
+      "op": "ajax.timeout"
+    },
+    {
+      "action": "goto",
+      "path": "/J/Panel.aspx",
+      "op": "ajax.response-write"
+    },
+    {
+      "action": "postraw",
+      "target": "btnWrite",
+      "name": "ajax-write-raw",
+      "raw": true,
+      "bodyMatch": "\\|(?:updatePanel\\|[^|]*|(?:pageRedirect|formAction|pageTitle)\\|\\|[^|]*|error\\|\\d+\\|[^|]*)\\|",
+      "body": "sm=up1|btnWrite&__ASYNCPOST=true",
+      "headers": {
+        "X-MicrosoftAjax": "Delta=true",
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      "op": "ajax.response-write"
+    },
+    {
+      "action": "click",
+      "target": "btnWrite",
+      "op": "ajax.response-write"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-write",
+      "op": "ajax.response-write"
+    },
+    {
+      "action": "goto",
+      "path": "/J/Panel.aspx",
+      "op": "ajax.response-end"
+    },
+    {
+      "action": "postraw",
+      "target": "btnEnd",
+      "name": "ajax-end-raw",
+      "raw": true,
+      "bodyMatch": "\\|(?:updatePanel\\|[^|]*|(?:pageRedirect|formAction|pageTitle)\\|\\|[^|]*|error\\|\\d+\\|[^|]*)\\|",
+      "body": "sm=up1|btnEnd&__ASYNCPOST=true",
+      "headers": {
+        "X-MicrosoftAjax": "Delta=true",
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      "op": "ajax.response-end"
+    },
+    {
+      "action": "click",
+      "target": "btnEnd",
+      "op": "ajax.response-end"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-end",
+      "op": "ajax.response-end"
+    },
+    {
+      "action": "goto",
+      "path": "/J/Nested.aspx",
+      "op": "ajax.nested"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-nested",
+      "op": "ajax.nested"
+    },
+    {
+      "action": "click",
+      "target": "btnInner",
+      "op": "ajax.nested"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-nested-inner",
+      "op": "ajax.nested"
+    },
+    {
+      "action": "click",
+      "target": "btnOuter",
+      "op": "ajax.nested"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-nested-outer",
+      "op": "ajax.nested"
+    },
+    {
+      "action": "click",
+      "target": "btnUpdate3",
+      "op": "ajax.nested"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-nested-update3",
+      "op": "ajax.nested"
+    },
+    {
+      "action": "click",
+      "target": "btnThree",
+      "op": "ajax.nested"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-nested-three",
+      "op": "ajax.nested"
+    },
+    {
+      "action": "goto",
+      "path": "/J/History.aspx",
+      "op": "ajax.history"
+    },
+    {
+      "action": "click",
+      "target": "btnStep2",
+      "op": "ajax.history"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-history-2",
+      "op": "ajax.history"
+    },
+    {
+      "action": "click",
+      "target": "btnStep3",
+      "op": "ajax.history"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-history-3",
+      "op": "ajax.history"
+    },
+    {
+      "action": "back",
+      "op": "ajax.history"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-history-back",
+      "op": "ajax.history"
+    },
+    {
+      "action": "back",
+      "op": "ajax.history"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-history-back-2",
+      "op": "ajax.history"
+    },
+    {
+      "action": "forward",
+      "op": "ajax.history"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-history-forward",
+      "op": "ajax.history"
+    },
+    {
+      "action": "goto",
+      "path": "/J/Timer.aspx",
+      "op": "ajax.timer"
+    },
+    {
+      "action": "waitMs",
+      "ms": 4000,
+      "op": "ajax.timer"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-timer",
+      "op": "ajax.timer"
+    },
+    {
+      "action": "goto",
+      "path": "/J/Methods.aspx",
+      "op": "ajax.page-methods"
+    },
+    {
+      "action": "click",
+      "target": "btnEcho",
+      "op": "ajax.page-methods"
+    },
+    {
+      "action": "waitMs",
+      "ms": 800,
+      "op": "ajax.page-methods"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-page-method",
+      "op": "ajax.page-methods"
+    },
+    {
+      "action": "click",
+      "target": "btnFails",
+      "op": "ajax.page-methods"
+    },
+    {
+      "action": "waitMs",
+      "ms": 800,
+      "op": "ajax.page-methods"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-page-method-fails",
+      "op": "ajax.page-methods"
+    },
+    {
+      "action": "click",
+      "target": "btnRedirects",
+      "op": "ajax.page-methods"
+    },
+    {
+      "action": "waitMs",
+      "ms": 800,
+      "op": "ajax.page-methods"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-page-method-redirects",
+      "op": "ajax.page-methods"
+    },
+    {
+      "action": "fetch",
+      "path": "/J/Methods.aspx/Echo",
+      "name": "ajax-page-method-raw",
+      "raw": true,
+      "bodyMatch": "\\{.*\\}",
+      "method": "POST",
+      "body": "{\"text\":\"raw\"}",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      "op": "ajax.page-methods"
+    },
+    {
+      "action": "goto",
+      "path": "/J/ServicePage.aspx",
+      "op": "ajax.script-service"
+    },
+    {
+      "action": "click",
+      "target": "btnHello",
+      "op": "ajax.script-service"
+    },
+    {
+      "action": "waitMs",
+      "ms": 800,
+      "op": "ajax.script-service"
+    },
+    {
+      "action": "snapshot",
+      "name": "ajax-script-service",
+      "op": "ajax.script-service"
+    },
+    {
+      "action": "fetch",
+      "path": "/J/Service.asmx/js",
+      "name": "ajax-script-service-proxy",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "ajax.script-service"
+    },
+    {
+      "_phase": "10. Routes and URLs"
+    },
+    {
+      "action": "goto",
+      "path": "/nav/5",
+      "op": "route.constraint"
+    },
+    {
+      "action": "snapshot",
+      "name": "route-constraint",
+      "op": "route.constraint"
+    },
+    {
+      "action": "goto",
+      "path": "/nav",
+      "op": "route.default"
+    },
+    {
+      "action": "snapshot",
+      "name": "route-default",
+      "op": "route.default"
+    },
+    {
+      "action": "fetch",
+      "path": "/nav/abc",
+      "name": "route-constraint-fail-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "route.constraint-fail"
+    },
+    {
+      "action": "goto",
+      "path": "/nav/abc",
+      "op": "route.constraint-fail"
+    },
+    {
+      "action": "snapshot",
+      "name": "route-constraint-fail",
+      "value": "error",
+      "op": "route.constraint-fail"
+    },
+    {
+      "action": "goto",
+      "path": "/files/a/b%20c",
+      "op": "route.catch-all"
+    },
+    {
+      "action": "snapshot",
+      "name": "route-catch-all",
+      "op": "route.catch-all"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "route.catch-all"
+    },
+    {
+      "action": "snapshot",
+      "name": "route-catch-all-postback",
+      "op": "route.catch-all"
+    },
+    {
+      "action": "fetch",
+      "path": "/files/x.txt",
+      "name": "route-catch-all-extension",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "route.catch-all"
+    },
+    {
+      "action": "goto",
+      "path": "/nav/5",
+      "op": "route.relative-link"
+    },
+    {
+      "action": "click",
+      "target": "lnkRelative",
+      "op": "route.relative-link"
+    },
+    {
+      "action": "snapshot",
+      "name": "route-relative-link",
+      "value": "error",
+      "op": "route.relative-link"
+    },
+    {
+      "action": "goto",
+      "path": "/nav/5",
+      "op": "route.postback"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "route.postback"
+    },
+    {
+      "action": "snapshot",
+      "name": "route-postback",
+      "op": "route.postback"
+    },
+    {
+      "action": "goto",
+      "path": "/go/somewhere",
+      "op": "route.transfer"
+    },
+    {
+      "action": "snapshot",
+      "name": "route-transfer",
+      "op": "route.transfer"
+    },
+    {
+      "action": "goto",
+      "path": "/U/Info.aspx/extra/more",
+      "op": "url.pathinfo"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-pathinfo",
+      "op": "url.pathinfo"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "url.pathinfo"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-pathinfo-postback",
+      "op": "url.pathinfo"
+    },
+    {
+      "action": "goto",
+      "path": "/U/Info.aspx/extra/more",
+      "op": "url.pathinfo"
+    },
+    {
+      "action": "click",
+      "target": "lnkRelative",
+      "op": "url.pathinfo"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-pathinfo-link",
+      "value": "error",
+      "op": "url.pathinfo"
+    },
+    {
+      "action": "goto",
+      "path": "/U/Info.aspx/a%20b/%E6%97%A5",
+      "op": "url.pathinfo-encoded"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-pathinfo-encoded",
+      "op": "url.pathinfo-encoded"
+    },
+    {
+      "action": "goto",
+      "path": "/U/",
+      "op": "url.default-document"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-default-document",
+      "op": "url.default-document"
+    },
+    {
+      "action": "fetch",
+      "path": "/U",
+      "name": "url-courtesy-redirect-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "url.courtesy-redirect"
+    },
+    {
+      "action": "goto",
+      "path": "/U",
+      "op": "url.courtesy-redirect"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-courtesy-redirect",
+      "op": "url.courtesy-redirect"
+    },
+    {
+      "action": "goto",
+      "path": "/U/Pretty/abc",
+      "op": "url.rewrite-rebase"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-rewrite-rebase",
+      "op": "url.rewrite-rebase"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "url.rewrite-rebase"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-rewrite-rebase-postback",
+      "op": "url.rewrite-rebase"
+    },
+    {
+      "action": "goto",
+      "path": "/U/PrettyNoRebase/abc",
+      "op": "url.rewrite-no-rebase"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-rewrite-no-rebase",
+      "op": "url.rewrite-no-rebase"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "url.rewrite-no-rebase"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-rewrite-no-rebase-postback",
+      "op": "url.rewrite-no-rebase"
+    },
+    {
+      "action": "goto",
+      "path": "/U/PrettyParts/abc",
+      "op": "url.rewrite-parts"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-rewrite-parts",
+      "op": "url.rewrite-parts"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "url.rewrite-parts"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-rewrite-parts-postback",
+      "op": "url.rewrite-parts"
+    },
+    {
+      "action": "goto",
+      "path": "/U/Query.aspx?a=1&a=2&a=",
+      "op": "url.query-repeated"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-query-repeated",
+      "op": "url.query-repeated"
+    },
+    {
+      "action": "goto",
+      "path": "/U/Query.aspx?a=&b&=c&&d=",
+      "op": "url.query-empty"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-query-empty",
+      "op": "url.query-empty"
+    },
+    {
+      "action": "goto",
+      "path": "/U/Query.aspx?a=x%26y&b=%E6%97%A5&c=a+b&d=%2B&e=%3D",
+      "op": "url.query-encoded"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-query-encoded",
+      "op": "url.query-encoded"
+    },
+    {
+      "action": "goto",
+      "path": "/U/Query.aspx?a=%ZZ&b=%u65E5&c=%E6%97",
+      "op": "url.query-invalid"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-query-invalid",
+      "op": "url.query-invalid"
+    },
+    {
+      "action": "goto",
+      "path": "/u/QUERY.aspx?a=1",
+      "op": "url.case"
+    },
+    {
+      "action": "snapshot",
+      "name": "url-case",
+      "op": "url.case"
+    },
+    {
+      "action": "fetch",
+      "path": "//U//Query.aspx?a=1",
+      "name": "url-double-slash",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "url.double-slash"
+    },
+    {
+      "_phase": "11. Navigation controls (a new browser)"
+    },
+    {
+      "action": "newcontext",
+      "op": "nav.sitemap"
+    },
+    {
+      "action": "goto",
+      "path": "/N/Deep/Page.aspx",
+      "op": "nav.sitemap"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-sitemap",
+      "op": "nav.sitemap"
+    },
+    {
+      "action": "goto",
+      "path": "/N/Deep/Page.aspx",
+      "op": "nav.usercontrol-link"
+    },
+    {
+      "action": "click",
+      "target": "links_lnkRelative",
+      "op": "nav.usercontrol-link"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-usercontrol-link",
+      "value": "error",
+      "op": "nav.usercontrol-link"
+    },
+    {
+      "action": "goto",
+      "path": "/N/Deep/Page.aspx",
+      "op": "nav.usercontrol-link"
+    },
+    {
+      "action": "click",
+      "target": "aPlain",
+      "op": "nav.usercontrol-link"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-usercontrol-plain",
+      "value": "error",
+      "op": "nav.usercontrol-link"
+    },
+    {
+      "action": "goto",
+      "path": "/N/Menu.aspx",
+      "op": "nav.menu"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-menu",
+      "op": "nav.menu"
+    },
+    {
+      "action": "clicktext",
+      "value": "Postback B",
+      "op": "nav.menu"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-menu-postback",
+      "op": "nav.menu"
+    },
+    {
+      "action": "script",
+      "value": "__doPostBack('menuItems', 'a\\\\a1')",
+      "op": "nav.menu"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-menu-child",
+      "op": "nav.menu"
+    },
+    {
+      "action": "goto",
+      "path": "/N/Menu.aspx",
+      "op": "nav.menu"
+    },
+    {
+      "action": "clicktext",
+      "value": "Go to Deep",
+      "op": "nav.menu"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-menu-navigate",
+      "op": "nav.menu"
+    },
+    {
+      "action": "goto",
+      "path": "/N/Menu.aspx",
+      "op": "nav.treeview"
+    },
+    {
+      "action": "script",
+      "value": "__doPostBack('tvItems', 'troot')",
+      "op": "nav.treeview"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-treeview-expand",
+      "op": "nav.treeview"
+    },
+    {
+      "action": "clicktext",
+      "value": "Child select",
+      "op": "nav.treeview"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-treeview-select",
+      "op": "nav.treeview"
+    },
+    {
+      "action": "clicktext",
+      "value": "Child link",
+      "op": "nav.treeview"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-treeview-navigate",
+      "op": "nav.treeview"
+    },
+    {
+      "action": "goto",
+      "path": "/N/Menu.aspx",
+      "op": "nav.treeview"
+    },
+    {
+      "action": "clicktext",
+      "value": "Root",
+      "op": "nav.treeview"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-treeview-root-text",
+      "op": "nav.treeview"
+    },
+    {
+      "action": "goto",
+      "path": "/N/ImageMap.aspx",
+      "op": "nav.imagemap"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-imagemap",
+      "op": "nav.imagemap"
+    },
+    {
+      "action": "script",
+      "value": "document.querySelector('area[alt=\"post back left\"]').click()",
+      "op": "nav.imagemap"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-imagemap-postback",
+      "op": "nav.imagemap"
+    },
+    {
+      "action": "script",
+      "value": "document.querySelector('area[alt=\"navigate\"]').click()",
+      "op": "nav.imagemap"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-imagemap-navigate",
+      "op": "nav.imagemap"
+    },
+    {
+      "action": "goto",
+      "path": "/N/Buttons.aspx",
+      "op": "nav.client-click"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-buttons",
+      "op": "nav.client-click"
+    },
+    {
+      "action": "click",
+      "target": "lnkFalse",
+      "op": "nav.client-click"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-linkbutton-false",
+      "op": "nav.client-click"
+    },
+    {
+      "action": "click",
+      "target": "btnFalse",
+      "op": "nav.client-click"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-button-false",
+      "op": "nav.client-click"
+    },
+    {
+      "action": "click",
+      "target": "lnkConfirm",
+      "op": "nav.client-click"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-linkbutton-confirm",
+      "op": "nav.client-click"
+    },
+    {
+      "action": "goto",
+      "path": "/N/Buttons.aspx",
+      "op": "nav.default-button"
+    },
+    {
+      "action": "fill",
+      "target": "txtPanel",
+      "value": "enter",
+      "op": "nav.default-button"
+    },
+    {
+      "action": "press",
+      "target": "txtPanel",
+      "value": "Enter",
+      "op": "nav.default-button"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-panel-default-button",
+      "op": "nav.default-button"
+    },
+    {
+      "action": "goto",
+      "path": "/N/Buttons.aspx",
+      "op": "nav.default-button"
+    },
+    {
+      "action": "fill",
+      "target": "txtFocus",
+      "value": "enter",
+      "op": "nav.default-button"
+    },
+    {
+      "action": "press",
+      "target": "txtFocus",
+      "value": "Enter",
+      "op": "nav.default-button"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-form-default-button",
+      "op": "nav.default-button"
+    },
+    {
+      "action": "goto",
+      "path": "/N/Buttons.aspx",
+      "op": "nav.set-focus"
+    },
+    {
+      "action": "click",
+      "target": "btnFocus",
+      "op": "nav.set-focus"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-set-focus",
+      "op": "nav.set-focus"
+    },
+    {
+      "action": "goto",
+      "path": "/N/Buttons.aspx",
+      "op": "nav.scroll"
+    },
+    {
+      "action": "click",
+      "target": "btnBottom",
+      "op": "nav.scroll"
+    },
+    {
+      "action": "snapshot",
+      "name": "nav-scroll",
+      "op": "nav.scroll"
+    },
+    {
+      "_phase": "12. Async pages, handlers, downloads, windows, frames"
+    },
+    {
+      "action": "fetch",
+      "path": "/Y/Async.aspx?mode=redirect",
+      "name": "async-redirect-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "async.redirect"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Async.aspx?mode=redirect",
+      "op": "async.redirect"
+    },
+    {
+      "action": "snapshot",
+      "name": "async-redirect",
+      "op": "async.redirect"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Landing.aspx",
+      "op": "async.redirect"
+    },
+    {
+      "action": "snapshot",
+      "name": "async-redirect-side",
+      "op": "async.redirect"
+    },
+    {
+      "action": "fetch",
+      "path": "/Y/Async.aspx?mode=redirect-false",
+      "name": "async-redirect-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "async.redirect-false"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Async.aspx?mode=redirect-false",
+      "op": "async.redirect-false"
+    },
+    {
+      "action": "snapshot",
+      "name": "async-redirect-false",
+      "op": "async.redirect-false"
+    },
+    {
+      "action": "fetch",
+      "path": "/Y/Async.aspx?mode=transfer",
+      "name": "async-transfer-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "async.transfer"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Async.aspx?mode=transfer",
+      "op": "async.transfer"
+    },
+    {
+      "action": "snapshot",
+      "name": "async-transfer",
+      "op": "async.transfer"
+    },
+    {
+      "action": "fetch",
+      "path": "/Y/Async.aspx?mode=throw",
+      "name": "async-throw-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "async.throw"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Async.aspx?mode=throw",
+      "op": "async.throw"
+    },
+    {
+      "action": "snapshot",
+      "name": "async-throw",
+      "value": "error",
+      "op": "async.throw"
+    },
+    {
+      "action": "fetch",
+      "path": "/Y/Async.aspx",
+      "name": "async-done-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "async.done"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Async.aspx",
+      "op": "async.done"
+    },
+    {
+      "action": "snapshot",
+      "name": "async-done",
+      "op": "async.done"
+    },
+    {
+      "action": "fetch",
+      "path": "/Y/AsyncVoid.aspx?mode=redirect",
+      "name": "async-void-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "async.void"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/AsyncVoid.aspx?mode=redirect",
+      "op": "async.void"
+    },
+    {
+      "action": "snapshot",
+      "name": "async-void",
+      "op": "async.void"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/AsyncVoid.aspx",
+      "op": "async.void"
+    },
+    {
+      "action": "snapshot",
+      "name": "async-void-plain",
+      "op": "async.void"
+    },
+    {
+      "action": "fetch",
+      "path": "/Y/Redirect.ashx",
+      "name": "handler-redirect-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "handler.redirect"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Redirect.ashx",
+      "op": "handler.redirect"
+    },
+    {
+      "action": "snapshot",
+      "name": "handler-redirect",
+      "op": "handler.redirect"
+    },
+    {
+      "action": "fetch",
+      "path": "/Y/Redirect.ashx?mode=permanent",
+      "name": "handler-redirect-permanent-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "handler.redirect-permanent"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Redirect.ashx?mode=permanent",
+      "op": "handler.redirect-permanent"
+    },
+    {
+      "action": "snapshot",
+      "name": "handler-redirect-permanent",
+      "op": "handler.redirect-permanent"
+    },
+    {
+      "action": "fetch",
+      "path": "/Y/Redirect.ashx?mode=false",
+      "name": "handler-redirect-false-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "handler.redirect-false"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Redirect.ashx?mode=false",
+      "op": "handler.redirect-false"
+    },
+    {
+      "action": "snapshot",
+      "name": "handler-redirect-false",
+      "op": "handler.redirect-false"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Transfer.ashx",
+      "op": "handler.transfer"
+    },
+    {
+      "action": "snapshot",
+      "name": "handler-transfer",
+      "op": "handler.transfer"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Transfer.ashx?mode=execute",
+      "op": "handler.transfer"
+    },
+    {
+      "action": "snapshot",
+      "name": "handler-execute",
+      "op": "handler.transfer"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Download.aspx",
+      "op": "download.button"
+    },
+    {
+      "action": "download",
+      "target": "btnDownload",
+      "name": "download-button",
+      "op": "download.button"
+    },
+    {
+      "action": "click",
+      "target": "btnAfter",
+      "op": "download.button"
+    },
+    {
+      "action": "snapshot",
+      "name": "download-button-after",
+      "op": "download.button"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Download.aspx",
+      "op": "download.linkbutton"
+    },
+    {
+      "action": "download",
+      "target": "lnkDownload",
+      "name": "download-linkbutton",
+      "op": "download.linkbutton"
+    },
+    {
+      "action": "click",
+      "target": "btnAfter",
+      "op": "download.linkbutton"
+    },
+    {
+      "action": "snapshot",
+      "name": "download-linkbutton-button",
+      "op": "download.linkbutton"
+    },
+    {
+      "action": "download",
+      "target": "lnkDownload",
+      "name": "download-linkbutton-2",
+      "op": "download.linkbutton"
+    },
+    {
+      "action": "click",
+      "target": "lnkAfter",
+      "op": "download.linkbutton"
+    },
+    {
+      "action": "snapshot",
+      "name": "download-linkbutton-link",
+      "op": "download.linkbutton"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Download.aspx",
+      "op": "download.unicode"
+    },
+    {
+      "action": "download",
+      "target": "btnUnicode",
+      "name": "download-unicode",
+      "op": "download.unicode"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Opener.aspx",
+      "op": "window.blank-link"
+    },
+    {
+      "action": "click",
+      "target": "lnkBlank",
+      "op": "window.blank-link"
+    },
+    {
+      "action": "popup",
+      "value": "p1",
+      "op": "window.blank-link"
+    },
+    {
+      "action": "snapshot",
+      "name": "window-blank-link",
+      "op": "window.blank-link"
+    },
+    {
+      "action": "tab",
+      "value": "main",
+      "op": "window.blank-link"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Opener.aspx",
+      "op": "window.form-target"
+    },
+    {
+      "action": "click",
+      "target": "btnBlank",
+      "op": "window.form-target"
+    },
+    {
+      "action": "popup",
+      "value": "p2",
+      "op": "window.form-target"
+    },
+    {
+      "action": "snapshot",
+      "name": "window-form-target-popup",
+      "op": "window.form-target"
+    },
+    {
+      "action": "tab",
+      "value": "main",
+      "op": "window.form-target"
+    },
+    {
+      "action": "snapshot",
+      "name": "window-form-target-main",
+      "op": "window.form-target"
+    },
+    {
+      "action": "click",
+      "target": "btnNormal",
+      "op": "window.form-target"
+    },
+    {
+      "action": "popup",
+      "value": "p3",
+      "op": "window.form-target"
+    },
+    {
+      "action": "snapshot",
+      "name": "window-form-target-sticky",
+      "op": "window.form-target"
+    },
+    {
+      "action": "tab",
+      "value": "main",
+      "op": "window.form-target"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Opener.aspx",
+      "op": "window.open-opener"
+    },
+    {
+      "action": "click",
+      "target": "btnOpen",
+      "op": "window.open-opener"
+    },
+    {
+      "action": "popup",
+      "value": "pw",
+      "op": "window.open-opener"
+    },
+    {
+      "action": "snapshot",
+      "name": "window-open",
+      "op": "window.open-opener"
+    },
+    {
+      "action": "click",
+      "target": "btnTell",
+      "op": "window.open-opener"
+    },
+    {
+      "action": "snapshot",
+      "name": "window-open-postback",
+      "op": "window.open-opener"
+    },
+    {
+      "action": "tab",
+      "value": "main",
+      "op": "window.open-opener"
+    },
+    {
+      "action": "snapshot",
+      "name": "window-opener-told",
+      "op": "window.open-opener"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Frames.aspx",
+      "op": "frame.postback"
+    },
+    {
+      "action": "snapshot",
+      "name": "frame-page",
+      "op": "frame.postback"
+    },
+    {
+      "action": "frame",
+      "value": "f1",
+      "op": "frame.postback"
+    },
+    {
+      "action": "snapshot",
+      "name": "frame-inner",
+      "op": "frame.postback"
+    },
+    {
+      "action": "click",
+      "target": "btnInc",
+      "op": "frame.postback"
+    },
+    {
+      "action": "snapshot",
+      "name": "frame-postback",
+      "op": "frame.postback"
+    },
+    {
+      "action": "click",
+      "target": "btnRedirect",
+      "op": "frame.postback"
+    },
+    {
+      "action": "snapshot",
+      "name": "frame-redirect",
+      "op": "frame.postback"
+    },
+    {
+      "action": "frame",
+      "value": "",
+      "op": "frame.postback"
+    },
+    {
+      "action": "snapshot",
+      "name": "frame-page-after",
+      "op": "frame.postback"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Frames.aspx",
+      "op": "frame.target"
+    },
+    {
+      "action": "click",
+      "target": "lnkFrame",
+      "op": "frame.target"
+    },
+    {
+      "action": "frame",
+      "value": "f1",
+      "op": "frame.target"
+    },
+    {
+      "action": "snapshot",
+      "name": "frame-target",
+      "op": "frame.target"
+    },
+    {
+      "action": "click",
+      "target": "btnPost",
+      "op": "frame.target"
+    },
+    {
+      "action": "snapshot",
+      "name": "frame-target-postback",
+      "op": "frame.target"
+    },
+    {
+      "action": "frame",
+      "value": "",
+      "op": "frame.target"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Frames.aspx",
+      "op": "frame.top"
+    },
+    {
+      "action": "frame",
+      "value": "f1",
+      "op": "frame.top"
+    },
+    {
+      "action": "click",
+      "target": "lnkTop",
+      "op": "frame.top"
+    },
+    {
+      "action": "frame",
+      "value": "",
+      "op": "frame.top"
+    },
+    {
+      "action": "snapshot",
+      "name": "frame-top-link",
+      "op": "frame.top"
+    },
+    {
+      "action": "goto",
+      "path": "/Y/Frames.aspx",
+      "op": "frame.top"
+    },
+    {
+      "action": "frame",
+      "value": "f1",
+      "op": "frame.top"
+    },
+    {
+      "action": "click",
+      "target": "btnTop",
+      "op": "frame.top"
+    },
+    {
+      "action": "frame",
+      "value": "",
+      "op": "frame.top"
+    },
+    {
+      "action": "waitMs",
+      "ms": 1000,
+      "op": "frame.top"
+    },
+    {
+      "action": "snapshot",
+      "name": "frame-top-script",
+      "op": "frame.top"
+    },
+    {
+      "_phase": "13. Visual Basic pages (compiled by the server)"
+    },
+    {
+      "action": "goto",
+      "path": "/V/Handles.aspx",
+      "op": "vb.handles-redirect"
+    },
+    {
+      "action": "snapshot",
+      "name": "vb-handles",
+      "op": "vb.handles-redirect"
+    },
+    {
+      "action": "click",
+      "target": "btnGo",
+      "op": "vb.handles-redirect"
+    },
+    {
+      "action": "snapshot",
+      "name": "vb-handles-redirect",
+      "op": "vb.handles-redirect"
+    },
+    {
+      "action": "goto",
+      "path": "/V/Handles.aspx",
+      "op": "vb.catch-when"
+    },
+    {
+      "action": "click",
+      "target": "btnCatch",
+      "op": "vb.catch-when"
+    },
+    {
+      "action": "snapshot",
+      "name": "vb-catch-when",
+      "op": "vb.catch-when"
+    },
+    {
+      "action": "goto",
+      "path": "/V/Landing.aspx",
+      "op": "vb.catch-when"
+    },
+    {
+      "action": "snapshot",
+      "name": "vb-catch-when-side",
+      "op": "vb.catch-when"
+    },
+    {
+      "action": "goto",
+      "path": "/V/Handles.aspx",
+      "op": "vb.transfer"
+    },
+    {
+      "action": "click",
+      "target": "btnTransfer",
+      "op": "vb.transfer"
+    },
+    {
+      "action": "snapshot",
+      "name": "vb-transfer",
+      "op": "vb.transfer"
+    },
+    {
+      "action": "goto",
+      "path": "/V/My.aspx",
+      "op": "vb.my"
+    },
+    {
+      "action": "snapshot",
+      "name": "vb-my",
+      "op": "vb.my"
+    },
+    {
+      "action": "fetch",
+      "path": "/V/My.aspx?go=1",
+      "name": "vb-my-redirect-raw",
+      "raw": true,
+      "bodyMatch": "<title>[^<]*</title>|<h2>.*?</h2>|log: [^\\n<]*|side: [^\\n<]*|<p id=\"(?:flushed|before-end|after-end|before-complete|written|cleared|module|own)\">[^<]*",
+      "op": "vb.my"
+    },
+    {
+      "action": "goto",
+      "path": "/V/My.aspx?go=1",
+      "op": "vb.my"
+    },
+    {
+      "action": "snapshot",
+      "name": "vb-my-redirect",
+      "op": "vb.my"
+    },
+    {
+      "action": "goto",
+      "path": "/V/Source.aspx",
+      "op": "vb.cross-page"
+    },
+    {
+      "action": "click",
+      "target": "btnCross",
+      "op": "vb.cross-page"
+    },
+    {
+      "action": "snapshot",
+      "name": "vb-cross-page",
+      "op": "vb.cross-page"
+    }
+  ],
+  "crawl": {
+    "depth": 1,
+    "max": 400,
+    "urls": [
+      "/"
+    ],
+    "exclude": [
+      "(?i)/G/Loop",
+      "(?i)/G/Chain",
+      "(?i)logout"
+    ]
+  }
+}

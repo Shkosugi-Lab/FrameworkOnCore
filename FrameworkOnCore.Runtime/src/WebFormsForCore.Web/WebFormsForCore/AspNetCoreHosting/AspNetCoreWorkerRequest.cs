@@ -107,6 +107,20 @@ namespace System.Web.Hosting
 			Context = context;
 		}
 
+		/// <summary>
+		/// Server.TransferRequest's request: the URL (a virtual path), its query, the method (null: this request's), the form
+		/// (preserveForm: this request's body) and the headers added or replaced, run once this request ends, as IIS's
+		/// ScheduleExecuteUrl runs its child request after the parent's unwinds (AspNetCoreHost.ProcessRequest).
+		/// </summary>
+		internal sealed record TransferRequest(string Path, string Query, string Method, byte[] Body, bool PreserveForm, NameValueCollection Headers);
+
+		/// <summary>The request Server.TransferRequest scheduled (null: none). This request's answer is not sent then.</summary>
+		internal TransferRequest ScheduledTransfer { get; private set; }
+
+		internal void ScheduleTransferRequest(TransferRequest transfer) => ScheduledTransfer = transfer;
+
+		bool Transferring => ScheduledTransfer != null;
+
 		public override void CloseConnection()
 		{
 			Context.Connection.RequestClose();
@@ -215,6 +229,12 @@ namespace System.Web.Hosting
 #endif
 			NotifyEndOfSend();
 			DisposeAtEnd();
+			// Server.TransferRequest: the response is the next request's (AspNetCoreHost.ProcessRequest), not ended here.
+			if (Transferring)
+			{
+				Completed.TrySetResult(true);
+				return;
+			}
 			try
 			{
 				if (Context != null && Context.Response != null)
@@ -261,6 +281,7 @@ namespace System.Web.Hosting
 
 		public override void FlushResponse(bool finalFlush)
 		{
+			if (Transferring) return;
 			using (var noSyncContext = new SafeAsync())
 			{
 				// The final one is the end of the request's (ASP.NET Core sends what is left): not a flush the application
@@ -650,7 +671,7 @@ namespace System.Web.Hosting
 
 		public override void SendCalculatedContentLength(int contentLength)
 		{
-			if (!headersSent)
+			if (!headersSent && !Transferring)
 			{
 				Context.Response.ContentLength = contentLength;
 			}
@@ -658,7 +679,7 @@ namespace System.Web.Hosting
 
 		public override void SendKnownResponseHeader(int index, string value)
 		{
-			if (headersSent)
+			if (headersSent || Transferring)
 			{
 				return;
 			}
@@ -736,7 +757,7 @@ namespace System.Web.Hosting
 
 		public override void SendResponseFromMemory(byte[] data, int length)
 		{
-			if (length > 0)
+			if (length > 0 && !Transferring)
 			{
 				ResponseCapture?.Append(data, 0, length);
 				using (var noSyncContext = new SafeAsync())
@@ -748,6 +769,7 @@ namespace System.Web.Hosting
 
 		public override void SendStatus(int statusCode, string statusDescription)
 		{
+			if (Transferring) return;
 			// A description with a line's end or another control character (Response.StatusDescription from the request: a header
 			// injected into the response, which Kestrel wrote as it was given) is not sent: IIS closes the connection.
 			if (statusDescription != null && statusDescription.Any(c => c < 0x20 && c != '\t' || c == 0x7F)) statusDescription = null;
@@ -763,7 +785,7 @@ namespace System.Web.Hosting
 
 		public override void SendUnknownResponseHeader(string name, string value)
 		{
-			if (headersSent)
+			if (headersSent || Transferring)
 				return;
 
 			if (Context.Response.Headers.ContainsKey(name)) {
@@ -991,6 +1013,7 @@ namespace System.Web.Hosting
 
 		private void SendResponseFromFileStream(Stream f, long offset, long length)
 		{
+			if (Transferring) return;
 			ResponseCapture?.Abandon();     // a file sent from the file (a large one): not kept
 			long fileSize = f.Length;
 

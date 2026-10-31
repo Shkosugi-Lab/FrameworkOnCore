@@ -1,0 +1,21 @@
+<%@ Master Language="C#" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+  <title>master A</title>
+  <link href="nav.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <form id="form1" runat="server">
+    <p id="master">master A (Masters/A.master)</p>
+    <p>
+      <a id="aMasterRel" runat="server" href="Other.aspx">a runat=server Other.aspx (master's folder)</a>
+      <a id="aMasterPlain" href="Other.aspx">a Other.aspx (plain)</a>
+      <img id="imgMaster" runat="server" src="logo.gif" alt="logo" />
+      <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/Default.aspx" Text="home" />
+    </p>
+    <asp:ContentPlaceHolder ID="main" runat="server" />
+    <nav:Info runat="server" />
+  </form>
+</body>
+</html>

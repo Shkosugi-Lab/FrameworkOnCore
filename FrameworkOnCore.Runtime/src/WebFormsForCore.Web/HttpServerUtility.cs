@@ -778,7 +778,14 @@ namespace System.Web {
         public void TransferRequest(string path, bool preserveForm, string method, NameValueCollection headers, bool preserveUser) {
             EnsureHasNotTransitionedToWebSocket();
 
+#if NETCOREAPP
+            // ASP.NET Core's host runs the request again once this one ends (AspNetCoreHost.ProcessRequest), as IIS's
+            // integrated pipeline runs its child request.
+            var coreRequest = _context?.WorkerRequest as AspNetCoreWorkerRequest;
+            if (!HttpRuntime.UseIntegratedPipeline && coreRequest == null) {
+#else
             if (!HttpRuntime.UseIntegratedPipeline) {
+#endif
                 throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
             }
 
@@ -793,6 +800,27 @@ namespace System.Web {
             IIS7WorkerRequest wr = _context.WorkerRequest as IIS7WorkerRequest;
             HttpRequest request = _context.Request;
             HttpResponse response = _context.Response;
+
+#if NETCOREAPP
+            if (wr == null && coreRequest != null) {
+                path = response.RemoveAppPathModifier(path);
+                String query = null;
+                int mark = path.IndexOf('?');
+                if (mark >= 0) {
+                    query = (mark < path.Length - 1) ? path.Substring(mark + 1) : String.Empty;
+                    path = path.Substring(0, mark);
+                }
+                if (!UrlPath.IsValidVirtualPathWithoutProtocol(path)) {
+                    throw new ArgumentException(SR.GetString(SR.Invalid_path_for_child_request, path));
+                }
+                VirtualPath target = request.FilePathObject.Combine(VirtualPath.Create(path));
+                coreRequest.ScheduleTransferRequest(new AspNetCoreWorkerRequest.TransferRequest(target.VirtualPathString, query, method,
+                    preserveForm ? request.EntityBody : null, preserveForm, headers));
+                _context.ApplicationInstance.EnsureReleaseState();
+                _context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+#endif
 
             if (wr == null) {
                 throw new HttpException(SR.GetString(SR.Server_not_available));            

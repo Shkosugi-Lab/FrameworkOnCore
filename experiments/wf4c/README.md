@@ -954,6 +954,24 @@ System.Drawing を Linux で動かす試み(`api-probe/drawing`、Ubuntu 24.04 �
 - **同時に**: 変換器が ProjectReference・HintPath のパスの `\` を Linux で解決できず(`FrameworkAssetsFlow` のテストが Linux で失敗)、同じ書き方の ProjectConverter の 4 か所も直した(`ProjectConverter.Native`。Windows では変わらない。元のビルドを読む OriginalBuild は Windows の MSBuild が前提なのでそのまま)。SqlClientTests は日本語の Windows で訳のメッセージが返り 18 件失敗していたので、英語で動かすようにした(`EnglishMessages`)。名前付きパイプのテストは Windows 専用にした。
 - **検証**: ランタイムの変更で frameworkOnCoreVersion 1.6.5-w2l.24。テスト Windows 4,551・Linux 4,524(SQL Server のコンテナあり)・SqlClientTests Windows 307・Linux 295 が緑。be・wt を変換し直し、Windows be 5/5・wt 8/8、Linux be 5/5・wt 7/8(error-page、以前と同じ)。
 
+### wt のすべての操作の新旧比較(2026-10-31、ユーザーの指示)
+
+WingtipToys で利用者ができる操作を全部洗い出し、元(IIS / .NET Framework 4.8)と変換後(Windows・Linux)で同じに動くかを操作ごとに比べた。
+
+- **棚卸し**: `corpora/regression/wt.operations.json`(読む用: `wt.operations.md`。両方 `wt-operations-inventory.py` が書く)。152 件(マスターページ 7、ページ 15、エラー 5、静的 4、カート 17、チェックアウト 10、認可 5、アカウント 69、セキュリティ 8、管理 10、状態 2)。ソース(ページ、コントロール、コードビハインド、web.config、Global.asax、Startup.Auth)を読んで作り、`ParityTest discover`(匿名・新規ユーザー・管理者で全ページを巡回し、リンク・ボタン・postback の対象・入力・検証コントロールを集める。`wt.discovered.{iis,windows,linux}.json`)で漏れを確かめた: 3 つとも同じ 133 キー、棚卸しに無いもの 0。実行できないもの 10 件は理由付き(PayPal の口座が要る 4、Google の応答が要る 2、トークンを作るコードがコメントアウトされている 2、マークアップがコメントアウトされていて呼べない 2)。
+- **シナリオ**: `corpora/regression/wt.operations.scenario.json`(ParityTest、手順 660、スナップショット 223)。各手順の `op` が棚卸しの操作。検証コントロールはクライアント側とサーバー側(クライアントの検証を外して)の両方、状態を変える操作は画面・DB(`sql`)・Cookie で確かめる。DB にしか前提を作れないもの(2 要素認証の有効化、パスワードの無いユーザー、外部ログインの行、ロックアウト)は `sql` で用意し、SMS・メールのコードは利用者のセキュリティ スタンプから Identity 2 と同じ TOTP を作る(`totp`)。外部(Google・PayPal のボタン画像)へのブラウザーの要求はスタブ(`stubExternal`)。サーバーから PayPal の sandbox への呼び出しは本物。
+- **ParityTest に足したもの**: `newcontext`・`tab`(別のブラウザー・同じブラウザーの別ページ)、`script`、`fetch`(1 要求の状態・Location・型・ハッシュ)、`assets`、`cookies`、`setcookie`、`sql`、`totp`、エラーページのスナップショット(`value: "error"`)、HTTP の状態、`textMasks`・`--mask`、`unorderedRows`(ORDER BY の無い一覧の行)、`continueOnError`、操作ごとの結果(`--results`、`--report`)と網羅、許される差(`corpora/parity/wt.operations.allowed.json`、`same-exception` は同じページ・状態・例外の型のときだけ)、`discover`。
+- **正解**: `corpora/record-wt-operations.ps1`(元をビルドし、使い捨ての IIS サイトとアプリプールを 127.0.0.1 の空きポートに作り、DB を消してアプリの起動で作り直してから採る。終わったらサイト・プール・SQL ログイン・DB・アップロードした画像・ACL を消す)。約 5 分。
+- **見つけて直したこと(ランタイム)**: ページの `Response.Redirect(url)`(endResponse)の後、OWIN の Cookie ミドルウェアが EndRequest で書くサインインの Cookie が送られず、ログイン・登録しても匿名のままだった。ポートの `Response.End` が中断の前に Flush してヘッダーを送っていた(IIS は要求の最後に送る: 302 に Set-Cookie と長さが付く)。中断できる期間の End は送らず、中断の後に動くコードの書き込みはパイプラインが中断を受け取るまで捨てる(`HttpResponse.End`、`HttpWriter`)。テスト `ResponseTests.Headers_set_at_EndRequest_after_a_redirect_are_sent` ほか。1.6.5-w2l.25 を作り直した。
+- **テストの不備(直した)**: カートの行の順は DB の順(ItemId の GUID)で毎回違う。行を商品で指定し、比べる前に並べる(`unorderedRows`)。検証メッセージが消えてボタンが動くとクリックが外れる(利用者にも起きる): クリックの前に Tab。リダイレクト先はルートが見ないので、外部へリダイレクトする POST はこちらで送ってスタブにする。
+- **許される差**(`wt.operations.allowed.json`): メッセージの文言(元は .NET Framework の日本語の言語パック、変換後は FrameworkOnCore の訳と .NET の英語の例外メッセージ、Linux の SQL Server は英語)、TLS(元は targetFramework 4.5.2 の既定 SSL3/TLS1.0 で PayPal に繋がらず 500、変換後は TLS 1.2 で PayPal が 10002 を返し CheckoutError へ)、バンドルの縮小の版(WebGrease 1.5.2 と移植版の Ajax Minifier。同じ意味の出力)、IIS の詳細エラーページは簡易ページ(以前の決定)、Linux の `Request.IsLocal`(下)。
+- **Linux の error-page の原因**: Docker のポート転送で、アプリから見た接続元が Docker のゲートウェイ(W3C ログの c-ip 172.18.0.1、s-ip 172.18.0.3)になり `Request.IsLocal` が偽。ErrorPage.aspx はローカルにだけ出す詳細を出さず、ELMAH(allowRemoteAccess="false")は 403。コンテナの中から(127.0.0.1)開くと詳細が出て ELMAH は 200。
+- **結果**: Windows 223 スナップショット中 192 同じ・31 許される差(操作: 同じ 118、許される差 24、実行できない 10)。Linux 186 同じ・37 許される差(同じ 114、許される差 28、実行できない 10)。既存の 8 画面は Windows 8/8、Linux 7/8(error-page、上の理由)。be Windows 5/5。各 5 分前後。
+
+        .\corpora\record-wt-operations.ps1 [-Discover]                                     # 正解(IIS)
+        .\experiments\wf4c\verify-windows.ps1 -Name wt -Suite operations [-Discover]        # Windows
+        .\experiments\wf4c\run-linux.ps1 -App wt\WingtipToys\WingtipToys -SqlServer -Suite operations   # Linux
+
 ### 変換器の見直し: 細かい基準、日本語のソース、重複の整理(2026-10-31、ユーザーの指示)
 
 バグ修正を重ねて変換器が必要以上に複雑になっていないかを調べた。コーパスごとの特例のコードは無く(名前はコメントだけ)、複雑さの多くは問題そのものから来るものだったが、同じ判断の重複が食い違いを生んでいた所と、テストの無い経路があった。

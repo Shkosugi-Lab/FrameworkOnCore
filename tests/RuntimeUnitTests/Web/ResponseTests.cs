@@ -133,7 +133,7 @@ public class ResponseTests
         web.Response.ObserveResponseEndCalled();
     }
 
-    [Fact] // .NET Framework (Response.End's documentation): in a cancellable period the request's thread is aborted (ThreadAbortException) after the output is flushed
+    [Fact] // .NET Framework (reference source): in a cancellable period Response.End only aborts the thread (ThreadAbortException); the output goes at the end of the request
     public void End_in_a_cancellable_period_aborts()
     {
         using var site = new Site().Run(watch: false);
@@ -142,7 +142,42 @@ public class ResponseTests
         web.BeginCancellablePeriod();
         try { Assert.Throws<ThreadAbortException>(() => web.Response.End()); }
         finally { web.EndCancellablePeriod(); }
-        Assert.Contains("ended", Site.Body(core));
+        Assert.Equal("", Site.Body(core));
+        web.Response.ResetThreadAbort();
+        web.Response.FinalFlushAtTheEndOfRequestProcessing();
+        Assert.Equal("ended", Site.Body(core));
+    }
+
+    [Fact] // IIS (WingtipToys' log in, recorded): a page's Response.Redirect after OWIN's SignIn answers 302 with the sign-in cookie and its length - EndRequest's handlers (OWIN's cookie middleware) still set headers after Response.End
+    public void Headers_set_at_EndRequest_after_a_redirect_are_sent()
+    {
+        using var site = new Site().Run(watch: false);
+        using var config = Security.MachineKeys.ClientConfig(("HttpRuntime", new System.Web.Configuration.HttpRuntimeSection()), ("Globalization", new System.Web.Configuration.GlobalizationSection()));
+        var (web, core) = Request();
+        web.BeginCancellablePeriod();
+        // Response.Redirect(url): Redirect(url, false), then End (no configuration system here for the one-argument form).
+        web.Response.Redirect("/there", false);
+        try { Assert.Throws<ThreadAbortException>(() => web.Response.End()); }
+        finally { web.EndCancellablePeriod(); }
+        // The ended code goes on (no thread aborted on .NET: a catch swallowed the end): what it writes is not kept.
+        web.Response.Write(" written after the end");
+        Assert.False(core.Response.Headers.ContainsKey("Location"));
+
+        // The pipeline observes the end, EndRequest runs: its handlers set a cookie and a header, and write.
+        web.Response.ResetThreadAbort();
+        // As Katana's host writes OWIN's response headers: into Response.Headers.
+        web.Response.Headers.Add("Set-Cookie", ".AspNet.ApplicationCookie=signed-in; path=/; HttpOnly");
+        web.Response.Headers.Set("Pragma", "no-cache");
+        web.Response.FinalFlushAtTheEndOfRequestProcessing();
+
+        Assert.Equal(302, core.Response.StatusCode);
+        Assert.Equal("/there", core.Response.Headers.Location.ToString());
+        Assert.Contains(".AspNet.ApplicationCookie=signed-in", core.Response.Headers.SetCookie.ToString());
+        Assert.Equal("no-cache", core.Response.Headers.Pragma.ToString());
+        var body = Site.Body(core);
+        Assert.Contains("Object moved", body);
+        Assert.DoesNotContain("written after the end", body);
+        Assert.Equal(System.Text.Encoding.UTF8.GetByteCount(body), core.Response.ContentLength);
     }
 
     [Fact] // the port's choice (End's and Flush's comments: no thread aborted on .NET): past executionTimeout Flush and End fail ("Request timed out."), once

@@ -1,0 +1,39 @@
+{
+  "_comment": "Documented differences of WingtipToys' operations suite (corpora/regression/wt.operations.scenario.json): differences that are not defects of the conversion, each with its reason. snapshot: a regular expression on the snapshot's name; match: one on each problem line ParityTest reports; platforms: where it applies (none: everywhere); check same-exception: only for two error pages of the same path, status and exception type. A snapshot all of whose problems match is 'allowed', not 'different'.",
+  "allowed": [
+    {
+      "snapshot": ".*",
+      "check": "same-exception",
+      "match": ".*",
+      "reason": "message wording: the original's error pages are in the Japanese language pack of .NET Framework (Microsoft's texts of System.Web and mscorlib); the converted application's System.Web texts are FrameworkOnCore's own Japanese translation (Microsoft's are not redistributable: translations/ja), the .NET 10 runtime's exception messages are English (.NET has no localized runtime messages), and on Linux SQL Server's messages are the container's (English). Same page, status and exception type."
+    },
+    {
+      "snapshot": "register-ok-checkout-paypal|checkout-paypal-error",
+      "match": ".*",
+      "reason": "TLS: the original targets 4.5.2 (httpRuntime targetFramework), whose ServicePointManager default is SSL 3.0 / TLS 1.0; PayPal's sandbox refuses those, so its HttpWebRequest never connects and the page fails with ProtocolViolationException (500). .NET 10 uses the system's TLS 1.2/1.3: PayPal answers (10002 Security header is not valid, the sample's placeholder credentials) and the application redirects to CheckoutError as its code intends. Confirmed with .NET Framework's client: TLS 1.0 'Could not create SSL/TLS secure channel', TLS 1.2 200."
+    },
+    {
+      "snapshot": "home-assets",
+      "match": "^(本文テキスト|  (正解|実測)側にのみある行).*(/Content/css|/bundles/MsAjaxJs|/bundles/WebFormsJs)",
+      "reason": "minifier version: the original's bundles are minified by WebGrease 1.5.2 (its embedded Microsoft Ajax Minifier); FrameworkOnCore's System.Web.Optimization uses the open-source WebGrease port (WebFormsForCore.WebGrease, a later Ajax Minifier). The same files, the same status and type; the minified text differs in variable naming and order, a space in '@media(...) and (...)', 'typeof event' for 'typeof window.event', a Debug.writeln call kept: equivalent in browsers (the pages' scripts work: every postback and validation step matches)."
+    },
+    {
+      "snapshot": "not-found-extensionless|two-factor-no-user",
+      "match": "^(本文テキスト|  (正解|実測)側にのみある行)",
+      "reason": "IIS's own detailed error page is a simple page in FrameworkOnCore (the user's decision when httpErrors was made IIS-compatible, README 'httpErrors を IIS 互換で実装した'): the same status, substatus and title, the requested URL and physical path; not IIS's 'Most likely causes', module, handler, logon lines."
+    },
+    {
+      "snapshot": "elmah",
+      "match": "^(本文テキスト|  (正解|実測)側にのみある行|テーブル1 )",
+      "reason": "ELMAH lists the run's errors with their messages: the wording of the messages (as above), and one row more on the original - the ProtocolViolationException of PayPal's call (TLS, as above). The same codes and types otherwise, in the same order."
+    },
+    {
+      "snapshot": "error-page|error-page-404|error-page-handler|home-postback-user-changed-transfer|elmah|elmah-stylesheet|elmah-rss",
+      "platforms": [
+        "linux"
+      ],
+      "match": ".*",
+      "reason": "Request.IsLocal (the test's environment): the golden was recorded from IIS's own machine; the Linux container is reached through Docker's port forwarding, so the application sees the client as Docker's gateway (W3C log: c-ip 172.18.0.1, s-ip 172.18.0.3) and Request.IsLocal is false: ErrorPage.aspx leaves out its local-only details and ELMAH (allowRemoteAccess=false) answers 403. Requested from inside the container (127.0.0.1) the page shows the details and ELMAH answers 200. The same cause as the 8-step scenario's error-page on Linux."
+    }
+  ]
+}

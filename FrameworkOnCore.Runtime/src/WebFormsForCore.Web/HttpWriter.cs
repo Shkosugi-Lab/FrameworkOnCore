@@ -944,9 +944,29 @@ namespace System.Web {
         /// </devdoc>
         internal bool IgnoringFurtherWrites {
             get {
+#if NETCOREAPP
+                return _ignoringFurtherWrites || _suspendedByEnd;
+#else
                 return _ignoringFurtherWrites;
+#endif
             }
         }
+
+#if NETCOREAPP
+        // Response.End in a cancellable period (a page's code, an event handler): on .NET Framework the thread is aborted
+        // and no more of that code runs; no thread is aborted on .NET, so what the ended code goes on writing (after a
+        // catch that swallowed the end) is not kept, until the pipeline observes the end (HttpResponse.ResetThreadAbort):
+        // EndRequest's handlers write again, as they do on IIS.
+        private bool _suspendedByEnd;
+
+        internal void SuspendWritesUntilEndObserved() {
+            _suspendedByEnd = true;
+        }
+
+        internal void ResumeWritesAfterEnd() {
+            _suspendedByEnd = false;
+        }
+#endif
 
         /// <devdov>
         /// </devdoc>
@@ -1709,7 +1729,7 @@ namespace System.Web {
         ///    <para> Sends a character to the client.</para>
         /// </devdoc>
         public override void Write(char ch) {
-            if (_ignoringFurtherWrites) {
+            if (IgnoringFurtherWrites) {
                 return;
             }
 
@@ -1733,7 +1753,7 @@ namespace System.Web {
         ///       using starting position and number of characters to send. </para>
         /// </devdoc>
         public override void Write(char[] buffer, int index, int count) {
-            if (_ignoringFurtherWrites) {
+            if (IgnoringFurtherWrites) {
                 return;
             }
 
@@ -1773,7 +1793,7 @@ namespace System.Web {
         ///    <para>Sends a string to the client.</para>
         /// </devdoc>
         public override void Write(String s) {
-            if (_ignoringFurtherWrites)
+            if (IgnoringFurtherWrites)
                 return;
 
             if (s == null)
@@ -1836,7 +1856,7 @@ namespace System.Web {
                 throw new ArgumentOutOfRangeException("index");
             }
 
-            if (_ignoringFurtherWrites) {
+            if (IgnoringFurtherWrites) {
                 return;
             }
 
@@ -1880,7 +1900,7 @@ namespace System.Web {
         ///    <para>Sends an object to the client.</para>
         /// </devdoc>
         public override void Write(Object obj) {
-            if (_ignoringFurtherWrites) {
+            if (IgnoringFurtherWrites) {
                 return;
             }
 
@@ -1897,7 +1917,7 @@ namespace System.Web {
         ///    <para>Sends a buffered stream of bytes to the client.</para>
         /// </devdoc>
         public void WriteBytes(byte[] buffer, int index, int count) {
-            if (_ignoringFurtherWrites) {
+            if (IgnoringFurtherWrites) {
                 return;
             }
 
@@ -1909,7 +1929,7 @@ namespace System.Web {
         ///    <para>Writes out a CRLF pair into the the stream.</para>
         /// </devdoc>
         public override void WriteLine() {
-            if (_ignoringFurtherWrites) {
+            if (IgnoringFurtherWrites) {
                 return;
             }
 

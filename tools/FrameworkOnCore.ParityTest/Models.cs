@@ -23,6 +23,25 @@ namespace FrameworkOnCore.ParityTest;
 /// WebResource.axd and ScriptResource.axd, the server's address.
 /// </param>
 /// <param name="SourceMasks">More regular expressions masked in the HTML ("{masked}"), on both sides.</param>
+/// <param name="TextMasks">
+/// Regular expressions masked ("{masked}") in what a snapshot holds - its title, text, tables, inputs and the lines of
+/// fetch / sql / cookies snapshots - on both sides: what differs by run, not by implementation (a date, a generated id).
+/// With them, the application's own address in that text is written {root} / {host} too (the original ran on another
+/// port). Unlike IgnorePatterns the line stays: the rest of it is still compared.
+/// </param>
+/// <param name="WaitMs">The fixed wait after a navigation or a click (default 1800 / 1200 ms: the Blazor-era waits).</param>
+/// <param name="QuietMs">How long the document has to be still to be taken as settled (default 3000 ms).</param>
+/// <param name="ContinueOnError">A failing step is recorded (and its operations marked not run) and the steps go on.</param>
+/// <param name="Operations">The application's inventory of operations (a file beside the scenario): the run reports which
+/// of them its steps exercised (a step's "op") and, on verify, each one's result.</param>
+/// <param name="Allowed">Documented differences (a file beside the scenario): a snapshot's differences that all match one of
+/// its entries (for the platform: --platform) count as allowed, with the entry's reason.</param>
+/// <param name="UnorderedRows">CSS selectors of tables whose rows come in an order the application does not define (a query
+/// without ORDER BY: WingtipToys' cart, keyed by random GUIDs): before a snapshot their data rows are sorted by their text and
+/// the positional ids in them (..._0, ..._1) numbered again, on both sides.</param>
+/// <param name="StubExternal">Requests of the browser to another origin (an OAuth provider, PayPal's button) are not sent:
+/// a page navigated to is answered with a stub that shows the URL (method, origin, path, each query value), anything else
+/// with an empty 404 - the runs do not depend on the network, and where the application sends the browser is compared.</param>
 public sealed record ParityScenario(
     List<string>? IgnorePatterns,
     List<ParityStep> Steps,
@@ -31,7 +50,15 @@ public sealed record ParityScenario(
     CrawlOptions? Crawl = null,
     List<string>? MaskIds = null,
     bool CompareSource = false,
-    List<string>? SourceMasks = null);
+    List<string>? SourceMasks = null,
+    List<string>? TextMasks = null,
+    int? WaitMs = null,
+    int? QuietMs = null,
+    bool ContinueOnError = false,
+    string? Operations = null,
+    string? Allowed = null,
+    bool StubExternal = false,
+    List<string>? UnorderedRows = null);
 
 /// <summary>
 /// The links of the application, after the steps: from the pages the scenario opens (and <paramref name="Urls"/>), the
@@ -65,6 +92,19 @@ public sealed record LinkResult(
 ///         / clicktextin(target, value: a link or button by its text inside the target)
 ///         / check(target) / uncheck(target) / waitMs(ms) / snapshot(name)
 ///         / acceptlanguage(value: the Accept-Language header of the requests from then on, "de-DE,de;q=0.9")
+///         / newcontext(value: a User-Agent, optional: a new browser - no cookies, no session)
+///         / tab(value: a name: another page of the same browser, opened the first time; "main" is the first one)
+///         / script(value: a script run on the page, its navigation waited for)
+///         / fetch(path, method, body, headers, show, hash, name: one HTTP request with the browser's cookies, redirects not
+///           followed, its answer a snapshot: status, location, content type, the headers shown, the body's hash)
+///         / assets(name: every script, style sheet, icon and image of the page, fetched: a snapshot of their answers)
+///         / cookies(name: the application's cookies - name, path, HttpOnly, session or persistent; not their values)
+///         / setcookie(target: its name, value: its value; no value: the cookie removed)
+///         / sql(value: a statement, on --sql; with a name, its rows a snapshot)
+///         / totp(target: the input, value: a query giving the user's security stamp, modifier: ASP.NET Identity 2's
+///           modifier of the token): the code a TOTP token provider of Identity 2 makes now, filled in
+///         / snapshot(name; value "error": only the title, the status and the text before the source and stack trace)
+/// op: the inventory's operations the step exercises (comma-separated), counted for the next snapshot.
 /// </summary>
 public sealed record ParityStep(
     string Action,
@@ -72,7 +112,14 @@ public sealed record ParityStep(
     string? Target = null,
     string? Value = null,
     string? Name = null,
-    int? Ms = null);
+    int? Ms = null,
+    string? Op = null,
+    string? Method = null,
+    string? Body = null,
+    Dictionary<string, string>? Headers = null,
+    List<string>? Show = null,
+    bool Hash = false,
+    string? Modifier = null);
 
 /// <summary>Presentation info for one element with an ID (tag, presentation attributes, style).</summary>
 public sealed record ElementInfo(
@@ -89,10 +136,54 @@ public sealed record Snapshot(
     List<List<List<string>>> Tables,
     Dictionary<string, string> Inputs,
     Dictionary<string, ElementInfo> Elements,
-    List<string>? Source = null);
+    List<string>? Source = null,
+    int? Status = null,
+    List<string>? Ops = null,
+    string? Kind = null);
+
+/// <summary>A step that failed (ContinueOnError): where, what it exercised, why.</summary>
+public sealed record StepFailure(int Step, string Action, string? Ops, string Message);
 
 /// <summary>Output of the record command (= the golden data).</summary>
 public sealed record GoldenFile(
     string SourceUrl,
     List<Snapshot> Snapshots,
-    List<LinkResult>? Links = null);
+    List<LinkResult>? Links = null,
+    List<StepFailure>? Failures = null);
+
+/// <summary>The application's inventory of operations (ParityScenario.Operations).</summary>
+public sealed record OperationInventory(List<Operation> Operations);
+
+/// <summary>
+/// One operation a user can do. Keys: what discovery (the discover command) finds of it - "GET /path?param",
+/// "SUBMIT /page name", "POSTBACK /page target", "VALIDATOR /page id function", "INPUT /page name type",
+/// "EXTERNAL url" ('*' matches anything). Runnable false: what cannot be done (Reason), Partial: how far it is.
+/// </summary>
+public sealed record Operation(
+    string Id,
+    string Category,
+    string Page,
+    string Element,
+    string? Preconditions = null,
+    string? Role = null,
+    List<string>? Inputs = null,
+    string? Expected = null,
+    List<string>? Keys = null,
+    bool Runnable = true,
+    string? Reason = null,
+    string? Partial = null);
+
+/// <summary>Documented differences (ParityScenario.Allowed).</summary>
+public sealed record AllowedDifferences(List<AllowedDifference> Allowed);
+
+/// <summary>A snapshot's difference that is not a defect: the snapshot (its name, a regular expression), the platforms
+/// (none: every one), the problem lines it covers (a regular expression), why.</summary>
+/// <param name="Check">"same-exception": the entry holds only for two error snapshots (snapshot value "error") with the same
+/// path, status and exception type (the error page's "Exception Details: System.X" line): what is left differing is the
+/// wording of the messages.</param>
+public sealed record AllowedDifference(
+    string Snapshot,
+    string Match,
+    string Reason,
+    List<string>? Platforms = null,
+    string? Check = null);

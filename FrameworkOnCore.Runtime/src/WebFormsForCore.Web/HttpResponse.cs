@@ -3243,20 +3243,22 @@ namespace System.Web {
 #endif
             if (_context.IsInCancellablePeriod) {
 #if NETCOREAPP
-                // when cannot abort execution, flush and supress further output (what is written after it is not sent: a
-                // redirect's answer goes chunked, IIS's with its length)
-                _endRequiresObservation = true;
+                // As on .NET Framework, nothing is sent here: the thread is aborted and the response goes at the end of the
+                // request, after EndRequest - whose handlers may still set its headers and cookies (OWIN's cookie
+                // middleware writes the sign-in cookie of a Response.Redirect there: IIS sends it, with the redirect's
+                // length) - with what was written before the end. No thread is aborted on .NET: what the ended code goes
+                // on writing (after a catch that swallowed the end) is not kept until the pipeline observes the end
+                // (ResetThreadAbort). It used to be flushed here, the headers sent before EndRequest: a page's sign-in
+                // (Response.Redirect after OWIN's SignIn) sent no cookie and the user stayed anonymous.
+                if (!_flushing) {
+                    if (UsingHttpWriter) {
+                        _httpWriter.SuspendWritesUntilEndObserved();
+                    }
 
-				if (!_flushing)
-				{ // ignore Reponse.End while flushing (in OnPreSendHeaders)
-					Flush();
-					_ended = true;
-
-					if (_context.ApplicationInstance != null)
-					{
-						_context.ApplicationInstance.CompleteRequest();
-					}
-				}
+                    if (_context.ApplicationInstance != null) {
+                        _context.ApplicationInstance.CompleteRequest();
+                    }
+                }
 #endif
                 AbortCurrentThread();
             }
@@ -3338,6 +3340,12 @@ namespace System.Web {
         internal void ResetThreadAbort()
         {
             _responseEndException = null;
+#if NETCOREAPP
+            // The end observed (Response.End): EndRequest's handlers write again.
+            if (_httpWriter != null) {
+                _httpWriter.ResumeWritesAfterEnd();
+            }
+#endif
         }
 
         internal bool IsThreadAbort => _responseEndException != null;

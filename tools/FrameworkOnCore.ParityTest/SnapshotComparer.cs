@@ -12,6 +12,12 @@ public static class SnapshotComparer
             problems.Add($"URL パス: 期待 '{golden.Path}' / 実際 '{actual.Path}'");
         }
 
+        // The main document's HTTP status (snapshots taken with text masks, fetch and error snapshots record it).
+        if (golden.Status != null && actual.Status != null && golden.Status != actual.Status)
+        {
+            problems.Add($"HTTP ステータス: 期待 {golden.Status} / 実際 {actual.Status}");
+        }
+
         if (golden.Title != actual.Title)
         {
             problems.Add($"ページタイトル: 期待 '{golden.Title}' / 実際 '{actual.Title}'");

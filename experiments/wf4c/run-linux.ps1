@@ -3,6 +3,12 @@
 #
 #   .\experiments\wf4c\run-linux.ps1 -App ProductAdmin            # a sample (after run-sample.ps1)
 #   .\experiments\wf4c\run-linux.ps1 -App be\BlogEngine\BlogEngine.NET -Scenario corpora\regression\be.scenario.json -Golden corpora\parity\be.golden-webforms.json
+#   .\experiments\wf4c\run-linux.ps1 -App wt\WingtipToys\WingtipToys -SqlServer -Suite operations
+#       WingtipToys' operations suite (corpora\regression\wt.operations.json; the scenario wt.operations.scenario.json, the
+#       golden data wt.operations.golden.json recorded on IIS by corpora\record-wt-operations.ps1): the database WingtipToys
+#       dropped in the SQL Server container before the application starts (it creates and seeds it), the container's SQL
+#       Server reached from here on 127.0.0.1:14333 for the scenario's state checks; per-operation results in
+#       experiments\wf4c\_results\wt.operations.linux.{md,json}.
 #
 # The app's tree (the first folder of -App, as convert-project.ps1 wrote it), _feed, shims and icu
 # are copied into the container as they are (without build output), so the projects' relative
@@ -29,7 +35,9 @@ param(
     # for its folder). casefs\build.ps1 builds it.
     [switch]$CaseInsensitive,
     # More environment variables for the application (WEBFORMSFORCORE_PATH_CASING = '0', ...).
-    [hashtable]$Environment = @{}
+    [hashtable]$Environment = @{},
+    # operations: WingtipToys' operations suite (above; with -SqlServer).
+    [ValidateSet('default', 'operations')][string]$Suite = 'default'
 )
 
 # Not Stop: Windows PowerShell turns docker's stderr ("no such object") into terminating errors.
@@ -37,6 +45,16 @@ param(
 $ErrorActionPreference = 'Continue'
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $name = Split-Path $App -Leaf
+$verifierArguments = @()
+if ($Suite -eq 'operations') {
+    if (-not $SqlServer) { throw '-Suite operations needs -SqlServer' }
+    $Scenario = 'corpora\regression\wt.operations.scenario.json'
+    $Golden = 'corpora\parity\wt.operations.golden.json'
+    $results = Join-Path $PSScriptRoot '_results'
+    New-Item -ItemType Directory $results -Force | Out-Null
+    $verifierArguments = @('--sql', 'Server=127.0.0.1,14333;Database=WingtipToys;User ID=sa;Password=W2l_local_Passw0rd;TrustServerCertificate=true',
+        '--platform', 'linux', '--report', (Join-Path $results 'wt.operations.linux.md'), '--results', (Join-Path $results 'wt.operations.linux.json'))
+}
 if (-not $Scenario) { $Scenario = "samples\$name\parity-scenario.json" }
 if (-not $Golden) { $Golden = "samples\$name\golden-webforms.json" }
 $verifier = Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt\FrameworkOnCore.ParityTest.dll'
@@ -59,9 +77,10 @@ $network = @()
 if ($SqlServer) {
     $sqlPassword = 'W2l_local_Passw0rd'   # a throwaway local container
     docker network create w2l 2>$null | Out-Null
-    if ((docker inspect -f '{{.State.Running}}' w2l-sql 2>$null) -ne 'true') {
+    # Published on this machine's loopback (127.0.0.1:14333): the operations suite's state checks read the database.
+    if ((docker inspect -f '{{.State.Running}}' w2l-sql 2>$null) -ne 'true' -or -not (docker port w2l-sql 1433 2>$null)) {
         docker rm -f w2l-sql 2>$null | Out-Null
-        docker run -d --name w2l-sql --network w2l -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=$sqlPassword" mcr.microsoft.com/mssql/server:2022-latest | Out-Null
+        docker run -d --name w2l-sql --network w2l -p 127.0.0.1:14333:1433 -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=$sqlPassword" mcr.microsoft.com/mssql/server:2022-latest | Out-Null
         if ($LASTEXITCODE -ne 0) { throw "could not start SQL Server" }
     }
     foreach ($attempt in 1..60) {
@@ -70,6 +89,11 @@ if ($SqlServer) {
         Start-Sleep -Seconds 2
     }
     $network = @('--network', 'w2l')
+    if ($Suite -eq 'operations') {
+        # The known state: no database; the application's start creates and seeds it (as on IIS: record-wt-operations.ps1).
+        docker exec w2l-sql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P $sqlPassword -C -b -Q "IF DB_ID(N'WingtipToys') IS NOT NULL BEGIN ALTER DATABASE [WingtipToys] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [WingtipToys]; END" | Out-Null
+        if ($LASTEXITCODE -ne 0) { throw 'could not drop WingtipToys' }
+    }
 
     $webConfigFile = Get-ChildItem (Join-Path $PSScriptRoot $App) -Filter 'web.config' | Select-Object -First 1
     $webConfig = New-Object Xml
@@ -122,7 +146,9 @@ if ($CaseInsensitive) { $caseArguments = '-v', "$(Join-Path $PSScriptRoot 'casef
 $caseArguments += @($Environment.Keys | ForEach-Object { '-e'; "$_=$($Environment[$_])" })
 # The golden data was recorded from IIS's own machine (a local client: IIS's detailed error pages, the application's
 # error answers left): this machine taken as the container's (HttpErrors:LocalAddresses).
-docker run -d --name $container @network @caseArguments -e 'HttpErrors__LocalAddresses=*' -e "LANG=$($Culture.Replace('-', '_')).UTF-8" -p "${Port}:${Port}" -v "${PSScriptRoot}:/src:ro" -v "${overlay}:/overlay:ro" -v w2l-nuget:/root/.nuget/packages $Image bash -c $script | Out-Null
+# A fixed host name (the application shows it: ELMAH's log), masked in the comparison.
+$verifierArguments += @('--mask', $container)
+docker run -d --name $container --hostname $container @network @caseArguments -e 'HttpErrors__LocalAddresses=*' -e "LANG=$($Culture.Replace('-', '_')).UTF-8" -p "${Port}:${Port}" -v "${PSScriptRoot}:/src:ro" -v "${overlay}:/overlay:ro" -v w2l-nuget:/root/.nuget/packages $Image bash -c $script | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "docker run failed" }
 try {
     # Build (restore included) and start-up: wait until the app answers, or the container stops.
@@ -136,7 +162,10 @@ try {
         docker logs $container 2>&1 | Select-Object -Last 40
         throw "the app did not start in the container (log above)"
     }
-    & dotnet $verifier verify --url "http://localhost:$Port" --scenario (Join-Path $repo $Scenario) --golden (Join-Path $repo $Golden)
+    $watch = [Diagnostics.Stopwatch]::StartNew()
+    & dotnet $verifier verify --url "http://localhost:$Port" --scenario (Join-Path $repo $Scenario) --golden (Join-Path $repo $Golden) @verifierArguments
+    $verifyExit = $LASTEXITCODE
+    Write-Host ("time: {0:mm\:ss}" -f $watch.Elapsed)
 }
 finally {
     docker logs $container *> (Join-Path $logDir 'container.log')

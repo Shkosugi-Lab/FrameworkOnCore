@@ -84,6 +84,11 @@
 - デザイナー(System.Design、`ControlDesigner` など)。Visual Studio のデザイン時だけのもの。
 - 文字列のハッシュ値のランダム化。.NET はプロセスごとに `string.GetHashCode` を変える(.NET Framework は変えない)ため、Hashtable の列挙順が違う。
   StateBag(項目が多いと Hashtable)が保存する ViewState の項目の並び、WebPartManager.AvailableTransformers の並び。中身は同じ(コントロールの比較で見つけた。2026-10-11)。
+- `ServicePointManager.SecurityProtocol` の既定。.NET Framework は `<httpRuntime targetFramework>` が 4.6 より前(wt の 4.5.2)だと SSL 3.0 / TLS 1.0 で、
+  TLS 1.2 だけのサーバー(PayPal)に繋がらない。.NET はシステムの既定(TLS 1.2/1.3)。古い既定に合わせることはしない(既知の差。2026-10-31、wt の PayPal)。
+- 例外メッセージの言語。.NET Framework は言語パックで日本語(「Int16 型の値が大きすぎるか…」)、.NET のランタイムは英語のみ(既知の差。System.Web の文言は FrameworkOnCore の訳)。
+- Response.End(Thread.Abort が無い)。ポートは中断の前に Flush していて、EndRequest で付くヘッダー(OWIN のサインインの Cookie)が送られなかった。
+  .NET Framework と同じく送らずに中断し、中断後のコードの書き込みは捨てる(2026-10-31、wt のログイン)。
 - Thread.Abort が無い。ASP.NET は executionTimeout を超えた要求のスレッドを中断する。ポートは時間切れの印を付けて次の段階で
   "Request timed out." にする(2026-10-12。それまでは要求が終わらなくなっていた)。ページのコードは最後まで動く。
 - AppDomain のデータ(`.appDomain`、`.appPath`、`.appVPath`、`.appId`)。ポートはロード コンテキストに置いていて、`AppDomain.GetData` で見る

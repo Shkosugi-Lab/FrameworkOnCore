@@ -536,7 +536,7 @@ public class IisHttpErrorsTests
         using var site = new Site();
         var context = await Run(site, Answer(404), setup: c => c.Request.Headers.AcceptLanguage = header);
         var expected = (japanese ?? ServerJapanese) && ServerJapanese;   // Japanese only where the server's language is
-        Assert.Equal(expected, Site.Body(context).Contains("サーバー エラー"));
+        Assert.Equal(expected, Site.Body(context).Contains("<title>404 - ファイルまたはディレクトリが見つかりません。</title>"));
     }
 
     [Fact] // the host's choice (summary): the detailed page in the same language

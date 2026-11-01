@@ -1015,7 +1015,7 @@ State litDynamic Text="dynamic literal"
 
 </details>
 
-<details><summary>ImageMap [viewstate] a calendar&#39;s week chosen（期待される本文）</summary>
+<details><summary>ImageMap [viewstate] a calendar&#39;s week chosen (several dates)（期待される本文）</summary>
 
 ```text
 Plain table

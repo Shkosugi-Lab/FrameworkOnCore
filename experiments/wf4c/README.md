@@ -1478,7 +1478,7 @@ FrameworkOnCore.Runtime のプロジェクトから net8.0 を外した。パッ
   | なし、ja-JP、ja、en、fr-FR、de-DE、`de-DE,ja-JP;q=0.8` | 日本語 |
   | en-US、en-GB(custerr に en-GB のフォルダーは無い)、`ja,en-US;q=0.9`、`ja-JP;q=0.5,en-US;q=0.9` | 英語 |
 
-  詳細エラー ページと同じ規則だった。`IisStaticFile.ErrorPage` に日本語(英語からの独自の訳。IIS の ja-JP のファイルは写していない)を足し、
+  詳細エラー ページと同じ規則だった(2026-11-01 の訂正: 「日本語」は title だけで、ja-JP のページの本文は英語だった。節「IIS との比較の流し直し」)。`IisStaticFile.ErrorPage` に日本語(英語からの独自の訳。IIS の ja-JP のファイルは写していない)を足し、
   `IisHttpErrors.Japanese` で選ぶようにした。ページは UTF-8 と明示する(IIS の ja-JP のファイルは Shift_JIS、en-US は ISO-8859-1 と明示)。
 - 回帰: be Windows・Linux 5/5、wt Windows 8/8・Linux 7/8(error-page、以前から)。単体テスト 4,456 件成功。
 
@@ -1580,6 +1580,76 @@ System.Web.Cors、System.Web.Http.Cors(5.3.0.0)。パッケージ FrameworkOnCor
 
 残り: 移植した MVC・Web Pages・Web API の文言の独自の翻訳。Microsoft の言語別パッケージ(Microsoft.AspNet.Mvc.ja など)の扱い
 (移植版とは版が合わないので使われない)。Web API の IIS との比較(正解データのあるコーパスが無い: サンプルを作るか nop390 など)。
+
+### IIS との比較の流し直し(1.6.5-w2l.26、2026-11-01、ユーザーの指示)
+
+最後にすべてを流したのは w2l.18(2026-10-16〜19)だった層 3(IIS との比較)を、w2l.25 から流し直した。ゴールデンは採り直していない
+(元のサイトは変わっていない。変わったサンプルも無かった: 各サンプルのゴールデンとソースの最後のコミットを比べた)。前回の結果は
+`_samples/reg-win-*.log`・`reg-linux-*.log`(w2l.18)、WebControlsParity は `reports/`(2026-10-16)、IIS の機能は下の各節の数。
+
+- **流したもの**: サンプル 33 本(`sample-parity.ps1 -Windows`・`-Linux`、ChartProbe は `chart-probe.ps1`)、WebControlsParity の 124 コンポーネントの 3 層
+  (`parity.ps1`、Windows・Linux とも 62 ずつ 2 回のサイトのビルド)、`errors-check`・`headers-check`・`rewrite-check`・`compression-check`・`iislog-check`
+  (Windows)、`load-check`(SessionProbe・PipelineProbe、IIS・Windows・Linux)、`proxy-check`(Linux)。1 つずつ順に、コンテナも 1 つずつ。
+
+結果(前回 → 今回):
+
+| サンプル | Windows | Linux |
+|---|---|---|
+| AuthProbe ほか 25 本(下の 7 本以外) | すべて一致 → 同じ | すべて一致 → 同じ |
+| BclProbe | 2/7 → 2/7(同じ行) | 2/7 → 2/7(同じ行) |
+| DataFileProbe | 1/2 → 1/2(同じ行) | 0/2 → 0/2(同じ行) |
+| LocaleProbe | 29/32 → 29/32(form-ja-JP の訳の言い回しが変わった: 前月を表示・翌月を表示) | 28/32 → 28/32 |
+| NavigationProbe | 449(許容 5)→ 同じ | 449(許容 6)→ 同じ |
+| ShiftJisProbe・ShiftJisVbProbe | 5/5・2/2 → 同じ | 5/5・2/2 → 同じ |
+| ChartProbe | 27 行一致 → 同じ | 27 行一致(libgdiplus のとき)→ 27 行一致(SkiaSharp で初めて) |
+
+| WebControlsParity(124) | Windows | Linux |
+|---|---|---|
+| ① API・② HTML・③ シナリオの不一致 | 0 → 0(件数も同じ、既知の差 12 → 12) | 0 → 0(既知の差 16 → 14) |
+
+| IIS の機能 | 前回 → w2l.25 → w2l.26 |
+|---|---|
+| errors-check | 32/32 → **22/32** → 32/32 |
+| headers-check | 60/60 → 60/60 → 60/60 |
+| rewrite-check(Iis) | 53/53 → 53/53 → 53/53(AspNetCore はこの規則では起動しない: 前回どおり) |
+| compression-check | 24/29 → 25/29 → 25/29 |
+| iislog-check | 18/18 → 18/18 → 18/18 |
+| load-check | エラー 0(IIS・Windows・Linux)→ 同じ |
+| proxy-check | 転送ヘッダーありで https・クライアントのアドレス、なしで http・プロキシのアドレス → 同じ |
+
+見つけたものと対応:
+
+- **ランタイムの不具合(直した、w2l.26)**: IIS のエラーページ(httpErrors の既定、custerr)の日本語。このマシンの IIS 10 の `custerr\ja-JP` のページは、
+  **title だけが日本語で、本文(h1 の「Server Error」、見出し、説明)は英語のページそのもの**だった(ja-JP の 56 ファイルすべて。curl で
+  Accept-Language なし・ja-JP は ja-JP のファイル、en-US は en-US のファイル)。2026-10-22 の節は title だけを見て「日本語」としていて、移植は
+  本文まで日本語に訳していた(errors-check の 10 件)。`IisStaticFile.ErrorPage` を title だけ日本語(独自の訳のまま)、残りは英語のページにした。
+  合わせて、412・501 の英語の説明が IIS の文より短かった(途中まで)のを IIS の文にした。回帰テスト: `IisStaticFileTests.IIS_pages_have_its_text`・
+  `IIS_pages_in_japanese_have_a_japanese_title_and_the_english_page`、`IisHttpErrorsTests.Iis_texts_follow_the_accepted_language` を title で判定。
+  ほかの IIS の日本語の文(詳細エラーページの見出し、項目の無い状態の短い文、フォルダーの一覧)は errors-check・headers-check で IIS と一致している。
+- **テストの不具合(直した)**:
+  - `sample-parity.ps1`: Windows PowerShell 5.1 の `Get-Content -Raw` が BOM の無い UTF-8 の `parity-scenario.json` を ANSI(Shift_JIS)で読み、
+    日本語のスナップショット名の DefaultsProbe で ConvertFrom-Json が失敗していた(2026-10-31 に足した Result-Arguments)。`-Encoding UTF8` にした
+    (同じ読み方の `parity.ps1`・`convert-corpora.ps1`・`database.json` も)。
+  - PageProbe の browser: Edge が 155 から 156 に自分で更新され、Request.Browser の Type・Version が違った。シナリオの最初の手順で User-Agent を
+    ゴールデンを採った headless Edge 155 のものに固定した(`newcontext`)。途中(Browser.aspx の前)では効かない: ブラウザーの能力は User-Agent の
+    先頭 64 文字でキャッシュされ(`browserCaps` の userAgentCacheKeyLength、.NET Framework も移植も同じ)、Chrome の版はそれより後ろにある。
+  - WebControlsParity の 14 コンポーネント(MoreScenario.aspx を共有する AdRotator・FileUpload・ImageMap・LiteralControl・Localize・MultiView・
+    Substitution・Table 系 6・View): 2026-10-31 から ParityTest はスナップショットの名前が同じときだけ位置で組にするが、ゴールデンの 1 つの名前
+    (「a calendar's week chosen」)が、その後 `more-scenarios.py` で変えた名前(「… (several dates)」)と違っていた。手順は同じなので、ゴールデンの名前だけ直した。
+  - check のスクリプトが使う IIS 側の写し(`_samples/<名前>/iis`、10-15 の `-Record`)が LF の改行のままで、チェックアウトし直したサンプル(CRLF)と
+    ページの長さが違った(compression-check の Show.aspx 810 と 821 バイト)。`-Record` で作り直した(IIS の答えはゴールデンと同じ。ゴールデンは戻した)。
+- **前回からの改善**: compression-check の Response.Redirect の応答が chunked でなくなり IIS と同じ(Content-Length)。WebControlsParity の Linux の
+  WebPartManager.AvailableTransformers は今回は一致(Hashtable の順で、実行ごとに変わる。既知の差は残した)。
+- **残りの差(前回どおり、理由は前の節)**: BclProbe・DataFileProbe・LocaleProbe(PORT-CANDIDATES.md の「移植では対応できないもの」)、
+  compression-check の 4 件(IIS のページは簡易ページという決定による長さ)、NavigationProbe の許容(`allowed.json`)。新しく許容に足したものは無い。
+- **途中で起きたこと**: Linux の実行を重ねて Docker の build cache が 45 GB になり、C: がいっぱいになった(PipelineProbe の load-check で変換後のアプリが
+  シャドウ コピーの IOException で落ち、スクリプトが止まった)。`docker builder prune -af`、`docker_data.vhdx` を diskpart の `compact vdisk` で
+  66 GB から 23 GB に、作り直せる `_samples/*/converted` を消して、流し直した。
+- **版**: ランタイムを変えたので 1.6.5-w2l.26(未公開)。be・wt の変換の基準は版の違いだけ(PackageReference の Version)で、`-UpdateBaseline` で記録し直した
+  (ほかのコーパスの基準は古いまま: CLAUDE.md)。
+- **確認**(w2l.26): `run-tests.ps1 -Set runtime -Linux` がすべて成功(FrameworkOnCore.Tests Windows 4,629・Linux 4,583、RuntimeUnitTests Windows 1,979・
+  Linux 1,972、SqlClientTests Windows 321・Linux 309、be Windows・Linux 5/5、wt Windows 8/8・Linux 8/8(error-page は許容))、wt のすべての操作
+  (Windows 223: 同じ 192・許容 31、前回どおり)、NavigationProbe Windows 449(許容 5)。
 
 ### 意地悪な画面遷移のコーパス: NavigationProbe(1.6.5-w2l.25、2026-10-31、ユーザーの指示)
 

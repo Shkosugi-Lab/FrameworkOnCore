@@ -3922,7 +3922,7 @@
       }
     },
     {
-      "Name": "Localize [viewstate] a calendar's week chosen",
+      "Name": "Localize [viewstate] a calendar's week chosen (several dates)",
       "Path": "/morescenario",
       "Title": "More controls scenario",
       "Text": [

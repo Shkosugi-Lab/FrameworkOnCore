@@ -56,7 +56,7 @@ function Wait-Site([string]$base) {
 # The site's pages answer (a page that does not parse is a 500 the comparisons would only show as a difference).
 function Test-Pages([string]$base) {
     # The scenario's page: the first it opens (the list controls share one).
-    $scenarioPage = ((Get-Content $scenario -Raw | ConvertFrom-Json).steps | Where-Object { $_.action -eq 'goto' } | Select-Object -First 1).path.TrimStart('/')
+    $scenarioPage = ((Get-Content $scenario -Raw -Encoding UTF8 | ConvertFrom-Json).steps | Where-Object { $_.action -eq 'goto' } | Select-Object -First 1).path.TrimStart('/')
     foreach ($page in @("Cases.aspx?component=$Current", "RenderProbe.aspx?component=$Current&case=$([uri]::EscapeDataString("$Current.(default)"))", $scenarioPage)) {
         try { Invoke-WebRequest "$base/$page" -UseBasicParsing -TimeoutSec 120 | Out-Null }
         catch { throw "$base/$page answered $(if ($_.Exception.Response) { [int]$_.Exception.Response.StatusCode } else { $_.Exception.Message }): $($_.ErrorDetails.Message | Select-String 'Error Message|Exception Details' | Select-Object -First 2)" }

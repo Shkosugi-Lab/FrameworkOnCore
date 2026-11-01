@@ -2,7 +2,7 @@
 
 このファイルは `parity.ps1` が生成します。テストケースの内容は [cases.md](cases.md)、仕組みは [README](../../README.md) を参照してください。
 
-- 実行日時: 2026-10-12 01:05
+- 実行日時: 2026-11-01 04:23
 - ポート: FrameworkOnCore の System.Web 10.0.29.0（Windows）
 - 正解データ: 2026-10-11, .NET Framework 4.8 (System.Web 4.8.9344.0 built by: NET481REL1LAST_25H2_B), IIS 10.0.26100.1882, Windows 10.0.26200.0
 
@@ -23,7 +23,7 @@
 | 機構 | ② HTML 層 | ③ シナリオ層 | 結果 |
 |---|---|---|---|
 | プロパティ → HTML 描画 | 29 | 1 | ✅ |
-| ViewState の保存と復元 | 6 | 13 | ❌ 1 件 |
+| ViewState の保存と復元 | 6 | 13 | ✅ |
 | Visible=false（描画されず状態は保持） | 2 | 1 | ✅ |
 | 名前付けコンテナと ClientIDMode | 6 | 0 | ✅ |
 | 動的に生成したコントロールのライフサイクル | 0 | 3 | ✅ |
@@ -211,7 +211,7 @@
 | View [viewstate] switched by ID and by index: the first view&#39;s text box kept its value | ✅ 一致 |
 | View [dynamic][viewstate] a dynamic multi-view&#39;s next view | ✅ 一致 |
 | View [viewstate] a calendar&#39;s day chosen | ✅ 一致 |
-| View [viewstate] a calendar&#39;s week chosen | ❌ 未実行 |
+| View [viewstate] a calendar&#39;s week chosen (several dates) | ✅ 一致 |
 | View [viewstate] a calendar&#39;s next month | ✅ 一致 |
 | View [viewstate] a dynamic calendar&#39;s day chosen | ✅ 一致 |
 | View [viewstate] an image map&#39;s hot spot clicked (PostBack) | ✅ 一致 |

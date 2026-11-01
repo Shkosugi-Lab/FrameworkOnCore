@@ -2,7 +2,7 @@
 
 このファイルは `parity.ps1` が生成します。テストケースの内容は [cases.md](cases.md)、仕組みは [README](../../README.md) を参照してください。
 
-- 実行日時: 2026-10-16 16:49
+- 実行日時: 2026-11-01 04:20
 - ポート: FrameworkOnCore の System.Web 10.0.29.0（Windows）
 - 正解データ: 2026-10-11, .NET Framework 4.8 (System.Web 4.8.9344.0 built by: NET481REL1LAST_25H2_B), IIS 10.0.26100.1882, Windows 10.0.26200.0
 

@@ -2,7 +2,7 @@
 
 このファイルは `parity.ps1` が生成します。テストケースの内容は [cases.md](cases.md)、仕組みは [README](../../README.md) を参照してください。
 
-- 実行日時: 2026-10-15 15:05
+- 実行日時: 2026-11-01 08:30
 - ポート: FrameworkOnCore の System.Web 10.0.29.0（Linux（Docker））
 - 正解データ: 2026-10-11, .NET Framework 4.8 (System.Web 4.8.9344.0 built by: NET481REL1LAST_25H2_B), IIS 10.0.26100.1882, Windows 10.0.26200.0
 
@@ -10,7 +10,7 @@
 
 | 層 | ケース | ✅ 一致 | ⚠️ 既知の差分 | ❌ 不一致 |
 |---|---|---|---|---|
-| ① API | 219 | 215 | 4 | 0 |
+| ① API | 219 | 217 | 2 | 0 |
 | ② HTML | 53 | 53 | 0 | 0 |
 | ③ シナリオ | 12 | 12 | 0 | 0 |
 
@@ -38,8 +38,11 @@
 
 | 層 | ケース | 行 | 理由 |
 |---|---|---|---|
-| api | <code>^WebPartManager\.Api\.WebControls\.WebParts\.WebPartManager\.(Create)?AvailableTransformers$</code> | <code>AvailableTransformers = &quot;\[System\.RuntimeType System\.Web\.UI\.WebControls\.WebParts\.Row(ToField&#124;ToParameters)Transformer, System\.RuntimeType System\.Web\.UI\.WebControls\.WebParts\.Row(ToField&#124;ToParameters)Transformer\]</code> | The same two transformers (the configuration&#39;s, RowToFieldTransformer and RowToParametersTransformer), listed in a Hashtable&#39;s order: by the types&#39; hash codes, which on .NET differ from .NET Framework&#39;s (and between runs). |
 | api | <code>^WebPartManager\.Api\.WebControls\.WebParts\.WebPartManager\.(Minimal&#124;Medium)PermissionSet$</code> | <code>PermissionSet = </code> | The permission sets a web part manager gives imported web parts are code access security&#39;s: .NET has none (an empty set), .NET Framework&#39;s lists its permissions. Neither restricts what the parts&#39; code does on .NET. |
+
+差分を一つも除外しなかった既知の差分（古くなっていれば削除してください）:
+
+- api: <code>^WebPartManager\.Api\.WebControls\.WebParts\.WebPartManager\.(Create)?AvailableTransformers$</code> / <code>AvailableTransformers = &quot;\[System\.RuntimeType System\.Web\.UI\.WebControls\.WebParts\.Row(ToField&#124;ToParameters)Transformer, System\.RuntimeType System\.Web\.UI\.WebControls\.WebParts\.Row(ToField&#124;ToParameters)Transformer\]</code>
 
 ## 全ケースの結果
 
@@ -158,7 +161,7 @@
 | <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.ActivateConnections</code> | ✅ 一致 |
 | <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.AddWebPart</code> | ✅ 一致 |
 | <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.AuthorizeWebPart</code> | ✅ 一致 |
-| <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.AvailableTransformers</code> | ⚠️ 既知の差分 |
+| <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.AvailableTransformers</code> | ✅ 一致 |
 | <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.BeginWebPartConnecting</code> | ✅ 一致 |
 | <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.BeginWebPartEditing</code> | ✅ 一致 |
 | <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.BrowseDisplayMode</code> | ✅ 一致 |
@@ -174,7 +177,7 @@
 | <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.ConnectionsActivating</code> | ✅ 一致 |
 | <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.Controls</code> | ✅ 一致 |
 | <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.CopyWebPart</code> | ✅ 一致 |
-| <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.CreateAvailableTransformers</code> | ⚠️ 既知の差分 |
+| <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.CreateAvailableTransformers</code> | ✅ 一致 |
 | <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.CreateControlCollection</code> | ✅ 一致 |
 | <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.CreateDisplayModes</code> | ✅ 一致 |
 | <code>WebPartManager.Api.WebControls.WebParts.WebPartManager.CreateDynamicConnectionID</code> | ✅ 一致 |

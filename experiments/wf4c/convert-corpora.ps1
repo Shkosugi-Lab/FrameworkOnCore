@@ -46,7 +46,7 @@ if ($LASTEXITCODE -ne 0) { throw 'converter build failed' }
 $converter = 'src\FrameworkOnCore.Converter\bin\Debug\net10.0\FrameworkOnCore.Converter.dll'
 $baselinePath = Join-Path $repo 'corpora\regression\conversion-baseline.json'
 $baseline = [ordered]@{}
-if (Test-Path $baselinePath) { (Get-Content $baselinePath -Raw | ConvertFrom-Json).PSObject.Properties | ForEach-Object { $baseline[$_.Name] = $_.Value } }
+if (Test-Path $baselinePath) { (Get-Content $baselinePath -Raw -Encoding UTF8 | ConvertFrom-Json).PSObject.Properties | ForEach-Object { $baseline[$_.Name] = $_.Value } }
 $regressions = @()
 $differences = @()
 $snapshots = Join-Path $repo 'corpora\regression\conversion-baseline'

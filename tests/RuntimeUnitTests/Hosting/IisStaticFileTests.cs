@@ -676,13 +676,28 @@ public class IisStaticFileTests
         Assert.Contains("<h1>Server Error</h1>", page);
     }
 
-    [Theory] // the host's choice (summary: FrameworkOnCore's own translation of IIS's English): the same statuses in Japanese
+    [Theory] // IIS's custerr pages (en-US): their texts, whole (412's and 501's were cut short)
+    [InlineData(404, "The resource you are looking for might have been removed, had its name changed, or is temporarily unavailable.")]
+    [InlineData(412, "The request was not completed due to preconditions that are set in the request header. Preconditions prevent the requested method from being applied to a resource other than the one intended. An example of a precondition is testing for expired content in the page cache of the client.")]
+    [InlineData(501, "The page you are looking for cannot be displayed because a header value in the request does not match certain configuration settings on the Web server. For example, a request header might specify a POST to a static file that cannot be posted to, or specify a Transfer-Encoding value that cannot make use of compression.")]
+    public void IIS_pages_have_its_text(int status, string text)
+    {
+        Assert.Contains("<h3>" + text + "</h3>", IisStaticFile.ErrorPage(status));
+        Assert.Contains("<h3>" + text + "</h3>", IisStaticFile.ErrorPage(status, japanese: true));
+    }
+
+    [Theory] // IIS 10's custerr\ja-JP pages (observed on this machine, Japanese Windows 11): a Japanese title (FrameworkOnCore's own
+    // translation), the rest the English page: h1 "Server Error", the English heading and text
     [InlineData(401)] [InlineData(403)] [InlineData(404)] [InlineData(405)] [InlineData(406)] [InlineData(412)] [InlineData(500)] [InlineData(501)] [InlineData(502)]
-    public void IIS_pages_are_in_japanese_too(int status)
+    public void IIS_pages_in_japanese_have_a_japanese_title_and_the_english_page(int status)
     {
         var page = IisStaticFile.ErrorPage(status, japanese: true);
-        Assert.Contains("<title>" + status + " - ", page);
-        Assert.Contains("<h1>サーバー エラー</h1>", page);
+        var english = IisStaticFile.ErrorPage(status);
+        var title = System.Text.RegularExpressions.Regex.Match(page, "<title>(.*?)</title>").Groups[1].Value;
+        Assert.StartsWith(status + " - ", title);
+        Assert.Contains(title.Skip(6), c => c > 0x3000);   // Japanese
+        Assert.Contains("<h1>Server Error</h1>", page);
+        Assert.Equal(english.Substring(english.IndexOf("</title>")), page.Substring(page.IndexOf("</title>")));
     }
 
     [Theory] // IIS's custerr has no page for other statuses (httpErrors' default entries: 401, 403, 404, 405, 406, 412, 500, 501, 502)

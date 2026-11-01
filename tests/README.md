@@ -27,12 +27,12 @@ FrameworkOnCore のテストは、xunit の単体テストからコーパス(実
 
 ## 1・2. xunit のプロジェクト
 
-Windows での件数と時間は 2026-10-31 の実行(`dotnet test`、ビルド込み)。Linux の件数は記録の最新(同日の NavigationProbe の節)。
+Windows での件数と時間は 2026-10-31 の実行(`dotnet test`、ビルド込み。RuntimeUnitTests は 2026-11-01)。Linux の件数は 2026-11-01 の `run-tests.ps1 -Set runtime -Linux`。
 
 | プロジェクト | 中身 | 件数(Windows) | 時間 | CI(Linux) |
 |---|---|---|---|---|
 | `tests/FrameworkOnCore.Tests` | 下の表 | 4,630(スキップ 1。SQL Server が無いとさらに 25) | 約 1 分 | 実行(Linux 4,583) |
-| `tests/RuntimeUnitTests` | 下の表 | 1,977(スキップ 1) | 約 4 分(Stress が 1 分 40 秒) | 実行(Linux 1,969) |
+| `tests/RuntimeUnitTests` | 下の表 | 1,980(スキップ 1) | 約 4 分(Stress が 1 分 40 秒) | 実行(Linux 1,977、うち成功 1,972) |
 | `tests/SqlClientTests` | Microsoft の System.Data.SqlClient の機能テスト(TDS のテスト サーバー)と、移植の追加分(`FrameworkOnCore/`: DataDirectory の展開、接続文字列のキーワード 81 件を .NET Framework 4.8 のゴールデンと) | 326(スキップ 5: SQL Server Browser・接続文字列・名前付きパイプが要るもの) | 約 1 分 | 実行(Linux 309) |
 
 どれも準備なしで動きます。SQL Server Express(`.\SQLEXPRESS`)か `FOC_TEST_SQLSERVER` があると、LINQ to SQL のデータベースのテスト 25 件も動きます(無ければスキップと報告)。
@@ -171,7 +171,7 @@ Windows のテスト(GDI+ の描画、IIS、SQL Server Express、日本語の Wi
 | リリースの前 | runtime に加えて、wt のすべての操作、Windows のマトリクス、Linux(3 プロジェクト、be・wt) | `-Set full` |
 | Linux も | commit・runtime に Linux の実行を足す | `-Linux` |
 
-**ランタイムの版**: `FrameworkOnCore.Runtime/` を変えたら、`src/FrameworkOnCore.Converter/rules/packages.json` の `frameworkOnCoreVersion`(今は `1.6.5-w2l.25`、公開済み)を
+**ランタイムの版**: `FrameworkOnCore.Runtime/` を変えたら、`src/FrameworkOnCore.Converter/rules/packages.json` の `frameworkOnCoreVersion`(今は `1.6.5-w2l.26`、まだ公開していない。w2l.25 は公開済み)を
 次の `w2l.N` に上げます。公開済みの版のまま作り直すと、ほかのマシンが古いパッケージを使い続けます(`pack-frameworkoncore.ps1` は公開済みの版の元が変わっていると止まる)。
 テストだけの変更なら版は上げません。
 
@@ -207,10 +207,29 @@ Windows のテスト(GDI+ の描画、IIS、SQL Server Express、日本語の Wi
 をビルドするので、パッケージの中身は変わりません。これで、公開済みの 1.6.5-w2l.25 のまま `pack-frameworkoncore.ps1 -Build All` が通ります
 (GitHub Actions のビルドも)。
 
-## 気をつけること(2026-10-31 の棚卸し)
+## IIS との比較の現状(2026-11-01、1.6.5-w2l.26)
 
-- サンプル 32 本をすべて比べたのは w2l.18(2026-10-19)が最後です。その後は be・wt と、ShiftJisProbe・ShiftJisVbProbe・NavigationProbe だけ。
-  ChartProbe の Linux の結果は libgdiplus のとき(SkiaSharp に変える前)のもの。
-- WebControlsParity の `reports/` は 2026-10-16 の実行です。IIS の機能の `*-check.ps1` も 2026-10-16 から動かしていません。
-- be・wt 以外のコーパスの変換の基準は、最後の変換器の変更(2026-10-31、FOC1009)の前のものです。次に変換すると違いが出るかもしれません。
+w2l.18(2026-10-16〜19)のあと初めて、層 3 をすべて流し直しました(経緯と直したものは記録「IIS との比較の流し直し」)。前回と同じか、理由のある差だけです。
+
+| 対象 | Windows(前回 → 今回) | Linux(前回 → 今回) |
+|---|---|---|
+| サンプル 33 本(ChartProbe を含む) | 30 本一致・既知の差 3 本 → 同じ | 30 本一致・既知の差 3 本 → 同じ(ChartProbe は SkiaSharp で初めて: 27 行一致) |
+| 既知の差の 3 本 | BclProbe 2/7、DataFileProbe 1/2、LocaleProbe 29/32 → 同じ | BclProbe 2/7、DataFileProbe 0/2、LocaleProbe 28/32 → 同じ |
+| NavigationProbe | 449(許容 5)→ 同じ | 449(許容 6)→ 同じ |
+| WebControlsParity 124 | 不一致 0 → 0(既知の差 12 → 12。3 層とも件数も前回どおり) | 不一致 0 → 0(既知の差 16 → 14: WebPartManager の Hashtable の順が今回は偶然一致) |
+| errors-check | 32/32 → 32/32(w2l.25 では 22/32: 直した) | ― |
+| headers-check・rewrite-check(Iis)・iislog-check | 60/60・53/53・18/18 → 同じ | ― |
+| compression-check | 24/29 → 25/29(残りは簡易ページの長さ: 決定どおり) | ― |
+| load-check・proxy-check | エラー 0 → 0、不変条件どおり | エラー 0 → 0、不変条件どおり |
+
+## 気をつけること(2026-11-01 更新)
+
+- be・wt 以外のコーパスの変換の基準は、最後の変換器の変更(2026-10-31、FOC1009)と w2l.26 の前のものです。次に変換すると違いが出ます(版の違いだけのはず)。
 - `verify-windows.ps1 -Name wt` は SQL Server Express を起動しません(`-Suite operations` は起動します)。
+- ブラウザー(Edge)は自分で更新されます。User-Agent の版が出る画面は、シナリオで User-Agent を固定する(PageProbe は最初の手順の
+  `newcontext`)。ブラウザーの能力は User-Agent の先頭 64 文字でキャッシュされる(.NET Framework も同じ)ので、途中で変えても効かない。
+  `corpora/parity/wt.operations.golden.json` のエラーページには Edge 156 の User-Agent が入っている(Edge が 157 になると差が出るかもしれない)。
+- sample-parity・check のスクリプトが使う IIS 側のサイト(`experiments/wf4c/_samples/<名前>/iis`)は `-Record` の時の写しです。サンプルを
+  チェックアウトし直す(改行コードが変わるなど)と古くなるので、`*-check.ps1` の前に `-Record` で作り直す(ゴールデンは `git checkout` で戻す)。
+- Linux の実行を重ねると Docker の build cache が増えます(今回 45 GB、ディスクがいっぱいになった)。`docker builder prune -af` と、Docker を止めて
+  `docker_data.vhdx` を diskpart の `compact vdisk` で縮める。

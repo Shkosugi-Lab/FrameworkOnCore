@@ -50,7 +50,7 @@ $verifier = Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt\FrameworkO
 # golden (samples\<Name>\results.<platform>.md and .json); the platform names the allowed differences that apply.
 function Result-Arguments([string]$platform) {
     $arguments = @('--platform', $platform)
-    if ((Get-Content $scenario -Raw | ConvertFrom-Json).operations) {
+    if ((Get-Content $scenario -Raw -Encoding UTF8 | ConvertFrom-Json).operations) {
         $arguments += @('--report', (Join-Path $sample "results.$platform.md"), '--results', (Join-Path $sample "results.$platform.json"))
     }
     return $arguments
@@ -65,7 +65,7 @@ function Wait-Site([string]$base) {
 }
 
 $databaseFile = Join-Path $sample 'database.json'
-$database = if (Test-Path $databaseFile) { Get-Content $databaseFile -Raw | ConvertFrom-Json } else { $null }
+$database = if (Test-Path $databaseFile) { Get-Content $databaseFile -Raw -Encoding UTF8 | ConvertFrom-Json } else { $null }
 function Reset-Database([string]$login) {
     if (-not $database) { return }
     $name = $database.name

@@ -171,7 +171,7 @@ Windows のテスト(GDI+ の描画、IIS、SQL Server Express、日本語の Wi
 | リリースの前 | runtime に加えて、wt のすべての操作、Windows のマトリクス、Linux(3 プロジェクト、be・wt) | `-Set full` |
 | Linux も | commit・runtime に Linux の実行を足す | `-Linux` |
 
-**ランタイムの版**: `FrameworkOnCore.Runtime/` を変えたら、`src/FrameworkOnCore.Converter/rules/packages.json` の `frameworkOnCoreVersion`(今は `1.6.5-w2l.26`、まだ公開していない。w2l.25 は公開済み)を
+**ランタイムの版**: `FrameworkOnCore.Runtime/` を変えたら、`src/FrameworkOnCore.Converter/rules/packages.json` の `frameworkOnCoreVersion`(今は `1.6.5-w2l.26`、2026-11-01 に公開済み。次は w2l.27)を
 次の `w2l.N` に上げます。公開済みの版のまま作り直すと、ほかのマシンが古いパッケージを使い続けます(`pack-frameworkoncore.ps1` は公開済みの版の元が変わっていると止まる)。
 テストだけの変更なら版は上げません。
 

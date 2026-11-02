@@ -1,0 +1,4420 @@
+{
+ "_comment": "BlogEngine.NET: every user-facing operation of corpora/regression/be.operations.json (be.operations.md), each step's op naming the operations it exercises. Golden: corpora/parity/be.operations.golden.json, recorded on the original on IIS by corpora/record-be-operations.ps1; verified by experiments/wf4c/verify-windows.ps1 -Name be -Suite operations and experiments/wf4c/run-linux.ps1 ... -Suite operations. Every run starts from the release's App_Data (corpora/be-app-data.ps1); the files steps read it (--files). The administrator is the release's admin/admin; the scenario makes an editor (parity-editor / Parity-1). What would ask the Internet is first turned off by the administrator (the ping services removed, the SMTP server set to 127.0.0.1:9, the StopForumSpam and Akismet comment filters disabled: each one an operation compared); URLs the server is given to read are local ones that do not answer (127.0.0.1:9). External requests of the browser are stubbed (stubExternal).",
+ "operations": "be.operations.json",
+ "allowed": "../parity/be.operations.allowed.json",
+ "textMasks": [
+  "{today}",
+  "(?<=T)\\d{2}:\\d{2}:\\d{2}",
+  "\\b\\d{1,2}:\\d{2}(:\\d{2}(\\.\\d+)?)?( ?[AP]M)?\\b",
+  "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}",
+  "(?<=© )20\\d\\d",
+  "(?<=Identity is: ).*",
+  "(?<=Identity: ).*",
+  "(?<=%2f)20\\d\\d%2f\\d\\d(?=%2f)",
+  "(?<=\\.Created: \")[^\"]*"
+ ],
+ "ignoreSelectors": [
+  ".widget.blogroll ul.xoxo li ul"
+ ],
+ "maskIds": [
+  "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+ ],
+ "unorderedRows": [
+  "table.table-item-comments"
+ ],
+ "waitMs": 300,
+ "quietMs": 600,
+ "continueOnError": true,
+ "stubExternal": true,
+ "steps": [
+  {
+   "_phase": "1. Anonymous browsing of the release's blog (a new browser: no cookies)"
+  },
+  {
+   "action": "goto",
+   "path": "/",
+   "op": "page.home,widget.postlist-tagcloud-textbox,page.external-links"
+  },
+  {
+   "action": "snapshot",
+   "name": "home"
+  },
+  {
+   "action": "assets",
+   "name": "home-assets",
+   "op": "static.page-assets"
+  },
+  {
+   "action": "cookies",
+   "name": "cookies-anonymous",
+   "op": "state.cookies-anonymous"
+  },
+  {
+   "action": "files",
+   "name": "app-data-after-start",
+   "value": "**;!culture-profile.json;!machine.config;!logger.txt;~settings.xml;~**/datastore/widgets/????????-????-????-????-????????????.xml;~**/datastore/widgets/parity-linklist.xml",
+   "op": "state.app-data-initial"
+  },
+  {
+   "action": "goto",
+   "path": "/?page=2",
+   "op": "page.home-paging"
+  },
+  {
+   "action": "snapshot",
+   "name": "home-page-2"
+  },
+  {
+   "action": "goto",
+   "path": "/"
+  },
+  {
+   "action": "clicktext",
+   "value": "Welcome to BlogEngine.NET",
+   "op": "page.post,page.related-navigation,comment.form"
+  },
+  {
+   "action": "snapshot",
+   "name": "post-welcome"
+  },
+  {
+   "action": "assets",
+   "name": "post-assets",
+   "op": "static.page-assets"
+  },
+  {
+   "action": "goto",
+   "path": "/post/2015/09/23/welcome-to-blogengine-net",
+   "op": "page.post-dated"
+  },
+  {
+   "action": "snapshot",
+   "name": "post-dated"
+  },
+  {
+   "action": "goto",
+   "path": "/post/no-such-post",
+   "op": "page.post-unknown"
+  },
+  {
+   "action": "snapshot",
+   "name": "post-unknown"
+  },
+  {
+   "action": "fetch",
+   "path": "/post.aspx?id=f39c3289-e861-48f7-a4b7-edaaffe6f6dc",
+   "name": "post-by-id",
+   "op": "page.post-by-id"
+  },
+  {
+   "action": "fetch",
+   "path": "/post.aspx",
+   "name": "post-no-id",
+   "op": "page.post-no-id"
+  },
+  {
+   "action": "goto",
+   "path": "/category/BlogEngineNET",
+   "op": "page.category"
+  },
+  {
+   "action": "snapshot",
+   "name": "category"
+  },
+  {
+   "action": "goto",
+   "path": "/?tag=welcome",
+   "op": "page.tag"
+  },
+  {
+   "action": "snapshot",
+   "name": "tag-welcome"
+  },
+  {
+   "action": "goto",
+   "path": "/author/Admin",
+   "op": "page.author"
+  },
+  {
+   "action": "snapshot",
+   "name": "author"
+  },
+  {
+   "action": "goto",
+   "path": "/2018/05/default",
+   "op": "page.date"
+  },
+  {
+   "action": "snapshot",
+   "name": "date-month"
+  },
+  {
+   "action": "goto",
+   "path": "/2018/05/20/default",
+   "op": "page.date"
+  },
+  {
+   "action": "snapshot",
+   "name": "date-day"
+  },
+  {
+   "action": "fetch",
+   "path": "/?year=2018&month=5",
+   "name": "date-year-query",
+   "op": "page.date"
+  },
+  {
+   "action": "goto",
+   "path": "/calendar",
+   "op": "page.calendar"
+  },
+  {
+   "action": "snapshot",
+   "name": "calendar"
+  },
+  {
+   "action": "goto",
+   "path": "/blog",
+   "op": "page.blog"
+  },
+  {
+   "action": "snapshot",
+   "name": "blog"
+  },
+  {
+   "action": "goto",
+   "path": "/page/about",
+   "op": "page.page"
+  },
+  {
+   "action": "snapshot",
+   "name": "page-about"
+  },
+  {
+   "action": "goto",
+   "path": "/page/example-page",
+   "op": "page.page"
+  },
+  {
+   "action": "snapshot",
+   "name": "page-example"
+  },
+  {
+   "action": "goto",
+   "path": "/page/no-such-page",
+   "op": "page.page-unknown"
+  },
+  {
+   "action": "snapshot",
+   "name": "page-unknown"
+  },
+  {
+   "action": "goto",
+   "path": "/archive",
+   "op": "page.archive"
+  },
+  {
+   "action": "snapshot",
+   "name": "archive"
+  },
+  {
+   "action": "goto",
+   "path": "/search?q=welcome",
+   "op": "page.search"
+  },
+  {
+   "action": "snapshot",
+   "name": "search-welcome"
+  },
+  {
+   "action": "goto",
+   "path": "/search?q=nothing-matches",
+   "op": "page.search"
+  },
+  {
+   "action": "snapshot",
+   "name": "search-nothing"
+  },
+  {
+   "action": "goto",
+   "path": "/search?q=visitor&comment=true",
+   "op": "page.search-comments"
+  },
+  {
+   "action": "snapshot",
+   "name": "search-comments"
+  },
+  {
+   "action": "goto",
+   "path": "/search?q=the&page=2",
+   "op": "page.search-paging"
+  },
+  {
+   "action": "snapshot",
+   "name": "search-page-2"
+  },
+  {
+   "action": "goto",
+   "path": "/search?q=http%3A%2F%2F127.0.0.1%3A9%2Fapml.xml",
+   "op": "page.search-apml"
+  },
+  {
+   "action": "snapshot",
+   "name": "search-apml"
+  },
+  {
+   "action": "goto",
+   "path": "/contact",
+   "op": "page.contact-page"
+  },
+  {
+   "action": "snapshot",
+   "name": "contact"
+  },
+  {
+   "action": "goto",
+   "path": "/contact?name=Parity&email=parity%40example.com&subject=Hello",
+   "op": "page.contact-prefill"
+  },
+  {
+   "action": "snapshot",
+   "name": "contact-prefill"
+  },
+  {
+   "action": "goto",
+   "path": "/FrontPageExample.aspx",
+   "op": "page.front-page-example"
+  },
+  {
+   "action": "snapshot",
+   "name": "front-page-example"
+  },
+  {
+   "action": "goto",
+   "path": "/"
+  },
+  {
+   "action": "fill",
+   "target": "txt-fd2436bb-68a7-47d1-9171-2753af201fa6",
+   "value": "welcome"
+  },
+  {
+   "action": "script",
+   "value": "document.getElementById('searchbutton').click();",
+   "op": "widget.search"
+  },
+  {
+   "action": "snapshot",
+   "name": "search-widget"
+  },
+  {
+   "_phase": "2. Themes, languages, crawlers"
+  },
+  {
+   "action": "goto",
+   "path": "/?theme=Standard-2017",
+   "op": "page.theme-query,widget.postlist-tagcloud-textbox"
+  },
+  {
+   "action": "snapshot",
+   "name": "theme-standard-2017"
+  },
+  {
+   "action": "goto",
+   "path": "/post/welcome-to-blogengine-net?theme=Standard-2017",
+   "op": "page.theme-query"
+  },
+  {
+   "action": "snapshot",
+   "name": "theme-standard-2017-post"
+  },
+  {
+   "action": "goto",
+   "path": "/?theme=RazorHost",
+   "op": "page.theme-query"
+  },
+  {
+   "action": "snapshot",
+   "name": "theme-razorhost"
+  },
+  {
+   "action": "goto",
+   "path": "/?theme=NoSuchTheme",
+   "op": "page.theme-query"
+  },
+  {
+   "action": "snapshot",
+   "name": "theme-unknown"
+  },
+  {
+   "action": "goto",
+   "path": "/",
+   "op": "page.theme-query"
+  },
+  {
+   "action": "snapshot",
+   "name": "theme-back-to-standard"
+  },
+  {
+   "action": "acceptlanguage",
+   "value": "de-DE,de;q=0.9"
+  },
+  {
+   "action": "goto",
+   "path": "/",
+   "op": "page.culture"
+  },
+  {
+   "action": "snapshot",
+   "name": "culture-de-home"
+  },
+  {
+   "action": "goto",
+   "path": "/post/welcome-to-blogengine-net",
+   "op": "page.culture"
+  },
+  {
+   "action": "snapshot",
+   "name": "culture-de-post"
+  },
+  {
+   "action": "fetch",
+   "path": "/de.res.axd",
+   "name": "culture-de-res",
+   "hash": true,
+   "op": "page.culture,h.res-axd"
+  },
+  {
+   "action": "acceptlanguage",
+   "value": "en-US,en;q=0.9"
+  },
+  {
+   "action": "goto",
+   "path": "/archive",
+   "op": "page.culture"
+  },
+  {
+   "action": "snapshot",
+   "name": "culture-en-archive"
+  },
+  {
+   "action": "goto",
+   "path": "/contact",
+   "op": "page.culture"
+  },
+  {
+   "action": "snapshot",
+   "name": "culture-en-contact"
+  },
+  {
+   "action": "acceptlanguage",
+   "value": "ja-JP,ja;q=0.9"
+  },
+  {
+   "action": "goto",
+   "path": "/archive",
+   "op": "page.culture"
+  },
+  {
+   "action": "snapshot",
+   "name": "culture-ja-archive"
+  },
+  {
+   "action": "fetch",
+   "path": "/",
+   "name": "culture-none",
+   "headers": {
+    "Accept-Language": ""
+   },
+   "bodyMatch": "<title>[^<]*</title>|<span id=\"ctl00_aLoginText\">[^<]*</span>",
+   "op": "page.culture"
+  },
+  {
+   "action": "newcontext",
+   "value": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+  },
+  {
+   "action": "fetch",
+   "path": "/category/BlogEngineNET",
+   "name": "crawler-category",
+   "op": "page.crawler"
+  },
+  {
+   "action": "fetch",
+   "path": "/?tag=welcome",
+   "name": "crawler-tag",
+   "op": "page.crawler"
+  },
+  {
+   "action": "fetch",
+   "path": "/?page=2",
+   "name": "crawler-page",
+   "op": "page.crawler"
+  },
+  {
+   "action": "fetch",
+   "path": "/post/welcome-to-blogengine-net",
+   "name": "crawler-post",
+   "bodyMatch": "<title>[^<]*</title>",
+   "op": "page.crawler"
+  },
+  {
+   "action": "newcontext"
+  },
+  {
+   "_phase": "3. Feeds, handlers, static content, request filtering, error pages (anonymous)"
+  },
+  {
+   "action": "fetch",
+   "path": "/syndication.axd",
+   "name": "feed-rss",
+   "content": "xml",
+   "op": "h.rss"
+  },
+  {
+   "action": "fetch",
+   "path": "/syndication.axd?format=atom",
+   "name": "feed-atom",
+   "content": "xml",
+   "op": "h.atom"
+  },
+  {
+   "action": "fetch",
+   "path": "/category/feed/BlogEngineNET",
+   "name": "feed-category",
+   "content": "xml",
+   "op": "h.feed-category"
+  },
+  {
+   "action": "fetch",
+   "path": "/syndication.axd?category=19770e74-9ec9-4cde-b2ab-e5051aaaf348",
+   "name": "feed-category-id",
+   "content": "xml",
+   "op": "h.feed-category"
+  },
+  {
+   "action": "fetch",
+   "path": "/post/feed/welcome-to-blogengine-net",
+   "name": "feed-post",
+   "content": "xml",
+   "op": "h.feed-post"
+  },
+  {
+   "action": "fetch",
+   "path": "/syndication.axd?post=f39c3289-e861-48f7-a4b7-edaaffe6f6dc",
+   "name": "feed-post-id",
+   "content": "xml",
+   "op": "h.feed-post"
+  },
+  {
+   "action": "fetch",
+   "path": "/syndication.axd?tag=welcome",
+   "name": "feed-tag",
+   "content": "xml",
+   "op": "h.feed-tag-author"
+  },
+  {
+   "action": "fetch",
+   "path": "/syndication.axd?author=Admin",
+   "name": "feed-author",
+   "content": "xml",
+   "op": "h.feed-tag-author"
+  },
+  {
+   "action": "fetch",
+   "path": "/syndication.axd?comments=true",
+   "name": "feed-comments",
+   "content": "xml",
+   "op": "h.feed-comments"
+  },
+  {
+   "action": "fetch",
+   "path": "/syndication.axd?q=welcome",
+   "name": "feed-search",
+   "content": "xml",
+   "op": "h.feed-search"
+  },
+  {
+   "action": "fetch",
+   "path": "/syndication.axd?category=not-a-guid",
+   "name": "feed-category-bad",
+   "content": "text",
+   "op": "h.feed-category"
+  },
+  {
+   "action": "fetch",
+   "path": "/sitemap.axd",
+   "name": "sitemap",
+   "content": "xml",
+   "op": "h.sitemap"
+  },
+  {
+   "action": "fetch",
+   "path": "/opensearch.axd",
+   "name": "opensearch",
+   "content": "xml",
+   "op": "h.opensearch"
+  },
+  {
+   "action": "fetch",
+   "path": "/rsd.axd",
+   "name": "rsd",
+   "content": "xml",
+   "op": "h.rsd"
+  },
+  {
+   "action": "fetch",
+   "path": "/opml.axd",
+   "name": "opml",
+   "content": "xml",
+   "op": "h.opml"
+  },
+  {
+   "action": "fetch",
+   "path": "/apml.axd",
+   "name": "apml",
+   "content": "xml",
+   "op": "h.apml"
+  },
+  {
+   "action": "fetch",
+   "path": "/sioc.axd",
+   "name": "sioc",
+   "content": "xml",
+   "op": "h.sioc"
+  },
+  {
+   "action": "fetch",
+   "path": "/sioc.axd?sioc_type=post&sioc_id=f39c3289-e861-48f7-a4b7-edaaffe6f6dc",
+   "name": "sioc-post",
+   "content": "xml",
+   "op": "h.sioc"
+  },
+  {
+   "action": "fetch",
+   "path": "/sioc.axd?sioc_type=user&sioc_id=Admin",
+   "name": "sioc-user",
+   "content": "xml",
+   "op": "h.sioc"
+  },
+  {
+   "action": "fetch",
+   "path": "/foaf.axd",
+   "name": "foaf",
+   "content": "xml",
+   "op": "h.foaf"
+  },
+  {
+   "action": "fetch",
+   "path": "/foaf_Admin.axd",
+   "name": "foaf-admin",
+   "content": "xml",
+   "op": "h.foaf"
+  },
+  {
+   "action": "fetch",
+   "path": "/file.axd?file=/blogengine.png",
+   "name": "file-axd",
+   "hash": true,
+   "show": [
+    "Content-Disposition"
+   ],
+   "op": "h.file"
+  },
+  {
+   "action": "fetch",
+   "path": "/file.axd?file=/../users.xml",
+   "name": "file-axd-dotdot",
+   "content": "text",
+   "op": "h.file"
+  },
+  {
+   "action": "fetch",
+   "path": "/file.axd?file=/missing.txt",
+   "name": "file-axd-missing",
+   "op": "h.file"
+  },
+  {
+   "action": "fetch",
+   "path": "/image.axd?picture=/logo.png",
+   "name": "image-axd",
+   "hash": true,
+   "show": [
+    "Cache-Control"
+   ],
+   "op": "h.image"
+  },
+  {
+   "action": "fetch",
+   "path": "/image.axd?picture=/missing.png",
+   "name": "image-axd-missing",
+   "op": "h.image"
+  },
+  {
+   "action": "fetch",
+   "path": "/images/logo.jpgx",
+   "name": "image-rewrite",
+   "op": "h.image-rewrite"
+  },
+  {
+   "action": "fetch",
+   "path": "/files/blogengine.png.axdx",
+   "name": "file-rewrite",
+   "op": "h.image-rewrite"
+  },
+  {
+   "action": "fetch",
+   "path": "/en.res.axd",
+   "name": "res-en",
+   "content": "text",
+   "op": "h.res-axd"
+  },
+  {
+   "action": "fetch",
+   "path": "/ja.res.axd",
+   "name": "res-ja",
+   "content": "text",
+   "op": "h.res-axd"
+  },
+  {
+   "action": "fetch",
+   "path": "/admin.res.axd",
+   "name": "res-admin",
+   "content": "text",
+   "op": "h.res-axd"
+  },
+  {
+   "action": "goto",
+   "path": "/"
+  },
+  {
+   "action": "script",
+   "name": "js-axd",
+   "value": "const s = [...document.querySelectorAll('script[src]')].map(e => e.getAttribute('src')).filter(u => /\\.js\\.axd/.test(u)); const out = []; for (const u of s) { const r = await fetch(u); out.push(u.replace(/res-[^.]*/, 'res-{hash}') + ' ' + r.status + ' ' + (r.headers.get('content-type') || '') + ' ' + (await r.text()).length); } return out.length ? out.join('\\n') : 'no .js.axd on the page';",
+   "op": "h.js-axd"
+  },
+  {
+   "action": "fetch",
+   "path": "/blogml.axd",
+   "name": "blogml-anonymous",
+   "op": "h.blogml"
+  },
+  {
+   "action": "fetch",
+   "path": "/rating.axd?id=f39c3289-e861-48f7-a4b7-edaaffe6f6dc&rating=4",
+   "name": "rating",
+   "content": "text",
+   "op": "comment.rating"
+  },
+  {
+   "action": "fetch",
+   "path": "/rating.axd?id=f39c3289-e861-48f7-a4b7-edaaffe6f6dc&rating=4",
+   "name": "rating-again",
+   "content": "text",
+   "op": "comment.rating"
+  },
+  {
+   "action": "cookies",
+   "name": "cookies-after-rating",
+   "op": "comment.rating"
+  },
+  {
+   "action": "fetch",
+   "path": "/rating.axd?id=f39c3289-e861-48f7-a4b7-edaaffe6f6dc&rating=9",
+   "name": "rating-out-of-range",
+   "content": "text",
+   "op": "comment.rating"
+  },
+  {
+   "action": "fetch",
+   "path": "/rating.axd?id=bad&rating=3",
+   "name": "rating-bad-id",
+   "content": "text",
+   "op": "comment.rating"
+  },
+  {
+   "action": "fetch",
+   "path": "/trackback.axd",
+   "name": "trackback-no-post",
+   "content": "text",
+   "op": "h.trackback"
+  },
+  {
+   "action": "fetch",
+   "path": "/trackback.axd?id=f39c3289-e861-48f7-a4b7-edaaffe6f6dc",
+   "name": "trackback-no-url",
+   "method": "POST",
+   "body": "title=Parity&excerpt=x&blog_name=Parity",
+   "content": "text",
+   "op": "h.trackback"
+  },
+  {
+   "action": "fetch",
+   "path": "/trackback.axd?id=f39c3289-e861-48f7-a4b7-edaaffe6f6dc",
+   "name": "trackback-unreachable",
+   "method": "POST",
+   "body": "title=Parity&excerpt=x&blog_name=Parity&url=http%3A%2F%2F127.0.0.1%3A9%2Fparity",
+   "content": "text",
+   "op": "h.trackback"
+  },
+  {
+   "action": "script",
+   "name": "pingback-unreachable",
+   "value": "const r = await fetch('/pingback.axd', { method: 'POST', headers: { 'Content-Type': 'text/xml' }, body: '<?xml version=\"1.0\"?><methodCall><methodName>pingback.ping</methodName><params><param><value><string>http://127.0.0.1:9/parity</string></value></param><param><value><string>' + location.origin + '/post/welcome-to-blogengine-net</string></value></param></params></methodCall>' }); const t = await r.text(); const m = t.match(/<b>\\s*(?:Exception Details|例外の詳細)\\s*:\\s*<\\/b>\\s*([\\w.`]+)/); return r.status + '\\n' + (m ? '(ASP.NET error page) ' + m[1] : t.replace(/></g, '>\\n<'));",
+   "op": "h.pingback"
+  },
+  {
+   "action": "fetch",
+   "path": "/pingback.axd",
+   "name": "pingback-get",
+   "content": "text",
+   "op": "h.pingback"
+  },
+  {
+   "action": "fetch",
+   "path": "/robots.txt",
+   "name": "static-robots",
+   "hash": true,
+   "show": [
+    "Cache-Control"
+   ],
+   "op": "static.files"
+  },
+  {
+   "action": "fetch",
+   "path": "/wlwmanifest.xml",
+   "name": "static-wlwmanifest",
+   "hash": true,
+   "op": "static.files"
+  },
+  {
+   "action": "fetch",
+   "path": "/Content/images/blog/rssButton.png",
+   "name": "static-png",
+   "hash": true,
+   "show": [
+    "Cache-Control"
+   ],
+   "op": "static.files"
+  },
+  {
+   "action": "fetch",
+   "path": "/Custom/Themes/Standard/src/css/styles.min.css",
+   "name": "static-css",
+   "hash": true,
+   "show": [
+    "Cache-Control"
+   ],
+   "op": "static.files"
+  },
+  {
+   "action": "fetch",
+   "path": "/Custom/Themes/Standard/src/fonts/fontawesome-webfont.woff",
+   "name": "static-woff",
+   "hash": true,
+   "op": "static.files"
+  },
+  {
+   "action": "fetch",
+   "path": "/favicon.ico",
+   "name": "static-favicon",
+   "op": "static.not-found"
+  },
+  {
+   "action": "fetch",
+   "path": "/Content/missing.css",
+   "name": "static-missing",
+   "op": "static.not-found"
+  },
+  {
+   "action": "fetch",
+   "path": "/Web.Config",
+   "name": "filtered-web-config",
+   "op": "static.request-filtering"
+  },
+  {
+   "action": "fetch",
+   "path": "/App_Data/users.xml",
+   "name": "filtered-app-data-users",
+   "op": "static.request-filtering"
+  },
+  {
+   "action": "fetch",
+   "path": "/App_Data/",
+   "name": "filtered-app-data-folder",
+   "op": "static.request-filtering"
+  },
+  {
+   "action": "fetch",
+   "path": "/bin/BlogEngine.Core.dll",
+   "name": "filtered-bin",
+   "op": "static.request-filtering"
+  },
+  {
+   "action": "fetch",
+   "path": "/AppCode/WebUtils.cs",
+   "name": "filtered-appcode-cs",
+   "op": "static.request-filtering"
+  },
+  {
+   "action": "fetch",
+   "path": "/Custom/Themes/Standard/site.master",
+   "name": "filtered-master",
+   "op": "static.request-filtering"
+  },
+  {
+   "action": "fetch",
+   "path": "/Custom/Controls/PostList.ascx",
+   "name": "filtered-ascx",
+   "op": "static.request-filtering"
+  },
+  {
+   "action": "fetch",
+   "path": "/packages.config",
+   "name": "filtered-packages-config",
+   "op": "static.request-filtering"
+  },
+  {
+   "action": "fetch",
+   "path": "/Global.asax",
+   "name": "filtered-global-asax",
+   "op": "static.request-filtering"
+  },
+  {
+   "action": "fetch",
+   "path": "/Account/login.aspx.cs",
+   "name": "filtered-code-behind",
+   "op": "static.request-filtering"
+  },
+  {
+   "action": "goto",
+   "path": "/nosuch.aspx",
+   "op": "err.not-found-aspx"
+  },
+  {
+   "action": "snapshot",
+   "name": "not-found-aspx",
+   "value": "error"
+  },
+  {
+   "action": "goto",
+   "path": "/no/such/path",
+   "op": "err.not-found-extensionless"
+  },
+  {
+   "action": "snapshot",
+   "name": "not-found-extensionless"
+  },
+  {
+   "action": "goto",
+   "path": "/error404.aspx?aspxerrorpath=/post/welcome",
+   "op": "err.error404-page"
+  },
+  {
+   "action": "snapshot",
+   "name": "error404-suggestions"
+  },
+  {
+   "action": "goto",
+   "path": "/error404.aspx",
+   "op": "err.error404-page"
+  },
+  {
+   "action": "snapshot",
+   "name": "error404"
+  },
+  {
+   "action": "goto",
+   "path": "/error.aspx",
+   "op": "err.error-page"
+  },
+  {
+   "action": "snapshot",
+   "name": "error-page"
+  },
+  {
+   "action": "goto",
+   "path": "/post.aspx?id=bad",
+   "op": "err.exception"
+  },
+  {
+   "action": "snapshot",
+   "name": "post-bad-id"
+  },
+  {
+   "action": "fetch",
+   "path": "/a*b",
+   "name": "invalid-path-chars",
+   "op": "sec.invalid-path-chars"
+  },
+  {
+   "action": "goto",
+   "path": "/search?q=%3Cscript%3Ex%3C/script%3E",
+   "op": "sec.request-validation"
+  },
+  {
+   "action": "snapshot",
+   "name": "request-validation-query"
+  },
+  {
+   "action": "fetch",
+   "path": "/admin/",
+   "name": "admin-anonymous",
+   "op": "acct.admin-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/admin/app/editor/editpost.cshtml",
+   "name": "admin-editor-anonymous",
+   "op": "acct.admin-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/setup/upgrade/Updater.asmx",
+   "name": "setup-anonymous",
+   "op": "h.web-services"
+  },
+  {
+   "action": "fetch",
+   "path": "/admin/Extensions/Settings.aspx?ext=BBCode",
+   "name": "extension-settings-anonymous",
+   "op": "acct.admin-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/Account/register.aspx",
+   "name": "register-disabled",
+   "op": "acct.register-disabled"
+  },
+  {
+   "action": "fetch",
+   "path": "/Account/create-blog.aspx",
+   "name": "create-blog-disabled",
+   "op": "acct.create-blog-disabled"
+  },
+  {
+   "action": "fetch",
+   "path": "/Account/change-password.aspx",
+   "name": "change-password-anonymous",
+   "op": "acct.change-password-anonymous"
+  },
+  {
+   "_phase": "4. The Web API without signing in"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts",
+   "name": "api-anonymous-posts",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts/f39c3289-e861-48f7-a4b7-edaaffe6f6dc",
+   "name": "api-anonymous-post",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/pages",
+   "name": "api-anonymous-pages",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/categories",
+   "name": "api-anonymous-categories",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/tags",
+   "name": "api-anonymous-tags",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/comments",
+   "name": "api-anonymous-comments",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/users",
+   "name": "api-anonymous-users",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/roles",
+   "name": "api-anonymous-roles",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/settings",
+   "name": "api-anonymous-settings",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/dashboard",
+   "name": "api-anonymous-dashboard",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/lookups",
+   "name": "api-anonymous-lookups",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/blogroll",
+   "name": "api-anonymous-blogroll",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/pingservices",
+   "name": "api-anonymous-pingservices",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/filemanager",
+   "name": "api-anonymous-filemanager",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/trash",
+   "name": "api-anonymous-trash",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/customfields",
+   "name": "api-anonymous-customfields",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/blogs",
+   "name": "api-anonymous-blogs",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/stats",
+   "name": "api-anonymous-stats",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/packages?filter=extensions",
+   "name": "api-anonymous-packages-extensions",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/commentfilter",
+   "name": "api-anonymous-commentfilter",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/logs/getlog/file",
+   "name": "api-anonymous-logs",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/pager",
+   "name": "api-anonymous-pager",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/tools/check1",
+   "name": "api-anonymous-tools",
+   "content": "json",
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts",
+   "name": "api-anonymous-post-create",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"Title\": \"x\", \"Content\": \"x\", \"DateCreated\": \"2025-01-01 10:00\"}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/comments",
+   "name": "api-anonymous-comment-create",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"PostId\": \"f39c3289-e861-48f7-a4b7-edaaffe6f6dc\", \"Content\": \"x\"}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/settings",
+   "name": "api-anonymous-settings-save",
+   "content": "json",
+   "method": "PUT",
+   "body": "{\"Name\": \"x\"}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "sec.api-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/upload?action=image",
+   "name": "api-anonymous-upload",
+   "method": "POST",
+   "upload": "file=parity.png:base64:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+   "op": "api.upload-unauthorized"
+  },
+  {
+   "_phase": "5. Signing in (the login page) and the anonymous widgets"
+  },
+  {
+   "action": "goto",
+   "path": "/Account/login.aspx",
+   "op": "acct.login-page"
+  },
+  {
+   "action": "snapshot",
+   "name": "login-page"
+  },
+  {
+   "action": "click",
+   "target": "LoginButton",
+   "op": "acct.login-required"
+  },
+  {
+   "action": "snapshot",
+   "name": "login-required"
+  },
+  {
+   "action": "fill",
+   "target": "UserName",
+   "value": "admin"
+  },
+  {
+   "action": "fill",
+   "target": "Password",
+   "value": "wrong"
+  },
+  {
+   "action": "click",
+   "target": "LoginButton",
+   "op": "acct.login-wrong"
+  },
+  {
+   "action": "snapshot",
+   "name": "login-wrong"
+  },
+  {
+   "action": "postraw",
+   "target": "LoginButton",
+   "body": "__VIEWSTATE=AAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+   "name": "login-viewstate-tampered",
+   "bodyMatch": "<title>[^<]*</title>",
+   "op": "sec.viewstate-mac"
+  },
+  {
+   "action": "postraw",
+   "target": "LoginButton",
+   "body": "__EVENTVALIDATION=AAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+   "name": "login-eventvalidation-tampered",
+   "bodyMatch": "<title>[^<]*</title>",
+   "op": "sec.event-validation"
+  },
+  {
+   "action": "postraw",
+   "target": "LoginButton",
+   "body": "ctl00%24MainContent%24LoginUser%24UserName=%3Cscript%3Ex%3C%2Fscript%3E&ctl00%24MainContent%24LoginUser%24Password=x",
+   "name": "login-request-validation",
+   "bodyMatch": "<title>[^<]*</title>",
+   "op": "sec.request-validation"
+  },
+  {
+   "action": "goto",
+   "path": "/Account/login.aspx?ReturnURL=http%3A%2F%2Fevil.example%2F"
+  },
+  {
+   "action": "fill",
+   "target": "UserName",
+   "value": "admin"
+  },
+  {
+   "action": "fill",
+   "target": "Password",
+   "value": "admin"
+  },
+  {
+   "action": "click",
+   "target": "LoginButton",
+   "op": "acct.login-return-url-external,acct.login"
+  },
+  {
+   "action": "snapshot",
+   "name": "login-return-url-external"
+  },
+  {
+   "action": "cookies",
+   "name": "cookies-signed-in",
+   "op": "state.cookies-authenticated"
+  },
+  {
+   "action": "goto",
+   "path": "/",
+   "op": "widget.administration"
+  },
+  {
+   "action": "snapshot",
+   "name": "home-signed-in"
+  },
+  {
+   "action": "fetch",
+   "path": "/Account/login.aspx?logoff",
+   "name": "logoff",
+   "headers": {
+    "Referer": "http://127.0.0.1:9/parity-referer"
+   },
+   "op": "acct.logoff"
+  },
+  {
+   "action": "fetch",
+   "path": "/Account/login.aspx?logoff",
+   "name": "logoff-no-referer",
+   "op": "acct.logoff"
+  },
+  {
+   "action": "cookies",
+   "name": "cookies-logged-off",
+   "op": "acct.logoff"
+  },
+  {
+   "action": "goto",
+   "path": "/",
+   "op": "acct.logoff"
+  },
+  {
+   "action": "snapshot",
+   "name": "home-logged-off"
+  },
+  {
+   "action": "goto",
+   "path": "/Account/login.aspx?ReturnURL=/admin/"
+  },
+  {
+   "action": "fill",
+   "target": "UserName",
+   "value": "admin"
+  },
+  {
+   "action": "fill",
+   "target": "Password",
+   "value": "admin"
+  },
+  {
+   "action": "check",
+   "target": "RememberMe"
+  },
+  {
+   "action": "click",
+   "target": "LoginButton",
+   "op": "acct.login-return-url,acct.login-remember-me"
+  },
+  {
+   "action": "snapshot",
+   "name": "login-return-url-admin"
+  },
+  {
+   "action": "cookies",
+   "name": "cookies-remember-me",
+   "op": "acct.login-remember-me"
+  },
+  {
+   "_phase": "6. The administrator makes the blog deterministic (each one an operation): no ping services, no SMTP server, no comment filters that ask the Internet"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/settings/controls/pings",
+   "op": "admin.screens,api.ping-services"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-pings"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/pingservices",
+   "name": "pingservices-list",
+   "content": "json",
+   "op": "api.ping-services"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/pingservices",
+   "name": "pingservices-add",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"ServiceUrl\": \"http://127.0.0.1:9/parity-ping\"}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.ping-services"
+  },
+  {
+   "action": "script",
+   "name": "pingservices-delete-all",
+   "value": "const all = (await api('GET', '/api/pingservices')).body; const items = all.filter(x => true).map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/pingservices/processchecked/delete', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.ping-services"
+  },
+  {
+   "action": "files",
+   "name": "pingservices-file",
+   "value": "pingservices.xml",
+   "op": "api.ping-services"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/settings/email",
+   "op": "admin.screens,api.settings-get"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-settings-email"
+  },
+  {
+   "action": "fill",
+   "target": "txtSmtpServer",
+   "value": "127.0.0.1"
+  },
+  {
+   "action": "fill",
+   "target": "txtSmtpServerPort",
+   "value": "9"
+  },
+  {
+   "action": "click",
+   "target": "css=[data-ng-click='save()'], [ng-click='save()']",
+   "op": "api.settings-save"
+  },
+  {
+   "action": "waitms",
+   "ms": 1000
+  },
+  {
+   "action": "fetch",
+   "path": "/api/settings",
+   "name": "settings-after-email",
+   "content": "json",
+   "op": "api.settings-save"
+  },
+  {
+   "action": "script",
+   "name": "settings-test-email",
+   "value": "const vm = (await api('GET', '/api/settings')).body; return await api('PUT', '/api/settings?action=testEmail', vm.Settings);",
+   "op": "api.settings-test-email"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/custom/plugins",
+   "op": "admin.screens,api.plugins"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-plugins"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/packages?take=0&skip=0&filter=extensions&order=LastUpdated%20desc",
+   "name": "plugins-list",
+   "content": "json",
+   "op": "api.plugins"
+  },
+  {
+   "action": "script",
+   "name": "plugins-disable-external-filters",
+   "value": "const all = (await api('GET', '/api/packages?take=0&skip=0&filter=extensions')).body; const items = all.filter(x => x.Id == 'StopForumSpam' || x.Id == 'AkismetFilter').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/packages/processchecked/disable', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.plugins,comment.post-anonymous"
+  },
+  {
+   "action": "files",
+   "name": "plugins-files",
+   "value": "datastore/extensions/StopForumSpam.xml;datastore/extensions/AkismetFilter.xml",
+   "op": "api.plugins"
+  },
+  {
+   "_phase": "7. Comments of visitors (a new browser)"
+  },
+  {
+   "action": "newcontext"
+  },
+  {
+   "action": "goto",
+   "path": "/post/welcome-to-blogengine-net"
+  },
+  {
+   "action": "click",
+   "target": "btnSaveAjax",
+   "op": "comment.validation"
+  },
+  {
+   "action": "snapshot",
+   "name": "comment-required-name"
+  },
+  {
+   "action": "fill",
+   "target": "txtName",
+   "value": "Parity Visitor"
+  },
+  {
+   "action": "click",
+   "target": "btnSaveAjax",
+   "op": "comment.validation"
+  },
+  {
+   "action": "snapshot",
+   "name": "comment-required-email"
+  },
+  {
+   "action": "fill",
+   "target": "txtName",
+   "value": "Parity Visitor"
+  },
+  {
+   "action": "fill",
+   "target": "txtEmail",
+   "value": "visitor@example.com"
+  },
+  {
+   "action": "fill",
+   "target": "txtContent",
+   "value": "A comment with the wrong answer."
+  },
+  {
+   "action": "fill",
+   "target": "simpleCaptchaValue",
+   "value": "3"
+  },
+  {
+   "action": "click",
+   "target": "btnSaveAjax",
+   "op": "comment.captcha-wrong"
+  },
+  {
+   "action": "waitfor",
+   "value": "!document.getElementById('btnSaveAjax') || !document.getElementById('btnSaveAjax').disabled"
+  },
+  {
+   "action": "snapshot",
+   "name": "comment-captcha-wrong"
+  },
+  {
+   "action": "fill",
+   "target": "txtName",
+   "value": "Parity Visitor"
+  },
+  {
+   "action": "fill",
+   "target": "txtEmail",
+   "value": "visitor@example.com"
+  },
+  {
+   "action": "fill",
+   "target": "txtWebsite",
+   "value": "http://example.com/visitor"
+  },
+  {
+   "action": "fill",
+   "target": "txtContent",
+   "value": "A first comment from the parity test."
+  },
+  {
+   "action": "fill",
+   "target": "simpleCaptchaValue",
+   "value": "10"
+  },
+  {
+   "action": "click",
+   "target": "btnSaveAjax",
+   "op": "comment.post-anonymous"
+  },
+  {
+   "action": "waitfor",
+   "value": "!document.getElementById('btnSaveAjax') || !document.getElementById('btnSaveAjax').disabled"
+  },
+  {
+   "action": "snapshot",
+   "name": "comment-posted-pending"
+  },
+  {
+   "action": "files",
+   "name": "comment-file-pending",
+   "value": "posts/f39c3289-e861-48f7-a4b7-edaaffe6f6dc.xml",
+   "op": "comment.post-anonymous"
+  },
+  {
+   "action": "cookies",
+   "name": "cookies-after-comment",
+   "op": "comment.cookie"
+  },
+  {
+   "action": "goto",
+   "path": "/post/welcome-to-blogengine-net",
+   "op": "comment.cookie"
+  },
+  {
+   "action": "snapshot",
+   "name": "comment-cookie-fills-form"
+  },
+  {
+   "action": "script",
+   "value": "BlogEngine.replyToComment('61c640cb-7782-4a1d-ab79-25bd4613fc4e');",
+   "op": "comment.post-reply"
+  },
+  {
+   "action": "fill",
+   "target": "txtName",
+   "value": "Parity Replier"
+  },
+  {
+   "action": "fill",
+   "target": "txtEmail",
+   "value": "replier@example.com"
+  },
+  {
+   "action": "fill",
+   "target": "txtContent",
+   "value": "A reply to visitor1 with [b]BBCode[/b], <i>markup</i> and a smiley :)"
+  },
+  {
+   "action": "fill",
+   "target": "simpleCaptchaValue",
+   "value": "10"
+  },
+  {
+   "action": "click",
+   "target": "btnSaveAjax",
+   "op": "comment.post-reply,comment.post-markup"
+  },
+  {
+   "action": "waitfor",
+   "value": "!document.getElementById('btnSaveAjax') || !document.getElementById('btnSaveAjax').disabled"
+  },
+  {
+   "action": "snapshot",
+   "name": "comment-reply-posted"
+  },
+  {
+   "action": "goto",
+   "path": "/post/welcome-to-blogengine-net?approvecomment=61c640cb-7782-4a1d-ab79-25bd4613fc4e",
+   "op": "comment.moderate-query-anonymous"
+  },
+  {
+   "action": "snapshot",
+   "name": "moderate-query-anonymous"
+  },
+  {
+   "action": "fetch",
+   "path": "/post/welcome-to-blogengine-net?unsubscribe-email=visitor@example.com",
+   "name": "unsubscribe",
+   "op": "comment.unsubscribe"
+  },
+  {
+   "action": "fetch",
+   "path": "/?deletepost=f39c3289-e861-48f7-a4b7-edaaffe6f6dc",
+   "name": "delete-post-query-anonymous",
+   "op": "page.delete-post-query"
+  },
+  {
+   "action": "files",
+   "name": "comments-file-after-visitors",
+   "value": "posts/f39c3289-e861-48f7-a4b7-edaaffe6f6dc.xml",
+   "op": "comment.post-reply,comment.post-markup"
+  },
+  {
+   "action": "goto",
+   "path": "/"
+  },
+  {
+   "action": "fill",
+   "target": "txtNewsletterEmail",
+   "value": "not-an-address"
+  },
+  {
+   "action": "script",
+   "value": "document.getElementById('btnSave').click();",
+   "op": "widget.newsletter-invalid"
+  },
+  {
+   "action": "snapshot",
+   "name": "newsletter-invalid"
+  },
+  {
+   "action": "fill",
+   "target": "txtNewsletterEmail",
+   "value": "subscriber@example.com"
+  },
+  {
+   "action": "script",
+   "value": "document.getElementById('btnSave').click();",
+   "op": "widget.newsletter"
+  },
+  {
+   "action": "snapshot",
+   "name": "newsletter-subscribed"
+  },
+  {
+   "action": "files",
+   "name": "newsletter-file",
+   "value": "newsletter.xml",
+   "op": "widget.newsletter"
+  },
+  {
+   "action": "goto",
+   "path": "/Custom/Widgets/TextBox/edit.cshtml?id=2fa2f989-9d2b-4c8e-911e-2e1bf967d5e1&zone=sidebar-Post",
+   "op": "sec.widget-edit-anonymous"
+  },
+  {
+   "action": "snapshot",
+   "name": "widget-edit-anonymous"
+  },
+  {
+   "action": "goto",
+   "path": "/Custom/Widgets/BlogRoll/edit.cshtml?id=4e3d1239-9e6b-40b4-9b5b-192b79c3b759&zone=sidebar-Post",
+   "op": "sec.widget-edit-anonymous"
+  },
+  {
+   "action": "snapshot",
+   "name": "widget-edit-blogroll-anonymous"
+  },
+  {
+   "_phase": "8. The administrator: the dashboard and the screens"
+  },
+  {
+   "action": "newcontext"
+  },
+  {
+   "action": "goto",
+   "path": "/Account/login.aspx"
+  },
+  {
+   "action": "fill",
+   "target": "UserName",
+   "value": "admin"
+  },
+  {
+   "action": "fill",
+   "target": "Password",
+   "value": "admin"
+  },
+  {
+   "action": "click",
+   "target": "LoginButton",
+   "op": "acct.login"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/",
+   "op": "admin.shell,admin.dashboard,admin.dashboard-external"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-shell"
+  },
+  {
+   "action": "fill",
+   "target": "txtDraftTitle",
+   "value": "Parity quick draft"
+  },
+  {
+   "action": "fill",
+   "target": "txtDraftText",
+   "value": "Drafted on the dashboard."
+  },
+  {
+   "action": "click",
+   "target": "css=[data-ng-click='postDraft()'], [ng-click='postDraft()']",
+   "op": "admin.dashboard-quick-draft"
+  },
+  {
+   "action": "waitms",
+   "ms": 1500
+  },
+  {
+   "action": "snapshot",
+   "name": "dashboard-quick-draft"
+  },
+  {
+   "action": "fetch",
+   "path": "/admin/about.cshtml",
+   "name": "admin-about-fetch",
+   "bodyMatch": "<title>[^<]*</title>",
+   "op": "admin.about"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/about.cshtml",
+   "op": "admin.about"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-about"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/dashboard",
+   "name": "dashboard",
+   "content": "json",
+   "op": "admin.dashboard"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/newsfeed?take=5&skip=0",
+   "name": "newsfeed",
+   "content": "json",
+   "op": "admin.dashboard-external"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/packages?take=5&skip=0",
+   "name": "gallery-packages",
+   "content": "json",
+   "op": "admin.dashboard-external,api.packages-gallery"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/setup?version=3.3.8.0",
+   "name": "setup-version",
+   "content": "json",
+   "op": "admin.dashboard-external"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/content/posts",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-content-posts"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/content/pages",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-content-pages"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/content/categories",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-content-categories"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/content/tags",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-content-tags"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/content/comments",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-content-comments"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/content/comments/filters",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-content-comments-filters"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/content/blogs",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-content-blogs"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/custom/themes",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-custom-themes"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/custom/widgets",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-custom-widgets"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/custom/plugins/gallery",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-custom-plugins-gallery"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/custom/themes/gallery",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-custom-themes-gallery"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/custom/widgets/gallery",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-custom-widgets-gallery"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/security/profile",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-security-profile"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/security/users",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-security-users"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/security/roles",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-security-roles"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/settings/basic",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-settings-basic"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/settings/feed",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-settings-feed"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/settings/comments",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-settings-comments"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/settings/controls",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-settings-controls"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/settings/advanced",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-settings-advanced"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/settings/controls/blogroll",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-settings-controls-blogroll"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/settings/tools",
+   "op": "admin.screens"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-settings-tools"
+  },
+  {
+   "_phase": "9. Posts: the editor, the API, the list's actions"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/app/editor/editpost.cshtml",
+   "op": "admin.post-editor"
+  },
+  {
+   "action": "snapshot",
+   "name": "editor-new-post"
+  },
+  {
+   "action": "fill",
+   "target": "txtTitle",
+   "value": "Parity post from the editor"
+  },
+  {
+   "action": "fill",
+   "target": "txtDate",
+   "value": "2025-03-10 10:00"
+  },
+  {
+   "action": "script",
+   "value": "editorSetHtml('<p>Written in the <strong>editor</strong>.</p>');"
+  },
+  {
+   "action": "check",
+   "target": "cat-19770e74-9ec9-4cde-b2ab-e5051aaaf348"
+  },
+  {
+   "action": "click",
+   "target": "css=[data-ng-click='publish(true)'], [ng-click='publish(true)']",
+   "op": "api.posts-create,admin.post-editor"
+  },
+  {
+   "action": "waitms",
+   "ms": 2000
+  },
+  {
+   "action": "snapshot",
+   "name": "editor-post-saved"
+  },
+  {
+   "action": "goto",
+   "path": "/post/parity-post-from-the-editor",
+   "op": "api.posts-create"
+  },
+  {
+   "action": "snapshot",
+   "name": "post-from-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts",
+   "name": "post-create",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"Id\": \"\", \"Title\": \"Parity API post\", \"Author\": \"\", \"Content\": \"<p>Posted with the API. welcome</p>\", \"DateCreated\": \"2025-03-11 09:30\", \"Slug\": \"\", \"Categories\": [{\"Id\": \"\", \"Title\": \"Parity category\"}], \"Tags\": [{\"TagName\": \"parity\"}, {\"TagName\": \"api\"}, {\"TagName\": \"parity\"}], \"HasCommentsEnabled\": true, \"IsPublished\": true}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.posts-create"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts",
+   "name": "post-create-same-title",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"Id\": \"\", \"Title\": \"Parity API post\", \"Content\": \"<p>The same title: the slug made unique.</p>\", \"DateCreated\": \"2025-03-12 08:00\", \"Slug\": \"\", \"Categories\": [], \"Tags\": [], \"HasCommentsEnabled\": true, \"IsPublished\": true}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.posts-create"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts",
+   "name": "post-create-draft",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"Id\": \"\", \"Title\": \"Parity draft\", \"Content\": \"<p>A draft.</p>\", \"DateCreated\": \"2025-03-13 08:00\", \"Slug\": \"parity-draft\", \"Categories\": [], \"Tags\": [], \"HasCommentsEnabled\": false, \"IsPublished\": false}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.posts-create-draft"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts",
+   "name": "post-create-bad-date",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"Id\": \"\", \"Title\": \"Parity bad date\", \"Content\": \"<p>x</p>\", \"DateCreated\": \"10.03.2025\", \"Slug\": \"\", \"Categories\": [], \"Tags\": [], \"IsPublished\": true}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.posts-bad-date"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts?take=0&skip=0",
+   "name": "posts-list",
+   "content": "json",
+   "op": "api.posts-list"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts?take=10&skip=0&filter=IsPublished%20%3D%3D%20true&order=Title",
+   "name": "posts-list-filtered",
+   "content": "json",
+   "op": "api.posts-filter-order"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts?take=10&skip=0&filter=NoSuchField%20%3D%3D%201",
+   "name": "posts-list-bad-filter",
+   "content": "json",
+   "op": "api.posts-filter-order"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts/f39c3289-e861-48f7-a4b7-edaaffe6f6dc",
+   "name": "post-get",
+   "content": "json",
+   "op": "api.posts-get"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts/00000000-0000-0000-0000-000000000001",
+   "name": "post-get-unknown",
+   "content": "json",
+   "op": "api.posts-get"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts/not-a-guid",
+   "name": "post-get-bad",
+   "content": "json",
+   "op": "api.posts-get"
+  },
+  {
+   "action": "files",
+   "name": "posts-files-created",
+   "value": "posts/*.xml;categories.xml",
+   "op": "api.posts-create,api.posts-create-draft"
+  },
+  {
+   "action": "goto",
+   "path": "/",
+   "op": "api.posts-create"
+  },
+  {
+   "action": "snapshot",
+   "name": "home-with-new-posts"
+  },
+  {
+   "action": "goto",
+   "path": "/post/Parity-API-post",
+   "op": "api.posts-create"
+  },
+  {
+   "action": "snapshot",
+   "name": "post-same-slug"
+  },
+  {
+   "action": "goto",
+   "path": "/category/parity-category",
+   "op": "api.posts-create"
+  },
+  {
+   "action": "snapshot",
+   "name": "category-created-by-post"
+  },
+  {
+   "action": "goto",
+   "path": "/?tag=parity",
+   "op": "api.posts-create"
+  },
+  {
+   "action": "snapshot",
+   "name": "tag-created-by-post"
+  },
+  {
+   "action": "goto",
+   "path": "/post/parity-draft",
+   "op": "api.posts-create-draft"
+  },
+  {
+   "action": "snapshot",
+   "name": "draft-signed-in"
+  },
+  {
+   "action": "script",
+   "name": "post-update",
+   "value": "const p = (await api('GET', '/api/posts?take=0')).body.find(x => x.Title == 'Parity API post' && x.DateCreated.indexOf('2025-03-11') == 0); const d = (await api('GET', '/api/posts/' + p.Id)).body; d.Title = 'Parity API post, changed'; d.Content = '<p>Changed with the API. welcome</p>'; return await api('PUT', '/api/posts/update/foo', d);",
+   "op": "api.posts-update"
+  },
+  {
+   "action": "goto",
+   "path": "/post/Parity-API-post",
+   "op": "api.posts-update"
+  },
+  {
+   "action": "snapshot",
+   "name": "post-updated"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/app/editor/editpost.cshtml?id=f39c3289-e861-48f7-a4b7-edaaffe6f6dc",
+   "op": "admin.post-editor"
+  },
+  {
+   "action": "snapshot",
+   "name": "editor-welcome"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/content/posts",
+   "op": "admin.screens,api.posts-list"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-posts-list"
+  },
+  {
+   "action": "script",
+   "name": "posts-unpublish",
+   "value": "const all = (await api('GET', '/api/posts?take=0')).body; const items = all.filter(x => x.Title == 'Parity post from the editor').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/posts/processchecked/unpublish', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.posts-process"
+  },
+  {
+   "action": "goto",
+   "path": "/post/parity-post-from-the-editor",
+   "op": "api.posts-process"
+  },
+  {
+   "action": "snapshot",
+   "name": "post-unpublished-signed-in"
+  },
+  {
+   "action": "script",
+   "name": "posts-publish",
+   "value": "const all = (await api('GET', '/api/posts?take=0')).body; const items = all.filter(x => x.Title == 'Parity post from the editor').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/posts/processchecked/publish', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.posts-process"
+  },
+  {
+   "action": "script",
+   "name": "posts-delete-checked",
+   "value": "const all = (await api('GET', '/api/posts?take=0')).body; const items = all.filter(x => x.Title == 'Parity post from the editor').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/posts/processchecked/delete', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.posts-process"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts/processchecked/publish",
+   "name": "posts-process-empty",
+   "content": "json",
+   "method": "PUT",
+   "body": "[]",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.posts-process"
+  },
+  {
+   "action": "script",
+   "name": "post-delete",
+   "value": "const p = (await api('GET', '/api/posts?take=0')).body.find(x => x.Title == 'Parity API post' && x.DateCreated.indexOf('2025-03-12') == 0); return await api('DELETE', '/api/posts/' + p.Id);",
+   "op": "api.posts-delete"
+  },
+  {
+   "action": "files",
+   "name": "posts-files-after-actions",
+   "value": "posts/*.xml",
+   "op": "api.posts-process,api.posts-delete,api.posts-update"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/trash?type=0&take=10&skip=0&filter=1%3D%3D1&order=DateCreated%20descending",
+   "name": "trash-list",
+   "content": "json",
+   "op": "api.trash"
+  },
+  {
+   "action": "script",
+   "name": "trash-restore",
+   "value": "const t = (await api('GET', '/api/trash?type=2&take=10&skip=0&filter=1==1&order=DateCreated descending')).body.Items.find(x => x.Title == 'Parity post from the editor'); return await api('PUT', '/api/trash/restore/x', t);",
+   "op": "api.trash"
+  },
+  {
+   "action": "goto",
+   "path": "/post/parity-post-from-the-editor",
+   "op": "api.trash"
+  },
+  {
+   "action": "snapshot",
+   "name": "post-restored"
+  },
+  {
+   "action": "script",
+   "name": "trash-purge",
+   "value": "const t = (await api('GET', '/api/trash?type=2&take=10&skip=0&filter=1==1&order=DateCreated descending')).body.Items.find(x => x.Title == 'Parity API post'); return await api('PUT', '/api/trash/purge/x', t);",
+   "op": "api.trash"
+  },
+  {
+   "action": "files",
+   "name": "posts-files-after-trash",
+   "value": "posts/*.xml",
+   "op": "api.trash"
+  },
+  {
+   "_phase": "10. Pages, categories, tags"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/app/editor/editpage.cshtml",
+   "op": "admin.page-editor"
+  },
+  {
+   "action": "snapshot",
+   "name": "editor-new-page"
+  },
+  {
+   "action": "fill",
+   "target": "txtTitle",
+   "value": "Parity page from the editor"
+  },
+  {
+   "action": "script",
+   "value": "editorSetHtml('<p>A page written in the editor.</p>');"
+  },
+  {
+   "action": "click",
+   "target": "css=[data-ng-click='publish(true)'], [ng-click='publish(true)']",
+   "op": "api.pages-create,admin.page-editor"
+  },
+  {
+   "action": "waitms",
+   "ms": 2000
+  },
+  {
+   "action": "snapshot",
+   "name": "editor-page-saved"
+  },
+  {
+   "action": "goto",
+   "path": "/page/parity-page-from-the-editor",
+   "op": "api.pages-create"
+  },
+  {
+   "action": "snapshot",
+   "name": "page-from-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/pages",
+   "name": "page-create",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"Id\": \"\", \"Title\": \"Parity child page\", \"Content\": \"<p>A child of About.</p>\", \"Description\": \"child\", \"Keywords\": \"parity\", \"DateCreated\": \"2025-03-14 10:00\", \"Slug\": \"\", \"ShowInList\": true, \"IsPublished\": true, \"IsFrontPage\": false, \"SortOrder\": 5, \"Parent\": {\"OptionValue\": \"50d4bec7-c5aa-442a-92a2-b5c7e87da64f\"}}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.pages-create"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/pages",
+   "name": "page-create-no-parent",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"Id\": \"\", \"Title\": \"Parity no parent\", \"Content\": \"<p>x</p>\", \"DateCreated\": \"2025-03-14 10:00\", \"Slug\": \"\", \"IsPublished\": true}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.pages-create"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/pages?take=0&skip=0",
+   "name": "pages-list",
+   "content": "json",
+   "op": "api.pages-list"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/pages/50d4bec7-c5aa-442a-92a2-b5c7e87da64f",
+   "name": "page-get",
+   "content": "json",
+   "op": "api.pages-get"
+  },
+  {
+   "action": "goto",
+   "path": "/page/parity-child-page",
+   "op": "api.pages-create"
+  },
+  {
+   "action": "snapshot",
+   "name": "page-child"
+  },
+  {
+   "action": "script",
+   "name": "page-update",
+   "value": "const p = (await api('GET', '/api/pages?take=0')).body.find(x => x.Title == 'Parity child page'); const d = (await api('GET', '/api/pages/' + p.Id)).body; d.Title = 'Parity child page, changed'; return await api('PUT', '/api/pages/update/foo', d);",
+   "op": "api.pages-update"
+  },
+  {
+   "action": "script",
+   "name": "pages-delete-with-children",
+   "value": "const all = (await api('GET', '/api/pages?take=0')).body; const items = all.filter(x => x.Id == '50d4bec7-c5aa-442a-92a2-b5c7e87da64f').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/pages/processchecked/delete', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.pages-process"
+  },
+  {
+   "action": "script",
+   "name": "pages-unpublish",
+   "value": "const all = (await api('GET', '/api/pages?take=0')).body; const items = all.filter(x => x.Title == 'Parity page from the editor').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/pages/processchecked/unpublish', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.pages-process"
+  },
+  {
+   "action": "goto",
+   "path": "/",
+   "op": "api.pages-process"
+  },
+  {
+   "action": "snapshot",
+   "name": "home-page-unpublished"
+  },
+  {
+   "action": "script",
+   "name": "pages-publish",
+   "value": "const all = (await api('GET', '/api/pages?take=0')).body; const items = all.filter(x => x.Title == 'Parity page from the editor').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/pages/processchecked/publish', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.pages-process"
+  },
+  {
+   "action": "script",
+   "name": "page-front",
+   "value": "const p = (await api('GET', '/api/pages?take=0')).body.find(x => x.Title == 'Parity page from the editor'); const d = (await api('GET', '/api/pages/' + p.Id)).body; d.IsFrontPage = true; if (!d.Parent) d.Parent = { OptionValue: 'none' }; return await api('PUT', '/api/pages/update/foo', d);",
+   "op": "page.front-page,api.pages-update"
+  },
+  {
+   "action": "goto",
+   "path": "/",
+   "op": "page.front-page"
+  },
+  {
+   "action": "snapshot",
+   "name": "home-front-page"
+  },
+  {
+   "action": "goto",
+   "path": "/blog",
+   "op": "page.front-page,page.blog"
+  },
+  {
+   "action": "snapshot",
+   "name": "blog-with-front-page"
+  },
+  {
+   "action": "script",
+   "name": "page-front-off",
+   "value": "const p = (await api('GET', '/api/pages?take=0')).body.find(x => x.Title == 'Parity page from the editor'); const d = (await api('GET', '/api/pages/' + p.Id)).body; d.IsFrontPage = false; if (!d.Parent) d.Parent = { OptionValue: 'none' }; return await api('PUT', '/api/pages/update/foo', d);",
+   "op": "page.front-page"
+  },
+  {
+   "action": "script",
+   "name": "page-delete",
+   "value": "const p = (await api('GET', '/api/pages?take=0')).body.find(x => x.Title == 'Parity child page, changed'); return p ? await api('DELETE', '/api/pages/' + p.Id) : 'no such page';",
+   "op": "api.pages-delete"
+  },
+  {
+   "action": "goto",
+   "path": "/page/example-page?deletepage=d9347918-136c-4538-ad50-9bce25fa170f",
+   "op": "page.delete-page-query"
+  },
+  {
+   "action": "snapshot",
+   "name": "delete-page-query"
+  },
+  {
+   "action": "files",
+   "name": "pages-files",
+   "value": "pages/*.xml",
+   "op": "api.pages-create,api.pages-update,api.pages-process,api.pages-delete,page.delete-page-query"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/categories?take=0&skip=0",
+   "name": "categories-list",
+   "content": "json",
+   "op": "api.categories-list"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/categories",
+   "name": "category-create",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"Title\": \"Parity child category\", \"Description\": \"made with the API\", \"Parent\": {\"OptionValue\": \"19770e74-9ec9-4cde-b2ab-e5051aaaf348\"}}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.categories-create"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/categories",
+   "name": "category-create-duplicate",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"Title\": \"Parity child category\", \"Description\": \"again\", \"Parent\": {\"OptionValue\": \"\"}}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.categories-create"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/categories?Id=19770e74-9ec9-4cde-b2ab-e5051aaaf348",
+   "name": "category-get",
+   "content": "json",
+   "op": "api.categories-list"
+  },
+  {
+   "action": "script",
+   "name": "category-update",
+   "value": "const c = (await api('GET', '/api/categories?take=0')).body.find(x => x.Title == 'Parity child category'); c.Title = 'Parity renamed category'; c.Description = 'renamed'; return await api('PUT', '/api/categories/update/' + c.Id, c);",
+   "op": "api.categories-update"
+  },
+  {
+   "action": "goto",
+   "path": "/category/parity-renamed-category",
+   "op": "api.categories-update"
+  },
+  {
+   "action": "snapshot",
+   "name": "category-renamed"
+  },
+  {
+   "action": "script",
+   "name": "categories-delete-checked",
+   "value": "const all = (await api('GET', '/api/categories?take=0')).body; const items = all.filter(x => x.Title == 'Parity renamed category').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/categories/processchecked/delete', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.categories-delete"
+  },
+  {
+   "action": "script",
+   "name": "category-delete",
+   "value": "const c = (await api('GET', '/api/categories?take=0')).body.find(x => x.Title == 'Parity category'); return await api('DELETE', '/api/categories/' + c.Id);",
+   "op": "api.categories-delete"
+  },
+  {
+   "action": "files",
+   "name": "categories-file",
+   "value": "categories.xml",
+   "op": "api.categories-create,api.categories-update,api.categories-delete"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/tags?take=0&skip=0",
+   "name": "tags-list",
+   "content": "json",
+   "op": "api.tags-list"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/tags?take=0&skip=0&postId=f39c3289-e861-48f7-a4b7-edaaffe6f6dc",
+   "name": "tags-of-post",
+   "content": "json",
+   "op": "api.tags-list"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/tags/update/welcome",
+   "name": "tag-rename",
+   "content": "json",
+   "method": "PUT",
+   "body": "{\"OldTag\": \"welcome\", \"NewTag\": \"greeting\"}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.tags-update"
+  },
+  {
+   "action": "goto",
+   "path": "/?tag=greeting",
+   "op": "api.tags-update"
+  },
+  {
+   "action": "snapshot",
+   "name": "tag-renamed"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/tags/api",
+   "name": "tag-delete",
+   "content": "json",
+   "method": "DELETE",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.tags-delete"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/tags/processchecked/delete",
+   "name": "tags-delete-checked",
+   "content": "json",
+   "method": "PUT",
+   "body": "[{\"IsChecked\": true, \"TagName\": \"parity\", \"TagCount\": 1}]",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.tags-delete"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/tags?take=0&skip=0",
+   "name": "tags-after",
+   "content": "json",
+   "op": "api.tags-update,api.tags-delete"
+  },
+  {
+   "_phase": "11. Comments: moderation in the admin and on the post page"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/comments",
+   "name": "comments-list",
+   "content": "json",
+   "op": "api.comments-list"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/content/comments",
+   "op": "admin.screens,api.comments-list"
+  },
+  {
+   "action": "snapshot",
+   "name": "admin-comments"
+  },
+  {
+   "action": "script",
+   "name": "comment-get",
+   "value": "const c = (await api('GET', '/api/comments')).body.Items.find(x => x.Author == 'Parity Visitor'); return await api('GET', '/api/comments/' + c.Id);",
+   "op": "api.comments-get"
+  },
+  {
+   "action": "script",
+   "name": "comments-approve",
+   "value": "const all = (await api('GET', '/api/comments')).body.Items; const items = all.filter(x => x.Author == 'Parity Visitor').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/comments/processchecked/approve', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.comments-process"
+  },
+  {
+   "action": "goto",
+   "path": "/post/welcome-to-blogengine-net",
+   "op": "api.comments-process"
+  },
+  {
+   "action": "snapshot",
+   "name": "post-comment-approved"
+  },
+  {
+   "action": "script",
+   "name": "comments-unapprove",
+   "value": "const all = (await api('GET', '/api/comments')).body.Items; const items = all.filter(x => x.Author == 'Parity Replier').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/comments/processchecked/unapprove', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.comments-process"
+  },
+  {
+   "action": "script",
+   "name": "comment-reply",
+   "value": "const c = (await api('GET', '/api/comments')).body.Items.find(x => x.Author == 'Parity Visitor'); const d = (await api('GET', '/api/comments/' + c.Id)).body; return await api('POST', '/api/comments', { ParentId: d.Id, PostId: d.PostId, Content: 'The administrator answers.' });",
+   "op": "api.comments-reply"
+  },
+  {
+   "action": "goto",
+   "path": "/post/welcome-to-blogengine-net"
+  },
+  {
+   "action": "fill",
+   "target": "txtName",
+   "value": "Admin"
+  },
+  {
+   "action": "fill",
+   "target": "txtEmail",
+   "value": "post@example.com"
+  },
+  {
+   "action": "fill",
+   "target": "txtContent",
+   "value": "A comment of the signed-in administrator."
+  },
+  {
+   "action": "click",
+   "target": "btnSaveAjax",
+   "op": "comment.post-authenticated"
+  },
+  {
+   "action": "waitfor",
+   "value": "!document.getElementById('btnSaveAjax') || !document.getElementById('btnSaveAjax').disabled"
+  },
+  {
+   "action": "snapshot",
+   "name": "comment-authenticated"
+  },
+  {
+   "action": "goto",
+   "path": "/post/welcome-to-blogengine-net",
+   "op": "comment.post-authenticated,comment.moderate-query"
+  },
+  {
+   "action": "snapshot",
+   "name": "post-comments-signed-in"
+  },
+  {
+   "action": "script",
+   "name": "comment-moderate-query",
+   "value": "const c = (await api('GET', '/api/comments')).body.Items.find(x => x.Author == 'Parity Replier'); const r = await fetch('/post/welcome-to-blogengine-net?approvecomment=' + c.Id, { redirect: 'manual' }); return r.status + ' ' + r.type;",
+   "op": "comment.moderate-query"
+  },
+  {
+   "action": "script",
+   "name": "comment-delete-query",
+   "value": "const c = (await api('GET', '/api/comments')).body.Items.find(x => x.Author == 'Parity Replier'); const r = await fetch('/post/welcome-to-blogengine-net?deletecomment=' + c.Id, { redirect: 'manual' }); return r.status + ' ' + r.type;",
+   "op": "comment.moderate-query"
+  },
+  {
+   "action": "fetch",
+   "path": "/post/welcome-to-blogengine-net?approveallcomments=true",
+   "name": "comment-approve-all-query",
+   "op": "comment.moderate-query"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/comments/deleteall/spam",
+   "name": "comments-delete-all-spam",
+   "content": "json",
+   "method": "PUT",
+   "body": "{}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.comments-delete-all"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/comments/deleteall/pending",
+   "name": "comments-delete-all-pending",
+   "content": "json",
+   "method": "PUT",
+   "body": "{}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.comments-delete-all"
+  },
+  {
+   "action": "script",
+   "name": "comment-delete",
+   "value": "const c = (await api('GET', '/api/comments')).body.Items.find(x => x.Title && x.Title.indexOf('administrator answers') >= 0); return c ? await api('DELETE', '/api/comments/' + c.Id) : 'not found';",
+   "op": "api.comments-delete"
+  },
+  {
+   "action": "files",
+   "name": "comments-file-after-moderation",
+   "value": "posts/f39c3289-e861-48f7-a4b7-edaaffe6f6dc.xml",
+   "op": "api.comments-process,api.comments-reply,api.comments-delete,comment.moderate-query"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/commentfilter?take=0&skip=0",
+   "name": "comment-filters-list",
+   "content": "json",
+   "op": "api.comment-filters"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/commentfilter",
+   "name": "comment-filter-add",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"Action\": \"Block\", \"Subject\": \"Email\", \"Operation\": \"Contains\", \"Filter\": \"spammer.example\"}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.comment-filters"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/commentfilter",
+   "name": "comment-filter-add-duplicate",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"Action\": \"Block\", \"Subject\": \"Email\", \"Operation\": \"Contains\", \"Filter\": \"spammer.example\"}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.comment-filters"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/commentfilter?take=0&skip=0",
+   "name": "comment-filters-after-add",
+   "content": "json",
+   "op": "api.comment-filters"
+  },
+  {
+   "action": "script",
+   "name": "comment-filters-delete-checked",
+   "value": "const all = (await api('GET', '/api/commentfilter?take=0&skip=0')).body; const items = all.filter(x => x.Filter == 'spammer.example').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/commentfilter/processchecked/delete', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.comment-filters"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/commentfilter/deleteall/foo",
+   "name": "comment-filters-delete-all",
+   "content": "json",
+   "method": "PUT",
+   "body": "{}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.comment-filters"
+  },
+  {
+   "action": "files",
+   "name": "comment-filters-file",
+   "value": "datastore/extensions/MetaExtension.xml",
+   "op": "api.comment-filters"
+  },
+  {
+   "_phase": "12. Users, roles, profile; an editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/users?take=0&skip=0&filter=1%20%3D%3D%201&order=UserName",
+   "name": "users-list",
+   "content": "json",
+   "op": "api.users-list"
+  },
+  {
+   "action": "files",
+   "name": "profiles-after-users-list",
+   "value": "profiles/*.xml",
+   "op": "api.users-list"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/roles/getuserroles/fakeusername",
+   "name": "roles-of-new-user",
+   "content": "json",
+   "op": "api.roles-rights"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/users",
+   "name": "user-create",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"UserName\": \"parity-editor\", \"Email\": \"editor@example.com\", \"Password\": \"Parity-1\", \"Profile\": {\"DisplayName\": \"Parity Editor\", \"FirstName\": \"Parity\", \"LastName\": \"Editor\", \"EmailAddress\": \"editor@example.com\", \"Birthday\": \"1990-01-02\", \"Private\": false, \"AboutMe\": \"The editor of the parity test.\"}, \"Roles\": [{\"RoleName\": \"Editors\", \"IsChecked\": true}]}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.users-create"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/users",
+   "name": "user-create-no-password",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"UserName\": \"parity-nopassword\", \"Email\": \"nop@example.com\", \"Password\": \"\", \"Roles\": []}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.users-create-invalid"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/users",
+   "name": "user-create-existing",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"UserName\": \"parity-editor\", \"Email\": \"editor2@example.com\", \"Password\": \"Parity-1\", \"Profile\": {\"DisplayName\": \"x\"}, \"Roles\": []}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.users-create-invalid"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/users",
+   "name": "user-create-other",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"UserName\": \"parity-other\", \"Email\": \"other@example.com\", \"Password\": \"Parity-2\", \"Profile\": {\"DisplayName\": \"Parity Other\"}, \"Roles\": []}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.users-create"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/users/parity-editor",
+   "name": "user-get",
+   "content": "json",
+   "op": "api.users-list"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/roles/getuserroles/parity-editor",
+   "name": "user-roles",
+   "content": "json",
+   "op": "api.roles-rights"
+  },
+  {
+   "action": "script",
+   "name": "user-update",
+   "value": "const u = (await api('GET', '/api/users/parity-other')).body; u.Email = 'other-changed@example.com'; u.OldPassword = 'Parity-2'; u.Password = 'Parity-3'; u.Roles = [{ RoleName: 'Editors', IsChecked: true }]; return await api('PUT', '/api/users/update/item', u);",
+   "op": "api.users-update"
+  },
+  {
+   "action": "files",
+   "name": "users-files",
+   "value": "users.xml;roles.xml;profiles/*.xml",
+   "op": "api.users-create,api.users-update"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/users",
+   "name": "user-create-to-delete",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"UserName\": \"parity-temp\", \"Email\": \"temp@example.com\", \"Password\": \"Parity-9\", \"Profile\": {\"DisplayName\": \"Temp\"}, \"Roles\": []}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.users-delete"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/users/parity-temp",
+   "name": "user-delete",
+   "content": "json",
+   "method": "DELETE",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.users-delete"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/users/Admin",
+   "name": "user-delete-last-admin",
+   "content": "json",
+   "method": "DELETE",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.users-delete"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/users/processchecked/delete",
+   "name": "users-delete-checked",
+   "content": "json",
+   "method": "PUT",
+   "body": "[{\"IsChecked\": true, \"UserName\": \"parity-nopassword\"}]",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.users-delete"
+  },
+  {
+   "action": "files",
+   "name": "users-files-after-delete",
+   "value": "users.xml;roles.xml;profiles/*.xml",
+   "op": "api.users-delete"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/roles?take=0&skip=0",
+   "name": "roles-list",
+   "content": "json",
+   "op": "api.roles"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/roles",
+   "name": "role-create",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"RoleName\": \"Parity Authors\"}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.roles"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/roles",
+   "name": "role-create-existing",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"RoleName\": \"Editors\"}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.roles"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/roles/get/Editors",
+   "name": "role-get",
+   "content": "json",
+   "op": "api.roles"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/roles/getrights/Parity%20Authors",
+   "name": "role-rights",
+   "content": "json",
+   "op": "api.roles-rights"
+  },
+  {
+   "action": "script",
+   "name": "role-save-rights",
+   "value": "const g = (await api('GET', '/api/roles/getrights/Parity%20Authors')).body; g.forEach(x => x.Permissions.forEach(p => p.IsChecked = ['ViewPublicPosts', 'CreateNewPosts', 'EditOwnPosts', 'AccessAdminPages'].includes(p.Id))); return await api('PUT', '/api/roles/saverights/Parity%20Authors', g);",
+   "op": "api.roles-rights"
+  },
+  {
+   "action": "files",
+   "name": "rights-after-save",
+   "value": "rights.xml;roles.xml",
+   "op": "api.roles-rights,api.roles"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/roles/Administrators",
+   "name": "role-delete-system",
+   "content": "json",
+   "method": "DELETE",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.roles"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/roles/Parity%20Authors",
+   "name": "role-delete",
+   "content": "json",
+   "method": "DELETE",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.roles"
+  },
+  {
+   "action": "files",
+   "name": "rights-after-delete",
+   "value": "rights.xml;roles.xml",
+   "op": "api.roles"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/users/Admin",
+   "name": "profile-get",
+   "content": "json",
+   "op": "api.profile"
+  },
+  {
+   "action": "script",
+   "name": "profile-save",
+   "value": "const u = (await api('GET', '/api/users/Admin')).body; u.Profile.DisplayName = 'Parity Administrator'; u.Profile.AboutMe = 'Edited on the profile screen.'; u.Profile.CityTown = 'Tokyo'; return await api('PUT', '/api/users/saveprofile/item', u);",
+   "op": "api.profile"
+  },
+  {
+   "action": "files",
+   "name": "profile-file",
+   "value": "profiles/admin.xml",
+   "op": "api.profile"
+  },
+  {
+   "action": "fetch",
+   "path": "/foaf_Admin.axd",
+   "name": "foaf-after-profile",
+   "content": "xml",
+   "op": "api.profile,h.foaf"
+  },
+  {
+   "action": "newcontext"
+  },
+  {
+   "action": "goto",
+   "path": "/Account/login.aspx"
+  },
+  {
+   "action": "fill",
+   "target": "UserName",
+   "value": "parity-editor"
+  },
+  {
+   "action": "fill",
+   "target": "Password",
+   "value": "Parity-1"
+  },
+  {
+   "action": "click",
+   "target": "LoginButton"
+  },
+  {
+   "action": "goto",
+   "path": "/",
+   "op": "sec.api-editor,widget.administration"
+  },
+  {
+   "action": "snapshot",
+   "name": "editor-home"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/",
+   "op": "sec.api-editor,admin.shell"
+  },
+  {
+   "action": "snapshot",
+   "name": "editor-admin-shell"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts?take=0",
+   "name": "editor-api-posts",
+   "content": "json",
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/dashboard",
+   "name": "editor-api-dashboard",
+   "content": "json",
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/users?take=0&skip=0&filter=1%20%3D%3D%201&order=UserName",
+   "name": "editor-api-users",
+   "content": "json",
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/roles",
+   "name": "editor-api-roles",
+   "content": "json",
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/settings",
+   "name": "editor-api-settings",
+   "content": "json",
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/comments",
+   "name": "editor-api-comments",
+   "content": "json",
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/lookups",
+   "name": "editor-api-lookups",
+   "content": "json",
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/trash?type=0&take=10&skip=0&filter=1%3D%3D1&order=DateCreated%20descending",
+   "name": "editor-api-trash",
+   "content": "json",
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/packages?filter=extensions",
+   "name": "editor-api-plugins",
+   "content": "json",
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/blogs",
+   "name": "editor-api-blogs",
+   "content": "json",
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts",
+   "name": "editor-post-create",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"Id\": \"\", \"Title\": \"Parity editor post\", \"Content\": \"<p>By the editor.</p>\", \"DateCreated\": \"2025-03-15 10:00\", \"Slug\": \"\", \"Categories\": [], \"Tags\": [], \"IsPublished\": true}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/posts/f39c3289-e861-48f7-a4b7-edaaffe6f6dc",
+   "name": "editor-delete-others-post",
+   "content": "json",
+   "method": "DELETE",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/users",
+   "name": "editor-user-create",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"UserName\": \"x\", \"Email\": \"x@example.com\", \"Password\": \"x\", \"Roles\": []}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/roles",
+   "name": "editor-role-create",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"RoleName\": \"x\"}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "goto",
+   "path": "/post/welcome-to-blogengine-net",
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "snapshot",
+   "name": "editor-post-page"
+  },
+  {
+   "action": "fetch",
+   "path": "/blogml.axd",
+   "name": "editor-blogml",
+   "op": "sec.api-editor,h.blogml"
+  },
+  {
+   "action": "files",
+   "name": "posts-files-after-editor",
+   "value": "posts/*.xml",
+   "op": "sec.api-editor"
+  },
+  {
+   "action": "newcontext"
+  },
+  {
+   "action": "goto",
+   "path": "/Account/login.aspx"
+  },
+  {
+   "action": "fill",
+   "target": "UserName",
+   "value": "admin"
+  },
+  {
+   "action": "fill",
+   "target": "Password",
+   "value": "admin"
+  },
+  {
+   "action": "click",
+   "target": "LoginButton"
+  },
+  {
+   "_phase": "13. Settings, lookups, custom fields, blog roll, tools, logs, blogs"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/#/settings/basic"
+  },
+  {
+   "action": "fill",
+   "target": "txtName",
+   "value": "Parity Blog"
+  },
+  {
+   "action": "fill",
+   "target": "txtDescription",
+   "value": "Recorded by the parity test"
+  },
+  {
+   "action": "fill",
+   "target": "txtPostsPerPage",
+   "value": "2"
+  },
+  {
+   "action": "click",
+   "target": "css=[data-ng-click='save()'], [ng-click='save()']",
+   "op": "api.settings-save"
+  },
+  {
+   "action": "waitms",
+   "ms": 1000
+  },
+  {
+   "action": "snapshot",
+   "name": "settings-basic-saved"
+  },
+  {
+   "action": "goto",
+   "path": "/",
+   "op": "api.settings-save,page.home-paging"
+  },
+  {
+   "action": "snapshot",
+   "name": "home-after-settings"
+  },
+  {
+   "action": "goto",
+   "path": "/?page=2",
+   "op": "page.home-paging,api.settings-save"
+  },
+  {
+   "action": "snapshot",
+   "name": "home-page-2-after-settings"
+  },
+  {
+   "action": "script",
+   "name": "settings-self-registration",
+   "value": "const vm = (await api('GET', '/api/settings')).body; vm.Settings.EnableSelfRegistration = true; vm.Settings.Culture = 'Auto'; return await api('PUT', '/api/settings', vm.Settings);",
+   "op": "api.settings-save"
+  },
+  {
+   "action": "files",
+   "name": "settings-file",
+   "value": "~settings.xml",
+   "op": "api.settings-save"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/settings?action=clearCache",
+   "name": "settings-clear-cache",
+   "content": "json",
+   "method": "PUT",
+   "body": "{}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.settings-clear-cache"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/lookups",
+   "name": "lookups",
+   "content": "json",
+   "op": "api.lookups"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/lookups/update/foo",
+   "name": "lookups-editor-options",
+   "content": "json",
+   "method": "PUT",
+   "body": "{\"OptionType\": \"Post\", \"ShowSlug\": true, \"ShowDescription\": true, \"ShowCustomFields\": true}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.lookups"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/customfields?filter=CustomType%20%3D%3D%20%22THEME%22",
+   "name": "custom-fields-theme",
+   "content": "json",
+   "op": "api.custom-fields"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/customfields",
+   "name": "custom-field-add",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"CustomType\": \"POST\", \"ObjectId\": \"f39c3289-e861-48f7-a4b7-edaaffe6f6dc\", \"Key\": \"parity-key\", \"Value\": \"parity value\"}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.custom-fields"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/customfields?filter=CustomType%20%3D%3D%20%22POST%22%20%26%26%20ObjectId%20%3D%3D%20%22f39c3289-e861-48f7-a4b7-edaaffe6f6dc%22",
+   "name": "custom-fields-of-post",
+   "content": "json",
+   "op": "api.custom-fields"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/customfields",
+   "name": "custom-fields-replace",
+   "content": "json",
+   "method": "PUT",
+   "body": "[{\"CustomType\": \"POST\", \"ObjectId\": \"f39c3289-e861-48f7-a4b7-edaaffe6f6dc\", \"BlogId\": \"96d5b379-7e1d-4dac-a6ba-1e50db561b04\", \"Key\": \"parity-key\", \"Value\": \"changed value\"}]",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.custom-fields"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/customfields",
+   "name": "custom-field-delete",
+   "content": "json",
+   "method": "DELETE",
+   "body": "{\"CustomType\": \"POST\", \"ObjectId\": \"f39c3289-e861-48f7-a4b7-edaaffe6f6dc\", \"Key\": \"parity-key\"}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.custom-fields"
+  },
+  {
+   "action": "files",
+   "name": "custom-fields-file",
+   "value": "customfields.xml",
+   "op": "api.custom-fields"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/blogroll",
+   "name": "blogroll-list",
+   "content": "json",
+   "op": "api.blogroll"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/blogroll",
+   "name": "blogroll-add",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"Title\": \"Parity blog\", \"Description\": \"a local feed that does not answer\", \"BlogUrl\": \"http://127.0.0.1:9/\", \"FeedUrl\": \"http://127.0.0.1:9/feed\", \"Xfn\": \"friend\", \"SortIndex\": 4}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.blogroll"
+  },
+  {
+   "action": "script",
+   "name": "blogroll-update",
+   "value": "const b = (await api('GET', '/api/blogroll')).body.find(x => x.Title == 'Parity blog'); b.Description = 'changed'; const r = await api('PUT', '/api/blogroll/update/item', b); const g = await api('GET', '/api/blogroll/' + b.Id); return { update: r, get: g };",
+   "op": "api.blogroll"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/blogroll/processchecked/delete",
+   "name": "blogroll-delete-broken",
+   "content": "json",
+   "method": "PUT",
+   "body": "[]",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.blogroll"
+  },
+  {
+   "action": "files",
+   "name": "blogroll-file",
+   "value": "blogroll.xml",
+   "op": "api.blogroll"
+  },
+  {
+   "action": "fetch",
+   "path": "/opml.axd",
+   "name": "opml-after-blogroll",
+   "content": "xml",
+   "op": "api.blogroll,h.opml"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/tools/check1",
+   "name": "tools-check1",
+   "content": "json",
+   "op": "api.tools"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/tools/trust",
+   "name": "tools-trust",
+   "content": "json",
+   "op": "api.tools"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/tools/data",
+   "name": "tools-data",
+   "content": "json",
+   "op": "api.tools"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/tools/root",
+   "name": "tools-root",
+   "content": "json",
+   "op": "api.tools"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/tools/Custom",
+   "name": "tools-custom",
+   "content": "json",
+   "op": "api.tools"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/logs/getlog/file",
+   "name": "logs",
+   "content": "json",
+   "op": "api.logs"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/logs/purgelog/file",
+   "name": "logs-purge",
+   "content": "json",
+   "method": "PUT",
+   "body": "{}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.logs"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/logs/getlog/file",
+   "name": "logs-after-purge",
+   "content": "json",
+   "op": "api.logs"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/blogs?take=0&skip=0&filter=1%20%3D%3D%201&order=Name",
+   "name": "blogs-list",
+   "content": "json",
+   "op": "api.blogs"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/blogs/96d5b379-7e1d-4dac-a6ba-1e50db561b04",
+   "name": "blog-get",
+   "content": "json",
+   "op": "api.blogs"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/blogs",
+   "name": "blog-create",
+   "content": "json",
+   "method": "POST",
+   "body": "{\"Name\": \"parityblog\", \"UserName\": \"parity-blogger\", \"Email\": \"blogger@example.com\", \"Password\": \"Parity-4\", \"ConfirmPassword\": \"Parity-4\"}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.blogs"
+  },
+  {
+   "action": "files",
+   "name": "blogs-files",
+   "value": "blogs.xml;blogs/parityblog/**;~settings.xml;~**/datastore/widgets/????????-????-????-????-????????????.xml;~**/datastore/widgets/parity-linklist.xml",
+   "op": "api.blogs"
+  },
+  {
+   "action": "goto",
+   "path": "/parityblog/",
+   "op": "api.blogs"
+  },
+  {
+   "action": "snapshot",
+   "name": "child-blog-home"
+  },
+  {
+   "action": "script",
+   "name": "blog-update",
+   "value": "const b = (await api('GET', '/api/blogs?take=0&skip=0&filter=1 == 1&order=Name')).body.find(x => x.Name == 'parityblog'); b.IsActive = false; return await api('PUT', '/api/blogs/update/item', b);",
+   "op": "api.blogs"
+  },
+  {
+   "action": "script",
+   "name": "blogs-delete-checked",
+   "value": "const all = (await api('GET', '/api/blogs?take=0&skip=0&filter=1 == 1&order=Name')).body; const items = all.filter(x => x.Name == 'parityblog').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/blogs/processchecked/delete', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.blogs"
+  },
+  {
+   "action": "files",
+   "name": "blogs-files-after-delete",
+   "value": "blogs.xml;blogs/**",
+   "op": "api.blogs"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/stats",
+   "name": "stats",
+   "content": "json",
+   "op": "api.stats-pager"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/pager",
+   "name": "pager",
+   "content": "json",
+   "op": "api.stats-pager"
+  },
+  {
+   "_phase": "14. Widgets, themes, plugins"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/widgets",
+   "name": "widgets",
+   "content": "json",
+   "op": "api.widgets-get"
+  },
+  {
+   "action": "goto",
+   "path": "/Custom/Widgets/TextBox/edit.cshtml?id=2fa2f989-9d2b-4c8e-911e-2e1bf967d5e1&zone=sidebar-Post",
+   "op": "widget.edit-page"
+  },
+  {
+   "action": "snapshot",
+   "name": "widget-edit-textbox"
+  },
+  {
+   "action": "fetch",
+   "path": "/Custom/Widgets/TextBox/edit.cshtml?id=2fa2f989-9d2b-4c8e-911e-2e1bf967d5e1&zone=sidebar-Post",
+   "name": "widget-save-textbox",
+   "method": "POST",
+   "body": "txtContent=%3Cp%3EParity+%3Cb%3Etext%3C%2Fb%3E+box%3C%2Fp%3E",
+   "bodyMatch": "<textarea[^>]*>[^<]*",
+   "op": "widget.edit-textbox"
+  },
+  {
+   "action": "goto",
+   "path": "/Custom/Widgets/PostList/edit.cshtml?id=cb9e0c01-4491-4010-8015-0ee38cbcab51&zone=sidebar-Post",
+   "op": "widget.edit-page"
+  },
+  {
+   "action": "snapshot",
+   "name": "widget-edit-postlist"
+  },
+  {
+   "action": "fetch",
+   "path": "/Custom/Widgets/PostList/edit.cshtml?id=cb9e0c01-4491-4010-8015-0ee38cbcab51&zone=sidebar-Post",
+   "name": "widget-save-postlist",
+   "method": "POST",
+   "body": "txtNumberOfPosts=2&ddlCategories=&ddlAuthors=All&ddlSortBy=Alphabetical&cbShowImg=on&cbShowDate=on",
+   "content": "text",
+   "op": "widget.edit-settings"
+  },
+  {
+   "action": "goto",
+   "path": "/Custom/Widgets/TagCloud/edit.cshtml?id=fd1a8078-fbdc-4908-b328-f74e340e6ef3&zone=sidebar-Post",
+   "op": "widget.edit-page"
+  },
+  {
+   "action": "snapshot",
+   "name": "widget-edit-tagcloud"
+  },
+  {
+   "action": "goto",
+   "path": "/Custom/Widgets/Newsletter/edit.cshtml?id=b5c8b621-d6d4-4adb-b59c-b330a00dd81d&zone=sidebar-Post",
+   "op": "widget.edit-page,widget.edit-newsletter"
+  },
+  {
+   "action": "snapshot",
+   "name": "widget-edit-newsletter"
+  },
+  {
+   "action": "fetch",
+   "path": "/Custom/Widgets/Newsletter/edit.cshtml?id=b5c8b621-d6d4-4adb-b59c-b330a00dd81d&zone=sidebar-Post",
+   "name": "widget-save-newsletter",
+   "method": "POST",
+   "body": "hdnEmail=subscriber%40example.com",
+   "content": "text",
+   "op": "widget.edit-newsletter"
+  },
+  {
+   "action": "files",
+   "name": "newsletter-file-after-edit",
+   "value": "newsletter.xml",
+   "op": "widget.edit-newsletter"
+  },
+  {
+   "action": "goto",
+   "path": "/Custom/Widgets/BlogRoll/edit.cshtml?id=4e3d1239-9e6b-40b4-9b5b-192b79c3b759&zone=sidebar-Post",
+   "op": "widget.edit-page,widget.edit-blogroll"
+  },
+  {
+   "action": "snapshot",
+   "name": "widget-edit-blogroll"
+  },
+  {
+   "action": "goto",
+   "path": "/Custom/Widgets/LinkList/edit.cshtml?id=parity-linklist&zone=sidebar-Post",
+   "op": "widget.edit-page"
+  },
+  {
+   "action": "snapshot",
+   "name": "widget-edit-linklist"
+  },
+  {
+   "action": "fetch",
+   "path": "/Custom/Widgets/LinkList/edit.cshtml?id=parity-linklist&zone=sidebar-Post",
+   "name": "widget-linklist-add",
+   "method": "POST",
+   "body": "txtNumberOfLinks=5&txtTitle=Parity+link&txtUrl=http%3A%2F%2Fexample.com%2Fparity&btnAdd=",
+   "content": "text",
+   "op": "widget.edit-linklist"
+  },
+  {
+   "action": "files",
+   "name": "widget-files",
+   "value": "datastore/widgets/*.xml;~settings.xml;~**/datastore/widgets/????????-????-????-????-????????????.xml;~**/datastore/widgets/parity-linklist.xml",
+   "op": "widget.edit-textbox,widget.edit-settings,widget.edit-linklist"
+  },
+  {
+   "action": "script",
+   "name": "widgets-update",
+   "value": "const vm = (await api('GET', '/api/widgets')).body; const zone = vm.WidgetZones.find(z => z.Id == 'sidebar-Post'); zone.Widgets = zone.Widgets.filter(w => w.Name != 'BlogRoll'); zone.Widgets.push({ Id: '1234', Name: 'LinkList', Title: 'Parity links', ShowTitle: true }); zone.Widgets.push({ Id: '5678', Name: 'MonthList', Title: 'Parity months', ShowTitle: true }); return await api('PUT', '/api/widgets/update/item', [zone]);",
+   "op": "api.widgets-update"
+  },
+  {
+   "action": "files",
+   "name": "widget-zone-file",
+   "value": "datastore/widgets/sidebar-Post.xml",
+   "op": "api.widgets-update"
+  },
+  {
+   "action": "goto",
+   "path": "/",
+   "op": "api.widgets-update,widget.edit-textbox,widget.edit-settings"
+  },
+  {
+   "action": "snapshot",
+   "name": "home-after-widgets"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/packages?take=0&skip=0&filter=themes&order=LastUpdated%20desc",
+   "name": "themes",
+   "content": "json",
+   "op": "api.themes"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/packages?take=0&skip=0&filter=widgets&order=LastUpdated%20desc",
+   "name": "widgets-installed",
+   "content": "json",
+   "op": "api.themes"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/packages/settheme/Standard-2017",
+   "name": "theme-set",
+   "content": "json",
+   "method": "PUT",
+   "body": "{}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.themes"
+  },
+  {
+   "action": "goto",
+   "path": "/",
+   "op": "api.themes"
+  },
+  {
+   "action": "snapshot",
+   "name": "home-theme-standard-2017"
+  },
+  {
+   "action": "goto",
+   "path": "/post/welcome-to-blogengine-net",
+   "op": "api.themes"
+  },
+  {
+   "action": "snapshot",
+   "name": "post-theme-standard-2017"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/packages/settheme/Standard",
+   "name": "theme-set-back",
+   "content": "json",
+   "method": "PUT",
+   "body": "{}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.themes"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/Extensions/Settings.aspx?ext=BBCode",
+   "op": "api.plugins"
+  },
+  {
+   "action": "snapshot",
+   "name": "extension-settings-bbcode"
+  },
+  {
+   "action": "script",
+   "name": "plugins-enable",
+   "value": "const all = (await api('GET', '/api/packages?take=0&skip=0&filter=extensions')).body; const items = all.filter(x => x.Id == 'AkismetFilter').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/packages/processchecked/enable', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.plugins"
+  },
+  {
+   "action": "script",
+   "name": "plugins-disable-again",
+   "value": "const all = (await api('GET', '/api/packages?take=0&skip=0&filter=extensions')).body; const items = all.filter(x => x.Id == 'AkismetFilter').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/packages/processchecked/disable', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.plugins"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/packages?take=0&skip=0&filter=all&order=LastUpdated%20desc",
+   "name": "gallery-all",
+   "content": "json",
+   "op": "api.packages-gallery"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/packages/BBCode",
+   "name": "gallery-package",
+   "content": "json",
+   "op": "api.packages-gallery"
+  },
+  {
+   "_phase": "15. Files: the file manager, uploads, BlogML import and export"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/filemanager?take=0&skip=0",
+   "name": "file-manager-list",
+   "content": "json",
+   "op": "api.file-manager"
+  },
+  {
+   "action": "goto",
+   "path": "/admin/app/editor/filemanager.cshtml",
+   "op": "api.file-manager"
+  },
+  {
+   "action": "snapshot",
+   "name": "file-manager-page"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/filemanager/addfolder/add",
+   "name": "file-manager-add-folder",
+   "content": "json",
+   "method": "PUT",
+   "body": "{\"Name\": \"parity-folder\", \"FullPath\": \"\"}",
+   "headers": {
+    "Content-Type": "application/json"
+   },
+   "op": "api.file-manager"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/upload?action=filemgr&dirPath=/parity-folder",
+   "name": "upload-filemgr",
+   "method": "POST",
+   "content": "json",
+   "upload": "file=parity-notes.txt:Notes of the parity test.",
+   "op": "api.upload"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/upload?action=image",
+   "name": "upload-image",
+   "method": "POST",
+   "content": "json",
+   "upload": "file=parity.png:base64:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+   "op": "api.upload"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/upload?action=file",
+   "name": "upload-file",
+   "method": "POST",
+   "content": "json",
+   "upload": "file=parity-document.txt:A document.",
+   "op": "api.upload"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/upload?action=image",
+   "name": "upload-empty",
+   "method": "POST",
+   "content": "json",
+   "upload": "file=:",
+   "op": "api.upload"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/filemanager?take=0&skip=0&path=/parity-folder",
+   "name": "file-manager-folder",
+   "content": "json",
+   "op": "api.file-manager"
+  },
+  {
+   "action": "fetch",
+   "path": "/file.axd?file=/parity-folder/parity-notes.txt",
+   "name": "upload-served",
+   "content": "text",
+   "op": "api.upload,h.file"
+  },
+  {
+   "action": "files",
+   "name": "files-after-uploads",
+   "value": "files/**",
+   "op": "api.upload,api.file-manager"
+  },
+  {
+   "action": "script",
+   "name": "file-manager-delete",
+   "value": "const all = (await api('GET', '/api/filemanager?take=0&skip=0&path=/parity-folder')).body; const items = all.filter(x => x.Name == 'parity-notes.txt').map(x => Object.assign(x, { IsChecked: true })); const r = await api('PUT', '/api/filemanager/processchecked/delete', items); return { checked: items.length, status: r.status, body: r.body };",
+   "op": "api.file-manager"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/upload?action=profile",
+   "name": "upload-profile",
+   "method": "POST",
+   "content": "json",
+   "upload": "file=parity-avatar.png:base64:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+   "op": "api.upload"
+  },
+  {
+   "action": "files",
+   "name": "files-after-delete",
+   "value": "files/**",
+   "op": "api.file-manager,api.upload"
+  },
+  {
+   "action": "fetch",
+   "path": "/blogml.axd",
+   "name": "blogml-export",
+   "content": "xml",
+   "show": [
+    "Content-Disposition"
+   ],
+   "op": "h.blogml"
+  },
+  {
+   "action": "fetch",
+   "path": "/api/upload?action=import",
+   "name": "blogml-import",
+   "method": "POST",
+   "content": "json",
+   "upload": "file=parity-blogml.xml:<?xml version=\"1.0\" encoding=\"utf-8\"?><blog xmlns=\"http://www.blogml.com/2006/09/BlogML\" date-created=\"2025-01-01T00:00:00\" root-url=\"/\"><title type=\"text\"><![CDATA[Imported]]></title><sub-title type=\"text\"><![CDATA[]]></sub-title><authors><author id=\"1\" date-created=\"2025-01-01T00:00:00\" date-modified=\"2025-01-01T00:00:00\" approved=\"true\" email=\"imported@example.com\"><title type=\"text\"><![CDATA[Admin]]></title></author></authors><categories><category id=\"9\" date-created=\"2025-01-01T00:00:00\" date-modified=\"2025-01-01T00:00:00\" approved=\"true\" parentref=\"0\"><title type=\"text\"><![CDATA[Imported category]]></title></category></categories><posts><post id=\"77\" date-created=\"2025-02-01T10:00:00\" date-modified=\"2025-02-01T10:00:00\" approved=\"true\" post-url=\"/post/imported\" type=\"normal\" hasexcerpt=\"false\" views=\"0\" is-published=\"True\"><title type=\"text\"><![CDATA[Imported post]]></title><content type=\"text\"><![CDATA[<p>From a BlogML document.</p>]]></content><post-name type=\"text\"><![CDATA[imported-post]]></post-name><categories><category ref=\"9\" /></categories><authors><author ref=\"1\" /></authors></post></posts></blog>",
+   "op": "api.upload-import"
+  },
+  {
+   "action": "goto",
+   "path": "/post/imported",
+   "op": "api.upload-import"
+  },
+  {
+   "action": "snapshot",
+   "name": "imported-post"
+  },
+  {
+   "_phase": "16. MetaWeblog (XML-RPC), as Windows Live Writer uses it"
+  },
+  {
+   "action": "goto",
+   "path": "/"
+  },
+  {
+   "action": "script",
+   "name": "metaweblog-auth",
+   "value": "const v = x => '<value>' + x + '</value>'; const str = x => v('<string>' + x + '</string>'); const b = x => v('<boolean>' + (x ? 1 : 0) + '</boolean>'); const st = o => v('<struct>' + Object.entries(o).map(([k, x]) => '<member><name>' + k + '</name>' + x + '</member>').join('') + '</struct>'); const arr = xs => v('<array><data>' + xs.join('') + '</data></array>'); const ans = []; const id = n => ((ans[n] || '').match(/<string>([^<]*)<\\/string>/) || [])[1] || ''; const call = async (m, ps) => { const r = await fetch('/metaweblog.axd', { method: 'POST', headers: { 'Content-Type': 'text/xml' }, body: '<?xml version=\"1.0\"?><methodCall><methodName>' + m + '</methodName><params>' + ps.map(p => '<param>' + p + '</param>').join('') + '</params></methodCall>' }); const t = await r.text(); ans.push(t); const e = t.match(/<b>\\s*(?:Exception Details|例外の詳細)\\s*:\\s*<\\/b>\\s*([\\w.`]+)/); return m + ' ' + r.status + '\\n' + (e ? '(ASP.NET error page) ' + e[1] : t.replace(/></g, '>\\n<')); }; const out = []; out.push(await call('blogger.getUsersBlogs', [str('app'), str('admin'), str('wrong')])); out.push(await call('no.such.method', [str('x')])); out.push(await call('metaWeblog.getPost', [str('x'), str('admin'), str('admin')])); return out.join('\\n');",
+   "op": "h.metaweblog-auth"
+  },
+  {
+   "action": "script",
+   "name": "metaweblog-read",
+   "value": "const v = x => '<value>' + x + '</value>'; const str = x => v('<string>' + x + '</string>'); const b = x => v('<boolean>' + (x ? 1 : 0) + '</boolean>'); const st = o => v('<struct>' + Object.entries(o).map(([k, x]) => '<member><name>' + k + '</name>' + x + '</member>').join('') + '</struct>'); const arr = xs => v('<array><data>' + xs.join('') + '</data></array>'); const ans = []; const id = n => ((ans[n] || '').match(/<string>([^<]*)<\\/string>/) || [])[1] || ''; const call = async (m, ps) => { const r = await fetch('/metaweblog.axd', { method: 'POST', headers: { 'Content-Type': 'text/xml' }, body: '<?xml version=\"1.0\"?><methodCall><methodName>' + m + '</methodName><params>' + ps.map(p => '<param>' + p + '</param>').join('') + '</params></methodCall>' }); const t = await r.text(); ans.push(t); const e = t.match(/<b>\\s*(?:Exception Details|例外の詳細)\\s*:\\s*<\\/b>\\s*([\\w.`]+)/); return m + ' ' + r.status + '\\n' + (e ? '(ASP.NET error page) ' + e[1] : t.replace(/></g, '>\\n<')); }; const out = []; out.push(await call('blogger.getUsersBlogs', [str('app'), str('admin'), str('admin')])); out.push(await call('metaWeblog.getUsersBlogs', [str('app'), str('admin'), str('admin')])); out.push(await call('metaWeblog.getCategories', [str('1'), str('admin'), str('admin')])); out.push(await call('wp.getTags', [str('1'), str('admin'), str('admin')])); out.push(await call('wp.getAuthors', [str('1'), str('admin'), str('admin')])); out.push(await call('metaWeblog.getRecentPosts', [str('1'), str('admin'), str('admin'), v('<int>3</int>')])); out.push(await call('metaWeblog.getPost', [str('f39c3289-e861-48f7-a4b7-edaaffe6f6dc'), str('admin'), str('admin')])); out.push(await call('blogger.getUserInfo', [str('app'), str('admin'), str('admin')])); return out.join('\\n');",
+   "op": "h.metaweblog-users-blogs,h.metaweblog-categories,h.metaweblog-recent,h.metaweblog-user-info"
+  },
+  {
+   "action": "script",
+   "name": "metaweblog-posts",
+   "value": "const v = x => '<value>' + x + '</value>'; const str = x => v('<string>' + x + '</string>'); const b = x => v('<boolean>' + (x ? 1 : 0) + '</boolean>'); const st = o => v('<struct>' + Object.entries(o).map(([k, x]) => '<member><name>' + k + '</name>' + x + '</member>').join('') + '</struct>'); const arr = xs => v('<array><data>' + xs.join('') + '</data></array>'); const ans = []; const id = n => ((ans[n] || '').match(/<string>([^<]*)<\\/string>/) || [])[1] || ''; const call = async (m, ps) => { const r = await fetch('/metaweblog.axd', { method: 'POST', headers: { 'Content-Type': 'text/xml' }, body: '<?xml version=\"1.0\"?><methodCall><methodName>' + m + '</methodName><params>' + ps.map(p => '<param>' + p + '</param>').join('') + '</params></methodCall>' }); const t = await r.text(); ans.push(t); const e = t.match(/<b>\\s*(?:Exception Details|例外の詳細)\\s*:\\s*<\\/b>\\s*([\\w.`]+)/); return m + ' ' + r.status + '\\n' + (e ? '(ASP.NET error page) ' + e[1] : t.replace(/></g, '>\\n<')); }; const out = []; out.push(await call('metaWeblog.newPost', [str('1'), str('admin'), str('admin'), st({ title: str('Parity XML-RPC post'), description: str('<p>Written over XML-RPC.</p>'), categories: arr([str('BlogEngine.NET')]), mt_keywords: str('rpc, parity'), dateCreated: v('<dateTime.iso8601>20250316T10:00:00</dateTime.iso8601>') }), b(true)])); out.push(await call('metaWeblog.editPost', [str(id(0)), str('admin'), str('admin'), st({ title: str('Parity XML-RPC post, edited'), description: str('<p>Edited over XML-RPC.</p>'), dateCreated: v('<dateTime.iso8601>20250316T10:00:00</dateTime.iso8601>') }), b(true)])); out.push(await call('metaWeblog.getPost', [str(id(0)), str('admin'), str('admin')])); out.push(await call('metaWeblog.newMediaObject', [str('1'), str('admin'), str('admin'), st({ name: str('parity-rpc.png'), type: str('image/png'), bits: v('<base64>iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==</base64>') })])); out.push(await call('blogger.deletePost', [str('app'), str(id(0)), str('admin'), str('admin'), b(true)])); return out.join('\\n');",
+   "op": "h.metaweblog-new-post,h.metaweblog-delete-post,h.metaweblog-media"
+  },
+  {
+   "action": "script",
+   "name": "metaweblog-pages",
+   "value": "const v = x => '<value>' + x + '</value>'; const str = x => v('<string>' + x + '</string>'); const b = x => v('<boolean>' + (x ? 1 : 0) + '</boolean>'); const st = o => v('<struct>' + Object.entries(o).map(([k, x]) => '<member><name>' + k + '</name>' + x + '</member>').join('') + '</struct>'); const arr = xs => v('<array><data>' + xs.join('') + '</data></array>'); const ans = []; const id = n => ((ans[n] || '').match(/<string>([^<]*)<\\/string>/) || [])[1] || ''; const call = async (m, ps) => { const r = await fetch('/metaweblog.axd', { method: 'POST', headers: { 'Content-Type': 'text/xml' }, body: '<?xml version=\"1.0\"?><methodCall><methodName>' + m + '</methodName><params>' + ps.map(p => '<param>' + p + '</param>').join('') + '</params></methodCall>' }); const t = await r.text(); ans.push(t); const e = t.match(/<b>\\s*(?:Exception Details|例外の詳細)\\s*:\\s*<\\/b>\\s*([\\w.`]+)/); return m + ' ' + r.status + '\\n' + (e ? '(ASP.NET error page) ' + e[1] : t.replace(/></g, '>\\n<')); }; const out = []; out.push(await call('wp.newPage', [str('1'), str('admin'), str('admin'), st({ title: str('Parity XML-RPC page'), description: str('<p>A page over XML-RPC.</p>'), wp_page_parent_id: str('0'), dateCreated: v('<dateTime.iso8601>20250316T10:00:00</dateTime.iso8601>') }), b(true)])); out.push(await call('wp.getPageList', [str('1'), str('admin'), str('admin')])); out.push(await call('wp.getPages', [str('1'), str('admin'), str('admin')])); out.push(await call('wp.getPage', [str('1'), str(id(0)), str('admin'), str('admin')])); out.push(await call('wp.editPage', [str('1'), str(id(0)), str('admin'), str('admin'), st({ title: str('Parity XML-RPC page, edited'), description: str('<p>Edited.</p>'), wp_page_parent_id: str('0') }), b(true)])); out.push(await call('wp.deletePage', [str('1'), str('admin'), str('admin'), str(id(0))])); return out.join('\\n');",
+   "op": "h.metaweblog-pages"
+  },
+  {
+   "action": "files",
+   "name": "files-after-metaweblog",
+   "value": "posts/*.xml;pages/*.xml;files/parity-rpc.png",
+   "op": "h.metaweblog-new-post,h.metaweblog-pages,h.metaweblog-media"
+  },
+  {
+   "_phase": "17. Account: change the password, sign out, register, the password retrieval"
+  },
+  {
+   "action": "goto",
+   "path": "/Account/change-password.aspx",
+   "op": "acct.change-password-page"
+  },
+  {
+   "action": "snapshot",
+   "name": "change-password-page"
+  },
+  {
+   "action": "click",
+   "target": "css=input[type=submit]",
+   "op": "acct.change-password-validation"
+  },
+  {
+   "action": "snapshot",
+   "name": "change-password-required"
+  },
+  {
+   "action": "fill",
+   "target": "CurrentPassword",
+   "value": "wrong"
+  },
+  {
+   "action": "fill",
+   "target": "NewPassword",
+   "value": "Parity-5"
+  },
+  {
+   "action": "fill",
+   "target": "ConfirmNewPassword",
+   "value": "Parity-5"
+  },
+  {
+   "action": "click",
+   "target": "css=input[type=submit]",
+   "op": "acct.change-password-wrong"
+  },
+  {
+   "action": "snapshot",
+   "name": "change-password-wrong"
+  },
+  {
+   "action": "goto",
+   "path": "/Account/change-password.aspx"
+  },
+  {
+   "action": "fill",
+   "target": "CurrentPassword",
+   "value": "admin"
+  },
+  {
+   "action": "fill",
+   "target": "NewPassword",
+   "value": "Parity-5"
+  },
+  {
+   "action": "fill",
+   "target": "ConfirmNewPassword",
+   "value": "Parity-6"
+  },
+  {
+   "action": "click",
+   "target": "css=input[type=submit]",
+   "op": "acct.change-password-validation"
+  },
+  {
+   "action": "snapshot",
+   "name": "change-password-mismatch"
+  },
+  {
+   "action": "goto",
+   "path": "/Account/change-password.aspx"
+  },
+  {
+   "action": "fill",
+   "target": "CurrentPassword",
+   "value": "admin"
+  },
+  {
+   "action": "fill",
+   "target": "NewPassword",
+   "value": "Parity-5"
+  },
+  {
+   "action": "fill",
+   "target": "ConfirmNewPassword",
+   "value": "Parity-5"
+  },
+  {
+   "action": "click",
+   "target": "css=input[type=submit]",
+   "op": "acct.change-password,acct.change-password-success"
+  },
+  {
+   "action": "snapshot",
+   "name": "change-password-done"
+  },
+  {
+   "action": "files",
+   "name": "users-file-after-password",
+   "value": "users.xml",
+   "op": "acct.change-password"
+  },
+  {
+   "action": "fetch",
+   "path": "/Account/Logout.cshtml?ReturnUrl=%2Farchive",
+   "name": "logout-cshtml",
+   "op": "acct.logout-cshtml"
+  },
+  {
+   "action": "cookies",
+   "name": "cookies-after-logout",
+   "op": "acct.logout-cshtml"
+  },
+  {
+   "action": "goto",
+   "path": "/Account/login.aspx"
+  },
+  {
+   "action": "fill",
+   "target": "UserName",
+   "value": "admin"
+  },
+  {
+   "action": "fill",
+   "target": "Password",
+   "value": "admin"
+  },
+  {
+   "action": "click",
+   "target": "LoginButton",
+   "op": "acct.change-password"
+  },
+  {
+   "action": "snapshot",
+   "name": "login-old-password"
+  },
+  {
+   "action": "goto",
+   "path": "/Account/login.aspx"
+  },
+  {
+   "action": "fill",
+   "target": "UserName",
+   "value": "admin"
+  },
+  {
+   "action": "fill",
+   "target": "Password",
+   "value": "Parity-5"
+  },
+  {
+   "action": "click",
+   "target": "LoginButton",
+   "op": "acct.change-password"
+  },
+  {
+   "action": "snapshot",
+   "name": "login-new-password"
+  },
+  {
+   "action": "newcontext"
+  },
+  {
+   "action": "goto",
+   "path": "/Account/register.aspx",
+   "op": "acct.register-page"
+  },
+  {
+   "action": "snapshot",
+   "name": "register-page"
+  },
+  {
+   "action": "click",
+   "target": "CreateUserButton",
+   "op": "acct.register-validation"
+  },
+  {
+   "action": "snapshot",
+   "name": "register-required"
+  },
+  {
+   "action": "fill",
+   "target": "UserName",
+   "value": "parity-reader"
+  },
+  {
+   "action": "fill",
+   "target": "Email",
+   "value": "reader@example.com"
+  },
+  {
+   "action": "fill",
+   "target": "Password",
+   "value": "Parity-7"
+  },
+  {
+   "action": "fill",
+   "target": "ConfirmPassword",
+   "value": "Parity-8"
+  },
+  {
+   "action": "click",
+   "target": "CreateUserButton",
+   "op": "acct.register-validation"
+  },
+  {
+   "action": "snapshot",
+   "name": "register-mismatch"
+  },
+  {
+   "action": "fill",
+   "target": "ConfirmPassword",
+   "value": "Parity-7"
+  },
+  {
+   "action": "click",
+   "target": "CreateUserButton",
+   "op": "acct.register"
+  },
+  {
+   "action": "snapshot",
+   "name": "registered"
+  },
+  {
+   "action": "cookies",
+   "name": "cookies-registered",
+   "op": "acct.register"
+  },
+  {
+   "action": "files",
+   "name": "users-files-after-register",
+   "value": "users.xml;roles.xml;profiles/parity-reader.xml",
+   "op": "acct.register"
+  },
+  {
+   "action": "newcontext"
+  },
+  {
+   "action": "goto",
+   "path": "/Account/register.aspx"
+  },
+  {
+   "action": "fill",
+   "target": "UserName",
+   "value": "parity-reader"
+  },
+  {
+   "action": "fill",
+   "target": "Email",
+   "value": "reader2@example.com"
+  },
+  {
+   "action": "fill",
+   "target": "Password",
+   "value": "Parity-7"
+  },
+  {
+   "action": "fill",
+   "target": "ConfirmPassword",
+   "value": "Parity-7"
+  },
+  {
+   "action": "click",
+   "target": "CreateUserButton",
+   "op": "acct.register-duplicate"
+  },
+  {
+   "action": "snapshot",
+   "name": "register-duplicate"
+  },
+  {
+   "action": "goto",
+   "path": "/Account/password-retrieval.aspx",
+   "op": "acct.password-retrieval-page"
+  },
+  {
+   "action": "snapshot",
+   "name": "password-retrieval-page"
+  },
+  {
+   "action": "fill",
+   "target": "txtUser",
+   "value": "nobody"
+  },
+  {
+   "action": "click",
+   "target": "LoginButton",
+   "op": "acct.password-retrieval-unknown"
+  },
+  {
+   "action": "snapshot",
+   "name": "password-retrieval-unknown"
+  },
+  {
+   "action": "fill",
+   "target": "txtUser",
+   "value": "parity-other"
+  },
+  {
+   "action": "click",
+   "target": "LoginButton",
+   "op": "acct.password-retrieval-send"
+  },
+  {
+   "action": "snapshot",
+   "name": "password-retrieval-send"
+  },
+  {
+   "action": "goto",
+   "path": "/contact"
+  },
+  {
+   "action": "fill",
+   "target": "txtName",
+   "value": "Parity Visitor"
+  },
+  {
+   "action": "fill",
+   "target": "txtEmail",
+   "value": "visitor@example.com"
+  },
+  {
+   "action": "fill",
+   "target": "txtSubject",
+   "value": "Hello"
+  },
+  {
+   "action": "fill",
+   "target": "txtMessage",
+   "value": "A message from the parity test."
+  },
+  {
+   "action": "click",
+   "target": "btnSend",
+   "op": "page.contact-page"
+  },
+  {
+   "action": "waitms",
+   "ms": 2000
+  },
+  {
+   "action": "snapshot",
+   "name": "contact-sent"
+  },
+  {
+   "action": "goto",
+   "path": "/contact"
+  },
+  {
+   "action": "click",
+   "target": "btnSend",
+   "op": "page.contact-page"
+  },
+  {
+   "action": "snapshot",
+   "name": "contact-required"
+  },
+  {
+   "_phase": "18. The state App_Data was left in"
+  },
+  {
+   "action": "files",
+   "name": "app-data-final",
+   "value": "**;!culture-profile.json;!machine.config;!logger.txt;~settings.xml;~**/datastore/widgets/????????-????-????-????-????????????.xml;~**/datastore/widgets/parity-linklist.xml",
+   "op": "state.app-data-initial"
+  }
+ ]
+}

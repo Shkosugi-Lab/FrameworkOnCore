@@ -118,6 +118,31 @@ public class FuzzFindingsTests
         Assert.False(System.Web.Util.FileUtil.IsValidDirectoryName(name));
     }
 
+    [Theory] // WebConfigurationHost.CombineAndValidatePath (Dev10 835901: '?', '*', ':' are valid in a URL; Path.Combine and GetFullPath refuse them, the
+             // stream is none): .NET's take them, and the URL /a*b's configuration monitored "a*b\web.config" - 500 "could not start monitoring" where
+             // IIS answers the 400 of requestPathInvalidCharacters (BlogEngine.NET's operations, recorded on IIS)
+    [InlineData("a*b", true)]
+    [InlineData("a?b", true)]
+    [InlineData("a\"b", true)]
+    [InlineData("a|b", true)]
+    [InlineData("ab", false)]
+    [InlineData("a.b c", false)]
+    public void A_configuration_stream_NET_Framework_refused_is_none(string name, bool none)
+    {
+        var root = OperatingSystem.IsWindows() ? @"C:\site\" : "/site/";
+        var host = (System.Web.Configuration.WebConfigurationHost)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(System.Web.Configuration.WebConfigurationHost));
+        var combine = typeof(System.Web.Configuration.WebConfigurationHost).GetMethod("CombineAndValidatePath", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        var stream = (string)combine.Invoke(host, new object[] { root + name, "web.config" });
+        Assert.Equal(none, stream == null);
+        Assert.Equal(none, System.Web.Util.FileUtil.FrameworkRefusesPath(root + name));
+        if (OperatingSystem.IsWindows())
+        {
+            // A ':' after the volume's (NotSupportedException on .NET Framework); a device path's are its own.
+            Assert.True(System.Web.Util.FileUtil.FrameworkRefusesPath(@"C:\site\a:b\web.config"));
+            Assert.False(System.Web.Util.FileUtil.FrameworkRefusesPath(@"\\?\C:\site\web.config"));
+        }
+    }
+
     [WindowsTheory("Windows' paths: a drive, a UNC share")] // .NET Framework's Path.GetFullPath refused them: suspicious
     [InlineData(@"\\server")]
     [InlineData(@"\\server\")]

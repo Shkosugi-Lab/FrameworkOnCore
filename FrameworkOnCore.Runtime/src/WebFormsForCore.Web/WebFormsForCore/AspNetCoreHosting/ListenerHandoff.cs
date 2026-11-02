@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 [assembly: HostingStartup(typeof(System.Web.Hosting.ListenerHandoff.Startup))]
 
@@ -31,29 +32,38 @@ namespace System.Web.Hosting
 	/// worker's environment names), as descriptors it inherits.
 	/// </para>
 	/// <para>
-	/// Linux and macOS only. On Windows a socket is bound to one I/O completion port for its life: a copy given to a worker
-	/// (WSADuplicateSocket) works in the first, and the next one's accept fails ("Asynchronous operations are not allowed on
-	/// this socket ... already bound to an IO completion port"). There the worker binds the port, as before: a request
-	/// during a restart is answered 503 with Retry-After, or refused until the next worker listens.
+	/// On Windows a socket is bound to one I/O completion port for its life: a copy of the listening socket given to a worker
+	/// (WSADuplicateSocket) worked in the first, and the next one's accept failed ("Asynchronous operations are not allowed on
+	/// this socket ... already bound to an IO completion port"): the worker bound the port, and a request during a restart
+	/// was answered 503 or refused until the next worker listened (BlogEngine.NET's plugins restart the application: its
+	/// admin's next request failed; IIS answers it from the next AppDomain). There this process accepts the connections
+	/// itself (synchronously: the listening and the accepted sockets are bound to no completion port) and gives each one
+	/// to the worker (WindowsBroker: WSADuplicateSocket for the worker's process, over a named pipe; the worker's Kestrel
+	/// takes them through a transport of its own, WindowsListenerFactory); while no worker takes them (a restart), they
+	/// wait here, in order.
 	/// </para>
 	/// </summary>
-	public static class ListenerHandoff
+	public static partial class ListenerHandoff
 	{
 		const string Variable = "WEBFORMSFORCORE_LISTEN";
+		const string PipeVariable = "WEBFORMSFORCORE_LISTEN_PIPE";
 		const string HostingStartupVariable = "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES";
 
-		/// <summary>The worker has listening sockets of the process that runs it (a restart leaves them listening).</summary>
+		/// <summary>The worker has listening sockets of the process that runs it (a restart leaves them listening), or on
+		/// Windows takes the connections that process accepts.</summary>
 		internal static bool Active => inherited.Value != null && given;
 
 		static bool given;
 
 		// ---- the process that runs the workers ----
 
+		// Windows: the connections accepted here, for the workers (Bind starts it, Prepare / Started / Ended a worker's).
+		static WindowsBroker broker;
+
 		/// <summary>The endpoints the URLs ask for, bound and listening; none when there is nothing to keep (or it failed).</summary>
 		internal static List<(string Key, Socket Socket)> Bind(string[] args, string contentRoot)
 		{
 			var sockets = new List<(string, Socket)>();
-			if (OperatingSystem.IsWindows()) return sockets;
 			try
 			{
 				foreach (var endpoint in Endpoints(args, contentRoot))
@@ -61,9 +71,10 @@ namespace System.Web.Hosting
 					var socket = new Socket(endpoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 					try
 					{
-						// As Kestrel's CreateDefaultBoundListenSocket makes them.
+						// As Kestrel's CreateDefaultBoundListenSocket makes them (on Windows SO_REUSEADDR would let another
+						// socket take the port: Kestrel does not set it there).
 						if (endpoint.Address.Equals(IPAddress.IPv6Any)) socket.DualMode = true;
-						socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+						if (!OperatingSystem.IsWindows()) socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
 						socket.Bind(endpoint);
 						socket.Listen(512);
 						sockets.Add((Key(endpoint), socket));
@@ -76,7 +87,7 @@ namespace System.Web.Hosting
 						{
 							var any = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 							var v4 = new IPEndPoint(IPAddress.Any, endpoint.Port);
-							any.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+							if (!OperatingSystem.IsWindows()) any.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
 							any.Bind(v4);
 							any.Listen(512);
 							sockets.Add((Key(v4), any));
@@ -91,22 +102,43 @@ namespace System.Web.Hosting
 				foreach (var (_, socket) in sockets) socket.Dispose();
 				sockets.Clear();
 			}
+			if (OperatingSystem.IsWindows() && sockets.Count > 0) broker = new WindowsBroker(sockets);
 			return sockets;
 		}
 
-		/// <summary>The worker's environment for the sockets: the descriptors and the endpoints they listen on.</summary>
+		/// <summary>The worker's environment for the sockets: the descriptors and the endpoints they listen on (on Windows the
+		/// endpoints by number and the pipe the connections come through).</summary>
 		internal static void Prepare(ProcessStartInfo start, List<(string Key, Socket Socket)> sockets)
 		{
 			if (sockets.Count == 0) return;
 			var startups = start.Environment.TryGetValue(HostingStartupVariable, out var named) && !string.IsNullOrEmpty(named) ? named + ";" : "";
 			start.Environment[HostingStartupVariable] = startups + typeof(ListenerHandoff).Assembly.GetName().Name;
+			if (broker != null)
+			{
+				start.Environment[Variable] = string.Join(";", sockets.Select((s, i) => i + "=" + s.Key));
+				start.Environment[PipeVariable] = broker.NextPipe();
+				return;
+			}
 			start.Environment[Variable] = string.Join(";", sockets.Select(s => (long)s.Socket.Handle + "=" + s.Key));
 		}
 
-		/// <summary>Whether the descriptors go to processes started: to the worker's start only (around it).</summary>
+		/// <summary>Whether the descriptors go to processes started: to the worker's start only (around it). Windows: nothing
+		/// is inherited (the connections are given one by one).</summary>
 		internal static void Inherit(List<(string Key, Socket Socket)> sockets, bool inherit)
 		{
+			if (OperatingSystem.IsWindows()) return;
 			foreach (var (_, socket) in sockets) fcntl((int)socket.Handle, F_SETFD, inherit ? 0 : FD_CLOEXEC);
+		}
+
+		/// <summary>Windows: the worker started (its process: the connections are duplicated for it).</summary>
+		internal static void Started(Process worker) => broker?.Serve(worker.Id);
+
+		/// <summary>Windows: the worker ended (the connections wait for the next one); with <paramref name="last"/>, no more
+		/// workers: the connections waiting are closed.</summary>
+		internal static void Ended(bool last)
+		{
+			broker?.EndGeneration();
+			if (last) { broker?.Dispose(); broker = null; }
 		}
 
 		// The endpoints Kestrel binds for the URLs it is given (only http's).
@@ -182,7 +214,20 @@ namespace System.Web.Hosting
 		static Dictionary<string, Socket> Inherited()
 		{
 			var sockets = new Dictionary<string, Socket>(StringComparer.OrdinalIgnoreCase);
-			if (Environment.GetEnvironmentVariable(WebFormsProcess.WorkerVariable) != "1" || OperatingSystem.IsWindows()) return sockets;
+			if (Environment.GetEnvironmentVariable(WebFormsProcess.WorkerVariable) != "1") return sockets;
+			if (OperatingSystem.IsWindows())
+			{
+				// The endpoints by number, the pipe their connections come through (WindowsListenerFactory).
+				var pipe = Environment.GetEnvironmentVariable(PipeVariable);
+				foreach (var entry in (Environment.GetEnvironmentVariable(Variable) ?? "").Split(';', StringSplitOptions.RemoveEmptyEntries))
+				{
+					var equals = entry.IndexOf('=');
+					if (equals > 0 && int.TryParse(entry[..equals], out var index)) windowsEndpoints[entry[(equals + 1)..]] = index;
+				}
+				given = !string.IsNullOrEmpty(pipe) && windowsEndpoints.Count > 0;
+				if (given) windowsPipe = pipe;
+				return sockets;
+			}
 			foreach (var entry in (Environment.GetEnvironmentVariable(Variable) ?? "").Split(';', StringSplitOptions.RemoveEmptyEntries))
 			{
 				var equals = entry.IndexOf('=');
@@ -194,6 +239,10 @@ namespace System.Web.Hosting
 			given = sockets.Count > 0;
 			return sockets;
 		}
+
+		// Windows: the endpoints given (their keys, by number), the pipe their connections come through.
+		static readonly Dictionary<string, int> windowsEndpoints = new(StringComparer.OrdinalIgnoreCase);
+		static string windowsPipe;
 
 		// The sockets given to Kestrel (StopAccepting closes them).
 		static readonly List<Socket> listening = new List<Socket>();
@@ -210,6 +259,9 @@ namespace System.Web.Hosting
 		internal static void StopAccepting()
 		{
 			if (!Active || System.Threading.Interlocked.Exchange(ref stopped, 1) != 0) return;
+			// Windows: no more connections taken from the pipe (the next ones wait in the supervisor for the next worker); the
+			// ones taken already are Kestrel's still.
+			WindowsListenerFactory.StopAll();
 			List<Socket> sockets;
 			lock (listening) sockets = listening.ToList();
 			foreach (var socket in sockets)
@@ -219,11 +271,24 @@ namespace System.Web.Hosting
 			}
 		}
 
-		/// <summary>The worker's Kestrel listens on the sockets given, the others it binds as it does.</summary>
+		/// <summary>The worker's Kestrel listens on the sockets given, the others it binds as it does. On Windows its transport
+		/// is WindowsListenerFactory: the endpoints given take the connections the supervisor accepted, the others are the
+		/// socket transport's.</summary>
 		public sealed class Startup : IHostingStartup
 		{
 			public void Configure(IWebHostBuilder builder) =>
-				builder.ConfigureServices(services => services.Configure<SocketTransportOptions>(options =>
+				builder.ConfigureServices(services =>
+				{
+					if (OperatingSystem.IsWindows())
+					{
+						if (!Active) return;
+						// The only transport (Kestrel's UseKestrel adds the socket transport only when there is none); one
+						// already there is replaced, and its endpoints are bound by the socket transport (as without this).
+						services.RemoveAll<Microsoft.AspNetCore.Connections.IConnectionListenerFactory>();
+						services.AddSingleton<Microsoft.AspNetCore.Connections.IConnectionListenerFactory, WindowsListenerFactory>();
+						return;
+					}
+					services.Configure<SocketTransportOptions>(options =>
 				{
 					if (!Active) return;
 					var bind = options.CreateBoundListenSocket;
@@ -236,7 +301,8 @@ namespace System.Web.Hosting
 						}
 						return bind(endpoint);
 					};
-				}));
+				});
+				});
 		}
 
 		const int F_SETFD = 2;

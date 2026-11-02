@@ -975,6 +975,56 @@ WingtipToys で利用者ができる操作を全部洗い出し、元(IIS / .NET
         .\experiments\wf4c\verify-windows.ps1 -Name wt -Suite operations [-Discover]        # Windows
         .\experiments\wf4c\run-linux.ps1 -App wt\WingtipToys\WingtipToys -SqlServer -Suite operations   # Linux
 
+### be のすべての操作の新旧比較(1.6.5-w2l.27、2026-11-02、ユーザーの指示)
+
+BlogEngine.NET 3.3.8 で利用者ができる操作を全部洗い出し、元(IIS / .NET Framework 4.8)と変換後(Windows・Linux)で同じに動くかを操作ごとに比べた(wt と同じ方法)。
+
+- **棚卸し**: `corpora/regression/be.operations.json`(読む用: `be.operations.md`。両方 `be-operations-inventory.py` が書く)。201 件。分類: API(管理画面の Web API)60、
+  ページ 31、アカウント 26、ハンドラー(.axd・フィード・MetaWeblog 以外)24、コメント 13、ウィジェット 11、MetaWeblog 9、管理画面 8、セキュリティ 7、エラー 5、静的 4、状態 3。
+  実行できないもの 4 件は理由つき: コメントの通知メールとパスワード再発行のコード(メールの中にしか無い。SMTP は届かない宛先にしてあり、送信の失敗までは比べる)、
+  セットアップの更新(dnbe.net から取ってサイトを上書きする)、ギャラリーからのパッケージのインストール(dnbe.net はもう応答しない)。
+  外部に要求するもの(ニュースフィード、ギャラリーの一覧、版の確認)は、要求して返った内容(空)を比べる「部分」。
+  巡回(`record-be-operations.ps1 -Discover`: 元を匿名・管理者・編集者で巡回し、リンク・ボタン・入力・検証コントロール・SPA のルート・API の要求を集める。
+  166 ページ、401 キー、`corpora/regression/be.discovered.iis.json`)で漏れを確かめた。棚卸しに無かったキーは、操作はあるのにキーの名前が無かったもの
+  (お問い合わせの送信と検証コントロール、利用者の登録、管理画面の入力欄と投稿エディターのルート、パッケージの一覧の問い合わせ)だけで、棚卸しのキーを足して 0 件。
+- **シナリオ**: `corpora/regression/be.operations.scenario.json`(手順 765、スナップショット 473)。`be-operations-scenario.py` が書く(同じ入力から同じ JSON)。
+  各手順の `op` が棚卸しの操作。まず管理者がインターネットに出るもの(ping サービス、SMTP、StopForumSpam・Akismet)を止め、その操作も比べる。状態を変える操作のあとは
+  App_Data のファイル(`files`: 元は IIS のサイトの、Linux は `docker exec` で読む)と API の応答で確かめる。どの実行もリリースの App_Data(`corpora/be-app-data.ps1`)から始める。
+- **ParityTest に足したもの**: `files`(フォルダーのファイルを比べる。`docker:` でコンテナの中も。順の無い XML は `~`)、`fetch` の内容(JSON・XML・テキスト)と
+  multipart のアップロード、名前つきの `script` と `api()`、`css=` の対象、`waitfor`、`{today}`(実行した日の日付。ja-JP の `MMM` は .NET Framework では月の数字)、
+  `assets` の文書(HTML・XML)、巡回の `ROUTE`(SPA の `#/`)と `API`(xhr・fetch)。
+- **正解**: `corpora/record-be-operations.ps1`(元をビルドし、使い捨ての IIS サイト `foc-beops` とアプリプールを 127.0.0.1:8100〜8199 に作る。プールに App_Data などの書き込みの
+  権限を与え(BlogEngine は web.config に触れて自分を再起動する)、終わったらサイト・プール・ACL を消す)。約 13 分(巡回を含む)。IIS どうしで比べて一致すること、2026-11-02 に採り直して前の正解とバイト単位で同じことも確かめた。
+  注意: 正解を採る IIS のサイトは変換の元のフォルダー(`corpora/work/BlogEngine.NET-3.3.8.0`)を指す。`-Keep` で残して触ると元の App_Data が変わり、
+  次の変換がそれを写す(be の 5 画面の比較が失敗する)。`-Remove` か `corpora/be-app-data.ps1 -Target ...\App_Data` で戻す。
+- **見つけて直したこと(ランタイム、w2l.27)**:
+  1. Windows の再起動の間の要求: BlogEngine は拡張の有効・無効で web.config に触れて再起動する。Windows では再起動の間の要求が拒否・503 になっていた。
+     Linux と同じく新しいワーカーに引き継ぐ(`ListenerHandoff.Windows.cs`、`WebFormsProcess`)。テスト: `ListenerHandoffTests` の `On_Windows_*`。
+  2. `.cshtml`(管理画面)が 404.7: ホストが拒否する拡張子にしていた。System.Web(Web Pages、無ければ IIS と同じ 403)に渡す。テスト: `AspNetCoreHostTests.Web_Pages_files_go_to_System_Web` ほか。
+  3. Web API の本文なしの応答: .NET 5 から `HttpResponseMessage.Content` は null でなく空の EmptyContent。Web API 2 は null で判断していたので、本文なしの応答に
+     Content-Type などが付いた。`ResponseContent.IsNone` で判断する(WebHost・Owin・Web.Http)。`Request.CreateResponse(status)` は Content を設定しない(Web API 5.2 と同じ)。テスト: `WebApiResponseTests`。
+  4. URL のパスに `*` など: 構成の監視が 500 にしていた。IIS と同じく 400(`FileUtil`・`WebConfigurationHost`)。テスト: `FuzzFindingsTests.A_configuration_stream_NET_Framework_refused_is_none`。
+  5. Linux の `new CultureInfo("Auto")`: ICU はカルチャを作り(英語のデータ)、BlogEngine の catch の代わりの処理(サーバーの言語)が動かず、管理画面が英語になった。
+     .NET Framework が拒否する名前は拒否する(変換器の規則で FrameworkOnCore.Compat の `FrameworkCultures.Create` などに書き換える)。拒否するかどうかは、このマシンの
+     .NET Framework 4.8 で測った Windows の名前の文法による(xx-YY・en-ZZ は .NET Framework も「Unknown Locale」で作るので作る)。同じ問題が FrameworkOnCore の
+     System.Web が作るカルチャ(Accept-Language の auto、`<globalization>`、Page.Culture)にもあったので直した(`ThrowIfRefused`。Accept-Language「abcd, ja」は ja)。
+     テスト: `CompatTests`、`RewriteTests`、`CultureNamesTests`。
+  6. Linux の `new Uri("/trackback.axd")`: Unix ではファイルの URI になり、トラックバックがそのファイルを読みに行った(Windows は UriFormatException)。変換器が `WindowsUri.Create(string)` に書き換える。テスト: `CompatTests`。
+  7. Linux の System.Drawing(SkiaSharp): 半透明の色の premultiply の丸めが GDI+ と違い、プロフィール画像の縮小の画素が 1 違った。GDI+ の式((c*a+127)/255、戻しは c*((255<<16)/a)>>16。全値で測った)にした。
+     テスト: DrawingParity の `Premultiplied_alpha`(ゴールデンを採り直した)。
+- **テスト環境の不備(直した)**: Linux のコンテナは接続元が Docker のゲートウェイ(`Request.IsLocal` が偽、コメントの IP)→ `run-linux.ps1 -LocalClient`(既定)。
+  コンテナは UTC → `-TimeZone`(既定でこのマシンの)。コンテナの中のビルドで、変換がビルドの後に bin に加えたもの(`frameworkoncore.platform.txt`、サテライト)が無くなっていた → 同じにする。
+  採った日と比べた日が違うと、投稿の日付(PostView の `MMM dd, yyyy`)が違った → `{today}` に BlogEngine の書式と NLS の ja-JP の形を足した。0 時〜9 時(日本)には UTC の日付(BlogEngine の投稿の lastModified、BlogML)が前の日になる → `{today}` は UTC の日付も含む。
+- **許される差**(`be.operations.allowed.json`): メッセージの文言(言語パックの日本語と FrameworkOnCore の訳・.NET の英語)、IIS の詳細エラーページ(簡易ページ。以前の決定)、
+  BlogEngine のログ(実行で起きた例外の文言)、TLS(元は targetFramework 4.5 で TLS 1.0 のため blogengine.io のニュースが取れない)。Linux だけ: タイムゾーンの一覧(IANA)、
+  ICU のカルチャのネイティブ名、投稿の内容の改行(Environment.NewLine)、物理パス、プロフィール画像の PNG のバイト(画素は同じ)。
+- **調べたが差でなかったもの**: コールバックの __EVENTVALIDATION(以前 "0|" と見えたもの)は IIS と同じ。
+- **結果**: Windows 476 スナップショットすべて同じか許される差(操作: 同じ 180、許される差 17、実行できない 4)。Linux も同じく OK(同じ 170、許される差 27、実行できない 4)。各 13 分前後。
+
+        .\corpora\record-be-operations.ps1 [-Discover]                     # 正解(IIS、約 10 分)
+        .\experiments\wf4c\verify-windows.ps1 -Name be -Suite operations   # Windows
+        .\experiments\wf4c\run-linux.ps1 -App be\BlogEngine\BlogEngine.NET -Suite operations   # Linux
+
 ### 変換器の見直し: 細かい基準、日本語のソース、重複の整理(2026-10-31、ユーザーの指示)
 
 バグ修正を重ねて変換器が必要以上に複雑になっていないかを調べた。コーパスごとの特例のコードは無く(名前はコメントだけ)、複雑さの多くは問題そのものから来るものだったが、同じ判断の重複が食い違いを生んでいた所と、テストの無い経路があった。

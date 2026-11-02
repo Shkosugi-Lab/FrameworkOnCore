@@ -15,6 +15,10 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
     /// <summary>The page the steps act on (newcontext replaces it: a new browser context).</summary>
     public IPage Page => page;
 
+    /// <summary>Where the files step reads the application's files (--files): a folder, or "docker:container:/folder"
+    /// (read with docker exec ... tar: the container's files as the application left them).</summary>
+    public string? FilesSource { get; init; }
+
     /// <summary>The steps that failed (ContinueOnError).</summary>
     public List<StepFailure> Failures { get; } = [];
 
@@ -62,7 +66,7 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
         _maskIds = (scenario.MaskIds ?? []).Select(pattern => new Regex(pattern)).ToList();
         _compareSource = scenario.CompareSource;
         _sourceMasks = (scenario.SourceMasks ?? []).Select(pattern => new Regex(pattern)).ToList();
-        _textMasks = (scenario.TextMasks ?? []).Select(pattern => new Regex(pattern)).ToList();
+        _textMasks = (scenario.TextMasks ?? []).Select(pattern => new Regex(pattern.Replace("{today}", Today()))).ToList();
         if (scenario.WaitMs is { } wait) _waitNavigation = _waitClick = wait;
         if (scenario.QuietMs is { } quiet) _quietMs = quiet;
         _stubExternal = scenario.StubExternal;
@@ -110,6 +114,33 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
         }
 
         return snapshots;
+    }
+
+    // The script steps' helper: a request with the page's cookies, a JSON body; its status and body (JSON parsed).
+    private const string ScriptPrelude = "const api = async (method, url, body, type) => { const init = { method, headers: {} }; " +
+        "if (body !== undefined) { init.headers['Content-Type'] = type || 'application/json'; init.body = type ? body : JSON.stringify(body); } " +
+        "const r = await fetch(url, init); const t = await r.text(); let b = t; try { b = t.length ? JSON.parse(t) : ''; } catch (e) { } return { status: r.status, body: b }; };";
+
+    /// <summary>"{today}" in a text mask: today's date (the run's: the golden was recorded on another day) in the forms the
+    /// applications write it - ISO, the invariant, en-US, ja-JP and de-DE short, long and month forms, RFC 1123, the path of
+    /// a month (yyyy/MM), BlogEngine.NET's (MMM dd, yyyy; dd MMMM yyyy; MMMM d. yyyy; yyyy.MM.dd) -, as one alternation, the longest
+    /// first. ja-JP's MMM is the month's number on .NET Framework (NLS: "11 01, 2026") but "11月" with ICU (this process):
+    /// "M d, yyyy" and "M dd, yyyy" are the NLS forms. The UTC date too where it is another day (from 00:00 to 09:00 in Japan):
+    /// applications write UTC dates (BlogEngine.NET's posts' lastModified, BlogML's date-modified).</summary>
+    internal static string Today()
+    {
+        var now = DateTime.Now;
+        var formats = new[]
+        {
+            "yyyy-MM-dd", "yyyy/MM/dd", "yyyy/M/d", "M/d/yyyy", "MM/dd/yyyy", "d MMM yyyy", "dd MMM yyyy", "MMMM d, yyyy", "MMM d, yyyy",
+            "MMMM dd, yyyy", "MMM dd, yyyy", "M d, yyyy", "M dd, yyyy", "dd MMMM yyyy", "MMMM d. yyyy", "yyyy.MM.dd", "dddd, MMMM d, yyyy", "dddd, d MMMM yyyy", "d MMMM yyyy", "dd.MM.yyyy", "d. MMMM yyyy", "yyyyMMdd", "ddd, dd MMM yyyy",
+            "yyyy年M月d日", "D", "d", "MMMM yyyy", "MMM yyyy", "yyyy/MM", "yyyy/M", "yyyy-MM", "yyyy年M月",
+        };
+        var cultures = new[] { "", "en-US", "ja-JP", "de-DE" }.Select(System.Globalization.CultureInfo.GetCultureInfo);
+        var days = new[] { now, DateTime.UtcNow }.Select(day => day.Date).Distinct().ToList();
+        var forms = cultures.SelectMany(culture => days.SelectMany(day => formats.Select(format => day.ToString(format, culture))))
+            .Distinct().OrderByDescending(form => form.Length).ThenBy(form => form, StringComparer.Ordinal);
+        return "(?:" + string.Join("|", forms.Select(Regex.Escape)) + ")";
     }
 
     private List<string>? TakePendingOps()
@@ -309,20 +340,7 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                 case "upload":
                     // A file chosen in a file input: "name.txt:its content" (text, as UTF-8).
                     {
-                        var spec = step.Value ?? "probe.txt:";
-                        var colon = spec.IndexOf(':');
-                        var fileName = colon < 0 ? spec : spec[..colon];
-                        var content = colon < 0 ? "" : spec[(colon + 1)..];
-                        // "name.png:base64:..." for a binary file; the type by the extension, as a browser sends it.
-                        var buffer = content.StartsWith("base64:", StringComparison.Ordinal)
-                            ? Convert.FromBase64String(content["base64:".Length..])
-                            : System.Text.Encoding.UTF8.GetBytes(content);
-                        var mime = Path.GetExtension(fileName).ToLowerInvariant() switch
-                        {
-                            ".png" => "image/png", ".gif" => "image/gif", ".jpg" or ".jpeg" => "image/jpeg",
-                            ".htm" or ".html" => "text/html", ".exe" => "application/x-msdownload",
-                            _ => "text/plain",
-                        };
+                        var (fileName, buffer, mime) = FilePart(step.Value ?? "probe.txt:");
                         await (await ResolveAsync(step.Target!)).SetInputFilesAsync(new FilePayload
                         {
                             Name = fileName,
@@ -334,6 +352,13 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
 
                 case "waitms":
                     await page.WaitForTimeoutAsync(step.Ms ?? 500);
+                    break;
+
+                case "waitfor":
+                    // A script's condition (an expression) the page reaches by itself: an asynchronous answer shown (a client
+                    // callback's), waited for up to ms (30 s by default); then the document settled.
+                    await Doc.WaitForFunctionAsync("() => { return (" + (step.Value ?? "true") + "); }", null, new() { Timeout = step.Ms ?? 30_000, PollingInterval = 100 });
+                    await WaitUntilSettledAsync(Doc, _quietMs);
                     break;
 
                 // The browser's languages from now on (Accept-Language of every request): Culture="auto" pages.
@@ -380,7 +405,28 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
 
                 case "script":
                     // A script on the page (a function body); the navigation it starts (a form submitted) is waited for.
-                    await Doc.EvaluateAsync("() => { " + (step.Value ?? "") + " }");
+                    // With a name, what it returns (awaited) is a snapshot: an object or array a line a value (as fetch's
+                    // content "json"), a string its lines. api(method, url, body) is there for it: fetch with the page's
+                    // cookies, a body sent as JSON, giving { status, body } (the body parsed as JSON when it is).
+                    if (step.Name != null)
+                    {
+                        var result = await Doc.EvaluateAsync<string?>("async () => { " + ScriptPrelude + " const r = await (async () => { " + (step.Value ?? "") +
+                            " })(); return r === undefined || r === null ? null : (typeof r === 'string' ? '\\u0000' + r : JSON.stringify(r)); }");
+                        var lines = result == null ? ["(nothing)"]
+                            : result.StartsWith('\0') ? ContentLines(System.Text.Encoding.UTF8.GetBytes(result[1..]), "text")
+                            : ContentLines(System.Text.Encoding.UTF8.GetBytes(result), "json");
+                        try { await page.WaitForLoadStateAsync(LoadState.NetworkIdle); } catch (PlaywrightException) { }
+                        snapshots.Add(new Snapshot(step.Name, NormalizePath(new Uri(Doc.Url).AbsolutePath), "", [.. lines.Select(Mask)], [], [], [], Ops: TakePendingOps(), Kind: "script"));
+                        break;
+                    }
+                    try
+                    {
+                        await Doc.EvaluateAsync("async () => { " + ScriptPrelude + " " + (step.Value ?? "") + " }");
+                    }
+                    catch (PlaywrightException ex) when (ex.Message.Contains("Execution context was destroyed", StringComparison.Ordinal))
+                    {
+                        // The script navigated (a form submitted, a click on a submit button): the new page is waited for.
+                    }
                     try { await page.WaitForLoadStateAsync(LoadState.NetworkIdle); } catch (PlaywrightException) { }
                     await page.WaitForTimeoutAsync(_waitClick);
                     await WaitUntilSettledAsync(Doc, _quietMs);
@@ -497,6 +543,10 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                         break;
                     }
 
+                case "files":
+                    snapshots.Add(new Snapshot(step.Name ?? $"snapshot-{snapshots.Count + 1}", "", "", await FilesAsync(step.Value ?? "**"), [], [], [], Ops: TakePendingOps(), Kind: "files"));
+                    break;
+
                 case "totp":
                     {
                         var rows = await SqlAsync(step.Value ?? "");
@@ -518,9 +568,19 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
     /// absorbs the difference. Controls inside templates (WebForms appends the row
     /// number: "..._lnkDelete_0") are resolved by partial match; on multiple hits the
     /// first one is used. Last, by name: the mobile controls (System.Web.Mobile) write their inputs with a name only.
+    /// "css=selector": a CSS selector, its first visible element.
     /// </summary>
     private async Task<ILocator> ResolveAsync(string target)
     {
+        // "css=..." a CSS selector (a single-page application's controls have no ids: [ng-click='save()']); the first visible one.
+        if (target.StartsWith("css=", StringComparison.Ordinal))
+        {
+            var css = Doc.Locator(target[4..]);
+            var visible = css.Locator("visible=true");
+            if (await visible.CountAsync() > 0) return visible.First;
+            if (await css.CountAsync() > 0) return css.First;
+            throw new InvalidOperationException($"コントロール '{target}' が見つかりません (URL: {Doc.Url})");
+        }
         foreach (var selector in new[] { $"[id='{target}']", $"[id$='_{target}']", $"[id*='_{target}_']", $"[id*='{target}']", $"[name='{target}']" })
         {
             var locator = Doc.Locator(selector);
@@ -551,14 +611,27 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
     /// </summary>
     private static async Task WaitUntilSettledAsync(IFrame page, int quiet = 3000)
     {
-        await page.EvaluateAsync(@"quietMs => new Promise(resolve => {
-            const maxMs = 20000;
-            let timer = setTimeout(done, quietMs);
-            const cap = setTimeout(done, maxMs);
-            const observer = new MutationObserver(() => { clearTimeout(timer); timer = setTimeout(done, quietMs); });
-            observer.observe(document, { subtree: true, childList: true, characterData: true, attributes: true });
-            function done() { observer.disconnect(); clearTimeout(timer); clearTimeout(cap); resolve(); }
-        })", quiet);
+        // A navigation that starts meanwhile (a script's click on a submit button) destroys the document the wait runs in:
+        // the new one is waited for instead.
+        for (var attempt = 0; ; attempt++)
+        {
+            try
+            {
+                await page.EvaluateAsync(@"quietMs => new Promise(resolve => {
+                    const maxMs = 20000;
+                    let timer = setTimeout(done, quietMs);
+                    const cap = setTimeout(done, maxMs);
+                    const observer = new MutationObserver(() => { clearTimeout(timer); timer = setTimeout(done, quietMs); });
+                    observer.observe(document, { subtree: true, childList: true, characterData: true, attributes: true });
+                    function done() { observer.disconnect(); clearTimeout(timer); clearTimeout(cap); resolve(); }
+                })", quiet);
+                return;
+            }
+            catch (PlaywrightException ex) when (attempt < 3 && ex.Message.Contains("Execution context was destroyed", StringComparison.Ordinal))
+            {
+                try { await page.WaitForLoadStateAsync(LoadState.Load, new() { Timeout = 60_000 }); } catch (Exception wait) when (wait is PlaywrightException or TimeoutException) { }
+            }
+        }
     }
 
     private List<string> _unorderedRows = [];
@@ -676,7 +749,25 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
             Timeout = 120_000,
             Headers = headers,
         };
-        if (step.Body != null) options.Data = step.Body;
+        if (step.Upload != null)
+        {
+            // multipart/form-data: the files of upload, the fields of body.
+            headers.Remove("Content-Type");
+            var form = page.Context.APIRequest.CreateFormData();
+            foreach (var pair in (step.Body ?? "").Split('&', StringSplitOptions.RemoveEmptyEntries))
+            {
+                var equals = pair.IndexOf('=');
+                form.Append(Uri.UnescapeDataString(equals < 0 ? pair : pair[..equals]), equals < 0 ? "" : Uri.UnescapeDataString(pair[(equals + 1)..]));
+            }
+            foreach (var part in step.Upload.Split('|', StringSplitOptions.RemoveEmptyEntries))
+            {
+                var equals = part.IndexOf('=');
+                var (fileName, buffer, mime) = FilePart(part[(equals + 1)..]);
+                form.Append(part[..equals], new FilePayload { Name = fileName, MimeType = mime, Buffer = buffer });
+            }
+            options.Multipart = form;
+        }
+        else if (step.Body != null) options.Data = step.Body;
         var lines = new List<string>();
         var response = await page.Context.APIRequest.FetchAsync(_root + path, options);
         if (step.Follow) response = await FollowAsync(path, response, lines);
@@ -753,9 +844,25 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
         {
             lines.Add($"{header.ToLowerInvariant()}: " + (response.Headers.TryGetValue(header.ToLowerInvariant(), out var value) ? value : "(none)"));
         }
-        if (step.BodyMatch != null || step.Hash)
+        if (step.BodyMatch != null || step.Hash || step.Content != null)
         {
             var body = await response.BodyAsync();
+            if (step.Content != null)
+            {
+                // ASP.NET's error page (the "yellow screen"): what the error is - the exception's type, or the HTTP status of
+                // an HttpException without one -, not its message (the language pack's or .NET's words) nor its stack.
+                var text = System.Text.Encoding.UTF8.GetString(body);
+                var error = Regex.Match(text, @"<b>\s*(?:Exception Details|例外の詳細)\s*:\s*</b>\s*([\w.`]+)|<b>\s*(?:Description|説明)\s*:\s*</b>\s*(HTTP \d+)");
+                // IIS's own error page (its detailed page; the port's is a simple one: the user's decision): its title's status.
+                var iis = Regex.Match(text, @"<title>IIS [\d.]+ (?:Detailed Error|エラーの詳細) - ([\d.]+) - ([^<]*)</title>");
+                var html = type != null && type.StartsWith("text/html", StringComparison.OrdinalIgnoreCase);
+                if (error.Success && html)
+                    lines.Add("(ASP.NET error page) " + (error.Groups[1].Success ? error.Groups[1].Value : error.Groups[2].Value));
+                else if (iis.Success && html)
+                    lines.Add("(IIS error page) " + iis.Groups[1].Value + " " + iis.Groups[2].Value.Trim());
+                else
+                    lines.AddRange(ContentLines(body, step.Content));
+            }
             if (step.BodyMatch != null)
             {
                 var text = System.Text.Encoding.UTF8.GetString(body);
@@ -791,10 +898,206 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
             var response = await page.Context.APIRequest.GetAsync(_root + local, new() { MaxRedirects = 0, FailOnStatusCode = false, Timeout = 120_000 });
             var body = await response.BodyAsync();
             response.Headers.TryGetValue("content-type", out var type);
+            // A document the page links to (<link rel="start" href="/">, a feed, RSD, APML): its status and type only - it is
+            // made for the request (a captcha's id, the time) and the scenario's own steps compare its content.
+            if (type != null && (type.StartsWith("text/html", StringComparison.OrdinalIgnoreCase) || type.Contains("xml", StringComparison.OrdinalIgnoreCase)))
+            {
+                lines.Add($"{MaskResourceKeys(local)}: {response.Status} {type} (a document)");
+                continue;
+            }
             lines.Add($"{MaskResourceKeys(local)}: {response.Status} {type} {body.Length} bytes sha256 {Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(body))[..16]}");
         }
         lines.Sort(StringComparer.Ordinal);
         return new Snapshot(name, NormalizePath(new Uri(page.Url).AbsolutePath), "", [.. lines.Select(Mask)], [], [], [], Kind: "assets");
+    }
+
+    /// <summary>A file of upload / fetch's upload: "name.txt:content" (UTF-8), "name.png:base64:..."; the type by the
+    /// extension, as a browser sends it.</summary>
+    private static (string Name, byte[] Buffer, string Mime) FilePart(string spec)
+    {
+        var colon = spec.IndexOf(':');
+        var fileName = colon < 0 ? spec : spec[..colon];
+        var content = colon < 0 ? "" : spec[(colon + 1)..];
+        var buffer = content.StartsWith("base64:", StringComparison.Ordinal)
+            ? Convert.FromBase64String(content["base64:".Length..])
+            : System.Text.Encoding.UTF8.GetBytes(content);
+        var mime = Path.GetExtension(fileName).ToLowerInvariant() switch
+        {
+            ".png" => "image/png", ".gif" => "image/gif", ".jpg" or ".jpeg" => "image/jpeg",
+            ".htm" or ".html" => "text/html", ".exe" => "application/x-msdownload", ".xml" => "text/xml",
+            ".zip" => "application/x-zip-compressed",
+            _ => "text/plain",
+        };
+        return (fileName, buffer, mime);
+    }
+
+    /// <summary>A body (or a file) as lines: "json" a line a value ("path: value", in the order written), "xml" a line an
+    /// element (its attributes in the order written, its own text) after a line of the declaration's encoding and the byte
+    /// order mark, "text" its lines; what does not parse, "(not json)" / "(not xml)" and its first 300 characters.</summary>
+    internal static List<string> ContentLines(byte[] body, string kind)
+    {
+        var lines = new List<string>();
+        var bom = body.Length >= 3 && body[0] == 0xEF && body[1] == 0xBB && body[2] == 0xBF;
+        var text = System.Text.Encoding.UTF8.GetString(bom ? body[3..] : body);
+        static string Head(string value) => Regex.Replace(value.Length > 300 ? value[..300] : value, @"\s+", " ");
+        switch (kind)
+        {
+            case "json":
+                try
+                {
+                    using var document = System.Text.Json.JsonDocument.Parse(text);
+                    JsonLines(document.RootElement, "$", lines);
+                }
+                catch (System.Text.Json.JsonException)
+                {
+                    lines.Add("(not json) " + Head(text));
+                }
+                break;
+            case "xml":
+                try
+                {
+                    var document = System.Xml.Linq.XDocument.Parse(text, System.Xml.Linq.LoadOptions.None);
+                    var declaration = document.Declaration;
+                    lines.Add($"xml: {(bom ? "bom, " : "")}encoding {declaration?.Encoding ?? "(none)"}{(declaration?.Standalone is { Length: > 0 } standalone ? ", standalone " + standalone : "")}");
+                    if (document.Root != null) XmlLines(document.Root, 0, lines);
+                }
+                catch (System.Xml.XmlException)
+                {
+                    lines.Add("(not xml) " + Head(text));
+                }
+                break;
+            default:
+                if (bom) lines.Add("(bom)");
+                lines.AddRange(text.Replace("\r\n", "\n").Split('\n').Select(line => line.TrimEnd()).Where(line => line.Trim().Length > 0));
+                break;
+        }
+        return lines;
+    }
+
+    private static void JsonLines(System.Text.Json.JsonElement element, string path, List<string> lines)
+    {
+        switch (element.ValueKind)
+        {
+            case System.Text.Json.JsonValueKind.Object:
+                var any = false;
+                foreach (var property in element.EnumerateObject()) { any = true; JsonLines(property.Value, path + "." + property.Name, lines); }
+                if (!any) lines.Add(path + ": {}");
+                break;
+            case System.Text.Json.JsonValueKind.Array:
+                var index = 0;
+                foreach (var item in element.EnumerateArray()) JsonLines(item, $"{path}[{index++}]", lines);
+                if (index == 0) lines.Add(path + ": []");
+                break;
+            default:
+                lines.Add(path + ": " + element.GetRawText());
+                break;
+        }
+    }
+
+    private static void XmlLines(System.Xml.Linq.XElement element, int depth, List<string> lines)
+    {
+        var attributes = string.Concat(element.Attributes().Where(a => !a.IsNamespaceDeclaration).Select(a => $" {a.Name.LocalName}=\"{a.Value}\""));
+        var own = string.Concat(element.Nodes().OfType<System.Xml.Linq.XText>().Select(t => t.Value)).Trim();
+        lines.Add(new string(' ', depth * 2) + "<" + element.Name.LocalName + attributes + ">" + (own.Length > 0 ? " " + Regex.Replace(own, @"\s+", " ") : ""));
+        foreach (var child in element.Elements()) XmlLines(child, depth + 1, lines);
+    }
+
+    /// <summary>The application's files under FilesSource that match the patterns: a line "file: path" each, then its
+    /// content (ContentLines by its extension: .xml/.config/.resx/.sitemap as xml, .json as json, .txt/.css/.js/.htm/.cshtml
+    /// as text; else its size and hash), masked; the files ordered by their masked lines (a Guid's file name, masked, has no
+    /// order of its own).</summary>
+    private async Task<List<string>> FilesAsync(string patterns)
+    {
+        if (string.IsNullOrEmpty(FilesSource)) throw new InvalidOperationException("files: no --files folder");
+        var files = await ReadFilesAsync(FilesSource);
+        // "!pattern": left out (a file one side has that is not the application's: the conversion's own in App_Data).
+        static Regex Glob(string p) => new("^" + Regex.Escape(p.Replace('\\', '/')).Replace(@"\*\*/", "(.*/)?").Replace(@"\*\*", ".*").Replace(@"\*", "[^/]*").Replace(@"\?", "[^/]") + "$", RegexOptions.IgnoreCase);
+        // "~pattern": an XML file whose elements' order is not the application's to define (written from a Hashtable: .NET's
+        // order of its keys differs by process, .NET Framework's did not), compared with each element's children in order.
+        var all = patterns.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        var regexes = all.Where(p => !p.StartsWith('!')).Select(p => Glob(p.TrimStart('~'))).ToList();
+        var excluded = all.Where(p => p.StartsWith('!')).Select(p => Glob(p[1..])).ToList();
+        var unordered = all.Where(p => p.StartsWith('~')).Select(p => Glob(p[1..])).ToList();
+        var blocks = new List<List<string>>();
+        foreach (var (path, bytes) in files.Where(f => regexes.Any(r => r.IsMatch(f.Key)) && !excluded.Any(r => r.IsMatch(f.Key))))
+        {
+            var kind = Path.GetExtension(path).ToLowerInvariant() switch
+            {
+                ".xml" or ".config" or ".resx" or ".sitemap" => "xml",
+                ".json" => "json",
+                ".txt" or ".css" or ".js" or ".htm" or ".html" or ".cshtml" or ".csv" => "text",
+                _ => null,
+            };
+            var block = new List<string> { Mask("file: " + path) };
+            if (kind == null) block.Add($"body: {bytes.Length} bytes, sha256 {Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(bytes))[..16]}");
+            else if (kind == "xml" && unordered.Any(r => r.IsMatch(path))) block.AddRange(SortedByIndent([.. ContentLines(bytes, kind).Select(Mask)]));
+            else block.AddRange(ContentLines(bytes, kind).Select(Mask));
+            blocks.Add(block);
+        }
+        if (blocks.Count == 0) return ["(no files)"];
+        return [.. blocks.OrderBy(b => string.Join("\n", b), StringComparer.Ordinal).SelectMany(b => b)];
+    }
+
+    /// <summary>XML's lines (an element a line, indented by its depth: XmlLines) with each element's children in the order of
+    /// their (masked) lines: the elements of a file written from a Hashtable, in no order of the application's.</summary>
+    internal static List<string> SortedByIndent(List<string> lines)
+    {
+        static int Depth(string line) => line.Length - line.TrimStart(' ').Length;
+        List<List<string>> Children(int from, int to, int depth)
+        {
+            var blocks = new List<List<string>>();
+            for (var i = from; i < to;)
+            {
+                var end = i + 1;
+                while (end < to && Depth(lines[end]) > depth) end++;
+                var block = new List<string> { lines[i] };
+                block.AddRange(Children(i + 1, end, depth + 2).OrderBy(b => string.Join("\n", b), StringComparer.Ordinal).SelectMany(b => b));
+                blocks.Add(block);
+                i = end;
+            }
+            return blocks;
+        }
+        // The first line is the declaration's ("xml: ..."), the root's next.
+        var head = lines.Count > 0 && lines[0].StartsWith("xml:", StringComparison.Ordinal) ? 1 : 0;
+        return [.. lines.Take(head), .. Children(head, lines.Count, 0).SelectMany(b => b)];
+    }
+
+    /// <summary>Every file under a folder (its path relative to it, with '/'), or a container's ("docker:name:/folder").</summary>
+    private static async Task<SortedDictionary<string, byte[]>> ReadFilesAsync(string source)
+    {
+        var files = new SortedDictionary<string, byte[]>(StringComparer.Ordinal);
+        if (source.StartsWith("docker:", StringComparison.Ordinal))
+        {
+            var parts = source.Split(':', 3);
+            var start = new System.Diagnostics.ProcessStartInfo("docker") { RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false };
+            foreach (var argument in new[] { "exec", parts[1], "tar", "-C", parts[2], "-cf", "-", "." }) start.ArgumentList.Add(argument);
+            using var process = System.Diagnostics.Process.Start(start)!;
+            using var buffer = new MemoryStream();
+            var copy = process.StandardOutput.BaseStream.CopyToAsync(buffer);
+            var error = process.StandardError.ReadToEndAsync();
+            await copy;
+            await process.WaitForExitAsync();
+            if (process.ExitCode != 0) throw new InvalidOperationException($"files: docker exec tar failed ({process.ExitCode}): {await error}");
+            buffer.Position = 0;
+            using var reader = new System.Formats.Tar.TarReader(buffer);
+            while (reader.GetNextEntry() is { } entry)
+            {
+                if (entry.EntryType is not (System.Formats.Tar.TarEntryType.RegularFile or System.Formats.Tar.TarEntryType.V7RegularFile)) continue;
+                using var content = new MemoryStream();
+                entry.DataStream?.CopyTo(content);
+                files[entry.Name.StartsWith("./", StringComparison.Ordinal) ? entry.Name[2..] : entry.Name] = content.ToArray();
+            }
+            return files;
+        }
+        foreach (var file in Directory.EnumerateFiles(source, "*", SearchOption.AllDirectories))
+        {
+            // Read while the application may be writing it: shared.
+            await using var stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+            using var content = new MemoryStream();
+            await stream.CopyToAsync(content);
+            files[Path.GetRelativePath(source, file).Replace('\\', '/')] = content.ToArray();
+        }
+        return files;
     }
 
     private static string MaskResourceKeys(string url) => Regex.Replace(ResourceKeys.Replace(url, "$1{masked}$2{masked}"), @"([?&]v=)[^&]*", "$1{masked}");

@@ -33,6 +33,17 @@ namespace FrameworkOnCore
         public static bool IsWellFormedUriString(string uriString, UriKind uriKind) =>
             IsRootPath(uriString) ? uriKind != UriKind.Absolute && Uri.IsWellFormedUriString(uriString, UriKind.Relative) : Uri.IsWellFormedUriString(uriString, uriKind);
 
+        /// <summary>
+        /// new Uri(uriString): an absolute URI, so a path from the root throws UriFormatException as on Windows (BlogEngine.NET's
+        /// trackback with no url parameter: Request.Params["url"] is the server variable URL, "/trackback.axd"; on Linux
+        /// file:///trackback.axd, fetched, instead of IIS's error).
+        /// </summary>
+        public static Uri Create(string uriString)
+        {
+            if (IsRootPath(uriString)) throw new UriFormatException("Invalid URI: The format of the URI could not be determined.");
+            return new Uri(uriString);
+        }
+
         /// <summary>new Uri(uriString, uriKind).</summary>
         public static Uri Create(string uriString, UriKind uriKind)
         {

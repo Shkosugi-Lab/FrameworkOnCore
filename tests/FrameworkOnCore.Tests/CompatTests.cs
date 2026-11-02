@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace FrameworkOnCore.Tests;
 
 /// <summary>
@@ -51,6 +53,51 @@ public class CompatTests
         Assert.True(WindowsUri.TryCreate("//cdn.example.com/x.js", UriKind.RelativeOrAbsolute, out _));
         Assert.Throws<UriFormatException>(() => WindowsUri.Create("/Login", UriKind.Absolute));
     }
+
+    [Fact] // BlogEngine.NET's trackback without a url: new Uri("/trackback.axd") threw on Windows, was a file URI on Linux
+    public void An_absolute_uri_of_a_path_from_the_root_throws_on_every_platform()
+    {
+        Assert.Throws<UriFormatException>(() => WindowsUri.Create("/trackback.axd"));
+        Assert.Throws<UriFormatException>(() => WindowsUri.Create(""));
+        Assert.Equal("http://example.com/x", WindowsUri.Create("http://example.com/x").AbsoluteUri);
+        Assert.Equal("http://cdn.example.com/x.js", WindowsUri.Create("http://cdn.example.com/x.js").ToString());
+    }
+
+    [Fact] // BlogEngine.NET's admin pages: new CultureInfo("Auto") threw on .NET Framework and Windows; ICU made a culture of it
+    public void A_culture_name_net_framework_does_not_know_throws_on_every_platform()
+    {
+        Assert.Throws<CultureNotFoundException>(() => FrameworkCultures.Create("Auto"));
+        Assert.Throws<CultureNotFoundException>(() => FrameworkCultures.Create("auto", false));
+        Assert.Throws<CultureNotFoundException>(() => FrameworkCultures.GetCultureInfo("en-ZZZ"));
+        Assert.Throws<CultureNotFoundException>(() => FrameworkCultures.CreateSpecificCulture("Auto"));
+        Assert.Equal("ja-JP", FrameworkCultures.Create("ja-JP").Name);
+        Assert.Equal("de-DE", FrameworkCultures.CreateSpecificCulture("de").Name);
+        Assert.Equal("", FrameworkCultures.Create("").Name);
+        // Names .NET Framework knows that ICU has not (Windows' NLS): taken, as before.
+        Assert.Equal("zh-CHS", FrameworkCultures.Create("zh-CHS").Name, ignoreCase: true);
+        Assert.Equal("en-029", FrameworkCultures.GetCultureInfo("en-029").Name, ignoreCase: true);
+        Assert.Throws<ArgumentNullException>(() => FrameworkCultures.Create(null!));
+    }
+
+    // .NET Framework 4.8 on Windows 11 (Windows PowerShell 5.1, New-Object System.Globalization.CultureInfo(name), 2026-11-02):
+    // the names it refused and the ones it made a culture of ("Unknown Locale" for those Windows has no data for).
+    [Theory]
+    [InlineData("Auto")] [InlineData("abcd")] [InlineData("abcde")] [InlineData("root")] [InlineData("a")] [InlineData("e1")]
+    [InlineData("Auto-XX")] [InlineData("auto:ja")] [InlineData("en-Z")] [InlineData("en-ZZZ")] [InlineData("en-ZZZZZ")]
+    [InlineData("en-1")] [InlineData("en-12")] [InlineData("en-1234")] [InlineData("en-1a")] [InlineData("en-US-123456789")]
+    [InlineData("en-Latn-ZZZ")] [InlineData("en-Latn-12")] [InlineData("en-Latn-Latn")] [InlineData("x")] [InlineData("i")]
+    [InlineData("en-x")] [InlineData("zh-yue")] [InlineData("en-")] [InlineData("-en")] [InlineData("en--US")]
+    [InlineData("en_US_POSIX")] [InlineData("en.US")] [InlineData("en@x")]
+    public void A_name_net_framework_refuses_throws(string name) =>
+        Assert.Throws<CultureNotFoundException>(() => FrameworkCultures.Create(name));
+
+    [Theory]
+    [InlineData("xx-YY")] [InlineData("en-ZZ")] [InlineData("zz")] [InlineData("xyz")] [InlineData("en-XA")] [InlineData("en-Latn-US")]
+    [InlineData("en-419")] [InlineData("en-123")] [InlineData("en-ZZZZ")] [InlineData("en-US-posix")] [InlineData("en-US-abcde")]
+    [InlineData("qaa-Qaaa-QM")] [InlineData("EN-us")] [InlineData("ja-JP-u-ca-japanese")] [InlineData("en-x-a")] [InlineData("x-a")]
+    [InlineData("en-US-a")] [InlineData("ja-JP-mac")] [InlineData("en-ZZ-ZZ")] [InlineData("sgn-BE-FR")] [InlineData("de-DE_phoneb")]
+    public void A_name_net_framework_makes_a_culture_of_is_taken(string name) =>
+        Assert.True(FrameworkCultures.WindowsLocaleName(name), name);
 
     [Fact]
     public void The_windows_principal_policy_and_identity_elsewhere()

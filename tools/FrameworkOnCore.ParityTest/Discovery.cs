@@ -12,7 +12,7 @@ public sealed record DiscoveredPage(string Persona, string Url, int Status, stri
 /// <summary>
 /// Dynamic discovery of what a user can do, to catch what reading the source misses: from "/", as each persona
 /// (anonymous; logged in with a login form - inputs whose ids end in Email (or UserName) and Password, a submit button
-/// "Log in"; a new user registered with a form of Email, Password, ConfirmPassword and a button "Register"), the
+/// "Log in" or one whose id ends in LoginButton; a new user registered with a form of Email, Password, ConfirmPassword and a button "Register"), the
 /// application's pages are opened in the browser (breadth first, same origin, links only: no button is pressed, no form
 /// sent) and of each one is noted, as a key:
 ///   GET /path?param          a link (the path in lower case, the query's parameter names)
@@ -21,6 +21,8 @@ public sealed record DiscoveredPage(string Persona, string Url, int Status, stri
 ///   SUBMIT /page name        a submit button, an image button (a &lt;button&gt;'s name=value)
 ///   INPUT /page name type    an input, select or textarea (not hidden)
 ///   VALIDATOR /page id fn    a validator (its evaluation function: the kind of check)
+///   ROUTE /page #/route      a link to a route of a single-page application (a fragment "#/..." or "#!/..."): opened too
+///   API METHOD /path?param   a request the page's scripts made (XMLHttpRequest, fetch) to the application
 /// Uncovered lists the keys no operation of an inventory names (its Keys, '*' matching anything).
 /// </summary>
 public sealed partial class Discovery(IBrowser browser, string baseUrl, int maxPages = 250, string loginUrl = "/Account/Login")
@@ -39,6 +41,14 @@ public sealed partial class Discovery(IBrowser browser, string baseUrl, int maxP
             // Another origin is not asked (an OAuth provider, a payment button's image).
             await context.RouteAsync(url => url.StartsWith("http", StringComparison.OrdinalIgnoreCase) && !url.StartsWith(_root + "/", StringComparison.OrdinalIgnoreCase) && url != _root,
                 route => route.AbortAsync());
+            // What the pages' scripts ask the application (a single-page application's Web API): noted for the page.
+            var requests = new List<string>();
+            context.Request += (_, request) =>
+            {
+                if (request.ResourceType is not ("xhr" or "fetch") || !request.Url.StartsWith(_root + "/", StringComparison.OrdinalIgnoreCase)) return;
+                var target = new Uri(request.Url);
+                lock (requests) requests.Add($"API {request.Method} {Canonical(target.AbsolutePath, target.Query)}");
+            };
             await SignInAsync(page, persona);
             var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             var queue = new Queue<string>();
@@ -61,6 +71,10 @@ public sealed partial class Discovery(IBrowser browser, string baseUrl, int maxP
                     page.Dialog += (_, dialog) => dialog.AcceptAsync();
                     continue;
                 }
+                // A single-page application's screen: its requests made after the load.
+                try { await page.WaitForLoadStateAsync(LoadState.NetworkIdle, new() { Timeout = 15_000 }); } catch (Exception ex) when (ex is PlaywrightException or TimeoutException) { }
+                // A route of a single-page application: its template and data are asked after the document's load.
+                if (url.Contains('#')) await page.WaitForTimeoutAsync(1500);
                 var current = new Uri(page.Url);
                 var where = Canonical(current.AbsolutePath, "");
                 var found = await page.EvaluateAsync<string[][]>(CollectScript);
@@ -87,6 +101,15 @@ public sealed partial class Discovery(IBrowser browser, string baseUrl, int maxP
                                     keys.Add("EXTERNAL " + target.GetLeftPart(UriPartial.Path));
                                     continue;
                                 }
+                                if (Regex.IsMatch(target.Fragment, "^#!?/"))
+                                {
+                                    // A route of a single-page application (/admin/#/content/posts): opened as a page of its own.
+                                    var route = target.Fragment.Split('?')[0];
+                                    keys.Add($"ROUTE {Canonical(target.AbsolutePath, "")} {Regex.Replace(route, @"/[0-9a-fA-F-]{36}|/\d+", "/*").ToLowerInvariant()}");
+                                    var routed = target.PathAndQuery + target.Fragment;
+                                    if (seen.Add(routed)) queue.Enqueue(routed);
+                                    continue;
+                                }
                                 keys.Add("GET " + Canonical(target.AbsolutePath, target.Query));
                                 var local = target.PathAndQuery;
                                 if (!Exclude.IsMatch(local) && seen.Add(local)) queue.Enqueue(local);
@@ -106,6 +129,8 @@ public sealed partial class Discovery(IBrowser browser, string baseUrl, int maxP
                             break;
                     }
                 }
+                await page.WaitForTimeoutAsync(300);
+                lock (requests) { keys.AddRange(requests); requests.Clear(); }
                 keys = [.. keys.Distinct().OrderBy(k => k, StringComparer.Ordinal)];
                 pages.Add(new DiscoveredPage(persona.Split(':')[0], current.PathAndQuery, response?.Status ?? 0, await page.TitleAsync(), keys));
             }
@@ -123,7 +148,8 @@ public sealed partial class Discovery(IBrowser browser, string baseUrl, int maxP
             await page.GotoAsync(_root + loginUrl);
             await page.Locator("[id$='Email'], [id$='UserName']").First.FillAsync(parts[1]);
             await page.Locator("[id$='Password']").First.FillAsync(parts[2]);
-            await page.Locator("input[type=submit][value='Log in']").First.ClickAsync();
+            // "Log in" (WingtipToys), or a Login control's button in any language (BlogEngine: the server's culture).
+            await page.Locator("input[type=submit][value='Log in'], input[type=submit][id$='LoginButton']").First.ClickAsync();
             await page.WaitForLoadStateAsync(LoadState.Load);
         }
         else if (parts[0] == "register")

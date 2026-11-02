@@ -14,7 +14,7 @@ namespace FrameworkOnCore
     /// the converter writes from mscorlib and the language packs (component language-packs); FrameworkOnCore's System.Web
     /// has the same (Page.Culture).
     /// </summary>
-    public static class FrameworkCultures
+    public static partial class FrameworkCultures
     {
         static readonly ConcurrentDictionary<string, bool> packs = new ConcurrentDictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
         static Dictionary<string, Dictionary<string, string>> names;
@@ -49,6 +49,105 @@ namespace FrameworkOnCore
                 return names = table;
             }
         }
+
+        /// <summary>
+        /// new CultureInfo(name) as .NET Framework's: a name it does not know throws CultureNotFoundException. On Linux .NET
+        /// (ICU) makes a culture of any well-formed name: new CultureInfo("Auto") is a culture "auto" with English data, where
+        /// .NET Framework threw - and the application's fallback in its catch did not happen (BlogEngine.NET's admin pages,
+        /// whose culture setting is "Auto", were in English instead of the server's language). Elsewhere than Windows a name is
+        /// refused, as .NET Framework on Windows 10 and later refuses it, when Windows' grammar of a locale name does not take it
+        /// (<see cref="WindowsLocaleName"/>); a name it takes that Windows has no data for is made (xx-YY, en-Latn-US: "Unknown
+        /// Locale" on .NET Framework), as ICU makes it.
+        /// With NLS (UseNls, as the converted application runs on Windows) the call as written. The converter rewrites the calls (platformReplacements).
+        /// </summary>
+        public static CultureInfo Create(string name)
+        {
+            Known(name);
+            return new CultureInfo(name);
+        }
+
+        /// <summary>new CultureInfo(name, useUserOverride), as <see cref="Create(string)"/>.</summary>
+        public static CultureInfo Create(string name, bool useUserOverride)
+        {
+            Known(name);
+            return new CultureInfo(name, useUserOverride);
+        }
+
+        /// <summary>CultureInfo.GetCultureInfo(name), as <see cref="Create(string)"/>.</summary>
+        public static CultureInfo GetCultureInfo(string name)
+        {
+            Known(name);
+            return CultureInfo.GetCultureInfo(name);
+        }
+
+        /// <summary>CultureInfo.GetCultureInfo(name, altName), as <see cref="Create(string)"/>.</summary>
+        public static CultureInfo GetCultureInfo(string name, string altName)
+        {
+            Known(name);
+            return CultureInfo.GetCultureInfo(name, altName);
+        }
+
+        /// <summary>CultureInfo.CreateSpecificCulture(name), as <see cref="Create(string)"/>.</summary>
+        public static CultureInfo CreateSpecificCulture(string name)
+        {
+            Known(name);
+            return CultureInfo.CreateSpecificCulture(name);
+        }
+
+        // (Windows only: elsewhere the switch, which the converted project sets, does nothing.)
+        static readonly bool Nls = OperatingSystem.IsWindows() && AppContext.TryGetSwitch("System.Globalization.UseNls", out var nls) && nls;
+
+        // Throws CultureNotFoundException for a name .NET Framework refuses; null and the invariant culture's "" are left to the
+        // call (ArgumentNullException, the invariant culture).
+        static void Known(string name)
+        {
+            // NLS (Windows' culture data, UseNls: the converted application's on Windows) throws as .NET Framework itself.
+            if (Nls || string.IsNullOrEmpty(name) || frameworkNames.Contains(name) || WindowsLocaleName(name)) return;
+            // .NET's own exception (its message) when ICU has no such culture; else (an ICU culture Windows refuses: zh-yue) ours.
+            CultureInfo.GetCultureInfo(name, predefinedOnly: true);
+            throw new CultureNotFoundException(nameof(name), name, "Culture is not supported.");
+        }
+
+        /// <summary>
+        /// Whether .NET Framework 4.8 on Windows 10 and later makes a culture of the name (Windows' locale names: a known one, or
+        /// "Unknown Locale" for a well-formed one). Windows' grammar, as measured on Windows 11 with Windows PowerShell 5.1's
+        /// new CultureInfo(name) (it is not RFC 5646's: en-ZZZ and en-1234 are refused, en-US-a and ja-JP-mac taken):
+        /// a language of 2 or 3 letters (Auto, abcd, root, e1 and a are refused), or x- or i- and more; then a script of 4
+        /// letters, then a region of 2 letters or 3 digits (en-Z, en-1, en-12, en-Latn-12, en-Latn-Latn refused), or in place
+        /// of either a singleton (1 letter or digit) and more (en-x refused, en-x-a taken); after the region any subtags of 1 to
+        /// 8 letters or digits. Every subtag non-empty (en-, en--US refused), only ASCII letters and digits; one '_' and a sort
+        /// name after it (de-DE_phoneb; en_US_POSIX refused); shorter than 85 (LOCALE_NAME_MAX_LENGTH).
+        /// </summary>
+        public static bool WindowsLocaleName(string name)
+        {
+            if (string.IsNullOrEmpty(name) || name.Length >= 85) return false;
+            int sort = name.IndexOf('_');
+            if (sort >= 0)
+            {
+                if (sort == name.Length - 1 || name.IndexOf('_', sort + 1) >= 0 || !Alphanumeric(name.Substring(sort + 1))) return false;
+                name = name.Substring(0, sort);
+            }
+            var tags = name.Split('-');
+            foreach (var tag in tags)
+                if (tag.Length == 0 || tag.Length > 8 || !Alphanumeric(tag)) return false;
+            string first = tags[0];
+            if (first.Equals("x", StringComparison.OrdinalIgnoreCase) || first.Equals("i", StringComparison.OrdinalIgnoreCase)) return tags.Length > 1;
+            if (first.Length < 2 || first.Length > 3 || !Letters(first)) return false;
+            int i = 1;
+            // The script, then the region; a singleton (an extension, private use) in place of either takes the rest.
+            if (i < tags.Length && tags[i].Length == 4 && Letters(tags[i])) i++;
+            if (i < tags.Length)
+            {
+                string tag = tags[i];
+                if (tag.Length == 1) return i + 1 < tags.Length;
+                if (!(tag.Length == 2 && Letters(tag) || tag.Length == 3 && Digits(tag))) return false;
+            }
+            return true;
+        }
+
+        static bool Alphanumeric(string text) { foreach (char c in text) if (!(c < 128 && char.IsLetterOrDigit(c))) return false; return true; }
+        static bool Letters(string text) { foreach (char c in text) if (!(c < 128 && char.IsLetter(c))) return false; return true; }
+        static bool Digits(string text) { foreach (char c in text) if (!(c >= '0' && c <= '9')) return false; return true; }
 
         /// <summary>CultureInfo.DisplayName as .NET Framework's.</summary>
         // As .NET Framework's CultureData.SLOCALIZEDDISPLAYNAME: mscorlib's name in the UI culture's language (its language

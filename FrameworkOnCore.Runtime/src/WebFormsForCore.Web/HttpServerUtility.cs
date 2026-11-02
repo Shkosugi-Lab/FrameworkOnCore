@@ -169,6 +169,7 @@ namespace System.Web {
         // Internal static method that returns a read-only, non-user override accounted, CultureInfo object
         internal static CultureInfo CreateReadOnlyCultureInfo(string name) {
             if (!_cultureCache.Contains(name)) {
+                System.Web.Util.FrameworkCultures.ThrowIfRefused(name);  // FrameworkOnCore: ICU makes a culture of nearly any name
                 // To be threadsafe, get the lock before creating
                 lock (_cultureCache) {
                     if (_cultureCache[name] == null) {
@@ -184,6 +185,7 @@ namespace System.Web {
             if(name.IndexOf('-') > 0) {
                 return CreateReadOnlyCultureInfo(name);
             }
+            System.Web.Util.FrameworkCultures.ThrowIfRefused(name);  // FrameworkOnCore: ICU makes a culture of nearly any name
             CultureInfo ci = CultureInfo.CreateSpecificCulture(name);
             if (!_cultureCache.Contains(ci.Name)) {
                 //To be threadsafe, get the lock before creating

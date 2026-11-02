@@ -194,7 +194,8 @@ namespace System.Web.Http.WebHost
             // Asynchronously write the response body.  If there is no body, we use
             // a completed task to share the Finally() below.
             // The response-writing task will not fault -- it handles errors internally.
-            if (response.Content != null)
+            // FrameworkOnCore: .NET's empty content is none (ResponseContent).
+            if (!ResponseContent.IsNone(response.Content))
             {
                 await WriteResponseContentAsync(httpContextBase, request, response, exceptionLogger, exceptionHandler, cancellationToken);
             }
@@ -514,7 +515,7 @@ namespace System.Web.Http.WebHost
             // fails to find a formatter, or this may be an HttpResponseException without
             // content.  In either case, cleanup and return a completed task.
 
-            if (errorResponse.Content == null)
+            if (ResponseContent.IsNone(errorResponse.Content)) // FrameworkOnCore: .NET's empty content too
             {
                 errorResponse.Dispose();
                 return true;
@@ -604,7 +605,7 @@ namespace System.Web.Http.WebHost
             bool isTransferEncodingChunked = responseHeaders.TransferEncodingChunked == true;
             HttpHeaderValueCollection<TransferCodingHeaderValue> transferEncoding = responseHeaders.TransferEncoding;
 
-            if (content != null)
+            if (!ResponseContent.IsNone(content)) // FrameworkOnCore: .NET's empty content is none
             {
                 HttpContentHeaders contentHeaders = content.Headers;
                 Contract.Assert(contentHeaders != null);

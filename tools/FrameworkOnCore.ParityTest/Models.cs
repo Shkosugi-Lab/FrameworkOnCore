@@ -27,7 +27,8 @@ namespace FrameworkOnCore.ParityTest;
 /// Regular expressions masked ("{masked}") in what a snapshot holds - its title, text, tables, inputs and the lines of
 /// fetch / sql / cookies snapshots - on both sides: what differs by run, not by implementation (a date, a generated id).
 /// With them, the application's own address in that text is written {root} / {host} too (the original ran on another
-/// port). Unlike IgnorePatterns the line stays: the rest of it is still compared.
+/// port). Unlike IgnorePatterns the line stays: the rest of it is still compared. "{today}" in one is today's date in the
+/// forms applications write it (ScenarioRunner.Today): what the application stamps with the time of the run.
 /// </param>
 /// <param name="WaitMs">The fixed wait after a navigation or a click (default 1800 / 1200 ms: the Blazor-era waits).</param>
 /// <param name="QuietMs">How long the document has to be still to be taken as settled (default 3000 ms).</param>
@@ -94,10 +95,12 @@ public sealed record LinkResult(
 ///         / upload(target, value: "name.txt:content", a file chosen in a file input)
 ///         / clicktextin(target, value: a link or button by its text inside the target)
 ///         / check(target) / uncheck(target) / waitMs(ms) / snapshot(name)
+///         / waitfor(value: a script's expression, ms: at most (30 s): waited for until it is true - an asynchronous answer shown)
 ///         / acceptlanguage(value: the Accept-Language header of the requests from then on, "de-DE,de;q=0.9")
 ///         / newcontext(value: a User-Agent, optional: a new browser - no cookies, no session)
 ///         / tab(value: a name: another page of the same browser, opened the first time; "main" is the first one)
-///         / script(value: a script run on the page, its navigation waited for)
+///         / script(value: a script run on the page, its navigation waited for; with a name, what it returns is a snapshot -
+///           an object a line a value, a string its lines -; api(method, url, body, type) is there: fetch, a JSON body, { status, body })
 ///         / fetch(path, method, body, headers, show, hash, name: one HTTP request with the browser's cookies, redirects not
 ///           followed, its answer a snapshot: status, location, content type, the headers shown, the body's hash)
 ///         / assets(name: every script, style sheet, icon and image of the page, fetched: a snapshot of their answers)
@@ -116,7 +119,13 @@ public sealed record LinkResult(
 ///           bodyMatch, raw, follow as fetch: the page's form, as it is now, posted with the browser's cookies, its redirect not
 ///           followed, its answer a snapshot; the page stays: posting it twice is a double submit)
 /// fetch and postraw: raw (the Location header as sent, too), bodyMatch (a regular expression: each match in the body a
-/// line), follow (each redirect followed up to 25, a line a hop: loops and chains).
+/// line), follow (each redirect followed up to 25, a line a hop: loops and chains), content ("json": the body parsed, a line a
+/// value - "path: value" -, in the order the application wrote them; "xml": the body parsed, an element or attribute a line;
+/// "text": the body's lines), upload (fetch only: the request sent as multipart/form-data, "field=name.png:content" - content
+/// as upload's, "base64:..." for bytes -, several separated by "|"; body's fields "a=1&amp;b=2" added as fields).
+///         / files(value: paths under --files, ";"-separated, "*" and "**" matching: the files' state - each one's path, then its
+///           content: XML parsed and written again, a line an element; JSON a line a value; other text its lines; anything else
+///           its size and hash - the files sorted after masking: what the application wrote, compared as its effect)
 /// op: the inventory's operations the step exercises (comma-separated), counted for the next snapshot.
 /// </summary>
 public sealed record ParityStep(
@@ -135,7 +144,9 @@ public sealed record ParityStep(
     string? Modifier = null,
     bool Raw = false,
     string? BodyMatch = null,
-    bool Follow = false);
+    bool Follow = false,
+    string? Content = null,
+    string? Upload = null);
 
 /// <summary>Presentation info for one element with an ID (tag, presentation attributes, style).</summary>
 public sealed record ElementInfo(

@@ -90,13 +90,17 @@ namespace System.Web.Hosting
 				ListenerHandoff.Inherit(sockets, true);
 				try { worker = Process.Start(start); }
 				finally { ListenerHandoff.Inherit(sockets, false); }
+				// Windows: the connections accepted here go to this worker (ListenerHandoff).
+				ListenerHandoff.Started(worker);
 				worker.WaitForExit();
 				exitCode = worker.ExitCode;
 				worker.Dispose();
 				worker = null;
+				var last = exitCode != ProcessRestart.ExitCode || stop.IsSet;
+				ListenerHandoff.Ended(last);
 				try { Directory.Delete(shadow, recursive: true); } catch (IOException) { } catch (UnauthorizedAccessException) { }
 
-				if (exitCode != ProcessRestart.ExitCode || stop.IsSet)
+				if (last)
 				{
 					foreach (var (_, socket) in sockets) socket.Dispose();
 					try { if (!Directory.EnumerateFileSystemEntries(shadowBase).Any()) Directory.Delete(shadowBase); }

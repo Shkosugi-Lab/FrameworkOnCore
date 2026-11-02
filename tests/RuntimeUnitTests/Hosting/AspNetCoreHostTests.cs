@@ -278,11 +278,13 @@ public class AspNetCoreHostTests
 
     // --- request filtering
 
-    [Theory] // requestFiltering's denied extensions (applicationHost.config: .config, .cs, .mdf...); the summary: .NET's own (.cshtml, appsettings.json); the handled types are not
+    [Theory] // requestFiltering's denied extensions (applicationHost.config: .config, .cs, .mdf...); the summary: .NET's own (.razor, appsettings.json); the handled types are not, nor Web Pages' (.cshtml: ASP.NET's)
     [InlineData("/web.config", true)]
     [InlineData("/App_Code/a.cs", true)]
     [InlineData("/App_Data/db.MDF", true)]
-    [InlineData("/Views/a.cshtml", true)]
+    [InlineData("/Components/a.razor", true)]
+    [InlineData("/Views/a.cshtml", false)]
+    [InlineData("/admin/about.VBHTML", false)]
     [InlineData("/appsettings.json", true)]
     [InlineData("/a.aspx", false)]
     [InlineData("/a.txt", false)]
@@ -322,6 +324,27 @@ public class AspNetCoreHostTests
         using var site = new Site().Write("a.txt", "a").Write("web.config", "<configuration />");
         var host = site.Host();
         Assert.Equal(legacy, Legacy(host, path));
+    }
+
+    [Theory] // the summary (WebPagesExtensions): IIS gives Web Pages' files to ASP.NET (applicationHost.config's cshtml-Integrated-4.0...) whatever the
+             // application's handled types: Web Pages serves them, or the root web.config's HttpForbiddenHandler 403; never a static file (their source).
+             // They were refused before System.Web (404.7): BlogEngine.NET's /admin/about.cshtml, its post editor, its widgets' editors were not found.
+    [InlineData("/admin/about.cshtml")]
+    [InlineData("/Custom/Widgets/TextBox/edit.CSHTML")]
+    [InlineData("/a.vbhtml")]
+    [InlineData("/a.cshtm")]
+    [InlineData("/a.vbhtm")]
+    [InlineData("/page.cshtml/url/data")]
+    [InlineData("/none.cshtml")]
+    public void Web_Pages_files_go_to_System_Web(string path)
+    {
+        using var site = new Site().Write("admin/about.cshtml", "@{ }").Write("page.cshtml", "@{ }");
+        var host = site.Host();
+        Assert.True(Legacy(host, path));
+        Assert.False(host.IsProhibited(Site.Request(path)));
+        // An application's own list of handled types (HandleExtensions) does not make them static files.
+        host.HandleExtensions = new[] { ".aspx" };
+        Assert.True(Legacy(host, path));
     }
 
     [Fact] // IIS: the *.aspx handler maps /a.aspx/x/y (path info /x/y), as the worker request splits it

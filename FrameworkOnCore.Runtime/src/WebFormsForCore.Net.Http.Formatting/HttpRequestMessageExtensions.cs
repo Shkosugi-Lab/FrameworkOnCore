@@ -28,9 +28,12 @@ namespace System.Net.Http
                 throw Error.ArgumentNull("request");
             }
 
+            // FrameworkOnCore: no content, as Web API 5.2's (System.Web.Http's CreateResponse, which the applications were written
+            // for; AspNetWebStack 3.3's netstandard build gave a StreamContent of nothing). .NET's empty content takes its place,
+            // which Web API's hosts take as none (ResponseContent): an empty answer without a Content-Type, as on IIS
+            // (BlogEngine.NET's API: its 404s and its PUTs' 200s had "Content-Type: text/html").
             return new HttpResponseMessage
             {
-                Content = new StreamContent(Stream.Null),
                 StatusCode = statusCode,
                 RequestMessage = request
             };
@@ -49,9 +52,9 @@ namespace System.Net.Http
                 throw Error.ArgumentNull("request");
             }
 
+            // FrameworkOnCore: no content, as Web API 5.2's (above).
             return new HttpResponseMessage
             {
-                Content = new StreamContent(Stream.Null),
                 RequestMessage = request
             };
         }

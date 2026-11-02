@@ -249,10 +249,12 @@ namespace System.Web.Configuration {
             }
             else if (StringUtil.StringStartsWithIgnoreCase(configCulture, HttpApplication.AutoCulture)) {
                 // This will throw if bad
+                System.Web.Util.FrameworkCultures.ThrowIfRefused(configCulture.Substring(5));  // FrameworkOnCore: as .NET Framework's on ICU
                 CultureInfo dummyCultureInfo = new CultureInfo(configCulture.Substring(5));
                 return;
             }
             // This will throw if bad
+            System.Web.Util.FrameworkCultures.ThrowIfRefused(configCulture);  // FrameworkOnCore: as .NET Framework's on ICU
             new CultureInfo(configCulture);
         }
 

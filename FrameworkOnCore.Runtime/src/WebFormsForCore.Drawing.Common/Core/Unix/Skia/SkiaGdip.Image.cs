@@ -434,6 +434,9 @@ namespace System.Drawing
                 }
             }
 
+            // GDI+'s rounding (measured on .NET Framework 4.8 for every alpha and value: DrawingParity's
+            // ScenarioCases.Premultiplied_alpha): premultiplying rounds to the nearest, (c * a + 127) / 255; unpremultiplying
+            // is fixed-point, c * ((255 << 16) / a) >> 16 (a 32bppPArgb pixel of 127 at alpha 127 is 254, not 255).
             internal static uint Premultiply(int argb)
             {
                 uint a = (uint)argb >> 24;
@@ -441,7 +444,7 @@ namespace System.Drawing
                     return (uint)argb;
                 if (a == 0)
                     return 0;
-                uint r = (((uint)argb >> 16) & 0xff) * a / 255, g = (((uint)argb >> 8) & 0xff) * a / 255, b = ((uint)argb & 0xff) * a / 255;
+                uint r = ((((uint)argb >> 16) & 0xff) * a + 127) / 255, g = ((((uint)argb >> 8) & 0xff) * a + 127) / 255, b = (((uint)argb & 0xff) * a + 127) / 255;
                 return (a << 24) | (r << 16) | (g << 8) | b;
             }
 
@@ -452,7 +455,8 @@ namespace System.Drawing
                     return pargb;
                 if (a == 0)
                     return 0;
-                uint r = Math.Min(255, ((pargb >> 16) & 0xff) * 255 / a), g = Math.Min(255, ((pargb >> 8) & 0xff) * 255 / a), b = Math.Min(255, (pargb & 0xff) * 255 / a);
+                uint factor = (255u << 16) / a;
+                uint r = Math.Min(255, (((pargb >> 16) & 0xff) * factor) >> 16), g = Math.Min(255, (((pargb >> 8) & 0xff) * factor) >> 16), b = Math.Min(255, ((pargb & 0xff) * factor) >> 16);
                 return (a << 24) | (r << 16) | (g << 8) | b;
             }
 

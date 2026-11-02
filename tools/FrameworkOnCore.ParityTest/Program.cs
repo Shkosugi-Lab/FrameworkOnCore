@@ -19,6 +19,7 @@ using FrameworkOnCore.ParityTest;
 //           (the scenario's crawl into the golden, its snapshots kept)
 //   verify: dotnet run -- verify --url <converted app URL> --scenario <scenario.json> --golden <golden.json> [--report <report.md>]
 //           [--results <results.json>] [--sql <connection string>] [--platform windows|linux] [--mask <regex>]...
+//           (record and verify: [--files <folder> | docker:<container>:<folder>] for the files step)
 //   discover: dotnet run -- discover --url <app URL> --out <discovered.json> [--persona anonymous] [--persona login:<user>:<password>]
 //           [--persona register] [--inventory <operations.json>] [--login-url <path>] (the pages a user reaches, their links, forms, buttons,
 //           postback targets and validators; with an inventory, what it does not cover)
@@ -27,7 +28,7 @@ using FrameworkOnCore.ParityTest;
 // (restart / DB restore) before record and before verify.
 
 var command = args.Length > 0 ? args[0] : "";
-string? url = null, scenarioPath = null, goldenPath = null, reportPath = null, sql = null, platform = null, resultsPath = null, inventoryPath = null, loginUrl = null;
+string? url = null, scenarioPath = null, goldenPath = null, reportPath = null, sql = null, files = null, platform = null, resultsPath = null, inventoryPath = null, loginUrl = null;
 var personas = new List<string>();
 var masks = new List<string>();
 
@@ -41,6 +42,8 @@ for (var i = 1; i < args.Length; i++)
         case "--out": goldenPath = args[++i]; break;
         case "--report": reportPath = args[++i]; break;
         case "--sql": sql = args[++i]; break;
+        // The files step's folder: the application's (App_Data), or "docker:<container>:<folder>" in a container.
+        case "--files": files = args[++i]; break;
         case "--platform": platform = args[++i]; break;
         case "--results": resultsPath = args[++i]; break;
         case "--persona": personas.Add(args[++i]); break;
@@ -106,7 +109,7 @@ using var playwright = await Playwright.CreateAsync();
 await using var browser = await playwright.Chromium.LaunchAsync(new() { Channel = "msedge", Headless = true });
 var page = await browser.NewPageAsync();
 
-var runner = new ScenarioRunner(page, url, ignorePatterns, browser, sql);
+var runner = new ScenarioRunner(page, url, ignorePatterns, browser, sql) { FilesSource = files };
 
 Console.WriteLine($"{command}: {url}(シナリオ: {Path.GetFileName(scenarioPath)})");
 var started = DateTime.UtcNow;

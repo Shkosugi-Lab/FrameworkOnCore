@@ -578,6 +578,13 @@ internal sealed class WebConfigurationHost : DelegatingConfigHost, IInternalConf
         try
         {
             string path = Path.Combine(directory, baseName);
+#if WebFormsForCore
+            // .NET's Path.Combine and GetFullPath take '*', '?' and a ':' that .NET Framework's refused: the URL /a*b's
+            // configuration was a stream "a*b\web.config", whose change monitoring failed (500 "could not start monitoring")
+            // where IIS answers ASP.NET's 400 of requestPathInvalidCharacters.
+            if (FileUtil.FrameworkRefusesPath(path))
+                return null;
+#endif
             // validate path by calling GetFullPath, but return the result of Path.Combine so as
             // not to change what was being returned previously (Dev10 835901).
             Path.GetFullPath(path);

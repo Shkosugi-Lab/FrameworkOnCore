@@ -294,6 +294,19 @@ namespace System.Web.Util
 
 		private static bool IsSeparator(char c) => c == '\\' || c == '/';
 
+		// What .NET Framework's Path.Combine and Path.GetFullPath refused (ArgumentException, NotSupportedException) and .NET's
+		// take: its invalid path characters, a wildcard, a ':' after the volume's. Code that counted on the exception to refuse a
+		// path (WebConfigurationHost's stream name of a URL with '*', Dev10 835901) asks this.
+		internal static bool FrameworkRefusesPath(string path)
+		{
+			if (string.IsNullOrEmpty(path))
+				return false;
+			if (path.IndexOfAny(s_invalidPathChars) != -1 || FrameworkRefusesFullPath(path))
+				return true;
+			bool device = path.StartsWith(@"\\?\", StringComparison.Ordinal) || path.StartsWith(@"\\.\", StringComparison.Ordinal);
+			return OSInfo.IsWindows && !device && (path[0] == ':' || (path.Length > 2 && path.IndexOf(':', 2) > 0));
+		}
+
 		// VSWhidbey 609102 - Medium trust apps may hit this method, and if the physical path exists,
 		// Path.GetFullPath will seek PathDiscovery permissions and throw an exception.
 		[FileIOPermissionAttribute(SecurityAction.Assert, AllFiles = FileIOPermissionAccess.PathDiscovery)]

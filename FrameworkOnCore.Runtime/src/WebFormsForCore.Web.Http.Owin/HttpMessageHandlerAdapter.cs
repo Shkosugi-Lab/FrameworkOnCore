@@ -213,7 +213,8 @@ namespace System.Web.Http.Owin
                     // Compute Content-Length before calling UseBufferedOutputStream because the default implementation
                     // accesses that header and we want to catch any exceptions calling TryComputeLength here.
 
-                    if (response.Content == null
+                    // FrameworkOnCore: .NET's empty content is none (ResponseContent).
+                    if (ResponseContent.IsNone(response.Content)
                         || await ComputeContentLengthAsync(request, response, owinResponse, cancellationToken))
                     {
                         bool bufferOutput = _bufferPolicySelector.UseBufferedOutputStream(response);
@@ -222,7 +223,7 @@ namespace System.Web.Http.Owin
                         {
                             owinResponse.DisableBuffering();
                         }
-                        else if (response.Content != null)
+                        else if (!ResponseContent.IsNone(response.Content))
                         {
                             response = await BufferResponseContentAsync(request, response, cancellationToken);
                         }
@@ -540,7 +541,7 @@ namespace System.Web.Http.Owin
             }
 
             HttpContent responseContent = response.Content;
-            if (responseContent == null)
+            if (ResponseContent.IsNone(responseContent)) // FrameworkOnCore: .NET's empty content too
             {
                 SetHeadersForEmptyResponse(responseHeaders);
                 return TaskHelpers.Completed();

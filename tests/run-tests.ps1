@@ -7,7 +7,8 @@ that fails. What each command checks, and the commands themselves to run one by 
                                         # baselines, be/wt compared with IIS's golden data on Windows (~5 min)
   .\tests\run-tests.ps1 -Set runtime    # after a FrameworkOnCore.Runtime change: the packages packed (a published version
                                         # stops it: raise frameworkOnCoreVersion), the three xunit projects, then commit's be/wt
-  .\tests\run-tests.ps1 -Set full       # before a release: runtime, the culture matrix, wt's every operation, and Linux
+  .\tests\run-tests.ps1 -Set full       # before a release: runtime, the culture matrix, wt's and be's every operation, and Linux
+                                        # (be's every operation there too)
   -Linux: Linux's runs too (commit, runtime; full has them): the tests' containers, then be and wt, one container at a time.
 
 The rules of this machine (CLAUDE.md): the corpora are be and wt only; containers one after the other, never in the
@@ -88,6 +89,7 @@ try {
     }
     if ($Set -eq 'full') {
         Step 'wt every operation on Windows vs IIS' { & "$wf4c\verify-windows.ps1" -Name wt -Suite operations }
+        Step 'be every operation on Windows vs IIS' { & "$wf4c\verify-windows.ps1" -Name be -Suite operations }
         Step 'culture matrix (Windows)' {
             & "$repo\tests\run-matrix.ps1" -NoBuild
             # It writes its table to the host; each failed test is a line of failures.txt.
@@ -120,6 +122,11 @@ try {
             Step 'wt on Linux vs IIS' {
                 & "$wf4c\run-linux.ps1" -App wt\WingtipToys\WingtipToys -Scenario corpora\regression\wt.scenario.json -Golden corpora\parity\wt.golden-webforms.json -SqlServer
             } -Continue
+            if ($Set -eq 'full') {
+                Step 'be every operation on Linux vs IIS' {
+                    & "$wf4c\run-linux.ps1" -App be\BlogEngine\BlogEngine.NET -Suite operations
+                } -Continue
+            }
         }
         finally {
             Write-Host '== stopping Docker Desktop, shutting WSL down'

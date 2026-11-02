@@ -1,0 +1,76 @@
+{
+  "_comment": "Documented differences of BlogEngine.NET's operations suite (corpora/regression/be.operations.scenario.json): differences that are not defects of the conversion, each with its reason. snapshot: a regular expression on the snapshot's name; match: one on each problem line ParityTest reports; platforms: where it applies (none: everywhere); check same-exception: only for two error pages of the same path, status and exception type. A snapshot all of whose problems match is 'allowed', not 'different'.",
+  "allowed": [
+    {
+      "snapshot": ".*",
+      "check": "same-exception",
+      "match": ".*",
+      "reason": "message wording: the original's error pages are in the Japanese language pack of .NET Framework (Microsoft's texts of System.Web and mscorlib); the converted application's System.Web texts are FrameworkOnCore's own Japanese translation (Microsoft's are not redistributable: translations/ja), the .NET 10 runtime's exception messages are English (.NET has no localized runtime messages). Same page, status and exception type."
+    },
+    {
+      "snapshot": "post-unknown|calendar|page-unknown|not-found-extensionless",
+      "match": "^(本文テキスト|  (正解|実測)側にのみある行|テーブル数)",
+      "reason": "IIS's own detailed error page is a simple page in FrameworkOnCore (the user's decision when httpErrors was made IIS-compatible, README 'httpErrors を IIS 互換で実装した'): the same status, substatus and title, the requested URL and physical path; not IIS's 'Most likely causes', module, handler, logon lines (as wt's not-found-extensionless)."
+    },
+    {
+      "snapshot": "login-request-validation|settings-test-email|password-retrieval-send|metaweblog-auth|metaweblog-pages",
+      "match": "^(本文テキスト|  (正解|実測)側にのみある行)",
+      "reason": "message wording, in what the application shows of an exception's message (Request.Form validation's title, SmtpException's message in its e-mail test and password retrieval, the XML-RPC faults of an unrecognized or null Guid): the original's are .NET Framework's Japanese language pack, the converted application's FrameworkOnCore's translation of System.Web's and .NET 10's English messages ('Failure sending mail.' for 'メールを送信できませんでした。', and the address of the refused connection as .NET 10's socket names it, [::ffff:127.0.0.1]:9). The same exceptions, statuses and the rest of the answers."
+    },
+    {
+      "snapshot": "logs|dashboard",
+      "match": "^(本文テキスト|  (正解|実測)側にのみある行).*(OptionValue|OptionName|\\$\\.Logs|\\$\\[\\d+\\])",
+      "reason": "BlogEngine's log (App_Data/logger.txt: the dashboard's log and the logs API) holds the messages of the exceptions the run's operations caused (the anonymous API calls, the comment API without a user, the refused SMTP connection, the news feed): their wording as above, and two entries of the environment - the original's news feed over TLS 1.0 fails (below), the converted application's package gallery fails earlier, NuGet.Core 2.8's OData client needs WindowsBase's weak events (System.Windows.IWeakEventListener), which .NET 10 has not (the conversion report lists NuGet.Core's missing types; the gallery, dnbe.net, no longer answers: an empty list on both)."
+    },
+    {
+      "snapshot": "admin-shell|dashboard-quick-draft|login-return-url-admin",
+      "match": "^入力欄 'txtLogs'",
+      "reason": "the dashboard's log (txtLogs): the log's messages, as the logs entry above."
+    },
+    {
+      "snapshot": "newsfeed",
+      "match": ".*",
+      "reason": "TLS: the original targets 4.5 (httpRuntime targetFramework), whose ServicePointManager default is SSL 3.0 / TLS 1.0; blogengine.io refuses those (the original's log: 'SSL/TLS のセキュリティで保護されているチャネルを作成できませんでした'), so the dashboard's news is empty; .NET 10 uses the system's TLS 1.2/1.3 and gets the news (as wt's PayPal call). The same holds for the BlogRoll widget's feeds (left out of the comparison on both: ignoreSelectors)."
+    },
+    {
+      "snapshot": "settings-after-email|admin-settings-basic|settings-basic-saved",
+      "platforms": [
+        "linux"
+      ],
+      "match": "^(本文テキスト \\d+ 行目から相違|  (正解側|実測側)にのみある行): .*(TimeZones\\[|\\(UTC|中文)|^入力欄 'selZone' の値: ",
+      "reason": "The time zones (BlogEngine lists TimeZoneInfo.GetSystemTimeZones() in its settings): Linux's are the IANA database's (Pacific/Pago_Pago, 2391 lines of them in the settings' JSON, not Windows' 'Dateline Standard Time' ... of 1291), with ICU's names; the selected one (selZone, an index in the list) is another number for the same zone (TZ=Asia/Tokyo, as the server's Tokyo Standard Time; run-linux.ps1, as the conversion's deployment). And the cultures' native names as below. A known difference (PORT-CANDIDATES.md: the time zones' names and ids)."
+    },
+    {
+      "snapshot": "lookups|editor-api-lookups|admin-settings-basic|settings-basic-saved",
+      "platforms": [
+        "linux"
+      ],
+      "match": "^(本文テキスト \\d+ 行目から相違|  (正解側|実測側)にのみある行): .*中文",
+      "reason": "The cultures' native names (BlogEngine's language list, CultureInfo.NativeName): FrameworkOnCore.FrameworkCultures.NativeName gives the original server's for the cultures of its culture profile (ja-JP, en-US); the others are ICU's, which writes the Chinese ones with full-width parentheses (中文（中国）, Windows' NLS 中文(中国)). PORT-CANDIDATES.md (ICU's culture data)."
+    },
+    {
+      "snapshot": "post-get",
+      "platforms": [
+        "linux"
+      ],
+      "match": "^(本文テキスト \\d+ 行目から相違|  (正解側|実測側)にのみある行): .*'\\$\\.Content: ",
+      "reason": "Environment.NewLine (\\n on Linux): BlogEngine writes its posts' files with XmlWriter (Indent, NewLineHandling.Replace: a text's line breaks written as NewLineChars, Environment.NewLine), so after a save the post's content has \\r\\n on Windows and \\n on Linux, and the posts API returns it so. The same text otherwise. PORT-CANDIDATES.md (Environment.NewLine)."
+    },
+    {
+      "snapshot": "tools-data|tools-root|tools-custom|blogs-list|blog-get|blog-create",
+      "platforms": [
+        "linux"
+      ],
+      "match": "^(本文テキスト \\d+ 行目から相違|  (正解側|実測側)にのみある行): .*(\\$\\.msg: \\\"Can create and delete file |PhysicalStorageLocation: \\\")\\{masked\\}[/\\\\]",
+      "reason": "Physical paths (the tools page's check that it can write, the blogs' storage folder): Linux's separators (/work/.../App_Data/tmp.txt for C:\\...\\App_Data\\tmp.txt), the folder itself masked on both."
+    },
+    {
+      "snapshot": "files-after-delete|app-data-final",
+      "platforms": [
+        "linux"
+      ],
+      "match": "^(本文テキスト \\d+ 行目から相違|  (正解側|実測側)にのみある行): .*'body: \\d+ bytes, sha256 [0-9A-F]+'",
+      "reason": "The profile picture (App_Data/files/avatars/admin.png, the API's upload with action=profile: Image.GetThumbnailImage(80, 80) of the uploaded 1x1 PNG, saved as PNG): the same pixels (80x80, #00FE00 at alpha 127, as GDI+ - FrameworkOnCore's Skia backend premultiplies as GDI+ since this suite, DrawingParity's ScenarioCases.Premultiplied_alpha), encoded by SkiaSharp's PNG encoder on Linux (its chunks pHYs, sBIT and its compression; GDI+ writes sRGB, gAMA, pHYs): 288 bytes, not GDI+'s 295. Windows' System.Drawing is GDI+ and writes the same bytes."
+    }
+  ]
+}

@@ -86,7 +86,7 @@ namespace System.Web.Http.WebHost
 
             HttpContent responseContent = response.Content;
 
-            if (responseContent == null)
+            if (ResponseContent.IsNone(responseContent)) // FrameworkOnCore: .NET's empty content too
             {
                 throw new ArgumentException(Error.Format(SRResources.TypePropertyMustNotBeNull,
                     typeof(HttpResponseMessage).Name, "Content"), "context");

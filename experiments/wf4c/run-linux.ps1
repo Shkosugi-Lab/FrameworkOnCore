@@ -1,4 +1,4 @@
-# Experiment: build and run a converted app in a Linux container (mcr.microsoft.com/dotnet/sdk:10.0)
+﻿# Experiment: build and run a converted app in a Linux container (mcr.microsoft.com/dotnet/sdk:10.0)
 # and compare it, from the host, with the golden data recorded on IIS / .NET Framework.
 #
 #   .\experiments\wf4c\run-linux.ps1 -App ProductAdmin            # a sample (after run-sample.ps1)
@@ -9,6 +9,11 @@
 #       dropped in the SQL Server container before the application starts (it creates and seeds it), the container's SQL
 #       Server reached from here on 127.0.0.1:14333 for the scenario's state checks; per-operation results in
 #       experiments\wf4c\_results\wt.operations.linux.{md,json}.
+#   .\experiments\wf4c\run-linux.ps1 -App be\BlogEngine\BlogEngine.NET -Suite operations
+#       BlogEngine.NET's operations suite (corpora\regression\be.operations.json; the scenario be.operations.scenario.json,
+#       the golden data be.operations.golden.json recorded on IIS by corpora\record-be-operations.ps1): the release's
+#       App_Data (corpora\be-app-data.ps1) copied into the container, the scenario's files steps reading the container's
+#       (docker exec tar); per-operation results in experiments\wf4c\_results\be.operations.linux.{md,json}.
 #
 # The app's tree (the first folder of -App, as convert-project.ps1 wrote it), _feed, shims and icu
 # are copied into the container as they are (without build output), so the projects' relative
@@ -32,6 +37,16 @@ param(
     # <globalization> says otherwise); a container has none (invariant: '¤' for currency). Default:
     # this machine's, which is where the golden data was recorded.
     [string]$Culture = (Get-Culture).Name,
+    # The process time zone (TZ, an IANA id). IIS runs the application in the server's time zone; a container without TZ
+    # in UTC. Default: as the conversion's deployment (DeployWriter): the culture profile's TimeZone (App_Data\
+    # culture-profile.json), else this machine's, converted with Windows' ICU (icu.dll).
+    [string]$TimeZone,
+    # The application seen from its own machine: it listens on the container's loopback, a proxy (socat) in the container
+    # forwards the published port to it, so its clients' address is 127.0.0.1 (Request.IsLocal: customErrors RemoteOnly
+    # shows ASP.NET's detailed errors, the client address the application keeps), as the golden data's IIS saw the
+    # recorder on its own machine. Without it, Docker's port forwarding makes them the bridge's gateway (172.17.0.1).
+    # On by default for be's operations suite.
+    [switch]$LocalClient,
     # Leave the container running afterwards (docker exec into it; docker rm -f to remove).
     [switch]$Keep,
     # File names without regard to case, as on Windows (casefs/libfoccase.so, preloaded into the application's process,
@@ -50,7 +65,23 @@ $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $name = Split-Path $App -Leaf
 # --platform linux: the documented differences of the scenario's "allowed" file that are Linux's apply.
 $verifierArguments = @('--platform', 'linux')
-if ($Suite -eq 'operations') {
+$beOperations = $Suite -eq 'operations' -and $name -eq 'BlogEngine.NET'
+if ($beOperations) {
+    # BlogEngine.NET's operations suite: the release's App_Data (corpora\be-app-data.ps1) in the tree the container copies,
+    # read by the scenario's files steps in the container (docker exec ... tar). The visitors' address is kept (the
+    # comments' files) and its error pages are customErrors RemoteOnly: the client is the application's own machine.
+    $LocalClient = $true
+    $Scenario = 'corpora\regression\be.operations.scenario.json'
+    $Golden = 'corpora\parity\be.operations.golden.json'
+    $results = Join-Path $PSScriptRoot '_results'
+    New-Item -ItemType Directory $results -Force | Out-Null
+    & (Join-Path $repo 'corpora\be-app-data.ps1') -Target (Join-Path $PSScriptRoot "$App\App_Data")
+    $verifierArguments += @('--files', "docker:w2l-$($name.ToLowerInvariant() -replace '[^a-z0-9]', '-'):/work/$($App.Replace('\', '/'))/App_Data",
+        # The application's folder (its tools page, its blogs' storage, the error pages name it).
+        '--mask', [regex]::Escape("/work/$($App.Replace('\', '/'))"),
+        '--report', (Join-Path $results 'be.operations.linux.md'), '--results', (Join-Path $results 'be.operations.linux.json'))
+}
+elseif ($Suite -eq 'operations') {
     if (-not $SqlServer) { throw '-Suite operations needs -SqlServer' }
     $Scenario = 'corpora\regression\wt.operations.scenario.json'
     $Golden = 'corpora\parity\wt.operations.golden.json'
@@ -119,12 +150,42 @@ if ($SqlServer) {
     $webConfig.Save((Join-Path $overlay $webConfigFile.Name))
 }
 
+if (-not $TimeZone) {
+    $windowsZone = [TimeZoneInfo]::Local.Id
+    $profileFile = Join-Path $PSScriptRoot "$App\App_Data\culture-profile.json"
+    if (Test-Path $profileFile) {
+        $zone = (Get-Content $profileFile -Raw -Encoding UTF8 | ConvertFrom-Json).TimeZone
+        if ($zone) { $windowsZone = $zone }
+    }
+    # Windows' ICU (Windows 10 1903 and later) maps Windows' ids to IANA's (as .NET's TimeZoneInfo.TryConvertWindowsIdToIanaId).
+    if (-not ('FocWindowsIcu' -as [type])) {
+        Add-Type -TypeDefinition @'
+using System.Runtime.InteropServices;
+using System.Text;
+public static class FocWindowsIcu {
+    [DllImport("icu.dll", CharSet = CharSet.Unicode)]
+    static extern int ucal_getTimeZoneIDForWindowsID(string winid, int len, [MarshalAs(UnmanagedType.LPStr)] string region, StringBuilder id, int capacity, ref int status);
+    public static string Iana(string windowsId) {
+        var id = new StringBuilder(128);
+        int status = 0;
+        int length = ucal_getTimeZoneIDForWindowsID(windowsId, windowsId.Length, null, id, id.Capacity, ref status);
+        return status > 0 || length <= 0 ? null : id.ToString(0, length);
+    }
+}
+'@
+    }
+    $TimeZone = [FocWindowsIcu]::Iana($windowsZone)
+    if (-not $TimeZone) { Write-Warning "time zone $windowsZone has no IANA id: UTC"; $TimeZone = 'UTC' }
+}
+Write-Host "time zone: $TimeZone"
+$appPort = if ($LocalClient) { $Port + 1 } else { $Port }
+
 # FrameworkOnCore's packages keep one version (1.6.5-w2l.x) across rebuilds; the container's package cache
 # (a volume, kept between runs) must not serve an older build of it.
 $script = @"
 set -e
 # System.Drawing on Linux (FrameworkOnCore's System.Drawing.Common) draws with SkiaSharp: fontconfig and fonts, as the deployment installs them.
-apt-get update -qq >/dev/null 2>&1 && apt-get install -y -qq --no-install-recommends libfontconfig1 fonts-liberation2 >/dev/null 2>&1 || true
+apt-get update -qq >/dev/null 2>&1 && apt-get install -y -qq --no-install-recommends libfontconfig1 fonts-liberation2 $(if ($LocalClient) { 'socat ' })>/dev/null 2>&1 || true
 rm -rf /root/.nuget/packages/frameworkoncore.*
 mkdir -p /work
 cd /src && tar --exclude='*/bin' --exclude='*/obj' -cf - _feed shims icu $($appPath.Split('/')[0]) | (cd /work && tar xf -)
@@ -140,8 +201,20 @@ dotnet build -v q -nologo
 # The build servers (MSBuild, the compiler: about 1 GB) are not needed by the app: with SQL Server in the same
 # Docker VM, they left the app too little memory (killed on its first request).
 dotnet build-server shutdown >/dev/null 2>&1 || true
+# What the conversion did to bin after its build (the converted bin is the one deployed; the build here makes a new one):
+# frameworkoncore.*.txt (the platform rules for what the server compiles - App_Code, the pages, Web Pages -, the culture
+# names), and the translations kept for the original server's languages (LanguagePacks: the others removed, Microsoft's
+# language packs' made). As in the converted bin.
+# (No double quotes in this script: Windows PowerShell's passing of the argument to docker would split it at them.)
+if [ -d /src/$appPath/bin ]; then
+    shopt -s nullglob
+    cp /src/$appPath/bin/frameworkoncore.*.txt bin/ 2>/dev/null || true
+    for f in bin/*/*.resources.dll; do [ -e /src/$appPath/`$f ] || { rm -f `$f; echo not in the converted bin, removed: `$f; }; done
+    (cd /src/$appPath && for f in bin/*/*.resources.dll; do [ -e /work/$appPath/`$f ] || cp `$f /work/$appPath/`$f; done)
+    shopt -u nullglob
+fi
 $(if ($CaseInsensitive) { "export LD_PRELOAD=/foccase/linux-`$(uname -m | sed s/x86_64/x64/\;s/aarch64/arm64/)/libfoccase.so FOC_CASE_ROOTS=/work/$appPath FOC_CASE_LOG=1" })
-exec dotnet bin/$name.dll --urls http://0.0.0.0:$Port
+$(if ($LocalClient) { "command -v socat >/dev/null || { echo 'socat not installed (-LocalClient)'; exit 1; }`nsocat TCP-LISTEN:$Port,fork,reuseaddr TCP:127.0.0.1:$appPort &`nexec dotnet bin/$name.dll --urls http://127.0.0.1:$appPort" } else { "exec dotnet bin/$name.dll --urls http://0.0.0.0:$Port" })
 "@ -replace "`r", ''
 
 docker rm -f $container 2>$null | Out-Null
@@ -152,7 +225,7 @@ $caseArguments += @($Environment.Keys | ForEach-Object { '-e'; "$_=$($Environmen
 # error answers left): this machine taken as the container's (HttpErrors:LocalAddresses).
 # A fixed host name (the application shows it: ELMAH's log), masked in the comparison.
 $verifierArguments += @('--mask', $container)
-docker run -d --name $container --hostname $container @network @caseArguments -e 'HttpErrors__LocalAddresses=*' -e "LANG=$($Culture.Replace('-', '_')).UTF-8" -p "${Port}:${Port}" -v "${PSScriptRoot}:/src:ro" -v "${overlay}:/overlay:ro" -v w2l-nuget:/root/.nuget/packages $Image bash -c $script | Out-Null
+docker run -d --name $container --hostname $container @network @caseArguments -e 'HttpErrors__LocalAddresses=*' -e "LANG=$($Culture.Replace('-', '_')).UTF-8" -e "TZ=$TimeZone" -p "${Port}:${Port}" -v "${PSScriptRoot}:/src:ro" -v "${overlay}:/overlay:ro" -v w2l-nuget:/root/.nuget/packages $Image bash -c $script | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "docker run failed" }
 try {
     # Build (restore included) and start-up: wait until the app answers, or the container stops.

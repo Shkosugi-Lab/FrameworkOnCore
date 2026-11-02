@@ -7069,6 +7069,28 @@
     "as PNG = \"Bitmap 32x32 Format32bppArgb raw=Png flags=77842 dpi=Single 95.9865951xSingle 95.9865951\"",
     "~px as PNG = \"32x32 sha:c28356fa961a6038 grid:0c175ca72c1f78dc4c1c77db6c1d77dc8c1d77dbac1e77dbcc1d77dbec1c77da0c175ca72c1f78dc4c1c77db6c1d77dc8c1d77dbac1e77dbcc1d77dbec1c77da0c175ca72c1f78dc4c1c77db6c1d77dc8c1d77dbac1e77dbcc1d77dbec1c77da0c175ca72c1f78dc4c1c77db6c1d77dc8c1d77dbac1e77dbcc1d77dbec1c77da0c175ca72c1f78dc4c1c77db6c1d77dc8c1d77dbac1e77dbcc1d77dbec1c77da0c175ca72c1f78dc4c1c77db6c1d77dc8c1d77dbac1e77dbcc1d77dbec1c77da0c175ca72c1f78dc4c1c77db6c1d77dc8c1d77dbac1e77dbcc1d77dbec1c77da0c175ca72c1f78dc4c1c77db6c1d77dc8c1d77dbac1e77dbcc1d77dbec1c77da\""
   ],
+  "ScenarioCases.Premultiplied_alpha": [
+    "GetPixel premultiplied a=1 = \"0->0 1->255 1->255 1->255 1->255 1->255 1->255 1->255 1->255\"",
+    "GetPixel premultiplied a=2 = \"0->0 1->127 2->255 2->255 2->255 2->255 2->255 2->255 2->255\"",
+    "GetPixel premultiplied a=7 = \"0->0 1->36 7->254 7->254 7->254 7->254 7->254 7->254 7->254\"",
+    "GetPixel premultiplied a=64 = \"0->0 1->3 63->251 64->255 64->255 64->255 64->255 64->255 64->255\"",
+    "GetPixel premultiplied a=127 = \"0->0 1->2 63->126 64->128 127->254 127->254 127->254 127->254 127->254\"",
+    "GetPixel premultiplied a=128 = \"0->0 1->1 63->125 64->127 127->253 128->255 128->255 128->255 128->255\"",
+    "GetPixel premultiplied a=200 = \"0->0 1->1 63->80 64->81 127->161 128->163 200->254 200->254 200->254\"",
+    "GetPixel premultiplied a=254 = \"0->0 1->1 63->63 64->64 127->127 128->128 200->200 254->254 254->254\"",
+    "SetPixel premultiplied a=1 = \"0->0 1->0 63->0 64->0 127->0 128->1 200->1 254->1 255->1\"",
+    "SetPixel premultiplied a=2 = \"0->0 1->0 63->0 64->1 127->1 128->1 200->2 254->2 255->2\"",
+    "SetPixel premultiplied a=7 = \"0->0 1->0 63->2 64->2 127->3 128->4 200->5 254->7 255->7\"",
+    "SetPixel premultiplied a=64 = \"0->0 1->0 63->16 64->16 127->32 128->32 200->50 254->64 255->64\"",
+    "SetPixel premultiplied a=127 = \"0->0 1->0 63->31 64->32 127->63 128->64 200->100 254->127 255->127\"",
+    "SetPixel premultiplied a=128 = \"0->0 1->1 63->32 64->32 127->64 128->64 200->100 254->127 255->128\"",
+    "SetPixel premultiplied a=200 = \"0->0 1->1 63->49 64->50 127->100 128->100 200->157 254->199 255->200\"",
+    "SetPixel premultiplied a=254 = \"0->0 1->1 63->63 64->64 127->127 128->127 200->199 254->253 255->254\"",
+    "thumbnail format = PixelFormat.Format32bppPArgb",
+    "thumbnail pixel = Color Color [A=127, R=0, G=254, B=0]",
+    "thumbnail as PNG = \"Bitmap 80x80 Format32bppArgb raw=Png flags=77842 dpi=Single 95.9865951xSingle 95.9865951\"",
+    "~px thumbnail as PNG = \"80x80 sha:238e75ad6efa61df grid:7f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe00\""
+  ],
   "ScenarioCases.Streams_left_open": [
     "alpha.png open after reading = true",
     "alpha.png saved, open = true",

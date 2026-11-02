@@ -46,6 +46,8 @@
          request loads: the attack tests' server (Security/Attack/PortServer) runs a whole application. -->
     <ProjectReference Include="..\..\FrameworkOnCore.Runtime\src\WebFormsForCore.Web.Services\WebFormsForCore.Web.Services.csproj" />
     <ProjectReference Include="..\..\FrameworkOnCore.Runtime\src\WebFormsForCore.Web.Extensions\WebFormsForCore.Web.Extensions.csproj" />
+    <!-- Web API's web host (AspNetWebStack's port): its responses through System.Web (Web/WebApiResponseTests). -->
+    <ProjectReference Include="..\..\FrameworkOnCore.Runtime\src\WebFormsForCore.Web.Http.WebHost\WebFormsForCore.Web.Http.WebHost.csproj" />
   </ItemGroup>
 
   <!-- FrameworkOnCore's System.Web, not .NET's facade of the same name (as the converter writes it into converted projects). -->

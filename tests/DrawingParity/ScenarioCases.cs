@@ -226,6 +226,49 @@ namespace FrameworkOnCore.DrawingParity
             }
         }
 
+        /// <summary>
+        /// Premultiplied alpha's rounding: a 32bppPArgb bitmap's pixels read (GetPixel) and written (SetPixel), and a
+        /// translucent picture's thumbnail (32bppPArgb) saved as PNG - BlogEngine.NET's profile picture, a 1x1 PNG of
+        /// green at alpha 127 made 80x80: GDI+ gives G 254, its unpremultiplying is fixed-point ((c * ((255 &lt;&lt; 16) / a)) &gt;&gt; 16)
+        /// and its premultiplying rounds ((c * a + 127) / 255).
+        /// </summary>
+        [Case]
+        public static void Premultiplied_alpha(Probe p)
+        {
+            int[] alphas = { 1, 2, 7, 64, 127, 128, 200, 254 };
+            int[] values = { 0, 1, 63, 64, 127, 128, 200, 254, 255 };
+            using (var bitmap = new Bitmap(values.Length, alphas.Length, PixelFormat.Format32bppPArgb))
+            {
+                var data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.WriteOnly, PixelFormat.Format32bppPArgb);
+                for (int y = 0; y < alphas.Length; y++)
+                    for (int x = 0; x < values.Length; x++)
+                    {
+                        int a = alphas[y], c = Math.Min(values[x], a);
+                        Marshal.WriteInt32(data.Scan0, y * data.Stride + x * 4, (a << 24) | (c << 16) | (c << 8) | c);
+                    }
+                bitmap.UnlockBits(data);
+                for (int y = 0; y < alphas.Length; y++)
+                    p.Is("GetPixel premultiplied a=" + alphas[y], string.Join(" ", values.Select((v, x) => Math.Min(v, alphas[y]) + "->" + bitmap.GetPixel(x, y).G)));
+                for (int y = 0; y < alphas.Length; y++)
+                    for (int x = 0; x < values.Length; x++)
+                        bitmap.SetPixel(x, y, Color.FromArgb(alphas[y], values[x], values[x], values[x]));
+                data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppPArgb);
+                for (int y = 0; y < alphas.Length; y++)
+                    p.Is("SetPixel premultiplied a=" + alphas[y], string.Join(" ", values.Select((v, x) => v + "->" + ((Marshal.ReadInt32(data.Scan0, y * data.Stride + x * 4) >> 8) & 0xff))));
+                bitmap.UnlockBits(data);
+            }
+            using (var pixel = new Bitmap(1, 1, PixelFormat.Format32bppArgb))
+            {
+                pixel.SetPixel(0, 0, Color.FromArgb(127, 0, 255, 0));
+                using (var thumbnail = pixel.GetThumbnailImage(80, 80, () => false, IntPtr.Zero))
+                {
+                    p.Is("thumbnail format", thumbnail.PixelFormat);
+                    p.Is("thumbnail pixel", ((Bitmap)thumbnail).GetPixel(40, 40));
+                    Saved(p, "thumbnail as PNG", thumbnail, ImageFormat.Png);
+                }
+            }
+        }
+
         [Case]
         public static void Indexed_palette(Probe p)
         {

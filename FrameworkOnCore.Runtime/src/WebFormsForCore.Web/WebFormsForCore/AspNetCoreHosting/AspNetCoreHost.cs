@@ -48,16 +48,23 @@ namespace System.Web.Hosting
         public bool HandleAllRequestsWithWebForms { get; set; } = false;
 		public string[] HandleExtensions { get; set; } = new string[] { ".aspx", ".ashx", ".asmx", ".axd" };
         // Not served (404): IIS's request filtering's denied extensions (applicationHost.config, 404.7: .config, the sources,
-        // the projects, the databases' files .mdf/.ldf/.mdb, .resources, ...), and .NET's own (Razor's, appsettings.json).
-        // It had a few of them only: an App_Data database (.mdf, .ldf) or a project file was served.
+        // the projects, the databases' files .mdf/.ldf/.mdb, .resources, ...), and .NET's own (.NET Core's Razor components,
+        // appsettings.json). It had a few of them only: an App_Data database (.mdf, .ldf) or a project file was served.
         public string[] ProhibitedExtensions { get; set; } = new string[]
         {
             ".asa", ".asax", ".ascx", ".master", ".skin", ".browser", ".sitemap", ".config", ".cs", ".csproj", ".vb", ".vbproj",
             ".webinfo", ".licx", ".resx", ".resources", ".resource", ".mdb", ".vjsproj", ".java", ".jsl", ".ldb", ".dsdgm", ".ssdgm",
             ".lsad", ".ssmap", ".cd", ".dsprototype", ".lsaprototype", ".sdm", ".sdmDocument", ".mdf", ".ldf", ".ad", ".dd",
             ".ldd", ".sd", ".adprototype", ".lddprototype", ".exclude", ".refresh", ".compiled", ".msgx", ".vsdisco", ".rules",
-            ".razor", ".cshtml", ".vbhtml", "appsettings.json",
+            ".razor", "appsettings.json",
         };
+        // ASP.NET Web Pages' files: IIS gives them to ASP.NET whatever the application's handlers (applicationHost.config's
+        // cshtml-Integrated-4.0 and the others), where Web Pages serves them (an application of .cshtml pages: BlogEngine.NET's
+        // admin, its widgets' editors) or else the root web.config's HttpForbiddenHandler answers 403. They were denied before
+        // System.Web (404.7): every .cshtml page asked by its name was not found. Never a static file (their source).
+        internal static readonly string[] WebPagesExtensions = { ".cshtml", ".vbhtml", ".cshtm", ".vbhtm" };
+
+        static bool IsWebPagesFile(string path) => WebPagesExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase));
         // IIS's defaultDocument, in its order and with its names (Default.asp, classic ASP, left out): a folder's file is found by
         // them without regard to case. It was another order, "iisstart.htm" was "iistart.htm".
         public string[] DefaultDocuments { get; set; } = new string[] { "Default.htm", "index.htm", "index.html", "iisstart.htm", "default.aspx" };
@@ -395,7 +402,7 @@ namespace System.Web.Hosting
             var dot = name.LastIndexOf('.');
             if (dot >= 0 && filtering.Extensions.TryGetValue(name.Substring(dot), out var allowed)) return !allowed;
             if (!filtering.AllowUnlisted) return true;
-            if (HandleExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return false;
+            if (HandleExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase)) || IsWebPagesFile(path)) return false;
             return ProhibitedExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase) &&
                 !IntegratedModeConfiguration.IisDeniedExtensions.Contains(ext, StringComparer.OrdinalIgnoreCase));
         }
@@ -410,11 +417,11 @@ namespace System.Web.Hosting
 
 			var fullpath = $"{context.Request.PathBase.Value.TrimEnd('/')}/{path}";
 
-			if (HandleExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase) )) 
+			if (HandleExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase) ) || IsWebPagesFile(path))
                 return true;
             // A handled file with path info of any depth (/a.aspx/x/y: the worker request's /a.aspx and /x/y, as IIS maps it).
             for (var index = path.IndexOf('/', 1); index > 0; index = path.IndexOf('/', index + 1))
-                if (HandleExtensions.Any(ext => path[..index].EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
+                if (HandleExtensions.Any(ext => path[..index].EndsWith(ext, StringComparison.OrdinalIgnoreCase)) || IsWebPagesFile(path[..index]))
                     return true;
             if (ProhibitedExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return false;
 

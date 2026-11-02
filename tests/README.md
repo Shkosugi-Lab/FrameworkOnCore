@@ -117,11 +117,23 @@ FrameworkOnCore の System.Web をソースからビルドして内部の型を�
 | be の画面 | `.\experiments\wf4c\verify-windows.ps1 -Name be` | `corpora/parity/be.golden-webforms.json`(5 画面、リンク 17) | Edge | 2 分 |
 | wt の画面 | `.\experiments\wf4c\verify-windows.ps1 -Name wt` | `corpora/parity/wt.golden-webforms.json`(8 画面、リンク 64) | SQL Server Express を起動しておく | 1 分 |
 | wt のすべての操作 | `.\experiments\wf4c\verify-windows.ps1 -Name wt -Suite operations` | `corpora/parity/wt.operations.golden.json`(223 スナップショット)、許される差 `wt.operations.allowed.json`。結果は `experiments/wf4c/_results/` | SQL Server Express(起動と停止はスクリプトが行う) | 約 5 分 |
-| Linux の be・wt | `.\experiments\wf4c\run-linux.ps1 -App be\BlogEngine\BlogEngine.NET -Scenario corpora\regression\be.scenario.json -Golden corpora\parity\be.golden-webforms.json`<br>`.\experiments\wf4c\run-linux.ps1 -App wt\WingtipToys\WingtipToys -Scenario corpora\regression\wt.scenario.json -Golden corpora\parity\wt.golden-webforms.json -SqlServer`<br>`.\experiments\wf4c\run-linux.ps1 -App wt\WingtipToys\WingtipToys -SqlServer -Suite operations` | 同上。wt の Linux だけの許される差は `corpora/parity/wt.allowed.json`(8 画面)と `wt.operations.allowed.json`(すべての操作) | Docker | be 3 分、wt 2 分 |
+| be のすべての操作 | `.\experiments\wf4c\verify-windows.ps1 -Name be -Suite operations` | `corpora/parity/be.operations.golden.json`(473 スナップショット。操作 201 件の棚卸しは `corpora/regression/be.operations.json`・`.md`、シナリオは `be.operations.scenario.json`)、許される差 `be.operations.allowed.json`。どの実行も App_Data をリリースのもの(`corpora/be-app-data.ps1`)に戻してから始め、`files` の手順で App_Data の変化も比べる。結果は `experiments/wf4c/_results/be.operations.windows.{md,json}` | Edge | 約 13 分 |
+| Linux の be・wt | `.\experiments\wf4c\run-linux.ps1 -App be\BlogEngine\BlogEngine.NET -Scenario corpora\regression\be.scenario.json -Golden corpora\parity\be.golden-webforms.json`<br>`.\experiments\wf4c\run-linux.ps1 -App wt\WingtipToys\WingtipToys -Scenario corpora\regression\wt.scenario.json -Golden corpora\parity\wt.golden-webforms.json -SqlServer`<br>`.\experiments\wf4c\run-linux.ps1 -App wt\WingtipToys\WingtipToys -SqlServer -Suite operations`<br>`.\experiments\wf4c\run-linux.ps1 -App be\BlogEngine\BlogEngine.NET -Suite operations` | 同上。wt の Linux だけの許される差は `corpora/parity/wt.allowed.json`(8 画面)と `wt.operations.allowed.json`(すべての操作)、be のすべての操作のものは `be.operations.allowed.json` の `platforms: linux` | Docker | be 3 分、wt 2 分、be のすべての操作 約 14 分 |
 
 期待される結果: be 5/5、wt 8/8(Windows)。Linux は be 5/5、wt 8/8 のうち error-page が「許容」(Docker のポート転送で `Request.IsLocal` が偽。
 以前からの既知の差で、2026-10-31 に `wt.allowed.json` に理由つきで記録した。`run-linux.ps1` は `--platform linux` を渡すので、この差だけが許される)。
 ゴールデンの採り直し(IIS、管理者): `.\corpora\record-webforms-golden.ps1 -Only be`、`.\corpora\record-wt-operations.ps1`(詳しくは [corpora/README.md](../corpora/README.md))。
+
+be のすべての操作(2026-11-02): 期待される結果は Windows・Linux とも `RESULT: OK`(終了コード 0)。操作 201 件のうち、実行できない 4 件(メールの中身、
+インターネット上のギャラリーと更新が要るもの。理由は棚卸しに書いてある)を除く 197 件を実行する。Windows は同じ 180・許される差 17、Linux は同じ 170・許される差 27
+(Linux だけの差: タイムゾーンの一覧が IANA のもの、ICU のカルチャのネイティブ名、Environment.NewLine、物理パス、PNG のエンコーダーのバイト。理由は許される差のファイルに書いてある)。
+be では、`run-linux.ps1 -Suite operations` が次を既定で行う: リリースの App_Data をコンテナに入れる。アプリをコンテナの 127.0.0.1 で動かし、socat で公開する
+(`-LocalClient`。接続元が 127.0.0.1 になり、`Request.IsLocal` とコメントの IP が IIS と同じになる)。`TZ` をこのマシン(カルチャ プロファイル)のタイムゾーンにする
+(`-TimeZone`)。変換がビルドの後に bin に加えたもの(`frameworkoncore.*.txt`、言語別のサテライト)をそろえる。
+採り直し(IIS、管理者、約 10 分): `.\corpora\record-be-operations.ps1`。`-Discover` を付けると 3 つの立場で巡回し、棚卸しの漏れを `corpora/regression/be.discovered.iis.json` に書く。
+`-Keep` でサイトを残し、`-Remove` で消す。IIS のサイト `foc-beops` と同名のアプリケーション プールを 127.0.0.1:8100〜8199 に作り、終われば消す。
+棚卸しとシナリオを変えるときは JSON を手で直さない。`python corpora\regression\be-operations-inventory.py`・`python corpora\regression\be-operations-scenario.py`
+(同じ入力から同じ JSON を書く)で書き直してから採り直す。シナリオの `{today}` は実行した日の日付(採った日と違う日にも比べられるようにするため)。
 
 ## 5. 環境のマトリクスと Linux
 
@@ -168,10 +180,10 @@ Windows のテスト(GDI+ の描画、IIS、SQL Server Express、日本語の Wi
 | いつでも(数分、準備なし) | 3 プロジェクト(Stress を除く)、`translations\check.ps1` | `-Set quick`(約 4 分) |
 | 変換器・アナライザー・Studio を変えた(コミットの前) | `FrameworkOnCore.Tests`、be・wt の変換と基準の比較、be・wt の Windows での画面の比較 | `-Set commit`(約 5 分) |
 | FrameworkOnCore.Runtime を変えた | パッケージを作り直し(`pack-frameworkoncore.ps1 -Build All`)、3 プロジェクト(Stress を含む)、be・wt の変換と比較。直した所に関わるサンプルは `sample-parity.ps1 -Windows`/`-Linux` で個別に | `-Set runtime` |
-| リリースの前 | runtime に加えて、wt のすべての操作、Windows のマトリクス、Linux(3 プロジェクト、be・wt) | `-Set full` |
+| リリースの前 | runtime に加えて、wt・be のすべての操作、Windows のマトリクス、Linux(3 プロジェクト、be・wt、be のすべての操作) | `-Set full` |
 | Linux も | commit・runtime に Linux の実行を足す | `-Linux` |
 
-**ランタイムの版**: `FrameworkOnCore.Runtime/` を変えたら、`src/FrameworkOnCore.Converter/rules/packages.json` の `frameworkOnCoreVersion`(今は `1.6.5-w2l.26`、2026-11-01 に公開済み。次は w2l.27)を
+**ランタイムの版**: `FrameworkOnCore.Runtime/` を変えたら、`src/FrameworkOnCore.Converter/rules/packages.json` の `frameworkOnCoreVersion`(今は `1.6.5-w2l.27`。2026-11-02 の時点で未公開。w2l.26 は 2026-11-01 に公開済み)を
 次の `w2l.N` に上げます。公開済みの版のまま作り直すと、ほかのマシンが古いパッケージを使い続けます(`pack-frameworkoncore.ps1` は公開済みの版の元が変わっていると止まる)。
 テストだけの変更なら版は上げません。
 

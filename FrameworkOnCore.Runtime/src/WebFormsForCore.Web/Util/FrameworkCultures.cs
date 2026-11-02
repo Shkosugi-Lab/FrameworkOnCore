@@ -84,5 +84,57 @@ namespace System.Web.Util
             }
             return false;
         }
+
+        // FrameworkOnCore: a culture name .NET Framework refuses throws CultureNotFoundException, as .NET Framework (the
+        // cultures System.Web makes: <globalization>, a page's Culture and UICulture, "auto" from Accept-Language). .NET
+        // with ICU (Linux; Windows without NLS) makes a culture of nearly any name - Accept-Language "abcd, ja" was the
+        // culture "abcd" with English data where .NET Framework went on to ja. With NLS (UseNls) the call as written.
+        // FrameworkOnCore.Compat's FrameworkCultures.Create is the same, for the application's code.
+        internal static void ThrowIfRefused(string name)
+        {
+            if (Nls || string.IsNullOrEmpty(name) || WindowsLocaleName(name)) return;
+            // .NET Framework's names that Windows' grammar of a locale name does not take (of its 914: these two).
+            if (name.Equals("zh-CHS", StringComparison.OrdinalIgnoreCase) || name.Equals("zh-CHT", StringComparison.OrdinalIgnoreCase)) return;
+            throw new CultureNotFoundException("name", name, "Culture is not supported.");
+        }
+
+        static readonly bool Nls = OperatingSystem.IsWindows() && AppContext.TryGetSwitch("System.Globalization.UseNls", out var nls) && nls;
+
+        // Whether .NET Framework 4.8 on Windows 10 and later makes a culture of the name (a known one, or "Unknown Locale"
+        // for a well-formed one). Windows' grammar, as measured on Windows 11 (Windows PowerShell 5.1, new CultureInfo(name);
+        // not RFC 5646's: en-ZZZ and en-1234 refused, en-US-a and ja-JP-mac taken): a language of 2 or 3 letters (Auto,
+        // abcd, root, e1, a refused), or x- or i- and more; then a script of 4 letters, then a region of 2 letters or 3
+        // digits, or in place of either a singleton and more (en-x refused, en-x-a taken); after the region any subtags.
+        // Subtags of 1 to 8 ASCII letters or digits; one '_' and a sort name after it (de-DE_phoneb); shorter than 85.
+        // The same as FrameworkOnCore.Compat's FrameworkCultures.WindowsLocaleName (CompatTests has the measured names).
+        internal static bool WindowsLocaleName(string name)
+        {
+            if (string.IsNullOrEmpty(name) || name.Length >= 85) return false;
+            int sort = name.IndexOf('_');
+            if (sort >= 0)
+            {
+                if (sort == name.Length - 1 || name.IndexOf('_', sort + 1) >= 0 || !Alphanumeric(name.Substring(sort + 1))) return false;
+                name = name.Substring(0, sort);
+            }
+            var tags = name.Split('-');
+            foreach (var tag in tags)
+                if (tag.Length == 0 || tag.Length > 8 || !Alphanumeric(tag)) return false;
+            string first = tags[0];
+            if (first.Equals("x", StringComparison.OrdinalIgnoreCase) || first.Equals("i", StringComparison.OrdinalIgnoreCase)) return tags.Length > 1;
+            if (first.Length < 2 || first.Length > 3 || !Letters(first)) return false;
+            int i = 1;
+            if (i < tags.Length && tags[i].Length == 4 && Letters(tags[i])) i++;
+            if (i < tags.Length)
+            {
+                string tag = tags[i];
+                if (tag.Length == 1) return i + 1 < tags.Length;
+                if (!(tag.Length == 2 && Letters(tag) || tag.Length == 3 && Digits(tag))) return false;
+            }
+            return true;
+        }
+
+        static bool Alphanumeric(string text) { foreach (char c in text) if (!(c < 128 && char.IsLetterOrDigit(c))) return false; return true; }
+        static bool Letters(string text) { foreach (char c in text) if (!(c < 128 && char.IsLetter(c))) return false; return true; }
+        static bool Digits(string text) { foreach (char c in text) if (!(c >= '0' && c <= '9')) return false; return true; }
     }
 }

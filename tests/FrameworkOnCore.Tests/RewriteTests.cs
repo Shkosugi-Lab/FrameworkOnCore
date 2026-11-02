@@ -67,6 +67,26 @@ public class RewriteTests
         Assert.Contains("{ global::FrameworkOnCore.Platform.ResetAbort(); }", written);
     }
 
+    [Fact] // BlogEngine.NET: new CultureInfo(BlogSettings.Instance.Culture) of "Auto" (its admin pages), new Uri(sourceUrl) of "/trackback.axd"
+    public void Culture_creation_and_an_absolute_uri_are_replaced()
+    {
+        var written = CSharp(InClass(
+            "object CA(string n) => new System.Globalization.CultureInfo(n);\n" +
+            "object CB(string n) => new System.Globalization.CultureInfo(n, false);\n" +
+            "object CC(string n) => System.Globalization.CultureInfo.GetCultureInfo(n);\n" +
+            "object CD(string n) => System.Globalization.CultureInfo.CreateSpecificCulture(n);\n" +
+            "object CE() => new System.Globalization.CultureInfo(1041);\n" +
+            "Uri UF(string s) => new Uri(s);\n" +
+            "Uri UG(Uri b, string s) => new Uri(b, s);"));
+        Assert.Contains("object CA(string n) => global::FrameworkOnCore.FrameworkCultures.Create(n);", written);
+        Assert.Contains("object CB(string n) => global::FrameworkOnCore.FrameworkCultures.Create(n, false);", written);
+        Assert.Contains("object CC(string n) => global::FrameworkOnCore.FrameworkCultures.GetCultureInfo(n);", written);
+        Assert.Contains("object CD(string n) => global::FrameworkOnCore.FrameworkCultures.CreateSpecificCulture(n);", written);
+        Assert.Contains("object CE() => new System.Globalization.CultureInfo(1041);", written);
+        Assert.Contains("Uri UF(string s) => global::FrameworkOnCore.WindowsUri.Create(s);", written);
+        Assert.Contains("Uri UG(Uri b, string s) => new Uri(b, s);", written);
+    }
+
     [Fact] // read with ?.: the whole access replaced (the binding alone, .Name, is not an expression of its own)
     public void Platform_members_read_with_conditional_access_are_replaced_whole()
     {

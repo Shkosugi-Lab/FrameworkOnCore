@@ -41,12 +41,11 @@ static class Allowed
         foreach (var target in new[] { "/web.config::$DATA", "/x.cs::$DATA", "/a.txt::$DATA", "/default.aspx::$DATA", "/App_Data::$INDEX_ALLOCATION/users.xml" })
             Allow("windows-names", "GET " + target, Rule.Refused, "':' in the path: ASP.NET's 400 (requestPathInvalidCharacters) where IIS answers 404.0");
 
-        // File types: IIS answers 404.3 (no MIME type) or ASP.NET's HttpForbiddenHandler 403; the port's request filtering refuses
-        // them first (404.7: AspNetCoreHost.ProhibitedExtensions, .NET's and Razor's files beyond IIS's list).
+        // File types: IIS answers 404.3 (no MIME type); the port's request filtering refuses them first (404.7:
+        // AspNetCoreHost.ProhibitedExtensions, .NET's files beyond IIS's list). Web Pages' (.cshtml, .vbhtml) go to ASP.NET on both:
+        // its HttpForbiddenHandler's 403 (they were the port's 404.7 until BlogEngine.NET's .cshtml pages were not found).
         foreach (var extension in new[] { ".asa", ".razor", ".resource" })
             Allow("extensions", "GET /x" + extension, Rule.SameStatus, "404.7 of the port's own denied types where IIS has no MIME type for them (404.3)");
-        foreach (var extension in new[] { ".cshtml", ".vbhtml" })
-            Allow("extensions", "GET /x" + extension, Rule.Refused, "404.7 of the port's own denied types where ASP.NET's forbidden handler answers 403");
         Allow("filtering", "GET /appsettings.json", Rule.Stricter, "the port's choice: .NET's settings file (the converted application's, with its secrets) is never served");
         Allow("filtering", "GET /AppSettings.json", Rule.Stricter, "the port's choice: .NET's settings file is never served, in any case");
         Allow("filtering", "GET /.git/config", Rule.SameStatus, "a file without an extension: IIS's 404.17, the port's 404.3 (no MIME type)");

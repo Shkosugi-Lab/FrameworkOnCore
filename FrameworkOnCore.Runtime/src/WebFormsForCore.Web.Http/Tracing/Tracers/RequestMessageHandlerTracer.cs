@@ -43,15 +43,16 @@ namespace System.Web.Http.Tracing.Tracers
 
                 endTrace: (tr, response) =>
                 {
+                    // FrameworkOnCore: .NET's empty content is none (ResponseContent).
                     MediaTypeHeaderValue contentType = response == null
                                                             ? null
-                                                            : response.Content == null
+                                                            : ResponseContent.IsNone(response.Content)
                                                                     ? null
                                                                     : response.Content.Headers.ContentType;
 
                     long? contentLength = response == null
                                                 ? null
-                                                : response.Content == null
+                                                : ResponseContent.IsNone(response.Content)
                                                     ? null
                                                     : response.Content.Headers.ContentLength;
 

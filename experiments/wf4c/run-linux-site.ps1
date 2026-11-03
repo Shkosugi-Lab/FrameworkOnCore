@@ -5,7 +5,11 @@
 # -Database. Then the paths are requested in order, and each one's status and title printed.
 #
 #   .\experiments\wf4c\run-linux-site.ps1 -Site dnn\site -Dll DotNetNuke.Website -Database dnn_linux -Paths '/Install/Install.aspx?mode=install', '/'
-#   .\experiments\wf4c\run-linux-site.ps1 -Site imis\site -Dll IMIS -Database imis_linux -SqlScripts (imis-sql-scripts)
+#   .\experiments\wf4c\run-linux-site.ps1 -Site imis\site -Dll IMIS -Database imis_linux -SqlScripts $scripts -Keep
+#       $scripts: openIMIS's database scripts in the order convert-corpora.ps1 runs them (base, stored procedures, demo):
+#       $sql = 'corpora\work\database_ms_sqlserver-24.10\sql'
+#       $scripts = @(Get-ChildItem "$sql\base\*.sql") + @(Get-ChildItem "$sql\stored_procedures\*.sql") + @(Get-ChildItem "$sql\demo\*.sql") | ForEach-Object FullName
+#   (Without -Keep the container is removed after the paths; imis-login.ps1 -Base http://localhost:5098 logs in to a kept one.)
 param(
     # The site folder, relative to experiments\wf4c.
     [Parameter(Mandatory = $true)][string]$Site,

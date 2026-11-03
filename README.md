@@ -77,9 +77,9 @@ Studio は 5 つの手順のウィザードです(左の手順から、どこへ
    - **自分で対応する所**: 変換しても動くようにならない部品(OLE DB、Active Directory、レジストリ、Linux では例外になる ACL など)ごとに、Linux で何が起きるか、使っている回数・ファイル・DLL、「すること」(書き換え方。Windows のサーバーならそのまま動くか)、予定の移植版。どの部品にも入らない API はまとめて最後に出ます。
    - **対応を選ぶ部品**: 選べる対応がある部品ごとに対応を選びます(API ごとにも変えられる)。ソースの無い DLL が、.NET 10 では別のアセンブリにある型を参照するときは、部品「参照先のない DLL」で、変換器が DLL の参照先を付け替えるか(既定)、対応しないかを選びます(付け替える型と DLL は「API を見る」で見られます)。
    - **すべての API**: API は部品ではなく 1 つずつ、変換器がどう扱うか(いまの選択で: 部品の対応、DLL の参照の付け替え・呼び出しの置き換え、そのまま動く、動きの違い・廃止予定、対応なし)で数えます。
-3. **アプリの設定**: API ではなく、アプリ全体に対する選択です。2 と 3 の選択は、変換に進むときに保存します。ファイル名の大文字小文字のほか、IIS の機能の動かし方(要求のログ・URL Rewrite・エラー ページ・圧縮: IIS 互換〈既定〉/ ASP.NET Core 標準 / オフ)があり、変換後の `appsettings.json` に書かれます(変換後もそこで変えられます)。
+3. **サーバーの設定**: API ではなく、アプリ全体に対する選択です。2 と 3 の選択は、変換に進むときに保存します。ファイル名の大文字小文字のほか、IIS の機能の動かし方(要求のログ・URL Rewrite・エラー ページ・圧縮: IIS 互換〈既定〉/ ASP.NET Core 標準 / オフ)があり、変換後の `appsettings.json` に書かれます(変換後もそこで変えられます)。
 4. **変換・ビルド**: 保存した選択で変換とビルドを行います。`--build-original`(元のアプリをそのビルド手順でビルドし、配置されるサイトから組み立てる)の要否は、リポジトリから自動で判定して初期値にし、理由を表示します(Cake のビルド、Web プロジェクトのフォルダーへ出力・コピーするほかのプロジェクト、ビルドで作られる web.config、リポジトリ独自のビルドファイル)。元のビルドのあとに実行するリポジトリのセットアップ手順(`--original-step`。N2 の `build\n2.proj;Templates-PrepareDependencies` など)も、1 行に 1 つ「プロジェクト;ターゲット」で指定できます(元のアプリのテスト起動と共通。「変換のコマンドをコピー」のコマンドにも入ります)。変換レポートは節ごとに開いて見られます。
-5. **デプロイ**: Linux に配置できる形(Dockerfile と systemd 用のスクリプト付き、`obj` を除く)の ZIP のダウンロード、この PC の dotnet での起動(ネイティブ起動、Docker 不要)、Dockerfile からイメージを作って localhost のポートでのコンテナ起動(Docker Desktop が要ります。Studio のコンテナは一度に一つ)。どちらも接続文字列などを環境変数(`SQLCONNSTR_<名前>`、`APPSETTING_<キー>`)で渡せます(それぞれ別に保存。コンテナの中からは LocalDB やこの PC の localhost は見えないので、`host.docker.internal` を使う)。ECR への発行は予定です。コマンドラインで変換するためのコマンドもコピーできます。
+5. **実行・デプロイ**: Linux に配置できる形(Dockerfile と systemd 用のスクリプト付き、`obj` を除く)の ZIP のダウンロード、この PC の dotnet での起動(ネイティブ起動、Docker 不要)、Dockerfile からイメージを作って localhost のポートでのコンテナ起動(Docker Desktop が要ります。Studio のコンテナは一度に一つ)。どちらも接続文字列などを環境変数(`SQLCONNSTR_<名前>`、`APPSETTING_<キー>`)で渡せます(それぞれ別に保存。コンテナの中からは LocalDB やこの PC の localhost は見えないので、`host.docker.internal` を使う)。ECR への発行は予定です。コマンドラインで変換するためのコマンドもコピーできます。
 
 Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、Studio を止めると止まります(強制終了でも止まり、IIS に作ったサイトは次の起動で消えます)。
 
@@ -122,7 +122,7 @@ Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、St
 
 ## 状態
 
-- コーパス(Web Forms: BlogEngine.NET、WingtipToys、mojoPortal、YAF.NET、DNN、N2CMS、openIMIS(VB)、nopCommerce 1.90。MVC 5: MvcMovie、nopCommerce 3.90)を変換し、Windows と Linux で動作を確かめています。結果と既知の課題は `experiments/wf4c/README.md` にあります。
+- コーパス(Web Forms: BlogEngine.NET、WingtipToys、mojoPortal、YAF.NET、DNN、N2CMS、openIMIS(VB)、nopCommerce 1.90。MVC 5: MvcMovie、nopCommerce 3.90、Contoso University)を変換し、Windows と Linux で動作を確かめています。結果と既知の課題は `experiments/wf4c/README.md` にあります。自分で試す手順は [docs/corpora-guide.md](docs/corpora-guide.md) にあります。
 - .NET Framework にしかない API の洗い出しと対応の状況は `experiments/wf4c/FRAMEWORK-ONLY-APIS.md` にあります。
 - MVC 5・Web Pages・Razor 3 は AspNetWebStack v3.3.0(Microsoft のソース、Apache 2.0)から `FrameworkOnCore.Runtime/` に移植済みで、変換後のアプリは Microsoft の DLL ではなくこれを使う(Microsoft の DLL の許諾は逆アセンブルを禁じ、.NET の数値の動きをするため)。数値の書式とモデル バインドは .NET Framework と同じ。Web API 2 も同じく移植済み。
 - LINQ to SQL(System.Data.Linq)は referencesource(MIT)から `FrameworkOnCore.Runtime/` に移植済みで、既定で使われる。全 API(486)を .NET Framework と新旧比較して一致を確認している(`experiments/wf4c/README.md` の記録)。
@@ -143,4 +143,5 @@ Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、St
 | `experiments/wf4c/README.md` | 実験と検証の記録(WebFormsForCore、コーパス、Linux、解析、Studio) |
 | `experiments/wf4c/FRAMEWORK-ONLY-APIS.md` | .NET Framework にしかない API の一覧と対応 |
 | `experiments/wf4c/PORT-CANDIDATES.md` | 移植版の候補(.NET Framework と .NET で動きや API が違うもの)と、移植済みのもの |
+| `docs/corpora-guide.md` | コーパスで変換を試す手引き(準備、Studio とコマンドラインでの変換、Windows・Linux での動かし方、コーパスごとの手順と結果、うまくいかないとき) |
 | `corpora/README.md` | コーパスの取得と記録 |

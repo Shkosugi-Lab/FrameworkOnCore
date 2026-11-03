@@ -47,7 +47,13 @@ $corpora = @(
 
     @{ Name = 'wt';   Title = 'WingtipToys (master)'
        Url = 'https://github.com/corn-mendoza/wingtiptoys/archive/refs/heads/master.zip'
-       ExtractedAs = 'wingtiptoys-master' },
+       ExtractedAs = 'wingtiptoys-master'
+       # Its Web.config names an Azure SQL database that does not exist (ms.database.windows.net, uid1 / P@123): the
+       # database it would have used, on SQL Server Express (Set-ConnectionStrings below).
+       WebConfig = 'WingtipToys\WingtipToys\Web.config'
+       ConnectionStrings = @{
+           DefaultConnection = 'Data Source=.\SQLEXPRESS;Initial Catalog=WingtipToys;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30'
+           WingtipToys = 'Data Source=.\SQLEXPRESS;Initial Catalog=WingtipToys;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30' } },
 
     # Visual Basic: openIMIS, a health insurance management system in use by governments (AGPL-3.0). The web application
     # (archived: its main is the last, 24.10) and the database scripts of the same release (fullDemoDatabase.sql).
@@ -70,7 +76,11 @@ $corpora = @(
     @{ Name = 'mvcmovie'; Title = 'MvcMovie (ASP.NET MVC 5 tutorial, AspNetDocs)'
        Git = 'https://github.com/dotnet/AspNetDocs.git'; Commit = '552c58dd8a809ef8cea02e66c9463ce9c7dcdfe5'
        Path = 'aspnet/mvc/overview/getting-started/introduction/sample/MvcMovie'
-       ExtractedAs = 'MvcMovie' },
+       ExtractedAs = 'MvcMovie'
+       WebConfig = 'MvcMovie\Web.config'
+       ConnectionStrings = @{
+           MovieDBContext = 'Data Source=.\SQLEXPRESS;Initial Catalog=MvcMovie;Integrated Security=True'
+           DefaultConnection = 'Data Source=.\SQLEXPRESS;Initial Catalog=MvcMovieIdentity;Integrated Security=True' } },
 
     # nopCommerce 3.90 (2017), the last MVC 5 version (.NET Framework 4.5.1, Entity Framework 6, Autofac); 4.x is ASP.NET Core.
     @{ Name = 'nop390'; Title = 'nopCommerce 3.90 (ASP.NET MVC 5)'
@@ -85,8 +95,29 @@ $corpora = @(
     @{ Name = 'contoso'; Title = 'Contoso University (ASP.NET MVC 5, EF6 tutorial)'
        Git = 'https://github.com/tigerbluejay/ContosoUniversity.git'; Commit = '2ee1ad2aa66fbef012fe280e4552176489dcf0f3'
        Path = 'ContosoUniversitySolution'
-       ExtractedAs = 'ContosoUniversity' }
+       ExtractedAs = 'ContosoUniversity'
+       WebConfig = 'ContosoUniversity\Web.config'
+       ConnectionStrings = @{ SchoolContext = 'Data Source=.\SQLEXPRESS;Initial Catalog=ContosoUniversity1;Integrated Security=True' } }
 )
+
+# The databases of the corpora with SQL Server (wt, mvcmovie, contoso) on SQL Server Express (.\SQLEXPRESS): their
+# Web.config's connection strings, by name, as corpora\record-webforms-golden.ps1 points them when it records the golden
+# data (the same values). wt's names an Azure SQL database that does not exist (an anonymized sample: its start waits for
+# it); mvcmovie's and contoso's LocalDB, whose instances are each user's (IIS's application pool and the converted
+# application would see different databases). Without it a corpus fetched on a new machine did not start after
+# convert-corpora.ps1 (verify-windows.ps1, run-linux.ps1 -SqlServer, Studio) until record-webforms-golden.ps1 had run.
+function Set-ConnectionStrings($corpus, [string]$target) {
+    if (-not $corpus.ConnectionStrings) { return }
+    $webConfig = Join-Path $target $corpus.WebConfig
+    $text = Get-Content $webConfig -Raw
+    foreach ($entry in $corpus.ConnectionStrings.GetEnumerator()) {
+        $text = [regex]::Replace($text,
+            '(<add\s+name="' + [regex]::Escape($entry.Key) + '"\s+connectionString=")[^"]*(")',
+            { param($m) $m.Groups[1].Value + $entry.Value + $m.Groups[2].Value })
+    }
+    Set-Content $webConfig -Value $text -Encoding utf8
+    Write-Host ("  接続文字列を SQL Server Express(.\SQLEXPRESS)に向けました: " + (($corpus.ConnectionStrings.Keys | Sort-Object) -join ', '))
+}
 
 # nopCommerce 1.90 について:
 #   最後の Web Forms 版。GitHub のタグ release-1.90 のアーカイブから取得する(nop)。
@@ -139,6 +170,7 @@ foreach ($c in $corpora) {
             }
             finally { $ErrorActionPreference = $previousEap }
             Move-Item (Join-Path $clone ($c.Path -replace '/', '\')) $target
+            Set-ConnectionStrings $c $target
             Write-Host "  OK: $target"
         }
         catch {
@@ -182,6 +214,7 @@ foreach ($c in $corpora) {
         if (-not (Test-Path $target)) {
             throw "展開後に $($c.ExtractedAs) が見つかりません(アーカイブの構造が変わった可能性があります)"
         }
+        Set-ConnectionStrings $c $target
         Write-Host "  OK: $target"
     }
     catch {

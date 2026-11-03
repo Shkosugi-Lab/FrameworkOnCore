@@ -6,6 +6,9 @@ param([Parameter(Mandatory = $true)][string]$Dll, [int]$Port = 5096, [string]$Lo
     # The host of the URL it listens on (localhost: both loopbacks; 127.0.0.1: IPv4's only, as an IIS site bound to it).
     [string]$Address = 'localhost')
 
+# A path relative to the current folder (bin\<web>.dll, run in the site's folder) as a full one: the site's folder below
+# is the DLL's folder's parent (an empty one for "bin\<web>.dll" otherwise).
+$Dll = (Resolve-Path -LiteralPath $Dll -ErrorAction Stop).Path
 $directory = Split-Path (Split-Path $Dll -Parent) -Parent
 if (-not $Log) { $Log = Join-Path $directory 'probe.log' }
 do {

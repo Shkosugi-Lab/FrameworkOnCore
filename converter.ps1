@@ -10,6 +10,9 @@ param([switch]$Build, [Parameter(ValueFromRemainingArguments = $true)][string[]]
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'tools\foc-tools.ps1')
 $tools = Get-FocTools -Build:$Build
-$runtime = if ($Arguments -contains '--runtime') { @() } else { @('--runtime', (Join-Path $PSScriptRoot 'experiments\wf4c')) }
+# Only the conversion and analyze take --runtime: build-original, build-original-advice and snapshot would read it as
+# the project (the last argument without an option is the project).
+$takesRuntime = -not ($Arguments.Count -gt 0 -and $Arguments[0] -in 'build-original', 'build-original-advice', 'snapshot')
+$runtime = if ($Arguments -contains '--runtime' -or -not $takesRuntime) { @() } else { @('--runtime', (Join-Path $PSScriptRoot 'experiments\wf4c')) }
 dotnet (Join-Path $tools 'FrameworkOnCore.Converter.dll') @Arguments @runtime
 exit $LASTEXITCODE

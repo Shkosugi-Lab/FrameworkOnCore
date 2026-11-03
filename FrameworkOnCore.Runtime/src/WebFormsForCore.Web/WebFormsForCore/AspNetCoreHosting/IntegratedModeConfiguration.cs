@@ -20,7 +20,8 @@ namespace System.Web
 	/// </summary>
 	internal static class IntegratedModeConfiguration
 	{
-		internal sealed record Handler(string Name, string Path, string Verb, string Type);
+		// ResourceType: IIS's resourceType (File, Directory, Either; Unspecified, the default: whatever is there).
+		internal sealed record Handler(string Name, string Path, string Verb, string Type, string ResourceType = "Unspecified");
 
 		static readonly object gate = new object();
 		static (DateTime Written, List<XElement> Modules, List<Handler> Handlers, bool RunAllManagedModules) cache;
@@ -86,7 +87,7 @@ namespace System.Web
 						// request reaches it already.
 						if (string.IsNullOrEmpty(type) || string.IsNullOrEmpty(path) || type.StartsWith("System.Web.Handlers.TransferRequestHandler", StringComparison.Ordinal)) break;
 						handlers.RemoveAll(h => h.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-						handlers.Add(new Handler(name, path, (string)entry.Attribute("verb") ?? "*", type));
+						handlers.Add(new Handler(name, path, (string)entry.Attribute("verb") ?? "*", type, (string)entry.Attribute("resourceType") ?? "Unspecified"));
 						break;
 				}
 			}
@@ -170,9 +171,19 @@ namespace System.Web
 		}
 
 		/// <summary>The application's handler for the request in system.webServer/handlers; null if none.</summary>
-		internal static string FindHandlerType(string verb, VirtualPath path)
+		internal static string FindHandlerType(string verb, VirtualPath path) => FindHandler(verb, path.VirtualPathString)?.Type;
+
+		/// <summary>
+		/// Whether a managed handler of system.webServer/handlers answers the URL where no file or folder is (nopCommerce's
+		/// pricelist.csv: its PricelistHandler): IIS gives the request to it - the managed pipeline - when its resourceType is
+		/// Unspecified (the default); File, Directory or Either: IIS's 404 (learn.microsoft.com/iis/configuration/
+		/// system.webserver/handlers/add: resourceType).
+		/// </summary>
+		internal static bool HandlesWithoutResource(string verb, string virtualPath) =>
+			FindHandler(verb, virtualPath) is { } handler && string.Equals(handler.ResourceType.Trim(), "Unspecified", StringComparison.OrdinalIgnoreCase);
+
+		static Handler FindHandler(string verb, string virtualPath)
 		{
-			var virtualPath = path.VirtualPathString;
 			var handlers = HandlersFor(virtualPath);
 			if (handlers.Count == 0) return null;
 			var fileName = virtualPath.Substring(virtualPath.LastIndexOf('/') + 1);
@@ -189,7 +200,7 @@ namespace System.Web
 					: Wildcard(handler.Path.TrimStart('~'), segments: false).IsMatch(fileName);
 				if (!matches) continue;
 				if (handler.Verb != "*" && !handler.Verb.Split(',').Any(v => v.Trim().Equals(verb, StringComparison.OrdinalIgnoreCase))) continue;
-				return handler.Type;
+				return handler;
 			}
 			return null;
 		}

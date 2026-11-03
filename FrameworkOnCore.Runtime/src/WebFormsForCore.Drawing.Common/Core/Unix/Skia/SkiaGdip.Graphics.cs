@@ -22,7 +22,7 @@ namespace System.Drawing
                 public GpBitmap? Bitmap;
                 public GpMetafile? Metafile;
                 public SKCanvas Canvas;
-                private SKBitmap? _canvasSurface;
+                internal SKBitmap? _canvasSurface;
                 public GpMatrix World = new GpMatrix();
                 public GpMatrix PreviousMatrix = new GpMatrix();
                 public GpRegion Clip = GpRegion.Infinite();
@@ -278,7 +278,19 @@ namespace System.Drawing
             internal static int GdipCreateFromHWND(IntPtr hwnd, out IntPtr graphics)
             {
                 graphics = IntPtr.Zero;
-                return NotImplemented;
+                if (hwnd != IntPtr.Zero)
+                    return NotImplemented;
+                // FrameworkOnCore: the screen (Graphics.FromHwnd(IntPtr.Zero)), without a display: a server's. On Windows it
+                // is the desktop's DC (an IIS application pool's: 96 DPI), which applications take to measure text with -
+                // PdfSharp's XGraphics.CreateMeasureContext (nopCommerce's PDF invoices and catalog: MigraDoc) -; libgdiplus'
+                // way opened an X display (libX11), which a server has not (DllNotFoundException). A Graphics of 96 DPI
+                // whose bounds are a screen's (1024 x 768: .NET Framework 4.8's on this machine's non-interactive
+                // session, DrawingParity's Screen_graphics) on a pixel of its own: what is drawn on it is not seen.
+                var surface = new SKBitmap(new SKImageInfo(1, 1, SKColorType.Bgra8888, SKAlphaType.Premul));
+                var screen = new GpGraphics(new SKCanvas(surface)) { _canvasSurface = surface };
+                screen.Bounds = screen.OrigBounds = new Rectangle(0, 0, 1024, 768);
+                graphics = NewHandle(screen);
+                return Ok;
             }
 
             internal static int GdipDeleteGraphics(HandleRef graphics)

@@ -364,17 +364,45 @@ public class AspNetCoreHostTests
         Assert.True(Legacy(host, "/none.txt"));
     }
 
-    [Fact] // defaultDocument: a folder's URL served by the first default document the folder has (the list's name, without regard to the file's case)
-    public void A_folder_is_served_by_its_default_document()
+    [Fact] // observed on IIS 10 (integrated mode): a folder's URL goes to the managed pipeline as it is ("/", "/sub/", "/sub": BeginRequest sees it), the default document after it (IisStaticFile)
+    public void A_folder_s_url_goes_to_System_Web_as_it_is()
     {
         using var site = new Site().Write("DEFAULT.ASPX", "x").Write("sub/Index.HTM", "x").Write("sub/default.aspx", "x");
         var host = site.Host();
         Assert.True(Legacy(host, "/", out var served));
-        Assert.Equal("/default.aspx", served);
+        Assert.Equal("/", served);
         Assert.True(Legacy(host, "", out served));
-        Assert.Equal("/default.aspx", served);
+        Assert.Equal("", served);
         Assert.True(Legacy(host, "/sub/", out served));
-        Assert.Equal("/sub/index.htm", served);
+        Assert.Equal("/sub/", served);
+        Assert.True(Legacy(host, "/sub", out served));
+        Assert.Equal("/sub", served);
+    }
+
+    [Fact] // defaultDocument: a folder's default document is the first of the list's names the folder has (the list's name, without regard to the file's case); none: null
+    public void A_folder_s_default_document_is_the_first_the_folder_has()
+    {
+        using var site = new Site().Write("DEFAULT.ASPX", "x").Write("sub/Index.HTM", "x").Write("sub/default.aspx", "x").Write("none/a.txt", "x");
+        var host = site.Host();
+        Assert.Equal("/default.aspx", host.DefaultDocumentFor("/", site.Root));
+        Assert.Equal("/sub/index.htm", host.DefaultDocumentFor("/sub/", Path.Combine(site.Root, "sub")));
+        Assert.Null(host.DefaultDocumentFor("/none/", Path.Combine(site.Root, "none")));
+    }
+
+    [Theory] // applicationHost.config's ExtensionlessUrlHandler-Integrated-4.0 (path "*.", verbs GET, HEAD, POST, DEBUG): an extensionless URL goes to the managed pipeline whatever is there; one with a '.' only if it is a file
+    [InlineData("/none", "GET", true)]
+    [InlineData("/a/b/c", "POST", true)]
+    [InlineData("/none", "PUT", false)]
+    [InlineData("/none.txt", "GET", false)]
+    [InlineData("/a.b/none", "GET", true)]
+    public void Extensionless_urls_go_to_System_Web(string path, string method, bool legacy)
+    {
+        using var site = new Site();
+        var host = site.Host();
+        var context = Site.Request("/");
+        context.Request.Path = new PathString(path);
+        context.Request.Method = method;
+        Assert.Equal(legacy, host.IsLegacyRequest(context));
     }
 
     [Fact] // the summary: a folder without a default document goes to System.Web (IisStaticFile: IIS's 403.14 or its listing)

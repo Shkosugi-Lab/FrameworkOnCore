@@ -93,6 +93,53 @@ public sealed class AssemblyRetargeterTests : IDisposable
         Assert.Equal(("System.Web.Routing.RouteTable", "System.Web.Routing.Old", "System.Web.Routing"), Assert.Single(Assert.Single(results, r => r.File.EndsWith("Plugin.dll")).Retargeted));
     }
 
+    // An assembly with P/Invoke methods (library, entry point), referencing mscorlib as a .NET Framework build does (or not: a .NET package's).
+    string Native(string name, bool framework, params (string Library, string EntryPoint)[] imports)
+    {
+        using var assembly = AssemblyDefinition.CreateAssembly(new AssemblyNameDefinition(name, new Version(1, 0)), name, ModuleKind.Dll);
+        var module = assembly.MainModule;
+        var holder = new TypeDefinition("Native", "Methods", TypeAttributes.Public | TypeAttributes.Class, module.TypeSystem.Object);
+        module.Types.Add(holder);
+        foreach (var (library, entryPoint) in imports)
+        {
+            var reference = module.ModuleReferences.FirstOrDefault(m => m.Name == library) ?? new ModuleReference(library);
+            if (!module.ModuleReferences.Contains(reference)) module.ModuleReferences.Add(reference);
+            var method = new MethodDefinition(entryPoint + "Import", MethodAttributes.Public | MethodAttributes.Static | MethodAttributes.PInvokeImpl | MethodAttributes.HideBySig, module.TypeSystem.IntPtr)
+            {
+                PInvokeInfo = new PInvokeInfo(PInvokeAttributes.CallConvWinapi, entryPoint, reference),
+                IsPreserveSig = true,
+            };
+            holder.Methods.Add(method);
+        }
+        // A .NET build's core library (Cecil's new modules name mscorlib).
+        if (!framework)
+            foreach (var corlib in module.AssemblyReferences.Where(r => r.Name == "mscorlib")) corlib.Name = "System.Runtime";
+        var path = Path.Combine(Bin, name + ".dll");
+        assembly.Write(path);
+        return path;
+    }
+
+    [Fact] // nopCommerce 1.90 on Linux: PdfSharp 1.3's fonts read with user32's GetDC and gdi32's GetFontData (DllNotFoundException); the report did not say
+    public void Calls_into_Windows_libraries_are_reported()
+    {
+        Native("PdfSharp", framework: true, ("user32.dll", "GetDC"), ("gdi32.dll", "GetFontData"), ("gdi32", "SelectObject"), ("libc", "getpid"));
+        Native("MyApp", framework: false, ("kernel32.dll", "GetTickCount"));
+        Native("Microsoft.Data.SqlClient", framework: false, ("kernel32.dll", "LoadLibraryExW"));
+        Native("System.Drawing", framework: true, ("gdiplus.dll", "GdipCreateBitmapFromScan0"));
+        Native("Plain", framework: true);
+        var report = new Report();
+
+        AssemblyRetargeter.ReportWindowsCalls(Bin, new HashSet<string> { "System.Drawing" }, new HashSet<string> { "MyApp" }, report);
+
+        var markdown = report.ToMarkdown("t");
+        Assert.Contains("gdi32.dll GetFontData, SelectObject; user32.dll GetDC", markdown);
+        Assert.Contains("kernel32.dll GetTickCount", markdown);
+        Assert.DoesNotContain("libc", markdown);
+        Assert.DoesNotContain("LoadLibraryExW", markdown);
+        Assert.DoesNotContain("Gdip", markdown);
+        Assert.DoesNotContain("Plain", markdown);
+    }
+
     [Fact]
     public void A_type_nothing_has_is_reported_and_the_DLL_not_written()
     {

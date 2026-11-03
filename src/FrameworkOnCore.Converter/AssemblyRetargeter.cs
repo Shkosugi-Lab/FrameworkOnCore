@@ -419,6 +419,54 @@ public sealed class AssemblyRetargeter
         return missing;
     }
 
+    /// <summary>Windows' own libraries (P/Invoke's module names, without ".dll", in lower case): none of them is on Linux.</summary>
+    static readonly HashSet<string> WindowsLibraries = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "user32", "gdi32", "kernel32", "advapi32", "ole32", "oleaut32", "shell32", "shlwapi", "comctl32", "comdlg32", "winmm",
+        "winspool.drv", "ntdll", "ws2_32", "wininet", "winhttp", "urlmon", "crypt32", "dwmapi", "uxtheme", "gdiplus", "msvcrt",
+        "version", "netapi32", "secur32", "rpcrt4", "iphlpapi", "mpr", "psapi", "setupapi", "imm32", "dbghelp", "wtsapi32",
+        "userenv", "msi", "credui", "activeds", "wldap32", "odbc32", "mscoree", "fusion", "wintrust", "bcrypt", "ncrypt",
+    };
+
+    /// <summary>
+    /// Reports the calls into Windows' own libraries (P/Invoke: DllImport of user32, gdi32, kernel32...) of the site's
+    /// .NET Framework DLLs and of the application's own assemblies (<paramref name="own"/>): on Linux they throw
+    /// DllNotFoundException where they are used (nopCommerce 1.90's PDFs: PdfSharp 1.3 reads its fonts with user32's GetDC
+    /// and gdi32's GetFontData). The .NET packages' assemblies (no mscorlib reference: they choose their platform's calls
+    /// themselves) and FrameworkOnCore's (<paramref name="preferred"/>) are not looked at.
+    /// </summary>
+    public static void ReportWindowsCalls(string bin, ISet<string> preferred, ISet<string> own, Report report)
+    {
+        foreach (var file in Directory.EnumerateFiles(bin, "*.dll").OrderBy(f => f, StringComparer.OrdinalIgnoreCase))
+        {
+            var name = Path.GetFileNameWithoutExtension(file);
+            if (preferred.Contains(name)) continue;
+            ModuleDefinition module;
+            try { module = ModuleDefinition.ReadModule(file); }
+            catch (BadImageFormatException) { continue; }
+            using (module)
+            {
+                if (!own.Contains(name) && !module.AssemblyReferences.Any(r => r.Name == "mscorlib")) continue;
+                var calls = new SortedDictionary<string, SortedSet<string>>(StringComparer.OrdinalIgnoreCase);
+                foreach (var type in module.GetTypes())
+                    foreach (var method in type.Methods.Where(m => m.HasPInvokeInfo && m.PInvokeInfo.Module != null))
+                    {
+                        var library = method.PInvokeInfo.Module.Name;
+                        var bare = library.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) ? library[..^4] : library;
+                        if (!WindowsLibraries.Contains(bare)) continue;
+                        var key = bare.ToLowerInvariant() + (bare.Contains('.') ? "" : ".dll");
+                        (calls.TryGetValue(key, out var functions) ? functions : calls[key] = new SortedSet<string>(StringComparer.Ordinal))
+                            .Add(string.IsNullOrEmpty(method.PInvokeInfo.EntryPoint) ? method.Name : method.PInvokeInfo.EntryPoint);
+                    }
+                if (calls.Count == 0) continue;
+                report.Add(Report.Kind.Unsupported, Path.GetFileName(file),
+                    $"calls into Windows' own libraries (P/Invoke; {calls.Values.Sum(f => f.Count)}): " +
+                    string.Join("; ", calls.Select(c => c.Key + " " + string.Join(", ", c.Value.Take(6)) + (c.Value.Count > 6 ? ", ..." : ""))) +
+                    ": on Linux DllNotFoundException where they are used (on Windows they run)");
+            }
+        }
+    }
+
     /// <summary>The assemblies of FrameworkOnCore's packages (the feed's nupkgs) and of the shim projects: they give .NET Framework's types.</summary>
     public static HashSet<string> PreferredAssemblies(string feed, IEnumerable<string> shimProjects)
     {

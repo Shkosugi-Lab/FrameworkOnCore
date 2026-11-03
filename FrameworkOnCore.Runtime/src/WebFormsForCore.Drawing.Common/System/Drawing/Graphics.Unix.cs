@@ -474,6 +474,14 @@ namespace System.Drawing
         {
             IntPtr graphics;
 
+            // FrameworkOnCore: the screen without X11 on the Skia backend (SkiaGdip.GdipCreateFromHWND: a server's screen,
+            // 96 DPI, to measure text with: PdfSharp's measure context).
+            if (hwnd == IntPtr.Zero && GdipBackend.Skia)
+            {
+                Gdip.CheckStatus(SafeNativeMethods.SkiaGdip.GdipCreateFromHWND(hwnd, out graphics));
+                return new Graphics(graphics);
+            }
+
             if (!Gdip.UseX11Drawable)
             {
                 CarbonContext context = MacSupport.GetCGContextForView(hwnd);

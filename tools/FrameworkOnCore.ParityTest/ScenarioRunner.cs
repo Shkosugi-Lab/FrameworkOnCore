@@ -504,9 +504,13 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
                         var lines = new List<string>
                         {
                             "download: " + download.SuggestedFilename,
-                            $"body: {bytes.Length} bytes, sha256 {Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(bytes))[..16]}",
+                            // content "pdf": a PDF made for the request (its creation date, its document id: other bytes each
+                            // time) is compared by what it is - a PDF, its pages - not by its bytes.
+                            step.Content == "pdf" ? PdfLine(bytes) : step.Content != null ? $"body: {step.Content}" : $"body: {bytes.Length} bytes, sha256 {Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(bytes))[..16]}",
                             "from: " + LocalTarget("/", download.Url),
                         };
+                        // content "xml", "json", "text": the file's content as fetch's (an export: its lines).
+                        if (step.Content is "xml" or "json" or "text") lines.AddRange(ContentLines(bytes, step.Content));
                         await download.DeleteAsync();
                         try { await page.WaitForLoadStateAsync(LoadState.NetworkIdle, new() { Timeout = 30_000 }); } catch (Exception ex) when (ex is PlaywrightException or TimeoutException) { }
                         await WaitUntilSettledAsync(Doc, _quietMs);
@@ -882,6 +886,14 @@ public sealed class ScenarioRunner(IPage page, string baseUrl, List<Regex> ignor
         return target.GetLeftPart(UriPartial.Authority).Equals(new Uri(_root).GetLeftPart(UriPartial.Authority), StringComparison.OrdinalIgnoreCase)
             ? target.PathAndQuery
             : target.AbsoluteUri;
+    }
+
+    /// <summary>A PDF as a line: whether it is one (its header) and its pages (the page objects: "/Type /Page", not "/Pages").</summary>
+    internal static string PdfLine(byte[] bytes)
+    {
+        var text = System.Text.Encoding.Latin1.GetString(bytes);
+        if (!text.StartsWith("%PDF-", StringComparison.Ordinal)) return $"not a pdf: {bytes.Length} bytes, starts {Regex.Replace(text[..Math.Min(40, text.Length)], @"[^\x20-\x7e]", ".")}";
+        return $"pdf: {Regex.Matches(text, @"/Type\s*/Page(?![s\w])").Count} page(s)";
     }
 
     /// <summary>The page's scripts, style sheets, icons and images (the application's), each one's answer.</summary>

@@ -48,6 +48,8 @@
     <ProjectReference Include="..\..\FrameworkOnCore.Runtime\src\WebFormsForCore.Web.Extensions\WebFormsForCore.Web.Extensions.csproj" />
     <!-- Web API's web host (AspNetWebStack's port): its responses through System.Web (Web/WebApiResponseTests). -->
     <ProjectReference Include="..\..\FrameworkOnCore.Runtime\src\WebFormsForCore.Web.Http.WebHost\WebFormsForCore.Web.Http.WebHost.csproj" />
+    <!-- The Ajax Control Toolkit (FrameworkOnCore's, 20.1 with the 4.1 compatibility): its controls' server side (Web/ToolkitTests). -->
+    <ProjectReference Include="..\..\FrameworkOnCore.Runtime\src\WebFormsForCore.AjaxControlToolkit\AjaxControlToolkit\AjaxControlToolkit.csproj" SetTargetFramework="TargetFramework=net10.0" />
   </ItemGroup>
 
   <!-- FrameworkOnCore's System.Web, not .NET's facade of the same name (as the converter writes it into converted projects). -->

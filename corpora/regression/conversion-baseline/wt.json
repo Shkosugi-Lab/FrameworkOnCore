@@ -7,7 +7,7 @@
     "Error entries": 0,
     "Raised entries": 1,
     "Iis entries": 2,
-    "Unsupported entries": 4,
+    "Unsupported entries": 6,
     "Stub entries": 0,
     "Platform entries": 8,
     "Project entries": 51
@@ -257,6 +257,8 @@
     "Unsupported": [
       "Elmah.dll: type references that neither .NET 10 nor the application has (46; TypeLoadException where they are used): [Microsoft.JScript]Microsoft.JScript.Vsa.VsaEngine, [Microsoft.JScript]Microsoft.JScript.GlobalScope, [MySql.Data]MySql.Data.MySqlClient.MySqlCommand, [Npgsql]Npgsql.NpgsqlCommand, [Microsoft.JScript]Microsoft.JScript.ScriptObject, [Microsoft.JScript]Microsoft.JScript.Import, [Microsoft.JScript]Microsoft.JScript.IVsaScriptScope, [Microsoft.JScript]Microsoft.JScript.With, ...",
       "Microsoft.CodeAnalysis.Workspaces.dll: type references that neither .NET 10 nor the application has (6; TypeLoadException where they are used): [SQLitePCLRaw.core]SQLitePCL.sqlite3, [SQLitePCLRaw.core]SQLitePCL.sqlite3_stmt, [SQLitePCLRaw.core]SQLitePCL.utf8z, [SQLitePCLRaw.core]SQLitePCL.sqlite3_blob, [SQLitePCLRaw.batteries_v2]SQLitePCL.Batteries_V2, [SQLitePCLRaw.core]SQLitePCL.raw",
+      "Microsoft.Owin.Host.SystemWeb.dll: calls into Windows' own libraries (P/Invoke; 1): kernel32.dll OutputDebugString: on Linux DllNotFoundException where they are used (on Windows they run)",
+      "Microsoft.Owin.Security.dll: calls into Windows' own libraries (P/Invoke; 1): crypt32.dll CryptEncodeObject: on Linux DllNotFoundException where they are used (on Windows they run)",
       "System.Web.Providers.dll: type references that neither .NET 10 nor the application has (1; TypeLoadException where they are used): [System.Runtime.Serialization]System.Runtime.Serialization.NetDataContractSerializer",
       "WingtipToys\\WingtipToys\\Logic\\PayPalFunctions.cs:187: SYSLIB0014 (throws or goes at run time): 'WebRequest.Create(string)' is obsolete: 'WebRequest, HttpWebRequest, ServicePoint, and WebClient are obsolete. Use HttpClient instead.' (https://aka.ms/dotnet-warnings/SYSLIB0014)"
     ],

@@ -16,7 +16,14 @@
 # (corpora\be-app-data.ps1, before the application starts: as on IIS), the scenario's files steps reading it; per-operation
 # results in experiments\wf4c\_results\be.operations.windows.{md,json}. App_Data is put back to the release's afterwards.
 #   .\experiments\wf4c\verify-windows.ps1 -Name be -Suite operations
-param([Parameter(Mandatory = $true)][ValidateSet('be', 'wt', 'mvcmovie', 'contoso')][string]$Name, [int]$Port = 5096,
+# -Suite operations (nop): every operation of corpora\regression\nop.operations.json (the scenario nop.operations.scenario.json,
+# the golden data nop.operations.golden.json recorded by corpora\record-nop-operations.ps1), from the sample store's database
+# (corpora\nop-database.ps1, restored before the application starts: as on IIS), the connection string written as nopCommerce's
+# installer writes it (ConnectionStrings.config; put back afterwards), the scenario's sql steps reading the database; the files the
+# application wrote (images\thumbs, files\ExportImport) removed afterwards. SQL Server Express is started if it is not running, and
+# stopped again afterwards. Per-operation results in experiments\wf4c\_results\nop.operations.windows.{md,json}.
+#   .\experiments\wf4c\verify-windows.ps1 -Name nop -Suite operations
+param([Parameter(Mandatory = $true)][ValidateSet('be', 'wt', 'mvcmovie', 'contoso', 'nop')][string]$Name, [int]$Port = 5096,
     [ValidateSet('default', 'operations')][string]$Suite = 'default',
     # With -Suite operations: also crawl the converted application as each persona (ParityTest discover) and check the
     # inventory covers what it finds: corpora\regression\<name>.discovered.windows.json.
@@ -29,7 +36,9 @@ $webProjects = @{
     wt       = 'wt\WingtipToys\WingtipToys\WingtipToys.csproj'
     mvcmovie = 'mvcmovie\MvcMovie\MvcMovie.csproj'
     contoso  = 'contoso\ContosoUniversity\ContosoUniversity.csproj'
+    nop      = 'nop\NopCommerceStore\NopCommerceStore.csproj'
 }
+$nopConnection = 'Data Source=.\SQLEXPRESS;Initial Catalog=nopCommerceOps;Integrated Security=True;Persist Security Info=False;MultipleActiveResultSets=True;Connect Timeout=120'
 $verifier = Join-Path $repo 'tools\FrameworkOnCore.ParityTest\bin\alt\FrameworkOnCore.ParityTest.dll'
 & {  # built every time (incremental: quick): the verifier run is the one of this checkout
     dotnet build (Join-Path $repo 'tools\FrameworkOnCore.ParityTest') -o (Split-Path $verifier) --nologo -v q | Out-Null
@@ -65,8 +74,26 @@ if ($Suite -eq 'operations' -and $Name -eq 'be') {
         '--mask', [regex]::Escape($directory.Replace('\', '\\')), '--mask', [regex]::Escape($directory),
         '--report', (Join-Path $results 'be.operations.windows.md'), '--results', (Join-Path $results 'be.operations.windows.json'))
 }
+elseif ($Suite -eq 'operations' -and $Name -eq 'nop') {
+    $address = '127.0.0.1'
+    $scenario = Join-Path $repo 'corpora\regression\nop.operations.scenario.json'
+    $golden = Join-Path $repo 'corpora\parity\nop.operations.golden.json'
+    if ((Get-Service 'MSSQL$SQLEXPRESS').Status -ne 'Running') { Start-Service 'MSSQL$SQLEXPRESS'; $startedSql = $true }
+    $results = Join-Path $PSScriptRoot '_results'
+    New-Item -ItemType Directory $results -Force | Out-Null
+    # The known state: the sample store's database (the application reads it when it starts); the connection string as the
+    # installer writes it (InstallerHelper.SaveConnectionString).
+    & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $repo 'corpora\nop-database.ps1')
+    if ($LASTEXITCODE -ne 0) { throw 'could not restore the nop database' }
+    $connectionStrings = Join-Path $directory 'ConnectionStrings.config'
+    $connectionStringsBefore = [IO.File]::ReadAllBytes($connectionStrings)
+    [IO.File]::WriteAllText($connectionStrings, "<connectionStrings>`r`n  <add name=`"NopSqlConnection`" connectionString=`"$nopConnection`" />`r`n</connectionStrings>")
+    $extra = @('--sql', 'Server=.\SQLEXPRESS;Database=nopCommerceOps;Integrated Security=true;TrustServerCertificate=true', '--platform', 'windows',
+        '--mask', $env:COMPUTERNAME, '--mask', [regex]::Escape($directory.Replace('\', '\\')), '--mask', [regex]::Escape($directory),
+        '--report', (Join-Path $results 'nop.operations.windows.md'), '--results', (Join-Path $results 'nop.operations.windows.json'))
+}
 elseif ($Suite -eq 'operations') {
-    if ($Name -ne 'wt') { throw '-Suite operations: be and wt only' }
+    if ($Name -ne 'wt') { throw '-Suite operations: be, wt and nop only' }
     $scenario = Join-Path $repo 'corpora\regression\wt.operations.scenario.json'
     $golden = Join-Path $repo 'corpora\parity\wt.operations.golden.json'
     $fresh[$Name] = @('WingtipToys')
@@ -99,6 +126,12 @@ try {
             --inventory (Join-Path $repo 'corpora\regression\be.operations.json') --login-url /Account/login.aspx --persona anonymous --persona 'login:admin:Parity-5' --persona 'login:parity-editor:Parity-1'
         if ($LASTEXITCODE -ne 0) { $verifyExit = 1 }
     }
+    elseif ($Discover -and $Suite -eq 'operations' -and $Name -eq 'nop') {
+        & dotnet $verifier discover --url "http://${address}:$Port" --out (Join-Path $repo 'corpora\regression\nop.discovered.windows.json') `
+            --inventory (Join-Path $repo 'corpora\regression\nop.operations.json') --login-url /login.aspx --max-pages 1500 --persona anonymous `
+            --persona 'login:parity@example.com:Parity-1' --persona 'login:admin@yourstore.com:admin'
+        if ($LASTEXITCODE -ne 0) { $verifyExit = 1 }
+    }
     elseif ($Discover -and $Suite -eq 'operations') {
         & dotnet $verifier discover --url "http://${address}:$Port" --out (Join-Path $repo 'corpora\regression\wt.discovered.windows.json') `
             --inventory (Join-Path $repo 'corpora\regression\wt.operations.json') --persona anonymous --persona register --persona 'login:canEditUser@wingtiptoys.com:Pa$$word1'
@@ -112,6 +145,16 @@ finally {
     if ($Suite -eq 'operations' -and $Name -eq 'be') {
         # What the run left in App_Data: the release's again.
         & (Join-Path $repo 'corpora\be-app-data.ps1') -Target $appData
+    }
+    elseif ($Suite -eq 'operations' -and $Name -eq 'nop') {
+        # What the run left: the connection string written, the pictures' thumbnails and the exports, the database.
+        [IO.File]::WriteAllBytes($connectionStrings, $connectionStringsBefore)
+        foreach ($folder in 'images\thumbs', 'files\ExportImport') {
+            Get-ChildItem (Join-Path $directory $folder) -File -ErrorAction SilentlyContinue |
+                Where-Object { $_.Name -notin 'placeholder.txt', 'Index.htm' } | ForEach-Object { [IO.File]::Delete($_.FullName) }
+        }
+        & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $repo 'corpora\nop-database.ps1') -Drop | Out-Null
+        if ($startedSql) { Stop-Service 'MSSQL$SQLEXPRESS' }
     }
     elseif ($Suite -eq 'operations') {
         # What the run left: the images the administrator uploaded, the database.

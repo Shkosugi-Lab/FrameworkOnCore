@@ -67,7 +67,10 @@ static class Allowed
             "a body that stops coming: IIS waits beyond the client's 5 s, Kestrel's minimum data rate may answer 408 once its 5 s grace is over (a race on a slow machine)");
         Allow("headers", "GET a header of 20,000 bytes", Rule.Other, "Kestrel's limit on the headers is 32 KB (http.sys's 16 KB): both refuse beyond 32 KB (headers of 50,000 bytes)", (_, p) => p.Status == 200);
         Allow("headers", "GET headers of 21,000 bytes", Rule.Other, "Kestrel's limit on the headers is 32 KB (http.sys's 16 KB): both refuse beyond 32 KB (headers of 50,000 bytes)", (_, p) => p.Status == 200);
-        Allow("headers", "OPTIONS the asterisk form", Rule.Other, "Kestrel gives OPTIONS * the root's path (its default document, 200); IIS's URL Rewrite fails on it (500.50)", (_, p) => p.Status == 200);
+        Allow("headers", "OPTIONS the asterisk form", Rule.Other,
+            "Kestrel gives OPTIONS * the root's path, a folder's URL: the managed pipeline runs for it and ASP.NET's static file handler refuses the verb (405, " +
+            "as for OPTIONS on a static file; it was the default document's page, 200, before the folder's URL ran the pipeline as on IIS); IIS's URL Rewrite fails on it (500.50)",
+            (_, p) => p.Status == 405);
         Allow("headers", "TRACE", Rule.Refused, "TRACE refused by both (IIS 501, ASP.NET's 405 on the port); no request echoed");
         Allow("headers", "TRACK", Rule.SameStatus, "405: IIS's static file module's page, ASP.NET's on the port");
         Allow("headers", "an unknown method", Rule.SameStatus, "405: IIS's static file module's page, ASP.NET's on the port");

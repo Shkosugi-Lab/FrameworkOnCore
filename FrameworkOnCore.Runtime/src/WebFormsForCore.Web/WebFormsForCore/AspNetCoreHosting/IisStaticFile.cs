@@ -30,6 +30,31 @@ namespace System.Web
 			var file = FileCache.Get(physicalPath);
 			if (file.IsDirectory && FileUtil.DirectoryExists(physicalPath))   // (a name FileUtil does not take as a folder's: not one)
 			{
+				// What IIS's static file handler does with a folder's URL once the managed pipeline has run for it (observed on
+				// IIS 10, integrated mode: BeginRequest and every event see "/sub/" or "/sub", the handler is the extensionless
+				// URLs' TransferRequestHandler; an application's module may answer it first - UrlRewritingNet's redirect of
+				// nopCommerce's "/" to "/default.aspx"): without its '/', the courtesy redirect (301) to it; with it, the
+				// default document as a child request (the whole pipeline again for "/sub/default.aspx", RawUrl the client's);
+				// else the listing or 403.14.
+				var folderWorker = context.WorkerRequest as AspNetCoreWorkerRequest;
+				if (!virtualPath.EndsWith("/", StringComparison.Ordinal))
+				{
+					CourtesyRedirect(context, virtualPath);
+					return true;
+				}
+				var document = folderWorker?.Host?.DefaultDocumentFor(virtualPath, physicalPath);
+				if (document != null)
+				{
+					// The query as the client sent it.
+					var query = folderWorker.Context.Request.QueryString.Value?.TrimStart('?');
+					// A POST's body (a page's postback to its folder's URL: its form) for the child request, as IIS passes it:
+					// read now (HttpRequest keeps it: EntityBody).
+					if (request.HttpVerb == HttpVerb.POST) _ = request.InputStream;
+					folderWorker.ScheduleTransferRequest(new AspNetCoreWorkerRequest.TransferRequest(document, string.IsNullOrEmpty(query) ? null : query, null,
+						request.EntityBody, true, null));
+					context.ApplicationInstance?.CompleteRequest();
+					return true;
+				}
 				// A folder without a default document: IIS's directory listing module answers 403.14 (its page, not the
 				// application's customErrors), or its listing where system.webServer/directoryBrowse enables it for the folder.
 				// IIS's own answers have no Cache-Control (System.Web's default, private), as a remote client gets them (IIS's
@@ -167,6 +192,23 @@ namespace System.Web
 			return ifModifiedSince != null &&
 				DateTime.TryParse(ifModifiedSince, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal, out since) &&
 				since <= DateTime.UtcNow && lastModified <= since;
+		}
+
+		/// <summary>IIS's courtesy redirect of a folder's URL without its '/': 301 to the URL with it (the query kept), an absolute
+		/// Location and IIS's "Document Moved" body in the server's language (IisUrlRewrite.RedirectBody), no Cache-Control.</summary>
+		static void CourtesyRedirect(HttpContext context, string virtualPath)
+		{
+			var response = context.Response;
+			// The URL as the client sent it (escaped), its query as it was.
+			var core = (context.WorkerRequest as AspNetCoreWorkerRequest)?.Context;
+			var location = core != null
+				? IisUrlRewrite.Absolute(core, (core.Request.PathBase + core.Request.Path).ToUriComponent() + "/" + core.Request.QueryString.Value)
+				: context.Request.Url.GetLeftPart(UriPartial.Authority) + virtualPath + "/" + (string.IsNullOrEmpty(context.Request.QueryStringText) ? "" : "?" + context.Request.QueryStringText);
+			response.SuppressDefaultCacheControlHeader = true;
+			response.StatusCode = 301;
+			response.RedirectLocation = location;
+			response.ContentType = "text/html; charset=UTF-8";
+			response.Write(IisUrlRewrite.RedirectBody(location));
 		}
 
 		static void NotFound(HttpContext context, int subStatus, int win32Status)

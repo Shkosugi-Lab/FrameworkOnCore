@@ -292,6 +292,9 @@ if (build && succeeded)
     // System.Web's texts in the language packs' languages, as on the original server (component language-packs).
     if (Directory.Exists(siteBin))
         LanguagePacks.Write(siteBin, cultureProfile, choices.OptionOf(catalog, "language-packs") ?? "translations", choices.SettingOf(catalog, "languages"), deployKinds, report, rules.PackageTranslated, converter.LanguagePackageCultures);
+    // What of the deployed site calls into Windows' own libraries (P/Invoke): not on Linux.
+    if (Directory.Exists(siteBin) && !string.Equals(deployKinds, "none", StringComparison.OrdinalIgnoreCase))
+        AssemblyRetargeter.ReportWindowsCalls(siteBin, preferred, ownAssemblies, report);
     new DeployWriter(report, outRoot, runtimeDirectory, rules).Write(deployKinds, deployedSite, web, cultureProfile, caseInsensitive.Value);
 }
 

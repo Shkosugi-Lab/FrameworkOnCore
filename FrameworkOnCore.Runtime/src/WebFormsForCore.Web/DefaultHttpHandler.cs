@@ -92,6 +92,18 @@ namespace System.Web {
                 HttpRequest request = context.Request;
 
                 // refuse POST requests
+#if !NETFRAMEWORK
+                // FrameworkOnCore: but a POST to a folder's URL ("/", "/sub/": a page's postback to its folder - BlogEngine.NET's
+                // newsletter widget, WingtipToys' home page) or to an extensionless URL where nothing is: IIS gives it to
+                // ExtensionlessUrlHandler-Integrated-4.0 (path "*.", verbs GET, HEAD, POST, DEBUG), then to its static file
+                // handler, whose default document module serves the folder's default document (the POST and its body as a child
+                // request) or answers 404, as for a GET (IisStaticFile). Only for the handler itself (a derived one decides).
+                if (request.HttpVerb == HttpVerb.POST && GetType() == typeof(DefaultHttpHandler) &&
+                    System.Web.Hosting.AspNetCoreHost.IsExtensionless(request.Path) && !System.Web.Hosting.FileCache.FileExists(request.PhysicalPath)) {
+                    StaticFileHandler.ProcessRequestInternal(context, OverrideExecuteUrlPath());
+                    return new HttpAsyncResult(callback, state, true, null, null);
+                }
+#endif
                 if (request.HttpVerb == HttpVerb.POST) {
                     throw new HttpException(405, SR.GetString(SR.Method_not_allowed, request.HttpMethod, request.Path));
                 }

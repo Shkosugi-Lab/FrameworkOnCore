@@ -118,6 +118,7 @@ FrameworkOnCore の System.Web をソースからビルドして内部の型を�
 | wt の画面 | `.\experiments\wf4c\verify-windows.ps1 -Name wt` | `corpora/parity/wt.golden-webforms.json`(8 画面、リンク 64) | SQL Server Express を起動しておく | 1 分 |
 | wt のすべての操作 | `.\experiments\wf4c\verify-windows.ps1 -Name wt -Suite operations` | `corpora/parity/wt.operations.golden.json`(223 スナップショット)、許される差 `wt.operations.allowed.json`。結果は `experiments/wf4c/_results/` | SQL Server Express(起動と停止はスクリプトが行う) | 約 5 分 |
 | be のすべての操作 | `.\experiments\wf4c\verify-windows.ps1 -Name be -Suite operations` | `corpora/parity/be.operations.golden.json`(473 スナップショット。操作 201 件の棚卸しは `corpora/regression/be.operations.json`・`.md`、シナリオは `be.operations.scenario.json`)、許される差 `be.operations.allowed.json`。どの実行も App_Data をリリースのもの(`corpora/be-app-data.ps1`)に戻してから始め、`files` の手順で App_Data の変化も比べる。結果は `experiments/wf4c/_results/be.operations.windows.{md,json}` | Edge | 約 13 分 |
+| nop のすべての操作(コーパスの例外: 指示があるときだけ) | `.\experiments\wf4c\verify-windows.ps1 -Name nop -Suite operations` | `corpora/parity/nop.operations.golden.json`(1,000 スナップショット。操作 727 件の棚卸しは `corpora/regression/nop.operations.json`・`.md`、シナリオは `nop.operations.scenario.json`)、許される差 `nop.operations.allowed.json`。どの実行もサンプル データのデータベース(`corpora/nop-database.ps1`)から始める。結果は `experiments/wf4c/_results/nop.operations.windows.{md,json}` | SQL Server Express(起動と停止はスクリプトが行う)、Edge | 約 33 分 |
 | Linux の be・wt | `.\experiments\wf4c\run-linux.ps1 -App be\BlogEngine\BlogEngine.NET -Scenario corpora\regression\be.scenario.json -Golden corpora\parity\be.golden-webforms.json`<br>`.\experiments\wf4c\run-linux.ps1 -App wt\WingtipToys\WingtipToys -Scenario corpora\regression\wt.scenario.json -Golden corpora\parity\wt.golden-webforms.json -SqlServer`<br>`.\experiments\wf4c\run-linux.ps1 -App wt\WingtipToys\WingtipToys -SqlServer -Suite operations`<br>`.\experiments\wf4c\run-linux.ps1 -App be\BlogEngine\BlogEngine.NET -Suite operations` | 同上。wt の Linux だけの許される差は `corpora/parity/wt.allowed.json`(8 画面)と `wt.operations.allowed.json`(すべての操作)、be のすべての操作のものは `be.operations.allowed.json` の `platforms: linux` | Docker | be 3 分、wt 2 分、be のすべての操作 約 14 分 |
 
 期待される結果: be 5/5、wt 8/8(Windows)。Linux は be 5/5、wt 8/8 のうち error-page が「許容」(Docker のポート転送で `Request.IsLocal` が偽。
@@ -134,6 +135,18 @@ be では、`run-linux.ps1 -Suite operations` が次を既定で行う: リリ�
 `-Keep` でサイトを残し、`-Remove` で消す。IIS のサイト `foc-beops` と同名のアプリケーション プールを 127.0.0.1:8100〜8199 に作り、終われば消す。
 棚卸しとシナリオを変えるときは JSON を手で直さない。`python corpora\regression\be-operations-inventory.py`・`python corpora\regression\be-operations-scenario.py`
 (同じ入力から同じ JSON を書く)で書き直してから採り直す。シナリオの `{today}` は実行した日の日付(採った日と違う日にも比べられるようにするため)。
+
+nop(nopCommerce 1.90)のすべての操作(2026-11-03。CLAUDE.md の be・wt だけの例外で、指示があるときだけ動かす): 期待される結果は Windows・Linux とも `RESULT: OK`。
+操作 727 件のうち、実行できない 9 件(インターネット上のサービス: PayPal Express・外部の決済サービス・ECB の為替レート・SMS・QuickBooks・Froogle の FTP、Excel の取り込み〈64 ビットに Jet が無い〉、
+データベースのバックアップ〈SQL Server がサイトのフォルダーに書く〉、インストーラー。理由は棚卸しに書いてある)を除く 718 件を実行する。
+Windows は同じ 440・許される差 278(ほとんどが Ajax Control Toolkit の版: 4.1 と 20.1 のタブ・モーダル ポップアップ・検証の吹き出しの DOM)。
+Linux は `.\experiments\wf4c\run-linux.ps1 -App nop\NopCommerceStore -Suite operations`(Docker。約 40 分): 変換が組み立てたサイト(`nop\site`)をそのまま動かし、
+SQL Server のコンテナにデータベースを戻し、`-LocalClient`・`-TimeZone`・casefs を既定で使う。Linux は同じ 429・許される差 289。Linux だけの許される差: サムネイルの JPEG・PNG のバイト、
+タイムゾーン(IANA の ID)、カルチャの一覧(ICU)、OLE DB、PDF(PdfSharp 1.3 が user32・gdi32 を呼ぶ)。
+採り直し(IIS、管理者、約 35 分): `.\corpora\record-nop-operations.ps1`(`-Discover` で 3 つの立場の巡回と棚卸しの漏れの確認、`-Keep`・`-Remove`)。
+ビルドした元(`experiments\wf4c\nop.original\NopCommerceStore`: `convert-corpora.ps1 -Only nop` が作る)を `corpora\work\_iis\nop` に写して IIS のサイト `foc-nopops` で動かし、
+終われば消す(サイト・プール・SQL のログイン・写し・データベース)。棚卸しとシナリオは `python corpora\regression\nop-operations-inventory.py`・`nop-operations-scenario.py` で書き直す
+(共通の一覧は `nop_operations_common.py`)。IIS どうしで 2 回比べて一致することを確かめてある(メール送信のタスクが時刻しだいで書くログ、登録した利用者のソルトは比べない)。
 
 ## 5. 環境のマトリクスと Linux
 

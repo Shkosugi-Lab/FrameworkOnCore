@@ -143,14 +143,8 @@ namespace Microsoft.AspNetCore.Builder
 			// A static file's response kept as IIS's kernel cache keeps it: answered before System.Web, as IIS answers it
 			// before its pipeline (StaticResponseCache).
 			if (await StaticResponseCache.TryServe(context)) return;
-			// A folder's URL without its '/': IIS's redirect to it, as IIS sends it (an absolute Location, "Document Moved").
-			var folder = host.FolderLocation(context);
-			if (folder != null)
-			{
-				var body = IisUrlRewrite.Redirect(context, 301, folder);
-				if (!Core.HttpMethods.IsHead(context.Request.Method)) await context.Response.Body.WriteAsync(body, 0, body.Length);
-				return;
-			}
+			// (A folder's URL without its '/': IIS's courtesy redirect comes after the managed pipeline has run for it, from its
+			// static file handler: IisStaticFile, as System.Web answers the request.)
 			// What IIS's request filtering refuses (404.7: web.config, the sources, the databases' files): its 404 page,
 			// not the empty answer of the end of ASP.NET Core's pipeline.
 			// IIS: web.config and the hidden segments (bin, App_Data, App_Code...: also where nothing is) 404.8, the other types

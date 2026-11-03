@@ -90,7 +90,8 @@
 - 文字列のハッシュ値のランダム化。.NET はプロセスごとに `string.GetHashCode` を変える(.NET Framework は変えない)ため、Hashtable の列挙順が違う。
   StateBag(項目が多いと Hashtable)が保存する ViewState の項目の並び、WebPartManager.AvailableTransformers の並び。中身は同じ(コントロールの比較で見つけた。2026-10-11)。
 - `ServicePointManager.SecurityProtocol` の既定。.NET Framework は `<httpRuntime targetFramework>` が 4.6 より前(wt の 4.5.2)だと SSL 3.0 / TLS 1.0 で、
-  TLS 1.2 だけのサーバー(PayPal)に繋がらない。.NET はシステムの既定(TLS 1.2/1.3)。古い既定に合わせることはしない(既知の差。2026-10-31、wt の PayPal)。
+  TLS 1.2 だけのサーバー(PayPal)に繋がらない。.NET はシステムの既定(TLS 1.2/1.3)。古い既定に合わせることはしない(既知の差。2026-10-31、wt の PayPal。
+  2026-11-03 の nop の PayPal IPN・PDT のハンドラーも同じ: 元は 500、変換後は PayPal が答える)。
 - 例外メッセージの言語。.NET Framework は言語パックで日本語(「Int16 型の値が大きすぎるか…」)、.NET のランタイムは英語のみ(既知の差。System.Web の文言は FrameworkOnCore の訳)。
 - Response.End(Thread.Abort が無い)。ポートは中断の前に Flush していて、EndRequest で付くヘッダー(OWIN のサインインの Cookie)が送られなかった。
   .NET Framework と同じく送らずに中断し、中断後のコードの書き込みは捨てる(2026-10-31、wt のログイン)。
@@ -133,6 +134,18 @@
 - `Environment.NewLine`。Linux では `\n`(XmlSerializer のインデント、例外の文、WriteLine)。.NET Framework は常に `\r\n`。
 - タイムゾーンの表示名。.NET は UI カルチャの名前(ICU)、.NET Framework は OS の言語の名前。Linux は IANA の ID(`TimeZoneInfo.Local.Id` が `Asia/Tokyo`)と歴史(東京は 1948〜51 年に夏時間があり SupportsDaylightSavingTime が真)。
   オフセットと変換は同じ: 変換器はコンテナ・systemd に元のサーバーのタイムゾーンを `TZ` で渡す(capture-culture.ps1 の TimeZone。無ければ変換したマシンの。2026-10-19。それまでコンテナは UTC だった)。
+  Windows でも違う(nop の全操作で見つけた。2026-11-03): .NET Framework の `TimeZoneInfo.GetSystemTimeZones` の表示名は、プロセスの Windows の UI 言語の MUI
+  (IIS のアプリケーション プールではシステムの言語: 日本語の Windows なら「(UTC+09:00) 大阪、札幌、東京」)。.NET は CurrentUICulture の MUI なので、要求ごとに
+  UI カルチャを en-US にするアプリ(nopCommerce の作業言語)では英語の名前になる。Linux は ID も IANA(nop は設定に `Asia/Tokyo` を保存する。どちらの ID も
+  .NET の FindSystemTimeZoneById で読める)。
+- `CultureInfo.GetCultures`(Linux)。ICU の一覧(.NET Framework の Windows の一覧にある aa-DJ・arn-CL などが無く、ar-EH・bgc-IN などが多い)。カルチャ プロファイルに無い
+  カルチャの EnglishName も ICU の名前(ar-PS が「Palestinian Territories」。Windows は「Palestinian Authority」)。nopCommerce の言語・通貨・価格表の画面のカルチャの一覧に出る
+  (2026-11-03)。候補: プロファイルに元のサーバーの GetCultures の一覧と名前を記録し、FrameworkCultures で置き換える。
+- ネイティブの Windows の関数(P/Invoke: user32・gdi32・kernel32 など)。Linux には無い(DllNotFoundException)。nopCommerce 1.90 の PDF(MigraDoc と PdfSharp 1.3 の GDI+ 版は、
+  埋め込むフォントを user32 の GetDC と gdi32 の GetFontData で読む)が Linux で作れない。移植はしない(ライブラリの版を上げる: PDFsharp 6 は .NET 用の別の API)。
+  変換レポートが `[Unsupported]` で知らせる(.NET Framework の DLL とアプリのアセンブリの P/Invoke。2026-11-03)。
+  なお PdfSharp の測るための Graphics(`Graphics.FromHwnd(IntPtr.Zero)`: 画面)は FrameworkOnCore の System.Drawing が Linux で X のディスプレイを開いていた(libX11)。
+  Windows と同じ 96 DPI・1024 x 768 の Graphics を返すようにした(2026-11-03。DrawingParity の Screen_graphics)。
 - XmlSerializer の名前空間の宣言の順(`xmlns:xsi` と `xmlns:xsd`)、制御文字(.NET Framework は `&#x1;` で書き、.NET は例外)。XmlConvert・DataSet・XDocument の double の `R`(.NET Framework は 17 桁、.NET は最短。アプリのコードの XmlConvert.ToString は FrameworkNumbers.XmlText に置き換える)。
 - `Math.Sin` などの結果の最後の桁(C ランタイムの違い。`Math.Sin(Math.PI)` が 1.22460635382238E-16 と 1.22464679914735E-16)。
 - `System.Web.HttpUtility`。.NET の共有フレームワークにもあり、FrameworkOnCore の System.Web は .NET のものへ型転送している(.NET 10 でアプリの `HttpUtility` は System.Web.HttpUtility.dll のもの)。

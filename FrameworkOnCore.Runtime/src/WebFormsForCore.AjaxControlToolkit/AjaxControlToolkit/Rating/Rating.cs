@@ -395,10 +395,16 @@ namespace AjaxControlToolkit {
         /// </summary>
         /// <param name="eventArgument" type="String">Event argument</param>
         public void RaisePostBackEvent(string eventArgument) {
-            HandleEvent(eventArgument);
+            HandleEvent(eventArgument, postBack: true);
         }
 
-        RatingEventArgs HandleEvent(string eventArgument) {
+        // FrameworkOnCore: a postback (AutoPostBack) raises Changed, as the Toolkit up to 4.1 raised it for every postback and
+        // callback (AjaxControlToolkit 4.1.40412's RaisePostBackEvent: OnChanged, nothing compared; nopCommerce 1.90's
+        // product rating saves the vote in its Changed handler). 20.1 compares the rating with CurrentRating, which on a
+        // postback is the posted client state - the script sets it to the clicked rating before it posts (_setRatingCore:
+        // set_ClientState, then doCallback) -, so Changed never fired with AutoPostBack and the vote was not saved. A
+        // callback posts the form's state as it was loaded: its comparison is 20.1's, kept.
+        RatingEventArgs HandleEvent(string eventArgument, bool postBack = false) {
             var eventData = ParseEventData(eventArgument);
             var fromUI = Convert.ToInt32(eventData[0]) > 0;
 
@@ -408,7 +414,7 @@ namespace AjaxControlToolkit {
                 OnClick(args);
 
             var value = Convert.ToInt32(args.Value);
-            if(value != CurrentRating)
+            if(postBack || value != CurrentRating)
                 OnChanged(args);
 
             return args;

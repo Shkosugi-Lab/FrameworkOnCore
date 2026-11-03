@@ -77,6 +77,34 @@ public class IntegratedModeConfigurationTests
 
     // --- handlers
 
+    [Fact] // handlers (resourceType: Unspecified, the default, maps the request whatever is there; File, Directory, Either need one): a managed
+           // handler's URL with no file goes to System.Web. Observed on IIS 10: nopCommerce's /pricelist.csv (PricelistHandler, no such file) is
+           // the handler's 200; it was ASP.NET Core's 404 (the host gave System.Web only the handled types, the files and the extensionless URLs).
+    public void A_managed_handler_s_url_without_a_file_goes_to_System_Web()
+    {
+        using var site = Running(Handlers("<add name='Pricelist' verb='*' path='pricelist.csv' preCondition='integratedMode' type='P' />" +
+            "<add name='Files' verb='GET' path='*.file' resourceType='File' type='F' /><add name='Either' path='*.either' resourceType='Either' type='E' />" +
+            "<add name='Native' path='*.native' modules='StaticFileModule' />"));
+        var host = site.Host();
+        Assert.True(IntegratedModeConfiguration.HandlesWithoutResource("GET", "/pricelist.csv"));
+        Assert.True(IntegratedModeConfiguration.HandlesWithoutResource("POST", "/shop/PRICELIST.CSV"));
+        Assert.False(IntegratedModeConfiguration.HandlesWithoutResource("GET", "/a.file"));
+        Assert.False(IntegratedModeConfiguration.HandlesWithoutResource("GET", "/a.either"));
+        Assert.False(IntegratedModeConfiguration.HandlesWithoutResource("GET", "/a.native"));
+        Assert.False(IntegratedModeConfiguration.HandlesWithoutResource("GET", "/other.csv"));
+        bool Legacy(string path)
+        {
+            var context = Site.Request("/");
+            context.Request.Path = new Microsoft.AspNetCore.Http.PathString(path);
+            return host.IsLegacyRequest(context);
+        }
+        Assert.True(Legacy("/pricelist.csv"));
+        Assert.False(Legacy("/a.file"));
+        Assert.False(Legacy("/none.csv"));
+        // The handler's type is still the one System.Web runs (HttpApplication's mapping).
+        Assert.Equal("P", Handler("GET", "/pricelist.csv"));
+    }
+
     [Fact] // handlers: the first mapping that matches the request (its path: a file name's wildcard; its verbs, comma separated, or *)
     public void A_handler_is_found_by_path_and_verb()
     {

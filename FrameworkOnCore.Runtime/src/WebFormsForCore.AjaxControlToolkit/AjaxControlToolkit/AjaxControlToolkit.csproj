@@ -53,7 +53,9 @@
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugType>portable</DebugType>
     </PropertyGroup>
-    <PropertyGroup>
+    <!-- FrameworkOnCore: Windows' commands (cmd's copy): the packages are made on Windows; on Linux (RuntimeUnitTests'
+         container references the project for its ToolkitTests) the build has no post-build step. -->
+    <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
         <PostBuildEvent>
             "$(TargetDir)LinkStaticResources"
             copy "$(TargetDir)AjaxControlToolkit.xml" ""$(TargetDir)\.."

@@ -21,13 +21,14 @@ using FrameworkOnCore.ParityTest;
 //           [--results <results.json>] [--sql <connection string>] [--platform windows|linux] [--mask <regex>]...
 //           (record and verify: [--files <folder> | docker:<container>:<folder>] for the files step)
 //   discover: dotnet run -- discover --url <app URL> --out <discovered.json> [--persona anonymous] [--persona login:<user>:<password>]
-//           [--persona register] [--inventory <operations.json>] [--login-url <path>] (the pages a user reaches, their links, forms, buttons,
+//           [--persona register] [--inventory <operations.json>] [--login-url <path>] [--max-pages <n>] (the pages a user reaches, their links, forms, buttons,
 //           postback targets and validators; with an inventory, what it does not cover)
 //
 // Note: if the scenario mutates data, reset each app to its initial state
 // (restart / DB restore) before record and before verify.
 
 var command = args.Length > 0 ? args[0] : "";
+int maxPages = 250;
 string? url = null, scenarioPath = null, goldenPath = null, reportPath = null, sql = null, files = null, platform = null, resultsPath = null, inventoryPath = null, loginUrl = null;
 var personas = new List<string>();
 var masks = new List<string>();
@@ -50,6 +51,8 @@ for (var i = 1; i < args.Length; i++)
         case "--inventory": inventoryPath = args[++i]; break;
         // discover: the login page of the login persona (default /Account/Login).
         case "--login-url": loginUrl = args[++i]; break;
+        // discover: at most this many pages a persona (default 250).
+        case "--max-pages": maxPages = int.Parse(args[++i]); break;
         // More text masks (as the scenario's TextMasks): what the environment names, such as the machine's name.
         case "--mask": masks.Add(args[++i]); break;
         default:
@@ -70,7 +73,7 @@ if (command == "discover" && url != null && goldenPath != null)
 {
     using var discoverPlaywright = await Playwright.CreateAsync();
     await using var discoverBrowser = await discoverPlaywright.Chromium.LaunchAsync(new() { Channel = "msedge", Headless = true });
-    var discovered = await new Discovery(discoverBrowser, url, loginUrl: loginUrl ?? "/Account/Login").RunAsync(personas.Count > 0 ? personas : ["anonymous"]);
+    var discovered = await new Discovery(discoverBrowser, url, maxPages, loginUrl ?? "/Account/Login").RunAsync(personas.Count > 0 ? personas : ["anonymous"]);
     File.WriteAllText(goldenPath, JsonSerializer.Serialize(discovered, jsonOptions));
     Console.WriteLine($"発見: ページ {discovered.Pages.Count}、キー {discovered.Keys.Count} → {goldenPath}");
     if (inventoryPath != null)

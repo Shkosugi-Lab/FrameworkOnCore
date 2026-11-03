@@ -710,14 +710,19 @@ namespace System.Web.Hosting
 			if (reason != null && feature != null) feature.ReasonPhrase = reason;
 			response.Headers.Location = location;
 			response.ContentType = "text/html; charset=UTF-8";
-			// In the server's language, as IIS writes it (the system's: a Japanese Windows' IIS writes Japanese); a line feed after
-			// the head, not CR LF (IIS's bytes).
-			var href = location.Replace("\"", "%22");
-			var body = Encoding.UTF8.GetBytes(CultureInfo.InstalledUICulture.TwoLetterISOLanguageName == "ja"
-				? "<head><title>ドキュメント移動</title></head>\n<body><h1>オブジェクトは移動しました</h1>このドキュメントは<a HREF=\"" + href + "\">ここ</a>で見つかる可能性があります</body>"
-				: "<head><title>Document Moved</title></head>\n<body><h1>Object Moved</h1>This document may be found <a HREF=\"" + href + "\">here</a></body>");
+			var body = Encoding.UTF8.GetBytes(RedirectBody(location));
 			response.ContentLength = body.Length;
 			return body;
+		}
+
+		/// <summary>IIS's redirects' body ("Document Moved") for an absolute location: in the server's language, as IIS writes it
+		/// (the system's: a Japanese Windows' IIS writes Japanese); a line feed after the head, not CR LF (IIS's bytes).</summary>
+		internal static string RedirectBody(string location)
+		{
+			var href = location.Replace("\"", "%22");
+			return CultureInfo.InstalledUICulture.TwoLetterISOLanguageName == "ja"
+				? "<head><title>ドキュメント移動</title></head>\n<body><h1>オブジェクトは移動しました</h1>このドキュメントは<a HREF=\"" + href + "\">ここ</a>で見つかる可能性があります</body>"
+				: "<head><title>Document Moved</title></head>\n<body><h1>Object Moved</h1>This document may be found <a HREF=\"" + href + "\">here</a></body>";
 		}
 
 		// A response of the rules' own: the status, IIS's page for it, its substatus in the log.

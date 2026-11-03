@@ -269,6 +269,24 @@ namespace FrameworkOnCore.DrawingParity
             }
         }
 
+        /// <summary>
+        /// The screen's Graphics (Graphics.FromHwnd(IntPtr.Zero)), which applications take to measure text with: PdfSharp's
+        /// XGraphics.CreateMeasureContext (nopCommerce 1.90's PDF invoices, packaging slips and catalog, through MigraDoc).
+        /// On Linux it opened an X display (libX11: DllNotFoundException on a server); a desktop's: 96 DPI, 1024 x 768.
+        /// </summary>
+        [Case]
+        public static void Screen_graphics(Probe p)
+        {
+            using (var screen = Graphics.FromHwnd(IntPtr.Zero))
+            using (var font = new Font("Arial", 10))
+            {
+                p.Is("dpi", screen.DpiX + " x " + screen.DpiY);
+                p.Is("page unit", screen.PageUnit);
+                p.Is("visible clip bounds", screen.VisibleClipBounds);
+                p.Is("text measured", screen.MeasureString("Hello, PDF", font).Width > 0);
+            }
+        }
+
         [Case]
         public static void Indexed_palette(Probe p)
         {

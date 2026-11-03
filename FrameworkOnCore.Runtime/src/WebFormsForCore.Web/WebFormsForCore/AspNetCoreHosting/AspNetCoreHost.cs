@@ -433,25 +433,49 @@ namespace System.Web.Hosting
             catch (ArgumentException) { return false; }
             if (FileCache.DirectoryExists(mappedPath))
             {
-				// The first of the names a file of the folder has, without regard to case (as on Windows), served by the name
-				// as the list has it, as IIS does (/Sub/ is Request.Path /Sub/default.aspx, whatever the file's case).
-				var files = FileCache.FileNames(mappedPath);
-				var defaultDoc = DefaultDocumentsFor((context.Request.PathBase.Value ?? "") + (pathWithoutSlash.Length == 0 ? "/" : pathWithoutSlash))
-                    .Where(doc => files.Contains(doc, StringComparer.OrdinalIgnoreCase))
-                    .Select(doc => new { Virtual = $"{pathWithoutSlash}/{doc}" })
-                    .FirstOrDefault();
-                if (defaultDoc != null)
-                {
-                    context.Request.Path = defaultDoc.Virtual;
-                    return true;
-                }
-                // A folder without a default document: IIS's answer, its 403.14 (or its listing: directoryBrowse), from
-                // IisStaticFile, not the empty 404 of the end of ASP.NET Core's pipeline.
+                // A folder's URL ("/", "/sub/", "/sub"): the managed pipeline runs for it as it is, then IIS's static file
+                // handler serves it (IisStaticFile: the courtesy redirect, the default document as a child request, the listing
+                // or 403.14), as IIS does (observed on IIS 10: the application's modules see "/" before "/default.aspx").
+                // Not the host's own bin.
                 return Path.GetFullPath(mappedPath).TrimEnd(Path.DirectorySeparatorChar) != AppBinDirectory.PhysicalPath.TrimEnd(Path.DirectorySeparatorChar);
             }
 
-			return HandleAllRequestsWithWebForms || FileCache.FileExists(mappedPath) &&
-                Path.GetDirectoryName(mappedPath) != AppBinDirectory.PhysicalPath; // Do not serve bin_dotnet directory
+			if (HandleAllRequestsWithWebForms) return true;
+			if (FileCache.FileExists(mappedPath))
+				return Path.GetDirectoryName(mappedPath) != AppBinDirectory.PhysicalPath; // Do not serve bin_dotnet directory
+			// A URL a managed handler of web.config's system.webServer/handlers answers, with no file there (nopCommerce's
+			// pricelist.csv: PricelistHandler, a CSV made for the request): IIS runs it, the managed pipeline and the handler
+			// (resourceType Unspecified, the default), where ASP.NET Core answered 404. (Observed on IIS 10: the original's
+			// /pricelist.csv?pricelist=x is the handler's 200 "No pricelist specified".)
+			if (IntegratedModeConfiguration.HandlesWithoutResource(context.Request.Method, (context.Request.PathBase.Value ?? "") + context.Request.Path.Value)) return true;
+			// An extensionless URL (its last segment without a '.'): IIS gives it to the managed pipeline whatever is there
+			// (applicationHost.config's ExtensionlessUrlHandler-Integrated-4.0, path "*.", verbs GET, HEAD, POST, DEBUG:
+			// TransferRequestHandler), so the application's modules see it - of those with preCondition managedHandler too:
+			// UrlRewritingNet's redirect of nopCommerce's "/foo" to "/foo/default.aspx" - before IIS's 404.
+			return IsExtensionless(path) && ExtensionlessVerbs.Contains(context.Request.Method, StringComparer.OrdinalIgnoreCase);
+		}
+
+		static readonly string[] ExtensionlessVerbs = { "GET", "HEAD", "POST", "DEBUG" };
+
+		/// <summary>A URL whose last segment has no '.' (IIS's handler path "*.": "/", "/sub/", "/foo").</summary>
+		internal static bool IsExtensionless(string path)
+		{
+			var name = path.Substring(path.LastIndexOf('/') + 1);
+			return name.IndexOf('.') < 0;
+		}
+
+		/// <summary>
+		/// The default document a folder's URL (with its '/': a virtual path of the application) is served by: the first of the
+		/// names of defaultDocument (IIS's list, web.config's) a file of the folder has, without regard to case (as on Windows),
+		/// by the name as the list has it, as IIS does (/Sub/ is Request.Path /Sub/default.aspx, whatever the file's case); null
+		/// when the folder has none.
+		/// </summary>
+		internal string DefaultDocumentFor(string virtualPath, string physicalPath)
+		{
+			var files = FileCache.FileNames(physicalPath);
+			var folder = virtualPath.TrimEnd('/');
+			var document = DefaultDocumentsFor(folder.Length == 0 ? "/" : folder).FirstOrDefault(doc => files.Contains(doc, StringComparer.OrdinalIgnoreCase));
+			return document == null ? null : folder + "/" + document;
 		}
 
 		public bool IsVirtualPathInApp(String path)

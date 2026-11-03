@@ -118,19 +118,13 @@ public class WebFormsMiddlewareTests
         finally { Site.Unwatch(); }
     }
 
-    [Fact] // IIS's courtesy redirect: a folder without its '/' 301 to the URL with it (absolute), its "Document Moved" page (the server's language) linking to it; a HEAD's without the body
-    public async Task A_folder_without_its_slash_is_redirected()
+    [Fact] // observed on IIS 10: a folder without its '/' goes to the managed pipeline first (an application's module sees "/sub"); IIS's courtesy redirect comes after it (IisStaticFile; DefaultDocumentTests end to end)
+    public void A_folder_without_its_slash_goes_to_System_Web_first()
     {
         using var site = new Site().Write("sub/a.txt", "a");
         var middleware = Middleware(site.Host());
-        var context = await Invoke(middleware, "/sub?q=1");
-        Assert.Equal(301, context.Response.StatusCode);
-        Assert.Equal("http://localhost:8080/sub/?q=1", context.Response.Headers.Location.ToString());
-        Assert.Contains("<a HREF=\"http://localhost:8080/sub/?q=1\">", Site.Body(context));
-        Assert.False(Next(context));
-        var head = await Invoke(middleware, "/sub", "HEAD");
-        Assert.Equal(301, head.Response.StatusCode);
-        Assert.Equal("", Site.Body(head));
+        Assert.True(middleware.IsLegacyRequest(Site.Request("/sub?q=1")));
+        Assert.True(middleware.IsLegacyRequest(Site.Request("/sub", "HEAD")));
     }
 
     [Theory] // requestFiltering: hiddenSegments (web.config, bin, App_Data...: also where nothing is) 404.8, fileExtensions' denied ones 404.7; the status only (httpErrors' page)

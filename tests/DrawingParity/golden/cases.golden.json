@@ -7091,6 +7091,12 @@
     "thumbnail as PNG = \"Bitmap 80x80 Format32bppArgb raw=Png flags=77842 dpi=Single 95.9865951xSingle 95.9865951\"",
     "~px thumbnail as PNG = \"80x80 sha:238e75ad6efa61df grid:7f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe007f00fe00\""
   ],
+  "ScenarioCases.Screen_graphics": [
+    "dpi = \"96 x 96\"",
+    "page unit = GraphicsUnit.Display",
+    "visible clip bounds = RectangleF {X=0,Y=0,Width=1024,Height=768}",
+    "text measured = true"
+  ],
   "ScenarioCases.Streams_left_open": [
     "alpha.png open after reading = true",
     "alpha.png saved, open = true",

@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Web;
 using System.Web.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -153,9 +153,12 @@ public class IisStaticFileTests
         var missing = Web("missing.txt");
         IisStaticFile.Serve(missing, "/missing.txt", Path.Combine(site.Root, "missing.txt"));
         Assert.Equal(404, Site.Response(missing).Status);
-        var folder = Web("sub");
-        IisStaticFile.Serve(folder, "/sub", Path.Combine(site.Root, "sub"));
+        var folder = Web("sub/");
+        IisStaticFile.Serve(folder, "/sub/", Path.Combine(site.Root, "sub"));
         Assert.Equal(403, Site.Response(folder).Status);
+        var withoutSlash = Web("sub");
+        IisStaticFile.Serve(withoutSlash, "/sub", Path.Combine(site.Root, "sub"));
+        Assert.Equal(301, Site.Response(withoutSlash).Status);
     }
 
     [Fact] // System.Web's HttpResponse.DisableKernelCache: not kept
@@ -554,6 +557,36 @@ public class IisStaticFileTests
 
     // --- Folders
 
+    [Fact] // IIS's courtesy redirect (observed on IIS 10, after the managed pipeline): a folder without its '/' 301 to the URL with it (absolute, the query kept), its "Document Moved" page (the server's language) linking to it, no Cache-Control
+    public void A_folder_without_its_slash_is_redirected()
+    {
+        using var site = new Site();
+        site.Write("sub/a.txt", "x").Run();
+        var served = Serve(site, "/sub", c => c.Request.QueryString = new QueryString("?q=1"));
+        Assert.True(served.Handled);
+        Assert.Equal(301, served.Status);
+        Assert.Equal("http://localhost:8080/sub/?q=1", served.Web.Response.RedirectLocation);
+        Assert.Contains("<a HREF=\"http://localhost:8080/sub/?q=1\">", served.Body);
+        Assert.True(served.Web.Response.SuppressDefaultCacheControlHeader);
+    }
+
+    [Fact] // defaultDocument (observed on IIS 10): a folder's URL with its '/' and a default document: a child request for it (Server.TransferRequest's: the pipeline again, RawUrl the client's), the query and the form kept
+    public void A_folder_s_default_document_is_a_child_request()
+    {
+        using var site = new Site();
+        site.Write("sub/default.aspx", "x").Run();
+        var host = site.Host();
+        var served = Serve(site, "/sub/", c => c.Request.QueryString = new QueryString("?q=1"),
+            before: web => typeof(AspNetCoreWorkerRequest).GetProperty("Host").SetValue(web.WorkerRequest, host));
+        Assert.True(served.Handled);
+        var transfer = ((AspNetCoreWorkerRequest)served.Web.WorkerRequest).ScheduledTransfer;
+        Assert.NotNull(transfer);
+        Assert.Equal("/sub/default.aspx", transfer.Path);
+        Assert.Equal("q=1", transfer.Query);
+        Assert.True(transfer.PreserveForm);
+        Assert.Null(transfer.Method);
+    }
+
     [Fact] // directoryBrowse: disabled by default; IIS answers a folder without a default document 403.14 (its page httpErrors')
     public void A_folder_without_directory_browsing_is_a_403_14()
     {
@@ -579,7 +612,9 @@ public class IisStaticFileTests
         try
         {
             site.Run();
-            var served = Serve(site, "/sub");
+            // (the folder's URL with its '/': without it, IIS's courtesy redirect first)
+            Assert.Equal(301, Serve(site, "/sub").Status);
+            var served = Serve(site, "/sub/");
             Assert.Equal(200, served.Status);
             Assert.StartsWith("text/html", served.ContentType);
             var culture = CultureInfo.InstalledUICulture;

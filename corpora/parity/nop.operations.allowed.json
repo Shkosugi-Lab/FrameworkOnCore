@@ -1,0 +1,101 @@
+{
+  "_comment": "nopCommerce 1.90's operations suite (corpora/regression/nop.operations.scenario.json): the differences between the original (IIS / .NET Framework 4.8) and the converted application that are not defects, each with its reason. A snapshot whose every problem matches an entry for it (and the platform: none = every one) counts as allowed.",
+  "allowed": [
+    {
+      "snapshot": ".*",
+      "match": "^要素 '[^']*(backgroundElement|Popup|PopupPanel)' のスタイル z-index: 期待 ('\\d+'|\\(なし\\)) / 実際 '\\d+'$",
+      "reason": "Ajax Control Toolkit's version (ModalPopupExtender): 20.1 writes the popup's and its background's z-index (10001, 10000) into their style when the page is rendered, and raises them by one for each popup shown before (the confirmation of a save shown: 10001, 10002), 4.1 when it shows them (the delete, duplicate, import and export popups of the administration: ConfirmButtonExtender and ModalPopupExtender). The same popups, hidden until clicked; README 'samples/Toolkit20Probe' (z-index)."
+    },
+    {
+      "snapshot": ".*",
+      "match": "^要素 '[^']*_popupTable' の(属性 (border|cellpadding|cellspacing): 期待 '0' / 実際 \\(なし\\)|スタイル (left|top): 期待 '\\d+px' / 実際 '\\d+px')$",
+      "reason": "Ajax Control Toolkit's version (ValidatorCalloutExtender): 4.1 writes its callout's table with border, cellpadding and cellspacing 0, 20.1 styles it with CSS; the callout is placed by its script beside the field, a pixel or a few away where 20.1's tab headers (above) are another size. The same message in the same callout."
+    },
+    {
+      "snapshot": ".*-assets",
+      "match": "^本文テキスト \\d+ 行目から相違: 期待 '/(ScriptResource|WebResource)\\.axd[^']*' / 実際 '/(ScriptResource|WebResource)\\.axd[^']*'|^ *(正解|実測)側にのみある行: '(/(ScriptResource|WebResource)\\.axd\\?d=\\{masked\\}&t=\\{masked\\}|/[^'?]*\\?_TSM_HiddenField_=[^']*?): [^']*'( / '(/(ScriptResource|WebResource)\\.axd\\?d=\\{masked\\}&t=\\{masked\\}|/[^'?]*\\?_TSM_HiddenField_=[^']*?): [^']*')*$",
+      "reason": "Ajax Control Toolkit's version: a page with the Toolkit's controls (the product page's tabs and rating) gets 4.1's scripts and styles in the original, 20.1's (FrameworkOnCore's Toolkit) in the converted application: other bytes and other resources (ScriptResource.axd, WebResource.axd). The page's own files and pictures are compared as they are. 4.1's ToolkitScriptManager also combines the Toolkit's scripts into one request to the page itself (?_TSM_HiddenField_=...&_TSM_CombinedScripts_=...AjaxControlToolkit, Version=4.1.40412.0...); 20.1's sends them one by one (ScriptResource.axd)."
+    },
+    {
+      "snapshot": "admin-system-information",
+      "match": "ASP\\.NET info: v4\\.0\\.30319|ASP\\.NET info: \\| v4\\.0\\.30319|ASP\\.NET info: v10\\.|^Operating system|Microsoft Windows NT|Unix",
+      "reason": "The system information page shows the runtime's version (Environment.Version: .NET Framework 4.0.30319, .NET 10) and the operating system's: what the page is for."
+    },
+    {
+      "snapshot": "admin-global-settings|global-settings-saved|checkout-settings-saved|settings-saved-globalsettings",
+      "match": "^テーブル\\d+ \\d+ 行目: 期待 \\[Default store time zone: \\| \\(UTC|^本文テキスト \\d+ 行目から相違: 期待 '\\(UTC|^ *(正解|実測)側にのみある行: '\\(UTC",
+      "reason": "Time zones' display names (TimeZoneInfo.GetSystemTimeZones, the default store time zone's list): .NET Framework on Windows takes them from Windows' MUI resources in the Windows UI language of the process (an IIS application pool's account: the system's, Japanese on this machine), .NET from the MUI files of CurrentUICulture (nopCommerce sets the working language's culture, en-US, for each request): English names. The same zones, ids and offsets (PORT-CANDIDATES.md)."
+    },
+    {
+      "snapshot": ".*",
+      "match": "^要素 '__tab_[^']*' のタグ: 期待 <span> / 実際 <a>$|^要素 '[^']*' の属性 class: 期待 ('[^']*'|\\(なし\\)) / 実際 '[^']*ajax__(tab|scroll)[^']*'$",
+      "reason": "Ajax Control Toolkit's version (TabContainer): nopCommerce ships AjaxControlToolkit 4.1 (a DLL in its repository), which the conversion replaces with FrameworkOnCore's Toolkit (20.1, the one that runs on .NET; replacedPackages). 20.1's TabContainer writes its tab headers as links (4.1: spans) and adds the classes ajax__tab_xp, ajax__tab, ajax__scroll_none (the same tabs, titles and panels; README 'samples/Toolkit20Probe': 4.1 pages differ in DOM after the conversion). The headers' text is left out of the body text on both sides (ignoreSelectors .ajax__tab_header): 4.1's inline spans read as one line, 20.1's links as one a line."
+    },
+    {
+      "snapshot": "gateway-paypalipnhandler|gateway-paypalpdthandler",
+      "match": ".*",
+      "reason": "TLS: PayPal's IPN and PDT handlers ask PayPal's sandbox (https://www.sandbox.paypal.com, on the Internet) to confirm the request. The original targets 4.0 (compilation targetFramework, no httpRuntime targetFramework), whose ServicePointManager default is SSL 3.0 / TLS 1.0, which PayPal refuses: 500 'The request was aborted: Could not create SSL/TLS secure channel' (System.Net.WebException); .NET 10 uses the system's TLS 1.2/1.3, PayPal answers (INVALID: no such payment), and the handlers show their page (IPN 200) or go to the home page (PDT 302). As be's news feed and wt's PayPal call."
+    },
+    {
+      "snapshot": "log-details",
+      "match": "^(本文テキスト \\d+ 行目から相違: 期待 'Exception: |  (正解|実測)側にのみある行: 'Exception: |テーブル\\d+ \\d+ 行目: 期待 \\[Exception: )",
+      "reason": "An exception's stack trace in the log (nopCommerce's Nop_Log.Exception: the blacklist's refused network of phase 7): its frames and line numbers are the compilers' and the JIT's - the original built by .NET Framework's MSBuild (its Save() inlined into SaveButton_Click, the throw at line 79), the converted application by Roslyn for .NET 10 (Save() a frame of its own, line 75). The same exception, message, type and methods; the page's other fields are compared."
+    },
+    {
+      "snapshot": ".*-assets",
+      "platforms": [
+        "linux"
+      ],
+      "match": "^本文テキスト \\d+ 行目から相違: 期待 ('/images/thumbs/[^':]*\\.(jpe?g|png): 200 image/(jpeg|png) \\d+ bytes sha256 [0-9A-F]+'|'/(ScriptResource|WebResource)\\.axd[^']*') / 実際 ('/images/thumbs/[^':]*\\.(jpe?g|png): 200 image/(jpeg|png) \\d+ bytes sha256 [0-9A-F]+'|'/(ScriptResource|WebResource)\\.axd[^']*')|^ *(正解|実測)側にのみある行: ('/images/thumbs/[^':]*\\.(jpe?g|png): 200 image/(jpeg|png) \\d+ bytes sha256 [0-9A-F]+'|'(/(ScriptResource|WebResource)\\.axd\\?d=\\{masked\\}&t=\\{masked\\}|/[^'?]*\\?_TSM_HiddenField_=[^']*?): [^']*')( / ('/images/thumbs/[^':]*\\.(jpe?g|png): 200 image/(jpeg|png) \\d+ bytes sha256 [0-9A-F]+'|'(/(ScriptResource|WebResource)\\.axd\\?d=\\{masked\\}&t=\\{masked\\}|/[^'?]*\\?_TSM_HiddenField_=[^']*?): [^']*'))*$",
+      "reason": "JPEG and PNG encoders (Linux): nopCommerce makes its pictures' thumbnails (images/thumbs, JPEG at quality 100, an uploaded PNG as PNG) with System.Drawing; on Linux FrameworkOnCore's System.Drawing encodes JPEG with SkiaSharp's libjpeg-turbo, on Windows GDI+'s codec: other bytes of the same picture (the decoded pixels are compared by DrawingParity's Jpeg_quality). As be's PNG encoder. (A page's list may have both: the Toolkit's resources, as on Windows, and the thumbnails.)"
+    },
+    {
+      "snapshot": "admin-global-settings|global-settings-saved|checkout-settings-saved|settings-saved-globalsettings|settings-all",
+      "platforms": [
+        "linux"
+      ],
+      "match": "^テーブル\\d+ \\d+ 行目: 期待 \\[(Current time zone|Default store time zone): |^入力欄 '[^']*ddlDefaultStoreTimeZone' の値: 期待 'Tokyo Standard Time' / 実際 'Asia/Tokyo'$|^本文テキスト \\d+ 行目から相違: 期待 'Common\\.DefaultStoreTimeZoneId \\| Tokyo Standard Time' / 実際 'Common\\.DefaultStoreTimeZoneId \\| Asia/Tokyo'|^ *(正解|実測)側にのみある行: 'Common\\.DefaultStoreTimeZoneId \\| (Tokyo Standard Time|Asia/Tokyo)'$",
+      "reason": "Time zones (Linux): TimeZoneInfo.GetSystemTimeZones gives the IANA zones (ids Asia/Tokyo..., ICU's display names) where Windows gives its own (Tokyo Standard Time, its MUI names), so the default store time zone's list differs and saving the global settings stores Asia/Tokyo for Tokyo Standard Time (Common.DefaultStoreTimeZoneId; .NET's FindSystemTimeZoneById takes either id on either system). The same zone and offsets. As be's time zone list (PORT-CANDIDATES.md)."
+    },
+    {
+      "snapshot": "admin-system-information",
+      "platforms": [
+        "linux"
+      ],
+      "match": "Server time zone: ",
+      "reason": "The system information page's server time zone (TimeZoneInfo.Local.StandardName): Windows' name of Tokyo Standard Time (東京 (標準時)), ICU's on Linux (日本標準時). The same zone (TZ Asia/Tokyo, as the original server's)."
+    },
+    {
+      "snapshot": "export-(products|orders|customers)-xls",
+      "platforms": [
+        "linux"
+      ],
+      "match": "^本文テキスト \\d+ 行目から相違: 期待 'The 'Microsoft\\.Jet\\.OLEDB\\.4\\.0' provider is not registered on the local machine\\.' / 実際 'System\\.Data\\.OleDb is not supported on this platform\\.'|^ *(正解|実測)側にのみある行: '(The 'Microsoft\\.Jet\\.OLEDB\\.4\\.0' provider is not registered on the local machine\\.|System\\.Data\\.OleDb is not supported on this platform\\.)'$",
+      "reason": "The Excel exports go through OLE DB's Jet provider, which the original's 64-bit IIS process has not (its error shown); OLE DB is Windows' only, and on Linux .NET's System.Data.OleDb says so. Both show the export's failure on the same page."
+    },
+    {
+      "snapshot": "admin-(pricelist|language|currency)-(add|details)|(currency|language|pricelist)-(add-required|added|edited)",
+      "platforms": [
+        "linux"
+      ],
+      "match": "^本文テキスト \\d+ 行目から相違: 期待 '[a-z]{2,3}(-[A-Za-z0-9]+)*\\. [^']*' / 実際 '[a-z]{2,3}(-[A-Za-z0-9]+)*\\. [^']*'|^ *(正解|実測)側にのみある行: '[a-z]{2,3}(-[A-Za-z0-9]+)*\\. [^']*'( / '[a-z]{2,3}(-[A-Za-z0-9]+)*\\. [^']*')*$|^テーブル\\d+ \\d+ 行目: 期待 \\[(Language culture|Display locale|Format localization): |^入力欄 '[^']*(ddlLanguageCulture|ddlDisplayLocale|ddlFormatLocalization)' の値: 期待 '[^']*' / 実際 '[^']*'$",
+      "reason": "The cultures' list (Linux): the language, currency and price list pages list CultureInfo.GetCultures(SpecificCultures) by IETF tag and English name; on Linux the list is ICU's (no aa-DJ, arn-CL...; ar-EH, bgc-IN... more) and the English names of the cultures the original server's culture profile does not hold are ICU's (Palestinian Territories for Palestinian Authority). The ones nopCommerce stores (en-US) are the same. As be's ICU native names (PORT-CANDIDATES.md)."
+    },
+    {
+      "snapshot": "order-pdf-invoice|admin-order-invoice-pdf|admin-order-packaging-slip-pdf|export-products-pdf|export-orders-packaging-slips",
+      "platforms": [
+        "linux"
+      ],
+      "match": "^手順が失敗した: step \\d+ \\(download [^)]*\\) failed at .*Timeout \\d+ms exceeded while waiting for event \\\"Download\\\"",
+      "reason": "PDFs (Linux): nopCommerce makes its PDFs (the invoice, the packaging slips, the products' catalog) with MigraDoc and PdfSharp 1.3, its GDI+ build, which reads the fonts it embeds through Windows' own libraries (user32's GetDC, gdi32's SelectObject, GetFontData: P/Invoke, CONVERSION-REPORT.md's [Unsupported] PdfSharp.dll): on Linux DllNotFoundException, the page shows nopCommerce's error and no file is downloaded. (Its measure context, Graphics.FromHwnd(IntPtr.Zero), which opened an X display, works now: FrameworkOnCore's System.Drawing gives the screen's Graphics.) On Windows the PDFs are the original's (their pages compared)."
+    },
+    {
+      "snapshot": "log-entries",
+      "platforms": [
+        "linux"
+      ],
+      "match": "^本文テキスト \\d+ 行目から相違: 期待 '[^']*' / 実際 '\\d+ \\| 11 \\| Error generating PDF'|^ *実測側にのみある行: '\\d+ \\| 11 \\| (Error generating PDF|Unable to load shared library 'user32\\.dll')",
+      "reason": "PDFs (Linux), as above: nopCommerce logs the PDFs' failures (PdfSharp's user32.dll: 'Error generating PDF' and the DllNotFoundException) - entries the original has not. Its other entries are compared (the log's lines only the run has are these)."
+    }
+  ]
+}

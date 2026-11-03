@@ -1025,6 +1025,55 @@ BlogEngine.NET 3.3.8 で利用者ができる操作を全部洗い出し、元(I
         .\experiments\wf4c\verify-windows.ps1 -Name be -Suite operations   # Windows
         .\experiments\wf4c\run-linux.ps1 -App be\BlogEngine\BlogEngine.NET -Suite operations   # Linux
 
+### nop のすべての操作の新旧比較(1.6.5-w2l.27、2026-11-03、ユーザーの指示: CLAUDE.md の be・wt だけの例外)
+
+nopCommerce 1.90 で利用者ができる操作を全部洗い出し、元(IIS / .NET Framework 4.8)と変換後(Windows・Linux)で操作ごとに比べた(be・wt と同じ方法)。
+
+- **棚卸し**: `corpora/regression/nop.operations.json`(読む用: `nop.operations.md`。`nop-operations-inventory.py` が書く。管理画面のページの一覧と決済サービスの戻り先の一覧は
+  シナリオの生成と共有: `nop_operations_common.py`)。727 件。分類: 管理画面のページ 181、管理画面の追加・編集・削除 147、アカウント 49、設定 46、ページ 41、
+  決済サービスの戻り先 31、購入 30、カタログ 30、カート 24、販売 19、フォーラム 16、システム 14、コンテンツ 12、検索 10、顧客 10、ほか(メッセージ、ハンドラー、
+  ほしい物リスト、商品、ブログ、ニュース、メールマガジン、投票、静的、エラー、状態、インストール)。実行できない 9 件は理由つき(インターネット上のサービス: PayPal Express と
+  外部の決済サービス、ECB の為替レート、SMS、QuickBooks、Froogle の FTP。64 ビットに無い Jet での Excel の取り込み。SQL Server がサイトのフォルダーに書くバックアップ。
+  インストーラーの実行〈どの実行もそのスクリプトで作ったデータベースから始める〉)。メールは送信の失敗まで比べる(SMTP は 127.0.0.1:9)「部分」。
+  巡回(`record-nop-operations.ps1 -Discover`: 元を匿名・シナリオの利用者・管理者で巡回。1,511 ページ、7,992 キー、`corpora/regression/nop.discovered.iis.json`)で漏れが 0 件。
+- **シナリオ**: `corpora/regression/nop.operations.scenario.json`(手順 2,631、スナップショット 1,000)。`nop-operations-scenario.py` が書く。データベースの状態は `sql` の手順で確かめる。
+  どの実行もサンプル データのデータベース(`corpora/nop-database.ps1`: インストーラーの 3 つのスクリプトを GO で区切って流し、SMTP とストアの URL を 127.0.0.1:9 にしてバックアップ。
+  以後はそれを戻す。Linux では SQL Server のコンテナに)から始める。
+- **正解**: `corpora/record-nop-operations.ps1`(ビルドした元を写して使い捨ての IIS サイト `foc-nopops` で動かす。nop は ConnectionStrings.config と images\thumbs に書く)。約 33 分。
+  IIS どうしで 2 回比べて一致(最初は 2 件違った: 登録した利用者のパスワードのソルト〈エクスポートの XML〉、メール送信のタスクが時刻しだいで書くログ → マスクと、ログを消す前に未送信の
+  メールを送信済みの回数にする手順)。
+- **見つけて直したこと**:
+  1. ランタイム: フォルダーの URL と拡張子の無い URL。IIS(10、統合モード。foc-ddprobe で観察)は「/」「/sub」「/foo」でも管理パイプラインを動かし(BeginRequest が「/」を見る。
+     「/foo」は ExtensionlessUrlHandler)、その後で既定のドキュメント(子要求)・301・404 にする。nop の UrlRewritingNet は「/」を /default.aspx に、「/foo」を /foo/default.aspx に
+     リダイレクトする。ポートはパイプラインの前に「/」を /default.aspx に書き換え、「/sub」を 301 にし、「/foo」をパイプラインに渡さなかった。
+     `AspNetCoreHost.IsLegacyRequest`・`DefaultDocumentFor`、`IisStaticFile`(フォルダー: 301、既定のドキュメントを子要求として、一覧か 403.14)、`WebFormsMiddleware`。
+     テスト: `Web/DefaultDocumentTests`、`AspNetCoreHostTests`、`IisStaticFileTests`、`WebFormsMiddlewareTests`。AttackTests の「OPTIONS *」はポートが 405 になった(静的ファイルと同じ。IIS は URL Rewrite の 500.50)。
+  2. ランタイム(Toolkit): Rating の AutoPostBack で Changed が起きず、商品の評価が保存されなかった(20.1 は投稿された状態と比べる。4.1 はポストバックごとに起こしていた: 逆コンパイルで確認)。
+     ポストバックでは起こす。テスト: `Web/ToolkitTests`。同じ問題の調査: コーパス(nop、web_app_vb、mojo)が使う Toolkit のコントロールでサーバーのイベントを使うのは nop の Rating だけ。
+     TabContainer の ActiveTabChanged はどのコーパスも使わない(4.1 と 20.1 は既定の設定では同じ。ViewState を切ると 20.1 はタブ 0 でポストバックごとに起こす)。CollapsiblePanel のクライアントの状態は同じ。
+  3. ランタイム: web.config の system.webServer/handlers のマネージ ハンドラーの URL にファイルが無いとき(nop の `/pricelist.csv`)、ASP.NET Core の 404 になった。IIS はハンドラーを動かす
+     (resourceType が Unspecified のとき)。`IntegratedModeConfiguration.HandlesWithoutResource`。テスト: `IntegratedModeConfigurationTests.A_managed_handler_s_url_without_a_file_goes_to_System_Web`。
+  4. ランタイム(System.Drawing、Linux): `Graphics.FromHwnd(IntPtr.Zero)`(画面。PdfSharp が文字を測るのに使う)が X のディスプレイを開こうとした(libX11 が無く DllNotFoundException)。
+     96 DPI・1024 x 768 の Graphics を返す(このマシンの .NET Framework で測った値)。テスト: DrawingParity の `Screen_graphics`(ゴールデンを採り直した)。
+  5. 変換器: Windows のライブラリの呼び出し(P/Invoke)をレポートに出していなかった。nop の PDF は PdfSharp 1.3 が user32・gdi32 を呼ぶので Linux では作れない(上の 4 の先)。
+     .NET Framework の DLL とアプリのアセンブリの P/Invoke を `[Unsupported]` で書く(`AssemblyRetargeter.ReportWindowsCalls`。`--deploy none` のときは書かない)。
+     テスト: `AssemblyRetargeterTests.Calls_into_Windows_libraries_are_reported`。同じ所の調査: be は無し、wt は Owin の 2 つ(OutputDebugString、CryptEncodeObject)、nop は PdfSharp・MigraDoc・FCKeditor(msvcrt の _mkdir)。
+     ほかのコーパスの基準も変わりうる(be・wt・nop 以外は実行していない)。
+  6. ランタイム(1 の回帰で見つけた): フォルダーの URL への POST(ページが自分のフォルダー「./」にポストバックする: be のメールマガジンのウィジェット、wt のホーム、
+     DefaultsProbe)が 405 になった。System.Web の継承した「*」の DefaultHttpHandler が POST を拒否していた。IIS は拡張子の無い URL を POST でも
+     ExtensionlessUrlHandler に渡し、既定のドキュメントに POST と本文のまま子要求で渡す(無ければ 404)。DefaultHttpHandler は拡張子の無い URL でファイルが無ければ
+     IisStaticFile に渡し、IisStaticFile は子要求の前に本文を読む。テスト: `DefaultDocumentTests`(POST「/」はフォームごと既定のドキュメントへ、POST「/bar」は 404、静的ファイルへの POST は 405)。
+  - テストの直し: run-linux.ps1 に nop(組み立てたサイトをそのまま動かす)。RuntimeUnitTests が Toolkit を参照したので、Toolkit の post-build(cmd の copy)を Windows だけにした(Linux のコンテナのビルドが失敗していた)。
+- **許される差**(`corpora/parity/nop.operations.allowed.json`): Ajax Control Toolkit の版(4.1 → 20.1: タブ、モーダル ポップアップの z-index、検証の吹き出し、スクリプトの結合)、システム情報の
+  .NET の版と OS、タイムゾーンの表示名(.NET Framework はプロセスの Windows の言語、.NET は CurrentUICulture: nop は en-US にする)、TLS(元は 4.0 の既定で TLS 1.0、PayPal が拒否)、
+  ログの例外のスタック トレース(コンパイラーとインライン化)。Linux だけ: サムネイルの JPEG・PNG のバイト、タイムゾーン(IANA の ID が設定に保存される)、カルチャの一覧(ICU)、
+  OLE DB、PDF(PdfSharp の P/Invoke)。
+- **結果**: Windows・Linux とも RESULT: OK(1,000 スナップショット)。Windows: 同じ 708・許される差 292(操作: 同じ 440、許される差 278、実行できない 9)。Linux: 同じ 696・許される差 304(操作: 同じ 429、許される差 289、実行できない 9)。許される差の大半は Toolkit の DOM(モーダル ポップアップ 169、タブ 162、吹き出し 36 スナップショット)。Windows 約 32 分、Linux 約 39 分。
+
+        .\corpora\record-nop-operations.ps1 [-Discover]                        # 正解(IIS、約 35 分)
+        .\experiments\wf4c\verify-windows.ps1 -Name nop -Suite operations      # Windows(約 33 分)
+        .\experiments\wf4c\run-linux.ps1 -App nop\NopCommerceStore -Suite operations   # Linux(約 40 分)
+
 ### 変換器の見直し: 細かい基準、日本語のソース、重複の整理(2026-10-31、ユーザーの指示)
 
 バグ修正を重ねて変換器が必要以上に複雑になっていないかを調べた。コーパスごとの特例のコードは無く(名前はコメントだけ)、複雑さの多くは問題そのものから来るものだったが、同じ判断の重複が食い違いを生んでいた所と、テストの無い経路があった。

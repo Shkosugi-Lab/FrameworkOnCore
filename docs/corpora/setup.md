@@ -44,14 +44,17 @@ Linux でもファイル名の大文字・小文字を区別せずに動かす�
 
 ## 4. コーパスを取る
 
+コーパスはこのリポジトリには入っていません。各ページの「GitHub から取得して変換する」のコマンドで、元の GitHub のリポジトリから取ります。
+
+- 取るのは、各ページに書いたタグかコミットの版です。ZIP を `curl.exe` でダウンロードし、`tar` で展開します。リポジトリの一部だけを使う mvcmovie・contoso は、`git` でそのフォルダーだけを取ります。
+- 置き場所は `corpora\work\<フォルダー>` です(変換のスクリプトがこのパスを使います)。先に作っておきます。
+
 ```powershell
-.\corpora\fetch.ps1 -Only be        # 名前は各ページの見出し。いくつか並べてもよい(-Only be,wt)
+New-Item -ItemType Directory -Force corpora\work | Out-Null
 ```
 
-- 元の GitHub のリポジトリから、決まったタグかコミットの ZIP を取り、`corpora\work\` に置きます。取得元は [一覧](README.md) と各ページにあります。
-- 手で取るときは、各ページの ZIP を展開し、フォルダーを各ページの名前にして `corpora\work\` に置きます。wt・mvcmovie・contoso は接続文字列の書き換えも要るので、`fetch.ps1` を使ってください。
-
-確認: 「すべて取得できました。」と出ます。
+ブラウザーで取るとき(mvcmovie・contoso を除く)は、各ページの取得元のリンクからそのタグかコミットを開き、「Code」→「Download ZIP」でダウンロードします。展開したフォルダーは、`corpora\work\` に各ページの名前で置きます。
+`.\corpora\fetch.ps1 -Only <名前>` を使えば、同じことを 1 行で行えます。
 
 ## 5. 変換する
 

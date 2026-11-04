@@ -4,15 +4,18 @@
 
 | | |
 |---|---|
-| 取得元 | [rxtur/BlogEngine.NET](https://github.com/rxtur/BlogEngine.NET) タグ `v3.3.8.0`(ZIP: <https://github.com/rxtur/BlogEngine.NET/archive/refs/tags/v3.3.8.0.zip>) |
+| 取得元 | [rxtur/BlogEngine.NET](https://github.com/rxtur/BlogEngine.NET) タグ `v3.3.8.0` |
 | フォルダー | `corpora\work\BlogEngine.NET-3.3.8.0` |
 | ライセンス | 表示なし |
 | 追加で要るもの | なし |
 
-## 1. 取得して変換する
+## 1. GitHub から取得して変換する
 
 ```powershell
-.\corpora\fetch.ps1 -Only be
+cd corpora\work
+curl.exe -L -o be.zip https://github.com/rxtur/BlogEngine.NET/archive/refs/tags/v3.3.8.0.zip
+tar -xf be.zip          # BlogEngine.NET-3.3.8.0 ができる
+cd ..\..
 .\experiments\wf4c\convert-corpora.ps1 -Only be        # 約 1 分
 ```
 

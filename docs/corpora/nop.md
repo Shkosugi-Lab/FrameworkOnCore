@@ -4,17 +4,20 @@ EC サイトです(Web Forms、C#、SQL Server)。[共通の準備](setup.md) �
 
 | | |
 |---|---|
-| 取得元 | [nopSolutions/nopCommerce](https://github.com/nopSolutions/nopCommerce) タグ `release-1.90`(ZIP: <https://github.com/nopSolutions/nopCommerce/archive/refs/tags/release-1.90.zip>) |
+| 取得元 | [nopSolutions/nopCommerce](https://github.com/nopSolutions/nopCommerce) タグ `release-1.90` |
 | フォルダー | `corpora\work\nopCommerce-release-1.90` |
 | ライセンス | nopCommerce Public License 1.0 |
 | 追加で要るもの | Build Tools。ディスク約 2 GB |
 
-## 1. 取得して変換する
+## 1. GitHub から取得して変換する
 
 元のアプリをビルドしてから変換します。
 
 ```powershell
-.\corpora\fetch.ps1 -Only nop
+cd corpora\work
+curl.exe -L -o nop.zip https://github.com/nopSolutions/nopCommerce/archive/refs/tags/release-1.90.zip
+tar -xf nop.zip          # nopCommerce-release-1.90 ができる
+cd ..\..
 .\experiments\wf4c\convert-corpora.ps1 -Only nop
 ```
 

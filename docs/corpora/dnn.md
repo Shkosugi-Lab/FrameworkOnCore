@@ -4,17 +4,20 @@
 
 | | |
 |---|---|
-| 取得元 | [dnnsoftware/Dnn.Platform](https://github.com/dnnsoftware/Dnn.Platform) タグ `v9.13.10`(ZIP: <https://github.com/dnnsoftware/Dnn.Platform/archive/refs/tags/v9.13.10.zip>) |
+| 取得元 | [dnnsoftware/Dnn.Platform](https://github.com/dnnsoftware/Dnn.Platform) タグ `v9.13.10` |
 | フォルダー | `corpora\work\Dnn.Platform-9.13.10` |
 | ライセンス | MIT |
 | 追加で要るもの | Build Tools、SQL Server Express と `sqlcmd`。ディスク約 20 GB |
 
-## 1. 取得して変換する
+## 1. GitHub から取得して変換する
 
 元のアプリをビルド(DNN の Cake のビルド)してから変換します。初回は長くかかります。
 
 ```powershell
-.\corpora\fetch.ps1 -Only dnn
+cd corpora\work
+curl.exe -L -o dnn.zip https://github.com/dnnsoftware/Dnn.Platform/archive/refs/tags/v9.13.10.zip
+tar -xf dnn.zip          # Dnn.Platform-9.13.10 ができる
+cd ..\..
 Start-Service 'MSSQL$SQLEXPRESS'                              # 管理者の PowerShell で
 .\experiments\wf4c\convert-corpora.ps1 -Only dnn
 ```

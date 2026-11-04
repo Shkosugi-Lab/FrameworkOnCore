@@ -4,17 +4,20 @@ CMS です(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わ�
 
 | | |
 |---|---|
-| 取得元 | [i7MEDIA/mojoportal](https://github.com/i7MEDIA/mojoportal) タグ `v3.1.6`(ZIP: <https://github.com/i7MEDIA/mojoportal/archive/refs/tags/v3.1.6.zip>) |
+| 取得元 | [i7MEDIA/mojoportal](https://github.com/i7MEDIA/mojoportal) タグ `v3.1.6` |
 | フォルダー | `corpora\work\mojoportal-3.1.6` |
 | ライセンス | EPL-1.0 |
 | 追加で要るもの | Build Tools、SQL Server Express。ディスク約 5 GB |
 
-## 1. 取得して変換する
+## 1. GitHub から取得して変換する
 
 元のアプリをビルドしてから変換します。
 
 ```powershell
-.\corpora\fetch.ps1 -Only mojo
+cd corpora\work
+curl.exe -L -o mojo.zip https://github.com/i7MEDIA/mojoportal/archive/refs/tags/v3.1.6.zip
+tar -xf mojo.zip          # mojoportal-3.1.6 ができる
+cd ..\..
 Start-Service 'MSSQL$SQLEXPRESS'                              # 管理者の PowerShell で
 .\experiments\wf4c\convert-corpora.ps1 -Only mojo
 ```

@@ -4,15 +4,19 @@
 
 | | |
 |---|---|
-| 取得元 | [corn-mendoza/wingtiptoys](https://github.com/corn-mendoza/wingtiptoys) コミット `4478e0e5`(ZIP: <https://github.com/corn-mendoza/wingtiptoys/archive/4478e0e5794ed709da924569c54bb5f4c714fb85.zip>) |
+| 取得元 | [corn-mendoza/wingtiptoys](https://github.com/corn-mendoza/wingtiptoys) コミット `4478e0e5` |
 | フォルダー | `corpora\work\wingtiptoys-master` |
 | ライセンス | 表示なし |
 | 追加で要るもの | なし(SQL Server はコンテナで動かします) |
 
-## 1. 取得して変換する
+## 1. GitHub から取得して変換する
 
 ```powershell
-.\corpora\fetch.ps1 -Only wt
+cd corpora\work
+curl.exe -L -o wt.zip https://github.com/corn-mendoza/wingtiptoys/archive/4478e0e5794ed709da924569c54bb5f4c714fb85.zip
+tar -xf wt.zip
+Rename-Item wingtiptoys-4478e0e5794ed709da924569c54bb5f4c714fb85 wingtiptoys-master
+cd ..\..
 .\experiments\wf4c\convert-corpora.ps1 -Only wt
 ```
 

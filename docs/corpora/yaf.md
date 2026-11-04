@@ -6,15 +6,18 @@
 
 | | |
 |---|---|
-| 取得元 | [YAFNET/YAFNET](https://github.com/YAFNET/YAFNET) タグ `v3.2.15`(ZIP: <https://github.com/YAFNET/YAFNET/archive/refs/tags/v3.2.15.zip>) |
+| 取得元 | [YAFNET/YAFNET](https://github.com/YAFNET/YAFNET) タグ `v3.2.15` |
 | フォルダー | `corpora\work\YAFNET-3.2.15` |
 | ライセンス | Apache-2.0 |
 | 追加で要るもの | なし |
 
-## 取得して変換する
+## GitHub から取得して変換する
 
 ```powershell
-.\corpora\fetch.ps1 -Only yaf
+cd corpora\work
+curl.exe -L -o yaf.zip https://github.com/YAFNET/YAFNET/archive/refs/tags/v3.2.15.zip
+tar -xf yaf.zip          # YAFNET-3.2.15 ができる
+cd ..\..
 .\experiments\wf4c\convert-corpora.ps1 -Only yaf
 ```
 

@@ -4,17 +4,23 @@
 
 | | |
 |---|---|
-| 取得元 | アプリ: [openimis/web_app_vb](https://github.com/openimis/web_app_vb) コミット `f21970b3`(ZIP: <https://github.com/openimis/web_app_vb/archive/f21970b3136d8083f2da6bb774652614c1ffd247.zip>)<br>DB: [openimis/database_ms_sqlserver](https://github.com/openimis/database_ms_sqlserver) タグ `24.10`(ZIP: <https://github.com/openimis/database_ms_sqlserver/archive/refs/tags/24.10.zip>) |
+| 取得元 | アプリ: [openimis/web_app_vb](https://github.com/openimis/web_app_vb) コミット `f21970b3`<br>DB: [openimis/database_ms_sqlserver](https://github.com/openimis/database_ms_sqlserver) タグ `24.10` |
 | フォルダー | `corpora\work\web_app_vb-main`、`corpora\work\database_ms_sqlserver-24.10` |
 | ライセンス | AGPL-3.0 |
 | 追加で要るもの | Build Tools、SQL Server Express と `sqlcmd`。ディスク約 2 GB |
 
-## 1. 取得して変換する
+## 1. GitHub から取得して変換する
 
 元のアプリを構成 `DemoRelease` でビルドしてから変換します。
 
 ```powershell
-.\corpora\fetch.ps1 -Only imis,imisdb
+cd corpora\work
+curl.exe -L -o imis.zip https://github.com/openimis/web_app_vb/archive/f21970b3136d8083f2da6bb774652614c1ffd247.zip
+tar -xf imis.zip
+Rename-Item web_app_vb-f21970b3136d8083f2da6bb774652614c1ffd247 web_app_vb-main
+curl.exe -L -o imisdb.zip https://github.com/openimis/database_ms_sqlserver/archive/refs/tags/24.10.zip
+tar -xf imisdb.zip          # database_ms_sqlserver-24.10 ができる
+cd ..\..
 Start-Service 'MSSQL$SQLEXPRESS'                              # 管理者の PowerShell で
 .\experiments\wf4c\convert-corpora.ps1 -Only imis
 ```

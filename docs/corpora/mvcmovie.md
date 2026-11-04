@@ -9,10 +9,16 @@
 | ライセンス | コードは MIT、文書は CC BY 4.0 |
 | 追加で要るもの | なし(SQL Server はコンテナで動かします) |
 
-## 1. 取得して変換する
+## 1. GitHub から取得して変換する
 
 ```powershell
-.\corpora\fetch.ps1 -Only mvcmovie
+cd corpora\work
+git clone --filter=blob:none --no-checkout --sparse https://github.com/dotnet/AspNetDocs.git AspNetDocs
+git -C AspNetDocs sparse-checkout set aspnet/mvc/overview/getting-started/introduction/sample/MvcMovie
+git -C AspNetDocs checkout 552c58dd8a809ef8cea02e66c9463ce9c7dcdfe5
+Move-Item AspNetDocs\aspnet\mvc\overview\getting-started\introduction\sample\MvcMovie MvcMovie
+Remove-Item AspNetDocs -Recurse -Force
+cd ..\..
 .\experiments\wf4c\convert-corpora.ps1 -Only mvcmovie
 ```
 

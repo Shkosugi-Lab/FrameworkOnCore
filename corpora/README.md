@@ -41,7 +41,7 @@
 ```
 
 コーパスごとの結果と既知の差異は `experiments/wf4c/README.md` にあります。
-準備から Windows・Linux で動かすまでの手順を、コーパスごとにまとめたものは [docs/corpora-guide.md](../docs/corpora-guide.md) です。
+準備から Windows・Linux で動かすまでの手順を、コーパスごとにまとめたものは [docs/corpora/README.md](../docs/corpora/README.md) です(共通の準備は [docs/corpora/setup.md](../docs/corpora/setup.md))。
 
 wt・mvcmovie・contoso の Web.config の接続文字列は、`fetch.ps1` が取得のときに SQL Server Express(`.\SQLEXPRESS`)に向けます
 (`record-webforms-golden.ps1` が正解を採るときと同じ値。元の wt は存在しない Azure SQL を、mvcmovie・contoso は LocalDB を指している)。

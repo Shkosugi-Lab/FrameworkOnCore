@@ -110,6 +110,7 @@ FrameworkOnCore の System.Web をソースからビルドして内部の型を�
 ## 4. コーパス
 
 日常に使うのは **be(BlogEngine.NET)と wt(WingtipToys)だけ**です(CLAUDE.md。ほかは指示があるときに `-Only` で)。取得は `.\corpora\fetch.ps1`(初回だけ)。
+コーパスを手で試す手順(共通の準備と、コーパスごとのページ)は [docs/corpora/README.md](../docs/corpora/README.md) にあります。
 
 | 何を | コマンド | 正解 | 必要なもの | 時間(2026-10-31) |
 |---|---|---|---|---|

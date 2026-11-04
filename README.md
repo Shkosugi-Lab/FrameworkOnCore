@@ -122,7 +122,7 @@ Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、St
 
 ## 状態
 
-- コーパス(Web Forms: BlogEngine.NET、WingtipToys、mojoPortal、YAF.NET、DNN、N2CMS、openIMIS(VB)、nopCommerce 1.90。MVC 5: MvcMovie、nopCommerce 3.90、Contoso University)を変換し、Windows と Linux で動作を確かめています。結果と既知の課題は `experiments/wf4c/README.md` にあります。自分で試す手順は [docs/corpora/README.md](docs/corpora/README.md)(共通の準備と、コーパスごとに 1 ページ)にあります。
+- コーパス(Web Forms: BlogEngine.NET、WingtipToys、mojoPortal、YAF.NET、DNN、N2CMS、openIMIS(VB)、nopCommerce 1.90。MVC 5: MvcMovie、nopCommerce 3.90、Contoso University)を変換し、Windows と Linux で動作を確かめています。結果と既知の課題は `experiments/wf4c/README.md` にあります。変換して Linux のコンテナで動かす手順は [docs/corpora/README.md](docs/corpora/README.md) にあります。
 - .NET Framework にしかない API の洗い出しと対応の状況は `experiments/wf4c/FRAMEWORK-ONLY-APIS.md` にあります。
 - MVC 5・Web Pages・Razor 3 は AspNetWebStack v3.3.0(Microsoft のソース、Apache 2.0)から `FrameworkOnCore.Runtime/` に移植済みで、変換後のアプリは Microsoft の DLL ではなくこれを使う(Microsoft の DLL の許諾は逆アセンブルを禁じ、.NET の数値の動きをするため)。数値の書式とモデル バインドは .NET Framework と同じ。Web API 2 も同じく移植済み。
 - LINQ to SQL(System.Data.Linq)は referencesource(MIT)から `FrameworkOnCore.Runtime/` に移植済みで、既定で使われる。全 API(486)を .NET Framework と新旧比較して一致を確認している(`experiments/wf4c/README.md` の記録)。
@@ -143,7 +143,7 @@ Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、St
 | `experiments/wf4c/README.md` | 実験と検証の記録(WebFormsForCore、コーパス、Linux、解析、Studio) |
 | `experiments/wf4c/FRAMEWORK-ONLY-APIS.md` | .NET Framework にしかない API の一覧と対応 |
 | `experiments/wf4c/PORT-CANDIDATES.md` | 移植版の候補(.NET Framework と .NET で動きや API が違うもの)と、移植済みのもの |
-| `docs/corpora/README.md` | コーパスで変換を試す手引きの入口(コーパスの一覧と最新の結果、試す順番) |
-| `docs/corpora/setup.md` | 共通の準備(入れるもの、取得、Studio とコマンドラインでの変換、変換レポートの読み方、Windows・Linux での動かし方、後片付け、うまくいかないとき) |
-| `docs/corpora/<名前>.md` | コーパスごとの手順(取得から変換、DB・インストーラー、Windows・Linux で動かす、期待される結果、既知の差) |
+| `docs/corpora/README.md` | コーパスを変換して Linux のコンテナで動かす手順の入口(コーパスの一覧) |
+| `docs/corpora/setup.md` | 共通の準備(入れるもの、取得、変換、Linux での動かし方、片付け) |
+| `docs/corpora/<名前>.md` | コーパスごとの手順(取得、変換、Linux で動かす、片付け) |
 | `corpora/README.md` | コーパスの取得と記録 |

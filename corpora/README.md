@@ -23,7 +23,7 @@
 | `nop390` | nopCommerce 3.90(最後の MVC 5 版、EF6、Autofac) | `nopSolutions/nopCommerce` @ `release-3.90`(`12d1f013`) |
 | `contoso` | Contoso University(ASP.NET MVC 5 と EF6 のチュートリアルのアプリ。学生の一覧・作成・編集・削除、日付の表示と入力。ライセンスの表示なし) | `tigerbluejay/ContosoUniversity` の `ContosoUniversitySolution` @ `2ee1ad2a` |
 
-どれもコミットで固定しています(タグの無い n2・wt・imis はコミットの ZIP を取り、フォルダー名は元のブランチ名のまま)。完全なコミットとライセンス、手で取る方法は [docs/corpora](../docs/corpora/README.md) の各ページの「3.1 取得する」にあります。
+どれもコミットで固定しています(タグの無い n2・wt・imis はコミットの ZIP を取り、フォルダー名は元のブランチ名のまま)。ライセンスと ZIP の URL は [docs/corpora](../docs/corpora/README.md) の各ページにあります。
 
 日常の検証に使うのは `be` と `wt` です。ほかは必要なときに対象を指定して使います。
 
@@ -43,7 +43,7 @@
 ```
 
 コーパスごとの結果と既知の差異は `experiments/wf4c/README.md` にあります。
-準備から Windows・Linux で動かすまでの手順を、コーパスごとにまとめたものは [docs/corpora/README.md](../docs/corpora/README.md) です(共通の準備は [docs/corpora/setup.md](../docs/corpora/setup.md))。
+取得から Linux で動かすまでの手順を、コーパスごとにまとめたものは [docs/corpora/README.md](../docs/corpora/README.md) です(共通の準備は [docs/corpora/setup.md](../docs/corpora/setup.md))。
 
 wt・mvcmovie・contoso の Web.config の接続文字列は、`fetch.ps1` が取得のときに SQL Server Express(`.\SQLEXPRESS`)に向けます
 (`record-webforms-golden.ps1` が正解を採るときと同じ値。元の wt は存在しない Azure SQL を、mvcmovie・contoso は LocalDB を指している)。

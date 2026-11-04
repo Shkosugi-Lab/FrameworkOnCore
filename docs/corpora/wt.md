@@ -1,167 +1,24 @@
 # wt(WingtipToys)
 
-[共通の準備](setup.md) が終わっている前提です。コマンドは、とくに書いていなければリポジトリの一番上のフォルダーで実行します。
-[コーパスの一覧に戻る](README.md)
-
-## 1. 概要
-
-- **どんなアプリ**: Web Forms のチュートリアルのおもちゃ屋(C#)。EF6 Code First(起動時に DB とデータを作る)、ASP.NET Identity と OWIN、FriendlyUrls、ELMAH。
-- **大きさ**: 取得 348 MB、変換の出力 0.6 GB。
-- **特別なこと**: SQL Server Express を使うアプリの、いちばん簡単な例です。元の Web.config は存在しない Azure SQL を指していますが、`fetch.ps1` が取得のときに `.\SQLEXPRESS` に向け直します。
-
-## 2. 前提
-
-| もの | 要るか |
-|---|---|
-| SQL Server Express(`.\SQLEXPRESS`) | **要る**。DB `WingtipToys` はアプリが作ります([共通の準備の手順 7](setup.md#手順-7-sql-server-express-と-sqlcmd-を入れる)) |
-| `sqlcmd` | 比較(`verify-windows.ps1`)で使う |
-| Visual Studio Build Tools(元のビルド) | 要らない |
-| インストーラー | 無い |
-| Edge | 比較をするとき |
-| Docker Desktop | Linux で動かすとき |
-| ディスク | 取得 348 MB、変換の出力 0.6 GB。Linux のイメージ 1.13 GB |
-
-## 3. 手順
-
-この節の手順は、2026-11-04 にこのとおり実行して確かめました。
-
-### 3.1 取得する
-
-元の GitHub のリポジトリから、次の版を取ります(このページの結果は、この版で出したものです)。
+おもちゃ屋のチュートリアルです(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提です。
 
 | | |
 |---|---|
-| リポジトリ | <https://github.com/corn-mendoza/wingtiptoys> |
-| 版 | `master` ブランチのコミット `4478e0e5794ed709da924569c54bb5f4c714fb85`(2021-02-12)。タグが無いので、コミットで固定しています(いまも master の最後のコミット) |
-| ライセンス | リポジトリにライセンスのファイルは無く、GitHub の表示も無し |
-| フォルダーの名前 | `wingtiptoys-master`(この名前にしておくと、このページのパスがそのまま使えます) |
+| 取得元 | [corn-mendoza/wingtiptoys](https://github.com/corn-mendoza/wingtiptoys) コミット `4478e0e5`(ZIP: <https://github.com/corn-mendoza/wingtiptoys/archive/4478e0e5794ed709da924569c54bb5f4c714fb85.zip>) |
+| フォルダー | `corpora\work\wingtiptoys-master` |
+| ライセンス | 表示なし |
+| 追加で要るもの | なし(SQL Server はコンテナで動かします) |
 
-置く場所はどこでも構いません。ただし:
-
-- **比較のスクリプトを使う場合は `corpora\work\wingtiptoys-master` に置きます**(`convert-corpora.ps1`、`corpora\build-original.ps1`、`convert-corpora.ps1` の出力を使う `verify-windows.ps1`・`run-linux.ps1`、`corpora\record-wt-operations.ps1` は、このパスを前提にしています)。
-- パスの長さ: 元のビルド(NuGet の復元)のあと、フォルダーの中でいちばん深いファイルは 163 文字です。.NET Framework の MSBuild は Windows の MAX_PATH(260 文字)を超えるパスを扱えないので、**フォルダー自体のパスを 95 文字以内**にします(`<リポジトリ>\corpora\work\wingtiptoys-master` や `C:\corpora\wingtiptoys-master` なら収まります)。
-
-**近道(`fetch.ps1`)**: 下と同じこと(ダウンロード、展開、フォルダーの名前、Web.config の接続文字列)をして、`corpora\work` に置きます。取得元(リポジトリとタグ・コミット)も表示します。
+## 1. 取得して変換する
 
 ```powershell
 .\corpora\fetch.ps1 -Only wt
-```
-
-確認: 「接続文字列を SQL Server Express(.\SQLEXPRESS)に向けました」と「すべて取得できました。」が出ます。
-
-**A. GitHub の画面から(ZIP)**
-
-1. <https://github.com/corn-mendoza/wingtiptoys/tree/4478e0e5794ed709da924569c54bb5f4c714fb85> を開き、「Code」→「Download ZIP」を押します(直接のリンク: <https://github.com/corn-mendoza/wingtiptoys/archive/4478e0e5794ed709da924569c54bb5f4c714fb85.zip>)。
-2. ZIP を展開します。中にできる `wingtiptoys-4478e0e5794ed709da924569c54bb5f4c714fb85` フォルダーを `wingtiptoys-master` に名前を変えます(コミットの ZIP はフォルダー名にコミットが付くため。`fetch.ps1` も同じ名前に変えます)。
-
-**B. git で**(置きたい場所の一つ上のフォルダーで)
-
-```powershell
-git clone -c core.autocrlf=false -c core.eol=lf https://github.com/corn-mendoza/wingtiptoys.git wingtiptoys-master
-git -C wingtiptoys-master checkout 4478e0e5794ed709da924569c54bb5f4c714fb85
-```
-
-`-c core.autocrlf=false -c core.eol=lf` は、改行を ZIP(と `fetch.ps1`)と同じにするためです。付けないと Git for Windows の既定(`core.autocrlf=true`)でテキストの改行が CRLF に変わり、ファイルの中身が ZIP と違ってしまいます(wt では 178 ファイル)。`.git` フォルダーが増えるのは構いません。
-
-**手で直すところ(Web.config の接続文字列)**: `WingtipToys\WingtipToys\Web.config` の接続文字列は存在しない Azure SQL(`ms.database.windows.net`)を指しているので、SQL Server Express(`.\SQLEXPRESS`)に向けます。正解(IIS で記録したもの)を記録したときと同じ値です。`fetch.ps1` はこれを自動で行います。
-
-`<add name="DefaultConnection" connectionString="...">` の `connectionString` の値:
-
-```text
-元: Server=tcp:ms.database.windows.net,1433;Initial Catalog=database;Persist Security Info=False;User ID=uid1;Password=P@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
-後: Data Source=.\SQLEXPRESS;Initial Catalog=WingtipToys;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30
-```
-
-`<add name="WingtipToys" connectionString="...">` の `connectionString` の値:
-
-```text
-元: Server=tcp:ms.database.windows.net,1433;Initial Catalog=database;Persist Security Info=False;User ID=uid1;Password=P@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
-後: Data Source=.\SQLEXPRESS;Initial Catalog=WingtipToys;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30
-```
-
-**Studio・変換器に渡すフォルダー**: 「リポジトリのフォルダー」(`--root`)は置いたフォルダー(`wingtiptoys-master`)、「プロジェクト」はその中の `WingtipToys\WingtipToys\WingtipToys.csproj` です。`corpora\work` 以外に置いたときは、3.2 以降の `corpora\work\wingtiptoys-master` を置いた場所に読み替えます。
-
-### 3.2 変換する
-
-元のビルドは要りません。
-
-**Studio で**([使い方](setup.md#41-studio画面)):
-
-| 欄 | 値 |
-|---|---|
-| プロジェクト | `<リポジトリ>\corpora\work\wingtiptoys-master\WingtipToys\WingtipToys\WingtipToys.csproj` |
-| リポジトリのフォルダー | `<リポジトリ>\corpora\work\wingtiptoys-master` |
-| 構成 | `Release` |
-
-**コマンドラインで(まとめて変換)**:
-
-```powershell
 .\experiments\wf4c\convert-corpora.ps1 -Only wt
 ```
 
-確認: `=== wt BUILD OK (rounds: 2) 未解決(...)(0 件) / ... / コンパイルのために変えたソース(スタブ・削除)(0 件) / ...` と `snapshot: the same as the baseline (299 entries)`。出力は `experiments\wf4c\wt`。
+## 2. Linux で動かす
 
-**コマンドラインで(変換器を直接)**: `convert-corpora.ps1` と同じ値です(この手引きのためには動かしていません)。
-
-```powershell
-.\converter.ps1 corpora\work\wingtiptoys-master\WingtipToys\WingtipToys\WingtipToys.csproj --out C:\work\wt-out --root corpora\work\wingtiptoys-master --build-original auto --culture-profile experiments\wf4c\_culture\culture-profile.json
-```
-
-### 3.3 DB を用意する
-
-SQL Server Express を起動しておくだけです。DB `WingtipToys` とデータは、アプリが最初の要求で作ります。
-
-```powershell
-Start-Service 'MSSQL$SQLEXPRESS'     # 管理者の PowerShell で
-```
-
-確認: `(Get-Service 'MSSQL$SQLEXPRESS').Status` が `Running`。
-
-### 3.4 Windows で動かす
-
-```powershell
-cd experiments\wf4c\wt\WingtipToys\WingtipToys
-..\..\..\supervise.ps1 -Dll bin\WingtipToys.dll -Port 5096
-```
-
-**http://localhost:5096/** を開きます。止め方は [共通の準備の 6.2](setup.md#62-止める)。
-
-### 3.5 開くページとログイン
-
-| ページ | 見えるもの |
-|---|---|
-| `/` | トップ |
-| `/ProductList` | 商品の一覧 |
-| `/Product/Fast%20Car` | 商品の詳細 |
-| `/ShoppingCart` | カート |
-| `/Account/Login` | ログイン |
-| `/Admin/AdminPage` | 管理者でログインすると開ける |
-
-管理者は **`canEditUser@wingtiptoys.com` / `Pa$$word1`**(アプリが起動時に作る)です。
-
-### 3.6 元のアプリと比べる(Windows)
-
-`supervise.ps1` を止めてから、リポジトリの一番上で実行します。約 1 分。**SQL Server Express は起動しておきます**(このスクリプトは起動しません)。
-
-```powershell
-.\experiments\wf4c\verify-windows.ps1 -Name wt
-```
-
-確認: `RESULT: OK (8 スナップショットすべて変換前と一致、リンク 64 件も一致)`。
-
-### 3.7 Linux で動かす
-
-Docker Desktop を起動しておきます。
-
-**正解と比べる(`run-linux.ps1`)**: 約 2 分。SQL Server もコンテナ(`w2l-sql`)で動かします。
-
-```powershell
-.\experiments\wf4c\run-linux.ps1 -App wt\WingtipToys\WingtipToys -Scenario corpora\regression\wt.scenario.json -Golden corpora\parity\wt.golden-webforms.json -SqlServer
-```
-
-確認: `RESULT: OK`。8 画面のうち error-page が「許容」、ほかは一致、リンク 64/64(下の「5. 既知の差・制限」)。
-
-**変換が書いた Dockerfile で動かす**(SQL Server もコンテナで動かす。2026-11-04 に実行):
+SQL Server もコンテナで動かします。
 
 ```powershell
 docker network create foc-net
@@ -172,59 +29,12 @@ $cs = 'Data Source=foc-sql;Initial Catalog=WingtipToys;User ID=sa;Password=Foc_l
 docker run -d -p 8080:8080 --name wingtiptoys --network foc-net -e "SQLCONNSTR_DefaultConnection=$cs" -e "SQLCONNSTR_WingtipToys=$cs" wingtiptoys
 ```
 
-- SQL Server が起動するまで 10〜20 秒かかります。wt は最初の要求で DB を作ってデータを入れます。
-- **http://localhost:8080/** を開きます。確認: `docker logs wingtiptoys` に `Now listening on: http://[::]:8080`。
-- 接続文字列は環境変数 `SQLCONNSTR_<接続文字列の名前>` で渡しています(web.config は書き換えません)。
+http://localhost:8080/ を開きます。最初の要求で、アプリが DB を作ってデータを入れます。
+管理者は `canEditUser@wingtiptoys.com` / `Pa$$word1` です。
 
-## 4. 期待される結果
-
-| 何を | 結果 | 出どころ |
-|---|---|---|
-| 変換 | `BUILD OK`。未解決 0、スタブ 0 | **確認** 2026-11-04 |
-| Windows の画面の比較 | `RESULT: OK (8 スナップショットすべて変換前と一致、リンク 64 件も一致)` | **確認** 2026-11-04 |
-| Linux の画面の比較 | 8/8(うち error-page は理由のある「許容」)、リンク 64/64 | **確認** 2026-11-04 |
-| すべての操作の比較 | 152 件(実行できないもの 10 件)。Windows は 223 スナップショット中 一致 192・許容 31、Linux は一致 186・許容 37 | 記録 2026-10-31(2026-11-01 に Windows を再実行して同じ) |
-
-## 5. 既知の差・制限
-
-- **Linux の error-page**: Docker のポート転送で、アプリから見て要求がこの PC からでなくなり(`Request.IsLocal` が偽)、エラーの詳細が出ません。理由つきで `corpora\parity\wt.allowed.json` に記録してある「許容」です。
-- すべての操作の正解には Edge 156 の User-Agent が入っています。Edge の版が変わると差が出ることがあります。
-
-## 6. うまくいかないとき
-
-- **起動が止まる・DB につながらない**: 元の Web.config は存在しない Azure SQL を指しています。`fetch.ps1` が `.\SQLEXPRESS` に向け直しますが、それより前に取ったコーパスでは向いていません。取り直します。
-
-  ```powershell
-  .\corpora\fetch.ps1 -Only wt -Force
-  ```
-
-- **`verify-windows.ps1 -Name wt` が DB につながらない**: このスクリプトは SQL Server Express を起動しません(`-Suite operations` は起動します)。3.3 のとおり起動しておきます。
-- 共通のこと(SQL Server、ポート、Docker など)は [共通の準備の 10](setup.md#10-うまくいかないとき)。
-
-## 7. 片付け
+## 3. 片付け
 
 ```powershell
-# Windows で起動したアプリ
-Get-NetTCPConnection -LocalPort 5096 -State Listen -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force }
-# Dockerfile で動かしたコンテナとネットワーク
 docker rm -f wingtiptoys foc-sql
 docker network rm foc-net
-# run-linux.ps1 -SqlServer が残す SQL Server
-docker stop w2l-sql
-# SQL Server Express(管理者の PowerShell)
-Stop-Service 'MSSQL$SQLEXPRESS'
 ```
-
-そのあと、Docker Desktop を止めて `wsl --shutdown`、Edge を閉じます([共通の準備の 9](setup.md#9-後片付け))。
-
-## 8. IIS の結果と比べる(任意)
-
-画面の比較(8 画面。3.6・3.7)のほかに、**すべての操作**(152 件)を元のアプリ(IIS で記録した正解)と比べられます。
-
-```powershell
-.\experiments\wf4c\verify-windows.ps1 -Name wt -Suite operations     # 約 5 分。SQL Server Express の起動・停止もスクリプトが行う
-.\experiments\wf4c\run-linux.ps1 -App wt\WingtipToys\WingtipToys -SqlServer -Suite operations
-```
-
-- 正解: `corpora\parity\wt.operations.golden.json`(223 スナップショット)、許される差 `wt.operations.allowed.json`。結果は `experiments\wf4c\_results\`。
-- 期待される結果は「4. 期待される結果」。詳しくは [tests/README.md](../../tests/README.md) の「4. コーパス」。

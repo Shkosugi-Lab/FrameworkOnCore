@@ -26,11 +26,60 @@
 
 ### 3.1 取得する
 
+元の GitHub のリポジトリ(ASP.NET の文書のリポジトリ)の中の、1 つのフォルダーを取ります(このページの結果は、この版で出したものです)。
+
+| | |
+|---|---|
+| リポジトリ | <https://github.com/dotnet/AspNetDocs> |
+| 版 | コミット `552c58dd8a809ef8cea02e66c9463ce9c7dcdfe5`(2023-07-28)の中のフォルダー `aspnet/mvc/overview/getting-started/introduction/sample/MvcMovie` |
+| ライセンス | コードは MIT License([LICENSE-CODE](https://github.com/dotnet/AspNetDocs/blob/552c58dd8a809ef8cea02e66c9463ce9c7dcdfe5/LICENSE-CODE))、文書などは CC BY 4.0([LICENSE](https://github.com/dotnet/AspNetDocs/blob/552c58dd8a809ef8cea02e66c9463ce9c7dcdfe5/LICENSE))。[ThirdPartyNotices](https://github.com/dotnet/AspNetDocs/blob/552c58dd8a809ef8cea02e66c9463ce9c7dcdfe5/ThirdPartyNotices) のとおり |
+| フォルダーの名前 | `MvcMovie`(この名前にしておくと、このページのパスがそのまま使えます) |
+
+置く場所はどこでも構いません。ただし:
+
+- **比較のスクリプトを使う場合は `corpora\work\MvcMovie` に置きます**(`convert-corpora.ps1`、`corpora\build-original.ps1`、`convert-corpora.ps1` の出力を使う `verify-windows.ps1`・`run-linux.ps1` は、このパスを前提にしています)。
+- パスの長さ: 元のビルド(NuGet の復元)のあと、フォルダーの中でいちばん深いファイルは 148 文字です。.NET Framework の MSBuild は Windows の MAX_PATH(260 文字)を超えるパスを扱えないので、**フォルダー自体のパスを 110 文字以内**にします(`<リポジトリ>\corpora\work\MvcMovie` や `C:\corpora\MvcMovie` なら収まります)。
+- `git` が要ります(下の B はリポジトリ全体の大きな ZIP になるので、A か `fetch.ps1` をすすめます)。
+
+**近道(`fetch.ps1`)**: 下の A と同じこと(git での取得、フォルダーの名前、Web.config の接続文字列)をして、`corpora\work` に置きます。取得元(リポジトリとタグ・コミット)も表示します。
+
 ```powershell
 .\corpora\fetch.ps1 -Only mvcmovie
 ```
 
 確認: 「接続文字列を SQL Server Express(.\SQLEXPRESS)に向けました」と「すべて取得できました。」が出ます。`git clone` で取るので Git が要ります。
+
+**A. git で(すすめる)**: リポジトリは大きい(全体で約 600 MB)ので、`fetch.ps1` と同じく、そのフォルダーだけを取ります。短いパスのフォルダー(`C:\src` など)で:
+
+```powershell
+git clone -c core.autocrlf=true --filter=blob:none --no-checkout --sparse https://github.com/dotnet/AspNetDocs.git AspNetDocs
+git -C AspNetDocs sparse-checkout set aspnet/mvc/overview/getting-started/introduction/sample/MvcMovie
+git -C AspNetDocs checkout 552c58dd8a809ef8cea02e66c9463ce9c7dcdfe5
+Move-Item AspNetDocs\aspnet\mvc\overview\getting-started\introduction\sample\MvcMovie MvcMovie
+Remove-Item AspNetDocs -Recurse -Force     # 残りは要らない
+```
+
+`-c core.autocrlf=true` は、改行を `fetch.ps1` と同じ(テキストは CRLF。比較の基準を作ったときのもの)にするためです。Git の設定が `core.autocrlf=true`(Git for Windows の既定)なら付けなくても同じです。
+
+**B. GitHub の画面から(ZIP)**: このフォルダーだけの ZIP は GitHub にありません。リポジトリ全体の ZIP <https://github.com/dotnet/AspNetDocs/archive/552c58dd8a809ef8cea02e66c9463ce9c7dcdfe5.zip> を取り、展開した `AspNetDocs-552c58dd8a809ef8cea02e66c9463ce9c7dcdfe5\aspnet\mvc\overview\getting-started\introduction\sample\MvcMovie` フォルダーを `MvcMovie` という名前で置きます(フォルダーの中身は <https://github.com/dotnet/AspNetDocs/tree/552c58dd8a809ef8cea02e66c9463ce9c7dcdfe5/aspnet/mvc/overview/getting-started/introduction/sample/MvcMovie> で見られます)。ZIP の改行は LF のままで、比較の基準(CRLF)と違います。結果を記録と比べるなら A か `fetch.ps1` を使います。
+
+**手で直すところ(Web.config の接続文字列)**: `MvcMovie\Web.config` の接続文字列は LocalDB(ユーザーごとのインスタンスで、IIS と変換後のアプリでは別の DB になる)を指しているので、SQL Server Express(`.\SQLEXPRESS`)に向けます。正解(IIS で記録したもの)を記録したときと同じ値です。`fetch.ps1` はこれを自動で行います。
+
+`<add name="DefaultConnection" connectionString="...">` の `connectionString` の値:
+
+```text
+元: Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=aspnet-MvcMovie-fefdc1f0-bd81-4ce9-b712-93a062e01031;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\aspnet-MvcMovie-fefdc1f0-bd81-4ce9-b712-93a062e01031.mdf
+後: Data Source=.\SQLEXPRESS;Initial Catalog=MvcMovieIdentity;Integrated Security=True
+```
+
+`<add name="MovieDBContext" connectionString="...">` の `connectionString` の値:
+
+```text
+元: Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=aspnet-MvcMovie;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\Movies.mdf
+後: Data Source=.\SQLEXPRESS;Initial Catalog=MvcMovie;Integrated Security=True
+```
+
+**Studio・変換器に渡すフォルダー**: 「リポジトリのフォルダー」(`--root`)は置いたフォルダー(`MvcMovie`)、「プロジェクト」はその中の `MvcMovie\MvcMovie.csproj` です。`corpora\work` 以外に置いたときは、3.2 以降の `corpora\work\MvcMovie` を置いた場所に読み替えます。
 
 ### 3.2 変換する
 

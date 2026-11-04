@@ -26,11 +26,53 @@
 
 ### 3.1 取得する
 
+元の GitHub のリポジトリの中の、ソリューションのフォルダー `ContosoUniversitySolution` を `ContosoUniversity` という名前で置きます(このページの結果は、この版で出したものです)。
+
+| | |
+|---|---|
+| リポジトリ | <https://github.com/tigerbluejay/ContosoUniversity> |
+| 版 | コミット `2ee1ad2aa66fbef012fe280e4552176489dcf0f3`(2025-04-13)の中のフォルダー `ContosoUniversitySolution` |
+| ライセンス | **ライセンスの表示がありません**(LICENSE のファイルも、GitHub の表示も無し)。手元で試すだけにし、配り直さないでください |
+| フォルダーの名前 | `ContosoUniversity`(この名前にしておくと、このページのパスがそのまま使えます) |
+
+置く場所はどこでも構いません。ただし:
+
+- **比較のスクリプトを使う場合は `corpora\work\ContosoUniversity` に置きます**(`convert-corpora.ps1`、`corpora\build-original.ps1`、`convert-corpora.ps1` の出力を使う `verify-windows.ps1`・`run-linux.ps1` は、このパスを前提にしています)。
+- パスの長さ: 元のビルド(NuGet の復元)のあと、フォルダーの中でいちばん深いファイルは 145 文字です。.NET Framework の MSBuild は Windows の MAX_PATH(260 文字)を超えるパスを扱えないので、**フォルダー自体のパスを 113 文字以内**にします(`<リポジトリ>\corpora\work\ContosoUniversity` や `C:\corpora\ContosoUniversity` なら収まります)。
+- この名前(`ContosoUniversity`)にするのは、パスを短くするためでもあります。ZIP のフォルダー名(`ContosoUniversity-<コミット>\ContosoUniversitySolution`)のままだと、リポジトリに入っている packages のパスが .NET Framework の MSBuild の上限(260 文字)を超え、元のビルドが「パッケージが無い」で失敗しました。
+
+**近道(`fetch.ps1`)**: 下の A と同じこと(git での取得、フォルダーの名前、Web.config の接続文字列)をして、`corpora\work` に置きます。取得元(リポジトリとタグ・コミット)も表示します。
+
 ```powershell
 .\corpora\fetch.ps1 -Only contoso
 ```
 
 確認: 「接続文字列を SQL Server Express(.\SQLEXPRESS)に向けました」と「すべて取得できました。」が出ます。`git clone` で取るので Git が要ります。
+
+**A. git で(すすめる)**: `fetch.ps1` と同じく、そのフォルダーだけを取ります。短いパスのフォルダー(`C:\src` など)で:
+
+```powershell
+git clone -c core.autocrlf=true --filter=blob:none --no-checkout --sparse https://github.com/tigerbluejay/ContosoUniversity.git ContosoUniversity-repo
+git -C ContosoUniversity-repo sparse-checkout set ContosoUniversitySolution
+git -C ContosoUniversity-repo checkout 2ee1ad2aa66fbef012fe280e4552176489dcf0f3
+Move-Item ContosoUniversity-repo\ContosoUniversitySolution ContosoUniversity
+Remove-Item ContosoUniversity-repo -Recurse -Force     # 残りは要らない
+```
+
+`-c core.autocrlf=true` は、改行を `fetch.ps1` と同じ(テキストは CRLF。比較の基準を作ったときのもの)にするためです。Git の設定が `core.autocrlf=true`(Git for Windows の既定)なら付けなくても同じです。
+
+**B. GitHub の画面から(ZIP)**: <https://github.com/tigerbluejay/ContosoUniversity/tree/2ee1ad2aa66fbef012fe280e4552176489dcf0f3> の「Code」→「Download ZIP」(直接のリンク: <https://github.com/tigerbluejay/ContosoUniversity/archive/2ee1ad2aa66fbef012fe280e4552176489dcf0f3.zip>。約 60 MB)。**短いパスのフォルダー(`C:\src` など)に展開します**(ダウンロードのフォルダーの下では、パスが長すぎて展開に失敗することがあります)。展開した `ContosoUniversity-2ee1ad2aa66fbef012fe280e4552176489dcf0f3\ContosoUniversitySolution` を `ContosoUniversity` という名前で置きます。ZIP の改行は LF のままで、比較の基準(CRLF)と違います(190 ファイル。確かめた違いは改行だけ)。結果を記録と比べるなら A か `fetch.ps1` を使います。
+
+**手で直すところ(Web.config の接続文字列)**: `ContosoUniversity\Web.config` の接続文字列は LocalDB(ユーザーごとのインスタンスで、IIS と変換後のアプリでは別の DB になる)を指しているので、SQL Server Express(`.\SQLEXPRESS`)に向けます。正解(IIS で記録したもの)を記録したときと同じ値です。`fetch.ps1` はこれを自動で行います。
+
+`<add name="SchoolContext" connectionString="...">` の `connectionString` の値:
+
+```text
+元: Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=ContosoUniversity1;Integrated Security=SSPI;
+後: Data Source=.\SQLEXPRESS;Initial Catalog=ContosoUniversity1;Integrated Security=True
+```
+
+**Studio・変換器に渡すフォルダー**: 「リポジトリのフォルダー」(`--root`)は置いたフォルダー(`ContosoUniversity`)、「プロジェクト」はその中の `ContosoUniversity\ContosoUniversity.csproj` です。`corpora\work` 以外に置いたときは、3.2 以降の `corpora\work\ContosoUniversity` を置いた場所に読み替えます。
 
 ### 3.2 変換する
 

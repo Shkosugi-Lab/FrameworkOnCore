@@ -28,11 +28,43 @@
 
 ### 3.1 取得する
 
+元の GitHub のリポジトリから、次の版を取ります(このページの結果は、この版で出したものです)。
+
+| | |
+|---|---|
+| リポジトリ | <https://github.com/rxtur/BlogEngine.NET> |
+| 版 | タグ `v3.3.8.0`(コミット `e81ba7425e860c2265f66911436bd241061274f9`、2019-06-15) |
+| ライセンス | リポジトリにライセンスのファイルは無く、GitHub の表示も無し(README にも書かれていません) |
+| フォルダーの名前 | `BlogEngine.NET-3.3.8.0`(この名前にしておくと、このページのパスがそのまま使えます) |
+
+置く場所はどこでも構いません。ただし:
+
+- **比較のスクリプトを使う場合は `corpora\work\BlogEngine.NET-3.3.8.0` に置きます**(`convert-corpora.ps1`、`corpora\build-original.ps1`、`convert-corpora.ps1` の出力を使う `verify-windows.ps1`・`run-linux.ps1`、`corpora\record-be-operations.ps1` は、このパスを前提にしています)。
+- パスの長さ: 元のビルド(NuGet の復元)のあと、フォルダーの中でいちばん深いファイルは 140 文字です。.NET Framework の MSBuild は Windows の MAX_PATH(260 文字)を超えるパスを扱えないので、**フォルダー自体のパスを 118 文字以内**にします(`<リポジトリ>\corpora\work\BlogEngine.NET-3.3.8.0` や `C:\corpora\BlogEngine.NET-3.3.8.0` なら収まります)。
+
+**近道(`fetch.ps1`)**: 下と同じこと(ダウンロード、展開、フォルダーの名前)をして、`corpora\work` に置きます。取得元(リポジトリとタグ・コミット)も表示します。
+
 ```powershell
 .\corpora\fetch.ps1 -Only be
 ```
 
 確認: 「すべて取得できました。」と出て、`corpora\work\BlogEngine.NET-3.3.8.0` ができます。
+
+**A. GitHub の画面から(ZIP)**
+
+1. <https://github.com/rxtur/BlogEngine.NET/tree/v3.3.8.0> を開き、「Code」→「Download ZIP」を押します(直接のリンク: <https://github.com/rxtur/BlogEngine.NET/archive/refs/tags/v3.3.8.0.zip>)。
+2. ZIP を展開します。中の `BlogEngine.NET-3.3.8.0` フォルダーがコーパスです。
+
+**B. git で**(置きたい場所の一つ上のフォルダーで)
+
+```powershell
+git clone -c core.autocrlf=false -c core.eol=lf https://github.com/rxtur/BlogEngine.NET.git BlogEngine.NET-3.3.8.0
+git -C BlogEngine.NET-3.3.8.0 checkout e81ba7425e860c2265f66911436bd241061274f9
+```
+
+`-c core.autocrlf=false -c core.eol=lf` は、改行を ZIP(と `fetch.ps1`)と同じにするためです。付けないと Git for Windows の既定(`core.autocrlf=true`)でテキストの改行が CRLF に変わり、ファイルの中身が ZIP と違ってしまいます(wt では 178 ファイル)。`.git` フォルダーが増えるのは構いません。
+
+**Studio・変換器に渡すフォルダー**: 「リポジトリのフォルダー」(`--root`)は置いたフォルダー(`BlogEngine.NET-3.3.8.0`)、「プロジェクト」はその中の `BlogEngine\BlogEngine.NET\BlogEngine.NET.csproj` です。`corpora\work` 以外に置いたときは、3.2 以降の `corpora\work\BlogEngine.NET-3.3.8.0` を置いた場所に読み替えます。
 
 ### 3.2 変換する
 

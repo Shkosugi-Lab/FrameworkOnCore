@@ -240,15 +240,29 @@ Test-Path experiments\wf4c\casefs\out\linux-x64\libfoccase.so, experiments\wf4c\
 
 ### 手順 12. コーパスを取る
 
+コーパスはこのリポジトリには入っていません。それぞれ**元の GitHub のリポジトリから、決まったタグかコミットを取ります**(このリポジトリの記録・ベースライン・正解は、その版で作ったものです)。
+リポジトリ、タグ・コミット、ライセンスは [一覧](README.md#コーパスの一覧) と各ページの「3.1 取得する」にあります。
+
+取り方は 3 通りで、どれも同じものになります(各ページの「3.1 取得する」に、そのコーパスのコマンドと URL があります)。
+
+- **A. GitHub の画面から(ZIP)**: そのタグ・コミットのページで「Code」→「Download ZIP」を押し、展開します。
+- **B. git で**: `git clone` して、そのコミットを `git checkout` します。改行を ZIP と同じにするため、`-c core.autocrlf=false -c core.eol=lf` を付けます(mvcmovie・contoso は `fetch.ps1` と同じ `-c core.autocrlf=true`)。
+- **近道: `fetch.ps1`**: A(mvcmovie・contoso は B)と、下の手直しをまとめて行い、`corpora\work\` に置きます。
+
 ```powershell
 .\corpora\fetch.ps1 -Only be,wt          # 試すものだけ
 .\corpora\fetch.ps1                      # 全部(12 個。imis の DB の imisdb を含む)
 ```
 
 - 取得先は `corpora\work\`(Git には入りません)。取得済みのものは飛ばします。取り直すときは `-Force`。
-- 名前: `be`、`wt`、`mojo`、`yaf`、`dnn`、`n2`、`imis`、`imisdb`、`nop`、`mvcmovie`、`nop390`、`contoso`。取得元と版は [corpora/README.md](../../corpora/README.md) の「対象」にあります。
+- 名前: `be`、`wt`、`mojo`、`yaf`、`dnn`、`n2`、`imis`、`imisdb`、`nop`、`mvcmovie`、`nop390`、`contoso`。コーパスごとに、取得元(リポジトリの URL とタグ・コミット)を表示します。
+- wt・n2・imis はタグが無いので、ブランチではなくコミットの ZIP を取り、フォルダーの名前を元の名前(`wingtiptoys-master`・`n2cms-master`・`web_app_vb-main`)に変えます。
 - wt・mvcmovie・contoso は、取得のときに Web.config の接続文字列を SQL Server Express(`.\SQLEXPRESS`)に向けます(元の wt は存在しない Azure SQL を、mvcmovie・contoso は LocalDB を指しているため。正解を記録したときと同じ値です)。
-  「接続文字列を SQL Server Express(.\SQLEXPRESS)に向けました」と出ます。
+  「接続文字列を SQL Server Express(.\SQLEXPRESS)に向けました」と出ます。手で取ったときは、各ページの「手で直すところ」のとおりに書き換えます。
+
+**置く場所**: Studio や `converter.ps1` で変換するだけなら、どこに置いても構いません(各ページの「Studio・変換器に渡すフォルダー」)。
+ただし、**比較のスクリプトを使う場合は `corpora\work\<フォルダーの名前>` に置きます**。`convert-corpora.ps1`、`corpora\build-original.ps1`、`corpora\record-*.ps1`、`corpora\nop-database.ps1` は `corpora\work` の下のパスを前提にしていて、`verify-windows.ps1`・`run-linux.ps1` は `convert-corpora.ps1` の出力を使います。
+パスは短めにします。元のビルドのあとにできる深いファイルで、.NET Framework の MSBuild の上限(Windows の MAX_PATH、260 文字)を超えることがあるためです(各ページに、フォルダー自体のパスの目安があります)。
 
 確認: 最後に「すべて取得できました。」と出ます。`Get-ChildItem corpora\work` に取ったもののフォルダーがあります。
 

@@ -26,11 +26,44 @@
 
 ### 3.1 取得する
 
+元の GitHub のリポジトリから、次の版を取ります(このページの結果は、この版で出したものです)。
+
+| | |
+|---|---|
+| リポジトリ | <https://github.com/dnnsoftware/Dnn.Platform> |
+| 版 | タグ `v9.13.10`(コミット `53cdf4750477293b4e6316b4d91e1d5e43610127`、2025-11-22) |
+| ライセンス | MIT License。[LICENSE](https://github.com/dnnsoftware/Dnn.Platform/blob/v9.13.10/LICENSE) |
+| フォルダーの名前 | `Dnn.Platform-9.13.10`(この名前にしておくと、このページのパスがそのまま使えます) |
+
+置く場所はどこでも構いません。ただし:
+
+- **比較のスクリプトを使う場合は `corpora\work\Dnn.Platform-9.13.10` に置きます**(`convert-corpora.ps1`、`corpora\build-original.ps1`、`convert-corpora.ps1` の出力を使う `verify-windows.ps1`・`run-linux.ps1` は、このパスを前提にしています)。
+- パスの長さ: 元のビルド(NuGet の復元)のあと、フォルダーの中でいちばん深いファイルは 162 文字です。.NET Framework の MSBuild は Windows の MAX_PATH(260 文字)を超えるパスを扱えないので、**フォルダー自体のパスを 96 文字以内**にします(`<リポジトリ>\corpora\work\Dnn.Platform-9.13.10` や `C:\corpora\Dnn.Platform-9.13.10` なら収まります)。
+
+**近道(`fetch.ps1`)**: 下と同じこと(ダウンロード、展開、フォルダーの名前)をして、`corpora\work` に置きます。取得元(リポジトリとタグ・コミット)も表示します。
+
 ```powershell
 .\corpora\fetch.ps1 -Only dnn
 ```
 
 確認: 「すべて取得できました。」と出て、`corpora\work\Dnn.Platform-9.13.10` ができます。
+
+**A. GitHub の画面から(ZIP)**
+
+1. <https://github.com/dnnsoftware/Dnn.Platform/tree/v9.13.10> を開き、「Code」→「Download ZIP」を押します(直接のリンク: <https://github.com/dnnsoftware/Dnn.Platform/archive/refs/tags/v9.13.10.zip>)。
+2. ZIP を展開します。中の `Dnn.Platform-9.13.10` フォルダーがコーパスです。
+
+**B. git で**(置きたい場所の一つ上のフォルダーで)
+
+```powershell
+git clone --filter=blob:none -c core.autocrlf=false -c core.eol=lf https://github.com/dnnsoftware/Dnn.Platform.git Dnn.Platform-9.13.10
+git -C Dnn.Platform-9.13.10 checkout 53cdf4750477293b4e6316b4d91e1d5e43610127
+```
+
+`-c core.autocrlf=false -c core.eol=lf` は、改行を ZIP(と `fetch.ps1`)と同じにするためです。付けないと Git for Windows の既定(`core.autocrlf=true`)でテキストの改行が CRLF に変わり、ファイルの中身が ZIP と違ってしまいます(wt では 178 ファイル)。`.git` フォルダーが増えるのは構いません。
+`--filter=blob:none` は、リポジトリが大きい(全体で約 930 MB)ので、そのコミットのファイルだけを取るためです。
+
+**Studio・変換器に渡すフォルダー**: 「リポジトリのフォルダー」(`--root`)は置いたフォルダー(`Dnn.Platform-9.13.10`)、「プロジェクト」はその中の `DNN Platform\Website\DotNetNuke.Website.csproj` です。`corpora\work` 以外に置いたときは、3.2 以降の `corpora\work\Dnn.Platform-9.13.10` を置いた場所に読み替えます。
 
 ### 3.2 変換する(元のビルドを含む)
 

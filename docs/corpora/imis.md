@@ -25,11 +25,74 @@
 
 ### 3.1 取得する
 
+元の GitHub のリポジトリから、アプリ(`imis`)と DB のスクリプト(`imisdb`)の 2 つを取ります(このページの結果は、この版で出したものです)。
+
+**アプリ(`imis`)**
+
+| | |
+|---|---|
+| リポジトリ | <https://github.com/openimis/web_app_vb> |
+| 版 | `main` ブランチのコミット `f21970b3136d8083f2da6bb774652614c1ffd247`(2025-01-08)。タグが無いので、コミットで固定しています(いまも main の最後のコミット) |
+| ライセンス | GNU AGPL 3.0。[LICENSE.md](https://github.com/openimis/web_app_vb/blob/f21970b3136d8083f2da6bb774652614c1ffd247/LICENSE.md)。リポジトリはアーカイブ済み(読み取り専用) |
+| フォルダーの名前 | `web_app_vb-main`(この名前にしておくと、このページのパスがそのまま使えます) |
+
+**DB のスクリプト(`imisdb`)**
+
+| | |
+|---|---|
+| リポジトリ | <https://github.com/openimis/database_ms_sqlserver> |
+| 版 | タグ `24.10`(コミット `166bf13f70d55c6fc2a9c1d0fbf8d661671c6cad`、2024-09-03) |
+| ライセンス | GNU AGPL 3.0。[LICENSE.md](https://github.com/openimis/database_ms_sqlserver/blob/24.10/LICENSE.md) |
+| フォルダーの名前 | `database_ms_sqlserver-24.10`(この名前にしておくと、このページのパスがそのまま使えます) |
+
+置く場所はどこでも構いません。ただし:
+
+- **比較のスクリプトを使う場合は `corpora\work\web_app_vb-main` と `corpora\work\database_ms_sqlserver-24.10` に置きます**(`convert-corpora.ps1`、`corpora\build-original.ps1`、`convert-corpora.ps1` の出力を使う `verify-windows.ps1`・`run-linux.ps1` は、このパスを前提にしています)。
+- パスの長さ: フォルダーの中でいちばん深いファイルは 58 文字なので、置き場所の長さは気にしなくて構いません。
+
+**近道(`fetch.ps1`)**: 下と同じこと(ダウンロード、展開、フォルダーの名前)をして、`corpora\work` に置きます。取得元(リポジトリとタグ・コミット)も表示します。
+
 ```powershell
 .\corpora\fetch.ps1 -Only imis,imisdb
 ```
 
 確認: 「すべて取得できました。」と出て、`corpora\work\web_app_vb-main` と `corpora\work\database_ms_sqlserver-24.10` ができます。
+
+**アプリ(`imis`)を手で取る**
+
+**A. GitHub の画面から(ZIP)**
+
+1. <https://github.com/openimis/web_app_vb/tree/f21970b3136d8083f2da6bb774652614c1ffd247> を開き、「Code」→「Download ZIP」を押します(直接のリンク: <https://github.com/openimis/web_app_vb/archive/f21970b3136d8083f2da6bb774652614c1ffd247.zip>)。
+2. ZIP を展開します。中にできる `web_app_vb-f21970b3136d8083f2da6bb774652614c1ffd247` フォルダーを `web_app_vb-main` に名前を変えます(コミットの ZIP はフォルダー名にコミットが付くため。`fetch.ps1` も同じ名前に変えます)。
+
+**B. git で**(置きたい場所の一つ上のフォルダーで)
+
+```powershell
+git clone -c core.autocrlf=false -c core.eol=lf https://github.com/openimis/web_app_vb.git web_app_vb-main
+git -C web_app_vb-main checkout f21970b3136d8083f2da6bb774652614c1ffd247
+```
+
+`-c core.autocrlf=false -c core.eol=lf` は、改行を ZIP(と `fetch.ps1`)と同じにするためです。付けないと Git for Windows の既定(`core.autocrlf=true`)でテキストの改行が CRLF に変わり、ファイルの中身が ZIP と違ってしまいます(wt では 178 ファイル)。`.git` フォルダーが増えるのは構いません。
+
+ZIP の中には、大文字小文字だけが違う `IMIS_EN\Web.Config` と `IMIS_EN\Web.config` の 2 つが入っています(中身は同じ)。Windows で展開すると「置き換えますか」と聞かれますが、どちらを選んでも同じです。git でも同じ理由で警告が出ることがありますが、そのままで構いません。
+
+**DB のスクリプト(`imisdb`)を手で取る**
+
+**A. GitHub の画面から(ZIP)**
+
+1. <https://github.com/openimis/database_ms_sqlserver/tree/24.10> を開き、「Code」→「Download ZIP」を押します(直接のリンク: <https://github.com/openimis/database_ms_sqlserver/archive/refs/tags/24.10.zip>)。
+2. ZIP を展開します。中の `database_ms_sqlserver-24.10` フォルダーがコーパスです。
+
+**B. git で**(置きたい場所の一つ上のフォルダーで)
+
+```powershell
+git clone -c core.autocrlf=false -c core.eol=lf https://github.com/openimis/database_ms_sqlserver.git database_ms_sqlserver-24.10
+git -C database_ms_sqlserver-24.10 checkout 166bf13f70d55c6fc2a9c1d0fbf8d661671c6cad
+```
+
+`-c core.autocrlf=false -c core.eol=lf` は、改行を ZIP(と `fetch.ps1`)と同じにするためです。付けないと Git for Windows の既定(`core.autocrlf=true`)でテキストの改行が CRLF に変わり、ファイルの中身が ZIP と違ってしまいます(wt では 178 ファイル)。`.git` フォルダーが増えるのは構いません。
+
+**Studio・変換器に渡すフォルダー**: 「リポジトリのフォルダー」(`--root`)は置いたフォルダー(`web_app_vb-main`)、「プロジェクト」はその中の `IMIS\IMIS.vbproj` です。`corpora\work` 以外に置いたときは、3.2 以降の `corpora\work\web_app_vb-main` を置いた場所に読み替えます。
 
 ### 3.2 変換する(元のビルドと DB の作成を含む)
 

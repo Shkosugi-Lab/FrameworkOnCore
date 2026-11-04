@@ -27,11 +27,59 @@
 
 ### 3.1 取得する
 
+元の GitHub のリポジトリから、次の版を取ります(このページの結果は、この版で出したものです)。
+
+| | |
+|---|---|
+| リポジトリ | <https://github.com/corn-mendoza/wingtiptoys> |
+| 版 | `master` ブランチのコミット `4478e0e5794ed709da924569c54bb5f4c714fb85`(2021-02-12)。タグが無いので、コミットで固定しています(いまも master の最後のコミット) |
+| ライセンス | リポジトリにライセンスのファイルは無く、GitHub の表示も無し |
+| フォルダーの名前 | `wingtiptoys-master`(この名前にしておくと、このページのパスがそのまま使えます) |
+
+置く場所はどこでも構いません。ただし:
+
+- **比較のスクリプトを使う場合は `corpora\work\wingtiptoys-master` に置きます**(`convert-corpora.ps1`、`corpora\build-original.ps1`、`convert-corpora.ps1` の出力を使う `verify-windows.ps1`・`run-linux.ps1`、`corpora\record-wt-operations.ps1` は、このパスを前提にしています)。
+- パスの長さ: 元のビルド(NuGet の復元)のあと、フォルダーの中でいちばん深いファイルは 163 文字です。.NET Framework の MSBuild は Windows の MAX_PATH(260 文字)を超えるパスを扱えないので、**フォルダー自体のパスを 95 文字以内**にします(`<リポジトリ>\corpora\work\wingtiptoys-master` や `C:\corpora\wingtiptoys-master` なら収まります)。
+
+**近道(`fetch.ps1`)**: 下と同じこと(ダウンロード、展開、フォルダーの名前、Web.config の接続文字列)をして、`corpora\work` に置きます。取得元(リポジトリとタグ・コミット)も表示します。
+
 ```powershell
 .\corpora\fetch.ps1 -Only wt
 ```
 
 確認: 「接続文字列を SQL Server Express(.\SQLEXPRESS)に向けました」と「すべて取得できました。」が出ます。
+
+**A. GitHub の画面から(ZIP)**
+
+1. <https://github.com/corn-mendoza/wingtiptoys/tree/4478e0e5794ed709da924569c54bb5f4c714fb85> を開き、「Code」→「Download ZIP」を押します(直接のリンク: <https://github.com/corn-mendoza/wingtiptoys/archive/4478e0e5794ed709da924569c54bb5f4c714fb85.zip>)。
+2. ZIP を展開します。中にできる `wingtiptoys-4478e0e5794ed709da924569c54bb5f4c714fb85` フォルダーを `wingtiptoys-master` に名前を変えます(コミットの ZIP はフォルダー名にコミットが付くため。`fetch.ps1` も同じ名前に変えます)。
+
+**B. git で**(置きたい場所の一つ上のフォルダーで)
+
+```powershell
+git clone -c core.autocrlf=false -c core.eol=lf https://github.com/corn-mendoza/wingtiptoys.git wingtiptoys-master
+git -C wingtiptoys-master checkout 4478e0e5794ed709da924569c54bb5f4c714fb85
+```
+
+`-c core.autocrlf=false -c core.eol=lf` は、改行を ZIP(と `fetch.ps1`)と同じにするためです。付けないと Git for Windows の既定(`core.autocrlf=true`)でテキストの改行が CRLF に変わり、ファイルの中身が ZIP と違ってしまいます(wt では 178 ファイル)。`.git` フォルダーが増えるのは構いません。
+
+**手で直すところ(Web.config の接続文字列)**: `WingtipToys\WingtipToys\Web.config` の接続文字列は存在しない Azure SQL(`ms.database.windows.net`)を指しているので、SQL Server Express(`.\SQLEXPRESS`)に向けます。正解(IIS で記録したもの)を記録したときと同じ値です。`fetch.ps1` はこれを自動で行います。
+
+`<add name="DefaultConnection" connectionString="...">` の `connectionString` の値:
+
+```text
+元: Server=tcp:ms.database.windows.net,1433;Initial Catalog=database;Persist Security Info=False;User ID=uid1;Password=P@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+後: Data Source=.\SQLEXPRESS;Initial Catalog=WingtipToys;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30
+```
+
+`<add name="WingtipToys" connectionString="...">` の `connectionString` の値:
+
+```text
+元: Server=tcp:ms.database.windows.net,1433;Initial Catalog=database;Persist Security Info=False;User ID=uid1;Password=P@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+後: Data Source=.\SQLEXPRESS;Initial Catalog=WingtipToys;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30
+```
+
+**Studio・変換器に渡すフォルダー**: 「リポジトリのフォルダー」(`--root`)は置いたフォルダー(`wingtiptoys-master`)、「プロジェクト」はその中の `WingtipToys\WingtipToys\WingtipToys.csproj` です。`corpora\work` 以外に置いたときは、3.2 以降の `corpora\work\wingtiptoys-master` を置いた場所に読み替えます。
 
 ### 3.2 変換する
 

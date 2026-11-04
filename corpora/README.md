@@ -10,18 +10,20 @@
 
 | 名前 | コーパス | 取得元 |
 |---|---|---|
-| `be` | BlogEngine.NET 3.3.8.0 | `rxtur/BlogEngine.NET` @ `v3.3.8.0` |
-| `mojo` | mojoPortal 3.1.6 | `i7MEDIA/mojoportal` @ `v3.1.6` |
-| `yaf` | YAF.NET 3.2.15 | `YAFNET/YAFNET` @ `v3.2.15` |
-| `dnn` | DNN Platform 9.13.10 | `dnnsoftware/Dnn.Platform` @ `v9.13.10` |
-| `n2` | n2cms | `n2cms/n2cms` @ `master` |
-| `wt` | WingtipToys | `corn-mendoza/wingtiptoys` @ `master` |
-| `imis` | openIMIS Web Application(VB。24.10 で開発終了) | `openimis/web_app_vb` @ `main` |
-| `imisdb` | openIMIS の SQL Server の DB(`imis` のデモの DB を作るスクリプト) | `openimis/database_ms_sqlserver` @ `24.10` |
-| `nop` | nopCommerce 1.90(C#。最後の Web Forms 版、EF4) | `nopSolutions/nopCommerce` @ `release-1.90` |
+| `be` | BlogEngine.NET 3.3.8.0 | `rxtur/BlogEngine.NET` @ `v3.3.8.0`(`e81ba742`) |
+| `mojo` | mojoPortal 3.1.6 | `i7MEDIA/mojoportal` @ `v3.1.6`(`c0ada139`) |
+| `yaf` | YAF.NET 3.2.15 | `YAFNET/YAFNET` @ `v3.2.15`(`4b785802`) |
+| `dnn` | DNN Platform 9.13.10 | `dnnsoftware/Dnn.Platform` @ `v9.13.10`(`53cdf475`) |
+| `n2` | n2cms | `n2cms/n2cms` @ `db0ec9d1`(master の最後のコミット) |
+| `wt` | WingtipToys | `corn-mendoza/wingtiptoys` @ `4478e0e5`(master の最後のコミット) |
+| `imis` | openIMIS Web Application(VB。24.10 で開発終了) | `openimis/web_app_vb` @ `f21970b3`(main の最後のコミット。アーカイブ済み) |
+| `imisdb` | openIMIS の SQL Server の DB(`imis` のデモの DB を作るスクリプト) | `openimis/database_ms_sqlserver` @ `24.10`(`166bf13f`) |
+| `nop` | nopCommerce 1.90(C#。最後の Web Forms 版、EF4) | `nopSolutions/nopCommerce` @ `release-1.90`(`88f2c98d`) |
 | `mvcmovie` | MvcMovie(ASP.NET MVC 5 の公式チュートリアル。EF6 Code First、ASP.NET Identity) | `dotnet/AspNetDocs` のフォルダー @ `552c58dd` |
-| `nop390` | nopCommerce 3.90(最後の MVC 5 版、EF6、Autofac) | `nopSolutions/nopCommerce` @ `release-3.90` |
+| `nop390` | nopCommerce 3.90(最後の MVC 5 版、EF6、Autofac) | `nopSolutions/nopCommerce` @ `release-3.90`(`12d1f013`) |
 | `contoso` | Contoso University(ASP.NET MVC 5 と EF6 のチュートリアルのアプリ。学生の一覧・作成・編集・削除、日付の表示と入力。ライセンスの表示なし) | `tigerbluejay/ContosoUniversity` の `ContosoUniversitySolution` @ `2ee1ad2a` |
+
+どれもコミットで固定しています(タグの無い n2・wt・imis はコミットの ZIP を取り、フォルダー名は元のブランチ名のまま)。完全なコミットとライセンス、手で取る方法は [docs/corpora](../docs/corpora/README.md) の各ページの「3.1 取得する」にあります。
 
 日常の検証に使うのは `be` と `wt` です。ほかは必要なときに対象を指定して使います。
 

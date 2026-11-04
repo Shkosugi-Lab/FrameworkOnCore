@@ -24,11 +24,44 @@
 
 ### 3.1 取得する
 
+元の GitHub のリポジトリから、次の版を取ります(このページの結果は、この版で出したものです)。
+
+| | |
+|---|---|
+| リポジトリ | <https://github.com/YAFNET/YAFNET> |
+| 版 | タグ `v3.2.15`(コミット `4b785802ce3bc688e2685fe624e554cf90824f89`、2026-08-09) |
+| ライセンス | Apache License 2.0。[LICENSE.md](https://github.com/YAFNET/YAFNET/blob/v3.2.15/LICENSE.md) |
+| フォルダーの名前 | `YAFNET-3.2.15`(この名前にしておくと、このページのパスがそのまま使えます) |
+
+置く場所はどこでも構いません。ただし:
+
+- **比較のスクリプトを使う場合は `corpora\work\YAFNET-3.2.15` に置きます**(`convert-corpora.ps1`、`corpora\build-original.ps1`、`convert-corpora.ps1` の出力を使う `verify-windows.ps1`・`run-linux.ps1` は、このパスを前提にしています)。
+- パスの長さ: 元のビルド(NuGet の復元)のあと、フォルダーの中でいちばん深いファイルは 145 文字です。.NET Framework の MSBuild は Windows の MAX_PATH(260 文字)を超えるパスを扱えないので、**フォルダー自体のパスを 113 文字以内**にします(`<リポジトリ>\corpora\work\YAFNET-3.2.15` や `C:\corpora\YAFNET-3.2.15` なら収まります)。
+
+**近道(`fetch.ps1`)**: 下と同じこと(ダウンロード、展開、フォルダーの名前)をして、`corpora\work` に置きます。取得元(リポジトリとタグ・コミット)も表示します。
+
 ```powershell
 .\corpora\fetch.ps1 -Only yaf
 ```
 
 確認: 「すべて取得できました。」と出て、`corpora\work\YAFNET-3.2.15` ができます。
+
+**A. GitHub の画面から(ZIP)**
+
+1. <https://github.com/YAFNET/YAFNET/tree/v3.2.15> を開き、「Code」→「Download ZIP」を押します(直接のリンク: <https://github.com/YAFNET/YAFNET/archive/refs/tags/v3.2.15.zip>)。
+2. ZIP を展開します。中の `YAFNET-3.2.15` フォルダーがコーパスです。
+
+**B. git で**(置きたい場所の一つ上のフォルダーで)
+
+```powershell
+git clone --filter=blob:none -c core.autocrlf=false -c core.eol=lf https://github.com/YAFNET/YAFNET.git YAFNET-3.2.15
+git -C YAFNET-3.2.15 checkout 4b785802ce3bc688e2685fe624e554cf90824f89
+```
+
+`-c core.autocrlf=false -c core.eol=lf` は、改行を ZIP(と `fetch.ps1`)と同じにするためです。付けないと Git for Windows の既定(`core.autocrlf=true`)でテキストの改行が CRLF に変わり、ファイルの中身が ZIP と違ってしまいます(wt では 178 ファイル)。`.git` フォルダーが増えるのは構いません。
+`--filter=blob:none` は、リポジトリが大きい(全体で約 760 MB)ので、そのコミットのファイルだけを取るためです。
+
+**Studio・変換器に渡すフォルダー**: 「リポジトリのフォルダー」(`--root`)は置いたフォルダー(`YAFNET-3.2.15`)、「プロジェクト」はその中の `yafsrc\YetAnotherForum.NET\YAF-SqlServer.csproj` です。`corpora\work` 以外に置いたときは、3.2 以降の `corpora\work\YAFNET-3.2.15` を置いた場所に読み替えます。
 
 ### 3.2 変換する
 

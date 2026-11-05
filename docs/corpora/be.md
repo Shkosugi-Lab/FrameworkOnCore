@@ -1,12 +1,23 @@
 # be(BlogEngine.NET 3.3.8)
 
-ブログのエンジンです(Web Forms、C#)。データは DB ではなく `App_Data` の XML に置きます。[共通の準備](setup.md) が終わっている前提で、コマンドは `C:\foc` で実行します。
+ブログのエンジンです(Web Forms、C#)。データは DB ではなく `App_Data` の XML に置きます。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
 | | |
 |---|---|
 | 取得元 | [rxtur/BlogEngine.NET](https://github.com/rxtur/BlogEngine.NET) タグ `v3.3.8.0` |
 | ライセンス | 表示なし |
 | 追加で要るもの | なし |
+
+## 0. FrameworkOnCore を取る
+
+作業用の空のフォルダー(例: `C:\foc`。パスは短くします)を作って移り、そこに FrameworkOnCore を取ります。以降のコマンドは、すべてこのフォルダーで、ここからの相対パスで実行します。ほかのコーパスで済ませてあれば、この手順は飛ばします。
+
+```powershell
+New-Item -ItemType Directory -Force C:\foc | Out-Null
+cd C:\foc
+git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
+.\FrameworkOnCore\experiments\wf4c\casefs\build.ps1     # Docker Desktop を起動してから(Linux 用。一度だけ)
+```
 
 ## 1. GitHub から取得する
 
@@ -18,7 +29,7 @@ tar -xf be.zip          # BlogEngine.NET-3.3.8.0 ができる
 ## 2. 変換する
 
 ```powershell
-C:\src\FrameworkOnCore\converter.ps1 C:\foc\BlogEngine.NET-3.3.8.0\BlogEngine\BlogEngine.NET\BlogEngine.NET.csproj --out C:\foc\out\be --root C:\foc\BlogEngine.NET-3.3.8.0 --build-original auto
+.\FrameworkOnCore\converter.ps1 .\BlogEngine.NET-3.3.8.0\BlogEngine\BlogEngine.NET\BlogEngine.NET.csproj --out .\out\be --root .\BlogEngine.NET-3.3.8.0 --build-original auto
 ```
 
 - 約 1 分かかります。元のアプリのビルドは要りません(ソースに入っている `bin` をそのまま使います)。
@@ -28,15 +39,16 @@ C:\src\FrameworkOnCore\converter.ps1 C:\foc\BlogEngine.NET-3.3.8.0\BlogEngine\Bl
 
 | 欄 | 値 |
 |---|---|
-| プロジェクト | `C:\foc\BlogEngine.NET-3.3.8.0\BlogEngine\BlogEngine.NET\BlogEngine.NET.csproj` |
-| リポジトリのフォルダー | `C:\foc\BlogEngine.NET-3.3.8.0`(必ず入れます) |
+| プロジェクト | `.\BlogEngine.NET-3.3.8.0\BlogEngine\BlogEngine.NET\BlogEngine.NET.csproj` |
+| リポジトリのフォルダー | `.\BlogEngine.NET-3.3.8.0`(必ず入れます) |
 | 構成 | `Release` |
 
 ## 3. Windows で動かす
 
 ```powershell
-cd C:\foc\out\be\BlogEngine\BlogEngine.NET
+Push-Location .\out\be\BlogEngine\BlogEngine.NET
 dotnet bin\BlogEngine.NET.dll --urls http://localhost:5000
+Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```
 
 http://localhost:5000/ を開きます。最初の表示は、ページのコンパイルで 10 秒ほどかかります。管理者は `admin` / `admin` です(ログインは `/Account/login.aspx`)。
@@ -46,8 +58,7 @@ Studio では「ネイティブ起動(この PC)」の「起動」を押しま�
 ## 4. Linux で動かす
 
 ```powershell
-cd C:\foc\out\be
-docker build -t blogengine-net .
+docker build -t blogengine-net .\out\be
 docker run -d -p 8080:8080 --name blogengine-net -v blogengine-net-data:/app/App_Data blogengine-net
 ```
 

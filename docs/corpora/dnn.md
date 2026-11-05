@@ -1,12 +1,23 @@
 # dnn(DNN Platform 9.13.10)
 
-大きな CMS です(Web Forms、C# と VB、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは `C:\foc` で実行します。
+大きな CMS です(Web Forms、C# と VB、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
 | | |
 |---|---|
 | 取得元 | [dnnsoftware/Dnn.Platform](https://github.com/dnnsoftware/Dnn.Platform) タグ `v9.13.10` |
 | ライセンス | MIT |
 | 追加で要るもの | Build Tools、Docker Desktop(SQL Server)。ディスク約 20 GB |
+
+## 0. FrameworkOnCore を取る
+
+作業用の空のフォルダー(例: `C:\foc`。パスは短くします)を作って移り、そこに FrameworkOnCore を取ります。以降のコマンドは、すべてこのフォルダーで、ここからの相対パスで実行します。ほかのコーパスで済ませてあれば、この手順は飛ばします。
+
+```powershell
+New-Item -ItemType Directory -Force C:\foc | Out-Null
+cd C:\foc
+git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
+.\FrameworkOnCore\experiments\wf4c\casefs\build.ps1     # Docker Desktop を起動してから(Linux 用。一度だけ)
+```
 
 ## 1. GitHub から取得する
 
@@ -20,7 +31,7 @@ tar -xf dnn.zip          # Dnn.Platform-9.13.10 ができる
 元のアプリを DNN の Cake のビルドでビルドしてから変換します(`--build-original auto` が判断します)。初回は長くかかります。
 
 ```powershell
-C:\src\FrameworkOnCore\converter.ps1 "C:\foc\Dnn.Platform-9.13.10\DNN Platform\Website\DotNetNuke.Website.csproj" --out C:\foc\out\dnn --root C:\foc\Dnn.Platform-9.13.10 --build-original auto
+.\FrameworkOnCore\converter.ps1 ".\Dnn.Platform-9.13.10\DNN Platform\Website\DotNetNuke.Website.csproj" --out .\out\dnn --root .\Dnn.Platform-9.13.10 --build-original auto
 ```
 
 `the build failed after it deployed the site: ... is used as it is` と出ても、そのまま進めて構いません。ビルドの一部(パッケージ作り)が失敗しただけで、サイトはできています。
@@ -29,8 +40,8 @@ C:\src\FrameworkOnCore\converter.ps1 "C:\foc\Dnn.Platform-9.13.10\DNN Platform\W
 
 | 欄 | 値 |
 |---|---|
-| プロジェクト | `C:\foc\Dnn.Platform-9.13.10\DNN Platform\Website\DotNetNuke.Website.csproj` |
-| リポジトリのフォルダー | `C:\foc\Dnn.Platform-9.13.10` |
+| プロジェクト | `.\Dnn.Platform-9.13.10\DNN Platform\Website\DotNetNuke.Website.csproj` |
+| リポジトリのフォルダー | `.\Dnn.Platform-9.13.10` |
 | 構成 | `Release` |
 
 ## 3. DB を用意する
@@ -50,9 +61,10 @@ docker exec foc-sql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P Foc_loca
 インストールでサイトのファイルが書き換わります。Linux でも試すときは、先に 5 の `docker build` を済ませておきます([共通の準備の 7](setup.md#7-linux-で動かす))。
 
 ```powershell
-cd C:\foc\out\dnn\site
+Push-Location .\out\dnn\site
 $env:SQLCONNSTR_SiteSqlServer = 'Data Source=localhost,14330;Initial Catalog=dnn_windows;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
 dotnet bin\DotNetNuke.Website.dll --urls http://localhost:5000
+Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```
 
 http://localhost:5000/Install/Install.aspx?mode=install を開くと、インストールが始まります(数分かかります)。終わるとトップ(`/`)、`/Login`、`/Terms`、`/Privacy` が開けます。
@@ -61,8 +73,7 @@ Studio では、「ネイティブ起動(この PC)」の「環境変数」に `
 ## 5. Linux で動かす
 
 ```powershell
-cd C:\foc\out\dnn
-docker build -t dnn .
+docker build -t dnn .\out\dnn
 docker run -d -p 8080:8080 --name dnn -e "SQLCONNSTR_SiteSqlServer=Data Source=host.docker.internal,14330;Initial Catalog=dnn_linux;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" dnn
 ```
 

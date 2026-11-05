@@ -1,12 +1,23 @@
 # mvcmovie(MvcMovie)
 
-映画の一覧を扱う ASP.NET MVC 5 のチュートリアルです(C#、EF6、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは `C:\foc` で実行します。
+映画の一覧を扱う ASP.NET MVC 5 のチュートリアルです(C#、EF6、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
 | | |
 |---|---|
 | 取得元 | [dotnet/AspNetDocs](https://github.com/dotnet/AspNetDocs) コミット `552c58dd` の `aspnet/mvc/overview/getting-started/introduction/sample/MvcMovie` |
 | ライセンス | コードは MIT、文書は CC BY 4.0 |
 | 追加で要るもの | Docker Desktop(SQL Server をコンテナで動かします) |
+
+## 0. FrameworkOnCore を取る
+
+作業用の空のフォルダー(例: `C:\foc`。パスは短くします)を作って移り、そこに FrameworkOnCore を取ります。以降のコマンドは、すべてこのフォルダーで、ここからの相対パスで実行します。ほかのコーパスで済ませてあれば、この手順は飛ばします。
+
+```powershell
+New-Item -ItemType Directory -Force C:\foc | Out-Null
+cd C:\foc
+git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
+.\FrameworkOnCore\experiments\wf4c\casefs\build.ps1     # Docker Desktop を起動してから(Linux 用。一度だけ)
+```
 
 ## 1. GitHub から取得する
 
@@ -23,15 +34,15 @@ Remove-Item AspNetDocs -Recurse -Force
 ## 2. 変換する
 
 ```powershell
-C:\src\FrameworkOnCore\converter.ps1 C:\foc\MvcMovie\MvcMovie\MvcMovie.csproj --out C:\foc\out\mvcmovie --root C:\foc\MvcMovie --build-original auto
+.\FrameworkOnCore\converter.ps1 .\MvcMovie\MvcMovie\MvcMovie.csproj --out .\out\mvcmovie --root .\MvcMovie --build-original auto
 ```
 
 **Studio で入れる値**([使い方](setup.md#42-studio-で))
 
 | 欄 | 値 |
 |---|---|
-| プロジェクト | `C:\foc\MvcMovie\MvcMovie\MvcMovie.csproj` |
-| リポジトリのフォルダー | `C:\foc\MvcMovie` |
+| プロジェクト | `.\MvcMovie\MvcMovie\MvcMovie.csproj` |
+| リポジトリのフォルダー | `.\MvcMovie` |
 | 構成 | `Release` |
 
 ## 3. DB を用意する
@@ -52,11 +63,12 @@ docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWOR
 ## 4. Windows で動かす
 
 ```powershell
-cd C:\foc\out\mvcmovie\MvcMovie
+Push-Location .\out\mvcmovie\MvcMovie
 $sql = 'Data Source=localhost,14330;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
 $env:SQLCONNSTR_MovieDBContext = "$sql;Initial Catalog=MvcMovie"
 $env:SQLCONNSTR_DefaultConnection = "$sql;Initial Catalog=MvcMovieIdentity"
 dotnet bin\MvcMovie.dll --urls http://localhost:5000
+Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```
 
 http://localhost:5000/Movies を開きます。Studio では、「ネイティブ起動(この PC)」の「環境変数」に、この 2 つを `名前=値` の形で 1 行ずつ書きます。
@@ -64,8 +76,7 @@ http://localhost:5000/Movies を開きます。Studio では、「ネイティ�
 ## 5. Linux で動かす
 
 ```powershell
-cd C:\foc\out\mvcmovie
-docker build -t mvcmovie .
+docker build -t mvcmovie .\out\mvcmovie
 $sql = 'Data Source=host.docker.internal,14330;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
 docker run -d -p 8080:8080 --name mvcmovie -e "SQLCONNSTR_MovieDBContext=$sql;Initial Catalog=MvcMovie" -e "SQLCONNSTR_DefaultConnection=$sql;Initial Catalog=MvcMovieIdentity" mvcmovie
 ```

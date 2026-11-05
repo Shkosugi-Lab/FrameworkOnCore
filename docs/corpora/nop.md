@@ -1,12 +1,23 @@
 # nop(nopCommerce 1.90)
 
-EC サイトです(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは `C:\foc` で実行します。
+EC サイトです(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
 | | |
 |---|---|
 | 取得元 | [nopSolutions/nopCommerce](https://github.com/nopSolutions/nopCommerce) タグ `release-1.90` |
 | ライセンス | nopCommerce Public License 1.0 |
 | 追加で要るもの | Build Tools、Docker Desktop(SQL Server)。ディスク約 2 GB |
+
+## 0. FrameworkOnCore を取る
+
+作業用の空のフォルダー(例: `C:\foc`。パスは短くします)を作って移り、そこに FrameworkOnCore を取ります。以降のコマンドは、すべてこのフォルダーで、ここからの相対パスで実行します。ほかのコーパスで済ませてあれば、この手順は飛ばします。
+
+```powershell
+New-Item -ItemType Directory -Force C:\foc | Out-Null
+cd C:\foc
+git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
+.\FrameworkOnCore\experiments\wf4c\casefs\build.ps1     # Docker Desktop を起動してから(Linux 用。一度だけ)
+```
 
 ## 1. GitHub から取得する
 
@@ -20,15 +31,15 @@ tar -xf nop.zip          # nopCommerce-release-1.90 ができる
 元のアプリをソリューションでビルドしてから変換します(`--build-original auto` が判断します)。
 
 ```powershell
-C:\src\FrameworkOnCore\converter.ps1 C:\foc\nopCommerce-release-1.90\NopCommerceStore\NopCommerceStore.csproj --out C:\foc\out\nop --root C:\foc\nopCommerce-release-1.90 --build-original auto
+.\FrameworkOnCore\converter.ps1 .\nopCommerce-release-1.90\NopCommerceStore\NopCommerceStore.csproj --out .\out\nop --root .\nopCommerce-release-1.90 --build-original auto
 ```
 
 **Studio で入れる値**([使い方](setup.md#42-studio-で))
 
 | 欄 | 値 |
 |---|---|
-| プロジェクト | `C:\foc\nopCommerce-release-1.90\NopCommerceStore\NopCommerceStore.csproj` |
-| リポジトリのフォルダー | `C:\foc\nopCommerce-release-1.90` |
+| プロジェクト | `.\nopCommerce-release-1.90\NopCommerceStore\NopCommerceStore.csproj` |
+| リポジトリのフォルダー | `.\nopCommerce-release-1.90` |
 | 構成 | `Release` |
 
 ## 3. DB を用意する
@@ -44,8 +55,9 @@ docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWOR
 インストーラーがサイトの `ConnectionStrings.config` を書きます。Linux でも試すときは、先に 5 の `docker build` を済ませておきます([共通の準備の 7](setup.md#7-linux-で動かす))。
 
 ```powershell
-cd C:\foc\out\nop\site
+Push-Location .\out\nop\site
 dotnet bin\NopCommerceStore.dll --urls http://localhost:5000
+Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```
 
 http://localhost:5000/install/install.aspx を開き、次の値でインストールします。
@@ -62,8 +74,7 @@ http://localhost:5000/install/install.aspx を開き、次の値でインスト�
 ## 5. Linux で動かす
 
 ```powershell
-cd C:\foc\out\nop
-docker build -t nop .
+docker build -t nop .\out\nop
 docker run -d -p 8080:8080 --name nop nop
 ```
 

@@ -1,12 +1,23 @@
 # contoso(Contoso University)
 
-学生・講座を扱う EF6 のチュートリアルです(ASP.NET MVC 5、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは `C:\foc` で実行します。
+学生・講座を扱う EF6 のチュートリアルです(ASP.NET MVC 5、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
 | | |
 |---|---|
 | 取得元 | [tigerbluejay/ContosoUniversity](https://github.com/tigerbluejay/ContosoUniversity) コミット `2ee1ad2a` の `ContosoUniversitySolution` |
 | ライセンス | 表示なし(手元で試すだけにし、配り直さないでください) |
 | 追加で要るもの | Docker Desktop(SQL Server をコンテナで動かします) |
+
+## 0. FrameworkOnCore を取る
+
+作業用の空のフォルダー(例: `C:\foc`。パスは短くします)を作って移り、そこに FrameworkOnCore を取ります。以降のコマンドは、すべてこのフォルダーで、ここからの相対パスで実行します。ほかのコーパスで済ませてあれば、この手順は飛ばします。
+
+```powershell
+New-Item -ItemType Directory -Force C:\foc | Out-Null
+cd C:\foc
+git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
+.\FrameworkOnCore\experiments\wf4c\casefs\build.ps1     # Docker Desktop を起動してから(Linux 用。一度だけ)
+```
 
 ## 1. GitHub から取得する
 
@@ -23,15 +34,15 @@ Remove-Item ContosoUniversity-repo -Recurse -Force
 ## 2. 変換する
 
 ```powershell
-C:\src\FrameworkOnCore\converter.ps1 C:\foc\ContosoUniversity\ContosoUniversity\ContosoUniversity.csproj --out C:\foc\out\contoso --root C:\foc\ContosoUniversity --build-original auto
+.\FrameworkOnCore\converter.ps1 .\ContosoUniversity\ContosoUniversity\ContosoUniversity.csproj --out .\out\contoso --root .\ContosoUniversity --build-original auto
 ```
 
 **Studio で入れる値**([使い方](setup.md#42-studio-で))
 
 | 欄 | 値 |
 |---|---|
-| プロジェクト | `C:\foc\ContosoUniversity\ContosoUniversity\ContosoUniversity.csproj` |
-| リポジトリのフォルダー | `C:\foc\ContosoUniversity` |
+| プロジェクト | `.\ContosoUniversity\ContosoUniversity\ContosoUniversity.csproj` |
+| リポジトリのフォルダー | `.\ContosoUniversity` |
 | 構成 | `Release` |
 
 ## 3. DB を用意する
@@ -47,9 +58,10 @@ docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWOR
 ## 4. Windows で動かす
 
 ```powershell
-cd C:\foc\out\contoso\ContosoUniversity
+Push-Location .\out\contoso\ContosoUniversity
 $env:SQLCONNSTR_SchoolContext = 'Data Source=localhost,14330;Initial Catalog=ContosoUniversity1;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
 dotnet bin\ContosoUniversity.dll --urls http://localhost:5000
+Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```
 
 http://localhost:5000/Student を開きます。Studio では、「ネイティブ起動(この PC)」の「環境変数」に `SQLCONNSTR_SchoolContext=<上の値>` と書きます。
@@ -57,8 +69,7 @@ http://localhost:5000/Student を開きます。Studio では、「ネイティ�
 ## 5. Linux で動かす
 
 ```powershell
-cd C:\foc\out\contoso
-docker build -t contoso .
+docker build -t contoso .\out\contoso
 docker run -d -p 8080:8080 --name contoso -e "SQLCONNSTR_SchoolContext=Data Source=host.docker.internal,14330;Initial Catalog=ContosoUniversity1;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" contoso
 ```
 

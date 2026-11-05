@@ -1,4 +1,4 @@
-# 共通の準備
+﻿# 共通の準備
 
 どのコーパスでも、流れは同じです。
 
@@ -28,50 +28,46 @@ WSL 2 のメモリーの上限は `%USERPROFILE%\.wslconfig` に書いておき�
 memory=8GB
 ```
 
-## 2. FrameworkOnCore を取る
+## 2. 作業フォルダーと FrameworkOnCore
 
-```powershell
-git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git C:\src\FrameworkOnCore
-Set-ExecutionPolicy -Scope CurrentUser RemoteSigned     # スクリプトを動かせるようにする(一度だけ)
+各ページは「0. FrameworkOnCore を取る」から始まります。作業用の空のフォルダー(例: `C:\foc`)に FrameworkOnCore を `git clone` し、以降のコマンドは、すべてそのフォルダーから相対パスで実行します。
+
+作業フォルダーの中は、次のようになります。
+
+```
+C:\foc
+├─ FrameworkOnCore        FrameworkOnCore(変換器、Studio)
+├─ <コーパスのソース>      各ページの「1. GitHub から取得する」で取るもの
+└─ out
+   └─ <名前>             変換の出力
 ```
 
+- 作業フォルダーのパスは短くします。元のアプリのビルドに使う .NET Framework の MSBuild は、260 文字を超えるパスを扱えないためです。
 - 変換器(`converter.ps1`)と Studio(`studio.ps1`)は、GitHub Actions がビルドしたものを、初めて使うときに自動で取ってきます。変換後のアプリが使う FrameworkOnCore のパッケージも同じく自動です。
 - リポジトリが非公開のときは、先に `gh auth login` をしておきます。
-
-Linux でもファイル名の大文字・小文字を区別せずに動かすためのライブラリ(casefs)を、一度だけビルドします。変換がこれを Dockerfile に入れるので、変換の前に済ませます。Docker Desktop を起動してから実行します。
-
-```powershell
-C:\src\FrameworkOnCore\experiments\wf4c\casefs\build.ps1
-```
+- PowerShell のスクリプトを動かせないときは、`Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` を一度だけ実行します。
+- 「0」では casefs もビルドします。Linux でもファイル名の大文字・小文字を区別せずに動かすためのライブラリで、変換がこれを Dockerfile に入れるので、変換の前に済ませます。
 
 ## 3. ソースを取る
 
-ソースと変換の出力は `C:\foc` に置きます。各ページのコマンドは、このフォルダーで実行します。
-
-```powershell
-New-Item -ItemType Directory -Force C:\foc | Out-Null
-cd C:\foc
-```
-
-各ページの「GitHub から取得する」のコマンドで、元の GitHub のリポジトリから、決まったタグかコミットの版を取ります。
+各ページの「1. GitHub から取得する」のコマンドで、元の GitHub のリポジトリから、決まったタグかコミットの版を作業フォルダーに取ります。
 
 - ZIP は `curl.exe` でダウンロードし、`tar` で展開します。
 - リポジトリの一部だけを使う mvcmovie・contoso は、`git` でそのフォルダーだけを取ります。
 - ブラウザーで取るときは、取得元のリンクからそのタグかコミットを開き、「Code」→「Download ZIP」を押します(mvcmovie・contoso を除く)。
-- パスは短くします。元のアプリのビルドに使う .NET Framework の MSBuild は、260 文字を超えるパスを扱えないためです。
 
 ## 4. 変換する
 
 ### 4.1 コマンドラインで
 
 ```powershell
-C:\src\FrameworkOnCore\converter.ps1 <Web プロジェクト> --out C:\foc\out\<名前> --root <ソースのフォルダー> --build-original auto
+.\FrameworkOnCore\converter.ps1 <Web プロジェクト> --out .\out\<名前> --root <ソースのフォルダー> --build-original auto
 ```
 
 - `--root`: ソースの一番上のフォルダーです。プロジェクトがソリューションの外を参照していても、ここまでは見つけます。
 - `--build-original auto`: 元のアプリのビルドが要るかを変換器が判断し、要るときはビルドしてから変換します。
 - 各ページの「変換する」に、そのコーパスでの値を入れたコマンドがあります。
-- 確認: 最後に `build succeeded; web project: ...; report: C:\foc\out\<名前>\CONVERSION-REPORT.md` と出れば成功です。
+- 確認: 最後に `build succeeded; web project: ...; report: ...\out\<名前>\CONVERSION-REPORT.md` と出れば成功です。
 - 出力の中身:
   - `CONVERSION-REPORT.md`: 変換の結果です。何を変えたかと、自分で直すところが書かれています。
   - `Dockerfile`: Linux で動かすためのものです。
@@ -80,8 +76,10 @@ C:\src\FrameworkOnCore\converter.ps1 <Web プロジェクト> --out C:\foc\out\<
 ### 4.2 Studio で
 
 ```powershell
-C:\src\FrameworkOnCore\studio.ps1
+.\FrameworkOnCore\studio.ps1
 ```
+
+作業フォルダーで起動します。Studio に入れるパスは、このフォルダーからの相対パスで構いません。
 
 「Studio: http://127.0.0.1:5300/」と出たら、ブラウザーで http://127.0.0.1:5300/ を開きます。止めるときは、`studio.ps1` を動かしている PowerShell で Ctrl+C を押します。
 
@@ -100,7 +98,7 @@ C:\src\FrameworkOnCore\studio.ps1
    - どちらも「環境変数」の欄に、1 行に 1 つ `名前=値` を書いて、接続文字列などを渡せます。
    - 「ZIP ダウンロード」で、変換の出力を取り出せます。
 
-Studio の出力は `%LOCALAPPDATA%\FrameworkOnCore\studio\` に置かれます(`C:\foc\out` ではありません)。
+Studio の出力は `%LOCALAPPDATA%\FrameworkOnCore\studio\` に置かれます(作業フォルダーの `out` ではありません)。
 
 ## 5. SQL Server を使うとき
 
@@ -125,8 +123,9 @@ docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWOR
 変換の出力のサイトのフォルダーで、Web アプリの DLL を `dotnet` で起動します。サイトのフォルダーと DLL は、各ページの「Windows で動かす」にあります。
 
 ```powershell
-cd <サイトのフォルダー>
+Push-Location .\out\<名前>\<サイトのフォルダー>
 dotnet bin\<Web アプリ>.dll --urls http://localhost:5000
+Pop-Location         # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```
 
 - http://localhost:5000/ を開きます。止めるときは Ctrl+C を押します。
@@ -143,11 +142,10 @@ dotnet bin\<Web アプリ>.dll --urls http://localhost:5000
 
 ## 7. Linux で動かす
 
-変換の出力フォルダー(`Dockerfile` のあるところ)でイメージを作り、コンテナを起動します。
+変換の出力フォルダー(`Dockerfile` のあるところ)からイメージを作り、コンテナを起動します。
 
 ```powershell
-cd C:\foc\out\<名前>
-docker build -t <名前> .
+docker build -t <名前> .\out\<名前>
 docker run -d -p 8080:8080 --name <名前> <名前>
 ```
 
@@ -173,7 +171,7 @@ Windows で動かしたアプリは Ctrl+C で止めます。Studio は、止め
 
 | 症状 | 対処 |
 |---|---|
-| 元のアプリのビルドが失敗する | Build Tools が入っていないか、パスが長すぎます。ソースを短いパスに置きます |
+| 元のアプリのビルドが失敗する | Build Tools が入っていないか、パスが長すぎます。作業フォルダーを短いパスにします |
 | ポート(5000、8080、14330)が使われている | 前のアプリやコンテナを止めます。または別のポートを使います(`--urls http://localhost:5001`、`-p 8081:8080`) |
 | Docker が遅い・止まる | ほかのコンテナを止めます。`.wslconfig` の memory を見直します |
 | ディスクがいっぱい | 不要なイメージを消します(`docker image prune -a`、`docker builder prune`) |

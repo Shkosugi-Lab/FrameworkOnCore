@@ -1,12 +1,23 @@
 # wt(WingtipToys)
 
-おもちゃ屋のチュートリアルです(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは `C:\foc` で実行します。
+おもちゃ屋のチュートリアルです(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
 | | |
 |---|---|
 | 取得元 | [corn-mendoza/wingtiptoys](https://github.com/corn-mendoza/wingtiptoys) コミット `4478e0e5` |
 | ライセンス | 表示なし |
 | 追加で要るもの | Docker Desktop(SQL Server をコンテナで動かします) |
+
+## 0. FrameworkOnCore を取る
+
+作業用の空のフォルダー(例: `C:\foc`。パスは短くします)を作って移り、そこに FrameworkOnCore を取ります。以降のコマンドは、すべてこのフォルダーで、ここからの相対パスで実行します。ほかのコーパスで済ませてあれば、この手順は飛ばします。
+
+```powershell
+New-Item -ItemType Directory -Force C:\foc | Out-Null
+cd C:\foc
+git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
+.\FrameworkOnCore\experiments\wf4c\casefs\build.ps1     # Docker Desktop を起動してから(Linux 用。一度だけ)
+```
 
 ## 1. GitHub から取得する
 
@@ -19,15 +30,15 @@ Rename-Item wingtiptoys-4478e0e5794ed709da924569c54bb5f4c714fb85 wingtiptoys
 ## 2. 変換する
 
 ```powershell
-C:\src\FrameworkOnCore\converter.ps1 C:\foc\wingtiptoys\WingtipToys\WingtipToys\WingtipToys.csproj --out C:\foc\out\wt --root C:\foc\wingtiptoys --build-original auto
+.\FrameworkOnCore\converter.ps1 .\wingtiptoys\WingtipToys\WingtipToys\WingtipToys.csproj --out .\out\wt --root .\wingtiptoys --build-original auto
 ```
 
 **Studio で入れる値**([使い方](setup.md#42-studio-で))
 
 | 欄 | 値 |
 |---|---|
-| プロジェクト | `C:\foc\wingtiptoys\WingtipToys\WingtipToys\WingtipToys.csproj` |
-| リポジトリのフォルダー | `C:\foc\wingtiptoys` |
+| プロジェクト | `.\wingtiptoys\WingtipToys\WingtipToys\WingtipToys.csproj` |
+| リポジトリのフォルダー | `.\wingtiptoys` |
 | 構成 | `Release` |
 
 ## 3. DB を用意する
@@ -43,10 +54,11 @@ docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWOR
 ## 4. Windows で動かす
 
 ```powershell
-cd C:\foc\out\wt\WingtipToys\WingtipToys
+Push-Location .\out\wt\WingtipToys\WingtipToys
 $env:SQLCONNSTR_DefaultConnection = 'Data Source=localhost,14330;Initial Catalog=WingtipToys;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True'
 $env:SQLCONNSTR_WingtipToys = $env:SQLCONNSTR_DefaultConnection
 dotnet bin\WingtipToys.dll --urls http://localhost:5000
+Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```
 
 http://localhost:5000/ を開きます。管理者は `canEditUser@wingtiptoys.com` / `Pa$$word1` です。
@@ -61,8 +73,7 @@ SQLCONNSTR_WingtipToys=Data Source=localhost,14330;Initial Catalog=WingtipToys;U
 ## 5. Linux で動かす
 
 ```powershell
-cd C:\foc\out\wt
-docker build -t wingtiptoys .
+docker build -t wingtiptoys .\out\wt
 $cs = 'Data Source=host.docker.internal,14330;Initial Catalog=WingtipToys;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True'
 docker run -d -p 8080:8080 --name wingtiptoys -e "SQLCONNSTR_DefaultConnection=$cs" -e "SQLCONNSTR_WingtipToys=$cs" wingtiptoys
 ```

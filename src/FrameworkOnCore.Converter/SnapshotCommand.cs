@@ -66,7 +66,7 @@ public static class SnapshotCommand
             Directory.CreateDirectory(Path.GetDirectoryName(baseline)!);
             File.WriteAllText(baseline, text, new UTF8Encoding(false));
             Console.WriteLine($"  snapshot recorded: {baseline} ({Flatten(snapshot).Count} entries)");
-            if (diffFile != null) File.Delete(diffFile);
+            if (diffFile != null && File.Exists(diffFile)) File.Delete(diffFile);
             return 0;
         }
         if (!File.Exists(baseline))
@@ -80,7 +80,7 @@ public static class SnapshotCommand
         if (differences.Count == 0)
         {
             Console.WriteLine($"  snapshot: the same as the baseline ({now.Count} entries)");
-            if (diffFile != null) File.Delete(diffFile);
+            if (diffFile != null && File.Exists(diffFile)) File.Delete(diffFile);
             return 0;
         }
         var lines = new List<string>();

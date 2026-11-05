@@ -14,8 +14,9 @@ public sealed record ConversionEntry
     public required string State { get; init; }
     public required DateTimeOffset Started { get; init; }
     public DateTimeOffset? Finished { get; init; }
+    /// <summary>Built from the original's build (--build-original): every conversion since; false in one made before.</summary>
     public bool BuildOriginal { get; init; }
-    /// <summary>The repository's setup steps after its build ("project;target", the converter's --original-step), with BuildOriginal.</summary>
+    /// <summary>The repository's setup steps after its build ("project;target", the converter's --original-step), ①'s.</summary>
     public IReadOnlyList<string>? OriginalSteps { get; init; }
     public string? Error { get; init; }
     /// <summary>The sections of CONVERSION-REPORT.md and their counts.</summary>
@@ -26,14 +27,6 @@ public sealed record ConversionEntry
 }
 
 public sealed record ReportSection(string Title, int Count);
-
-/// <summary>
-/// A conversion, as the UI asks for it: --build-original (the site from the repository's own build), and the repository's
-/// setup steps after it (--original-step "project;target", the project relative to the repository: N2's
-/// "build\n2.proj;Templates-PrepareDependencies" links its management pages into the site). Its MSBuild is the one of ①'s
-/// build that succeeded last (AnalysisStore.LastOriginalBuild), not chosen here.
-/// </summary>
-public sealed record ConversionRequest(bool BuildOriginal, IReadOnlyList<string>? OriginalSteps = null);
 
 /// <summary>
 /// Converts and builds an analysed application in Studio: the converter (FrameworkOnCore.Converter.dll beside Studio) in
@@ -84,17 +77,20 @@ public sealed class Conversions(AnalysisStore store, string runtime)
     public bool Stale(string id) =>
         Get(id) is { } entry && File.Exists(store.ChoicesFile(id)) && File.GetLastWriteTimeUtc(store.ChoicesFile(id)) > entry.Started.UtcDateTime;
 
-    public ConversionEntry Start(string id, bool buildOriginal, IReadOnlyList<string>? originalSteps = null)
+    /// <summary>
+    /// Converts from the original application built afresh (--build-original, in a copy of the repository: not ①'s site,
+    /// which its test run changes), as ① built it: its setup steps (--original-step), its MSBuild (the build that succeeded
+    /// last, AnalysisStore.LastOriginalBuild).
+    /// </summary>
+    public ConversionEntry Start(string id)
     {
         if (store.Get(id) is not { State: "done" } analysis) throw new InvalidOperationException("the analysis is not done");
         if (running.ContainsKey(id)) throw new InvalidOperationException("a conversion is running");
-        // The steps given, or else the ones given last (the original application's test run's too).
-        var steps = originalSteps != null ? Steps(analysis.Root, originalSteps) : store.OriginalSteps(id).ToList();
         // The steps after ① need its build to have succeeded; their original build runs that build's MSBuild.
         if (store.LastOriginalBuild(id) == null)
             throw new InvalidOperationException(Lang.T("先にステップ 1 で元のアプリをビルドしてください(ビルドが通ると、ステップ 2 以降に進めます)", "Build the original application in step 1 first (the steps after it need its build to succeed)"));
-        if (originalSteps != null) store.SaveOriginalSteps(id, steps);
-        var entry = new ConversionEntry { State = "queued", Started = DateTimeOffset.UtcNow, BuildOriginal = buildOriginal, OriginalSteps = steps.Count > 0 ? steps : null };
+        var steps = store.OriginalSteps(id).ToList();
+        var entry = new ConversionEntry { State = "queued", Started = DateTimeOffset.UtcNow, BuildOriginal = true, OriginalSteps = steps.Count > 0 ? steps : null };
         var cancel = new CancellationTokenSource();
         running[id] = cancel;
         Directory.CreateDirectory(Folder(id));
@@ -109,7 +105,7 @@ public sealed class Conversions(AnalysisStore store, string runtime)
                 gate = true;
                 Save(id, entry = entry with { State = "running" });
                 foreach (var old in Directory.GetFiles(Folder(id), "*.zip")) File.Delete(old);
-                var exit = await RunConverter(analysis, id, buildOriginal, buildOriginal ? steps : [], log, cancel.Token);
+                var exit = await RunConverter(analysis, id, steps, log, cancel.Token);
                 var sections = Sections(Report(id));
                 if (exit != 0)
                 {
@@ -193,7 +189,7 @@ public sealed class Conversions(AnalysisStore store, string runtime)
     /// <summary>The converter's --msbuild for the MSBuild chosen (none chosen: none given; the converter takes the only kind installed).</summary>
     public static IEnumerable<string> MSBuildArguments(string? msbuild) => msbuild != null ? ["--msbuild", msbuild] : [];
 
-    async Task<int> RunConverter(AnalysisEntry analysis, string id, bool buildOriginal, IReadOnlyList<string> steps, StudioLog log, CancellationToken cancel)
+    async Task<int> RunConverter(AnalysisEntry analysis, string id, IReadOnlyList<string> steps, StudioLog log, CancellationToken cancel)
     {
         var converter = Path.Combine(AppContext.BaseDirectory, "FrameworkOnCore.Converter.dll");
         var start = new ProcessStartInfo("dotnet")
@@ -204,17 +200,16 @@ public sealed class Conversions(AnalysisStore store, string runtime)
         foreach (var argument in new[]
                  {
                      converter, analysis.Project, "--root", analysis.Root, "--configuration", analysis.Configuration,
-                     "--choices", store.ChoicesFile(id), "--runtime", runtime, "--out", Output(id),
+                     "--choices", store.ChoicesFile(id), "--runtime", runtime, "--out", Output(id), "--build-original",
                  })
             start.ArgumentList.Add(argument);
-        if (buildOriginal) start.ArgumentList.Add("--build-original");
         foreach (var argument in MSBuildArguments(store.LastOriginalBuild(id)?.MSBuild)) start.ArgumentList.Add(argument);
         foreach (var argument in StepArguments(steps)) start.ArgumentList.Add(argument);
         log.Enqueue("> dotnet " + string.Join(' ', start.ArgumentList.Select(a => a.Contains(' ') ? $"\"{a}\"" : a)));
 
         // The builds write to their logs, not to the converter's output (the original's: its tools'; the conversion's:
         // MSBuild's, each project as it is built): their lines while they run.
-        var buildLogs = (buildOriginal ? new[] { ".original.build.log", ".build.log" } : [".build.log"]).Select(e => Output(id) + e).ToList();
+        var buildLogs = new[] { ".original.build.log", ".build.log" }.Select(e => Output(id) + e).ToList();
         foreach (var file in buildLogs) File.Delete(file);
         using var following = new CancellationTokenSource();
         var tails = buildLogs.Select(file => LogTail.Follow(file, line => log.Enqueue("  " + line), following.Token)).ToList();

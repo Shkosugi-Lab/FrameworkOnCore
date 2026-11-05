@@ -60,6 +60,7 @@ public static class BuildOriginalCommand
         var root = Path.GetFullPath(rootDirectory ?? Paths.FindRoot(project));
         var work = Path.GetFullPath(outDirectory).TrimEnd('\\', '/');
         var log = work + ".build.log";
+        Directory.CreateDirectory(Path.GetDirectoryName(work)!);  // beside --out, whose folder may not be there yet
         File.Delete(log);
         var report = new Report();
         var site = new OriginalBuild(report, log, configuration, msbuild).Run(root, work, project, target, steps);

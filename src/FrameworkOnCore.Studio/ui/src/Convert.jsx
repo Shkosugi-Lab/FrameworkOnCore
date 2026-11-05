@@ -5,9 +5,6 @@ import Container from '@cloudscape-design/components/container';
 import Header from '@cloudscape-design/components/header';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Button from '@cloudscape-design/components/button';
-import Checkbox from '@cloudscape-design/components/checkbox';
-import FormField from '@cloudscape-design/components/form-field';
-import Textarea from '@cloudscape-design/components/textarea';
 import Alert from '@cloudscape-design/components/alert';
 import Box from '@cloudscape-design/components/box';
 import ProgressBar from '@cloudscape-design/components/progress-bar';
@@ -27,8 +24,7 @@ export default function Convert({ ctx, onNext }) {
   async function start() {
     // What is converted is what is saved: unsaved changes are saved first.
     if (ctx.unsaved > 0 && !(await ctx.save())) return;
-    await post(`/analyses/${ctx.id}/conversion`, { buildOriginal: ctx.buildOriginal, originalSteps: parseSteps(ctx.stepsText) });
-    ctx.setStepsTyped(null);
+    await post(`/analyses/${ctx.id}/conversion`);
     await ctx.loadConversion();
     await ctx.loadAnalyses();
   }
@@ -38,21 +34,9 @@ export default function Convert({ ctx, onNext }) {
     await ctx.loadConversion();
   }
 
-  const advice = ctx.advice;
-  const reasons = advice?.reasons ?? [];
-  const options = (
-    <SpaceBetween size="m">
-      <Checkbox checked={ctx.buildOriginal} onChange={ev => ctx.setBuildOriginalChoice(ev.detail.checked)}
-        description={t('conversion.buildOriginalHint')}>{t('conversion.buildOriginal')}</Checkbox>
-      {advice && (advice.needed
-        ? <Alert type="info" header={t('conversion.adviceNeeded')}>{reasons.slice(0, 3).join(' ・ ')}{reasons.length > 3 ? ` ・ ${t('conversion.andMore', reasons.length - 3)}` : ''}</Alert>
-        : <Muted>{t('conversion.adviceNotNeeded')}</Muted>)}
-      <FormField label={t('steps.label')} description={t('conversion.stepsHint')} stretch>
-        <Textarea value={ctx.stepsText} onChange={ev => ctx.setStepsTyped(ev.detail.value)} rows={2} spellcheck={false} disabled={!ctx.buildOriginal} />
-      </FormField>
-      {ctx.lastBuild && <Muted>{t('conversion.msbuildUsed', ctx.msbuildName(ctx.lastBuild.msBuild))}</Muted>}
-    </SpaceBetween>
-  );
+  // From the original application built afresh, as ① built it (its MSBuild, its setup steps).
+  const steps = parseSteps(ctx.stepsText);
+  const options = ctx.lastBuild && <Muted>{t('conversion.fromOriginalNote', ctx.msbuildName(ctx.lastBuild.msBuild), steps.length)}</Muted>;
 
   return (
     <SpaceBetween size="l">

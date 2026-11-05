@@ -33,8 +33,6 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
   const [errors, setErrors] = useState([]);
   const [command, setCommand] = useState(null);
   const [conversion, setConversion] = useState(null);
-  const [advice, setAdvice] = useState(null);
-  const [buildOriginalChoice, setBuildOriginalChoice] = useState(null);
   const [stepsTyped, setStepsTyped] = useState(null);  // the setup steps being written (shared by ① and ④)
   const [savedSteps, setSavedSteps] = useState([]);
   const [saving, setSaving] = useState(false);
@@ -61,8 +59,6 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
   }, [id, loadAnalyses]);
 
   useEffect(() => { refresh().catch(e => notify('error', e.message)); return () => clearTimeout(poll.current); }, [refresh, notify]);
-  // Whether the site is made by the repository's own build: read from its files (④'s initial value).
-  useEffect(() => { api(`/analyses/${id}/original-build-advice`).then(setAdvice).catch(() => {}); }, [id]);
   // The Visual Studio and Build Tools installed (null: not known yet): ①'s build runs the kind chosen there.
   const [msbuildInstances, setMSBuildInstances] = useState(null);
   const [msbuildTyped, setMSBuildTyped] = useState(null);
@@ -107,7 +103,6 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
   useEffect(() => { dirty.current = unsaved > 0; }, [unsaved, dirty]);
 
   const stepsText = stepsTyped ?? savedSteps.join('\n');
-  const buildOriginal = buildOriginalChoice ?? (advice ? advice.needed : !!conversion?.conversion?.buildOriginal);
   const built = conversion?.conversion?.state === 'done';
   // ①'s choice, a kind (visualstudio or buildtools: the converter's --msbuild takes its newest): the one chosen (for its
   // next build), else the last build's, else Visual Studio when it is installed. One chosen before as an installation's
@@ -158,7 +153,7 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
   }
 
   const copyCommand = async conv => {
-    await navigator.clipboard.writeText(conv ? commandLine(command, conv.buildOriginal, conv.originalSteps ?? [], conversion?.msbuild) : commandLine(command, buildOriginal, parseSteps(stepsText), lastBuild?.msBuild));
+    await navigator.clipboard.writeText(conv ? commandLine(command, conv.buildOriginal, conv.originalSteps ?? [], conversion?.msbuild) : commandLine(command, true, savedSteps, lastBuild?.msBuild));
     notify('success', t('command.copied'));
   };
 
@@ -179,8 +174,8 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
 
   const ready = entry.state === 'done' && data && choices;
   const ctx = {
-    id, entry, result, byComponent: data?.byComponent, choices, setChoices, saved, notify, confirm, setSplit, step, advice,
-    conversion, setConversion, buildOriginal, setBuildOriginalChoice, stepsText, setStepsTyped, setSavedSteps,
+    id, entry, result, byComponent: data?.byComponent, choices, setChoices, saved, notify, confirm, setSplit, step,
+    conversion, setConversion, stepsText, setStepsTyped, setSavedSteps,
     msbuildInstances, msbuild, setMSBuild: setMSBuildTyped, msbuildName, lastBuild, setOriginal,
     command, copyCommand, unsaved, save, loadAnalyses, loadConversion, linked: route.component,
   };

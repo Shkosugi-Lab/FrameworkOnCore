@@ -166,6 +166,7 @@ if (buildOriginal)
 {
     var originalWork = outRoot.TrimEnd('\\', '/') + ".original";
     var originalLog = originalWork + ".build.log";
+    Directory.CreateDirectory(Path.GetDirectoryName(originalWork)!);  // beside <out>, whose folder may not be there yet
     File.Delete(originalLog);
     site = new OriginalBuild(report, originalLog, configuration, msbuildChoice).Run(sourceRoot, originalWork, project, originalTarget, originalSteps);
     if (site == null)

@@ -160,14 +160,6 @@ api.MapGet("/analyses/{id}/command", (string id, AnalysisStore store) =>
     });
 });
 
-// Whether the application's site is made by building it (the conversion's "--build-original"), and why: read from the
-// repository's files once per analysis.
-var advices = new System.Collections.Concurrent.ConcurrentDictionary<string, FrameworkOnCore.Converter.OriginalBuildAdvice.Advice>();
-api.MapGet("/analyses/{id}/original-build-advice", (string id, AnalysisStore store) =>
-    store.Get(id) is { } entry
-        ? Results.Ok(advices.GetOrAdd(id + (Lang.English ? ":en" : ":ja"), _ => FrameworkOnCore.Converter.OriginalBuildAdvice.Of(entry.Project, entry.Root, Lang.English)))
-        : Results.NotFound());
-
 // Converting and building in Studio (the saved choices), and the output as a zip.
 api.MapGet("/analyses/{id}/conversion", (string id, Conversions conversions, AnalysisStore store) =>
     Results.Ok(new { conversion = conversions.Get(id), stale = conversions.Stale(id), originalSteps = store.OriginalSteps(id), msbuild = store.LastOriginalBuild(id)?.MSBuild, log = conversions.Log(id).TakeLast(300) }));
@@ -176,10 +168,10 @@ api.MapGet("/analyses/{id}/conversion", (string id, Conversions conversions, Ana
 // kinds are installed.
 api.MapGet("/msbuild", () => Results.Ok(FrameworkOnCore.Converter.MSBuildInstances.All()));
 
-api.MapPost("/analyses/{id}/conversion", (string id, ConversionRequest? request, Conversions conversions, Natives natives) =>
+api.MapPost("/analyses/{id}/conversion", (string id, Conversions conversions, Natives natives) =>
 {
     natives.Stop(id);  // the output is replaced: the site running from it stops (its files are not held)
-    try { return Results.Ok(conversions.Start(id, request?.BuildOriginal ?? false, request?.OriginalSteps)); }
+    try { return Results.Ok(conversions.Start(id)); }
     catch (ArgumentException e) { return Results.BadRequest(new { error = e.Message }); }
     catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
 });

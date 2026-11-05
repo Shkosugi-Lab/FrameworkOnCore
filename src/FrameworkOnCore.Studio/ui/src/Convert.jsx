@@ -8,6 +8,7 @@ import Button from '@cloudscape-design/components/button';
 import Checkbox from '@cloudscape-design/components/checkbox';
 import FormField from '@cloudscape-design/components/form-field';
 import Textarea from '@cloudscape-design/components/textarea';
+import RadioGroup from '@cloudscape-design/components/radio-group';
 import Alert from '@cloudscape-design/components/alert';
 import Box from '@cloudscape-design/components/box';
 import ProgressBar from '@cloudscape-design/components/progress-bar';
@@ -27,8 +28,9 @@ export default function Convert({ ctx, onNext }) {
   async function start() {
     // What is converted is what is saved: unsaved changes are saved first.
     if (ctx.unsaved > 0 && !(await ctx.save())) return;
-    await post(`/analyses/${ctx.id}/conversion`, { buildOriginal: ctx.buildOriginal, originalSteps: parseSteps(ctx.stepsText) });
+    await post(`/analyses/${ctx.id}/conversion`, { buildOriginal: ctx.buildOriginal, originalSteps: parseSteps(ctx.stepsText), msbuild: ctx.msbuild });
     ctx.setStepsTyped(null);
+    ctx.setMSBuild(null);
     await ctx.loadConversion();
     await ctx.loadAnalyses();
   }
@@ -50,6 +52,10 @@ export default function Convert({ ctx, onNext }) {
       <FormField label={t('steps.label')} description={t('conversion.stepsHint')} stretch>
         <Textarea value={ctx.stepsText} onChange={ev => ctx.setStepsTyped(ev.detail.value)} rows={2} spellcheck={false} disabled={!ctx.buildOriginal} />
       </FormField>
+      {ctx.msbuildBoth && <FormField label={t('conversion.msbuild')} description={t('conversion.msbuildHint')} stretch>
+        <RadioGroup value={ctx.msbuild} onChange={ev => ctx.setMSBuild(ev.detail.value)}
+          items={ctx.msbuildInstances.map(i => ({ value: i.installationPath, label: `${i.displayName} ${i.version}`, description: i.installationPath, disabled: !ctx.buildOriginal }))} />
+      </FormField>}
     </SpaceBetween>
   );
 

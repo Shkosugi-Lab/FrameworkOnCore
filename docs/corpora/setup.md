@@ -17,9 +17,19 @@
 | [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) | すべて(変換したアプリを Windows で動かすのにも使います) |
 | [Git](https://git-scm.com/download/win) | すべて |
 | [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/)(WSL 2) | Linux で動かすとき。SQL Server を使うコーパスでは、Windows で動かすときも使います |
-| [Visual Studio Build Tools](https://visualstudio.microsoft.com/downloads/)(「Web 開発ビルド ツール」と .NET Framework 4.8 の Targeting Pack) | mojo、dnn、n2、imis、nop、nop390(元のアプリのビルドが要るもの) |
+| [Visual Studio](https://visualstudio.microsoft.com/downloads/)(「ASP.NET と Web 開発」)**または** [Visual Studio Build Tools](https://visualstudio.microsoft.com/downloads/)(「Web 開発ビルド ツール」と .NET Framework 4.8 の Targeting Pack) | mojo、dnn、n2、imis、nop、nop390(元のアプリのビルドが要るもの) |
 
 SQL Server は、Docker のコンテナで動かします([5](#5-sql-server-を使うとき))。Windows に入れる必要はありません。
+
+元のアプリのビルドには、Visual Studio か Build Tools のどちらかが要ります。ビルドの仕組み(MSBuild)は同じですが、一緒に入る部品が違います。
+
+- どちらか一方だけが入っていれば、それを使います(版が複数あれば新しいほう)。
+- **両方入っているときは、どちらを使うかを選びます。**
+  - コマンドライン: `--msbuild visualstudio` か `--msbuild buildtools`(またはインストール先のフォルダー)を付けます。付けないと、選び方を表示して止まります。
+  - Studio: 「変換・ビルド」のステップの「元のビルドに使う MSBuild」で選びます。
+- Cake でビルドするアプリ(dnn)は、そのビルドスクリプトが自分で MSBuild を探すので、この選択は効きません。
+
+Visual Studio(Community など)とBuild Tools の使用条件は、それぞれのライセンスで確認してください。
 
 WSL 2 のメモリーの上限は `%USERPROFILE%\.wslconfig` に書いておきます(16 GB の PC なら 8 GB)。
 
@@ -171,7 +181,7 @@ Windows で動かしたアプリは Ctrl+C で止めます。Studio は、止め
 
 | 症状 | 対処 |
 |---|---|
-| 元のアプリのビルドが失敗する | Build Tools が入っていないか、パスが長すぎます。作業フォルダーを短いパスにします |
+| 元のアプリのビルドが失敗する | Visual Studio か Build Tools が入っていないか、必要な部品(上の表)が足りないか、パスが長すぎます。作業フォルダーを短いパスにします |
 | ポート(5000、8080、14330)が使われている | 前のアプリやコンテナを止めます。または別のポートを使います(`--urls http://localhost:5001`、`-p 8081:8080`) |
 | Docker が遅い・止まる | ほかのコンテナを止めます。`.wslconfig` の memory を見直します |
 | ディスクがいっぱい | 不要なイメージを消します(`docker image prune -a`、`docker builder prune`) |

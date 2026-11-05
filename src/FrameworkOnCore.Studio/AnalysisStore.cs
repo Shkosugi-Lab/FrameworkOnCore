@@ -89,6 +89,22 @@ public sealed class AnalysisStore
         File.WriteAllLines(OriginalStepsFile(id), steps);
     }
 
+    string MSBuildFile(string id) => Path.Combine(Folder(id), "msbuild.txt");
+
+    /// <summary>
+    /// The MSBuild the original build runs, chosen last (the converter's --msbuild: an installation's folder), for the
+    /// conversion and the original application's test run alike; null: none chosen.
+    /// </summary>
+    public string? MSBuild(string id) =>
+        File.Exists(MSBuildFile(id)) && File.ReadAllText(MSBuildFile(id)).Trim() is { Length: > 0 } chosen ? chosen : null;
+
+    public void SaveMSBuild(string id, string? msbuild)
+    {
+        Directory.CreateDirectory(Folder(id));
+        if (string.IsNullOrWhiteSpace(msbuild)) File.Delete(MSBuildFile(id));
+        else File.WriteAllText(MSBuildFile(id), msbuild.Trim());
+    }
+
     public IReadOnlyList<string> Log(string id) =>
         logs.TryGetValue(id, out var log) ? log.ToList() : File.Exists(Path.Combine(Folder(id), "log.txt")) ? File.ReadAllLines(Path.Combine(Folder(id), "log.txt")) : [];
 

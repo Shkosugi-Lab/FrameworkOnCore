@@ -6,7 +6,7 @@
 |---|---|
 | 取得元 | アプリ: [openimis/web_app_vb](https://github.com/openimis/web_app_vb) コミット `f21970b3`<br>DB: [openimis/database_ms_sqlserver](https://github.com/openimis/database_ms_sqlserver) タグ `24.10` |
 | ライセンス | AGPL-3.0 |
-| 追加で要るもの | Build Tools、Docker Desktop(SQL Server)。ディスク約 2 GB |
+| 追加で要るもの | Visual Studio か Build Tools、Docker Desktop(SQL Server)。ディスク約 2 GB |
 
 ## 0. FrameworkOnCore を取る
 

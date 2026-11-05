@@ -3,7 +3,7 @@ using System.Text;
 namespace FrameworkOnCore.Converter;
 
 /// <summary>
-/// FrameworkOnCore.Converter build-original &lt;project&gt; --out &lt;dir&gt; [--root &lt;dir&gt;] [--configuration &lt;name&gt;]
+/// FrameworkOnCore.Converter build-original &lt;project&gt; --out &lt;dir&gt; [--root &lt;dir&gt;] [--configuration &lt;name&gt;] [--msbuild &lt;which&gt;]
 /// [--original-step &lt;project;target&gt;] [--target &lt;name&gt;]: the original application built as its repository builds it
 /// (OriginalBuild, as --build-original does), in a copy (&lt;out&gt;-&lt;time&gt;, a new one each time), nothing converted; the deployed site it made is the
 /// last line, "site: &lt;path&gt;" (to run it as it is on .NET Framework: Studio's test run). ORIGINAL-BUILD.md beside the copy.
@@ -33,7 +33,7 @@ public static class BuildOriginalCommand
 
     internal static int Run(string[] args)
     {
-        string? project = null, outDirectory = null, rootDirectory = null, configuration = null, target = null;
+        string? project = null, outDirectory = null, rootDirectory = null, configuration = null, target = null, msbuild = null;
         var steps = new List<(string Project, string Target)>();
         for (var i = 0; i < args.Length; i++)
         {
@@ -43,6 +43,7 @@ public static class BuildOriginalCommand
                 case "--root": rootDirectory = args[++i]; break;
                 case "--configuration": configuration = args[++i]; break;
                 case "--target": target = args[++i]; break;
+                case "--msbuild": msbuild = args[++i]; break;
                 case "--original-step":
                     var step = args[++i].Split(';', 2);
                     steps.Add((step[0], step.Length > 1 ? step[1] : "Build"));
@@ -52,7 +53,7 @@ public static class BuildOriginalCommand
         }
         if (project == null || outDirectory == null)
         {
-            Console.Error.WriteLine("usage: FrameworkOnCore.Converter build-original <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--configuration <name>] [--target <name>] [--original-step <project;target>]");
+            Console.Error.WriteLine("usage: FrameworkOnCore.Converter build-original <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--configuration <name>] [--target <name>] [--original-step <project;target>] [--msbuild visualstudio|buildtools|<folder>]");
             return 2;
         }
         project = Path.GetFullPath(project);
@@ -61,7 +62,7 @@ public static class BuildOriginalCommand
         var log = work + ".build.log";
         File.Delete(log);
         var report = new Report();
-        var site = new OriginalBuild(report, log, configuration).Run(root, work, project, target, steps);
+        var site = new OriginalBuild(report, log, configuration, msbuild).Run(root, work, project, target, steps);
         File.WriteAllText(work + ".ORIGINAL-BUILD.md", report.ToMarkdown($"FrameworkOnCore: {Path.GetFileName(project)} (original build)"), new UTF8Encoding(false));
         if (site == null)
         {

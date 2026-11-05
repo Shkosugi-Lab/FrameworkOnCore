@@ -84,7 +84,7 @@ export function Original({ ctx }) {
   useEffect(() => { if (body) ctx.setSavedSteps(body.originalSteps ?? []); }, [body]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!body) return null;
   const { original, built, environment, host, reason, log } = body;
-  const start = rebuild => post(`/analyses/${ctx.id}/original`, { rebuild, environment: env ?? environment, originalSteps: parseSteps(ctx.stepsText) })
+  const start = rebuild => post(`/analyses/${ctx.id}/original`, { rebuild, environment: env ?? environment, originalSteps: parseSteps(ctx.stepsText), msbuild: ctx.msbuild })
     .then(() => { setEnv(null); ctx.setStepsTyped(null); return load(); }).catch(e => ctx.notify('error', e.message));
   return (
     <RunnerPanel title={t('original.title')} description={t('original.description')} entry={original} log={log}

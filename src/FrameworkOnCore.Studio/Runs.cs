@@ -24,7 +24,7 @@ public sealed record RunEntry
     public string? Error { get; init; }
 }
 
-public sealed record OriginalRequest(bool Rebuild, string? Environment = null, IReadOnlyList<string>? OriginalSteps = null);
+public sealed record OriginalRequest(bool Rebuild, string? Environment = null, IReadOnlyList<string>? OriginalSteps = null, string? MSBuild = null);
 
 /// <summary>The environment the converted application gets natively (NAME=value lines), as a container's.</summary>
 public sealed record NativeRequest(string? Environment);
@@ -349,7 +349,7 @@ public sealed class Originals(AnalysisStore store) : Runs
 
     /// <param name="originalSteps">The repository's setup steps after its build (the conversion's too); null: the ones
     /// given last. Others than those of the last build: built again.</param>
-    public RunEntry Start(string id, bool rebuild, string? environment = null, IReadOnlyList<string>? originalSteps = null)
+    public RunEntry Start(string id, bool rebuild, string? environment = null, IReadOnlyList<string>? originalSteps = null, string? msbuild = null)
     {
         // The original application is built from the analysis' project, whether or not its analysis is done (the first step).
         if (store.Get(id) is not { } analysis) throw new InvalidOperationException("no such analysis");
@@ -360,6 +360,12 @@ public sealed class Originals(AnalysisStore store) : Runs
             var steps = Conversions.Steps(analysis.Root, originalSteps);
             if (!steps.SequenceEqual(store.OriginalSteps(id))) rebuild = true;
             store.SaveOriginalSteps(id, steps);
+        }
+        // Another MSBuild than the last build's: built again.
+        if (msbuild != null)
+        {
+            if (msbuild != store.MSBuild(id)) rebuild = true;
+            store.SaveMSBuild(id, msbuild);
         }
         if (environment != null)
         {
@@ -487,7 +493,7 @@ public sealed class Originals(AnalysisStore store) : Runs
                      {
                          Path.Combine(AppContext.BaseDirectory, "FrameworkOnCore.Converter.dll"), "build-original", analysis.Project,
                          "--root", analysis.Root, "--configuration", analysis.Configuration, "--out", Path.Combine(Folder(id), "work"),
-                     }.Concat(Conversions.StepArguments(store.OriginalSteps(id))))
+                     }.Concat(Conversions.StepArguments(store.OriginalSteps(id))).Concat(Conversions.MSBuildArguments(store.MSBuild(id))))
                 start.ArgumentList.Add(argument);
             // The build's tools write to the build's log, not to the converter's output: its lines while it runs.
             var buildLog = Path.Combine(Folder(id), "work.build.log");

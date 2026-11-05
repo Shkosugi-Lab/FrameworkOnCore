@@ -53,7 +53,7 @@
 ## 準備
 
 - .NET 10 SDK
-- Windows(変換器は Visual Studio の MSBuild で元のアプリをビルドする)。Linux での検証には Docker Desktop
+- Windows と、Visual Studio または Visual Studio Build Tools(変換器は元のアプリをその MSBuild でビルドする。両方入っているときは `--msbuild visualstudio|buildtools` か Studio の「元のビルドに使う MSBuild」で選ぶ)。Linux での検証には Docker Desktop
 
 FrameworkOnCore のパッケージ(`FrameworkOnCore.*`)は、初めて解析や変換をしたときに、このリポジトリの GitHub Release から `experiments/wf4c/_feed` に自動で取得されます。互換アセンブリも必要なときに自動でビルドされます。事前の準備は要りません(リポジトリが非公開のときは、GitHub CLI にログインしているか、`GH_TOKEN` を設定しておく必要があります。Studio と変換器のビルドの取得も同じ)。
 

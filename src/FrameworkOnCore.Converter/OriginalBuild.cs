@@ -16,7 +16,7 @@ namespace FrameworkOnCore.Converter;
 /// package.json, the package manager package.json names (corepack). The deployed site is then found by
 /// what it has: a web.config and the web project's assembly in its bin.
 /// </summary>
-public sealed partial class OriginalBuild(Report report, string log, string? configuration = null)
+public sealed partial class OriginalBuild(Report report, string log, string? configuration = null, string? msbuildChoice = null)
 {
     static readonly string toolsCache = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "FrameworkOnCore", "tools");
@@ -111,9 +111,15 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
         // runs MSBuild).
         void AdviseMSBuild()
         {
-            if (!OperatingSystem.IsWindows() || FindMSBuild() != null) return;
+            if (!OperatingSystem.IsWindows()) return;
+            // The MSBuild Cake runs is the one its script finds (Cake's own vswhere lookup), not --msbuild's.
+            if (MSBuildInstances.All().Count > 0)
+            {
+                if (msbuildChoice != null) report.Add(Report.Kind.Project, "original build", $"--msbuild {msbuildChoice}: not applied to a Cake build (its script finds the MSBuild it runs)");
+                return;
+            }
             if (!SourceFiles(root, "*.*proj").Any(p => Regex.IsMatch(File.ReadAllText(p), @"<TargetFramework(Version|s)?>\s*(v4\.|net4)", RegexOptions.IgnoreCase))) return;
-            var message = "Visual Studio (Build Tools) 2022's MSBuild is not installed, and the repository's .NET Framework projects are built with it (else .NET Framework's MSBuild 4.8 is taken, which stops: MSB1001): " + BuildToolsInstall;
+            var message = "neither Visual Studio nor Visual Studio Build Tools is installed, and the repository's .NET Framework projects are built with their MSBuild (else .NET Framework's MSBuild 4.8 is taken, which stops: MSB1001): " + BuildToolsInstall;
             report.Add(Report.Kind.Error, "original build", message);
             Console.WriteLine("  " + message);
         }

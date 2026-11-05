@@ -6,7 +6,7 @@
 |---|---|
 | 取得元 | [dnnsoftware/Dnn.Platform](https://github.com/dnnsoftware/Dnn.Platform) タグ `v9.13.10` |
 | ライセンス | MIT |
-| 追加で要るもの | Build Tools、Docker Desktop(SQL Server)。ディスク約 20 GB |
+| 追加で要るもの | Visual Studio か Build Tools、Docker Desktop(SQL Server)。ディスク約 20 GB |
 
 ## 0. FrameworkOnCore を取る
 

@@ -6,7 +6,7 @@ CMS です(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わ�
 |---|---|
 | 取得元 | [i7MEDIA/mojoportal](https://github.com/i7MEDIA/mojoportal) タグ `v3.1.6` |
 | ライセンス | EPL-1.0 |
-| 追加で要るもの | Build Tools、Docker Desktop(SQL Server)。ディスク約 5 GB |
+| 追加で要るもの | Visual Studio か Build Tools、Docker Desktop(SQL Server)。ディスク約 5 GB |
 
 ## 0. FrameworkOnCore を取る
 

@@ -6,7 +6,7 @@ EC サイトです(Web Forms、C#、SQL Server)。[共通の準備](setup.md) �
 |---|---|
 | 取得元 | [nopSolutions/nopCommerce](https://github.com/nopSolutions/nopCommerce) タグ `release-1.90` |
 | ライセンス | nopCommerce Public License 1.0 |
-| 追加で要るもの | Build Tools、Docker Desktop(SQL Server)。ディスク約 2 GB |
+| 追加で要るもの | Visual Studio か Build Tools、Docker Desktop(SQL Server)。ディスク約 2 GB |
 
 ## 0. FrameworkOnCore を取る
 

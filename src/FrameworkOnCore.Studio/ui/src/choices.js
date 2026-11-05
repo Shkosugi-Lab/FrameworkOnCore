@@ -154,6 +154,7 @@ export function leftToDo(result, choices) {
 /** The repository's setup steps after its build (--original-step), one a line. */
 export const parseSteps = text => String(text ?? '').split('\n').map(s => s.trim()).filter(s => s);
 
-/** The conversion as a command line: the server's (with the choices file), and the original build with its steps. */
-export const commandLine = (command, buildOriginal, steps) =>
-  command + (buildOriginal ? ' --build-original' : '') + (buildOriginal ? steps : []).map(s => ` --original-step "${s}"`).join('');
+/** The conversion as a command line: the server's (with the choices file), and the original build with its steps and its MSBuild. */
+export const commandLine = (command, buildOriginal, steps, msbuild) =>
+  command + (buildOriginal ? ' --build-original' : '') + (buildOriginal ? steps : []).map(s => ` --original-step "${s}"`).join('')
+  + (buildOriginal && msbuild ? ` --msbuild "${msbuild}"` : '');

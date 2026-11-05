@@ -170,12 +170,16 @@ api.MapGet("/analyses/{id}/original-build-advice", (string id, AnalysisStore sto
 
 // Converting and building in Studio (the saved choices), and the output as a zip.
 api.MapGet("/analyses/{id}/conversion", (string id, Conversions conversions, AnalysisStore store) =>
-    Results.Ok(new { conversion = conversions.Get(id), stale = conversions.Stale(id), originalSteps = store.OriginalSteps(id), log = conversions.Log(id).TakeLast(300) }));
+    Results.Ok(new { conversion = conversions.Get(id), stale = conversions.Stale(id), originalSteps = store.OriginalSteps(id), msbuild = store.MSBuild(id), log = conversions.Log(id).TakeLast(300) }));
+
+// The Visual Studio and Build Tools installed with MSBuild: the original build's MSBuild is chosen among them when both
+// kinds are installed.
+api.MapGet("/msbuild", () => Results.Ok(FrameworkOnCore.Converter.MSBuildInstances.All()));
 
 api.MapPost("/analyses/{id}/conversion", (string id, ConversionRequest? request, Conversions conversions, Natives natives) =>
 {
     natives.Stop(id);  // the output is replaced: the site running from it stops (its files are not held)
-    try { return Results.Ok(conversions.Start(id, request?.BuildOriginal ?? false, request?.OriginalSteps)); }
+    try { return Results.Ok(conversions.Start(id, request?.BuildOriginal ?? false, request?.OriginalSteps, request?.MSBuild)); }
     catch (ArgumentException e) { return Results.BadRequest(new { error = e.Message }); }
     catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
 });
@@ -215,7 +219,7 @@ api.MapGet("/analyses/{id}/original", (string id, Originals originals, AnalysisS
 
 api.MapPost("/analyses/{id}/original", (string id, OriginalRequest? request, Originals originals) =>
 {
-    try { return Results.Ok(originals.Start(id, request?.Rebuild ?? false, request?.Environment, request?.OriginalSteps)); }
+    try { return Results.Ok(originals.Start(id, request?.Rebuild ?? false, request?.Environment, request?.OriginalSteps, request?.MSBuild)); }
     catch (ArgumentException e) { return Results.BadRequest(new { error = e.Message }); }
     catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
 });

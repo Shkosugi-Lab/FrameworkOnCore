@@ -57,13 +57,16 @@ public sealed partial class OriginalBuild
             report.Add(Report.Kind.Error, "original build", $"no build found: no Cake build, and no solution with {Path.GetFileName(webProject)}; give the deployed site (--site)");
             return null;
         }
-        var msbuild = FindMSBuild();
-        if (msbuild == null)
+        var instance = MSBuildInstances.Select(msbuildChoice, out var problem);
+        if (instance == null)
         {
-            report.Add(Report.Kind.Error, "original build", "Visual Studio (Build Tools) 2022's MSBuild is not installed (old-style projects with PackageReference need its NuGet targets): " + BuildToolsInstall);
+            var message = problem + (MSBuildInstances.All().Count == 0 ? ": " + BuildToolsInstall : "");
+            report.Add(Report.Kind.Error, "original build", message);
+            Console.Error.WriteLine("  " + message);
             return false;
         }
-        report.Add(Report.Kind.Project, "original build", $"solution: {Path.GetRelativePath(root, solution)} ({configuration}), MSBuild {msbuild}");
+        var msbuild = instance.MSBuild;
+        report.Add(Report.Kind.Project, "original build", $"solution: {Path.GetRelativePath(root, solution)} ({configuration}), MSBuild of {instance.DisplayName} {instance.Version} ({msbuild})");
         var referenceRoot = EnsureReferenceAssemblies();
         var nuget = EnsureNuGet();
         var solutionDirectory = Path.GetDirectoryName(solution)!;
@@ -310,18 +313,10 @@ public sealed partial class OriginalBuild
         return file;
     }
 
-    // What to install for Visual Studio's MSBuild: the Build Tools with the web projects' targets and .NET Framework 4.8's
-    // targeting pack (a Cake build takes the machine's reference assemblies).
-    const string BuildToolsInstall = "winget install Microsoft.VisualStudio.2022.BuildTools --override \"--quiet --wait --add Microsoft.VisualStudio.Workload.WebBuildTools --add Microsoft.VisualStudio.Workload.MSBuildTools --add Microsoft.Net.Component.4.8.TargetingPack --includeRecommended\" (as an administrator)";
-
-    static string? FindMSBuild()
-    {
-        var vswhere = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Microsoft Visual Studio", "Installer", "vswhere.exe");
-        if (!File.Exists(vswhere)) return null;
-        var found = CaptureProcess(vswhere, @"-latest -products * -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe", Directory.GetCurrentDirectory())
-            .Split('\n').Select(l => l.Trim()).FirstOrDefault(l => l.Length > 0);
-        return found != null && File.Exists(found) ? found : null;
-    }
+    // What to install when there is neither Visual Studio nor its Build Tools: the Build Tools with the web projects'
+    // targets and .NET Framework 4.8's targeting pack (Visual Studio with ASP.NET and web development does as well; a Cake
+    // build takes the machine's reference assemblies).
+    const string BuildToolsInstall = "install Visual Studio (ASP.NET and web development), or its Build Tools: winget install Microsoft.VisualStudio.2022.BuildTools --override \"--quiet --wait --add Microsoft.VisualStudio.Workload.WebBuildTools --add Microsoft.VisualStudio.Workload.MSBuildTools --add Microsoft.Net.Component.4.8.TargetingPack --includeRecommended\" (as an administrator)";
 
     // Every .NET Framework version's reference assemblies (NuGet's Microsoft.NETFramework.ReferenceAssemblies)
     // in one root: <cache>\reference-assemblies (with .NETFramework\v4.x under it).

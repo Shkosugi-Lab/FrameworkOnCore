@@ -29,6 +29,9 @@ using FrameworkOnCore.Converter;
 //            are read for it, a solution is built in it, and the converted projects build in it (BuildConfiguration). openIMIS: DemoRelease,
 //            the one whose web.config transform the repository has; its code under #If DEMO is that build's.
 // --original-step <project;target>  a setup step of the repository after its build (repeatable).
+// --msbuild visualstudio|buildtools|<folder>  the MSBuild the original build runs (MSBuildInstances): Visual Studio's or
+//            its Build Tools' (their newest), or that installation's. Needed when both kinds are installed; with one kind,
+//            its newest is taken. Not applied to a Cake build (its script finds its MSBuild).
 // --deploy   how it is deployed on Linux: container (Dockerfile), linux (deploy/linux/install.sh, systemd),
 //            both (the default) or none. See DeployWriter.
 // --case-insensitive on|off  file names without regard to case in the deployment, as on Windows (on, the default: the
@@ -45,7 +48,7 @@ using FrameworkOnCore.Converter;
 //            the .NET Framework APIs the application uses, their counts, and what .NET 10 has of each (AnalyzeCommand):
 //            api-analysis.json and API-ANALYSIS.md, nothing converted.
 //
-//   FrameworkOnCore.Converter build-original <project> --out <dir> [--root <dir>] [--configuration <name>] [--target <name>]
+//   FrameworkOnCore.Converter build-original <project> --out <dir> [--root <dir>] [--configuration <name>] [--target <name>] [--msbuild <which>]
 //            the original application built as --build-original builds it, nothing converted; prints "site: <path>"
 //            (BuildOriginalCommand).
 //
@@ -71,6 +74,7 @@ bool? caseInsensitive = null;
 string? choicesFile = null;
 int? codePage = null;
 var originalSteps = new List<(string Project, string Target)>();
+string? msbuildChoice = null;
 for (var i = 0; i < args.Length; i++)
 {
     switch (args[i])
@@ -89,6 +93,7 @@ for (var i = 0; i < args.Length; i++)
             caseInsensitive = value == "on";
             break;
         case "--configuration": configuration = args[++i]; break;
+        case "--msbuild": msbuildChoice = args[++i]; break;
         case "--choices": choicesFile = args[++i]; break;
         case "--code-page":
             var page = args[++i];
@@ -109,7 +114,7 @@ for (var i = 0; i < args.Length; i++)
 }
 if (project == null || outDirectory == null)
 {
-    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--iis-profile <file>] [--configuration <name>] [--site <dir> | --build-original [target]] [--deploy container|linux|both|none] [--case-insensitive on|off] [--choices <file>] [--code-page <n>] [--no-build]");
+    Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--iis-profile <file>] [--configuration <name>] [--site <dir> | --build-original [target] [--msbuild visualstudio|buildtools|<folder>]] [--deploy container|linux|both|none] [--case-insensitive on|off] [--choices <file>] [--code-page <n>] [--no-build]");
     return 2;
 }
 // The code page the sources without a byte order mark that are not UTF-8 were written in.
@@ -162,7 +167,7 @@ if (buildOriginal)
     var originalWork = outRoot.TrimEnd('\\', '/') + ".original";
     var originalLog = originalWork + ".build.log";
     File.Delete(originalLog);
-    site = new OriginalBuild(report, originalLog, configuration).Run(sourceRoot, originalWork, project, originalTarget, originalSteps);
+    site = new OriginalBuild(report, originalLog, configuration, msbuildChoice).Run(sourceRoot, originalWork, project, originalTarget, originalSteps);
     if (site == null)
     {
         File.WriteAllText(Path.Combine(Directory.CreateDirectory(outRoot).FullName, "CONVERSION-REPORT.md"), report.ToMarkdown($"FrameworkOnCore: {Path.GetFileName(project)}"), new UTF8Encoding(false));

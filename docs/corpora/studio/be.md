@@ -3,7 +3,7 @@
 ブログのエンジンです(Web Forms、C#)。データは DB ではなく `App_Data` の XML に置きます。
 Studio(画面)で解析・変換し、Windows と Linux のコンテナで動かします。コマンドラインでの手順は [こちら](../be.md) です。
 
-入れておくもの(.NET 10 SDK、Git、Docker Desktop)は [共通の準備の 1](../setup.md#1-入れるもの) にあります。be では Build Tools と SQL Server は要りません。
+入れておくもの(.NET 10 SDK、Git、Docker Desktop)は [共通の準備の 1](../setup.md#1-入れるもの) にあります。be では Visual Studio・Build Tools と SQL Server は要りません。
 
 ## 1. FrameworkOnCore とソースを取る
 

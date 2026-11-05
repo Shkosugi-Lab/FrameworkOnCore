@@ -6,7 +6,7 @@
 |---|---|
 | 取得元 | [tigerbluejay/ContosoUniversity](https://github.com/tigerbluejay/ContosoUniversity) コミット `2ee1ad2a` の `ContosoUniversitySolution` |
 | ライセンス | 表示なし(手元で試すだけにし、配り直さないでください) |
-| 追加で要るもの | なし(SQL Server はコンテナで動かします) |
+| 追加で要るもの | Docker Desktop(SQL Server をコンテナで動かします) |
 
 ## 1. GitHub から取得する
 
@@ -26,23 +26,48 @@ Remove-Item ContosoUniversity-repo -Recurse -Force
 C:\src\FrameworkOnCore\converter.ps1 C:\foc\ContosoUniversity\ContosoUniversity\ContosoUniversity.csproj --out C:\foc\out\contoso --root C:\foc\ContosoUniversity --build-original auto
 ```
 
-## 3. Linux で動かす
+**Studio で入れる値**([使い方](setup.md#42-studio-で))
+
+| 欄 | 値 |
+|---|---|
+| プロジェクト | `C:\foc\ContosoUniversity\ContosoUniversity\ContosoUniversity.csproj` |
+| リポジトリのフォルダー | `C:\foc\ContosoUniversity` |
+| 構成 | `Release` |
+
+## 3. DB を用意する
+
+SQL Server のコンテナを起動します([共通の準備の 5](setup.md#5-sql-server-を使うとき))。DB は、アプリが最初の要求で初期データ付きで作ります。
 
 ```powershell
-docker network create foc-net
-docker run -d --name foc-sql --network foc-net -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/mssql/server:2022-latest
-cd C:\foc\out\contoso
-docker build -t contoso .
-docker run -d -p 8080:8080 --name contoso --network foc-net -e "SQLCONNSTR_SchoolContext=Data Source=foc-sql;Initial Catalog=ContosoUniversity1;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" contoso
+docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/mssql/server:2022-latest
 ```
 
-- http://localhost:8080/Student を開きます。DB は、アプリが最初の要求で初期データ付きで作ります。
-- 元の Web.config の接続文字列(LocalDB)は、環境変数で置き換えます。
-- 記録では、Linux で 12 画面のうち 9 が元のアプリと同じでした(2026-10-22)。ただし、この Dockerfile での手順そのものは試していません。
+元の Web.config の接続文字列 `SchoolContext`(LocalDB)は、環境変数で置き換えます。
 
-## 4. 片付け
+## 4. Windows で動かす
+
+```powershell
+cd C:\foc\out\contoso\ContosoUniversity
+$env:SQLCONNSTR_SchoolContext = 'Data Source=localhost,14330;Initial Catalog=ContosoUniversity1;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
+dotnet bin\ContosoUniversity.dll --urls http://localhost:5000
+```
+
+http://localhost:5000/Student を開きます。Studio では、「ネイティブ起動(この PC)」の「環境変数」に `SQLCONNSTR_SchoolContext=<上の値>` と書きます。
+
+## 5. Linux で動かす
+
+```powershell
+cd C:\foc\out\contoso
+docker build -t contoso .
+docker run -d -p 8080:8080 --name contoso -e "SQLCONNSTR_SchoolContext=Data Source=host.docker.internal,14330;Initial Catalog=ContosoUniversity1;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" contoso
+```
+
+http://localhost:8080/Student を開きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、サーバー名を `host.docker.internal,14330` にして書きます。
+
+記録では、Windows・Linux とも 12 画面のうち 9 が元のアプリと同じでした(2026-10-22・10-27)。ただし、このページの手順そのものは試していません。
+
+## 6. 片付け
 
 ```powershell
 docker rm -f contoso foc-sql
-docker network rm foc-net
 ```

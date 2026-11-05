@@ -6,7 +6,7 @@ EC サイトです(Web Forms、C#、SQL Server)。[共通の準備](setup.md) �
 |---|---|
 | 取得元 | [nopSolutions/nopCommerce](https://github.com/nopSolutions/nopCommerce) タグ `release-1.90` |
 | ライセンス | nopCommerce Public License 1.0 |
-| 追加で要るもの | Build Tools。ディスク約 2 GB |
+| 追加で要るもの | Build Tools、Docker Desktop(SQL Server)。ディスク約 2 GB |
 
 ## 1. GitHub から取得する
 
@@ -23,31 +23,56 @@ tar -xf nop.zip          # nopCommerce-release-1.90 ができる
 C:\src\FrameworkOnCore\converter.ps1 C:\foc\nopCommerce-release-1.90\NopCommerceStore\NopCommerceStore.csproj --out C:\foc\out\nop --root C:\foc\nopCommerce-release-1.90 --build-original auto
 ```
 
-## 3. Linux で動かす
-
-```powershell
-docker network create foc-net
-docker run -d --name foc-sql --network foc-net -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/mssql/server:2022-latest
-cd C:\foc\out\nop
-docker build -t nop .
-docker run -d -p 8080:8080 --name nop --network foc-net nop
-```
-
-http://localhost:8080/install/install.aspx を開き、次の値でインストールします。
+**Studio で入れる値**([使い方](setup.md#42-studio-で))
 
 | 欄 | 値 |
 |---|---|
-| SQL Server | `foc-sql` |
+| プロジェクト | `C:\foc\nopCommerce-release-1.90\NopCommerceStore\NopCommerceStore.csproj` |
+| リポジトリのフォルダー | `C:\foc\nopCommerce-release-1.90` |
+| 構成 | `Release` |
+
+## 3. DB を用意する
+
+SQL Server のコンテナを起動します([共通の準備の 5](setup.md#5-sql-server-を使うとき))。DB は、アプリのインストーラーが作ります。
+
+```powershell
+docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/mssql/server:2022-latest
+```
+
+## 4. Windows で動かす
+
+インストーラーがサイトの `ConnectionStrings.config` を書きます。Linux でも試すときは、先に 5 の `docker build` を済ませておきます([共通の準備の 7](setup.md#7-linux-で動かす))。
+
+```powershell
+cd C:\foc\out\nop\site
+dotnet bin\NopCommerceStore.dll --urls http://localhost:5000
+```
+
+http://localhost:5000/install/install.aspx を開き、次の値でインストールします。
+
+| 欄 | 値 |
+|---|---|
+| SQL Server | `localhost,14330`(Linux のコンテナでは `host.docker.internal,14330`) |
 | 認証 | SQL Server 認証。ユーザー `sa`、パスワード `Foc_local_Passw0rd` |
-| データベース | 新しく作る(名前は例えば `nop`)。サンプルのデータも作る |
+| データベース | 新しく作る(Windows は `nop_windows`、Linux は `nop_linux` など、別の名前にします)。サンプルのデータも作る |
 
-インストールが終わると、店頭(`/`)と管理画面が開けます。管理者は `admin@yourstore.com` / `admin` です。
+- インストールが終わると、店頭(`/`)と管理画面が開けます。管理者は `admin@yourstore.com` / `admin` です。
+- Studio では「ネイティブ起動(この PC)」の「起動」を押します。環境変数は要りません。
 
-Linux で動くことは、すべての操作を元のアプリと比べるテストで確かめています(727 操作、記録 2026-11-03)。ただし、この Dockerfile とインストーラーでの手順そのものは試していません。
+## 5. Linux で動かす
 
-## 4. 片付け
+```powershell
+cd C:\foc\out\nop
+docker build -t nop .
+docker run -d -p 8080:8080 --name nop nop
+```
+
+http://localhost:8080/install/install.aspx を開き、上の表の Linux の値でインストールします。Studio では「コンテナ起動(Linux / Docker)」の「起動」を押します。
+
+Windows・Linux で動くことは、すべての操作を元のアプリと比べるテストで確かめています(727 操作、記録 2026-11-03)。ただし、このページの手順(インストーラーを使う)そのものは試していません。
+
+## 6. 片付け
 
 ```powershell
 docker rm -f nop foc-sql
-docker network rm foc-net
 ```

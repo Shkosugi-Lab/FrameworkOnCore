@@ -6,7 +6,7 @@
 |---|---|
 | 取得元 | アプリ: [openimis/web_app_vb](https://github.com/openimis/web_app_vb) コミット `f21970b3`<br>DB: [openimis/database_ms_sqlserver](https://github.com/openimis/database_ms_sqlserver) タグ `24.10` |
 | ライセンス | AGPL-3.0 |
-| 追加で要るもの | Build Tools。ディスク約 2 GB |
+| 追加で要るもの | Build Tools、Docker Desktop(SQL Server)。ディスク約 2 GB |
 
 ## 1. GitHub から取得する
 
@@ -28,13 +28,20 @@ tar -xf imisdb.zip          # database_ms_sqlserver-24.10 ができる
 C:\src\FrameworkOnCore\converter.ps1 C:\foc\web_app_vb\IMIS\IMIS.vbproj --out C:\foc\out\imis --root C:\foc\web_app_vb --build-original auto --configuration DemoRelease
 ```
 
-## 3. Linux で動かす
+**Studio で入れる値**([使い方](setup.md#42-studio-で))
 
-DB は、スキーマ、ストアド プロシージャ、デモのデータの順にスクリプトを流して作ります(数分かかります)。
+| 欄 | 値 |
+|---|---|
+| プロジェクト | `C:\foc\web_app_vb\IMIS\IMIS.vbproj` |
+| リポジトリのフォルダー | `C:\foc\web_app_vb` |
+| 構成 | **`DemoRelease`** |
+
+## 3. DB を用意する
+
+SQL Server のコンテナを起動し([共通の準備の 5](setup.md#5-sql-server-を使うとき))、DB `imis` を作ります。スキーマ、ストアド プロシージャ、デモのデータの順にスクリプトを流します(数分かかります)。Windows と Linux で同じ DB を使えます。
 
 ```powershell
-docker network create foc-net
-docker run -d --name foc-sql --network foc-net -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/mssql/server:2022-latest
+docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/mssql/server:2022-latest
 Start-Sleep 20
 $sqlcmd = '/opt/mssql-tools18/bin/sqlcmd', '-S', 'localhost', '-U', 'sa', '-P', 'Foc_local_Passw0rd', '-C'
 docker exec foc-sql @sqlcmd -Q "CREATE DATABASE imis"
@@ -43,18 +50,36 @@ foreach ($f in @(Get-ChildItem "$sql\base\*.sql") + @(Get-ChildItem "$sql\stored
     docker cp $f.FullName foc-sql:/tmp/script.sql
     docker exec foc-sql @sqlcmd -d imis -f 65001 -i /tmp/script.sql | Out-Null
 }
-cd C:\foc\out\imis
-docker build -t imis .
-docker run -d -p 8080:8080 --name imis --network foc-net -e "SQLCONNSTR_IMISConnectionString=Data Source=foc-sql;Initial Catalog=imis;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" imis
 ```
 
-http://localhost:8080/ を開き、デモの `Admin` / `admin123` でログインします。主な画面は `/Home.aspx`、`/FindFamily.aspx`、`/FindInsuree.aspx`、`/FindPolicy.aspx`、`/FindClaims.aspx`、`/FindUser.aspx`、`/Reports.aspx` です。
+接続文字列は `IMISConnectionString` です。
 
-記録では、Linux でログインし、この 7 画面が 200 でした(2026-10-11)。ただし、この Dockerfile での手順そのものは試していません。
+## 4. Windows で動かす
 
-## 4. 片付け
+```powershell
+cd C:\foc\out\imis\site
+$env:SQLCONNSTR_IMISConnectionString = 'Data Source=localhost,14330;Initial Catalog=imis;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
+dotnet bin\IMIS.dll --urls http://localhost:5000
+```
+
+- http://localhost:5000/ を開き、デモの `Admin` / `admin123` でログインします。
+- 主な画面は `/Home.aspx`、`/FindFamily.aspx`、`/FindInsuree.aspx`、`/FindPolicy.aspx`、`/FindClaims.aspx`、`/FindUser.aspx`、`/Reports.aspx` です。
+- Studio では、「ネイティブ起動(この PC)」の「環境変数」に `SQLCONNSTR_IMISConnectionString=<上の値>` と書きます。
+
+## 5. Linux で動かす
+
+```powershell
+cd C:\foc\out\imis
+docker build -t imis .
+docker run -d -p 8080:8080 --name imis -e "SQLCONNSTR_IMISConnectionString=Data Source=host.docker.internal,14330;Initial Catalog=imis;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" imis
+```
+
+http://localhost:8080/ を開きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、この値を書きます。
+
+記録では、Windows・Linux ともログインし、主な 7 画面が 200 でした(2026-10-11)。ただし、このページの手順そのものは試していません。
+
+## 6. 片付け
 
 ```powershell
 docker rm -f imis foc-sql
-docker network rm foc-net
 ```

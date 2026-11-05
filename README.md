@@ -144,6 +144,6 @@ Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、St
 | `experiments/wf4c/FRAMEWORK-ONLY-APIS.md` | .NET Framework にしかない API の一覧と対応 |
 | `experiments/wf4c/PORT-CANDIDATES.md` | 移植版の候補(.NET Framework と .NET で動きや API が違うもの)と、移植済みのもの |
 | `docs/corpora/README.md` | コーパスを変換して Linux のコンテナで動かす手順の入口(コーパスの一覧) |
-| `docs/corpora/setup.md` | 共通の準備(入れるもの、取得、変換、Linux での動かし方、片付け) |
-| `docs/corpora/<名前>.md` | コーパスごとの手順(取得、変換、Linux で動かす、片付け) |
+| `docs/corpora/setup.md` | 共通の準備(入れるもの、取得、コマンドラインと Studio での変換、Windows・Linux での動かし方、片付け) |
+| `docs/corpora/<名前>.md` | コーパスごとの手順(取得、変換、Studio の値、DB、Windows・Linux で動かす、片付け) |
 | `corpora/README.md` | コーパスの取得と記録 |

@@ -2,7 +2,7 @@
 
 掲示板です(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは `C:\foc` で実行します。
 
-**いまは変換までです。** 変換とビルドは通りますが、起動すると `/` が 500 になります(SqlClient のプロバイダーが見つからないため)。このため、Linux で動かす手順はありません。
+**いまは変換までです。** 変換とビルドは通りますが、起動すると `/` が 500 になります(SqlClient のプロバイダーが見つからないため)。このため、動かす手順はありません。
 
 | | |
 |---|---|
@@ -23,4 +23,19 @@ tar -xf yaf.zip          # YAFNET-3.2.15 ができる
 C:\src\FrameworkOnCore\converter.ps1 C:\foc\YAFNET-3.2.15\yafsrc\YetAnotherForum.NET\YAF-SqlServer.csproj --out C:\foc\out\yaf --root C:\foc\YAFNET-3.2.15 --build-original auto
 ```
 
-変換の結果は `C:\foc\out\yaf\CONVERSION-REPORT.md` にあります。未解決が 1 件、スタブ(コンパイルを通すための仮の実装)が 43 件です。
+**Studio で入れる値**([使い方](setup.md#42-studio-で))
+
+| 欄 | 値 |
+|---|---|
+| プロジェクト | `C:\foc\YAFNET-3.2.15\yafsrc\YetAnotherForum.NET\YAF-SqlServer.csproj` |
+| リポジトリのフォルダー | `C:\foc\YAFNET-3.2.15` |
+| 構成 | `Release` |
+
+変換の結果は `C:\foc\out\yaf\CONVERSION-REPORT.md`(Studio では変換レポート)にあります。未解決が 1 件、スタブ(コンパイルを通すための仮の実装)が 43 件です。
+
+500 になるところを見るときは、Windows で起動します。
+
+```powershell
+cd C:\foc\out\yaf\yafsrc\YetAnotherForum.NET
+dotnet bin\YAF.dll --urls http://localhost:5000
+```

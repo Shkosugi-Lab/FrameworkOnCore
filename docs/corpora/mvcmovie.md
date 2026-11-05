@@ -6,7 +6,7 @@
 |---|---|
 | 取得元 | [dotnet/AspNetDocs](https://github.com/dotnet/AspNetDocs) コミット `552c58dd` の `aspnet/mvc/overview/getting-started/introduction/sample/MvcMovie` |
 | ライセンス | コードは MIT、文書は CC BY 4.0 |
-| 追加で要るもの | なし(SQL Server はコンテナで動かします) |
+| 追加で要るもの | Docker Desktop(SQL Server をコンテナで動かします) |
 
 ## 1. GitHub から取得する
 
@@ -26,24 +26,56 @@ Remove-Item AspNetDocs -Recurse -Force
 C:\src\FrameworkOnCore\converter.ps1 C:\foc\MvcMovie\MvcMovie\MvcMovie.csproj --out C:\foc\out\mvcmovie --root C:\foc\MvcMovie --build-original auto
 ```
 
-## 3. Linux で動かす
+**Studio で入れる値**([使い方](setup.md#42-studio-で))
+
+| 欄 | 値 |
+|---|---|
+| プロジェクト | `C:\foc\MvcMovie\MvcMovie\MvcMovie.csproj` |
+| リポジトリのフォルダー | `C:\foc\MvcMovie` |
+| 構成 | `Release` |
+
+## 3. DB を用意する
+
+SQL Server のコンテナを起動します([共通の準備の 5](setup.md#5-sql-server-を使うとき))。DB は、アプリ(EF)が最初の要求で作ります。
 
 ```powershell
-docker network create foc-net
-docker run -d --name foc-sql --network foc-net -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/mssql/server:2022-latest
-cd C:\foc\out\mvcmovie
-docker build -t mvcmovie .
-$sql = 'Data Source=foc-sql;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
-docker run -d -p 8080:8080 --name mvcmovie --network foc-net -e "SQLCONNSTR_MovieDBContext=$sql;Initial Catalog=MvcMovie" -e "SQLCONNSTR_DefaultConnection=$sql;Initial Catalog=MvcMovieIdentity" mvcmovie
+docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/mssql/server:2022-latest
 ```
 
-- http://localhost:8080/Movies を開きます。DB は、アプリ(EF)が最初の要求で作ります。
-- 元の Web.config の接続文字列(LocalDB)は、環境変数で置き換えます。
-- 記録では、Linux で 12 画面のうち 11 が元のアプリと同じでした(2026-10-22)。ただし、この Dockerfile での手順そのものは試していません。
+元の Web.config の接続文字列(LocalDB)は、環境変数で置き換えます。
 
-## 4. 片付け
+| 接続文字列 | DB |
+|---|---|
+| `MovieDBContext` | `MvcMovie` |
+| `DefaultConnection` | `MvcMovieIdentity` |
+
+## 4. Windows で動かす
+
+```powershell
+cd C:\foc\out\mvcmovie\MvcMovie
+$sql = 'Data Source=localhost,14330;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
+$env:SQLCONNSTR_MovieDBContext = "$sql;Initial Catalog=MvcMovie"
+$env:SQLCONNSTR_DefaultConnection = "$sql;Initial Catalog=MvcMovieIdentity"
+dotnet bin\MvcMovie.dll --urls http://localhost:5000
+```
+
+http://localhost:5000/Movies を開きます。Studio では、「ネイティブ起動(この PC)」の「環境変数」に、この 2 つを `名前=値` の形で 1 行ずつ書きます。
+
+## 5. Linux で動かす
+
+```powershell
+cd C:\foc\out\mvcmovie
+docker build -t mvcmovie .
+$sql = 'Data Source=host.docker.internal,14330;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
+docker run -d -p 8080:8080 --name mvcmovie -e "SQLCONNSTR_MovieDBContext=$sql;Initial Catalog=MvcMovie" -e "SQLCONNSTR_DefaultConnection=$sql;Initial Catalog=MvcMovieIdentity" mvcmovie
+```
+
+http://localhost:8080/Movies を開きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、サーバー名を `host.docker.internal,14330` にして書きます。
+
+記録では、Windows・Linux とも 12 画面のうち 11 が元のアプリと同じでした(2026-10-22・10-27)。ただし、このページの手順そのものは試していません。
+
+## 6. 片付け
 
 ```powershell
 docker rm -f mvcmovie foc-sql
-docker network rm foc-net
 ```

@@ -6,7 +6,7 @@
 |---|---|
 | 取得元 | [dnnsoftware/Dnn.Platform](https://github.com/dnnsoftware/Dnn.Platform) タグ `v9.13.10` |
 | ライセンス | MIT |
-| 追加で要るもの | Build Tools。ディスク約 20 GB |
+| 追加で要るもの | Build Tools、Docker Desktop(SQL Server)。ディスク約 20 GB |
 
 ## 1. GitHub から取得する
 
@@ -25,27 +25,53 @@ C:\src\FrameworkOnCore\converter.ps1 "C:\foc\Dnn.Platform-9.13.10\DNN Platform\W
 
 `the build failed after it deployed the site: ... is used as it is` と出ても、そのまま進めて構いません。ビルドの一部(パッケージ作り)が失敗しただけで、サイトはできています。
 
-## 3. Linux で動かす
+**Studio で入れる値**([使い方](setup.md#42-studio-で))
 
-空の DB を作っておき、接続文字列 `SiteSqlServer` を渡します。
+| 欄 | 値 |
+|---|---|
+| プロジェクト | `C:\foc\Dnn.Platform-9.13.10\DNN Platform\Website\DotNetNuke.Website.csproj` |
+| リポジトリのフォルダー | `C:\foc\Dnn.Platform-9.13.10` |
+| 構成 | `Release` |
+
+## 3. DB を用意する
+
+SQL Server のコンテナを起動し([共通の準備の 5](setup.md#5-sql-server-を使うとき))、空の DB を Windows 用と Linux 用に 1 つずつ作ります。テーブルは DNN のインストールが作ります。
 
 ```powershell
-docker network create foc-net
-docker run -d --name foc-sql --network foc-net -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/mssql/server:2022-latest
+docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/mssql/server:2022-latest
 Start-Sleep 20
-docker exec foc-sql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P Foc_local_Passw0rd -C -Q "CREATE DATABASE dnn"
-cd C:\foc\out\dnn
-docker build -t dnn .
-docker run -d -p 8080:8080 --name dnn --network foc-net -e "SQLCONNSTR_SiteSqlServer=Data Source=foc-sql;Initial Catalog=dnn;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" dnn
+docker exec foc-sql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P Foc_local_Passw0rd -C -Q "CREATE DATABASE dnn_windows; CREATE DATABASE dnn_linux"
 ```
 
-http://localhost:8080/Install/Install.aspx?mode=install を開くと、インストールが始まります(数分かかります)。終わるとトップ(`/`)、`/Login`、`/Terms`、`/Privacy` が開けます。
+接続文字列は `SiteSqlServer` です。
 
-記録では、Linux でインストールが終わり、これらのページが 200 でした(2026-10-11)。ただし、この Dockerfile での手順そのものは試していません。
+## 4. Windows で動かす
 
-## 4. 片付け
+インストールでサイトのファイルが書き換わります。Linux でも試すときは、先に 5 の `docker build` を済ませておきます([共通の準備の 7](setup.md#7-linux-で動かす))。
+
+```powershell
+cd C:\foc\out\dnn\site
+$env:SQLCONNSTR_SiteSqlServer = 'Data Source=localhost,14330;Initial Catalog=dnn_windows;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
+dotnet bin\DotNetNuke.Website.dll --urls http://localhost:5000
+```
+
+http://localhost:5000/Install/Install.aspx?mode=install を開くと、インストールが始まります(数分かかります)。終わるとトップ(`/`)、`/Login`、`/Terms`、`/Privacy` が開けます。
+Studio では、「ネイティブ起動(この PC)」の「環境変数」に `SQLCONNSTR_SiteSqlServer=<上の値>` と書きます。
+
+## 5. Linux で動かす
+
+```powershell
+cd C:\foc\out\dnn
+docker build -t dnn .
+docker run -d -p 8080:8080 --name dnn -e "SQLCONNSTR_SiteSqlServer=Data Source=host.docker.internal,14330;Initial Catalog=dnn_linux;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" dnn
+```
+
+http://localhost:8080/Install/Install.aspx?mode=install を開いてインストールします。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、この値を書きます。
+
+記録では、Windows・Linux ともインストールが終わり、これらのページが 200 でした(2026-10-11)。ただし、このページの手順そのものは試していません。
+
+## 6. 片付け
 
 ```powershell
 docker rm -f dnn foc-sql
-docker network rm foc-net
 ```

@@ -30,6 +30,8 @@ namespace FrameworkOnCore.Converter;
 /// - A source file listed twice in a project compiled once, as Visual Studio does (its project system holds a file
 ///   once; the Visual Basic compiler on the command line defines its types twice: openIMIS's Resource1.designer.vb,
 ///   BC30179).
+/// - References only Visual Studio resolves (MSTest v1's framework, which test projects name without a path: BlogEngine.Tests):
+///   the Build Tools' test platform folder, which has it, searched last (original-build.targets).
 /// - The repository's own setup steps after it (--original-step project;target: N2 links its management
 ///   pages into the templates site).
 /// - A repository without a solution with the web project (ASP.NET's MvcMovie sample, YAF's projects): one written in the
@@ -286,6 +288,14 @@ public sealed partial class OriginalBuild
         Directory.CreateDirectory(toolsCache);
         File.WriteAllText(file, """
             <Project>
+              <!-- References Visual Studio finds and its Build Tools do not: MSTest v1's framework
+                   (Microsoft.VisualStudio.QualityTools.UnitTestFramework, a test project's reference without a path:
+                   BlogEngine.Tests). The Build Tools have it in their test platform's folder, which no search path names
+                   (Visual Studio's own reference folders are not in them). That folder searched last, after every other. -->
+              <PropertyGroup>
+                <FrameworkOnCoreTestPlatform>$(VsInstallRoot)\Common7\IDE\Extensions\TestPlatform</FrameworkOnCoreTestPlatform>
+                <AssemblySearchPaths Condition="'$(VsInstallRoot)' != '' and Exists('$(FrameworkOnCoreTestPlatform)')">$(AssemblySearchPaths);$(FrameworkOnCoreTestPlatform)</AssemblySearchPaths>
+              </PropertyGroup>
               <Target Name="FrameworkOnCoreUniqueCompile" BeforeTargets="CoreCompile">
                 <RemoveDuplicates Inputs="@(Compile)">
                   <Output TaskParameter="Filtered" ItemName="_FrameworkOnCoreCompile" />

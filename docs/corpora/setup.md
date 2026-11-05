@@ -17,7 +17,7 @@
 | [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) | すべて(変換したアプリを Windows で動かすのにも使います) |
 | [Git](https://git-scm.com/download/win) | すべて |
 | [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/)(WSL 2) | Linux で動かすとき。SQL Server を使うコーパスでは、Windows で動かすときも使います |
-| [Visual Studio](https://visualstudio.microsoft.com/downloads/)(「ASP.NET と Web 開発」)**または** [Visual Studio Build Tools](https://visualstudio.microsoft.com/downloads/)(「Web 開発ビルド ツール」と .NET Framework 4.8 の Targeting Pack) | mojo、dnn、n2、imis、nop、nop390(元のアプリのビルドが要るもの) |
+| [Visual Studio](https://visualstudio.microsoft.com/downloads/)(「ASP.NET と Web 開発」)**または** [Visual Studio Build Tools](https://visualstudio.microsoft.com/downloads/)(「Web 開発ビルド ツール」と .NET Framework 4.8 の Targeting Pack) | mojo、dnn、n2、imis、nop、nop390(元のアプリのビルドが要るもの)。Studio を使うときは、すべて(ステップ 1 で元のアプリをビルドするため) |
 
 SQL Server は、Docker のコンテナで動かします([5](#5-sql-server-を使うとき))。Windows に入れる必要はありません。
 
@@ -26,7 +26,7 @@ SQL Server は、Docker のコンテナで動かします([5](#5-sql-server-を�
 - どちらか一方だけが入っていれば、それを使います(版が複数あれば新しいほう)。
 - **両方入っているときは、どちらを使うかを選びます。**
   - コマンドライン: `--msbuild visualstudio` か `--msbuild buildtools`(またはインストール先のフォルダー)を付けます。付けないと、選び方を表示して止まります。
-  - Studio: 「変換・ビルド」のステップの「元のビルドに使う MSBuild」で選びます。
+  - Studio: ステップ 1 の「ビルドに使う MSBuild」で選びます。ステップ 2 以降は、最後にビルドに成功したときの選択を使います。
 - Cake でビルドするアプリ(dnn)は、そのビルドスクリプトが自分で MSBuild を探すので、この選択は効きません。
 
 Visual Studio(Community など)とBuild Tools の使用条件は、それぞれのライセンスで確認してください。
@@ -97,12 +97,16 @@ C:\foc
    - 「プロジェクト(.csproj / .vbproj)」
    - 「リポジトリのフォルダー」
    - 「構成」
-2. 解析が終わると、「自分で対応が要る部品」や「対応を選ぶ部品」が出ます。**既定のままで変換できます。**
-3. 「サーバーの設定」も既定のまま(元の IIS と同じ動き)で進みます。
-4. 「変換してビルド」を押します。終わると「ビルド成功」と、変換レポートが出ます。
+2. ステップ 1 の「元のアプリのビルド」で「ビルド」を押します。**ビルドが通るまで、ステップ 2 以降には進めません**(Studio を使うときは、どのコーパスでも Visual Studio か Build Tools が要ります)。
+   - Visual Studio と Build Tools の両方が入っているときは、「ビルドに使う MSBuild」でどちらを使うかを選んでから押します。
+   - ステップ 2 以降は、最後にビルドに成功したときの選択を使います。
+   - n2 は「追加の手順」も入れます。
+3. 解析が終わると、「自分で対応が要る部品」や「対応を選ぶ部品」が出ます。**既定のままで変換できます。**
+4. 「サーバーの設定」も既定のまま(元の IIS と同じ動き)で進みます。
+5. 「変換してビルド」を押します。終わると「ビルド成功」と、変換レポートが出ます。
    - 元のアプリのビルドが要るコーパスでは、「元のアプリをそのビルド手順でビルドし、配置されるサイトから組み立てる」に自動でチェックが入ります。
    - n2 は「追加の手順」も入れます。
-5. 最後のステップで、変換したアプリを動かします。
+6. 最後のステップで、変換したアプリを動かします。
    - 「ネイティブ起動(この PC)」: Windows で動かします([6](#6-windows-で動かす))。
    - 「コンテナ起動(Linux / Docker)」: Linux のコンテナで動かします([7](#7-linux-で動かす))。
    - どちらも「環境変数」の欄に、1 行に 1 つ `名前=値` を書いて、接続文字列などを渡せます。

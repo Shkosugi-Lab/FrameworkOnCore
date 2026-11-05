@@ -30,10 +30,10 @@ public sealed record ReportSection(string Title, int Count);
 /// <summary>
 /// A conversion, as the UI asks for it: --build-original (the site from the repository's own build), and the repository's
 /// setup steps after it (--original-step "project;target", the project relative to the repository: N2's
-/// "build\n2.proj;Templates-PrepareDependencies" links its management pages into the site), and the MSBuild that builds
-/// it (--msbuild, an installation's folder), chosen when both Visual Studio and its Build Tools are installed.
+/// "build\n2.proj;Templates-PrepareDependencies" links its management pages into the site). Its MSBuild is the one of ①'s
+/// build that succeeded last (AnalysisStore.LastOriginalBuild), not chosen here.
 /// </summary>
-public sealed record ConversionRequest(bool BuildOriginal, IReadOnlyList<string>? OriginalSteps = null, string? MSBuild = null);
+public sealed record ConversionRequest(bool BuildOriginal, IReadOnlyList<string>? OriginalSteps = null);
 
 /// <summary>
 /// Converts and builds an analysed application in Studio: the converter (FrameworkOnCore.Converter.dll beside Studio) in
@@ -84,14 +84,16 @@ public sealed class Conversions(AnalysisStore store, string runtime)
     public bool Stale(string id) =>
         Get(id) is { } entry && File.Exists(store.ChoicesFile(id)) && File.GetLastWriteTimeUtc(store.ChoicesFile(id)) > entry.Started.UtcDateTime;
 
-    public ConversionEntry Start(string id, bool buildOriginal, IReadOnlyList<string>? originalSteps = null, string? msbuild = null)
+    public ConversionEntry Start(string id, bool buildOriginal, IReadOnlyList<string>? originalSteps = null)
     {
         if (store.Get(id) is not { State: "done" } analysis) throw new InvalidOperationException("the analysis is not done");
         if (running.ContainsKey(id)) throw new InvalidOperationException("a conversion is running");
         // The steps given, or else the ones given last (the original application's test run's too).
         var steps = originalSteps != null ? Steps(analysis.Root, originalSteps) : store.OriginalSteps(id).ToList();
+        // The steps after ① need its build to have succeeded; their original build runs that build's MSBuild.
+        if (store.LastOriginalBuild(id) == null)
+            throw new InvalidOperationException(Lang.T("先にステップ 1 で元のアプリをビルドしてください(ビルドが通ると、ステップ 2 以降に進めます)", "Build the original application in step 1 first (the steps after it need its build to succeed)"));
         if (originalSteps != null) store.SaveOriginalSteps(id, steps);
-        if (msbuild != null) store.SaveMSBuild(id, msbuild);
         var entry = new ConversionEntry { State = "queued", Started = DateTimeOffset.UtcNow, BuildOriginal = buildOriginal, OriginalSteps = steps.Count > 0 ? steps : null };
         var cancel = new CancellationTokenSource();
         running[id] = cancel;
@@ -206,7 +208,7 @@ public sealed class Conversions(AnalysisStore store, string runtime)
                  })
             start.ArgumentList.Add(argument);
         if (buildOriginal) start.ArgumentList.Add("--build-original");
-        foreach (var argument in MSBuildArguments(store.MSBuild(id))) start.ArgumentList.Add(argument);
+        foreach (var argument in MSBuildArguments(store.LastOriginalBuild(id)?.MSBuild)) start.ArgumentList.Add(argument);
         foreach (var argument in StepArguments(steps)) start.ArgumentList.Add(argument);
         log.Enqueue("> dotnet " + string.Join(' ', start.ArgumentList.Select(a => a.Contains(' ') ? $"\"{a}\"" : a)));
 

@@ -170,7 +170,7 @@ api.MapGet("/analyses/{id}/original-build-advice", (string id, AnalysisStore sto
 
 // Converting and building in Studio (the saved choices), and the output as a zip.
 api.MapGet("/analyses/{id}/conversion", (string id, Conversions conversions, AnalysisStore store) =>
-    Results.Ok(new { conversion = conversions.Get(id), stale = conversions.Stale(id), originalSteps = store.OriginalSteps(id), msbuild = store.MSBuild(id), log = conversions.Log(id).TakeLast(300) }));
+    Results.Ok(new { conversion = conversions.Get(id), stale = conversions.Stale(id), originalSteps = store.OriginalSteps(id), msbuild = store.LastOriginalBuild(id)?.MSBuild, log = conversions.Log(id).TakeLast(300) }));
 
 // The Visual Studio and Build Tools installed with MSBuild: the original build's MSBuild is chosen among them when both
 // kinds are installed.
@@ -179,7 +179,7 @@ api.MapGet("/msbuild", () => Results.Ok(FrameworkOnCore.Converter.MSBuildInstanc
 api.MapPost("/analyses/{id}/conversion", (string id, ConversionRequest? request, Conversions conversions, Natives natives) =>
 {
     natives.Stop(id);  // the output is replaced: the site running from it stops (its files are not held)
-    try { return Results.Ok(conversions.Start(id, request?.BuildOriginal ?? false, request?.OriginalSteps, request?.MSBuild)); }
+    try { return Results.Ok(conversions.Start(id, request?.BuildOriginal ?? false, request?.OriginalSteps)); }
     catch (ArgumentException e) { return Results.BadRequest(new { error = e.Message }); }
     catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
 });
@@ -214,12 +214,20 @@ api.MapGet("/analyses/{id}/container/log", (string id, Containers containers) =>
 api.MapGet("/analyses/{id}/original", (string id, Originals originals, AnalysisStore store) =>
 {
     var (host, reason) = Originals.Hosts();
-    return Results.Ok(new { original = originals.Get(id), built = originals.Built(id), environment = originals.Environment(id), originalSteps = store.OriginalSteps(id), host, reason, log = originals.Log(id).TakeLast(300) });
+    return Results.Ok(new { original = originals.Get(id), built = originals.Built(id), lastBuild = store.LastOriginalBuild(id), msbuild = store.MSBuild(id), environment = originals.Environment(id), originalSteps = store.OriginalSteps(id), host, reason, log = originals.Log(id).TakeLast(300) });
 });
 
 api.MapPost("/analyses/{id}/original", (string id, OriginalRequest? request, Originals originals) =>
 {
     try { return Results.Ok(originals.Start(id, request?.Rebuild ?? false, request?.Environment, request?.OriginalSteps, request?.MSBuild)); }
+    catch (ArgumentException e) { return Results.BadRequest(new { error = e.Message }); }
+    catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
+});
+
+// ①'s build only (no IIS Express or IIS needed), with the MSBuild chosen: the steps after ① need it to succeed.
+api.MapPost("/analyses/{id}/original/build", (string id, OriginalRequest? request, Originals originals) =>
+{
+    try { return Results.Ok(originals.BuildOnly(id, request?.OriginalSteps, request?.MSBuild)); }
     catch (ArgumentException e) { return Results.BadRequest(new { error = e.Message }); }
     catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
 });

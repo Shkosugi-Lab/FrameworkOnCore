@@ -11,7 +11,7 @@ namespace FrameworkOnCore.Studio;
 /// <summary>An application running on this machine (the original one, or the converted one): how far it is, where it listens.</summary>
 public sealed record RunEntry
 {
-    /// <summary>building (the original application), starting (until the site answers), running, stopped, failed.</summary>
+    /// <summary>building (the original application), built (its build only, ①), starting (until the site answers), running, stopped, failed.</summary>
     public required string State { get; init; }
     public required DateTimeOffset Started { get; init; }
     /// <summary>What runs it: iisexpress, iis (the original application), dotnet (the converted one).</summary>
@@ -362,11 +362,8 @@ public sealed class Originals(AnalysisStore store) : Runs
             store.SaveOriginalSteps(id, steps);
         }
         // Another MSBuild than the last build's: built again.
-        if (msbuild != null)
-        {
-            if (msbuild != store.MSBuild(id)) rebuild = true;
-            store.SaveMSBuild(id, msbuild);
-        }
+        if (msbuild != store.MSBuild(id)) rebuild = true;
+        store.SaveMSBuild(id, msbuild);
         if (environment != null)
         {
             Directory.CreateDirectory(Folder(id));
@@ -412,6 +409,23 @@ public sealed class Originals(AnalysisStore store) : Runs
                 alive = () => true;
             }
             await WaitForSite(id, alive, log, cancel);
+        });
+    }
+
+    /// <summary>
+    /// ①'s build, without running the site (no IIS Express or IIS needed): the original application built as its
+    /// repository builds it, with the MSBuild chosen (msbuild) and the setup steps given. Its success is what the steps
+    /// after ① need (AnalysisStore.LastOriginalBuild); ends in "built", or "failed".
+    /// </summary>
+    public RunEntry BuildOnly(string id, IReadOnlyList<string>? originalSteps = null, string? msbuild = null)
+    {
+        if (store.Get(id) is not { } analysis) throw new InvalidOperationException("no such analysis");
+        if (originalSteps != null) store.SaveOriginalSteps(id, Conversions.Steps(analysis.Root, originalSteps));
+        store.SaveMSBuild(id, msbuild);
+        return Begin(id, new RunEntry { State = "building", Started = DateTimeOffset.UtcNow }, async (log, cancel) =>
+        {
+            var site = await Build(id, analysis, log, cancel);
+            entries[id] = entries[id] with { State = "built", Site = site };
         });
     }
 
@@ -519,6 +533,8 @@ public sealed class Originals(AnalysisStore store) : Runs
             if (process.ExitCode != 0 || site == null)
                 throw new InvalidOperationException(Lang.T($"元のアプリを組み立てられませんでした(詳しくは記録と {buildLog} にあります)", $"The original application could not be built (the log and {buildLog} have the details)"));
             File.WriteAllText(SiteFile(id), site);
+            // The build that succeeded last, and its MSBuild: the steps after ① need it, and take that MSBuild.
+            store.SaveOriginalBuild(id, new AnalysisStore.OriginalBuildRecord(DateTimeOffset.UtcNow, store.MSBuild(id)));
             return site;
         }
         finally { store.Heavy.Release(); }

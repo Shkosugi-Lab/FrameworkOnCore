@@ -11,7 +11,7 @@ const STATUS_TYPE = { Missing: 'error', Throws: 'error', WindowsOnly: 'warning',
 export const Status = ({ status }) => <StatusIndicator type={STATUS_TYPE[status] ?? 'info'}>{t(`status.${status}`)}</StatusIndicator>;
 
 // A run's state (the original application, the native run, the container) and the conversion's.
-const RUN_TYPE = { building: 'in-progress', starting: 'in-progress', running: 'success', stopped: 'stopped', failed: 'error', queued: 'pending', done: 'success', cancelled: 'stopped' };
+const RUN_TYPE = { building: 'in-progress', starting: 'in-progress', running: 'success', built: 'success', stopped: 'stopped', failed: 'error', queued: 'pending', done: 'success', cancelled: 'stopped' };
 export const RunState = ({ state, prefix = 'run' }) => state ? <StatusIndicator type={RUN_TYPE[state] ?? 'info'}>{t(`${prefix}.${state}`)}</StatusIndicator> : null;
 
 const codeStyle = {

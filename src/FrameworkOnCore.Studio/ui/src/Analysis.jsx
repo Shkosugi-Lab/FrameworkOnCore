@@ -63,10 +63,18 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
   useEffect(() => { refresh().catch(e => notify('error', e.message)); return () => clearTimeout(poll.current); }, [refresh, notify]);
   // Whether the site is made by the repository's own build: read from its files (① shows it, ⑤ starts from it).
   useEffect(() => { api(`/analyses/${id}/original-build-advice`).then(setAdvice).catch(() => {}); }, [id]);
-  // The Visual Studio and Build Tools installed: with both kinds, the original build's MSBuild is chosen (④).
+  // The Visual Studio and Build Tools installed: with both kinds, ①'s build runs the MSBuild chosen there.
   const [msbuildInstances, setMSBuildInstances] = useState([]);
   const [msbuildTyped, setMSBuildTyped] = useState(null);
   useEffect(() => { api('/msbuild').then(setMSBuildInstances).catch(() => {}); }, []);
+  // ①'s build and test run (its build that succeeded last opens the steps after ①): ① keeps it up to date.
+  const [original, setOriginal] = useState(null);
+  useEffect(() => {
+    setOriginal(null);
+    setMSBuildTyped(null);
+    api(`/analyses/${id}/original`).then(setOriginal).catch(() => {});
+  }, [id]);
+  const lastBuild = original?.lastBuild ?? null;
 
   // The conversion: while it waits or runs, asked again (the steps show how far it is); the setup steps given last.
   const convPoll = useRef(null);
@@ -90,7 +98,9 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
   }, [conversion, step, id, open]);
   useEffect(() => {
     if (entry && entry.state !== 'done' && step > 2) open(id, 2);
-  }, [entry, step, id, open]);
+    // A step after ① (a link to it) before ①'s build has succeeded: ①.
+    if (original && !original.lastBuild && step > 1) open(id, 1);
+  }, [entry, original, step, id, open]);
 
   const result = data?.result;
   const unsaved = changes(result, choices, saved);
@@ -99,12 +109,16 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
   const stepsText = stepsTyped ?? savedSteps.join('\n');
   const buildOriginal = buildOriginalChoice ?? (advice ? advice.needed : !!conversion?.conversion?.buildOriginal);
   const built = conversion?.conversion?.state === 'done';
-  // Both kinds installed: the one chosen (last), else Visual Studio's newest as the initial value; one kind: none given
-  // (the converter takes it).
+  // ①'s choice, both kinds installed: the one chosen (for its next build), else Visual Studio's newest as the initial
+  // value; one kind: none given (the converter takes it). The steps after ① take the last successful build's.
   const msbuildBoth = new Set(msbuildInstances.map(i => i.kind)).size > 1;
   const msbuild = msbuildBoth
-    ? msbuildTyped ?? conversion?.msbuild ?? msbuildInstances.find(i => i.kind === 'visualstudio')?.installationPath ?? null
+    ? msbuildTyped ?? original?.msbuild ?? lastBuild?.msBuild ?? msbuildInstances.find(i => i.kind === 'visualstudio')?.installationPath ?? null
     : null;
+  const msbuildName = folder => {
+    const i = msbuildInstances.find(m => m.installationPath === folder);
+    return i ? `${i.displayName} ${i.version}` : folder ?? '';
+  };
 
   async function save() {
     setSaving(true);
@@ -141,7 +155,7 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
   }
 
   const copyCommand = async conv => {
-    await navigator.clipboard.writeText(conv ? commandLine(command, conv.buildOriginal, conv.originalSteps ?? [], conversion?.msbuild) : commandLine(command, buildOriginal, parseSteps(stepsText), msbuild));
+    await navigator.clipboard.writeText(conv ? commandLine(command, conv.buildOriginal, conv.originalSteps ?? [], conversion?.msbuild) : commandLine(command, buildOriginal, parseSteps(stepsText), lastBuild?.msBuild));
     notify('success', t('command.copied'));
   };
 
@@ -164,7 +178,7 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
   const ctx = {
     id, entry, result, byComponent: data?.byComponent, choices, setChoices, saved, notify, confirm, setSplit, step, advice,
     conversion, setConversion, buildOriginal, setBuildOriginalChoice, stepsText, setStepsTyped, setSavedSteps,
-    msbuildInstances, msbuildBoth, msbuild, setMSBuild: setMSBuildTyped,
+    msbuildInstances, msbuildBoth, msbuild, setMSBuild: setMSBuildTyped, msbuildName, lastBuild, setOriginal,
     command, copyCommand, unsaved, save, loadAnalyses, loadConversion, linked: route.component,
   };
   const reanalyzeButton = <Button iconName="refresh" onClick={() => reanalyze().catch(e => notify('error', e.message))}>{t('analysis.reanalyze')}</Button>;
@@ -173,6 +187,8 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
 
   const go = async (n, reason) => {
     if (n === step) return;
+    // The steps after ① open once its build has succeeded.
+    if (n > 1 && !lastBuild) { notify('info', t('wizard.originalBuildFirst')); return; }
     if (n > 2 && !ready) { notify('info', t('wizard.analyzeFirst')); return; }
     // Forward from ② or ③ to the conversion, the choices are saved first (what is converted is what is saved).
     if ((step === 2 || step === SETTINGS) && n >= CONVERT && unsaved > 0 && !(await save())) return;
@@ -183,7 +199,8 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
 
   const stepState = n => {
     const c = conversion?.conversion;
-    if (n === 1) return t('state.done');
+    if (n === 1) return lastBuild ? t('state.done') : t('wizard.buildHere');
+    if (!lastBuild) return t('wizard.afterOriginalBuild');
     if (n === 2 && entry.state !== 'done') return entry.state === 'failed' ? t('state.failed') : entry.state === 'queued' ? t('state.queued') : t('state.analyzing');
     if (!ready) return n === 2 ? t('state.done') : t('wizard.afterAnalysis');
     if (n === 2 || n === SETTINGS) {

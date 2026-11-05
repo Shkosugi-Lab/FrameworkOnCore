@@ -88,6 +88,9 @@ export const M = {
   'wizard.notRun': ['未実行', 'Not run'],
   'wizard.ready': ['準備完了', 'Ready'],
   'wizard.afterBuild': ['ビルド後', 'After the build'],
+  'wizard.originalBuildFirst': ['ステップ 1 で元のアプリのビルドが通ると開けます', 'This opens once the original application has built in step 1'],
+  'wizard.afterOriginalBuild': ['ステップ 1 のビルドの後', 'After step 1\'s build'],
+  'wizard.buildHere': ['ビルドが必要', 'Needs its build'],
   'wizard.buildFirst': ['変換・ビルドが成功すると開けます', 'This opens once the conversion has built'],
 
   // ① Loading
@@ -113,8 +116,15 @@ export const M = {
   'load.pages': ['ページとサービス', 'Pages and services'],
   'load.none': ['なし', 'None'],
   'load.created': ['登録日時', 'Added'],
-  'load.build': ['リポジトリのビルド手順', 'The repository\'s build'],
-  'load.buildHint': ['ビルドのときにサイトを組み立てる手順があるか(あれば、変換は元のビルドから始めます)', 'Whether its build puts the site together (if so, the conversion starts from the original build)'],
+  'load.build': ['元のアプリのビルド', 'The original application\'s build'],
+  'load.buildHint': ['元のアプリを、そのリポジトリのビルド手順でビルドします。ビルドが通ると、ステップ 2 以降に進めます。', 'The original application built as its repository builds it. Once it builds, the steps after this one open.'],
+  'build.start': ['ビルド', 'Build'],
+  'build.again': ['もう一度ビルド', 'Build again'],
+  'build.msbuild': ['ビルドに使う MSBuild', 'The MSBuild that builds it'],
+  'build.msbuildHint': ['Visual Studio と Build Tools の両方が入っているので、どちらでビルドするかを選びます(--msbuild)。ビルドの仕組みは同じですが、入っている部品が違います。ステップ 2 以降は、最後にビルドに成功したときの選択を使います。', 'Both Visual Studio and its Build Tools are installed: choose which one builds (--msbuild). Their MSBuild is the same; the components installed beside it differ. The steps after this one take the choice of the build that succeeded last.'],
+  'build.needed': ['ステップ 2 以降に進むには、ここで元のアプリのビルドが通る必要があります。「ビルド」を押してください。', 'The steps after this one need the original application to build here: press "Build".'],
+  'build.done': [(w, n) => `ビルド成功(${w})${n ? ` ・ ${n}` : ''}`, (w, n) => `Built (${w})${n ? ` ・ ${n}` : ''}`],
+  'build.failed': ['ビルドが通りませんでした', 'The build failed'],
 
   // ② The analysis
   'step1.intro': ['アプリが使う .NET Framework の API を数え、.NET 10 でどうなるか、変換でどう対応するかをまとめた結果です。', 'The .NET Framework APIs the application uses, counted: how each is on .NET 10, and what the conversion does with it.'],
@@ -268,8 +278,7 @@ export const M = {
   'conversion.andMore': [n => `ほか ${n} 件`, n => `and ${n} more`],
   'conversion.stepsHint': ['元のビルドの後に実行する、リポジトリのセットアップ手順です(--original-step)。1 行に 1 つ、「プロジェクト;ターゲット」の形で、プロジェクトはリポジトリからの相対パスで書きます。例: build\\n2.proj;Templates-PrepareDependencies', 'The repository\'s setup steps after its build (--original-step), one a line as project;target, the project relative to the repository. Example: build\\n2.proj;Templates-PrepareDependencies'],
   'steps.label': ['追加の手順', 'Setup steps'],
-  'conversion.msbuild': ['元のビルドに使う MSBuild', 'The MSBuild of the original build'],
-  'conversion.msbuildHint': ['Visual Studio と Build Tools の両方が入っているので、どちらでビルドするかを選びます(--msbuild)。ビルドの仕組みは同じですが、入っている部品が違います。', 'Both Visual Studio and its Build Tools are installed: choose which one builds (--msbuild). Their MSBuild is the same; the components installed beside it differ.'],
+  'conversion.msbuildUsed': [n => `元のビルドに使う MSBuild: ${n}(ステップ 1 で最後にビルドに成功したもの)`, n => `The original build's MSBuild: ${n} (step 1's build that succeeded last)`],
   'report.title': ['変換レポート', 'Conversion report'],
   'report.hint': ['変換が変えた所と、変えられなかった所です。「未解決」があれば、ビルドや実行の前に確認してください。', 'What the conversion changed, and what it could not. Look at "Unresolved" first, if there is any.'],
   'report.full': ['レポート全体(CONVERSION-REPORT.md)', 'Full report (CONVERSION-REPORT.md)'],
@@ -290,6 +299,7 @@ export const M = {
 
   // Runs
   'run.building': ['ビルド中', 'Building'],
+  'run.built': ['ビルド成功', 'Built'],
   'run.starting': ['起動中', 'Starting'],
   'run.running': ['実行中', 'Running'],
   'run.stopped': ['停止', 'Stopped'],

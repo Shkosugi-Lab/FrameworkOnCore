@@ -90,10 +90,26 @@ public sealed class AnalysisStore
     }
 
     string MSBuildFile(string id) => Path.Combine(Folder(id), "msbuild.txt");
+    string OriginalBuildFile(string id) => Path.Combine(Folder(id), "original-build.json");
 
     /// <summary>
-    /// The MSBuild the original build runs, chosen last (the converter's --msbuild: an installation's folder), for the
-    /// conversion and the original application's test run alike; null: none chosen.
+    /// The original build that succeeded last (①): when, and the MSBuild it ran (an installation's folder; null: none
+    /// chosen, one kind installed). The steps after ① need one; the conversion's original build runs that MSBuild.
+    /// </summary>
+    public sealed record OriginalBuildRecord(DateTimeOffset Built, string? MSBuild);
+
+    public OriginalBuildRecord? LastOriginalBuild(string id) =>
+        File.Exists(OriginalBuildFile(id)) ? JsonSerializer.Deserialize<OriginalBuildRecord>(File.ReadAllText(OriginalBuildFile(id)), JsonSerializerOptions.Web) : null;
+
+    public void SaveOriginalBuild(string id, OriginalBuildRecord build)
+    {
+        Directory.CreateDirectory(Folder(id));
+        File.WriteAllText(OriginalBuildFile(id), JsonSerializer.Serialize(build, JsonSerializerOptions.Web));
+    }
+
+    /// <summary>
+    /// The MSBuild chosen in ① for its next build (the converter's --msbuild: an installation's folder; null: none chosen).
+    /// The steps after ① take the one of the build that succeeded last (LastOriginalBuild), not this.
     /// </summary>
     public string? MSBuild(string id) =>
         File.Exists(MSBuildFile(id)) && File.ReadAllText(MSBuildFile(id)).Trim() is { Length: > 0 } chosen ? chosen : null;

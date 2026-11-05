@@ -1,7 +1,7 @@
 // ① Loading: what is known of the application without its analysis (the project's files: its language, its .NET
 // Framework version, the projects it references, its packages, its pages; the repository's build), and the original
 // application run on this machine (its test run), which needs no analysis either.
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Container from '@cloudscape-design/components/container';
 import Header from '@cloudscape-design/components/header';
 import SpaceBetween from '@cloudscape-design/components/space-between';
@@ -9,9 +9,16 @@ import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
 import Box from '@cloudscape-design/components/box';
 import Alert from '@cloudscape-design/components/alert';
 import Badge from '@cloudscape-design/components/badge';
-import { api } from './api.js';
+import Button from '@cloudscape-design/components/button';
+import FormField from '@cloudscape-design/components/form-field';
+import RadioGroup from '@cloudscape-design/components/radio-group';
+import Textarea from '@cloudscape-design/components/textarea';
+import ProgressBar from '@cloudscape-design/components/progress-bar';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
+import { api, post } from './api.js';
 import { t, fmt, when } from './i18n.js';
-import { Original } from './Runners.jsx';
+import { parseSteps } from './choices.js';
+import { Original, useRun } from './Runners.jsx';
 
 const Code = ({ children }) => <Box variant="code" fontSize="body-s">{children}</Box>;
 
@@ -22,6 +29,14 @@ export default function Load({ ctx }) {
   useEffect(() => {
     api(`/analyses/${ctx.id}/project`).then(setProject).catch(() => setMissing(true));
   }, [ctx.id]);
+  // The original application's build and test run: one state (the build that succeeded last opens the steps after ①).
+  const pick = useCallback(b => b?.original, []);
+  const [body, load] = useRun(`/analyses/${ctx.id}/original`, pick, ctx.notify);
+  useEffect(() => {
+    if (!body) return;
+    ctx.setSavedSteps(body.originalSteps ?? []);
+    ctx.setOriginal(body);
+  }, [body]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const files = project?.files ?? [];
   return (
@@ -54,13 +69,46 @@ export default function Load({ ctx }) {
           ]} />
         )}
       </Container>
-      <Container header={<Header variant="h2" description={t('load.buildHint')}>{t('load.build')}</Header>}>
+      <OriginalBuild ctx={ctx} body={body} load={load} />
+      <Original ctx={ctx} body={body} load={load} />
+    </SpaceBetween>
+  );
+}
+
+/**
+ * The original application's build (its repository's build, the MSBuild chosen when both Visual Studio and its Build
+ * Tools are installed, the setup steps after it): the steps after ① open once it has succeeded, and take the MSBuild of
+ * the build that succeeded last.
+ */
+function OriginalBuild({ ctx, body, load }) {
+  const { advice, lastBuild } = ctx;
+  const k = body?.original?.state;
+  const building = k === 'building';
+  const build = () => post(`/analyses/${ctx.id}/original/build`, { originalSteps: parseSteps(ctx.stepsText), msbuild: ctx.msbuild })
+    .then(() => { ctx.setStepsTyped(null); return load(); }).catch(e => ctx.notify('error', e.message));
+  return (
+    <Container header={<Header variant="h2" description={t('load.buildHint')}
+      actions={<Button variant={lastBuild ? 'normal' : 'primary'} iconName={lastBuild ? 'refresh' : undefined} disabled={building || !body}
+        onClick={build}>{lastBuild ? t('build.again') : t('build.start')}</Button>}>{t('load.build')}</Header>}>
+      <SpaceBetween size="m">
         {!advice ? <Box color="text-body-secondary">{t('common.loading')}</Box>
           : advice.needed
             ? <Alert type="info" header={t('conversion.adviceNeeded')}><ul style={{ margin: 0, paddingInlineStart: 20 }}>{advice.reasons.map(r => <li key={r}>{r}</li>)}</ul></Alert>
             : <Box>{t('conversion.adviceNotNeeded')}</Box>}
-      </Container>
-      <Original ctx={ctx} />
-    </SpaceBetween>
+        {ctx.msbuildBoth && <FormField label={t('build.msbuild')} description={t('build.msbuildHint')} stretch>
+          <RadioGroup value={ctx.msbuild} onChange={ev => ctx.setMSBuild(ev.detail.value)}
+            items={ctx.msbuildInstances.map(i => ({ value: i.installationPath, label: `${i.displayName} ${i.version}`, description: i.installationPath, disabled: building }))} />
+        </FormField>}
+        <FormField label={t('steps.label')} description={t('original.stepsHint')} stretch>
+          <Textarea value={ctx.stepsText} onChange={ev => ctx.setStepsTyped(ev.detail.value)} rows={2} spellcheck={false} disabled={building} />
+        </FormField>
+        {building
+          ? <ProgressBar status="in-progress" label={t('original.building')} />
+          : lastBuild
+            ? <StatusIndicator type="success">{t('build.done', when(lastBuild.built), ctx.msbuildBoth ? ctx.msbuildName(lastBuild.msBuild) : null)}</StatusIndicator>
+            : <Alert type="info">{t('build.needed')}</Alert>}
+        {k === 'failed' && <Alert type="error" header={t('build.failed')}>{body.original.error}</Alert>}
+      </SpaceBetween>
+    </Container>
   );
 }

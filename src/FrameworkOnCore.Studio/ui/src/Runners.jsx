@@ -21,7 +21,7 @@ const HOST = { iisexpress: 'IIS Express', iis: 'IIS', dotnet: 'dotnet' };
 const busy = k => k === 'building' || k === 'starting';
 
 /** A run's state from the API, asked again while it builds or starts (2 s) and while it runs (10 s). */
-function useRun(path, pick, notify) {
+export function useRun(path, pick, notify) {
   const [body, setBody] = useState(null);
   const timer = useRef(null);
   const load = useCallback(async () => {
@@ -77,11 +77,8 @@ const EnvField = ({ value, onChange, hint }) => (
 );
 
 /** ① The original application (.NET Framework) run here: built as its repository builds it, run by IIS Express or IIS. */
-export function Original({ ctx }) {
-  const pick = useCallback(b => b?.original, []);
-  const [body, load] = useRun(`/analyses/${ctx.id}/original`, pick, ctx.notify);
+export function Original({ ctx, body, load }) {
   const [env, setEnv] = useState(null);
-  useEffect(() => { if (body) ctx.setSavedSteps(body.originalSteps ?? []); }, [body]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!body) return null;
   const { original, built, environment, host, reason, log } = body;
   const start = rebuild => post(`/analyses/${ctx.id}/original`, { rebuild, environment: env ?? environment, originalSteps: parseSteps(ctx.stepsText), msbuild: ctx.msbuild })
@@ -99,9 +96,6 @@ export function Original({ ctx }) {
         : <SpaceBetween size="m">
             <Box variant="p" color="text-body-secondary">{t('original.how', HOST[host])}</Box>
             <EnvField value={env ?? environment ?? ''} onChange={setEnv} hint={t('original.environmentWebConfig')} />
-            <FormField label={t('steps.label')} description={t('original.stepsHint')} stretch>
-              <Textarea value={ctx.stepsText} onChange={ev => ctx.setStepsTyped(ev.detail.value)} rows={2} spellcheck={false} />
-            </FormField>
           </SpaceBetween>} />
   );
 }

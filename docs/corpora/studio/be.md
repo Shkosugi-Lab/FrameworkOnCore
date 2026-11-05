@@ -3,7 +3,7 @@
 ブログのエンジンです(Web Forms、C#)。データは DB ではなく `App_Data` の XML に置きます。
 Studio(画面)で解析・変換し、Windows と Linux のコンテナで動かします。コマンドラインでの手順は [こちら](../be.md) です。
 
-入れておくもの(.NET 10 SDK、Git、Docker Desktop)は [共通の準備の 1](../setup.md#1-入れるもの) にあります。be では Visual Studio・Build Tools と SQL Server は要りません。
+入れておくもの(.NET 10 SDK、Git、Docker Desktop、**Visual Studio または Visual Studio Build Tools**)は [共通の準備の 1](../setup.md#1-入れるもの) にあります。Studio はステップ 1 で元のアプリをビルドするので、be でも Visual Studio か Build Tools が要ります。SQL Server は要りません。
 
 ## 1. FrameworkOnCore とソースを取る
 
@@ -48,11 +48,22 @@ tar -xf be.zip          # BlogEngine.NET-3.3.8.0 ができる
 
 ## 4. ステップ 1 読み込み
 
-プロジェクトの構成(言語、.NET Framework の版、NuGet パッケージの数、ページの数など)が出ます。「リポジトリのビルド手順」は「不要」です(be は元のアプリのビルドが要りません)。
-
-解析は裏で進みます(10 秒ほど)。「次へ」を押します。
+プロジェクトの構成(言語、.NET Framework の版、NuGet パッケージの数、ページの数など)が出ます。解析は裏で進みます(10 秒ほど)。
 
 ![ステップ 1 読み込み](images/be/03-step1.png)
+
+下の「元のアプリのビルド」で「ビルド」を押します。元のアプリを、そのリポジトリのビルド手順でビルドします(be で 30 秒ほど)。**ビルドが通るまで、ステップ 2 以降には進めません。**
+
+![元のアプリのビルド(ビルド前)](images/be/03a-step1-build.png)
+
+「ビルド成功」と出たら、「次へ」を押します。
+
+![元のアプリのビルド(ビルド成功)](images/be/03b-step1-built.png)
+
+Visual Studio と Build Tools の**両方**が入っている PC では、「ビルドに使う MSBuild」でどちらを使うかを選んでから「ビルド」を押します。どちらか一方だけなら、この欄は出ません。
+ステップ 2 以降(変換のときの元のビルドなど)は、最後にビルドに成功したときの選択を使います。別のものに変えるときは、選び直して「もう一度ビルド」を押します。
+
+![両方入っているとき(例)](images/be/03c-step1-choice.png)
 
 ## 5. ステップ 2 解析と対応
 

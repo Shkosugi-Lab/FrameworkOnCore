@@ -1,7 +1,7 @@
 # 共通の準備
 
-どのコーパスでも、一度だけ行う準備と、同じ流れ(取得 → 変換 → Linux のコンテナで動かす)です。
-コマンドは、リポジトリの一番上のフォルダーで、Windows PowerShell 5.1 で実行します。
+どのコーパスでも、流れは同じです。GitHub からソースを取り、FrameworkOnCore の変換器で変換し、変換が書いた Dockerfile で Linux のコンテナとして動かします。
+コマンドは Windows PowerShell 5.1 で実行します。
 
 ## 1. 入れるもの
 
@@ -12,9 +12,8 @@
 | [Git](https://git-scm.com/download/win) | すべて |
 | [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/)(WSL 2) | すべて(yaf を除く) |
 | [Visual Studio Build Tools](https://visualstudio.microsoft.com/downloads/)(「Web 開発ビルド ツール」と .NET Framework 4.8 の Targeting Pack) | mojo、dnn、n2、imis、nop、nop390(元のアプリのビルドが要るもの) |
-| [SQL Server Express](https://www.microsoft.com/sql-server/sql-server-downloads)(インスタンス名 `SQLEXPRESS`)と `sqlcmd` | mojo、dnn、imis(変換のときに DB を作るもの) |
 
-Linux 側の SQL Server は、コンテナで動かします(入れる必要はありません)。
+SQL Server は、Linux のコンテナで動かします。Windows に入れる必要はありません。
 
 WSL 2 のメモリーの上限は `%USERPROFILE%\.wslconfig` に書いておきます(16 GB の PC なら 8 GB)。
 
@@ -23,79 +22,94 @@ WSL 2 のメモリーの上限は `%USERPROFILE%\.wslconfig` に書いておき�
 memory=8GB
 ```
 
-## 2. リポジトリを取る
+## 2. FrameworkOnCore を取る
 
 ```powershell
 git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git C:\src\FrameworkOnCore
-cd C:\src\FrameworkOnCore
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned     # スクリプトを動かせるようにする(一度だけ)
 ```
 
-- 置く場所のパスは短くします(元のアプリのビルドに使う .NET Framework の MSBuild は、260 文字を超えるパスを扱えません)。
-- リポジトリが非公開のときは `gh auth login` をしておきます。FrameworkOnCore のパッケージは、初めて変換したときに GitHub Release から自動で取ってきます。
+- 変換器(`converter.ps1`)は、GitHub Actions がビルドしたものを初めて使うときに自動で取ってきます。変換後のアプリが使う FrameworkOnCore のパッケージも同じく自動です。
+- リポジトリが非公開のときは、先に `gh auth login` をしておきます。
 
-## 3. casefs をビルドする(一度だけ)
-
-Linux でもファイル名の大文字・小文字を区別せずに動かすためのライブラリです。Docker Desktop を起動してから実行します。
+Linux でもファイル名の大文字・小文字を区別せずに動かすためのライブラリ(casefs)も、一度だけビルドします。変換がこれを Dockerfile に入れます。Docker Desktop を起動してから実行します。
 
 ```powershell
-.\experiments\wf4c\casefs\build.ps1
+C:\src\FrameworkOnCore\experiments\wf4c\casefs\build.ps1
 ```
 
-## 4. コーパスを取る
+## 3. 作業用のフォルダー
 
-コーパスはこのリポジトリには入っていません。各ページの「GitHub から取得して変換する」のコマンドで、元の GitHub のリポジトリから取ります。
-
-- 取るのは、各ページに書いたタグかコミットの版です。ZIP を `curl.exe` でダウンロードし、`tar` で展開します。リポジトリの一部だけを使う mvcmovie・contoso は、`git` でそのフォルダーだけを取ります。
-- 置き場所は `corpora\work\<フォルダー>` です(変換のスクリプトがこのパスを使います)。先に作っておきます。
+ソースと変換の出力は `C:\foc` に置きます。各ページのコマンドは、このフォルダーで実行します。
 
 ```powershell
-New-Item -ItemType Directory -Force corpora\work | Out-Null
+New-Item -ItemType Directory -Force C:\foc | Out-Null
+cd C:\foc
 ```
 
-ブラウザーで取るとき(mvcmovie・contoso を除く)は、各ページの取得元のリンクからそのタグかコミットを開き、「Code」→「Download ZIP」でダウンロードします。展開したフォルダーは、`corpora\work\` に各ページの名前で置きます。
-`.\corpora\fetch.ps1 -Only <名前>` を使えば、同じことを 1 行で行えます。
+パスは短くします。元のアプリのビルドに使う .NET Framework の MSBuild は、260 文字を超えるパスを扱えないためです。
+
+## 4. ソースを取る
+
+各ページの「1. GitHub から取得する」のコマンドで、元の GitHub のリポジトリから、決まったタグかコミットの版を取ります。
+
+- ZIP は `curl.exe` でダウンロードし、`tar` で展開します。
+- リポジトリの一部だけを使う mvcmovie・contoso は、`git` でそのフォルダーだけを取ります。
+
+ブラウザーで取るときは、取得元のリンクからそのタグかコミットを開き、「Code」→「Download ZIP」を押します(mvcmovie・contoso を除く)。
 
 ## 5. 変換する
 
 ```powershell
-.\experiments\wf4c\convert-corpora.ps1 -Only be
+C:\src\FrameworkOnCore\converter.ps1 <Web プロジェクト> --out C:\foc\out\<名前> --root <ソースのフォルダー> --build-original auto
 ```
 
-- 出力は `experiments\wf4c\<名前>` です(変換の結果は `CONVERSION-REPORT.md`)。元のアプリのビルドが要るコーパスは、最初の 1 回だけ数分〜数十分かかります。
-- 確認: `=== <名前> BUILD OK` と出れば成功です。
-- 最後に `differ from their snapshot` で失敗扱いになることがあります。これは変換の判断が以前の記録と違うという意味で、`BUILD OK` が出ていれば、変換の結果はそのまま使えます。
+- `--root`: ソースの一番上のフォルダーです。プロジェクトがソリューションの外を参照していても、ここまでは見つけます。
+- `--build-original auto`: 元のアプリのビルドが要るかを変換器が判断し、要るときはビルドしてから変換します。
+- 各ページには、そのコーパスでの値を入れたコマンドがあります。
+- 確認: 最後に `build succeeded; web project: ...; report: C:\foc\out\<名前>\CONVERSION-REPORT.md` と出れば成功です。
+- 出力の中身:
+  - `CONVERSION-REPORT.md`: 変換の結果です。何を変えたかと、自分で直すところが書かれています。
+  - `Dockerfile`: Linux で動かすためのものです。
+  - `deploy\README.md`: 配置のしかたです(環境変数、systemd)。
 
-画面で試すときは `.\studio.ps1` を起動し、http://127.0.0.1:5300/ を開きます(手順は [README](../../README.md))。
-「プロジェクト」には各ページの Web プロジェクト、「リポジトリのフォルダー」には `corpora\work\<フォルダー>` を指定します。
+画面で変換するときは、`C:\src\FrameworkOnCore\studio.ps1` を起動して http://127.0.0.1:5300/ を開きます。「プロジェクト」と「リポジトリのフォルダー」に同じ値を入れます(手順は [README](../../README.md))。
 
 ## 6. Linux で動かす
 
-Docker Desktop を起動しておき、各ページの「Linux で動かす」のコマンドを実行します。動かし方は 2 通りです。
+Docker Desktop を起動しておき、各ページの「3. Linux で動かす」のコマンドを実行します。
 
-- **変換が書いた Dockerfile**(be、wt、nop390): 本番と同じイメージを作ります。接続文字列は環境変数 `SQLCONNSTR_<名前>` で渡します。
-- **`run-linux-site.ps1`**(mojo、dnn、n2、imis、nop): 変換が組み立てたサイトを、そのままコンテナで動かします。SQL Server もコンテナ(`w2l-sql`)で動かし、接続文字列をそこへ向けます。`-Keep` を付けるとコンテナが残るので、http://localhost:5098/ をブラウザーで開けます。
+- 変換の出力フォルダーで `docker build` すると、イメージができます。
+- コンテナはポート 8080 で待ち受けます。
+- DB の接続文字列は、web.config を書き換えずに、環境変数で渡します。
+  - `SQLCONNSTR_<接続文字列の名前>`: 接続文字列を置き換えます。
+  - `APPSETTING_<キー>`: appSettings の値を設定します。
+- SQL Server を使うコーパスでは、SQL Server もコンテナ(`foc-sql`)で動かします。アプリのコンテナと同じネットワーク(`foc-net`)につなぎます。
 
-mvcmovie・contoso は `run-linux.ps1` を使います。
+```powershell
+docker network create foc-net
+docker run -d --name foc-sql --network foc-net -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/mssql/server:2022-latest
+```
 
-コンテナは一度に一つ(DB の要るコーパスは、SQL Server とアプリの 2 つ)にします。
+SQL Server は、起動してから接続できるまでに 10〜20 秒かかります。
 
 ## 7. 片付け
 
 ```powershell
-docker rm -f <アプリのコンテナ> w2l-sql foc-sql     # docker ps -a で名前を確かめる
+docker rm -f <アプリのコンテナ> foc-sql
+docker network rm foc-net
 Stop-Process -Name 'Docker Desktop' -ErrorAction SilentlyContinue
 wsl --shutdown                                     # WSL のメモリーを返す
 ```
 
-SQL Server Express を使ったときは、管理者の PowerShell で `Stop-Service 'MSSQL$SQLEXPRESS'` を実行して止めます。
+コンテナは一度に一つ(SQL Server を使うときは、SQL Server とアプリの 2 つ)にします。
 
 ## 8. うまくいかないとき
 
 | 症状 | 対処 |
 |---|---|
-| 元のアプリのビルドが失敗する | Build Tools の入れ忘れか、パスが長すぎます。リポジトリを短いパス(`C:\src\...`)に置きます |
-| ポートが使われている | `Get-NetTCPConnection -LocalPort 5098 -State Listen` で使っているプロセスを調べて止めます。前のコンテナが残っているときは `docker rm -f` で消します |
-| Docker が遅い・止まる | 動いているほかのコンテナを止めます。`.wslconfig` の memory を見直します |
+| 元のアプリのビルドが失敗する | Build Tools が入っていないか、パスが長すぎます。ソースを短いパスに置きます |
+| ポート 8080 が使われている | 前のコンテナを `docker rm -f` で消すか、`-p 8081:8080` のように別のポートを使います |
+| Docker が遅い・止まる | ほかのコンテナを止めます。`.wslconfig` の memory を見直します |
 | ディスクがいっぱい | 不要なイメージを消します(`docker image prune -a`、`docker builder prune`) |
-| アプリが 500 になる | `docker logs <コンテナ>`、または `experiments\wf4c\_linux\<名前>-site\container.log` を見ます |
+| アプリが 500 になる・起動しない | `docker logs <コンテナ>` を見ます |

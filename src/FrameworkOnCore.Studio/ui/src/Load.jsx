@@ -15,6 +15,7 @@ import RadioGroup from '@cloudscape-design/components/radio-group';
 import Textarea from '@cloudscape-design/components/textarea';
 import ProgressBar from '@cloudscape-design/components/progress-bar';
 import StatusIndicator from '@cloudscape-design/components/status-indicator';
+import ExpandableSection from '@cloudscape-design/components/expandable-section';
 import { api, post } from './api.js';
 import { t, fmt, when } from './i18n.js';
 import { parseSteps } from './choices.js';
@@ -23,7 +24,7 @@ import { Original, useRun } from './Runners.jsx';
 const Code = ({ children }) => <Box variant="code" fontSize="body-s">{children}</Box>;
 
 export default function Load({ ctx }) {
-  const { entry, advice } = ctx;
+  const { entry } = ctx;
   const [project, setProject] = useState(null);
   const [missing, setMissing] = useState(false);
   useEffect(() => {
@@ -76,36 +77,41 @@ export default function Load({ ctx }) {
 }
 
 /**
- * The original application's build (its repository's build, the MSBuild chosen when both Visual Studio and its Build
- * Tools are installed, the setup steps after it): the steps after ① open once it has succeeded, and take the MSBuild of
- * the build that succeeded last.
+ * The original application's build (its repository's build, with Visual Studio's MSBuild or its Build Tools', the setup
+ * steps after it when the repository has any): the steps after ① open once it has succeeded, and take the MSBuild of the
+ * build that succeeded last. Both kinds are shown, the one not installed greyed out.
  */
 function OriginalBuild({ ctx, body, load }) {
-  const { advice, lastBuild } = ctx;
+  const { lastBuild } = ctx;
   const k = body?.original?.state;
   const building = k === 'building';
+  const instances = ctx.msbuildInstances;
+  const none = instances && instances.length === 0;
   const build = () => post(`/analyses/${ctx.id}/original/build`, { originalSteps: parseSteps(ctx.stepsText), msbuild: ctx.msbuild })
     .then(() => { ctx.setStepsTyped(null); return load(); }).catch(e => ctx.notify('error', e.message));
+  const kind = (value, label) => {
+    const i = instances?.find(m => m.kind === value);  // the newest first
+    return { value, label, description: i ? `${i.displayName} ${i.version}` : instances ? t('build.notInstalled') : '…', disabled: building || !i };
+  };
   return (
     <Container header={<Header variant="h2" description={t('load.buildHint')}
-      actions={<Button variant={lastBuild ? 'normal' : 'primary'} iconName={lastBuild ? 'refresh' : undefined} disabled={building || !body}
+      actions={<Button variant={lastBuild ? 'normal' : 'primary'} iconName={lastBuild ? 'refresh' : undefined} disabled={building || !body || !ctx.msbuild}
         onClick={build}>{lastBuild ? t('build.again') : t('build.start')}</Button>}>{t('load.build')}</Header>}>
       <SpaceBetween size="m">
-        {!advice ? <Box color="text-body-secondary">{t('common.loading')}</Box>
-          : advice.needed
-            ? <Alert type="info" header={t('conversion.adviceNeeded')}><ul style={{ margin: 0, paddingInlineStart: 20 }}>{advice.reasons.map(r => <li key={r}>{r}</li>)}</ul></Alert>
-            : <Box>{t('conversion.adviceNotNeeded')}</Box>}
-        {ctx.msbuildBoth && <FormField label={t('build.msbuild')} description={t('build.msbuildHint')} stretch>
+        <FormField label={t('build.msbuild')} description={t('build.msbuildHint')} stretch>
           <RadioGroup value={ctx.msbuild} onChange={ev => ctx.setMSBuild(ev.detail.value)}
-            items={ctx.msbuildInstances.map(i => ({ value: i.installationPath, label: `${i.displayName} ${i.version}`, description: i.installationPath, disabled: building }))} />
-        </FormField>}
-        <FormField label={t('steps.label')} description={t('original.stepsHint')} stretch>
-          <Textarea value={ctx.stepsText} onChange={ev => ctx.setStepsTyped(ev.detail.value)} rows={2} spellcheck={false} disabled={building} />
+            items={[kind('visualstudio', 'Visual Studio'), kind('buildtools', 'Build Tools')]} />
         </FormField>
+        {none && <Alert type="warning">{t('build.noMSBuild')}</Alert>}
+        <ExpandableSection headerText={t('steps.label')} headerDescription={t('build.stepsOptional')} defaultExpanded={ctx.stepsText.trim().length > 0}>
+          <FormField description={t('original.stepsHint')} stretch>
+            <Textarea value={ctx.stepsText} onChange={ev => ctx.setStepsTyped(ev.detail.value)} rows={2} spellcheck={false} disabled={building} />
+          </FormField>
+        </ExpandableSection>
         {building
           ? <ProgressBar status="in-progress" label={t('original.building')} />
           : lastBuild
-            ? <StatusIndicator type="success">{t('build.done', when(lastBuild.built), ctx.msbuildBoth ? ctx.msbuildName(lastBuild.msBuild) : null)}</StatusIndicator>
+            ? <StatusIndicator type="success">{t('build.done', when(lastBuild.built), ctx.msbuildName(lastBuild.msBuild))}</StatusIndicator>
             : <Alert type="info">{t('build.needed')}</Alert>}
         {k === 'failed' && <Alert type="error" header={t('build.failed')}>{body.original.error}</Alert>}
       </SpaceBetween>

@@ -50,7 +50,7 @@ export default function Convert({ ctx, onNext }) {
       <FormField label={t('steps.label')} description={t('conversion.stepsHint')} stretch>
         <Textarea value={ctx.stepsText} onChange={ev => ctx.setStepsTyped(ev.detail.value)} rows={2} spellcheck={false} disabled={!ctx.buildOriginal} />
       </FormField>
-      {ctx.msbuildBoth && ctx.lastBuild && <Muted>{t('conversion.msbuildUsed', ctx.msbuildName(ctx.lastBuild.msBuild))}</Muted>}
+      {ctx.lastBuild && <Muted>{t('conversion.msbuildUsed', ctx.msbuildName(ctx.lastBuild.msBuild))}</Muted>}
     </SpaceBetween>
   );
 

@@ -61,12 +61,12 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
   }, [id, loadAnalyses]);
 
   useEffect(() => { refresh().catch(e => notify('error', e.message)); return () => clearTimeout(poll.current); }, [refresh, notify]);
-  // Whether the site is made by the repository's own build: read from its files (① shows it, ⑤ starts from it).
+  // Whether the site is made by the repository's own build: read from its files (④'s initial value).
   useEffect(() => { api(`/analyses/${id}/original-build-advice`).then(setAdvice).catch(() => {}); }, [id]);
-  // The Visual Studio and Build Tools installed: with both kinds, ①'s build runs the MSBuild chosen there.
-  const [msbuildInstances, setMSBuildInstances] = useState([]);
+  // The Visual Studio and Build Tools installed (null: not known yet): ①'s build runs the kind chosen there.
+  const [msbuildInstances, setMSBuildInstances] = useState(null);
   const [msbuildTyped, setMSBuildTyped] = useState(null);
-  useEffect(() => { api('/msbuild').then(setMSBuildInstances).catch(() => {}); }, []);
+  useEffect(() => { api('/msbuild').then(setMSBuildInstances).catch(() => setMSBuildInstances([])); }, []);
   // ①'s build and test run (its build that succeeded last opens the steps after ①): ① keeps it up to date.
   const [original, setOriginal] = useState(null);
   useEffect(() => {
@@ -109,15 +109,18 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
   const stepsText = stepsTyped ?? savedSteps.join('\n');
   const buildOriginal = buildOriginalChoice ?? (advice ? advice.needed : !!conversion?.conversion?.buildOriginal);
   const built = conversion?.conversion?.state === 'done';
-  // ①'s choice, both kinds installed: the one chosen (for its next build), else Visual Studio's newest as the initial
-  // value; one kind: none given (the converter takes it). The steps after ① take the last successful build's.
-  const msbuildBoth = new Set(msbuildInstances.map(i => i.kind)).size > 1;
-  const msbuild = msbuildBoth
-    ? msbuildTyped ?? original?.msbuild ?? lastBuild?.msBuild ?? msbuildInstances.find(i => i.kind === 'visualstudio')?.installationPath ?? null
-    : null;
-  const msbuildName = folder => {
-    const i = msbuildInstances.find(m => m.installationPath === folder);
-    return i ? `${i.displayName} ${i.version}` : folder ?? '';
+  // ①'s choice, a kind (visualstudio or buildtools: the converter's --msbuild takes its newest): the one chosen (for its
+  // next build), else the last build's, else Visual Studio when it is installed. One chosen before as an installation's
+  // folder is taken as its kind. The steps after ① take the last successful build's.
+  const instances = msbuildInstances ?? [];
+  const msbuildKind = v => v === 'visualstudio' || v === 'buildtools' ? v : instances.find(i => i.installationPath === v)?.kind ?? null;
+  const installed = kind => instances.some(i => i.kind === kind);
+  const msbuild = [msbuildTyped, original?.msbuild, lastBuild?.msBuild].map(msbuildKind).find(k => k && installed(k))
+    ?? (installed('visualstudio') ? 'visualstudio' : installed('buildtools') ? 'buildtools' : null);
+  const msbuildName = value => {
+    const kind = msbuildKind(value);
+    const i = instances.find(m => m.kind === kind);  // the newest first
+    return i ? `${i.displayName} ${i.version}` : value ?? '';
   };
 
   async function save() {
@@ -178,7 +181,7 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
   const ctx = {
     id, entry, result, byComponent: data?.byComponent, choices, setChoices, saved, notify, confirm, setSplit, step, advice,
     conversion, setConversion, buildOriginal, setBuildOriginalChoice, stepsText, setStepsTyped, setSavedSteps,
-    msbuildInstances, msbuildBoth, msbuild, setMSBuild: setMSBuildTyped, msbuildName, lastBuild, setOriginal,
+    msbuildInstances, msbuild, setMSBuild: setMSBuildTyped, msbuildName, lastBuild, setOriginal,
     command, copyCommand, unsaved, save, loadAnalyses, loadConversion, linked: route.component,
   };
   const reanalyzeButton = <Button iconName="refresh" onClick={() => reanalyze().catch(e => notify('error', e.message))}>{t('analysis.reanalyze')}</Button>;

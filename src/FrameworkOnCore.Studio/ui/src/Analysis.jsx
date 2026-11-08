@@ -14,11 +14,10 @@ import Alert from '@cloudscape-design/components/alert';
 import ProgressBar from '@cloudscape-design/components/progress-bar';
 import { api, post, remove } from './api.js';
 import { t, when } from './i18n.js';
-import { changes, clone, commandLine, empty, normalize, parseSteps, prepare } from './choices.js';
+import { changes, clone, commandLine, normalize, parseSteps, prepare } from './choices.js';
 import Overview from './Overview.jsx';
 import Load from './Load.jsx';
 import Settings from './Settings.jsx';
-import ChoicesBar from './ChoicesBar.jsx';
 import Convert from './Convert.jsx';
 import Deploy from './Deploy.jsx';
 import { Log } from './Parts.jsx';
@@ -101,6 +100,15 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
   const result = data?.result;
   const unsaved = changes(result, choices, saved);
   useEffect(() => { dirty.current = unsaved > 0; }, [unsaved, dirty]);
+  const saveRef = useRef(null);
+  const saveFailed = useRef(null);
+  saveRef.current = save;
+  useEffect(() => {
+    // Not again for choices that could not be saved: once they change.
+    if (!unsaved || saving || choices === saveFailed.current) return undefined;
+    const timer = setTimeout(() => saveRef.current().catch(console.error), 600);
+    return () => clearTimeout(timer);
+  }, [choices, unsaved, saving]);
 
   const stepsText = stepsTyped ?? savedSteps.join('\n');
   const built = conversion?.conversion?.state === 'done';
@@ -118,6 +126,7 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
     return i ? `${i.displayName} ${i.version}` : value ?? '';
   };
 
+  // The choices are saved as they change (a moment after the last change); going on to the conversion saves what is not yet.
   async function save() {
     setSaving(true);
     try {
@@ -125,10 +134,10 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
       setSaved(clone(choices));
       setErrors([]);
       setCommand((await api(`/analyses/${id}/command`)).command);
-      notify('success', t('choices.saved'));
       return true;
     } catch (e) {
       setErrors(e.body?.errors ?? [e.message]);
+      saveFailed.current = choices;
       return false;
     } finally {
       setSaving(false);
@@ -180,8 +189,8 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
     command, copyCommand, unsaved, save, loadAnalyses, loadConversion, linked: route.component,
   };
   const reanalyzeButton = <Button iconName="refresh" onClick={() => reanalyze().catch(e => notify('error', e.message))}>{t('analysis.reanalyze')}</Button>;
-  const bar = ready && <ChoicesBar ctx={ctx} errors={errors} saving={saving}
-    onReset={() => { setChoices(empty()); setErrors([]); }} onDiscard={() => { setChoices(clone(saved)); setErrors([]); }} />;
+  // Saved by itself; what cannot be saved is told here (the choices stay as they are, to be changed).
+  const bar = ready && errors.length > 0 && <Alert type="error" header={t('choices.cannotSave')}>{errors.join(' / ')}</Alert>;
 
   const go = async (n, reason) => {
     if (n === step) return;

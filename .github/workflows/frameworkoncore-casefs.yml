@@ -41,6 +41,7 @@ jobs:
           $published = [bool]($names | Where-Object { $_ -eq $asset })
           "published=$($published.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
           if ($published) { "$asset is published already" } else { "building $asset" }
+          exit 0  # gh's exit code (no release yet) is not the step's
       - if: steps.key.outputs.published != 'true'
         uses: docker/setup-qemu-action@v3
         with:

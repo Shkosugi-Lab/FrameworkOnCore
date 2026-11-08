@@ -13,13 +13,13 @@ import Button from '@cloudscape-design/components/button';
 import FormField from '@cloudscape-design/components/form-field';
 import RadioGroup from '@cloudscape-design/components/radio-group';
 import Textarea from '@cloudscape-design/components/textarea';
-import ProgressBar from '@cloudscape-design/components/progress-bar';
 import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import ExpandableSection from '@cloudscape-design/components/expandable-section';
-import { api, post } from './api.js';
-import { t, fmt, when } from './i18n.js';
+import { api, post, remove } from './api.js';
+import { t, fmt, when, duration } from './i18n.js';
 import { parseSteps } from './choices.js';
 import { Original, useRun } from './Runners.jsx';
+import { LogSection } from './Parts.jsx';
 
 const Code = ({ children }) => <Box variant="code" fontSize="body-s">{children}</Box>;
 
@@ -71,7 +71,8 @@ export default function Load({ ctx }) {
         )}
       </Container>
       <OriginalBuild ctx={ctx} body={body} load={load} />
-      <Original ctx={ctx} body={body} load={load} />
+      {/* The test run once the build has succeeded; while a build runs, its progress and log are the build's panel's. */}
+      {ctx.lastBuild && body?.original?.state !== 'building' && <Original ctx={ctx} body={body} load={load} />}
     </SpaceBetween>
   );
 }
@@ -89,14 +90,17 @@ function OriginalBuild({ ctx, body, load }) {
   const none = instances && instances.length === 0;
   const build = () => post(`/analyses/${ctx.id}/original/build`, { originalSteps: parseSteps(ctx.stepsText), msbuild: ctx.msbuild })
     .then(() => { ctx.setStepsTyped(null); return load(); }).catch(e => ctx.notify('error', e.message));
+  const cancel = () => remove(`/analyses/${ctx.id}/original`).catch(e => ctx.notify('error', e.message)).then(load);
   const kind = (value, label) => {
     const i = instances?.find(m => m.kind === value);  // the newest first
     return { value, label, description: i ? `${i.displayName} ${i.version}` : instances ? t('build.notInstalled') : '…', disabled: building || !i };
   };
   return (
     <Container header={<Header variant="h2" description={t('load.buildHint')}
-      actions={<Button variant={lastBuild ? 'normal' : 'primary'} iconName={lastBuild ? 'refresh' : undefined} disabled={building || !body || !ctx.msbuild}
-        onClick={build}>{lastBuild ? t('build.again') : t('build.start')}</Button>}>{t('load.build')}</Header>}>
+      actions={building
+        ? <Button onClick={cancel}>{t('common.cancel')}</Button>
+        : <Button variant={lastBuild ? 'normal' : 'primary'} iconName={lastBuild ? 'refresh' : undefined} disabled={!body || !ctx.msbuild}
+            onClick={build}>{lastBuild ? t('build.again') : t('build.start')}</Button>}>{t('load.build')}</Header>}>
       <SpaceBetween size="m">
         <FormField label={t('build.msbuild')} description={t('build.msbuildHint')} stretch>
           <RadioGroup value={ctx.msbuild} onChange={ev => ctx.setMSBuild(ev.detail.value)}
@@ -109,11 +113,12 @@ function OriginalBuild({ ctx, body, load }) {
           </FormField>
         </ExpandableSection>
         {building
-          ? <ProgressBar status="in-progress" label={t('original.building')} />
+          ? <StatusIndicator type="loading">{t('original.building')} ・ {t('run.elapsed', duration(body.original.started))}</StatusIndicator>
           : lastBuild
             ? <StatusIndicator type="success">{t('build.done', when(lastBuild.built), ctx.msbuildName(lastBuild.msBuild))}</StatusIndicator>
             : <Alert type="info">{t('build.needed')}</Alert>}
         {k === 'failed' && <Alert type="error" header={t('build.failed')}>{body.original.error}</Alert>}
+        <LogSection lines={body?.log} open={building || k === 'failed'} />
       </SpaceBetween>
     </Container>
   );

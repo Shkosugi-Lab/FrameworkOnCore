@@ -125,20 +125,18 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         return users;
     }
 
-    // The library of file names without regard to case (casefs/libfoccase.so, built by casefs/build.ps1) for each
-    // processor, and its source. False when it has not been built: the deployment is made without it.
-    static readonly string[] caseRuntimes = ["linux-x64", "linux-arm64"];
-
+    // The library of file names without regard to case (casefs/libfoccase.so: fetched, the build GitHub Actions published
+    // of its sources, or built by casefs/build.ps1) for each processor, and its source. False when there is none: the
+    // deployment is made without it.
     bool WriteCaseLibraries(string directory)
     {
         var built = Path.Combine(runtimeDirectory, "casefs", "out");
-        var missing = caseRuntimes.Where(r => !File.Exists(Path.Combine(built, r, "libfoccase.so"))).ToList();
-        if (missing.Count > 0)
+        if (!RuntimeSetup.EnsureCaseLibraries(runtimeDirectory, Console.WriteLine))
         {
-            report.Add(Report.Kind.Error, "deploy", $"casefs/out/{string.Join(", ", missing)}/libfoccase.so not built (casefs/build.ps1): deployed without file names without regard to case");
+            report.Add(Report.Kind.Error, "deploy", "casefs/out/<rid>/libfoccase.so neither fetched nor built (casefs/build.ps1): deployed without file names without regard to case");
             return false;
         }
-        foreach (var runtime in caseRuntimes)
+        foreach (var runtime in RuntimeSetup.CaseRuntimes)
         {
             Directory.CreateDirectory(Path.Combine(directory, runtime));
             File.Copy(Path.Combine(built, runtime, "libfoccase.so"), Path.Combine(directory, runtime, "libfoccase.so"), overwrite: true);

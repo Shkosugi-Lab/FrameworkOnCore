@@ -768,6 +768,7 @@ Windows はファイル名の大文字小文字を区別しない。アプリは
   - 作成(O_CREAT・mkdir・rename の行き先など)は Windows と同じ: 大文字小文字違いの名前があればそれ、新しい名前は既にあるフォルダーの中に作る。大文字小文字だけの名前の変更もできる。
   - `FOC_CASE_ROOTS`(`:` 区切り)の下だけ。未設定なら何もしない。`FOC_CASE_LOG=1` で、大文字小文字違いで見つけたパスを標準エラーに 1 回ずつ書く(アプリの食い違いの一覧になる)。
   - フォルダーの一覧はキャッシュする(フォルダーの更新時刻で無効にする)。
+- 配布: GitHub Actions(`.github/workflows/frameworkoncore-casefs.yml`)がビルド・テストし、リリース `frameworkoncore-casefs` に、ソースのキー(`casefs\key.ps1`: ソースとビルド手順の SHA-256)ごとの `libfoccase-<key>.zip` として置く。変換器は Linux 向けに配置するとき、チェックアウトのキーのものを `casefs/out` に取ってくる(`casefs/out/key.txt` が同じキーならそのまま使う。取れなければ、あるビルドを警告付きで使う。`FOC_CASEFS` で zip の場所を変えられる)。
 - 作り方・試し方: `casefs\build.ps1`(linux-x64 と linux-arm64。古い glibc の Ubuntu 20.04 でビルドし、必要な glibc は x64 で 2.14、arm64 で 2.17 以上。.NET 10 が動くディストリビューションはすべて満たす)、`casefs\test.ps1`(`test/CaseProbe` を、ライブラリ無し(Linux の動き)と有り(Windows の動き)で実行。`-Platform linux/arm64` で arm64)。`run-linux.ps1`・`run-linux-site.ps1` の `-CaseInsensitive` で、サイトのプロセスに読み込ませる。`casefs/test-install.sh` は、変換の出力を `install.sh` で入れて起動する(systemd の無いコンテナで)。
 - 変換器の配置の出力に組み込む(`--case-insensitive on|off`、既定は on): `deploy/casefs/<linux-x64|linux-arm64>/libfoccase.so`(と `foccase.c`)を置き、`start.sh` が CPU に合うものを、読み込めるか試してから `LD_PRELOAD` に入れる(`FOC_CASE_ROOTS` の既定はサイトのフォルダー)。読み込めないマシン(Alpine の musl など)では警告を出して区別するまま動く。配置した後は `FOC_CASE_INSENSITIVE=0` で止める。Dockerfile は `deploy/casefs` を `/opt/foc/casefs` に、`install.sh` は `<prefix>/casefs` に置く。`off` なら置かない(`casefs\build.ps1` でビルドしていなければ、エラーをレポートに書いて置かない)。
 

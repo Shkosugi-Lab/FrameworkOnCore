@@ -1,0 +1,83 @@
+# libfoccase.so (experiments/wf4c/casefs: file names without regard to case on Linux), built here so that a user does
+# not build it (with Docker): published as an asset of the GitHub Release frameworkoncore-casefs, named by the key of
+# its sources (casefs/key.ps1: libfoccase-<key>.zip, linux-x64/ and linux-arm64/). The converter fetches the one of its
+# checkout's key into casefs/out when it deploys for Linux (RuntimeSetup.EnsureCaseLibraries); a key already published
+# is not built again. Every key's build is kept (an older checkout fetches its own).
+#
+# Tested before it is published: CaseProbe on Linux without it (Linux's behaviour) and with it (Windows'), on x64 and
+# on arm64 (QEMU), as casefs/test.ps1 runs it.
+name: FrameworkOnCore casefs
+
+on:
+  push:
+    branches: [main, 'pivot/**']
+    paths:
+      - 'experiments/wf4c/casefs/**'
+      - '.github/workflows/frameworkoncore-casefs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: frameworkoncore-casefs
+  cancel-in-progress: false
+
+jobs:
+  casefs:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: key
+        name: The build's key
+        shell: pwsh
+        run: |
+          $key = & experiments/wf4c/casefs/key.ps1
+          $asset = "libfoccase-$key.zip"
+          "asset=$asset" >> $env:GITHUB_OUTPUT
+          $names = gh release view frameworkoncore-casefs --repo $env:GITHUB_REPOSITORY --json assets --jq '.assets[].name' 2>$null
+          $published = [bool]($names | Where-Object { $_ -eq $asset })
+          "published=$($published.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
+          if ($published) { "$asset is published already" } else { "building $asset" }
+      - if: steps.key.outputs.published != 'true'
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+      - if: steps.key.outputs.published != 'true'
+        name: Build
+        shell: pwsh
+        run: |
+          & experiments/wf4c/casefs/build.ps1
+          foreach ($rid in 'linux-x64', 'linux-arm64') {
+            if (-not (Test-Path "experiments/wf4c/casefs/out/$rid/libfoccase.so")) { throw "$rid/libfoccase.so was not built" }
+          }
+      - if: steps.key.outputs.published != 'true'
+        name: Test (x64, arm64)
+        shell: pwsh
+        run: |
+          & experiments/wf4c/casefs/test.ps1 -NoBuild
+          if ($LASTEXITCODE -ne 0) { throw 'linux/amd64: CaseProbe failed' }
+          & experiments/wf4c/casefs/test.ps1 -NoBuild -Platform linux/arm64
+          if ($LASTEXITCODE -ne 0) { throw 'linux/arm64: CaseProbe failed' }
+      - if: steps.key.outputs.published != 'true'
+        name: Publish ${{ steps.key.outputs.asset }}
+        shell: pwsh
+        env:
+          ASSET: ${{ steps.key.outputs.asset }}
+        run: |
+          Push-Location experiments/wf4c/casefs/out
+          zip -q "$env:GITHUB_WORKSPACE/$env:ASSET" linux-x64/libfoccase.so linux-arm64/libfoccase.so
+          if ($LASTEXITCODE -ne 0) { throw 'could not zip the build' }
+          Pop-Location
+          $tag = 'frameworkoncore-casefs'
+          gh release view $tag --repo $env:GITHUB_REPOSITORY *> $null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create $tag --repo $env:GITHUB_REPOSITORY --prerelease --title 'FrameworkOnCore casefs (libfoccase.so)' `
+              --notes 'libfoccase.so (file names without regard to case on Linux) for linux-x64 and linux-arm64, one asset per key of its sources (experiments/wf4c/casefs/key.ps1). The converter fetches the one of its checkout.'
+            if ($LASTEXITCODE -ne 0) { throw 'could not create the release' }
+          }
+          gh release upload $tag $env:ASSET --repo $env:GITHUB_REPOSITORY --clobber
+          if ($LASTEXITCODE -ne 0) { throw 'could not upload the build' }
+          "published $env:ASSET"

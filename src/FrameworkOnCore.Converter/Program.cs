@@ -35,7 +35,8 @@ using FrameworkOnCore.Converter;
 // --deploy   how it is deployed on Linux: container (Dockerfile), linux (deploy/linux/install.sh, systemd),
 //            both (the default) or none. See DeployWriter.
 // --case-insensitive on|off  file names without regard to case in the deployment, as on Windows (on, the default: the
-//            library casefs/libfoccase.so, which casefs/build.ps1 builds, preloaded by start.sh; off: Linux's).
+//            library casefs/libfoccase.so, fetched (the build GitHub Actions published of its sources) or built by
+//            casefs/build.ps1, preloaded by start.sh; off: Linux's).
 // --choices <file>  what the user chose per component (foc-choices.json; analyze writes one with the defaults): the
 //            rules of options not chosen are left out. Without it, the catalog's defaults (as always). --case-insensitive
 //            given is over the file's file-name-case.

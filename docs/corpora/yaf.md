@@ -18,7 +18,6 @@
 New-Item -ItemType Directory -Force C:\foc | Out-Null
 cd C:\foc
 git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
-.\FrameworkOnCore\experiments\wf4c\casefs\build.ps1     # Docker Desktop を起動してから(Linux 用。一度だけ)
 ```
 
 ## 1. GitHub から取得する

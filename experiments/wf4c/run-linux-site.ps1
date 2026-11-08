@@ -28,7 +28,7 @@ param(
     # More environment variables for the site (WEBFORMSFORCORE_SHADOWCOPY = '0', ...).
     [hashtable]$Environment = @{},
     # File names without regard to case, as on Windows (casefs/libfoccase.so, preloaded into the site's process, for
-    # /app). casefs\build.ps1 builds it.
+    # /app). The converter fetches it into casefs\out when it deploys for Linux; casefs\build.ps1 builds it.
     [switch]$CaseInsensitive,
     [switch]$Keep
 )
@@ -89,7 +89,7 @@ docker rm -f $container 2>$null | Out-Null
 $environmentArguments = @($Environment.Keys | ForEach-Object { '-e'; "$_=$($Environment[$_])" })
 if ($CaseInsensitive) {
     $library = Join-Path $PSScriptRoot 'casefs\out'
-    if (-not (Test-Path (Join-Path $library 'linux-x64\libfoccase.so'))) { throw 'casefs\out\linux-x64\libfoccase.so: run casefs\build.ps1' }
+    if (-not (Test-Path (Join-Path $library 'linux-x64\libfoccase.so'))) { throw 'casefs\out\linux-x64\libfoccase.so: convert an application (the converter fetches it), or run casefs\build.ps1' }
     $environmentArguments += '-v', "${library}:/foccase:ro"
 }
 docker run -d --name $container --network w2l -e "LANG=$($Culture.Replace('-', '_')).UTF-8" @environmentArguments -p "${Port}:${Port}" -v "${siteDirectory}:/site:ro" -v "${overlay}:/overlay:ro" $Image bash -c $script | Out-Null

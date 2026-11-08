@@ -1,16 +1,16 @@
 # Builds libfoccase.so and runs CaseProbe on Linux (the ASP.NET runtime image) without it (Linux's behaviour) and with it
-# (Windows' behaviour expected of every check). -Platform linux/arm64 runs it on arm64 (emulated by Docker Desktop).
+# (Windows' behaviour expected of every check). -Platform linux/arm64 runs it on arm64 (emulated by Docker Desktop; on Linux, by QEMU).
 #   .\experiments\wf4c\casefs\test.ps1 [-Platform linux/amd64|linux/arm64] [-NoBuild]
 param([string]$Platform = 'linux/amd64', [switch]$NoBuild)
 $ErrorActionPreference = 'Continue'
 if (-not $NoBuild) { & (Join-Path $PSScriptRoot 'build.ps1') | Out-Null }
-$work = Join-Path $PSScriptRoot 'out\probe'
+$work = [IO.Path]::Combine($PSScriptRoot, 'out', 'probe')
 New-Item -ItemType Directory $work -Force | Out-Null
-docker run --rm -v "$(Join-Path $PSScriptRoot 'test\CaseProbe'):/src:ro" -v "${work}:/out" mcr.microsoft.com/dotnet/sdk:10.0 `
+docker run --rm -v "$([IO.Path]::Combine($PSScriptRoot, 'test', 'CaseProbe')):/src:ro" -v "${work}:/out" mcr.microsoft.com/dotnet/sdk:10.0 `
     bash -c 'cp -r /src /tmp/p && cd /tmp/p && dotnet publish -c Release -o /out -nologo -v q' | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'probe build failed' }
 $rid = if ($Platform -eq 'linux/arm64') { 'linux-arm64' } else { 'linux-x64' }
-$lib = Join-Path $PSScriptRoot "out\$rid"
+$lib = [IO.Path]::Combine($PSScriptRoot, 'out', $rid)
 "--- $Platform, without libfoccase.so (Linux)"
 docker run --rm --platform $Platform -v "${work}:/app:ro" mcr.microsoft.com/dotnet/aspnet:10.0 dotnet /app/CaseProbe.dll expect-linux
 $linux = $LASTEXITCODE

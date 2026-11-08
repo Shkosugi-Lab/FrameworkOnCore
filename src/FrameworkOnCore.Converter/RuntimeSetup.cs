@@ -69,9 +69,93 @@ public static class RuntimeSetup
         log?.Invoke($"  -> {feed}");
     }
 
+    /// <summary>The files libfoccase.so is built from (casefs/key.ps1 takes them in this order).</summary>
+    static readonly string[] caseLibrarySources = ["Dockerfile.build", "build.sh", "casemap.h", "foccase.c"];
+
+    /// <summary>The processors libfoccase.so is built for (casefs/out/&lt;rid&gt;).</summary>
+    public static readonly string[] CaseRuntimes = ["linux-x64", "linux-arm64"];
+
+    /// <summary>
+    /// The key of libfoccase.so's build (casefs/key.ps1): 12 hex characters of the SHA-256 of its sources, each its name, a
+    /// line feed, its bytes without carriage returns (a checkout's line endings), a line feed. Null when they are not there.
+    /// </summary>
+    public static string? CaseLibraryKey(string runtimeDirectory)
+    {
+        var casefs = Path.Combine(runtimeDirectory, "casefs");
+        var bytes = new List<byte>();
+        foreach (var name in caseLibrarySources)
+        {
+            var file = Path.Combine(casefs, name);
+            if (!File.Exists(file)) return null;
+            bytes.AddRange(System.Text.Encoding.UTF8.GetBytes(name + "\n"));
+            bytes.AddRange(File.ReadAllBytes(file).Where(b => b != '\r'));
+            bytes.Add((byte)'\n');
+        }
+        return Convert.ToHexStringLower(System.Security.Cryptography.SHA256.HashData(bytes.ToArray()))[..12];
+    }
+
+    /// <summary>Where the build of a key is (a URL, or a zip on disk); FOC_CASEFS overrides it (a mirror, an offline copy).</summary>
+    public static string CaseLibrarySource(string key) =>
+        Environment.GetEnvironmentVariable("FOC_CASEFS") is { Length: > 0 } source
+            ? source
+            : $"https://github.com/Shkosugi-Lab/FrameworkOnCore/releases/download/frameworkoncore-casefs/libfoccase-{key}.zip";
+
+    /// <summary>
+    /// libfoccase.so (file names without regard to case on Linux) in &lt;runtime&gt;/casefs/out/&lt;rid&gt;: the build there when
+    /// it is of the sources' key (out/key.txt: casefs/build.ps1's, or a fetch's), else the one GitHub Actions published for
+    /// the key (frameworkoncore-casefs.yml), fetched. Not fetched (no network, sources changed and not pushed): a build there
+    /// of other sources is left to be used, with a warning. True when there is one for every processor.
+    /// </summary>
+    public static bool EnsureCaseLibraries(string runtimeDirectory, Action<string>? log = null, string? source = null)
+    {
+        var output = Path.Combine(runtimeDirectory, "casefs", "out");
+        bool Built() => CaseRuntimes.All(r => File.Exists(Path.Combine(output, r, "libfoccase.so")));
+        var keyFile = Path.Combine(output, "key.txt");
+        var key = CaseLibraryKey(runtimeDirectory);
+        if (key == null) return Built();
+        if (Built() && File.Exists(keyFile) && File.ReadAllText(keyFile).Trim() == key) return true;
+
+        source ??= CaseLibrarySource(key);
+        log?.Invoke($"fetching libfoccase.so (casefs at {key}): {source}");
+        var zip = source;
+        var download = !File.Exists(source);
+        var staging = output + $".download-{Guid.NewGuid():N}";
+        try
+        {
+            if (download)
+            {
+                zip = Path.Combine(Path.GetTempPath(), $"libfoccase-{key}-{Guid.NewGuid():N}.zip");
+                Download(source, zip, "libfoccase.so", "or build it (experiments/wf4c/casefs/build.ps1, with Docker)");
+            }
+            ZipFile.ExtractToDirectory(zip, staging);
+            foreach (var runtime in CaseRuntimes)
+                if (!File.Exists(Path.Combine(staging, runtime, "libfoccase.so")))
+                    throw new InvalidOperationException($"{source}: {runtime}/libfoccase.so is not in it");
+            foreach (var runtime in CaseRuntimes)
+            {
+                Directory.CreateDirectory(Path.Combine(output, runtime));
+                File.Move(Path.Combine(staging, runtime, "libfoccase.so"), Path.Combine(output, runtime, "libfoccase.so"), overwrite: true);
+            }
+            File.WriteAllText(keyFile, key);
+            log?.Invoke($"  -> {output}");
+            return true;
+        }
+        catch (Exception e)  // no network, no such release, a broken zip: the conversion goes on without it
+        {
+            log?.Invoke($"  not fetched: {e.Message}");
+            if (Built()) log?.Invoke($"  the build in {output} is taken: it may be of other sources than these (casefs/build.ps1 builds them)");
+            return Built();
+        }
+        finally
+        {
+            FrameworkOnCore.Analysis.FileTrees.Delete(staging);
+            if (download && File.Exists(zip)) File.Delete(zip);
+        }
+    }
+
     // A release asset of a private repository is not there without a token (404): then through the API, with the token
     // of GH_TOKEN, GITHUB_TOKEN or the GitHub CLI (gh auth token).
-    static void Download(string url, string path)
+    static void Download(string url, string path, string what = "FrameworkOnCore's packages", string otherwise = "Or set FOC_FEED to the zip, or build them (experiments/wf4c/pack-frameworkoncore.ps1)")
     {
         using var http = new HttpClient { Timeout = TimeSpan.FromMinutes(10) };
         http.DefaultRequestHeaders.UserAgent.ParseAdd("FrameworkOnCore");
@@ -91,7 +175,7 @@ public static class RuntimeSetup
         using (response)
         {
             if (!response.IsSuccessStatusCode)
-                throw new InvalidOperationException($"FrameworkOnCore's packages could not be fetched ({(int)response.StatusCode}): {url}.{hint} Or set FOC_FEED to the zip, or build them (experiments/wf4c/pack-frameworkoncore.ps1)");
+                throw new InvalidOperationException($"{what} could not be fetched ({(int)response.StatusCode}): {url}.{hint} {otherwise}");
             using var file = File.Create(path);
             response.Content.CopyToAsync(file).GetAwaiter().GetResult();
         }

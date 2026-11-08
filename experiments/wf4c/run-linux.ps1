@@ -58,7 +58,7 @@ param(
     # Leave the container running afterwards (docker exec into it; docker rm -f to remove).
     [switch]$Keep,
     # File names without regard to case, as on Windows (casefs/libfoccase.so, preloaded into the application's process,
-    # for its folder). casefs\build.ps1 builds it.
+    # for its folder). The converter fetches it into casefs\out when it deploys for Linux; casefs\build.ps1 builds it.
     [switch]$CaseInsensitive,
     # More environment variables for the application (WEBFORMSFORCORE_PATH_CASING = '0', ...).
     [hashtable]$Environment = @{},

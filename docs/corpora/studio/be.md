@@ -13,7 +13,6 @@ Studio(画面)で解析・変換し、Windows と Linux のコンテナで動か
 New-Item -ItemType Directory -Force C:\foc | Out-Null
 cd C:\foc
 git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
-.\FrameworkOnCore\experiments\wf4c\casefs\build.ps1     # Docker Desktop を起動してから(Linux 用。一度だけ)
 curl.exe -L -o be.zip https://github.com/rxtur/BlogEngine.NET/archive/refs/tags/v3.3.8.0.zip
 tar -xf be.zip          # BlogEngine.NET-3.3.8.0 ができる
 ```

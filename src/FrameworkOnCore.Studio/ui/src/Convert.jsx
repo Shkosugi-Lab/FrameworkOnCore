@@ -7,7 +7,7 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import Button from '@cloudscape-design/components/button';
 import Alert from '@cloudscape-design/components/alert';
 import Box from '@cloudscape-design/components/box';
-import ProgressBar from '@cloudscape-design/components/progress-bar';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import ExpandableSection from '@cloudscape-design/components/expandable-section';
 import Badge from '@cloudscape-design/components/badge';
 import { post, remove, text } from './api.js';
@@ -56,7 +56,7 @@ export default function Convert({ ctx, onNext }) {
         <SpaceBetween size="m">
           {c?.error && <Alert type="error">{c.error}</Alert>}
           {body?.stale && <Alert type="warning">{t('conversion.stale')}</Alert>}
-          {active ? <ProgressBar status="in-progress" /> : options}
+          {active ? <StatusIndicator type="loading">{t(`conversion.${c.state}`)}</StatusIndicator> : options}
           <LogSection lines={body?.log} open={active || (c && !done && !c.sections)} />
         </SpaceBetween>
       </Container>

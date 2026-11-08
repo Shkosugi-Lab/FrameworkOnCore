@@ -12,7 +12,7 @@ export const Status = ({ status }) => <StatusIndicator type={STATUS_TYPE[status]
 
 // A run's state (the original application, the native run, the container) and the conversion's.
 const RUN_TYPE = { building: 'in-progress', starting: 'in-progress', running: 'success', built: 'success', stopped: 'stopped', failed: 'error', queued: 'pending', done: 'success', cancelled: 'stopped' };
-export const RunState = ({ state, prefix = 'run' }) => state ? <StatusIndicator type={RUN_TYPE[state] ?? 'info'}>{t(`${prefix}.${state}`)}</StatusIndicator> : null;
+export const RunState = ({ state, prefix = 'run' }) => state ? <StatusIndicator type={prefix === 'conversion' && state === 'running' ? 'in-progress' : RUN_TYPE[state] ?? 'info'}>{t(`${prefix}.${state}`)}</StatusIndicator> : null;
 
 const codeStyle = {
   margin: 0, maxHeight: 320, overflow: 'auto', padding: '8px 12px', whiteSpace: 'pre-wrap', wordBreak: 'break-all',

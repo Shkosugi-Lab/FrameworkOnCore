@@ -11,7 +11,7 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import Button from '@cloudscape-design/components/button';
 import Box from '@cloudscape-design/components/box';
 import Alert from '@cloudscape-design/components/alert';
-import ProgressBar from '@cloudscape-design/components/progress-bar';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import { api, post, remove } from './api.js';
 import { t, when } from './i18n.js';
 import { changes, clone, commandLine, normalize, parseSteps, prepare } from './choices.js';
@@ -112,6 +112,7 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
 
   const stepsText = stepsTyped ?? savedSteps.join('\n');
   const built = conversion?.conversion?.state === 'done';
+  const converting = ['queued', 'running'].includes(conversion?.conversion?.state);
   // ①'s choice, a kind (visualstudio or buildtools: the converter's --msbuild takes its newest): the one chosen (for its
   // next build), else the last build's, else Visual Studio when it is installed. One chosen before as an installation's
   // folder is taken as its kind. The steps after ① take the last successful build's.
@@ -179,7 +180,7 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
     </Header>
   );
 
-  if (!entry) return <SpaceBetween size="l">{header}<ProgressBar status="in-progress" label={t('common.loading')} /></SpaceBetween>;
+  if (!entry) return <SpaceBetween size="l">{header}<StatusIndicator type="loading">{t('common.loading')}</StatusIndicator></SpaceBetween>;
 
   const ready = entry.state === 'done' && data && choices;
   const ctx = {
@@ -223,7 +224,7 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
     <Container header={<Header variant="h2" description={failed ? undefined : t('analysis.runningHint')} actions={failed && reanalyzeButton}>
       {failed ? t('analysis.failed') : entry.state === 'queued' ? t('analysis.waiting') : t('analysis.running')}</Header>}>
       <SpaceBetween size="m">
-        {failed ? <Alert type="error">{entry.error}</Alert> : <ProgressBar status="in-progress" />}
+        {failed ? <Alert type="error">{entry.error}</Alert> : <StatusIndicator type="loading">{t('analysis.running')}</StatusIndicator>}
         <Log lines={log.slice(-60)} />
       </SpaceBetween>
     </Container>
@@ -240,7 +241,7 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
         onCancel={() => open(null)}
         onSubmit={() => { location.href = `/api/analyses/${id}/conversion/zip`; }}
         submitButtonText={t('wizard.download')}
-        isLoadingNextStep={saving}
+        isLoadingNextStep={saving || (step === 1 && original?.original?.state === 'building') || (step === CONVERT && converting)}
         i18nStrings={{
           stepNumberLabel: n => t('wizard.stepNumber', n),
           collapsedStepsLabel: (n, total) => t('wizard.collapsed', n, total),

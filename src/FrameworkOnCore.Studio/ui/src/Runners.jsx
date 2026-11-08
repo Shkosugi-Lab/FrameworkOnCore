@@ -9,7 +9,7 @@ import FormField from '@cloudscape-design/components/form-field';
 import Textarea from '@cloudscape-design/components/textarea';
 import Alert from '@cloudscape-design/components/alert';
 import Box from '@cloudscape-design/components/box';
-import ProgressBar from '@cloudscape-design/components/progress-bar';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import KeyValuePairs from '@cloudscape-design/components/key-value-pairs';
 import Link from '@cloudscape-design/components/link';
 import { api, post, remove, text } from './api.js';
@@ -50,8 +50,7 @@ function RunnerPanel({ title, description, entry, log, busyText, onStop, idle, a
         {!busy(k) && !running && actions}
       </SpaceBetween>}>{title}</Header>}>
       <SpaceBetween size="m">
-        {busy(k) && <ProgressBar status="in-progress" label={busyText(entry)}
-          description={`${t('run.elapsed', duration(entry.started))}${k === 'starting' ? ` ・ ${t('run.firstSlow')}` : ''}`} />}
+        {busy(k) && <StatusIndicator type="loading">{busyText(entry)} ・ {t('run.elapsed', duration(entry.started))}{k === 'starting' ? ` ・ ${t('run.firstSlow')}` : ''}</StatusIndicator>}
         {running && <>
           <KeyValuePairs columns={3} items={[
             { label: 'URL', value: <Link href={entry.url} external>{entry.url}</Link> },

@@ -199,6 +199,10 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
     void MakeRepository(string repository, string work)
     {
         RunProcess("git", "init -q", work, quiet: true);
+        // The files as they are, without line endings converted or warned of (this machine's core.autocrlf: a warning per
+        // file, thousands in the log); a build that commits and resets (DNN's) gets them back byte for byte.
+        RunProcess("git", "config core.autocrlf false", work, quiet: true);
+        RunProcess("git", "config core.safecrlf false", work, quiet: true);
         RunProcess("git", "add -A", work, quiet: true);
         RunProcess("git", "-c user.name=FrameworkOnCore -c user.email=noreply@localhost -c commit.gpgsign=false commit -q -m original", work, quiet: true);
         string? tag = null, from = null;

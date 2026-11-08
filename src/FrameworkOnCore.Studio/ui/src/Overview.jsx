@@ -54,6 +54,9 @@ export default function Overview({ ctx, actions, bar }) {
   const files = new Set(r.apis.flatMap(a => a.files.map(f => f.file))).size;
   const deciding = r.components.filter(c => choosable(c) && c.status !== 'Available');
   const handled = kind => apis.filter(a => a.handling.kind === kind).length;
+  // The summary's numbers are the chart's (API kinds by handling): the conversion's three ways, none, works differently.
+  const fixed = handled('option') + handled('callReplaced') + handled('retarget');
+  const notAsIs = fixed + handled('none') + handled('differs');
   const resolvedRate = frameworkUses + unresolved === 0 ? 100 : (100 * frameworkUses / (frameworkUses + unresolved));
   const inSources = left.filter(g => g.count > 0).length;
 
@@ -77,13 +80,13 @@ export default function Overview({ ctx, actions, bar }) {
       <Container header={<Header variant="h2" actions={actions}>{t('step1.numbers')}</Header>}>
         <ColumnLayout columns={4} variant="text-grid">
           <Metric label={t('step1.apis')} value={fmt(r.apis.length)} unit={t('unit.kinds')}
-            foot={<>{t('step1.projects', fmt(r.projects.filter(p => !p.skipped).length))} ・ {t('step1.usesShort', fmt(uses))} ・ {t('step1.files', fmt(files))}</>} />
-          <Metric label={t('step1.handled')} value={fmt(handled('option') + handled('retarget') + handled('callReplaced'))} unit={t('unit.kinds')}
-            foot={<>{t('step1.handledFoot', fmt(handled('none')), fmt(handled('differs')))} ・ {t('step1.resolvedShort', resolvedRate.toFixed(1))}{unresolved > 0 && <> ・ {t('step1.unresolved', fmt(unresolved))}</>}</>} />
-          <Metric label={t('step1.toDo')} value={fmt(left.length)} unit={t('unit.items')}
-            foot={<Link href="#" onFollow={goTab('todo')} fontSize="body-s">{t('step1.toDoFoot', fmt(inSources))}</Link>} />
-          <Metric label={t('step1.toDecide')} value={fmt(deciding.length)} unit={t('unit.items')}
-            foot={<Link href="#" onFollow={goTab('components')} fontSize="body-s">{t('step1.toDecideFoot')}</Link>} />
+            foot={<>{t('step1.notAsIs', fmt(notAsIs))} ・ {t('step1.projects', fmt(r.projects.filter(p => !p.skipped).length))} ・ {t('step1.usesShort', fmt(uses))} ・ {t('step1.files', fmt(files))} ・ {t('step1.resolvedShort', resolvedRate.toFixed(1))}{unresolved > 0 && <>({t('step1.unresolved', fmt(unresolved))})</>}</>} />
+          <Metric label={t('step1.handled')} value={fmt(fixed)} unit={t('unit.kinds')}
+            foot={<>{t('step1.handledFoot', fmt(handled('option')), fmt(handled('callReplaced')), fmt(handled('retarget')))}{deciding.length > 0 && <> ・ <Link href="#" onFollow={goTab('components')} fontSize="body-s">{t('step1.toDecideFoot', fmt(deciding.length))}</Link></>}</>} />
+          <Metric label={t('step1.none')} value={fmt(handled('none'))} unit={t('unit.kinds')}
+            foot={<Link href="#" onFollow={goTab('todo')} fontSize="body-s">{t('step1.toDoFoot', fmt(left.length), fmt(inSources))}</Link>} />
+          <Metric label={t('step1.differs')} value={fmt(handled('differs'))} unit={t('unit.kinds')}
+            foot={t('step1.differsFoot')} />
         </ColumnLayout>
       </Container>
       <Container header={<Header variant="h2"
@@ -96,7 +99,7 @@ export default function Overview({ ctx, actions, bar }) {
         </SpaceBetween>}>{t('step1.breakdown')}</Header>}>
         {shown.length
           ? <BarChart horizontalBars stackedBars hideFilter height={80} xScaleType="categorical"
-              series={shown.map(k => ({ title: label(k), type: 'bar', color: color(k), data: [{ x: axis, y: totals[k] }],
+              series={shown.map(k => ({ title: `${label(k)} ${fmt(totals[k])}`, type: 'bar', color: color(k), data: [{ x: axis, y: totals[k] }],
                 valueFormatter: v => `${fmt(v)} (${(100 * v / sum).toFixed(1)}%)` }))}
               ariaLabel={t('step1.breakdown')} i18nStrings={{ legendAriaLabel: t('chart.legend'), chartAriaRoleDescription: t('chart.bar') }} />
           : <Box color="text-body-secondary">{t('step1.noAttention')}</Box>}

@@ -62,6 +62,21 @@ foreach ($f in @(Get-ChildItem "$sql\base\*.sql") + @(Get-ChildItem "$sql\stored
 }
 ```
 
+ARM の PC(Windows on ARM)では、SQL Server の代わりに Azure SQL Edge を起動し([共通の準備の 5](setup.md#arm-の-pcwindows-on-armでは))、Windows の `sqlcmd`(`winget install sqlcmd`)でスクリプトを流します。
+
+```powershell
+docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=1 -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/azure-sql-edge
+Start-Sleep 20
+$sqlcmd = '-S', 'localhost,14330', '-U', 'sa', '-P', 'Foc_local_Passw0rd', '-C'
+sqlcmd @sqlcmd -Q "CREATE DATABASE imis"
+$sql = '.\database_ms_sqlserver-24.10\sql'
+foreach ($f in @(Get-ChildItem "$sql\base\*.sql") + @(Get-ChildItem "$sql\stored_procedures\*.sql") + @(Get-ChildItem "$sql\demo\*.sql")) {
+    sqlcmd @sqlcmd -d imis -f 65001 -i $f.FullName | Out-Null
+}
+```
+
+2 回目以降は、コンテナを `docker start foc-sql` で起動するだけです(DB は残っています)。
+
 接続文字列は `IMISConnectionString` です。
 
 ## 4. Windows で動かす

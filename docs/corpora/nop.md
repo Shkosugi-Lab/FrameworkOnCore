@@ -49,6 +49,8 @@ SQL Server のコンテナを起動します([共通の準備の 5](setup.md#5-s
 docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/mssql/server:2022-latest
 ```
 
+ARM の PC(Windows on ARM)では、SQL Server の代わりに Azure SQL Edge を使います([共通の準備の 5](setup.md#arm-の-pcwindows-on-armでは))。2 回目以降は `docker start foc-sql` で起動します。
+
 ## 4. Windows で動かす
 
 インストーラーがサイトの `ConnectionStrings.config` を書きます。Linux でも試すときは、先に 5 の `docker build` を済ませておきます([共通の準備の 7](setup.md#7-linux-で動かす))。

@@ -51,6 +51,14 @@ Start-Sleep 20
 docker exec foc-sql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P Foc_local_Passw0rd -C -Q "CREATE DATABASE mojo_windows; CREATE DATABASE mojo_linux"
 ```
 
+ARM の PC(Windows on ARM)では、SQL Server の代わりに Azure SQL Edge を起動し([共通の準備の 5](setup.md#arm-の-pcwindows-on-armでは))、Windows の `sqlcmd`(`winget install sqlcmd`)で DB を作ります。2 回目以降はコンテナを `docker start foc-sql` で起動するだけです(DB は残っています)。
+
+```powershell
+docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=1 -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/azure-sql-edge
+Start-Sleep 20
+sqlcmd -S localhost,14330 -U sa -P Foc_local_Passw0rd -C -Q "CREATE DATABASE mojo_windows; CREATE DATABASE mojo_linux"
+```
+
 接続文字列は、appSettings の `MSSQLConnectionString` として渡します(`APPSETTING_MSSQLConnectionString`)。
 
 ## 4. Windows で動かす

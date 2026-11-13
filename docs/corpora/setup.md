@@ -120,6 +120,20 @@ SQL Server をコンテナで動かし、この PC のポート 14330 で公開�
 docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/mssql/server:2022-latest
 ```
 
+- 2 回目以降(PC の再起動のあとなど)は、`docker start foc-sql` で起動します。同じ名前のコンテナがあるので、`docker run` は「Conflict」で止まります。
+- 動いているかは `docker ps -a --filter name=foc-sql` で確かめます(`docker ps` は止まっているコンテナを出しません)。STATUS が `Exited` なら止まっています。
+
+### ARM の PC(Windows on ARM)では
+
+SQL Server 2022 のイメージは x64 版しかなく、ARM の PC ではエミュレーションで起動してもすぐ止まります(`docker run` で「The requested image's platform (linux/amd64) does not match ... (linux/arm64/v8)」と出ます)。代わりに、arm64 版のある Azure SQL Edge(SQL Server と同じエンジン)を使います。名前・ポート・パスワードは同じなので、接続文字列はそのまま使えます。
+
+```powershell
+docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=1 -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/azure-sql-edge
+```
+
+- Azure SQL Edge は 2025 年 9 月でサポートが終わっています(イメージは取れますが、更新されません)。この PC での動作確認に使います。
+- Azure SQL Edge のコンテナには `sqlcmd` が入っていません。DB をスクリプトで作るページ(dnn、mojo、imis)の `docker exec foc-sql /opt/mssql-tools18/bin/sqlcmd ...` は動かないので、Windows の `sqlcmd` を入れて(`winget install sqlcmd`)、各ページの「ARM の PC では」の手順を使います。
+
 接続文字列のサーバー名は、アプリをどこで動かすかで変わります。
 
 | アプリを動かす場所 | サーバー名(`Data Source`) |

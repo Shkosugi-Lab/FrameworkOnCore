@@ -194,6 +194,7 @@ api.MapGet("/analyses/{id}/container", (string id, Containers containers) =>
 api.MapPost("/analyses/{id}/container", (string id, ContainerRequest? request, Containers containers) =>
 {
     try { return Results.Ok(containers.Start(id, request?.Environment)); }
+    catch (ArgumentException e) { return Results.BadRequest(new { error = e.Message }); }
     catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
 });
 
@@ -233,6 +234,7 @@ api.MapGet("/analyses/{id}/native", (string id, Natives natives) =>
 api.MapPost("/analyses/{id}/native", (string id, NativeRequest? request, Natives natives) =>
 {
     try { return Results.Ok(natives.Start(id, request?.Environment)); }
+    catch (ArgumentException e) { return Results.BadRequest(new { error = e.Message }); }
     catch (InvalidOperationException e) { return Results.Conflict(new { error = e.Message }); }
 });
 

@@ -81,7 +81,12 @@ docker run -d -p 8080:8080 --name wingtiptoys -e "SQLCONNSTR_DefaultConnection=$
 
 http://localhost:8080/ を開きます。
 
-Studio では、「コンテナ起動(Linux / Docker)」の「環境変数」に、上の 2 行のサーバー名を `host.docker.internal,14330` にしたものを書き、「起動」を押します。
+Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、次の行を書きます(上のコマンドの `-e` のあとの部分です。コマンドは貼らず、引用符も付けません)。
+
+```
+SQLCONNSTR_DefaultConnection=Data Source=host.docker.internal,14330;Initial Catalog=WingtipToys;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True
+SQLCONNSTR_WingtipToys=Data Source=host.docker.internal,14330;Initial Catalog=WingtipToys;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True
+```
 
 ## 6. 片付け
 

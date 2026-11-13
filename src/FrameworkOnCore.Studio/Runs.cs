@@ -60,6 +60,32 @@ public static class RunEnvironment
         return string.Join('\n', lines) + '\n';
     }
 
+    /// <summary>
+    /// Lines that are not NAME=value (nor comments, nor blank): ArgumentException, each with its line, before anything is
+    /// built or started. A docker command pasted in (docker run ... -e "NAME=value") is told as such: its variables go one
+    /// a line, without -e and quotes. A name is letters, digits and _ (not starting with a digit), as docker's --env-file and
+    /// the shells take it.
+    /// </summary>
+    public static void Check(string? text)
+    {
+        if (text == null) return;
+        var errors = new List<string>();
+        var lines = text.Split('\n');
+        for (var i = 0; i < lines.Length; i++)
+        {
+            var line = lines[i].Trim();
+            if (line.Length == 0 || line.StartsWith('#')) continue;
+            var at = line.IndexOf('=');
+            var name = at > 0 ? line[..at].Trim() : line;
+            if (at > 0 && Regex.IsMatch(name, "^[A-Za-z_][A-Za-z0-9_]*$")) continue;
+            var shown = line.Length > 60 ? line[..60] + "…" : line;
+            errors.Add(Regex.IsMatch(line, @"^(docker|podman)\s|\s-e\s|--env\b")
+                ? Lang.T($"{i + 1} 行目はコマンドです({shown})。コマンドではなく、-e のあとの「名前=値」だけを 1 行に 1 つ書いてください(引用符は要りません)", $"Line {i + 1} is a command ({shown}). Write only the NAME=value after each -e, one a line (without quotes)")
+                : Lang.T($"{i + 1} 行目が「名前=値」の形ではありません({shown})。名前に使えるのは英数字と _ です", $"Line {i + 1} is not NAME=value ({shown}). A name is letters, digits and _"));
+        }
+        if (errors.Count > 0) throw new ArgumentException(Lang.T("環境変数: ", "Environment variables: ") + string.Join(" / ", errors));
+    }
+
     /// <summary>NAME=value lines; comments and names without a value are left out.</summary>
     public static IEnumerable<(string Name, string Value)> Variables(string text) =>
         text.Split('\n').Select(l => l.TrimEnd('\r')).Where(l => !l.TrimStart().StartsWith('#'))
@@ -355,6 +381,7 @@ public sealed class Originals(AnalysisStore store) : Runs
         if (store.Get(id) is not { } analysis) throw new InvalidOperationException("no such analysis");
         var iisExpress = IisExpress();
         if (Hosts() is { Host: null, Reason: var reason }) throw new InvalidOperationException(reason);
+        RunEnvironment.Check(environment ?? Environment(id));
         if (originalSteps != null)
         {
             var steps = Conversions.Steps(analysis.Root, originalSteps);
@@ -605,6 +632,7 @@ public sealed class Natives(AnalysisStore store, Conversions conversions) : Runs
         var start = Path.Combine(conversions.Output(id), "deploy", "start.sh");
         var dll = File.Exists(start) ? Regex.Match(File.ReadAllText(start), @"exec dotnet ""bin/(.+?)\.dll""") : null;
         if (dll is not { Success: true }) throw new InvalidOperationException(Lang.T("変換の出力に deploy/start.sh がありません", "The conversion's output has no deploy/start.sh"));
+        RunEnvironment.Check(environment ?? Environment(id));
         if (environment != null)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(EnvironmentFile(id))!);

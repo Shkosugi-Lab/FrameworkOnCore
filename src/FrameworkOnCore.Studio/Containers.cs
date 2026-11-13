@@ -134,6 +134,8 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
             State = "building", Started = DateTimeOffset.UtcNow,
             Image = $"foc-studio/{(slug.Length > 0 ? slug : "app")}:{id[^8..]}", Name = $"foc-studio-{id[^8..]}",
         };
+        // Checked before the image is built (minutes): docker run would refuse the variables only after it.
+        RunEnvironment.Check(environment ?? (File.Exists(EnvironmentFile(id)) ? File.ReadAllText(EnvironmentFile(id)) : null));
         Directory.CreateDirectory(Folder(id));
         if (environment != null) File.WriteAllText(EnvironmentFile(id), environment);
         var cancel = new CancellationTokenSource();

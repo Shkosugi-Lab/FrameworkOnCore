@@ -74,7 +74,11 @@ docker build -t contoso .\out\contoso
 docker run -d -p 8080:8080 --name contoso -e "SQLCONNSTR_SchoolContext=Data Source=host.docker.internal,14330;Initial Catalog=ContosoUniversity1;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" contoso
 ```
 
-http://localhost:8080/Student を開きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、サーバー名を `host.docker.internal,14330` にして書きます。
+http://localhost:8080/Student を開きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、次の行を書きます(上のコマンドの `-e` のあとの部分です。コマンドは貼らず、引用符も付けません)。
+
+```
+SQLCONNSTR_SchoolContext=Data Source=host.docker.internal,14330;Initial Catalog=ContosoUniversity1;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True
+```
 
 記録では、Windows・Linux とも 12 画面のうち 9 が元のアプリと同じでした(2026-10-22・10-27)。ただし、このページの手順そのものは試していません。
 

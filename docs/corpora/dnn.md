@@ -84,7 +84,11 @@ docker build -t dnn .\out\dnn
 docker run -d -p 8080:8080 --name dnn -e "SQLCONNSTR_SiteSqlServer=Data Source=host.docker.internal,14330;Initial Catalog=dnn_linux;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" dnn
 ```
 
-http://localhost:8080/Install/Install.aspx?mode=install を開いてインストールします。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、この値を書きます。
+http://localhost:8080/Install/Install.aspx?mode=install を開いてインストールします。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、次の行を書きます(上のコマンドの `-e` のあとの部分です。コマンドは貼らず、引用符も付けません)。
+
+```
+SQLCONNSTR_SiteSqlServer=Data Source=host.docker.internal,14330;Initial Catalog=dnn_linux;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True
+```
 
 記録では、Windows・Linux ともインストールが終わり、これらのページが 200 でした(2026-10-11)。ただし、このページの手順そのものは試していません。
 

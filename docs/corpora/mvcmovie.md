@@ -82,7 +82,12 @@ $sql = 'Data Source=host.docker.internal,14330;User ID=sa;Password=Foc_local_Pas
 docker run -d -p 8080:8080 --name mvcmovie -e "SQLCONNSTR_MovieDBContext=$sql;Initial Catalog=MvcMovie" -e "SQLCONNSTR_DefaultConnection=$sql;Initial Catalog=MvcMovieIdentity" mvcmovie
 ```
 
-http://localhost:8080/Movies を開きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、サーバー名を `host.docker.internal,14330` にして書きます。
+http://localhost:8080/Movies を開きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、次の行を書きます(上のコマンドの `-e` のあとの部分です。コマンドは貼らず、引用符も付けません)。
+
+```
+SQLCONNSTR_MovieDBContext=Data Source=host.docker.internal,14330;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;Initial Catalog=MvcMovie
+SQLCONNSTR_DefaultConnection=Data Source=host.docker.internal,14330;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;Initial Catalog=MvcMovieIdentity
+```
 
 記録では、Windows・Linux とも 12 画面のうち 11 が元のアプリと同じでした(2026-10-22・10-27)。ただし、このページの手順そのものは試していません。
 

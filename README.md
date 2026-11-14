@@ -79,7 +79,7 @@ Studio は 5 つの手順のウィザードです(左の手順から、どこへ
    - **すべての API**: API は部品ではなく 1 つずつ、変換器がどう扱うか(いまの選択で: 部品の対応、DLL の参照の付け替え・呼び出しの置き換え、そのまま動く、動きの違い・廃止予定、対応なし)で数えます。
 3. **サーバーの設定**: API ではなく、アプリ全体に対する選択です。2 と 3 の選択は、変えるとそのまま保存されます。ファイル名の大文字小文字のほか、IIS の機能の動かし方(要求のログ・URL Rewrite・エラー ページ・圧縮: IIS 互換〈既定〉/ ASP.NET Core 標準 / オフ)があり、変換後の `appsettings.json` に書かれます(変換後もそこで変えられます)。
 4. **変換・ビルド**: 保存した選択で変換とビルドを行います。変換では毎回、元のアプリをステップ 1 と同じ手順(MSBuild、追加の手順)で、まっさらな状態からビルドし直し、配置されるサイトから組み立てます(`--build-original`)。追加の手順(`--original-step`。N2 の `build\n2.proj;Templates-PrepareDependencies` など)はステップ 1 で入れます(「変換のコマンドをコピー」のコマンドにも入ります)。変換レポートは節ごとに開いて見られます。
-5. **実行・デプロイ**: Linux に配置できる形(Dockerfile と systemd 用のスクリプト付き、`obj` を除く)の ZIP のダウンロード、この PC の dotnet での起動(ネイティブ起動、Docker 不要)、Dockerfile からイメージを作って localhost のポートでのコンテナ起動(Docker Desktop が要ります。Studio のコンテナは一度に一つ)。どちらも接続文字列などを環境変数(`SQLCONNSTR_<名前>`、`APPSETTING_<キー>`)で渡せます(それぞれ別に保存。コンテナの中からは LocalDB やこの PC の localhost は見えないので、`host.docker.internal` を使う)。ECR への発行は予定です。コマンドラインで変換するためのコマンドもコピーできます。
+5. **実行・デプロイ**: 変換の出力の ZIP のダウンロード(Linux 用は Dockerfile と systemd 用のスクリプト付き、Windows 用はサイトだけ。どちらもその OS 用の部品だけで、`obj` を除く)、この PC の dotnet での起動(ネイティブ起動、Docker 不要)、Dockerfile からイメージを作って localhost のポートでのコンテナ起動(Docker Desktop が要ります。Studio のコンテナは一度に一つ)。どちらも接続文字列などを環境変数(`SQLCONNSTR_<名前>`、`APPSETTING_<キー>`)で渡せます(それぞれ別に保存。コンテナの中からは LocalDB やこの PC の localhost は見えないので、`host.docker.internal` を使う)。ECR への発行は予定です。コマンドラインで変換するためのコマンドもコピーできます。
 
 Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、Studio を止めると止まります(強制終了でも止まり、IIS に作ったサイトは次の起動で消えます)。
 

@@ -20,8 +20,12 @@ export default function Deploy({ ctx }) {
         <Container header={<Header variant="h2" description={t('zip.description')}
           actions={<SpaceBetween direction="horizontal" size="xs">
             {ctx.command && <Button iconName="copy" onClick={() => ctx.copyCommand(c).catch(e => ctx.notify('error', e.message))}>{t('command.copy')}</Button>}
-            {c?.state === 'done' && <Button variant="primary" iconName="download" href={`/api/analyses/${ctx.id}/conversion/zip`}>
-              {t('zip.download', (c.zipSize / 1048576).toFixed(1))}</Button>}
+            {c?.state === 'done' && (c.zips
+              ? ['linux', 'windows'].filter(k => c.zips[k]).map(k =>
+                  <Button key={k} variant={k === 'linux' ? 'primary' : 'normal'} iconName="download" href={`/api/analyses/${ctx.id}/conversion/zip?for=${k}`}>
+                    {t(`zip.${k}`, (c.zips[k].size / 1048576).toFixed(1))}</Button>)
+              : <Button variant="primary" iconName="download" href={`/api/analyses/${ctx.id}/conversion/zip`}>
+                  {t('zip.download', (c.zipSize / 1048576).toFixed(1))}</Button>)}
           </SpaceBetween>}>{t('zip.title')}</Header>}>
           {ctx.conversion?.stale ? <Alert type="warning">{t('conversion.stale')}</Alert> : <Box color="text-body-secondary">{t('zip.readme')}</Box>}
         </Container>

@@ -21,12 +21,17 @@ public sealed record ConversionEntry
     public string? Error { get; init; }
     /// <summary>The sections of CONVERSION-REPORT.md and their counts.</summary>
     public IReadOnlyList<ReportSection>? Sections { get; init; }
-    /// <summary>The download: the output without the build's intermediate files (obj).</summary>
+    /// <summary>The downloads, one per system it is run on (ZipKinds: windows, linux): the output without the build's
+    /// intermediate files (obj), each with only its system's runtime-specific assets.</summary>
+    public IReadOnlyDictionary<string, ZipEntry>? Zips { get; init; }
+    /// <summary>The one download of a conversion made before there were two (every system's assets).</summary>
     public string? ZipName { get; init; }
     public long? ZipSize { get; init; }
 }
 
 public sealed record ReportSection(string Title, int Count);
+
+public sealed record ZipEntry(string Name, long Size);
 
 /// <summary>
 /// Converts and builds an analysed application in Studio: the converter (FrameworkOnCore.Converter.dll beside Studio) in
@@ -45,7 +50,14 @@ public sealed class Conversions(AnalysisStore store, string runtime)
     string Folder(string id) => Path.Combine(store.Folder(id), "conversion");
     string EntryFile(string id) => Path.Combine(Folder(id), "conversion.json");
     public string Output(string id) => Path.Combine(Folder(id), "out");
-    public string? Zip(string id) => Get(id)?.ZipName is { } name ? Path.Combine(Folder(id), name) : null;
+    /// <summary>The download for a system (windows, linux); a conversion made before there were two has one for both.</summary>
+    public string? Zip(string id, string kind) =>
+        Get(id) is not { } entry ? null
+        : entry.Zips?.TryGetValue(kind, out var zip) == true ? Path.Combine(Folder(id), zip.Name)
+        : entry.ZipName is { } name ? Path.Combine(Folder(id), name) : null;
+
+    /// <summary>The systems a download is made for.</summary>
+    public static readonly string[] ZipKinds = ["windows", "linux"];
     public string Report(string id) => Path.Combine(Output(id), "CONVERSION-REPORT.md");
 
     /// <summary>The site in the output: the one the Dockerfile copies to /app ("COPY --chown=app:app &lt;site&gt; /app").</summary>
@@ -114,11 +126,16 @@ public sealed class Conversions(AnalysisStore store, string runtime)
                         : Lang.T($"変換が途中で止まりました(終了コード {exit}。詳しくは記録にあります)", $"The conversion stopped (exit code {exit}; the log has the details)") });
                     return;
                 }
-                log.Enqueue("zipping the output (without obj)");
-                var name = $"{Regex.Replace(analysis.Name, @"[^\w.-]+", "-")}-dotnet10.zip";
-                var size = ZipOutput(Output(id), Path.Combine(Folder(id), name), analysis.Name, cancel.Token);
-                log.Enqueue($"  -> {name} ({size / 1024 / 1024} MB)");
-                Save(id, entry with { State = "done", Finished = DateTimeOffset.UtcNow, Sections = sections, ZipName = name, ZipSize = size });
+                var zips = new Dictionary<string, ZipEntry>();
+                foreach (var kind in ZipKinds)
+                {
+                    log.Enqueue($"zipping the output for {kind} (without obj)");
+                    var name = $"{Regex.Replace(analysis.Name, @"[^\w.-]+", "-")}-dotnet10-{kind}.zip";
+                    var size = ZipOutput(Output(id), Path.Combine(Folder(id), name), analysis.Name, kind, cancel.Token);
+                    log.Enqueue($"  -> {name} ({size / 1024 / 1024} MB)");
+                    zips[kind] = new ZipEntry(name, size);
+                }
+                Save(id, entry with { State = "done", Finished = DateTimeOffset.UtcNow, Sections = sections, Zips = zips });
             }
             catch (OperationCanceledException)
             {
@@ -242,8 +259,10 @@ public sealed class Conversions(AnalysisStore store, string runtime)
             : null;
 
     // The output under a folder of the application's name, without the build's intermediate files (obj) and Visual
-    // Studio's (.vs): what is built (bin) stays, the site runs from it.
-    static long ZipOutput(string output, string zip, string name, CancellationToken cancel)
+    // Studio's (.vs): what is built (bin) stays, the site runs from it. For one system (kind): the packages' runtime-specific
+    // assets (bin/runtimes/<rid>: SkiaSharp's native library for 20 of them, with Windows' symbols, most of the output) only
+    // its own, without native symbols; Windows' without the Linux deployment (Dockerfile, deploy).
+    static long ZipOutput(string output, string zip, string name, string kind, CancellationToken cancel)
     {
         var top = Regex.Replace(name, @"[^\w.-]+", "-");
         using (var archive = ZipFile.Open(zip, ZipArchiveMode.Create))
@@ -254,10 +273,28 @@ public sealed class Conversions(AnalysisStore store, string runtime)
                 var relative = Path.GetRelativePath(output, file);
                 var parts = relative.Split(Path.DirectorySeparatorChar);
                 if (parts[..^1].Any(p => p.Equals("obj", StringComparison.OrdinalIgnoreCase) || p.Equals(".vs", StringComparison.OrdinalIgnoreCase))) continue;
+                if (!ForSystem(parts, kind)) continue;
                 archive.CreateEntryFromFile(file, top + "/" + string.Join('/', parts), CompressionLevel.Fastest);
             }
         }
         return new FileInfo(zip).Length;
+    }
+
+    /// <summary>Whether a file of the output (its path's parts) goes in the download for a system (windows, linux).</summary>
+    public static bool ForSystem(string[] parts, string kind)
+    {
+        if (kind == "windows" && (parts[0] is "Dockerfile" or ".dockerignore" or "deploy")) return false;
+        // bin/runtimes/<rid>/...: the system's own (Linux's as the container takes them: glibc, x64 and arm64), no symbols.
+        for (var i = 0; i + 2 < parts.Length; i++)
+        {
+            if (!parts[i].Equals("bin", StringComparison.OrdinalIgnoreCase) || !parts[i + 1].Equals("runtimes", StringComparison.OrdinalIgnoreCase)) continue;
+            if (i + 3 == parts.Length) return true;  // a file in runtimes itself
+            var rid = parts[i + 2].ToLowerInvariant();
+            if (parts[^1].EndsWith(".pdb", StringComparison.OrdinalIgnoreCase)) return false;
+            return kind == "windows" ? rid == "win" || rid.StartsWith("win-", StringComparison.Ordinal)
+                : rid is "linux" or "unix" or "linux-x64" or "linux-arm64";
+        }
+        return true;
     }
 
     void Save(string id, ConversionEntry entry)

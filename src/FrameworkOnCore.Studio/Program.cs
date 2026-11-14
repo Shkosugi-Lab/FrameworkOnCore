@@ -178,8 +178,10 @@ api.MapPost("/analyses/{id}/conversion", (string id, Conversions conversions, Na
 
 api.MapDelete("/analyses/{id}/conversion", (string id, Conversions conversions) => conversions.Cancel(id) ? Results.NoContent() : Results.NotFound());
 
-api.MapGet("/analyses/{id}/conversion/zip", (string id, Conversions conversions) =>
-    conversions.Zip(id) is { } zip && File.Exists(zip) ? Results.File(zip, "application/zip", Path.GetFileName(zip)) : Results.NotFound());
+// The download for a system: ?for=windows or linux (the default).
+api.MapGet("/analyses/{id}/conversion/zip", (string id, string? @for, Conversions conversions) =>
+    @for is not null && !Conversions.ZipKinds.Contains(@for) ? Results.BadRequest(new { error = "for: windows or linux" })
+    : conversions.Zip(id, @for ?? "linux") is { } zip && File.Exists(zip) ? Results.File(zip, "application/zip", Path.GetFileName(zip)) : Results.NotFound());
 
 api.MapGet("/analyses/{id}/conversion/report", (string id, Conversions conversions) =>
     File.Exists(conversions.Report(id)) ? Results.Text(File.ReadAllText(conversions.Report(id)), "text/markdown; charset=utf-8") : Results.NotFound());

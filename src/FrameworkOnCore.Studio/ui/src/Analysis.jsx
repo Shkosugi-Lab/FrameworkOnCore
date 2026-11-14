@@ -239,7 +239,7 @@ export default function Analysis({ listed, route, notify, confirm, open, setSpli
         allowSkipTo
         onNavigate={ev => go(ev.detail.requestedStepIndex + 1, ev.detail.reason).catch(e => notify('error', e.message))}
         onCancel={() => open(null)}
-        onSubmit={() => { location.href = `/api/analyses/${id}/conversion/zip`; }}
+        onSubmit={() => { location.href = `/api/analyses/${id}/conversion/zip?for=linux`; }}
         submitButtonText={t('wizard.download')}
         isLoadingNextStep={saving || (step === 1 && original?.original?.state === 'building') || (step === CONVERT && converting)}
         i18nStrings={{

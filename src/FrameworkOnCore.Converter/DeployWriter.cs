@@ -59,9 +59,10 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         {
             WriteText(Path.Combine(outRoot, "Dockerfile"), Dockerfile(siteRelative, lang, tz, cultureProfile != null, caseInsensitive, drawing.Count > 0));
             // The site the output itself (the web project built in place): all of it ("!." takes nothing back from "*").
-            WriteText(Path.Combine(outRoot, ".dockerignore"), siteRelative == "."
+            WriteText(Path.Combine(outRoot, ".dockerignore"), (siteRelative == "."
                 ? "# The build context is the conversion's output, the site itself (the web project built in place).\n**/obj\n"
-                : $"# The build context is the conversion's output: only the site and deploy.\n*\n!{siteRelative}\n!deploy\n**/obj\n");
+                : $"# The build context is the conversion's output: only the site and deploy.\n*\n!{siteRelative}\n!deploy\n**/obj\n")
+                + LinuxRuntimesOnly(siteRelative == "." ? "bin/runtimes" : $"{siteRelative}/bin/runtimes"));
         }
         if (linux)
         {
@@ -124,6 +125,14 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
             }
         return users;
     }
+
+    // The runtime-specific assets of the site's packages (bin/runtimes/<rid>: SkiaSharp's native library for 20 of them,
+    // with Windows' symbols, 475 MB of wt's 564) left out of the image but those the container's Linux takes: the base
+    // image is Debian (glibc), on x64 or arm64; the RID-less linux and unix hold managed assets (SqlClient's). The site
+    // itself keeps them all: the native run on Windows runs it.
+    static string LinuxRuntimesOnly(string runtimes) =>
+        $"# Of the packages' runtime-specific assets, only those of the container's Linux (glibc, x64 and arm64).\n{runtimes}/*\n" +
+        string.Concat(new[] { "linux", "unix", "linux-x64", "linux-arm64" }.Select(rid => $"!{runtimes}/{rid}\n"));
 
     // The library of file names without regard to case (casefs/libfoccase.so: fetched, the build GitHub Actions published
     // of its sources, or built by casefs/build.ps1) for each processor, and its source. False when there is none: the
@@ -342,6 +351,11 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
             (cd "$output/__SITE__" && tar --exclude=./App_Data -cf - .) | (cd "$prefix/site" && tar xf -)
         else
             cp -r "$output/__SITE__"/. "$prefix/site/"
+        fi
+        # Other systems' runtime-specific assets of the packages are not this machine's (SkiaSharp's native library for
+        # Windows and macOS, with Windows' symbols: hundreds of MB).
+        if [ -d "$prefix/site/bin/runtimes" ]; then
+            find "$prefix/site/bin/runtimes" -mindepth 1 -maxdepth 1 -type d \( -name 'win*' -o -name 'osx*' -o -name 'maccatalyst*' -o -name 'ios*' -o -name 'tvos*' -o -name 'android*' -o -name 'browser*' \) -exec rm -rf {} +
         fi
         cp "$output/deploy/start.sh" "$prefix/start.sh"
         # File names without regard to case (start.sh preloads it; FOC_CASE_INSENSITIVE=0 in /etc/$app/environment turns

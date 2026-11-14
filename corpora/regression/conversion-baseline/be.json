@@ -14,7 +14,7 @@
   },
   "files": {
     "added": [
-      ".dockerignore 2728c8861541f519",
+      ".dockerignore 35f9f031e8deea58",
       "BlogEngine/BlogEngine.NET/App_Data/culture-profile.json e28d86c1ddca0a19",
       "BlogEngine/BlogEngine.NET/Program.cs 91bad1c3f1beb890",
       "BlogEngine/BlogEngine.NET/appsettings.json ce28c53587647b64",
@@ -33,7 +33,7 @@
       "deploy/icu/tool/CultureIcu.exe (binary)",
       "deploy/icu/tool/CultureIcu.pdb (binary)",
       "deploy/icu/tool/CultureIcu.runtimeconfig.json c230a317a54dd960",
-      "deploy/linux/install.sh 6fd374668fd5be26",
+      "deploy/linux/install.sh 41debe819e9ad997",
       "deploy/start.sh 4d6a4d5ff01bc531"
     ],
     "changed": [

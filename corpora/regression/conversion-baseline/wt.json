@@ -14,7 +14,7 @@
   },
   "files": {
     "added": [
-      ".dockerignore 8f50ded5a691b4e4",
+      ".dockerignore 13459c7442b92fa0",
       "Directory.Build.props (project: see projects)",
       "Dockerfile ff1ae96cec089f79",
       "FrameworkOnCore.slnx 958bdad3fa5381bf",
@@ -32,7 +32,7 @@
       "deploy/icu/tool/CultureIcu.exe (binary)",
       "deploy/icu/tool/CultureIcu.pdb (binary)",
       "deploy/icu/tool/CultureIcu.runtimeconfig.json c230a317a54dd960",
-      "deploy/linux/install.sh 99ac60bc4fea7ac0",
+      "deploy/linux/install.sh 953d1c7ecb0ee270",
       "deploy/start.sh 1b7bb7d6efe48b6a"
     ],
     "changed": [

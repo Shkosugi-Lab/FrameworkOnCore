@@ -1,6 +1,6 @@
-# Contoso University
+# Contoso University をコマンドラインで変換する
 
-学生・講座を扱う EF6 のチュートリアルです(ASP.NET MVC 5、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
+学生・講座を扱う EF6 のチュートリアルです(ASP.NET MVC 5、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。Studio(画面)での手順は [Studio 版](studio/contoso-university.md) です。
 
 | | |
 |---|---|
@@ -36,14 +36,6 @@ Remove-Item ContosoUniversity-repo -Recurse -Force
 .\FrameworkOnCore\converter.ps1 .\ContosoUniversity\ContosoUniversity\ContosoUniversity.csproj --out .\out\contoso-university --root .\ContosoUniversity --build-original auto
 ```
 
-**Studio で入れる値**([使い方](setup.md#42-studio-で))
-
-| 欄 | 値 |
-|---|---|
-| プロジェクト | `.\ContosoUniversity\ContosoUniversity\ContosoUniversity.csproj` |
-| リポジトリのフォルダー | `.\ContosoUniversity` |
-| 構成 | `Release` |
-
 ## 3. DB を用意する
 
 SQL Server のコンテナを起動します([共通の準備の 5](setup.md#5-sql-server-を使うとき))。DB は、アプリが最初の要求で初期データ付きで作ります。
@@ -65,7 +57,7 @@ dotnet bin\ContosoUniversity.dll --urls http://localhost:5000
 Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```
 
-http://localhost:5000/Student を開きます。Studio では、「ネイティブ起動(この PC)」の「環境変数」に `SQLCONNSTR_SchoolContext=<上の値>` と書きます。
+http://localhost:5000/Student を開きます。
 
 ## 5. Linux で動かす
 
@@ -74,11 +66,7 @@ docker build -t contoso-university .\out\contoso-university
 docker run -d -p 8080:8080 --name contoso-university -e "SQLCONNSTR_SchoolContext=Data Source=host.docker.internal,14330;Initial Catalog=ContosoUniversity1;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" contoso-university
 ```
 
-http://localhost:8080/Student を開きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、次の行を書きます(上のコマンドの `-e` のあとの部分です。コマンドは貼らず、引用符も付けません)。
-
-```
-SQLCONNSTR_SchoolContext=Data Source=host.docker.internal,14330;Initial Catalog=ContosoUniversity1;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True
-```
+http://localhost:8080/Student を開きます。
 
 記録では、Windows・Linux とも 12 画面のうち 9 が元のアプリと同じでした(2026-10-22・10-27)。ただし、このページの手順そのものは試していません。
 

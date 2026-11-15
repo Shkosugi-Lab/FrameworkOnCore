@@ -1,27 +1,34 @@
 # BlogEngine.NET 3.3.8 を Studio で変換する
 
-ブログのエンジンです(Web Forms、C#)。データは DB ではなく `App_Data` の XML に置きます。
-Studio(画面)で解析・変換し、Windows と Linux のコンテナで動かします。コマンドラインでの手順は [こちら](../blogengine-net.md) です。
+ブログのエンジンです(Web Forms、C#)。データは DB ではなく `App_Data` の XML に置きます。Studio(画面)で解析・変換し、Windows と Linux のコンテナで動かします。コマンドラインでの手順は [コマンド版](../blogengine-net.md) です。
 
-入れておくもの(.NET 10 SDK、Git、Docker Desktop、**Visual Studio または Visual Studio Build Tools**)は [共通の準備の 1](../setup.md#1-入れるもの) にあります。Studio はステップ 1 で元のアプリをビルドするので、BlogEngine.NET でも Visual Studio か Build Tools が要ります。SQL Server は要りません。
+| | |
+|---|---|
+| 取得元 | [rxtur/BlogEngine.NET](https://github.com/rxtur/BlogEngine.NET) タグ `v3.3.8.0` |
+| ライセンス | 表示なし |
+
+入れておくもの(.NET 10 SDK、Git、Docker Desktop、**Visual Studio または Visual Studio Build Tools**)は [共通の準備の 1](../setup.md#1-入れるもの) にあります。Studio はステップ 1 で元のアプリをビルドするので、Visual Studio か Build Tools が要ります。DB は要りません。
 
 ## 1. FrameworkOnCore とソースを取る
 
-作業用の空のフォルダー(例: `C:\foc`。パスは短くします)を作り、FrameworkOnCore と BlogEngine.NET のソースを取ります。
+作業用の空のフォルダー(例: `C:\foc`。パスは短くします)を作り、FrameworkOnCore を取ります。ほかのシナリオで済ませてあれば、`cd C:\foc` だけにします。
 
 ```powershell
 New-Item -ItemType Directory -Force C:\foc | Out-Null
 cd C:\foc
 git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
+```
+
+同じフォルダーに、アプリのソースを取ります。
+
+```powershell
 curl.exe -L -o blogengine-net.zip https://github.com/rxtur/BlogEngine.NET/archive/refs/tags/v3.3.8.0.zip
 tar -xf blogengine-net.zip          # BlogEngine.NET-3.3.8.0 ができる
 ```
 
-取得元: [rxtur/BlogEngine.NET](https://github.com/rxtur/BlogEngine.NET) タグ `v3.3.8.0`(ライセンスの表示なし)
-
 ## 2. Studio を起動する
 
-同じフォルダーで起動します。こうすると、Studio に入れるパスをこのフォルダーからの相対パスで書けます。
+ソースを取ったフォルダーで起動します。こうすると、Studio に入れるパスをこのフォルダーからの相対パスで書けます。
 
 ```powershell
 .\FrameworkOnCore\studio.ps1
@@ -29,11 +36,13 @@ tar -xf blogengine-net.zip          # BlogEngine.NET-3.3.8.0 ができる
 
 「Studio: http://127.0.0.1:5300/」と出たら、ブラウザーで http://127.0.0.1:5300/ を開きます。止めるときは、この PowerShell で Ctrl+C を押します。
 
+右上の **「新しい解析」** を押します。
+
 ![Studio の最初の画面](images/blogengine-net/01-home.png)
 
 ## 3. 新しい解析を作る
 
-右上の「新しい解析」を押し、次の値を入れて「解析する」を押します。
+次の値を入れて、**「解析する」** を押します。
 
 | 欄 | 値 |
 |---|---|
@@ -43,88 +52,77 @@ tar -xf blogengine-net.zip          # BlogEngine.NET-3.3.8.0 ができる
 
 ![新しい解析](images/blogengine-net/02-new-analysis.png)
 
-「リポジトリのフォルダー」は省けません。このアプリはソリューションの外の `lib` の DLL を参照しているためです。空のままだと参照が見つからず、変換レポートに「未解決」が 16 件出ます。
+「リポジトリのフォルダー」は省けません。このアプリはソリューションの外の `lib` の DLL を参照しているためです。空のままだと参照が見つからず、変換レポートに「未解決」が出ます。
 
 ## 4. ステップ 1 読み込み
 
-プロジェクトの構成(言語、.NET Framework の版、NuGet パッケージの数、ページの数など)が出ます。解析は裏で進みます(10 秒ほど)。
+プロジェクトの構成(言語、.NET Framework の版、NuGet パッケージの数、ページの数など)が出ます。解析は裏で進みます。
 
-![ステップ 1 読み込み](images/blogengine-net/03-step1.png)
+下の「元のアプリのビルド」で、**「ビルドに使う MSBuild」**(Visual Studio か Build Tools。入っていないほうは選べません)を確かめて、**「ビルド」** を押します。元のアプリを、そのリポジトリのビルド手順でビルドします。**ビルドが通るまで、ステップ 2 以降には進めません。**「追加の手順」は空のままです。
 
-下の「元のアプリのビルド」で、「ビルドに使う MSBuild」(Visual Studio か Build Tools。入っていないほうは選べません)を確かめて「ビルド」を押します。元のアプリを、そのリポジトリのビルド手順でビルドします(BlogEngine.NET で 30 秒ほど)。**ビルドが通るまで、ステップ 2 以降には進めません。**
-「追加の手順」は、ビルドのあとに別の手順が要るリポジトリ(N2 CMS など)のためのものです。BlogEngine.NET では空のままです。
+![元のアプリのビルド(ビルド前)](images/blogengine-net/04-step1-build.png)
 
-![元のアプリのビルド(ビルド前)](images/blogengine-net/03a-step1-build.png)
+ビルド中は、その下の「ログ」にビルドの様子が出ます。**「ビルド成功」** と出たら、いちばん下の **「次へ」** を押します。
 
-ビルド中は、その下の「ログ」にビルドの様子が出ます(止めるときは「キャンセル」)。
-「ビルド成功」と出たら、「次へ」を押します。ビルドが通ると、その下に「元のアプリを起動(テスト起動)」も出ます。変換前の動きを確かめたいときに使います(IIS Express が要ります)。
+ビルドが通ると「元のアプリを起動(テスト起動)」も出ます。変換前の動きを確かめたいときに使います(IIS Express が要ります。この手順では使いません)。
 
-![元のアプリのビルド(ビルド成功)](images/blogengine-net/03b-step1-built.png)
-
-上の画面は Build Tools だけが入っている PC です。Visual Studio と Build Tools の**両方**が入っている PC では、どちらも選べます(既定は Visual Studio)。
-ステップ 2 以降(変換のときの元のビルドなど)は、最後にビルドに成功したときの選択を使います。別のものに変えるときは、選び直して「もう一度ビルド」を押します。
-
-![両方入っているとき(例)](images/blogengine-net/03c-step1-choice.png)
+![元のアプリのビルド(ビルド成功)](images/blogengine-net/05-step1-built.png)
 
 ## 5. ステップ 2 解析と対応
 
-アプリが使う .NET Framework の API と、変換での扱いが出ます。
+アプリが使う .NET Framework の API と、変換での扱いが出ます。「自分で対応する所」のタブは変換だけでは動くようにならない所、「対応を選ぶ部品」のタブは部品ごとに直し方を選べる所です。
 
-- 「概要」の数は、下のグラフと同じ分け方です(BlogEngine.NET では、そのまま動かない API 171 種類 = 変換で直す 25 + 対応なし 107 + 動く(動きの違い・廃止予定) 39)。
-- 「自分で対応する所」のタブは、対応なしの API を部品ごとにまとめたもので、変換だけでは動くようにならない所です(BlogEngine.NET では 6 つ)。それぞれ「すること」が書かれています。
-- 「対応を選ぶ部品」のタブでは、部品ごとに直し方を選べます。
+![ステップ 2 解析と対応](images/blogengine-net/06-step2.png)
 
-**既定のままで変換できます。**「次へ」を押します。
+**既定のままで変換できます。** いちばん下の **「次へ」** を押します。
 
-![ステップ 2 解析と対応](images/blogengine-net/04-step2.png)
+![ステップ 2 の「次へ」](images/blogengine-net/06b-step2-next.png)
 
 ## 6. ステップ 3 サーバーの設定
 
-IIS の機能(ファイル名の大文字・小文字、アクセス ログ、URL Rewrite、エラー ページなど)の動かし方を選べます。既定は、元の IIS と同じ動きです。
+IIS の機能(ファイル名の大文字・小文字、アクセス ログ、URL Rewrite、エラー ページなど)の動かし方を選べます。既定は、元の IIS と同じ動きです。既定のまま **「次へ」** を押します。
 
-既定のまま「次へ」を押します。
-
-![ステップ 3 サーバーの設定](images/blogengine-net/05-step3.png)
+![ステップ 3 サーバーの設定](images/blogengine-net/07-step3.png)
 
 ## 7. ステップ 4 変換・ビルド
 
-「変換してビルド」を押します。変換では、元のアプリをステップ 1 と同じ手順(同じ MSBuild、同じ追加の手順)で、まっさらな状態からビルドし直し、そのサイトから組み立てます。ステップ 1 で動かした元のアプリの変更(web.config、App_Data)は入りません。
+**「変換してビルド」** を押します。元のアプリをステップ 1 と同じ手順でまっさらな状態からビルドし直し、.NET 10 に変換してビルドします(数分かかります)。
 
-![ステップ 4 変換・ビルド(実行前)](images/blogengine-net/06-step4.png)
+![ステップ 4 変換・ビルド(実行前)](images/blogengine-net/08-step4.png)
 
-1〜2 分で「ビルド成功」になり、下に変換レポートが出ます。「未解決」が 0 であることを確かめます。
-レポートの節を開くと、変換が何を変えたか(パッケージ、.NET に無い API、スタブにしたソース、Linux 用に変えたパスなど)が分かります。
+**「ビルド成功」** になり、下に変換レポートが出ます。**「未解決」が 0** であることを確かめて、**「次へ: 実行・デプロイ」** を押します。
 
-![ステップ 4 変換・ビルド(ビルド成功)](images/blogengine-net/07-step4-done.png)
-
-「次へ」を押します。
+![ステップ 4 変換・ビルド(ビルド成功)](images/blogengine-net/09-step4-done.png)
 
 ## 8. ステップ 5 実行・デプロイ
 
-変換したアプリを動かします。「ZIP ダウンロード」では、変換の出力を、動かす OS ごとに取り出せます(「Linux 用」はサイト・Dockerfile・systemd 用のスクリプト、「Windows 用」はサイトだけ。どちらも、その OS 用の部品だけが入ります)。
-
-![ステップ 5 実行・デプロイ](images/blogengine-net/08-step5.png)
+変換したアプリを動かします。「ZIP ダウンロード」では、変換の出力を Linux 用・Windows 用に取り出せます。
 
 ### 8.1 Windows で動かす(ネイティブ起動)
 
-「ネイティブ起動(この PC)」の「起動」を押します。BlogEngine.NET では「環境変数」は要りません。
+「ネイティブ起動(この PC)」の **「起動」** を押します。環境変数は要りません。
 
-「実行中」になったら、URL(http://localhost:8100/ など)か「開く」を押します。最初の表示は、ページのコンパイルで 10 秒ほどかかります。止めるときは「停止」を押します。
+![ネイティブ起動](images/blogengine-net/11-native.png)
 
-![ネイティブ起動(実行中)](images/blogengine-net/10-native-running.png)
+「実行中」になったら、**「開く」** を押します。最初の表示は、ページのコンパイルで時間がかかることがあります。止めるときは「停止」を押します。
+
+![ネイティブ起動(実行中)](images/blogengine-net/12-native-running.png)
 
 ### 8.2 Linux で動かす(コンテナ起動)
 
-Docker Desktop を起動しておきます。止まっていると「Docker Desktop を起動」ボタンが出るので、それを押しても構いません。
+Docker Desktop を起動しておきます(止まっていると「Docker Desktop を起動」ボタンが出るので、それを押しても構いません)。
 
-「コンテナ起動(Linux / Docker)」の「ビルドして起動」を押します。Dockerfile からイメージを作るので、初回は数分かかります。
-「実行中」になったら、URL(http://localhost:8080/)か「開く」を押します。止めるときは「停止」を押します。
+「コンテナ起動(Linux / Docker)」の **「ビルドして起動」** を押します。環境変数は要りません。
 
-![コンテナ起動(実行中)](images/blogengine-net/13-container-running.png)
+![コンテナ起動](images/blogengine-net/14-container.png)
+
+Dockerfile からイメージを作るので、初回は数分かかります。「実行中」になったら、**「開く」** を押します。止めるときは「停止」を押します。
+
+![コンテナ起動(実行中)](images/blogengine-net/15-container-running.png)
 
 Linux のコンテナで動いている BlogEngine.NET です。管理者は `admin` / `admin` です(ログインは `/Account/login.aspx`)。
 
-![コンテナで動いている BlogEngine.NET](images/blogengine-net/14-container-app.png)
+![コンテナで動いている BlogEngine.NET 3.3.8](images/blogengine-net/16-container-app.png)
 
 ## 9. 片付け
 

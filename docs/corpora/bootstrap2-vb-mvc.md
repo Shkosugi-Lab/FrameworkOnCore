@@ -1,6 +1,6 @@
-# Bootstrap2-VB-MVC
+# Bootstrap2-VB-MVC をコマンドラインで変換する
 
-Bootstrap 2 の文書を中国語(繁体字)に訳したサイトのソースです(MVC 4、**Visual Basic**)。ビューは VB の Razor(`.vbhtml`)で書かれています。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
+Bootstrap 2 の文書を中国語(繁体字)に訳したサイトのソースです(MVC 4、**Visual Basic**)。ビューは VB の Razor(`.vbhtml`)で書かれています。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。Studio(画面)での手順は [Studio 版](studio/bootstrap2-vb-mvc.md) です。
 
 | | |
 |---|---|
@@ -38,14 +38,6 @@ Rename-Item Bootstrap2-VB-MVC-ca621388bfdaedf1d69a505e863fd5ffd52ad0b5 Bootstrap
 
 - 元のアプリは MVC 4(Razor 2)です。変換後は MVC 5(Razor 3)になるので、変換レポートの「パッケージの大きな版上げ」に、そのとき変わることが出ます(下の 5)。
 
-**Studio で入れる値**([使い方](setup.md#42-studio-で))
-
-| 欄 | 値 |
-|---|---|
-| プロジェクト | `.\Bootstrap2-VB-MVC\kkbruce.tw\kkbruce.tw.vbproj` |
-| リポジトリのフォルダー | `.\Bootstrap2-VB-MVC` |
-| 構成 | `Release` |
-
 ## 3. Windows で動かす
 
 ```powershell
@@ -55,8 +47,6 @@ Pop-Location                  # Ctrl+C で止めたあと、作業フォルダ�
 ```
 
 http://localhost:5000/ を開きます。上のメニューから、各ページ(`/Bootstrap/GettingStarted`、`/Bootstrap/BaseCSS`、`/Bootstrap/Components` など)に移れます。
-
-Studio では、「ネイティブ起動(この PC)」の「起動」を押します(環境変数は要りません)。
 
 ## 4. Linux で動かす
 

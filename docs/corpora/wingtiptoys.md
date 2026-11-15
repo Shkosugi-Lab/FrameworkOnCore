@@ -1,6 +1,6 @@
-# WingtipToys
+# WingtipToys をコマンドラインで変換する
 
-おもちゃ屋のチュートリアルです(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
+おもちゃ屋のチュートリアルです(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。Studio(画面)での手順は [Studio 版](studio/wingtiptoys.md) です。
 
 | | |
 |---|---|
@@ -32,14 +32,6 @@ Rename-Item wingtiptoys-4478e0e5794ed709da924569c54bb5f4c714fb85 wingtiptoys
 .\FrameworkOnCore\converter.ps1 .\wingtiptoys\WingtipToys\WingtipToys\WingtipToys.csproj --out .\out\wingtiptoys --root .\wingtiptoys --build-original auto
 ```
 
-**Studio で入れる値**([使い方](setup.md#42-studio-で))
-
-| 欄 | 値 |
-|---|---|
-| プロジェクト | `.\wingtiptoys\WingtipToys\WingtipToys\WingtipToys.csproj` |
-| リポジトリのフォルダー | `.\wingtiptoys` |
-| 構成 | `Release` |
-
 ## 3. DB を用意する
 
 SQL Server のコンテナを起動します([共通の準備の 5](setup.md#5-sql-server-を使うとき))。DB `WingtipToys` とデータは、アプリが最初の要求で作ります。
@@ -64,13 +56,6 @@ Pop-Location                  # Ctrl+C で止めたあと、作業フォルダ�
 
 http://localhost:5000/ を開きます。管理者は `canEditUser@wingtiptoys.com` / `Pa$$word1` です。
 
-Studio では、「ネイティブ起動(この PC)」の「環境変数」に次の 2 行を書き、「起動」を押します。
-
-```
-SQLCONNSTR_DefaultConnection=Data Source=localhost,14330;Initial Catalog=WingtipToys;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True
-SQLCONNSTR_WingtipToys=Data Source=localhost,14330;Initial Catalog=WingtipToys;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True
-```
-
 ## 5. Linux で動かす
 
 ```powershell
@@ -80,13 +65,6 @@ docker run -d -p 8080:8080 --name wingtiptoys -e "SQLCONNSTR_DefaultConnection=$
 ```
 
 http://localhost:8080/ を開きます。
-
-Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、次の行を書きます(上のコマンドの `-e` のあとの部分です。コマンドは貼らず、引用符も付けません)。
-
-```
-SQLCONNSTR_DefaultConnection=Data Source=host.docker.internal,14330;Initial Catalog=WingtipToys;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True
-SQLCONNSTR_WingtipToys=Data Source=host.docker.internal,14330;Initial Catalog=WingtipToys;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True
-```
 
 ## 6. 片付け
 

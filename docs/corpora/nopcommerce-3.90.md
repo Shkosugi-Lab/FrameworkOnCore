@@ -1,6 +1,6 @@
-# nopCommerce 3.90
+# nopCommerce 3.90 をコマンドラインで変換する
 
-EC サイトです(ASP.NET MVC 5、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
+EC サイトです(ASP.NET MVC 5、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。Studio(画面)での手順は [Studio 版](studio/nopcommerce-3.90.md) です。
 
 | | |
 |---|---|
@@ -33,14 +33,6 @@ tar -xf nopcommerce-3.90.zip          # nopCommerce-release-3.90 ができる
 .\FrameworkOnCore\converter.ps1 .\nopCommerce-release-3.90\src\Presentation\Nop.Web\Nop.Web.csproj --out .\out\nopcommerce-3.90 --root .\nopCommerce-release-3.90 --build-original auto
 ```
 
-**Studio で入れる値**([使い方](setup.md#42-studio-で))
-
-| 欄 | 値 |
-|---|---|
-| プロジェクト | `.\nopCommerce-release-3.90\src\Presentation\Nop.Web\Nop.Web.csproj` |
-| リポジトリのフォルダー | `.\nopCommerce-release-3.90` |
-| 構成 | `Release` |
-
 ## 3. DB を用意する
 
 SQL Server のコンテナを起動します([共通の準備の 5](setup.md#5-sql-server-を使うとき))。DB は、アプリのインストールの画面が作ります。
@@ -72,7 +64,6 @@ http://localhost:5000/ を開くと、インストールの画面が出ます。
 
 - インストールが終わると、アプリが再起動し、店頭と管理画面が開けます。
 - 管理画面には、インストールの画面で入れたメールとパスワードでログインします。
-- Studio では「ネイティブ起動(この PC)」の「起動」を押します。
 
 ## 5. Linux で動かす
 
@@ -81,7 +72,7 @@ docker build -t nopcommerce-3.90 .\out\nopcommerce-3.90
 docker run -d -p 8080:8080 --name nopcommerce-3.90 nopcommerce-3.90
 ```
 
-http://localhost:8080/ を開き、上の表の Linux の値でインストールします。Studio では「コンテナ起動(Linux / Docker)」の「起動」を押します。
+http://localhost:8080/ を開き、上の表の Linux の値でインストールします。
 
 記録では、Windows・Linux とも店頭 19 画面、カートへの追加、管理画面 7 画面がどれも 200 でした(2026-10-11)。ただし、このページの手順そのものは試していません。
 

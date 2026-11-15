@@ -1,6 +1,6 @@
-# openIMIS 24.10
+# openIMIS 24.10 をコマンドラインで変換する
 
-健康保険の管理システムです(Web Forms、VB、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
+健康保険の管理システムです(Web Forms、VB、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。Studio(画面)での手順は [Studio 版](studio/openimis.md) です。
 
 | | |
 |---|---|
@@ -37,14 +37,6 @@ tar -xf imisdb.zip          # database_ms_sqlserver-24.10 ができる
 ```powershell
 .\FrameworkOnCore\converter.ps1 .\web_app_vb\IMIS\IMIS.vbproj --out .\out\openimis --root .\web_app_vb --build-original auto --configuration DemoRelease
 ```
-
-**Studio で入れる値**([使い方](setup.md#42-studio-で))
-
-| 欄 | 値 |
-|---|---|
-| プロジェクト | `.\web_app_vb\IMIS\IMIS.vbproj` |
-| リポジトリのフォルダー | `.\web_app_vb` |
-| 構成 | **`DemoRelease`** |
 
 ## 3. DB を用意する
 
@@ -90,7 +82,6 @@ Pop-Location                  # Ctrl+C で止めたあと、作業フォルダ�
 
 - http://localhost:5000/ を開き、デモの `Admin` / `admin123` でログインします。
 - 主な画面は `/Home.aspx`、`/FindFamily.aspx`、`/FindInsuree.aspx`、`/FindPolicy.aspx`、`/FindClaims.aspx`、`/FindUser.aspx`、`/Reports.aspx` です。
-- Studio では、「ネイティブ起動(この PC)」の「環境変数」に `SQLCONNSTR_IMISConnectionString=<上の値>` と書きます。
 
 ## 5. Linux で動かす
 
@@ -99,11 +90,7 @@ docker build -t openimis .\out\openimis
 docker run -d -p 8080:8080 --name openimis -e "SQLCONNSTR_IMISConnectionString=Data Source=host.docker.internal,14330;Initial Catalog=imis;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" openimis
 ```
 
-http://localhost:8080/ を開きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、次の行を書きます(上のコマンドの `-e` のあとの部分です。コマンドは貼らず、引用符も付けません)。
-
-```
-SQLCONNSTR_IMISConnectionString=Data Source=host.docker.internal,14330;Initial Catalog=imis;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True
-```
+http://localhost:8080/ を開きます。
 
 記録では、Windows・Linux ともログインし、主な 7 画面が 200 でした(2026-10-11)。ただし、このページの手順そのものは試していません。
 

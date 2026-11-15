@@ -1,6 +1,6 @@
-# MvcMovie
+# MvcMovie をコマンドラインで変換する
 
-映画の一覧を扱う ASP.NET MVC 5 のチュートリアルです(C#、EF6、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
+映画の一覧を扱う ASP.NET MVC 5 のチュートリアルです(C#、EF6、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。Studio(画面)での手順は [Studio 版](studio/mvcmovie.md) です。
 
 | | |
 |---|---|
@@ -36,14 +36,6 @@ Remove-Item AspNetDocs -Recurse -Force
 .\FrameworkOnCore\converter.ps1 .\MvcMovie\MvcMovie\MvcMovie.csproj --out .\out\mvcmovie --root .\MvcMovie --build-original auto
 ```
 
-**Studio で入れる値**([使い方](setup.md#42-studio-で))
-
-| 欄 | 値 |
-|---|---|
-| プロジェクト | `.\MvcMovie\MvcMovie\MvcMovie.csproj` |
-| リポジトリのフォルダー | `.\MvcMovie` |
-| 構成 | `Release` |
-
 ## 3. DB を用意する
 
 SQL Server のコンテナを起動します([共通の準備の 5](setup.md#5-sql-server-を使うとき))。DB は、アプリ(EF)が最初の要求で作ります。
@@ -72,7 +64,7 @@ dotnet bin\MvcMovie.dll --urls http://localhost:5000
 Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```
 
-http://localhost:5000/Movies を開きます。Studio では、「ネイティブ起動(この PC)」の「環境変数」に、この 2 つを `名前=値` の形で 1 行ずつ書きます。
+http://localhost:5000/Movies を開きます。
 
 ## 5. Linux で動かす
 
@@ -82,12 +74,7 @@ $sql = 'Data Source=host.docker.internal,14330;User ID=sa;Password=Foc_local_Pas
 docker run -d -p 8080:8080 --name mvcmovie -e "SQLCONNSTR_MovieDBContext=$sql;Initial Catalog=MvcMovie" -e "SQLCONNSTR_DefaultConnection=$sql;Initial Catalog=MvcMovieIdentity" mvcmovie
 ```
 
-http://localhost:8080/Movies を開きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、次の行を書きます(上のコマンドの `-e` のあとの部分です。コマンドは貼らず、引用符も付けません)。
-
-```
-SQLCONNSTR_MovieDBContext=Data Source=host.docker.internal,14330;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;Initial Catalog=MvcMovie
-SQLCONNSTR_DefaultConnection=Data Source=host.docker.internal,14330;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;Initial Catalog=MvcMovieIdentity
-```
+http://localhost:8080/Movies を開きます。
 
 記録では、Windows・Linux とも 12 画面のうち 11 が元のアプリと同じでした(2026-10-22・10-27)。ただし、このページの手順そのものは試していません。
 

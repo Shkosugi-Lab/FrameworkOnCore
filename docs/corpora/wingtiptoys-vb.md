@@ -1,6 +1,6 @@
-# WingtipToys(VB)
+# WingtipToys(VB) をコマンドラインで変換する
 
-おもちゃ屋のチュートリアルの **Visual Basic** 版です(Web Forms、VB、SQL Server)。Microsoft の「ASP.NET 4.5 Web Forms Tutorial Series in Visual Basic」のサンプルで、C# の [WingtipToys](wingtiptoys.md) と同じアプリです。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
+おもちゃ屋のチュートリアルの **Visual Basic** 版です(Web Forms、VB、SQL Server)。Microsoft の「ASP.NET 4.5 Web Forms Tutorial Series in Visual Basic」のサンプルで、C# の [WingtipToys](wingtiptoys.md) と同じアプリです。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。Studio(画面)での手順は [Studio 版](studio/wingtiptoys-vb.md) です。
 
 | | |
 |---|---|
@@ -37,14 +37,6 @@ Copy-Item -LiteralPath '.\msdn-code-gallery-a-c\ASP.NET 4.5 Web Forms Tutorial S
 
 1 分ほどかかります。変換レポートの「未解決」は 0 です。
 
-**Studio で入れる値**([使い方](setup.md#42-studio-で))
-
-| 欄 | 値 |
-|---|---|
-| プロジェクト | `.\wingtiptoys-vb\WingTipToys\WingTipToys.vbproj` |
-| リポジトリのフォルダー | `.\wingtiptoys-vb` |
-| 構成 | `Release` |
-
 ## 3. DB を用意する
 
 SQL Server のコンテナを起動します([共通の準備の 5](setup.md#5-sql-server-を使うとき))。DB `WingtipToysVb` とデータ(商品・管理者のユーザー)は、アプリが最初の要求で作ります。
@@ -69,13 +61,6 @@ Pop-Location                  # Ctrl+C で止めたあと、作業フォルダ�
 
 http://localhost:5000/ を開きます。管理者は `Admin` / `Pa$$word` です(ログインすると上のメニューに「Admin」が出て、商品を追加・削除できます)。
 
-Studio では、「ネイティブ起動(この PC)」の「環境変数」に次の 2 行を書き、「起動」を押します。
-
-```
-SQLCONNSTR_DefaultConnection=Data Source=localhost,14330;Initial Catalog=WingtipToysVb;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True
-SQLCONNSTR_WingtipToys=Data Source=localhost,14330;Initial Catalog=WingtipToysVb;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True
-```
-
 ## 5. Linux で動かす
 
 ```powershell
@@ -85,13 +70,6 @@ docker run -d -p 8080:8080 --name wingtiptoys-vb -e "SQLCONNSTR_DefaultConnectio
 ```
 
 http://localhost:8080/ を開きます。
-
-Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、次の行を書きます(上のコマンドの `-e` のあとの部分です。コマンドは貼らず、引用符も付けません)。
-
-```
-SQLCONNSTR_DefaultConnection=Data Source=host.docker.internal,14330;Initial Catalog=WingtipToysVb;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True
-SQLCONNSTR_WingtipToys=Data Source=host.docker.internal,14330;Initial Catalog=WingtipToysVb;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True
-```
 
 ## 6. 結果
 

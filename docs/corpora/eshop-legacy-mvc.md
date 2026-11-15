@@ -1,6 +1,6 @@
-# eShopLegacyMVC
+# eShopLegacyMVC をコマンドラインで変換する
 
-Microsoft がモダナイズの題材として公開している、カタログ管理のサンプルです(MVC 5 と Web API 2、C#)。画面(MVC)と Web API が 1 つのアプリに入っています。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
+Microsoft がモダナイズの題材として公開している、カタログ管理のサンプルです(MVC 5 と Web API 2、C#)。画面(MVC)と Web API が 1 つのアプリに入っています。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。Studio(画面)での手順は [Studio 版](studio/eshop-legacy-mvc.md) です。
 
 | | |
 |---|---|
@@ -38,14 +38,6 @@ git -C eShopModernizing checkout 63bc9ec4414d7e281dc9f9d7bdcf70030950457d
 
 1〜2 分かかります。変換レポートの「未解決」は 0 です。
 
-**Studio で入れる値**([使い方](setup.md#42-studio-で))
-
-| 欄 | 値 |
-|---|---|
-| プロジェクト | `.\eShopModernizing\eShopLegacyMVCSolution\src\eShopLegacyMVC\eShopLegacyMVC.csproj` |
-| リポジトリのフォルダー | `.\eShopModernizing\eShopLegacyMVCSolution` |
-| 構成 | `Release` |
-
 ## 3. Windows で動かす
 
 ```powershell
@@ -61,12 +53,6 @@ Pop-Location                  # Ctrl+C で止めたあと、作業フォルダ�
 - http://localhost:5000/Catalog/Details/1 (商品の詳細)
 - http://localhost:5000/api/brands (Web API。ブランドの一覧の JSON)
 
-Studio では、「ネイティブ起動(この PC)」の「環境変数」に次の行を書き、「起動」を押します。
-
-```
-APPSETTING_UseMockData=true
-```
-
 ## 4. Linux で動かす
 
 ```powershell
@@ -74,7 +60,7 @@ docker build -t eshop-legacy-mvc .\out\eshop-legacy-mvc
 docker run -d -p 8080:8080 --name eshop-legacy-mvc -e APPSETTING_UseMockData=true eshop-legacy-mvc
 ```
 
-http://localhost:8080/ を開きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、上と同じ `APPSETTING_UseMockData=true` を書きます。
+http://localhost:8080/ を開きます。
 
 ## 5. 結果
 

@@ -1,6 +1,6 @@
-# nopCommerce 1.90
+# nopCommerce 1.90 をコマンドラインで変換する
 
-EC サイトです(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
+EC サイトです(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。Studio(画面)での手順は [Studio 版](studio/nopcommerce-1.90.md) です。
 
 | | |
 |---|---|
@@ -33,14 +33,6 @@ tar -xf nopcommerce-1.90.zip          # nopCommerce-release-1.90 ができる
 .\FrameworkOnCore\converter.ps1 .\nopCommerce-release-1.90\NopCommerceStore\NopCommerceStore.csproj --out .\out\nopcommerce-1.90 --root .\nopCommerce-release-1.90 --build-original auto
 ```
 
-**Studio で入れる値**([使い方](setup.md#42-studio-で))
-
-| 欄 | 値 |
-|---|---|
-| プロジェクト | `.\nopCommerce-release-1.90\NopCommerceStore\NopCommerceStore.csproj` |
-| リポジトリのフォルダー | `.\nopCommerce-release-1.90` |
-| 構成 | `Release` |
-
 ## 3. DB を用意する
 
 SQL Server のコンテナを起動します([共通の準備の 5](setup.md#5-sql-server-を使うとき))。DB は、アプリのインストーラーが作ります。
@@ -70,7 +62,6 @@ http://localhost:5000/install/install.aspx を開き、次の値でインスト�
 | データベース | 新しく作る(Windows は `nopcommerce190_windows`、Linux は `nopcommerce190_linux` など、別の名前にします)。サンプルのデータも作る |
 
 - インストールが終わると、店頭(`/`)と管理画面が開けます。管理者は `admin@yourstore.com` / `admin` です。
-- Studio では「ネイティブ起動(この PC)」の「起動」を押します。環境変数は要りません。
 
 ## 5. Linux で動かす
 
@@ -79,7 +70,7 @@ docker build -t nopcommerce-1.90 .\out\nopcommerce-1.90
 docker run -d -p 8080:8080 --name nopcommerce-1.90 nopcommerce-1.90
 ```
 
-http://localhost:8080/install/install.aspx を開き、上の表の Linux の値でインストールします。Studio では「コンテナ起動(Linux / Docker)」の「起動」を押します。
+http://localhost:8080/install/install.aspx を開き、上の表の Linux の値でインストールします。
 
 Windows・Linux で動くことは、すべての操作を元のアプリと比べるテストで確かめています(727 操作、記録 2026-11-03)。ただし、このページの手順(インストーラーを使う)そのものは試していません。
 

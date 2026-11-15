@@ -1,6 +1,6 @@
-# WCF のサービス: MultipleEndpoints、C# と VB
+# WCF のサービス: MultipleEndpoints、C# と VB をコマンドラインで変換する
 
-Microsoft の WCF のサンプルの、IIS で動く電卓のサービスです(`.svc`)。**同じサービスの C# 版と VB 版**があるので、両方を変換します。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
+Microsoft の WCF のサンプルの、IIS で動く電卓のサービスです(`.svc`)。**同じサービスの C# 版と VB 版**があるので、両方を変換します。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。Studio(画面)での手順は [Studio 版](studio/wcf-multiple-endpoints.md) です。
 
 | | |
 |---|---|
@@ -47,14 +47,6 @@ $sample = '.\dotnet-samples\framework\wcf\Basic\Services\MultipleEndpoints'
 
 それぞれ 1 分ほどかかります。変換レポートの「未解決」は 0 です。
 
-**Studio で入れる値**([使い方](setup.md#42-studio-で))。VB 版は `CS` を `VB`、`service.csproj` を `service.vbproj` にします。
-
-| 欄 | 値 |
-|---|---|
-| プロジェクト | `.\dotnet-samples\framework\wcf\Basic\Services\MultipleEndpoints\CS\service\service.csproj` |
-| リポジトリのフォルダー | `.\dotnet-samples\framework\wcf\Basic\Services\MultipleEndpoints\CS` |
-| 構成 | `Release` |
-
 ## 3. Windows で動かす
 
 C# 版の例です(VB 版は `multiple-endpoints-cs` を `multiple-endpoints-vb` にします)。
@@ -76,8 +68,6 @@ $body = '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body
 ```
 
 応答の `<AddResult>115.99</AddResult>` が答えです。`Subtract`、`Multiply`、`Divide` も同じように呼べます(`Add` の 3 か所を置き換えます)。
-
-Studio では、「ネイティブ起動(この PC)」の「起動」を押します(環境変数は要りません)。
 
 ## 4. Linux で動かす
 

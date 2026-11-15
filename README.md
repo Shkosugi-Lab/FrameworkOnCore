@@ -10,28 +10,28 @@
 
 ## 検証シナリオ
 
-実在のオープンソースの .NET Framework のアプリ(コーパス)を変換し、Windows と Linux のコンテナで動かす手順です。準備は [共通の準備](docs/corpora/setup.md) にあります。種類の順に並べています。最初は BlogEngine.NET をお勧めします。
+実在のオープンソースの .NET Framework のアプリ(コーパス)を変換し、Windows と Linux のコンテナで動かす手順です。準備は [共通の準備](docs/corpora/setup.md) にあります。手順は、コマンドラインで進める「コマンド」と、Studio(画面)で進める「Studio」(操作する所を赤枠で囲んだ画面のキャプチャ付き)の 2 通りあります。種類の順に並べています。最初は BlogEngine.NET をお勧めします。
 
-| アプリ | 種類 | 言語 | 画面数 | DB | 準備と手間 |
-|---|---|---|---|---|---|
-| [Bootstrap2-VB-MVC](docs/corpora/bootstrap2-vb-mvc.md) | MVC 4 | VB | 23 | 不要 | Visual Studio か Build Tools |
-| [MvcMovie](docs/corpora/mvcmovie.md) | MVC 5 | C# | 29 | 必要 | SQL Server のコンテナ(DB はアプリが作る) |
-| [Contoso University](docs/corpora/contoso-university.md) | MVC 5 | C# | 9 | 必要 | SQL Server のコンテナ(DB はアプリが作る) |
-| [eShopLegacyMVC](docs/corpora/eshop-legacy-mvc.md) | MVC 5 + Web API | C# | 7(Web API 4) | 不要 | Visual Studio か Build Tools(データはモック) |
-| [MultipleEndpoints(C# と VB)](docs/corpora/wcf-multiple-endpoints.md) | WCF | C#・VB | —(サービスの操作 4) | 不要 | Visual Studio か Build Tools。確かめるのは SOAP の呼び出し(PowerShell) |
-| [BlogEngine.NET 3.3.8](docs/corpora/blogengine-net.md)([Studio 版](docs/corpora/studio/blogengine-net.md)) | Web Forms | C# | 53 | 不要 | なし(データは App_Data の XML) |
-| [WingtipToys](docs/corpora/wingtiptoys.md) | Web Forms | C# | 28 | 必要 | SQL Server のコンテナ(DB はアプリが作る) |
-| [WingtipToys(VB)](docs/corpora/wingtiptoys-vb.md) | Web Forms | VB | 18 | 必要 | SQL Server のコンテナ(DB はアプリが作る) |
+| アプリ | 種類 | 言語 | 画面数 | DB | 準備と手間 | 手順 |
+|---|---|---|---|---|---|---|
+| Bootstrap2-VB-MVC | MVC 4 | VB | 23 | 不要 | Visual Studio か Build Tools | [コマンド](docs/corpora/bootstrap2-vb-mvc.md) ・ [Studio](docs/corpora/studio/bootstrap2-vb-mvc.md) |
+| MvcMovie | MVC 5 | C# | 29 | 必要 | SQL Server のコンテナ(DB はアプリが作る) | [コマンド](docs/corpora/mvcmovie.md) ・ [Studio](docs/corpora/studio/mvcmovie.md) |
+| Contoso University | MVC 5 | C# | 9 | 必要 | SQL Server のコンテナ(DB はアプリが作る) | [コマンド](docs/corpora/contoso-university.md) ・ [Studio](docs/corpora/studio/contoso-university.md) |
+| eShopLegacyMVC | MVC 5 + Web API | C# | 7(Web API 4) | 不要 | Visual Studio か Build Tools(データはモック) | [コマンド](docs/corpora/eshop-legacy-mvc.md) ・ [Studio](docs/corpora/studio/eshop-legacy-mvc.md) |
+| MultipleEndpoints(C# と VB) | WCF | C#・VB | —(サービスの操作 4) | 不要 | Visual Studio か Build Tools。確かめるのは SOAP の呼び出し(PowerShell) | [コマンド](docs/corpora/wcf-multiple-endpoints.md) ・ [Studio](docs/corpora/studio/wcf-multiple-endpoints.md) |
+| BlogEngine.NET 3.3.8 | Web Forms | C# | 53 | 不要 | なし(データは App_Data の XML) | [コマンド](docs/corpora/blogengine-net.md) ・ [Studio](docs/corpora/studio/blogengine-net.md) |
+| WingtipToys | Web Forms | C# | 28 | 必要 | SQL Server のコンテナ(DB はアプリが作る) | [コマンド](docs/corpora/wingtiptoys.md) ・ [Studio](docs/corpora/studio/wingtiptoys.md) |
+| WingtipToys(VB) | Web Forms | VB | 18 | 必要 | SQL Server のコンテナ(DB はアプリが作る) | [コマンド](docs/corpora/wingtiptoys-vb.md) ・ [Studio](docs/corpora/studio/wingtiptoys-vb.md) |
 
 ### 大規模なアプリ
 
 画面が多く、準備に手間と時間がかかるアプリです。
 
-| アプリ | 種類 | 言語 | 画面数 | DB | 準備と手間 |
-|---|---|---|---|---|---|
-| [nopCommerce 3.90](docs/corpora/nopcommerce-3.90.md) | MVC 5 | C# | 388 | 必要 | Visual Studio か Build Tools、SQL Server、インストール画面での設定、ディスク 3 GB |
-| [nopCommerce 1.90](docs/corpora/nopcommerce-1.90.md) | Web Forms | C# | 293 | 必要 | Visual Studio か Build Tools、SQL Server、インストール画面での設定、ディスク 2 GB |
-| [openIMIS 24.10](docs/corpora/openimis.md) | Web Forms | VB | 62 | 必要 | Visual Studio か Build Tools、SQL Server(DB を別のリポジトリのスクリプトで作る。数分)、ディスク 2 GB |
+| アプリ | 種類 | 言語 | 画面数 | DB | 準備と手間 | 手順 |
+|---|---|---|---|---|---|---|
+| nopCommerce 3.90 | MVC 5 | C# | 388 | 必要 | Visual Studio か Build Tools、SQL Server、インストール画面での設定、ディスク 3 GB | [コマンド](docs/corpora/nopcommerce-3.90.md) ・ [Studio](docs/corpora/studio/nopcommerce-3.90.md) |
+| nopCommerce 1.90 | Web Forms | C# | 293 | 必要 | Visual Studio か Build Tools、SQL Server、インストール画面での設定、ディスク 2 GB | [コマンド](docs/corpora/nopcommerce-1.90.md) ・ [Studio](docs/corpora/studio/nopcommerce-1.90.md) |
+| openIMIS 24.10 | Web Forms | VB | 62 | 必要 | Visual Studio か Build Tools、SQL Server(DB を別のリポジトリのスクリプトで作る。数分)、ディスク 2 GB | [コマンド](docs/corpora/openimis.md) ・ [Studio](docs/corpora/studio/openimis.md) |
 
 - **画面数**: Web プロジェクトのページ(`.aspx`)と MVC のビュー(`.cshtml`・`.vbhtml`。名前が `_` で始まる部分ビューとレイアウトを除く)の数です。
 - **DB**: 動かすのに SQL Server が要るかどうかです。小さなアプリの DB は、SQL Server のコンテナを動かせばアプリが作ります。

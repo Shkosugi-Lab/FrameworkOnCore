@@ -1,4 +1,4 @@
-# wt(WingtipToys)
+# WingtipToys
 
 おもちゃ屋のチュートリアルです(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
@@ -21,15 +21,15 @@ git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
 ## 1. GitHub から取得する
 
 ```powershell
-curl.exe -L -o wt.zip https://github.com/corn-mendoza/wingtiptoys/archive/4478e0e5794ed709da924569c54bb5f4c714fb85.zip
-tar -xf wt.zip
+curl.exe -L -o wingtiptoys.zip https://github.com/corn-mendoza/wingtiptoys/archive/4478e0e5794ed709da924569c54bb5f4c714fb85.zip
+tar -xf wingtiptoys.zip
 Rename-Item wingtiptoys-4478e0e5794ed709da924569c54bb5f4c714fb85 wingtiptoys
 ```
 
 ## 2. 変換する
 
 ```powershell
-.\FrameworkOnCore\converter.ps1 .\wingtiptoys\WingtipToys\WingtipToys\WingtipToys.csproj --out .\out\wt --root .\wingtiptoys --build-original auto
+.\FrameworkOnCore\converter.ps1 .\wingtiptoys\WingtipToys\WingtipToys\WingtipToys.csproj --out .\out\wingtiptoys --root .\wingtiptoys --build-original auto
 ```
 
 **Studio で入れる値**([使い方](setup.md#42-studio-で))
@@ -55,7 +55,7 @@ ARM の PC(Windows on ARM)では、SQL Server の代わりに Azure SQL Edge を
 ## 4. Windows で動かす
 
 ```powershell
-Push-Location .\out\wt\WingtipToys\WingtipToys
+Push-Location .\out\wingtiptoys\WingtipToys\WingtipToys
 $env:SQLCONNSTR_DefaultConnection = 'Data Source=localhost,14330;Initial Catalog=WingtipToys;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True'
 $env:SQLCONNSTR_WingtipToys = $env:SQLCONNSTR_DefaultConnection
 dotnet bin\WingtipToys.dll --urls http://localhost:5000
@@ -74,7 +74,7 @@ SQLCONNSTR_WingtipToys=Data Source=localhost,14330;Initial Catalog=WingtipToys;U
 ## 5. Linux で動かす
 
 ```powershell
-docker build -t wingtiptoys .\out\wt
+docker build -t wingtiptoys .\out\wingtiptoys
 $cs = 'Data Source=host.docker.internal,14330;Initial Catalog=WingtipToys;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=True'
 docker run -d -p 8080:8080 --name wingtiptoys -e "SQLCONNSTR_DefaultConnection=$cs" -e "SQLCONNSTR_WingtipToys=$cs" wingtiptoys
 ```

@@ -1,4 +1,4 @@
-# imis(openIMIS 24.10)
+# openIMIS 24.10
 
 健康保険の管理システムです(Web Forms、VB、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
@@ -23,8 +23,8 @@ git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
 アプリと、DB のスクリプトの 2 つを取ります。
 
 ```powershell
-curl.exe -L -o imis.zip https://github.com/openimis/web_app_vb/archive/f21970b3136d8083f2da6bb774652614c1ffd247.zip
-tar -xf imis.zip
+curl.exe -L -o openimis.zip https://github.com/openimis/web_app_vb/archive/f21970b3136d8083f2da6bb774652614c1ffd247.zip
+tar -xf openimis.zip
 Rename-Item web_app_vb-f21970b3136d8083f2da6bb774652614c1ffd247 web_app_vb
 curl.exe -L -o imisdb.zip https://github.com/openimis/database_ms_sqlserver/archive/refs/tags/24.10.zip
 tar -xf imisdb.zip          # database_ms_sqlserver-24.10 ができる
@@ -35,7 +35,7 @@ tar -xf imisdb.zip          # database_ms_sqlserver-24.10 ができる
 元のアプリを、構成 `DemoRelease` でビルドしてから変換します(`--build-original auto` が判断します)。
 
 ```powershell
-.\FrameworkOnCore\converter.ps1 .\web_app_vb\IMIS\IMIS.vbproj --out .\out\imis --root .\web_app_vb --build-original auto --configuration DemoRelease
+.\FrameworkOnCore\converter.ps1 .\web_app_vb\IMIS\IMIS.vbproj --out .\out\openimis --root .\web_app_vb --build-original auto --configuration DemoRelease
 ```
 
 **Studio で入れる値**([使い方](setup.md#42-studio-で))
@@ -82,7 +82,7 @@ foreach ($f in @(Get-ChildItem "$sql\base\*.sql") + @(Get-ChildItem "$sql\stored
 ## 4. Windows で動かす
 
 ```powershell
-Push-Location .\out\imis\site
+Push-Location .\out\openimis\site
 $env:SQLCONNSTR_IMISConnectionString = 'Data Source=localhost,14330;Initial Catalog=imis;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
 dotnet bin\IMIS.dll --urls http://localhost:5000
 Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
@@ -95,8 +95,8 @@ Pop-Location                  # Ctrl+C で止めたあと、作業フォルダ�
 ## 5. Linux で動かす
 
 ```powershell
-docker build -t imis .\out\imis
-docker run -d -p 8080:8080 --name imis -e "SQLCONNSTR_IMISConnectionString=Data Source=host.docker.internal,14330;Initial Catalog=imis;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" imis
+docker build -t openimis .\out\openimis
+docker run -d -p 8080:8080 --name openimis -e "SQLCONNSTR_IMISConnectionString=Data Source=host.docker.internal,14330;Initial Catalog=imis;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" openimis
 ```
 
 http://localhost:8080/ を開きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、次の行を書きます(上のコマンドの `-e` のあとの部分です。コマンドは貼らず、引用符も付けません)。
@@ -110,5 +110,5 @@ SQLCONNSTR_IMISConnectionString=Data Source=host.docker.internal,14330;Initial C
 ## 6. 片付け
 
 ```powershell
-docker rm -f imis foc-sql
+docker rm -f openimis foc-sql
 ```

@@ -1,4 +1,4 @@
-# n2(N2 CMS)
+# N2 CMS
 
 CMS です(Web Forms、C#)。データは SQLite(`App_Data`)に置きます。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
@@ -21,8 +21,8 @@ git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
 ## 1. GitHub から取得する
 
 ```powershell
-curl.exe -L -o n2.zip https://github.com/n2cms/n2cms/archive/db0ec9d193040e64ccbec65604c4599da67a4271.zip
-tar -xf n2.zip
+curl.exe -L -o n2cms.zip https://github.com/n2cms/n2cms/archive/db0ec9d193040e64ccbec65604c4599da67a4271.zip
+tar -xf n2cms.zip
 Rename-Item n2cms-db0ec9d193040e64ccbec65604c4599da67a4271 n2cms
 ```
 
@@ -31,7 +31,7 @@ Rename-Item n2cms-db0ec9d193040e64ccbec65604c4599da67a4271 n2cms
 元のアプリをソリューションでビルドし、リポジトリの準備の手順を 1 つ実行してから変換します。`--original-step` がその手順です。
 
 ```powershell
-.\FrameworkOnCore\converter.ps1 .\n2cms\src\WebForms\WebFormsTemplates\N2.Templates.csproj --out .\out\n2 --root .\n2cms --build-original auto --original-step "build\n2.proj;Templates-PrepareDependencies"
+.\FrameworkOnCore\converter.ps1 .\n2cms\src\WebForms\WebFormsTemplates\N2.Templates.csproj --out .\out\n2cms --root .\n2cms --build-original auto --original-step "build\n2.proj;Templates-PrepareDependencies"
 ```
 
 **Studio で入れる値**([使い方](setup.md#42-studio-で))
@@ -48,7 +48,7 @@ Rename-Item n2cms-db0ec9d193040e64ccbec65604c4599da67a4271 n2cms
 インストールで `App_Data` が書き換わります。Linux でも試すときは、先に 4 の `docker build` を済ませておきます([共通の準備の 7](setup.md#7-linux-で動かす))。
 
 ```powershell
-Push-Location .\out\n2\site
+Push-Location .\out\n2cms\site
 dotnet bin\N2.Templates.dll --urls http://localhost:5000
 Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```
@@ -65,8 +65,8 @@ http://localhost:5000/N2/Installation/Begin/Default.aspx?action=install を開�
 ## 4. Linux で動かす
 
 ```powershell
-docker build -t n2 .\out\n2
-docker run -d -p 8080:8080 --name n2 -v n2-data:/app/App_Data n2
+docker build -t n2cms .\out\n2cms
+docker run -d -p 8080:8080 --name n2cms -v n2cms-data:/app/App_Data n2cms
 ```
 
 http://localhost:8080/N2/Installation/Begin/Default.aspx?action=install を開き、同じようにインストールします。Studio では「コンテナ起動(Linux / Docker)」の「起動」を押します。
@@ -76,6 +76,6 @@ http://localhost:8080/N2/Installation/Begin/Default.aspx?action=install を開�
 ## 5. 片付け
 
 ```powershell
-docker rm -f n2
-docker volume rm n2-data
+docker rm -f n2cms
+docker volume rm n2cms-data
 ```

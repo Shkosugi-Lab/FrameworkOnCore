@@ -1,4 +1,4 @@
-# contoso(Contoso University)
+# Contoso University
 
 学生・講座を扱う EF6 のチュートリアルです(ASP.NET MVC 5、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
@@ -33,7 +33,7 @@ Remove-Item ContosoUniversity-repo -Recurse -Force
 ## 2. 変換する
 
 ```powershell
-.\FrameworkOnCore\converter.ps1 .\ContosoUniversity\ContosoUniversity\ContosoUniversity.csproj --out .\out\contoso --root .\ContosoUniversity --build-original auto
+.\FrameworkOnCore\converter.ps1 .\ContosoUniversity\ContosoUniversity\ContosoUniversity.csproj --out .\out\contoso-university --root .\ContosoUniversity --build-original auto
 ```
 
 **Studio で入れる値**([使い方](setup.md#42-studio-で))
@@ -59,7 +59,7 @@ ARM の PC(Windows on ARM)では、SQL Server の代わりに Azure SQL Edge を
 ## 4. Windows で動かす
 
 ```powershell
-Push-Location .\out\contoso\ContosoUniversity
+Push-Location .\out\contoso-university\ContosoUniversity
 $env:SQLCONNSTR_SchoolContext = 'Data Source=localhost,14330;Initial Catalog=ContosoUniversity1;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
 dotnet bin\ContosoUniversity.dll --urls http://localhost:5000
 Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
@@ -70,8 +70,8 @@ http://localhost:5000/Student を開きます。Studio では、「ネイティ�
 ## 5. Linux で動かす
 
 ```powershell
-docker build -t contoso .\out\contoso
-docker run -d -p 8080:8080 --name contoso -e "SQLCONNSTR_SchoolContext=Data Source=host.docker.internal,14330;Initial Catalog=ContosoUniversity1;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" contoso
+docker build -t contoso-university .\out\contoso-university
+docker run -d -p 8080:8080 --name contoso-university -e "SQLCONNSTR_SchoolContext=Data Source=host.docker.internal,14330;Initial Catalog=ContosoUniversity1;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" contoso-university
 ```
 
 http://localhost:8080/Student を開きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、次の行を書きます(上のコマンドの `-e` のあとの部分です。コマンドは貼らず、引用符も付けません)。
@@ -85,5 +85,5 @@ SQLCONNSTR_SchoolContext=Data Source=host.docker.internal,14330;Initial Catalog=
 ## 6. 片付け
 
 ```powershell
-docker rm -f contoso foc-sql
+docker rm -f contoso-university foc-sql
 ```

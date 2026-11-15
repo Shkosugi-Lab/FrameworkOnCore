@@ -1,4 +1,4 @@
-# mojo(mojoPortal 3.1.6)
+# mojoPortal 3.1.6
 
 CMS です(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
@@ -21,8 +21,8 @@ git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
 ## 1. GitHub から取得する
 
 ```powershell
-curl.exe -L -o mojo.zip https://github.com/i7MEDIA/mojoportal/archive/refs/tags/v3.1.6.zip
-tar -xf mojo.zip          # mojoportal-3.1.6 ができる
+curl.exe -L -o mojoportal.zip https://github.com/i7MEDIA/mojoportal/archive/refs/tags/v3.1.6.zip
+tar -xf mojoportal.zip          # mojoportal-3.1.6 ができる
 ```
 
 ## 2. 変換する
@@ -30,7 +30,7 @@ tar -xf mojo.zip          # mojoportal-3.1.6 ができる
 元のアプリをソリューションでビルドしてから変換します(`--build-original auto` が判断します)。
 
 ```powershell
-.\FrameworkOnCore\converter.ps1 .\mojoportal-3.1.6\Web\mojoPortal.Web.csproj --out .\out\mojo --root .\mojoportal-3.1.6 --build-original auto
+.\FrameworkOnCore\converter.ps1 .\mojoportal-3.1.6\Web\mojoPortal.Web.csproj --out .\out\mojoportal --root .\mojoportal-3.1.6 --build-original auto
 ```
 
 **Studio で入れる値**([使い方](setup.md#42-studio-で))
@@ -48,7 +48,7 @@ SQL Server のコンテナを起動し([共通の準備の 5](setup.md#5-sql-ser
 ```powershell
 docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/mssql/server:2022-latest
 Start-Sleep 20
-docker exec foc-sql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P Foc_local_Passw0rd -C -Q "CREATE DATABASE mojo_windows; CREATE DATABASE mojo_linux"
+docker exec foc-sql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P Foc_local_Passw0rd -C -Q "CREATE DATABASE mojoportal_windows; CREATE DATABASE mojoportal_linux"
 ```
 
 ARM の PC(Windows on ARM)では、SQL Server の代わりに Azure SQL Edge を起動し([共通の準備の 5](setup.md#arm-の-pcwindows-on-armでは))、Windows の `sqlcmd`(`winget install sqlcmd`)で DB を作ります。2 回目以降はコンテナを `docker start foc-sql` で起動するだけです(DB は残っています)。
@@ -56,7 +56,7 @@ ARM の PC(Windows on ARM)では、SQL Server の代わりに Azure SQL Edge を
 ```powershell
 docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=1 -e "MSSQL_SA_PASSWORD=Foc_local_Passw0rd" mcr.microsoft.com/azure-sql-edge
 Start-Sleep 20
-sqlcmd -S localhost,14330 -U sa -P Foc_local_Passw0rd -C -Q "CREATE DATABASE mojo_windows; CREATE DATABASE mojo_linux"
+sqlcmd -S localhost,14330 -U sa -P Foc_local_Passw0rd -C -Q "CREATE DATABASE mojoportal_windows; CREATE DATABASE mojoportal_linux"
 ```
 
 接続文字列は、appSettings の `MSSQLConnectionString` として渡します(`APPSETTING_MSSQLConnectionString`)。
@@ -66,8 +66,8 @@ sqlcmd -S localhost,14330 -U sa -P Foc_local_Passw0rd -C -Q "CREATE DATABASE moj
 Linux でも試すときは、先に 5 の `docker build` を済ませておきます([共通の準備の 7](setup.md#7-linux-で動かす))。
 
 ```powershell
-Push-Location .\out\mojo\site
-$env:APPSETTING_MSSQLConnectionString = 'Data Source=localhost,14330;Initial Catalog=mojo_windows;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
+Push-Location .\out\mojoportal\site
+$env:APPSETTING_MSSQLConnectionString = 'Data Source=localhost,14330;Initial Catalog=mojoportal_windows;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
 dotnet bin\mojoPortal.Web.dll --urls http://localhost:5000
 Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```
@@ -78,14 +78,14 @@ Studio では、「ネイティブ起動(この PC)」の「環境変数」に `
 ## 5. Linux で動かす
 
 ```powershell
-docker build -t mojo .\out\mojo
-docker run -d -p 8080:8080 --name mojo -e "APPSETTING_MSSQLConnectionString=Data Source=host.docker.internal,14330;Initial Catalog=mojo_linux;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" mojo
+docker build -t mojoportal .\out\mojoportal
+docker run -d -p 8080:8080 --name mojoportal -e "APPSETTING_MSSQLConnectionString=Data Source=host.docker.internal,14330;Initial Catalog=mojoportal_linux;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" mojoportal
 ```
 
 http://localhost:8080/ を開くと、同じようにセットアップが動きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、次の行を書きます(上のコマンドの `-e` のあとの部分です。コマンドは貼らず、引用符も付けません)。
 
 ```
-APPSETTING_MSSQLConnectionString=Data Source=host.docker.internal,14330;Initial Catalog=mojo_linux;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True
+APPSETTING_MSSQLConnectionString=Data Source=host.docker.internal,14330;Initial Catalog=mojoportal_linux;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True
 ```
 
 記録では、Windows・Linux ともセットアップのあと、トップ・ログイン・サイトマップが 200 でした(2026-10-11)。ただし、このページの手順そのものは試していません。
@@ -93,5 +93,5 @@ APPSETTING_MSSQLConnectionString=Data Source=host.docker.internal,14330;Initial 
 ## 6. 片付け
 
 ```powershell
-docker rm -f mojo foc-sql
+docker rm -f mojoportal foc-sql
 ```

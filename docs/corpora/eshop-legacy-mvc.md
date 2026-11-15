@@ -1,4 +1,4 @@
-# eshop(eShopLegacyMVC)
+# eShopLegacyMVC
 
 Microsoft がモダナイズの題材として公開している、カタログ管理のサンプルです(MVC 5 と Web API 2、C#)。画面(MVC)と Web API が 1 つのアプリに入っています。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
@@ -25,15 +25,15 @@ git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
 リポジトリが大きい(約 130 MB)ので、`eShopLegacyMVCSolution` のフォルダーだけを取ります。
 
 ```powershell
-git clone --filter=blob:none --no-checkout https://github.com/dotnet-architecture/eShopModernizing.git eshop
-git -C eshop sparse-checkout set eShopLegacyMVCSolution
-git -C eshop checkout 63bc9ec4414d7e281dc9f9d7bdcf70030950457d
+git clone --filter=blob:none --no-checkout https://github.com/dotnet-architecture/eShopModernizing.git
+git -C eShopModernizing sparse-checkout set eShopLegacyMVCSolution
+git -C eShopModernizing checkout 63bc9ec4414d7e281dc9f9d7bdcf70030950457d
 ```
 
 ## 2. 変換する
 
 ```powershell
-.\FrameworkOnCore\converter.ps1 .\eshop\eShopLegacyMVCSolution\src\eShopLegacyMVC\eShopLegacyMVC.csproj --out .\out\eshop --root .\eshop\eShopLegacyMVCSolution --build-original
+.\FrameworkOnCore\converter.ps1 .\eShopModernizing\eShopLegacyMVCSolution\src\eShopLegacyMVC\eShopLegacyMVC.csproj --out .\out\eshop-legacy-mvc --root .\eShopModernizing\eShopLegacyMVCSolution --build-original
 ```
 
 1〜2 分かかります。変換レポートの「未解決」は 0 です。
@@ -42,14 +42,14 @@ git -C eshop checkout 63bc9ec4414d7e281dc9f9d7bdcf70030950457d
 
 | 欄 | 値 |
 |---|---|
-| プロジェクト | `.\eshop\eShopLegacyMVCSolution\src\eShopLegacyMVC\eShopLegacyMVC.csproj` |
-| リポジトリのフォルダー | `.\eshop\eShopLegacyMVCSolution` |
+| プロジェクト | `.\eShopModernizing\eShopLegacyMVCSolution\src\eShopLegacyMVC\eShopLegacyMVC.csproj` |
+| リポジトリのフォルダー | `.\eShopModernizing\eShopLegacyMVCSolution` |
 | 構成 | `Release` |
 
 ## 3. Windows で動かす
 
 ```powershell
-Push-Location .\out\eshop\site
+Push-Location .\out\eshop-legacy-mvc\site
 $env:APPSETTING_UseMockData = 'true'
 dotnet bin\eShopLegacyMVC.dll --urls http://localhost:5000
 Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
@@ -70,8 +70,8 @@ APPSETTING_UseMockData=true
 ## 4. Linux で動かす
 
 ```powershell
-docker build -t eshop .\out\eshop
-docker run -d -p 8080:8080 --name eshop -e APPSETTING_UseMockData=true eshop
+docker build -t eshop-legacy-mvc .\out\eshop-legacy-mvc
+docker run -d -p 8080:8080 --name eshop-legacy-mvc -e APPSETTING_UseMockData=true eshop-legacy-mvc
 ```
 
 http://localhost:8080/ を開きます。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、上と同じ `APPSETTING_UseMockData=true` を書きます。
@@ -85,5 +85,5 @@ http://localhost:8080/ を開きます。Studio では「コンテナ起動(Linu
 ## 6. 片付け
 
 ```powershell
-docker rm -f eshop
+docker rm -f eshop-legacy-mvc
 ```

@@ -17,7 +17,7 @@
 | [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) | すべて(変換したアプリを Windows で動かすのにも使います) |
 | [Git](https://git-scm.com/download/win) | すべて |
 | [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/)(WSL 2) | Linux で動かすとき。SQL Server を使うコーパスでは、Windows で動かすときも使います |
-| [Visual Studio](https://visualstudio.microsoft.com/downloads/)(「ASP.NET と Web 開発」)**または** [Visual Studio Build Tools](https://visualstudio.microsoft.com/downloads/)(「Web 開発ビルド ツール」と .NET Framework 4.8 の Targeting Pack) | mojo、dnn、n2、imis、nop、nop390(元のアプリのビルドが要るもの)。Studio を使うときは、すべて(ステップ 1 で元のアプリをビルドするため) |
+| [Visual Studio](https://visualstudio.microsoft.com/downloads/)(「ASP.NET と Web 開発」)**または** [Visual Studio Build Tools](https://visualstudio.microsoft.com/downloads/)(「Web 開発ビルド ツール」と .NET Framework 4.8 の Targeting Pack) | mojoPortal、DNN Platform、N2 CMS、openIMIS、nopCommerce 1.90・3.90(元のアプリのビルドが要るもの)。Studio を使うときは、すべて(ステップ 1 で元のアプリをビルドするため) |
 
 SQL Server は、Docker のコンテナで動かします([5](#5-sql-server-を使うとき))。Windows に入れる必要はありません。
 
@@ -27,7 +27,7 @@ SQL Server は、Docker のコンテナで動かします([5](#5-sql-server-を�
 - **両方入っているときは、どちらを使うかを選びます。**
   - コマンドライン: `--msbuild visualstudio` か `--msbuild buildtools`(またはインストール先のフォルダー)を付けます。付けないと、選び方を表示して止まります。
   - Studio: ステップ 1 の「ビルドに使う MSBuild」で選びます(この欄はいつも出ます。入っていないほうは選べません)。ステップ 2 以降は、最後にビルドに成功したときの選択を使います。
-- Cake でビルドするアプリ(dnn)は、そのビルドスクリプトが自分で MSBuild を探すので、この選択は効きません。
+- Cake でビルドするアプリ(DNN Platform)は、そのビルドスクリプトが自分で MSBuild を探すので、この選択は効きません。
 
 Visual Studio(Community など)とBuild Tools の使用条件は、それぞれのライセンスで確認してください。
 
@@ -63,8 +63,8 @@ C:\foc
 各ページの「1. GitHub から取得する」のコマンドで、元の GitHub のリポジトリから、決まったタグかコミットの版を作業フォルダーに取ります。
 
 - ZIP は `curl.exe` でダウンロードし、`tar` で展開します。
-- リポジトリの一部だけを使う mvcmovie・contoso は、`git` でそのフォルダーだけを取ります。
-- ブラウザーで取るときは、取得元のリンクからそのタグかコミットを開き、「Code」→「Download ZIP」を押します(mvcmovie・contoso を除く)。
+- リポジトリの一部だけを使う MvcMovie・Contoso University は、`git` でそのフォルダーだけを取ります。
+- ブラウザーで取るときは、取得元のリンクからそのタグかコミットを開き、「Code」→「Download ZIP」を押します(MvcMovie・Contoso University を除く)。
 
 ## 4. 変換する
 
@@ -99,7 +99,7 @@ C:\foc
    - 「構成」
 2. ステップ 1 の「元のアプリのビルド」で「ビルド」を押します。**ビルドが通るまで、ステップ 2 以降には進めません**(Studio を使うときは、どのコーパスでも Visual Studio か Build Tools が要ります)。
    - 「ビルドに使う MSBuild」で Visual Studio か Build Tools を選んでから押します(入っていないほうは選べません)。ステップ 2 以降は、最後にビルドに成功したときの選択を使います。
-   - n2 は「追加の手順」を開いて入れます。ほかのコーパスは空のままです。
+   - N2 CMS は「追加の手順」を開いて入れます。ほかのコーパスは空のままです。
 3. 解析が終わると、「自分で対応する所」や「対応を選ぶ部品」が出ます。**既定のままで変換できます。**
 4. 「サーバーの設定」も既定のまま(元の IIS と同じ動き)で進みます。
 5. 「変換してビルド」を押します。終わると「ビルド成功」と、変換レポートが出ます。
@@ -132,7 +132,7 @@ docker run -d --name foc-sql -p 14330:1433 -e ACCEPT_EULA=1 -e "MSSQL_SA_PASSWOR
 ```
 
 - Azure SQL Edge は 2025 年 9 月でサポートが終わっています(イメージは取れますが、更新されません)。この PC での動作確認に使います。
-- Azure SQL Edge のコンテナには `sqlcmd` が入っていません。DB をスクリプトで作るページ(dnn、mojo、imis)の `docker exec foc-sql /opt/mssql-tools18/bin/sqlcmd ...` は動かないので、Windows の `sqlcmd` を入れて(`winget install sqlcmd`)、各ページの「ARM の PC では」の手順を使います。
+- Azure SQL Edge のコンテナには `sqlcmd` が入っていません。DB をスクリプトで作るページ(DNN Platform、mojoPortal、openIMIS)の `docker exec foc-sql /opt/mssql-tools18/bin/sqlcmd ...` は動かないので、Windows の `sqlcmd` を入れて(`winget install sqlcmd`)、各ページの「ARM の PC では」の手順を使います。
 
 接続文字列のサーバー名は、アプリをどこで動かすかで変わります。
 
@@ -179,7 +179,7 @@ docker run -d -p 8080:8080 --name <名前> <名前>
 - 接続文字列などは、`docker run` の `-e SQLCONNSTR_<名前>=...` と `-e APPSETTING_<キー>=...` で渡します。
 - Studio では「コンテナ起動(Linux / Docker)」の「起動」を押します。開く URL は画面に出ます。Studio のコンテナは一度に一つです。
 
-インストーラーのあるアプリ(mojo、dnn、n2、nop、nop390)は、インストールでサイトのファイル(設定ファイルや `App_Data`)が書き換わることがあります。
+インストーラーのあるアプリ(mojoPortal、DNN Platform、N2 CMS、nopCommerce 1.90・3.90)は、インストールでサイトのファイル(設定ファイルや `App_Data`)が書き換わることがあります。
 Windows と Linux の両方で試すときは、Windows で動かす前に `docker build` を済ませておきます(イメージは、作ったときのサイトのファイルから作られるためです)。
 
 ## 8. 片付け

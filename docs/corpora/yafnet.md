@@ -1,4 +1,4 @@
-# yaf(YAF.NET 3.2.15)
+# YAF.NET 3.2.15
 
 掲示板です(Web Forms、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
@@ -23,14 +23,14 @@ git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
 ## 1. GitHub から取得する
 
 ```powershell
-curl.exe -L -o yaf.zip https://github.com/YAFNET/YAFNET/archive/refs/tags/v3.2.15.zip
-tar -xf yaf.zip          # YAFNET-3.2.15 ができる
+curl.exe -L -o yafnet.zip https://github.com/YAFNET/YAFNET/archive/refs/tags/v3.2.15.zip
+tar -xf yafnet.zip          # YAFNET-3.2.15 ができる
 ```
 
 ## 2. 変換する
 
 ```powershell
-.\FrameworkOnCore\converter.ps1 .\YAFNET-3.2.15\yafsrc\YetAnotherForum.NET\YAF-SqlServer.csproj --out .\out\yaf --root .\YAFNET-3.2.15 --build-original auto
+.\FrameworkOnCore\converter.ps1 .\YAFNET-3.2.15\yafsrc\YetAnotherForum.NET\YAF-SqlServer.csproj --out .\out\yafnet --root .\YAFNET-3.2.15 --build-original auto
 ```
 
 **Studio で入れる値**([使い方](setup.md#42-studio-で))
@@ -41,12 +41,12 @@ tar -xf yaf.zip          # YAFNET-3.2.15 ができる
 | リポジトリのフォルダー | `.\YAFNET-3.2.15` |
 | 構成 | `Release` |
 
-変換の結果は `.\out\yaf\CONVERSION-REPORT.md`(Studio では変換レポート)にあります。未解決が 1 件、スタブ(コンパイルを通すための仮の実装)が 43 件です。
+変換の結果は `.\out\yafnet\CONVERSION-REPORT.md`(Studio では変換レポート)にあります。未解決が 1 件、スタブ(コンパイルを通すための仮の実装)が 43 件です。
 
 500 になるところを見るときは、Windows で起動します。
 
 ```powershell
-Push-Location .\out\yaf\yafsrc\YetAnotherForum.NET
+Push-Location .\out\yafnet\yafsrc\YetAnotherForum.NET
 dotnet bin\YAF.dll --urls http://localhost:5000
 Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```

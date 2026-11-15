@@ -1,4 +1,4 @@
-# mvcmovie(MvcMovie)
+# MvcMovie
 
 映画の一覧を扱う ASP.NET MVC 5 のチュートリアルです(C#、EF6、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 

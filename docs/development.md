@@ -105,7 +105,7 @@ Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、St
 
 ```powershell
 .\tests\run-tests.ps1 -Set quick     # 3 つのテスト プロジェクト(約 4 分、準備なし)
-.\tests\run-tests.ps1 -Set commit    # 変換器を変えたとき(be・wt の変換と IIS との比較を含む)
+.\tests\run-tests.ps1 -Set commit    # 変換器を変えたとき(BlogEngine.NET・WingtipToys の変換と IIS との比較を含む)
 .\tests\run-tests.ps1 -Set runtime   # FrameworkOnCore.Runtime を変えたとき
 .\tests\FrameworkOnCore.Tests\run-tests-linux.ps1    # Linux(Docker)
 ```

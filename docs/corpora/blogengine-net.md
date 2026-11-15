@@ -1,6 +1,6 @@
-# be(BlogEngine.NET 3.3.8)をコマンドラインで変換する
+# BlogEngine.NET 3.3.8 をコマンドラインで変換する
 
-ブログのエンジンです(Web Forms、C#)。データは DB ではなく `App_Data` の XML に置きます。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。Studio(画面)での手順は [こちら](studio/be.md) です。
+ブログのエンジンです(Web Forms、C#)。データは DB ではなく `App_Data` の XML に置きます。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。Studio(画面)での手順は [こちら](studio/blogengine-net.md) です。
 
 | | |
 |---|---|
@@ -21,14 +21,14 @@ git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
 ## 1. GitHub から取得する
 
 ```powershell
-curl.exe -L -o be.zip https://github.com/rxtur/BlogEngine.NET/archive/refs/tags/v3.3.8.0.zip
-tar -xf be.zip          # BlogEngine.NET-3.3.8.0 ができる
+curl.exe -L -o blogengine-net.zip https://github.com/rxtur/BlogEngine.NET/archive/refs/tags/v3.3.8.0.zip
+tar -xf blogengine-net.zip          # BlogEngine.NET-3.3.8.0 ができる
 ```
 
 ## 2. 変換する
 
 ```powershell
-.\FrameworkOnCore\converter.ps1 .\BlogEngine.NET-3.3.8.0\BlogEngine\BlogEngine.NET\BlogEngine.NET.csproj --out .\out\be --root .\BlogEngine.NET-3.3.8.0 --build-original auto
+.\FrameworkOnCore\converter.ps1 .\BlogEngine.NET-3.3.8.0\BlogEngine\BlogEngine.NET\BlogEngine.NET.csproj --out .\out\blogengine-net --root .\BlogEngine.NET-3.3.8.0 --build-original auto
 ```
 
 - 約 1 分かかります。元のアプリのビルドは要りません(ソースに入っている `bin` をそのまま使います)。

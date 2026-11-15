@@ -1,4 +1,4 @@
-# vbmvc(Bootstrap2-VB-MVC)
+# Bootstrap2-VB-MVC
 
 Bootstrap 2 の文書を中国語(繁体字)に訳したサイトのソースです(MVC 4、**Visual Basic**)。ビューは VB の Razor(`.vbhtml`)で書かれています。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
@@ -23,15 +23,15 @@ git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
 ## 1. GitHub から取得する
 
 ```powershell
-curl.exe -L -o vbmvc.zip https://github.com/kkbruce/Bootstrap2-VB-MVC/archive/ca621388bfdaedf1d69a505e863fd5ffd52ad0b5.zip
-tar -xf vbmvc.zip
-Rename-Item Bootstrap2-VB-MVC-ca621388bfdaedf1d69a505e863fd5ffd52ad0b5 vbmvc
+curl.exe -L -o bootstrap2-vb-mvc.zip https://github.com/kkbruce/Bootstrap2-VB-MVC/archive/ca621388bfdaedf1d69a505e863fd5ffd52ad0b5.zip
+tar -xf bootstrap2-vb-mvc.zip
+Rename-Item Bootstrap2-VB-MVC-ca621388bfdaedf1d69a505e863fd5ffd52ad0b5 Bootstrap2-VB-MVC
 ```
 
 ## 2. 変換する
 
 ```powershell
-.\FrameworkOnCore\converter.ps1 .\vbmvc\kkbruce.tw\kkbruce.tw.vbproj --out .\out\vbmvc --root .\vbmvc --build-original
+.\FrameworkOnCore\converter.ps1 .\Bootstrap2-VB-MVC\kkbruce.tw\kkbruce.tw.vbproj --out .\out\bootstrap2-vb-mvc --root .\Bootstrap2-VB-MVC --build-original
 ```
 
 1 分ほどかかります。変換レポートの「未解決」は 0 です。
@@ -42,14 +42,14 @@ Rename-Item Bootstrap2-VB-MVC-ca621388bfdaedf1d69a505e863fd5ffd52ad0b5 vbmvc
 
 | 欄 | 値 |
 |---|---|
-| プロジェクト | `.\vbmvc\kkbruce.tw\kkbruce.tw.vbproj` |
-| リポジトリのフォルダー | `.\vbmvc` |
+| プロジェクト | `.\Bootstrap2-VB-MVC\kkbruce.tw\kkbruce.tw.vbproj` |
+| リポジトリのフォルダー | `.\Bootstrap2-VB-MVC` |
 | 構成 | `Release` |
 
 ## 3. Windows で動かす
 
 ```powershell
-Push-Location .\out\vbmvc\site
+Push-Location .\out\bootstrap2-vb-mvc\site
 dotnet bin\kkbruce.tw.dll --urls http://localhost:5000
 Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```
@@ -61,8 +61,8 @@ Studio では、「ネイティブ起動(この PC)」の「起動」を押し�
 ## 4. Linux で動かす
 
 ```powershell
-docker build -t vbmvc .\out\vbmvc
-docker run -d -p 8080:8080 --name vbmvc vbmvc
+docker build -t bootstrap2-vb-mvc .\out\bootstrap2-vb-mvc
+docker run -d -p 8080:8080 --name bootstrap2-vb-mvc bootstrap2-vb-mvc
 ```
 
 http://localhost:8080/ を開きます。
@@ -77,5 +77,5 @@ http://localhost:8080/ を開きます。
 ## 6. 片付け
 
 ```powershell
-docker rm -f vbmvc
+docker rm -f bootstrap2-vb-mvc
 ```

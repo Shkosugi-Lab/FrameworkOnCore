@@ -1,4 +1,4 @@
-# dnn(DNN Platform 9.13.10)
+# DNN Platform 9.13.10
 
 大きな CMS です(Web Forms、C# と VB、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
@@ -21,8 +21,8 @@ git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
 ## 1. GitHub から取得する
 
 ```powershell
-curl.exe -L -o dnn.zip https://github.com/dnnsoftware/Dnn.Platform/archive/refs/tags/v9.13.10.zip
-tar -xf dnn.zip          # Dnn.Platform-9.13.10 ができる
+curl.exe -L -o dnn-platform.zip https://github.com/dnnsoftware/Dnn.Platform/archive/refs/tags/v9.13.10.zip
+tar -xf dnn-platform.zip          # Dnn.Platform-9.13.10 ができる
 ```
 
 ## 2. 変換する
@@ -30,7 +30,7 @@ tar -xf dnn.zip          # Dnn.Platform-9.13.10 ができる
 元のアプリを DNN の Cake のビルドでビルドしてから変換します(`--build-original auto` が判断します)。初回は長くかかります。
 
 ```powershell
-.\FrameworkOnCore\converter.ps1 ".\Dnn.Platform-9.13.10\DNN Platform\Website\DotNetNuke.Website.csproj" --out .\out\dnn --root .\Dnn.Platform-9.13.10 --build-original auto
+.\FrameworkOnCore\converter.ps1 ".\Dnn.Platform-9.13.10\DNN Platform\Website\DotNetNuke.Website.csproj" --out .\out\dnn-platform --root .\Dnn.Platform-9.13.10 --build-original auto
 ```
 
 `the build failed after it deployed the site: ... is used as it is` と出ても、そのまま進めて構いません。ビルドの一部(パッケージ作り)が失敗しただけで、サイトはできています。
@@ -68,7 +68,7 @@ sqlcmd -S localhost,14330 -U sa -P Foc_local_Passw0rd -C -Q "CREATE DATABASE dnn
 インストールでサイトのファイルが書き換わります。Linux でも試すときは、先に 5 の `docker build` を済ませておきます([共通の準備の 7](setup.md#7-linux-で動かす))。
 
 ```powershell
-Push-Location .\out\dnn\site
+Push-Location .\out\dnn-platform\site
 $env:SQLCONNSTR_SiteSqlServer = 'Data Source=localhost,14330;Initial Catalog=dnn_windows;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True'
 dotnet bin\DotNetNuke.Website.dll --urls http://localhost:5000
 Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
@@ -80,8 +80,8 @@ Studio では、「ネイティブ起動(この PC)」の「環境変数」に `
 ## 5. Linux で動かす
 
 ```powershell
-docker build -t dnn .\out\dnn
-docker run -d -p 8080:8080 --name dnn -e "SQLCONNSTR_SiteSqlServer=Data Source=host.docker.internal,14330;Initial Catalog=dnn_linux;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" dnn
+docker build -t dnn-platform .\out\dnn-platform
+docker run -d -p 8080:8080 --name dnn-platform -e "SQLCONNSTR_SiteSqlServer=Data Source=host.docker.internal,14330;Initial Catalog=dnn_linux;User ID=sa;Password=Foc_local_Passw0rd;TrustServerCertificate=True" dnn-platform
 ```
 
 http://localhost:8080/Install/Install.aspx?mode=install を開いてインストールします。Studio では「コンテナ起動(Linux / Docker)」の「環境変数」に、次の行を書きます(上のコマンドの `-e` のあとの部分です。コマンドは貼らず、引用符も付けません)。
@@ -95,5 +95,5 @@ SQLCONNSTR_SiteSqlServer=Data Source=host.docker.internal,14330;Initial Catalog=
 ## 6. 片付け
 
 ```powershell
-docker rm -f dnn foc-sql
+docker rm -f dnn-platform foc-sql
 ```

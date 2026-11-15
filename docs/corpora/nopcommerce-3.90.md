@@ -1,4 +1,4 @@
-# nop390(nopCommerce 3.90)
+# nopCommerce 3.90
 
 EC サイトです(ASP.NET MVC 5、C#、SQL Server)。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
@@ -21,8 +21,8 @@ git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
 ## 1. GitHub から取得する
 
 ```powershell
-curl.exe -L -o nop390.zip https://github.com/nopSolutions/nopCommerce/archive/refs/tags/release-3.90.zip
-tar -xf nop390.zip          # nopCommerce-release-3.90 ができる
+curl.exe -L -o nopcommerce-3.90.zip https://github.com/nopSolutions/nopCommerce/archive/refs/tags/release-3.90.zip
+tar -xf nopcommerce-3.90.zip          # nopCommerce-release-3.90 ができる
 ```
 
 ## 2. 変換する
@@ -30,7 +30,7 @@ tar -xf nop390.zip          # nopCommerce-release-3.90 ができる
 元のアプリをソリューションでビルドしてから変換します(`--build-original auto` が判断します)。
 
 ```powershell
-.\FrameworkOnCore\converter.ps1 .\nopCommerce-release-3.90\src\Presentation\Nop.Web\Nop.Web.csproj --out .\out\nop390 --root .\nopCommerce-release-3.90 --build-original auto
+.\FrameworkOnCore\converter.ps1 .\nopCommerce-release-3.90\src\Presentation\Nop.Web\Nop.Web.csproj --out .\out\nopcommerce-3.90 --root .\nopCommerce-release-3.90 --build-original auto
 ```
 
 **Studio で入れる値**([使い方](setup.md#42-studio-で))
@@ -56,7 +56,7 @@ ARM の PC(Windows on ARM)では、SQL Server の代わりに Azure SQL Edge を
 インストールでサイトの `App_Data` が書き換わります。Linux でも試すときは、先に 5 の `docker build` を済ませておきます([共通の準備の 7](setup.md#7-linux-で動かす))。
 
 ```powershell
-Push-Location .\out\nop390\site
+Push-Location .\out\nopcommerce-3.90\site
 dotnet bin\Nop.Web.dll --urls http://localhost:5000
 Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```
@@ -67,7 +67,7 @@ http://localhost:5000/ を開くと、インストールの画面が出ます。
 |---|---|
 | SQL Server | `localhost,14330`(Linux のコンテナでは `host.docker.internal,14330`) |
 | 認証 | SQL Server 認証。ユーザー `sa`、パスワード `Foc_local_Passw0rd` |
-| データベース | Windows と Linux で別の名前にします(`nop390_windows`、`nop390_linux` など) |
+| データベース | Windows と Linux で別の名前にします(`nopcommerce390_windows`、`nopcommerce390_linux` など) |
 | サンプルのデータ | 入れる |
 
 - インストールが終わると、アプリが再起動し、店頭と管理画面が開けます。
@@ -77,8 +77,8 @@ http://localhost:5000/ を開くと、インストールの画面が出ます。
 ## 5. Linux で動かす
 
 ```powershell
-docker build -t nop390 .\out\nop390
-docker run -d -p 8080:8080 --name nop390 nop390
+docker build -t nopcommerce-3.90 .\out\nopcommerce-3.90
+docker run -d -p 8080:8080 --name nopcommerce-3.90 nopcommerce-3.90
 ```
 
 http://localhost:8080/ を開き、上の表の Linux の値でインストールします。Studio では「コンテナ起動(Linux / Docker)」の「起動」を押します。
@@ -88,5 +88,5 @@ http://localhost:8080/ を開き、上の表の Linux の値でインストー�
 ## 6. 片付け
 
 ```powershell
-docker rm -f nop390 foc-sql
+docker rm -f nopcommerce-3.90 foc-sql
 ```

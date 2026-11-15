@@ -1,4 +1,4 @@
-# wcf(WCF のサービス: MultipleEndpoints、C# と VB)
+# WCF のサービス: MultipleEndpoints、C# と VB
 
 Microsoft の WCF のサンプルの、IIS で動く電卓のサービスです(`.svc`)。**同じサービスの C# 版と VB 版**があるので、両方を変換します。[共通の準備](setup.md) が終わっている前提で、コマンドは作業フォルダー(下の 0)で実行します。
 
@@ -30,19 +30,19 @@ git clone https://github.com/Shkosugi-Lab/FrameworkOnCore.git
 リポジトリがとても大きい(約 300 MB)ので、このサンプルのフォルダーだけを取ります。
 
 ```powershell
-git clone --filter=blob:none --no-checkout https://github.com/dotnet/samples.git wcf
-git -C wcf sparse-checkout set framework/wcf/Basic/Services/MultipleEndpoints
-git -C wcf checkout 3810558800760fc39282cc939bac645735514209
+git clone --filter=blob:none --no-checkout https://github.com/dotnet/samples.git dotnet-samples
+git -C dotnet-samples sparse-checkout set framework/wcf/Basic/Services/MultipleEndpoints
+git -C dotnet-samples checkout 3810558800760fc39282cc939bac645735514209
 ```
 
-`.\wcf\framework\wcf\Basic\Services\MultipleEndpoints` の下に `CS`(C#)と `VB` ができます。どちらも `service`(サービス)と `client`(コンソールのクライアント)のプロジェクトです。
+`.\dotnet-samples\framework\wcf\Basic\Services\MultipleEndpoints` の下に `CS`(C#)と `VB` ができます。どちらも `service`(サービス)と `client`(コンソールのクライアント)のプロジェクトです。
 
 ## 2. 変換する
 
 ```powershell
-$sample = '.\wcf\framework\wcf\Basic\Services\MultipleEndpoints'
-.\FrameworkOnCore\converter.ps1 "$sample\CS\service\service.csproj" --out .\out\wcf-cs --root "$sample\CS" --build-original
-.\FrameworkOnCore\converter.ps1 "$sample\VB\service\service.vbproj" --out .\out\wcf-vb --root "$sample\VB" --build-original
+$sample = '.\dotnet-samples\framework\wcf\Basic\Services\MultipleEndpoints'
+.\FrameworkOnCore\converter.ps1 "$sample\CS\service\service.csproj" --out .\out\multiple-endpoints-cs --root "$sample\CS" --build-original
+.\FrameworkOnCore\converter.ps1 "$sample\VB\service\service.vbproj" --out .\out\multiple-endpoints-vb --root "$sample\VB" --build-original
 ```
 
 それぞれ 1 分ほどかかります。変換レポートの「未解決」は 0 です。
@@ -51,16 +51,16 @@ $sample = '.\wcf\framework\wcf\Basic\Services\MultipleEndpoints'
 
 | 欄 | 値 |
 |---|---|
-| プロジェクト | `.\wcf\framework\wcf\Basic\Services\MultipleEndpoints\CS\service\service.csproj` |
-| リポジトリのフォルダー | `.\wcf\framework\wcf\Basic\Services\MultipleEndpoints\CS` |
+| プロジェクト | `.\dotnet-samples\framework\wcf\Basic\Services\MultipleEndpoints\CS\service\service.csproj` |
+| リポジトリのフォルダー | `.\dotnet-samples\framework\wcf\Basic\Services\MultipleEndpoints\CS` |
 | 構成 | `Release` |
 
 ## 3. Windows で動かす
 
-C# 版の例です(VB 版は `wcf-cs` を `wcf-vb` にします)。
+C# 版の例です(VB 版は `multiple-endpoints-cs` を `multiple-endpoints-vb` にします)。
 
 ```powershell
-Push-Location .\out\wcf-cs\site
+Push-Location .\out\multiple-endpoints-cs\site
 dotnet bin\service.dll --urls http://localhost:5000
 Pop-Location                  # Ctrl+C で止めたあと、作業フォルダーに戻る
 ```
@@ -82,8 +82,8 @@ Studio では、「ネイティブ起動(この PC)」の「起動」を押し�
 ## 4. Linux で動かす
 
 ```powershell
-docker build -t wcf-cs .\out\wcf-cs
-docker run -d -p 8080:8080 --name wcf-cs wcf-cs
+docker build -t multiple-endpoints-cs .\out\multiple-endpoints-cs
+docker run -d -p 8080:8080 --name multiple-endpoints-cs multiple-endpoints-cs
 ```
 
 http://localhost:8080/service.svc を開きます。上の呼び出しも、URL を `http://localhost:8080/service.svc` にすれば同じです。
@@ -99,5 +99,5 @@ http://localhost:8080/service.svc を開きます。上の呼び出しも、URL 
 ## 6. 片付け
 
 ```powershell
-docker rm -f wcf-cs wcf-vb
+docker rm -f multiple-endpoints-cs multiple-endpoints-vb
 ```

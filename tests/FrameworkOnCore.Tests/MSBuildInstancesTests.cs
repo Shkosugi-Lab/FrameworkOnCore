@@ -40,6 +40,7 @@ public sealed class MSBuildInstancesTests
     [Fact]
     public void A_folder_or_its_msbuild_that_installation()
     {
+        if (!OperatingSystem.IsWindows()) return;  // Windows' paths (Visual Studio is Windows'): not a path on Linux
         Assert.Equal(Tools2022, Select(@"C:\VS\2022\BuildTools\", [Tools2026, Community, Tools2022], out _));
         Assert.Equal(Tools2022, Select(Tools2022.MSBuild, [Tools2026, Community, Tools2022], out _));
     }

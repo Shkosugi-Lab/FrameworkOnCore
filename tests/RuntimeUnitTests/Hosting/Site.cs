@@ -29,6 +29,12 @@ sealed class Site : IDisposable
 
     public void Dispose()
     {
+        // FileCache's watcher of the folder disposed before the folder is deleted: on Linux a FileSystemWatcher disposed
+        // after its folder was deleted keeps its inotify instance open (.NET 10). One a test, they reached Linux's limit
+        // (128 a user on GitHub's runners, shared with the host's root) in the suite's last tests, whose FileCache.Watch
+        // then failed (StaticResponseCache's tests: a null capture).
+        var watched = (string)typeof(FileCache).GetField("root", Static).GetValue(null);
+        if (watched != null && string.Equals(watched.TrimEnd(Path.DirectorySeparatorChar), Root.TrimEnd(Path.DirectorySeparatorChar), StringComparison.Ordinal)) Unwatch();
         try { Directory.Delete(Root, true); } catch (IOException) { }
     }
 

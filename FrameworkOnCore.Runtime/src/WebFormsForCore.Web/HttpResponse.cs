@@ -2387,9 +2387,14 @@ namespace System.Web {
                 throw new ArgumentNullException("callback");
             }
 
+#if !NETCOREAPP
             if (!(_wr is IIS7WorkerRequest)) {
                 throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
             }
+#endif
+            // FrameworkOnCore: the host is IIS's integrated pipeline to the application; the callbacks run where the
+            // headers are written (GenerateResponseHeaders..., _onSendingHeadersSubscriptionQueue), on any worker request.
+            // Microsoft.AspNet.SessionState.SessionStateModuleAsync subscribes on every request with session state.
 
             if (HeadersWritten) {
                 throw new HttpException(SR.GetString(SR.Cannot_call_method_after_headers_sent_generic));

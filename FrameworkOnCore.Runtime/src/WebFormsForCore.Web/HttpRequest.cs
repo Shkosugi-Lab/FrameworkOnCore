@@ -3328,6 +3328,12 @@ namespace System.Web {
             if (wr != null) {
                 wr.AbortConnection();
             }
+#if NETCOREAPP
+            // FrameworkOnCore: ASP.NET Core's request aborted (HttpContext.Abort), as IIS aborts the connection.
+            else if (_wr is AspNetCoreWorkerRequest aspNetCore) {
+                aspNetCore.AbortConnection();
+            }
+#endif
             else {
                 throw new PlatformNotSupportedException(SR.GetString(SR.Requires_Iis_Integrated_Mode));
             }

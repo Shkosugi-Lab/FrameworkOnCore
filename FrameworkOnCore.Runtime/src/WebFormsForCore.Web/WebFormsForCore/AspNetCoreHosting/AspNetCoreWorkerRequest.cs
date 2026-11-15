@@ -126,6 +126,9 @@ namespace System.Web.Hosting
 			Context.Connection.RequestClose();
 		}
 
+		// HttpRequest.Abort: the connection ended at once, any I/O outstanding failing (IIS7WorkerRequest.AbortConnection).
+		internal void AbortConnection() => Context.Abort();
+
 		// HttpRuntime's end of send notification (its EndOfSendCallback: Request.Dispose, Response.Dispose), as IIS's worker
 		// request calls it once the response is sent: the response's buffers back to their pool (HttpResponseBufferElement:
 		// ArrayPool's; never returned, each request's buffers were new 32 KB arrays), the response's cache dependencies

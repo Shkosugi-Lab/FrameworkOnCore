@@ -296,6 +296,17 @@ namespace System.ServiceModel.Activation
                     Apply(readerQuotas, quotas, $"{source}: {kind} readerQuotas");
                 }
             }
+            // What CoreWCF cannot build (wsHttpBinding's message security, its default) leaves this endpoint out: the
+            // service's other endpoints are served (UseServiceModel would stop the application on it).
+            try
+            {
+                binding.CreateBindingElements();
+            }
+            catch (Exception e) when (e is PlatformNotSupportedException || e is NotSupportedException)
+            {
+                _log($"{source}: the binding {kind}{(mode != null ? $" (security mode {mode})" : kind == "wsHttpBinding" ? " (security mode Message, its default)" : "")} is not served by CoreWCF ({e.Message}), its endpoint not served");
+                return null;
+            }
             return binding;
         }
 

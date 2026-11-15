@@ -106,6 +106,7 @@
 - 中立カルチャ(zh-Hans、de)の数値・日付の書式(Linux)。ICU の中立のロケールには通貨などが無い(`¤`)。カルチャ プロファイルに名前を挙げたもの(capture-culture.ps1 -Cultures)は FrameworkOnCore の System.Web が作る時に入る。
 - カルチャ プロファイルの名前(EnglishName・NativeName)は capture-culture.ps1 を動かしたユーザーの表示言語のもの。IIS のアプリケーション プールのユーザーと違う言語だと、未知のカルチャの名前が違う。
 - System.Data の式の中の double(`DataColumn.Expression` の `Convert(Amount, 'System.String')`、文字列との連結、RowFilter での文字列との比較)、DataSet.WriteXml・GetXml の double の R。.NET の System.Data・System.Xml が自分で書くので、アプリのコードを書き換えても届かない(`0.30000000000000004`。.NET Framework は `0.3`)。DataFileProbe(2026-10-19)。
+- WCF のサービス(CoreWCF)の応答の double。DataContractSerializer(.NET の System.Runtime.Serialization・System.Xml)が最短の桁で書く(`3.142857142857143`。.NET Framework の WCF は R の 17 桁で `3.1428571428571428`)。値は同じ double に戻るので、クライアントは同じ値を受け取る。dotnet/samples の MultipleEndpoints(C#・VB)の Divide(22, 7)(2026-11-15)。
 - Windows のドライブ付きのパスのリテラル(`Path.GetFileName(@"C:\inetpub\...\default.aspx")`)。Linux では区切りとみなされず、ファイル名がパス全体になる。変換器はデータから来るパスと区切りを書いたリテラルを WindowsPath.Native にするが、ドライブ付きのものは Linux に無いのでそのまま。ChangeExtension・Combine の結果の区切りも Linux では `/`。
 - Microsoft.Data.SqlClient の .NET 版は `\|DataDirectory\|` を展開しない(.NET Framework 版は展開した)。構成の接続文字列は、FrameworkOnCore の System.Data.SqlClient が展開するので値のまま返す。
 - `ExternalException`(HttpException の基底)のメッセージが null の時。.NET は "External component has thrown an exception." を入れ、

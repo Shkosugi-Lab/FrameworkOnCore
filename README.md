@@ -1,149 +1,47 @@
 # FrameworkOnCore
 
-.NET Framework の Web アプリ(ASP.NET Web Forms、C# と VB)を、**ほぼそのままの形で .NET 10 に移し、Linux で動かす**ための道具です。
+.NET Framework の Web アプリ(ASP.NET Web Forms・MVC・Web API・WCF、C# と VB)を、**ほぼ書き換えずに .NET 10 に移し、Linux で動かす**ための変換ツールと実行基盤です。
 
-- ソースとマークアップはできるだけ元のまま使います。変換器はプロジェクトファイルと、.NET にない API の呼び出しだけを書き換えます。
-- System.Web には [WebFormsForCore](https://github.com/webformsforcore/WebFormsForCore)(ASP.NET Web Forms を ASP.NET Core 上で動かすもの)を使います。リポジトリの `FrameworkOnCore.Runtime/` に取り込み、FrameworkOnCore で手を入れて保守しています。
-- .NET Framework にしかない API の扱いは、部品ごとに利用者が選べます(対応しない、を含む)。
+- 変換器が書き換えるのは、プロジェクトファイルと、.NET にない API の呼び出しだけです。画面と業務ロジックは元のまま使います。
+- アプリが頼っている土台(System.Web など)は、FrameworkOnCore が .NET 10 の上に用意します。Windows と Linux の違い(ファイル名の大文字・小文字、パス、カルチャ、IIS の設定など)も土台の側で合わせます。
+- 解析・変換・起動までを画面で進める Studio と、コマンドラインの変換器があります。
 
-> 以前の「Web Forms を Blazor に変換する」方針(WebForm2Blazor)から 2026-09-26 に切り替えました。旧方針のコードと資料は 2026-09-30 にリポジトリから消しました(git の履歴にあります)。
+使い方と開発者向けの情報は [docs/development.md](docs/development.md) にあります。
 
-## 全体の流れ
+## 検証シナリオ
 
-```
- .NET Framework のアプリ
-        │
-        ▼
- ① 解析(analyze / Studio)  … 使っている .NET Framework の API と回数、.NET 10 での状態
-        │
-        ▼
- ② 部品ごとの選択(Studio → foc-choices.json)
-        │
-        ▼
- ③ 変換(FrameworkOnCore.Converter --choices)  … SDK 形式のプロジェクト、API の書き換え、ビルド
-        │
-        ▼
- ④ 配置(Dockerfile / systemd)  … Linux で起動、ファイル名の大文字小文字は Windows と同じ扱い
-```
+実在のオープンソースの .NET Framework のアプリ(コーパス)を変換し、Windows と Linux のコンテナで動かす手順です。準備は [共通の準備](docs/corpora/setup.md)、一覧の詳しい説明は [docs/corpora/README.md](docs/corpora/README.md) にあります。最初は be をお勧めします。
 
-## 構成
+| 名前 | アプリ | 言語 | 種類 | 結果 |
+|---|---|---|---|---|
+| [be](docs/corpora/be.md)([Studio 版](docs/corpora/studio/be.md)) | BlogEngine.NET 3.3.8 | C# | Web Forms | 動く |
+| [wt](docs/corpora/wt.md) | WingtipToys | C# | Web Forms | 動く |
+| [mvcmovie](docs/corpora/mvcmovie.md) | MvcMovie | C# | MVC 5 | 12 画面中 11 が元と同じ |
+| [contoso](docs/corpora/contoso.md) | Contoso University | C# | MVC 5 | 12 画面中 9 が元と同じ |
+| [eshop](docs/corpora/eshop.md) | eShopLegacyMVC | C# | MVC 5 + Web API | 動く |
+| [wcf](docs/corpora/wcf.md) | WCF の MultipleEndpoints | C#・VB | WCF | basicHttp の口が動く |
+| [vbmvc](docs/corpora/vbmvc.md) | Bootstrap2-VB-MVC | VB | MVC 4 | 動く |
+| [imis](docs/corpora/imis.md) | openIMIS 24.10 | VB | Web Forms | 動く |
+| [nop](docs/corpora/nop.md) | nopCommerce 1.90 | C# | Web Forms | 動く |
+| [nop390](docs/corpora/nop390.md) | nopCommerce 3.90 | C# | MVC 5 | 動く |
+| [mojo](docs/corpora/mojo.md) | mojoPortal 3.1.6 | C# | Web Forms | 動く |
+| [n2](docs/corpora/n2.md) | N2 CMS | C# | Web Forms | 動く |
+| [dnn](docs/corpora/dnn.md) | DNN Platform 9.13.10 | C# | Web Forms | 動く |
+| [yaf](docs/corpora/yaf.md) | YAF.NET 3.2.15 | C# | Web Forms | 動かない(変換まで) |
 
-| パス | 内容 |
-|---|---|
-| `src/FrameworkOnCore.Converter` | 変換器(CLI)。古い形式のプロジェクトを .NET 10 の SDK 形式にし、ビルドのエラーをもとにソースを直す。元のビルド(`--build-original`)、配置の出力も行う。`analyze` で解析だけも行える |
-| `src/FrameworkOnCore.Analysis` | 解析エンジン(ライブラリ)。ソースを .NET Framework 4.8 の参照アセンブリでコンパイルし、API ごとの回数と場所、.NET 10 での状態、部品を出す。カタログ(`catalog/components.json`)と選択(`Choices`)もここ |
-| `src/FrameworkOnCore.Studio` | GUI(ローカルの Web 画面)。読み込み → 解析と対応 → アプリの設定 → 変換・ビルド → デプロイのウィザード。元のアプリのテスト起動、変換後のアプリのネイティブ起動・コンテナ起動 |
-| `src/FrameworkOnCore.Analyzers` | 変換のビルドで使う Roslyn アナライザー(Windows のパス、非同期デリゲート、プラットフォームの置き換え) |
-| `experiments/wf4c/shims/FrameworkOnCore.Compat` | 互換アセンブリ。.NET にない、または Windows 専用のものを .NET Framework と同じ動きで補う(EventLog、Encoding.Default、Thread.ResetAbort、VB の My など) |
-| `FrameworkOnCore.Runtime` | 変換後のアプリが動く土台(System.Web など)。FrameworkOnCore で保守している WebFormsForCore で、上流を git subtree で取り込んだもの(中のプロジェクトは上流の名前 `src/WebFormsForCore.*` のまま、パッケージ名は `FrameworkOnCore.*`。Ajax Control Toolkit も `src/WebFormsForCore.AjaxControlToolkit` に同じく取り込み済み)。上流への変更は取り込みの後のコミット(以前のパッチ 0001〜0040 に当たる。0032・0033 は LINQ to SQL、0034〜0037 は System.Drawing の移植、0038 は Linux での生成物のフォルダーの掃除、0039・0040 は System.Web.DataVisualization(グラフ)の移植。その後の System.Web.Mobile、System.Data.SqlClient の移植はこのリポジトリのコミット)。上流の更新は `git subtree pull --prefix=FrameworkOnCore.Runtime https://github.com/webformsforcore/WebFormsForCore.git main` |
-| `experiments/wf4c/casefs` | Linux でファイル名の大文字小文字を区別しない LD_PRELOAD ライブラリ(libfoccase.so) |
-| `tests/` | テスト。一覧と動かし方は `tests/README.md` |
-| `tests/FrameworkOnCore.Tests` | 変換器・アナライザー・Studio・互換アセンブリのテストと、下の新旧比較のケースの実行(Windows と Linux) |
-| `tests/RuntimeUnitTests` | FrameworkOnCore.Runtime の移植で書いたコード(ホストと IIS の機能、ResX、CodeDom、暗号)の単体テスト、攻撃・差分ファジング・往復・並行性のテスト |
-| `tests/SqlClientTests` | 移植した System.Data.SqlClient の Microsoft の機能テストと、移植の追加分(DataDirectory の展開など) |
-| `tests/DataLinqParity` | 移植した System.Data.Linq の全 API の新旧比較のケース(net48 で .NET Framework のゴールデンを採り、テストが移植版と比べる) |
-| `tests/DrawingParity` | 移植した System.Drawing の全 API の新旧比較のケース(同じ方法。Windows は完全一致、Linux は既知の差分を理由つきで `known-differences.json` に持つ) |
-| `tests/DataVisualizationParity` | 移植した System.Web.DataVisualization(グラフ)の全 API の新旧比較のケース(同じ方法。グラフを描くシナリオも含む) |
-| `tests/MobileParity` | 移植した System.Web.Mobile(モバイル コントロール)の全 API の新旧比較のケース(同じ方法) |
-| `tests/WebControlsParity` | System.Web のコントロール（TextBox など）ごとの新旧比較。① 全メンバー（API）、② 全プロパティの描画（HTML、実リクエスト）、③ WebForms の機構（ブラウザでのシナリオ）の 3 層で、結果は `reports/<コントロール>/` に Markdown で出す（仕組みは同フォルダーの README）。System.Web・System.Web.Extensions のコントロール 124 すべてが Windows・Linux とも一致（既知の差分 8 件を除く。2026-10-16 の実行） |
-| `tests/Parity.Core` | 新旧比較の共通部分(観測値の書き方、ケースの実行、ゴールデンの書き出し、API の一覧から型とメンバーごとにケースを作る仕組み) |
-| `samples/` | 検証用の小さな Web Forms アプリ(RuntimeProbe、グラフの ChartProbe、モバイル コントロールの MobileProbe、コントロールごとの新旧比較の WebControlsProbe、Ajax Control Toolkit の ToolkitScriptManager の ToolkitProbe、WCF のサービスの WcfProbe、セッションの状態の SessionProbe、差が出るように作ったコーパスの NestingProbe〈コントロールの入れ子・HTML・ブラウザーの操作〉、BclProbe〈数値・文字列・例外・カルチャ・シリアル化〉、PageProbe〈ページの仕組み。HTML そのものも比べる〉、VbProbe〈Visual Basic のランタイムとイベント〉など) |
-| `corpora/` | 実在の OSS アプリ(コーパス)の取得スクリプトと記録。本体は取得して使う(リポジトリには含めない) |
+## ライセンス
 
-## 準備
+FrameworkOnCore 自身のコードのライセンス: **未定**(リポジトリに LICENSE ファイルがありません)。
 
-- .NET 10 SDK
-- Windows と、Visual Studio または Visual Studio Build Tools(変換器は元のアプリをその MSBuild でビルドする。両方入っているときは `--msbuild visualstudio|buildtools` か Studio のステップ 1「ビルドに使う MSBuild」で選ぶ)。Linux での検証には Docker Desktop
+取り込んで手を入れている、ほかのプロジェクトのソースは、それぞれのライセンスに従います。
 
-FrameworkOnCore のパッケージ(`FrameworkOnCore.*`)は、初めて解析や変換をしたときに、このリポジトリの GitHub Release から `experiments/wf4c/_feed` に自動で取得されます。互換アセンブリも必要なときに自動でビルドされます。事前の準備は要りません(リポジトリが非公開のときは、GitHub CLI にログインしているか、`GH_TOKEN` を設定しておく必要があります。Studio と変換器のビルドの取得も同じ)。
+| 部分 | 元のソース | ライセンス |
+|---|---|---|
+| System.Web(`FrameworkOnCore.Runtime/`) | [WebFormsForCore](https://github.com/webformsforcore/WebFormsForCore) | MIT(`FrameworkOnCore.Runtime/LICENSE`) |
+| MVC 5・Web Pages・Razor 3・Web API 2 | AspNetWebStack v3.3.0 | Apache 2.0 |
+| LINQ to SQL、グラフ(DataVisualization)、モバイル コントロールなど | Microsoft の referencesource | MIT |
+| System.Drawing | dotnet/runtime 6.0 の System.Drawing.Common | MIT |
+| System.Data.SqlClient | dotnet/maintenance-packages 4.9.0 | MIT |
+| ASP.NET の文言の日本語訳(`translations/`) | 独自に訳したもの | MIT |
 
-## 使い方
-
-### Studio(GUI)
-
-```powershell
-.\studio.ps1
-# http://127.0.0.1:5300/ を開く(localhost だけで待ち受ける)
-```
-
-ビルドは要りません。GitHub Actions(`.github/workflows/frameworkoncore-tools.yml`)が `src/` の変わるたびに Studio と変換器をビルドしてリリース `frameworkoncore-tools` に置き、`studio.ps1` は手元の `src/` と同じコミットのものを一度だけ取得して(`%LOCALAPPDATA%\FrameworkOnCore\builds`)起動します。`src/` にコミットしていない変更があるとき、そのコミットのビルドがまだ無いとき(push 前、Actions の実行中)、`-Build` を付けたときは、手元でビルドして起動します。
-
-画面は AWS マネジメントコンソールと同じデザインです(Amazon が公開している Cloudscape Design System〈Apache 2.0〉で作っています)。言語はブラウザーの言語に合わせます(日本語、それ以外は英語。部品の名前と説明、Studio が返すメッセージも)。表示はライト・ダークを右上の設定で切り替えられます。
-
-Studio は 5 つの手順のウィザードです(左の手順から、どこへでも戻れます)。
-
-1. **読み込み**: 「新しい解析」で .NET Framework の Web プロジェクト(.csproj / .vbproj)を指定すると、解析しなくても分かる構成(言語、.NET Framework の版、参照しているプロジェクト、NuGet パッケージの数、ページとサービスの数、ソリューション、リポジトリのビルドがサイトを組み立てるか)が出ます。「元のアプリを起動(テスト起動)」で、変換の前のアプリをこの PC で動かして確かめられます(解析の途中でも。リポジトリのコピーをそのビルド手順でビルドし、IIS Express、無ければ IIS で起動。IIS は Studio を管理者として起動したときだけ)。
-2. **解析と対応**: 解析の進み具合と、終わったらその結果(数値、扱い別・状態別の内訳)と、3 つのタブです。3 から 5 は解析が終わると開けます。
-   - **自分で対応する所**: 変換しても動くようにならない部品(OLE DB、Active Directory、レジストリ、Linux では例外になる ACL など)ごとに、Linux で何が起きるか、使っている回数・ファイル・DLL、「すること」(書き換え方。Windows のサーバーならそのまま動くか)、予定の移植版。どの部品にも入らない API はまとめて最後に出ます。
-   - **対応を選ぶ部品**: 選べる対応がある部品ごとに対応を選びます(API ごとにも変えられる)。ソースの無い DLL が、.NET 10 では別のアセンブリにある型を参照するときは、部品「参照先のない DLL」で、変換器が DLL の参照先を付け替えるか(既定)、対応しないかを選びます(付け替える型と DLL は「API を見る」で見られます)。
-   - **すべての API**: API は部品ではなく 1 つずつ、変換器がどう扱うか(いまの選択で: 部品の対応、DLL の参照の付け替え・呼び出しの置き換え、そのまま動く、動きの違い・廃止予定、対応なし)で数えます。
-3. **サーバーの設定**: API ではなく、アプリ全体に対する選択です。2 と 3 の選択は、変えるとそのまま保存されます。ファイル名の大文字小文字のほか、IIS の機能の動かし方(要求のログ・URL Rewrite・エラー ページ・圧縮: IIS 互換〈既定〉/ ASP.NET Core 標準 / オフ)があり、変換後の `appsettings.json` に書かれます(変換後もそこで変えられます)。
-4. **変換・ビルド**: 保存した選択で変換とビルドを行います。変換では毎回、元のアプリをステップ 1 と同じ手順(MSBuild、追加の手順)で、まっさらな状態からビルドし直し、配置されるサイトから組み立てます(`--build-original`)。追加の手順(`--original-step`。N2 の `build\n2.proj;Templates-PrepareDependencies` など)はステップ 1 で入れます(「変換のコマンドをコピー」のコマンドにも入ります)。変換レポートは節ごとに開いて見られます。
-5. **実行・デプロイ**: 変換の出力の ZIP のダウンロード(Linux 用は Dockerfile と systemd 用のスクリプト付き、Windows 用はサイトだけ。どちらもその OS 用の部品だけで、`obj` を除く)、この PC の dotnet での起動(ネイティブ起動、Docker 不要)、Dockerfile からイメージを作って localhost のポートでのコンテナ起動(Docker Desktop が要ります。Studio のコンテナは一度に一つ)。どちらも接続文字列などを環境変数(`SQLCONNSTR_<名前>`、`APPSETTING_<キー>`)で渡せます(それぞれ別に保存。コンテナの中からは LocalDB やこの PC の localhost は見えないので、`host.docker.internal` を使う)。ECR への発行は予定です。コマンドラインで変換するためのコマンドもコピーできます。
-
-Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、Studio を止めると止まります(強制終了でも止まり、IIS に作ったサイトは次の起動で消えます)。
-
-画面のソースは `src/FrameworkOnCore.Studio/ui`(React と Cloudscape、Vite)で、ビルドした結果を `src/FrameworkOnCore.Studio/wwwroot` に置いています(コミット済み)。`ui` を変えたときは、Studio のビルドが Node.js(npm)で画面もビルドし直します(npm が無ければ、コミット済みの `wwwroot` をそのまま使います)。画面の文言は `ui/src/messages.js` に日本語と英語を並べて書き、部品と設定の英語は `src/FrameworkOnCore.Analysis/catalog/components.en.json` にあります(全部に英語があることをテストで確かめています)。
-
-### コマンドライン
-
-```powershell
-# 解析だけ(api-analysis.json、API-ANALYSIS.md、既定の選択の foc-choices.json)
-.\converter.ps1 analyze <Web プロジェクト> --out <出力先>
-
-# 元のアプリをそのビルド手順でビルドするだけ(変換しない。最後の行に配置されたサイト "site: <path>")
-.\converter.ps1 build-original <Web プロジェクト> --out <作業フォルダー>
-
-# 元のアプリのビルドが要るかどうかと、その理由
-.\converter.ps1 build-original-advice <Web プロジェクト>
-
-# 変換(選択は省略可。省略すると既定。--build-original auto は要るときだけ元のアプリをビルドする)
-.\converter.ps1 <Web プロジェクト> --out <出力先> --choices foc-choices.json [--build-original [auto]] [--culture-profile <file>]
-```
-
-`converter.ps1` も `studio.ps1` と同じく、Actions のビルドを取得して使います(無ければ手元でビルド)。
-
-変換の結果は `<出力先>\CONVERSION-REPORT.md` にまとまります。Linux への配置は `<出力先>\Dockerfile` と `deploy/`(`deploy/README.md`)を使います。
-
-### テスト
-
-テストの一覧(単体テスト、.NET Framework との新旧比較、IIS とのサイトの比較、コーパス、Linux、CI)と、いつ何を動かすかは [tests/README.md](tests/README.md) にあります。
-
-```powershell
-.\tests\run-tests.ps1 -Set quick     # 3 つのテスト プロジェクト(約 4 分、準備なし)
-.\tests\run-tests.ps1 -Set commit    # 変換器を変えたとき(be・wt の変換と IIS との比較を含む)
-.\tests\run-tests.ps1 -Set runtime   # FrameworkOnCore.Runtime を変えたとき
-.\tests\FrameworkOnCore.Tests\run-tests-linux.ps1    # Linux(Docker)
-```
-
-### `FrameworkOnCore.Runtime/` を変えるとき(開発者向け)
-
-ソースは `FrameworkOnCore.Runtime/` です。直したら `experiments/wf4c/pack-frameworkoncore.ps1 -Build All` で `_feed` にパッケージを作ります(`_feed` にある版は取得されません)。配るときは版を上げ(`rules/packages.json` の `frameworkOnCoreVersion`。版番号を書くのはそこだけ。公開済みの版のまま `FrameworkOnCore.Runtime/` を変えると、`pack-frameworkoncore.ps1` は止まります)、push します。GitHub Actions(`.github/workflows/frameworkoncore-packages.yml`)が同じ手順でビルドし、Linux でテストして、まだ無い版なら GitHub Release に置きます(手で動かすときは Actions の「FrameworkOnCore packages」の Run workflow。publish にチェックを入れたときだけ公開)。手元から置くときは `experiments/wf4c/publish-frameworkoncore.ps1`。
-
-## 状態
-
-- コーパス(Web Forms: BlogEngine.NET、WingtipToys、mojoPortal、YAF.NET、DNN、N2CMS、openIMIS(VB)、nopCommerce 1.90。MVC 5: MvcMovie、nopCommerce 3.90、Contoso University)を変換し、Windows と Linux で動作を確かめています。結果と既知の課題は `experiments/wf4c/README.md` にあります。変換して Linux のコンテナで動かす手順は [docs/corpora/README.md](docs/corpora/README.md) にあります。
-- .NET Framework にしかない API の洗い出しと対応の状況は `experiments/wf4c/FRAMEWORK-ONLY-APIS.md` にあります。
-- MVC 5・Web Pages・Razor 3 は AspNetWebStack v3.3.0(Microsoft のソース、Apache 2.0)から `FrameworkOnCore.Runtime/` に移植済みで、変換後のアプリは Microsoft の DLL ではなくこれを使う(Microsoft の DLL の許諾は逆アセンブルを禁じ、.NET の数値の動きをするため)。数値の書式とモデル バインドは .NET Framework と同じ。Web API 2 も同じく移植済み。
-- LINQ to SQL(System.Data.Linq)は referencesource(MIT)から `FrameworkOnCore.Runtime/` に移植済みで、既定で使われる。全 API(486)を .NET Framework と新旧比較して一致を確認している(`experiments/wf4c/README.md` の記録)。
-- System.Drawing は dotnet/runtime 6.0 の System.Drawing.Common(Linux 実装を持つ最後の版、MIT)を `FrameworkOnCore.Runtime/` に移植済みで、Windows は GDI+、Linux は GDI+ の関数を SkiaSharp で実装したもので動く(以前の libgdiplus は開発終了。`FOC_DRAWING_BACKEND=libgdiplus` で選べる)。全 API(3,354 のうち .NET にある 3,185 と、.NET が足した 40)を .NET Framework と新旧比較している(`experiments/wf4c/README.md` の記録)。
-- グラフ(System.Web.DataVisualization の Chart コントロール)は referencesource(MIT)から `FrameworkOnCore.Runtime/` に移植済みで、既定で使われる。全 API(1,661)を .NET Framework と新旧比較し、ChartImg.axd を使うサイト(`samples/ChartProbe`)を IIS と Windows・Linux で比べている(`experiments/wf4c/README.md` の記録)。
-- モバイル コントロール(System.Web.Mobile)は referencesource(MIT)から `FrameworkOnCore.Runtime/` に移植済みで、既定で使われる。全 API(1,819)を .NET Framework と新旧比較し、モバイル コントロールのサイト(`samples/MobileProbe`)を IIS と Windows・Linux で比べている(`experiments/wf4c/README.md` の記録)。
-- System.Data.SqlClient は dotnet/maintenance-packages の 4.9.0(MIT)を `FrameworkOnCore.Runtime/` に移植済みで、変換後の Web プロジェクトは常にこれを使う。接続文字列の `|DataDirectory|` を .NET Framework と同じく App_Data に展開する(.NET の System.Data.SqlClient は拒否する)。Microsoft の機能テストを Windows と Linux で動かしている。
-- ASP.NET が自分で出す文言(Calendar の見出し、Login 系のラベル、Wizard・GridView のボタン、エラーページ、ASP.NET AJAX・Chart・ASMX などの例外とメッセージ)の日本語は、英語の原文から独自に訳したもの(`translations/`、MIT。GitHub で管理し、`translations/check.ps1` と単体テストで検査)。元のサーバーに .NET Framework の言語パックがあった言語だけで使う。Microsoft の言語パックは使用許諾が Windows 以外で動かすための配布を禁じるので、Linux には使わない。
-- double・float の文字列化(書式なし、負のゼロ、桁を決めた書式の丸め)と読み取りは .NET Framework と同じ(既定の選択)。変換器がアプリのコードを FrameworkNumbers に書き換え(FOC1008)、FrameworkOnCore の System.Web もバインドした値とサーバーがコンパイルするコードを同じく書く。.NET Framework 4.8 と 2,647,080 件を比べて一致(`experiments/wf4c/numbers-parity`)。
-- セッションの状態は web.config の `<sessionState mode>` どおり(既定の InProc はオブジェクトをそのまま持つ。Custom はアプリのプロバイダー。StateServer・SQLServer は ASP.NET Core のセッション)。サンプル `samples/SessionProbe` で IIS と Windows・Linux で比べて一致を確かめている。
-- WCF のサービス(.svc、web.config の system.serviceModel)は、変換後のアプリの中の CoreWCF で動く(パッケージ FrameworkOnCore.ServiceModel。既定の選択)。SOAP(basicHttpBinding など)、REST(webHttpBinding)、WSDL、既定のエンドポイントを、サンプル `samples/WcfProbe` で IIS と Windows・Linux で比べて一致を確かめている。
-
-## ドキュメント
-
-| ファイル | 内容 |
-|---|---|
-| `LINUX-CONVERTER-DESIGN.md` | 変換器の設計 |
-| `experiments/wf4c/README.md` | 実験と検証の記録(WebFormsForCore、コーパス、Linux、解析、Studio) |
-| `experiments/wf4c/FRAMEWORK-ONLY-APIS.md` | .NET Framework にしかない API の一覧と対応 |
-| `experiments/wf4c/PORT-CANDIDATES.md` | 移植版の候補(.NET Framework と .NET で動きや API が違うもの)と、移植済みのもの |
-| `docs/corpora/README.md` | コーパスを変換して Linux のコンテナで動かす手順の入口(コーパスの一覧) |
-| `docs/corpora/setup.md` | 共通の準備(入れるもの、取得、コマンドラインと Studio での変換、Windows・Linux での動かし方、片付け) |
-| `docs/corpora/<名前>.md` | コーパスごとの手順(取得、変換、Studio の値、DB、Windows・Linux で動かす、片付け) |
-| `corpora/README.md` | コーパスの取得と記録 |
+変換したアプリが参照するパッケージ(CoreWCF、SkiaSharp など)は、それぞれのパッケージのライセンスに従います。

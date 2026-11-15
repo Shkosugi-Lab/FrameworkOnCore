@@ -31,7 +31,7 @@
 
 ## ライセンス
 
-FrameworkOnCore 自身のコードのライセンス: **未定**(リポジトリに LICENSE ファイルがありません)。
+FrameworkOnCore 自身のコードは [MIT License](LICENSE) です。
 
 取り込んで手を入れている、ほかのプロジェクトのソースは、それぞれのライセンスに従います。
 

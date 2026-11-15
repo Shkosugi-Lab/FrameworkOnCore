@@ -60,7 +60,7 @@ jobs:
             if ($i -eq 1) { "waiting for frameworkoncore-$version (the packages workflow)" }
             Start-Sleep 30
           }
-          throw "frameworkoncore-$version is not published after 40 minutes (see the packages workflow)"
+          throw "frameworkoncore-$version is not published after 40 minutes (see the packages workflow: once it has published the version, re-run this one, or push a change of src/ or of this file)"
       - name: Smoke test
         shell: pwsh
         run: |

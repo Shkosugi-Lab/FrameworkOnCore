@@ -196,6 +196,36 @@ public sealed class ProjectConverterTests : IDisposable
         Assert.Contains(report.Entries, e => e.Kind == Report.Kind.Platform && e.Text.Contains(@"c:\TempImageFiles\") && e.Text.Contains("APPSETTING_ChartImageHandler"));
     }
 
+    [Fact] // TransformWebConfig's comment: providerName as .NET Framework's DbProviderFactories found it (WingtipToys VB's "System.Data.SqlClient ")
+    public void Web_config_provider_names_are_the_registered_ones()
+    {
+        Write(@"Web\Class1.cs", "public class Class1 { }");
+        Write(@"Web\Web.csproj", OldProject("Web", "", web: true));
+        Write(@"Web\web.config", """
+            <configuration>
+              <connectionStrings>
+                <add name="Spaces" connectionString="x" providerName="System.Data.SqlClient " />
+                <add name="Case" connectionString="x" providerName="system.data.sqlclient" />
+                <add name="Own" connectionString="x" providerName="test.own　" />
+                <add name="Leading" connectionString="x" providerName=" System.Data.SqlClient" />
+                <add name="Exact" connectionString="x" providerName="System.Data.OleDb" />
+              </connectionStrings>
+              <system.data><DbProviderFactories><add name="Own" invariant="Test.Own" type="Test.Own.Factory, Test.Own" /></DbProviderFactories></system.data>
+            </configuration>
+            """);
+        var (converter, report) = Converter();
+        converter.Convert(Path.Combine(Source, Local(@"Web\Web.csproj")), isWeb: true);
+
+        var names = XDocument.Parse(Target(Output, @"Web\web.config")).Descendants("connectionStrings").Elements("add")
+            .ToDictionary(e => (string)e.Attribute("name")!, e => (string)e.Attribute("providerName")!);
+        Assert.Equal("System.Data.SqlClient", names["Spaces"]);
+        Assert.Equal("System.Data.SqlClient", names["Case"]);
+        Assert.Equal("Test.Own", names["Own"]);
+        Assert.Equal(" System.Data.SqlClient", names["Leading"]);  // .NET Framework did not find it either
+        Assert.Equal("System.Data.OleDb", names["Exact"]);
+        Assert.Equal(3, report.Entries.Count(e => e.Text.Contains("providerName")));
+    }
+
     [Fact] // the charts not ported (chosen so): an assembly .NET does not have, its registrations left out
     public void Web_config_registrations_of_an_assembly_net_does_not_have_are_left_out()
     {

@@ -79,6 +79,23 @@ public class DbProviderFactoriesConfigurationTests : IDisposable
         Assert.Contains("Test.A", Names());
     }
 
+    [Fact] // Registered's summary (.NET Framework 4.8's GetFactory, tried: "System.Data.SqlClient ", "...　", "system.data.sqlclient" found; a leading space, a tab not)
+    public void A_name_as_net_framework_found_it()
+    {
+        Assert.Equal("System.Data.SqlClient", DbProviderFactoriesConfiguration.Registered("System.Data.SqlClient "));
+        Assert.Equal("System.Data.SqlClient", DbProviderFactoriesConfiguration.Registered("System.Data.SqlClient　"));
+        Assert.Equal("System.Data.SqlClient", DbProviderFactoriesConfiguration.Registered("system.data.sqlclient"));
+        Assert.Equal(" System.Data.SqlClient", DbProviderFactoriesConfiguration.Registered(" System.Data.SqlClient"));
+        Assert.Equal("System.Data.SqlClient\t", DbProviderFactoriesConfiguration.Registered("System.Data.SqlClient\t"));
+        Assert.Equal("Test.None", DbProviderFactoriesConfiguration.Registered("Test.None"));
+        Assert.Null(DbProviderFactoriesConfiguration.Registered(null));
+
+        // The web.config's: added and removed by the name without its trailing spaces.
+        using var site = new Site(Config("<add name='A' invariant='Test.A ' type='Test.A.Factory, Test.A' /><remove invariant='system.data.odbc ' />"));
+        DbProviderFactoriesConfiguration.Register(site.Root);
+        Assert.Equal(new[] { "System.Data.OleDb", "System.Data.SqlClient", "Test.A" }, Names());
+    }
+
     [Fact] // the class's comments: no folder, no web.config, no system.data section, a web.config that is no XML: the built-in providers only
     public void Without_the_application_s_providers_the_built_in_ones()
     {

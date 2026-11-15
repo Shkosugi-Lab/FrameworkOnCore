@@ -109,6 +109,12 @@
 - WCF のサービス(CoreWCF)の応答の double。DataContractSerializer(.NET の System.Runtime.Serialization・System.Xml)が最短の桁で書く(`3.142857142857143`。.NET Framework の WCF は R の 17 桁で `3.1428571428571428`)。値は同じ double に戻るので、クライアントは同じ値を受け取る。dotnet/samples の MultipleEndpoints(C#・VB)の Divide(22, 7)(2026-11-15)。
 - Linux の FileSystemWatcher。監視中のフォルダーを消してから Dispose すると、inotify のインスタンスが閉じられずに残る(.NET 10。フォルダーを消さずに Dispose すれば閉じる)。inotify のインスタンスはユーザーごとに上限がある(多くのディストリビューションで 128)。FileChangesMonitor(System.Web のファイル変更通知)は既定でディレクトリごとに監視を作るので、ディレクトリを作っては消すアプリや、ディレクトリの多いアプリでは上限に近づく。上限に達すると FileCache の監視は始まらず、静的ファイルのキャッシュが効かなくなる(動作は正しいまま)。ランタイムの単体テストが CI(GitHub のランナー)で上限に達して見つかった(2026-11-15。テストは後片付けで監視を先に外すようにした)。
 - Windows のドライブ付きのパスのリテラル(`Path.GetFileName(@"C:\inetpub\...\default.aspx")`)。Linux では区切りとみなされず、ファイル名がパス全体になる。変換器はデータから来るパスと区切りを書いたリテラルを WindowsPath.Native にするが、ドライブ付きのものは Linux に無いのでそのまま。ChangeExtension・Combine の結果の区切りも Linux では `/`。
+- `DbProviderFactories.GetFactory` の名前の照合。.NET Framework は表(DataTable)で探すので、末尾の空白(U+0020・U+3000)と大文字小文字を無視した(`"System.Data.SqlClient "`、`"system.data.sqlclient"` が見つかる。先頭の空白・タブは見つからない。Windows PowerShell 5.1 で確かめた)。.NET は完全一致。
+  変換器が web.config の connectionStrings の providerName を登録名にし(EF・アプリのコードが読む値)、ポートの SqlDataSource の ProviderName・web.config の DbProviderFactories・LINQ to SQL は .NET Framework と同じ照合で探す。
+  アプリのコードが自分で書いた名前で GetFactory を呼ぶものは違うまま(WingtipToys VB の `providerName="System.Data.SqlClient "` で見つけた。2026-11-15)。
+- .NET の型の private のメンバーへのリフレクション。DotNetOpenAuth 4.x は `UriParser` の private のフィールド(`m_Scheme` など)を書き換えて、パスの `.` を詰めない URI のパーサーを作る。.NET の `UriParser` にそのフィールドは無く、OpenId の UriIdentifier の型の初期化が失敗する(DotNetOpenAuth の InternalErrorException。OpenAuth を使うページすべて)。
+  DotNetOpenAuth は Mono では別の道(`Type.GetType("Mono.Runtime")` が null でない時)を通るので、変換器がその呼び出しを DllFixes.MonoRuntimeFound に替える(dllCallReplacements。2026-11-15、WingtipToys VB)。
+- ASP.NET Universal Providers(System.Web.Providers)1.x は .NET Framework の System.Data.Entity(EF 5 まで)の ObjectContext で書かれていて、EF 6 では MissingMethodException になる。変換器が Microsoft.AspNet.Providers.Core を同じ API で EF 6 の 2.0.0 にする(2026-11-15、WingtipToys VB)。
 - Microsoft.Data.SqlClient の .NET 版は `\|DataDirectory\|` を展開しない(.NET Framework 版は展開した)。構成の接続文字列は、FrameworkOnCore の System.Data.SqlClient が展開するので値のまま返す。
 - `ExternalException`(HttpException の基底)のメッセージが null の時。.NET は "External component has thrown an exception." を入れ、
   .NET Framework は Exception の "Exception of type '...' was thrown." のまま。Page の HttpUnhandledException(メッセージなし)で見つけた。

@@ -19,6 +19,7 @@
 | [eShopLegacyMVC](docs/corpora/eshop-legacy-mvc.md) | C# | MVC 5 + Web API | 7(Web API 4) | ★ | Visual Studio か Build Tools(DB なし。モックのデータ) |
 | [MultipleEndpoints(C# と VB)](docs/corpora/wcf-multiple-endpoints.md) | C#・VB | WCF | —(サービスの操作 4) | ★★ | Visual Studio か Build Tools。確かめるのは SOAP の呼び出し(PowerShell) |
 | [WingtipToys](docs/corpora/wingtiptoys.md) | C# | Web Forms | 28 | ★★ | SQL Server のコンテナ(DB はアプリが作る) |
+| [WingtipToys(VB)](docs/corpora/wingtiptoys-vb.md) | VB | Web Forms | 18 | ★★ | SQL Server のコンテナ(DB はアプリが作る) |
 | [MvcMovie](docs/corpora/mvcmovie.md) | C# | MVC 5 | 29 | ★★ | SQL Server のコンテナ(DB はアプリが作る) |
 | [Contoso University](docs/corpora/contoso-university.md) | C# | MVC 5 | 9 | ★★ | SQL Server のコンテナ(DB はアプリが作る) |
 | [nopCommerce 1.90](docs/corpora/nopcommerce-1.90.md) | C# | Web Forms | 293 | ★★★ | Visual Studio か Build Tools、SQL Server、インストール画面での設定、ディスク 2 GB |

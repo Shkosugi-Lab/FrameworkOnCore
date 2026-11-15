@@ -427,12 +427,13 @@ namespace System.Data.Linq.SqlClient {
         }
 
         private static DbProviderFactory GetProvider(string providerName) {
-            bool hasProvider = 
+            // The name it is registered by (.NET's DbProviderFactories matches exactly; .NET Framework's ignored case).
+            string registered =
                 DbProviderFactories.GetFactoryClasses().Rows.OfType<DataRow>()
                 .Select(r => (string)r["InvariantName"])
-                .Contains(providerName, StringComparer.OrdinalIgnoreCase);
-            if (hasProvider) {
-                return DbProviderFactories.GetFactory(providerName);
+                .FirstOrDefault(n => String.Equals(n, providerName, StringComparison.OrdinalIgnoreCase));
+            if (registered != null) {
+                return DbProviderFactories.GetFactory(registered);
             }
             return null;
         }

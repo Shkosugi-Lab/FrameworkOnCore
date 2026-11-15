@@ -36,6 +36,22 @@ namespace System.Web
 				if (!DbProviderFactories.TryGetFactory(invariant, out _)) DbProviderFactories.RegisterFactory(invariant, type);
 		}
 
+		/// <summary>
+		/// The invariant name a provider is registered by for a name as .NET Framework's DbProviderFactories found it: its
+		/// provider table's lookup (a DataTable's) ignored trailing spaces (U+0020, U+3000) and case ("System.Data.SqlClient ",
+		/// "system.data.sqlclient"; not leading spaces); .NET's matches exactly. The name itself when none is registered by it
+		/// (GetFactory's error, as there).
+		/// </summary>
+		internal static string Registered(string name)
+		{
+			// By the names only (TryGetFactory would load a registered type).
+			if (name == null) return null;
+			var names = DbProviderFactories.GetProviderInvariantNames();
+			if (names.Contains(name)) return name;
+			var trimmed = name.TrimEnd(' ', '　');
+			return names.FirstOrDefault(n => string.Equals(n, trimmed, StringComparison.OrdinalIgnoreCase)) ?? name;
+		}
+
 		internal static void Register(string applicationPath)
 		{
 			EnsureDefaults();
@@ -53,14 +69,15 @@ namespace System.Web
 			if (factories == null) return;
 			foreach (var entry in factories.Elements())
 			{
-				var invariant = (string)entry.Attribute("invariant");
+				// By the name it is looked up by there (trailing spaces ignored: Registered).
+				var invariant = ((string)entry.Attribute("invariant"))?.TrimEnd(' ', '　');
 				switch (entry.Name.LocalName)
 				{
 					case "clear":
 						foreach (var name in DbProviderFactories.GetProviderInvariantNames().ToList()) DbProviderFactories.UnregisterFactory(name);
 						break;
 					case "remove":
-						if (!string.IsNullOrEmpty(invariant)) DbProviderFactories.UnregisterFactory(invariant);
+						if (!string.IsNullOrEmpty(invariant)) DbProviderFactories.UnregisterFactory(Registered(invariant));
 						break;
 					case "add":
 						var type = (string)entry.Attribute("type");

@@ -116,7 +116,7 @@ Studio が起動したアプリ(元のアプリ、ネイティブ起動)は、St
 
 ## 状態
 
-- コーパス(Web Forms: BlogEngine.NET、WingtipToys、mojoPortal、YAF.NET、DNN、N2CMS、openIMIS(VB)、nopCommerce 1.90。MVC 5: MvcMovie、nopCommerce 3.90、Contoso University)を変換し、Windows と Linux で動作を確かめています。結果と既知の課題は `experiments/wf4c/README.md` にあります。変換して Linux のコンテナで動かす手順は [docs/corpora/README.md](corpora/README.md) にあります。
+- コーパス(Web Forms: BlogEngine.NET、WingtipToys(C#・VB)、mojoPortal、YAF.NET、DNN、N2CMS、openIMIS(VB)、nopCommerce 1.90。MVC 5: MvcMovie、nopCommerce 3.90、Contoso University)を変換し、Windows と Linux で動作を確かめています。結果と既知の課題は `experiments/wf4c/README.md` にあります。変換して Linux のコンテナで動かす手順は [docs/corpora/README.md](corpora/README.md) にあります。
 - .NET Framework にしかない API の洗い出しと対応の状況は `experiments/wf4c/FRAMEWORK-ONLY-APIS.md` にあります。
 - MVC 5・Web Pages・Razor 3 は AspNetWebStack v3.3.0(Microsoft のソース、Apache 2.0)から `FrameworkOnCore.Runtime/` に移植済みで、変換後のアプリは Microsoft の DLL ではなくこれを使う(Microsoft の DLL の許諾は逆アセンブルを禁じ、.NET の数値の動きをするため)。数値の書式とモデル バインドは .NET Framework と同じ。Web API 2 も同じく移植済み。
 - LINQ to SQL(System.Data.Linq)は referencesource(MIT)から `FrameworkOnCore.Runtime/` に移植済みで、既定で使われる。全 API(486)を .NET Framework と新旧比較して一致を確認している(`experiments/wf4c/README.md` の記録)。

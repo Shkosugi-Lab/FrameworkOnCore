@@ -220,6 +220,25 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
                          (string?)e.Attribute("key") == "ChartImageHandler"))
                 if (System.Text.RegularExpressions.Regex.Match((string?)add.Attribute("value") ?? "", @"(?i)(^|;)\s*dir\s*=\s*(?<dir>[a-z]:[^;]*)") is { Success: true } dir)
                     report.Add(Report.Kind.Platform, subject, $"web.config <appSettings> ChartImageHandler: the chart images' folder {dir.Groups["dir"].Value.Trim()} is a Windows path; on Linux set APPSETTING_ChartImageHandler (dir=a Linux folder the application may write, or storage=memory)");
+            // A connection string's providerName as .NET Framework's DbProviderFactories found it: its provider table's
+            // lookup (a DataTable's) ignored trailing spaces (U+0020, U+3000) and case ("System.Data.SqlClient ",
+            // "system.data.sqlclient"; leading spaces it did not); .NET's matches the name exactly (ArgumentException
+            // "wasn't found in the list of registered .NET Data Providers": every query of WingtipToys VB's EF context).
+            // The name the provider is registered by: .NET Framework's built-in ones, the web.config's own (DbProviderFactories).
+            var invariants = new[] { "System.Data.SqlClient", "System.Data.OleDb", "System.Data.Odbc" }
+                .Concat(configDocument.Descendants().Where(e => e.Name.LocalName == "add" && e.Parent?.Name.LocalName == "DbProviderFactories")
+                    .Select(e => ((string?)e.Attribute("invariant"))?.TrimEnd(' ', '　')).OfType<string>())
+                .ToList();
+            foreach (var add in configDocument.Descendants().Where(e => e.Name.LocalName == "add" && e.Parent?.Name.LocalName == "connectionStrings"))
+                if (add.Attribute("providerName") is { } provider)
+                {
+                    var name = provider.Value.TrimEnd(' ', '　');
+                    name = invariants.FirstOrDefault(i => string.Equals(i, name, StringComparison.OrdinalIgnoreCase)) ?? name;
+                    if (name == provider.Value) continue;
+                    report.Add(Report.Kind.Project, subject, $"web.config <connectionStrings> {(string?)add.Attribute("name")}: providerName \"{provider.Value}\" as \"{name}\" (.NET's DbProviderFactories matches the name exactly; .NET Framework's ignored trailing spaces and case)");
+                    provider.Value = name;
+                    removed = true;
+                }
             // In its encoding (shift_jis: its declaration's), its byte order mark as it was.
             if (removed) XmlFiles.Save(configDocument, target, SaveOptions.DisableFormatting, original);
         }

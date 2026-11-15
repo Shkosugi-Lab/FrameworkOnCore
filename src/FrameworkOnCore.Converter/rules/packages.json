@@ -1,6 +1,6 @@
 {
   "$comment": "Package and reference rules. \"$frameworkoncore\" stands for the version of FrameworkOnCore's packages (frameworkOnCoreVersion).",
-  "frameworkOnCoreVersion": "1.6.5-w2l.28",
+  "frameworkOnCoreVersion": "1.6.5-w2l.29",
 
   "$comment_webPackages": "The web project always gets these (Program.cs uses them; pages reference them at run time). FrameworkOnCore.Data.SqlClient: whoever opens the connection (the sources, Entity Framework, a DLL), System.Data.SqlClient is the one expanding |DataDirectory| as .NET Framework's (its assembly version is above the package Entity Framework brings). The user's choice (portOptions): .NET's package, it is not added.",
   "webPackages": [ "FrameworkOnCore.Web", "FrameworkOnCore.Web.Extensions", "FrameworkOnCore.Configuration", "FrameworkOnCore.Web.DynamicData", "FrameworkOnCore.Data.SqlClient" ],
@@ -39,6 +39,10 @@
     "System.Web.Http.Cors": [ "FrameworkOnCore.Web.Http.Cors", "$frameworkoncore" ],
     "AjaxControlToolkit": [ "FrameworkOnCore.AjaxControlToolkit", "$frameworkoncore" ],
     "EntityFramework": [ "EntityFramework", "6.5.1" ],
+    // ASP.NET Universal Providers (System.Web.Providers) 1.x is built on EF 5 (System.Data.Objects.ObjectContext): with EF 6
+    // its membership, roles and profile threw MissingMethodException (WingtipToys VB's Roles.RoleExists at its start).
+    // 2.0.0 is the same API built on EF 6.
+    "Microsoft.AspNet.Providers.Core": [ "Microsoft.AspNet.Providers.Core", "2.0.0" ],
     // System.Drawing.Common from NuGet (Windows only since .NET 7): FrameworkOnCore's, which has the Linux implementation.
     "System.Drawing.Common": [ "FrameworkOnCore.Drawing.Common", "$frameworkoncore" ],
     // System.Data.SqlClient from NuGet refuses |DataDirectory| in AttachDBFilename: FrameworkOnCore's expands it, as .NET
@@ -208,7 +212,8 @@
 
   "$comment_dllCallReplacements": "Calls inside a library's DLL (no source) where .NET differs from .NET Framework in a way the library did not expect: in the DLL named (assembly), in the method given (in: Type::Method), the call of the member (call: Type::Method) becomes a call of the compatibility assembly's static method of the same parameters and return (replacement). AssemblyRetargeter.",
   "dllCallReplacements": [
-    { "assembly": "AutoMapper", "in": "AutoMapper.Profile::IncludeSourceExtensionMethods", "call": "AutoMapper.TypeExtensions::GetDeclaredMethods", "replacement": "FrameworkOnCore.DllFixes::PublicDeclaredMethods", "note": "AutoMapper before 12 takes Enumerable's private extension methods too; .NET's (MaxInteger<T>) break the constraints of its MakeGenericMethod and every MapperConfiguration fails: public ones only, as .NET Framework's Enumerable had" }
+    { "assembly": "AutoMapper", "in": "AutoMapper.Profile::IncludeSourceExtensionMethods", "call": "AutoMapper.TypeExtensions::GetDeclaredMethods", "replacement": "FrameworkOnCore.DllFixes::PublicDeclaredMethods", "note": "AutoMapper before 12 takes Enumerable's private extension methods too; .NET's (MaxInteger<T>) break the constraints of its MakeGenericMethod and every MapperConfiguration fails: public ones only, as .NET Framework's Enumerable had" },
+    { "assembly": "DotNetOpenAuth.OpenId", "in": "DotNetOpenAuth.OpenId.UriIdentifier::.cctor", "call": "System.Type::GetType", "replacement": "FrameworkOnCore.DllFixes::MonoRuntimeFound", "note": "DotNetOpenAuth keeps .NET Framework's Uri from compressing OpenID identifiers' paths by setting UriParser's private fields, which .NET has not (InternalErrorException: every OpenID registration failed, the application did not start); on Mono it leaves Uri as it is: so here (some URL identifiers with . or .. segments may not complete a login)" }
   ],
 
   "$comment_frameworkAssets": "Packages whose .NET asset has another API than the .NET Framework one the site ran: that one is referenced (restored, not compiled against). The DLL in the package, and why.",

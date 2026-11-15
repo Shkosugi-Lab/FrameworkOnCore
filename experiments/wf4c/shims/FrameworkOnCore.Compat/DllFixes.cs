@@ -18,5 +18,15 @@ namespace FrameworkOnCore
         /// </summary>
         public static IEnumerable<MethodInfo> PublicDeclaredMethods(System.Type type) =>
             type.GetTypeInfo().DeclaredMethods.Where(m => m.IsPublic);
+
+        /// <summary>
+        /// Type.GetType, "Mono.Runtime" found: DotNetOpenAuth.OpenId's UriIdentifier (its static constructor) keeps .NET
+        /// Framework's Uri from compressing OpenID identifiers' paths by setting UriParser's private fields (m_Scheme ...),
+        /// which .NET has not: an InternalErrorException made every OpenID provider's registration fail (OpenAuth's
+        /// AddGoogle in WingtipToys VB's AuthConfig: the application did not start). On Mono, which it detects so, it leaves
+        /// Uri as it is (logging that some URL identifiers may not complete a login): that way.
+        /// </summary>
+        public static System.Type MonoRuntimeFound(string typeName) =>
+            typeName == "Mono.Runtime" ? typeof(DllFixes) : System.Type.GetType(typeName);
     }
 }

@@ -26,7 +26,7 @@ $defaultUI = [Globalization.CultureInfo]::CurrentUICulture.Name
 $names.Add($default)
 $names.Add($defaultUI)
 if ($WebConfig) {
-    [xml]$config = Get-Content $WebConfig -Raw -Encoding UTF8
+    [xml]$config = Get-Content -LiteralPath $WebConfig -Raw -Encoding UTF8  # -LiteralPath: [ ] in a folder name (WingtipToys VB's "[VB]-...") are not wildcards
     $globalization = $config.SelectSingleNode('/configuration/system.web/globalization')
     if ($globalization) {
         foreach ($attribute in 'culture', 'uiCulture') {

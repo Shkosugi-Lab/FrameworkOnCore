@@ -226,6 +226,36 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         catch (System.Xml.XmlException e) { report.Add(Report.Kind.Error, subject, $"web.config not read: {e.Message}"); }
     }
 
+    // web.config's WCF endpoints CoreWCF does not serve in the site (FrameworkOnCore.ServiceModel's ServicePlan leaves them
+    // out): bindings other than basicHttp(s), wsHttp and webHttp, and wsHttpBinding's message security (its default mode).
+    public static IEnumerable<(string Endpoint, string Why)> WcfEndpointsNotServed(string source)
+    {
+        var config = Directory.EnumerateFiles(source, "web.config", new EnumerationOptions { MatchCasing = MatchCasing.CaseInsensitive }).FirstOrDefault();
+        if (config == null) yield break;
+        XDocument document;
+        try { document = XDocument.Load(config); } catch (System.Xml.XmlException) { yield break; }
+        var model = document.Root?.Element("system.serviceModel");
+        if (model == null) yield break;
+        foreach (var service in model.Element("services")?.Elements("service") ?? [])
+            foreach (var endpoint in service.Elements("endpoint"))
+            {
+                var kind = (string?)endpoint.Attribute("binding") ?? "";
+                var contract = (string?)endpoint.Attribute("contract") ?? "";
+                if (kind is "mexHttpBinding" or "mexHttpsBinding" || contract == "IMetadataExchange") continue;
+                var where = $"{(string?)service.Attribute("name")} \"{(string?)endpoint.Attribute("address")}\" ({kind})";
+                if (kind is not ("basicHttpBinding" or "basicHttpsBinding" or "wsHttpBinding" or "webHttpBinding"))
+                    yield return (where, $"{kind} is not one it serves in the site");
+                else if (kind == "wsHttpBinding")
+                {
+                    var name = (string?)endpoint.Attribute("bindingConfiguration") ?? "";
+                    var mode = (string?)model.Element("bindings")?.Element("wsHttpBinding")?.Elements("binding")
+                        .FirstOrDefault(b => ((string?)b.Attribute("name") ?? "") == name)?.Element("security")?.Attribute("mode") ?? "Message";
+                    if (mode.Equals("Message", StringComparison.OrdinalIgnoreCase))
+                        yield return (where, $"security mode {mode}{(name == "" ? ", the binding's default" : "")}: message security");
+                }
+            }
+    }
+
     // The web project's, old-style or SDK-style: FrameworkOnCore's web packages, and for WCF's services the site has (.svc
     // files, web.config's serviceActivations) CoreWCF's, which serves them in the application's host (FrameworkOnCore.ServiceModel;
     // Program.cs calls it) as IIS's WCF activation served them, when that is the choice.
@@ -237,6 +267,8 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         {
             add(new Package(ServiceModelPackage, rules.FrameworkOnCoreVersion));
             report.Add(Report.Kind.Project, name, $"WCF services ({string.Join(", ", services.Take(6))}{(services.Count > 6 ? ", ..." : "")}): served by CoreWCF (FrameworkOnCore.ServiceModel), as web.config configures them");
+            foreach (var (endpoint, why) in WcfEndpointsNotServed(source))
+                report.Add(Report.Kind.Unsupported, name, $"WCF endpoint {endpoint}: not served by CoreWCF ({why}); the service's other endpoints are");
         }
         else report.Add(Report.Kind.Unsupported, name, $"WCF services ({string.Join(", ", services.Take(6))}{(services.Count > 6 ? ", ..." : "")}): not served (wcf-server: none)");
     }
@@ -365,17 +397,25 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         var codePage = SourcesCodePage(name, compile.Select(c => Path.Combine(source, c)), projectCodePage) ?? projectCodePage;
 
         var packages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        // packages.config's packages that another package replaces (Microsoft.AspNet.Mvc: FrameworkOnCore.Web.Mvc), kept at
+        // their version with nothing of them used. packages.config lists every package, the ones others depend on too:
+        // without them NuGet resolves those dependencies itself (eShopLegacyMVC's Autofac.Mvc5 on Microsoft.AspNet.Mvc
+        // 5.1.0), and the .NET Framework DLLs it brings (System.Web.WebPages 3.1) take the ports' place in the output.
+        var pinned = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
         void AddPackage(Package p) => packages.TryAdd(p.Id, p.Version);
-        void AddListed(string id, string version)
+        void AddListed(string id, string version, bool pin = false)
         {
             if (Listed(name, id, version) is not { Package: { } package } decision) return;
             packages[package.Id] = package.Version;
             foreach (var c in decision.Companions) AddPackage(c);
+            if (pin && decision.Fate == PackageFate.Replaced && !package.Id.Equals(id, StringComparison.OrdinalIgnoreCase) && packages.TryAdd(id, version)) pinned.Add(id);
         }
         var config = Path.Combine(source, "packages.config");
         if (File.Exists(config))
         {
-            foreach (var p in XDocument.Load(config).Descendants("package")) AddListed((string)p.Attribute("id")!, (string)p.Attribute("version")!);
+            foreach (var p in XDocument.Load(config).Descendants("package")) AddListed((string)p.Attribute("id")!, (string)p.Attribute("version")!, pin: true);
+            if (pinned.Count > 0)
+                report.Add(Report.Kind.Project, name, $"replaced packages kept at their version with nothing of them used (ExcludeAssets all), for the packages that depend on them: {string.Join(", ", pinned)}");
         }
         foreach (var p in old.Descendants(msbuild + "PackageReference").Where(e => ItemHolds(e, name)))
         {
@@ -521,7 +561,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         foreach (var (id, version) in packages)
         {
             text.Append($"    <PackageReference Include=\"{id}\" Version=\"{version}\"");
-            foreach (var (attribute, value) in AssetAttributes(id)) text.Append($" {attribute}=\"{value}\"");
+            foreach (var (attribute, value) in pinned.Contains(id) ? [("ExcludeAssets", "all"), ("PrivateAssets", "all")] : AssetAttributes(id)) text.Append($" {attribute}=\"{value}\"");
             text.Append(" />\n");
             if (rules.AssetsOf(id) == PackageAssets.FrameworkAsset)
             {

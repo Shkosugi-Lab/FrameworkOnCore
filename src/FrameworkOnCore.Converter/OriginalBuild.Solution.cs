@@ -84,8 +84,11 @@ public sealed partial class OriginalBuild
         UpgradeWebApplicationTargets(root, order, msbuild);
         WriteMissingAssemblyInfo(root, order);
         report.Add(Report.Kind.Project, "original build", $"{order.Count} project(s) in the solution configuration, built one by one");
+        // RestorePackages=false: NuGet's old package restore in the build (.nuget\NuGet.targets, a project's RestorePackages
+        // true) is not run: the packages are restored above, and its NuGet.exe is not in the repositories that have it
+        // ("Unable to locate ...\.nuget\NuGet.exe": Bootstrap2-VB-MVC), as Visual Studio's own restore made it unneeded.
         string Arguments(string project) =>
-            $"\"{project}\" /restore /p:Configuration={configuration} /p:Platform=AnyCPU \"/p:SolutionDir={solutionDirectory}\\\\\" " +
+            $"\"{project}\" /restore /p:Configuration={configuration} /p:Platform=AnyCPU /p:RestorePackages=false \"/p:SolutionDir={solutionDirectory}\\\\\" " +
             $"\"/p:TargetFrameworkRootPath={referenceRoot}\\\\\" \"/p:CscToolPath={compiler}\" /p:CscToolExe=csc.exe " +
             $"\"/p:CustomAfterMicrosoftCommonTargets={afterCommon}\" /p:BypassFrameworkInstallChecks=true /p:BuildingInsideVisualStudio=true /p:ShouldUnsetParentConfigurationAndPlatform=false /m:1 /v:m /nologo";
         var failed = order.Where(p => RunProcess(msbuild, Arguments(p), root, quiet: true) != 0).ToList();

@@ -52,8 +52,12 @@ public static class PackageDecisions
         if (rules.IsDropped(id, version)) return new(PackageFate.Dropped, null, []);
         var companions = rules.PackageCompanions.TryGetValue(id, out var listed) ? listed : [];
         if (!rules.ReplacedPackages.TryGetValue(id, out var replaced)) return new(PackageFate.Kept, new Package(id, version), companions);
-        // Not from a version not given (a PackageReference without one): nothing is known to have been raised.
-        var raised = replaced.Id.Equals(id, StringComparison.OrdinalIgnoreCase) && version != "*" ? rules.Raises.Note(id, version, replaced.Version) : null;
+        // Not from a version not given (a PackageReference without one): nothing is known to have been raised. A port
+        // (FrameworkOnCore.Web.Razor) is of Microsoft's package at the version portVersions gives (Razor 3).
+        var raised = version == "*" ? null
+            : replaced.Id.Equals(id, StringComparison.OrdinalIgnoreCase) ? rules.Raises.Note(id, version, replaced.Version)
+            : rules.PortVersions.TryGetValue(id, out var port) ? rules.Raises.Note(id, version, port)
+            : null;
         return new(PackageFate.Replaced, replaced, companions, RaisedNote: raised);
     }
 

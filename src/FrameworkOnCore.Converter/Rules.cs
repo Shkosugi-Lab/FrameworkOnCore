@@ -90,6 +90,9 @@ public sealed record Rules
     public IReadOnlyList<IReadOnlyList<string>> PackageFamilies { get; init; } = [];
     /// <summary>What a package's raise to a higher major version changes (packageRaises).</summary>
     public PackageRaises Raises { get; init; } = PackageRaises.None;
+    /// <summary>The version of Microsoft's package a port is of (portVersions: Microsoft.AspNet.Razor -> 3.0, FrameworkOnCore.Web.Razor
+    /// being Razor 3): a replacement by the port is a raise from the package's version to it (Raises).</summary>
+    public IReadOnlyDictionary<string, string> PortVersions { get; init; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
     /// <summary>Packages that route URLs (FriendlyUrls): the web project with one hands every request to Web Forms.</summary>
     public IReadOnlyList<string> RoutingPackages { get; init; } = [];
     /// <summary>The package that reads resources embedded serialized (images, icons in .resx): System.Resources.Extensions.</summary>
@@ -286,6 +289,7 @@ public sealed record Rules
                 g.TryGetProperty("typeMoveOrigins", out var origins) ? origins.EnumerateArray().Select(e => e.GetString()!).ToList() : [])).ToList(),
             PackageFamilies = root.TryGetProperty("packageFamilies", out var families) ? families.EnumerateArray().Select(f => (IReadOnlyList<string>)Strings(f)).ToList() : [],
             Raises = root.TryGetProperty("packageRaises", out var raises) ? Raises(raises) : PackageRaises.None,
+            PortVersions = root.TryGetProperty("portVersions", out var ports) ? ports.EnumerateObject().ToDictionary(p => p.Name, p => p.Value.GetString()!, StringComparer.OrdinalIgnoreCase) : new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase),
             RoutingPackages = root.TryGetProperty("routingPackages", out var routing) ? Strings(routing) : [],
             ResourcesPackage = PackageOf(root.GetProperty("preserializedResourcesPackage")),
             NotDrawing = root.TryGetProperty("notDrawing", out _) ? Set("notDrawing") : new HashSet<string>(StringComparer.OrdinalIgnoreCase),

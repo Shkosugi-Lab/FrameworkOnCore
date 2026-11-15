@@ -266,7 +266,11 @@ public sealed class ProjectConverterTests : IDisposable
 
         var old = PackageItems(Target(Output, @"Old\Old.csproj"));
         var sdk = PackageItems(Target(Output, @"Sdk\Sdk.csproj"));
-        Assert.Equal(old, sdk);
+        // packages.config's replaced packages are kept too, at their version with nothing of them used (it lists every
+        // package: the ones a kept package depends on, which NuGet would otherwise resolve to Microsoft's DLLs). A
+        // PackageReference's are not: its dependencies are not listed, and would come with their assets.
+        Assert.Equal(["Microsoft.AspNet.Mvc 5.2.7 all all ", "Microsoft.AspNet.WebPages 3.2.7 all all "], old.Except(sdk));
+        Assert.Empty(sdk.Except(old));
         var version = RewriteHarness.Rules.FrameworkOnCoreVersion;
         Assert.Contains($"FrameworkOnCore.Web.Mvc {version}   ", sdk);
         Assert.Contains($"FrameworkOnCore.Web.Helpers {version}   ", sdk);               // Microsoft.AspNet.WebPages' companion

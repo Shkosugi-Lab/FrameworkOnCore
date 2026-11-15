@@ -38,6 +38,30 @@ public sealed class WcfServicesTests : IDisposable
         Assert.Empty(ProjectConverter.WcfServices(root));
     }
 
+    [Fact] // dotnet/samples' MultipleEndpoints: wsHttpBinding's default security is message security, which CoreWCF does not serve
+    public void Endpoints_coreWcf_does_not_serve_are_found()
+    {
+        Directory.CreateDirectory(root);
+        File.WriteAllText(Path.Combine(root, "Web.config"), """
+            <configuration><system.serviceModel>
+              <bindings><wsHttpBinding><binding name="transport"><security mode="Transport" /></binding></wsHttpBinding></bindings>
+              <services><service name="A.Calculator">
+                <endpoint address="" binding="basicHttpBinding" contract="A.ICalculator" />
+                <endpoint address="secure" binding="wsHttpBinding" contract="A.ICalculator" />
+                <endpoint address="https" binding="wsHttpBinding" bindingConfiguration="transport" contract="A.ICalculator" />
+                <endpoint address="tcp" binding="netTcpBinding" contract="A.ICalculator" />
+                <endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange" />
+              </service></services>
+            </system.serviceModel></configuration>
+            """);
+
+        var notServed = ProjectConverter.WcfEndpointsNotServed(root).ToList();
+
+        Assert.Equal(2, notServed.Count);
+        Assert.Contains(notServed, e => e.Endpoint == "A.Calculator \"secure\" (wsHttpBinding)" && e.Why.Contains("message security"));
+        Assert.Contains(notServed, e => e.Endpoint == "A.Calculator \"tcp\" (netTcpBinding)");
+    }
+
     [Fact] // CoreWCF by default: its types for WCF's service side; none chosen, the group is left out
     public void The_service_side_types_are_corewcfs_when_corewcf_is_the_choice()
     {

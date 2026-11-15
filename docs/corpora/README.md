@@ -18,5 +18,8 @@
 | [imis](imis.md) | openIMIS 24.10 | Web Forms(VB) | Visual Studio か Build Tools | 動く |
 | [dnn](dnn.md) | DNN Platform 9.13.10 | Web Forms | Visual Studio か Build Tools、ディスク 20 GB | 動く |
 | [yaf](yaf.md) | YAF.NET 3.2.15 | Web Forms | なし | 動かない(変換まで) |
+| [eshop](eshop.md) | eShopLegacyMVC | MVC 5 + Web API | Visual Studio か Build Tools | 動く(2026-11-15) |
+| [wcf](wcf.md) | WCF の MultipleEndpoints(C# と VB) | WCF | Visual Studio か Build Tools | basicHttp の口が動く(2026-11-15) |
+| [vbmvc](vbmvc.md) | Bootstrap2-VB-MVC | MVC 4(VB) | Visual Studio か Build Tools | 動く(2026-11-15) |
 
 「確認」と書いたものは、この手順のとおり(コマンドラインと Studio、Windows と Linux)に動かして確かめました。それ以外は、検証の記録(`experiments/wf4c/README.md`)にある結果で、それより後に出たパッケージでは確かめていません。

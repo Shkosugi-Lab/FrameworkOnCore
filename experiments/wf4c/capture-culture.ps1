@@ -26,7 +26,11 @@ $defaultUI = [Globalization.CultureInfo]::CurrentUICulture.Name
 $names.Add($default)
 $names.Add($defaultUI)
 if ($WebConfig) {
-    [xml]$config = Get-Content -LiteralPath $WebConfig -Raw -Encoding UTF8  # -LiteralPath: [ ] in a folder name (WingtipToys VB's "[VB]-...") are not wildcards
+    # In the encoding it says (an application's may be encoding="shift_jis"); a path as it is ([ ] in a folder's name,
+    # WingtipToys VB's "[VB]-...", are no wildcards).
+    $config = New-Object System.Xml.XmlDocument
+    # (relative to PowerShell's location: .NET's is the process's)
+    $config.Load($(if ([IO.Path]::IsPathRooted($WebConfig)) { $WebConfig } else { Join-Path (Get-Location).ProviderPath $WebConfig }))
     $globalization = $config.SelectSingleNode('/configuration/system.web/globalization')
     if ($globalization) {
         foreach ($attribute in 'culture', 'uiCulture') {

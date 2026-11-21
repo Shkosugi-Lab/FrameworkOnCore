@@ -389,13 +389,13 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         var compile = old.Descendants(msbuild + "Compile").Where(e => ItemHolds(e, name)).Select(e => (string)e.Attribute("Include")!).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
         // A file the project lists that the repository does not have (the original does not build either: CS2001): left
         // out and reported (MvcMovie of AspNetDocs has no Properties\AssemblyInfo.cs).
-        foreach (var missing in compile.Where(c => !c.Contains('*') && !c.Contains("$(") && !File.Exists(Path.Combine(source, c))).ToList())
+        foreach (var missing in compile.Where(c => !c.Contains('*') && !c.Contains("$(") && !File.Exists(ItemFile(source, c))).ToList())
         {
             compile.Remove(missing);
             report.Add(Report.Kind.Project, name, $"{missing}: listed by the project, not in the repository (the original build fails on it: CS2001); left out");
         }
         var embedded = old.Descendants(msbuild + "EmbeddedResource").Where(e => ItemHolds(e, name)).Select(e => (string)e.Attribute("Include")!).ToList();
-        foreach (var missing in embedded.Where(c => !c.Contains('*') && !c.Contains("$(") && !File.Exists(Path.Combine(source, c))).ToList())
+        foreach (var missing in embedded.Where(c => !c.Contains('*') && !c.Contains("$(") && !File.Exists(ItemFile(source, c))).ToList())
         {
             embedded.Remove(missing);
             report.Add(Report.Kind.Project, name, $"{missing}: an embedded resource the project lists, not in the repository (the original build fails on it); left out");
@@ -413,7 +413,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         // the machine's (ProjectConverter.Encodings.cs).
         var projectCodePage = old.Descendants(msbuild + "CodePage").Where(d => conditions.Holds((string?)d.Parent?.Attribute("Condition"), name))
             .Select(d => ParseCodePage(d.Value)).LastOrDefault(p => p != null);
-        var codePage = SourcesCodePage(name, compile.Select(c => Path.Combine(source, c)), projectCodePage) ?? projectCodePage;
+        var codePage = SourcesCodePage(name, compile.Select(c => ItemFile(source, c)), projectCodePage) ?? projectCodePage;
 
         var packages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         // packages.config's packages that another package replaces (Microsoft.AspNet.Mvc: FrameworkOnCore.Web.Mvc), kept at
@@ -490,8 +490,8 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
 
         if (isWeb) TransformWebConfigs(name, source, AddPackage);
 
-        AddSourcePackages(name, compile.Select(c => Path.Combine(source, c)), AddPackage);
-        var preserialized = HasNonStringResources(embedded.Select(e => Path.Combine(source, e)));
+        AddSourcePackages(name, compile.Select(c => ItemFile(source, c)), AddPackage);
+        var preserialized = HasNonStringResources(embedded.Select(e => ItemFile(source, e)));
         if (preserialized) AddPackage(rules.ResourcesPackage);
         var usesWebFormsForCore = isWeb || packages.Keys.Any(k => k.StartsWith("FrameworkOnCore.", StringComparison.OrdinalIgnoreCase));
 
@@ -531,7 +531,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
             {
                 if (Option(option) is { Length: > 0 } value) Prop(option, value);
             }
-            if (Option("MyType") is { Length: > 0 } myType) Prop("MyType", ServerMyType(name, myType, compile.Select(c => Path.Combine(source, c))));
+            if (Option("MyType") is { Length: > 0 } myType) Prop("MyType", ServerMyType(name, myType, compile.Select(c => ItemFile(source, c))));
             Prop("DisableImplicitNamespaceImports", "true");
         }
         Prop("RestoreAdditionalProjectSources", Paths.FromProject(target, runtime.Feed));
@@ -613,7 +613,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         // Analyzers checked into the repository (not the ones of packages: the PackageReference brings them).
         foreach (var analyzer in old.Descendants(msbuild + "Analyzer").Where(e => ItemHolds(e, name)).Select(e => (string)e.Attribute("Include")!))
         {
-            if (Regex.IsMatch(analyzer, @"(^|\\)packages\\", RegexOptions.IgnoreCase) || !File.Exists(Path.Combine(source, analyzer))) continue;
+            if (Regex.IsMatch(analyzer, @"(^|\\)packages\\", RegexOptions.IgnoreCase) || !File.Exists(ItemFile(source, analyzer))) continue;
             text.Append($"    <Analyzer Include=\"{SecurityElement.Escape(analyzer)}\" />\n");
         }
         text.Append("  </ItemGroup>\n");
@@ -638,7 +638,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
                 """);
             // The original server's ANSI code page, where the pages (what the server compiles) are in it: ASP.NET read them in it
             // (web.config without fileEncoding), and it was Encoding.Default; Linux has none.
-            if (ServerCodePage(name, source, compile.Select(c => Path.Combine(source, c))) is { } serverCodePage)
+            if (ServerCodePage(name, source, compile.Select(c => ItemFile(source, c))) is { } serverCodePage)
                 text.Append($"""
 
                       <!-- The ANSI code page of the original server (its pages are in it): the pages read in it where
@@ -661,7 +661,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         }
         // UTF-7 named in the sources (Encoding.GetEncoding("utf-7"), 65000, Encoding.UTF7): .NET Framework gave it, .NET
         // throws NotSupportedException for GetEncoding unless switched on (SYSLIB0001; disabled for its XSS risk).
-        if (NamesUtf7(compile.Select(c => Path.Combine(source, c)).Concat(isWeb ? PageFiles(source) : [])))
+        if (NamesUtf7(compile.Select(c => ItemFile(source, c)).Concat(isWeb ? PageFiles(source) : [])))
         {
             text.Append("""
 
@@ -836,6 +836,15 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
     // A path an MSBuild item names (Windows' separators) as this system's: the converter's tests run on Linux too.
     internal static string Native(string path) => path.Replace('\\', Path.DirectorySeparatorChar);
 
+    /// <summary>
+    /// An item's file as MSBuild finds it: its Include unescaped (Visual Studio writes "%28" for '(', "%3b" for ';' and the
+    /// like: MSBuild's special characters) and with the system's separator ('\' in the project, on Linux too). The Include
+    /// itself is kept as it is where it is written again (the converted project's: still MSBuild's). The file was looked
+    /// for by the Include as it is: an escaped name, and every item in a folder on Linux, was "not in the repository".
+    /// </summary>
+    internal static string ItemFile(string directory, string include) =>
+        Path.Combine(directory, Native(Regex.Replace(include, "%([0-9A-Fa-f]{2})", m => ((char)System.Convert.ToInt32(m.Groups[1].Value, 16)).ToString())));
+
     // The DLL of a package's .NET Framework asset, by the package's path property (GeneratePathProperty).
     internal static string FrameworkAssetPath(string id, string asset) => $"$(Pkg{id.Replace('.', '_').Replace('-', '_')})\\{asset.Replace('/', '\\')}";
 
@@ -860,7 +869,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         var resources = new List<(string, string)>();
         foreach (var model in old.Descendants(msbuild + "EntityDeploy").Where(e => ItemHolds(e, name)).Select(e => (string)e.Attribute("Include")!))
         {
-            var path = Path.Combine(source, model);
+            var path = ItemFile(source, model);
             if (!File.Exists(path)) { report.Add(Report.Kind.Error, name, $"EntityDeploy {model}: not there"); continue; }
             var baseName = Path.ChangeExtension(model, null).Replace('\\', '.').Replace('/', '.');
             XDocument edmx;

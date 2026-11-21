@@ -888,6 +888,4473 @@
       "kind": "iis error"
     },
     {
+      "category": "denied handlers",
+      "name": "GET /locked/echo.ashx",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /locked/echo.ashx/x",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /locked/echo.ashx/x.aspx",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /locked/echo.ashx/x.txt",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /locked/echo.ashx/",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /locked/page.aspx",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /locked/page.aspx/x",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /locked/page.aspx/x.txt",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /locked/page.aspx/x.ashx",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /locked/a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-locked-a.txt"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /locked/a.txt/x.aspx",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /LOCKED/ECHO.ASHX/x.txt",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/locked/echo.ashx/x.txt",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /rw/locked/echo.ashx/x.txt",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /echo.ashx/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /echo.ashx/x.txt",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx/x.txt file=/echo.ashx info=/x.txt raw=/echo.ashx/x.txt host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /default.aspx/x.txt",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "denied handlers",
+      "name": "GET /default.aspx/x.ashx",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /a.txt/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /a.txt/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /a.txt/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /a.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /a.txt%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /A.TXT/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /A.TXT/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /A.TXT/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /A.TXT.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /A.TXT%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /default.aspx/x",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /default.aspx/x.aspx",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /default.aspx/",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /default.aspx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /default.aspx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /echo.ashx/x",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx/x file=/echo.ashx info=/x raw=/echo.ashx/x host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /echo.ashx/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /echo.ashx/",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx/ file=/echo.ashx info=/ raw=/echo.ashx/ host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /echo.ashx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /echo.ashx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /App_Data/users.xml/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /App_Data/users.xml/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /App_Data/users.xml/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /App_Data/users.xml.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /App_Data/users.xml%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /app_data/USERS.XML/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /app_data/USERS.XML/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /app_data/USERS.XML/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /app_data/USERS.XML.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /app_data/USERS.XML%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /web.config/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /web.config/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /web.config/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /web.config.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /web.config%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/web.config/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/web.config/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/web.config/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/web.config.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/web.config%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /y.secret/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /y.secret/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /y.secret/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /y.secret.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /y.secret%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.cs/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.cs/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.cs/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.cs.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.cs%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /global.asax/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /global.asax/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /global.asax/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /global.asax.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /global.asax%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /appsettings.json/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /appsettings.json/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /appsettings.json/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /appsettings.json.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /appsettings.json%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /private/x.txt/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /private/x.txt/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /private/x.txt/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /private/x.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /private/x.txt%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /badword.txt/x",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /badword.txt/x.aspx",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /badword.txt/",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /badword.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /badword.txt%20",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /secure/x.aspx/x",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%2fx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /secure/x.aspx/x.aspx",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%2fx.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /secure/x.aspx/",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%2f"
+    },
+    {
+      "category": "combination",
+      "name": "GET /secure/x.aspx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /secure/x.aspx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /bin/secret.txt/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /bin/secret.txt/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /bin/secret.txt/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /bin/secret.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /bin/secret.txt%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.json/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.json/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.json/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.json.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.json%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.mdf/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.mdf/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.mdf/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.mdf.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /x.mdf%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /badconfig/a.txt/x",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /badconfig/a.txt/x.aspx",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /badconfig/a.txt/",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /badconfig/a.txt.",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /badconfig/a.txt%20",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/a.txt/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/a.txt/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/a.txt/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/a.txt.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/a.txt%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/a.txt?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/A.TXT",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/A.TXT/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/A.TXT/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/A.TXT/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/A.TXT.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/A.TXT%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/A.TXT?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/default.aspx",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/default.aspx/x",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/default.aspx/x.aspx",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/default.aspx/",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/default.aspx.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/default.aspx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/default.aspx?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/echo.ashx",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx file=/echo.ashx info= raw=/echo.ashx host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/echo.ashx/x",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx/x file=/echo.ashx info=/x raw=/echo.ashx/x host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/echo.ashx/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/echo.ashx/",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx/ file=/echo.ashx info=/ raw=/echo.ashx/ host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/echo.ashx.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/echo.ashx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/echo.ashx?x=1",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx file=/echo.ashx info= raw=/echo.ashx?x=1 host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/App_Data/users.xml",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/App_Data/users.xml/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/App_Data/users.xml/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/App_Data/users.xml/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/App_Data/users.xml.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/App_Data/users.xml%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/App_Data/users.xml?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/app_data/USERS.XML",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/app_data/USERS.XML/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/app_data/USERS.XML/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/app_data/USERS.XML/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/app_data/USERS.XML.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/app_data/USERS.XML%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/app_data/USERS.XML?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/web.config",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/web.config/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/web.config/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/web.config/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/web.config.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/web.config%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/web.config?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/sub/web.config",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/sub/web.config/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/sub/web.config/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/sub/web.config/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/sub/web.config.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/sub/web.config%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/sub/web.config?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/y.secret",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/y.secret/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/y.secret/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/y.secret/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/y.secret.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/y.secret%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/y.secret?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.cs",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.cs/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.cs/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.cs/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.cs.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.cs%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.cs?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/global.asax",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/global.asax/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/global.asax/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/global.asax/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/global.asax.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/global.asax%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/global.asax?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/appsettings.json",
+      "status": 200,
+      "kind": "content SECRET-appsettings.json",
+      "secrets": [
+        "SECRET-appsettings.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/appsettings.json/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/appsettings.json/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/appsettings.json/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/appsettings.json.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/appsettings.json%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/appsettings.json?x=1",
+      "status": 200,
+      "kind": "content SECRET-appsettings.json",
+      "secrets": [
+        "SECRET-appsettings.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/private/x.txt",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/private/x.txt/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/private/x.txt/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/private/x.txt/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/private/x.txt.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/private/x.txt%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/private/x.txt?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badword.txt",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badword.txt/x",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badword.txt/x.aspx",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badword.txt/",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badword.txt.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badword.txt%20",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badword.txt?x=1",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/secure/x.aspx",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/secure/x.aspx/x",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%2fx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/secure/x.aspx/x.aspx",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%2fx.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/secure/x.aspx/",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%2f"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/secure/x.aspx.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/secure/x.aspx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/secure/x.aspx?x=1",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%3fx%3d1&x=1"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/bin/secret.txt",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/bin/secret.txt/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/bin/secret.txt/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/bin/secret.txt/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/bin/secret.txt.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/bin/secret.txt%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/bin/secret.txt?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.json",
+      "status": 200,
+      "kind": "content SECRET-x.json",
+      "secrets": [
+        "SECRET-x.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.json/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.json/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.json/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.json.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.json%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.json?x=1",
+      "status": 200,
+      "kind": "content SECRET-x.json",
+      "secrets": [
+        "SECRET-x.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.mdf",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.mdf/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.mdf/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.mdf/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.mdf.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.mdf%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.mdf?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badconfig/a.txt",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badconfig/a.txt/x",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badconfig/a.txt/x.aspx",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badconfig/a.txt/",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badconfig/a.txt.",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badconfig/a.txt%20",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badconfig/a.txt?x=1",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/a.txt/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/a.txt/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/a.txt/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/a.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/a.txt%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/a.txt?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/A.TXT",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/A.TXT/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/A.TXT/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/A.TXT/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/A.TXT.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/A.TXT%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/A.TXT?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/default.aspx",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/default.aspx/x",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/default.aspx/x.aspx",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/default.aspx/",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/default.aspx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/default.aspx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/default.aspx?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/echo.ashx",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx file=/echo.ashx info= raw=/rw/echo.ashx host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/echo.ashx/x",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx/x file=/echo.ashx info=/x raw=/rw/echo.ashx/x host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/echo.ashx/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/echo.ashx/",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx/ file=/echo.ashx info=/ raw=/rw/echo.ashx/ host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/echo.ashx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/echo.ashx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/echo.ashx?x=1",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx file=/echo.ashx info= raw=/rw/echo.ashx?x=1 host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/App_Data/users.xml",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/App_Data/users.xml/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/App_Data/users.xml/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/App_Data/users.xml/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/App_Data/users.xml.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/App_Data/users.xml%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/App_Data/users.xml?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/app_data/USERS.XML",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/app_data/USERS.XML/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/app_data/USERS.XML/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/app_data/USERS.XML/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/app_data/USERS.XML.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/app_data/USERS.XML%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/app_data/USERS.XML?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/web.config",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/web.config/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/web.config/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/web.config/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/web.config.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/web.config%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/web.config?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/sub/web.config",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/sub/web.config/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/sub/web.config/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/sub/web.config/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/sub/web.config.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/sub/web.config%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/sub/web.config?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/y.secret",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/y.secret/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/y.secret/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/y.secret/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/y.secret.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/y.secret%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/y.secret?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.cs",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.cs/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.cs/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.cs/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.cs.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.cs%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.cs?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/global.asax",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/global.asax/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/global.asax/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/global.asax/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/global.asax.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/global.asax%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/global.asax?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/appsettings.json",
+      "status": 200,
+      "kind": "content SECRET-appsettings.json",
+      "secrets": [
+        "SECRET-appsettings.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/appsettings.json/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/appsettings.json/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/appsettings.json/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/appsettings.json.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/appsettings.json%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/appsettings.json?x=1",
+      "status": 200,
+      "kind": "content SECRET-appsettings.json",
+      "secrets": [
+        "SECRET-appsettings.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/private/x.txt",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/private/x.txt/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/private/x.txt/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/private/x.txt/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/private/x.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/private/x.txt%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/private/x.txt?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/badword.txt",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/badword.txt/x",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/badword.txt/x.aspx",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/badword.txt/",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/badword.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/badword.txt%20",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/badword.txt?x=1",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/secure/x.aspx",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2frw%2fsecure%2fx.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/secure/x.aspx/x",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2frw%2fsecure%2fx.aspx%2fx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/secure/x.aspx/x.aspx",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2frw%2fsecure%2fx.aspx%2fx.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/secure/x.aspx/",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2frw%2fsecure%2fx.aspx%2f"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/secure/x.aspx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/secure/x.aspx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/secure/x.aspx?x=1",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2frw%2fsecure%2fx.aspx%3fx%3d1&x=1"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/bin/secret.txt",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/bin/secret.txt/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/bin/secret.txt/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/bin/secret.txt/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/bin/secret.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/bin/secret.txt%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/bin/secret.txt?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.json",
+      "status": 200,
+      "kind": "content SECRET-x.json",
+      "secrets": [
+        "SECRET-x.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.json/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.json/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.json/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.json.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.json%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.json?x=1",
+      "status": 200,
+      "kind": "content SECRET-x.json",
+      "secrets": [
+        "SECRET-x.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.mdf",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.mdf/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.mdf/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.mdf/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.mdf.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.mdf%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/x.mdf?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/badconfig/a.txt",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/badconfig/a.txt/x",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/badconfig/a.txt/x.aspx",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/badconfig/a.txt/",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/badconfig/a.txt.",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/badconfig/a.txt%20",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /rw/badconfig/a.txt?x=1",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../a.txt/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../a.txt/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../a.txt/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../a.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../a.txt%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../a.txt?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../A.TXT",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../A.TXT/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../A.TXT/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../A.TXT/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../A.TXT.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../A.TXT%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../A.TXT?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../default.aspx",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../default.aspx/x",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../default.aspx/x.aspx",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../default.aspx/",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../default.aspx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../default.aspx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../default.aspx?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../echo.ashx",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx file=/echo.ashx info= raw=/echo.ashx host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../echo.ashx/x",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx/x file=/echo.ashx info=/x raw=/echo.ashx/x host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../echo.ashx/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../echo.ashx/",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx/ file=/echo.ashx info=/ raw=/echo.ashx/ host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../echo.ashx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../echo.ashx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../echo.ashx?x=1",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx file=/echo.ashx info= raw=/echo.ashx?x=1 host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../App_Data/users.xml",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../App_Data/users.xml/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../App_Data/users.xml/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../App_Data/users.xml/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../App_Data/users.xml.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../App_Data/users.xml%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../App_Data/users.xml?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../app_data/USERS.XML",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../app_data/USERS.XML/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../app_data/USERS.XML/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../app_data/USERS.XML/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../app_data/USERS.XML.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../app_data/USERS.XML%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../app_data/USERS.XML?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../web.config",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../web.config/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../web.config/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../web.config/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../web.config.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../web.config%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../web.config?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../sub/web.config",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../sub/web.config/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../sub/web.config/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../sub/web.config/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../sub/web.config.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../sub/web.config%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../sub/web.config?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../y.secret",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../y.secret/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../y.secret/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../y.secret/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../y.secret.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../y.secret%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../y.secret?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.cs",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.cs/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.cs/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.cs/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.cs.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.cs%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.cs?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../global.asax",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../global.asax/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../global.asax/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../global.asax/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../global.asax.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../global.asax%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../global.asax?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../appsettings.json",
+      "status": 200,
+      "kind": "content SECRET-appsettings.json",
+      "secrets": [
+        "SECRET-appsettings.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../appsettings.json/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../appsettings.json/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../appsettings.json/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../appsettings.json.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../appsettings.json%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../appsettings.json?x=1",
+      "status": 200,
+      "kind": "content SECRET-appsettings.json",
+      "secrets": [
+        "SECRET-appsettings.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../private/x.txt",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../private/x.txt/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../private/x.txt/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../private/x.txt/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../private/x.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../private/x.txt%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../private/x.txt?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../badword.txt",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../badword.txt/x",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../badword.txt/x.aspx",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../badword.txt/",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../badword.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../badword.txt%20",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../badword.txt?x=1",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../secure/x.aspx",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../secure/x.aspx/x",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%2fx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../secure/x.aspx/x.aspx",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%2fx.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../secure/x.aspx/",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%2f"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../secure/x.aspx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../secure/x.aspx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../secure/x.aspx?x=1",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%3fx%3d1&x=1"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../bin/secret.txt",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../bin/secret.txt/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../bin/secret.txt/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../bin/secret.txt/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../bin/secret.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../bin/secret.txt%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../bin/secret.txt?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.json",
+      "status": 200,
+      "kind": "content SECRET-x.json",
+      "secrets": [
+        "SECRET-x.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.json/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.json/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.json/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.json.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.json%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.json?x=1",
+      "status": 200,
+      "kind": "content SECRET-x.json",
+      "secrets": [
+        "SECRET-x.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.mdf",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.mdf/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.mdf/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.mdf/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.mdf.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.mdf%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../x.mdf?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../badconfig/a.txt",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../badconfig/a.txt/x",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../badconfig/a.txt/x.aspx",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../badconfig/a.txt/",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../badconfig/a.txt.",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../badconfig/a.txt%20",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /sub/../badconfig/a.txt?x=1",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/a.txt/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/a.txt/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/a.txt/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/a.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/a.txt%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/a.txt?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/A.TXT",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/A.TXT/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/A.TXT/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/A.TXT/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/A.TXT.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/A.TXT%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/A.TXT?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/default.aspx",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/default.aspx/x",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/default.aspx/x.aspx",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/default.aspx/",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/default.aspx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/default.aspx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/default.aspx?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/echo.ashx",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx file=/echo.ashx info= raw=/echo.ashx host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/echo.ashx/x",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx/x file=/echo.ashx info=/x raw=/echo.ashx/x host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/echo.ashx/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/echo.ashx/",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx/ file=/echo.ashx info=/ raw=/echo.ashx/ host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/echo.ashx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/echo.ashx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/echo.ashx?x=1",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx file=/echo.ashx info= raw=/echo.ashx?x=1 host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/App_Data/users.xml",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/App_Data/users.xml/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/App_Data/users.xml/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/App_Data/users.xml/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/App_Data/users.xml.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/App_Data/users.xml%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/App_Data/users.xml?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/app_data/USERS.XML",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/app_data/USERS.XML/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/app_data/USERS.XML/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/app_data/USERS.XML/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/app_data/USERS.XML.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/app_data/USERS.XML%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/app_data/USERS.XML?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/web.config",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/web.config/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/web.config/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/web.config/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/web.config.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/web.config%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/web.config?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/sub/web.config",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/sub/web.config/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/sub/web.config/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/sub/web.config/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/sub/web.config.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/sub/web.config%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/sub/web.config?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/y.secret",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/y.secret/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/y.secret/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/y.secret/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/y.secret.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/y.secret%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/y.secret?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.cs",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.cs/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.cs/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.cs/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.cs.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.cs%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.cs?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/global.asax",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/global.asax/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/global.asax/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/global.asax/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/global.asax.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/global.asax%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/global.asax?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/appsettings.json",
+      "status": 200,
+      "kind": "content SECRET-appsettings.json",
+      "secrets": [
+        "SECRET-appsettings.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/appsettings.json/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/appsettings.json/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/appsettings.json/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/appsettings.json.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/appsettings.json%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/appsettings.json?x=1",
+      "status": 200,
+      "kind": "content SECRET-appsettings.json",
+      "secrets": [
+        "SECRET-appsettings.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/private/x.txt",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/private/x.txt/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/private/x.txt/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/private/x.txt/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/private/x.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/private/x.txt%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/private/x.txt?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/badword.txt",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/badword.txt/x",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/badword.txt/x.aspx",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/badword.txt/",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/badword.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/badword.txt%20",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/badword.txt?x=1",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/secure/x.aspx",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/secure/x.aspx/x",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%2fx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/secure/x.aspx/x.aspx",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%2fx.aspx"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/secure/x.aspx/",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%2f"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/secure/x.aspx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/secure/x.aspx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/secure/x.aspx?x=1",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%3fx%3d1&x=1"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/bin/secret.txt",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/bin/secret.txt/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/bin/secret.txt/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/bin/secret.txt/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/bin/secret.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/bin/secret.txt%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/bin/secret.txt?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.json",
+      "status": 200,
+      "kind": "content SECRET-x.json",
+      "secrets": [
+        "SECRET-x.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.json/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.json/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.json/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.json.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.json%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.json?x=1",
+      "status": 200,
+      "kind": "content SECRET-x.json",
+      "secrets": [
+        "SECRET-x.json"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.mdf",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.mdf/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.mdf/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.mdf/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.mdf.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.mdf%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/x.mdf?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/badconfig/a.txt",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/badconfig/a.txt/x",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/badconfig/a.txt/x.aspx",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/badconfig/a.txt/",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/badconfig/a.txt.",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/badconfig/a.txt%20",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
+      "category": "combination",
+      "name": "GET /SUB/%2e%2e/badconfig/a.txt?x=1",
+      "status": 500,
+      "sub": "500.19",
+      "kind": "iis error",
+      "secrets": [
+        "SECRET-badconfig"
+      ]
+    },
+    {
       "category": "cookieless",
       "name": "GET /(S(abcdefghijklmnopqrstuvwx))/a.txt",
       "status": 200,

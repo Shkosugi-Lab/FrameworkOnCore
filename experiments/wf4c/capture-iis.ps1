@@ -17,13 +17,22 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+# An XML file in the encoding it says (its declaration, UTF-8 without one), as IIS reads it. Get-Content read it in the
+# system's code page on Windows PowerShell: a Japanese site's name or folder garbled, the file no XML (the capture failed).
+function Read-Xml([string]$Path) {
+    $document = New-Object System.Xml.XmlDocument
+    # (relative to PowerShell's location: .NET's is the process's)
+    $document.Load($(if ([IO.Path]::IsPathRooted($Path)) { $Path } else { Join-Path (Get-Location).ProviderPath $Path }))
+    $document
+}
+
 # A shared configuration: applicationHost.config is where redirection.config says.
 $redirection = Join-Path (Split-Path $ApplicationHost) 'redirection.config'
 if (Test-Path $redirection) {
-    $redirect = ([xml](Get-Content $redirection -Raw)).configuration.'configurationRedirection'
+    $redirect = (Read-Xml $redirection).configuration.'configurationRedirection'
     if ($redirect -and $redirect.enabled -eq 'true' -and $redirect.path) { $ApplicationHost = Join-Path $redirect.path 'applicationHost.config' }
 }
-[xml]$config = Get-Content $ApplicationHost -Raw
+$config = Read-Xml $ApplicationHost
 $root = $config.configuration
 
 # The system.webServer sections IIS applies to a site's requests (the server's and the site's); not the ones about the

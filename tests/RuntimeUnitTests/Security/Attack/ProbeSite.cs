@@ -44,6 +44,9 @@ static class ProbeSite
           <location path="dbl">
             <system.webServer><security><requestFiltering allowDoubleEscaping="true" /></security></system.webServer>
           </location>
+          <location path="locked">
+            <system.webServer><security><requestFiltering><fileExtensions><add fileExtension=".ashx" allowed="false" /><add fileExtension=".aspx" allowed="false" /></fileExtensions></requestFiltering></security></system.webServer>
+          </location>
           <location path="old">
             <system.webServer><httpRedirect enabled="true" destination="/new" /></system.webServer>
           </location>
@@ -112,6 +115,9 @@ static class ProbeSite
 
         yield return ("echo.ashx", Handler("Echo",
             "        c.Response.Write(\"ECHO path=\" + c.Request.Path + \" file=\" + c.Request.FilePath + \" info=\" + c.Request.PathInfo + \" raw=\" + c.Request.RawUrl + \" host=\" + c.Request.Url.Host + \" q=\" + c.Request.QueryString[\"q\"] + \" cookie=\" + (c.Request.Cookies[\"c\"] == null ? \"\" : c.Request.Cookies[\"c\"].Value) + \" header=\" + c.Request.Headers[\"X-Text\"]);"));
+        yield return ("locked/echo.ashx", Handler("LockedEcho", "        c.Response.Write(\"SECRET-locked-handler\");"));
+        yield return ("locked/page.aspx", "<%@ Page Language=\"C#\" %>SECRET-locked-page");
+        yield return ("locked/a.txt", "PUBLIC-locked-a.txt");
         yield return ("redirect.ashx", Handler("Redirect", "        c.Response.Redirect(c.Request.QueryString[\"to\"], false);"));
         yield return ("header.ashx", Handler("Header",
             "        c.Response.AppendHeader(c.Request.QueryString[\"n\"] ?? \"X-Probe\", c.Request.QueryString[\"v\"]);\r\n        c.Response.Write(\"HEADER\");"));

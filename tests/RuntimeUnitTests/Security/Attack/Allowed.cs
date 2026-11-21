@@ -54,6 +54,13 @@ static class Allowed
         Allow("path info", "GET /a.txt/", Rule.Refused, "a file's name with '/' after it: IIS's 500.0, the port's 404.0 (no file served)");
         Allow("path info", "GET /x.cs/x", Rule.Refused, "path info after a source file: ASP.NET's HttpForbiddenHandler's 403 where IIS answers 404.0 (no file served)");
         Allow("path info", "GET /global.asax/x", Rule.Refused, "path info after global.asax: ASP.NET's HttpForbiddenHandler's 403 where IIS answers 404.0 (no file served)");
+        // A handler's URL with a page's name as its path info: IIS maps the handler by the URL's last segment (the page's,
+        // PageHandlerFactory: its 404), ASP.NET by the file (the handler runs). The request filtering checks both on the port.
+        foreach (var (category, before) in new[] { ("denied handlers", ""), ("combination", ""), ("combination", "/(S(abcdefghijklmnopqrstuvwx))"),
+            ("combination", "/rw"), ("combination", "/sub/.."), ("combination", "/SUB/%2e%2e") })
+            Allow(category, "GET " + before + "/echo.ashx/x.aspx", Rule.Other,
+                "a handler's URL whose path info is a page's name: IIS's 404 (it maps the page's handler), the handler on the port",
+                (iis, port) => iis.Status == 404 && port.Status == 200);
         Allow("filtering", "GET /.git/config", Rule.SameStatus, "a file without an extension: IIS's 404.17, the port's 404.3 (no MIME type)");
         Allow("paths", "GET /%25", Rule.Refused, "'%' in the decoded path: ASP.NET's 400 on IIS (every request goes through its integrated pipeline), the port's 404 for a file not there");
 
@@ -111,6 +118,16 @@ static class Allowed
         if (port.Injected && !iis.Injected) return "a header was injected";
         if (port.Location != null && port.Location != iis.Location && !SameRedirect(iis, port)) return "a redirect IIS did not make";
         if (Same(iis, port)) return null;
+
+        // The combinations (AttackCases): both refusing is the same answer (which module's page, which status, is not what
+        // they are about: a trailing dot, a '/' or path info after a file are refused by another module on each); one
+        // serving where the other refuses is not, but the port's own refusal of .NET's settings file.
+        if (iis.Category == "combination" && !allowances.ContainsKey(iis.Category + ": " + iis.Name))
+        {
+            if (Refusing(iis) && Refusing(port)) return null;
+            if (!Refusing(iis) && Refusing(port) && iis.Name.Contains("appsettings.json", StringComparison.OrdinalIgnoreCase)) return null;
+            return Refusing(iis) ? "IIS refuses it, the port answers" : "IIS answers it, the port refuses";
+        }
 
         if (!allowances.TryGetValue(iis.Category + ": " + iis.Name, out var allowance))
         {

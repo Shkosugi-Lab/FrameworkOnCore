@@ -398,7 +398,21 @@ namespace System.Web.Hosting
         {
             var path = context.Request.Path.Value ?? "";
             var filtering = IntegratedModeConfiguration.RequestFiltering((context.Request.PathBase.Value ?? "") + path);
-            var name = path.Substring(path.LastIndexOf('/') + 1);
+            // A page's or a handler's URL with path info after it ("/locked/page.aspx/x"): IIS takes the segment of a type it
+            // maps to ASP.NET as the file (the path info after it), and its type is checked as the last segment's is (IIS 10:
+            // 404.7 for a denied .aspx or .ashx with any path info). The last segment only was: the page ran. A static file's
+            // name is no such segment (IIS 10: "/y.secret/x" is 404.0, no file; IisStaticFile answers path info so).
+            var segments = path.Split('/');
+            for (var i = 0; i < segments.Length - 1; i++)
+            {
+                var segmentDot = segments[i].LastIndexOf('.');
+                if (segmentDot < 0) continue;
+                var type = segments[i].Substring(segmentDot);
+                if (!HandleExtensions.Contains(type, StringComparer.OrdinalIgnoreCase)) continue;
+                if (filtering.Extensions.TryGetValue(type, out var handlerAllowed) && !handlerAllowed) return true;
+                break;   // the file: the rest is its path info
+            }
+            var name = segments[segments.Length - 1];
             var dot = name.LastIndexOf('.');
             if (dot >= 0 && filtering.Extensions.TryGetValue(name.Substring(dot), out var allowed)) return !allowed;
             if (!filtering.AllowUnlisted) return true;

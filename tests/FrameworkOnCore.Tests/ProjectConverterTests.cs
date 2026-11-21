@@ -196,6 +196,26 @@ public sealed class ProjectConverterTests : IDisposable
         Assert.Contains(report.Entries, e => e.Kind == Report.Kind.Platform && e.Text.Contains(@"c:\TempImageFiles\") && e.Text.Contains("APPSETTING_ChartImageHandler"));
     }
 
+    [Fact] // items as MSBuild has them: in a folder ("Properties\AssemblyInfo.cs", '\' on any system) and escaped (Visual Studio writes "Copy %281%29.cs" for "Copy (1).cs")
+    public void Items_in_folders_and_escaped_are_the_project_s_files()
+    {
+        Write(@"Web\Class1.cs", "public class Class1 { }");
+        Write(@"Web\Properties\AssemblyInfo.cs", "[assembly: System.Reflection.AssemblyTitle(\"Web\")]");
+        Write(@"Web\Controllers\Home.cs", "public class Home { }");
+        Write(@"Web\Copy (1) of Report.cs", "public class Report { }");
+        Write(@"Web\Resources\Strings;1.resx", "<root />");
+        Write(@"Web\Web.csproj", OldProject("Web", """
+                <Compile Include="Properties\AssemblyInfo.cs" />
+                <Compile Include="Controllers\Home.cs" />
+                <Compile Include="Copy %281%29 of Report.cs" />
+                <EmbeddedResource Include="Resources\Strings%3b1.resx" />
+            """, web: true));
+        var (converter, report) = Converter();
+        converter.Convert(Path.Combine(Source, Local(@"Web\Web.csproj")), isWeb: true);
+
+        Assert.DoesNotContain(report.Entries, e => e.Text.Contains("not in the repository"));
+    }
+
     [Fact] // TransformWebConfig's comment: providerName as .NET Framework's DbProviderFactories found it (WingtipToys VB's "System.Data.SqlClient ")
     public void Web_config_provider_names_are_the_registered_ones()
     {

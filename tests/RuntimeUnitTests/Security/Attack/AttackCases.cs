@@ -75,6 +75,26 @@ static class AttackCases
             "/y.secret/x", "/x.cs/x", "/x.config/x.txt", "/App_Data/users.xml/x", "/global.asax/x" })
             yield return Get("path info", target);
 
+        // ---- a folder whose request filtering denies the handlers' types (.ashx, .aspx): with path info after them too
+        foreach (var target in new[] { "/locked/echo.ashx", "/locked/echo.ashx/x", "/locked/echo.ashx/x.aspx", "/locked/echo.ashx/x.txt", "/locked/echo.ashx/",
+            "/locked/page.aspx", "/locked/page.aspx/x", "/locked/page.aspx/x.txt", "/locked/page.aspx/x.ashx", "/locked/a.txt", "/locked/a.txt/x.aspx",
+            "/LOCKED/ECHO.ASHX/x.txt", "/(S(abcdefghijklmnopqrstuvwx))/locked/echo.ashx/x.txt", "/rw/locked/echo.ashx/x.txt", "/echo.ashx/x.aspx", "/echo.ashx/x.txt",
+            "/default.aspx/x.txt", "/default.aspx/x.ashx" })
+            yield return Get("denied handlers", target);
+
+        // ---- combinations: what is put before a target (a cookieless segment, a URL Rewrite's prefix, a dot segment), the
+        // target (a file served, a page, a handler, what request filtering or ASP.NET protects), what is put after it (path
+        // info, a trailing separator, dot or space, a query): each check and each step that changes the URL with the others
+        foreach (var before in new[] { "", "/(S(abcdefghijklmnopqrstuvwx))", "/rw", "/sub/..", "/SUB/%2e%2e" })
+            foreach (var target in new[] { "/a.txt", "/A.TXT", "/default.aspx", "/echo.ashx", "/App_Data/users.xml", "/app_data/USERS.XML", "/web.config",
+                "/sub/web.config", "/y.secret", "/x.cs", "/global.asax", "/appsettings.json", "/private/x.txt", "/badword.txt", "/secure/x.aspx",
+                "/bin/secret.txt", "/x.json", "/x.mdf", "/badconfig/a.txt" })
+                foreach (var after in new[] { "", "/x", "/x.aspx", "/", ".", "%20", "?x=1" })
+                {
+                    if (before == "" && (after == "" || after == "?x=1")) continue;   // the baseline's and filtering's own
+                    yield return Get("combination", before + target + after);
+                }
+
         // ---- a cookieless session's segment before what the site's rules are about (request filtering, URL Rewrite,
         // httpRedirect, a location's authorization): the rules hold with it
         foreach (var target in new[] { "/(S(abcdefghijklmnopqrstuvwx))/a.txt", "/(S(abcdefghijklmnopqrstuvwx))/private/x.txt", "/(S(abcdefghijklmnopqrstuvwx))/y.secret",

@@ -145,14 +145,17 @@ public sealed class BuildFixerFixTests : IDisposable
     public void A_visual_basic_error_in_a_type_s_statement_excludes_the_file()
     {
         const string source = """
-            Public Class Repo(Of T As Missing.Entity)
+            Public Class Repo
                 Public Function Name() As String
                     Return "repo"
                 End Function
             End Class
             """;
         var file = WriteSource("Repo.vb", source);
-        Assert.True(Fixer().FixFile(file, Errors(file, VisualBasic(source))));
+        // An error the compiler reports at the type's name (BC30610, a member a base's MustOverride has not: here as such).
+        var error = new BuildFixer.BuildError(file, 1, source.IndexOf("Repo", StringComparison.Ordinal) + 1, "BC30610",
+            "Class 'Repo' must either be declared 'MustInherit' or override the following inherited 'MustOverride' member(s): Missing.Run.", null);
+        Assert.True(Fixer().FixFile(file, [error]));
         Assert.StartsWith("' Excluded by FrameworkOnCore", File.ReadAllText(file));
     }
 

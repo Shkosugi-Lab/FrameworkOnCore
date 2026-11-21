@@ -305,10 +305,14 @@ public sealed class ProjectLoader(string root, string configuration, string plat
         foreach (var part in include.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
         {
             if (part.Contains('$')) { Warnings.Add($"{directory}: item {part} not expanded"); continue; }
-            if (!part.Contains('*')) { yield return Full(directory, part); continue; }
-            var normalized = part.Replace('\\', '/');
+            // (MSBuild's escapes undone after the split: "%3b" is a ';' of the name, "%28" Visual Studio's '(')
+            if (!part.Contains('*')) { yield return Full(directory, Unescape(part)); continue; }
+            var normalized = Unescape(part).Replace('\\', '/');
             var recursive = normalized.Contains("**/");
-            var folder = Full(directory, normalized.Substring(0, normalized.IndexOf('*')).TrimEnd('/'));
+            // The folder: the path before the first wildcard's segment ("Models/Generated*.cs" is Models' "Generated*.cs";
+            // everything before the '*' was taken, a folder "Models/Generated" that is not there: the files left out).
+            var star = normalized.IndexOf('*');
+            var folder = Full(directory, normalized.Substring(0, Math.Max(0, normalized.LastIndexOf('/', star))));
             var pattern = normalized.Substring(normalized.LastIndexOf('/') + 1);
             if (!Directory.Exists(folder)) continue;
             foreach (var file in Directory.EnumerateFiles(folder, pattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly))
@@ -320,6 +324,10 @@ public sealed class ProjectLoader(string root, string configuration, string plat
 
     static bool IsSkipped(string relative) =>
         relative.Split('/', '\\').SkipLast(1).Any(part => skippedFolders.Contains(part, StringComparer.OrdinalIgnoreCase));
+
+    // An item's name as MSBuild has it: its escapes undone (%XX: Visual Studio writes "%28" for '(' and the like).
+    static string Unescape(string include) =>
+        System.Text.RegularExpressions.Regex.Replace(include, "%([0-9A-Fa-f]{2})", m => ((char)System.Convert.ToInt32(m.Groups[1].Value, 16)).ToString());
 
     // A path in a project, written with Windows' separators, on the platform the analysis runs on.
     static string Full(string directory, string path) =>

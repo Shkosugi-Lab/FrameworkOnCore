@@ -434,11 +434,14 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         var root = language.Parse(text, file, SymbolsFor(file)).GetRoot();
 
         var fixes = new List<Fix_>();
+        // The rounds a line's error has been fixed in (not its errors: four on one line, "Dictionary<A, B> d = new
+        // Dictionary<A, B>()", were the third attempt in the first round, and the file was excluded).
+        var attempted = new HashSet<string>();
         foreach (var error in errors.DistinctBy(e => (e.Line, e.Column, e.Code)))
         {
             var reason = $"{error.Code}: {error.Message}";
             var key = $"{file}|{error.Line}|{error.Code}";
-            attempts[key] = attempts.GetValueOrDefault(key) + 1;
+            if (attempted.Add(key)) attempts[key] = attempts.GetValueOrDefault(key) + 1;
             if (error.Line < 1 || error.Line > text.Lines.Count || attempts[key] > 2)
             {
                 fixes.Add(new Fix_(Action.ExcludeFile, root, reason));
@@ -510,6 +513,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
     {
         AttributeSyntax { Parent: AttributeListSyntax list } => (list, list.Attributes.Count),
         BaseTypeSyntax { Parent: BaseListSyntax list } => (list, list.Types.Count),
+        TypeParameterConstraintSyntax { Parent: TypeParameterConstraintClauseSyntax clause } => (clause, clause.Constraints.Count),
         _ => null,
     };
 
@@ -615,6 +619,14 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
                 return new Fix_(Action.RemoveInitializer, declarator, reason);
             }
             if (ancestor is EqualsValueClauseSyntax { Parent: PropertyDeclarationSyntax property }) return new Fix_(Action.RemoveInitializer, property, reason);
+            // A type parameter's constraint ("where T : Missing.Entity", a type's or a method's): the constraint (its clause, for
+            // its only one); the type or the method stays (the members it gave T are the bodies' errors, the next round's).
+            if (ancestor is TypeParameterConstraintSyntax { Parent: TypeParameterConstraintClauseSyntax clause } constraint)
+            {
+                return new Fix_(Action.RemoveNode, clause.Constraints.Count == 1 ? clause : constraint, reason);
+            }
+            // A delegate type's own declaration (its return or a parameter's type): the delegate (its uses are the next round's).
+            if (ancestor is DelegateDeclarationSyntax @delegate) return new Fix_(Action.RemoveNode, @delegate, reason);
             if (ancestor is BaseTypeSyntax { Parent: BaseListSyntax baseList } baseType)
             {
                 return new Fix_(Action.RemoveNode, baseList.Types.Count == 1 ? baseList : baseType, reason);

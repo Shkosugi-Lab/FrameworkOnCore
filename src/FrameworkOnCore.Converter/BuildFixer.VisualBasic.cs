@@ -21,6 +21,7 @@ public sealed partial class BuildFixer
         VBS.TypeSyntax { Parent: VBS.InheritsStatementSyntax inherits } => (inherits, inherits.Types.Count),
         VBS.TypeSyntax { Parent: VBS.ImplementsStatementSyntax implements } => (implements, implements.Types.Count),
         VBS.ImportsClauseSyntax { Parent: VBS.ImportsStatementSyntax imports } => (imports, imports.ImportsClauses.Count),
+        VBS.ConstraintSyntax { Parent: VBS.TypeParameterMultipleConstraintClauseSyntax clause } => (clause, clause.Constraints.Count),
         _ => null,
     };
 
@@ -96,7 +97,16 @@ public sealed partial class BuildFixer
                 var count = ancestor is VBS.InheritsStatementSyntax i ? i.Types.Count : ((VBS.ImplementsStatementSyntax)ancestor).Types.Count;
                 return new Fix_(Action.RemoveNode, count == 1 || type == null ? ancestor : type, reason);
             }
-            if (ancestor is VBS.TypeBlockSyntax or VBS.EnumBlockSyntax or VBS.NamespaceBlockSyntax or VBS.DelegateStatementSyntax) break;
+            // A type parameter's constraint ("Of T As Missing.Entity", a type's or a method's): the constraint (its clause, for
+            // its only one); the type or the method stays (the members it gave T are the bodies' errors, the next round's).
+            if (ancestor is VBS.TypeParameterSingleConstraintClauseSyntax single) return new Fix_(Action.RemoveNode, single, reason);
+            if (ancestor is VBS.ConstraintSyntax { Parent: VBS.TypeParameterMultipleConstraintClauseSyntax multiple } constraint)
+            {
+                return new Fix_(Action.RemoveNode, multiple.Constraints.Count == 1 ? multiple : constraint, reason);
+            }
+            // A delegate type's own statement (its return or a parameter's type): the delegate (its uses are the next round's).
+            if (ancestor is VBS.DelegateStatementSyntax @delegate) return new Fix_(Action.RemoveNode, @delegate, reason);
+            if (ancestor is VBS.TypeBlockSyntax or VBS.EnumBlockSyntax or VBS.NamespaceBlockSyntax) break;
             // A type's or a namespace's own statement ("Class Repo(Of T As Missing)"): no member to remove (Roslyn cannot
             // remove a block's first or last statement: a NullReferenceException, the converter's end); the file, as for C#.
             if (ancestor is VBS.TypeStatementSyntax or VBS.EnumStatementSyntax or VBS.NamespaceStatementSyntax or VBS.EndBlockStatementSyntax) break;

@@ -69,6 +69,21 @@ static class AttackCases
         foreach (var extension in ProbeSite.ProtectedExtensions.Where(e => e is not ".json" and not ".xml"))
             yield return Get("extensions", "/x" + extension);
 
+        // ---- path info after a static file (no static file's URL: the file is not served, whatever its type), and after
+        // a protected one (the request filtering sees more than the last segment)
+        foreach (var target in new[] { "/a.txt/x", "/sub/a.txt/x/y", "/a.txt/", "/x.json/x", "/x.xml/x", "/appsettings.json/x", "/appsettings.json/x.txt",
+            "/y.secret/x", "/x.cs/x", "/x.config/x.txt", "/App_Data/users.xml/x", "/global.asax/x" })
+            yield return Get("path info", target);
+
+        // ---- a cookieless session's segment before what the site's rules are about (request filtering, URL Rewrite,
+        // httpRedirect, a location's authorization): the rules hold with it
+        foreach (var target in new[] { "/(S(abcdefghijklmnopqrstuvwx))/a.txt", "/(S(abcdefghijklmnopqrstuvwx))/private/x.txt", "/(S(abcdefghijklmnopqrstuvwx))/y.secret",
+            "/(S(abcdefghijklmnopqrstuvwx))/badword.txt", "/(S(abcdefghijklmnopqrstuvwx))/go/a.txt", "/(S(abcdefghijklmnopqrstuvwx))/rw/a.txt",
+            "/(S(abcdefghijklmnopqrstuvwx))/old/x", "/(S(abcdefghijklmnopqrstuvwx))/secure/x.aspx", "/(S(abcdefghijklmnopqrstuvwx))/web.config",
+            "/(S(abcdefghijklmnopqrstuvwx))/App_Data/users.xml", "/(S(abcdefghijklmnopqrstuvwx))/appsettings.json", "/(S(abcdefghijklmnopqrstuvwx))/x.cs",
+            "/(S(abcdefghijklmnopqrstuvwx))/default.aspx", "/sub/(S(abcdefghijklmnopqrstuvwx))/a.txt" })
+            yield return Get("cookieless", target);
+
         // ---- paths: dot segments, escaped separators, double escaping, invalid UTF-8, NUL, backslashes
         foreach (var target in new[]
         {

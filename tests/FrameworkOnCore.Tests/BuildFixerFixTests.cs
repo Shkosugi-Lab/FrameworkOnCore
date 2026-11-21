@@ -115,8 +115,76 @@ public sealed class BuildFixerFixTests : IDisposable
         Assert.StartsWith("' Excluded by FrameworkOnCore", File.ReadAllText(file));
     }
 
+    [Fact] // every item of a list in error: the list goes (one by one they left "<>" and an empty Implements, the next round's errors)
+    public void Visual_basic_lists_whose_items_all_go_are_removed()
+    {
+        const string source = """
+            Imports System
+
+            <Missing.A, Missing.B>
+            Public Class Widget
+                Implements Missing.IOne, Missing.ITwo
+
+                <Missing.C, Obsolete>
+                Public Function Name() As String
+                    Return "widget"
+                End Function
+            End Class
+            """;
+        var file = WriteSource("Lists.vb", source);
+        Assert.True(Fixer().FixFile(file, Errors(file, VisualBasic(source))));
+        var written = File.ReadAllText(file);
+        Assert.DoesNotContain("Excluded by FrameworkOnCore", written);
+        Assert.DoesNotContain("Implements", written);
+        Assert.Contains("<Obsolete>", written.Replace(" ", ""));
+        Assert.Contains("Return \"widget\"", written);
+        Assert.Empty(VisualBasic(written).GetDiagnostics().Where(d => d.Severity == DiagnosticSeverity.Error));
+    }
+
+    [Fact] // an error in a type's own statement: the file is excluded, as for C# (Roslyn's RemoveNode of the statement threw: the converter's end)
+    public void A_visual_basic_error_in_a_type_s_statement_excludes_the_file()
+    {
+        const string source = """
+            Public Class Repo(Of T As Missing.Entity)
+                Public Function Name() As String
+                    Return "repo"
+                End Function
+            End Class
+            """;
+        var file = WriteSource("Repo.vb", source);
+        Assert.True(Fixer().FixFile(file, Errors(file, VisualBasic(source))));
+        Assert.StartsWith("' Excluded by FrameworkOnCore", File.ReadAllText(file));
+    }
+
     // ------------------------------------------------------------------------------------------
     // C#: the same skeleton, the same decisions.
+
+    [Fact] // every item of a list in error: the list goes (one by one they left "[]" and "class D : { }", the next round's errors)
+    public void Csharp_lists_whose_items_all_go_are_removed()
+    {
+        const string source = """
+            using System;
+
+            namespace App
+            {
+                [Missing.A, Missing.B]
+                public class Widget : Missing.Base, Missing.IOne
+                {
+                    [Missing.C, Obsolete]
+                    public string Name() => "widget";
+                }
+            }
+            """;
+        var file = WriteSource("Lists.cs", source);
+        Assert.True(Fixer().FixFile(file, Errors(file, CSharp(source))));
+        var written = File.ReadAllText(file);
+        Assert.DoesNotContain("Excluded by FrameworkOnCore", written);
+        Assert.Contains("public class Widget", written);
+        Assert.DoesNotContain("Missing.Base", written);
+        Assert.Contains("[Obsolete]", written.Replace(" ", ""));
+        Assert.Contains("\"widget\"", written);
+        Assert.Empty(CSharp(written).GetDiagnostics().Where(d => d.Severity == DiagnosticSeverity.Error));
+    }
 
     const string CSharpWidget = """
         using System;

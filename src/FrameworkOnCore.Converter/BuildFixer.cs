@@ -414,11 +414,12 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
     // A language's part of a file's fixes: how an error is decided on, a node described, an edit but a removal made in its
     // syntax, the type whose base a node names (C#: here; Visual Basic: BuildFixer.VisualBasic.cs). The rest is FixFile's.
     sealed record FixSyntax(string Comment, Func<SyntaxNode, SyntaxNode, BuildError, string, Fix_> Decide, Func<SyntaxNode, string> Describe,
-        Func<SyntaxNode, string?> TypeOfBase, Func<SyntaxNode, SyntaxNode, Fix_, string, SyntaxNode> Edit);
+        Func<SyntaxNode, string?> TypeOfBase, Func<SyntaxNode, SyntaxNode, Fix_, string, SyntaxNode> Edit,
+        Func<SyntaxNode, (SyntaxNode List, int Count)?> ListOf);
 
     FixSyntax SyntaxOf(SourceLanguage language) => language == SourceLanguage.VisualBasic
-        ? new("'", DecideVisualBasic, DescribeVisualBasic, TypeOfBaseVisualBasic, EditVisualBasic)
-        : new("//", Decide, Describe, TypeOfBase, Edit);
+        ? new("'", DecideVisualBasic, DescribeVisualBasic, TypeOfBaseVisualBasic, EditVisualBasic, ListOfVisualBasic)
+        : new("//", Decide, Describe, TypeOfBase, Edit, ListOf);
 
     // The build's errors in a source file (C# or Visual Basic), fixed: each decided on where it is (the language's Decide),
     // the outermost of nested fixes made, the file excluded when an error cannot be fixed or stays after two attempts.
@@ -445,6 +446,17 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
             }
             var position = Math.Min(text.Lines[error.Line - 1].Start + error.Column - 1, Math.Max(0, text.Length - 1));
             fixes.Add(syntax.Decide(root, root.FindToken(position).Parent ?? root, error, reason));
+        }
+
+        // Every item of a list removed, each for an error of its own (both attributes of "[A, B]", both bases of
+        // "class D : P, Q"): the list, as for its only item. One by one they left "[]" and "class D : { }", whose errors
+        // the next round answered by removing the member or excluding the file.
+        foreach (var items in fixes.Where(f => f.Action == Action.RemoveNode && syntax.ListOf(f.Node) != null)
+                     .GroupBy(f => syntax.ListOf(f.Node)!.Value.List).ToList())
+        {
+            if (items.Select(f => f.Node).Distinct().Count() < syntax.ListOf(items.First().Node)!.Value.Count) continue;
+            fixes.RemoveAll(items.Contains);
+            fixes.Add(items.First() with { Node = items.Key });
         }
 
         if (fixes.Any(f => f.Action == Action.ExcludeFile))
@@ -492,6 +504,14 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         pointed.Remove(file);
         return true;
     }
+
+    // The list an item removed by itself is of, and how many it has (FixFile: all of them removed is the list removed).
+    static (SyntaxNode List, int Count)? ListOf(SyntaxNode node) => node switch
+    {
+        AttributeSyntax { Parent: AttributeListSyntax list } => (list, list.Attributes.Count),
+        BaseTypeSyntax { Parent: BaseListSyntax list } => (list, list.Types.Count),
+        _ => null,
+    };
 
     // The type whose base list a node is (or is in): its name.
     static string? TypeOfBase(SyntaxNode node) =>

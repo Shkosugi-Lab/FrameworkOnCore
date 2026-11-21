@@ -1159,13 +1159,31 @@ namespace System.Web.Hosting
 		{
 			if (cookielessFiltered) return;
 			cookielessFiltered = true;
+			cookielessValues = FilterCookielessValues(Context);
+		}
+
+		/// <summary>The cookieless values a request's URL had (FilterCookielessValues took them out of it).</summary>
+		sealed class CookielessValuesFeature { public string Values; }
+
+		/// <summary>
+		/// The URL's cookieless values taken out of it, once for the request, at the pipeline's start (HttpSysUrl.Canonicalize:
+		/// aspnet_filter is before IIS's modules), so that IIS's features see the URL without them as on IIS (IIS 10:
+		/// "/(S(...))/go/a.txt" is URL Rewrite's "go/a.txt", a location's httpRedirect and the static files' "/(S(...))/a.txt"
+		/// likewise). They were taken out by the worker request only: the rules before it did not match such a URL, and a
+		/// static file's was 404. Returns the values (null: none).
+		/// </summary>
+		internal static string FilterCookielessValues(Core.HttpContext Context)
+		{
+			if (Context.Features.Get<CookielessValuesFeature>() is { } filtered) return filtered.Values;
+			var values = new CookielessValuesFeature();
+			Context.Features.Set(values);
 			var requestPath = Context.Request.Path.Value ?? string.Empty;
 			// the common case: no cookieless values
-			if (requestPath.IndexOf('(') < 0) return;
+			if (requestPath.IndexOf('(') < 0) return null;
 			if (!System.Web.Security.CookielessHelperClass.FindCookielessValues(requestPath, out var start, out var end)
 				|| !System.Web.Security.CookielessHelperClass.IsValidCookielessValues(requestPath, start + 2, end))
-				return;
-			cookielessValues = requestPath.Substring(start + 2, end - start - 2);
+				return null;
+			var cookielessValues = values.Values = requestPath.Substring(start + 2, end - start - 2);
 			var segment = requestPath.Substring(start, end + 1 - start);
 			Context.Request.Path = new Core.PathString(requestPath.Remove(start, segment.Length));
 			// The URL as sent too (its path's; the values are letters, digits, '-' and '_': not escaped).
@@ -1177,6 +1195,7 @@ namespace System.Web.Hosting
 				int at = target.IndexOf(segment, StringComparison.Ordinal);
 				if (at >= 0 && (query < 0 || at < query)) feature.RawTarget = target.Remove(at, segment.Length);
 			}
+			return cookielessValues;
 		}
 
 		private bool TryParseRequest()

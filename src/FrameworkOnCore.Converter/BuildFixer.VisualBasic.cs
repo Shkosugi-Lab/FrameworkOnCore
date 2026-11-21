@@ -14,6 +14,16 @@ namespace FrameworkOnCore.Converter;
 /// </summary>
 public sealed partial class BuildFixer
 {
+    // The list an item removed by itself is of, and how many it has (FixFile: all of them removed is the list removed).
+    static (SyntaxNode List, int Count)? ListOfVisualBasic(SyntaxNode node) => node switch
+    {
+        VBS.AttributeSyntax { Parent: VBS.AttributeListSyntax list } => (list, list.Attributes.Count),
+        VBS.TypeSyntax { Parent: VBS.InheritsStatementSyntax inherits } => (inherits, inherits.Types.Count),
+        VBS.TypeSyntax { Parent: VBS.ImplementsStatementSyntax implements } => (implements, implements.Types.Count),
+        VBS.ImportsClauseSyntax { Parent: VBS.ImportsStatementSyntax imports } => (imports, imports.ImportsClauses.Count),
+        _ => null,
+    };
+
     // The type whose Inherits or Implements statement a node is (or is in): its name.
     static string? TypeOfBaseVisualBasic(SyntaxNode node) =>
         node.AncestorsAndSelf().Any(a => a is VBS.InheritsOrImplementsStatementSyntax) && node.FirstAncestorOrSelf<VBS.TypeBlockSyntax>() is { } declared
@@ -87,6 +97,9 @@ public sealed partial class BuildFixer
                 return new Fix_(Action.RemoveNode, count == 1 || type == null ? ancestor : type, reason);
             }
             if (ancestor is VBS.TypeBlockSyntax or VBS.EnumBlockSyntax or VBS.NamespaceBlockSyntax or VBS.DelegateStatementSyntax) break;
+            // A type's or a namespace's own statement ("Class Repo(Of T As Missing)"): no member to remove (Roslyn cannot
+            // remove a block's first or last statement: a NullReferenceException, the converter's end); the file, as for C#.
+            if (ancestor is VBS.TypeStatementSyntax or VBS.EnumStatementSyntax or VBS.NamespaceStatementSyntax or VBS.EndBlockStatementSyntax) break;
             // A member's declaration: the member (its block, with its body).
             if (ancestor is VBS.DeclarationStatementSyntax member and not VBS.MethodBaseSyntax { Parent: VBS.MethodBlockBaseSyntax or VBS.PropertyBlockSyntax or VBS.EventBlockSyntax })
             {

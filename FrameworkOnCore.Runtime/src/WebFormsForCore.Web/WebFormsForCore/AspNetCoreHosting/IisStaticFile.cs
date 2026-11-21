@@ -211,6 +211,15 @@ namespace System.Web
 			response.Write(IisUrlRewrite.RedirectBody(location));
 		}
 
+		/// <summary>A file's URL with path info after it: IIS's 404.0 (true); false for what is no file (a folder: Serve's).</summary>
+		internal static bool NotFoundForPathInfo(HttpContext context, string physicalPath)
+		{
+			if (!FileCache.Get(physicalPath).IsFile) return false;
+			context.Response.SuppressVersionHeader = true;
+			NotFound(context, 0, 2);
+			return true;
+		}
+
 		static void NotFound(HttpContext context, int subStatus, int win32Status)
 		{
 			var response = context.Response;

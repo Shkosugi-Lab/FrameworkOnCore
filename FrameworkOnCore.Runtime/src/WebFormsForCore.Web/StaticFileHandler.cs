@@ -520,6 +520,12 @@ namespace System.Web {
             Debug.Trace("StaticFileHandler", "Path= " + virtualPathWithPathInfo + ", PhysicalPath= " + physicalPath);
 
 #if !NETFRAMEWORK
+            // Path info after a file ("/robots.txt/x": the worker request takes the first segment that is a file as the
+            // path, the rest as path info) is no static file's URL: IIS answers 404. The file was served, whatever the
+            // types denied for it: the request filtering had seen the last segment only ("/appsettings.json/x").
+            if (overrideVirtualPath == null && !String.IsNullOrEmpty(request.PathInfo) && IisStaticFile.NotFoundForPathInfo(context, physicalPath)) {
+                return;
+            }
             // As IIS's static file module serves it (IisStaticFile); a directory as before.
             if (IisStaticFile.Serve(context, virtualPathWithPathInfo, physicalPath)) {
                 return;

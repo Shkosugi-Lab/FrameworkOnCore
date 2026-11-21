@@ -804,6 +804,186 @@
       "kind": "iis error"
     },
     {
+      "category": "path info",
+      "name": "GET /a.txt/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "path info",
+      "name": "GET /sub/a.txt/x/y",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "path info",
+      "name": "GET /a.txt/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "path info",
+      "name": "GET /x.json/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "path info",
+      "name": "GET /x.xml/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "path info",
+      "name": "GET /appsettings.json/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "path info",
+      "name": "GET /appsettings.json/x.txt",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "path info",
+      "name": "GET /y.secret/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "path info",
+      "name": "GET /x.cs/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "path info",
+      "name": "GET /x.config/x.txt",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "path info",
+      "name": "GET /App_Data/users.xml/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "path info",
+      "name": "GET /global.asax/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "cookieless",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "cookieless",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/private/x.txt",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "cookieless",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/y.secret",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "cookieless",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/badword.txt",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "cookieless",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/go/a.txt",
+      "status": 301,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/a.txt"
+    },
+    {
+      "category": "cookieless",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/rw/a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "cookieless",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/old/x",
+      "status": 302,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/new/x"
+    },
+    {
+      "category": "cookieless",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/secure/x.aspx",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx"
+    },
+    {
+      "category": "cookieless",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/web.config",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "cookieless",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/App_Data/users.xml",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "cookieless",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/appsettings.json",
+      "status": 200,
+      "kind": "content SECRET-appsettings.json",
+      "secrets": [
+        "SECRET-appsettings.json"
+      ]
+    },
+    {
+      "category": "cookieless",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/x.cs",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "cookieless",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/default.aspx",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "cookieless",
+      "name": "GET /sub/(S(abcdefghijklmnopqrstuvwx))/a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-sub-a.txt"
+    },
+    {
       "category": "paths",
       "name": "GET /App_Data/../web.config",
       "status": 404,

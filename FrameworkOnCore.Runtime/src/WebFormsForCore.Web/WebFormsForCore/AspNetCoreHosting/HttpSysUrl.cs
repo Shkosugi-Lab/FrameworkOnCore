@@ -50,12 +50,16 @@ namespace System.Web.Hosting
 				}
 				return false;
 			}
-			if (canonical == null) return true;
-			var request = context.Request;
-			var pathBase = request.PathBase.Value ?? "";
-			if (pathBase.Length == 0) request.Path = new Core.PathString(canonical);
-			else if (canonical.StartsWith(pathBase, StringComparison.OrdinalIgnoreCase) && (canonical.Length == pathBase.Length || canonical[pathBase.Length] == '/'))
-				request.Path = new Core.PathString(canonical.Substring(pathBase.Length));
+			if (canonical != null)
+			{
+				var request = context.Request;
+				var pathBase = request.PathBase.Value ?? "";
+				if (pathBase.Length == 0) request.Path = new Core.PathString(canonical);
+				else if (canonical.StartsWith(pathBase, StringComparison.OrdinalIgnoreCase) && (canonical.Length == pathBase.Length || canonical[pathBase.Length] == '/'))
+					request.Path = new Core.PathString(canonical.Substring(pathBase.Length));
+			}
+			// aspnet_filter, after http.sys and before IIS's modules: the URL's cookieless values leave it.
+			AspNetCoreWorkerRequest.FilterCookielessValues(context);
 			return true;
 		}
 

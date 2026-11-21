@@ -48,6 +48,12 @@ static class Allowed
             Allow("extensions", "GET /x" + extension, Rule.SameStatus, "404.7 of the port's own denied types where IIS has no MIME type for them (404.3)");
         Allow("filtering", "GET /appsettings.json", Rule.Stricter, "the port's choice: .NET's settings file (the converted application's, with its secrets) is never served");
         Allow("filtering", "GET /AppSettings.json", Rule.Stricter, "the port's choice: .NET's settings file is never served, in any case");
+        Allow("cookieless", "GET /(S(abcdefghijklmnopqrstuvwx))/appsettings.json", Rule.Stricter, "the port's choice: .NET's settings file is never served, with a cookieless segment either");
+        // Path info after a file: no file is served on either. IIS's static file handler answers 404.0 (500.0 for a file's name
+        // with a '/' after it); the port's ASP.NET finds the file's type first (HttpForbiddenHandler's 403 for a source file's).
+        Allow("path info", "GET /a.txt/", Rule.Refused, "a file's name with '/' after it: IIS's 500.0, the port's 404.0 (no file served)");
+        Allow("path info", "GET /x.cs/x", Rule.Refused, "path info after a source file: ASP.NET's HttpForbiddenHandler's 403 where IIS answers 404.0 (no file served)");
+        Allow("path info", "GET /global.asax/x", Rule.Refused, "path info after global.asax: ASP.NET's HttpForbiddenHandler's 403 where IIS answers 404.0 (no file served)");
         Allow("filtering", "GET /.git/config", Rule.SameStatus, "a file without an extension: IIS's 404.17, the port's 404.3 (no MIME type)");
         Allow("paths", "GET /%25", Rule.Refused, "'%' in the decoded path: ASP.NET's 400 on IIS (every request goes through its integrated pipeline), the port's 404 for a file not there");
 

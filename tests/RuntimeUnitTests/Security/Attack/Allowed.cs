@@ -120,6 +120,25 @@ static class Allowed
         if (port.Location != null && port.Location != iis.Location && !SameRedirect(iis, port)) return "a redirect IIS did not make";
         if (Same(iis, port)) return null;
 
+        // The pairs (AttackCases' "pairwise"): the same status, and where both are IIS's own error pages the same substatus
+        // (which of request filtering's rules refused it: 404.7 or 404.8). A difference is a rule's, with its reason.
+        if (iis.Category == "pairwise" && !allowances.ContainsKey(iis.Category + ": " + iis.Name))
+        {
+            var url = iis.Name[(iis.Name.IndexOf(' ') + 1)..];
+            // The port's choice: .NET's settings file is never served, however the URL comes to it.
+            if (!Refusing(iis) && Refusing(port) && url.Contains("appsettings.json", StringComparison.OrdinalIgnoreCase)) return null;
+            // A file's name with '/' after it: IIS's static file handler's 500.0, the port's 404 (no file is served on either).
+            if (Refusing(iis) && Refusing(port) && iis.Status == 500 && System.Text.RegularExpressions.Regex.IsMatch(url, @"\.[^/]+/(\?.*)?$")) return null;
+            // A handler's URL whose path info is a page's name (the handler escaped or not): IIS's 404, the handler on the port
+            // (the same as "GET /echo.ashx/x.aspx", above).
+            if (iis.Status == 404 && port.Status == 200 && System.Text.RegularExpressions.Regex.IsMatch(url, @"(?i)/(%65|e)cho\.ashx/x\.aspx$")) return null;
+            // A POST with a cookieless segment to a hidden segment: IIS's 400.0, the port's request filtering's 404.8 (both refuse).
+            if (iis.Status == 400 && port.Status == 404 && port.Sub == "404.8" && iis.Name.StartsWith("POST /(S(", StringComparison.Ordinal)) return null;
+            if (iis.Status != port.Status) return $"the status differs ({iis.Status}, the port {port.Status})";
+            if (iis.Kind == "iis error" && port.Kind == "iis error" && iis.Sub != port.Sub) return $"the substatus differs ({iis.Sub}, the port {port.Sub})";
+            return null;
+        }
+
         // The combinations (AttackCases): both refusing is the same answer (which module's page, which status, is not what
         // they are about: a trailing dot, a '/' or path info after a file are refused by another module on each); one
         // serving where the other refuses is not, but the port's own refusal of .NET's settings file.

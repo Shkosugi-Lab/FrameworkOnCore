@@ -1116,6 +1116,979 @@
       "kind": "iis error"
     },
     {
+      "category": "pairwise",
+      "name": "GET /a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/DEFAULT.ASPX/x",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /rw/%65cho.ashx/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /sub/../App_Data/users.xml/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/web.config.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/y.secret%20",
+      "status": 301,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/y.secret"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /%64efault.aspx/",
+      "status": 200,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/a.txt/x.aspx",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /rw/APP_DATA/USERS.XML",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /sub/../ECHO.ASHX.",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /SUB/%2e%2e/Y.SECRET?x=1",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /go/WEB.CONFIG/x",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /echo.ashx/x",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx/x file=/echo.ashx info=/x raw=/echo.ashx/x host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /(S(abcdefghijklmnopqrstuvwx))/App_Data/%75sers.xml.",
+      "status": 400,
+      "sub": "400.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /rw/A.TXT/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /sub/../default.aspx?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /SUB/%2e%2e/%78.cs",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /go/%61ppsettings.json/x.aspx",
+      "status": 301,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/appsettings.json/x.aspx"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /APP_DATA/USERS.XML/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /(S(abcdefghijklmnopqrstuvwx))/echo.ashx",
+      "status": 200,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /rw/default.aspx.",
+      "status": 200,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /sub/../%61.txt/x",
+      "status": 200,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /SUB/%2e%2e/appsettings.json/",
+      "status": 200,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /go/x.cs?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /X.CS%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /APPSETTINGS.JSON?x=1",
+      "status": 200,
+      "kind": "content SECRET-appsettings.json",
+      "secrets": [
+        "SECRET-appsettings.json"
+      ]
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /private/x.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /badword.txt",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /secure/x.aspx",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /bin/secret.txt",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /locked/page.aspx",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /locked/echo.ashx",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /locked/a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-locked-a.txt"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /sub/",
+      "status": 200,
+      "kind": "content PUBLIC-sub-default.aspx"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /sub",
+      "status": 301,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/sub/"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /empty/",
+      "status": 403,
+      "sub": "403.14",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /old/x",
+      "status": 302,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/new/x"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /to-data",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /App_Data/from",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/x.cs/",
+      "status": 500,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/appsettings.json%20",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/PRIVATE/X.TXT?x=1",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/BADWORD.TXT/x",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/SECURE/X.ASPX/x",
+      "status": 302,
+      "kind": "empty",
+      "location": "/login.aspx?ReturnUrl=%2fSECURE%2fX.ASPX%2fx"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/BIN/SECRET.TXT/x",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/LOCKED/PAGE.ASPX/x",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/LOCKED/ECHO.ASHX/x",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/LOCKED/A.TXT/x",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/SUB//x",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/SUB/x",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/EMPTY//x",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/OLD/X/x",
+      "status": 302,
+      "kind": "empty",
+      "location": "http://{host}/new/X/x"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/TO-DATA/x",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "HEAD /(S(abcdefghijklmnopqrstuvwx))/APP_DATA/FROM/x",
+      "status": 404,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /%77eb.config%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /%79.secret",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /rw/private/%78.txt/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /rw/%62adword.txt?x=1",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /rw/secure/%78.aspx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /rw/bin/%73ecret.txt/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /rw/locked/%70age.aspx/x.aspx",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /rw/locked/%65cho.ashx/x.aspx",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /rw/locked/%61.txt/x.aspx",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /rw/sub//x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /rw/%73ub/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /rw/empty//x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /rw/old/%78/x.aspx",
+      "status": 302,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/new/x/x.aspx"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /rw/%74o-data/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "POST /rw/App_Data/%66rom/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /(S(abcdefghijklmnopqrstuvwx))/web.config",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /(S(abcdefghijklmnopqrstuvwx))/y.secret/x",
+      "status": 200,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /sub/../private/x.txt%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /sub/../badword.txt/x.aspx",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /sub/../secure/x.aspx",
+      "status": 200,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /sub/../bin/secret.txt/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /sub/../locked/page.aspx/",
+      "status": 200,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /sub/../locked/echo.ashx/",
+      "status": 200,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /sub/../locked/a.txt/",
+      "status": 200,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /sub/../sub//",
+      "status": 200,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /sub/../sub/",
+      "status": 200,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /sub/../empty//",
+      "status": 200,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /sub/../old/x/",
+      "status": 302,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/new/x/"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /sub/../to-data/",
+      "status": 200,
+      "kind": "empty"
+    },
+    {
+      "category": "pairwise",
+      "name": "OPTIONS /sub/../App_Data/from/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /rw/web.config/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /rw/y.secret/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /rw/x.cs/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /rw/appsettings.json",
+      "status": 200,
+      "kind": "content SECRET-appsettings.json",
+      "secrets": [
+        "SECRET-appsettings.json"
+      ]
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /sub/../web.config/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /sub/../y.secret/",
+      "status": 500,
+      "sub": "500.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /sub/../x.cs/x.aspx",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /sub/../appsettings.json/x",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/a.txt%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/default.aspx/x.aspx",
+      "status": 200,
+      "kind": "content PUBLIC-default.aspx"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/echo.ashx/x",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx/x file=/echo.ashx info=/x raw=/echo.ashx/x host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/App_Data/users.xml/x",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/private/x.txt",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/badword.txt/",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/secure/x.aspx/x.aspx",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%2fx.aspx"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/bin/secret.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/locked/page.aspx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/locked/echo.ashx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/locked/a.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/sub/.",
+      "status": 200,
+      "kind": "content PUBLIC-sub-default.aspx"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/sub.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/empty/.",
+      "status": 403,
+      "sub": "403.14",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/old/x.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/to-data.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /SUB/%2e%2e/App_Data/from.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/a.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/default.aspx",
+      "status": 301,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/default.aspx"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/echo.ashx/",
+      "status": 301,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/echo.ashx/"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/App_Data/users.xml%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/private/x.txt/x.aspx",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/badword.txt.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/secure/x.aspx/",
+      "status": 301,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/secure/x.aspx/"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/bin/secret.txt%20",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/locked/page.aspx%20",
+      "status": 301,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/locked/page.aspx"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/locked/echo.ashx%20",
+      "status": 301,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/locked/echo.ashx"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/locked/a.txt%20",
+      "status": 301,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/locked/a.txt"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/sub/%20",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/sub%20",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/empty/%20",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/old/x%20",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/to-data%20",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /go/App_Data/from%20",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /a.txt?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-a.txt"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /default.aspx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /echo.ashx%20",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /echo.ashx?x=1",
+      "status": 200,
+      "kind": "content ECHO path=/echo.ashx file=/echo.ashx info= raw=/echo.ashx?x=1 host=127.0.0.1 q= cookie= header="
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /App_Data/users.xml?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /web.config?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /y.secret.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /x.cs.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /appsettings.json.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /private/x.txt/",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /badword.txt%20",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /secure/x.aspx.",
+      "status": 404,
+      "kind": "aspnet HttpException"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /secure/x.aspx?x=1",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fsecure%2fx.aspx%3fx%3d1&x=1"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /bin/secret.txt?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /locked/page.aspx?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /locked/echo.ashx?x=1",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /locked/a.txt?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-locked-a.txt"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /sub/?x=1",
+      "status": 200,
+      "kind": "content PUBLIC-sub-default.aspx"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /sub?x=1",
+      "status": 301,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/sub/?x=1"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /empty/?x=1",
+      "status": 403,
+      "sub": "403.14",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /old/x?x=1",
+      "status": 302,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/new/x"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /to-data?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "pairwise",
+      "name": "GET /App_Data/from?x=1",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
       "category": "combination",
       "name": "GET /a.txt/x",
       "status": 404,

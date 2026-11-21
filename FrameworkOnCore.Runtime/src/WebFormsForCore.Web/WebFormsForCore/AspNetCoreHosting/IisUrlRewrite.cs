@@ -421,7 +421,8 @@ namespace System.Web.Hosting
 					}
 					case ActionType.Redirect:
 					{
-						var url = Expand(rule.Url, r, c, state);
+						// Without the spaces it ends in (IIS 10: "/go/y.secret%20" of "^go/(.*)$" to "/{R:1}" is Location .../y.secret).
+						var url = Expand(rule.Url, r, c, state).TrimEnd();
 						string location;
 						if (IsAbsolute(url))
 						{

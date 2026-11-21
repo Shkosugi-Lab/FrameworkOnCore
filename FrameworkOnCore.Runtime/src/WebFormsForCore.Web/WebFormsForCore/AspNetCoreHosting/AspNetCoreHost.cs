@@ -405,8 +405,11 @@ namespace System.Web.Hosting
             // maps to ASP.NET as the file (IisUrl.Split: the path info after it), and its type is checked as the last segment's
             // is (IIS 10: 404.7 for a denied .aspx or .ashx with any path info). The last segment only was: the page ran. A
             // static file's name is no such segment (IIS 10: "/y.secret/x" is 404.0, no file; IisStaticFile answers path info so).
+            // (Not for OPTIONS IIS's own handler answers: no handler's file, the last segment only: IIS 10's OPTIONS
+            // "/locked/page.aspx/" is 200.)
             var (file, pathInfo) = IisUrl.Split(path, IsHandled);
-            if (pathInfo.Length > 0 && filtering.Extensions.TryGetValue(IisUrl.Extension(file), out var handlerAllowed) && !handlerAllowed) return true;
+            var ownOptions = Core.HttpMethods.IsOptions(context.Request.Method) && IntegratedModeConfiguration.AnswersOptions((context.Request.PathBase.Value ?? "") + path);
+            if (!ownOptions && pathInfo.Length > 0 && filtering.Extensions.TryGetValue(IisUrl.Extension(file), out var handlerAllowed) && !handlerAllowed) return true;
             var name = path[(path.LastIndexOf('/') + 1)..];
             var dot = name.LastIndexOf('.');
             if (dot >= 0 && filtering.Extensions.TryGetValue(name.Substring(dot), out var allowed)) return !allowed;
@@ -414,6 +417,23 @@ namespace System.Web.Hosting
             if (HandleExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase)) || IsWebPagesFile(path)) return false;
             return ProhibitedExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase) &&
                 !IntegratedModeConfiguration.IisDeniedExtensions.Contains(ext, StringComparer.OrdinalIgnoreCase));
+        }
+
+        /// <summary>
+        /// A static file's name with path info after it ("/x.cs/x"): no segment of a handler's type before (IisUrl.Split), a
+        /// file before the rest. IIS's static file handler answers it 404.0 (it looks for the whole path).
+        /// </summary>
+        internal bool IsStaticFileWithPathInfo(Core.HttpContext context)
+        {
+            var path = context.Request.Path.Value ?? "";
+            if (IisUrl.Split(path, IsHandled).PathInfo.Length > 0) return false;
+            var (_, pathInfo) = IisUrl.Split(path, IsHandled, candidate =>
+            {
+                try { return FileCache.FileExists(MapPath((context.Request.PathBase.Value ?? "") + candidate)); }
+                catch (HttpException) { return false; }
+                catch (ArgumentException) { return false; }
+            });
+            return pathInfo.Length > 0;
         }
 
         public bool IsLegacyRequest(Core.HttpContext context)

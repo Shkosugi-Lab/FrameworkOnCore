@@ -77,6 +77,29 @@ public class IntegratedModeConfigurationTests
 
     // --- handlers
 
+    [Fact] // AnswersOptions: IIS's OPTIONSVerbHandler answers OPTIONS unless a managed handler of the application's takes the verb or web.config removes it (IIS 10: 200, Allow and Public)
+    public void Options_is_iis_s_unless_the_application_takes_it()
+    {
+        using (var plain = Running(Handlers("<add name='Pages' verb='GET,HEAD,POST' path='*.page' type='P' />")))
+        {
+            plain.Host();
+            Assert.True(IntegratedModeConfiguration.AnswersOptions("/a.page"));
+            Assert.True(IntegratedModeConfiguration.AnswersOptions("/a.txt"));
+        }
+        // A Web API's web.config: the extensionless handler for every verb, IIS's OPTIONS handler removed.
+        using (var api = Running(Handlers("<remove name='OPTIONSVerbHandler' /><add name='Api' verb='*' path='api/*' type='A' />")))
+        {
+            api.Host();
+            Assert.False(IntegratedModeConfiguration.AnswersOptions("/a.txt"));
+        }
+        using (var own = Running(Handlers("<add name='Cors' verb='OPTIONS' path='*.svc' type='C' />")))
+        {
+            own.Host();
+            Assert.False(IntegratedModeConfiguration.AnswersOptions("/x.svc"));
+            Assert.True(IntegratedModeConfiguration.AnswersOptions("/x.txt"));
+        }
+    }
+
     [Fact] // handlers (resourceType: Unspecified, the default, maps the request whatever is there; File, Directory, Either need one): a managed
            // handler's URL with no file goes to System.Web. Observed on IIS 10: nopCommerce's /pricelist.csv (PricelistHandler, no such file) is
            // the handler's 200; it was ASP.NET Core's 404 (the host gave System.Web only the handled types, the files and the extensionless URLs).

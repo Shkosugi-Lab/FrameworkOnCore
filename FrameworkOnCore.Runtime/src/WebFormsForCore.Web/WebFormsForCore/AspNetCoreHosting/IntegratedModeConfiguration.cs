@@ -174,6 +174,34 @@ namespace System.Web
 		internal static string FindHandlerType(string verb, VirtualPath path) => FindHandler(verb, path.VirtualPathString)?.Type;
 
 		/// <summary>
+		/// Whether IIS's own OPTIONSVerbHandler answers OPTIONS for the URL: no managed handler of the application's takes the
+		/// verb (theirs come before IIS's: a Web API's ExtensionlessUrlHandler with verb "*"), and the application's web.config
+		/// does not remove it (a Web API's &lt;remove name="OPTIONSVerbHandler" /&gt;, a &lt;clear /&gt;).
+		/// </summary>
+		internal static bool AnswersOptions(string virtualPath)
+		{
+			if (FindHandler("OPTIONS", virtualPath) != null) return false;
+			var file = HostingEnvironment.MapPath("~/web.config");
+			if (file == null || !File.Exists(file)) return true;
+			var written = File.GetLastWriteTimeUtc(file);
+			var known = optionsRemoved;
+			if (known.Written == written && known.File == file) return !known.Removed;
+			var removed = false;
+			try
+			{
+				foreach (var entry in XDocument.Load(file).Descendants().Where(e => e.Parent?.Name.LocalName == "handlers"))
+					if (entry.Name.LocalName == "clear" ||
+						(entry.Name.LocalName == "remove" && string.Equals((string)entry.Attribute("name"), "OPTIONSVerbHandler", StringComparison.OrdinalIgnoreCase)))
+						removed = true;
+			}
+			catch (Exception e) when (e is System.Xml.XmlException || e is IOException) { }
+			optionsRemoved = (file, written, removed);
+			return !removed;
+		}
+
+		static (string File, DateTime Written, bool Removed) optionsRemoved;
+
+		/// <summary>
 		/// Whether a managed handler of system.webServer/handlers answers the URL where no file or folder is (nopCommerce's
 		/// pricelist.csv: its PricelistHandler): IIS gives the request to it - the managed pipeline - when its resourceType is
 		/// Unspecified (the default); File, Directory or Either: IIS's 404 (learn.microsoft.com/iis/configuration/

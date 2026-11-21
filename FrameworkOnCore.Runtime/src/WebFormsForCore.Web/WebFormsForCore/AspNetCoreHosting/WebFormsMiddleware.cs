@@ -149,6 +149,40 @@ namespace Microsoft.AspNetCore.Builder
 			// IIS's request filtering, on the URL as it is now: the rewritten one (it ran on the URL as sent before URL Rewrite:
 			// UseWebFormsIis, RequestFiltering).
 			if (RequestFiltering(context)) return;
+			// OPTIONS that no handler of the application's takes (IIS's OPTIONSVerbHandler, after the managed handlers of
+			// GET, HEAD, POST and DEBUG, before StaticFile): 200 with the verbs IIS's protocol support module names, no body
+			// (IIS 10: OPTIONS of a page, a static file, a folder; a CORS preflight). The page's handler answered 405, a static
+			// file's 404, a page under forms authentication its redirect.
+			// Before the static files' answers (a static file's path info is not theirs to answer for OPTIONS: IIS 10's OPTIONS
+			// "/y.secret/x" is 200); not the asterisk form ("OPTIONS *": IIS's 500.50).
+			if (Core.HttpMethods.IsOptions(context.Request.Method) && (context.Request.Path.Value ?? "").StartsWith('/') && IntegratedModeConfiguration.AnswersOptions((context.Request.PathBase.Value ?? "") + (context.Request.Path.Value ?? "")))
+			{
+				context.Response.StatusCode = 200;
+				context.Response.Headers["Allow"] = "OPTIONS, TRACE, GET, HEAD, POST";
+				context.Response.Headers["Public"] = "OPTIONS, TRACE, GET, HEAD, POST";
+				context.Response.ContentLength = 0;
+				return;
+			}
+			// The handler's stage (after URL Rewrite and httpRedirect: IIS 10's "/go/y.secret%20" is the rule's 301, not a 404).
+			// A path ending in whitespace (" ", U+00A0, U+3000...): System.Web's VirtualPath trims it, so "/y.secret%20" was the
+			// file y.secret to it (served on Linux, where the name with its space is no file: request filtering saw "y.secret "),
+			// "/default.aspx%E3%80%80" the page, "/secure/x.aspx%E3%80%80" the page under another URL. IIS answers 404 (404.0).
+			var last = (context.Request.Path.Value ?? "").Length > 0 ? context.Request.Path.Value[^1] : 'x';
+			if (char.IsWhiteSpace(last))
+			{
+				System.Web.Hosting.IisLogStatus.Set(context, 0, 2);
+				context.Response.StatusCode = 404;
+				return;
+			}
+			// A static file's name with path info after it ("/x.cs/x", "/global.asax/x": no handler's type, IisUrl.Split):
+			// IIS's static file handler finds no file of the whole path, 404.0 (ASP.NET's handler of the file's type answered,
+			// 403).
+			if (host.IsStaticFileWithPathInfo(context))
+			{
+				System.Web.Hosting.IisLogStatus.Set(context, 0, 2);
+				context.Response.StatusCode = 404;
+				return;
+			}
 			if (IsLegacyRequest(context))
 			{
 				// System.Web answers it: its error answers are IIS's httpErrors' to replace (IisHttpErrors).
@@ -209,15 +243,25 @@ namespace Microsoft.AspNetCore.Builder
 				context.Response.StatusCode = 404;
 				return true;
 			}
-			// A path ending in whitespace (" ", U+00A0, U+3000...): System.Web's VirtualPath trims it, so "/y.secret%20" was the
-			// file y.secret to it (served on Linux, where the name with its space is no file: request filtering saw "y.secret "),
-			// "/default.aspx%E3%80%80" the page, "/secure/x.aspx%E3%80%80" the page under another URL. IIS answers 404 (404.0).
-			var last = (context.Request.Path.Value ?? "").Length > 0 ? context.Request.Path.Value[^1] : 'x';
-			if (char.IsWhiteSpace(last))
+			// A last segment ending in '.' or a space ("/a.txt.", "/old/x.", "/sub%20") of a URL ASP.NET's handlers take (no
+			// extension: IIS's "*." handler, which a name ending in '.' matches; "page.aspx " has the type ".aspx ", no
+			// handler's: IIS 10's "/go/page.aspx%20" is the rule's 301): ASP.NET refuses it as its
+			// managed pipeline starts (a suspicious physical path: Windows takes the name without them), before URL Rewrite
+			// and httpRedirect (IIS 10: "/go/a.txt." and "/go/sub%20" are ASP.NET's 404, not the rule's redirect). A static
+			// file's name is not ASP.NET's ("/go/y.secret%20" is the rule's 301; Invoke refuses one after). Nor OPTIONS IIS's
+			// own handler answers. It was refused after them.
+			var path = context.Request.Path.Value ?? "";
+			var lastName = path[(path.LastIndexOf('/') + 1)..];
+			if (lastName.Length > 0 && (lastName[^1] == '.' || char.IsWhiteSpace(lastName[^1])) &&
+				!(Core.HttpMethods.IsOptions(context.Request.Method) && IntegratedModeConfiguration.AnswersOptions((context.Request.PathBase.Value ?? "") + path)))
 			{
-				System.Web.Hosting.IisLogStatus.Set(context, 0, 2);
-				context.Response.StatusCode = 404;
-				return true;
+				var trimmed = lastName.TrimEnd();
+				if (lastName[^1] == '.' || trimmed.IndexOf('.') < 0)
+				{
+					System.Web.Hosting.IisLogStatus.Set(context, 0, 2);
+					context.Response.StatusCode = 404;
+					return true;
+				}
 			}
 			return false;
 		}

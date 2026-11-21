@@ -45,6 +45,14 @@ static class AttackCases
 {
     public static readonly AttackCase[] All = Make().ToArray();
 
+    static string EscapeFirstLetter(string path)
+    {
+        var start = path.LastIndexOf('/') + 1;
+        for (var i = start; i < path.Length; i++)
+            if (char.IsAsciiLetter(path[i])) return path[..i] + "%" + ((int)path[i]).ToString("x2") + path[(i + 1)..];
+        return path;
+    }
+
     static IEnumerable<AttackCase> Make()
     {
         AttackCase Get(string category, string target, string headers = null, string name = null) =>
@@ -88,6 +96,36 @@ static class AttackCases
             "/to-info", "/from.secret", "/App_Data/from", "/badword/from", "/locked/from.aspx", "/(S(abcdefghijklmnopqrstuvwx))/to-secret",
             "/(S(abcdefghijklmnopqrstuvwx))/App_Data/from" })
             yield return Get("rewrite and filtering", target);
+
+        // ---- all pairs of five axes (Pairwise): the method; what is before the target (a cookieless segment, a rewrite, a
+        // redirect, a dot segment); the target (served, a page, a handler, what request filtering, a location or ASP.NET
+        // protects, a folder, what a rule rewrites to or from); its form (as it is, in capitals, a letter escaped); what is
+        // after it (path info, a separator, a dot, a space, a query)
+        {
+            string[] methods = { "GET", "HEAD", "POST", "OPTIONS" };
+            string[] befores = { "", "/(S(abcdefghijklmnopqrstuvwx))", "/rw", "/sub/..", "/SUB/%2e%2e", "/go" };
+            string[] targets = { "/a.txt", "/default.aspx", "/echo.ashx", "/App_Data/users.xml", "/web.config", "/y.secret", "/x.cs", "/appsettings.json",
+                "/private/x.txt", "/badword.txt", "/secure/x.aspx", "/bin/secret.txt", "/locked/page.aspx", "/locked/echo.ashx", "/locked/a.txt", "/sub/",
+                "/sub", "/empty/", "/old/x", "/to-data", "/App_Data/from" };
+            string[] forms = { "as is", "capitals", "escaped" };
+            string[] afters = { "", "/x", "/x.aspx", "/", ".", "%20", "?x=1" };
+            foreach (var c in Pairwise.Of(methods.Length, befores.Length, targets.Length, forms.Length, afters.Length))
+            {
+                var target = targets[c[2]];
+                target = forms[c[3]] switch
+                {
+                    "capitals" => target.ToUpperInvariant(),
+                    // the first letter of the last segment's name escaped (%61 for 'a'), as a client may send it
+                    "escaped" => EscapeFirstLetter(target),
+                    _ => target,
+                };
+                var url = befores[c[1]] + target + afters[c[4]];
+                var method = methods[c[0]];
+                yield return new("pairwise", method + " " + url, t => method == "POST"
+                    ? t.Post(url, "application/x-www-form-urlencoded", System.Text.Encoding.ASCII.GetBytes("x=1"))
+                    : t.Raw(method + " " + url + " HTTP/1.1\r\nHost: {host}"));
+            }
+        }
 
         // ---- combinations: what is put before a target (a cookieless segment, a URL Rewrite's prefix, a dot segment), the
         // target (a file served, a page, a handler, what request filtering or ASP.NET protects), what is put after it (path

@@ -16,7 +16,9 @@ $FrameworkOnCoreRepository = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Pa
 # the translations' folder's).
 # Not what is packed: upstream's solutions and CI file (pack builds frameworkoncore.slnx) and the two upstream test
 # projects removed on 2026-10-31 (no package built from them; tests/README.md).
-$FrameworkOnCorePackageSources = @('FrameworkOnCore.Runtime', 'experiments/wf4c/frameworkoncore.slnx', 'translations',
+# src/FrameworkOnCore.Analyzers: compiled into the Compilers package (WebFormsForCore.Compilers.csproj links its analyzers): a
+# change of them is a change of the package (it was not seen: the package changed under its published version).
+$FrameworkOnCorePackageSources = @('FrameworkOnCore.Runtime', 'experiments/wf4c/frameworkoncore.slnx', 'translations', 'src/FrameworkOnCore.Analyzers',
     ':(exclude,glob)FrameworkOnCore.Runtime/**/*.sln', ':(exclude,glob)FrameworkOnCore.Runtime/**/*.slnx',
     ':(exclude,glob)FrameworkOnCore.Runtime/**/appveyor.yml',
     ':(exclude)FrameworkOnCore.Runtime/src/WebFormsForCore.TestApp',

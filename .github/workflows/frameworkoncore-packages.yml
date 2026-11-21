@@ -24,6 +24,9 @@ on:
       # The packages' satellites (FrameworkOnCore.Translations.targets).
       - 'translations/**'
       - 'src/FrameworkOnCore.Converter/rules/packages.json'
+      # The converter, the analysis and Studio: their tests run on Linux (a change without a test's was not tested
+      # there); the analyzers are compiled into the Compilers package too.
+      - 'src/**'
       - 'tests/SqlClientTests/**'
       # The tests it runs on Linux: a test added or changed is run there too (Studio's, the converter's).
       - 'tests/FrameworkOnCore.Tests/**'

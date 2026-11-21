@@ -25,6 +25,10 @@ namespace FrameworkOnCore.Converter;
 /// </summary>
 public sealed class DeployWriter(Report report, string outRoot, string runtimeDirectory, Rules rules)
 {
+    /// <summary>A text inside bash's double quotes: the characters it takes there (\ " $ `) escaped.</summary>
+    internal static string BashDoubleQuoted(string text) =>
+        text.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("$", "\\$").Replace("`", "\\`");
+
     public void Write(string kinds, string site, ConvertedProject web, string? cultureProfile, bool caseInsensitive = true)
     {
         var container = kinds is "both" or "container";
@@ -32,6 +36,10 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         if (!container && !linux) return;
 
         var assembly = XDocument.Load(web.TargetPath).Descendants().FirstOrDefault(e => e.Name.LocalName == "AssemblyName")?.Value ?? web.Name;
+        // The project's name where the AssemblyName is it ($(MSBuildProjectName), as MSBuild has it; SDK-style projects keep
+        // the property): start.sh ran "bin/$(MSBuildProjectName).dll", bash's command substitution, "bin/.dll".
+        var projectName = Path.GetFileNameWithoutExtension(web.TargetPath);
+        assembly = assembly.Replace("$(MSBuildProjectName)", projectName, StringComparison.OrdinalIgnoreCase).Replace("$(ProjectName)", projectName, StringComparison.OrdinalIgnoreCase);
         var app = new string(assembly.ToLowerInvariant().Select(c => char.IsAsciiLetterOrDigit(c) ? c : '-').ToArray()).Trim('-');
         // A name without a letter of ASCII ("販売管理"): "app" (the service, its user and folders, the image would have had no
         // name: useradd "", /opt/, /etc//config, docker build -t "").
@@ -57,7 +65,8 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         var drawing = DrawingUsers(site, rules.NotDrawing);
         if (drawing.Count > 0)
             report.Add(Report.Kind.Project, "deploy", $"System.Drawing on Linux (SkiaSharp): fontconfig and fonts (fonts-liberation2: Arial, Times New Roman, Courier New's metrics) installed by the deployment, for {string.Join(", ", drawing.Take(6))}{(drawing.Count > 6 ? ", ..." : "")}");
-        WriteText(Path.Combine(deploy, "start.sh"), StartScript.Replace("__DLL__", assembly));
+        // In bash's double quotes: its own characters escaped (a name with $, ` or " broke the script or started another file).
+        WriteText(Path.Combine(deploy, "start.sh"), StartScript.Replace("__DLL__", BashDoubleQuoted(assembly)));
         if (container)
         {
             WriteText(Path.Combine(outRoot, "Dockerfile"), Dockerfile(siteRelative, lang, tz, cultureProfile != null, caseInsensitive, drawing.Count > 0));
@@ -70,7 +79,7 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
         if (linux)
         {
             WriteText(Path.Combine(deploy, "linux", "install.sh"), InstallScript
-                .Replace("__APP__", app).Replace("__SITE__", siteRelative).Replace("__LANG__", lang).Replace("__TZ__", tz)
+                .Replace("__APP__", app).Replace("__SITE__", BashDoubleQuoted(siteRelative)).Replace("__LANG__", lang).Replace("__TZ__", tz)
                 .Replace("__ICU__", cultureProfile != null ? "1" : "").Replace("__DRAWING__", drawing.Count > 0 ? "1" : ""));
         }
         WriteText(Path.Combine(deploy, "README.md"), Readme(app, assembly, siteRelative, lang, tz, tzSource, container, linux, cultureProfile != null, caseInsensitive, drawing.Count > 0));

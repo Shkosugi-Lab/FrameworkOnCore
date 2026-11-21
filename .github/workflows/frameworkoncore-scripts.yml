@@ -1,0 +1,34 @@
+# The scripts a user runs (converter.ps1, studio.ps1, tools/foc-tools.ps1, capture-iis.ps1, capture-culture.ps1, casefs'),
+# under Windows PowerShell 5.1 (powershell.exe), as users have it: tests/scripts/ScriptTests.ps1 (its parser, its code
+# page for a file read without an encoding, a native command's stderr under $ErrorActionPreference = 'Stop', paths with
+# [ ] and beyond ASCII, a folder that is no git checkout). The other workflows run PowerShell 7 (pwsh), which has none of
+# these: a script that broke for a user passed there.
+name: FrameworkOnCore scripts
+
+on:
+  push:
+    branches: [main, 'pivot/**']
+    paths:
+      - '**.ps1'
+      - 'tests/scripts/**'
+      - '.github/workflows/frameworkoncore-scripts.yml'
+  pull_request:
+    paths:
+      - '**.ps1'
+      - 'tests/scripts/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-powershell:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: The scripts under Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $PSVersionTable.PSVersion
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/scripts/ScriptTests.ps1
+          exit $LASTEXITCODE

@@ -32,3 +32,18 @@ public sealed class StudioZipTests
         Assert.Equal(windows, For(path, "windows"));
     }
 }
+
+/// <summary>The ZIP's folder for an analysis' name: no entry out of the folder a tool extracts to ("..": "../Dockerfile").</summary>
+public sealed class StudioZipFolderTests
+{
+    [Theory]
+    [InlineData("BlogEngine.NET", "BlogEngine.NET")]
+    [InlineData("WingtipToys(VB)", "WingtipToys-VB")]
+    [InlineData("販売管理", "販売管理")]
+    [InlineData("..", "app")]
+    [InlineData(".", "app")]
+    [InlineData("../../x", "x")]
+    [InlineData(@"..\evil", "evil")]
+    [InlineData(" ", "app")]
+    public void The_folder_is_inside(string name, string folder) => Assert.Equal(folder, FrameworkOnCore.Studio.Conversions.ZipFolder(name));
+}

@@ -378,6 +378,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
     ConvertedProject ConvertOld(string projectPath, string name, XDocument old, bool isWeb, bool copyLocal, List<string> projectReferences, List<(string Assembly, string Dll)> deployed)
     {
         var source = Path.GetDirectoryName(projectPath)!;
+        conditions.Project(old, projectPath, sourceRoot, name);
         var targetPath = TargetOf(projectPath);
         var target = Path.GetDirectoryName(targetPath)!;
         string? Property(string property) => old.Descendants(msbuild + property).FirstOrDefault()?.Value;

@@ -21,16 +21,16 @@ public static class AnalyzeCommand
         {
             switch (args[i])
             {
-                case "--out": outDirectory = args[++i]; break;
-                case "--root": rootDirectory = args[++i]; break;
-                case "--configuration": configuration = args[++i]; break;
-                case "--runtime": runtimeDirectory = args[++i]; break;
+                case "--out": outDirectory = CommandLine.Value(args, ref i); break;
+                case "--root": rootDirectory = CommandLine.Value(args, ref i); break;
+                case "--configuration": configuration = CommandLine.Value(args, ref i); break;
+                case "--runtime": runtimeDirectory = CommandLine.Value(args, ref i); break;
                 // The ANSI code page of the machine it was built on (the sources without a byte order mark that are not UTF-8).
                 case "--code-page":
-                    if (!int.TryParse(args[++i], out var codePage) || SourceEncoding.CodePage(codePage) == null) { Console.Error.WriteLine($"--code-page: a code page .NET has (932, 1252 ...), not {args[i]}"); return 2; }
+                    if (!int.TryParse(CommandLine.Value(args, ref i), out var codePage) || SourceEncoding.CodePage(codePage) == null) { Console.Error.WriteLine($"--code-page: a code page .NET has (932, 1252 ...), not {args[i]}"); return 2; }
                     SourceEncoding.MachineCodePage = codePage;
                     break;
-                default: project = args[i]; break;
+                default: CommandLine.Positional(ref project, args[i], "project"); break;
             }
         }
         if (project == null || outDirectory == null)

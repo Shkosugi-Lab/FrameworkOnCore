@@ -115,6 +115,36 @@ jobs:
       # runtime's NuGet.config names its local feed (FrameworkOnCore.Runtime/nupkg).
       - name: Runtime unit tests (Linux)
         run: mkdir -p FrameworkOnCore.Runtime/nupkg && dotnet test tests/RuntimeUnitTests/RuntimeUnitTests.csproj -nologo -v q --logger "console;verbosity=minimal"
+      # BlogEngine.NET converted on Linux from its source and run: the converter's command line and build on Linux, the
+      # host's answers to a real application (.github/scripts/linux-blogengine.sh).
+      - name: BlogEngine.NET converted and run (Linux)
+        run: bash .github/scripts/linux-blogengine.sh
+
+  # The converter's, the analysis' and Studio's tests on a Windows that is not this project's machine (English, code page
+  # 1252: the tests' own machine is a Japanese Windows, 932), without the parity suites, whose goldens are that machine's
+  # (its fonts, IIS, SQL Server Express). What depends on the machine's language or code page shows here. Informational
+  # until it has passed (continue-on-error).
+  test-windows-english:
+    needs: build
+    runs-on: windows-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: frameworkoncore-feed-${{ needs.build.outputs.version }}
+          path: experiments/wf4c/_feed
+      - uses: actions/download-artifact@v4
+        with:
+          name: frameworkoncore-build-tasks
+          path: FrameworkOnCore.Runtime/lib/WebFormsForCore.Build
+      - name: Tests (Windows, English)
+        shell: pwsh
+        run: |
+          [System.Globalization.CultureInfo]::CurrentCulture.Name
+          [System.Text.Encoding]::Default.CodePage
+          dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj -nologo -v q --logger "console;verbosity=minimal" `
+            --filter "FullyQualifiedName!~Parity&FullyQualifiedName!~Drawing&FullyQualifiedName!~DataVisualization&FullyQualifiedName!~Mobile&FullyQualifiedName!~WebControls"
 
   publish:
     needs: [build, test-linux]

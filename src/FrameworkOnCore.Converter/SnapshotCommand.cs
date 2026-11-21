@@ -40,13 +40,13 @@ public static class SnapshotCommand
         {
             switch (args[i])
             {
-                case "--source": source = args[++i]; break;
-                case "--site": site = args[++i]; break;
-                case "--baseline": baseline = args[++i]; break;
-                case "--diff": diffFile = args[++i]; break;
-                case "--exit": exit = int.Parse(args[++i]); break;
+                case "--source": source = CommandLine.Value(args, ref i); break;
+                case "--site": site = CommandLine.Value(args, ref i); break;
+                case "--baseline": baseline = CommandLine.Value(args, ref i); break;
+                case "--diff": diffFile = CommandLine.Value(args, ref i); break;
+                case "--exit": exit = int.TryParse(CommandLine.Value(args, ref i), out var code) ? code : throw new UsageException("--exit: a number"); break;
                 case "--update": update = true; break;
-                default: output = args[i]; break;
+                default: CommandLine.Positional(ref output, args[i], "output folder"); break;
             }
         }
         if (output == null || source == null || baseline == null)

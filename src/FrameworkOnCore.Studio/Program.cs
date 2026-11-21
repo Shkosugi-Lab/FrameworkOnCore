@@ -70,6 +70,24 @@ app.Use((context, next) =>
 });
 // The sites Studio runs on this machine end with it (IIS's sites it added are removed).
 app.Lifetime.ApplicationStopping.Register(() => { originals.StopAll(); natives.StopAll(); });
+// An analysis' URLs (/api/analyses/{id}/...) are an analysis' only: an id that is none is 404 before any endpoint combines
+// it with a path (one that ran first read and wrote by it: "..\.." of /result read the data folder's parent's file; an
+// id not there had a conversion's state).
+app.Use((context, next) =>
+{
+    const string prefix = "/api/analyses/";
+    var path = context.Request.Path.Value ?? "";
+    if (path.StartsWith(prefix, StringComparison.OrdinalIgnoreCase) && path.Length > prefix.Length)
+    {
+        var id = path[prefix.Length..].Split('/')[0];
+        if (store.Get(id) == null)
+        {
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+            return Task.CompletedTask;
+        }
+    }
+    return next(context);
+});
 app.UseDefaultFiles();
 // The page asked again each time (no-cache: answered 304 while it is the same): a browser does not keep the page of a
 // Studio before an update (without it, a browser reuses it for a while as it judges, its Last-Modified that of the zip).

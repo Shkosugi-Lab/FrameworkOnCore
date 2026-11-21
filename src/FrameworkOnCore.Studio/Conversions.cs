@@ -130,7 +130,7 @@ public sealed class Conversions(AnalysisStore store, string runtime)
                 foreach (var kind in ZipKinds)
                 {
                     log.Enqueue($"zipping the output for {kind} (without obj)");
-                    var name = $"{Regex.Replace(analysis.Name, @"[^\w.-]+", "-")}-dotnet10-{kind}.zip";
+                    var name = $"{ZipFolder(analysis.Name)}-dotnet10-{kind}.zip";
                     var size = ZipOutput(Output(id), Path.Combine(Folder(id), name), analysis.Name, kind, cancel.Token);
                     log.Enqueue($"  -> {name} ({size / 1024 / 1024} MB)");
                     zips[kind] = new ZipEntry(name, size);
@@ -258,13 +258,23 @@ public sealed class Conversions(AnalysisStore store, string runtime)
                 .Select(m => new ReportSection(m.Groups[1].Value, int.Parse(m.Groups[2].Value))).ToList()
             : null;
 
+    /// <summary>
+    /// The ZIP's folder for an analysis' name (free text): its letters, digits, '.', '-' and '_', without dots at its ends
+    /// ("..": the entries were "../Dockerfile", out of the folder a tool extracts to), "app" when nothing is left.
+    /// </summary>
+    internal static string ZipFolder(string name)
+    {
+        var folder = Regex.Replace(name, @"[^\w.-]+", "-").Trim('.', '-');
+        return folder.Length == 0 ? "app" : folder;
+    }
+
     // The output under a folder of the application's name, without the build's intermediate files (obj) and Visual
     // Studio's (.vs): what is built (bin) stays, the site runs from it. For one system (kind): the packages' runtime-specific
     // assets (bin/runtimes/<rid>: SkiaSharp's native library for 20 of them, with Windows' symbols, most of the output) only
     // its own, without native symbols; Windows' without the Linux deployment (Dockerfile, deploy).
     static long ZipOutput(string output, string zip, string name, string kind, CancellationToken cancel)
     {
-        var top = Regex.Replace(name, @"[^\w.-]+", "-");
+        var top = ZipFolder(name);
         using (var archive = ZipFile.Open(zip, ZipArchiveMode.Create))
         {
             foreach (var file in Directory.EnumerateFiles(output, "*", SearchOption.AllDirectories))

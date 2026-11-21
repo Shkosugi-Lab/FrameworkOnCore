@@ -16,8 +16,8 @@ public static class BuildOriginalCommand
         string? project = null, rootDirectory = null;
         for (var i = 0; i < args.Length; i++)
         {
-            if (args[i] == "--root") rootDirectory = args[++i];
-            else project = args[i];
+            if (args[i] == "--root") rootDirectory = CommandLine.Value(args, ref i);
+            else CommandLine.Positional(ref project, args[i], "project");
         }
         if (project == null)
         {
@@ -39,16 +39,16 @@ public static class BuildOriginalCommand
         {
             switch (args[i])
             {
-                case "--out": outDirectory = args[++i]; break;
-                case "--root": rootDirectory = args[++i]; break;
-                case "--configuration": configuration = args[++i]; break;
-                case "--target": target = args[++i]; break;
-                case "--msbuild": msbuild = args[++i]; break;
+                case "--out": outDirectory = CommandLine.Value(args, ref i); break;
+                case "--root": rootDirectory = CommandLine.Value(args, ref i); break;
+                case "--configuration": configuration = CommandLine.Value(args, ref i); break;
+                case "--target": target = CommandLine.Value(args, ref i); break;
+                case "--msbuild": msbuild = CommandLine.Value(args, ref i); break;
                 case "--original-step":
-                    var step = args[++i].Split(';', 2);
+                    var step = CommandLine.Value(args, ref i).Split(';', 2);
                     steps.Add((step[0], step.Length > 1 ? step[1] : "Build"));
                     break;
-                default: project = args[i]; break;
+                default: CommandLine.Positional(ref project, args[i], "project"); break;
             }
         }
         if (project == null || outDirectory == null)

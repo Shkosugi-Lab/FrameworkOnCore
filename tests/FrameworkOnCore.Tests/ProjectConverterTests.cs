@@ -216,6 +216,24 @@ public sealed class ProjectConverterTests : IDisposable
         Assert.DoesNotContain(report.Entries, e => e.Text.Contains("not in the repository"));
     }
 
+    [Fact] // the conditions on the project's own properties (Conditions.Project, MSBuildCondition): "'$(UseFoo)' == 'true'" was compared as text
+    public void Items_under_the_project_s_own_properties_are_converted()
+    {
+        Write(@"Web\Class1.cs", "public class Class1 { }");
+        Write(@"Web\Foo.cs", "public class Foo { }");
+        Write(@"Web\NoFoo.cs", "public class NoFoo { }");
+        var project = OldProject("Web", """
+                <Compile Include="Foo.cs" Condition=" '$(UseFoo)' == 'true' " />
+                <Compile Include="NoFoo.cs" Condition=" '$(UseFoo)' != 'true' " />
+            """, web: true).Replace("<OutputType>Library</OutputType>", "<OutputType>Library</OutputType><UseFoo>true</UseFoo>");
+        Write(@"Web\Web.csproj", project);
+        var (converter, _) = Converter();
+        converter.Convert(Path.Combine(Source, Local(@"Web\Web.csproj")), isWeb: true);
+        var converted = Target(Output, @"Web\Web.csproj");
+        Assert.Contains("Foo.cs", converted.Replace("NoFoo.cs", ""));
+        Assert.DoesNotContain("NoFoo.cs", converted);
+    }
+
     [Theory] // the newest .NET Framework target by version (the longest was taken: net462 of "net462;net48")
     [InlineData("net462;net48", "net48")]
     [InlineData("net472;net48", "net48")]

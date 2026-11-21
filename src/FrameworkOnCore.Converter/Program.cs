@@ -61,10 +61,10 @@ using FrameworkOnCore.Converter;
 
 // The code pages .NET Framework had (an XML declaration's shift_jis: web.config; the sources' code page).
 FrameworkOnCore.Analysis.SourceEncoding.Register();
-if (args.Length > 0 && args[0] == "analyze") return AnalyzeCommand.Run(args[1..], RuntimeSetup.Find);
-if (args.Length > 0 && args[0] == "build-original") return BuildOriginalCommand.Run(args[1..]);
-if (args.Length > 0 && args[0] == "snapshot") return SnapshotCommand.Run(args[1..]);
-if (args.Length > 0 && args[0] == "build-original-advice") return BuildOriginalCommand.Advise(args[1..]);
+if (args.Length > 0 && args[0] == "analyze") return CommandLine.Run(() => AnalyzeCommand.Run(args[1..], RuntimeSetup.Find));
+if (args.Length > 0 && args[0] == "build-original") return CommandLine.Run(() => BuildOriginalCommand.Run(args[1..]));
+if (args.Length > 0 && args[0] == "snapshot") return CommandLine.Run(() => SnapshotCommand.Run(args[1..]));
+if (args.Length > 0 && args[0] == "build-original-advice") return CommandLine.Run(() => BuildOriginalCommand.Advise(args[1..]));
 
 string? project = null, outDirectory = null, rootDirectory = null, runtimeDirectory = null, cultureProfile = null, iisProfile = null, site = null, originalTarget = null, configuration = null;
 var build = true;
@@ -76,46 +76,59 @@ string? choicesFile = null;
 int? codePage = null;
 var originalSteps = new List<(string Project, string Target)>();
 string? msbuildChoice = null;
+try
+{
 for (var i = 0; i < args.Length; i++)
 {
     switch (args[i])
     {
-        case "--out": outDirectory = args[++i]; break;
-        case "--root": rootDirectory = args[++i]; break;
-        case "--runtime": runtimeDirectory = args[++i]; break;
-        case "--culture-profile": cultureProfile = args[++i]; break;
-        case "--iis-profile": iisProfile = args[++i]; break;
-        case "--site": site = Path.GetFullPath(args[++i]); break;
+        case "--out": outDirectory = CommandLine.Value(args, ref i); break;
+        case "--root": rootDirectory = CommandLine.Value(args, ref i); break;
+        case "--runtime": runtimeDirectory = CommandLine.Value(args, ref i); break;
+        case "--culture-profile": cultureProfile = CommandLine.Value(args, ref i); break;
+        case "--iis-profile": iisProfile = CommandLine.Value(args, ref i); break;
+        case "--site": site = Path.GetFullPath(CommandLine.Value(args, ref i)); break;
         case "--no-build": build = false; break;
-        case "--deploy": deployKinds = args[++i]; break;
+        case "--deploy": deployKinds = CommandLine.OneOf("--deploy", CommandLine.Value(args, ref i), "container", "linux", "both", "none"); break;
         case "--case-insensitive":
-            var value = args[++i];
+            var value = CommandLine.Value(args, ref i);
             if (value is not ("on" or "off")) { Console.Error.WriteLine($"--case-insensitive: on or off, not {value}"); return 2; }
             caseInsensitive = value == "on";
             break;
-        case "--configuration": configuration = args[++i]; break;
-        case "--msbuild": msbuildChoice = args[++i]; break;
-        case "--choices": choicesFile = args[++i]; break;
+        case "--configuration": configuration = CommandLine.Value(args, ref i); break;
+        case "--msbuild": msbuildChoice = CommandLine.Value(args, ref i); break;
+        case "--choices": choicesFile = CommandLine.Value(args, ref i); break;
         case "--code-page":
-            var page = args[++i];
+            var page = CommandLine.Value(args, ref i);
             if (!int.TryParse(page, out var number) || FrameworkOnCore.Analysis.SourceEncoding.CodePage(number) == null) { Console.Error.WriteLine($"--code-page: a code page .NET has (932, 1252 ...), not {page}"); return 2; }
             codePage = number;
             break;
         case "--original-step":
-            var step = args[++i].Split(';', 2);
+            var step = CommandLine.Value(args, ref i).Split(';', 2);
             originalSteps.Add((step[0], step.Length > 1 ? step[1] : "Build"));
             break;
         case "--build-original":
             buildOriginal = true;
             if (i + 1 < args.Length && args[i + 1] == "auto") { buildOriginalAuto = true; i++; }
-            else if (i + 1 < args.Length && !args[i + 1].StartsWith("--", StringComparison.Ordinal) && !args[i + 1].EndsWith("proj", StringComparison.OrdinalIgnoreCase)) originalTarget = args[++i];
+            else if (i + 1 < args.Length && !args[i + 1].StartsWith("--", StringComparison.Ordinal) && !args[i + 1].EndsWith("proj", StringComparison.OrdinalIgnoreCase)) originalTarget = CommandLine.Value(args, ref i);
             break;
-        default: project = args[i]; break;
+        default: CommandLine.Positional(ref project, args[i], "project"); break;
     }
+}
+}
+catch (UsageException e)
+{
+    Console.Error.WriteLine(e.Message);
+    return 2;
 }
 if (project == null || outDirectory == null)
 {
     Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--iis-profile <file>] [--configuration <name>] [--site <dir> | --build-original [target] [--msbuild visualstudio|buildtools|<folder>]] [--deploy container|linux|both|none] [--case-insensitive on|off] [--choices <file>] [--code-page <n>] [--no-build]");
+    return 2;
+}
+if (!File.Exists(project))
+{
+    Console.Error.WriteLine($"{project}: no such project file");
     return 2;
 }
 // The code page the sources without a byte order mark that are not UTF-8 were written in.

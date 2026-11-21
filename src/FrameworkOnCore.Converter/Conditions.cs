@@ -10,34 +10,31 @@ namespace FrameworkOnCore.Converter;
 /// </summary>
 public sealed class Conditions(string configuration, string platform, Report report)
 {
-    static readonly Regex comparison = new(@"^\(?\s*'([^']*)'\s*(==|!=)\s*'([^']*)'\s*\)?$", RegexOptions.Compiled);
-
     public string Configuration { get; } = configuration;
     public string Platform { get; } = platform;
+
+    // The project's properties (Project: the one being converted), as MSBuild has them for the configuration.
+    IReadOnlyDictionary<string, string> properties = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+    string directory = ".";
+
+    /// <summary>
+    /// The project whose conditions follow: its properties for the configuration (MSBuildCondition.Properties, the
+    /// analysis' too). Only Configuration and Platform were put in, the rest compared as text, "or" and "and" read left
+    /// to right: an item under "'$(UseFoo)' == 'true'" was left out, one under "!=" converted.
+    /// </summary>
+    public void Project(System.Xml.Linq.XDocument project, string projectPath, string solutionDirectory, string subject)
+    {
+        directory = Path.GetDirectoryName(projectPath)!;
+        properties = FrameworkOnCore.Analysis.MSBuildCondition.Properties(project.Root!, projectPath, Configuration, Platform, solutionDirectory,
+            condition => report.Add(Report.Kind.Project, subject, $"condition not evaluated (taken as true): {condition}"));
+    }
 
     public bool Holds(string? condition, string subject)
     {
         if (string.IsNullOrWhiteSpace(condition)) return true;
-        var expanded = condition.Replace("$(Configuration)", Configuration).Replace("$(Platform)", Platform);
-        bool? result = null;
-        var op = "and";
-        foreach (var part in Regex.Split(expanded, @"\s+(and|or)\s+", RegexOptions.IgnoreCase))
-        {
-            if (Regex.IsMatch(part, "^(?i)(and|or)$")) { op = part.ToLowerInvariant(); continue; }
-            bool value;
-            var m = comparison.Match(part.Trim());
-            if (!m.Success)
-            {
-                if (part.Contains("$(")) { report.Add(Report.Kind.Project, subject, $"condition not evaluated (taken as true): {condition}"); return true; }
-                value = true;
-            }
-            else
-            {
-                var equal = string.Equals(m.Groups[1].Value.Trim(), m.Groups[3].Value.Trim(), StringComparison.OrdinalIgnoreCase);
-                value = m.Groups[2].Value == "==" ? equal : !equal;
-            }
-            result = result is null ? value : op == "and" ? result.Value && value : result.Value || value;
-        }
-        return result ?? true;
+        var known = new Dictionary<string, string>(properties, StringComparer.OrdinalIgnoreCase) { ["Configuration"] = Configuration, ["Platform"] = Platform };
+        var holds = FrameworkOnCore.Analysis.MSBuildCondition.Holds(condition, known, directory, out var unknown);
+        if (unknown) report.Add(Report.Kind.Project, subject, $"condition not evaluated (taken as true): {condition}");
+        return holds;
     }
 }

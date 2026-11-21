@@ -44,7 +44,6 @@ public sealed record VisualBasicOptions(string RootNamespace, IReadOnlyList<stri
 public sealed class ProjectLoader(string root, string configuration, string platform = "AnyCPU")
 {
     static readonly XNamespace msbuild = "http://schemas.microsoft.com/developer/msbuild/2003";
-    static readonly Regex comparison = new(@"^\(?\s*'([^']*)'\s*(==|!=)\s*'([^']*)'\s*\)?$", RegexOptions.Compiled);
     static readonly string[] skippedFolders = ["bin", "obj", "packages", "node_modules", ".git", ".vs"];
 
     readonly Dictionary<string, ProjectInput> loaded = new(StringComparer.OrdinalIgnoreCase);
@@ -77,8 +76,8 @@ public sealed class ProjectLoader(string root, string configuration, string plat
         var directory = System.IO.Path.GetDirectoryName(projectPath)!;
         var properties = Properties(project, projectPath, msbuild);
         string? Property(string p) => properties.TryGetValue(p, out var v) && v.Length > 0 ? v : null;
-        IEnumerable<XElement> Items(string kind) => project.Elements(msbuild + "ItemGroup").Where(g => Holds(g, projectPath))
-            .Elements(msbuild + kind).Where(i => Holds(i, projectPath));
+        IEnumerable<XElement> Items(string kind) => project.Elements(msbuild + "ItemGroup").Where(g => Holds(g, projectPath, properties))
+            .Elements(msbuild + kind).Where(i => Holds(i, projectPath, properties));
 
         var sources = Items("Compile").SelectMany(i => Expand(directory, Include(i, properties, directory)))
             .Where(f => f.EndsWith(visualBasic ? ".vb" : ".cs", StringComparison.OrdinalIgnoreCase)).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
@@ -283,22 +282,9 @@ public sealed class ProjectLoader(string root, string configuration, string plat
         properties.GetValueOrDefault("AssemblyOriginatorKeyFile") is { Length: > 0 } key && File.Exists(Full(directory, key)) ? Full(directory, key) : null;
 
     // The properties the configuration's build has, in order ($(DefineConstants);TRACE builds on the one before).
-    Dictionary<string, string> Properties(XElement project, string projectPath, XNamespace ns)
-    {
-        var directory = System.IO.Path.GetDirectoryName(projectPath)!;
-        var properties = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-        {
-            ["Configuration"] = configuration, ["Platform"] = platform,
-        };
-        foreach (var group in project.Elements(ns + "PropertyGroup").Where(g => Holds(g, projectPath)))
-        {
-            foreach (var property in group.Elements().Where(p => Holds(p, projectPath)))
-            {
-                properties[property.Name.LocalName] = ExpandProperties(property.Value.Trim(), properties, directory);
-            }
-        }
-        return properties;
-    }
+    Dictionary<string, string> Properties(XElement project, string projectPath, XNamespace ns) =>
+        MSBuildCondition.Properties(project, projectPath, configuration, platform, root,
+            condition => Warnings.Add($"{System.IO.Path.GetFileName(projectPath)}: condition taken as true: {condition}"));
 
     string ExpandProperties(string value, Dictionary<string, string> properties, string directory) =>
         Regex.Replace(value, @"\$\((?<name>[\w.]+)\)", m =>
@@ -352,32 +338,18 @@ public sealed class ProjectLoader(string root, string configuration, string plat
     static bool IsProject(string path) => path.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase) || path.EndsWith(".vbproj", StringComparison.OrdinalIgnoreCase);
 
     // MSBuild's conditions, for the configuration: comparisons joined by and/or; one not understood holds (reported).
-    bool Holds(XElement element, string projectPath)
+    // An element's condition, as MSBuild evaluates it with the project's properties so far (MSBuildCondition). Only
+    // Configuration, Platform and SolutionDir were put in, the rest compared as text, and "or" and "and" read left to right:
+    // an item under "'$(UseFoo)' == 'true'" was left out, one under "!=" read, without a warning.
+    bool Holds(XElement element, string projectPath, IReadOnlyDictionary<string, string> properties)
     {
         var condition = (string?)element.Attribute("Condition");
         if (string.IsNullOrWhiteSpace(condition)) return true;
-        var expanded = condition.Replace("$(Configuration)", configuration).Replace("$(Platform)", platform)
-            .Replace("$(SolutionDir)", root + System.IO.Path.DirectorySeparatorChar);
-        bool? result = null;
-        var op = "and";
-        foreach (var part in Regex.Split(expanded, @"\s+(and|or)\s+", RegexOptions.IgnoreCase))
-        {
-            if (Regex.IsMatch(part, "^(?i)(and|or)$")) { op = part.ToLowerInvariant(); continue; }
-            bool value;
-            var m = comparison.Match(part.Trim());
-            if (m.Success)
-            {
-                var equal = string.Equals(m.Groups[1].Value.Trim(), m.Groups[3].Value.Trim(), StringComparison.OrdinalIgnoreCase);
-                value = m.Groups[2].Value == "==" ? equal : !equal;
-            }
-            else
-            {
-                if (part.Contains("$(")) Warnings.Add($"{System.IO.Path.GetFileName(projectPath)}: condition taken as true: {condition}");
-                value = true;
-            }
-            result = result is null ? value : op == "and" ? result.Value && value : result.Value || value;
-        }
-        return result ?? true;
+        var known = new Dictionary<string, string>(properties.Count + 1, StringComparer.OrdinalIgnoreCase) { ["SolutionDir"] = root + System.IO.Path.DirectorySeparatorChar };
+        foreach (var (name, value) in properties) known[name] = value;
+        var holds = MSBuildCondition.Holds(condition, known, System.IO.Path.GetDirectoryName(projectPath)!, out var unknown);
+        if (unknown) Warnings.Add($"{System.IO.Path.GetFileName(projectPath)}: condition taken as true: {condition}");
+        return holds;
     }
 
     // The repository's projects, by assembly name, GUID and file name.

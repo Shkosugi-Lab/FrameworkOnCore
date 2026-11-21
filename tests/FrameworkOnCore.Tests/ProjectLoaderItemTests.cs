@@ -49,6 +49,29 @@ public sealed class ProjectLoaderItemTests : IDisposable
         Assert.Equal(new[] { "Copy (1) of Report.cs", "Models/Generated.Customer.cs", "Models/Generated.Order.cs", "Properties/AssemblyInfo.cs", "Semi;colon.cs" }, names);
     }
 
+    [Fact] // the conditions on the project's own properties (MSBuildCondition): an item under "'$(UseFoo)' == 'true'" was left out, one under "!=" read
+    public void Items_under_the_project_s_own_properties()
+    {
+        Write(@"App\Foo.cs", "");
+        Write(@"App\NoFoo.cs", "");
+        Write(@"App\Both.cs", "");
+        Write(@"App\App.csproj", """
+            <?xml version="1.0" encoding="utf-8"?>
+            <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+              <PropertyGroup><AssemblyName>App</AssemblyName><UseFoo>true</UseFoo></PropertyGroup>
+              <PropertyGroup Condition=" '$(UseFoo)' == 'true' "><DefineConstants>FOO</DefineConstants></PropertyGroup>
+              <ItemGroup>
+                <Compile Include="Foo.cs" Condition=" '$(UseFoo)' == 'true' " />
+                <Compile Include="NoFoo.cs" Condition=" '$(UseFoo)' != 'true' " />
+                <Compile Include="Both.cs" Condition=" '$(Configuration)' == 'Debug' or '$(UseFoo)' == 'true' and '$(Missing)' == '' " />
+              </ItemGroup>
+            </Project>
+            """);
+        var project = new ProjectLoader(root, "Release").Load(Path.Combine(root, "App", "App.csproj"));
+        Assert.Equal(new[] { "Both.cs", "Foo.cs" }, project.Sources.Select(Path.GetFileName).OrderBy(n => n, StringComparer.Ordinal).ToArray());
+        Assert.Contains("FOO", project.Defines);
+    }
+
     // The configurations' groups as Visual Studio writes them.
     const string Configurations = """
           <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

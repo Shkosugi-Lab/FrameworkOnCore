@@ -48,4 +48,42 @@ public sealed class ProjectLoaderItemTests : IDisposable
         var names = project.Sources.Select(s => Path.GetRelativePath(Path.Combine(root, "App"), s).Replace('\\', '/')).OrderBy(n => n, StringComparer.Ordinal).ToArray();
         Assert.Equal(new[] { "Copy (1) of Report.cs", "Models/Generated.Customer.cs", "Models/Generated.Order.cs", "Properties/AssemblyInfo.cs", "Semi;colon.cs" }, names);
     }
+
+    // The configurations' groups as Visual Studio writes them.
+    const string Configurations = """
+          <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+            <DefineConstants>DEBUG;TRACE</DefineConstants>
+            <DefineDebug>true</DefineDebug>
+            <DefineTrace>true</DefineTrace>
+          </PropertyGroup>
+          <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+            <DefineConstants>TRACE</DefineConstants>
+            <DefineDebug>false</DefineDebug>
+            <DefineTrace>true</DefineTrace>
+          </PropertyGroup>
+        """;
+
+    [Theory] // the symbols are the configuration's: DEBUG for Debug only (the analysis defined it for every one); Visual Basic's CONFIG and PLATFORM, DEBUG and TRACE by DefineDebug and DefineTrace
+    [InlineData("App.csproj", "Debug", new[] { "DEBUG", "TRACE" })]
+    [InlineData("App.csproj", "Release", new[] { "TRACE" })]
+    [InlineData("App.vbproj", "Debug", new[] { "CONFIG=\"Debug\"", "DEBUG", "PLATFORM=\"AnyCPU\"", "TRACE" })]
+    [InlineData("App.vbproj", "Release", new[] { "CONFIG=\"Release\"", "PLATFORM=\"AnyCPU\"", "TRACE" })]
+    public void The_symbols_are_the_configuration_s(string file, string configuration, string[] symbols)
+    {
+        Write(@"App\Module1." + (file.EndsWith("vbproj", StringComparison.Ordinal) ? "vb" : "cs"), "");
+        Write(@"App\" + file, $"""
+            <?xml version="1.0" encoding="utf-8"?>
+            <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+              <PropertyGroup>
+                <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+                <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+                <AssemblyName>App</AssemblyName><TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+              </PropertyGroup>
+            {Configurations}
+              <ItemGroup><Compile Include="Module1.{(file.EndsWith("vbproj", StringComparison.Ordinal) ? "vb" : "cs")}" /></ItemGroup>
+            </Project>
+            """);
+        var project = new ProjectLoader(root, configuration).Load(Path.Combine(root, "App", file));
+        Assert.Equal(symbols, project.Defines.OrderBy(s => s, StringComparer.Ordinal).ToArray());
+    }
 }

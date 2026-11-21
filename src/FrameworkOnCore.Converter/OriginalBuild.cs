@@ -73,7 +73,7 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
         }
         finally
         {
-            if (drive != null) RunProcess("subst", $"{drive} /d", work, quiet: true);
+            if (drive != null) UnmapDrive(drive, work);
         }
         RemoveEarlierWork(workBase, work);
         if (built == null) return null;
@@ -449,22 +449,58 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
         }
     }
 
-    string? MapDrive(string directory)
+    // The drive this build mapped and holds (MapDrive): a system-wide lock of its letter, held until UnmapDrive.
+    Mutex? driveLock;
+
+    // A letter's lock, taken when no other build holds it (one left by a build that ended without releasing it is taken).
+    static Mutex? Hold(char letter)
+    {
+        var mutex = new Mutex(false, $@"Global\FrameworkOnCore-subst-{letter}");
+        try
+        {
+            if (mutex.WaitOne(0)) return mutex;
+        }
+        catch (AbandonedMutexException) { return mutex; }
+        mutex.Dispose();
+        return null;
+    }
+
+    internal string? MapDrive(string directory)
     {
         // A drive mapped to it already: one an earlier build left, stopped before it unmapped it (Studio's 中止, a
-        // killed converter), taken again rather than one more letter each time ("W:\: => C:\...").
+        // killed converter), taken again rather than one more letter each time ("W:\: => C:\..."). Not one another build
+        // is using (its lock held: two builds whose work folders have one parent, "out\a" and "out\b"): the first to end
+        // unmapped it under the other's build.
         foreach (var line in CaptureProcess("subst", "", directory).Split('\n'))
         {
             if (Regex.Match(line.Trim(), @"^([A-Z]):\\: => (.+)$") is { Success: true } mapped &&
-                Path.GetFullPath(mapped.Groups[2].Value).TrimEnd('\\').Equals(Path.GetFullPath(directory).TrimEnd('\\'), StringComparison.OrdinalIgnoreCase))
+                Path.GetFullPath(mapped.Groups[2].Value).TrimEnd('\\').Equals(Path.GetFullPath(directory).TrimEnd('\\'), StringComparison.OrdinalIgnoreCase) &&
+                Hold(mapped.Groups[1].Value[0]) is { } held)
+            {
+                driveLock = held;
                 return mapped.Groups[1].Value + ":";
+            }
         }
         foreach (var letter in "WVUTSRQPONMLKJ")
         {
-            if (Directory.Exists($"{letter}:\\")) continue;
-            if (RunProcess("subst", $"{letter}: \"{directory}\"", directory, quiet: true) == 0) return $"{letter}:";
+            if (Directory.Exists($"{letter}:\\") || Hold(letter) is not { } held) continue;
+            if (RunProcess("subst", $"{letter}: \"{directory}\"", directory, quiet: true) == 0)
+            {
+                driveLock = held;
+                return $"{letter}:";
+            }
+            held.ReleaseMutex();
+            held.Dispose();
         }
         return null;
+    }
+
+    internal void UnmapDrive(string drive, string workingDirectory)
+    {
+        RunProcess("subst", $"{drive} /d", workingDirectory, quiet: true);
+        driveLock?.ReleaseMutex();
+        driveLock?.Dispose();
+        driveLock = null;
     }
 
     static IEnumerable<string> SourceFiles(string root, string pattern) =>

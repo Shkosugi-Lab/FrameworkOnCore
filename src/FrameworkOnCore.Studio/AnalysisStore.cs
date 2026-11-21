@@ -57,9 +57,14 @@ public sealed class AnalysisStore
     {
         (this.data, this.runtime) = (data, runtime);
         Directory.CreateDirectory(data);
-        foreach (var file in Directory.EnumerateFiles(data, "entry.json", SearchOption.AllDirectories))
+        // Each analysis' own entry.json, in its folder: not every file of the name below (an original build's copy of the
+        // repository, a conversion's output: an application's entry.json was read as an analysis' and Studio did not
+        // start). One that is not an analysis' entry (a broken file) is left out.
+        foreach (var file in Directory.EnumerateDirectories(data).Select(d => Path.Combine(d, "entry.json")).Where(File.Exists))
         {
-            var entry = JsonSerializer.Deserialize<AnalysisEntry>(File.ReadAllText(file), json);
+            AnalysisEntry? entry;
+            try { entry = JsonSerializer.Deserialize<AnalysisEntry>(File.ReadAllText(file), json); }
+            catch (JsonException) { continue; }
             if (entry == null) continue;
             // One that was running when Studio stopped did not finish.
             if (entry.State is "queued" or "running") entry = entry with { State = "failed", Error = "Studio stopped during the analysis" };

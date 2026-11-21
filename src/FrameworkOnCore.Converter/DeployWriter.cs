@@ -33,6 +33,9 @@ public sealed class DeployWriter(Report report, string outRoot, string runtimeDi
 
         var assembly = XDocument.Load(web.TargetPath).Descendants().FirstOrDefault(e => e.Name.LocalName == "AssemblyName")?.Value ?? web.Name;
         var app = new string(assembly.ToLowerInvariant().Select(c => char.IsAsciiLetterOrDigit(c) ? c : '-').ToArray()).Trim('-');
+        // A name without a letter of ASCII ("販売管理"): "app" (the service, its user and folders, the image would have had no
+        // name: useradd "", /opt/, /etc//config, docker build -t "").
+        if (app.Length == 0) app = "app";
         var siteRelative = Path.GetRelativePath(outRoot, site).Replace('\\', '/');
         var deploy = Path.Combine(outRoot, "deploy");
         FrameworkOnCore.Analysis.FileTrees.Delete(deploy);

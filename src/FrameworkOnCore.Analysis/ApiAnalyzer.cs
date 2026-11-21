@@ -224,7 +224,10 @@ public sealed class ApiAnalyzer(TargetApis target, Catalog catalog, IEnumerable<
         var texts = project.Sources.Where(File.Exists).Select(f => (Path: f, Text: SourceText.From(SourceEncoding.ReadText(f, project.CodePage), System.Text.Encoding.UTF8))).ToList();
         if (project.VisualBasic)
         {
-            var symbols = new List<KeyValuePair<string, object>> { new("CONFIG", "Debug"), new("TRACE", true), new("DEBUG", true) };
+            // The configuration's symbols, as the project defines them (ProjectLoader: DefineConstants, and Visual Basic's CONFIG,
+            // PLATFORM, DEBUG and TRACE). DEBUG and TRACE were defined for every configuration: a Release analysis read the
+            // code under "#If DEBUG" and not the code under "#Else".
+            var symbols = new List<KeyValuePair<string, object>>();
             if (project.Options?.MyType is { } myType) symbols.Add(new("_MyType", myType));
             foreach (var define in project.Defines)
             {
@@ -244,7 +247,7 @@ public sealed class ApiAnalyzer(TargetApis target, Catalog catalog, IEnumerable<
                 texts.Select(t => VisualBasicSyntaxTree.ParseText(t.Text, parse, t.Path)), references, options);
         }
         var csharp = new CSharpParseOptions(Microsoft.CodeAnalysis.CSharp.LanguageVersion.Latest, DocumentationMode.None,
-            preprocessorSymbols: project.Defines.Concat(["DEBUG", "TRACE"]).Distinct());
+            preprocessorSymbols: project.Defines.Distinct());   // the configuration's (DefineConstants: a Release build has no DEBUG)
         var trees = texts.Select(t => CSharpSyntaxTree.ParseText(t.Text, csharp, t.Path)).ToList();
         // An SDK-style project's global usings (MSBuild writes them to a generated file): not the application's source, not counted.
         if (project.GlobalUsings.Count > 0) trees.Add(CSharpSyntaxTree.ParseText(string.Join("\n", project.GlobalUsings), csharp, GlobalUsingsFile));

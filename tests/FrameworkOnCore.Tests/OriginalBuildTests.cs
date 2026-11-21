@@ -100,3 +100,53 @@ public class OriginalBuildTests : IDisposable
 
     public void Dispose() => FrameworkOnCore.Analysis.FileTrees.Delete(root);
 }
+
+/// <summary>
+/// Builds at once whose work folders have one parent ("out\a", "out\b": the drive is mapped to the parent): each has a
+/// drive of its own while the other holds one; the first to end unmapped the drive under the other's build.
+/// </summary>
+public sealed class OriginalBuildDriveTests : IDisposable
+{
+    readonly string root = Directory.CreateTempSubdirectory("foc-drive").FullName;
+
+    public void Dispose()
+    {
+        try { Directory.Delete(root, true); } catch (IOException) { }
+    }
+
+    [Fact]
+    public void Two_builds_at_once_have_drives_of_their_own()
+    {
+        if (!OperatingSystem.IsWindows()) return;
+        var (first, second) = (new OriginalBuild(new Report(), Path.Combine(root, "a.log")), new OriginalBuild(new Report(), Path.Combine(root, "b.log")));
+        using var mapped = new ManualResetEventSlim();
+        using var unmap = new ManualResetEventSlim();
+        string? firstDrive = null;
+        var thread = new Thread(() =>
+        {
+            firstDrive = first.MapDrive(root);
+            mapped.Set();
+            unmap.Wait();
+            if (firstDrive != null) first.UnmapDrive(firstDrive, root);
+        });
+        thread.Start();
+        mapped.Wait();
+        var secondDrive = second.MapDrive(root);
+        try
+        {
+            Assert.NotNull(firstDrive);
+            Assert.NotNull(secondDrive);
+            Assert.NotEqual(firstDrive, secondDrive);
+            unmap.Set();
+            thread.Join();
+            Assert.True(Directory.Exists(secondDrive + "\\"), "the second build's drive is there after the first ended");
+        }
+        finally
+        {
+            unmap.Set();
+            thread.Join();
+            if (secondDrive != null) second.UnmapDrive(secondDrive, root);
+        }
+        Assert.False(Directory.Exists(secondDrive + "\\"));
+    }
+}

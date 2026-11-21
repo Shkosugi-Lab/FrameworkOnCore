@@ -124,6 +124,7 @@ if (codePage != null) FrameworkOnCore.Analysis.SourceEncoding.MachineCodePage = 
 project = Path.GetFullPath(project);
 var sourceRoot = Path.GetFullPath(rootDirectory ?? Paths.FindRoot(project));
 var outRoot = Path.GetFullPath(outDirectory);
+if (Paths.OutputOverlap(sourceRoot, outRoot) is { } overlap) { Console.Error.WriteLine(overlap); return 2; }
 runtimeDirectory = Path.GetFullPath(runtimeDirectory ?? RuntimeSetup.Find() ?? throw new InvalidOperationException("--runtime: experiments/wf4c not found"));
 var runtime = new RuntimeLayout(Path.Combine(runtimeDirectory, "_feed"), RuntimeSetup.ShimProjects(runtimeDirectory));
 

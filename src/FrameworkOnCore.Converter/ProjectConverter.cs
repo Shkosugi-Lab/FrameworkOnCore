@@ -723,7 +723,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         var frameworkSymbols = new List<string>();
         if (netfx.Count > 0)
         {
-            var framework = netfx.OrderBy(f => f.Length).ThenBy(f => f, StringComparer.Ordinal).Last();
+            var framework = NewestFramework(netfx);
             frameworkSymbols = FrameworkSymbols(framework);
             // Not the SDK's own of net10.0 too (NET, NET6_0_OR_GREATER: contradicting branches, YAF's ServiceStack).
             root.Add(new XElement(N("PropertyGroup"), new XElement(N("DefineConstants"), "$(DefineConstants);" + string.Join(';', frameworkSymbols)),
@@ -835,6 +835,14 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
 
     // A path an MSBuild item names (Windows' separators) as this system's: the converter's tests run on Linux too.
     internal static string Native(string path) => path.Replace('\\', Path.DirectorySeparatorChar);
+
+    /// <summary>
+    /// The newest of .NET Framework's target framework monikers, by version ("net48" is 4.8, "net462" 4.6.2): the longest
+    /// was taken, net462 of "net462;net48" (the code under NET48 and NET47_OR_GREATER compiled out).
+    /// </summary>
+    internal static string NewestFramework(IEnumerable<string> monikers) =>
+        monikers.OrderBy(f => new Version(string.Join('.', f[3..].Where(char.IsAsciiDigit).Select(c => c.ToString()).Concat(["0"]).Take(Math.Max(2, f[3..].Count(char.IsAsciiDigit))))))
+            .ThenBy(f => f, StringComparer.Ordinal).Last();
 
     /// <summary>
     /// An item's file as MSBuild finds it: its Include unescaped (Visual Studio writes "%28" for '(', "%3b" for ';' and the

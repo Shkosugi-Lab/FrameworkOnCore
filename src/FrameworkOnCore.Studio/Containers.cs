@@ -50,6 +50,13 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
             entry = JsonSerializer.Deserialize<ContainerEntry>(File.ReadAllText(EntryFile(id)), json);
             if (entry == null) return null;
             entries[id] = entry;
+            // One that was being built or started when Studio stopped did not finish (it stayed "building" for good):
+            // failed, as an analysis or a conversion then is; its container, if there is one, removed.
+            if (entry.State is "building" or "starting" && !working.ContainsKey(id))
+            {
+                Docker($"rm -f {entry.Name}");
+                Save(id, entry = entry with { State = "failed", Error = Lang.T("Studio が止まったため、起動は終わりませんでした", "Studio stopped while it started") });
+            }
         }
         // Running as far as Studio knows: the container may have stopped (or Docker, or the machine) since.
         if (entry.State == "running" && !working.ContainsKey(id) && Docker($"inspect -f {{{{.State.Running}}}} {entry.Name}").Output.Trim() != "true")
@@ -212,6 +219,9 @@ public sealed class Containers(AnalysisStore store, Conversions conversions)
             catch (Exception e)
             {
                 log.Enqueue(e.Message);
+                // The container is not left running (a site that never answered: 10 minutes; the panel has no Stop for
+                // a failed one): removed, as a cancelled one is.
+                Docker($"rm -f {entry.Name}");
                 Save(id, entry with { State = "failed", Error = e.Message });
             }
             finally

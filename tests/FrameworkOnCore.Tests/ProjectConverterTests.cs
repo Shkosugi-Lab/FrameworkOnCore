@@ -216,6 +216,15 @@ public sealed class ProjectConverterTests : IDisposable
         Assert.DoesNotContain(report.Entries, e => e.Text.Contains("not in the repository"));
     }
 
+    [Theory] // the newest .NET Framework target by version (the longest was taken: net462 of "net462;net48")
+    [InlineData("net462;net48", "net48")]
+    [InlineData("net472;net48", "net48")]
+    [InlineData("net45;net462;net4", "net462")]
+    [InlineData("net40;net403", "net403")]
+    [InlineData("net48", "net48")]
+    public void The_newest_framework_is_by_version(string monikers, string newest) =>
+        Assert.Equal(newest, ProjectConverter.NewestFramework(monikers.Split(';')));
+
     [Fact] // TransformWebConfig's comment: providerName as .NET Framework's DbProviderFactories found it (WingtipToys VB's "System.Data.SqlClient ")
     public void Web_config_provider_names_are_the_registered_ones()
     {

@@ -16,6 +16,21 @@ public sealed class PathsTests : IDisposable
         try { Directory.Delete(root, true); } catch (IOException) { }
     }
 
+    [Theory] // OutputOverlap's summary: the repository, a folder above it, a folder in it are no output; beside it, or a name that starts the same, is
+    [InlineData(@"repo", false)]
+    [InlineData(@"", false)]
+    [InlineData(@"repo\out", false)]
+    [InlineData(@"repo\sub\deep", false)]
+    [InlineData(@"out", true)]
+    [InlineData(@"repo-out", true)]
+    [InlineData(@"repository", true)]
+    public void The_output_is_outside_the_repository(string output, bool allowed)
+    {
+        var repository = Path.Combine(root, "repo");
+        var target = Path.Combine(root, output.Replace('\\', Path.DirectorySeparatorChar)) + (output == "repo" ? Path.DirectorySeparatorChar : "");
+        Assert.Equal(allowed, Paths.OutputOverlap(repository, target) == null);
+    }
+
     [Theory]
     [InlineData(@"bin\App.dll", true)]
     [InlineData(@"Bin\App.cs", true)]

@@ -61,6 +61,13 @@ builder.Services.AddSingleton(containers);
 builder.Services.AddSingleton(originals);
 builder.Services.AddSingleton(natives);
 var app = builder.Build();
+// This machine's browser only (LocalOnly: a page of another site, through DNS rebinding or a form, is refused).
+app.Use((context, next) =>
+{
+    if (FrameworkOnCore.Studio.LocalOnly.Allowed(context.Request, port)) return next(context);
+    context.Response.StatusCode = StatusCodes.Status403Forbidden;
+    return Task.CompletedTask;
+});
 // The sites Studio runs on this machine end with it (IIS's sites it added are removed).
 app.Lifetime.ApplicationStopping.Register(() => { originals.StopAll(); natives.StopAll(); });
 app.UseDefaultFiles();
@@ -135,6 +142,17 @@ api.MapPut("/analyses/{id}/choices", async (string id, HttpRequest request, Anal
     return Results.Ok(new { path = store.ChoicesFile(id) });
 });
 
+// A source's lines as the compiler read it (a byte order mark's encoding, UTF-8, else the machine's code page: a Shift_JIS
+// source was shown garbled, read as UTF-8).
+static string[] SourceLines(string path) => FrameworkOnCore.Analysis.SourceEncoding.ReadText(path).Split('\n').Select(l => l.TrimEnd('\r')).ToArray();
+
+// The lines around a line, within the file (a line beyond it: its last lines; the excerpt was out of range, a 500).
+static (int Start, int End) Excerpt(int line, int count)
+{
+    var at = Math.Clamp(line, 1, Math.Max(1, count));
+    return (Math.Max(1, at - 12), Math.Min(count, at + 12));
+}
+
 // Lines of a source file of the repository around a line (the places of an API), never a file outside it.
 api.MapGet("/analyses/{id}/source", (string id, string file, int line, AnalysisStore store) =>
 {
@@ -142,9 +160,8 @@ api.MapGet("/analyses/{id}/source", (string id, string file, int line, AnalysisS
     var root = Path.GetFullPath(entry.Root).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
     var full = Path.GetFullPath(Path.Combine(root, file.Replace('/', Path.DirectorySeparatorChar)));
     if (!full.StartsWith(root, StringComparison.OrdinalIgnoreCase) || !File.Exists(full)) return Results.NotFound();
-    var lines = File.ReadAllLines(full);
-    var start = Math.Max(1, line - 12);
-    var end = Math.Min(lines.Length, line + 12);
+    var lines = SourceLines(full);
+    var (start, end) = Excerpt(line, lines.Length);
     return Results.Ok(new { file, line, start, lines = lines[(start - 1)..end] });
 });
 

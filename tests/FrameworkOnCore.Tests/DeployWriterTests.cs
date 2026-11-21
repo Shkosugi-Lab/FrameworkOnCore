@@ -16,6 +16,18 @@ public class DeployWriterTests : IDisposable
         return File.ReadAllText(Path.Combine(root, ".dockerignore"));
     }
 
+    [Fact] // an assembly's name without a letter of ASCII: the service's name "app" (it had none: useradd "", /opt/, /etc//config)
+    public void A_name_without_ascii_letters_is_app()
+    {
+        Directory.CreateDirectory(Path.Combine(root, "site"));
+        var project = Path.Combine(root, "App.csproj");
+        File.WriteAllText(project, "<Project><PropertyGroup><AssemblyName>販売管理</AssemblyName></PropertyGroup></Project>");
+        new DeployWriter(new Report(), root, root, RewriteHarness.Rules).Write("both", Path.Combine(root, "site"), new ConvertedProject("販売管理", project, project, true, []), null, caseInsensitive: false);
+        var install = File.ReadAllText(Path.Combine(root, "deploy", "linux", "install.sh"));
+        Assert.Contains("app=app\n", install.Replace("\r", ""));
+        Assert.Contains("docker build -t app ", File.ReadAllText(Path.Combine(root, "deploy", "README.md")));
+    }
+
     [Fact] // an assembled site (--site): only it and deploy
     public void An_assembled_site_and_deploy_are_the_context()
     {

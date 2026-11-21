@@ -134,6 +134,7 @@ public sealed class ProjectLoader(string root, string configuration, string plat
         var assemblyName = Property("AssemblyName") ?? name;
         var keyFile = KeyFile(properties, directory);
         var defines = properties.TryGetValue("DefineConstants", out var d) ? d.Split(';', ',').Select(s => s.Trim()).Where(s => s.Length > 0 && !s.Contains('$')).Distinct().ToList() : [];
+        if (visualBasic) defines = defines.Concat(VisualBasicSymbols(Property("DefineDebug"), Property("DefineTrace"))).Distinct().ToList();
         return new ProjectInput
         {
             Path = projectPath, Name = name, AssemblyName = assemblyName, VisualBasic = visualBasic,
@@ -186,7 +187,8 @@ public sealed class ProjectLoader(string root, string configuration, string plat
             Path = projectPath, Name = name, AssemblyName = assemblyName, VisualBasic = visualBasic,
             Sources = sources, FrameworkAssemblies = framework, References = references, Binaries = binaries, CodePage = CodePage(properties),
             Defines = (evaluated?.DefineConstants ?? properties.GetValueOrDefault("DefineConstants") ?? "").Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                .Where(s => !s.Contains('$')).Concat(implied).Distinct().ToList(),
+                .Where(s => !s.Contains('$')).Concat(implied)
+                .Concat(visualBasic ? VisualBasicSymbols(evaluated?.DefineDebug, evaluated?.DefineTrace) : []).Distinct().ToList(),
             GlobalUsings = evaluated?.Usings ?? [],
             KeyFile = evaluated?.KeyFile,
             Options = visualBasic ? new VisualBasicOptions(properties.GetValueOrDefault("RootNamespace") ?? name, [], null, null, null, null, null) : null,
@@ -216,7 +218,21 @@ public sealed class ProjectLoader(string root, string configuration, string plat
         catch (HttpRequestException e) { Warnings.Add($"{project}: package {id} {version}: {e.Message}"); return []; }
     }
 
-    sealed record Evaluated(string? AssemblyName, string? DefineConstants, string? KeyFile, IReadOnlyList<string> Compile, IReadOnlyList<string> ProjectReferences,
+    /// <summary>
+    /// The symbols Visual Basic's build defines for the configuration besides DefineConstants (its targets'
+    /// FinalDefineConstants): CONFIG and PLATFORM by name, DEBUG and TRACE where DefineDebug and DefineTrace are true (a
+    /// Release build's DefineDebug is false). The analysis defined DEBUG for every configuration: Release's code under
+    /// "#If Not DEBUG" was not read, Debug's was.
+    /// </summary>
+    List<string> VisualBasicSymbols(string? defineDebug, string? defineTrace)
+    {
+        var symbols = new List<string> { $"CONFIG=\"{configuration}\"", $"PLATFORM=\"{platform}\"" };
+        if (string.Equals(defineDebug, "true", StringComparison.OrdinalIgnoreCase)) symbols.Add("DEBUG");
+        if (string.Equals(defineTrace, "true", StringComparison.OrdinalIgnoreCase)) symbols.Add("TRACE");
+        return symbols;
+    }
+
+    sealed record Evaluated(string? AssemblyName, string? DefineConstants, string? DefineDebug, string? DefineTrace, string? KeyFile, IReadOnlyList<string> Compile, IReadOnlyList<string> ProjectReferences,
         IReadOnlyList<(string Id, string? Version)> Packages, IReadOnlyList<string> Usings);
 
     // An SDK-style project as MSBuild evaluates it for a target framework (dotnet msbuild -getProperty -getItem: no restore,
@@ -229,7 +245,7 @@ public sealed class ProjectLoader(string root, string configuration, string plat
             WorkingDirectory = System.IO.Path.GetDirectoryName(projectPath)!,
         };
         foreach (var argument in new[] { "msbuild", projectPath, "-nologo", $"-p:TargetFramework={framework}", $"-p:Configuration={configuration}",
-                     "-getProperty:AssemblyName", "-getProperty:DefineConstants", "-getProperty:SignAssembly", "-getProperty:AssemblyOriginatorKeyFile", "-getItem:Compile", "-getItem:ProjectReference", "-getItem:PackageReference", "-getItem:Using" })
+                     "-getProperty:AssemblyName", "-getProperty:DefineConstants", "-getProperty:DefineDebug", "-getProperty:DefineTrace", "-getProperty:SignAssembly", "-getProperty:AssemblyOriginatorKeyFile", "-getItem:Compile", "-getItem:ProjectReference", "-getItem:PackageReference", "-getItem:Using" })
             start.ArgumentList.Add(argument);
         try
         {
@@ -247,7 +263,7 @@ public sealed class ProjectLoader(string root, string configuration, string plat
             var key = Property("AssemblyOriginatorKeyFile");
             var keyFile = Property("SignAssembly")?.Equals("true", StringComparison.OrdinalIgnoreCase) == true && key is { Length: > 0 }
                 ? Full(System.IO.Path.GetDirectoryName(projectPath)!, key) : null;
-            return new Evaluated(Property("AssemblyName"), Property("DefineConstants"), keyFile is not null && File.Exists(keyFile) ? keyFile : null,
+            return new Evaluated(Property("AssemblyName"), Property("DefineConstants"), Property("DefineDebug"), Property("DefineTrace"), keyFile is not null && File.Exists(keyFile) ? keyFile : null,
                 Items("Compile").Select(i => Metadata(i, "FullPath")!).Where(p => p != null).ToList(),
                 Items("ProjectReference").Select(i => Metadata(i, "FullPath")!).Where(p => p != null).ToList(),
                 Items("PackageReference").Select(i => (Metadata(i, "Identity")!, Metadata(i, "Version"))).ToList(),

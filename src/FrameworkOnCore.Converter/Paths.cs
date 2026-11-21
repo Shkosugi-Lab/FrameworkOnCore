@@ -38,6 +38,23 @@ public static class Paths
     public static bool NotCopied(DirectoryInfo directory) =>
         (skipped.Contains(directory.Name) && !IsCheckedInBin(directory)) || IsNuGetPackages(directory);
 
+    /// <summary>
+    /// Why an output folder cannot be the conversion's (null: it can): the repository itself or a folder above it (CopyTree
+    /// replaces the target: the repository was deleted before it was copied), or a folder in it (the copy copied itself, a
+    /// folder in a folder without end; the original build's work beside it likewise).
+    /// </summary>
+    public static string? OutputOverlap(string sourceRoot, string outRoot)
+    {
+        static string Folder(string path) => Path.TrimEndingDirectorySeparator(Path.GetFullPath(path)) + Path.DirectorySeparatorChar;
+        var comparison = OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+        var (source, output) = (Folder(sourceRoot), Folder(outRoot));
+        if (source.StartsWith(output, comparison))
+            return $"--out {outRoot} is the repository {sourceRoot} or a folder above it: the conversion replaces the output folder (the repository would be deleted). Give a folder outside the repository";
+        if (output.StartsWith(source, comparison))
+            return $"--out {outRoot} is in the repository {sourceRoot}: the conversion copies the repository into it (it would copy itself). Give a folder outside the repository";
+        return null;
+    }
+
     /// <summary>Copies the repository as it is, without build output (the target is replaced).</summary>
     public static void CopyTree(string source, string target)
     {

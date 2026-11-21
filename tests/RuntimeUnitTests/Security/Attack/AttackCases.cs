@@ -82,6 +82,13 @@ static class AttackCases
             "/default.aspx/x.txt", "/default.aspx/x.ashx" })
             yield return Get("denied handlers", target);
 
+        // ---- URL Rewrite and request filtering: a URL rewritten to what is protected, a protected URL rewritten to what
+        // is not (which of the two IIS checks: its modules' order)
+        foreach (var target in new[] { "/to-secret", "/to-data", "/to-config", "/to-bad", "/to-locked", "/to-locked-info", "/to-settings", "/to-secure",
+            "/to-info", "/from.secret", "/App_Data/from", "/badword/from", "/locked/from.aspx", "/(S(abcdefghijklmnopqrstuvwx))/to-secret",
+            "/(S(abcdefghijklmnopqrstuvwx))/App_Data/from" })
+            yield return Get("rewrite and filtering", target);
+
         // ---- combinations: what is put before a target (a cookieless segment, a URL Rewrite's prefix, a dot segment), the
         // target (a file served, a page, a handler, what request filtering or ASP.NET protects), what is put after it (path
         // info, a trailing separator, dot or space, a query): each check and each step that changes the URL with the others

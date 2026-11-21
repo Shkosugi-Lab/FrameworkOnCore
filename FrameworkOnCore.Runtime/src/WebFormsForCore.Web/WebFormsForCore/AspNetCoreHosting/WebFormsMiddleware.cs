@@ -89,6 +89,9 @@ namespace Microsoft.AspNetCore.Builder
 			if (context != AssemblyLoadContext.Default) context.Unload();
 		}
 
+		public WebFormsMiddleware(Core.RequestDelegate next, Action<WebFormsOptions> optionsBuilder, WebFormsPipeline pipeline)
+			: this(next, optionsBuilder) => pipeline.Middleware = this;
+
 		public WebFormsMiddleware(Core.RequestDelegate next, Action<WebFormsOptions> optionsBuilder)
 		{
 			this.next = next;
@@ -143,51 +146,9 @@ namespace Microsoft.AspNetCore.Builder
 			// A static file's response kept as IIS's kernel cache keeps it: answered before System.Web, as IIS answers it
 			// before its pipeline (StaticResponseCache).
 			if (await StaticResponseCache.TryServe(context)) return;
-			// (A folder's URL without its '/': IIS's courtesy redirect comes after the managed pipeline has run for it, from its
-			// static file handler: IisStaticFile, as System.Web answers the request.)
-			// What IIS's request filtering refuses (404.7: web.config, the sources, the databases' files): its 404 page,
-			// not the empty answer of the end of ASP.NET Core's pipeline.
-			// IIS: web.config and the hidden segments (bin, App_Data, App_Code...: also where nothing is) 404.8, the other types
-			// its denied file extensions 404.7. The status only: its page is httpErrors' (IisHttpErrors).
-			// IIS's request filtering's order: double escaping (404.11), the denied URL sequences (404.5), then the hidden
-			// segments and the denied file extensions.
-			var requestPath = (context.Request.PathBase.Value ?? "") + (context.Request.Path.Value ?? "");
-			var filtering = IntegratedModeConfiguration.RequestFiltering(requestPath);
-			var doubleEscaped = !filtering.AllowDoubleEscaping && AspNetCoreWorkerRequest.IsDoubleEscaped(requestPath);
-			if (doubleEscaped || filtering.DenyUrlSequences.Any(sequence => requestPath.IndexOf(sequence, StringComparison.OrdinalIgnoreCase) >= 0))
-			{
-				System.Web.Hosting.IisLogStatus.Set(context, doubleEscaped ? 11 : 5);
-				context.Response.StatusCode = 404;
-				return;
-			}
-			// requestLimits' maxUrl (404.14) and maxQueryString (404.15), for every URL (the worker request checked them for
-			// System.Web's requests only: a long URL of a file not there was 404.0).
-			var limits = IntegratedModeConfiguration.RequestLimits(requestPath);
-			var queryLength = Math.Max(0, (context.Request.QueryString.Value ?? "").Length - 1);
-			if (requestPath.Length > limits.MaxUrl || queryLength > limits.MaxQueryString)
-			{
-				System.Web.Hosting.IisLogStatus.Set(context, requestPath.Length > limits.MaxUrl ? 14 : 15);
-				context.Response.StatusCode = 404;
-				return;
-			}
-			var hidden = AspNetCoreWorkerRequest.IsHidden(context.Request.Path.Value ?? "", requestPath);
-			if (hidden || host.IsProhibited(context))
-			{
-				var name = System.IO.Path.GetFileName(context.Request.Path.Value ?? "");
-				System.Web.Hosting.IisLogStatus.Set(context, hidden || string.Equals(name, "web.config", StringComparison.OrdinalIgnoreCase) ? 8 : 7);
-				context.Response.StatusCode = 404;
-				return;
-			}
-			// A path ending in whitespace (" ", U+00A0, U+3000...): System.Web's VirtualPath trims it, so "/y.secret%20" was the
-			// file y.secret to it (served on Linux, where the name with its space is no file: request filtering saw "y.secret "),
-			// "/default.aspx%E3%80%80" the page, "/secure/x.aspx%E3%80%80" the page under another URL. IIS answers 404 (404.0).
-			var last = (context.Request.Path.Value ?? "").Length > 0 ? context.Request.Path.Value[^1] : 'x';
-			if (char.IsWhiteSpace(last))
-			{
-				System.Web.Hosting.IisLogStatus.Set(context, 0, 2);
-				context.Response.StatusCode = 404;
-				return;
-			}
+			// IIS's request filtering, on the URL as it is now: the rewritten one (it ran on the URL as sent before URL Rewrite:
+			// UseWebFormsIis, RequestFiltering).
+			if (RequestFiltering(context)) return;
 			if (IsLegacyRequest(context))
 			{
 				// System.Web answers it: its error answers are IIS's httpErrors' to replace (IisHttpErrors).
@@ -203,6 +164,80 @@ namespace Microsoft.AspNetCore.Builder
 		}
 
 		public virtual bool IsLegacyRequest(Core.HttpContext context) => host.IsLegacyRequest(context);
+
+		/// <summary>
+		/// IIS's request filtering (RequestFilteringModule) for the URL as the request has it now: true when it refused it
+		/// (the status set: its page is httpErrors'). IIS runs it on the URL as sent, before URL Rewrite, and again on the
+		/// URL a rule rewrote it to (observed on IIS 10: "/App_Data/from" rewritten to "/a.txt" is 404.8, "/to-data"
+		/// rewritten to "/App_Data/users.xml" is 404.8): UseWebFormsIis runs it before URL Rewrite, Invoke after. It ran
+		/// after only: a protected URL a rule rewrote was served.
+		/// </summary>
+		internal bool RequestFiltering(Core.HttpContext context)
+		{
+			// (A folder's URL without its '/': IIS's courtesy redirect comes after the managed pipeline has run for it, from its
+			// static file handler: IisStaticFile, as System.Web answers the request.)
+			// What IIS's request filtering refuses (404.7: web.config, the sources, the databases' files): its 404 page,
+			// not the empty answer of the end of ASP.NET Core's pipeline.
+			// IIS: web.config and the hidden segments (bin, App_Data, App_Code...: also where nothing is) 404.8, the other types
+			// its denied file extensions 404.7. The status only: its page is httpErrors' (IisHttpErrors).
+			// IIS's request filtering's order: double escaping (404.11), the denied URL sequences (404.5), then the hidden
+			// segments and the denied file extensions.
+			var requestPath = (context.Request.PathBase.Value ?? "") + (context.Request.Path.Value ?? "");
+			var filtering = IntegratedModeConfiguration.RequestFiltering(requestPath);
+			var doubleEscaped = !filtering.AllowDoubleEscaping && AspNetCoreWorkerRequest.IsDoubleEscaped(requestPath);
+			if (doubleEscaped || filtering.DenyUrlSequences.Any(sequence => requestPath.IndexOf(sequence, StringComparison.OrdinalIgnoreCase) >= 0))
+			{
+				System.Web.Hosting.IisLogStatus.Set(context, doubleEscaped ? 11 : 5);
+				context.Response.StatusCode = 404;
+				return true;
+			}
+			// requestLimits' maxUrl (404.14) and maxQueryString (404.15), for every URL (the worker request checked them for
+			// System.Web's requests only: a long URL of a file not there was 404.0).
+			var limits = IntegratedModeConfiguration.RequestLimits(requestPath);
+			var queryLength = Math.Max(0, (context.Request.QueryString.Value ?? "").Length - 1);
+			if (requestPath.Length > limits.MaxUrl || queryLength > limits.MaxQueryString)
+			{
+				System.Web.Hosting.IisLogStatus.Set(context, requestPath.Length > limits.MaxUrl ? 14 : 15);
+				context.Response.StatusCode = 404;
+				return true;
+			}
+			var hidden = AspNetCoreWorkerRequest.IsHidden(context.Request.Path.Value ?? "", requestPath);
+			if (hidden || host.IsProhibited(context))
+			{
+				var name = System.IO.Path.GetFileName(context.Request.Path.Value ?? "");
+				System.Web.Hosting.IisLogStatus.Set(context, hidden || string.Equals(name, "web.config", StringComparison.OrdinalIgnoreCase) ? 8 : 7);
+				context.Response.StatusCode = 404;
+				return true;
+			}
+			// A path ending in whitespace (" ", U+00A0, U+3000...): System.Web's VirtualPath trims it, so "/y.secret%20" was the
+			// file y.secret to it (served on Linux, where the name with its space is no file: request filtering saw "y.secret "),
+			// "/default.aspx%E3%80%80" the page, "/secure/x.aspx%E3%80%80" the page under another URL. IIS answers 404 (404.0).
+			var last = (context.Request.Path.Value ?? "").Length > 0 ? context.Request.Path.Value[^1] : 'x';
+			if (char.IsWhiteSpace(last))
+			{
+				System.Web.Hosting.IisLogStatus.Set(context, 0, 2);
+				context.Response.StatusCode = 404;
+				return true;
+			}
+			return false;
+		}
+	}
+
+	/// <summary>
+	/// The application's pipeline's Web Forms (its WebFormsMiddleware), for the IIS features in front of it (UseWebFormsIis):
+	/// they run before it is made, it is given to them once it is.
+	/// </summary>
+	public sealed class WebFormsPipeline
+	{
+		const string Key = "FrameworkOnCore.WebFormsPipeline";
+		public WebFormsMiddleware Middleware { get; internal set; }
+
+		public static WebFormsPipeline Of(IApplicationBuilder builder)
+		{
+			if (builder.Properties.TryGetValue(Key, out var value) && value is WebFormsPipeline pipeline) return pipeline;
+			builder.Properties[Key] = pipeline = new WebFormsPipeline();
+			return pipeline;
+		}
 	}
 
 	public class WebFormsOptions
@@ -272,7 +307,7 @@ namespace Microsoft.AspNetCore.Builder
 				ProcessRestart.StopHost = lifetime.StopApplication;
 				ProcessRestart.HostStopping = () => lifetime.ApplicationStopping.IsCancellationRequested;
 			}
-			return builder.UseMiddleware<WebFormsMiddleware>(optionsBuilder);
+			return builder.UseMiddleware<WebFormsMiddleware>(optionsBuilder, WebFormsPipeline.Of(builder));
         }
         public static IApplicationBuilder UseAspNetCoreSessionProvider(this IApplicationBuilder builder)
         {

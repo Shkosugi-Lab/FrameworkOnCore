@@ -8,6 +8,24 @@ using Microsoft.Extensions.Hosting;
 namespace Microsoft.AspNetCore.Builder
 {
 	/// <summary>
+	/// The order a request takes, IIS's (each step on the URL as the step before left it), and where each is here:
+	///   1. http.sys: the URL canonical (decoded, separators folded, dot segments resolved), its refusals (400, 411):
+	///      HttpSysUrl.Canonicalize.
+	///   2. aspnet_filter: a cookieless session's segment "/(S(...))/" out of the URL: Canonicalize too
+	///      (AspNetCoreWorkerRequest.FilterCookielessValues).
+	///   3. The modules that answer every response: customHeaders and redirectHeaders (IisHttpProtocol), compression
+	///      (IisCompression), httpErrors' pages (IisHttpErrors): around everything after them.
+	///   4. Request filtering on the URL as sent (double escaping, denied sequences, limits, hidden segments, denied types of
+	///      the last segment and of the handler's file before its path info: IisUrl.Split): WebFormsMiddleware.RequestFiltering.
+	///   5. URL Rewrite (IisUrlRewrite), then httpRedirect (IisHttpRedirect) on the rewritten URL.
+	///   6. Request filtering again, on the rewritten URL (IIS 10: "/to-data" rewritten to "/App_Data/users.xml" is 404.8):
+	///      WebFormsMiddleware.Invoke.
+	///   7. The handler: System.Web (its FilePath and PathInfo by IisUrl.Split), or the static files (IisStaticFile: a
+	///      static file's path info is 404).
+	/// The steps 4 and 6 ran as 6 only (a protected URL a rule rewrote was served), and each step found a URL's file its
+	/// own way (the last segment's type was checked, a handler's file before path info ran): the attack tests' cases
+	/// "rewrite and filtering", "denied handlers" and "combination" hold the order to IIS's answers.
+	///
 	/// IIS's features in front of System.Web, in IIS's order, from web.config's system.webServer and the original server's
 	/// settings (iis-profile.config): the response headers (customHeaders, redirectHeaders: every response's, the ones
 	/// answered by what follows too), compression (the answers as they finally are), the error pages (httpErrors: every
@@ -60,6 +78,15 @@ namespace Microsoft.AspNetCore.Builder
 				app.UseStatusCodePages();
 			else if (!string.Equals(mode, "Off", StringComparison.OrdinalIgnoreCase))
 				throw new InvalidOperationException("HttpErrors:Mode " + mode + ": Iis, AspNetCore or Off");
+			// IIS's request filtering on the URL as sent, before URL Rewrite (RequestFilteringModule's BeginRequest, before the
+			// rewrite module's): a protected URL ("/App_Data/x", a denied type, a denied sequence) is refused whatever a rule
+			// would rewrite it to; it runs again on the rewritten URL (WebFormsMiddleware).
+			var pipeline = WebFormsPipeline.Of(app);
+			app.Use(async (context, next) =>
+			{
+				if (pipeline.Middleware?.RequestFiltering(context) == true) return;
+				await next(context);
+			});
 			app.UseWebFormsUrlRewrite();
 			var redirect = System.Web.Hosting.IisHttpRedirect.Load(contentRoot);
 			if (redirect != null) app.UseMiddleware<System.Web.Hosting.IisHttpRedirect.Middleware>(redirect);

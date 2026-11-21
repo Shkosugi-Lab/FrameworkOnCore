@@ -67,6 +67,19 @@ static class ProbeSite
                   <conditions><add input="{QUERY_STRING}" pattern="^to=(.*)$" /></conditions>
                   <action type="Redirect" url="/{C:1}" appendQueryString="false" />
                 </rule>
+                <rule name="to-secret" stopProcessing="true"><match url="^to-secret$" /><action type="Rewrite" url="y.secret" /></rule>
+                <rule name="to-data" stopProcessing="true"><match url="^to-data$" /><action type="Rewrite" url="App_Data/users.xml" /></rule>
+                <rule name="to-config" stopProcessing="true"><match url="^to-config$" /><action type="Rewrite" url="web.config" /></rule>
+                <rule name="to-badword" stopProcessing="true"><match url="^to-bad$" /><action type="Rewrite" url="badword.txt" /></rule>
+                <rule name="to-locked" stopProcessing="true"><match url="^to-locked$" /><action type="Rewrite" url="locked/page.aspx" /></rule>
+                <rule name="to-locked-info" stopProcessing="true"><match url="^to-locked-info$" /><action type="Rewrite" url="locked/echo.ashx/x" /></rule>
+                <rule name="to-settings" stopProcessing="true"><match url="^to-settings$" /><action type="Rewrite" url="appsettings.json" /></rule>
+                <rule name="to-secure" stopProcessing="true"><match url="^to-secure$" /><action type="Rewrite" url="secure/x.aspx" /></rule>
+                <rule name="to-info" stopProcessing="true"><match url="^to-info$" /><action type="Rewrite" url="a.txt/x" /></rule>
+                <rule name="from-secret" stopProcessing="true"><match url="^from\.secret$" /><action type="Rewrite" url="a.txt" /></rule>
+                <rule name="from-data" stopProcessing="true"><match url="^App_Data/from$" /><action type="Rewrite" url="a.txt" /></rule>
+                <rule name="from-bad" stopProcessing="true"><match url="^badword/from$" /><action type="Rewrite" url="a.txt" /></rule>
+                <rule name="from-locked" stopProcessing="true"><match url="^locked/from\.aspx$" /><action type="Rewrite" url="default.aspx" /></rule>
                 <rule name="rw" stopProcessing="true"><match url="^rw/(.*)$" /><action type="Rewrite" url="{R:1}" /></rule>
               </rules>
             </rewrite>

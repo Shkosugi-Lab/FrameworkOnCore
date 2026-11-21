@@ -65,6 +65,9 @@ namespace System.Web.Hosting
         internal static readonly string[] WebPagesExtensions = { ".cshtml", ".vbhtml", ".cshtm", ".vbhtm" };
 
         static bool IsWebPagesFile(string path) => WebPagesExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase));
+
+        /// <summary>A name of a type IIS maps to ASP.NET's handlers (HandleExtensions, Web Pages'): where IisUrl.Split takes the file.</summary>
+        internal bool IsHandled(string name) => HandleExtensions.Any(ext => name.EndsWith(ext, StringComparison.OrdinalIgnoreCase)) || IsWebPagesFile(name);
         // IIS's defaultDocument, in its order and with its names (Default.asp, classic ASP, left out): a folder's file is found by
         // them without regard to case. It was another order, "iisstart.htm" was "iistart.htm".
         public string[] DefaultDocuments { get; set; } = new string[] { "Default.htm", "index.htm", "index.html", "iisstart.htm", "default.aspx" };
@@ -399,20 +402,12 @@ namespace System.Web.Hosting
             var path = context.Request.Path.Value ?? "";
             var filtering = IntegratedModeConfiguration.RequestFiltering((context.Request.PathBase.Value ?? "") + path);
             // A page's or a handler's URL with path info after it ("/locked/page.aspx/x"): IIS takes the segment of a type it
-            // maps to ASP.NET as the file (the path info after it), and its type is checked as the last segment's is (IIS 10:
-            // 404.7 for a denied .aspx or .ashx with any path info). The last segment only was: the page ran. A static file's
-            // name is no such segment (IIS 10: "/y.secret/x" is 404.0, no file; IisStaticFile answers path info so).
-            var segments = path.Split('/');
-            for (var i = 0; i < segments.Length - 1; i++)
-            {
-                var segmentDot = segments[i].LastIndexOf('.');
-                if (segmentDot < 0) continue;
-                var type = segments[i].Substring(segmentDot);
-                if (!HandleExtensions.Contains(type, StringComparer.OrdinalIgnoreCase)) continue;
-                if (filtering.Extensions.TryGetValue(type, out var handlerAllowed) && !handlerAllowed) return true;
-                break;   // the file: the rest is its path info
-            }
-            var name = segments[segments.Length - 1];
+            // maps to ASP.NET as the file (IisUrl.Split: the path info after it), and its type is checked as the last segment's
+            // is (IIS 10: 404.7 for a denied .aspx or .ashx with any path info). The last segment only was: the page ran. A
+            // static file's name is no such segment (IIS 10: "/y.secret/x" is 404.0, no file; IisStaticFile answers path info so).
+            var (file, pathInfo) = IisUrl.Split(path, IsHandled);
+            if (pathInfo.Length > 0 && filtering.Extensions.TryGetValue(IisUrl.Extension(file), out var handlerAllowed) && !handlerAllowed) return true;
+            var name = path[(path.LastIndexOf('/') + 1)..];
             var dot = name.LastIndexOf('.');
             if (dot >= 0 && filtering.Extensions.TryGetValue(name.Substring(dot), out var allowed)) return !allowed;
             if (!filtering.AllowUnlisted) return true;
@@ -433,10 +428,8 @@ namespace System.Web.Hosting
 
 			if (HandleExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase) ) || IsWebPagesFile(path))
                 return true;
-            // A handled file with path info of any depth (/a.aspx/x/y: the worker request's /a.aspx and /x/y, as IIS maps it).
-            for (var index = path.IndexOf('/', 1); index > 0; index = path.IndexOf('/', index + 1))
-                if (HandleExtensions.Any(ext => path[..index].EndsWith(ext, StringComparison.OrdinalIgnoreCase)) || IsWebPagesFile(path[..index]))
-                    return true;
+            // A handled file with path info of any depth (/a.aspx/x/y: the worker request's /a.aspx and /x/y, IisUrl.Split).
+            if (IisUrl.Split(path, IsHandled).PathInfo.Length > 0) return true;
             if (ProhibitedExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return false;
 
             // A path ASP.NET does not map (a name with a trailing dot or space, an 8.3 short name, a ".." above the root: its

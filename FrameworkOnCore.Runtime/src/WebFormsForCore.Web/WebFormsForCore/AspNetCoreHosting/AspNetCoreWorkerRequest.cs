@@ -957,22 +957,9 @@ namespace System.Web.Hosting
 				path = DecodedPath();
 
 				// The file is the first segment IIS maps to a handler by its extension (*.aspx ...) or that is a file; the
-				// rest is the path info: /Page.aspx/x/y is /Page.aspx and /x/y. It was split at the last '/' after the last
-				// '.', /Page.aspx/x and /y, a 404.
-				filePath = path;
-				pathInfo = String.Empty;
-				for (var slash = path.IndexOf('/', 1); slash > 0; slash = path.IndexOf('/', slash + 1))
-				{
-					var candidate = path[..slash];
-					var segment = candidate[(candidate.LastIndexOf('/') + 1)..];
-					if (segment.IndexOf('.') < 0) continue;
-					if (Host.HandleExtensions.Any(extension => segment.EndsWith(extension, StringComparison.OrdinalIgnoreCase)) || IsFile(candidate))
-					{
-						filePath = candidate;
-						pathInfo = path[slash..];
-						break;
-					}
-				}
+				// rest is the path info: /Page.aspx/x/y is /Page.aspx and /x/y (IisUrl.Split, as the request filtering and the
+				// host's choice of System.Web find it). It was split at the last '/' after the last '.', /Page.aspx/x and /y, a 404.
+				(filePath, pathInfo) = IisUrl.Split(path, Host.IsHandled, IsFile);
 
 				pathTranslated = MapPath(filePath);
 

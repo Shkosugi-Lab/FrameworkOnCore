@@ -1009,6 +1009,113 @@
       "kind": "content PUBLIC-default.aspx"
     },
     {
+      "category": "rewrite and filtering",
+      "name": "GET /to-secret",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "rewrite and filtering",
+      "name": "GET /to-data",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "rewrite and filtering",
+      "name": "GET /to-config",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "rewrite and filtering",
+      "name": "GET /to-bad",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "rewrite and filtering",
+      "name": "GET /to-locked",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "rewrite and filtering",
+      "name": "GET /to-locked-info",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "rewrite and filtering",
+      "name": "GET /to-settings",
+      "status": 200,
+      "kind": "content SECRET-appsettings.json",
+      "secrets": [
+        "SECRET-appsettings.json"
+      ]
+    },
+    {
+      "category": "rewrite and filtering",
+      "name": "GET /to-secure",
+      "status": 302,
+      "kind": "other text/html; charset=utf-8",
+      "location": "/login.aspx?ReturnUrl=%2fto-secure"
+    },
+    {
+      "category": "rewrite and filtering",
+      "name": "GET /to-info",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "rewrite and filtering",
+      "name": "GET /from.secret",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "rewrite and filtering",
+      "name": "GET /App_Data/from",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "rewrite and filtering",
+      "name": "GET /badword/from",
+      "status": 404,
+      "sub": "404.5",
+      "kind": "iis error"
+    },
+    {
+      "category": "rewrite and filtering",
+      "name": "GET /locked/from.aspx",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "rewrite and filtering",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/to-secret",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "rewrite and filtering",
+      "name": "GET /(S(abcdefghijklmnopqrstuvwx))/App_Data/from",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
       "category": "combination",
       "name": "GET /a.txt/x",
       "status": 404,

@@ -179,10 +179,20 @@ public static class IisFeatures
                 if (filtering.Attribute("removeServerHeader") != null) parts.Add("removeServerHeader");
                 if (parts.Count > 0) Add("request filtering (requestFiltering)", Status.Partial, string.Join(", ", parts) + ": not applied");
             }
-            // (sslFlags: IIS refuses a request without TLS, 403.4, or without a client certificate)
+            // (sslFlags: applied as IIS 10 applies it, the host's tests' iis-settings.json: 403.4 without TLS, 403.5 Ssl128, 403.7
+            // without a client certificate, 403.16 one not trusted; the certificate is the TLS connection's, asked for by
+            // Kestrel's endpoint as IIS's binding asks for it with clientcertnegotiation enable)
             var access = Child(security, "access");
             if (access?.Attribute("sslFlags") is { } ssl && !string.Equals(ssl.Value.Trim(), "None", StringComparison.OrdinalIgnoreCase) && ssl.Value.Trim().Length > 0)
-                Add("TLS required (security/access sslFlags)", Status.Unsupported, ssl.Value + ": not applied; requests without TLS or a client certificate are answered");
+            {
+                var certificates = ssl.Value.IndexOf("SslNegotiateCert", StringComparison.OrdinalIgnoreCase) >= 0 || ssl.Value.IndexOf("SslRequireCert", StringComparison.OrdinalIgnoreCase) >= 0;
+                if (certificates)
+                    Add("TLS required (security/access sslFlags)", Status.Partial, ssl.Value + ": applied as IIS applies it (403.4, 403.7, 403.16 for a certificate the server does not trust); " +
+                        "the client's certificate is there only when Kestrel's HTTPS endpoint asks for it: Kestrel:EndpointDefaults:ClientCertificateMode AllowCertificate " +
+                        "(IIS's binding with clientcertnegotiation enable; behind a proxy that ends TLS, none)");
+                else
+                    Add("TLS required (security/access sslFlags)", Status.Supported, ssl.Value + ": applied as IIS applies it (403.4 without TLS, 403.5)");
+            }
         }
 
         // What the host does as IIS does it (told so that the report shows what was looked at)
@@ -211,7 +221,21 @@ public static class IisFeatures
             var modules = Child(webServer, "modules");
             var native = modules?.Elements().Where(e => e.Name.LocalName == "add" && e.Attribute("type") == null).Select(e => (string?)e.Attribute("name")).ToList();
             if (native?.Count > 0) Add("native modules (modules)", Status.Unsupported, string.Join(", ", native) + ": IIS's native modules, not run");
-            if (modules?.Elements().Any(e => e.Attribute("type") != null) == true) Add("managed modules (modules)", Status.Supported, "");
+            // (IIS 10, the host's tests: a module without preCondition managedHandler, or with runAllManagedModulesForAllRequests,
+            // runs for every request of IIS's managed pipeline; the converted application gives every request to Web Forms for it
+            // (Program.cs, ModulesForAllRequests), but OPTIONS and a static file's path info, which the host answers itself; a URL
+            // without a file runs its later events too, where IIS ends it in MapRequestHandler)
+            var managedModules = modules?.Elements().Where(e => e.Name.LocalName == "add" && e.Attribute("type") != null).ToList();
+            if (managedModules?.Count > 0)
+            {
+                var everyRequest = True(modules, "runAllManagedModulesForAllRequests") ? managedModules : managedModules.Where(e =>
+                    !((string?)e.Attribute("preCondition") ?? "").Split(',').Any(c => c.Trim().Equals("managedHandler", StringComparison.OrdinalIgnoreCase))).ToList();
+                if (everyRequest.Count > 0)
+                    Add("managed modules (modules)", Status.Partial, string.Join(", ", everyRequest.Select(e => (string?)e.Attribute("name"))) +
+                        ": run for every request, as IIS runs them (every request goes to Web Forms), but OPTIONS and a static file's path info " +
+                        "(the host answers them itself); for a URL without a file its PostMapRequestHandler and later events run too (IIS's 404.0 ends it before); preCondition applied");
+                else Add("managed modules (modules)", Status.Supported, "preCondition managedHandler: for the requests of a managed handler, as IIS runs them");
+            }
             var handlers = Child(webServer, "handlers");
             var nativeHandlers = handlers?.Elements().Where(e => e.Name.LocalName == "add" && e.Attribute("type") == null &&
                 (e.Attribute("scriptProcessor") != null || ((string?)e.Attribute("modules") ?? "") is "FastCgiModule" or "CgiModule" or "IsapiModule"))

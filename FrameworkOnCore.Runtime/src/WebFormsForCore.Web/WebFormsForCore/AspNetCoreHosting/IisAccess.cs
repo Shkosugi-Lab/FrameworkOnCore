@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Core = Microsoft.AspNetCore.Http;
@@ -30,8 +31,18 @@ namespace System.Web.Hosting
 	/// </summary>
 	internal static class IisAccess
 	{
+		// security/access sslFlags (IIS's schema: Ssl 8, SslNegotiateCert 32, SslRequireCert 64, Ssl128 256)
+		const int Ssl = 8, SslNegotiateCert = 32, SslRequireCert = 64, Ssl128 = 256;
+
+		/// <summary>
+		/// The client certificates the host trusts besides the machine's trusted roots (null: the machine's only, as IIS: its
+		/// tests' own).
+		/// </summary>
+		internal static X509Certificate2Collection TrustedClientCertificates;
+
 		sealed class Settings
 		{
+			public int SslFlags;
 			public List<(IPAddress Address, IPAddress Mask, bool Allowed)> Addresses = new List<(IPAddress, IPAddress, bool)>();
 			public bool AllowUnlisted = true;
 			public bool ProxyMode;
@@ -73,6 +84,8 @@ namespace System.Web.Hosting
 						}
 					}
 				}
+				if (IisConfiguration.Child(security, "access") is { } access && (string)access.Attribute("sslFlags") is { } sslFlags)
+					settings.SslFlags = SslFlagsOf(sslFlags);
 				var authentication = IisConfiguration.Child(security, "authentication");
 				if (IisConfiguration.Child(authentication, "anonymousAuthentication") is { } anonymous) settings.Anonymous = Flag(anonymous, "enabled", settings.Anonymous);
 				if (IisConfiguration.Child(authentication, "basicAuthentication") is { } basic)
@@ -119,12 +132,81 @@ namespace System.Web.Hosting
 			return settings;
 		});
 
+		static int SslFlagsOf(string value)
+		{
+			var flags = 0;
+			foreach (var name in value.Split(','))
+				switch (name.Trim().ToLowerInvariant())
+				{
+					case "ssl": flags |= Ssl; break;
+					case "sslnegotiatecert": flags |= SslNegotiateCert; break;
+					case "sslrequirecert": flags |= SslRequireCert; break;
+					case "ssl128": flags |= Ssl128; break;
+				}
+			return flags;
+		}
+
+		/// <summary>
+		/// TLS as security/access sslFlags asks for it (IIS 10's answers: iis-settings.json): without TLS, Ssl is 403.4, Ssl128
+		/// 403.5, SslRequireCert 403.7; with TLS, SslRequireCert without a client certificate 403.7, a certificate (asked for
+		/// with SslNegotiateCert or SslRequireCert) that is not trusted 403.16, out of its dates 403.17, revoked 403.13.
+		/// </summary>
+		static int SslRefusal(Core.HttpContext context, int flags)
+		{
+			if (flags == 0) return 0;
+			if (!context.Request.IsHttps)
+				return (flags & Ssl) != 0 ? 4 : (flags & Ssl128) != 0 ? 5 : (flags & SslRequireCert) != 0 ? 7 : 0;
+			var certificate = context.Connection.ClientCertificate;
+			if ((flags & (SslNegotiateCert | SslRequireCert)) != 0 && certificate != null)
+			{
+				var problem = CertificateProblem(certificate);
+				if (problem != 0) return problem;
+			}
+			return (flags & SslRequireCert) != 0 && certificate == null ? 7 : 0;
+		}
+
+		static readonly ConcurrentDictionary<string, int> checkedCertificates = new ConcurrentDictionary<string, int>(StringComparer.Ordinal);
+
+		/// <summary>
+		/// What IIS finds wrong with a client's certificate (0: nothing): its chain to a trusted root (16), its dates (17), its
+		/// revocation (13; one that cannot be checked is let in).
+		/// </summary>
+		internal static int CertificateProblem(X509Certificate2 certificate) => checkedCertificates.GetOrAdd(certificate.Thumbprint, _ =>
+		{
+			using var chain = new X509Chain();
+			chain.ChainPolicy.RevocationMode = X509RevocationMode.Online;
+			chain.ChainPolicy.RevocationFlag = X509RevocationFlag.ExcludeRoot;
+			chain.ChainPolicy.UrlRetrievalTimeout = TimeSpan.FromSeconds(15);
+			if (TrustedClientCertificates != null)
+			{
+				chain.ChainPolicy.TrustMode = X509ChainTrustMode.CustomRootTrust;
+				chain.ChainPolicy.CustomTrustStore.AddRange(TrustedClientCertificates);
+			}
+			chain.Build(certificate);
+			var status = chain.ChainStatus.Aggregate(X509ChainStatusFlags.NoError, (all, s) => all | s.Status);
+			if ((status & X509ChainStatusFlags.Revoked) != 0) return 13;
+			if ((status & X509ChainStatusFlags.NotTimeValid) != 0) return 17;
+			status &= ~(X509ChainStatusFlags.RevocationStatusUnknown | X509ChainStatusFlags.OfflineRevocation);
+			return status == X509ChainStatusFlags.NoError ? 0 : 16;
+		});
+
 		static bool Flag(XElement element, string name, bool otherwise) =>
 			(string)element.Attribute(name) is { } value ? value.Trim().Equals("true", StringComparison.OrdinalIgnoreCase) : otherwise;
 
 		static IPAddress Parse(string value) => IPAddress.TryParse((value ?? "").Trim(), out var address) ? Normal(address) : null;
 
 		static IPAddress Normal(IPAddress address) => address.IsIPv4MappedToIPv6 ? address.MapToIPv4() : address;
+
+		/// <summary>True when the URL's folder's sslFlags refuse the request (its 403 set): IIS's first check of a request.</summary>
+		internal static bool RefusesTls(Core.HttpContext context, string root)
+		{
+			if (root == null) return false;
+			var path = (context.Request.PathBase.Value ?? "") + (context.Request.Path.Value ?? "");
+			var ssl = SslRefusal(context, For(root, path.Length == 0 ? "/" : path).SslFlags);
+			if (ssl == 0) return false;
+			IisDecision.Set(context, "SslAccess");
+			return Refuse(context, 403, ssl);
+		}
 
 		/// <summary>True when IIS refuses the request here (its status set, or the connection closed).</summary>
 		internal static bool Refuses(Core.HttpContext context, string root)
@@ -133,6 +215,14 @@ namespace System.Web.Hosting
 			var path = (context.Request.PathBase.Value ?? "") + (context.Request.Path.Value ?? "");
 			if (path.Length == 0) path = "/";
 			var settings = For(root, path);
+
+			// TLS (sslFlags), for the URL as rewritten (RefusesTls: as sent)
+			var ssl = SslRefusal(context, settings.SslFlags);
+			if (ssl != 0)
+			{
+				IisDecision.Set(context, "SslAccess");
+				return Refuse(context, 403, ssl);
+			}
 
 			// IP restrictions
 			var client = context.Connection.RemoteIpAddress;

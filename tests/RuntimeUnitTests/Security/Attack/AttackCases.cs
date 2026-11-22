@@ -31,6 +31,14 @@ sealed class Target
         return RawHttp.Send(Port, bytes, closeSending, timeout, during);
     }
 
+    /// <summary>The server's HTTPS port (the settings tests'; 0: none) and its host ("{https}" in an answer).</summary>
+    public int HttpsPort;
+    public string HttpsHost => "127.0.0.1:" + HttpsPort;
+
+    /// <summary>A request's head over TLS ("{host}" the HTTPS port's), with a client certificate or none, Connection: close added.</summary>
+    public RawHttp.Answer Tls(string head, System.Security.Cryptography.X509Certificates.X509Certificate2 certificate = null) =>
+        RawHttp.SendTls(HttpsPort, RawHttp.Bytes(head.Replace("{host}", HttpsHost) + "\r\nConnection: close\r\n\r\n"), certificate);
+
     public RawHttp.Answer Get(string target, string headers = null) =>
         Raw("GET " + target + " HTTP/1.1\r\nHost: {host}" + (headers == null ? "" : "\r\n" + headers));
 

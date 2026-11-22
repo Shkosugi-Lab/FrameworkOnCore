@@ -432,22 +432,38 @@ namespace System.Web.Hosting
 					return "/LM/W3SVC/1";
 				case "APPL_MD_PATH":
 					return "/LM/W3SVC/1/ROOT" + (Host.VirtualPath == "/" ? "" : Host.VirtualPath.TrimEnd('/'));
-				// Without TLS (or its client certificate) IIS gives these empty.
 				case "AUTH_PASSWORD":
 				case "CERT_COOKIE":
-				case "CERT_FLAGS":
-				case "CERT_ISSUER":
-				case "CERT_KEYSIZE":
-				case "CERT_SECRETKEYSIZE":
-				case "CERT_SERIALNUMBER":
-				case "CERT_SERVER_ISSUER":
-				case "CERT_SERVER_SUBJECT":
-				case "CERT_SUBJECT":
-				case "HTTPS_KEYSIZE":
-				case "HTTPS_SECRETKEYSIZE":
-				case "HTTPS_SERVER_ISSUER":
-				case "HTTPS_SERVER_SUBJECT":
 					return string.Empty;
+				// TLS's and the client certificate's (IIS 10, the host's tests' iis-settings.json: over HTTPS the server
+				// certificate's subject and issuer; the client's when it sent one, CERT_FLAGS 1, whatever sslFlags says;
+				// without TLS or a client certificate, empty).
+				case "CERT_FLAGS":
+					return ClientCertificate != null ? "1" : string.Empty;
+				case "CERT_SUBJECT":
+					return Name(ClientCertificate?.SubjectName);
+				case "CERT_ISSUER":
+					return Name(ClientCertificate?.IssuerName);
+				case "CERT_SERIALNUMBER":
+					// (as IIS writes it, a guess: its bytes in hexadecimal, separated by '-')
+					return ClientCertificate == null ? string.Empty : string.Join("-", Enumerable.Range(0, ClientCertificate.SerialNumber.Length / 2).Select(i => ClientCertificate.SerialNumber.Substring(i * 2, 2).ToLowerInvariant()));
+				case "CERT_KEYSIZE":
+				case "HTTPS_KEYSIZE":
+				case "CERT_SECRETKEYSIZE":
+				case "HTTPS_SECRETKEYSIZE":
+				{
+					var handshake = Context.Features.Get<Microsoft.AspNetCore.Connections.Features.ITlsHandshakeFeature>();
+					if (handshake == null || name.StartsWith("CERT_", StringComparison.Ordinal) && ClientCertificate == null) return string.Empty;
+#pragma warning disable SYSLIB0058
+					return handshake.CipherStrength.ToString(CultureInfo.InvariantCulture);
+#pragma warning restore SYSLIB0058
+				}
+				case "CERT_SERVER_SUBJECT":
+				case "HTTPS_SERVER_SUBJECT":
+					return Name(ServerCertificate?.SubjectName);
+				case "CERT_SERVER_ISSUER":
+				case "HTTPS_SERVER_ISSUER":
+					return Name(ServerCertificate?.IssuerName);
 				case "UNENCODED_URL":
 					return RawTarget(Context);
 				default:
@@ -456,6 +472,37 @@ namespace System.Web.Hosting
 					return value;
 			}
 		}
+
+		// The client's certificate of the TLS connection (Kestrel's ClientCertificateMode: AllowCertificate or RequireCertificate
+		// asks for it in the handshake, as IIS's binding with clientcertnegotiation enable); null without one.
+		System.Security.Cryptography.X509Certificates.X509Certificate2 ClientCertificate => Context.Request.IsHttps ? Context.Connection.ClientCertificate : null;
+
+		// The server's certificate of the TLS connection: Kestrel's SslStream (its TLS feature's ISslStreamFeature, of an
+		// assembly the runtime does not reference: found by its name).
+		System.Security.Cryptography.X509Certificates.X509Certificate2 ServerCertificate
+		{
+			get
+			{
+				if (!Context.Request.IsHttps) return null;
+				var feature = (object)Context.Features.Get<Microsoft.AspNetCore.Http.Features.ITlsConnectionFeature>();
+				var property = feature?.GetType().GetInterfaces().FirstOrDefault(i => i.Name == "ISslStreamFeature")?.GetProperty("SslStream");
+				if (!(property?.GetValue(feature) is System.Net.Security.SslStream tls) || tls.LocalCertificate == null) return null;
+				return tls.LocalCertificate as System.Security.Cryptography.X509Certificates.X509Certificate2 ??
+					System.Security.Cryptography.X509Certificates.X509CertificateLoader.LoadCertificate(tls.LocalCertificate.GetRawCertData());
+			}
+		}
+
+		// A certificate's name as IIS writes it ("CN=foc-settings-client"; of several parts, a guess: in their order, ", " between).
+		static string Name(System.Security.Cryptography.X509Certificates.X500DistinguishedName name) =>
+			name == null ? string.Empty : name.Decode(System.Security.Cryptography.X509Certificates.X500DistinguishedNameFlags.UseCommas);
+
+		// The client certificate as ASP.NET's Request.ClientCertificate reads it (with CERT_FLAGS and the other CERT_ variables).
+		public override byte[] GetClientCertificate() => ClientCertificate?.RawData ?? Array.Empty<byte>();
+		public override DateTime GetClientCertificateValidFrom() => ClientCertificate?.NotBefore ?? DateTime.Now;
+		public override DateTime GetClientCertificateValidUntil() => ClientCertificate?.NotAfter ?? DateTime.Now;
+		public override byte[] GetClientCertificateBinaryIssuer() => ClientCertificate?.IssuerName.RawData ?? Array.Empty<byte>();
+		public override int GetClientCertificateEncoding() => ClientCertificate != null ? 1 : 0;   // X509_ASN_ENCODING
+		public override byte[] GetClientCertificatePublicKey() => ClientCertificate?.GetPublicKey() ?? Array.Empty<byte>();
 
 		public override string GetUnknownRequestHeader(string name)
 		{

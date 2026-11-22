@@ -63,6 +63,39 @@ static class RawHttp
             if (closeSending) client.Client.Shutdown(SocketShutdown.Send);
         }
         catch (IOException) { }
+        return Receive(stream, answer, timeout);
+    }
+
+    /// <summary>
+    /// The request over TLS (any server certificate taken: the tests' own), with the client certificate given (null: none);
+    /// the server asks for one in the handshake (IIS's binding clientcertnegotiation enable, Kestrel's AllowCertificate).
+    /// A handshake the server refuses: no answer (Status 0).
+    /// </summary>
+    public static Answer SendTls(int port, byte[] request, System.Security.Cryptography.X509Certificates.X509Certificate2 certificate, int timeout = 15000)
+    {
+        using var client = Connect(port);
+        client.ReceiveTimeout = timeout;
+        client.SendTimeout = timeout;
+        var answer = new Answer();
+        using var tls = new System.Net.Security.SslStream(client.GetStream(), false, (_, _, _, _) => true,
+            (_, _, _, _, _) => certificate);
+        try
+        {
+            var options = new System.Net.Security.SslClientAuthenticationOptions
+            {
+                TargetHost = "127.0.0.1",
+                ClientCertificates = certificate == null ? null : new System.Security.Cryptography.X509Certificates.X509CertificateCollection { certificate },
+                CertificateRevocationCheckMode = System.Security.Cryptography.X509Certificates.X509RevocationMode.NoCheck,
+            };
+            tls.AuthenticateAsClient(options);
+            tls.Write(request);
+        }
+        catch (Exception e) when (e is IOException or System.Security.Authentication.AuthenticationException) { return answer; }
+        return Receive(tls, answer, timeout);
+    }
+
+    static Answer Receive(Stream stream, Answer answer, int timeout)
+    {
         var received = new MemoryStream();
         var buffer = new byte[65536];
         var clock = System.Diagnostics.Stopwatch.StartNew();
@@ -80,6 +113,7 @@ static class RawHttp
         {
             if (s.SocketErrorCode == SocketError.TimedOut || clock.ElapsedMilliseconds >= timeout - 100) answer.TimedOut = true;
         }
+        catch (IOException) { }   // (TLS: the server's close without its close_notify)
         Parse(received.ToArray(), answer);
         return answer;
     }

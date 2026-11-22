@@ -60,14 +60,16 @@ static class SettingsSamples
         ["rewrite/allowedServerVariables"] = "applicationHost.config only",
         ["rewrite/providers"] = "URL Rewrite's providers: not run by the port (reported)",
         ["applicationInitialization"] = "set at the application's root only; its warm-up requests are not answers",
-        ["modules"] = "set at the application's root only (a folder's is IIS's 500.19): not yet tried at the root",
         ["security/authentication/digestAuthentication"] = "digest authentication" + Installed,
-        ["security/authentication/clientCertificateMappingAuthentication"] = "client certificates: the probes are plain HTTP",
-        ["security/authentication/iisClientCertificateMappingAuthentication"] = "client certificates: the probes are plain HTTP",
+        ["security/authentication/clientCertificateMappingAuthentication"] = "client certificates mapped to Active Directory's accounts: the port has no Windows accounts (reported)",
+        ["security/authentication/iisClientCertificateMappingAuthentication"] = "client certificates mapped to Windows accounts: the port has none to log on (reported)",
         ["management/authentication"] = "IIS Manager's delegation (administration.config): no setting of a site",
         ["management/authorization"] = "IIS Manager's delegation (administration.config): no setting of a site",
         ["management/trustedProviders"] = "IIS Manager's delegation (administration.config): no setting of a site",
     };
+
+    /// <summary>The sections set at the application's root only (a folder's is IIS's 500.19): tried as an application's (SettingsSite.Application).</summary>
+    public static readonly HashSet<string> ApplicationSections = new() { "modules" };
 
     const string Rule = """<rule name="foc" stopProcessing="true"><match url="^rw/(.*)$" /><action type="Rewrite" url="{R:1}" /></rule>""";
     const string RedirectRule = """<rule name="foc" stopProcessing="true"><match url="^rw/(.*)$" /><action type="Redirect" url="{R:1}" /></rule>""";
@@ -89,6 +91,22 @@ static class SettingsSamples
         ["defaultDocument/files/[add]@value"] = new() { Values = new[] { "a.htm", "page.probe", "nothing.htm", "list/a.txt" } },
         ["directoryBrowse@showFlags"] = new() { WithAttributes = "enabled=\"true\"" },
         ["defaultDocument@enabled"] = new() { Values = new[] { "false" } },
+
+        // ---- modules, at the application's root (SettingsModule: App_Code's module, marking the answers it runs for)
+        ["modules/[add]"] = new()
+        {
+            Item = """<add name="foc" type="SettingsModule" />""",
+            Remove = new[] { """<remove name="OutputCache" />""", """<remove name="RewriteModule" />""", """<remove name="StaticFileModule" />""" },
+            Duplicate = """<add name="OutputCache" type="System.Web.Caching.OutputCacheModule" preCondition="managedHandler" />""",
+        },
+        ["modules/[add]@name"] = new() { Values = new[] { "foc2" } },
+        ["modules/[add]@type"] = new() { Values = new[] { "SettingsModule", "No.Such.Type" } },
+        ["modules/[add]@preCondition"] = new() { Values = new[] { "managedHandler", "integratedMode", "classicMode", "runtimeVersionv2.0", "managedHandler,runtimeVersionv4.0", "bitness32" } },
+        ["modules@runAllManagedModulesForAllRequests"] = new() { With = """<add name="foc" type="SettingsModule" preCondition="managedHandler" />""" },
+        ["modules@runManagedModulesForWebDavRequests"] = new() { With = """<add name="foc" type="SettingsModule" preCondition="managedHandler" />""" },
+
+        // ---- access: TLS and the client's certificate (the HTTPS probes)
+        ["security/access@sslFlags"] = new() { Values = new[] { "Ssl", "SslNegotiateCert", "SslRequireCert", "Ssl128", "Ssl, SslNegotiateCert", "Ssl, SslNegotiateCert, SslRequireCert", "SslNegotiateCert, SslRequireCert", "Ssl, Ssl128" } },
 
         // ---- handlers
         ["handlers/[add]"] = new()

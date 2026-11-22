@@ -834,9 +834,29 @@ namespace System.Web
 			return container;
 		}
 
+#if !NETFRAMEWORK
+		// The handlers of a module IIS runs only for a request of a managed handler (system.webServer/modules' preCondition
+		// managedHandler: IntegratedModeConfiguration), each as it was added and as it runs.
+		Dictionary<Delegate, Delegate> managedHandlerOnly;
+
+		private Delegate ForCurrentModule(Delegate handler)
+		{
+			if (!(handler is EventHandler sync) || !IntegratedModeConfiguration.IsManagedHandlerModule(_currentModuleCollectionKey)) return handler;
+			EventHandler conditional = (sender, e) => { if (IntegratedModeConfiguration.RunsManagedHandlerModule(Context)) sync(sender, e); };
+			(managedHandlerOnly ??= new Dictionary<Delegate, Delegate>())[handler] = conditional;
+			return conditional;
+		}
+
+		private Delegate AsAdded(Delegate handler) =>
+			managedHandlerOnly != null && handler != null && managedHandlerOnly.TryGetValue(handler, out var added) ? added : handler;
+#endif
+
 		private void AddSyncEventHookup(object key, Delegate handler, RequestNotification notification, bool isPostNotification)
 		{
 			ThrowIfEventBindingDisallowed();
+#if !NETFRAMEWORK
+			handler = ForCurrentModule(handler);
+#endif
 
 			// add the event to the delegate invocation list
 			// this keeps non-pipeline ASP.NET hosts working
@@ -868,6 +888,9 @@ namespace System.Web
 		internal void RemoveSyncEventHookup(object key, Delegate handler, RequestNotification notification, bool isPostNotification)
 		{
 			ThrowIfEventBindingDisallowed();
+#if !NETFRAMEWORK
+			handler = AsAdded(handler);
+#endif
 
 			Events.RemoveHandler(key, handler);
 
@@ -885,6 +908,9 @@ namespace System.Web
 		private void AddSendResponseEventHookup(object key, Delegate handler)
 		{
 			ThrowIfEventBindingDisallowed();
+#if !NETFRAMEWORK
+			handler = ForCurrentModule(handler);
+#endif
 
 			// add the event to the delegate invocation list
 			// this keeps non-pipeline ASP.NET hosts working
@@ -912,6 +938,9 @@ namespace System.Web
 		private void RemoveSendResponseEventHookup(object key, Delegate handler)
 		{
 			ThrowIfEventBindingDisallowed();
+#if !NETFRAMEWORK
+			handler = AsAdded(handler);
+#endif
 
 			Events.RemoveHandler(key, handler);
 

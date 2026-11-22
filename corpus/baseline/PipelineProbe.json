@@ -106,7 +106,7 @@
     "Raised": [],
     "Iis": [
       "managed handlers (handlers): 対応(Web.config)",
-      "managed modules (modules): 対応(Web.config)"
+      "managed modules (modules): 一部対応(Web.config): ProbeModule: run for every request, as IIS runs them (every request goes to Web Forms), but OPTIONS and a static file's path info (the host answers them itself); for a URL without a file its PostMapRequestHandler and later events run too (IIS's 404.0 ends it before); preCondition applied"
     ],
     "Unsupported": [
       "Microsoft.CodeAnalysis.Workspaces.dll: type references that neither .NET 10 nor the application has (6; TypeLoadException where they are used): [SQLitePCLRaw.core]SQLitePCL.sqlite3, [SQLitePCLRaw.core]SQLitePCL.sqlite3_stmt, [SQLitePCLRaw.core]SQLitePCL.utf8z, [SQLitePCLRaw.core]SQLitePCL.sqlite3_blob, [SQLitePCLRaw.batteries_v2]SQLitePCL.Batteries_V2, [SQLitePCLRaw.core]SQLitePCL.raw"

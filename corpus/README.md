@@ -41,6 +41,6 @@ FrameworkOnCore の回帰検証に使うコーパスです。実在のアプリ�
 3. **シナリオに手順を足す**: `samples/<プローブ>/parity-scenario.json` に、ページを開く・操作する手順と `snapshot`（名前は観点が分かるもの）を足します。シナリオ冒頭の `_comment` に、何を確かめるプローブかを書き足します。
 4. **IIS で正解を記録し直す**: 管理者の PowerShell で `.\experiments\wf4c\sample-parity.ps1 -Name <プローブ> -Record`（変換前のアプリを IIS で動かし、`golden-webforms.json` に記録します）。
 5. **一覧と基準を更新する**: `python corpus/catalog.py --check` で欠けがないことを確かめ、`ASPECTS.md` を更新します。新しいプローブは `probes.json` に足し、`.\corpus\run.ps1 -Only <プローブ> -UpdateBaseline` で基準を記録します。
-6. **ホスト層（IIS の機能）の観点**は、ホストの自動生成テストに足すほうが効率的です。設定は `tests/RuntimeUnitTests/Security/Settings/SettingsSamples.cs`（値と文脈）、要求は `SettingsSite.cs` の `SettingsProbes`、異常入力は `Attack/AttackCases.cs` に足し、`iis-golden/settings.ps1`・`record.ps1` で IIS に記録し直します。
+6. **ホスト層（IIS の機能）の観点**は、ホストの自動生成テストに足すほうが効率的です。設定は `tests/RuntimeUnitTests/Security/Settings/SettingsSamples.cs`（値と文脈）、要求は `SettingsSite.cs` の `SettingsProbes`、異常入力は `Attack/AttackCases.cs` に足し、`iis-golden/settings.ps1`・`record.ps1` で IIS に記録し直します。HTTPS の要求（クライアント証明書あり・なし）も `SettingsProbes` にあり、証明書は記録のたびに作って後で消します（`SettingsCertificates`）。アプリのルートにしか書けない設定（`modules` など）は `SettingsSamples.ApplicationSections` に足すと、1 つずつ別のアプリとして試されます。
 
 `catalog.py --check` は、`probes.json` にないサンプル、正解のない `snapshot`、同じ名前の `snapshot` を見つけると失敗します。観点の足し忘れや記録し忘れを防ぐためです。

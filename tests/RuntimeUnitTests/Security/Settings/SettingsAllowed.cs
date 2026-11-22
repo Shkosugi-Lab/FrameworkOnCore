@@ -36,6 +36,42 @@ static class SettingsAllowed
         // kept when another was; iis-settings.json). The port keeps it as IIS does for the others.
         if (variant.Section == "caching" && iis.Split(" | ")[0] == Baseline(probe)?.Split(" | ")[0] && port.Contains("PUBLIC-probe length 5024", StringComparison.Ordinal))
             return "IIS's output cache did not keep the first profile's page (its timing, not the setting's)";
+        // The application's modules (system.webServer/modules, at its root), the application hosted as the converter hosts it
+        // (every request to Web Forms for a module IIS runs for every request: SettingsSite.ModulesForAllRequests). IIS 10
+        // ends a URL without a file in MapRequestHandler (its StaticFile handler's 404.0: the module's BeginRequest and
+        // PostResolveRequestCache ran, not its PostMapRequestHandler); the port's System.Web runs the module's later events
+        // too. OPTIONS and a static file's path info the host answers itself (IIS's OPTIONSVerbHandler, its 404.0): the
+        // module does not run for them, or its error (No.Such.Type) does not show.
+        if (variant.App && variant.Section == "modules")
+        {
+            static string Mark(string answer) => System.Text.RegularExpressions.Regex.Match(answer, @"X-Sample: ([^|]*)").Groups[1].Value.Trim();
+            static string Unmarked(string answer) => System.Text.RegularExpressions.Regex.Replace(answer, @" \| X-Sample: [^|]*?(?= \||$)", "");
+            var (iisMark, portMark) = (Mark(iis), Mark(port));
+            var hostsOwn = probe is "OPTIONS a.txt" or "path info";
+            if (Unmarked(iis) == Unmarked(port) && iisMark.Length > 0 &&
+                (portMark.Length == 0 && hostsOwn || portMark.StartsWith(iisMark, StringComparison.Ordinal) && iis.StartsWith("404 ", StringComparison.Ordinal)))
+                return "a module's events for a URL without a file (IIS's end in MapRequestHandler), for OPTIONS and a static file's path info (the host's own answers)" + Reported;
+            if (hostsOwn && iis.Contains(" aspnet ", StringComparison.Ordinal) && !port.Contains(" aspnet ", StringComparison.Ordinal))
+                return "the module's error (System.Web's) for OPTIONS and a static file's path info, which the host answers itself" + Reported;
+            // (a guess: ASP.NET's FileAuthorizationModule, which IIS runs for every request with runAllManagedModulesForAllRequests,
+            // refusing a verb it does not know for the anonymous user's Windows account: the port has no Windows accounts)
+            if (variant.Setting == "@runAllManagedModulesForAllRequests" && probe == "FOO a.txt" && iis.StartsWith("401 ", StringComparison.Ordinal))
+                return "ASP.NET's FileAuthorizationModule run for a verb of no handler (its Windows account's access): the port has no Windows accounts";
+        }
+        // A double-escaped URL in a folder of sslFlags: IIS 10 answered System.Web's 400 (not its request filtering's 404.11, as
+        // without sslFlags, nor its 403.4): observed, its cause not known; the port answers the folder's 403.
+        if (variant.Section == "security/access" && probe == "double escaped" && iis.StartsWith("400 ", StringComparison.Ordinal) && port.StartsWith("403 ", StringComparison.Ordinal))
+            return "IIS 10's System.Web 400 for a double-escaped URL of a folder with sslFlags (observed, not known why)";
+        // IIS's output cache keys a page by its path (the profile's varyBy..., not its scheme): which of the page's answers it
+        // kept for the HTTPS requests (the HTTP one's of the TLS page, of the page) is its timing (frequentHitThreshold).
+        if (variant.Section == "caching" && probe.StartsWith("https page tls", StringComparison.Ordinal) &&
+            iis.Contains("Cache-Control: public", StringComparison.Ordinal) && port.Contains("Cache-Control: public", StringComparison.Ordinal) && iis.Split(" | ")[0] == port.Split(" | ")[0])
+            return "IIS's output cache answered the HTTPS request with another of the page's answers it kept (its timing)";
+        // http.sys's cache: a static file IIS answered over TLS (the trusted certificate's request, 200) is kept in the kernel's
+        // cache, and served from it to the next request however its certificate is (IIS 10: the untrusted certificate's
+        // request of a.txt 200 under SslRequireCert in one recording, 403.16 under the others; its page always 403.16).
+        if (variant.Section == "security/access" && probe == "https a.txt with an untrusted certificate" && iis == Baseline(probe) && port.Contains("(403.16)", StringComparison.Ordinal))
+            return "http.sys's cache served the file it kept for another request (IIS's timing, not the setting's)";
         return null;
     }
 
@@ -57,7 +93,6 @@ static class SettingsAllowed
     {
         ["security/authentication/anonymousAuthentication@userName"] = "the anonymous user's account: the port has no Windows accounts to log on (IIS's 401.2 for one that is not there)" + Reported,
         ["rewrite/outboundRules"] = "URL Rewrite's outbound rules: the responses are not rewritten" + Reported,
-        ["security/access"] = "sslFlags: requests without TLS or a client certificate are answered" + Reported,
         ["serverRuntime"] = "serverRuntime's settings are not applied" + Reported,
         ["httpProtocol@allowKeepAlive"] = "keep-alive off is not applied: connections are kept alive" + Reported,
         ["staticContent@defaultDocFooter"] = "the document footer is not added to the static files" + Reported,

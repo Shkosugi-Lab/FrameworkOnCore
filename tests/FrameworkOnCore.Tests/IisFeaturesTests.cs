@@ -97,7 +97,6 @@ public class IisFeaturesTests : IDisposable
     }
 
     [Theory] // settings of IIS's schema the host does not read, each of which changes what is answered: reported
-    [InlineData("""<security><access sslFlags="Ssl, SslRequireCert" /></security>""", "TLS required")]
     [InlineData("""<httpProtocol allowKeepAlive="false" />""", "keep-alive off")]
     [InlineData("""<staticContent enableDocFooter="true" defaultDocFooter="x" />""", "document footer")]
     [InlineData("""<serverRuntime appConcurrentRequestLimit="10" />""", "server runtime")]
@@ -166,12 +165,28 @@ public class IisFeaturesTests : IDisposable
             "<iisProfile><system.webServer><security><authorization><add accessType=\"Allow\" users=\"*\" /></authorization></security></system.webServer></iisProfile>"),
             f => f.Feature.StartsWith("URL authorization"));
 
-    [Fact]
+    [Fact] // a managed module of preCondition managedHandler: as IIS runs it; one for every request: not for those the host answers itself
     public void Native_modules_are_not_run_managed_ones_are()
     {
-        var findings = Analyze("<configuration><system.webServer><modules><add name=\"iisnode\" /><add name=\"Probe\" type=\"Probe.Module\" /></modules></system.webServer></configuration>");
+        var findings = Analyze("<configuration><system.webServer><modules><add name=\"iisnode\" /><add name=\"Probe\" type=\"Probe.Module\" preCondition=\"managedHandler\" /></modules></system.webServer></configuration>");
         Assert.Contains("iisnode", Single(findings, "native modules").Text);
         Assert.Equal(IisFeatures.Status.Supported, Single(findings, "managed modules").Status);
+        var every = Single(Analyze("<configuration><system.webServer><modules><add name=\"Probe\" type=\"Probe.Module\" /></modules></system.webServer></configuration>"), "managed modules");
+        Assert.Equal(IisFeatures.Status.Partial, every.Status);
+        Assert.Contains("Probe", every.Text);
+        Assert.Equal(IisFeatures.Status.Partial, Single(Analyze("<configuration><system.webServer><modules runAllManagedModulesForAllRequests=\"true\"><add name=\"Probe\" type=\"Probe.Module\" preCondition=\"managedHandler\" /></modules></system.webServer></configuration>"), "managed modules").Status);
+    }
+
+    [Theory] // sslFlags: applied as IIS 10 applies it; the client's certificate needs Kestrel's endpoint to ask for it
+    [InlineData("Ssl", IisFeatures.Status.Supported)]
+    [InlineData("Ssl, Ssl128", IisFeatures.Status.Supported)]
+    [InlineData("Ssl, SslRequireCert", IisFeatures.Status.Partial)]
+    [InlineData("SslNegotiateCert", IisFeatures.Status.Partial)]
+    public void TLS_required_is_applied(string flags, IisFeatures.Status status)
+    {
+        var finding = Single(Analyze($"<configuration><system.webServer><security><access sslFlags=\"{flags}\" /></security></system.webServer></configuration>"), "TLS required");
+        Assert.Equal(status, finding.Status);
+        if (status == IisFeatures.Status.Partial) Assert.Contains("ClientCertificateMode", finding.Text);
     }
 
     [Fact] // a folder's web.config and a location for a folder are looked at too

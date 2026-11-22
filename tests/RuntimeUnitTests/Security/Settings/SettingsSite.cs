@@ -43,6 +43,19 @@ static class SettingsSite
                 if (action == "throw") throw new InvalidOperationException("PROBE-throw");
                 if (action == "redirect") { response.Redirect("a.txt", false); return; }
                 response.ContentType = "text/html";
+                if (action == "tls")
+                {
+                    // What the page is told of TLS and the client's certificate (not of the moment's: no key sizes, dates, serial numbers).
+                    var variables = request.ServerVariables;
+                    var certificate = request.ClientCertificate;
+                    response.AppendHeader("X-Tls", "secure=" + request.IsSecureConnection + "; url=" + request.Url.GetLeftPart(UriPartial.Authority) +
+                        "; HTTPS=" + variables["HTTPS"] + "; SERVER_PORT_SECURE=" + variables["SERVER_PORT_SECURE"] +
+                        "; HTTPS_SERVER_SUBJECT=" + variables["HTTPS_SERVER_SUBJECT"] + "; HTTPS_SERVER_ISSUER=" + variables["HTTPS_SERVER_ISSUER"] +
+                        "; CERT_FLAGS=" + variables["CERT_FLAGS"] + "; CERT_SUBJECT=" + variables["CERT_SUBJECT"] + "; CERT_ISSUER=" + variables["CERT_ISSUER"] +
+                        "; CERT_SERVER_SUBJECT=" + variables["CERT_SERVER_SUBJECT"] + "; CERT_SERVER_ISSUER=" + variables["CERT_SERVER_ISSUER"] +
+                        "; present=" + certificate.IsPresent + "; valid=" + certificate.IsValid + "; subject=" + certificate.Subject + "; issuer=" + certificate.Issuer +
+                        "; bytes=" + (certificate.Certificate != null && certificate.Certificate.Length > 0) + "; current=" + (certificate.ValidFrom < DateTime.Now && certificate.ValidUntil > DateTime.Now));
+                }
                 var status = request.QueryString["status"];
                 if (status != null)
                 {
@@ -53,6 +66,26 @@ static class SettingsSite
                 response.Write("PUBLIC-probe " + request.HttpMethod + " q=" + request.QueryString.ToString());   // (not its path: the folder's name is the variant's)
                 if (request.QueryString["big"] != null) response.Write(new string('x', 5000));
             }
+        }
+        """;
+
+    // A managed module of the application's (the modules variants: system.webServer/modules at its root): it marks the
+    // answers of the requests it runs for, with the events it ran in.
+    const string Module = """
+        using System;
+        using System.Web;
+
+        public class SettingsModule : IHttpModule
+        {
+            public void Init(HttpApplication application)
+            {
+                // (the events it ran for: IIS decides a managedHandler module's by the request's handler, mapped in MapRequestHandler)
+                application.BeginRequest += (sender, e) => ((HttpApplication)sender).Response.AppendHeader("X-Sample", "begin");
+                application.PostResolveRequestCache += (sender, e) => ((HttpApplication)sender).Response.AppendHeader("X-Sample", "resolve");
+                application.PostMapRequestHandler += (sender, e) => ((HttpApplication)sender).Response.AppendHeader("X-Sample", "map");
+            }
+
+            public void Dispose() { }
         }
         """;
 
@@ -71,13 +104,54 @@ static class SettingsSite
         yield return ("bin/a.txt", "PUBLIC-bin-a.txt");
     }
 
+    /// <summary>
+    /// The site: its root, the baseline's folder, a folder for each variant of a folder's web.config; a variant of the
+    /// application's root (App: modules) is an application of its own (Application), under apps/ (IIS's second site's
+    /// folder while it is recorded; the port's own server).
+    /// </summary>
     public static void Write(string root, IEnumerable<SettingsVariant> variants)
     {
         Directory.CreateDirectory(Path.Combine(root, "App_Code"));
         File.WriteAllText(Path.Combine(root, "web.config"), RootConfig);
         File.WriteAllText(Path.Combine(root, "App_Code", "SettingsProbe.cs"), Probe);
+        File.WriteAllText(Path.Combine(root, "App_Code", "SettingsModule.cs"), Module);
         Folder(root, SettingsTests.BaseId, null);
-        foreach (var variant in variants) Folder(root, variant.Id, variant.Config);
+        foreach (var variant in variants)
+            if (variant.App) Application(Path.Combine(root, "apps", variant.Id), variant);
+            else Folder(root, variant.Id, variant.Config);
+    }
+
+    /// <summary>
+    /// Whether the converter has every request go to Web Forms for the variant's application (its Program.cs:
+    /// ModulesForAllRequests): runAllManagedModulesForAllRequests, or a managed module without preCondition managedHandler.
+    /// </summary>
+    public static bool ModulesForAllRequests(SettingsVariant variant)
+    {
+        var modules = System.Xml.Linq.XElement.Parse(variant.Config).Element("system.webServer")?.Element("modules");
+        if (modules == null) return false;
+        if (string.Equals((string)modules.Attribute("runAllManagedModulesForAllRequests"), "true", StringComparison.OrdinalIgnoreCase)) return true;
+        return modules.Elements("add").Any(a => a.Attribute("type") != null && !((string)a.Attribute("preCondition") ?? "").Contains("managedHandler", StringComparison.OrdinalIgnoreCase));
+    }
+
+    /// <summary>
+    /// A variant of the application's root: the site's root web.config with the variant's sections in it, App_Code, the
+    /// variant's folder (s/vNNNN: the probes' URLs as the other variants'), marker.txt (the variant's id: IIS serves this one).
+    /// </summary>
+    public static void Application(string root, SettingsVariant variant)
+    {
+        Directory.CreateDirectory(Path.Combine(root, "App_Code"));
+        var configuration = System.Xml.Linq.XElement.Parse(RootConfig);
+        foreach (var section in System.Xml.Linq.XElement.Parse(variant.Config).Elements())
+        {
+            var same = configuration.Element(section.Name);
+            if (same == null) configuration.Add(new System.Xml.Linq.XElement(section));
+            else same.Add(section.Elements().Select(e => new System.Xml.Linq.XElement(e)));
+        }
+        File.WriteAllText(Path.Combine(root, "web.config"), "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" + configuration + "\n");
+        File.WriteAllText(Path.Combine(root, "App_Code", "SettingsProbe.cs"), Probe);
+        File.WriteAllText(Path.Combine(root, "App_Code", "SettingsModule.cs"), Module);
+        File.WriteAllText(Path.Combine(root, "marker.txt"), variant.Id);
+        Folder(root, variant.Id, null);
     }
 
     static void Folder(string root, string id, string config)
@@ -157,17 +231,28 @@ static class SettingsProbes
         ("map/y", (t, f) => t.Get(f + "/map/y")),
         ("map/X", (t, f) => t.Get(f + "/map/X")),
         // (the others close their connection: Connection: close)
+        // HTTPS (the settings' site's binding, SettingsCertificates): what the page is told of TLS, without a client
+        // certificate, with one the server trusts and with one it does not (security/access sslFlags).
+        ("page tls", (t, f) => t.Get(f + "/page.probe?do=tls")),
+        ("https a.txt", (t, f) => t.Tls("GET " + f + "/a.txt HTTP/1.1\r\nHost: {host}")),
+        ("https page tls", (t, f) => t.Tls("GET " + f + "/page.probe?do=tls HTTP/1.1\r\nHost: {host}")),
+        ("https a.txt with a certificate", (t, f) => t.Tls("GET " + f + "/a.txt HTTP/1.1\r\nHost: {host}", SettingsCertificates.Trusted)),
+        ("https page tls with a certificate", (t, f) => t.Tls("GET " + f + "/page.probe?do=tls HTTP/1.1\r\nHost: {host}", SettingsCertificates.Trusted)),
+        ("https a.txt with an untrusted certificate", (t, f) => t.Tls("GET " + f + "/a.txt HTTP/1.1\r\nHost: {host}", SettingsCertificates.Untrusted)),
+        ("https page tls with an untrusted certificate", (t, f) => t.Tls("GET " + f + "/page.probe?do=tls HTTP/1.1\r\nHost: {host}", SettingsCertificates.Untrusted)),
         ("kept alive", (t, f) => RawHttp.Send(t.Port, Encoding.ASCII.GetBytes("GET " + f + "/a.txt HTTP/1.1\r\nHost: " + t.Host + "\r\n\r\n"), timeout: 5000)),
         ("HTTP/1.0 without a host, the folder without its slash", (t, f) => RawHttp.Send(t.Port, Encoding.ASCII.GetBytes("GET " + f + " HTTP/1.0\r\n\r\n"), timeout: 5000)),
     };
 
+    // (an application's root variant runs on a site without HTTPS: its modules are not TLS's)
     public static IEnumerable<(string Name, Func<Target, string, RawHttp.Answer> Send)> For(SettingsVariant variant) =>
-        variant != null && variant.OneProbe ? All.Where(p => p.Name == "a.txt") : All;
+        variant != null && variant.OneProbe ? All.Where(p => p.Name == "a.txt") :
+        variant != null && variant.App ? All.Where(p => !p.Name.StartsWith("https ", StringComparison.Ordinal)) : All;
 
     static readonly string[] Kept =
     {
         "Content-Type", "Content-Encoding", "Cache-Control", "Expires", "Pragma", "Vary", "Location", "Allow", "Public",
-        "WWW-Authenticate", "X-Powered-By", "X-Sample", "X-Redirect", "Content-Range", "Accept-Ranges", "Connection",
+        "WWW-Authenticate", "X-Powered-By", "X-Sample", "X-Tls", "X-Redirect", "Content-Range", "Accept-Ranges", "Connection",
     };
 
     // Kept as there or not (their values are the moment's or the file's).
@@ -178,7 +263,7 @@ static class SettingsProbes
     /// <summary>What is kept of an answer, the host and the folder written "{host}" and "{F}".</summary>
     public static string Summary(RawHttp.Answer answer, Target target, string folder)
     {
-        string Normal(string s) => s.Replace(target.Host, "{host}").Replace(folder + "/", "{F}/").Replace(folder, "{F}");
+        string Normal(string s) => (target.HttpsPort > 0 ? s.Replace(target.HttpsHost, "{https}") : s).Replace(target.Host, "{host}").Replace(folder + "/", "{F}/").Replace(folder, "{F}");
         if (answer.Status == 0) return answer.TimedOut ? "none (timed out)" : "none (closed)";
         var observation = Observation.Of(Dummy, answer, target);
         var text = new StringBuilder();

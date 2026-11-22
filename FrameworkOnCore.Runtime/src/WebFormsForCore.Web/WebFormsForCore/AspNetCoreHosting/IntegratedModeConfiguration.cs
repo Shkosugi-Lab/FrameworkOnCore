@@ -184,10 +184,47 @@ namespace System.Web
 				type.StartsWith("System.Web.StaticFileHandler", StringComparison.Ordinal));
 		}
 
-		/// <summary>The application's modules after its system.webServer/modules, in IIS's order.</summary>
+		/// <summary>
+		/// Whether a module of the application's of preCondition managedHandler runs for the request (IsManagedHandlerModule):
+		/// its handler is a managed one of the URL's type (system.webServer/handlers', System.Web's mapping but its static
+		/// handlers). IIS 10, the host's tests (modules at the application's root): such a module ran for the pages of a managed
+		/// handler only, not for a folder's URL, a file without an extension, a URL without a file or a static file.
+		/// </summary>
+		internal static bool RunsManagedHandlerModule(HttpContext context)
+		{
+			var path = context.Request.FilePathObject;
+			var verb = context.Request.HttpMethod;
+			if (FindHandlerType(verb, path) != null) return true;
+			var name = path.VirtualPathString;
+			name = name.Substring(name.LastIndexOf('/') + 1);
+			if (name.IndexOf('.') < 0) return false;
+			var mapping = RuntimeConfig.GetConfig(context).HttpHandlers.FindMapping(verb, path);
+			if (mapping == null) return false;
+			var type = mapping.Type ?? "";
+			return !(type.StartsWith("System.Web.DefaultHttpHandler", StringComparison.Ordinal) ||
+				type.StartsWith("System.Web.HttpMethodNotAllowedHandler", StringComparison.Ordinal) ||
+				type.StartsWith("System.Web.StaticFileHandler", StringComparison.Ordinal));
+		}
+
+		// The modules of system.webServer/modules IIS runs only for a request of a managed handler (preCondition
+		// managedHandler, without runAllManagedModulesForAllRequests): their events skip the others (HttpApplication).
+		static readonly HashSet<string> managedHandlerModules = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+		/// <summary>Whether the module (its name in the application's collection) runs only for a request of a managed handler.</summary>
+		internal static bool IsManagedHandlerModule(string name)
+		{
+			lock (managedHandlerModules) return name != null && managedHandlerModules.Contains(name);
+		}
+
+		/// <summary>
+		/// The application's modules after its system.webServer/modules, in IIS's order. An entry whose preCondition the host
+		/// does not meet is not loaded (IIS 10: classicMode, bitness32, runtimeVersionv2.0); one of managedHandler runs only
+		/// for a request of a managed handler, unless runAllManagedModulesForAllRequests (IsManagedHandlerModule; IIS 10, the
+		/// host's tests: a module without it runs for the static files too, with it for the pages and handlers only).
+		/// </summary>
 		internal static HttpModuleCollection ApplyModules(HttpModuleCollection modules)
 		{
-			var entries = Read().Modules;
+			var (entries, _, runAll) = Read();
 			if (entries.Count == 0) return modules;
 			var list = Enumerable.Range(0, modules.Count).Select(i => (Name: modules.GetKey(i), Module: modules[i])).ToList();
 			foreach (var entry in entries)
@@ -201,6 +238,13 @@ namespace System.Web
 						var type = (string)entry.Attribute("type");
 						if (string.IsNullOrEmpty(type)) break;
 						list.RemoveAll(m => m.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+						var preCondition = (string)entry.Attribute("preCondition");
+						if (!Meets(preCondition)) break;
+						lock (managedHandlerModules)
+						{
+							if (!runAll && preCondition != null && preCondition.Split(',').Any(c => c.Trim().Equals("managedHandler", StringComparison.OrdinalIgnoreCase))) managedHandlerModules.Add(name);
+							else managedHandlerModules.Remove(name);
+						}
 						list.Add((name, new System.Web.Configuration.Common.ModulesEntry(name, type, "type", null).Create()));
 						break;
 				}

@@ -22,6 +22,9 @@ sealed class SettingsVariant
     /// <summary>The probes' answers that are not the baseline's (null: all of them are).</summary>
     [JsonPropertyName("answers")] public Dictionary<string, string> Answers { get; set; }
 
+    /// <summary>A setting of the application's root (modules: a folder's is IIS's 500.19): an application of its own (SettingsSite.Application).</summary>
+    [JsonPropertyName("app")][JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)] public bool App { get; set; }
+
     [JsonIgnore] public string Folder => "/s/" + Id;
     /// <summary>An invalid value is IIS's 500.19 for any request of the folder: one probe tells it.</summary>
     [JsonIgnore] public bool OneProbe => Kind == "invalid";
@@ -68,6 +71,7 @@ static class SettingsSchema
         {
             variants[i].Id = "v" + (i + 1).ToString("D4", CultureInfo.InvariantCulture);
             variants[i].Config = variants[i].Config.Replace("{F}", variants[i].Folder);
+            variants[i].App = SettingsSamples.ApplicationSections.Contains(variants[i].Section);
         }
         return variants;
     }

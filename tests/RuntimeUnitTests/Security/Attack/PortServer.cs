@@ -24,7 +24,22 @@ namespace FrameworkOnCore.Runtime.Tests.Hosting
             var builder = WebApplication.CreateBuilder(new WebApplicationOptions { ContentRootPath = root, Args = Array.Empty<string>() });
             builder.Logging.ClearProviders();
             if (Environment.GetEnvironmentVariable("FOC_ATTACK_LOG") == "1") builder.Logging.AddConsole();
-            builder.WebHost.UseKestrel(options => options.Listen(IPAddress.Loopback, port));
+            // (the settings tests': HTTPS on another port, the client's certificate asked for in the handshake as IIS's binding
+            // asks for it, any taken by TLS: the host says which it trusts, these tests' own)
+            builder.WebHost.UseKestrel(options =>
+            {
+                options.Listen(IPAddress.Loopback, port);
+                if (args.Length > 2)
+                    options.Listen(IPAddress.Loopback, int.Parse(args[2]), listen => listen.UseHttps(new Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions
+                    {
+                        ServerCertificate = System.Security.Cryptography.X509Certificates.X509CertificateLoader.LoadPkcs12FromFile(args[3], Security.SettingsCertificates.Password),
+                        ClientCertificateMode = Microsoft.AspNetCore.Server.Kestrel.Https.ClientCertificateMode.AllowCertificate,
+                        ClientCertificateValidation = (_, _, _) => true,
+                    }));
+            });
+            if (args.Length > 4)
+                System.Web.Hosting.IisAccess.TrustedClientCertificates = new System.Security.Cryptography.X509Certificates.X509Certificate2Collection(
+                    System.Security.Cryptography.X509Certificates.X509CertificateLoader.LoadCertificateFromFile(args[4]));
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession();
             var app = builder.Build();
@@ -42,7 +57,14 @@ namespace FrameworkOnCore.Runtime.Tests.Hosting
             });
             app.UseWebFormsIis();
             app.UseSession();
-            app.UseWebForms(options => options.PhysicalPath(root).UseAspNetCoreSessionProvider());
+            // (every request to Web Forms, as the converter's Program.cs has it for an application whose modules IIS runs for
+            // every request: HostProgram, ModulesForAllRequests)
+            var allRequests = Environment.GetEnvironmentVariable("FOC_ATTACK_ALL_REQUESTS") == "1";
+            app.UseWebForms(options =>
+            {
+                options.PhysicalPath(root).UseAspNetCoreSessionProvider();
+                if (allRequests) options.HandleAllRequestsWithWebForms();
+            });
             app.StartAsync().GetAwaiter().GetResult();
             Child.Say("listening", port);
             Console.In.ReadToEnd();
@@ -63,18 +85,32 @@ namespace FrameworkOnCore.Runtime.Tests.Security
         readonly StringBuilder output = new();
         public readonly string Root;
         public readonly int Port;
+        /// <summary>Its HTTPS port (0: none).</summary>
+        public readonly int HttpsPort;
 
         readonly Action<string> delete;
 
         public PortServer() : this(ProbeSite.Write, ProbeSite.Delete) { }
 
-        /// <summary>The port's server of another site (the settings tests'), written into a folder of its own and deleted with it.</summary>
-        public PortServer(Action<string> write, Action<string> delete)
+        /// <summary>The port's server of another site (the settings tests'), written into a folder of its own and deleted with it;
+        /// with HTTPS on a port of its own (SettingsCertificates: the server's made for it, the trusted client's trusted); every
+        /// request to Web Forms (allRequests) as the converter's Program.cs has it for modules IIS runs for every request.</summary>
+        public PortServer(Action<string> write, Action<string> delete, bool https = false, bool allRequests = false)
         {
             this.delete = delete;
             Root = Directory.CreateTempSubdirectory("foc-attack").FullName;
             write(Root);
             Port = FreePort();
+            var extra = new List<string>();
+            if (https)
+            {
+                HttpsPort = FreePort();
+                var folder = Directory.CreateDirectory(Path.Combine(Root, "App_Data", "foc-tls")).FullName;
+                using var server = SettingsCertificates.Make(SettingsCertificates.ServerSubject, server: true);
+                SettingsCertificates.Write(server, Path.Combine(folder, "server.pfx"), withKey: true);
+                SettingsCertificates.Write(SettingsCertificates.Trusted, Path.Combine(folder, "trusted.cer"), withKey: false);
+                extra.AddRange(new[] { HttpsPort.ToString(), Path.Combine(folder, "server.pfx"), Path.Combine(folder, "trusted.cer") });
+            }
             var start = new ProcessStartInfo(Child.Dotnet)
             {
                 UseShellExecute = false,
@@ -87,9 +123,11 @@ namespace FrameworkOnCore.Runtime.Tests.Security
             start.ArgumentList.Add("AttackServer.Serve");
             start.ArgumentList.Add(Root);
             start.ArgumentList.Add(Port.ToString());
+            foreach (var argument in extra) start.ArgumentList.Add(argument);
             foreach (var name in new[] { "WEBFORMSFORCORE_WORKER", "WEBFORMSFORCORE_SHADOWCOPY", "WEBFORMSFORCORE_SUPERVISOR", "WEBFORMSFORCORE_APP_PATH" })
                 start.Environment.Remove(name);
             start.Environment["ASPNETCORE_ENVIRONMENT"] = "Production";
+            if (allRequests) start.Environment["FOC_ATTACK_ALL_REQUESTS"] = "1";
             process = new Process { StartInfo = start };
             var listening = new ManualResetEventSlim();
             process.OutputDataReceived += (_, e) =>

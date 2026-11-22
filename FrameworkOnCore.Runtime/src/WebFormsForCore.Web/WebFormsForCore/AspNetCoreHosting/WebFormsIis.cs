@@ -84,6 +84,9 @@ namespace Microsoft.AspNetCore.Builder
 			var pipeline = WebFormsPipeline.Of(app);
 			app.Use(async (context, next) =>
 			{
+				// TLS as the URL's folder's security/access sslFlags asks for it (IIS 10: 403.4, 403.5, 403.7, 403.16 before its
+				// request filtering, and before a static file's cached answer: IisAccess)
+				if (pipeline.Middleware is { } middleware && System.Web.Hosting.IisAccess.RefusesTls(context, middleware.PhysicalPath)) return;
 				if (pipeline.Middleware?.RequestFiltering(context) == true) { await WebFormsMiddleware.AfterFiltering(context); return; }
 				await next(context);
 			});

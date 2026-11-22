@@ -47,7 +47,7 @@ try {
     $serverSettings = Join-Path $PSScriptRoot 'iis-settings-profile.config'
     & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $repository 'experiments\wf4c\capture-iis.ps1') -Site $name -Out $serverSettings
     if ($LASTEXITCODE -ne 0) { throw 'the site''s settings could not be captured' }
-    $text = [IO.File]::ReadAllText($serverSettings).Replace($root, '{root}').Replace("127.0.0.1:${port}:", '127.0.0.1:{port}:')
+    $text = [IO.File]::ReadAllText($serverSettings).Replace($root, '{root}').Replace("127.0.0.1:${port}:", '127.0.0.1:{port}:').Replace($env:COMPUTERNAME, '{machine}')
     [IO.File]::WriteAllText($serverSettings, $text.Replace("`r`n", "`n"), (New-Object System.Text.UTF8Encoding $false))
 }
 finally {

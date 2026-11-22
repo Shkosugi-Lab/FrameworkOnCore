@@ -44,6 +44,14 @@ namespace System.Web
 					return true;
 				}
 				var document = folderWorker?.Host?.DefaultDocumentFor(virtualPath, physicalPath);
+				// The child request's request filtering: a default document of a type the folder denies is its 404.7 (IIS 10:
+				// ".htm" denied, the folder's Default.htm). It was served.
+				if (document != null && DeniedType(document))
+				{
+					NotFound(context, 7, 0);
+					context.Response.AppendHeader("Connection", "close");
+					return true;
+				}
 				if (document != null)
 				{
 					// The query as the client sent it.
@@ -83,7 +91,10 @@ namespace System.Web
 
 			var (types, clientCache) = StaticContent(virtualPath);
 			string contentType;
-			if (!types.TryGetValue(Path.GetExtension(physicalPath), out contentType) && !types.TryGetValue(".*", out contentType))
+			// A name without a type is the entry "." (not ".*", which is the typed names' catch-all: IIS 10 serves "noext" with
+			// a mimeMap of ".", 404.17 with one of ".*"; it was the other way round).
+			var type = Path.GetExtension(physicalPath);
+			if (type.Length == 0 ? !types.TryGetValue(".", out contentType) : !types.TryGetValue(type, out contentType) && !types.TryGetValue(".*", out contentType))
 			{
 				// IIS's 404.3: a type it is not told. A name without a type ("/folder/noext", a file): 404.17, the static file
 				// module's answer to the extensionless handler's request for it (IIS 10; it was 404.3).
@@ -229,6 +240,36 @@ namespace System.Web
 		// The static files' answer (IisDecision: the tests').
 		static void Decided(HttpContext context) => IisDecision.Set((context.WorkerRequest as AspNetCoreWorkerRequest)?.Context, IisDecision.StaticFile);
 
+		/// <summary>
+		/// IIS's static file module for a verb other than GET and HEAD (POST, PUT, an unknown one): no file there, 404.0; a
+		/// file, 405.0 with the verbs it takes (observed on IIS 10: POST and FOO /a.txt are 405.0, Allow: GET, HEAD, OPTIONS,
+		/// TRACE; POST /nothing.txt is 404.0). ASP.NET's handlers of the root web.config threw 405 (its error page, no Allow).
+		/// </summary>
+		internal static void VerbNotAllowed(HttpContext context)
+		{
+			if (!FileCache.Get(context.Request.PhysicalPath).IsFile)
+			{
+				NotFound(context, 0, 2);
+				return;
+			}
+			Decided(context);
+			IisLogStatus.Set((context.WorkerRequest as AspNetCoreWorkerRequest)?.Context, 0, 0);
+			context.Response.SuppressDefaultCacheControlHeader = true;
+			context.Response.StatusCode = 405;
+			context.Response.AppendHeader("Allow", "GET, HEAD, OPTIONS, TRACE");
+		}
+
+		// A URL's type as the request filtering of its folder takes it: denied (fileExtensions), or not listed where only the
+		// listed are allowed.
+		static bool DeniedType(string virtualPath)
+		{
+			var filtering = IntegratedModeConfiguration.RequestFiltering(virtualPath);
+			var name = virtualPath.Substring(virtualPath.LastIndexOf('/') + 1);
+			var dot = name.LastIndexOf('.');
+			if (filtering.Extensions.TryGetValue(dot < 0 ? "." : name.Substring(dot), out var allowed)) return !allowed;
+			return !filtering.AllowUnlisted;
+		}
+
 		static void NotFound(HttpContext context, int subStatus, int win32Status)
 		{
 			Decided(context);
@@ -299,7 +340,8 @@ namespace System.Web
 			{
 				var directory = (entry.Attributes & FileAttributes.Directory) != 0;
 				var written = entry.LastWriteTime;
-				if (flags.Contains("LongDate")) page.Append(written.ToString("D", culture)).Append(' ');
+				// LongDate is the date's form: no date without Date (IIS 10: showFlags="LongDate" lists the names only).
+				if (flags.Contains("Date") && flags.Contains("LongDate")) page.Append(written.ToString("D", culture)).Append(' ');
 				else if (flags.Contains("Date")) page.Append(written.ToString("d", culture).PadLeft(10)).Append(' ');
 				if (flags.Contains("Time")) page.Append(written.ToString("t", culture).PadLeft(8)).Append(' ');
 				if (flags.Contains("Size")) page.Append(directory ? "       &lt;dir&gt;" : ((FileInfo)entry).Length.ToString(CultureInfo.InvariantCulture).PadLeft(12)).Append(' ');

@@ -158,14 +158,15 @@ public static class IisFeatures
                 if (Child(filtering, "requestLimits") != null) Add("request limits (requestFiltering/requestLimits)", Status.Supported, "maxAllowedContentLength, maxUrl, maxQueryString");
                 // What the host's request filtering reads (IntegratedModeConfiguration.RequestFiltering) and what it does not.
                 bool Set(string n) => Child(filtering, n)?.Elements().Any() == true || Child(filtering, n)?.Attributes().Any() == true;
-                var applied = new[] { "fileExtensions", "hiddenSegments", "denyUrlSequences" }.Where(Set).ToList();
-                if (filtering.Attribute("allowDoubleEscaping") != null) applied.Add("allowDoubleEscaping");
+                var applied = new[] { "fileExtensions", "hiddenSegments", "denyUrlSequences", "verbs", "filteringRules", "alwaysAllowedUrls",
+                    "alwaysAllowedQueryStrings", "denyQueryStringSequences" }.Where(Set).ToList();
+                if (Child(Child(filtering, "requestLimits"), "headerLimits")?.Elements().Any() == true) applied.Add("requestLimits/headerLimits");
+                foreach (var attribute in new[] { "allowDoubleEscaping", "allowHighBitCharacters", "unescapeQueryString" })
+                    if (filtering.Attribute(attribute) != null) applied.Add(attribute);
                 if (applied.Count > 0) Add("request filtering (requestFiltering)", Status.Supported, string.Join(", ", applied) + ": applied as IIS applies them");
-                var parts = new[] { "verbs", "headerLimits", "filteringRules", "alwaysAllowedUrls", "alwaysAllowedQueryStrings", "denyQueryStringSequences" }.Where(Set).ToList();
-                if (Child(Child(filtering, "requestLimits"), "headerLimits")?.Elements().Any() == true) parts.Add("requestLimits/headerLimits");
-                if (False(filtering, "allowHighBitCharacters")) parts.Add("allowHighBitCharacters");
+                // (the rest of requestFiltering is applied: IIS 10's answers to each, the host's tests' iis-settings.json)
+                var parts = new List<string>();
                 if (filtering.Attribute("removeServerHeader") != null) parts.Add("removeServerHeader");
-                if (False(filtering, "unescapeQueryString")) parts.Add("unescapeQueryString");
                 if (parts.Count > 0) Add("request filtering (requestFiltering)", Status.Partial, string.Join(", ", parts) + ": not applied");
             }
             // (sslFlags: IIS refuses a request without TLS, 403.4, or without a client certificate)

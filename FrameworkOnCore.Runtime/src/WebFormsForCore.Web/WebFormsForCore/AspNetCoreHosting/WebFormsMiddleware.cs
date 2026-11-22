@@ -233,48 +233,82 @@ namespace Microsoft.AspNetCore.Builder
 			// not the empty answer of the end of ASP.NET Core's pipeline.
 			// IIS: web.config and the hidden segments (bin, App_Data, App_Code...: also where nothing is) 404.8, the other types
 			// its denied file extensions 404.7. The status only: its page is httpErrors' (IisHttpErrors).
-			// IIS's request filtering's order: double escaping (404.11), the denied URL sequences (404.5), then the hidden
-			// segments and the denied file extensions.
+			// IIS's request filtering's order (IIS 10, iis-settings.json): the URL's and the query's lengths (404.14, 404.15:
+			// before double escaping), the verbs (404.6), double escaping (404.11), characters beyond ASCII (404.12), the denied
+			// URL sequences (404.5), the hidden segments and the denied file extensions, the query's sequences (404.18), the
+			// headers' sizes (431), the filtering rules (404.19). A URL of alwaysAllowedUrls skips the URL's own checks, a query
+			// of alwaysAllowedQueryStrings the query's. Each refusal closes the connection (IIS's Connection: close).
 			var requestPath = (context.Request.PathBase.Value ?? "") + (context.Request.Path.Value ?? "");
 			var filtering = IntegratedModeConfiguration.RequestFiltering(requestPath);
-			var doubleEscaped = !filtering.AllowDoubleEscaping && AspNetCoreWorkerRequest.IsDoubleEscaped(requestPath);
-			if (doubleEscaped || filtering.DenyUrlSequences.Any(sequence => requestPath.IndexOf(sequence, StringComparison.OrdinalIgnoreCase) >= 0))
+			var rawQuery = (context.Request.QueryString.Value ?? "").TrimStart('?');
+			bool Refuse(int status, int subStatus)
 			{
-				System.Web.Hosting.IisLogStatus.Set(context, doubleEscaped ? 11 : 5);
-				context.Response.StatusCode = 404;
+				System.Web.Hosting.IisLogStatus.Set(context, subStatus);
+				context.Response.StatusCode = status;
+				context.Response.Headers["Connection"] = "close";
 				IisDecision.Set(context, IisDecision.RequestFiltering);
 				return true;
 			}
 			// requestLimits' maxUrl (404.14) and maxQueryString (404.15), for every URL (the worker request checked them for
 			// System.Web's requests only: a long URL of a file not there was 404.0).
 			var limits = IntegratedModeConfiguration.RequestLimits(requestPath);
-			var queryLength = Math.Max(0, (context.Request.QueryString.Value ?? "").Length - 1);
-			if (requestPath.Length > limits.MaxUrl || queryLength > limits.MaxQueryString)
+			if (requestPath.Length > limits.MaxUrl) return Refuse(404, 14);
+			if (rawQuery.Length > limits.MaxQueryString) return Refuse(404, 15);
+			var urlAllowed = filtering.AlwaysAllowedUrls.Contains(requestPath);
+			if (!urlAllowed)
 			{
-				System.Web.Hosting.IisLogStatus.Set(context, requestPath.Length > limits.MaxUrl ? 14 : 15);
-				context.Response.StatusCode = 404;
-				IisDecision.Set(context, IisDecision.RequestFiltering);
-				return true;
+				if (!filtering.AllowDoubleEscaping && AspNetCoreWorkerRequest.IsDoubleEscaped(requestPath)) return Refuse(404, 11);
+				if (!filtering.AllowHighBitCharacters && requestPath.Any(c => c > 0x7F)) return Refuse(404, 12);
+				if (filtering.DenyUrlSequences.Any(sequence => requestPath.IndexOf(sequence, StringComparison.OrdinalIgnoreCase) >= 0)) return Refuse(404, 5);
+				var hidden = AspNetCoreWorkerRequest.IsHidden(context.Request.Path.Value ?? "", requestPath);
+				if (hidden || host.IsProhibited(context))
+				{
+					var name = System.IO.Path.GetFileName(context.Request.Path.Value ?? "");
+					return Refuse(404, hidden || string.Equals(name, "web.config", StringComparison.OrdinalIgnoreCase) ? 8 : 7);
+				}
 			}
-			var hidden = AspNetCoreWorkerRequest.IsHidden(context.Request.Path.Value ?? "", requestPath);
-			if (hidden || host.IsProhibited(context))
+			// (after the hidden segments: IIS 10's GET /App_Data/a.txt with GET denied is 404.8)
+			var method = context.Request.Method;
+			if (filtering.Verbs.TryGetValue(method, out var verbAllowed) ? !verbAllowed : !filtering.VerbsAllowUnlisted) return Refuse(404, 6);
+			// The query as sent and, with unescapeQueryString (the default), unescaped (IIS 10: "q=%62ad" is refused by "bad").
+			string unescapedQuery = null;
+			if (filtering.UnescapeQueryString && (filtering.DenyQueryStringSequences.Count > 0 || filtering.Rules.Count > 0))
 			{
-				var name = System.IO.Path.GetFileName(context.Request.Path.Value ?? "");
-				System.Web.Hosting.IisLogStatus.Set(context, hidden || string.Equals(name, "web.config", StringComparison.OrdinalIgnoreCase) ? 8 : 7);
-				context.Response.StatusCode = 404;
-				IisDecision.Set(context, IisDecision.RequestFiltering);
-				return true;
+				try { unescapedQuery = Uri.UnescapeDataString(rawQuery.Replace('+', ' ')); }
+				catch (UriFormatException) { unescapedQuery = rawQuery; }
 			}
+			bool QueryHas(string text) => rawQuery.IndexOf(text, StringComparison.OrdinalIgnoreCase) >= 0 ||
+				(unescapedQuery != null && unescapedQuery.IndexOf(text, StringComparison.OrdinalIgnoreCase) >= 0);
+			// (an allowed query as sent or unescaped: IIS 10's "q=bad" allows "q=%62ad")
+			var queryAllowed = filtering.AlwaysAllowedQueryStrings.Contains(rawQuery) || (unescapedQuery != null && filtering.AlwaysAllowedQueryStrings.Contains(unescapedQuery));
+			if (!queryAllowed && filtering.DenyQueryStringSequences.Any(QueryHas)) return Refuse(404, 18);
+			foreach (var limit in filtering.HeaderLimits)
+				if (context.Request.Headers.TryGetValue(limit.Key, out var values) && values.ToString().Length > limit.Value) return Refuse(431, 0);
+			if (filtering.Rules.Count > 0)
+			{
+				var ruleName = requestPath[(requestPath.LastIndexOf('/') + 1)..];
+				var dot = ruleName.LastIndexOf('.');
+				var extension = dot < 0 ? "." : ruleName[dot..];
+				foreach (var rule in filtering.Rules)
+				{
+					if (rule.AppliesTo.Count > 0 && !rule.AppliesTo.Contains(extension, StringComparer.OrdinalIgnoreCase)) continue;
+					foreach (var text in rule.DenyStrings)
+					{
+						var found = (rule.ScanUrl || rule.ScanAllRaw) && requestPath.IndexOf(text, StringComparison.OrdinalIgnoreCase) >= 0 ||
+							(rule.ScanQueryString || rule.ScanAllRaw) && QueryHas(text) ||
+							rule.ScanHeaders.Any(h => context.Request.Headers.TryGetValue(h, out var header) && header.ToString().IndexOf(text, StringComparison.OrdinalIgnoreCase) >= 0) ||
+							rule.ScanAllRaw && context.Request.Headers.Any(h => h.Value.ToString().IndexOf(text, StringComparison.OrdinalIgnoreCase) >= 0);
+						if (found) return Refuse(404, 19);
+					}
+				}
+			}
+			// removeServerHeader: no Server header on the answer.
+			if (filtering.RemoveServerHeader)
+				context.Response.OnStarting(() => { context.Response.Headers.Remove("Server"); return Task.CompletedTask; });
 			// requestLimits' maxAllowedContentLength (413.1), after the URL's checks (IIS 10: 300 KB posted to App_Data is
 			// 404.8) and before URL Rewrite (posted to a rule's URL it is 413.1, not the rule's redirect). The worker request
 			// checked it, for System.Web's requests, after the rules: the redirect was answered.
-			if (context.Request.ContentLength > limits.MaxAllowedContentLength)
-			{
-				System.Web.Hosting.IisLogStatus.Set(context, 1);
-				context.Response.StatusCode = 413;
-				IisDecision.Set(context, IisDecision.RequestFiltering);
-				return true;
-			}
+			if (context.Request.ContentLength > limits.MaxAllowedContentLength) return Refuse(413, 1);
 			// A last segment ending in '.' or a space ("/a.txt.", "/old/x.", "/sub%20") of a URL ASP.NET's handlers take (no
 			// extension: IIS's "*." handler, which a name ending in '.' matches; "page.aspx " has the type ".aspx ", no
 			// handler's: IIS 10's "/go/page.aspx%20" is the rule's 301): ASP.NET refuses it as its

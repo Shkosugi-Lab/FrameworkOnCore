@@ -293,6 +293,50 @@ namespace System.Web
 			public bool AllowUnlisted = true;
 			public bool AllowDoubleEscaping;
 			public string[] DenyUrlSequences = Array.Empty<string>();
+			// The rest of requestFiltering (IIS 10's answers to each recorded: Security/iis-golden/iis-settings.json).
+			public bool AllowHighBitCharacters = true;         // false: a URL with a character beyond ASCII, 404.12
+			public bool UnescapeQueryString = true;            // the query's sequences and rules checked on it unescaped too
+			public bool RemoveServerHeader;
+			public Dictionary<string, bool> Verbs = new Dictionary<string, bool>(StringComparer.Ordinal);   // 404.6
+			public bool VerbsAllowUnlisted = true;
+			public Dictionary<string, long> HeaderLimits = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase);   // 431
+			public HashSet<string> AlwaysAllowedUrls = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+			public HashSet<string> AlwaysAllowedQueryStrings = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+			public List<string> DenyQueryStringSequences = new List<string>();   // 404.18
+			public List<FilteringRule> Rules = new List<FilteringRule>();        // 404.19
+		}
+
+		internal sealed class FilteringRule
+		{
+			public string Name;
+			public bool ScanUrl, ScanQueryString, ScanAllRaw;
+			public List<string> ScanHeaders = new List<string>();
+			public List<string> AppliesTo = new List<string>();
+			public List<string> DenyStrings = new List<string>();
+		}
+
+		// A collection's add, remove and clear by its key attribute (as IIS merges a web.config's collection over its parent's).
+		static void Collection(XElement parent, string name, string key, Action clear, Action<string, XElement> add, Action<string> remove)
+		{
+			foreach (var collection in IisConfiguration.Children(parent, name))
+				foreach (var item in collection.Elements())
+				{
+					var value = ((string)item.Attribute(key))?.Trim();
+					switch (item.Name.LocalName)
+					{
+						case "clear": clear(); break;
+						case "remove" when !string.IsNullOrEmpty(value): remove(value); break;
+						default:
+							if (item.Name.LocalName != "clear" && item.Name.LocalName != "remove" && !string.IsNullOrEmpty(value)) add(value, item);
+							break;
+					}
+				}
+		}
+
+		static bool Flag(XElement element, string attribute, bool current)
+		{
+			var value = (string)element.Attribute(attribute);
+			return value == null ? current : string.Equals(value.Trim(), "true", StringComparison.OrdinalIgnoreCase);
 		}
 
 		// applicationHost.config's (IIS 10 with ASP.NET 4.8): its hiddenSegments and the extensions it denies.
@@ -384,6 +428,36 @@ namespace System.Web
 					}
 			}
 			filtering.DenyUrlSequences = sequences.ToArray();
+			foreach (var element in webServers.SelectMany(w => IisConfiguration.Children(w, "security")).SelectMany(s => IisConfiguration.Children(s, "requestFiltering")))
+			{
+				filtering.AllowHighBitCharacters = Flag(element, "allowHighBitCharacters", filtering.AllowHighBitCharacters);
+				filtering.UnescapeQueryString = Flag(element, "unescapeQueryString", filtering.UnescapeQueryString);
+				filtering.RemoveServerHeader = Flag(element, "removeServerHeader", filtering.RemoveServerHeader);
+				foreach (var verbs in IisConfiguration.Children(element, "verbs")) filtering.VerbsAllowUnlisted = Flag(verbs, "allowUnlisted", filtering.VerbsAllowUnlisted);
+				Collection(element, "verbs", "verb", filtering.Verbs.Clear, (verb, item) => filtering.Verbs[verb] = Flag(item, "allowed", false), verb => filtering.Verbs.Remove(verb));
+				foreach (var limits in IisConfiguration.Children(element, "requestLimits"))
+					Collection(limits, "headerLimits", "header", filtering.HeaderLimits.Clear,
+						(header, item) => filtering.HeaderLimits[header] = long.TryParse((string)item.Attribute("sizeLimit"), out var size) ? size : long.MaxValue,
+						header => filtering.HeaderLimits.Remove(header));
+				Collection(element, "alwaysAllowedUrls", "url", filtering.AlwaysAllowedUrls.Clear, (url, _) => filtering.AlwaysAllowedUrls.Add(url), url => filtering.AlwaysAllowedUrls.Remove(url));
+				Collection(element, "alwaysAllowedQueryStrings", "queryString", filtering.AlwaysAllowedQueryStrings.Clear,
+					(query, _) => filtering.AlwaysAllowedQueryStrings.Add(query), query => filtering.AlwaysAllowedQueryStrings.Remove(query));
+				Collection(element, "denyQueryStringSequences", "sequence", filtering.DenyQueryStringSequences.Clear,
+					(sequence, _) => { if (!filtering.DenyQueryStringSequences.Contains(sequence, StringComparer.OrdinalIgnoreCase)) filtering.DenyQueryStringSequences.Add(sequence); },
+					sequence => filtering.DenyQueryStringSequences.RemoveAll(s => string.Equals(s, sequence, StringComparison.OrdinalIgnoreCase)));
+				Collection(element, "filteringRules", "name", filtering.Rules.Clear, (name, item) =>
+				{
+					filtering.Rules.RemoveAll(r => string.Equals(r.Name, name, StringComparison.OrdinalIgnoreCase));
+					var rule = new FilteringRule
+					{
+						Name = name, ScanUrl = Flag(item, "scanUrl", false), ScanQueryString = Flag(item, "scanQueryString", false), ScanAllRaw = Flag(item, "scanAllRaw", false),
+					};
+					Collection(item, "scanHeaders", "requestHeader", rule.ScanHeaders.Clear, (header, _) => rule.ScanHeaders.Add(header), header => rule.ScanHeaders.Remove(header));
+					Collection(item, "appliesTo", "fileExtension", rule.AppliesTo.Clear, (extension, _) => rule.AppliesTo.Add(extension), extension => rule.AppliesTo.Remove(extension));
+					Collection(item, "denyStrings", "string", rule.DenyStrings.Clear, (text, _) => rule.DenyStrings.Add(text), text => rule.DenyStrings.Remove(text));
+					filtering.Rules.Add(rule);
+				}, name => filtering.Rules.RemoveAll(r => string.Equals(r.Name, name, StringComparison.OrdinalIgnoreCase)));
+			}
 			return filtering;
 		}
 

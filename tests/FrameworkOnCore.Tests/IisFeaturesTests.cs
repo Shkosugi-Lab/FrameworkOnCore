@@ -88,10 +88,12 @@ public class IisFeaturesTests : IDisposable
             </requestFiltering></security></system.webServer></configuration>
             """);
         var done = Assert.Single(findings, f => f.Feature.StartsWith("request filtering") && f.Status == IisFeatures.Status.Supported);
-        Assert.Contains("hiddenSegments, denyUrlSequences, allowDoubleEscaping", done.Text);
-        var not = Assert.Single(findings, f => f.Feature.StartsWith("request filtering") && f.Status == IisFeatures.Status.Partial);
-        Assert.Contains("verbs, denyQueryStringSequences, unescapeQueryString", not.Text);
-        Assert.DoesNotContain("hiddenSegments", not.Text);
+        Assert.Contains("hiddenSegments, denyUrlSequences, verbs, denyQueryStringSequences, allowDoubleEscaping, unescapeQueryString", done.Text);
+        Assert.DoesNotContain(findings, f => f.Feature.StartsWith("request filtering") && f.Status == IisFeatures.Status.Partial);
+        // removeServerHeader is not (Kestrel writes its Server header)
+        var not = Assert.Single(Analyze("""<configuration><system.webServer><security><requestFiltering removeServerHeader="true" /></security></system.webServer></configuration>"""),
+            f => f.Feature.StartsWith("request filtering") && f.Status == IisFeatures.Status.Partial);
+        Assert.Contains("removeServerHeader", not.Text);
     }
 
     [Theory] // settings of IIS's schema the host does not read, each of which changes what is answered: reported

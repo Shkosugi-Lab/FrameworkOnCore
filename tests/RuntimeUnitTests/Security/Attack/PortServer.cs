@@ -64,10 +64,16 @@ namespace FrameworkOnCore.Runtime.Tests.Security
         public readonly string Root;
         public readonly int Port;
 
-        public PortServer()
+        readonly Action<string> delete;
+
+        public PortServer() : this(ProbeSite.Write, ProbeSite.Delete) { }
+
+        /// <summary>The port's server of another site (the settings tests'), written into a folder of its own and deleted with it.</summary>
+        public PortServer(Action<string> write, Action<string> delete)
         {
+            this.delete = delete;
             Root = Directory.CreateTempSubdirectory("foc-attack").FullName;
-            ProbeSite.Write(Root);
+            write(Root);
             Port = FreePort();
             var start = new ProcessStartInfo(Child.Dotnet)
             {
@@ -127,7 +133,7 @@ namespace FrameworkOnCore.Runtime.Tests.Security
             }
             catch (InvalidOperationException) { }
             process.Dispose();
-            ProbeSite.Delete(Root);
+            delete(Root);
         }
     }
 }

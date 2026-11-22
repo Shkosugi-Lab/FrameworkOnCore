@@ -104,6 +104,14 @@ namespace System.Web {
                     return new HttpAsyncResult(callback, state, true, null, null);
                 }
 #endif
+#if !NETFRAMEWORK
+                // FrameworkOnCore: IIS's static file module answers it (its 404.0 or 405.0, IisStaticFile.VerbNotAllowed), not
+                // ASP.NET's error page.
+                if (request.HttpVerb == HttpVerb.POST && GetType() == typeof(DefaultHttpHandler)) {
+                    System.Web.IisStaticFile.VerbNotAllowed(context);
+                    return new HttpAsyncResult(callback, state, true, null, null);
+                }
+#endif
                 if (request.HttpVerb == HttpVerb.POST) {
                     throw new HttpException(405, SR.GetString(SR.Method_not_allowed, request.HttpMethod, request.Path));
                 }

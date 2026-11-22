@@ -234,6 +234,10 @@ namespace System.Web.Hosting
 
 		static string Target(string destination, Match wildcard, string rest, string path, string query, bool exact)
 		{
+			// The request's path in the Location as a URL has it: its characters beyond ASCII percent-encoded in UTF-8 (IIS 10:
+			// "/%C3%A9.txt" redirected to ".../%C3%A9.txt"; the port's Location had the "é" itself).
+			rest = Escaped(rest);
+			path = Escaped(path);
 			var target = destination;
 			// $0-$9: what the wildcard's stars matched.
 			if (wildcard != null)
@@ -245,6 +249,21 @@ namespace System.Web.Hosting
 			target = target.Replace("$S", rest).Replace("$Q", query).Replace("$P", query.Length > 0 ? query.Substring(1) : "").Replace("$V", path);
 			if (!exact) target = target.TrimEnd('/') + rest;
 			return target.Length == 0 ? "/" : target;
+		}
+
+		static string Escaped(string path)
+		{
+			if (path.All(c => c < 0x80)) return path;
+			var text = new System.Text.StringBuilder();
+			var bytes = new byte[4];
+			foreach (var rune in path.EnumerateRunes())
+				if (rune.Value < 0x80) text.Append((char)rune.Value);
+				else
+				{
+					var length = rune.EncodeToUtf8(bytes);
+					for (var i = 0; i < length; i++) text.Append('%').Append(bytes[i].ToString("X2"));
+				}
+			return text.ToString();
 		}
 
 		internal sealed class Middleware

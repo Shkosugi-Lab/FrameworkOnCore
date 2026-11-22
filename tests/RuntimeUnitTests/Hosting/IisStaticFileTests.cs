@@ -631,15 +631,26 @@ public class IisStaticFileTests
         finally { File.SetAttributes(hidden, FileAttributes.Normal); }
     }
 
-    [Fact] // directoryBrowse's showFlags: without Extension a file's name has none; LongDate the long date; no Size, no Time
+    [Fact] // directoryBrowse's showFlags: without Extension a file's name has none; Date with LongDate the long date; no Size, no Time
     public void Show_flags_choose_what_is_listed()
     {
-        using var site = new Site(Site.WebServer("<directoryBrowse enabled='true' showFlags='LongDate' />"));
+        using var site = new Site(Site.WebServer("<directoryBrowse enabled='true' showFlags='Date, LongDate' />"));
         site.Write("sub/b.txt", "12345").Run();
         var body = Serve(site, "/sub/").Body;
         var written = File.GetLastWriteTime(Path.Combine(site.Root, "sub", "b.txt"));
         Assert.Contains(written.ToString("D", CultureInfo.InstalledUICulture) + " <A HREF=\"/sub/b.txt\">b</A>", body);
         Assert.DoesNotContain(" 5 ", body);
+    }
+
+    [Fact] // LongDate is the date's form only: without Date, no date (IIS 10: showFlags="LongDate" lists the names only; it had the long date)
+    public void Long_date_without_date_lists_no_date()
+    {
+        using var site = new Site(Site.WebServer("<directoryBrowse enabled='true' showFlags='LongDate' />"));
+        site.Write("sub/b.txt", "12345").Run();
+        var body = Serve(site, "/sub/").Body;
+        var written = File.GetLastWriteTime(Path.Combine(site.Root, "sub", "b.txt"));
+        Assert.DoesNotContain(written.ToString("D", CultureInfo.InstalledUICulture), body);
+        Assert.Contains("<A HREF=\"/sub/b.txt\">b</A>", body);
     }
 
     [Fact] // directoryBrowse's showFlags None: the names only

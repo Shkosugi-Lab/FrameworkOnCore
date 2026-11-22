@@ -828,8 +828,10 @@ namespace System.Web.Hosting
 		// the URL's folder (configurationPath: the path with the application's base).
 		internal static bool IsHidden(string path, string configurationPath = null)
 		{
-			var hidden = IntegratedModeConfiguration.RequestFiltering(configurationPath ?? path).HiddenSegments;
-			return path.Split('/', StringSplitOptions.RemoveEmptyEntries).Any(hidden.Contains);
+			var filtering = IntegratedModeConfiguration.RequestFiltering(configurationPath ?? path);
+			// (a URL of alwaysAllowedUrls: none of the URL's checks, IIS 10's /x/bin/a.txt served)
+			if (filtering.AlwaysAllowedUrls.Contains(configurationPath ?? path)) return false;
+			return path.Split('/', StringSplitOptions.RemoveEmptyEntries).Any(filtering.HiddenSegments.Contains);
 		}
 
 		// IIS7WorkerRequest.SetRequestHeader's: a request's header set, appended to (a header sent more than once) or removed (null)

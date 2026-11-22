@@ -84,6 +84,12 @@ namespace System.Web {
         ///       web processing execution.</para>
         /// </devdoc>
         public void ProcessRequest(HttpContext context) {
+#if !NETFRAMEWORK
+            // FrameworkOnCore: the root web.config's catch-all of the verbs other than GET, HEAD and POST, where IIS's
+            // StaticFile handler (verb "*") is: its static file module's answer (IisStaticFile.VerbNotAllowed).
+            System.Web.IisStaticFile.VerbNotAllowed(context);
+            return;
+#endif
             throw new HttpException(405,
                                     SR.GetString(SR.Path_forbidden, context.Request.HttpMethod));
         }

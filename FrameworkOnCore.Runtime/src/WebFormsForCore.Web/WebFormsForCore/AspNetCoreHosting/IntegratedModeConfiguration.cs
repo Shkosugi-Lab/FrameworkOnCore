@@ -364,7 +364,8 @@ namespace System.Web
 						{
 							case "clear": filtering.Extensions.Clear(); break;
 							case "add" when !string.IsNullOrEmpty(extension):
-								filtering.Extensions[extension] = string.Equals((string)item.Attribute("allowed"), "true", StringComparison.OrdinalIgnoreCase);
+								// (allowed left out: allowed, the schema's default - IIS 10 serves the type; it was denied)
+								filtering.Extensions[extension] = !string.Equals((string)item.Attribute("allowed"), "false", StringComparison.OrdinalIgnoreCase);
 								break;
 							case "remove" when !string.IsNullOrEmpty(extension): filtering.Extensions.Remove(extension); break;
 						}

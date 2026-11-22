@@ -86,6 +86,9 @@ static class AttackCases
             yield return Get("filtering", target);
         foreach (var extension in ProbeSite.ProtectedExtensions.Where(e => e is not ".json" and not ".xml"))
             yield return Get("extensions", "/x" + extension);
+        foreach (var target in new[] { "/cfg-ext/a.txt", "/cfg-custom/x", "/cfg-custom/a.txt", "/cfg-err/nothing.txt", "/cfg-err2/nothing.txt", "/cfg-dd/", "/cfg-dd/sub/",
+            "/cfg-unl/a.txt", "/cfg-unl/a.htm", "/cfg-unl/noext", "/cfg-unl/sub/a.txt", "/cfg-unl/", "/cfg-unl/sub", "/cfg-unl/nothing", "/cfg-unl2/a.txt", "/cfg-unl2/noext", "/cfg-unl2/sub/a.txt", "/cfg-unl2/", "/cfg-unl2/sub", "/cfg-unl2/nothing" })
+            yield return Get("settings", target);
 
         // ---- path info after a static file (no static file's URL: the file is not served, whatever its type), and after
         // a protected one (the request filtering sees more than the last segment)

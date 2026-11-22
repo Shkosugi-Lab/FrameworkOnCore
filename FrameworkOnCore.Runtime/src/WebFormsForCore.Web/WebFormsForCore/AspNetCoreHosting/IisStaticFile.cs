@@ -85,8 +85,10 @@ namespace System.Web
 			string contentType;
 			if (!types.TryGetValue(Path.GetExtension(physicalPath), out contentType) && !types.TryGetValue(".*", out contentType))
 			{
-				// IIS's 404.3: a type it is not told.
-				NotFound(context, 3, 50);  // IIS: 404.3, Win32 50 (ERROR_NOT_SUPPORTED)
+				// IIS's 404.3: a type it is not told. A name without a type ("/folder/noext", a file): 404.17, the static file
+				// module's answer to the extensionless handler's request for it (IIS 10; it was 404.3).
+				if (Path.GetExtension(physicalPath).Length == 0) NotFound(context, 17, 50);
+				else NotFound(context, 3, 50);  // IIS: 404.3, Win32 50 (ERROR_NOT_SUPPORTED)
 				return true;
 			}
 
@@ -329,6 +331,7 @@ namespace System.Web
 				case 405: title = "405 - HTTP verb used to access this page is not allowed."; text = "The page you are looking for cannot be displayed because an invalid method (HTTP verb) was used to attempt access."; break;
 				case 406: title = "406 - Client browser does not accept the MIME type of the requested page."; text = "The page you are looking for cannot be opened by your browser because it has a file name extension that your browser does not accept."; break;
 				case 412: title = "412 - Precondition set by the client failed when evaluated on the Web server."; text = "The request was not completed due to preconditions that are set in the request header. Preconditions prevent the requested method from being applied to a resource other than the one intended. An example of a precondition is testing for expired content in the page cache of the client."; break;
+				case 431: title = "431 - Request header too long."; text = "One of the request headers is longer than the specified limit configured in the server."; break;
 				case 500: title = "500 - Internal server error."; text = "There is a problem with the resource you are looking for, and it cannot be displayed."; break;
 				case 501: title = "501 - Header values specify a method that is not implemented."; text = "The page you are looking for cannot be displayed because a header value in the request does not match certain configuration settings on the Web server. For example, a request header might specify a POST to a static file that cannot be posted to, or specify a Transfer-Encoding value that cannot make use of compression."; break;
 				case 502: title = "502 - Web server received an invalid response while acting as a gateway or proxy server."; text = "There is a problem with the page you are looking for, and it cannot be displayed. When the Web server (while acting as a gateway or proxy) contacted the upstream content server, it received an invalid response from the content server."; break;
@@ -344,6 +347,7 @@ namespace System.Web
 					case 405: title = "405 - このページへのアクセスに使われた HTTP 動詞は許可されていません。"; break;
 					case 406: title = "406 - クライアントのブラウザーは、要求されたページの MIME の種類を受け付けません。"; break;
 					case 412: title = "412 - クライアントが設定した前提条件が、Web サーバーでの評価で満たされませんでした。"; break;
+					case 431: title = "431 - 要求ヘッダーが長すぎます。"; break;   // (IIS's ja-JP file's own title)
 					case 500: title = "500 - 内部サーバー エラー。"; break;
 					case 501: title = "501 - ヘッダーの値が、実装されていないメソッドを指定しています。"; break;
 					case 502: title = "502 - Web サーバーがゲートウェイまたはプロキシ サーバーとして動作中に、無効な応答を受け取りました。"; break;

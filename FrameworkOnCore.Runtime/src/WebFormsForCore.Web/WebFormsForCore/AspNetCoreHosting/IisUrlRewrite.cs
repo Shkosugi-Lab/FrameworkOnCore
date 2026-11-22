@@ -304,7 +304,7 @@ namespace System.Web.Hosting
 				default: rule.RedirectStatus = 301; break;
 			}
 			int number;
-			rule.StatusCode = int.TryParse(Attribute(action, "statusCode"), NumberStyles.Integer, CultureInfo.InvariantCulture, out number) ? number : 200;
+			rule.StatusCode = int.TryParse(Attribute(action, "statusCode"), NumberStyles.Integer, CultureInfo.InvariantCulture, out number) ? number : 0;
 			rule.SubStatusCode = int.TryParse(Attribute(action, "subStatusCode"), NumberStyles.Integer, CultureInfo.InvariantCulture, out number) ? number : 0;
 			rule.StatusReason = Attribute(action, "statusReason");
 			if (rule.Action == ActionType.Rewrite && IsAbsolute(rule.Url)) unsupported.Add("the rule " + rule.Name + ": a rewrite to another server (ARR's reverse proxy)");
@@ -444,6 +444,13 @@ namespace System.Web.Hosting
 					}
 					case ActionType.CustomResponse:
 						IisDecision.Set(state.Context, IisDecision.Rewrite);
+						// No statusCode (0, the global rules' default): no answer, the connection closed (IIS 10; it was an
+						// empty 200).
+						if (rule.StatusCode == 0)
+						{
+							state.Context.Abort();
+							return true;
+						}
 						state.Body = Respond(state.Context, rule.StatusCode, rule.SubStatusCode, rule.StatusReason);
 						return true;
 					case ActionType.AbortRequest:

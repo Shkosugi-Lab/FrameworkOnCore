@@ -45,6 +45,7 @@ namespace System.Web.Hosting
 			public string Path;
 			public ResponseMode Mode;
 			public bool Builtin;   // IIS's own file (prefixLanguageFilePath): the host's simple page
+			public string Folder;  // the folder of the web.config that has the entry (null: the server's)
 		}
 
 		sealed class Settings
@@ -119,7 +120,9 @@ namespace System.Web.Hosting
 								SubStatus = sub,
 								Path = (string)item.Attribute("path"),
 								Mode = mode,
-								Builtin = mode == ResponseMode.File && (item.Attribute("prefixLanguageFilePath") != null || section.Server),
+								// (an empty prefixLanguageFilePath is none: IIS 10 sends the path's file; it was IIS's own page)
+								Builtin = mode == ResponseMode.File && (!string.IsNullOrEmpty((string)item.Attribute("prefixLanguageFilePath")) || section.Server),
+								Folder = section.FileFolder,
 							});
 							settings.Base = section.Base;
 							settings.FileFolder = section.FileFolder;
@@ -188,7 +191,7 @@ namespace System.Web.Hosting
 			var entry = settings.Entries.FirstOrDefault(e => e.Status == status && e.SubStatus == subStatus) ??
 				settings.Entries.FirstOrDefault(e => e.Status == status && e.SubStatus == -1);
 			if (entry == null && !string.IsNullOrEmpty(settings.DefaultPath))
-				entry = new Entry { Status = status, Path = settings.DefaultPath, Mode = settings.DefaultMode };
+				entry = new Entry { Status = status, Path = settings.DefaultPath, Mode = settings.DefaultMode, Folder = settings.FileFolder };
 			response.ContentType = "text/html";
 			if (entry == null)
 			{
@@ -235,7 +238,7 @@ namespace System.Web.Hosting
 				}
 				default:
 				{
-					var file = ErrorFile(entry.Path, settings);
+					var file = ErrorFile(entry.Path, entry.Folder);
 					byte[] content = null;
 					try { if (file != null && File.Exists(file)) content = await File.ReadAllBytesAsync(file); }
 					catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { }
@@ -251,12 +254,13 @@ namespace System.Web.Hosting
 			}
 		}
 
-		// A File entry's file: relative to the site's root (IIS's allowAbsolutePathsWhenDelegated false); an absolute one
-		// only in the application's folder.
-		string ErrorFile(string path, Settings settings)
+		// A File entry's file: relative to the folder of the web.config that names it (IIS 10: a folder's web.config's
+		// path="my404.htm" is the folder's file, not the root's of the same name, which was sent); an absolute one only in
+		// the application's folder (IIS's allowAbsolutePathsWhenDelegated false).
+		string ErrorFile(string path, string folder)
 		{
 			path = Environment.ExpandEnvironmentVariables(path).Replace('\\', System.IO.Path.DirectorySeparatorChar).Replace('/', System.IO.Path.DirectorySeparatorChar);
-			var full = System.IO.Path.IsPathRooted(path) ? path : System.IO.Path.Combine(contentRoot, path.TrimStart(System.IO.Path.DirectorySeparatorChar));
+			var full = System.IO.Path.IsPathRooted(path) ? path : System.IO.Path.Combine(folder ?? contentRoot, path.TrimStart(System.IO.Path.DirectorySeparatorChar));
 			try { full = System.IO.Path.GetFullPath(full); }
 			catch (Exception e) when (e is ArgumentException || e is NotSupportedException) { return null; }
 			return full.StartsWith(contentRoot, StringComparison.OrdinalIgnoreCase) ? full : null;

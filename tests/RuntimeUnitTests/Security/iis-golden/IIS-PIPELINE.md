@@ -1,6 +1,6 @@
 # IIS's request pipeline, as its own traces show it
 
-Made by `trace.ps1` from IIS's failed request tracing of the attack tests' cases (1160 cases; IIS Version 10.0 on Microsoft Windows NT 10.0.26200.0). Do not edit: record again.
+Made by `trace.ps1` from IIS's failed request tracing of the attack tests' cases (1179 cases; IIS Version 10.0 on Microsoft Windows NT 10.0.26200.0). Do not edit: record again.
 
 IIS answers a request by notifying its modules, notification after notification; within a notification, in the order below. The port's steps (UseWebFormsIis's summary) follow this order.
 
@@ -30,7 +30,7 @@ Every status a module set, in the request or in a child request of it; where sev
 |---|---|---|---|---|
 | 200 | ManagedPipelineHandler | ExecuteRequestHandler | 2 | `GET /status.ashx?v=OK%0D%0AX-Injected:%201` |
 | 301 | RewriteModule | BeginRequest | 28 | `GET /go/y.secret%20` |
-| 301 | DefaultDocumentModule | ExecuteRequestHandler | 8 | `GET /sub` |
+| 301 | DefaultDocumentModule | ExecuteRequestHandler | 9 | `GET /cfg-unl/sub` |
 | 302 | FormsAuthentication | EndRequest | 28 | `GET /secure/x.aspx` |
 | 302 | HttpRedirectionModule | MapRequestHandler | 10 | `GET /old/x` |
 | 302 | ManagedPipelineHandler | ExecuteRequestHandler | 4 | `GET /redirect.ashx?to=//evil.example/` |
@@ -39,8 +39,8 @@ Every status a module set, in the request or in a child request of it; where sev
 | 401.0 | UrlAuthorization | AuthorizeRequest | 28 | `GET /secure/x.aspx` |
 | 401.3 | IIS Web Core | AuthenticateRequest | 1 | `GET a file in a folder the server cannot read` |
 | 403.0 | ManagedPipelineHandler | ExecuteRequestHandler | 5 | `GET /x.aspq` |
-| 403.14 | DirectoryListingModule | ExecuteRequestHandler | 4 | `GET /empty/` |
-| 404.0 | IIS Web Core | MapRequestHandler | 157 | `GET /none.txt` |
+| 403.14 | DirectoryListingModule | ExecuteRequestHandler | 6 | `GET /empty/` |
+| 404.0 | IIS Web Core | MapRequestHandler | 160 | `GET /none.txt` |
 | 404.0 | ScriptModule-4.0 | AuthenticateRequest | 63 | `GET /SUB/%2e%2e/web.config.` |
 | 404.0 | ManagedPipelineHandler | MapRequestHandler | 41 | `GET /none.aspx` |
 | 404.0 | ScriptModule-4.0 | EndRequest | 39 | `GET /private/x.txt.` |
@@ -49,10 +49,10 @@ Every status a module set, in the request or in a child request of it; where sev
 | 404.11 | RequestFilteringModule | BeginRequest | 7 | `GET /%252e%252e/web.config` |
 | 404.14 | RequestFilteringModule | BeginRequest | 2 | `GET a URL of 4,227 characters` |
 | 404.15 | RequestFilteringModule | BeginRequest | 2 | `GET a query string of 2,049 characters` |
-| 404.17 | StaticFileModule | ExecuteRequestHandler | 1 | `GET /.git/config` |
+| 404.17 | StaticFileModule | ExecuteRequestHandler | 2 | `GET /.git/config` |
 | 404.3 | StaticFileModule | ExecuteRequestHandler | 11 | `GET /x.asa` |
 | 404.5 | RequestFilteringModule | BeginRequest | 44 | `GET /badword/from` |
-| 404.7 | RequestFilteringModule | BeginRequest | 111 | `GET /global.asax` |
+| 404.7 | RequestFilteringModule | BeginRequest | 116 | `GET /global.asax` |
 | 404.8 | RequestFilteringModule | BeginRequest | 273 | `GET /App_Data/users.xml` |
 | 405.0 | StaticFileModule | ExecuteRequestHandler | 3 | `an unknown method` |
 | 413.1 | RequestFilteringModule | BeginRequest | 6 | `POST 300 KB (over maxAllowedContentLength 200,000)` |
@@ -83,11 +83,11 @@ The handler is mapped before BeginRequest, for the whole URL as sent and the ver
 
 | Handlers, in order | Cases | For example |
 |---|---|---|
-| StaticFile | 452 | `GET /a.txt`, `GET /sub/a.txt` |
-| ExtensionlessUrlHandler-Integrated-4.0 | 266 | `GET /App_Data/`, `GET /App_Data` |
+| StaticFile | 461 | `GET /a.txt`, `GET /sub/a.txt` |
+| ExtensionlessUrlHandler-Integrated-4.0 | 270 | `GET /App_Data/`, `GET /App_Data` |
 | PageHandlerFactory-Integrated-4.0 | 197 | `GET /default.aspx`, `GET /vs.aspx` |
+| ExtensionlessUrlHandler-Integrated-4.0 > [child] StaticFile | 104 | `GET /empty/`, `GET /.git/config` |
 | SimpleHandlerFactory-Integrated-4.0 | 103 | `GET /echo.ashx?q=1`, `GET /echo.ashx/x/y?q=2` |
-| ExtensionlessUrlHandler-Integrated-4.0 > [child] StaticFile | 99 | `GET /empty/`, `GET /.git/config` |
 | OPTIONSVerbHandler | 22 | `OPTIONS /APP_DATA/USERS.XML/x.aspx`, `OPTIONS /(S(abcdefghijklmnopqrstuvwx))/echo.ashx` |
 | ExtensionlessUrlHandler-Integrated-4.0 > [child] StaticFile > [child] PageHandlerFactory-Integrated-4.0 | 7 | `GET /`, `GET /sub/` |
 | TRACEVerbHandler | 6 | `TRACE`, `TRACE a page` |
@@ -99,6 +99,7 @@ The handler is mapped before BeginRequest, for the whole URL as sent and the ver
 | cshtml-Integrated-4.0 | 1 | `GET /x.cshtml` |
 | vbhtm-Integrated-4.0 | 1 | `GET /x.vbhtm` |
 | vbhtml-Integrated-4.0 | 1 | `GET /x.vbhtml` |
+| ExtensionlessUrlHandler-Integrated-4.0 > [child] StaticFile > [child] StaticFile | 1 | `GET /cfg-dd/sub/` |
 
 ## URL Rewrite: when its rules are evaluated
 

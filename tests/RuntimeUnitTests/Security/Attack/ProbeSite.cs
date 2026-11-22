@@ -119,6 +119,29 @@ static class ProbeSite
         yield return ("empty/readme.md", "PUBLIC-empty");
         yield return ("badconfig/web.config", "<configuration><system.web><!-- SECRET-badconfig --> <broken");
         yield return ("badconfig/a.txt", "PUBLIC-badconfig-a.txt");
+        // Settings whose handling IIS's schema does not tell (each folder its own web.config; the category "settings").
+        yield return ("cfg-ext/web.config", """<configuration><system.webServer><security><requestFiltering><fileExtensions><add fileExtension=".txt" /></fileExtensions></requestFiltering></security></system.webServer></configuration>""");
+        yield return ("cfg-ext/a.txt", "PUBLIC-cfg-ext");
+        yield return ("cfg-custom/web.config", """<configuration><system.webServer><rewrite><rules><rule name="cfg-custom"><match url="x$" /><action type="CustomResponse" statusReason="r" statusDescription="d" /></rule></rules></rewrite></system.webServer></configuration>""");
+        yield return ("cfg-custom/a.txt", "PUBLIC-cfg-custom");
+        yield return ("my404.htm", "PUBLIC-my404-root");
+        yield return ("cfg-err/my404.htm", "PUBLIC-my404-folder");
+        yield return ("cfg-err/web.config", """<configuration><system.webServer><httpErrors errorMode="Custom"><remove statusCode="404" subStatusCode="-1" /><error statusCode="404" prefixLanguageFilePath="" path="my404.htm" responseMode="File" /></httpErrors></system.webServer></configuration>""");
+        yield return ("cfg-err2/my404.htm", "PUBLIC-my404-folder2");
+        yield return ("cfg-err2/web.config", """<configuration><system.webServer><httpErrors errorMode="Custom"><remove statusCode="404" subStatusCode="-1" /><error statusCode="404" path="my404.htm" responseMode="File" /></httpErrors></system.webServer></configuration>""");
+        yield return ("cfg-dd/web.config", """<configuration><system.webServer><defaultDocument enabled="false" /></system.webServer></configuration>""");
+        yield return ("cfg-dd/default.htm", "PUBLIC-cfg-dd");
+        yield return ("cfg-dd/sub/web.config", """<configuration><system.webServer><defaultDocument enabled="true" /></system.webServer></configuration>""");
+        yield return ("cfg-dd/sub/default.htm", "PUBLIC-cfg-dd-sub");
+        yield return ("cfg-unl/web.config", """<configuration><system.webServer><security><requestFiltering><fileExtensions allowUnlisted="false"><add fileExtension=".txt" allowed="true" /><add fileExtension="." allowed="true" /></fileExtensions></requestFiltering></security></system.webServer></configuration>""");
+        yield return ("cfg-unl2/web.config", """<configuration><system.webServer><security><requestFiltering><fileExtensions allowUnlisted="false"><add fileExtension=".txt" allowed="true" /></fileExtensions></requestFiltering></security></system.webServer></configuration>""");
+        foreach (var folder in new[] { "cfg-unl", "cfg-unl2" })
+        {
+            yield return (folder + "/a.txt", "PUBLIC-" + folder + "-txt");
+            yield return (folder + "/a.htm", "PUBLIC-" + folder + "-htm");
+            yield return (folder + "/noext", "PUBLIC-" + folder + "-noext");
+            yield return (folder + "/sub/a.txt", "PUBLIC-" + folder + "-sub");
+        }
         yield return ("global.asax", "<%@ Application Language=\"C#\" %>\r\n<%-- SECRET-global.asax --%>\r\n");
         foreach (var extension in ProtectedExtensions)
             yield return ("x" + extension, "SECRET-x" + extension);

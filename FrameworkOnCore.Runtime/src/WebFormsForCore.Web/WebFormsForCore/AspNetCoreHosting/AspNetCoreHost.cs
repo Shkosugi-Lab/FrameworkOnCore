@@ -178,10 +178,18 @@ namespace System.Web.Hosting
         /// </summary>
         void ReadDefaultDocuments(string physicalPath)
         {
+            var enabled = true;
+            ReadDefaultDocuments(physicalPath, ref enabled);
+            // (enabled false: none for the root; the list itself stays for the folders that turn them on again, DefaultDocumentsFor)
+            if (!enabled) DefaultDocuments = Array.Empty<string>();
+        }
+
+        void ReadDefaultDocuments(string physicalPath, ref bool enabled)
+        {
             var profile = IisProfile.Of(physicalPath);
             var serverSections = System.Xml.Linq.Extensions.Elements(IisProfile.WebServer(profile), "defaultDocument").ToList();
             if (serverSections.Any(s => s.Element("files") != null)) DefaultDocuments = Array.Empty<string>();
-            foreach (var serverSection in serverSections) ApplyDefaultDocuments(serverSection);
+            foreach (var serverSection in serverSections) ApplyDefaultDocuments(serverSection, ref enabled);
             string config;
             try
             {
@@ -193,10 +201,14 @@ namespace System.Web.Hosting
             try { section = System.Xml.Linq.XDocument.Load(config).Root?.Element("system.webServer")?.Element("defaultDocument"); }
             catch (System.Xml.XmlException) { return; }
             if (section == null) return;
-            ApplyDefaultDocuments(section);
+            ApplyDefaultDocuments(section, ref enabled);
         }
 
-        void ApplyDefaultDocuments(System.Xml.Linq.XElement section) => DefaultDocuments = ApplyDefaultDocuments(DefaultDocuments, section);
+        void ApplyDefaultDocuments(System.Xml.Linq.XElement section, ref bool enabled)
+        {
+            DefaultDocuments = ApplyDefaultDocuments(DefaultDocuments, section);
+            if ((string)section.Attribute("enabled") is { } value) enabled = !string.Equals(value, "false", StringComparison.OrdinalIgnoreCase);
+        }
 
         readonly System.Collections.Concurrent.ConcurrentDictionary<string, string[]> defaultDocumentsByFolder =
             new System.Collections.Concurrent.ConcurrentDictionary<string, string[]>(StringComparer.OrdinalIgnoreCase);
@@ -215,8 +227,16 @@ namespace System.Web.Hosting
                     .Select(s => (s.Server, Section: IisConfiguration.Child(s.WebServer, "defaultDocument"))).Where(s => s.Section != null).ToList();
                 // The original server's list is the one IIS starts from (applicationHost.config's), not IIS's own.
                 var documents = sections.Any(s => s.Server && IisConfiguration.Child(s.Section, "files") != null) ? Array.Empty<string>() : IisDefaultDocuments;
-                foreach (var (_, section) in sections) documents = ApplyDefaultDocuments(documents, section);
-                return documents;
+                // enabled false turns the default documents off for the folder, not its list: a folder below that turns them
+                // on again has the list (IIS 10: enabled false in a folder, true in one below, whose Default.htm is served;
+                // the list was emptied and the folder below answered 403.14).
+                var enabled = true;
+                foreach (var (_, section) in sections)
+                {
+                    documents = ApplyDefaultDocuments(documents, section);
+                    if ((string)section.Attribute("enabled") is { } value) enabled = !string.Equals(value, "false", StringComparison.OrdinalIgnoreCase);
+                }
+                return enabled ? documents : Array.Empty<string>();
             });
         }
 
@@ -224,8 +244,6 @@ namespace System.Web.Hosting
 
         static string[] ApplyDefaultDocuments(string[] current, System.Xml.Linq.XElement section)
         {
-            var enabled = (string)section.Attribute("enabled");
-            if (string.Equals(enabled, "false", StringComparison.OrdinalIgnoreCase)) return Array.Empty<string>();
             var inherited = current.ToList();
             var added = new List<string>();
             foreach (var element in IisConfiguration.Child(section, "files")?.Elements() ?? Enumerable.Empty<System.Xml.Linq.XElement>())
@@ -412,7 +430,10 @@ namespace System.Web.Hosting
             if (!ownOptions && pathInfo.Length > 0 && filtering.Extensions.TryGetValue(IisUrl.Extension(file), out var handlerAllowed) && !handlerAllowed) return true;
             var name = path[(path.LastIndexOf('/') + 1)..];
             var dot = name.LastIndexOf('.');
-            if (dot >= 0 && filtering.Extensions.TryGetValue(name.Substring(dot), out var allowed)) return !allowed;
+            // (a name without a type, a folder's URL: the entry "." - IIS 10 with allowUnlisted false and "." allowed answers
+            // "/folder/", "/folder/sub" and a name of no file as without the filter, 404.7 without the entry; it was 404.7
+            // with it too)
+            if (filtering.Extensions.TryGetValue(dot >= 0 ? name.Substring(dot) : ".", out var allowed)) return !allowed;
             if (!filtering.AllowUnlisted) return true;
             if (HandleExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase)) || IsWebPagesFile(path)) return false;
             return ProhibitedExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase) &&

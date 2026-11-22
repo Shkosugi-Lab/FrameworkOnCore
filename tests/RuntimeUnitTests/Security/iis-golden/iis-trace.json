@@ -835,6 +835,145 @@
       "decided": "StaticFileModule@ExecuteRequestHandler=404.3"
     },
     {
+      "category": "settings",
+      "name": "GET /cfg-ext/a.txt",
+      "handlers": "StaticFile"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-custom/a.txt",
+      "handlers": "StaticFile"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-err/nothing.txt",
+      "handlers": "StaticFile",
+      "decided": "IIS Web Core@MapRequestHandler=404.0",
+      "path": 4
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-err2/nothing.txt",
+      "handlers": "StaticFile",
+      "decided": "IIS Web Core@MapRequestHandler=404.0",
+      "path": 4
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-dd/",
+      "handlers": "ExtensionlessUrlHandler-Integrated-4.0 > [child] StaticFile",
+      "decided": "DirectoryListingModule@ExecuteRequestHandler=403.14",
+      "children": [
+        "/cfg-dd/"
+      ],
+      "path": 6
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-dd/sub/",
+      "handlers": "ExtensionlessUrlHandler-Integrated-4.0 > [child] StaticFile > [child] StaticFile",
+      "children": [
+        "/cfg-dd/sub/",
+        "/cfg-dd/sub/Default.htm"
+      ],
+      "path": 11
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl/a.txt",
+      "handlers": "StaticFile"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl/a.htm",
+      "handlers": "StaticFile",
+      "decided": "RequestFilteringModule@BeginRequest=404.7",
+      "path": 8
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl/noext",
+      "handlers": "ExtensionlessUrlHandler-Integrated-4.0 > [child] StaticFile",
+      "decided": "StaticFileModule@ExecuteRequestHandler=404.17",
+      "children": [
+        "/cfg-unl/noext"
+      ],
+      "path": 11
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl/sub/a.txt",
+      "handlers": "StaticFile"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl/",
+      "handlers": "ExtensionlessUrlHandler-Integrated-4.0 > [child] StaticFile",
+      "decided": "DirectoryListingModule@ExecuteRequestHandler=403.14",
+      "children": [
+        "/cfg-unl/"
+      ],
+      "path": 6
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl/sub",
+      "handlers": "ExtensionlessUrlHandler-Integrated-4.0 > [child] StaticFile",
+      "decided": "DefaultDocumentModule@ExecuteRequestHandler=301",
+      "children": [
+        "/cfg-unl/sub"
+      ],
+      "path": 6
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl/nothing",
+      "handlers": "ExtensionlessUrlHandler-Integrated-4.0 > [child] StaticFile",
+      "decided": "IIS Web Core@MapRequestHandler=404.0",
+      "children": [
+        "/cfg-unl/nothing"
+      ],
+      "path": 12
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl2/a.txt",
+      "handlers": "StaticFile"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl2/noext",
+      "handlers": "ExtensionlessUrlHandler-Integrated-4.0",
+      "decided": "RequestFilteringModule@BeginRequest=404.7",
+      "path": 10
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl2/sub/a.txt",
+      "handlers": "StaticFile"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl2/",
+      "handlers": "ExtensionlessUrlHandler-Integrated-4.0",
+      "decided": "RequestFilteringModule@BeginRequest=404.7",
+      "path": 10
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl2/sub",
+      "handlers": "ExtensionlessUrlHandler-Integrated-4.0",
+      "decided": "RequestFilteringModule@BeginRequest=404.7",
+      "path": 10
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl2/nothing",
+      "handlers": "ExtensionlessUrlHandler-Integrated-4.0",
+      "decided": "RequestFilteringModule@BeginRequest=404.7",
+      "path": 10
+    },
+    {
       "category": "path info",
       "name": "GET /a.txt/x",
       "handlers": "ExtensionlessUrlHandler-Integrated-4.0 > [child] StaticFile",
@@ -2853,7 +2992,7 @@
       "children": [
         "/appsettings.json/"
       ],
-      "path": 27
+      "path": 12
     },
     {
       "category": "combination",
@@ -3678,7 +3817,7 @@
       "children": [
         "/appsettings.json/"
       ],
-      "path": 27
+      "path": 12
     },
     {
       "category": "combination",
@@ -3980,7 +4119,7 @@
       "children": [
         "/x.mdf/"
       ],
-      "path": 12
+      "path": 27
     },
     {
       "category": "combination",

@@ -701,6 +701,7 @@ public class IisStaticFileTests
     [InlineData(405, "405 - HTTP verb used to access this page is not allowed.")]
     [InlineData(406, "406 - Client browser does not accept the MIME type of the requested page.")]
     [InlineData(412, "412 - Precondition set by the client failed when evaluated on the Web server.")]
+    [InlineData(431, "431 - Request header too long.")]
     [InlineData(500, "500 - Internal server error.")]
     [InlineData(501, "501 - Header values specify a method that is not implemented.")]
     [InlineData(502, "502 - Web server received an invalid response while acting as a gateway or proxy server.")]

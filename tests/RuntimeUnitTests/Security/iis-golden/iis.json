@@ -804,6 +804,135 @@
       "kind": "iis error"
     },
     {
+      "category": "settings",
+      "name": "GET /cfg-ext/a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-cfg-ext"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-custom/x",
+      "kind": "none (closed)"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-custom/a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-cfg-custom"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-err/nothing.txt",
+      "status": 404,
+      "kind": "content PUBLIC-my404-folder"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-err2/nothing.txt",
+      "status": 404,
+      "kind": "content PUBLIC-my404-folder2"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-dd/",
+      "status": 403,
+      "sub": "403.14",
+      "kind": "iis error"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-dd/sub/",
+      "status": 200,
+      "kind": "content PUBLIC-cfg-dd-sub"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl/a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-cfg-unl-txt"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl/a.htm",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl/noext",
+      "status": 404,
+      "sub": "404.17",
+      "kind": "iis error"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl/sub/a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-cfg-unl-sub"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl/",
+      "status": 403,
+      "sub": "403.14",
+      "kind": "iis error"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl/sub",
+      "status": 301,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/cfg-unl/sub/"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl/nothing",
+      "status": 404,
+      "sub": "404.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl2/a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-cfg-unl2-txt"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl2/noext",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl2/sub/a.txt",
+      "status": 200,
+      "kind": "content PUBLIC-cfg-unl2-sub"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl2/",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl2/sub",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
+      "category": "settings",
+      "name": "GET /cfg-unl2/nothing",
+      "status": 404,
+      "sub": "404.7",
+      "kind": "iis error"
+    },
+    {
       "category": "path info",
       "name": "GET /a.txt/x",
       "status": 404,
